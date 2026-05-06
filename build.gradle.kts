@@ -168,14 +168,14 @@ mavenPublishing {
 
     pom {
         name.set("libc-kotlin")
-        description.set("Kotlin Multiplatform port of the Rust crate `libc` — Raw FFI bindings to platform libc")
+        description.set("Kotlin Multiplatform port of rust-lang/libc - Raw FFI bindings to platform libraries like libc")
         inceptionYear.set("2026")
         url.set("https://github.com/KotlinMania/libc-kotlin")
 
         licenses {
             license {
-                name.set("Apache-2.0")
-                url.set("https://opensource.org/licenses/Apache-2.0")
+                name.set("MIT")
+                url.set("https://opensource.org/licenses/MIT")
                 distribution.set("repo")
             }
         }
@@ -199,12 +199,14 @@ mavenPublishing {
 
 tasks.register("test") {
     group = "verification"
-    description = "Runs the cross-platform test suite."
+    description =
+        "Runs a portable test suite (macOS + JS + WasmJS). Android and non-host native targets are intentionally excluded."
 
-    dependsOn(
+    val defaultTestTasks = listOf(
         "macosArm64Test",
-        "linuxX64Test",
         "jsNodeTest",
         "wasmJsNodeTest",
     )
+
+    dependsOn(defaultTestTasks.mapNotNull { taskName -> tasks.findByName(taskName) })
 }
