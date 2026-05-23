@@ -69,7 +69,11 @@ kotlin {
         }
     }
     iosX64 {
-        binaries.framework { baseName = "Libc"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Libc"
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {
