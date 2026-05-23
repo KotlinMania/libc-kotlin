@@ -315,37 +315,6 @@ tasks.named("wasmWasiNodeTest") {
     dependsOn(patchWasmWasiNodePreopens)
 }
 
-val xcodeSwiftExportEnvironmentNames = listOf(
-    "SDK_NAME",
-    "CONFIGURATION",
-    "TARGET_BUILD_DIR",
-    "BUILT_PRODUCTS_DIR",
-    "ARCHS",
-    "FRAMEWORKS_FOLDER_PATH",
-    "DEPLOYMENT_TARGET_SETTING_NAME",
-)
-
-fun hasXcodeSwiftExportEnvironment(): Boolean {
-    if (!xcodeSwiftExportEnvironmentNames.all { !System.getenv(it).isNullOrBlank() }) {
-        return false
-    }
-
-    val deploymentTargetSettingName = System.getenv("DEPLOYMENT_TARGET_SETTING_NAME")
-    return !System.getenv(deploymentTargetSettingName).isNullOrBlank()
-}
-
-val swiftExportTaskDirectlyRequested =
-    gradle.startParameter.taskNames.any { it == "embedSwiftExportForXcode" || it.endsWith(":embedSwiftExportForXcode") }
-
-tasks.matching { it.name == "embedSwiftExportForXcode" }.configureEach {
-    onlyIf {
-        val hasXcodeEnvironment = hasXcodeSwiftExportEnvironment()
-        if (!hasXcodeEnvironment && !swiftExportTaskDirectlyRequested) {
-            logger.lifecycle("embedSwiftExportForXcode: skipped because Xcode environment variables are not present")
-        }
-        hasXcodeEnvironment || swiftExportTaskDirectlyRequested
-    }
-}
 
 val fullTargetBuildTasks = listOf(
     "compileAndroidMain",
