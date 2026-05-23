@@ -48,6 +48,11 @@ kotlin {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
+    swiftExport {
+        moduleName = "Libc"
+        flattenPackage = "io.github.kotlinmania.libc"
+    }
+
     val xcf = XCFramework("Libc")
 
     macosArm64 {
@@ -57,7 +62,11 @@ kotlin {
         binaries.framework { baseName = "Libc"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "Libc"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Libc"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
         binaries.framework { baseName = "Libc"; xcf.add(this) }
@@ -380,7 +389,6 @@ val fullTargetBuildTasks = listOf(
     "watchosDeviceArm64TestBinaries",
     "watchosSimulatorArm64Binaries",
     "watchosSimulatorArm64TestBinaries",
-    "embedSwiftExportForXcode",
     "assembleLibcXCFramework",
     "assembleLibcDebugXCFramework",
     "assembleLibcReleaseXCFramework",
@@ -458,7 +466,6 @@ afterEvaluate {
                     name.endsWith("TestClasses") ||
                     name.endsWith("Binaries") ||
                     name.endsWith("XCFramework") ||
-                    name == "embedSwiftExportForXcode" ||
                     name.startsWith("exportCommonSourceSetsMetadataLocationsFor") ||
                     name.startsWith("exportRootPublicationCoordinatesFor") ||
                     name.startsWith("exportCrossCompilationMetadataFor") ||

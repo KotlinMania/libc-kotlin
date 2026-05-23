@@ -1,4 +1,4 @@
-// port-lint: source src/primitives.rs
+// port-lint: source primitives.rs
 package io.github.kotlinmania.libc
 
 /**
@@ -10,58 +10,58 @@ package io.github.kotlinmania.libc
  * The fixed-width integer aliases are deprecated: use the Rust types instead.
  */
 
-public typealias c_schar = Byte
-public typealias c_uchar = UByte
-public typealias c_short = Short
-public typealias c_ushort = UShort
+public typealias CSChar = Byte
+public typealias CUChar = UByte
+public typealias CShort = Short
+public typealias CUShort = UShort
 
-public typealias c_longlong = Long
-public typealias c_ulonglong = ULong
+public typealias CLongLong = Long
+public typealias CULongLong = ULong
 
-public typealias c_float = Float
-public typealias c_double = Double
+public typealias CFloat = Float
+public typealias CDouble = Double
 
-// In the upstream, the signedness of `c_char` is platform-specific.
+// In the upstream, the signedness of `CChar` is platform-specific.
 // It is unsigned on non-Windows, non-Apple, non-Vita targets for the following architectures:
 // aarch64, arm, csky, hexagon, msp430, powerpc, powerpc64, riscv32, riscv64, s390x, xtensa.
 // On every other target it is signed.
 //
 // Kotlin Multiplatform does not have a direct analog of configuration-gated type aliases in a
 // single common source set. This port keeps one definition that is usable across all targets.
-public typealias c_char = Byte
+public typealias CChar = Byte
 
-// In the upstream, `c_int`/`c_uint` are 16-bit on avr and msp430, and 32-bit everywhere else.
-public typealias c_int = Int
-public typealias c_uint = UInt
+// In the upstream, `CInt`/`CUInt` are 16-bit on avr and msp430, and 32-bit everywhere else.
+public typealias CInt = Int
+public typealias CUInt = UInt
 
-// In the upstream, `c_long`/`c_ulong` are 64-bit on non-Windows 64-bit targets, and 32-bit
+// In the upstream, `CLong`/`CULong` are 64-bit on non-Windows 64-bit targets, and 32-bit
 // otherwise (the C standard minimum for `long` is 32 bits).
-public typealias c_long = Long
-public typealias c_ulong = ULong
+public typealias CLong = Long
+public typealias CULong = ULong
 
 @Deprecated(message = "Use Byte instead.")
-public typealias int8_t = Byte
+public typealias Int8T = Byte
 
 @Deprecated(message = "Use Short instead.")
-public typealias int16_t = Short
+public typealias Int16T = Short
 
 @Deprecated(message = "Use Int instead.")
-public typealias int32_t = Int
+public typealias Int32T = Int
 
 @Deprecated(message = "Use Long instead.")
-public typealias int64_t = Long
+public typealias Int64T = Long
 
 @Deprecated(message = "Use UByte instead.")
-public typealias uint8_t = UByte
+public typealias UInt8T = UByte
 
 @Deprecated(message = "Use UShort instead.")
-public typealias uint16_t = UShort
+public typealias UInt16T = UShort
 
 @Deprecated(message = "Use UInt instead.")
-public typealias uint32_t = UInt
+public typealias UInt32T = UInt
 
 @Deprecated(message = "Use ULong instead.")
-public typealias uint64_t = ULong
+public typealias UInt64T = ULong
 
 // In the upstream, aarch64 non-Windows targets additionally provide 128-bit integer aliases for
 // the C `__int128` extension.
