@@ -48,6 +48,11 @@ kotlin {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
+    swiftExport {
+        moduleName = "Libc"
+        flattenPackage = "io.github.kotlinmania.libc"
+    }
+
     val xcf = XCFramework("Libc")
 
     macosArm64 {
@@ -57,10 +62,18 @@ kotlin {
         binaries.framework { baseName = "Libc"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "Libc"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Libc"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
-        binaries.framework { baseName = "Libc"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Libc"
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {
@@ -313,4 +326,155 @@ val patchWasmWasiNodePreopens = tasks.register("patchWasmWasiNodePreopens") {
 
 tasks.named("wasmWasiNodeTest") {
     dependsOn(patchWasmWasiNodePreopens)
+}
+
+
+val fullTargetBuildTasks = listOf(
+    "compileAndroidMain",
+    "compileAndroidHostTest",
+    "compileAndroidDeviceTest",
+    "assembleAndroidMain",
+    "assembleAndroidHostTest",
+    "assembleAndroidDeviceTest",
+    "assembleUnitTest",
+    "assembleAndroidTest",
+    "testAndroidHostTest",
+    "jvmMainClasses",
+    "jvmTestClasses",
+    "jvmTest",
+    "jsMainClasses",
+    "jsTestClasses",
+    "jsBrowserTest",
+    "jsNodeTest",
+    "jsTest",
+    "wasmJsMainClasses",
+    "wasmJsTestClasses",
+    "wasmJsBrowserTest",
+    "wasmJsNodeTest",
+    "wasmJsTest",
+    "wasmWasiMainClasses",
+    "wasmWasiTestClasses",
+    "wasmWasiNodeTest",
+    "wasmWasiTest",
+    "androidNativeArm32Binaries",
+    "androidNativeArm32TestBinaries",
+    "androidNativeArm64Binaries",
+    "androidNativeArm64TestBinaries",
+    "androidNativeX64Binaries",
+    "androidNativeX64TestBinaries",
+    "androidNativeX86Binaries",
+    "androidNativeX86TestBinaries",
+    "iosArm64Binaries",
+    "iosArm64TestBinaries",
+    "iosSimulatorArm64Binaries",
+    "iosSimulatorArm64TestBinaries",
+    "iosX64Binaries",
+    "iosX64TestBinaries",
+    "linuxArm64Binaries",
+    "linuxArm64TestBinaries",
+    "linuxX64Binaries",
+    "linuxX64TestBinaries",
+    "linuxX64Test",
+    "macosArm64Binaries",
+    "macosArm64TestBinaries",
+    "macosArm64Test",
+    "mingwX64Binaries",
+    "mingwX64TestBinaries",
+    "mingwX64Test",
+    "tvosArm64Binaries",
+    "tvosArm64TestBinaries",
+    "tvosSimulatorArm64Binaries",
+    "tvosSimulatorArm64TestBinaries",
+    "watchosArm32Binaries",
+    "watchosArm32TestBinaries",
+    "watchosArm64Binaries",
+    "watchosArm64TestBinaries",
+    "watchosDeviceArm64Binaries",
+    "watchosDeviceArm64TestBinaries",
+    "watchosSimulatorArm64Binaries",
+    "watchosSimulatorArm64TestBinaries",
+    "assembleLibcXCFramework",
+    "assembleLibcDebugXCFramework",
+    "assembleLibcReleaseXCFramework",
+    "assembleDebugIosFatFrameworkForLibcXCFramework",
+    "assembleReleaseIosFatFrameworkForLibcXCFramework",
+    "assembleDebugIosSimulatorFatFrameworkForLibcXCFramework",
+    "assembleReleaseIosSimulatorFatFrameworkForLibcXCFramework",
+    "assembleDebugMacosFatFrameworkForLibcXCFramework",
+    "assembleReleaseMacosFatFrameworkForLibcXCFramework",
+    "assembleDebugTvosFatFrameworkForLibcXCFramework",
+    "assembleReleaseTvosFatFrameworkForLibcXCFramework",
+    "assembleDebugTvosSimulatorFatFrameworkForLibcXCFramework",
+    "assembleReleaseTvosSimulatorFatFrameworkForLibcXCFramework",
+    "assembleDebugWatchosFatFrameworkForLibcXCFramework",
+    "assembleReleaseWatchosFatFrameworkForLibcXCFramework",
+    "assembleDebugWatchosSimulatorFatFrameworkForLibcXCFramework",
+    "assembleReleaseWatchosSimulatorFatFrameworkForLibcXCFramework",
+    "exportCommonSourceSetsMetadataLocationsForMetadataApiElements",
+    "exportRootPublicationCoordinatesForMetadataApiElements",
+    "exportCrossCompilationMetadataForAndroidNativeArm32ApiElements",
+    "exportCrossCompilationMetadataForAndroidNativeArm64ApiElements",
+    "exportCrossCompilationMetadataForAndroidNativeX64ApiElements",
+    "exportCrossCompilationMetadataForAndroidNativeX86ApiElements",
+    "exportCrossCompilationMetadataForIosArm64ApiElements",
+    "exportCrossCompilationMetadataForIosSimulatorArm64ApiElements",
+    "exportCrossCompilationMetadataForIosX64ApiElements",
+    "exportCrossCompilationMetadataForLinuxArm64ApiElements",
+    "exportCrossCompilationMetadataForLinuxX64ApiElements",
+    "exportCrossCompilationMetadataForMacosArm64ApiElements",
+    "exportCrossCompilationMetadataForMingwX64ApiElements",
+    "exportCrossCompilationMetadataForTvosArm64ApiElements",
+    "exportCrossCompilationMetadataForTvosSimulatorArm64ApiElements",
+    "exportCrossCompilationMetadataForWatchosArm32ApiElements",
+    "exportCrossCompilationMetadataForWatchosArm64ApiElements",
+    "exportCrossCompilationMetadataForWatchosDeviceArm64ApiElements",
+    "exportCrossCompilationMetadataForWatchosSimulatorArm64ApiElements",
+    "exportTargetPublicationCoordinatesForAndroidApiElements",
+    "exportTargetPublicationCoordinatesForAndroidNativeArm32ApiElements",
+    "exportTargetPublicationCoordinatesForAndroidNativeArm64ApiElements",
+    "exportTargetPublicationCoordinatesForAndroidNativeX64ApiElements",
+    "exportTargetPublicationCoordinatesForAndroidNativeX86ApiElements",
+    "exportTargetPublicationCoordinatesForAndroidRuntimeElements",
+    "exportTargetPublicationCoordinatesForIosArm64ApiElements",
+    "exportTargetPublicationCoordinatesForIosSimulatorArm64ApiElements",
+    "exportTargetPublicationCoordinatesForIosX64ApiElements",
+    "exportTargetPublicationCoordinatesForJsApiElements",
+    "exportTargetPublicationCoordinatesForJsRuntimeElements",
+    "exportTargetPublicationCoordinatesForJvmApiElements",
+    "exportTargetPublicationCoordinatesForJvmRuntimeElements",
+    "exportTargetPublicationCoordinatesForLinuxArm64ApiElements",
+    "exportTargetPublicationCoordinatesForLinuxX64ApiElements",
+    "exportTargetPublicationCoordinatesForMacosArm64ApiElements",
+    "exportTargetPublicationCoordinatesForMingwX64ApiElements",
+    "exportTargetPublicationCoordinatesForTvosArm64ApiElements",
+    "exportTargetPublicationCoordinatesForTvosSimulatorArm64ApiElements",
+    "exportTargetPublicationCoordinatesForWasmJsApiElements",
+    "exportTargetPublicationCoordinatesForWasmJsRuntimeElements",
+    "exportTargetPublicationCoordinatesForWasmWasiApiElements",
+    "exportTargetPublicationCoordinatesForWasmWasiRuntimeElements",
+    "exportTargetPublicationCoordinatesForWatchosArm32ApiElements",
+    "exportTargetPublicationCoordinatesForWatchosArm64ApiElements",
+    "exportTargetPublicationCoordinatesForWatchosDeviceArm64ApiElements",
+    "exportTargetPublicationCoordinatesForWatchosSimulatorArm64ApiElements",
+)
+
+tasks.named("build") {
+    dependsOn(fullTargetBuildTasks)
+}
+
+afterEvaluate {
+    tasks.named("build") {
+        dependsOn(
+            tasks.matching {
+                name.endsWith("MainClasses") ||
+                    name.endsWith("TestClasses") ||
+                    name.endsWith("Binaries") ||
+                    name.endsWith("XCFramework") ||
+                    name.startsWith("exportCommonSourceSetsMetadataLocationsFor") ||
+                    name.startsWith("exportRootPublicationCoordinatesFor") ||
+                    name.startsWith("exportCrossCompilationMetadataFor") ||
+                    name.startsWith("exportTargetPublicationCoordinatesFor")
+            },
+        )
+    }
 }

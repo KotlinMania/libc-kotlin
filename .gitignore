@@ -30,7 +30,13 @@ kotlin-js-store/*
 !kotlin-js-store/yarn.lock
 !kotlin-js-store/wasm/
 !kotlin-js-store/wasm/yarn.lock
-tools/ast_distance/ast_distance
+# ast_distance is the compiled drift-measurement binary. Earlier layouts
+# nested it under `tools/ast_distance/<source>/ast_distance`; the current
+# layout places the binary directly at `tools/ast_distance` and keeps its
+# sources in a workspace-shared location. Both shapes are covered: the
+# top-level entry matches a single binary, and the directory-suffixed
+# entries match the old subdir layout's build output.
+tools/ast_distance
 tools/ast_distance/build/
 
 # JVM heap dumps
@@ -47,3 +53,22 @@ __pycache__/
 # Android SDK
 /.android-sdk/
 local.properties
+
+# Swift Package Manager / Xcode workspace state.
+#
+# `swift-test-harness/` is a real SPM package that exercises the Kotlin
+# Swift Export pipeline against the artifacts produced by
+# `embedSwiftExportForXcode`. Its `Package.swift`, `Tests/`, and
+# per-package `.gitignore` (which ignores its own `.build/`) are all
+# tracked. The patterns below cover the Swift/Xcode workspace state
+# that this harness — or any future Swift Package added under the
+# repo — would also produce.
+#
+# Note: the staging directory the Kotlin Swift Export pipeline writes
+# to (`build/swift-test/libLibc.a` + `.swiftmodule/` bundles when run
+# with the Xcode-style env vars) is already covered by `build/` above.
+.swiftpm/
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
