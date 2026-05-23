@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 4/340 (1.2%)
+- **Files Present:** 5/340 (1.5%)
 - **Function parity:** 0/113 matched — 0.0%
 - **Class/type parity:** 17/368 matched (target 22) — 4.6%
 - **Combined symbol parity:** 17/481 matched (target 22) — 3.5%
 - **Average inline-code cosine:** 1.00 (function body across 2 matched files)
 - **Average documentation cosine:** 0.38 (doc text across 2 matched files)
-- **Cheat-zeroed Files:** 1
-- **Critical Issues:** 2 files with <0.60 function similarity
+- **Cheat-zeroed Files:** 2
+- **Critical Issues:** 3 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -27,7 +27,21 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. primitives
+### 1. musl.pthread
+
+- **Target:** `musl.Pthread [STUB] [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.00
+- **Dependents:** 1
+- **Priority Score:** 1000010.0
+- **Functions:** 0/0 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `new/musl/pthread.rs` vs expected `new/musl/pthread.rs`
+- **Proposed provenance header:** `// port-lint: source new/musl/pthread.rs` (current: `// port-lint: source new/musl/pthread.rs`)
+- **Lint issues:** 1
+
+### 2. primitives
 
 - **Target:** `libc.Primitives [PROVENANCE-FALLBACK]`
 - **Similarity:** 1.00
@@ -41,7 +55,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Proposed provenance header:** `// port-lint: source primitives.rs` (current: `// port-lint: source primitives.rs`)
 - **Lint issues:** 1
 
-### 2. solid.aarch64
+### 3. solid.aarch64
 
 - **Target:** `solid.Aarch64 [PROVENANCE-FALLBACK]`
 - **Similarity:** 1.00
@@ -55,7 +69,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Proposed provenance header:** `// port-lint: source solid/aarch64.rs` (current: `// port-lint: source solid/aarch64.rs`)
 - **Lint issues:** 1
 
-### 3. sgx.mod
+### 4. sgx.mod
 
 - **Target:** `sgx.Mod [STUB] [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.00
@@ -69,7 +83,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Proposed provenance header:** `// port-lint: source new/sgx/mod.rs` (current: `// port-lint: source new/sgx/mod.rs`)
 - **Lint issues:** 1
 
-### 4. common.bsd
+### 5. common.bsd
 
 - **Target:** `common.Bsd [STUB] [PROVENANCE-FALLBACK]`
 - **Similarity:** 1.00

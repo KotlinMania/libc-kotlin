@@ -8,6 +8,7 @@ These are review proposals only. They are emitted when a Rust -> Kotlin pair mat
 
 | Target file | Current header | Proposed header | Source path | Reason |
 |-------------|----------------|-----------------|-------------|--------|
+| `commonMain/kotlin/io/github/kotlinmania/libc/new/musl/Pthread.kt` | `// port-lint: source new/musl/pthread.rs` | `// port-lint: source new/musl/pthread.rs` | `new/musl/pthread.rs` | `port-lint provenance header matched only after fallback normalization: 'new/musl/pthread.rs' vs expected 'new/musl/pthread.rs'` |
 | `commonMain/kotlin/io/github/kotlinmania/libc/Primitives.kt` | `// port-lint: source primitives.rs` | `// port-lint: source primitives.rs` | `primitives.rs` | `port-lint provenance header matched only after fallback normalization: 'primitives.rs' vs expected 'primitives.rs'` |
 | `commonMain/kotlin/io/github/kotlinmania/libc/solid/Aarch64.kt` | `// port-lint: source solid/aarch64.rs` | `// port-lint: source solid/aarch64.rs` | `solid/aarch64.rs` | `port-lint provenance header matched only after fallback normalization: 'solid/aarch64.rs' vs expected 'solid/aarch64.rs'` |
 | `commonMain/kotlin/io/github/kotlinmania/libc/new/sgx/Mod.kt` | `// port-lint: source new/sgx/mod.rs` | `// port-lint: source new/sgx/mod.rs` | `new/sgx/mod.rs` | `port-lint provenance header matched only after fallback normalization: 'new/sgx/mod.rs' vs expected 'new/sgx/mod.rs'` |
