@@ -147,6 +147,14 @@ public actual fun pthreadCancel(thread: PthreadT): Int = 38
 
 ### Verified pthread surface on bionic (as of 2026-05-26)
 
+> Empirical sweep of `/apex/com.android.runtime/lib64/bionic/libc.so` on a
+> running API 35 arm64-v8a Google Play emulator using
+> `llvm-nm --dynamic --defined-only`. The raw dump is checked in at
+> [`docs/bionic-libc-pthread-api35-arm64.txt`](docs/bionic-libc-pthread-api35-arm64.txt)
+> (103 pthread symbols). The version suffix on each export marks the bionic
+> "version set" the symbol entered: `LIBC` always; `LIBC_N` API 24+;
+> `LIBC_O` API 26+; `LIBC_P` API 28+; `LIBC_R` API 30+.
+
 | Symbol                       | Bucket | Notes                                                                                |
 |------------------------------|--------|--------------------------------------------------------------------------------------|
 | `pthread_create`             | 1      | Always present.                                                                       |
@@ -165,7 +173,7 @@ public actual fun pthreadCancel(thread: PthreadT): Int = 38
 | `pthread_attr_*`             | 1      | init/destroy/getdetachstate/getguardsize/getschedparam/getstack/getstacksize present. |
 | `pthread_attr_getinheritsched` / `setinheritsched`     | 2 | API 28+. |
 | `pthread_mutexattr_getprotocol` / `setprotocol`        | 2 | API 28+. |
-| `pthread_setschedprio`       | 2      | API 28+ (Android 9).                                                                  |
+| `pthread_setschedprio`       | 2      | `LIBC_P` (API 28+). Empirically present on API 35 emulator libc.so.                   |
 | `pthread_setname_np`         | 1      | Always present.                                                                       |
 | `pthread_getname_np`         | 2      | API 26+ (Android 8).                                                                  |
 | `pthread_setaffinity_np` / `getaffinity_np` | 2 | API 26+.                                                              |
@@ -176,7 +184,7 @@ public actual fun pthreadCancel(thread: PthreadT): Int = 38
 | `pthread_key_delete`         | 1      | Always present.                                                                       |
 | `pthread_setspecific`        | 1      | Always present.                                                                       |
 | `pthread_cancel`             | 3      | Intentionally not implemented; Android considers `pthread_cancel` unsafe.            |
-| `pthread_spin_*`             | 3      | Not implemented. Use `__atomic_*` builtins.                                          |
+| `pthread_spin_*`             | 2      | `LIBC_N` (API 24+). Empirically present on API 35 emulator. *Previously misclassified as Bucket 3 based on header-only inspection.* |
 | `pthread_mutex_consistent`   | 3      | Bionic does not implement robust mutexes.                                            |
 
 The substitutes for Bucket 3 (when downstream code really needs the
