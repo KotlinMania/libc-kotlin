@@ -10,7 +10,6 @@ import kotlinx.cinterop.convert
 import kotlinx.cinterop.invoke
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toLong
-import platform.posix.RTLD_DEFAULT
 import platform.posix.dlsym
 
 // Android NDK (bionic) — see ANDROID.md in the workspace for the surface
@@ -27,19 +26,19 @@ import platform.posix.dlsym
 //   pthread_spin_*, pthread_mutex_consistent — return ENOSYS.
 
 private val pthreadSetschedprioP: CPointer<CFunction<(Long, Int) -> Int>>? =
-    dlsym(RTLD_DEFAULT, "pthread_setschedprio")?.reinterpret()
+    dlsym(null, "pthread_setschedprio")?.reinterpret()
 
 private val pthreadBarrierDestroyP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(RTLD_DEFAULT, "pthread_barrier_destroy")?.reinterpret()
+    dlsym(null, "pthread_barrier_destroy")?.reinterpret()
 
 private val pthreadBarrierWaitP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(RTLD_DEFAULT, "pthread_barrier_wait")?.reinterpret()
+    dlsym(null, "pthread_barrier_wait")?.reinterpret()
 
 private val pthreadBarrierattrDestroyP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(RTLD_DEFAULT, "pthread_barrierattr_destroy")?.reinterpret()
+    dlsym(null, "pthread_barrierattr_destroy")?.reinterpret()
 
 private val pthreadBarrierattrInitP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(RTLD_DEFAULT, "pthread_barrierattr_init")?.reinterpret()
+    dlsym(null, "pthread_barrierattr_init")?.reinterpret()
 
 public actual fun pthreadCancel(thread: PthreadT): Int = 38
 
