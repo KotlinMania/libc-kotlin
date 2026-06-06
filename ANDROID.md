@@ -281,6 +281,76 @@ If you mix a BTI-built object with a non-BTI object at link time, the
 resulting library has BTI disabled — check with
 `llvm-readelf --notes LIBRARY.so` and look for `aarch64 feature: BTI, PAC`.
 
+## Android SDK normalization (Gradle-backed, no shell)
+
+When a repo still has `setup-android-sdk.sh` / `setup-android-sdk.bat`, normalize it to the Gradle-backed pattern. Reference implementations:
+- `serial-test-kotlin` `dc29a78` — "Move Android SDK setup into Gradle"
+- `anyhow-kotlin` `0fd90ee` — "Move Android SDK setup into Gradle"
+
+The full pattern (not just the task name):
+
+1. Delete tracked `setup-android-sdk.sh` / `setup-android-sdk.bat`.
+2. Add imports to `build.gradle.kts`: `ByteArrayInputStream`, `URI`, `Files`, `StandardCopyOption`, `ZipInputStream`, `GradleException`.
+3. Pin SDK versions exactly:
+   ```kotlin
+   val androidCommandLineToolsRevision = "14742923"
+   val projectCompileSdk = "34"
+   val projectAndroidBuildTools = "36.0.0"
+   ```
+4. Keep the SDK project-local under `.android-sdk/`; write/refresh `local.properties` with `sdk.dir=<repo>/.android-sdk` on every run.
+5. Host OS detection covers macOS, Linux, Windows (with `sdkmanager.bat`).
+6. Add an `.install-complete` marker **plus** a real package-presence predicate:
+   ```kotlin
+   val requiredAndroidSdkPackageDirs = listOf(
+       projectAndroidSdkDir.resolve("platform-tools"),
+       projectAndroidSdkDir.resolve("platforms/android-$projectCompileSdk"),
+       projectAndroidSdkDir.resolve("build-tools/$projectAndroidBuildTools"),
+   )
+   fun isProjectAndroidSdkInstalled(): Boolean =
+       androidSdkInstallMarker.exists() &&
+           androidSdkManager.exists() &&
+           requiredAndroidSdkPackageDirs.all { it.exists() }
+   ```
+   A marker alone is not enough — if a package directory is missing, reinstall.
+7. `sdkManagerCommand(...)` helper (direct on Unix, `cmd /c` on Windows).
+8. Download command-line tools via `URI(...).toURL().openStream()` (no `curl`).
+9. Extract with `ZipInputStream`; guard against zip-slip by resolving entries against canonical `cmdline-tools/latest/`.
+10. Preserve executable permissions on non-Windows SDK binaries.
+11. Accept licenses non-interactively from Gradle via a finite `ByteArrayInputStream` of `y\n` answers.
+12. Install `platform-tools`, `platforms;android-34`, `build-tools;36.0.0`.
+13. Preserve SDK manager output in `.android-sdk/sdkmanager-install.log`.
+14. Fail with clear `GradleException` including log contents.
+15. Call `installProjectAndroidSdk(...)` at configuration time **before** `kotlin { android { … } }` — the Android Gradle plugin resolves SDK location during configuration.
+16. `tasks.register<Exec>("setupAndroidSdk")` → Kotlin-backed task that calls `installProjectAndroidSdk(...)`; do **not** shell out.
+
+### Workflow integration
+Every workflow command that touches Android must invoke `setupAndroidSdk` first:
+- `android.yml`: before `compileAndroidMain`, `assembleUnitTest`, `assembleAndroidTest`.
+- `codeql.yml`: before `compileAndroidMain`, `compileKotlinJs`, `compileKotlinWasmJs`.
+- `publish.yml`: before the dry-run `compileAndroidMain androidSourcesJar` and before `publishAndReleaseToMavenCentral`.
+- `windows.yml`: even for `mingwX64Test`, run `setupAndroidSdk` first — it's the Windows-runner proof that `setupAndroidSdk` is callable through Gradle alone. No WSL, no bash, no batch, no PowerShell duplicate installer.
+
+### Verification of SDK Setup
+```bash
+rg -n "setup-android-sdk\.sh|setup-android-sdk\.bat|androidSdkSetupCommand|bash.*setup-android-sdk|cmd.*setup-android-sdk" \
+  . -g '!build/**' -g '!.gradle/**' -g '!.android-sdk/**'
+rg -n "setupAndroidSdk|compileAndroidMain|assembleUnitTest|androidSourcesJar|assembleAndroidTest|publishAndReleaseToMavenCentral" \
+  .github/workflows -g '*.yml'
+./gradlew setupAndroidSdk --no-daemon --console=plain --no-configuration-cache
+./gradlew setupAndroidSdk --no-daemon --console=plain --no-configuration-cache  # must hit cached path
+./gradlew compileAndroidMain --no-daemon --console=plain --no-configuration-cache
+./gradlew build --dry-run --no-daemon --console=plain --no-configuration-cache
+./gradlew test --no-daemon --console=plain --no-configuration-cache
+git diff --check
+```
+
+### CodeQL `java-kotlin` extraction
+KMP repos with an `android` target use `compileAndroidMain` as the CodeQL extraction command (the Android target emits real `.class` files the LD_PRELOAD tracer can hook). `compileKotlinMetadata` extracts zero TRAP. The full pattern + the required `--rerun-tasks --no-build-cache -Pkotlin.compiler.execution.strategy=out-of-process --no-configuration-cache --no-daemon` flags must be preserved when porting workflow YAML.
+
+`codeqlAndroidAar` extraction must use the dedicated configuration pattern from `syn-kotlin`, not mix AARs into `codeqlSourceClasspath`. If no real published Android AAR dependency exists yet, do not add fake coordinates — note in the PR/run report that no published AAR dependency exists.
+
+---
+
 ## Sources
 
 - Android NDK ABIs: https://developer.android.com/ndk/guides/abis
