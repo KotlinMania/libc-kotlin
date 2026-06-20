@@ -6,8 +6,24 @@ import io.github.kotlinmania.libc.*
 /**
  * Socket-related structures and types for Linux-like systems.
  *
- * Ported from `unix/linux_like/mod.rs` in upstream Rust libc.
+ * Ported from the linux-like upstream Rust libc module.
  */
+
+public typealias SaFamilyT = UShort
+
+public typealias SpeedT = CUInt
+
+public typealias TcflagT = CUInt
+
+public typealias ClockidT = CInt
+
+public typealias TimerT = COpaquePointer?
+
+public typealias UsecondsT = UInt
+
+public typealias KeyT = CInt
+
+public typealias IdT = CUInt
 
 /**
  * IPv4 address structure.
@@ -335,3 +351,7 @@ public data class Linger(
     val lOnoff: CInt,
     val lLinger: CInt
 )
+
+internal fun cmsgAlign(len: ULong): ULong {
+    return (len + ULong.SIZE_BYTES.toULong() - 1uL) and (ULong.SIZE_BYTES.toULong() - 1uL).inv()
+}
