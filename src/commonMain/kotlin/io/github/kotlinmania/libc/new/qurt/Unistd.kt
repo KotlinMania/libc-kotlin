@@ -1,0 +1,244 @@
+// port-lint: source new/qurt/unistd.rs
+package io.github.kotlinmania.libc.new.qurt
+
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
+
+/**
+ * Header: `unistd.h`.
+ */
+
+public const val F_OK: CInt = 0
+public const val X_OK: CInt = 1
+public const val W_OK: CInt = 2
+public const val R_OK: CInt = 4
+
+public const val SEEK_SET: CInt = 0
+public const val SEEK_CUR: CInt = 1
+public const val SEEK_END: CInt = 2
+
+public const val _PC_LINK_MAX: CInt = 0
+public const val _PC_MAX_CANON: CInt = 1
+public const val _PC_MAX_INPUT: CInt = 2
+public const val _PC_NAME_MAX: CInt = 3
+public const val _PC_PATH_MAX: CInt = 4
+public const val _PC_PIPE_BUF: CInt = 5
+public const val _PC_CHOWN_RESTRICTED: CInt = 6
+public const val _PC_NO_TRUNC: CInt = 7
+public const val _PC_VDISABLE: CInt = 8
+public const val _PC_SYNC_IO: CInt = 9
+public const val _PC_ASYNC_IO: CInt = 10
+public const val _PC_PRIO_IO: CInt = 11
+public const val _PC_SOCK_MAXBUF: CInt = 12
+public const val _PC_FILESIZEBITS: CInt = 13
+public const val _PC_REC_INCR_XFER_SIZE: CInt = 14
+public const val _PC_REC_MAX_XFER_SIZE: CInt = 15
+public const val _PC_REC_MIN_XFER_SIZE: CInt = 16
+public const val _PC_REC_XFER_ALIGN: CInt = 17
+public const val _PC_ALLOC_SIZE_MIN: CInt = 18
+public const val _PC_SYMLINK_MAX: CInt = 19
+public const val _PC_2_SYMLINKS: CInt = 20
+
+public const val _SC_ARG_MAX: CInt = 0
+public const val _SC_CHILD_MAX: CInt = 1
+public const val _SC_CLK_TCK: CInt = 2
+public const val _SC_NGROUPS_MAX: CInt = 3
+public const val _SC_OPEN_MAX: CInt = 4
+public const val _SC_STREAM_MAX: CInt = 5
+public const val _SC_TZNAME_MAX: CInt = 6
+public const val _SC_JOB_CONTROL: CInt = 7
+public const val _SC_SAVED_IDS: CInt = 8
+public const val _SC_REALTIME_SIGNALS: CInt = 9
+public const val _SC_PRIORITY_SCHEDULING: CInt = 10
+public const val _SC_TIMERS: CInt = 11
+public const val _SC_ASYNCHRONOUS_IO: CInt = 12
+public const val _SC_PRIORITIZED_IO: CInt = 13
+public const val _SC_SYNCHRONIZED_IO: CInt = 14
+public const val _SC_FSYNC: CInt = 15
+public const val _SC_MAPPED_FILES: CInt = 16
+public const val _SC_MEMLOCK: CInt = 17
+public const val _SC_MEMLOCK_RANGE: CInt = 18
+public const val _SC_MEMORY_PROTECTION: CInt = 19
+public const val _SC_MESSAGE_PASSING: CInt = 20
+public const val _SC_SEMAPHORES: CInt = 21
+public const val _SC_SHARED_MEMORY_OBJECTS: CInt = 22
+public const val _SC_AIO_LISTIO_MAX: CInt = 23
+public const val _SC_AIO_MAX: CInt = 24
+public const val _SC_AIO_PRIO_DELTA_MAX: CInt = 25
+public const val _SC_DELAYTIMER_MAX: CInt = 26
+public const val _SC_MQ_OPEN_MAX: CInt = 27
+public const val _SC_MQ_PRIO_MAX: CInt = 28
+public const val _SC_VERSION: CInt = 29
+public const val _SC_PAGESIZE: CInt = 30
+public const val _SC_PAGE_SIZE: CInt = _SC_PAGESIZE
+public const val _SC_RTSIG_MAX: CInt = 31
+public const val _SC_SEM_NSEMS_MAX: CInt = 32
+public const val _SC_SEM_VALUE_MAX: CInt = 33
+public const val _SC_SIGQUEUE_MAX: CInt = 34
+public const val _SC_TIMER_MAX: CInt = 35
+public const val _SC_BC_BASE_MAX: CInt = 36
+public const val _SC_BC_DIM_MAX: CInt = 37
+public const val _SC_BC_SCALE_MAX: CInt = 38
+public const val _SC_BC_STRING_MAX: CInt = 39
+public const val _SC_COLL_WEIGHTS_MAX: CInt = 40
+public const val _SC_EQUIV_CLASS_MAX: CInt = 41
+public const val _SC_EXPR_NEST_MAX: CInt = 42
+public const val _SC_LINE_MAX: CInt = 43
+public const val _SC_RE_DUP_MAX: CInt = 44
+public const val _SC_CHARCLASS_NAME_MAX: CInt = 45
+public const val _SC_2_VERSION: CInt = 46
+public const val _SC_2_C_BIND: CInt = 47
+public const val _SC_2_C_DEV: CInt = 48
+public const val _SC_2_FORT_DEV: CInt = 49
+public const val _SC_2_FORT_RUN: CInt = 50
+public const val _SC_2_SW_DEV: CInt = 51
+public const val _SC_2_LOCALEDEF: CInt = 52
+public const val _SC_PII: CInt = 53
+public const val _SC_PII_XTI: CInt = 54
+public const val _SC_PII_SOCKET: CInt = 55
+public const val _SC_PII_INTERNET: CInt = 56
+public const val _SC_PII_OSI: CInt = 57
+public const val _SC_POLL: CInt = 58
+public const val _SC_SELECT: CInt = 59
+public const val _SC_UIO_MAXIOV: CInt = 60
+public const val _SC_IOV_MAX: CInt = _SC_UIO_MAXIOV
+public const val _SC_PII_INTERNET_STREAM: CInt = 61
+public const val _SC_PII_INTERNET_DGRAM: CInt = 62
+public const val _SC_PII_OSI_COTS: CInt = 63
+public const val _SC_PII_OSI_CLTS: CInt = 64
+public const val _SC_PII_OSI_M: CInt = 65
+public const val _SC_T_IOV_MAX: CInt = 66
+public const val _SC_THREADS: CInt = 67
+public const val _SC_THREAD_SAFE_FUNCTIONS: CInt = 68
+public const val _SC_GETGR_R_SIZE_MAX: CInt = 69
+public const val _SC_GETPW_R_SIZE_MAX: CInt = 70
+public const val _SC_LOGIN_NAME_MAX: CInt = 71
+public const val _SC_TTY_NAME_MAX: CInt = 72
+public const val _SC_THREAD_DESTRUCTOR_ITERATIONS: CInt = 73
+public const val _SC_THREAD_KEYS_MAX: CInt = 74
+public const val _SC_THREAD_STACK_MIN: CInt = 75
+public const val _SC_THREAD_THREADS_MAX: CInt = 76
+public const val _SC_THREAD_ATTR_STACKADDR: CInt = 77
+public const val _SC_THREAD_ATTR_STACKSIZE: CInt = 78
+public const val _SC_THREAD_PRIORITY_SCHEDULING: CInt = 79
+public const val _SC_THREAD_PRIO_INHERIT: CInt = 80
+public const val _SC_THREAD_PRIO_PROTECT: CInt = 81
+public const val _SC_THREAD_PROCESS_SHARED: CInt = 82
+public const val _SC_NPROCESSORS_CONF: CInt = 83
+public const val _SC_NPROCESSORS_ONLN: CInt = 84
+public const val _SC_PHYS_PAGES: CInt = 85
+public const val _SC_AVPHYS_PAGES: CInt = 86
+public const val _SC_ATEXIT_MAX: CInt = 87
+public const val _SC_PASS_MAX: CInt = 88
+public const val _SC_XOPEN_VERSION: CInt = 89
+public const val _SC_XOPEN_XCU_VERSION: CInt = 90
+public const val _SC_XOPEN_UNIX: CInt = 91
+public const val _SC_XOPEN_CRYPT: CInt = 92
+public const val _SC_XOPEN_ENH_I18N: CInt = 93
+public const val _SC_XOPEN_SHM: CInt = 94
+public const val _SC_2_CHAR_TERM: CInt = 95
+public const val _SC_2_C_VERSION: CInt = 96
+public const val _SC_2_UPE: CInt = 97
+public const val _SC_XOPEN_XPG2: CInt = 98
+public const val _SC_XOPEN_XPG3: CInt = 99
+public const val _SC_XOPEN_XPG4: CInt = 100
+public const val _SC_CHAR_BIT: CInt = 101
+public const val _SC_CHAR_MAX: CInt = 102
+public const val _SC_CHAR_MIN: CInt = 103
+public const val _SC_INT_MAX: CInt = 104
+public const val _SC_INT_MIN: CInt = 105
+public const val _SC_LONG_BIT: CInt = 106
+public const val _SC_WORD_BIT: CInt = 107
+public const val _SC_MB_LEN_MAX: CInt = 108
+public const val _SC_NZERO: CInt = 109
+public const val _SC_SSIZE_MAX: CInt = 110
+public const val _SC_SCHAR_MAX: CInt = 111
+public const val _SC_SCHAR_MIN: CInt = 112
+public const val _SC_SHRT_MAX: CInt = 113
+public const val _SC_SHRT_MIN: CInt = 114
+public const val _SC_UCHAR_MAX: CInt = 115
+public const val _SC_UINT_MAX: CInt = 116
+public const val _SC_ULONG_MAX: CInt = 117
+public const val _SC_USHRT_MAX: CInt = 118
+public const val _SC_NL_ARGMAX: CInt = 119
+public const val _SC_NL_LANGMAX: CInt = 120
+public const val _SC_NL_MSGMAX: CInt = 121
+public const val _SC_NL_NMAX: CInt = 122
+public const val _SC_NL_SETMAX: CInt = 123
+public const val _SC_NL_TEXTMAX: CInt = 124
+public const val _SC_XBS5_ILP32_OFF32: CInt = 125
+public const val _SC_XBS5_ILP32_OFFBIG: CInt = 126
+public const val _SC_XBS5_LP64_OFF64: CInt = 127
+public const val _SC_XBS5_LPBIG_OFFBIG: CInt = 128
+public const val _SC_XOPEN_LEGACY: CInt = 129
+public const val _SC_XOPEN_REALTIME: CInt = 130
+public const val _SC_XOPEN_REALTIME_THREADS: CInt = 131
+public const val _SC_ADVISORY_INFO: CInt = 132
+public const val _SC_BARRIERS: CInt = 133
+public const val _SC_CLOCK_SELECTION: CInt = 137
+public const val _SC_CPUTIME: CInt = 138
+public const val _SC_THREAD_CPUTIME: CInt = 139
+public const val _SC_MONOTONIC_CLOCK: CInt = 149
+public const val _SC_READER_WRITER_LOCKS: CInt = 153
+public const val _SC_SPIN_LOCKS: CInt = 154
+public const val _SC_REGEXP: CInt = 155
+public const val _SC_SHELL: CInt = 157
+public const val _SC_SPAWN: CInt = 159
+public const val _SC_SPORADIC_SERVER: CInt = 160
+public const val _SC_THREAD_SPORADIC_SERVER: CInt = 161
+public const val _SC_TIMEOUTS: CInt = 164
+public const val _SC_TYPED_MEMORY_OBJECTS: CInt = 165
+public const val _SC_2_PBS: CInt = 168
+public const val _SC_2_PBS_ACCOUNTING: CInt = 169
+public const val _SC_2_PBS_LOCATE: CInt = 170
+public const val _SC_2_PBS_MESSAGE: CInt = 171
+public const val _SC_2_PBS_TRACK: CInt = 172
+public const val _SC_SYMLOOP_MAX: CInt = 173
+public const val _SC_2_PBS_CHECKPOINT: CInt = 175
+public const val _SC_V6_ILP32_OFF32: CInt = 176
+public const val _SC_V6_ILP32_OFFBIG: CInt = 177
+public const val _SC_V6_LP64_OFF64: CInt = 178
+public const val _SC_V6_LPBIG_OFFBIG: CInt = 179
+public const val _SC_HOST_NAME_MAX: CInt = 180
+public const val _SC_TRACE: CInt = 181
+public const val _SC_TRACE_EVENT_FILTER: CInt = 182
+public const val _SC_TRACE_INHERIT: CInt = 183
+public const val _SC_TRACE_LOG: CInt = 184
+public const val _SC_IPV6: CInt = 235
+public const val _SC_RAW_SOCKETS: CInt = 236
+public const val _SC_V7_ILP32_OFF32: CInt = 237
+public const val _SC_V7_ILP32_OFFBIG: CInt = 238
+public const val _SC_V7_LP64_OFF64: CInt = 239
+public const val _SC_V7_LPBIG_OFFBIG: CInt = 240
+public const val _SC_SS_REPL_MAX: CInt = 241
+public const val _SC_TRACE_EVENT_NAME_MAX: CInt = 242
+public const val _SC_TRACE_NAME_MAX: CInt = 243
+public const val _SC_TRACE_SYS_MAX: CInt = 244
+public const val _SC_TRACE_USER_EVENT_MAX: CInt = 245
+public const val _SC_XOPEN_STREAMS: CInt = 246
+public const val _SC_THREAD_ROBUST_PRIO_INHERIT: CInt = 247
+public const val _SC_THREAD_ROBUST_PRIO_PROTECT: CInt = 248
+
+public expect fun access(pathname: String?, mode: CInt): CInt
+
+public expect fun close(fd: CInt): CInt
+
+public expect fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT
+
+public expect fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT
+
+public expect fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT
+
+public expect fun ftruncate(fd: CInt, length: OffT): CInt
+
+public expect fun unlink(pathname: String?): CInt
+
+public expect fun getcwd(buf: String?, size: ULong): String?
+
+public expect fun rmdir(pathname: String?): CInt
+
+public expect fun getpid(): PidT
+
+public expect fun sleep(seconds: CUInt): CUInt
+
+public expect fun sysconf(name: CInt): CLong
