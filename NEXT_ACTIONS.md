@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 5/338 (1.5%)
-- **Function parity:** 0/105 matched — 0.0%
-- **Class/type parity:** 17/368 matched (target 22) — 4.6%
-- **Combined symbol parity:** 17/473 matched (target 22) — 3.6%
-- **Average inline-code cosine:** 1.00 (function body across 2 matched files)
-- **Average documentation cosine:** 0.38 (doc text across 2 matched files)
-- **Cheat-zeroed Files:** 2
-- **Critical Issues:** 3 files with <0.60 function similarity
+- **Files Present:** 12/338 (3.6%)
+- **Function parity:** 0/106 matched (target 15) — 0.0%
+- **Class/type parity:** 20/389 matched (target 41) — 5.1%
+- **Combined symbol parity:** 20/495 matched (target 56) — 4.0%
+- **Average inline-code cosine:** 0.50 (function body across 4 matched files)
+- **Average documentation cosine:** 0.48 (doc text across 4 matched files)
+- **Cheat-zeroed Files:** 7
+- **Critical Issues:** 10 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -38,7 +38,29 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched
 - **Missing types:** _none_
 
-### 2. primitives
+### 2. unix.mod
+
+- **Target:** `unix.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 111310.0
+- **Functions:** 0/0 matched (target 2)
+- **Missing functions:** _none_
+- **Types:** 2/13 matched (target 4)
+- **Missing types:** `intmax_t`, `uintmax_t`, `size_t`, `ptrdiff_t`, `intptr_t`, `uintptr_t`, `ssize_t`, `pid_t`, `sighandler_t`, `cc_t`, `locale_t`
+
+### 3. linux_like.mod
+
+- **Target:** `linuxlike.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 80910.0
+- **Functions:** 0/1 matched (target 6)
+- **Missing functions:** `CMSG_ALIGN`
+- **Types:** 1/8 matched (target 11)
+- **Missing types:** `speed_t`, `tcflag_t`, `clockid_t`, `timer_t`, `useconds_t`, `key_t`, `id_t`
+
+### 4. primitives
 
 - **Target:** `libc.Primitives`
 - **Similarity:** 1.00
@@ -49,7 +71,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 16/16 matched (target 21)
 - **Missing types:** _none_
 
-### 3. solid.aarch64
+### 5. solid.aarch64
 
 - **Target:** `solid.Aarch64`
 - **Similarity:** 1.00
@@ -60,7 +82,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 4. sgx.mod
+### 6. sgx.mod
 
 - **Target:** `sgx.Mod [STUB]`
 - **Similarity:** 0.00
@@ -71,9 +93,64 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched
 - **Missing types:** _none_
 
-### 5. common.bsd
+### 7. sys.socket
+
+- **Target:** `sys.Socket [ZERO]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched (target 4)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 3)
+- **Missing types:** _none_
+
+### 8. posix.mod
+
+- **Target:** `posix.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+
+### 9. new.common.posix.unistd
+
+- **Target:** `posix.Unistd [ZERO]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched (target 3)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 1)
+- **Missing types:** _none_
+
+### 10. sgx.unistd
+
+- **Target:** `sgx.Unistd [STUB]`
+- **Similarity:** 1.00
+- **Dependents:** 0
+- **Priority Score:** 0.0
+- **Functions:** 0/0 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+
+### 11. common.bsd
 
 - **Target:** `common.Bsd [STUB]`
+- **Similarity:** 1.00
+- **Dependents:** 0
+- **Priority Score:** 0.0
+- **Functions:** 0/0 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+
+### 12. musl.unistd
+
+- **Target:** `musl.Unistd [STUB]`
 - **Similarity:** 1.00
 - **Dependents:** 0
 - **Priority Score:** 0.0
@@ -115,7 +192,6 @@ do not treat them as the next implementation target by default.
 | `new.bionic_libc.sys.mod` | `new.bioniclibc.sys.Mod` | 0 | `new/bionic_libc/sys/mod.rs` | `new/bioniclibc/sys/Mod.kt` |
 | `new.common.linux_like.mod` | `new.common.linuxlike.Mod` | 0 | `new/common/linux_like/mod.rs` | `new/common/linuxlike/Mod.kt` |
 | `common.mod` | `new.common.Mod` | 0 | `new/common/mod.rs` | `new/common/Mod.kt` |
-| `posix.mod` | `new.common.posix.Mod` | 0 | `new/common/posix/mod.rs` | `new/common/posix/Mod.kt` |
 | `cygwin.mod` | `new.cygwin.Mod` | 0 | `new/cygwin/mod.rs` | `new/cygwin/Mod.kt` |
 | `dragonfly.mod` | `new.dragonfly.Mod` | 0 | `new/dragonfly/mod.rs` | `new/dragonfly/Mod.kt` |
 | `emscripten.mod` | `new.emscripten.Mod` | 0 | `new/emscripten/mod.rs` | `new/emscripten/Mod.kt` |
@@ -240,8 +316,6 @@ do not treat them as the next implementation target by default.
 | `unix.linux_like.linux.uclibc.mips.mod` | `unix.linuxlike.linux.uclibc.mips.Mod` | 0 | `unix/linux_like/linux/uclibc/mips/mod.rs` | `unix/linuxlike/linux/uclibc/mips/Mod.kt` |
 | `unix.linux_like.linux.uclibc.mod` | `unix.linuxlike.linux.uclibc.Mod` | 0 | `unix/linux_like/linux/uclibc/mod.rs` | `unix/linuxlike/linux/uclibc/Mod.kt` |
 | `unix.linux_like.linux.uclibc.x86_64.mod` | `unix.linuxlike.linux.uclibc.x8664.Mod` | 0 | `unix/linux_like/linux/uclibc/x86_64/mod.rs` | `unix/linuxlike/linux/uclibc/x8664/Mod.kt` |
-| `linux_like.mod` | `unix.linuxlike.Mod` | 0 | `unix/linux_like/mod.rs` | `unix/linuxlike/Mod.kt` |
-| `unix.mod` | `unix.Mod` | 0 | `unix/mod.rs` | `unix/Mod.kt` |
 | `aarch64.mod` | `unix.newlib.aarch64.Mod` | 0 | `unix/newlib/aarch64/mod.rs` | `unix/newlib/aarch64/Mod.kt` |
 | `arm.mod` | `unix.newlib.arm.Mod` | 0 | `unix/newlib/arm/mod.rs` | `unix/newlib/arm/Mod.kt` |
 | `unix.newlib.espidf.mod` | `unix.newlib.espidf.Mod` | 0 | `unix/newlib/espidf/mod.rs` | `unix/newlib/espidf/Mod.kt` |
