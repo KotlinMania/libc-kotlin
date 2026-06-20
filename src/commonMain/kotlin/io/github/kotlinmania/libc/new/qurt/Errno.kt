@@ -1,0 +1,153 @@
+// port-lint: source new/qurt/errno.rs
+package io.github.kotlinmania.libc.new.qurt
+
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
+
+/**
+ * Header: `errno.h`.
+ *
+ * Standard error codes, verified to match the QuRT SDK.
+ */
+
+public const val EPERM: CInt = 1
+public const val ENOENT: CInt = 2
+public const val ESRCH: CInt = 3
+public const val EINTR: CInt = 4
+public const val EIO: CInt = 5
+public const val ENXIO: CInt = 6
+public const val E2BIG: CInt = 7
+public const val ENOEXEC: CInt = 8
+public const val EBADF: CInt = 9
+public const val ECHILD: CInt = 10
+public const val EAGAIN: CInt = 11
+public const val ENOMEM: CInt = 12
+public const val EACCES: CInt = 13
+public const val EFAULT: CInt = 14
+public const val ENOTBLK: CInt = 15
+public const val EBUSY: CInt = 16
+public const val EEXIST: CInt = 17
+public const val EXDEV: CInt = 18
+public const val ENODEV: CInt = 19
+public const val ENOTDIR: CInt = 20
+public const val EISDIR: CInt = 21
+public const val EINVAL: CInt = 22
+public const val ENFILE: CInt = 23
+public const val EMFILE: CInt = 24
+public const val ENOTTY: CInt = 25
+public const val ETXTBSY: CInt = 26
+public const val EFBIG: CInt = 27
+public const val ENOSPC: CInt = 28
+public const val ESPIPE: CInt = 29
+public const val EROFS: CInt = 30
+public const val EMLINK: CInt = 31
+public const val EPIPE: CInt = 32
+public const val EDOM: CInt = 33
+public const val ERANGE: CInt = 34
+public const val EDEADLK: CInt = 35
+public const val ENAMETOOLONG: CInt = 36
+public const val ENOLCK: CInt = 37
+public const val ENOSYS: CInt = 38
+public const val ENOTEMPTY: CInt = 39
+public const val ELOOP: CInt = 40
+public const val EWOULDBLOCK: CInt = EAGAIN
+public const val ENOMSG: CInt = 42
+public const val EIDRM: CInt = 43
+public const val ECHRNG: CInt = 44
+public const val EL2NSYNC: CInt = 45
+public const val EL3HLT: CInt = 46
+public const val EL3RST: CInt = 47
+public const val ELNRNG: CInt = 48
+public const val EUNATCH: CInt = 49
+public const val ENOCSI: CInt = 50
+public const val EL2HLT: CInt = 51
+public const val EBADE: CInt = 52
+public const val EBADR: CInt = 53
+public const val EXFULL: CInt = 54
+public const val ENOANO: CInt = 55
+public const val EBADRQC: CInt = 56
+public const val EBADSLT: CInt = 57
+public const val EDEADLOCK: CInt = EDEADLK
+public const val EBFONT: CInt = 59
+public const val ENOSTR: CInt = 60
+public const val ENODATA: CInt = 61
+public const val ETIME: CInt = 62
+public const val ENOSR: CInt = 63
+public const val ENONET: CInt = 64
+public const val ENOPKG: CInt = 65
+public const val EREMOTE: CInt = 66
+public const val ENOLINK: CInt = 67
+public const val EADV: CInt = 68
+public const val ESRMNT: CInt = 69
+public const val ECOMM: CInt = 70
+public const val EPROTO: CInt = 71
+public const val EMULTIHOP: CInt = 72
+public const val EDOTDOT: CInt = 73
+public const val EBADMSG: CInt = 74
+public const val EOVERFLOW: CInt = 75
+public const val ENOTUNIQ: CInt = 76
+public const val EBADFD: CInt = 77
+public const val EREMCHG: CInt = 78
+public const val ELIBACC: CInt = 79
+public const val ELIBBAD: CInt = 80
+public const val ELIBSCN: CInt = 81
+public const val ELIBMAX: CInt = 82
+public const val ELIBEXEC: CInt = 83
+public const val EILSEQ: CInt = 84
+public const val ERESTART: CInt = 85
+public const val ESTRPIPE: CInt = 86
+public const val EUSERS: CInt = 87
+public const val ENOTSOCK: CInt = 88
+public const val EDESTADDRREQ: CInt = 89
+public const val EMSGSIZE: CInt = 90
+public const val EPROTOTYPE: CInt = 91
+public const val ENOPROTOOPT: CInt = 92
+public const val EPROTONOSUPPORT: CInt = 93
+public const val ESOCKTNOSUPPORT: CInt = 94
+public const val EOPNOTSUPP: CInt = 95
+public const val ENOTSUP: CInt = EOPNOTSUPP
+public const val EPFNOSUPPORT: CInt = 96
+public const val EAFNOSUPPORT: CInt = 97
+public const val EADDRINUSE: CInt = 98
+public const val EADDRNOTAVAIL: CInt = 99
+public const val ENETDOWN: CInt = 100
+public const val ENETUNREACH: CInt = 101
+public const val ENETRESET: CInt = 102
+public const val ECONNABORTED: CInt = 103
+public const val ECONNRESET: CInt = 104
+public const val ENOBUFS: CInt = 105
+public const val EISCONN: CInt = 106
+public const val ENOTCONN: CInt = 107
+public const val ESHUTDOWN: CInt = 108
+public const val ETOOMANYREFS: CInt = 109
+public const val ETIMEDOUT: CInt = 110
+public const val ECONNREFUSED: CInt = 111
+public const val EHOSTDOWN: CInt = 112
+public const val EHOSTUNREACH: CInt = 113
+public const val EALREADY: CInt = 114
+public const val EINPROGRESS: CInt = 115
+public const val ESTALE: CInt = 116
+public const val EUCLEAN: CInt = 117
+public const val ENOTNAM: CInt = 118
+public const val ENAVAIL: CInt = 119
+public const val EISNAM: CInt = 120
+public const val EREMOTEIO: CInt = 121
+public const val EDQUOT: CInt = 122
+public const val ENOMEDIUM: CInt = 123
+public const val EMEDIUMTYPE: CInt = 124
+public const val ECANCELED: CInt = 125
+public const val ENOKEY: CInt = 126
+public const val EKEYEXPIRED: CInt = 127
+public const val EKEYREVOKED: CInt = 128
+public const val EKEYREJECTED: CInt = 129
+public const val EOWNERDEAD: CInt = 130
+public const val ENOTRECOVERABLE: CInt = 131
+public const val ERFKILL: CInt = 132
+public const val EHWPOISON: CInt = 133
+
+// Linked as "__errno_location"; returns a pointer to the thread errno slot.
+public expect fun errnoLocation(): COpaquePointer?
+
+public expect fun errno(): CInt
+
+public expect fun setErrno(value: CInt)
