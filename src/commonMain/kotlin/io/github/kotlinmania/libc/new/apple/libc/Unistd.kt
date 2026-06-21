@@ -1,0 +1,11 @@
+// port-lint: source new/apple/libc/unistd.rs
+package io.github.kotlinmania.libc.new.apple.libc
+
+/**
+ * Re-export wiring for `new/apple/libc/unistd.rs` (no definitions of its own).
+ *
+ * Header: `unistd.h`
+ *
+ * Re-exports (resolved by callers in the wiring pass):
+ * - crate::new::common::posix::unistd::{ STDERR_FILENO, STDIN_FILENO, STDOUT_FILENO, }
+ */

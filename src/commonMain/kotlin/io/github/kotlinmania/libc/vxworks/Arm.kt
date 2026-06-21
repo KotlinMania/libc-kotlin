@@ -1,0 +1,7 @@
+// port-lint: source vxworks/arm.rs
+package io.github.kotlinmania.libc.vxworks
+
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
+
+public typealias WcharT = UInt
