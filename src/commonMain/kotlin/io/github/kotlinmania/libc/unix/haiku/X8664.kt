@@ -13,8 +13,8 @@ public data class FpuState(
     val rdp: CULong,
     val mxcsr: CUInt,
     val mscsrMask: CUInt,
-    val fpreg: List<[cUchar>,
-    val xmm: List<[cUchar>,
+    val fpreg: List<UByteArray>,
+    val xmm: List<UByteArray>,
 )
 
 public data class XstateHdr(
@@ -25,7 +25,7 @@ public data class XstateHdr(
 public data class Savefpu(
     val fpFxsave: FpuState,
     val fpXstate: XstateHdr,
-    val fpYmm: List<[cUchar>,
+    val fpYmm: List<UByteArray>,
 )
 
 public data class McontextT(

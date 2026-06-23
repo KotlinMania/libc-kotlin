@@ -748,8 +748,8 @@ public const val SOCK_RDM: CInt = 4
 public const val SOCK_SEQPACKET: CInt = 5
 public const val SOCK_PACKET: CInt = 10
 public const val _SS_MAXSIZE: ULong = 128uL
-public const val _SS_ALIGNSIZE: ULong = <u32>()
-public const val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - <c_uchar>() - <sa_family_t>() - _SS_PAD1SIZE - _SS_ALIGNSIZE
+// _SS_ALIGNSIZE = size_of<UInt>() (computed at the FFI boundary)
+// _SS_PAD2SIZE = _SS_MAXSIZE - size_of<CUChar>() - size_of<SaFamilyT>() - _SS_PAD1SIZE - _SS_ALIGNSIZE
 public const val MSG_OOB: CInt = 0x0001
 public const val MSG_PEEK: CInt = 0x0002
 public const val MSG_DONTROUTE: CInt = 0x0004
@@ -1126,8 +1126,8 @@ public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer?
 public expect fun malloc(size: ULong): COpaquePointer?
 public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
 public expect fun free(p: COpaquePointer?)
-public expect fun abort(): !
-public expect fun exit(status: CInt): !
+public expect fun abort(): Nothing
+public expect fun exit(status: CInt): Nothing
 public expect fun atexit(cb: (() -> Unit)?): CInt
 public expect fun system(s: String?): CInt
 public expect fun getenv(s: String?): String?
@@ -1177,13 +1177,13 @@ public expect fun getprotobyname(name: String?): Protoent?
 public expect fun getprotobynumber(proto: CInt): Protoent?
 public expect fun getservbyname(name: String?, proto: String?): Servent?
 public expect fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt
-public expect fun fprintf(stream: FILE?, format: String?, ...): CInt
-public expect fun printf(format: String?, ...): CInt
-public expect fun snprintf(s: String?, n: ULong, format: String?, ...): CInt
-public expect fun sprintf(s: String?, format: String?, ...): CInt
-public expect fun fscanf(stream: FILE?, format: String?, ...): CInt
-public expect fun scanf(format: String?, ...): CInt
-public expect fun sscanf(s: String?, format: String?, ...): CInt
+public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun printf(format: String?, vararg args: Any?): CInt
+public expect fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt
+public expect fun sprintf(s: String?, format: String?, vararg args: Any?): CInt
+public expect fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun scanf(format: String?, vararg args: Any?): CInt
+public expect fun sscanf(s: String?, format: String?, vararg args: Any?): CInt
 public expect fun getcharUnlocked(): CInt
 public expect fun putcharUnlocked(c: CInt): CInt
 public expect fun stat(path: String?, buf: Stat?): CInt
@@ -1222,7 +1222,7 @@ public expect fun truncate(path: String?, length: OffT): CInt
 public expect fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt
 public expect fun shmUnlink(name: String?): CInt
 public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
-public expect fun pthreadExit(value: COpaquePointer?): !
+public expect fun pthreadExit(value: COpaquePointer?): Nothing
 public expect fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, state: CInt): CInt
 public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt
 public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt
@@ -1259,7 +1259,7 @@ public expect fun tmpnam(ptr: String?): String?
 public expect fun openlog(ident: String?, logopt: CInt, facility: CInt)
 public expect fun closelog()
 public expect fun setlogmask(maskpri: CInt): CInt
-public expect fun syslog(priority: CInt, message: String?, ...)
+public expect fun syslog(priority: CInt, message: String?, vararg args: Any?)
 public expect fun getline(lineptr: COpaquePointer?, n: ULong?, stream: FILE?): SsizeT
 public expect fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt
 public expect fun tcgetattr(fd: CInt, termios: Termios?): CInt
@@ -1298,7 +1298,7 @@ public expect fun lstat(path: String?, buf: Stat?): CInt
 public expect fun ftruncate(fd: CInt, length: OffT): CInt
 public expect fun readdirR(pDir: DIR?, entry: Dirent?, result: COpaquePointer?): CInt
 public expect fun readdir(pDir: DIR?): Dirent?
-public expect fun open(path: String?, oflag: CInt, ...): CInt
+public expect fun open(path: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt
 public expect fun pthreadCondattrInit(attr: PthreadCondattrT?): CInt
 public expect fun pthreadCondattrDestroy(attr: PthreadCondattrT?): CInt
@@ -1350,8 +1350,8 @@ public expect fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: 
 public expect fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt
 public expect fun shutdown(s: CInt, how: CInt): CInt
 public expect fun socket(domain: CInt, type: CInt, protocol: CInt): CInt
-public expect fun ioctl(fd: CInt, request: CInt, ...): CInt
-public expect fun fcntl(fd: CInt, cmd: CInt, ...): CInt
+public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt
+public expect fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun gaiStrerror(errcode: CInt): String?
 public expect fun close(fd: CInt): CInt
 public expect fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT
@@ -1393,7 +1393,7 @@ public expect fun schedRrGetInterval(pid: PidT, tp: Timespec?): CInt
 public expect fun schedYield(): CInt
 public expect fun errnoSet(err: CInt): CInt
 public expect fun errnoGet(): CInt
-public expect fun exit(status: CInt): !
+public expect fun exit(status: CInt): Nothing
 public expect fun setgid(gid: GidT): CInt
 public expect fun getgid(): GidT
 public expect fun setuid(uid: UidT): CInt
@@ -1422,7 +1422,7 @@ public expect fun randBytes(buf: COpaquePointer?, length: CInt): CInt
 public expect fun randABytes(buf: COpaquePointer?, length: CInt): CInt
 public expect fun randUBytes(buf: COpaquePointer?, length: CInt): CInt
 public expect fun randSecure(): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqClose(mqd: MqdT): CInt
 public expect fun mqUnlink(name: String?): CInt
 public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT

@@ -2054,7 +2054,7 @@ public const val SIGEV_NONE: CInt = 0
 public const val SIGEV_SIGNAL: CInt = 129
 public const val SIGEV_THREAD: CInt = 135
 public const val SO_USELOOPBACK: CInt = 0x0040
-public const val _SS_ALIGNSIZE: ULong = <i64>()
+// _SS_ALIGNSIZE = size_of<Long>() (computed at the FFI boundary)
 public const val _SS_MAXSIZE: ULong = 128uL
 public const val _SS_PAD1SIZE: ULong = _SS_ALIGNSIZE - 2
 public const val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - 2 - _SS_PAD1SIZE - _SS_ALIGNSIZE
@@ -2157,10 +2157,10 @@ public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 public expect fun dEXTRAFIRST(d: Dirent?): DirentExtra?
 public expect fun dEXTRAVALID(x: DirentExtra?, d: Dirent?): Boolean
 public expect fun dEXTRANEXT(x: DirentExtra?): DirentExtra?
@@ -2342,7 +2342,7 @@ public expect fun mallinfo(): Mallinfo
 public expect fun getpwentR(pwd: Passwd?, buf: String?, bufsize: CInt, result: COpaquePointer?): CInt
 public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: CInt): CInt
 public expect fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt
-public expect fun sysctl(: CInt?, : CUInt, : COpaquePointer?, : ULong?, : COpaquePointer?, : ULong): CInt
+public expect fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
 public expect fun setrlimit(resource: CInt, rlp: Rlimit?): CInt
 public expect fun lioListio(mode: CInt, list: COpaquePointer?, nent: CInt, sig: Sigevent?): CInt
