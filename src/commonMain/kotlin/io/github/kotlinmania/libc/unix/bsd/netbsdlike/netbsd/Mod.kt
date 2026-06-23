@@ -836,6 +836,9 @@ public const val MAP_TRYFIXED: CInt = 0x400
 public const val MAP_WIRED: CInt = 0x800
 public const val MAP_STACK: CInt = 0x2000
 public const val MAP_ALIGNMENT_SHIFT: CInt = 24
+
+public fun MAP_ALIGNED(alignment: CInt): CInt = alignment shl MAP_ALIGNMENT_SHIFT
+
 public val MAP_ALIGNMENT_MASK: CInt = 0xff shl MAP_ALIGNMENT_SHIFT
 public val MAP_ALIGNMENT_64KB: CInt = 16 shl MAP_ALIGNMENT_SHIFT
 public val MAP_ALIGNMENT_16MB: CInt = 24 shl MAP_ALIGNMENT_SHIFT
@@ -1001,6 +1004,19 @@ public const val MNT_NOWAIT: CInt = 2
 public const val MNT_LAZY: CInt = 3
 public const val IOCPARM_SHIFT: UInt = 16u
 public const val IOCGROUP_SHIFT: UInt = 8u
+
+public fun IOCPARM_LEN(x: UInt): UInt = (x shr IOCPARM_SHIFT.toInt()) and IOCPARM_MASK
+
+public fun IOCBASECMD(x: UInt): UInt = x and (IOCPARM_MASK shl IOCPARM_SHIFT.toInt()).inv()
+
+public fun IOCGROUP(x: UInt): UInt = (x shr IOCGROUP_SHIFT.toInt()) and 0xffu
+
+public fun _IOC(inout: CULong, group: CULong, num: CULong, len: CULong): CULong =
+    inout or
+        ((len and IOCPARM_MASK.toULong()) shl IOCPARM_SHIFT.toInt()) or
+        (group shl IOCGROUP_SHIFT.toInt()) or
+        num
+
 public const val NTP_API: CInt = 4
 public const val LITTLE_ENDIAN: CInt = 1234
 public const val BIG_ENDIAN: CInt = 4321
