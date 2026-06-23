@@ -936,10 +936,10 @@ public const val PRIO_USER: CInt = 2
 public const val RENAME_NOREPLACE: CUInt = 1u
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 
 public expect fun errnoLocation(): CInt?
 public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt
@@ -986,7 +986,7 @@ public expect fun epollCreate(size: CInt): CInt
 public expect fun epollCreate1(flags: CInt): CInt
 public expect fun epollWait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt): CInt
 public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: EpollEvent?): CInt
-public expect fun ioctl(fd: CInt, request: CULong, ...): CInt
+public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt
 public expect fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
 public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt

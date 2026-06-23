@@ -30,7 +30,7 @@ public typealias CpuSubtypeT = IntegerT
 public typealias NaturalT = UInt
 public typealias MachMsgTypeNumberT = NaturalT
 public typealias KernReturnT = CInt
-public typealias UuidT = [u8
+public typealias UuidT = UByteArray
 public typealias TaskInfoT = IntegerT?
 public typealias HostInfoT = IntegerT?
 public typealias TaskFlavorT = NaturalT
@@ -137,7 +137,7 @@ public typealias CopyfileStateT = COpaquePointer?
 public typealias CopyfileFlagsT = UInt
 public typealias CopyfileCallbackT = ((CInt, CInt, CopyfileStateT, String?, String?, COpaquePointer?) -> CInt)?
 public typealias AttrgroupT = UInt
-public typealias VolCapabilitiesSetT = [u32
+public typealias VolCapabilitiesSetT = UIntArray
 public typealias MachTimebaseInfoDataT = MachTimebaseInfo
 
 public data class IpMreq(

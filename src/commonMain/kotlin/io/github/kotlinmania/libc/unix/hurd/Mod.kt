@@ -800,7 +800,7 @@ public data class Ifreq(
 )
 
 public data class LocaleStruct(
-    val locales: List<*mut LocaleData>,
+    val locales: List<COpaquePointer?>,
     val ctypeB: CUShort?,
     val ctypeTolower: CInt?,
     val ctypeToupper: CInt?,

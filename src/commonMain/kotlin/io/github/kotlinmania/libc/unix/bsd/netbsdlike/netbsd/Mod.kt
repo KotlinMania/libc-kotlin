@@ -1427,7 +1427,7 @@ public expect fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: UL
 public expect fun sysctlnametomib(sname: String?, name: CInt?, namelenp: ULong?): CInt
 public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: ULong, eventlist: Kevent?, nevents: ULong, timeout: Timespec?): CInt
 public expect fun mount(src: String?, target: String?, flags: CInt, data: COpaquePointer?, size: ULong): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqClose(mqd: MqdT): CInt
 public expect fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt
 public expect fun mqNotify(mqd: MqdT, notification: Sigevent?): CInt
@@ -1479,7 +1479,7 @@ public expect fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspe
 public expect fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer?
 public expect fun explicitMemset(b: COpaquePointer?, c: CInt, len: ULong)
 public expect fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt
-public expect fun setproctitle(fmt: String?, ...)
+public expect fun setproctitle(fmt: String?, vararg args: Any?)
 public expect fun mremap(oldp: COpaquePointer?, oldsize: ULong, newp: COpaquePointer?, newsize: ULong, flags: CInt): COpaquePointer?
 public expect fun schedRrGetInterval(pid: PidT, t: Timespec?): CInt
 public expect fun schedSetparam(pid: PidT, param: SchedParam?): CInt
@@ -1522,9 +1522,9 @@ public expect fun estrlcpy(dst: String?, src: String?, len: ULong): ULong
 public expect fun estrlcat(dst: String?, src: String?, len: ULong): ULong
 public expect fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): IntmaxT
 public expect fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT
-public expect fun easprintf(string: COpaquePointer?, fmt: String?, ...): CInt
-public expect fun evasprintf(string: COpaquePointer?, fmt: String?, ...): CInt
-public expect fun esetfunc(cb: ((CInt, String?, ...) -> Unit)?): ((CInt, String?, ...) -> Unit)?
+public expect fun easprintf(string: COpaquePointer?, fmt: String?, vararg args: Any?): CInt
+public expect fun evasprintf(string: COpaquePointer?, fmt: String?, vararg args: Any?): CInt
+public expect fun esetfunc(cb: ((CInt, String?) ->Unit)?): ((CInt, String?) ->Unit)?
 public expect fun securePath(path: String?): CInt
 public expect fun snprintb(buf: String?, buflen: ULong, fmt: String?, `val`: ULong): CInt
 public expect fun snprintbM(buf: String?, buflen: ULong, fmt: String?, `val`: ULong, max: ULong): CInt

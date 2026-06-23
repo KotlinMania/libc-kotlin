@@ -345,7 +345,7 @@ public const val NCCS: ULong = 19uL
 public const val O_TRUNC: CInt = 512
 public const val O_NOATIME: CInt = 262144
 public const val O_CLOEXEC: CInt = 0x80000
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val EBFONT: CInt = 59
 public const val ENOSTR: CInt = 60
 public const val ENODATA: CInt = 61
@@ -394,7 +394,8 @@ public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 8uL
 public const val __SIZEOF_PTHREAD_BARRIERATTR_T: ULong = 4uL
-public const val CPU_SETSIZE: CInt = if cfg!(musl_v1_2_3) { 1024 } else { 128 }
+// CPU_SETSIZE is 1024 on musl_v1_2_3 targets.
+public const val CPU_SETSIZE: CInt = 128
 public const val PTRACE_TRACEME: CInt = 0
 public const val PTRACE_PEEKTEXT: CInt = 1
 public const val PTRACE_PEEKDATA: CInt = 2
@@ -530,7 +531,7 @@ public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
 public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
 public expect fun prlimit(pid: PidT, resource: CInt, newLimit: Rlimit?, oldLimit: Rlimit?): CInt
 public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
-public expect fun ptrace(request: CInt, ...): CLong
+public expect fun ptrace(request: CInt, vararg args: Any?): CLong
 public expect fun getpriority(which: CInt, who: IdT): CInt
 public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt
 public expect fun fanotifyMark(fd: CInt, flags: CUInt, mask: CULongLong, dirfd: CInt, path: String?): CInt

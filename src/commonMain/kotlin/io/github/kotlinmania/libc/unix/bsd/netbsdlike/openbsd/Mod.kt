@@ -1222,9 +1222,9 @@ public const val IFF_LINK0: CInt = 0x1000
 public const val IFF_LINK1: CInt = 0x2000
 public const val IFF_LINK2: CInt = 0x4000
 public const val IFF_MULTICAST: CInt = 0x8000
-public val PTHREAD_STACK_MIN: ULong = 1_usize shl _MAX_PAGE_SHIFT
-public val MINSIGSTKSZ: ULong = 3_usize shl _MAX_PAGE_SHIFT
-public val SIGSTKSZ: ULong = MINSIGSTKSZ + (1_usize shl _MAX_PAGE_SHIFT) * 4
+public val PTHREAD_STACK_MIN: ULong = 1uL shl _MAX_PAGE_SHIFT
+public val MINSIGSTKSZ: ULong = 3uL shl _MAX_PAGE_SHIFT
+public val SIGSTKSZ: ULong = MINSIGSTKSZ + (1uL shl _MAX_PAGE_SHIFT) * 4
 public const val PT_SET_EVENT_MASK: CInt = 12
 public const val PT_GET_EVENT_MASK: CInt = 13
 public const val PT_GET_PROCESS_STATE: CInt = 14
@@ -1312,7 +1312,7 @@ public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC
 public val LC_TIME_MASK: CInt = 1 shl LC_TIME
 public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES
 public val LC_ALL_MASK: CInt = (1 shl _LC_LAST) - 2
-public val LC_GLOBAL_LOCALE: LocaleT = -1isize.toLocaleT()
+public val LC_GLOBAL_LOCALE: LocaleT = -1L.toLocaleT()
 public const val RB_ASKNAME: CInt = 0x00001
 public const val RB_SINGLE: CInt = 0x00002
 public const val RB_NOSYNC: CInt = 0x00004
@@ -1414,7 +1414,7 @@ public expect fun freelocale(loc: LocaleT)
 public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public expect fun duplocale(base: LocaleT): LocaleT
 public expect fun explicitBzero(s: COpaquePointer?, len: ULong)
-public expect fun setproctitle(fmt: String?, ...)
+public expect fun setproctitle(fmt: String?, vararg args: Any?)
 public expect fun freezero(ptr: COpaquePointer?, size: ULong)
 public expect fun mallocConceal(size: ULong): COpaquePointer?
 public expect fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer?

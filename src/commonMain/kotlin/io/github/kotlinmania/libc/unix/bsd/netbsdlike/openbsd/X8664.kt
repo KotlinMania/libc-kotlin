@@ -47,8 +47,8 @@ public data class Fxsave64(
     val fxRdp: ULong,
     val fxMxcsr: UInt,
     val fxMxcsrMask: UInt,
-    val fxSt: List<[u64>,
-    val fxXmm: List<[u64>,
+    val fxSt: List<ULongArray>,
+    val fxXmm: List<ULongArray>,
 )
 
 public const val _MAX_PAGE_SHIFT: UInt = 12u

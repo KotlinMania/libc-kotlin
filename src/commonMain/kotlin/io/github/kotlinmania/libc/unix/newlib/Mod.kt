@@ -549,10 +549,10 @@ public const val PRIO_PGRP: CInt = 1
 public const val PRIO_USER: CInt = 2
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
 public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
@@ -568,7 +568,7 @@ public expect fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt
 public expect fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt
 public expect fun clockGetres(clockId: ClockidT, res: Timespec?): CInt
 public expect fun closesocket(sockfd: CInt): CInt
-public expect fun ioctl(fd: CInt, request: CULong, ...): CInt
+public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt
 public expect fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: Sockaddr?, addrLen: SocklenT?): Long
 public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
 public expect fun memalign(align: ULong, size: ULong): COpaquePointer?
@@ -580,7 +580,7 @@ public expect fun semClose(sem: SemT?): CInt
 public expect fun getdtablesize(): CInt
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun getgrnam(name: String?): Group?
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
 public expect fun semUnlink(name: String?): CInt
