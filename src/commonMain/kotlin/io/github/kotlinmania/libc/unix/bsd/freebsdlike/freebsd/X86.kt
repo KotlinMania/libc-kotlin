@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ClockT = CULong
 public typealias WcharT = Int

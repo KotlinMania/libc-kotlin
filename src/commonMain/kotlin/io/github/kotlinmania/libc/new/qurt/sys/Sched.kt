@@ -15,5 +15,7 @@ public const val SCHED_SPORADIC: CInt = 2
 public const val SCHED_OTHER: CInt = 3
 
 public expect fun schedYield(): CInt
+
 public expect fun schedGetPriorityMax(policy: CInt): CInt
+
 public expect fun schedGetPriorityMin(policy: CInt): CInt

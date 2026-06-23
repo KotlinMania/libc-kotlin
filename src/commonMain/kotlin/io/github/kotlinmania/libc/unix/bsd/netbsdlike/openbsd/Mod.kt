@@ -1375,66 +1375,127 @@ public const val RTAX_MAX: CInt = 15
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 
 public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
+
 public expect fun settimeofday(tp: Timeval?, tz: Timezone?): CInt
+
 public expect fun pledge(promises: String?, execpromises: String?): CInt
+
 public expect fun unveil(path: String?, permissions: String?): CInt
+
 public expect fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong
+
 public expect fun dup3(src: CInt, dst: CInt, flags: CInt): CInt
+
 public expect fun chflags(path: String?, flags: CUInt): CInt
+
 public expect fun fchflags(fd: CInt, flags: CUInt): CInt
+
 public expect fun chflagsat(fd: CInt, path: String?, flags: CUInt, atflag: CInt): CInt
+
 public expect fun dirfd(dirp: DIR?): CInt
+
 public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt
+
 public expect fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt
+
 public expect fun getresuid(ruid: UidT?, euid: UidT?, suid: UidT?): CInt
+
 public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt
+
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
 public expect fun getthrid(): PidT
+
 public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt
+
 public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt
+
 public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+
 public expect fun pthreadMainNp(): CInt
+
 public expect fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong)
+
 public expect fun pthreadSetNameNp(tid: PthreadT, name: String?)
+
 public expect fun pthreadStacksegNp(thread: PthreadT, sinfo: StackT?): CInt
+
 public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+
 public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+
 public expect fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+
 public expect fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt
+
 public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
+
 public expect fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CInt
+
 public expect fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt
+
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
+
 public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
+
 public expect fun uselocale(loc: LocaleT): LocaleT
+
 public expect fun freelocale(loc: LocaleT)
+
 public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
+
 public expect fun duplocale(base: LocaleT): LocaleT
+
 public expect fun explicitBzero(s: COpaquePointer?, len: ULong)
+
 public expect fun setproctitle(fmt: String?, vararg args: Any?)
+
 public expect fun freezero(ptr: COpaquePointer?, size: ULong)
+
 public expect fun mallocConceal(size: ULong): COpaquePointer?
+
 public expect fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer?
+
 public expect fun srand48Deterministic(seed: CLong)
+
 public expect fun seed48Deterministic(xseed: CUShort?): CUShort?
+
 public expect fun lcong48Deterministic(p: CUShort?)
+
 public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
+
 public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
+
 public expect fun hcreate(nelt: ULong): CInt
+
 public expect fun hdestroy()
+
 public expect fun hsearch(entry: ENTRY, action: ACTION): ENTRY?
+
 public expect fun futex(uaddr: UInt?, op: CInt, `val`: CInt, timeout: Timespec?, uaddr2: UInt?): CInt
+
 public expect fun mimmutable(addr: COpaquePointer?, len: ULong): CInt
+
 public expect fun reboot(mode: CInt): CInt
+
 public expect fun statfs(path: String?, buf: Statfs?): CInt
+
 public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt
+
 public expect fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt
+
 public expect fun getfsstat(buf: Statfs?, bufsize: ULong, flags: CInt): CInt
+
 public expect fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt
+
 public expect fun backtrace(addrlist: COpaquePointer?, len: ULong): ULong
+
 public expect fun backtraceSymbols(addrlist: COpaquePointer?, len: ULong): COpaquePointer?
+
 public expect fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: CInt): CInt
+
 public expect fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer?

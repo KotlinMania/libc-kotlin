@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class FpuState(
     val control: CUShort,

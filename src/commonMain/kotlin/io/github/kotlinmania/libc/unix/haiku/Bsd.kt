@@ -46,26 +46,49 @@ public val IOC_INOUT: CULong = IOC_IN or IOC_OUT
 public const val IOC_DIRMASK: CULong = 0xe0000000uL
 
 public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
+
 public expect fun getprogname(): String?
+
 public expect fun setprogname(progname: String?)
+
 public expect fun arc4random(): UInt
+
 public expect fun arc4randomUniform(upperBound: UInt): UInt
+
 public expect fun arc4randomBuf(buf: COpaquePointer?, n: ULong)
+
 public expect fun mkstemps(template: String?, suffixlen: CInt): CInt
+
 public expect fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong
+
 public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+
 public expect fun loginTty(fd: CInt): CInt
+
 public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+
 public expect fun strsep(string: COpaquePointer?, delimiters: String?): String?
+
 public expect fun explicitBzero(buf: COpaquePointer?, len: ULong)
+
 public expect fun slInit(): StringList?
+
 public expect fun slAdd(sl: StringList?, n: String?): CInt
+
 public expect fun slFree(sl: StringList?, i: CInt)
+
 public expect fun slFind(sl: StringList?, n: String?): String?
+
 public expect fun kqueue(): CInt
+
 public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt
+
 public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
+
 public expect fun lutimes(file: String?, times: Timeval?): CInt
+
 public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT

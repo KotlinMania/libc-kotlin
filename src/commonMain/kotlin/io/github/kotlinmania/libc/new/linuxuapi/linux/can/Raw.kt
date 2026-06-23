@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val SOL_CAN_RAW: CInt = SOL_CAN_BASE + CAN_RAW
 public const val CAN_RAW_FILTER_MAX: CInt = 512

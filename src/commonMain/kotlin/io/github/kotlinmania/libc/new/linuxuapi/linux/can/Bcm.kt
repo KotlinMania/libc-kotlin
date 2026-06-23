@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class BcmTimeval(
     val tvSec: CLong,

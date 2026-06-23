@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val EPERM: CInt = 1
 public const val ENOENT: CInt = 2

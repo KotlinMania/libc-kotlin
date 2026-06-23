@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.apple.xnu.mach.i386
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class DarwinMmstReg(
     val mmstReg: ByteArray,

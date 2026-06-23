@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val AV_386_FPU: UInt = 0x00001u
 public const val AV_386_TSC: UInt = 0x00002u

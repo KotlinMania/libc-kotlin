@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val _PTHREAD_MUTEX_SIG_init: CLong = 0x32AAABA7
 public const val _PTHREAD_COND_SIG_init: CLong = 0x3CB0B1BB

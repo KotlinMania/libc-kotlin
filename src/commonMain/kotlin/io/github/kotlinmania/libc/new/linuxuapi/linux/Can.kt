@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias CanidT = UInt
 public typealias CanErrMaskT = UInt
@@ -85,6 +84,7 @@ public const val CANFD_ESI: CInt = 0x02
 public const val CANFD_FDF: CInt = 0x04
 public const val CANXL_XLF: CInt = 0x80
 public const val CANXL_SEC: CInt = 0x01
+
 // CAN_MTU = size_of<CanFrame>() (struct size; computed at the FFI boundary)
 // CANFD_MTU = size_of<CanfdFrame>() (struct size; computed at the FFI boundary)
 // CANXL_MTU = size_of<CanxlFrame>() (struct size; computed at the FFI boundary)

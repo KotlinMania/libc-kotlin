@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt.sys
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val S_IFMT: ModeT = 61440
 public const val S_IFSOCK: ModeT = 49152
@@ -29,4 +28,5 @@ public const val S_IWOTH: ModeT = 2
 public const val S_IXOTH: ModeT = 1
 
 public expect fun stat(pathname: String?, statbuf: Stat?): CInt
+
 public expect fun fstat(fd: CInt, statbuf: Stat?): CInt

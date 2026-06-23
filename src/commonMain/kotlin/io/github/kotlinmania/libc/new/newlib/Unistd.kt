@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.newlib
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val _SC_ARG_MAX: CInt = 0
 public const val _SC_CHILD_MAX: CInt = 1

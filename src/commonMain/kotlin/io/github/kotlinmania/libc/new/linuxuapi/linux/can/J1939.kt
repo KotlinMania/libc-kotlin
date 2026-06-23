@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias PgnT = UInt
 public typealias PriorityT = UByte

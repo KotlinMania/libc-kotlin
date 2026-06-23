@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias PthreadKeyT = CULong
 

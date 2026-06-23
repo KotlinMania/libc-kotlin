@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.glibc.sysdeps.unix.linux.net
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class Rtentry(
     val rtPad1: CULong,

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val CHAR_BIT: CUInt = 8u
 public const val CHAR_MAX: CChar = 255

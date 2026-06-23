@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.apple.xnu.i386
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias McontextT = DarwinMcontext64?
 

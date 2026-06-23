@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val CAN_ERR_DLC: CInt = 8
 public const val CAN_ERR_TX_TIMEOUT: CUInt = 0x00000001u

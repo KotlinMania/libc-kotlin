@@ -115,17 +115,31 @@ public const val TCP_KEEPCNT: CInt = 6
 public const val EAI_SYSTEM: CInt = -11
 
 public expect fun socket(domain: CInt, type: CInt, protocol: CInt): CInt
+
 public expect fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt
+
 public expect fun bind(socket: CInt, addr: Sockaddr?, addrlen: SocklenT): CInt
+
 public expect fun listen(socket: CInt, backlog: CInt): CInt
+
 public expect fun accept(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+
 public expect fun accept4(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt
+
 public expect fun getsockname(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+
 public expect fun getpeername(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+
 public expect fun sendto(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT
+
 public expect fun recvfrom(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT
+
 public expect fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt
+
 public expect fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT): CInt
+
 public expect fun getaddrinfo(host: String?, serv: String?, hint: Addrinfo?, res: COpaquePointer?): CInt
+
 public expect fun freeaddrinfo(p: Addrinfo?)
+
 public expect fun gaiStrerror(ecode: CInt): String?

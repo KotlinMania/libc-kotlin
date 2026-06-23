@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.apple.xnu.mach.arm
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class DarwinArmExceptionState64(
     val far: ULong,

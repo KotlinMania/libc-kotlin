@@ -2,6 +2,5 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias CpuSimpleLockNvT = CUChar

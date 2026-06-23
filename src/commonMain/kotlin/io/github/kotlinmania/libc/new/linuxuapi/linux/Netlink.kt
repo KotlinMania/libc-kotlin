@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class SockaddrNl(
     val nlFamily: SaFamilyT,

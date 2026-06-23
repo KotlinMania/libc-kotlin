@@ -79,18 +79,33 @@ public const val SIGEV_THREAD: CInt = 2
 public const val SA_SIGINFO: CInt = 1
 
 public expect fun signal(sig: CInt, handler: SighandlerT): SighandlerT
+
 public expect fun kill(pid: PidT, sig: CInt): CInt
+
 public expect fun raise(sig: CInt): CInt
+
 public expect fun alarm(seconds: CUInt): CUInt
+
 public expect fun pause(): CInt
+
 public expect fun sigemptyset(set: SigsetT?): CInt
+
 public expect fun sigfillset(set: SigsetT?): CInt
+
 public expect fun sigaddset(set: SigsetT?, signum: CInt): CInt
+
 public expect fun sigdelset(set: SigsetT?, signum: CInt): CInt
+
 public expect fun sigismember(set: SigsetT?, signum: CInt): CInt
+
 public expect fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+
 public expect fun sigpending(set: SigsetT?): CInt
+
 public expect fun sigsuspend(mask: SigsetT?): CInt
+
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
+
 public expect fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt
+
 public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt

@@ -94,8 +94,13 @@ public const val SIGQUIT: CInt = 3
 public const val NSIG: ULong = 32uL
 
 public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+
 public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
+
 public expect fun gethostname(name: String?, namelen: SsizeT)
+
 public expect fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun eventfd(initval: CUInt, flags: CInt): CInt

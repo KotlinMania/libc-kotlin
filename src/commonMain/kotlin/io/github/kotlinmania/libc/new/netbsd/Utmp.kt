@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.netbsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class Lastlog(
     val llTime: TimeT,
@@ -22,6 +21,9 @@ public const val UT_LINESIZE: ULong = 8uL
 public const val UT_HOSTSIZE: ULong = 16uL
 
 public expect fun utmpname(file: String?): CInt
+
 public expect fun setutent()
+
 public expect fun getutent(): Utmp?
+
 public expect fun endutent()

@@ -8,11 +8,12 @@ public typealias DoorAttrT = CUInt
 public typealias DoorIdT = CULongLong
 public typealias LgrpAffinityT = CUInt
 
-public enum class LgrpRsrcT(public val value: UInt) {
+public enum class LgrpRsrcT(
+    public val value: UInt,
+) {
     LGRP_RSRC_CPU(0u),
     LGRP_RSRC_MEM(1u),
     LGRP_RSRC_TYPES(2u),
-    ;
 }
 
 public data class Aiocb(
@@ -119,12 +120,21 @@ public const val POSIX_SPAWN_SETSID: CShort = 0x400
 public val PRIV_USER: CUInt = PRIV_DEBUG or PRIV_PROC_SENSITIVE or NET_MAC_AWARE or NET_MAC_AWARE_INHERIT or PRIV_XPOLICY or PRIV_AWARE_RESET or PRIV_PFEXEC or PRIV_PFEXEC_AUTH or PRIV_PROC_TPD or PRIV_TPD_UNSAFE or PRIV_TPD_KILLABLE or PRIV_PROC_TPD_RESET
 
 public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt
+
 public expect fun doorCall(d: CInt, params: DoorArgT?): CInt
+
 public expect fun doorReturn(dataPtr: String?, dataSize: ULong, descPtr: DoorDescT?, numDesc: CUInt): CInt
+
 public expect fun doorCreate(serverProcedure: ((COpaquePointer?, String?, ULong, DoorDescT?, CUInt) -> Unit)?, cookie: COpaquePointer?, attributes: DoorAttrT): CInt
+
 public expect fun fattach(fildes: CInt, path: String?): CInt
+
 public expect fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt
+
 public expect fun euidaccess(path: String?, amode: CInt): CInt
+
 public expect fun openpty(amain: CInt?, asubord: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+
 public expect fun forkpty(amain: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT

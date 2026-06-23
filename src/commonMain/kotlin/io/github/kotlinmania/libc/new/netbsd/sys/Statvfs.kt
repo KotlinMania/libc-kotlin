@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.netbsd.sys
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class Statvfs(
     val fFlag: CULong,

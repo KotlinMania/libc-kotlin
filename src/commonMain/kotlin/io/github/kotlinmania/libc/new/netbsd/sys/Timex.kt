@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.netbsd.sys
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class Ntptimeval(
     val time: Timespec,
@@ -76,4 +75,5 @@ public const val TIME_WAIT: CInt = 4
 public const val TIME_ERROR: CInt = 5
 
 public expect fun ntpGettime(buf: Ntptimeval?): CInt
+
 public expect fun ntpAdjtime(buf: Timex?): CInt

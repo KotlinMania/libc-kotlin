@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.musl
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class SchedParam(
     val schedPriority: CInt,

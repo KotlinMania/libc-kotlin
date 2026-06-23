@@ -357,48 +357,93 @@ public const val ERFKILL: Int = 132
 public const val EHWPOISON: Int = 133
 
 public expect fun alloc(size: ULong, align: ULong): COpaquePointer?
+
 public expect fun allocZeroed(size: ULong, align: ULong): COpaquePointer?
+
 public expect fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer?
+
 public expect fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong)
+
 public expect fun exit(status: Int): Nothing
+
 public expect fun abort(): Nothing
+
 public expect fun errno(): Int
+
 public expect fun clockGettime(clockid: ClockidT, tp: Timespec?): Int
+
 public expect fun nanosleep(req: Timespec?): Int
+
 public expect fun availableParallelism(): ULong
+
 public expect fun futexWait(address: UInt?, expected: UInt, timeout: Timespec?, flags: UInt): Int
+
 public expect fun futexWake(address: UInt?, count: Int): Int
+
 public expect fun stat(path: String?, stat: Stat?): Int
+
 public expect fun fstat(fd: Int, stat: Stat?): Int
+
 public expect fun lstat(path: String?, stat: Stat?): Int
+
 public expect fun open(path: String?, flags: Int, mode: ModeT): Int
+
 public expect fun unlink(path: String?): Int
+
 public expect fun mkdir(path: String?, mode: ModeT): Int
+
 public expect fun rmdir(path: String?): Int
+
 public expect fun read(fd: Int, buf: COpaquePointer?, len: ULong): Long
+
 public expect fun write(fd: Int, buf: COpaquePointer?, len: ULong): Long
+
 public expect fun readv(fd: Int, iov: Iovec?, iovcnt: ULong): Long
+
 public expect fun writev(fd: Int, iov: Iovec?, iovcnt: ULong): Long
+
 public expect fun close(fd: Int): Int
+
 public expect fun dup(fd: Int): Int
+
 public expect fun fcntl(fd: Int, cmd: Int, arg: Int): Int
+
 public expect fun getdents64(fd: Int, dirp: Dirent64?, count: ULong): Long
+
 public expect fun getaddrinfo(nodename: String?, servname: String?, hints: Addrinfo?, res: COpaquePointer?): Int
+
 public expect fun freeaddrinfo(ai: Addrinfo?)
+
 public expect fun socket(domain: Int, ty: Int, protocol: Int): Int
+
 public expect fun bind(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int
+
 public expect fun listen(sockfd: Int, backlog: Int): Int
+
 public expect fun accept(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT?): Int
+
 public expect fun connect(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int
+
 public expect fun recv(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long
+
 public expect fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: Sockaddr?, addrlen: SocklenT?): Long
+
 public expect fun send(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long
+
 public expect fun sendto(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, tolen: SocklenT): Long
+
 public expect fun getpeername(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT?): Int
+
 public expect fun getsockname(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT?): Int
+
 public expect fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: SocklenT?): Int
+
 public expect fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: SocklenT): Int
+
 public expect fun ioctl(sockfd: Int, cmd: Int, argp: COpaquePointer?): Int
+
 public expect fun shutdown(sockfd: Int, how: Int): Int
+
 public expect fun eventfd(initval: ULong, flags: Short): Int
+
 public expect fun poll(fds: Pollfd?, nfds: NfdsT, timeout: Int): Int

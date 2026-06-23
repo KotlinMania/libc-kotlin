@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.nto.net
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public val BPF_LD: UShort = (0x00).toUShort()
 public val BPF_LDX: UShort = (0x01).toUShort()
@@ -45,11 +44,19 @@ public val BPF_TXA: UShort = (0x80).toUShort()
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun bPFCLASS(code: UInt): UInt
+
 public expect fun bPFSIZE(code: UInt): UInt
+
 public expect fun bPFMODE(code: UInt): UInt
+
 public expect fun bPFOP(code: UInt): UInt
+
 public expect fun bPFSRC(code: UInt): UInt
+
 public expect fun bPFRVAL(code: UInt): UInt
+
 public expect fun bPFMISCOP(code: UInt): UInt
+
 public expect fun bPFSTMT(code: UShort, k: UInt): BpfInsn
+
 public expect fun bPFJUMP(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn

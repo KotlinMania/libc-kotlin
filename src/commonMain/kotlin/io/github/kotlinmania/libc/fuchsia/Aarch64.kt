@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias U64 = CULongLong
 public typealias WcharT = UInt

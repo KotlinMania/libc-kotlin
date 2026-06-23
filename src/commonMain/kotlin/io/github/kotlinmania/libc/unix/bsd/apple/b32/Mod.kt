@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b32
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias BooleanT = CInt
 

@@ -1309,99 +1309,193 @@ public const val STATX_ATTR_DAX: CInt = 0x200000
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
+
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+
 public expect fun fDCLR(fd: CInt, set: FdSet?)
+
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
+
 public expect fun fDSET(fd: CInt, set: FdSet?)
+
 public expect fun fDZERO(set: FdSet?)
+
 public expect fun sIGRTMAX(): CInt
+
 public expect fun sIGRTMIN(): CInt
 
 public expect fun ioctl(fd: CInt, request: Ioctl, vararg args: Any?): CInt
+
 public expect fun libcCurrentSigrtmax(): CInt
+
 public expect fun libcCurrentSigrtmin(): CInt
+
 public expect fun semDestroy(sem: SemT?): CInt
+
 public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
+
 public expect fun fdatasync(fd: CInt): CInt
+
 public expect fun mincore(addr: COpaquePointer?, len: ULong, vec: COpaquePointer?): CInt
+
 public expect fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt
+
 public expect fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt
+
 public expect fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt
+
 public expect fun clockGetcpuclockid(pid: PidT, clkId: ClockidT?): CInt
+
 public expect fun getitimer(which: CInt, currValue: Itimerval?): CInt
+
 public expect fun setitimer(which: CInt, newValue: Itimerval?, oldValue: Itimerval?): CInt
+
 public expect fun dirfd(dirp: DIR?): CInt
+
 public expect fun memalign(align: ULong, size: ULong): COpaquePointer?
+
 public expect fun setgroups(ngroups: ULong, ptr: GidT?): CInt
+
 public expect fun pipe2(fds: CInt?, flags: CInt): CInt
+
 public expect fun statfs(path: String?, buf: Statfs?): CInt
+
 public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt
+
 public expect fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+
 public expect fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt
+
 public expect fun futimens(fd: CInt, times: Timespec?): CInt
+
 public expect fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: CInt): CInt
+
 public expect fun duplocale(base: LocaleT): LocaleT
+
 public expect fun freelocale(loc: LocaleT)
+
 public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
+
 public expect fun uselocale(loc: LocaleT): LocaleT
+
 public expect fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt
+
 public expect fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt
+
 public expect fun clearenv(): CInt
+
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt
+
 public expect fun getresuid(ruid: UidT?, euid: UidT?, suid: UidT?): CInt
+
 public expect fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt
+
 public expect fun acct(filename: String?): CInt
+
 public expect fun brk(addr: COpaquePointer?): CInt
+
 public expect fun sbrk(increment: IntptrT): COpaquePointer?
+
 public expect fun vfork(): PidT
+
 public expect fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt
+
 public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
+
 public expect fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT
+
 public expect fun loginTty(fd: CInt): CInt
+
 public expect fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun getifaddrs(ifap: COpaquePointer?): CInt
+
 public expect fun freeifaddrs(ifa: Ifaddrs?)
+
 public expect fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt
+
 public expect fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+
 public expect fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+
 public expect fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun uname(buf: Utsname?): CInt
+
 public expect fun strchrnul(s: String?, c: CInt): String?
+
 public expect fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): ULong
+
 public expect fun strftimeL(s: String?, max: ULong, format: String?, tm: Tm?, locale: LocaleT): ULong
+
 public expect fun strptime(s: String?, format: String?, tm: Tm?): String?
+
 public expect fun mkostemp(template: String?, flags: CInt): CInt
+
 public expect fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt
+
 public expect fun getdomainname(name: String?, len: ULong): CInt
+
 public expect fun setdomainname(name: String?, len: ULong): CInt
+
 public expect fun ifNameindex(): IfNameindex?
+
 public expect fun ifFreenameindex(ptr: IfNameindex?)
+
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun fstatfs64(fd: CInt, buf: Statfs64?): CInt
+
 public expect fun statvfs64(path: String?, buf: Statvfs64?): CInt
+
 public expect fun fstatvfs64(fd: CInt, buf: Statvfs64?): CInt
+
 public expect fun statfs64(path: String?, buf: Statfs64?): CInt
+
 public expect fun creat64(path: String?, mode: ModeT): CInt
+
 public expect fun fstat64(fildes: CInt, buf: Stat64?): CInt
+
 public expect fun fstatat64(dirfd: CInt, pathname: String?, buf: Stat64?, flags: CInt): CInt
+
 public expect fun ftruncate64(fd: CInt, length: Off64T): CInt
+
 public expect fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T
+
 public expect fun lstat64(path: String?, buf: Stat64?): CInt
+
 public expect fun mmap64(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer?
+
 public expect fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt
+
 public expect fun openat64(fd: CInt, path: String?, oflag: CInt, vararg args: Any?): CInt
+
 public expect fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt
+
 public expect fun pread64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT
+
 public expect fun pwrite64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT
+
 public expect fun readdir64(dirp: DIR?): Dirent64?
+
 public expect fun readdir64R(dirp: DIR?, entry: Dirent64?, result: COpaquePointer?): CInt
+
 public expect fun stat64(path: String?, buf: Stat64?): CInt
+
 public expect fun truncate64(path: String?, length: Off64T): CInt
+
 public expect fun preadv64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+
 public expect fun pwritev64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+
 public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+
 public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+
 public expect fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUInt, statxbuf: Statx?): CInt

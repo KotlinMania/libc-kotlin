@@ -227,12 +227,21 @@ public const val DOMAINSET_POLICY_INTERLEAVE: CInt = 4
 public const val MINCORE_SUPER: CInt = 0x60
 
 public expect fun setgrent()
+
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
 public expect fun freelocale(loc: LocaleT)
+
 public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT
+
 public expect fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: DomainsetT?, policy: CInt?): CInt
+
 public expect fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: DomainsetT?, policy: CInt): CInt
+
 public expect fun dirname(path: String?): String?
+
 public expect fun basename(path: String?): String?
+
 public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
+
 public expect fun kvmKerndisp(kd: KvmT?): KssizeT

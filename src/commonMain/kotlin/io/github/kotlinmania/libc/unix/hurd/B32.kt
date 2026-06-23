@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias Int64T = CLongLong
 public typealias Uint64T = CULongLong

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val PTHREAD_CREATE_JOINABLE: CInt = 1
 public const val PTHREAD_CREATE_DETACHED: CInt = 2

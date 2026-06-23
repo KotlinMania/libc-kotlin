@@ -31,7 +31,7 @@ public typealias IdT = CUInt
  * Represents a 32-bit IPv4 address.
  */
 public data class InAddr(
-    val sAddr: CUInt
+    val sAddr: CUInt,
 )
 
 /**
@@ -41,7 +41,7 @@ public data class InAddr(
  */
 public data class IpMreq(
     val imrMultiaddr: InAddr,
-    val imrInterface: InAddr
+    val imrInterface: InAddr,
 )
 
 /**
@@ -52,7 +52,7 @@ public data class IpMreq(
 public data class IpMreqn(
     val imrMultiaddr: InAddr,
     val imrAddress: InAddr,
-    val imrIfindex: CInt
+    val imrIfindex: CInt,
 )
 
 /**
@@ -63,7 +63,7 @@ public data class IpMreqn(
 public data class IpMreqSource(
     val imrMultiaddr: InAddr,
     val imrInterface: InAddr,
-    val imrSourceaddr: InAddr
+    val imrSourceaddr: InAddr,
 )
 
 /**
@@ -73,7 +73,7 @@ public data class IpMreqSource(
  */
 public data class Sockaddr(
     val saFamily: CUShort,
-    val saData: ByteArray
+    val saData: ByteArray,
 ) {
     init {
         require(saData.size == 14) { "Socket address data must be exactly 14 bytes" }
@@ -104,7 +104,7 @@ public data class SockaddrIn(
     val sinFamily: CUShort,
     val sinPort: CUShort,
     val sinAddr: InAddr,
-    val sinZero: ByteArray
+    val sinZero: ByteArray,
 ) {
     init {
         require(sinZero.size == 8) { "Socket address padding must be exactly 8 bytes" }
@@ -137,7 +137,7 @@ public data class SockaddrIn(
  * In the upstream Rust code, this is marked with `repr(align(4))` for 4-byte alignment.
  */
 public data class In6Addr(
-    val s6Addr: ByteArray
+    val s6Addr: ByteArray,
 ) {
     init {
         require(s6Addr.size == 16) { "IPv6 address must be exactly 16 bytes" }
@@ -150,9 +150,7 @@ public data class In6Addr(
         return s6Addr.contentEquals(other.s6Addr)
     }
 
-    override fun hashCode(): Int {
-        return s6Addr.contentHashCode()
-    }
+    override fun hashCode(): Int = s6Addr.contentHashCode()
 }
 
 /**
@@ -165,7 +163,7 @@ public data class SockaddrIn6(
     val sin6Port: CUShort,
     val sin6Flowinfo: CUInt,
     val sin6Addr: In6Addr,
-    val sin6ScopeId: CUInt
+    val sin6ScopeId: CUInt,
 )
 
 /**
@@ -179,7 +177,7 @@ public data class SockaddrIn6(
  */
 public data class Ipv6Mreq(
     val ipv6mrMultiaddr: In6Addr,
-    val ipv6mrInterface: CInt
+    val ipv6mrInterface: CInt,
 )
 
 /**
@@ -194,7 +192,7 @@ public data class SockaddrLl(
     val sllHatype: CUShort,
     val sllPkttype: UByte,
     val sllHalen: UByte,
-    val sllAddr: ByteArray
+    val sllAddr: ByteArray,
 ) {
     init {
         require(sllAddr.size == 8) { "Link layer address must be exactly 8 bytes" }
@@ -233,7 +231,7 @@ public data class SockaddrLl(
  */
 public data class SockaddrUn(
     val sunFamily: CUShort,
-    val sunPath: ByteArray
+    val sunPath: ByteArray,
 ) {
     init {
         require(sunPath.size == 108) { "Unix socket path must be exactly 108 bytes" }
@@ -267,7 +265,7 @@ public data class SockaddrUn(
  */
 public data class SockaddrStorage(
     val ssFamily: CUShort,
-    val padding: ByteArray
+    val padding: ByteArray,
 ) {
     init {
         // Platform-specific size: 126 bytes for 32-bit, 118 bytes for 64-bit
@@ -308,7 +306,7 @@ public data class Addrinfo(
     val aiAddrlen: CUInt,
     val aiAddr: ByteArray?,
     val aiCanonname: String?,
-    val aiNext: Addrinfo?
+    val aiNext: Addrinfo?,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -322,7 +320,9 @@ public data class Addrinfo(
         if (aiAddr != null) {
             if (other.aiAddr == null) return false
             if (!aiAddr.contentEquals(other.aiAddr)) return false
-        } else if (other.aiAddr != null) return false
+        } else if (other.aiAddr != null) {
+            return false
+        }
         if (aiCanonname != other.aiCanonname) return false
         if (aiNext != other.aiNext) return false
         return true
@@ -349,9 +349,7 @@ public data class Addrinfo(
  */
 public data class Linger(
     val lOnoff: CInt,
-    val lLinger: CInt
+    val lLinger: CInt,
 )
 
-internal fun cmsgAlign(len: ULong): ULong {
-    return (len + ULong.SIZE_BYTES.toULong() - 1uL) and (ULong.SIZE_BYTES.toULong() - 1uL).inv()
-}
+internal fun cmsgAlign(len: ULong): ULong = (len + ULong.SIZE_BYTES.toULong() - 1uL) and (ULong.SIZE_BYTES.toULong() - 1uL).inv()

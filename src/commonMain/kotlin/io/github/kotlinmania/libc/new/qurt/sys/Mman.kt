@@ -27,10 +27,17 @@ public const val MCL_CURRENT: CInt = 0x01
 public const val MCL_FUTURE: CInt = 0x02
 
 public expect fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer?
+
 public expect fun munmap(addr: COpaquePointer?, len: ULong): CInt
+
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
 public expect fun mlock(addr: COpaquePointer?, len: ULong): CInt
+
 public expect fun munlock(addr: COpaquePointer?, len: ULong): CInt
+
 public expect fun mlockall(flags: CInt): CInt
+
 public expect fun munlockall(): CInt
+
 public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt

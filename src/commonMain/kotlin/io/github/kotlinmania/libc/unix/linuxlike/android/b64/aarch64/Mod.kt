@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b64.aarch64
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias WcharT = UInt
 public typealias U64 = CULongLong

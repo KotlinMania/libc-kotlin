@@ -7,5 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 public const val EOTHER: CInt = 131
 
 public expect fun stricmp(s1: String?, s2: String?): CInt
+
 public expect fun strnicmp(s1: String?, s2: String?, n: ULong): CInt
+
 public expect fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: ULong): COpaquePointer?

@@ -2,6 +2,5 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public expect fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: UintptrT?): UintptrT

@@ -163,27 +163,51 @@ public val TFD_TIMER_ABSTIME: Int = 1 shl 0
 public val TFD_TIMER_CANCEL_ON_SET: Int = 1 shl 1
 
 public expect fun eventfd(initval: CUInt, flags: CInt): CInt
+
 public expect fun epollPwait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt, sigmask: SigsetT?): CInt
+
 public expect fun epollCreate(size: CInt): CInt
+
 public expect fun epollCreate1(flags: CInt): CInt
+
 public expect fun epollWait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt): CInt
+
 public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: EpollEvent?): CInt
+
 public expect fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt
+
 public expect fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: PsetidT?): CInt
+
 public expect fun psetGetloadavg(pset: PsetidT, load: CDouble?, num: CInt): CInt
+
 public expect fun pthreadAttrGetNp(thread: PthreadT, attr: PthreadAttrT?): CInt
+
 public expect fun pthreadAttrGetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+
 public expect fun pthreadAttrSetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong): CInt
+
 public expect fun pthreadAttrSetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+
 public expect fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt
+
 public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun getpagesizes2(pagesize: ULong?, nelem: CInt): CInt
+
 public expect fun posixSpawnFileActionsAddfchdirNp(fileActions: PosixSpawnFileActionsT?, fd: CInt): CInt
+
 public expect fun ptsnameR(fildes: CInt, name: String?, namelen: ULong): CInt
+
 public expect fun syncfs(fd: CInt): CInt
+
 public expect fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt
+
 public expect fun strncasecmpL(s1: String?, s2: String?, n: ULong, loc: LocaleT): CInt
+
 public expect fun timerfdCreate(clockid: CInt, flags: CInt): CInt
+
 public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt
+
 public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt

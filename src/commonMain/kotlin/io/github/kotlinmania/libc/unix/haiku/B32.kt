@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias TimeT = Int
 public typealias ElfAddr = Elf32Addr

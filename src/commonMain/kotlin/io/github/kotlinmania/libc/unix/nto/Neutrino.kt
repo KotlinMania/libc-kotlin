@@ -433,195 +433,387 @@ public const val _NTO_CLIENTINFO_GETGROUPS: UInt = 1u
 public const val _NTO_CLIENTINFO_GETTYPEID: UInt = 2u
 
 public expect fun channelCreate(flags: CUInt): CInt
+
 public expect fun channelCreateR(flags: CUInt): CInt
+
 public expect fun channelCreatePulsePool(flags: CUInt, config: NtoChannelConfig?): CInt
+
 public expect fun channelCreateExt(flags: CUInt, mode: ModeT, bufsize: ULong, maxnumbuf: CUInt, ev: Sigevent?, cred: CredInfo?): CInt
+
 public expect fun channelDestroy(chid: CInt): CInt
+
 public expect fun channelDestroyR(chid: CInt): CInt
+
 public expect fun connectAttach(nd: UInt, pid: PidT, chid: CInt, index: CUInt, flags: CInt): CInt
+
 public expect fun connectAttachR(nd: UInt, pid: PidT, chid: CInt, index: CUInt, flags: CInt): CInt
+
 public expect fun connectDetach(coid: CInt): CInt
+
 public expect fun connectDetachR(coid: CInt): CInt
+
 public expect fun connectServerInfo(pid: PidT, coid: CInt, info: MsgInfo64?): CInt
+
 public expect fun connectServerInfoR(pid: PidT, coid: CInt, info: MsgInfo64?): CInt
+
 public expect fun connectClientInfoExtraArgs(scoid: CInt, infoPp: ClientInfo?, ngroups: CInt, abilities: ClientAble?, nable: CInt, typeId: CUInt?): CInt
+
 public expect fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: ClientInfo?, ngroups: CInt, abilities: ClientAble?, nable: CInt, typeId: CUInt?): CInt
+
 public expect fun connectClientInfo(scoid: CInt, info: ClientInfo?, ngroups: CInt): CInt
+
 public expect fun connectClientInfoR(scoid: CInt, info: ClientInfo?, ngroups: CInt): CInt
+
 public expect fun connectClientInfoExt(scoid: CInt, infoPp: COpaquePointer?, flags: CInt): CInt
+
 public expect fun clientInfoExtFree(infoPp: COpaquePointer?): CInt
+
 public expect fun connectClientInfoAble(scoid: CInt, infoPp: COpaquePointer?, flags: CInt, abilities: ClientAble?, nable: CInt): CInt
+
 public expect fun connectFlags(pid: PidT, coid: CInt, mask: CUInt, bits: CUInt): CInt
+
 public expect fun connectFlagsR(pid: PidT, coid: CInt, mask: CUInt, bits: CUInt): CInt
+
 public expect fun channelConnectAttr(id: CUInt, oldAttr: ChannelConnectAttr?, newAttr: ChannelConnectAttr?, flags: CUInt): CInt
+
 public expect fun msgSend(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendnc(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendncR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendsv(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgSendsvR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgSendsvnc(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgSendsvncR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgSendvs(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendvsR(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendvsnc(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendvsncR(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+
 public expect fun msgSendv(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgSendvR(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgSendvnc(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgSendvncR(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong
+
 public expect fun msgReceive(chid: CInt, msg: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReceiveR(chid: CInt, msg: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReceivev(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReceivevR(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReceivePulse(chid: CInt, pulse: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReceivePulseR(chid: CInt, pulse: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReceivePulsev(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReceivePulsevR(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt
+
 public expect fun msgReply(rcvid: CInt, status: CLong, msg: COpaquePointer?, bytes: ULong): CInt
+
 public expect fun msgReplyR(rcvid: CInt, status: CLong, msg: COpaquePointer?, bytes: ULong): CInt
+
 public expect fun msgReplyv(rcvid: CInt, status: CLong, iov: Iovec?, parts: ULong): CInt
+
 public expect fun msgReplyvR(rcvid: CInt, status: CLong, iov: Iovec?, parts: ULong): CInt
+
 public expect fun msgReadiov(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong, flags: CInt): Long
+
 public expect fun msgReadiovR(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong, flags: CInt): Long
+
 public expect fun msgRead(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+
 public expect fun msgReadR(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+
 public expect fun msgReadv(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long
+
 public expect fun msgReadvR(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long
+
 public expect fun msgWrite(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+
 public expect fun msgWriteR(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+
 public expect fun msgWritev(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long
+
 public expect fun msgWritevR(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long
+
 public expect fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt
+
 public expect fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt
+
 public expect fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: COpaquePointer?): CInt
+
 public expect fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: COpaquePointer?): CInt
+
 public expect fun msgDeliverEvent(rcvid: CInt, event: Sigevent?): CInt
+
 public expect fun msgDeliverEventR(rcvid: CInt, event: Sigevent?): CInt
+
 public expect fun msgVerifyEvent(rcvid: CInt, event: Sigevent?): CInt
+
 public expect fun msgVerifyEventR(rcvid: CInt, event: Sigevent?): CInt
+
 public expect fun msgRegisterEvent(event: Sigevent?, coid: CInt): CInt
+
 public expect fun msgRegisterEventR(event: Sigevent?, coid: CInt): CInt
+
 public expect fun msgUnregisterEvent(event: Sigevent?): CInt
+
 public expect fun msgUnregisterEventR(event: Sigevent?): CInt
+
 public expect fun msgInfo(rcvid: CInt, info: MsgInfo64?): CInt
+
 public expect fun msgInfoR(rcvid: CInt, info: MsgInfo64?): CInt
+
 public expect fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: UInt?, iov: Iovec?, parts: CInt): CInt
+
 public expect fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: UInt?, iov: Iovec?, parts: CInt): CInt
+
 public expect fun msgError(rcvid: CInt, err: CInt): CInt
+
 public expect fun msgErrorR(rcvid: CInt, err: CInt): CInt
+
 public expect fun msgCurrent(rcvid: CInt): CInt
+
 public expect fun msgCurrentR(rcvid: CInt): CInt
+
 public expect fun msgSendAsyncGbl(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, msgPrio: CUInt): CInt
+
 public expect fun msgSendAsync(coid: CInt): CInt
+
 public expect fun msgReceiveAsyncGbl(chid: CInt, rmsg: COpaquePointer?, rbytes: ULong, info: MsgInfo64?, coid: CInt): CInt
+
 public expect fun msgReceiveAsync(chid: CInt, iov: Iovec?, parts: CUInt): CInt
+
 public expect fun msgPause(rcvid: CInt, cookie: CUInt): CInt
+
 public expect fun msgPauseR(rcvid: CInt, cookie: CUInt): CInt
+
 public expect fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt
+
 public expect fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt
+
 public expect fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: Sigval?): CInt
+
 public expect fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: Sigval?): CInt
+
 public expect fun signalReturn(info: SighandlerInfo?): CInt
+
 public expect fun signalFault(sigcode: CUInt, regs: COpaquePointer?, refaddr: ULong): CInt
+
 public expect fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt
+
 public expect fun signalActionR(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt
+
 public expect fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+
 public expect fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+
 public expect fun signalSuspend(set: SigsetT?): CInt
+
 public expect fun signalSuspendR(set: SigsetT?): CInt
+
 public expect fun signalWaitinfo(set: SigsetT?, info: SiginfoT?): CInt
+
 public expect fun signalWaitinfoR(set: SigsetT?, info: SiginfoT?): CInt
+
 public expect fun signalWaitinfoMask(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): CInt
+
 public expect fun signalWaitinfoMaskR(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): CInt
+
 public expect fun threadCreate(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt
+
 public expect fun threadCreateR(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt
+
 public expect fun threadDestroy(tid: CInt, priority: CInt, status: COpaquePointer?): CInt
+
 public expect fun threadDestroyR(tid: CInt, priority: CInt, status: COpaquePointer?): CInt
+
 public expect fun threadDetach(tid: CInt): CInt
+
 public expect fun threadDetachR(tid: CInt): CInt
+
 public expect fun threadJoin(tid: CInt, status: COpaquePointer?): CInt
+
 public expect fun threadJoinR(tid: CInt, status: COpaquePointer?): CInt
+
 public expect fun threadCancel(tid: CInt, canstub: (() -> Unit)?): CInt
+
 public expect fun threadCancelR(tid: CInt, canstub: (() -> Unit)?): CInt
+
 public expect fun threadCtl(cmd: CInt, data: COpaquePointer?): CInt
+
 public expect fun threadCtlR(cmd: CInt, data: COpaquePointer?): CInt
+
 public expect fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt
+
 public expect fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt
+
 public expect fun interruptHookTrace(handler: ((CInt) -> Sigevent?)?, flags: CUInt): CInt
+
 public expect fun interruptHookIdle(handler: ((ULong?, QtimeEntry?) -> Unit)?, flags: CUInt): CInt
+
 public expect fun interruptHookIdle2(handler: (() -> Unit)?, flags: CUInt): CInt
+
 public expect fun interruptHookOverdriveEvent(event: Sigevent?, flags: CUInt): CInt
+
 public expect fun interruptAttachEvent(intr: CInt, event: Sigevent?, flags: CUInt): CInt
+
 public expect fun interruptAttachEventR(intr: CInt, event: Sigevent?, flags: CUInt): CInt
+
 public expect fun interruptAttach(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
+
 public expect fun interruptAttachR(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
+
 public expect fun interruptAttachArray(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
+
 public expect fun interruptAttachArrayR(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
+
 public expect fun interruptDetach(id: CInt): CInt
+
 public expect fun interruptDetachR(id: CInt): CInt
+
 public expect fun interruptWait(flags: CInt, timeout: ULong?): CInt
+
 public expect fun interruptWaitR(flags: CInt, timeout: ULong?): CInt
+
 public expect fun interruptCharacteristic(type: CInt, id: CInt, new: CUInt?, old: CUInt?): CInt
+
 public expect fun interruptCharacteristicR(type: CInt, id: CInt, new: CUInt?, old: CUInt?): CInt
+
 public expect fun schedGet(pid: PidT, tid: CInt, param: SchedParam?): CInt
+
 public expect fun schedGetR(pid: PidT, tid: CInt, param: SchedParam?): CInt
+
 public expect fun schedGetCpuNum(): CUInt
+
 public expect fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: SchedParam?): CInt
+
 public expect fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: SchedParam?): CInt
+
 public expect fun schedInfo(pid: PidT, algorithm: CInt, info: SchedInfo?): CInt
+
 public expect fun schedInfoR(pid: PidT, algorithm: CInt, info: SchedInfo?): CInt
+
 public expect fun schedYield(): CInt
+
 public expect fun schedYieldR(): CInt
+
 public expect fun schedCtl(cmd: CInt, data: COpaquePointer?, length: ULong): CInt
+
 public expect fun schedCtlR(cmd: CInt, data: COpaquePointer?, length: ULong): CInt
+
 public expect fun schedJobCreate(job: NtoJobT?): CInt
+
 public expect fun schedJobCreateR(job: NtoJobT?): CInt
+
 public expect fun schedJobDestroy(job: NtoJobT?): CInt
+
 public expect fun schedJobDestroyR(job: NtoJobT?): CInt
+
 public expect fun schedWaypoint(job: NtoJobT?, new: Long?, max: Long?, old: Long?): CInt
+
 public expect fun schedWaypointR(job: NtoJobT?, new: Long?, max: Long?, old: Long?): CInt
+
 public expect fun timerCreate(id: ClockidT, notify: Sigevent?): CInt
+
 public expect fun timerCreateR(id: ClockidT, notify: Sigevent?): CInt
+
 public expect fun timerDestroy(id: TimerT): CInt
+
 public expect fun timerDestroyR(id: TimerT): CInt
+
 public expect fun timerSettime(id: TimerT, flags: CInt, itime: Itimer?, oitime: Itimer?): CInt
+
 public expect fun timerSettimeR(id: TimerT, flags: CInt, itime: Itimer?, oitime: Itimer?): CInt
+
 public expect fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: TimerInfo?): CInt
+
 public expect fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: TimerInfo?): CInt
+
 public expect fun timerAlarm(id: ClockidT, itime: Itimer?, otime: Itimer?): CInt
+
 public expect fun timerAlarmR(id: ClockidT, itime: Itimer?, otime: Itimer?): CInt
+
 public expect fun timerTimeout(id: ClockidT, flags: CInt, notify: Sigevent?, ntime: ULong?, otime: ULong?): CInt
+
 public expect fun timerTimeoutR(id: ClockidT, flags: CInt, notify: Sigevent?, ntime: ULong?, otime: ULong?): CInt
+
 public expect fun syncTypeCreate(type: CUInt, sync: SyncT?, attr: SyncAttr?): CInt
+
 public expect fun syncTypeCreateR(type: CUInt, sync: SyncT?, attr: SyncAttr?): CInt
+
 public expect fun syncDestroy(sync: SyncT?): CInt
+
 public expect fun syncDestroyR(sync: SyncT?): CInt
+
 public expect fun syncCtl(cmd: CInt, sync: SyncT?, data: COpaquePointer?): CInt
+
 public expect fun syncCtlR(cmd: CInt, sync: SyncT?, data: COpaquePointer?): CInt
+
 public expect fun syncMutexEvent(sync: SyncT?, event: Sigevent?): CInt
+
 public expect fun syncMutexEventR(sync: SyncT?, event: Sigevent?): CInt
+
 public expect fun syncMutexLock(sync: SyncT?): CInt
+
 public expect fun syncMutexLockR(sync: SyncT?): CInt
+
 public expect fun syncMutexUnlock(sync: SyncT?): CInt
+
 public expect fun syncMutexUnlockR(sync: SyncT?): CInt
+
 public expect fun syncMutexRevive(sync: SyncT?): CInt
+
 public expect fun syncMutexReviveR(sync: SyncT?): CInt
+
 public expect fun syncCondvarWait(sync: SyncT?, mutex: SyncT?): CInt
+
 public expect fun syncCondvarWaitR(sync: SyncT?, mutex: SyncT?): CInt
+
 public expect fun syncCondvarSignal(sync: SyncT?, all: CInt): CInt
+
 public expect fun syncCondvarSignalR(sync: SyncT?, all: CInt): CInt
+
 public expect fun syncSemPost(sync: SyncT?): CInt
+
 public expect fun syncSemPostR(sync: SyncT?): CInt
+
 public expect fun syncSemWait(sync: SyncT?, tryto: CInt): CInt
+
 public expect fun syncSemWaitR(sync: SyncT?, tryto: CInt): CInt
+
 public expect fun clockTime(id: ClockidT, new: ULong?, old: ULong?): CInt
+
 public expect fun clockTimeR(id: ClockidT, new: ULong?, old: ULong?): CInt
+
 public expect fun clockAdjust(id: ClockidT, new: Clockadjust?, old: Clockadjust?): CInt
+
 public expect fun clockAdjustR(id: ClockidT, new: Clockadjust?, old: Clockadjust?): CInt
+
 public expect fun clockPeriod(id: ClockidT, new: Clockperiod?, old: Clockperiod?, reserved: CInt): CInt
+
 public expect fun clockPeriodR(id: ClockidT, new: Clockperiod?, old: Clockperiod?, reserved: CInt): CInt
+
 public expect fun clockId(pid: PidT, tid: CInt): CInt
+
 public expect fun clockIdR(pid: PidT, tid: CInt): CInt
+
 public expect fun interruptMask(intr: CInt, id: CInt): CInt
+
 public expect fun interruptUnmask(intr: CInt, id: CInt): CInt

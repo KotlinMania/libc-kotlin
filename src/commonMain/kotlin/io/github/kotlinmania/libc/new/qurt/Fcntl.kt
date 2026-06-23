@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val O_RDONLY: CInt = 0x0000
 public const val O_WRONLY: CInt = 0x0001
@@ -35,5 +34,7 @@ public const val F_WRLCK: CInt = 1
 public const val F_UNLCK: CInt = 2
 
 public expect fun open(pathname: String?, flags: CInt, vararg args: Any?): CInt
+
 public expect fun creat(pathname: String?, mode: ModeT): CInt
+
 public expect fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt
