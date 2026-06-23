@@ -1999,7 +1999,7 @@ public data class SceNetAdhocctlScanInfo(
 
 public data class SceNetAdhocctlGameModeInfo(
     val count: Int,
-    val macs: List<[u8>,
+    val macs: List<UByteArray>,
 )
 
 public data class SceNetAdhocPtpStat(
@@ -2152,7 +2152,7 @@ public data class SceUtilitySavedataParam(
     val gameName: UByteArray,
     val reserved: UByteArray,
     val saveName: UByteArray,
-    val saveNameList: [u8; 20usize]?,
+    val saveNameList: UByteArray?,
     val fileName: UByteArray,
     val reserved1: UByteArray,
     val dataBuf: COpaquePointer?,
@@ -2229,8 +2229,8 @@ public data class ScePspMatrix2(
     val fv: List<ScePspFVector2>? = null,
     val iv: List<ScePspIVector2>? = null,
     val v: List<ScePspVector2>? = null,
-    val f: List<[f32>? = null,
-    val i: List<[i32>? = null,
+    val f: List<FloatArray>? = null,
+    val i: List<IntArray>? = null,
 )
 
 // C union; only one variant is valid at a time.
@@ -2240,8 +2240,8 @@ public data class ScePspMatrix3(
     val fv: List<ScePspFVector3>? = null,
     val iv: List<ScePspIVector3>? = null,
     val v: List<ScePspVector3>? = null,
-    val f: List<[f32>? = null,
-    val i: List<[i32>? = null,
+    val f: List<FloatArray>? = null,
+    val i: List<IntArray>? = null,
 )
 
 // C union; only one variant is valid at a time.
@@ -2259,8 +2259,8 @@ public data class ScePspMatrix4(
     val fv: List<ScePspFVector4>? = null,
     val iv: List<ScePspIVector4>? = null,
     val v: List<ScePspVector4>? = null,
-    val f: List<[f32>? = null,
-    val i: List<[i32>? = null,
+    val f: List<FloatArray>? = null,
+    val i: List<IntArray>? = null,
 )
 
 // C union; only one variant is valid at a time.
@@ -2926,8 +2926,8 @@ public expect fun sceMpegBaseCscInit(width: Int): Int
 public expect fun sceMpegBaseCscVme(rgbBuffer: COpaquePointer?, rgbBuffer2: COpaquePointer?, width: Int, yCrCbBuffer: SceMpegYCrCbBuffer?): Int
 public expect fun sceMpegbaseBEA18F91(lli: SceMpegLLI?): Int
 public expect fun sceHprmPeekCurrentKey(key: Int?): Int
-public expect fun sceHprmPeekLatch(latch: [u32; 4]?): Int
-public expect fun sceHprmReadLatch(latch: [u32; 4]?): Int
+public expect fun sceHprmPeekLatch(latch: UIntArray?): Int
+public expect fun sceHprmReadLatch(latch: UIntArray?): Int
 public expect fun sceHprmIsHeadphoneExist(): Int
 public expect fun sceHprmIsRemoteExist(): Int
 public expect fun sceHprmIsMicrophoneExist(): Int

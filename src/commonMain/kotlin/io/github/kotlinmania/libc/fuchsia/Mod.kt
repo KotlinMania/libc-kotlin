@@ -1830,13 +1830,13 @@ public const val QFMT_VFS_V0: CInt = 2
 public const val QFMT_VFS_V1: CInt = 4
 public const val EFD_SEMAPHORE: CInt = 0x1
 public const val LOG_NFACILITIES: CInt = 24
-public val RB_AUTOBOOT: CInt = 0x01234567u32.toInt()
-public val RB_HALT_SYSTEM: CInt = 0xcdef0123u32.toInt()
-public val RB_ENABLE_CAD: CInt = 0x89abcdefu32.toInt()
-public val RB_DISABLE_CAD: CInt = 0x00000000u32.toInt()
-public val RB_POWER_OFF: CInt = 0x4321fedcu32.toInt()
-public val RB_SW_SUSPEND: CInt = 0xd000fce2u32.toInt()
-public val RB_KEXEC: CInt = 0x45584543u32.toInt()
+public val RB_AUTOBOOT: CInt = 0x01234567.toInt()
+public val RB_HALT_SYSTEM: CInt = 0xcdef0123.toInt()
+public val RB_ENABLE_CAD: CInt = 0x89abcdef.toInt()
+public val RB_DISABLE_CAD: CInt = 0x00000000.toInt()
+public val RB_POWER_OFF: CInt = 0x4321fedc.toInt()
+public val RB_SW_SUSPEND: CInt = 0xd000fce2.toInt()
+public val RB_KEXEC: CInt = 0x45584543.toInt()
 public const val AI_PASSIVE: CInt = 0x0001
 public const val AI_CANONNAME: CInt = 0x0002
 public const val AI_NUMERICHOST: CInt = 0x0004
@@ -2111,7 +2111,7 @@ public const val FOPEN_MAX: CUInt = 1000u
 public const val O_PATH: CInt = 0x00400000
 public const val O_EXEC: CInt = O_PATH
 public const val O_SEARCH: CInt = O_PATH
-public val O_ACCMODE: CInt = 03 or O_SEARCH
+public val O_ACCMODE: CInt = 3 or O_SEARCH
 public const val O_NDELAY: CInt = O_NONBLOCK
 public const val NI_MAXHOST: SocklenT = 255
 public const val PTHREAD_STACK_MIN: ULong = 2048uL
@@ -2508,15 +2508,15 @@ public const val HUGETLB_FLAG_ENCODE_SHIFT: UInt = 26u
 public const val MAP_HUGE_SHIFT: UInt = 26u
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
-public expect fun cPUEQUAL(set1: &cpuSetT, set2: &cpuSetT): Boolean
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
@@ -2576,9 +2576,8 @@ public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer?
 public expect fun malloc(size: ULong): COpaquePointer?
 public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
 public expect fun free(p: COpaquePointer?)
-public expect fun abort(): !
-public expect fun exit(status: CInt): !
-public expect fun exit(status: CInt): !
+public expect fun abort(): Nothing
+public expect fun exit(status: CInt): Nothing
 public expect fun atexit(cb: (() -> Unit)?): CInt
 public expect fun system(s: String?): CInt
 public expect fun getenv(s: String?): String?
@@ -2615,13 +2614,13 @@ public expect fun rand(): CInt
 public expect fun srand(seed: CUInt)
 public expect fun getpwnam(name: String?): Passwd?
 public expect fun getpwuid(uid: UidT): Passwd?
-public expect fun fprintf(stream: FILE?, format: String?, ...): CInt
-public expect fun printf(format: String?, ...): CInt
-public expect fun snprintf(s: String?, n: ULong, format: String?, ...): CInt
-public expect fun sprintf(s: String?, format: String?, ...): CInt
-public expect fun fscanf(stream: FILE?, format: String?, ...): CInt
-public expect fun scanf(format: String?, ...): CInt
-public expect fun sscanf(s: String?, format: String?, ...): CInt
+public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun printf(format: String?, vararg args: Any?): CInt
+public expect fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt
+public expect fun sprintf(s: String?, format: String?, vararg args: Any?): CInt
+public expect fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun scanf(format: String?, vararg args: Any?): CInt
+public expect fun sscanf(s: String?, format: String?, vararg args: Any?): CInt
 public expect fun getcharUnlocked(): CInt
 public expect fun putcharUnlocked(c: CInt): CInt
 public expect fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt
@@ -2642,15 +2641,15 @@ public expect fun stat(path: String?, buf: Stat?): CInt
 public expect fun pclose(stream: FILE?): CInt
 public expect fun fdopen(fd: CInt, mode: String?): FILE?
 public expect fun fileno(stream: FILE?): CInt
-public expect fun open(path: String?, oflag: CInt, ...): CInt
+public expect fun open(path: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun creat(path: String?, mode: ModeT): CInt
-public expect fun fcntl(fd: CInt, cmd: CInt, ...): CInt
+public expect fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun opendir(dirname: String?): DIR?
 public expect fun readdir(dirp: DIR?): Dirent?
 public expect fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt
 public expect fun closedir(dirp: DIR?): CInt
 public expect fun rewinddir(dirp: DIR?)
-public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, ...): CInt
+public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg args: Any?): CInt
 public expect fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt
 public expect fun fchown(fd: CInt, owner: UidT, group: GidT): CInt
 public expect fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt
@@ -2669,9 +2668,9 @@ public expect fun lchown(path: String?, uid: UidT, gid: GidT): CInt
 public expect fun close(fd: CInt): CInt
 public expect fun dup(fd: CInt): CInt
 public expect fun dup2(src: CInt, dst: CInt): CInt
-public expect fun execl(path: String?, arg0: String?, ...): CInt
-public expect fun execle(path: String?, arg0: String?, ...): CInt
-public expect fun execlp(file: String?, arg0: String?, ...): CInt
+public expect fun execl(path: String?, arg0: String?, vararg args: Any?): CInt
+public expect fun execle(path: String?, arg0: String?, vararg args: Any?): CInt
+public expect fun execlp(file: String?, arg0: String?, vararg args: Any?): CInt
 public expect fun execv(prog: String?, argv: COpaquePointer?): CInt
 public expect fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 public expect fun execvp(c: String?, argv: COpaquePointer?): CInt
@@ -2739,7 +2738,7 @@ public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
 public expect fun times(buf: Tms?): ClockT
 public expect fun pthreadSelf(): PthreadT
 public expect fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt
-public expect fun pthreadExit(value: COpaquePointer?): !
+public expect fun pthreadExit(value: COpaquePointer?): Nothing
 public expect fun pthreadAttrInit(attr: PthreadAttrT?): CInt
 public expect fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt
 public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT?, stacksize: ULong?): CInt
@@ -2853,7 +2852,7 @@ public expect fun tmpnam(ptr: String?): String?
 public expect fun openlog(ident: String?, logopt: CInt, facility: CInt)
 public expect fun closelog()
 public expect fun setlogmask(maskpri: CInt): CInt
-public expect fun syslog(priority: CInt, message: String?, ...)
+public expect fun syslog(priority: CInt, message: String?, vararg args: Any?)
 public expect fun grantpt(fd: CInt): CInt
 public expect fun posixOpenpt(flags: CInt): CInt
 public expect fun ptsname(fd: CInt): String?
@@ -2897,7 +2896,7 @@ public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
 public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
 public expect fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt
-public expect fun ioctl(fd: CInt, request: CInt, ...): CInt
+public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt
 public expect fun lutimes(file: String?, times: Timeval?): CInt
 public expect fun setpwent()
 public expect fun endpwent()
@@ -2910,7 +2909,7 @@ public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt
 public expect fun ftok(pathname: String?, projId: CInt): KeyT
 public expect fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt
 public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
-public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, ...): CInt
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt
 public expect fun msgget(key: KeyT, msgflg: CInt): CInt
 public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT
@@ -2966,7 +2965,7 @@ public expect fun vhangup(): CInt
 public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt): CInt
 public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt, timeout: Timespec?): CInt
 public expect fun sync()
-public expect fun syscall(num: CLong, ...): CLong
+public expect fun syscall(num: CLong, vararg args: Any?): CLong
 public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun umount(target: String?): CInt
@@ -2986,7 +2985,7 @@ public expect fun personality(persona: CULong): CInt
 public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt
 public expect fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt
 public expect fun pthreadMutexTimedlock(lock: PthreadMutexT?, abstime: Timespec?): CInt
-public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, ...): CInt
+public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt
 public expect fun schedGetscheduler(pid: PidT): CInt
 public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt
 public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt
@@ -3004,7 +3003,7 @@ public expect fun getdtablesize(): CInt
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 public expect fun initgroups(user: String?, group: GidT): CInt
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun getgrnam(name: String?): Group?
 public expect fun pthreadCancel(thread: PthreadT): CInt
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
