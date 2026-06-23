@@ -45,7 +45,8 @@ public val DEAD_PROCESS: UShort = (8).toUShort()
 public val ACCOUNTING: UShort = (9).toUShort()
 public val SIGNATURE: UShort = (10).toUShort()
 public val DOWN_TIME: UShort = (11).toUShort()
-public const val _UTX_PADSIZE: ULong = if cfg!(target_pointer_width = "64") { 36 } else { 40 }
+// _UTX_PADSIZE is 40 on 32-bit targets.
+public const val _UTX_PADSIZE: ULong = 36uL
 
 public expect fun setutxent()
 public expect fun endutxent()

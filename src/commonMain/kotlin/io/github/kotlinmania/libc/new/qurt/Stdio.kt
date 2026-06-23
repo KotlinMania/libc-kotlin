@@ -23,17 +23,17 @@ public expect fun fgets(s: String?, size: CInt, stream: FILE?): String?
 public expect fun fputs(s: String?, stream: FILE?): CInt
 public expect fun gets(s: String?): String?
 public expect fun puts(s: String?): CInt
-public expect fun printf(format: String?, ...): CInt
-public expect fun fprintf(stream: FILE?, format: String?, ...): CInt
-public expect fun sprintf(s: String?, format: String?, ...): CInt
-public expect fun snprintf(s: String?, n: ULong, format: String?, ...): CInt
+public expect fun printf(format: String?, vararg args: Any?): CInt
+public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun sprintf(s: String?, format: String?, vararg args: Any?): CInt
+public expect fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt
 public expect fun vprintf(format: String?, ap: VaList): CInt
 public expect fun vfprintf(stream: FILE?, format: String?, ap: VaList): CInt
 public expect fun vsprintf(s: String?, format: String?, ap: VaList): CInt
 public expect fun vsnprintf(s: String?, n: ULong, format: String?, ap: VaList): CInt
-public expect fun scanf(format: String?, ...): CInt
-public expect fun fscanf(stream: FILE?, format: String?, ...): CInt
-public expect fun sscanf(s: String?, format: String?, ...): CInt
+public expect fun scanf(format: String?, vararg args: Any?): CInt
+public expect fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun sscanf(s: String?, format: String?, vararg args: Any?): CInt
 public expect fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt
 public expect fun ftell(stream: FILE?): CLong
 public expect fun rewind(stream: FILE?)

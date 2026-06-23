@@ -360,8 +360,8 @@ public expect fun alloc(size: ULong, align: ULong): COpaquePointer?
 public expect fun allocZeroed(size: ULong, align: ULong): COpaquePointer?
 public expect fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer?
 public expect fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong)
-public expect fun exit(status: Int): !
-public expect fun abort(): !
+public expect fun exit(status: Int): Nothing
+public expect fun abort(): Nothing
 public expect fun errno(): Int
 public expect fun clockGettime(clockid: ClockidT, tp: Timespec?): Int
 public expect fun nanosleep(req: Timespec?): Int

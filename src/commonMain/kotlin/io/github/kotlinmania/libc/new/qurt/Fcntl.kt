@@ -34,6 +34,6 @@ public const val F_RDLCK: CInt = 0
 public const val F_WRLCK: CInt = 1
 public const val F_UNLCK: CInt = 2
 
-public expect fun open(pathname: String?, flags: CInt, ...): CInt
+public expect fun open(pathname: String?, flags: CInt, vararg args: Any?): CInt
 public expect fun creat(pathname: String?, mode: ModeT): CInt
-public expect fun fcntl(fd: CInt, cmd: CInt, ...): CInt
+public expect fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt

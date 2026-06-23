@@ -107,7 +107,7 @@ public const val NETLINK_EXT_ACK: CInt = 11
 public const val NETLINK_GET_STRICT_CHK: CInt = 12
 public val NLA_F_NESTED: CInt = 1 shl 15
 public val NLA_F_NET_BYTEORDER: CInt = 1 shl 14
-public val NLA_TYPE_MASK: CInt = (NLA_F_NESTED | NLA_F_NET_BYTEORDER).inv()
+public val NLA_TYPE_MASK: CInt = (NLA_F_NESTED or NLA_F_NET_BYTEORDER).inv()
 public const val NLA_ALIGNTO: CInt = 4
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.

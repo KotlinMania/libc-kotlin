@@ -27,7 +27,7 @@ public const val PTHREAD_EXPLICIT_SCHED: CInt = 1
 public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
 public expect fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt
 public expect fun pthreadDetach(thread: PthreadT): CInt
-public expect fun pthreadExit(retval: COpaquePointer?): !
+public expect fun pthreadExit(retval: COpaquePointer?): Nothing
 public expect fun pthreadSelf(): PthreadT
 public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt
 public expect fun pthreadAttrInit(attr: PthreadAttrT?): CInt

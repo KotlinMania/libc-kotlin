@@ -197,7 +197,7 @@ public expect fun mkdir(path: String?, mode: ModeT): CInt
 public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
 public expect fun pthreadAttrSetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong): CInt
 public expect fun clockGetcpuclockid(pid: PidT, clockId: ClockidT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun semClose(sem: SemT?): CInt
 public expect fun semUnlink(name: String?): CInt
 public expect fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer?

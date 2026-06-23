@@ -12,8 +12,8 @@ public expect fun malloc(size: ULong): COpaquePointer?
 public expect fun calloc(nmemb: ULong, size: ULong): COpaquePointer?
 public expect fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer?
 public expect fun free(ptr: COpaquePointer?)
-public expect fun abort(): !
-public expect fun exit(status: CInt): !
+public expect fun abort(): Nothing
+public expect fun exit(status: CInt): Nothing
 public expect fun atexit(function: (() -> Unit)?): CInt
 public expect fun getenv(name: String?): String?
 public expect fun setenv(name: String?, value: String?, overwrite: CInt): CInt
