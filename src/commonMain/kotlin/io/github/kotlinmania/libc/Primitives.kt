@@ -1,9 +1,6 @@
 // port-lint: source primitives.rs
 package io.github.kotlinmania.libc
 
-import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
-
 public typealias CSchar = Byte
 public typealias CUchar = UByte
 public typealias CShort = Short
@@ -12,16 +9,11 @@ public typealias CLonglong = Long
 public typealias CUlonglong = ULong
 public typealias CFloat = Float
 public typealias CDouble = Double
-public typealias CChar = UByte
 public typealias CChar = Byte
-public typealias CInt = Short
-public typealias CUint = UShort
 public typealias CInt = Int
 public typealias CUint = UInt
 public typealias CLong = Long
 public typealias CUlong = ULong
-public typealias CLong = Int
-public typealias CUlong = UInt
 public typealias Int8T = Byte
 public typealias Int16T = Short
 public typealias Int32T = Int
