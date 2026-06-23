@@ -165,19 +165,19 @@ public data class PthreadRwlockattrT(
 )
 
 public data class PthreadCondT(
-    val size: List<*mut cVoid>,
+    val size: List<COpaquePointer?>,
 )
 
 public data class PthreadMutexT(
-    val size: List<*mut cVoid>,
+    val size: List<COpaquePointer?>,
 )
 
 public data class PthreadRwlockT(
-    val size: List<*mut cVoid>,
+    val size: List<COpaquePointer?>,
 )
 
 public data class PthreadBarrierT(
-    val size: List<*mut cVoid>,
+    val size: List<COpaquePointer?>,
 )
 
 public data class Dirent(
