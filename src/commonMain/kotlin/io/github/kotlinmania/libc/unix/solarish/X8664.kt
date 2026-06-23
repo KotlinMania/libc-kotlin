@@ -79,8 +79,8 @@ public data class UcontextT(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousFpRegSet(
-    val fpchipState: CAnonymousFpchipState = null,
-    val fFpregs: List<[u32> = null,
+    val fpchipState: CAnonymousFpchipState? = null,
+    val fFpregs: List<[u32>? = null,
 )
 
 public const val REG_GSBASE: CInt = 27

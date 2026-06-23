@@ -1,27 +1,46 @@
 // port-lint: source macros.rs
 package io.github.kotlinmania.libc
 
-/**
- * Internal `macro_rules!` definitions used throughout the crate. These are Rust compile-time
- * code generators with no Kotlin runtime equivalent; the Kotlin port applies their effects
- * inline at each call site (per the transliteration rules), so this file documents what each
- * macro expands to rather than defining a runtime construct.
- *
- * - `cfg_if!`            - selects one of several branches by `cfg(...)`; rendered as Kotlin
- *                          source-set selection / prose at each use.
- * - `prelude!`           - injects the common imports (`c_void`, the `c_*` primitive aliases,
- *                          `Option`, pointer helpers) into a module.
- * - `s!`                 - declares C-layout structs deriving Copy/Clone (plus PartialEq etc.);
- *                          rendered as Kotlin `data class`.
- * - `s_paren!`           - like `s!` for tuple structs.
- * - `s_no_extra_traits!` - `s!` without the extra trait derives (used for structs with
- *                          arrays/unions); rendered as a plain `data class` / class.
- * - `extern_ty!`         - declares an opaque extern type; rendered as an empty `class`.
- * - `e!`                 - declares C-style enums as integer constants.
- * - `c_enum!`            - declares a closed integer enum (newtype over an integer) with
- *                          associated constants.
- * - `f!`                 - defines an inline (non-extern) helper function with a real body.
- * - `safe_f!`            - like `f!` but the function is safe to call.
- * - `deprecated_mach!`   - re-declares Mach constants with a deprecation notice.
- * - `offset_of!`         - computes a field offset within a struct.
- */
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
+
+public data class S1(
+    val a: UInt,
+    val b: UInt,
+)
+
+public data class S2(
+    val a: UInt,
+    val b: UInt,
+)
+
+// C union; only one variant is valid at a time.
+public data class U2(
+    val a: UInt? = null,
+    val b: Float? = null,
+)
+
+public typealias E = CUInt
+public const val VAR0: E = 0u
+public const val VAR1: E = 1u
+public const val VAR2: E = 2u
+public typealias E = CUInt
+public const val VAR0: E = 0u
+public typealias E = CUInt
+public const val VAR2: E = 2u
+public const val VAR3: E = 3u
+public const val VAR4: E = 4u
+public typealias E = CUInt
+public const val VAR0: E = 0u
+public const val VAR2_0: E = 2u
+public const val VAR3_0: E = 3u
+public const val VAR4_0: E = 4u
+public const val VAR2_1: E = 2u
+public const val VAR3_1: E = 3u
+public const val VAR4_1: E = 4u
+public typealias E1 = CUInt
+public const val PRIV_ON_1: E1 = 10u
+public const val PUB1: E1 = PRIV_ON_1 * 2
+public typealias E2 = CUInt
+public const val PRIV_ON_1: E2 = 42u
+public const val PUB2: E2 = PRIV_ON_1 * 2

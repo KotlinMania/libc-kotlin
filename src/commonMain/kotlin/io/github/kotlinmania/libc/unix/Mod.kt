@@ -149,14 +149,14 @@ public const val INT_MAX: CInt = 2147483647
 public val SIG_DFL: SighandlerT = 0.toSighandlerT()
 public val SIG_IGN: SighandlerT = 1.toSighandlerT()
 public val SIG_ERR: SighandlerT = 0.toSighandlerT().inv()
-public const val DT_UNKNOWN: UByte = 0u
-public const val DT_FIFO: UByte = 1u
-public const val DT_CHR: UByte = 2u
-public const val DT_DIR: UByte = 4u
-public const val DT_BLK: UByte = 6u
-public const val DT_REG: UByte = 8u
-public const val DT_LNK: UByte = 10u
-public const val DT_SOCK: UByte = 12u
+public val DT_UNKNOWN: UByte = (0).toUByte()
+public val DT_FIFO: UByte = (1).toUByte()
+public val DT_CHR: UByte = (2).toUByte()
+public val DT_DIR: UByte = (4).toUByte()
+public val DT_BLK: UByte = (6).toUByte()
+public val DT_REG: UByte = (8).toUByte()
+public val DT_LNK: UByte = (10).toUByte()
+public val DT_SOCK: UByte = (12).toUByte()
 public const val FD_CLOEXEC: CInt = 0x1
 public const val USRQUOTA: CInt = 0
 public const val GRPQUOTA: CInt = 1
@@ -212,8 +212,8 @@ public const val INADDR_BROADCAST: InAddrT = 4294967295
 public const val INADDR_NONE: InAddrT = 4294967295
 public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
 public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-public const val ARPOP_REQUEST: UShort = 1u
-public const val ARPOP_REPLY: UShort = 2u
+public val ARPOP_REQUEST: UShort = (1).toUShort()
+public val ARPOP_REPLY: UShort = (2).toUShort()
 public const val ATF_COM: CInt = 0x02
 public const val ATF_PERM: CInt = 0x04
 public const val ATF_PUBL: CInt = 0x08
@@ -443,7 +443,7 @@ public expect fun ifNametoindex(ifname: String?): CUInt
 public expect fun ifIndextoname(ifindex: CUInt, ifname: String?): String?
 public expect fun lstat(path: String?, buf: Stat?): CInt
 public expect fun fsync(fd: CInt): CInt
-public expect fun setenv(name: String?, val: String?, overwrite: CInt): CInt
+public expect fun setenv(name: String?, `val`: String?, overwrite: CInt): CInt
 public expect fun unsetenv(name: String?): CInt
 public expect fun symlink(path1: String?, path2: String?): CInt
 public expect fun truncate(path: String?, length: OffT): CInt

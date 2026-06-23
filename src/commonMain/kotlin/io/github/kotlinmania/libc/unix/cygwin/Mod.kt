@@ -466,21 +466,21 @@ public data class Utmpx(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru(
-    val ifruAddr: Sockaddr = null,
-    val ifruBroadaddr: Sockaddr = null,
-    val ifruDstaddr: Sockaddr = null,
-    val ifruNetmask: Sockaddr = null,
-    val ifruHwaddr: Sockaddr = null,
-    val ifruFlags: CInt = null,
-    val ifruMetric: CInt = null,
-    val ifruMtu: CInt = null,
-    val ifruIfindex: CInt = null,
+    val ifruAddr: Sockaddr? = null,
+    val ifruBroadaddr: Sockaddr? = null,
+    val ifruDstaddr: Sockaddr? = null,
+    val ifruNetmask: Sockaddr? = null,
+    val ifruHwaddr: Sockaddr? = null,
+    val ifruFlags: CInt? = null,
+    val ifruMetric: CInt? = null,
+    val ifruMtu: CInt? = null,
+    val ifruIfindex: CInt? = null,
     val ifruData: String? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfcIfcu(
-    val ifcuBuf: CaddrT = null,
+    val ifcuBuf: CaddrT? = null,
     val ifcuReq: Ifreq? = null,
 )
 
@@ -690,10 +690,10 @@ public const val SOL_IP: CInt = 0
 public const val SOL_IPV6: CInt = 41
 public const val SOL_TCP: CInt = 6
 public const val SOL_UDP: CInt = 17
-public const val IPTOS_LOWDELAY: UByte = 0x10u
-public const val IPTOS_THROUGHPUT: UByte = 0x08u
-public const val IPTOS_RELIABILITY: UByte = 0x04u
-public const val IPTOS_LOWCOST: UByte = 0x02u
+public val IPTOS_LOWDELAY: UByte = (0x10).toUByte()
+public val IPTOS_THROUGHPUT: UByte = (0x08).toUByte()
+public val IPTOS_RELIABILITY: UByte = (0x04).toUByte()
+public val IPTOS_LOWCOST: UByte = (0x02).toUByte()
 public const val IPTOS_MINCOST: UByte = IPTOS_LOWCOST
 public const val IP_DEFAULT_MULTICAST_TTL: CInt = 1
 public const val IP_DEFAULT_MULTICAST_LOOP: CInt = 1
@@ -1568,7 +1568,7 @@ public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
 public expect fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt
 public expect fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: CInt): CInt
 public expect fun futimens(fd: CInt, times: Timespec?): CInt
-public expect fun dlfork(val: CInt)
+public expect fun dlfork(`val`: CInt)
 public expect fun accept4(s: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt
 public expect fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt
 public expect fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT
@@ -1697,8 +1697,8 @@ public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
 public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
 public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
 public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
-public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT?, val: CInt?): CInt
-public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, val: CInt): CInt
+public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, `val`: CInt): CInt
 public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt
 public expect fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt
 public expect fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt

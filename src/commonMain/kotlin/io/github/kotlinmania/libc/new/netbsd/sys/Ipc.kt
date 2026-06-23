@@ -2,10 +2,8 @@
 package io.github.kotlinmania.libc.new.netbsd.sys
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
 
-/**
- * Header: `sys/ipc.h`.
- */
 public data class IpcPerm(
     val uid: UidT,
     val gid: GidT,

@@ -632,8 +632,8 @@ public data class Sigevent(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousPosixSpawnFae(
-    val open: CAnonymousPosixSpawnFaeOpen = null,
-    val dup2: CAnonymousPosixSpawnFaeDup2 = null,
+    val open: CAnonymousPosixSpawnFaeOpen? = null,
+    val dup2: CAnonymousPosixSpawnFaeDup2? = null,
 )
 
 public const val AT_FDCWD: CInt = -100
@@ -1494,9 +1494,9 @@ public expect fun lwpUnpark(lwp: LwpidT, hint: COpaquePointer?): CInt
 public expect fun lwpUnparkAll(targets: LwpidT?, ntargets: ULong, hint: COpaquePointer?): CInt
 public expect fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt
 public expect fun getvfsstat(buf: Statvfs?, bufsize: ULong, flags: CInt): CInt
-public expect fun eventfd(val: CUInt, flags: CInt): CInt
+public expect fun eventfd(`val`: CUInt, flags: CInt): CInt
 public expect fun eventfdRead(efd: CInt, valp: EventfdT?): CInt
-public expect fun eventfdWrite(efd: CInt, val: EventfdT): CInt
+public expect fun eventfdWrite(efd: CInt, `val`: EventfdT): CInt
 public expect fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt
 public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt
 public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt
@@ -1526,8 +1526,8 @@ public expect fun easprintf(string: COpaquePointer?, fmt: String?, ...): CInt
 public expect fun evasprintf(string: COpaquePointer?, fmt: String?, ...): CInt
 public expect fun esetfunc(cb: ((CInt, String?, ...) -> Unit)?): ((CInt, String?, ...) -> Unit)?
 public expect fun securePath(path: String?): CInt
-public expect fun snprintb(buf: String?, buflen: ULong, fmt: String?, val: ULong): CInt
-public expect fun snprintbM(buf: String?, buflen: ULong, fmt: String?, val: ULong, max: ULong): CInt
+public expect fun snprintb(buf: String?, buflen: ULong, fmt: String?, `val`: ULong): CInt
+public expect fun snprintbM(buf: String?, buflen: ULong, fmt: String?, `val`: ULong, max: ULong): CInt
 public expect fun getbootfile(): String?
 public expect fun getbyteorder(): CInt
 public expect fun getdiskrawname(buf: String?, buflen: ULong, name: String?): String?

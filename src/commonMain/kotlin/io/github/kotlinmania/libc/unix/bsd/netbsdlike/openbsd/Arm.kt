@@ -1,7 +1,7 @@
 // port-lint: source unix/bsd/netbsdlike/openbsd/arm.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
-// _ALIGNBYTES = size_of::<c_double>() - 1
-internal const val ALIGNBYTES: Int = 7
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
 
-public const val MAX_PAGE_SHIFT: UInt = 12u
+public const val _MAX_PAGE_SHIFT: UInt = 12u

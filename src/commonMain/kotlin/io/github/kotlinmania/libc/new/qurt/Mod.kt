@@ -181,14 +181,14 @@ public const val FOPEN_MAX: CUInt = 20u
 public const val EOK: CInt = 0
 public const val PAGESIZE: ULong = 4096uL
 public const val PAGE_SIZE: ULong = 4096uL
-public const val DT_UNKNOWN: CUChar = 0u
-public const val DT_FIFO: CUChar = 1u
-public const val DT_CHR: CUChar = 2u
-public const val DT_DIR: CUChar = 4u
-public const val DT_BLK: CUChar = 6u
-public const val DT_REG: CUChar = 8u
-public const val DT_LNK: CUChar = 10u
-public const val DT_SOCK: CUChar = 12u
+public val DT_UNKNOWN: CUChar = (0).toUByte()
+public val DT_FIFO: CUChar = (1).toUByte()
+public val DT_CHR: CUChar = (2).toUByte()
+public val DT_DIR: CUChar = (4).toUByte()
+public val DT_BLK: CUChar = (6).toUByte()
+public val DT_REG: CUChar = (8).toUByte()
+public val DT_LNK: CUChar = (10).toUByte()
+public val DT_SOCK: CUChar = (12).toUByte()
 
 public expect fun opendir(name: String?): DIR?
 public expect fun readdir(dirp: DIR?): Dirent?

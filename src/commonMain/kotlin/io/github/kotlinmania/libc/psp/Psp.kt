@@ -2185,91 +2185,111 @@ public data class SceNetAdhocctlParams(
     val nickname: UByteArray,
 )
 
+public data class SceUid(
+    val value: Int,
+)
+
+public data class SceMpeg(
+    val value: COpaquePointer?,
+)
+
+public data class SceMpegStream(
+    val value: COpaquePointer?,
+)
+
+public data class Mp3Handle(
+    val value: Int,
+)
+
+public data class RegHandle(
+    val value: UInt,
+)
+
 // C union; only one variant is valid at a time.
 public data class ScePspVector3(
-    val fv: ScePspFVector3 = null,
-    val iv: ScePspIVector3 = null,
-    val f: List<Float> = null,
-    val i: IntArray = null,
+    val fv: ScePspFVector3? = null,
+    val iv: ScePspIVector3? = null,
+    val f: List<Float>? = null,
+    val i: IntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspVector4(
-    val fv: ScePspFVector4 = null,
-    val iv: ScePspIVector4 = null,
-    val qw: ByteArray = null,
-    val f: List<Float> = null,
-    val i: IntArray = null,
+    val fv: ScePspFVector4? = null,
+    val iv: ScePspIVector4? = null,
+    val qw: ByteArray? = null,
+    val f: List<Float>? = null,
+    val i: IntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspMatrix2(
-    val fm: ScePspFMatrix2 = null,
-    val im: ScePspIMatrix2 = null,
-    val fv: List<ScePspFVector2> = null,
-    val iv: List<ScePspIVector2> = null,
-    val v: List<ScePspVector2> = null,
-    val f: List<[f32> = null,
-    val i: List<[i32> = null,
+    val fm: ScePspFMatrix2? = null,
+    val im: ScePspIMatrix2? = null,
+    val fv: List<ScePspFVector2>? = null,
+    val iv: List<ScePspIVector2>? = null,
+    val v: List<ScePspVector2>? = null,
+    val f: List<[f32>? = null,
+    val i: List<[i32>? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspMatrix3(
-    val fm: ScePspFMatrix3 = null,
-    val im: ScePspIMatrix3 = null,
-    val fv: List<ScePspFVector3> = null,
-    val iv: List<ScePspIVector3> = null,
-    val v: List<ScePspVector3> = null,
-    val f: List<[f32> = null,
-    val i: List<[i32> = null,
+    val fm: ScePspFMatrix3? = null,
+    val im: ScePspIMatrix3? = null,
+    val fv: List<ScePspFVector3>? = null,
+    val iv: List<ScePspIVector3>? = null,
+    val v: List<ScePspVector3>? = null,
+    val f: List<[f32>? = null,
+    val i: List<[i32>? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspVector2(
-    val fv: ScePspFVector2 = null,
-    val iv: ScePspIVector2 = null,
-    val f: List<Float> = null,
-    val i: IntArray = null,
+    val fv: ScePspFVector2? = null,
+    val iv: ScePspIVector2? = null,
+    val f: List<Float>? = null,
+    val i: IntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspMatrix4(
-    val fm: ScePspFMatrix4 = null,
-    val im: ScePspIMatrix4 = null,
-    val fv: List<ScePspFVector4> = null,
-    val iv: List<ScePspIVector4> = null,
-    val v: List<ScePspVector4> = null,
-    val f: List<[f32> = null,
-    val i: List<[i32> = null,
+    val fm: ScePspFMatrix4? = null,
+    val im: ScePspIMatrix4? = null,
+    val fv: List<ScePspFVector4>? = null,
+    val iv: List<ScePspIVector4>? = null,
+    val v: List<ScePspVector4>? = null,
+    val f: List<[f32>? = null,
+    val i: List<[i32>? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class UtilityNetData(
-    val asUint: UInt = null,
-    val asString: UByteArray = null,
+    val asUint: UInt? = null,
+    val asString: UByteArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class SceNetApctlInfo(
-    val name: UByteArray = null,
-    val bssid: UByteArray = null,
-    val ssid: UByteArray = null,
-    val ssidLength: UInt = null,
-    val securityType: UInt = null,
-    val strength: UByte = null,
-    val channel: UByte = null,
-    val powerSave: UByte = null,
-    val ip: UByteArray = null,
-    val subNetMask: UByteArray = null,
-    val gateway: UByteArray = null,
-    val primaryDns: UByteArray = null,
-    val secondaryDns: UByteArray = null,
-    val useProxy: UInt = null,
-    val proxyUrl: UByteArray = null,
-    val proxyPort: UShort = null,
-    val eapType: UInt = null,
-    val startBrowser: UInt = null,
-    val wifisp: UInt = null,
+    val name: UByteArray? = null,
+    val bssid: UByteArray? = null,
+    val ssid: UByteArray? = null,
+    val ssidLength: UInt? = null,
+    val securityType: UInt? = null,
+    val strength: UByte? = null,
+    val channel: UByte? = null,
+    val powerSave: UByte? = null,
+    val ip: UByteArray? = null,
+    val subNetMask: UByteArray? = null,
+    val gateway: UByteArray? = null,
+    val primaryDns: UByteArray? = null,
+    val secondaryDns: UByteArray? = null,
+    val useProxy: UInt? = null,
+    val proxyUrl: UByteArray? = null,
+    val proxyPort: UShort? = null,
+    val eapType: UInt? = null,
+    val startBrowser: UInt? = null,
+    val wifisp: UInt? = null,
 )
 
 public const val INT_MIN: CInt = -2147483648
@@ -3101,7 +3121,7 @@ public expect fun sceUtilityUnloadUsbModule(module: UsbModule): Int
 public expect fun sceUtilityLoadModule(module: Module): Int
 public expect fun sceUtilityUnloadModule(module: Module): Int
 public expect fun sceUtilityCreateNetParam(conf: Int): Int
-public expect fun sceUtilitySetNetParam(param: NetParam, val: COpaquePointer?): Int
+public expect fun sceUtilitySetNetParam(param: NetParam, `val`: COpaquePointer?): Int
 public expect fun sceUtilityCopyNetParam(src: Int, dest: Int): Int
 public expect fun sceUtilityDeleteNetParam(conf: Int): Int
 public expect fun sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int

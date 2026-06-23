@@ -17,8 +17,8 @@ public data class McontextT(
 
 // C union; only one variant is valid at a time.
 public data class Fpreg(
-    val uU64: ULong = null,
-    val uD: CDouble = null,
+    val uU64: ULong? = null,
+    val uD: CDouble? = null,
 )
 
 public const val PT_GETREGS: CInt = PT_FIRSTMACH + 0

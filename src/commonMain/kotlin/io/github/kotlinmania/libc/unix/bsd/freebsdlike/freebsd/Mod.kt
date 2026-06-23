@@ -1320,55 +1320,55 @@ public data class XktlsSession(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousCrPid(
-    val crPid: PidT = null,
+    val crPid: PidT? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousElf32AuxvUnion(
-    val aVal: CInt = null,
+    val aVal: CInt? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfiEpoch(
-    val tt: TimeT = null,
-    val ph: ULong = null,
+    val tt: TimeT? = null,
+    val ph: ULong? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfiLastchange(
-    val tv: Timeval = null,
-    val ph: CAnonymousPh = null,
+    val tv: Timeval? = null,
+    val ph: CAnonymousPh? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru(
-    val ifruAddr: Sockaddr = null,
-    val ifruDstaddr: Sockaddr = null,
-    val ifruBroadaddr: Sockaddr = null,
-    val ifruBuffer: IfreqBuffer = null,
-    val ifruFlags: ShortArray = null,
-    val ifruIndex: CShort = null,
-    val ifruJid: CInt = null,
-    val ifruMetric: CInt = null,
-    val ifruMtu: CInt = null,
-    val ifruPhys: CInt = null,
-    val ifruMedia: CInt = null,
-    val ifruData: CaddrT = null,
-    val ifruCap: IntArray = null,
-    val ifruFib: CUInt = null,
-    val ifruVlanPcp: CUChar = null,
+    val ifruAddr: Sockaddr? = null,
+    val ifruDstaddr: Sockaddr? = null,
+    val ifruBroadaddr: Sockaddr? = null,
+    val ifruBuffer: IfreqBuffer? = null,
+    val ifruFlags: ShortArray? = null,
+    val ifruIndex: CShort? = null,
+    val ifruJid: CInt? = null,
+    val ifruMetric: CInt? = null,
+    val ifruMtu: CInt? = null,
+    val ifruPhys: CInt? = null,
+    val ifruMedia: CInt? = null,
+    val ifruData: CaddrT? = null,
+    val ifruCap: IntArray? = null,
+    val ifruFib: CUInt? = null,
+    val ifruVlanPcp: CUChar? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfcIfcu(
-    val ifcuBuf: CaddrT = null,
+    val ifcuBuf: CaddrT? = null,
     val ifcuReq: Ifreq? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class InDependaddr(
-    val id46Addr: InAddr4in6 = null,
-    val id6Addr: In6Addr = null,
+    val id46Addr: InAddr4in6? = null,
+    val id6Addr: In6Addr? = null,
 )
 
 public const val LIO_VECTORED: CInt = 4
@@ -1553,22 +1553,22 @@ public const val EVFILT_LIO: Short = -10
 public const val EVFILT_USER: Short = -11
 public const val EVFILT_SENDFILE: Short = -12
 public const val EVFILT_EMPTY: Short = -13
-public const val EV_ADD: UShort = 0x1u
-public const val EV_DELETE: UShort = 0x2u
-public const val EV_ENABLE: UShort = 0x4u
-public const val EV_DISABLE: UShort = 0x8u
-public const val EV_FORCEONESHOT: UShort = 0x100u
-public const val EV_KEEPUDATA: UShort = 0x200u
-public const val EV_ONESHOT: UShort = 0x10u
-public const val EV_CLEAR: UShort = 0x20u
-public const val EV_RECEIPT: UShort = 0x40u
-public const val EV_DISPATCH: UShort = 0x80u
-public const val EV_SYSFLAGS: UShort = 0xf000u
-public const val EV_DROP: UShort = 0x1000u
-public const val EV_FLAG1: UShort = 0x2000u
-public const val EV_FLAG2: UShort = 0x4000u
-public const val EV_EOF: UShort = 0x8000u
-public const val EV_ERROR: UShort = 0x4000u
+public val EV_ADD: UShort = (0x1).toUShort()
+public val EV_DELETE: UShort = (0x2).toUShort()
+public val EV_ENABLE: UShort = (0x4).toUShort()
+public val EV_DISABLE: UShort = (0x8).toUShort()
+public val EV_FORCEONESHOT: UShort = (0x100).toUShort()
+public val EV_KEEPUDATA: UShort = (0x200).toUShort()
+public val EV_ONESHOT: UShort = (0x10).toUShort()
+public val EV_CLEAR: UShort = (0x20).toUShort()
+public val EV_RECEIPT: UShort = (0x40).toUShort()
+public val EV_DISPATCH: UShort = (0x80).toUShort()
+public val EV_SYSFLAGS: UShort = (0xf000).toUShort()
+public val EV_DROP: UShort = (0x1000).toUShort()
+public val EV_FLAG1: UShort = (0x2000).toUShort()
+public val EV_FLAG2: UShort = (0x4000).toUShort()
+public val EV_EOF: UShort = (0x8000).toUShort()
+public val EV_ERROR: UShort = (0x4000).toUShort()
 public const val NOTE_TRIGGER: UInt = 0x01000000u
 public const val NOTE_FFNOP: UInt = 0x00000000u
 public const val NOTE_FFAND: UInt = 0x40000000u
@@ -2380,9 +2380,9 @@ public const val _UUID_NODE_LEN: ULong = 6uL
 public const val PD_DAEMON: CInt = 0x00000001
 public const val PD_CLOEXEC: CInt = 0x00000002
 public val PD_ALLOWED_AT_FORK: CInt = PD_DAEMON or PD_CLOEXEC
-public const val RTP_PRIO_REALTIME: CUShort = 2u
-public const val RTP_PRIO_NORMAL: CUShort = 3u
-public const val RTP_PRIO_IDLE: CUShort = 4u
+public val RTP_PRIO_REALTIME: CUShort = (2).toUShort()
+public val RTP_PRIO_NORMAL: CUShort = (3).toUShort()
+public val RTP_PRIO_IDLE: CUShort = (4).toUShort()
 public const val UF_SYSTEM: CULong = 0x00000080uL
 public const val UF_SPARSE: CULong = 0x00000100uL
 public const val UF_OFFLINE: CULong = 0x00000200uL
@@ -3021,8 +3021,8 @@ public const val RB_REROOT: CInt = 0x200000
 public const val RB_POWERCYCLE: CInt = 0x400000
 public const val RB_PROBE: CInt = 0x10000000
 public const val RB_MULTIPLE: CInt = 0x20000000
-public const val INC_ISIPV6: CUChar = 0x01u
-public const val INC_IPV6MINMTU: CUChar = 0x02u
+public val INC_ISIPV6: CUChar = (0x01).toUByte()
+public val INC_IPV6MINMTU: CUChar = (0x02).toUByte()
 public const val CLOCK_BOOTTIME: ClockidT = CLOCK_UPTIME
 public const val CLOCK_REALTIME_COARSE: ClockidT = CLOCK_REALTIME_FAST
 public const val CLOCK_MONOTONIC_COARSE: ClockidT = CLOCK_MONOTONIC_FAST
@@ -3204,7 +3204,7 @@ public expect fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CIn
 public expect fun setproctitleFast(fmt: String?, ...)
 public expect fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt
 public expect fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt
-public expect fun umtxOp(obj: COpaquePointer?, op: CInt, val: CULong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt
+public expect fun umtxOp(obj: COpaquePointer?, op: CInt, `val`: CULong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt
 public expect fun sctpPeeloff(s: CInt, id: SctpAssocT): CInt
 public expect fun sctpBindx(s: CInt, addrs: Sockaddr?, num: CInt, tpe: CInt): CInt
 public expect fun sctpConnectx(s: CInt, addrs: Sockaddr?, addrcnt: CInt, id: SctpAssocT?): CInt

@@ -1,7 +1,9 @@
 // port-lint: source unix/solarish/x86_common.rs
 package io.github.kotlinmania.libc.unix.solarish
 
-// AT_SUN_HWCAP
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
+
 public const val AV_386_FPU: UInt = 0x00001u
 public const val AV_386_TSC: UInt = 0x00002u
 public const val AV_386_CX8: UInt = 0x00004u
@@ -29,8 +31,6 @@ public const val AV_386_AES: UInt = 0x4000000u
 public const val AV_386_PCLMULQDQ: UInt = 0x8000000u
 public const val AV_386_XSAVE: UInt = 0x10000000u
 public const val AV_386_AVX: UInt = 0x20000000u
-
-// The following are illumos-only (AT_SUN_HWCAP / HWCAP2 / FPTYPE).
 public const val AV_386_VMX: UInt = 0x40000000u
 public const val AV_386_AMD_SVM: UInt = 0x80000000u
 public const val AV_386_2_F16C: UInt = 0x00000001u

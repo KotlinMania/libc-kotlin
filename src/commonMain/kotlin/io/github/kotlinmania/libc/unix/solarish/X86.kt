@@ -2,19 +2,14 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
 
 public typealias Elf32Addr = CULong
-
 public typealias Elf32Half = CUShort
-
 public typealias Elf32Off = CULong
-
 public typealias Elf32Sword = CLong
-
 public typealias Elf32Word = CULong
-
 public typealias Elf32Lword = CULongLong
-
 public typealias Elf32Phdr = CAnonymousElf32Phdr
 
 public data class CAnonymousElf32Phdr(

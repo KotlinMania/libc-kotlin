@@ -2,150 +2,147 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.wasm32
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
 
-/**
- * WALI (WebAssembly Linux Interface) raw syscall shims.
- */
-
-public expect fun syscallSysRead(a1: Int, a2: Int, a3: UInt): CLong
-public expect fun syscallSysWrite(a1: Int, a2: Int, a3: UInt): CLong
-public expect fun syscallSysOpen(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysClose(a1: Int): CLong
-public expect fun syscallSysStat(a1: Int, a2: Int): CLong
-public expect fun syscallSysFstat(a1: Int, a2: Int): CLong
-public expect fun syscallSysLstat(a1: Int, a2: Int): CLong
-public expect fun syscallSysPoll(a1: Int, a2: UInt, a3: Int): CLong
-public expect fun syscallSysLseek(a1: Int, a2: Long, a3: Int): CLong
-public expect fun syscallSysMmap(a1: Int, a2: UInt, a3: Int, a4: Int, a5: Int, a6: Long): CLong
-public expect fun syscallSysMprotect(a1: Int, a2: UInt, a3: Int): CLong
-public expect fun syscallSysMunmap(a1: Int, a2: UInt): CLong
-public expect fun syscallSysBrk(a1: Int): CLong
-public expect fun syscallSysRtSigaction(a1: Int, a2: Int, a3: Int, a4: UInt): CLong
-public expect fun syscallSysRtSigprocmask(a1: Int, a2: Int, a3: Int, a4: UInt): CLong
-public expect fun syscallSysRtSigreturn(a1: Long): CLong
-public expect fun syscallSysIoctl(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysPread64(a1: Int, a2: Int, a3: UInt, a4: Long): CLong
-public expect fun syscallSysPwrite64(a1: Int, a2: Int, a3: UInt, a4: Long): CLong
-public expect fun syscallSysReadv(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysWritev(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysAccess(a1: Int, a2: Int): CLong
-public expect fun syscallSysPipe(a1: Int): CLong
-public expect fun syscallSysSelect(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
-public expect fun syscallSysSchedYield(): CLong
-public expect fun syscallSysMremap(a1: Int, a2: UInt, a3: UInt, a4: Int, a5: Int): CLong
-public expect fun syscallSysMsync(a1: Int, a2: UInt, a3: Int): CLong
-public expect fun syscallSysMadvise(a1: Int, a2: UInt, a3: Int): CLong
-public expect fun syscallSysDup(a1: Int): CLong
-public expect fun syscallSysDup2(a1: Int, a2: Int): CLong
-public expect fun syscallSysNanosleep(a1: Int, a2: Int): CLong
-public expect fun syscallSysAlarm(a1: Int): CLong
-public expect fun syscallSysSetitimer(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysGetpid(): CLong
-public expect fun syscallSysSocket(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysConnect(a1: Int, a2: Int, a3: UInt): CLong
-public expect fun syscallSysAccept(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysSendto(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: UInt): CLong
-public expect fun syscallSysRecvfrom(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: Int): CLong
-public expect fun syscallSysSendmsg(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysRecvmsg(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysShutdown(a1: Int, a2: Int): CLong
-public expect fun syscallSysBind(a1: Int, a2: Int, a3: UInt): CLong
-public expect fun syscallSysListen(a1: Int, a2: Int): CLong
-public expect fun syscallSysGetsockname(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysGetpeername(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysSocketpair(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysSetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: UInt): CLong
-public expect fun syscallSysGetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
-public expect fun syscallSysFork(): CLong
-public expect fun syscallSysExecve(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysExit(a1: Int): CLong
-public expect fun syscallSysWait4(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysKill(a1: Int, a2: Int): CLong
-public expect fun syscallSysUname(a1: Int): CLong
-public expect fun syscallSysFcntl(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysFlock(a1: Int, a2: Int): CLong
-public expect fun syscallSysFsync(a1: Int): CLong
-public expect fun syscallSysFdatasync(a1: Int): CLong
-public expect fun syscallSysFtruncate(a1: Int, a2: Long): CLong
-public expect fun syscallSysGetdents(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysGetcwd(a1: Int, a2: UInt): CLong
-public expect fun syscallSysChdir(a1: Int): CLong
-public expect fun syscallSysFchdir(a1: Int): CLong
-public expect fun syscallSysRename(a1: Int, a2: Int): CLong
-public expect fun syscallSysMkdir(a1: Int, a2: Int): CLong
-public expect fun syscallSysRmdir(a1: Int): CLong
-public expect fun syscallSysLink(a1: Int, a2: Int): CLong
-public expect fun syscallSysUnlink(a1: Int): CLong
-public expect fun syscallSysSymlink(a1: Int, a2: Int): CLong
-public expect fun syscallSysReadlink(a1: Int, a2: Int, a3: UInt): CLong
-public expect fun syscallSysChmod(a1: Int, a2: Int): CLong
-public expect fun syscallSysFchmod(a1: Int, a2: Int): CLong
-public expect fun syscallSysChown(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysFchown(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysUmask(a1: Int): CLong
-public expect fun syscallSysGetrlimit(a1: Int, a2: Int): CLong
-public expect fun syscallSysGetrusage(a1: Int, a2: Int): CLong
-public expect fun syscallSysSysinfo(a1: Int): CLong
-public expect fun syscallSysGetuid(): CLong
-public expect fun syscallSysGetgid(): CLong
-public expect fun syscallSysSetuid(a1: Int): CLong
-public expect fun syscallSysSetgid(a1: Int): CLong
-public expect fun syscallSysGeteuid(): CLong
-public expect fun syscallSysGetegid(): CLong
-public expect fun syscallSysSetpgid(a1: Int, a2: Int): CLong
-public expect fun syscallSysGetppid(): CLong
-public expect fun syscallSysSetsid(): CLong
-public expect fun syscallSysSetreuid(a1: Int, a2: Int): CLong
-public expect fun syscallSysSetregid(a1: Int, a2: Int): CLong
-public expect fun syscallSysGetgroups(a1: UInt, a2: Int): CLong
-public expect fun syscallSysSetgroups(a1: UInt, a2: Int): CLong
-public expect fun syscallSysSetresuid(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysSetresgid(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysGetpgid(a1: Int): CLong
-public expect fun syscallSysGetsid(a1: Int): CLong
-public expect fun syscallSysRtSigpending(a1: Int, a2: UInt): CLong
-public expect fun syscallSysRtSigsuspend(a1: Int, a2: UInt): CLong
-public expect fun syscallSysSigaltstack(a1: Int, a2: Int): CLong
-public expect fun syscallSysUtime(a1: Int, a2: Int): CLong
-public expect fun syscallSysStatfs(a1: Int, a2: Int): CLong
-public expect fun syscallSysFstatfs(a1: Int, a2: Int): CLong
-public expect fun syscallSysPrctl(a1: Int, a2: ULong, a3: ULong, a4: ULong, a5: ULong): CLong
-public expect fun syscallSysSetrlimit(a1: Int, a2: Int): CLong
-public expect fun syscallSysChroot(a1: Int): CLong
-public expect fun syscallSysGettid(): CLong
-public expect fun syscallSysTkill(a1: Int, a2: Int): CLong
-public expect fun syscallSysFutex(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): CLong
-public expect fun syscallSysSchedGetaffinity(a1: Int, a2: UInt, a3: Int): CLong
-public expect fun syscallSysGetdents64(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysSetTidAddress(a1: Int): CLong
-public expect fun syscallSysFadvise(a1: Int, a2: Long, a3: Long, a4: Int): CLong
-public expect fun syscallSysClockGettime(a1: Int, a2: Int): CLong
-public expect fun syscallSysClockGetres(a1: Int, a2: Int): CLong
-public expect fun syscallSysClockNanosleep(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysExitGroup(a1: Int): CLong
-public expect fun syscallSysEpollCtl(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysOpenat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysMkdirat(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysFchownat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
-public expect fun syscallSysFstatat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysUnlinkat(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysLinkat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
-public expect fun syscallSysSymlinkat(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysReadlinkat(a1: Int, a2: Int, a3: Int, a4: UInt): CLong
-public expect fun syscallSysFchmodat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysFaccessat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysPselect6(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): CLong
-public expect fun syscallSysPpoll(a1: Int, a2: UInt, a3: Int, a4: Int, a5: UInt): CLong
-public expect fun syscallSysUtimensat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysEpollPwait(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: UInt, ): CLong
-public expect fun syscallSysEventfd(a1: Int): CLong
-public expect fun syscallSysAccept4(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysEventfd2(a1: Int, a2: Int): CLong
-public expect fun syscallSysEpollCreate1(a1: Int): CLong
-public expect fun syscallSysDup3(a1: Int, a2: Int, a3: Int): CLong
-public expect fun syscallSysPipe2(a1: Int, a2: Int): CLong
-public expect fun syscallSysPrlimit64(a1: Int, a2: Int, a3: Int, a4: Int): CLong
-public expect fun syscallSysRenameat2(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
-public expect fun syscallSysGetrandom(a1: Int, a2: UInt, a3: Int): CLong
-public expect fun syscallSysStatx(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
-public expect fun syscallSysFaccessat2(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSRead(a1: Int, a2: Int, a3: UInt): CLong
+public expect fun syscallSYSWrite(a1: Int, a2: Int, a3: UInt): CLong
+public expect fun syscallSYSOpen(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSClose(a1: Int): CLong
+public expect fun syscallSYSStat(a1: Int, a2: Int): CLong
+public expect fun syscallSYSFstat(a1: Int, a2: Int): CLong
+public expect fun syscallSYSLstat(a1: Int, a2: Int): CLong
+public expect fun syscallSYSPoll(a1: Int, a2: UInt, a3: Int): CLong
+public expect fun syscallSYSLseek(a1: Int, a2: Long, a3: Int): CLong
+public expect fun syscallSYSMmap(a1: Int, a2: UInt, a3: Int, a4: Int, a5: Int, a6: Long): CLong
+public expect fun syscallSYSMprotect(a1: Int, a2: UInt, a3: Int): CLong
+public expect fun syscallSYSMunmap(a1: Int, a2: UInt): CLong
+public expect fun syscallSYSBrk(a1: Int): CLong
+public expect fun syscallSYSRtSigaction(a1: Int, a2: Int, a3: Int, a4: UInt): CLong
+public expect fun syscallSYSRtSigprocmask(a1: Int, a2: Int, a3: Int, a4: UInt): CLong
+public expect fun syscallSYSRtSigreturn(a1: Long): CLong
+public expect fun syscallSYSIoctl(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSPread64(a1: Int, a2: Int, a3: UInt, a4: Long): CLong
+public expect fun syscallSYSPwrite64(a1: Int, a2: Int, a3: UInt, a4: Long): CLong
+public expect fun syscallSYSReadv(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSWritev(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSAccess(a1: Int, a2: Int): CLong
+public expect fun syscallSYSPipe(a1: Int): CLong
+public expect fun syscallSYSSelect(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
+public expect fun syscallSYSSchedYield(): CLong
+public expect fun syscallSYSMremap(a1: Int, a2: UInt, a3: UInt, a4: Int, a5: Int): CLong
+public expect fun syscallSYSMsync(a1: Int, a2: UInt, a3: Int): CLong
+public expect fun syscallSYSMadvise(a1: Int, a2: UInt, a3: Int): CLong
+public expect fun syscallSYSDup(a1: Int): CLong
+public expect fun syscallSYSDup2(a1: Int, a2: Int): CLong
+public expect fun syscallSYSNanosleep(a1: Int, a2: Int): CLong
+public expect fun syscallSYSAlarm(a1: Int): CLong
+public expect fun syscallSYSSetitimer(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSGetpid(): CLong
+public expect fun syscallSYSSocket(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSConnect(a1: Int, a2: Int, a3: UInt): CLong
+public expect fun syscallSYSAccept(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSSendto(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: UInt): CLong
+public expect fun syscallSYSRecvfrom(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: Int): CLong
+public expect fun syscallSYSSendmsg(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSRecvmsg(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSShutdown(a1: Int, a2: Int): CLong
+public expect fun syscallSYSBind(a1: Int, a2: Int, a3: UInt): CLong
+public expect fun syscallSYSListen(a1: Int, a2: Int): CLong
+public expect fun syscallSYSGetsockname(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSGetpeername(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSSocketpair(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSSetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: UInt): CLong
+public expect fun syscallSYSGetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
+public expect fun syscallSYSFork(): CLong
+public expect fun syscallSYSExecve(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSExit(a1: Int): CLong
+public expect fun syscallSYSWait4(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSKill(a1: Int, a2: Int): CLong
+public expect fun syscallSYSUname(a1: Int): CLong
+public expect fun syscallSYSFcntl(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSFlock(a1: Int, a2: Int): CLong
+public expect fun syscallSYSFsync(a1: Int): CLong
+public expect fun syscallSYSFdatasync(a1: Int): CLong
+public expect fun syscallSYSFtruncate(a1: Int, a2: Long): CLong
+public expect fun syscallSYSGetdents(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSGetcwd(a1: Int, a2: UInt): CLong
+public expect fun syscallSYSChdir(a1: Int): CLong
+public expect fun syscallSYSFchdir(a1: Int): CLong
+public expect fun syscallSYSRename(a1: Int, a2: Int): CLong
+public expect fun syscallSYSMkdir(a1: Int, a2: Int): CLong
+public expect fun syscallSYSRmdir(a1: Int): CLong
+public expect fun syscallSYSLink(a1: Int, a2: Int): CLong
+public expect fun syscallSYSUnlink(a1: Int): CLong
+public expect fun syscallSYSSymlink(a1: Int, a2: Int): CLong
+public expect fun syscallSYSReadlink(a1: Int, a2: Int, a3: UInt): CLong
+public expect fun syscallSYSChmod(a1: Int, a2: Int): CLong
+public expect fun syscallSYSFchmod(a1: Int, a2: Int): CLong
+public expect fun syscallSYSChown(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSFchown(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSUmask(a1: Int): CLong
+public expect fun syscallSYSGetrlimit(a1: Int, a2: Int): CLong
+public expect fun syscallSYSGetrusage(a1: Int, a2: Int): CLong
+public expect fun syscallSYSSysinfo(a1: Int): CLong
+public expect fun syscallSYSGetuid(): CLong
+public expect fun syscallSYSGetgid(): CLong
+public expect fun syscallSYSSetuid(a1: Int): CLong
+public expect fun syscallSYSSetgid(a1: Int): CLong
+public expect fun syscallSYSGeteuid(): CLong
+public expect fun syscallSYSGetegid(): CLong
+public expect fun syscallSYSSetpgid(a1: Int, a2: Int): CLong
+public expect fun syscallSYSGetppid(): CLong
+public expect fun syscallSYSSetsid(): CLong
+public expect fun syscallSYSSetreuid(a1: Int, a2: Int): CLong
+public expect fun syscallSYSSetregid(a1: Int, a2: Int): CLong
+public expect fun syscallSYSGetgroups(a1: UInt, a2: Int): CLong
+public expect fun syscallSYSSetgroups(a1: UInt, a2: Int): CLong
+public expect fun syscallSYSSetresuid(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSSetresgid(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSGetpgid(a1: Int): CLong
+public expect fun syscallSYSGetsid(a1: Int): CLong
+public expect fun syscallSYSRtSigpending(a1: Int, a2: UInt): CLong
+public expect fun syscallSYSRtSigsuspend(a1: Int, a2: UInt): CLong
+public expect fun syscallSYSSigaltstack(a1: Int, a2: Int): CLong
+public expect fun syscallSYSUtime(a1: Int, a2: Int): CLong
+public expect fun syscallSYSStatfs(a1: Int, a2: Int): CLong
+public expect fun syscallSYSFstatfs(a1: Int, a2: Int): CLong
+public expect fun syscallSYSPrctl(a1: Int, a2: ULong, a3: ULong, a4: ULong, a5: ULong): CLong
+public expect fun syscallSYSSetrlimit(a1: Int, a2: Int): CLong
+public expect fun syscallSYSChroot(a1: Int): CLong
+public expect fun syscallSYSGettid(): CLong
+public expect fun syscallSYSTkill(a1: Int, a2: Int): CLong
+public expect fun syscallSYSFutex(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): CLong
+public expect fun syscallSYSSchedGetaffinity(a1: Int, a2: UInt, a3: Int): CLong
+public expect fun syscallSYSGetdents64(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSSetTidAddress(a1: Int): CLong
+public expect fun syscallSYSFadvise(a1: Int, a2: Long, a3: Long, a4: Int): CLong
+public expect fun syscallSYSClockGettime(a1: Int, a2: Int): CLong
+public expect fun syscallSYSClockGetres(a1: Int, a2: Int): CLong
+public expect fun syscallSYSClockNanosleep(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSExitGroup(a1: Int): CLong
+public expect fun syscallSYSEpollCtl(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSOpenat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSMkdirat(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSFchownat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
+public expect fun syscallSYSFstatat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSUnlinkat(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSLinkat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
+public expect fun syscallSYSSymlinkat(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSReadlinkat(a1: Int, a2: Int, a3: Int, a4: UInt): CLong
+public expect fun syscallSYSFchmodat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSFaccessat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSPselect6(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): CLong
+public expect fun syscallSYSPpoll(a1: Int, a2: UInt, a3: Int, a4: Int, a5: UInt): CLong
+public expect fun syscallSYSUtimensat(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSEpollPwait(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: UInt): CLong
+public expect fun syscallSYSEventfd(a1: Int): CLong
+public expect fun syscallSYSAccept4(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSEventfd2(a1: Int, a2: Int): CLong
+public expect fun syscallSYSEpollCreate1(a1: Int): CLong
+public expect fun syscallSYSDup3(a1: Int, a2: Int, a3: Int): CLong
+public expect fun syscallSYSPipe2(a1: Int, a2: Int): CLong
+public expect fun syscallSYSPrlimit64(a1: Int, a2: Int, a3: Int, a4: Int): CLong
+public expect fun syscallSYSRenameat2(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
+public expect fun syscallSYSGetrandom(a1: Int, a2: UInt, a3: Int): CLong
+public expect fun syscallSYSStatx(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong
+public expect fun syscallSYSFaccessat2(a1: Int, a2: Int, a3: Int, a4: Int): CLong

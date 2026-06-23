@@ -1,13 +1,11 @@
 // port-lint: source sgx.rs
 package io.github.kotlinmania.libc
 
-/**
- * SGX C types definition
- */
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
-
 public typealias SizeT = ULong
 public typealias PtrdiffT = Long
 public typealias IntptrT = Long

@@ -23,8 +23,8 @@ public typealias ClockT = Long
 public typealias TimeT = Long
 
 public data class SigsetT(
-    val val: UIntArray,
-    val val: ULongArray,
+    val `val`: UIntArray,
+    val `val`: ULongArray,
 )
 
 public data class Sysinfo(

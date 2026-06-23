@@ -4,9 +4,33 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.COpaquePointer
 
-/**
- * Header: `signal.h`.
- */
+public typealias SighandlerT = ULong
+
+public data class Sigval(
+    val sivalInt: CInt,
+    val sivalPtr: COpaquePointer?,
+)
+
+public data class Sigevent(
+    val sigevNotify: CInt,
+    val sigevSigno: CInt,
+    val sigevValue: Sigval,
+    val sigevNotifyFunction: ((Sigval) -> Unit)?,
+    val sigevNotifyAttributes: PthreadAttrT?,
+)
+
+public data class SiginfoT(
+    val siSigno: CInt,
+    val siCode: CInt,
+    val siValue: Sigval,
+)
+
+public data class Sigaction(
+    val saHandler: ((CInt) -> Unit)?,
+    val saMask: SigsetT,
+    val saFlags: CInt,
+    val saSigaction: ((CInt, SiginfoT?, COpaquePointer?) -> Unit)?,
+)
 
 public const val SIGHUP: CInt = 1
 public const val SIGINT: CInt = 2
@@ -39,85 +63,34 @@ public const val SIGWINCH: CInt = 28
 public const val SIGIO: CInt = 29
 public const val SIGPWR: CInt = 30
 public const val SIGSYS: CInt = 31
-
-public typealias SighandlerT = ULong
-
-public const val SIG_DFL: SighandlerT = 0uL
-public const val SIG_IGN: SighandlerT = 1uL
-public const val SIG_ERR: SighandlerT = ULong.MAX_VALUE
-
+public val SIG_DFL: SighandlerT = 0.toSighandlerT()
+public val SIG_IGN: SighandlerT = 1.toSighandlerT()
+public val SIG_ERR: SighandlerT = 0.toSighandlerT().inv()
 public const val SIG_BLOCK: CInt = 1
 public const val SIG_UNBLOCK: CInt = 2
 public const val SIG_SETMASK: CInt = 3
-
 public const val POSIX_MSG: CInt = 7
 public const val POSIX_NOTIF: CInt = 8
 public const val SIGRTMIN: CInt = 10
 public const val SIGRTMAX: CInt = 32
-
 public const val SIGEV_NONE: CInt = 0
 public const val SIGEV_SIGNAL: CInt = 1
 public const val SIGEV_THREAD: CInt = 2
 public const val SA_SIGINFO: CInt = 1
 
-public data class Sigval(
-    val sivalInt: CInt,
-    val sivalPtr: COpaquePointer?,
-)
-
-public data class Sigevent(
-    val sigevNotify: CInt,
-    val sigevSigno: CInt,
-    val sigevValue: Sigval,
-    val sigevNotifyFunction: ((Sigval) -> Unit)?,
-    val sigevNotifyAttributes: PthreadAttrT?,
-)
-
-public data class SiginfoT(
-    val siSigno: CInt,
-    val siCode: CInt,
-    val siValue: Sigval,
-)
-
-public data class Sigaction(
-    val saHandler: ((CInt) -> Unit)?,
-    val saMask: SigsetT,
-    val saFlags: CInt,
-    val saSigaction: ((CInt, SiginfoT?, COpaquePointer?) -> Unit)?,
-)
-
 public expect fun signal(sig: CInt, handler: SighandlerT): SighandlerT
-
 public expect fun kill(pid: PidT, sig: CInt): CInt
-
 public expect fun raise(sig: CInt): CInt
-
 public expect fun alarm(seconds: CUInt): CUInt
-
 public expect fun pause(): CInt
-
 public expect fun sigemptyset(set: SigsetT?): CInt
-
 public expect fun sigfillset(set: SigsetT?): CInt
-
 public expect fun sigaddset(set: SigsetT?, signum: CInt): CInt
-
 public expect fun sigdelset(set: SigsetT?, signum: CInt): CInt
-
 public expect fun sigismember(set: SigsetT?, signum: CInt): CInt
-
 public expect fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
-
 public expect fun sigpending(set: SigsetT?): CInt
-
 public expect fun sigsuspend(mask: SigsetT?): CInt
-
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
-
 public expect fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt
-
-public expect fun sigtimedwait(
-    set: SigsetT?,
-    info: SiginfoT?,
-    timeout: Timespec?,
-): CInt
+public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt

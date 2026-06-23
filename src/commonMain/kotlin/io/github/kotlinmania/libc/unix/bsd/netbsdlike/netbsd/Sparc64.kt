@@ -2,7 +2,8 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
 
 public typealias CpuSimpleLockNvT = CUChar
 
-internal const val ALIGNBYTES: Int = 0xf
+public const val _ALIGNBYTES: ULong = 0xfuL

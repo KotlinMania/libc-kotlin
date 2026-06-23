@@ -288,9 +288,9 @@ public data class Utmpx(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousPtraceSyscallInfoData(
-    val entry: CAnonymousPtraceSyscallInfoEntry = null,
-    val exit: CAnonymousPtraceSyscallInfoExit = null,
-    val seccomp: CAnonymousPtraceSyscallInfoSeccomp = null,
+    val entry: CAnonymousPtraceSyscallInfoEntry? = null,
+    val exit: CAnonymousPtraceSyscallInfoExit? = null,
+    val seccomp: CAnonymousPtraceSyscallInfoSeccomp? = null,
 )
 
 public const val HUGETLB_FLAG_ENCODE_SHIFT: CInt = 26
@@ -510,36 +510,36 @@ public const val PTRACE_SYSCALL_INFO_EXIT: U8 = 2
 public const val PTRACE_SYSCALL_INFO_SECCOMP: U8 = 3
 public const val PTRACE_SET_SYSCALL_USER_DISPATCH_CONFIG: U8 = 0x4210
 public const val PTRACE_GET_SYSCALL_USER_DISPATCH_CONFIG: U8 = 0x4211
-public const val TCA_PAD: CUShort = 9u
-public const val TCA_DUMP_INVISIBLE: CUShort = 10u
-public const val TCA_CHAIN: CUShort = 11u
-public const val TCA_HW_OFFLOAD: CUShort = 12u
-public const val RTM_DELNETCONF: UShort = 81u
-public const val RTM_NEWSTATS: UShort = 92u
-public const val RTM_GETSTATS: UShort = 94u
-public const val RTM_NEWCACHEREPORT: UShort = 96u
+public val TCA_PAD: CUShort = (9).toUShort()
+public val TCA_DUMP_INVISIBLE: CUShort = (10).toUShort()
+public val TCA_CHAIN: CUShort = (11).toUShort()
+public val TCA_HW_OFFLOAD: CUShort = (12).toUShort()
+public val RTM_DELNETCONF: UShort = (81).toUShort()
+public val RTM_NEWSTATS: UShort = (92).toUShort()
+public val RTM_GETSTATS: UShort = (94).toUShort()
+public val RTM_NEWCACHEREPORT: UShort = (96).toUShort()
 public const val RTM_F_LOOKUP_TABLE: CUInt = 0x1000u
 public const val RTM_F_FIB_MATCH: CUInt = 0x2000u
-public const val RTA_VIA: CUShort = 18u
-public const val RTA_NEWDST: CUShort = 19u
-public const val RTA_PREF: CUShort = 20u
-public const val RTA_ENCAP_TYPE: CUShort = 21u
-public const val RTA_ENCAP: CUShort = 22u
-public const val RTA_EXPIRES: CUShort = 23u
-public const val RTA_PAD: CUShort = 24u
-public const val RTA_UID: CUShort = 25u
-public const val RTA_TTL_PROPAGATE: CUShort = 26u
-public const val NTF_EXT_LEARNED: UByte = 0x10u
-public const val NTF_OFFLOADED: UByte = 0x20u
-public const val NDA_MASTER: CUShort = 9u
-public const val NDA_LINK_NETNSID: CUShort = 10u
-public const val NDA_SRC_VNI: CUShort = 11u
+public val RTA_VIA: CUShort = (18).toUShort()
+public val RTA_NEWDST: CUShort = (19).toUShort()
+public val RTA_PREF: CUShort = (20).toUShort()
+public val RTA_ENCAP_TYPE: CUShort = (21).toUShort()
+public val RTA_ENCAP: CUShort = (22).toUShort()
+public val RTA_EXPIRES: CUShort = (23).toUShort()
+public val RTA_PAD: CUShort = (24).toUShort()
+public val RTA_UID: CUShort = (25).toUShort()
+public val RTA_TTL_PROPAGATE: CUShort = (26).toUShort()
+public val NTF_EXT_LEARNED: UByte = (0x10).toUByte()
+public val NTF_OFFLOADED: UByte = (0x20).toUByte()
+public val NDA_MASTER: CUShort = (9).toUShort()
+public val NDA_LINK_NETNSID: CUShort = (10).toUShort()
+public val NDA_SRC_VNI: CUShort = (11).toUShort()
 public const val UNAME26: CInt = 0x0020000
 public const val FDPIC_FUNCPTRS: CInt = 0x0080000
 public const val GENL_UNS_ADMIN_PERM: CInt = 0x10
 public const val GENL_ID_VFS_DQUOT: CInt = NLMSG_MIN_TYPE + 1
 public const val GENL_ID_PMCRAID: CInt = NLMSG_MIN_TYPE + 2
-public const val ELFOSABI_ARM_AEABI: UByte = 64u
+public val ELFOSABI_ARM_AEABI: UByte = (64).toUByte()
 public const val CLONE_NEWTIME: CInt = 0x80
 public const val CLONE_CLEAR_SIGHAND: CInt = 0x100000000
 public const val CLONE_INTO_CGROUP: CInt = 0x200000000
@@ -680,8 +680,8 @@ public expect fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULon
 public expect fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun getpriority(which: PriorityWhichT, who: IdT): CInt
 public expect fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt
-public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, val: CInt?): CInt
-public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, val: CInt): CInt
+public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt
 public expect fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt
 public expect fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt
 public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt

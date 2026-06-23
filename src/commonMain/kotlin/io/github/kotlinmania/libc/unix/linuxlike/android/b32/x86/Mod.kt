@@ -50,8 +50,8 @@ public data class MaxAlignT(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousUcSigmask(
-    val ucSigmask: CAnonymousUcSigmaskWithPadding = null,
-    val ucSigmask64: Sigset64T = null,
+    val ucSigmask: CAnonymousUcSigmaskWithPadding? = null,
+    val ucSigmask64: Sigset64T? = null,
 )
 
 public const val O_DIRECT: CInt = 0x4000

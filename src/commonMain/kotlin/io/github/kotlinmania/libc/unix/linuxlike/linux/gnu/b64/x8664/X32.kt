@@ -2,8 +2,8 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.COpaquePointer
 
-// __f_spare is layout padding ([c_int; 6]).
 public data class Statvfs(
     val fBsize: CULong,
     val fFrsize: CULong,
@@ -16,21 +16,16 @@ public data class Statvfs(
     val fFsid: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
+    val fSpare: IntArray,
 )
 
-public const val __SIZEOF_PTHREAD_MUTEX_T: Int = 32
-public const val __SIZEOF_PTHREAD_RWLOCK_T: Int = 44
-public const val __SIZEOF_PTHREAD_BARRIER_T: Int = 20
-
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT =
-    PthreadMutexT(size = ByteArray(32).also { it[16] = 1 })
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT =
-    PthreadMutexT(size = ByteArray(32).also { it[16] = 2 })
-public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT =
-    PthreadMutexT(size = ByteArray(32).also { it[16] = 3 })
-
+public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 32uL
+public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 44uL
+public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 20uL
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ])
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ])
+public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ])
 public const val __X32_SYSCALL_BIT: CLong = 0x40000000
-
 public const val SYS_read: CLong = __X32_SYSCALL_BIT + 0
 public const val SYS_write: CLong = __X32_SYSCALL_BIT + 1
 public const val SYS_open: CLong = __X32_SYSCALL_BIT + 2

@@ -4,12 +4,13 @@ package io.github.kotlinmania.libc.unix.aix
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.COpaquePointer
 
-// Opaque extern type.
-public class LockDataInstrumented private constructor()
+public data class SigsetT(
+    val ssSet: ULongArray,
+)
 
-public data class SigsetT(val ssSet: ULongArray)
-
-public data class FdSet(val fdsBits: LongArray)
+public data class FdSet(
+    val fdsBits: LongArray,
+)
 
 public data class Flock(
     val lType: CShort,
@@ -38,15 +39,22 @@ public data class Statvfs(
     val fFiller: ULongArray,
 )
 
-public data class PthreadRwlockT(val rwWord: LongArray)
+public data class PthreadRwlockT(
+    val rwWord: LongArray,
+)
 
-public data class PthreadCondT(val cvWord: LongArray)
+public data class PthreadCondT(
+    val cvWord: LongArray,
+)
 
-public data class PthreadMutexT(val mtWord: LongArray)
+public data class PthreadMutexT(
+    val mtWord: LongArray,
+)
 
-public data class PthreadOnceT(val onWord: LongArray)
+public data class PthreadOnceT(
+    val onWord: LongArray,
+)
 
-// st_reserved is layout padding.
 public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
@@ -91,7 +99,6 @@ public data class Statfs(
     val fNameMax: CInt,
 )
 
-// aio_reserved is layout padding.
 public data class Aiocb(
     val aioLioOpcode: CInt,
     val aioFildes: CInt,
@@ -109,7 +116,9 @@ public data class Aiocb(
     val aioSigevTid: CLong,
 )
 
-public data class VmxregT(val v: UIntArray)
+public data class VmxregT(
+    val v: UIntArray,
+)
 
 public data class VmxContextT(
     val vr: List<VmxregT>,
@@ -119,7 +128,9 @@ public data class VmxContextT(
     val pad2: UIntArray,
 )
 
-public data class VsxContextT(val vsrDw1: ULongArray)
+public data class VsxContextT(
+    val vsrDw1: ULongArray,
+)
 
 public data class TmContextT(
     val vmx: VmxContextT,
@@ -164,9 +175,10 @@ public data class Context64(
     val excpType: CInt,
 )
 
-public data class McontextT(val jmpContext: Context64)
+public data class McontextT(
+    val jmpContext: Context64,
+)
 
-// __reserved is layout padding.
 public data class ExtctxT(
     val flags: CUInt,
     val rsvd1: UIntArray,
@@ -202,9 +214,13 @@ public data class Utmpx(
     val reservedV: IntArray,
 )
 
-public data class PthreadSpinlockT(val spWord: LongArray)
+public data class PthreadSpinlockT(
+    val spWord: LongArray,
+)
 
-public data class PthreadBarrierT(val brWord: LongArray)
+public data class PthreadBarrierT(
+    val brWord: LongArray,
+)
 
 public data class MsqidDs(
     val msgPerm: IpcPerm,
@@ -244,18 +260,12 @@ public data class PollfdExt(
     val data: PollfdExtU,
 )
 
-// C union; only one variant is valid at a time.
-public data class KernelSimpleLock(
-    val slock: CLong? = null,
-    val slockp: COpaquePointer? = null,
-)
-
 public data class FileopsT(
-    val foRw: ((file: File?, rw: UioRw, io: COpaquePointer?, ext: CLong, secattr: COpaquePointer?) -> CInt)?,
-    val foIoctl: ((file: File?, a: CLong, b: CaddrT, c: CLong, d: CLong) -> CInt)?,
-    val foSelect: ((file: File?, a: CInt, b: CUShort?, c: () -> Unit) -> CInt)?,
-    val foClose: ((file: File?) -> CInt)?,
-    val foFstat: ((file: File?, sstat: Stat?) -> CInt)?,
+    val foRw: ((File?, UioRw, COpaquePointer?, CLong, COpaquePointer?) -> CInt)?,
+    val foIoctl: ((File?, CLong, CaddrT, CLong, CLong) -> CInt)?,
+    val foSelect: ((File?, CInt, CUShort?, (() -> Unit)?) -> CInt)?,
+    val foClose: ((File?) -> CInt)?,
+    val foFstat: ((File?, Stat?) -> CInt)?,
 )
 
 public data class File(
@@ -276,13 +286,6 @@ public data class File(
     val fFdata: ByteArray,
 )
 
-// C union; only one variant is valid at a time.
-public data class LdInfoFile(
-    val ldinfoFd: CInt? = null,
-    val ldinfoFp: File? = null,
-    val coreOffset: CLong? = null,
-)
-
 public data class LdInfo(
     val ldinfoNext: CUInt,
     val ldinfoFlags: CUInt,
@@ -294,6 +297,23 @@ public data class LdInfo(
     val ldinfoFilename: ByteArray,
 )
 
+public data class FpregT(
+    val d: CDouble,
+)
+
+// C union; only one variant is valid at a time.
+public data class KernelSimpleLock(
+    val slock: CLong? = null,
+    val slockp: LockDataInstrumented? = null,
+)
+
+// C union; only one variant is valid at a time.
+public data class LdInfoFile(
+    val ldinfoFd: CInt? = null,
+    val ldinfoFp: File? = null,
+    val coreOffset: CLong? = null,
+)
+
 // C union; only one variant is valid at a time.
 public data class PollfdExtU(
     val addr: COpaquePointer? = null,
@@ -301,17 +321,10 @@ public data class PollfdExtU(
     val data: ULong? = null,
 )
 
-public data class FpregT(val d: CDouble)
-
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT =
-    PthreadMutexT(longArrayOf(0, 2, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_COND_INITIALIZER: PthreadCondT =
-    PthreadCondT(longArrayOf(0, 0, 0, 0, 2, 0))
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT =
-    PthreadRwlockT(longArrayOf(2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_ONCE_INIT: PthreadOnceT =
-    PthreadOnceT(longArrayOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
-
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mtWord = [0, 2, 0, 0, 0, 0, 0, 0])
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cvWord = [0, 0, 0, 0, 2, 0])
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = [2, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = [0, 0, 0, 0, 0, 2, 0, 0, 0])
 public const val RLIM_INFINITY: CULong = 0x7fffffffffffffffuL
 
 public expect fun getsystemcfg(label: CInt): CULong

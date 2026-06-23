@@ -136,7 +136,7 @@ public data class MaxAlignT(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousElf64AuxvUnion(
-    val aVal: CLong = null,
+    val aVal: CLong? = null,
     val aPtr: COpaquePointer? = null,
     val aFcn: (() -> Unit)? = null,
 )

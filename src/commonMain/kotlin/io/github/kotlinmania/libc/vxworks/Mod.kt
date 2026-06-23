@@ -416,8 +416,8 @@ public data class Lconv(
     val thousandsSep: String?,
     val fracGrouping: String?,
     val fracSep: String?,
-    val false: String?,
-    val true: String?,
+    val `false`: String?,
+    val `true`: String?,
     val no: String?,
     val yes: String?,
 )
@@ -476,12 +476,12 @@ public data class SockaddrStorage(
 // C union; only one variant is valid at a time.
 public data class SaUT(
     val saHandler: ((CInt) -> Nothing)? = null,
-    val saSigaction: ((CInt, :siginfoT, COpaquePointer?) -> Nothing)? = null,
+    val saSigaction: ((CInt, SiginfoT?, COpaquePointer?) -> Nothing)? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class Sigval(
-    val sivalInt: CInt = null,
+    val sivalInt: CInt? = null,
     val sivalPtr: COpaquePointer? = null,
 )
 
@@ -691,15 +691,15 @@ public const val IPV6_MULTICAST_HOPS: CInt = 10
 public const val IPV6_MULTICAST_LOOP: CInt = 11
 public const val IPV6_ADD_MEMBERSHIP: CInt = 12
 public const val IPV6_DROP_MEMBERSHIP: CInt = 13
-public const val S_IFMT: CInt = 0o17_0000
-public const val S_IFIFO: CInt = 0o1_0000
-public const val S_IFCHR: CInt = 0o2_0000
-public const val S_IFDIR: CInt = 0o4_0000
-public const val S_IFBLK: CInt = 0o6_0000
-public const val S_IFREG: CInt = 0o10_0000
-public const val S_IFLNK: CInt = 0o12_0000
-public const val S_IFSHM: CInt = 0o13_0000
-public const val S_IFSOCK: CInt = 0o14_0000
+public const val S_IFMT: CInt = 61440
+public const val S_IFIFO: CInt = 4096
+public const val S_IFCHR: CInt = 8192
+public const val S_IFDIR: CInt = 16384
+public const val S_IFBLK: CInt = 24576
+public const val S_IFREG: CInt = 32768
+public const val S_IFLNK: CInt = 40960
+public const val S_IFSHM: CInt = 45056
+public const val S_IFSOCK: CInt = 49152
 public const val S_ISUID: CInt = 2048
 public const val S_ISGID: CInt = 1024
 public const val S_ISTXT: CInt = 512
@@ -835,13 +835,13 @@ public const val CSTOPB: TcflagT = 0x20
 public const val CSIZE: TcflagT = 0xc
 public const val PARODD: TcflagT = 0x80
 public const val PARENB: TcflagT = 0x40
-public const val DT_FIFO: CUChar = 1u
-public const val DT_CHR: CUChar = 2u
-public const val DT_DIR: CUChar = 4u
-public const val DT_BLK: CUChar = 6u
-public const val DT_REG: CUChar = 8u
-public const val DT_LNK: CUChar = 10u
-public const val DT_SOCK: CUChar = 12u
+public val DT_FIFO: CUChar = (1).toUByte()
+public val DT_CHR: CUChar = (2).toUByte()
+public val DT_DIR: CUChar = (4).toUByte()
+public val DT_BLK: CUChar = (6).toUByte()
+public val DT_REG: CUChar = (8).toUByte()
+public val DT_LNK: CUChar = (10).toUByte()
+public val DT_SOCK: CUChar = (12).toUByte()
 public const val FNM_NOMATCH: CInt = 1
 public const val FNM_NOESCAPE: CInt = 1
 public const val FNM_PATHNAME: CInt = 2

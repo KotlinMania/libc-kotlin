@@ -74,11 +74,11 @@ public enum class ACTION(public val value: UInt) {
 }
 
 public data class FsidT(
-    val val: UIntArray,
+    val `val`: UIntArray,
 )
 
 public data class Fsid64T(
-    val val: List<Uint64T>,
+    val `val`: List<Uint64T>,
 )
 
 public data class Timezone(
@@ -530,8 +530,8 @@ public data class PollCtlExt(
 // C union; only one variant is valid at a time.
 public data class PollCtlExtU(
     val addr: COpaquePointer? = null,
-    val data32: UInt = null,
-    val data: ULong = null,
+    val data32: UInt? = null,
+    val data: ULong? = null,
 )
 
 public const val RTLD_LAZY: CInt = 0x4
@@ -1010,7 +1010,7 @@ public const val PTHREAD_BARRIER_SERIAL_THREAD: CInt = 2
 public const val PTHREAD_CREATE_JOINABLE: CInt = 0
 public const val PTHREAD_CREATE_DETACHED: CInt = 1
 public const val PTHREAD_PROCESS_SHARED: CInt = 0
-public const val PTHREAD_PROCESS_PRIVATE: CUShort = 1u
+public val PTHREAD_PROCESS_PRIVATE: CUShort = (1).toUShort()
 public val PTHREAD_STACK_MIN: ULong = PAGESIZE.toULong() * 4
 public const val PTHREAD_MUTEX_NORMAL: CInt = 5
 public const val PTHREAD_MUTEX_ERRORCHECK: CInt = 3
@@ -1377,12 +1377,12 @@ public const val MADV_RANDOM: CInt = 1
 public const val MADV_SEQUENTIAL: CInt = 2
 public const val MADV_WILLNEED: CInt = 3
 public const val MADV_DONTNEED: CInt = 4
-public const val S_IFMT: ModeT = 0o17_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFIFO: ModeT = 0o1_0000
+public const val S_IFMT: ModeT = 61440
+public const val S_IFREG: ModeT = 32768
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFIFO: ModeT = 4096
 public const val S_IRWXU: ModeT = 448
 public const val S_IRUSR: ModeT = 256
 public const val S_IWUSR: ModeT = 128
@@ -1395,8 +1395,8 @@ public const val S_IRWXO: ModeT = 7
 public const val S_IROTH: ModeT = 4
 public const val S_IWOTH: ModeT = 2
 public const val S_IXOTH: ModeT = 1
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
 public const val S_IEXEC: ModeT = 64
 public const val S_IWRITE: ModeT = 128
 public const val S_IREAD: ModeT = 256
@@ -1423,10 +1423,10 @@ public const val POLLRDNORM: CShort = 0x0010
 public const val POLLWRNORM: CShort = POLLOUT
 public const val POLLRDBAND: CShort = 0x0020
 public const val POLLWRBAND: CShort = 0x0040
-public const val PS_ADD: CUChar = 0u
-public const val PS_MOD: CUChar = 1u
-public const val PS_DELETE: CUChar = 2u
-public const val PS_REPLACE: CUChar = 3u
+public val PS_ADD: CUChar = (0).toUByte()
+public val PS_MOD: CUChar = (1).toUByte()
+public val PS_DELETE: CUChar = (2).toUByte()
+public val PS_REPLACE: CUChar = (3).toUByte()
 public const val PT_TRACE_ME: CInt = 0
 public const val PT_READ_I: CInt = 1
 public const val PT_READ_D: CInt = 2

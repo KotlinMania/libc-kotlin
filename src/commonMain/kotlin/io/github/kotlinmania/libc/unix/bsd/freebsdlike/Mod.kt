@@ -441,14 +441,14 @@ public const val L_tmpnam: CUInt = 1024u
 public const val TMP_MAX: CUInt = 308915776u
 public const val O_NOCTTY: CInt = 32768
 public const val O_DIRECT: CInt = 0x00010000
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFREG: ModeT = 32768
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFMT: ModeT = 61440
 public const val S_IEXEC: ModeT = 64
 public const val S_IWRITE: ModeT = 128
 public const val S_IREAD: ModeT = 256
@@ -1155,8 +1155,8 @@ public const val ONLRET: TcflagT = 0x40
 public const val CMGROUP_MAX: ULong = 16uL
 public const val EUI64_LEN: ULong = 8uL
 public const val BPF_ALIGNMENT: ULong = SIZEOF_LONG
-public const val RTP_PRIO_MIN: CUShort = 0u
-public const val RTP_PRIO_MAX: CUShort = 31u
+public val RTP_PRIO_MIN: CUShort = (0).toUShort()
+public val RTP_PRIO_MAX: CUShort = (31).toUShort()
 public const val RTP_LOOKUP: CInt = 0
 public const val RTP_SET: CInt = 1
 public const val UF_SETTABLE: CULong = 0x0000ffffuL
@@ -1321,8 +1321,8 @@ public expect fun pthreadMainNp(): CInt
 public expect fun pthreadMutexTimedlock(lock: PthreadMutexT?, abstime: Timespec?): CInt
 public expect fun pthreadMutexattrGetpshared(attr: PthreadMutexattrT?, pshared: CInt?): CInt
 public expect fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT?, pshared: CInt): CInt
-public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT?, val: CInt?): CInt
-public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, val: CInt): CInt
+public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, `val`: CInt): CInt
 public expect fun pthreadBarrierattrInit(attr: PthreadBarrierattrT?): CInt
 public expect fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT?): CInt
 public expect fun pthreadBarrierattrGetpshared(attr: PthreadBarrierattrT?, shared: CInt?): CInt

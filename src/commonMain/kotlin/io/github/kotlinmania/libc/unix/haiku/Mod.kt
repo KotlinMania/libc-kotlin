@@ -395,7 +395,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val val: CInt,
+    val `val`: CInt,
 )
 
 public data class SockaddrUn(
@@ -512,14 +512,14 @@ public const val O_DSYNC: CInt = 0x00040000
 public const val O_NOFOLLOW: CInt = 0x00080000
 public const val O_NOCACHE: CInt = 0x00100000
 public const val O_DIRECTORY: CInt = 0x00200000
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFREG: ModeT = 32768
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFMT: ModeT = 61440
 public const val S_IRWXU: ModeT = 448
 public const val S_IRUSR: ModeT = 256
 public const val S_IWUSR: ModeT = 128

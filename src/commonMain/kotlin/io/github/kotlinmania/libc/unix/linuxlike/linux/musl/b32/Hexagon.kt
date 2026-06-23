@@ -7,33 +7,63 @@ import kotlinx.cinterop.COpaquePointer
 public typealias WcharT = UInt
 public typealias Stat64 = Stat
 
-// Padding fields (__st_rdev_padding, __pad0..2, __unused, etc.) omitted.
 public data class Stat(
-    val stDev: DevT, val stIno: CULongLong, val stMode: CUInt, val stNlink: CUInt,
-    val stUid: CUInt, val stGid: CUInt, val stRdev: CULongLong, val stSize: CLongLong,
-    val stBlksize: BlksizeT, val stBlocks: BlkcntT,
-    val stAtime: TimeT, val stAtimeNsec: CLong, val stMtime: TimeT, val stMtimeNsec: CLong,
-    val stCtime: TimeT, val stCtimeNsec: CLong,
+    val stDev: DevT,
+    val stIno: CULongLong,
+    val stMode: CUInt,
+    val stNlink: CUInt,
+    val stUid: CUInt,
+    val stGid: CUInt,
+    val stRdev: CULongLong,
+    val stSize: CLongLong,
+    val stBlksize: BlksizeT,
+    val stBlocks: BlkcntT,
+    val stAtime: TimeT,
+    val stAtimeNsec: CLong,
+    val stMtime: TimeT,
+    val stMtimeNsec: CLong,
+    val stCtime: TimeT,
+    val stCtimeNsec: CLong,
 )
 
-public data class StackT(val ssSp: COpaquePointer?, val ssFlags: CInt, val ssSize: ULong)
+public data class StackT(
+    val ssSp: COpaquePointer?,
+    val ssFlags: CInt,
+    val ssSize: ULong,
+)
 
-// On non-musl_v1_2_3 the key field is the deprecated __ipc_perm_key.
 public data class IpcPerm(
-    val key: KeyT, val uid: UidT, val gid: GidT, val cuid: UidT, val cgid: GidT,
-    val mode: ModeT, val seq: CUShort,
+    val key: KeyT,
+    val ipcPermKey: KeyT,
+    val uid: UidT,
+    val gid: GidT,
+    val cuid: UidT,
+    val cgid: GidT,
+    val mode: ModeT,
+    val seq: CUShort,
 )
 
-// __unused1..3 / __pad1..2 are layout padding.
 public data class ShmidDs(
-    val shmPerm: IpcPerm, val shmSegsz: ULong, val shmAtime: TimeT, val shmDtime: TimeT,
-    val shmCtime: TimeT, val shmCpid: PidT, val shmLpid: PidT, val shmNattch: CULong,
+    val shmPerm: IpcPerm,
+    val shmSegsz: ULong,
+    val shmAtime: TimeT,
+    val shmDtime: TimeT,
+    val shmCtime: TimeT,
+    val shmCpid: PidT,
+    val shmLpid: PidT,
+    val shmNattch: CULong,
 )
 
 public data class MsqidDs(
-    val msgPerm: IpcPerm, val msgStime: TimeT, val msgRtime: TimeT, val msgCtime: TimeT,
-    val msgCbytes: CULong, val msgQnum: MsgqnumT, val msgQbytes: MsglenT,
-    val msgLspid: PidT, val msgLrpid: PidT,
+    val msgPerm: IpcPerm,
+    val msgStime: TimeT,
+    val msgRtime: TimeT,
+    val msgCtime: TimeT,
+    val msgCbytes: CULong,
+    val msgQnum: MsgqnumT,
+    val msgQbytes: MsglenT,
+    val msgLspid: PidT,
+    val msgLrpid: PidT,
 )
 
 public const val AF_FILE: CInt = 1

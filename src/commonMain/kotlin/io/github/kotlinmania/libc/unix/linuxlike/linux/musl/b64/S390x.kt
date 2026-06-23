@@ -13,36 +13,80 @@ public typealias S64 = Long
 public typealias Statfs64 = Statfs
 public typealias Stat64 = Stat
 
-// On non-musl_v1_2_3 the key field is the deprecated __ipc_perm_key. Pads omitted.
 public data class IpcPerm(
-    val key: KeyT, val uid: UidT, val gid: GidT, val cuid: UidT, val cgid: GidT,
-    val mode: ModeT, val seq: CInt,
+    val key: KeyT,
+    val ipcPermKey: KeyT,
+    val uid: UidT,
+    val gid: GidT,
+    val cuid: UidT,
+    val cgid: GidT,
+    val mode: ModeT,
+    val seq: CInt,
 )
 
 public data class Stat(
-    val stDev: DevT, val stIno: InoT, val stNlink: NlinkT, val stMode: ModeT,
-    val stUid: UidT, val stGid: GidT, val stRdev: DevT, val stSize: OffT,
-    val stAtime: TimeT, val stAtimeNsec: CLong, val stMtime: TimeT, val stMtimeNsec: CLong,
-    val stCtime: TimeT, val stCtimeNsec: CLong, val stBlksize: BlksizeT, val stBlocks: BlkcntT,
+    val stDev: DevT,
+    val stIno: InoT,
+    val stNlink: NlinkT,
+    val stMode: ModeT,
+    val stUid: UidT,
+    val stGid: GidT,
+    val stRdev: DevT,
+    val stSize: OffT,
+    val stAtime: TimeT,
+    val stAtimeNsec: CLong,
+    val stMtime: TimeT,
+    val stMtimeNsec: CLong,
+    val stCtime: TimeT,
+    val stCtimeNsec: CLong,
+    val stBlksize: BlksizeT,
+    val stBlocks: BlkcntT,
 )
 
 public data class Statfs(
-    val fType: CUInt, val fBsize: CUInt, val fBlocks: FsblkcntT, val fBfree: FsblkcntT,
-    val fBavail: FsblkcntT, val fFiles: FsfilcntT, val fFfree: FsfilcntT, val fFsid: FsidT,
-    val fNamelen: CUInt, val fFrsize: CUInt, val fFlags: CUInt, val fSpare: UIntArray,
+    val fType: CUInt,
+    val fBsize: CUInt,
+    val fBlocks: FsblkcntT,
+    val fBfree: FsblkcntT,
+    val fBavail: FsblkcntT,
+    val fFiles: FsfilcntT,
+    val fFfree: FsfilcntT,
+    val fFsid: FsidT,
+    val fNamelen: CUInt,
+    val fFrsize: CUInt,
+    val fFlags: CUInt,
+    val fSpare: UIntArray,
 )
 
-public data class PswT(val mask: CULong, val addr: CULong)
+public data class PswT(
+    val mask: CULong,
+    val addr: CULong,
+)
 
-public data class FpregsetT(val fpc: CUInt, val fprs: List<Fpreg>)
+public data class FpregsetT(
+    val fpc: CUInt,
+    val fprs: List<FpregT>,
+)
 
 public data class McontextT(
-    val psw: PswT, val gregs: ULongArray, val aregs: UIntArray, val fpregs: FpregsetT,
+    val psw: PswT,
+    val gregs: ULongArray,
+    val aregs: UIntArray,
+    val fpregs: FpregsetT,
 )
 
 public data class UcontextT(
-    val ucFlags: CULong, val ucLink: UcontextT?, val ucStack: StackT,
-    val ucMcontext: McontextT, val ucSigmask: SigsetT,
+    val ucFlags: CULong,
+    val ucLink: UcontextT?,
+    val ucStack: StackT,
+    val ucMcontext: McontextT,
+    val ucSigmask: SigsetT,
+)
+
+// C union; only one variant is valid at a time.
+public data class FpregT(
+    val d: CDouble? = null,
+    val f: CFloat? = null,
 )
 
 public const val VEOF: ULong = 4uL

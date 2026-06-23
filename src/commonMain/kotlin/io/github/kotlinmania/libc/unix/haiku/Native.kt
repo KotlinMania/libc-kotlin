@@ -121,7 +121,7 @@ public data class SystemInfo(
 )
 
 public data class ObjectWaitInfo(
-    val object: Int,
+    val `object`: Int,
     val type: UShort,
     val events: UShort,
 )
@@ -233,19 +233,19 @@ public data class CpuTopologyNodeInfo(
 
 // C union; only one variant is valid at a time.
 public data class CpuidInfo(
-    val eax0: CAnonymousEax0 = null,
-    val eax1: CAnonymousEax1 = null,
-    val eax2: CAnonymousEax2 = null,
-    val eax3: CAnonymousEax3 = null,
-    val asChars: ByteArray = null,
-    val regs: CAnonymousRegs = null,
+    val eax0: CAnonymousEax0? = null,
+    val eax1: CAnonymousEax1? = null,
+    val eax2: CAnonymousEax2? = null,
+    val eax3: CAnonymousEax3? = null,
+    val asChars: ByteArray? = null,
+    val regs: CAnonymousRegs? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousCpuTopologyInfoData(
-    val root: CpuTopologyRootInfo = null,
-    val package: CpuTopologyPackageInfo = null,
-    val core: CpuTopologyCoreInfo = null,
+    val root: CpuTopologyRootInfo? = null,
+    val `package`: CpuTopologyPackageInfo? = null,
+    val core: CpuTopologyCoreInfo? = null,
 )
 
 public typealias ThreadState = CUInt
@@ -472,20 +472,20 @@ public const val B_FIRST_REAL_TIME_PRIORITY: Int = B_REAL_TIME_DISPLAY_PRIORITY
 public const val B_ONE_SHOT_ABSOLUTE_ALARM: UInt = 1u
 public const val B_ONE_SHOT_RELATIVE_ALARM: UInt = 2u
 public const val B_PERIODIC_ALARM: UInt = 3u
-public const val B_OBJECT_TYPE_FD: UShort = 0u
-public const val B_OBJECT_TYPE_SEMAPHORE: UShort = 1u
-public const val B_OBJECT_TYPE_PORT: UShort = 2u
-public const val B_OBJECT_TYPE_THREAD: UShort = 3u
-public const val B_EVENT_READ: UShort = 0x0001u
-public const val B_EVENT_WRITE: UShort = 0x0002u
-public const val B_EVENT_ERROR: UShort = 0x0004u
-public const val B_EVENT_PRIORITY_READ: UShort = 0x0008u
-public const val B_EVENT_PRIORITY_WRITE: UShort = 0x0010u
-public const val B_EVENT_HIGH_PRIORITY_READ: UShort = 0x0020u
-public const val B_EVENT_HIGH_PRIORITY_WRITE: UShort = 0x0040u
-public const val B_EVENT_DISCONNECTED: UShort = 0x0080u
-public const val B_EVENT_ACQUIRE_SEMAPHORE: UShort = 0x0001u
-public const val B_EVENT_INVALID: UShort = 0x1000u
+public val B_OBJECT_TYPE_FD: UShort = (0).toUShort()
+public val B_OBJECT_TYPE_SEMAPHORE: UShort = (1).toUShort()
+public val B_OBJECT_TYPE_PORT: UShort = (2).toUShort()
+public val B_OBJECT_TYPE_THREAD: UShort = (3).toUShort()
+public val B_EVENT_READ: UShort = (0x0001).toUShort()
+public val B_EVENT_WRITE: UShort = (0x0002).toUShort()
+public val B_EVENT_ERROR: UShort = (0x0004).toUShort()
+public val B_EVENT_PRIORITY_READ: UShort = (0x0008).toUShort()
+public val B_EVENT_PRIORITY_WRITE: UShort = (0x0010).toUShort()
+public val B_EVENT_HIGH_PRIORITY_READ: UShort = (0x0020).toUShort()
+public val B_EVENT_HIGH_PRIORITY_WRITE: UShort = (0x0040).toUShort()
+public val B_EVENT_DISCONNECTED: UShort = (0x0080).toUShort()
+public val B_EVENT_ACQUIRE_SEMAPHORE: UShort = (0x0001).toUShort()
+public val B_EVENT_INVALID: UShort = (0x1000).toUShort()
 public const val B_FS_IS_READONLY: UInt = 0x00000001u
 public const val B_FS_IS_REMOVABLE: UInt = 0x00000002u
 public const val B_FS_IS_PERSISTENT: UInt = 0x00000004u
@@ -821,7 +821,7 @@ public expect fun setRealTimeClock(secsSinceJan1st1970: CULong)
 public expect fun realTimeClockUsecs(): BigtimeT
 public expect fun systemTime(): BigtimeT
 public expect fun systemTimeNsecs(): NanotimeT
-public expect fun setAlarm(when: BigtimeT, flags: UInt): BigtimeT
+public expect fun setAlarm(`when`: BigtimeT, flags: UInt): BigtimeT
 public expect fun debugger(message: String?)
 public expect fun disableDebugger(state: CInt): CInt
 public expect fun getSystemInfo(info: SystemInfo?): StatusT

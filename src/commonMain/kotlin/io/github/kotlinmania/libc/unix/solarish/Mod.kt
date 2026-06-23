@@ -454,7 +454,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val val: CInt,
+    val `val`: CInt,
 )
 
 public data class SockaddrUn(
@@ -508,12 +508,12 @@ public data class SiginfoT(
 
 // C union; only one variant is valid at a time.
 public data class Pad128T(
-    val l: IntArray = null,
+    val l: IntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class Upad128T(
-    val l: UIntArray = null,
+    val l: UIntArray? = null,
 )
 
 public const val LC_CTYPE: CInt = 0
@@ -690,14 +690,14 @@ public const val O_CLOEXEC: CInt = 0x800000
 public const val O_ACCMODE: CInt = 0x600003
 public const val O_XATTR: CInt = 0x4000
 public const val O_DIRECTORY: CInt = 0x1000000
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFREG: ModeT = 32768
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFMT: ModeT = 61440
 public const val S_IEXEC: ModeT = 64
 public const val S_IWRITE: ModeT = 128
 public const val S_IREAD: ModeT = 256
@@ -1018,7 +1018,7 @@ public const val POSIX_SPAWN_NOEXECERR_NP: CShort = 0x4000
 public const val PTHREAD_CREATE_JOINABLE: CInt = 0
 public const val PTHREAD_CREATE_DETACHED: CInt = 0x40
 public const val PTHREAD_PROCESS_SHARED: CInt = 1
-public const val PTHREAD_PROCESS_PRIVATE: CUShort = 0u
+public val PTHREAD_PROCESS_PRIVATE: CUShort = (0).toUShort()
 public const val PTHREAD_STACK_MIN: ULong = 4096uL
 public const val SIGSTKSZ: ULong = 8192uL
 public const val CLOCK_REALTIME: ClockidT = 3
@@ -1432,9 +1432,9 @@ public const val _SC_XOPEN_STREAMS: CInt = 761
 public const val _SC_IPV6: CInt = 762
 public const val _SC_RAW_SOCKETS: CInt = 763
 public const val _ST_FSTYPSZ: CInt = 16
-public const val _MUTEX_MAGIC: UShort = 0x4d58u
-public const val _COND_MAGIC: UShort = 0x4356u
-public const val _RWL_MAGIC: UShort = 0x5257u
+public val _MUTEX_MAGIC: UShort = (0x4d58).toUShort()
+public val _COND_MAGIC: UShort = (0x4356).toUShort()
+public val _RWL_MAGIC: UShort = (0x5257).toUShort()
 public const val NCCS: ULong = 19uL
 public val LOG_CRON: CInt = 15 shl 3
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(pthreadMutexFlag1 = 0, pthreadMutexFlag2 = 0, pthreadMutexCeiling = 0, pthreadMutexType = PTHREAD_PROCESS_PRIVATE, pthreadMutexMagic = _MUTEX_MAGIC, pthreadMutexLock = 0, pthreadMutexData = 0)
@@ -1932,8 +1932,8 @@ public expect fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio
 public expect fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt
 public expect fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt
 public expect fun portCreate(): CInt
-public expect fun portAssociate(port: CInt, source: CInt, object: UintptrT, events: CInt, user: COpaquePointer?): CInt
-public expect fun portDissociate(port: CInt, source: CInt, object: UintptrT): CInt
+public expect fun portAssociate(port: CInt, source: CInt, `object`: UintptrT, events: CInt, user: COpaquePointer?): CInt
+public expect fun portDissociate(port: CInt, source: CInt, `object`: UintptrT): CInt
 public expect fun portGet(port: CInt, pe: PortEvent?, timeout: Timespec?): CInt
 public expect fun portGetn(port: CInt, peList: PortEvent?, max: CUInt, nget: CUInt?, timeout: Timespec?): CInt
 public expect fun portSend(port: CInt, events: CInt, user: COpaquePointer?): CInt

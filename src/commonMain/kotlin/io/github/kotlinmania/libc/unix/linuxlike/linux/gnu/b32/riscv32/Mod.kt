@@ -208,9 +208,9 @@ public data class RiscvMcQExtState(
 
 // C union; only one variant is valid at a time.
 public data class RiscvMcFpState(
-    val f: RiscvMcFExtState = null,
-    val d: RiscvMcDExtState = null,
-    val q: RiscvMcQExtState = null,
+    val f: RiscvMcFExtState? = null,
+    val d: RiscvMcDExtState? = null,
+    val q: RiscvMcQExtState? = null,
 )
 
 public const val O_LARGEFILE: CInt = 0

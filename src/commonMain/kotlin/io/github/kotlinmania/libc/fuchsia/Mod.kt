@@ -461,7 +461,7 @@ public data class Itimerspec(
 )
 
 public data class FsidT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public data class CpuSetT(
@@ -673,7 +673,7 @@ public data class PthreadAttrT(
 )
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class ShmidDs(
@@ -732,7 +732,7 @@ public data class Cmsghdr(
 )
 
 public data class SemT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public data class SiginfoT(
@@ -843,7 +843,7 @@ public data class Sigevent(
     val sigevValue: Sigval,
     val sigevSigno: CInt,
     val sigevNotify: CInt,
-    val sigevNotifyFunction: ((:sigval) -> Unit)?,
+    val sigevNotifyFunction: ((Sigval) -> Unit)?,
     val sigevNotifyAttributes: PthreadAttrT?,
     val pad: ByteArray,
 )
@@ -865,14 +865,14 @@ public const val INT_MAX: CInt = 2147483647
 public val SIG_DFL: SighandlerT = 0.toSighandlerT()
 public val SIG_IGN: SighandlerT = 1.toSighandlerT()
 public val SIG_ERR: SighandlerT = 0.toSighandlerT().inv()
-public const val DT_UNKNOWN: UByte = 0u
-public const val DT_FIFO: UByte = 1u
-public const val DT_CHR: UByte = 2u
-public const val DT_DIR: UByte = 4u
-public const val DT_BLK: UByte = 6u
-public const val DT_REG: UByte = 8u
-public const val DT_LNK: UByte = 10u
-public const val DT_SOCK: UByte = 12u
+public val DT_UNKNOWN: UByte = (0).toUByte()
+public val DT_FIFO: UByte = (1).toUByte()
+public val DT_CHR: UByte = (2).toUByte()
+public val DT_DIR: UByte = (4).toUByte()
+public val DT_BLK: UByte = (6).toUByte()
+public val DT_REG: UByte = (8).toUByte()
+public val DT_LNK: UByte = (10).toUByte()
+public val DT_SOCK: UByte = (12).toUByte()
 public const val FD_CLOEXEC: CInt = 0x1
 public const val USRQUOTA: CInt = 0
 public const val GRPQUOTA: CInt = 1
@@ -987,14 +987,14 @@ public const val RUSAGE_SELF: CInt = 0
 public const val O_RDONLY: CInt = 0
 public const val O_WRONLY: CInt = 1
 public const val O_RDWR: CInt = 2
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFREG: ModeT = 32768
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFMT: ModeT = 61440
 public const val S_IRWXU: ModeT = 448
 public const val S_IXUSR: ModeT = 64
 public const val S_IWUSR: ModeT = 128
@@ -2728,7 +2728,7 @@ public expect fun ifNametoindex(ifname: String?): CUInt
 public expect fun ifIndextoname(ifindex: CUInt, ifname: String?): String?
 public expect fun lstat(path: String?, buf: Stat?): CInt
 public expect fun fsync(fd: CInt): CInt
-public expect fun setenv(name: String?, val: String?, overwrite: CInt): CInt
+public expect fun setenv(name: String?, `val`: String?, overwrite: CInt): CInt
 public expect fun unsetenv(name: String?): CInt
 public expect fun symlink(path1: String?, path2: String?): CInt
 public expect fun ftruncate(fd: CInt, length: OffT): CInt

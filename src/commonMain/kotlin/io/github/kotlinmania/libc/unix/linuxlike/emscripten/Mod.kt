@@ -108,7 +108,7 @@ public data class SignalfdSiginfo(
 )
 
 public data class FsidT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public data class CpuSetT(
@@ -173,7 +173,7 @@ public data class PthreadAttrT(
 )
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class Msghdr(
@@ -193,7 +193,7 @@ public data class Cmsghdr(
 )
 
 public data class SemT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public data class Stat(
@@ -1094,9 +1094,9 @@ public const val TIOCM_CD: CInt = TIOCM_CAR
 public const val TIOCM_RI: CInt = TIOCM_RNG
 public const val O_TMPFILE: CInt = 0x410000
 public const val MAX_ADDR_LEN: ULong = 7uL
-public const val ARPD_UPDATE: CUShort = 0x01u
-public const val ARPD_LOOKUP: CUShort = 0x02u
-public const val ARPD_FLUSH: CUShort = 0x03u
+public val ARPD_UPDATE: CUShort = (0x01).toUShort()
+public val ARPD_LOOKUP: CUShort = (0x02).toUShort()
+public val ARPD_FLUSH: CUShort = (0x03).toUShort()
 public const val ATF_MAGIC: CInt = 0x80
 public const val PRIO_PROCESS: CInt = 0
 public const val PRIO_PGRP: CInt = 1

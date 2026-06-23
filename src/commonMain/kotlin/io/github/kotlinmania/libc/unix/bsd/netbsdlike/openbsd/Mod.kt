@@ -649,27 +649,27 @@ public data class Statfs(
 
 // C union; only one variant is valid at a time.
 public data class MountInfo(
-    val ufsArgs: UfsArgs = null,
-    val mfsArgs: MfsArgs = null,
-    val nfsArgs: NfsArgs = null,
-    val isoArgs: IsoArgs = null,
-    val msdosfsArgs: MsdosfsArgs = null,
-    val ntfsArgs: NtfsArgs = null,
-    val tmpfsArgs: TmpfsArgs = null,
-    val align: ByteArray = null,
+    val ufsArgs: UfsArgs? = null,
+    val mfsArgs: MfsArgs? = null,
+    val nfsArgs: NfsArgs? = null,
+    val isoArgs: IsoArgs? = null,
+    val msdosfsArgs: MsdosfsArgs? = null,
+    val ntfsArgs: NtfsArgs? = null,
+    val tmpfsArgs: TmpfsArgs? = null,
+    val align: ByteArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru(
-    val ifruAddr: Sockaddr = null,
-    val ifruDstaddr: Sockaddr = null,
-    val ifruBroadaddr: Sockaddr = null,
-    val ifruFlags: CShort = null,
-    val ifruMetric: CInt = null,
-    val ifruVnetid: Long = null,
-    val ifruMedia: ULong = null,
-    val ifruData: CaddrT = null,
-    val ifruIndex: CUInt = null,
+    val ifruAddr: Sockaddr? = null,
+    val ifruDstaddr: Sockaddr? = null,
+    val ifruBroadaddr: Sockaddr? = null,
+    val ifruFlags: CShort? = null,
+    val ifruMetric: CInt? = null,
+    val ifruVnetid: Long? = null,
+    val ifruMedia: ULong? = null,
+    val ifruData: CaddrT? = null,
+    val ifruIndex: CUInt? = null,
 )
 
 public const val UT_NAMESIZE: ULong = 32uL
@@ -947,18 +947,18 @@ public const val EVFILT_TIMER: Short = -7
 public const val EVFILT_DEVICE: Short = -8
 public const val EVFILT_EXCEPT: Short = -9
 public const val EVFILT_USER: Short = -10
-public const val EV_ADD: UShort = 0x1u
-public const val EV_DELETE: UShort = 0x2u
-public const val EV_ENABLE: UShort = 0x4u
-public const val EV_DISABLE: UShort = 0x8u
-public const val EV_ONESHOT: UShort = 0x10u
-public const val EV_CLEAR: UShort = 0x20u
-public const val EV_RECEIPT: UShort = 0x40u
-public const val EV_DISPATCH: UShort = 0x80u
-public const val EV_FLAG1: UShort = 0x2000u
-public const val EV_ERROR: UShort = 0x4000u
-public const val EV_EOF: UShort = 0x8000u
-public const val EV_SYSFLAGS: UShort = 0xf800u
+public val EV_ADD: UShort = (0x1).toUShort()
+public val EV_DELETE: UShort = (0x2).toUShort()
+public val EV_ENABLE: UShort = (0x4).toUShort()
+public val EV_DISABLE: UShort = (0x8).toUShort()
+public val EV_ONESHOT: UShort = (0x10).toUShort()
+public val EV_CLEAR: UShort = (0x20).toUShort()
+public val EV_RECEIPT: UShort = (0x40).toUShort()
+public val EV_DISPATCH: UShort = (0x80).toUShort()
+public val EV_FLAG1: UShort = (0x2000).toUShort()
+public val EV_ERROR: UShort = (0x4000).toUShort()
+public val EV_EOF: UShort = (0x8000).toUShort()
+public val EV_SYSFLAGS: UShort = (0xf800).toUShort()
 public const val NOTE_TRIGGER: UInt = 0x01000000u
 public const val NOTE_FFNOP: UInt = 0x00000000u
 public const val NOTE_FFAND: UInt = 0x40000000u
@@ -1426,7 +1426,7 @@ public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong
 public expect fun hcreate(nelt: ULong): CInt
 public expect fun hdestroy()
 public expect fun hsearch(entry: ENTRY, action: ACTION): ENTRY?
-public expect fun futex(uaddr: UInt?, op: CInt, val: CInt, timeout: Timespec?, uaddr2: UInt?): CInt
+public expect fun futex(uaddr: UInt?, op: CInt, `val`: CInt, timeout: Timespec?, uaddr2: UInt?): CInt
 public expect fun mimmutable(addr: COpaquePointer?, len: ULong): CInt
 public expect fun reboot(mode: CInt): CInt
 public expect fun statfs(path: String?, buf: Statfs?): CInt

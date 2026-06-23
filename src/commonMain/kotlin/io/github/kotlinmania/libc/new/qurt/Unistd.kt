@@ -4,19 +4,13 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.COpaquePointer
 
-/**
- * Header: `unistd.h`.
- */
-
 public const val F_OK: CInt = 0
 public const val X_OK: CInt = 1
 public const val W_OK: CInt = 2
 public const val R_OK: CInt = 4
-
 public const val SEEK_SET: CInt = 0
 public const val SEEK_CUR: CInt = 1
 public const val SEEK_END: CInt = 2
-
 public const val _PC_LINK_MAX: CInt = 0
 public const val _PC_MAX_CANON: CInt = 1
 public const val _PC_MAX_INPUT: CInt = 2
@@ -38,7 +32,6 @@ public const val _PC_REC_XFER_ALIGN: CInt = 17
 public const val _PC_ALLOC_SIZE_MIN: CInt = 18
 public const val _PC_SYMLINK_MAX: CInt = 19
 public const val _PC_2_SYMLINKS: CInt = 20
-
 public const val _SC_ARG_MAX: CInt = 0
 public const val _SC_CHILD_MAX: CInt = 1
 public const val _SC_CLK_TCK: CInt = 2
@@ -220,25 +213,14 @@ public const val _SC_THREAD_ROBUST_PRIO_INHERIT: CInt = 247
 public const val _SC_THREAD_ROBUST_PRIO_PROTECT: CInt = 248
 
 public expect fun access(pathname: String?, mode: CInt): CInt
-
 public expect fun close(fd: CInt): CInt
-
 public expect fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT
-
 public expect fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT
-
 public expect fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT
-
 public expect fun ftruncate(fd: CInt, length: OffT): CInt
-
 public expect fun unlink(pathname: String?): CInt
-
 public expect fun getcwd(buf: String?, size: ULong): String?
-
 public expect fun rmdir(pathname: String?): CInt
-
 public expect fun getpid(): PidT
-
 public expect fun sleep(seconds: CUInt): CUInt
-
 public expect fun sysconf(name: CInt): CLong

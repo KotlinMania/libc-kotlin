@@ -1426,27 +1426,27 @@ public data class Ifconf(
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfkData(
     val ifkPtr: COpaquePointer? = null,
-    val ifkValue: CInt = null,
+    val ifkValue: CInt? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru(
-    val ifruAddr: Sockaddr = null,
-    val ifruDstaddr: Sockaddr = null,
-    val ifruBroadaddr: Sockaddr = null,
-    val ifruFlags: CShort = null,
-    val ifruMetrics: CInt = null,
-    val ifruMtu: CInt = null,
-    val ifruPhys: CInt = null,
-    val ifruMedia: CInt = null,
-    val ifruIntval: CInt = null,
+    val ifruAddr: Sockaddr? = null,
+    val ifruDstaddr: Sockaddr? = null,
+    val ifruBroadaddr: Sockaddr? = null,
+    val ifruFlags: CShort? = null,
+    val ifruMetrics: CInt? = null,
+    val ifruMtu: CInt? = null,
+    val ifruPhys: CInt? = null,
+    val ifruMedia: CInt? = null,
+    val ifruIntval: CInt? = null,
     val ifruData: String? = null,
-    val ifruDevmtu: Ifdevmtu = null,
-    val ifruKpi: Ifkpi = null,
-    val ifruWakeFlags: UInt = null,
-    val ifruRouteRefcnt: UInt = null,
-    val ifruCap: IntArray = null,
-    val ifruFunctionalType: UInt = null,
+    val ifruDevmtu: Ifdevmtu? = null,
+    val ifruKpi: Ifkpi? = null,
+    val ifruWakeFlags: UInt? = null,
+    val ifruRouteRefcnt: UInt? = null,
+    val ifruCap: IntArray? = null,
+    val ifruFunctionalType: UInt? = null,
 )
 
 // C union; only one variant is valid at a time.
@@ -1457,22 +1457,22 @@ public data class CAnonymousIfcIfcu(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru6(
-    val ifruAddr: SockaddrIn6 = null,
-    val ifruDstaddr: SockaddrIn6 = null,
-    val ifruFlags: CInt = null,
-    val ifruFlags6: CInt = null,
-    val ifruMetrics: CInt = null,
-    val ifruIntval: CInt = null,
+    val ifruAddr: SockaddrIn6? = null,
+    val ifruDstaddr: SockaddrIn6? = null,
+    val ifruFlags: CInt? = null,
+    val ifruFlags6: CInt? = null,
+    val ifruMetrics: CInt? = null,
+    val ifruIntval: CInt? = null,
     val ifruData: String? = null,
-    val ifruLifetime: In6Addrlifetime = null,
-    val ifruStat: In6Ifstat = null,
-    val ifruIcmp6stat: Icmp6Ifstat = null,
-    val ifruScopeId: UIntArray = null,
+    val ifruLifetime: In6Addrlifetime? = null,
+    val ifruStat: In6Ifstat? = null,
+    val ifruIcmp6stat: Icmp6Ifstat? = null,
+    val ifruScopeId: UIntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class Semun(
-    val val: CInt = null,
+    val `val`: CInt? = null,
     val buf: SemidDs? = null,
     val array: CUShort? = null,
 )
@@ -1619,14 +1619,14 @@ public const val O_CLOEXEC: CInt = 0x01000000
 public const val O_NOFOLLOW_ANY: CInt = 0x20000000
 public const val O_EXEC: CInt = 0x40000000
 public val O_SEARCH: CInt = O_EXEC or O_DIRECTORY
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFREG: ModeT = 32768
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFMT: ModeT = 61440
 public const val S_IEXEC: ModeT = 64
 public const val S_IWRITE: ModeT = 128
 public const val S_IREAD: ModeT = 256
@@ -2582,21 +2582,21 @@ public const val EVFILT_MACHPORT: Short = -8
 public const val EVFILT_FS: Short = -9
 public const val EVFILT_USER: Short = -10
 public const val EVFILT_VM: Short = -12
-public const val EV_ADD: UShort = 0x1u
-public const val EV_DELETE: UShort = 0x2u
-public const val EV_ENABLE: UShort = 0x4u
-public const val EV_DISABLE: UShort = 0x8u
-public const val EV_ONESHOT: UShort = 0x10u
-public const val EV_CLEAR: UShort = 0x20u
-public const val EV_RECEIPT: UShort = 0x40u
-public const val EV_DISPATCH: UShort = 0x80u
-public const val EV_FLAG0: UShort = 0x1000u
-public const val EV_POLL: UShort = 0x1000u
-public const val EV_FLAG1: UShort = 0x2000u
-public const val EV_OOBAND: UShort = 0x2000u
-public const val EV_ERROR: UShort = 0x4000u
-public const val EV_EOF: UShort = 0x8000u
-public const val EV_SYSFLAGS: UShort = 0xf000u
+public val EV_ADD: UShort = (0x1).toUShort()
+public val EV_DELETE: UShort = (0x2).toUShort()
+public val EV_ENABLE: UShort = (0x4).toUShort()
+public val EV_DISABLE: UShort = (0x8).toUShort()
+public val EV_ONESHOT: UShort = (0x10).toUShort()
+public val EV_CLEAR: UShort = (0x20).toUShort()
+public val EV_RECEIPT: UShort = (0x40).toUShort()
+public val EV_DISPATCH: UShort = (0x80).toUShort()
+public val EV_FLAG0: UShort = (0x1000).toUShort()
+public val EV_POLL: UShort = (0x1000).toUShort()
+public val EV_FLAG1: UShort = (0x2000).toUShort()
+public val EV_OOBAND: UShort = (0x2000).toUShort()
+public val EV_ERROR: UShort = (0x4000).toUShort()
+public val EV_EOF: UShort = (0x8000).toUShort()
+public val EV_SYSFLAGS: UShort = (0xf000).toUShort()
 public const val NOTE_TRIGGER: UInt = 0x01000000u
 public const val NOTE_FFNOP: UInt = 0x00000000u
 public const val NOTE_FFAND: UInt = 0x40000000u
@@ -3303,7 +3303,7 @@ public const val COPYFILE_STATE_WAS_CLONED: CInt = 10
 public const val COPYFILE_STATE_SRC_BSIZE: CInt = 11
 public const val COPYFILE_STATE_DST_BSIZE: CInt = 12
 public const val COPYFILE_STATE_BSIZE: CInt = 13
-public const val ATTR_BIT_MAP_COUNT: CUShort = 5u
+public val ATTR_BIT_MAP_COUNT: CUShort = (5).toUShort()
 public const val FSOPT_NOFOLLOW: UInt = 0x1u
 public const val FSOPT_NOFOLLOW_ANY: UInt = 0x800u
 public const val FSOPT_REPORT_FULLSIZE: UInt = 0x4u
@@ -3698,7 +3698,7 @@ public expect fun nSGetArgv(): COpaquePointer?
 public expect fun nSGetArgc(): CInt?
 public expect fun nSGetEnviron(): COpaquePointer?
 public expect fun nSGetProgname(): COpaquePointer?
-public expect fun machVmMap(targetTask: VmMapT, address: MachVmAddressT?, size: MachVmSizeT, mask: MachVmOffsetT, flags: CInt, object: MemEntryNamePortT, offset: MemoryObjectOffsetT, copy: BooleanT, curProtection: VmProtT, maxProtection: VmProtT, inheritance: VmInheritT): KernReturnT
+public expect fun machVmMap(targetTask: VmMapT, address: MachVmAddressT?, size: MachVmSizeT, mask: MachVmOffsetT, flags: CInt, `object`: MemEntryNamePortT, offset: MemoryObjectOffsetT, copy: BooleanT, curProtection: VmProtT, maxProtection: VmProtT, inheritance: VmInheritT): KernReturnT
 public expect fun vmAllocate(targetTask: VmMapT, address: VmAddressT?, size: VmSizeT, flags: CInt): KernReturnT
 public expect fun vmDeallocate(targetTask: VmMapT, address: VmAddressT, size: VmSizeT): KernReturnT
 public expect fun hostStatistics64(hostPriv: HostT, flavor: HostFlavorT, hostInfo64Out: HostInfo64T, hostInfo64OutCnt: MachMsgTypeNumberT?): KernReturnT

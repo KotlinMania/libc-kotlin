@@ -93,7 +93,7 @@ public data class StackT(
 )
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class SiginfoT(

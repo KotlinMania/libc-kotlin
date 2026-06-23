@@ -204,8 +204,8 @@ public data class Lconv(
     val thousandsSep: String?,
     val fracGrouping: String?,
     val fracSep: String?,
-    val false: String?,
-    val true: String?,
+    val `false`: String?,
+    val `true`: String?,
     val no: String?,
     val yes: String?,
     val nostr: String?,
@@ -655,7 +655,7 @@ public data class Dirent(
 )
 
 public data class SigsetT(
-    val val: UIntArray,
+    val `val`: UIntArray,
 )
 
 public data class MqAttr(
@@ -800,10 +800,10 @@ public const val IP_PKTINFO: CInt = 25
 public const val IPPROTO_DIVERT: CInt = 259
 public const val IPV6_IPSEC_POLICY_COMPAT: CInt = 28
 public const val TCP_KEEPALIVE: CInt = 0x04
-public const val ARPHRD_ARCNET: UShort = 7u
+public val ARPHRD_ARCNET: UShort = (7).toUShort()
 public const val SO_BINDTODEVICE: CInt = 0x0800
 public const val EAI_NODATA: CInt = 7
-public const val IPTOS_ECN_NOT_ECT: UByte = 0x00u
+public val IPTOS_ECN_NOT_ECT: UByte = (0x00).toUByte()
 public const val RTF_BROADCAST: UInt = 0x80000u
 public const val UDP_ENCAP: CInt = 100
 public const val HW_IOSTATS: CInt = 9
@@ -1098,45 +1098,45 @@ public const val POLLHUP: CShort = 0x0040
 public const val POLLNVAL: CShort = 0x1000
 public const val POLLRDNORM: CShort = 0x0001
 public const val POLLRDBAND: CShort = 0x0004
-public const val IPTOS_LOWDELAY: UByte = 0x10u
-public const val IPTOS_THROUGHPUT: UByte = 0x08u
-public const val IPTOS_RELIABILITY: UByte = 0x04u
-public const val IPTOS_MINCOST: UByte = 0x02u
-public const val IPTOS_PREC_NETCONTROL: UByte = 0xe0u
-public const val IPTOS_PREC_INTERNETCONTROL: UByte = 0xc0u
-public const val IPTOS_PREC_CRITIC_ECP: UByte = 0xa0u
-public const val IPTOS_PREC_FLASHOVERRIDE: UByte = 0x80u
-public const val IPTOS_PREC_FLASH: UByte = 0x60u
-public const val IPTOS_PREC_IMMEDIATE: UByte = 0x40u
-public const val IPTOS_PREC_PRIORITY: UByte = 0x20u
-public const val IPTOS_PREC_ROUTINE: UByte = 0x00u
-public const val IPTOS_ECN_MASK: UByte = 0x03u
-public const val IPTOS_ECN_ECT1: UByte = 0x01u
-public const val IPTOS_ECN_ECT0: UByte = 0x02u
-public const val IPTOS_ECN_CE: UByte = 0x03u
-public const val IPOPT_CONTROL: UByte = 0x00u
-public const val IPOPT_RESERVED1: UByte = 0x20u
-public const val IPOPT_RESERVED2: UByte = 0x60u
-public const val IPOPT_LSRR: UByte = 131u
-public const val IPOPT_RR: UByte = 7u
-public const val IPOPT_SSRR: UByte = 137u
-public const val IPDEFTTL: UByte = 64u
-public const val IPOPT_OPTVAL: UByte = 0u
-public const val IPOPT_OLEN: UByte = 1u
-public const val IPOPT_OFFSET: UByte = 2u
-public const val IPOPT_MINOFF: UByte = 4u
-public const val IPOPT_NOP: UByte = 1u
-public const val IPOPT_EOL: UByte = 0u
-public const val IPOPT_TS: UByte = 68u
-public const val IPOPT_TS_TSONLY: UByte = 0u
-public const val IPOPT_TS_TSANDADDR: UByte = 1u
-public const val IPOPT_TS_PRESPEC: UByte = 3u
-public const val MAX_IPOPTLEN: UByte = 40u
-public const val IPVERSION: UByte = 4u
-public const val MAXTTL: UByte = 255u
-public const val ARPHRD_ETHER: UShort = 1u
-public const val ARPHRD_IEEE802: UShort = 6u
-public const val ARPHRD_IEEE1394: UShort = 24u
+public val IPTOS_LOWDELAY: UByte = (0x10).toUByte()
+public val IPTOS_THROUGHPUT: UByte = (0x08).toUByte()
+public val IPTOS_RELIABILITY: UByte = (0x04).toUByte()
+public val IPTOS_MINCOST: UByte = (0x02).toUByte()
+public val IPTOS_PREC_NETCONTROL: UByte = (0xe0).toUByte()
+public val IPTOS_PREC_INTERNETCONTROL: UByte = (0xc0).toUByte()
+public val IPTOS_PREC_CRITIC_ECP: UByte = (0xa0).toUByte()
+public val IPTOS_PREC_FLASHOVERRIDE: UByte = (0x80).toUByte()
+public val IPTOS_PREC_FLASH: UByte = (0x60).toUByte()
+public val IPTOS_PREC_IMMEDIATE: UByte = (0x40).toUByte()
+public val IPTOS_PREC_PRIORITY: UByte = (0x20).toUByte()
+public val IPTOS_PREC_ROUTINE: UByte = (0x00).toUByte()
+public val IPTOS_ECN_MASK: UByte = (0x03).toUByte()
+public val IPTOS_ECN_ECT1: UByte = (0x01).toUByte()
+public val IPTOS_ECN_ECT0: UByte = (0x02).toUByte()
+public val IPTOS_ECN_CE: UByte = (0x03).toUByte()
+public val IPOPT_CONTROL: UByte = (0x00).toUByte()
+public val IPOPT_RESERVED1: UByte = (0x20).toUByte()
+public val IPOPT_RESERVED2: UByte = (0x60).toUByte()
+public val IPOPT_LSRR: UByte = (131).toUByte()
+public val IPOPT_RR: UByte = (7).toUByte()
+public val IPOPT_SSRR: UByte = (137).toUByte()
+public val IPDEFTTL: UByte = (64).toUByte()
+public val IPOPT_OPTVAL: UByte = (0).toUByte()
+public val IPOPT_OLEN: UByte = (1).toUByte()
+public val IPOPT_OFFSET: UByte = (2).toUByte()
+public val IPOPT_MINOFF: UByte = (4).toUByte()
+public val IPOPT_NOP: UByte = (1).toUByte()
+public val IPOPT_EOL: UByte = (0).toUByte()
+public val IPOPT_TS: UByte = (68).toUByte()
+public val IPOPT_TS_TSONLY: UByte = (0).toUByte()
+public val IPOPT_TS_TSANDADDR: UByte = (1).toUByte()
+public val IPOPT_TS_PRESPEC: UByte = (3).toUByte()
+public val MAX_IPOPTLEN: UByte = (40).toUByte()
+public val IPVERSION: UByte = (4).toUByte()
+public val MAXTTL: UByte = (255).toUByte()
+public val ARPHRD_ETHER: UShort = (1).toUShort()
+public val ARPHRD_IEEE802: UShort = (6).toUShort()
+public val ARPHRD_IEEE1394: UShort = (24).toUShort()
 public const val SOL_SOCKET: CInt = 0xffff
 public const val SO_DEBUG: CInt = 0x0001
 public const val SO_REUSEADDR: CInt = 0x0004
@@ -1215,18 +1215,18 @@ public const val POSIX_SPAWN_SETSIGDEF: CInt = 0x00000004
 public const val POSIX_SPAWN_SETSIGMASK: CInt = 0x00000002
 public const val POSIX_SPAWN_SETSCHEDPARAM: CInt = 0x00000400
 public const val POSIX_SPAWN_SETSCHEDULER: CInt = 0x00000040
-public const val RTF_UP: CUShort = 0x0001u
-public const val RTF_GATEWAY: CUShort = 0x0002u
-public const val RTF_HOST: CUShort = 0x0004u
-public const val RTF_DYNAMIC: CUShort = 0x0010u
-public const val RTF_MODIFIED: CUShort = 0x0020u
-public const val RTF_REJECT: CUShort = 0x0008u
-public const val RTF_STATIC: CUShort = 0x0800u
-public const val RTF_XRESOLVE: CUShort = 0x0200u
-public const val RTM_NEWADDR: UShort = 0xcu
-public const val RTM_DELADDR: UShort = 0xdu
-public const val RTA_DST: CUShort = 0x1u
-public const val RTA_GATEWAY: CUShort = 0x2u
+public val RTF_UP: CUShort = (0x0001).toUShort()
+public val RTF_GATEWAY: CUShort = (0x0002).toUShort()
+public val RTF_HOST: CUShort = (0x0004).toUShort()
+public val RTF_DYNAMIC: CUShort = (0x0010).toUShort()
+public val RTF_MODIFIED: CUShort = (0x0020).toUShort()
+public val RTF_REJECT: CUShort = (0x0008).toUShort()
+public val RTF_STATIC: CUShort = (0x0800).toUShort()
+public val RTF_XRESOLVE: CUShort = (0x0200).toUShort()
+public val RTM_NEWADDR: UShort = (0xc).toUShort()
+public val RTM_DELADDR: UShort = (0xd).toUShort()
+public val RTA_DST: CUShort = (0x1).toUShort()
+public val RTA_GATEWAY: CUShort = (0x2).toUShort()
 public const val IN_ACCESS: UInt = 0x00000001u
 public const val IN_MODIFY: UInt = 0x00000002u
 public const val IN_ATTRIB: UInt = 0x00000004u
@@ -1616,14 +1616,14 @@ public const val GLOB_NOMATCH: CInt = 3
 public const val S_IEXEC: ModeT = S_IXUSR
 public const val S_IWRITE: ModeT = S_IWUSR
 public const val S_IREAD: ModeT = S_IRUSR
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFREG: ModeT = 32768
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFMT: ModeT = 61440
 public const val S_IXOTH: ModeT = 1
 public const val S_IWOTH: ModeT = 2
 public const val S_IROTH: ModeT = 4
@@ -1937,7 +1937,7 @@ public const val IHFLOW: TcflagT = 0x00000001
 public const val IIDLE: TcflagT = 0x00000008
 public const val IP_RECVDSTADDR: CInt = 7
 public const val IP_RECVIF: CInt = 20
-public const val IPTOS_ECN_NOTECT: UByte = 0x00u
+public val IPTOS_ECN_NOTECT: UByte = (0x00).toUByte()
 public const val IUCLC: TcflagT = 0x00000200
 public const val IUTF8: TcflagT = 0x0004000
 public const val KERN_ARGMAX: CInt = 8
@@ -2192,8 +2192,8 @@ public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT?, clockId: Cloc
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
 public expect fun pthreadCondattrSetpshared(attr: PthreadCondattrT?, pshared: CInt): CInt
 public expect fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT?, pshared: CInt): CInt
-public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT?, val: CInt?): CInt
-public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, val: CInt): CInt
+public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, `val`: CInt): CInt
 public expect fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): String?
 public expect fun clearenv(): CInt
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt

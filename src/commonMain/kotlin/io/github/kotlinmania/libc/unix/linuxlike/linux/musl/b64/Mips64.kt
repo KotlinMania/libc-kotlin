@@ -9,33 +9,72 @@ public typealias U64 = CULong
 public typealias S64 = CLong
 public typealias NlinkT = CUInt
 public typealias BlksizeT = Long
+public typealias Stat64 = Stat
 
-// Padding fields (__pad1..__pad5) omitted.
 public data class Stat(
-    val stDev: DevT, val stIno: InoT, val stMode: ModeT, val stNlink: NlinkT,
-    val stUid: UidT, val stGid: GidT, val stRdev: DevT, val stSize: OffT,
-    val stAtime: TimeT, val stAtimeNsec: CLong, val stMtime: TimeT, val stMtimeNsec: CLong,
-    val stCtime: TimeT, val stCtimeNsec: CLong, val stBlksize: BlksizeT, val stBlocks: BlkcntT,
+    val stDev: DevT,
+    val stIno: InoT,
+    val stMode: ModeT,
+    val stNlink: NlinkT,
+    val stUid: UidT,
+    val stGid: GidT,
+    val stRdev: DevT,
+    val stSize: OffT,
+    val stAtime: TimeT,
+    val stAtimeNsec: CLong,
+    val stMtime: TimeT,
+    val stMtimeNsec: CLong,
+    val stCtime: TimeT,
+    val stCtimeNsec: CLong,
+    val stBlksize: BlksizeT,
+    val stBlocks: BlkcntT,
 )
 
-public data class StackT(val ssSp: COpaquePointer?, val ssSize: ULong, val ssFlags: CInt)
+public data class StackT(
+    val ssSp: COpaquePointer?,
+    val ssSize: ULong,
+    val ssFlags: CInt,
+)
 
-// On non-musl_v1_2_3 this field is the deprecated __ipc_perm_key. Pads omitted.
 public data class IpcPerm(
-    val key: KeyT, val uid: UidT, val gid: GidT, val cuid: UidT, val cgid: GidT,
-    val mode: ModeT, val seq: CInt,
+    val key: KeyT,
+    val ipcPermKey: KeyT,
+    val uid: UidT,
+    val gid: GidT,
+    val cuid: UidT,
+    val cgid: GidT,
+    val mode: ModeT,
+    val seq: CInt,
 )
 
 public data class Statfs(
-    val fType: CULong, val fBsize: CULong, val fFrsize: CULong, val fBlocks: FsblkcntT,
-    val fBfree: FsblkcntT, val fFiles: FsfilcntT, val fFfree: FsfilcntT, val fBavail: FsblkcntT,
-    val fFsid: FsidT, val fNamelen: CULong, val fFlags: CULong, val fSpare: ULongArray,
+    val fType: CULong,
+    val fBsize: CULong,
+    val fFrsize: CULong,
+    val fBlocks: FsblkcntT,
+    val fBfree: FsblkcntT,
+    val fFiles: FsfilcntT,
+    val fFfree: FsfilcntT,
+    val fBavail: FsblkcntT,
+    val fFsid: FsidT,
+    val fNamelen: CULong,
+    val fFlags: CULong,
+    val fSpare: ULongArray,
 )
 
 public data class Statfs64(
-    val fType: CULong, val fBsize: CULong, val fFrsize: CULong, val fBlocks: Fsblkcnt64T,
-    val fBfree: Fsblkcnt64T, val fFiles: Fsfilcnt64T, val fFfree: Fsfilcnt64T, val fBavail: Fsblkcnt64T,
-    val fFsid: FsidT, val fNamelen: CULong, val fFlags: CULong, val fSpare: ULongArray,
+    val fType: CULong,
+    val fBsize: CULong,
+    val fFrsize: CULong,
+    val fBlocks: Fsblkcnt64T,
+    val fBfree: Fsblkcnt64T,
+    val fFiles: Fsfilcnt64T,
+    val fFfree: Fsfilcnt64T,
+    val fBavail: Fsblkcnt64T,
+    val fFsid: FsidT,
+    val fNamelen: CULong,
+    val fFlags: CULong,
+    val fSpare: ULongArray,
 )
 
 public const val SIGSTKSZ: ULong = 8192uL
@@ -527,10 +566,14 @@ public const val SIG_BLOCK: CInt = 0x1
 public const val SIG_UNBLOCK: CInt = 0x2
 public const val POLLWRNORM: CShort = 0x004
 public const val POLLWRBAND: CShort = 0x100
-public const val VEOF: usize = 16
-public const val VEOL: usize = 17
-public const val VEOL2: usize = 6
-public const val VMIN: usize = 4
+public const val VEOF: ULong = 16uL
+public const val VEOL: ULong = 17uL
+public const val VEOL2: ULong = 6uL
+public const val VMIN: ULong = 4uL
+public const val IEXTEN: TcflagT = 0x00000100
+public const val TOSTOP: TcflagT = 0x00008000
+public const val FLUSHO: TcflagT = 0x00002000
+public const val EXTPROC: TcflagT = 65536
 public const val F_GETLK: CInt = 14
 public const val F_GETOWN: CInt = 23
 public const val F_SETOWN: CInt = 24
@@ -539,12 +582,70 @@ public const val F_SETLKW: CInt = 7
 public const val MCL_CURRENT: CInt = 0x0001
 public const val MCL_FUTURE: CInt = 0x0002
 public const val MCL_ONFAULT: CInt = 0x0004
-public const val VWERASE: usize = 14
-public const val VREPRINT: usize = 12
-public const val VSUSP: usize = 10
-public const val VSTART: usize = 8
-public const val VSTOP: usize = 9
-public const val VDISCARD: usize = 13
-public const val VTIME: usize = 5
-public const val VSWTC: usize = 7
+public const val CBAUD: TcflagT = 4111
+public const val TAB1: TcflagT = 0x00000800
+public const val TAB2: TcflagT = 0x00001000
+public const val TAB3: TcflagT = 0x00001800
+public const val CR1: TcflagT = 0x00000200
+public const val CR2: TcflagT = 0x00000400
+public const val CR3: TcflagT = 0x00000600
+public const val FF1: TcflagT = 0x00008000
+public const val BS1: TcflagT = 0x00002000
+public const val VT1: TcflagT = 0x00004000
+public const val VWERASE: ULong = 14uL
+public const val VREPRINT: ULong = 12uL
+public const val VSUSP: ULong = 10uL
+public const val VSTART: ULong = 8uL
+public const val VSTOP: ULong = 9uL
+public const val VDISCARD: ULong = 13uL
+public const val VTIME: ULong = 5uL
+public const val IXON: TcflagT = 0x00000400
+public const val IXOFF: TcflagT = 0x00001000
+public const val ONLCR: TcflagT = 0x4
+public const val CSIZE: TcflagT = 0x00000030
+public const val CS6: TcflagT = 0x00000010
+public const val CS7: TcflagT = 0x00000020
+public const val CS8: TcflagT = 0x00000030
+public const val CSTOPB: TcflagT = 0x00000040
+public const val CREAD: TcflagT = 0x00000080
+public const val PARENB: TcflagT = 0x00000100
+public const val PARODD: TcflagT = 0x00000200
+public const val HUPCL: TcflagT = 0x00000400
+public const val CLOCAL: TcflagT = 0x00000800
+public const val ECHOKE: TcflagT = 0x00000800
+public const val ECHOE: TcflagT = 0x00000010
+public const val ECHOK: TcflagT = 0x00000020
+public const val ECHONL: TcflagT = 0x00000040
+public const val ECHOPRT: TcflagT = 0x00000400
+public const val ECHOCTL: TcflagT = 0x00000200
+public const val ISIG: TcflagT = 0x00000001
+public const val ICANON: TcflagT = 0x00000002
+public const val PENDIN: TcflagT = 0x00004000
+public const val NOFLSH: TcflagT = 0x00000080
+public const val CIBAUD: TcflagT = 269418496
+public const val CBAUDEX: TcflagT = 4096
+public const val VSWTC: ULong = 7uL
+public const val OLCUC: TcflagT = 2
+public const val NLDLY: TcflagT = 256
+public const val CRDLY: TcflagT = 1536
+public const val TABDLY: TcflagT = 6144
+public const val BSDLY: TcflagT = 8192
+public const val FFDLY: TcflagT = 32768
+public const val VTDLY: TcflagT = 16384
+public const val XTABS: TcflagT = 6144
+public const val B57600: SpeedT = 4097
+public const val B115200: SpeedT = 4098
+public const val B230400: SpeedT = 4099
+public const val B460800: SpeedT = 4100
+public const val B500000: SpeedT = 4101
+public const val B576000: SpeedT = 4102
+public const val B921600: SpeedT = 4103
+public const val B1000000: SpeedT = 4104
+public const val B1152000: SpeedT = 4105
+public const val B1500000: SpeedT = 4106
+public const val B2000000: SpeedT = 4107
+public const val B2500000: SpeedT = 4108
+public const val B3000000: SpeedT = 4109
+public const val B3500000: SpeedT = 4110
+public const val B4000000: SpeedT = 4111
 public const val EHWPOISON: CInt = 168

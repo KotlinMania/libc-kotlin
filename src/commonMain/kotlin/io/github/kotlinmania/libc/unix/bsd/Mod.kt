@@ -99,7 +99,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val val: CInt,
+    val `val`: CInt,
 )
 
 public data class SockaddrUn(
@@ -178,11 +178,11 @@ public const val IPV6_MULTICAST_HOPS: CInt = 10
 public const val IPV6_MULTICAST_LOOP: CInt = 11
 public const val IPV6_V6ONLY: CInt = 27
 public const val IPV6_DONTFRAG: CInt = 62
-public const val IPTOS_ECN_NOTECT: UByte = 0x00u
-public const val IPTOS_ECN_MASK: UByte = 0x03u
-public const val IPTOS_ECN_ECT1: UByte = 0x01u
-public const val IPTOS_ECN_ECT0: UByte = 0x02u
-public const val IPTOS_ECN_CE: UByte = 0x03u
+public val IPTOS_ECN_NOTECT: UByte = (0x00).toUByte()
+public val IPTOS_ECN_MASK: UByte = (0x03).toUByte()
+public val IPTOS_ECN_ECT1: UByte = (0x01).toUByte()
+public val IPTOS_ECN_ECT0: UByte = (0x02).toUByte()
+public val IPTOS_ECN_CE: UByte = (0x03).toUByte()
 public const val ST_RDONLY: CULong = 1uL
 public const val SCM_RIGHTS: CInt = 0x01
 public const val NCCS: ULong = 20uL

@@ -8,11 +8,9 @@ public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
 public typealias IntptrT = Long
 public typealias UintptrT = ULong
-
 public typealias SizeT = ULong
 public typealias SsizeT = Long
 public typealias PtrdiffT = Long
-
 public typealias ClockidT = Int
 public typealias InAddrT = UInt
 public typealias InPortT = UShort
@@ -24,45 +22,92 @@ public typealias SocklenT = UInt
 public typealias TimeT = Long
 
 public data class Addrinfo(
-    val aiFlags: Int, val aiFamily: Int, val aiSocktype: Int, val aiProtocol: Int,
-    val aiAddrlen: SocklenT, val aiCanonname: String?, val aiAddr: Sockaddr?, val aiNext: Addrinfo?,
+    val aiFlags: Int,
+    val aiFamily: Int,
+    val aiSocktype: Int,
+    val aiProtocol: Int,
+    val aiAddrlen: SocklenT,
+    val aiCanonname: String?,
+    val aiAddr: Sockaddr?,
+    val aiNext: Addrinfo?,
 )
 
 public data class Dirent64(
-    val dIno: ULong, val dOff: Long, val dReclen: UShort, val dType: UByte, val dName: ByteArray,
+    val dIno: ULong,
+    val dOff: Long,
+    val dReclen: UShort,
+    val dType: UByte,
+    val dName: ByteArray,
 )
 
-public data class In6Addr(val s6Addr: UByteArray)
+public data class In6Addr(
+    val s6Addr: UByteArray,
+)
 
-public data class InAddr(val sAddr: InAddrT)
+public data class InAddr(
+    val sAddr: InAddrT,
+)
 
-public data class Iovec(val iovBase: COpaquePointer?, val iovLen: ULong)
+public data class Iovec(
+    val iovBase: COpaquePointer?,
+    val iovLen: ULong,
+)
 
-public data class Pollfd(val fd: Int, val events: Short, val revents: Short)
+public data class Pollfd(
+    val fd: Int,
+    val events: Short,
+    val revents: Short,
+)
 
-public data class Sockaddr(val saLen: UByte, val saFamily: SaFamilyT, val saData: ByteArray)
+public data class Sockaddr(
+    val saLen: UByte,
+    val saFamily: SaFamilyT,
+    val saData: ByteArray,
+)
 
 public data class SockaddrIn(
-    val sinLen: UByte, val sinFamily: SaFamilyT, val sinPort: InPortT,
-    val sinAddr: InAddr, val sinZero: ByteArray,
+    val sinLen: UByte,
+    val sinFamily: SaFamilyT,
+    val sinPort: InPortT,
+    val sinAddr: InAddr,
+    val sinZero: ByteArray,
 )
 
 public data class SockaddrIn6(
-    val sin6Len: UByte, val sin6Family: SaFamilyT, val sin6Port: InPortT,
-    val sin6Flowinfo: UInt, val sin6Addr: In6Addr, val sin6ScopeId: UInt,
+    val sin6Len: UByte,
+    val sin6Family: SaFamilyT,
+    val sin6Port: InPortT,
+    val sin6Flowinfo: UInt,
+    val sin6Addr: In6Addr,
+    val sin6ScopeId: UInt,
 )
 
-// __ss_pad1 / __ss_align / __ss_pad2 are layout padding.
-public data class SockaddrStorage(val ssLen: UByte, val ssFamily: SaFamilyT)
+public data class SockaddrStorage(
+    val ssLen: UByte,
+    val ssFamily: SaFamilyT,
+    val ssAlign: Long,
+)
 
 public data class Stat(
-    val stDev: ULong, val stIno: ULong, val stNlink: ULong, val stMode: ModeT,
-    val stUid: UInt, val stGid: UInt, val stRdev: ULong, val stSize: Long,
-    val stBlksize: Long, val stBlocks: Long, val stAtim: Timespec, val stMtim: Timespec,
+    val stDev: ULong,
+    val stIno: ULong,
+    val stNlink: ULong,
+    val stMode: ModeT,
+    val stUid: UInt,
+    val stGid: UInt,
+    val stRdev: ULong,
+    val stSize: Long,
+    val stBlksize: Long,
+    val stBlocks: Long,
+    val stAtim: Timespec,
+    val stMtim: Timespec,
     val stCtim: Timespec,
 )
 
-public data class Timespec(val tvSec: TimeT, val tvNsec: Int)
+public data class Timespec(
+    val tvSec: TimeT,
+    val tvNsec: Int,
+)
 
 public const val AF_UNSPEC: Int = 0
 public const val AF_INET: Int = 3
@@ -70,15 +115,15 @@ public const val AF_INET6: Int = 1
 public const val AF_VSOCK: Int = 2
 public const val CLOCK_REALTIME: ClockidT = 1
 public const val CLOCK_MONOTONIC: ClockidT = 4
-public const val DT_UNKNOWN: UByte = 0u
-public const val DT_FIFO: UByte = 1u
-public const val DT_CHR: UByte = 2u
-public const val DT_DIR: UByte = 4u
-public const val DT_BLK: UByte = 6u
-public const val DT_REG: UByte = 8u
-public const val DT_LNK: UByte = 10u
-public const val DT_SOCK: UByte = 12u
-public const val DT_WHT: UByte = 14u
+public val DT_UNKNOWN: UByte = (0).toUByte()
+public val DT_FIFO: UByte = (1).toUByte()
+public val DT_CHR: UByte = (2).toUByte()
+public val DT_DIR: UByte = (4).toUByte()
+public val DT_BLK: UByte = (6).toUByte()
+public val DT_REG: UByte = (8).toUByte()
+public val DT_LNK: UByte = (10).toUByte()
+public val DT_SOCK: UByte = (12).toUByte()
+public val DT_WHT: UByte = (14).toUByte()
 public const val EAI_AGAIN: Int = 2
 public const val EAI_BADFLAGS: Int = 3
 public const val EAI_FAIL: Int = 4
@@ -148,14 +193,14 @@ public const val S_IRWXO: ModeT = 7
 public const val S_IROTH: ModeT = 4
 public const val S_IWOTH: ModeT = 2
 public const val S_IXOTH: ModeT = 1
-public const val S_IFMT: ModeT = 0o17_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFIFO: ModeT = 0o1_0000
+public const val S_IFMT: ModeT = 61440
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFREG: ModeT = 32768
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFIFO: ModeT = 4096
 public const val SHUT_RD: Int = 0
 public const val SHUT_WR: Int = 1
 public const val SHUT_RDWR: Int = 2
@@ -313,10 +358,10 @@ public const val EHWPOISON: Int = 133
 
 public expect fun alloc(size: ULong, align: ULong): COpaquePointer?
 public expect fun allocZeroed(size: ULong, align: ULong): COpaquePointer?
-public expect fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, new_size: ULong): COpaquePointer?
+public expect fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer?
 public expect fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong)
-public expect fun exit(status: Int): Nothing
-public expect fun abort(): Nothing
+public expect fun exit(status: Int): !
+public expect fun abort(): !
 public expect fun errno(): Int
 public expect fun clockGettime(clockid: ClockidT, tp: Timespec?): Int
 public expect fun nanosleep(req: Timespec?): Int
