@@ -1532,7 +1532,9 @@ public const val MAP_PREFAULT_READ: CInt = 0x00040000
 public const val MAP_ALIGNMENT_SHIFT: CInt = 24
 public val MAP_ALIGNMENT_MASK: CInt = 0xff shl MAP_ALIGNMENT_SHIFT
 public val MAP_ALIGNED_SUPER: CInt = 1 shl MAP_ALIGNMENT_SHIFT
+
 public fun MAP_ALIGNED(a: CInt): CInt = a shl MAP_ALIGNMENT_SHIFT
+
 public const val POSIX_FADV_NORMAL: CInt = 0
 public const val POSIX_FADV_RANDOM: CInt = 1
 public const val POSIX_FADV_SEQUENTIAL: CInt = 2

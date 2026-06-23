@@ -2468,6 +2468,7 @@ public const val IN_IGNORED: UInt = 0x0000_8000
 public const val IN_ONLYDIR: UInt = 0x0100_0000
 public const val IN_DONT_FOLLOW: UInt = 0x0200_0000
 public const val IN_EXCL_UNLINK: UInt = 0x0400_0000
+
 public fun issecure_mask(x: CInt): CInt = 1 shl x
 
 public val SECBIT_NOROOT: CInt = issecure_mask(SECURE_NOROOT)
@@ -2773,6 +2774,7 @@ public const val FUTEX_WAITERS: UInt = 0x80000000u
 public const val FUTEX_OWNER_DIED: UInt = 0x40000000u
 public const val FUTEX_TID_MASK: UInt = 0x3fffffffu
 public const val FUTEX_BITSET_MATCH_ANY: CInt = 0xffffffff
+
 public fun FUTEX_OP(op: CInt, oparg: CInt, cmp: CInt, cmparg: CInt): CInt =
     ((op and 0xf) shl 28) or ((cmp and 0xf) shl 24) or ((oparg and 0xfff) shl 12) or (cmparg and 0xfff)
 
