@@ -431,10 +431,10 @@ public expect fun getifaddrs(ifap: COpaquePointer?): CInt
 public expect fun freeifaddrs(ifa: Ifaddrs?)
 public expect fun setgroups(ngroups: CInt, ptr: GidT?): CInt
 public expect fun setlogin(name: String?): CInt
-public expect fun ioctl(fd: CInt, request: CULong, ...): CInt
+public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt
 public expect fun kqueue(): CInt
 public expect fun unmount(target: String?, arg: CInt): CInt
-public expect fun syscall(num: CInt, ...): CInt
+public expect fun syscall(num: CInt, vararg args: Any?): CInt
 public expect fun getpwent(): Passwd?
 public expect fun setpwent()
 public expect fun endpwent()
@@ -471,7 +471,7 @@ public expect fun semClose(sem: SemT?): CInt
 public expect fun getdtablesize(): CInt
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun getgrnam(name: String?): Group?
 public expect fun pthreadCancel(thread: PthreadT): CInt
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt

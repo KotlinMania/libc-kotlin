@@ -1896,7 +1896,7 @@ public const val BIOCSETF: CInt = -2146418073
 public const val BIOCSHDRCMPLT: CInt = -2147204491
 public const val BIOCSRTIMEOUT: CInt = -2146418067
 public const val BIOCVERSION: CInt = 1074020977
-public const val BPF_ALIGNMENT: ULong = <c_long>()
+// BPF_ALIGNMENT = size_of<CLong>() (computed at the FFI boundary)
 public const val CHAR_BIT: ULong = 8uL
 public const val CODESET: NlItem = 1
 public const val CRNCYSTR: NlItem = 55
@@ -2151,7 +2151,7 @@ public const val PTHREAD_PROCESS_SHARED: CInt = 0x01
 public const val PTHREAD_KEYS_MAX: ULong = 128uL
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000, owner = 0xffffffff)
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffb)
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = -2i32.toUInt(), spare = 0)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = -2.toUInt(), spare = 0)
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
@@ -2287,7 +2287,7 @@ public expect fun getdtablesize(): CInt
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 public expect fun initgroups(user: String?, group: GidT): CInt
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun getgrnam(name: String?): Group?
 public expect fun pthreadCancel(thread: PthreadT): CInt
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
@@ -2337,7 +2337,7 @@ public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
 public expect fun mallopt(param: CInt, value: Long): CInt
 public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
 public expect fun ctermid(s: String?): String?
-public expect fun ioctl(fd: CInt, request: CInt, ...): CInt
+public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt
 public expect fun mallinfo(): Mallinfo
 public expect fun getpwentR(pwd: Passwd?, buf: String?, bufsize: CInt, result: COpaquePointer?): CInt
 public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: CInt): CInt
@@ -2353,7 +2353,7 @@ public expect fun regexec(preg: RegexT?, str: String?, nmatch: ULong, pmatch: Re
 public expect fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong
 public expect fun regfree(preg: RegexT?)
 public expect fun dirfd(dirp: DIR?): CInt
-public expect fun dircntl(dir: DIR?, cmd: CInt, ...): CInt
+public expect fun dircntl(dir: DIR?, cmd: CInt, vararg args: Any?): CInt
 public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt
 public expect fun aioError(aiocbp: Aiocb?): CInt
 public expect fun aioFsync(operation: CInt, aiocbp: Aiocb?): CInt
@@ -2364,7 +2364,7 @@ public expect fun aioWrite(aiocpb: Aiocb?): CInt
 public expect fun mqClose(mqdes: MqdT): CInt
 public expect fun mqGetattr(mqdes: MqdT, mqstat: MqAttr?): CInt
 public expect fun mqNotify(mqdes: MqdT, notification: Sigevent?): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqReceive(mqdes: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
 public expect fun mqSend(mqdes: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt): CInt
 public expect fun mqSetattr(mqdes: MqdT, mqstat: MqAttr?, omqstat: MqAttr?): CInt

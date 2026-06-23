@@ -288,9 +288,9 @@ public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer?
 public expect fun malloc(size: ULong): COpaquePointer?
 public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
 public expect fun free(p: COpaquePointer?)
-public expect fun abort(): !
-public expect fun exit(status: CInt): !
-public expect fun exit(status: CInt): !
+public expect fun abort(): Nothing
+public expect fun exit(status: CInt): Nothing
+public expect fun exit(status: CInt): Nothing
 public expect fun system(s: String?): CInt
 public expect fun getenv(s: String?): String?
 public expect fun strcpy(dst: String?, src: String?): String?
@@ -329,13 +329,13 @@ public expect fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePoint
 public expect fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
 public expect fun getpwnam(name: String?): Passwd?
 public expect fun getpwuid(uid: UidT): Passwd?
-public expect fun fprintf(stream: FILE?, format: String?, ...): CInt
-public expect fun printf(format: String?, ...): CInt
-public expect fun snprintf(s: String?, n: ULong, format: String?, ...): CInt
-public expect fun sprintf(s: String?, format: String?, ...): CInt
-public expect fun fscanf(stream: FILE?, format: String?, ...): CInt
-public expect fun scanf(format: String?, ...): CInt
-public expect fun sscanf(s: String?, format: String?, ...): CInt
+public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun printf(format: String?, vararg args: Any?): CInt
+public expect fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt
+public expect fun sprintf(s: String?, format: String?, vararg args: Any?): CInt
+public expect fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun scanf(format: String?, vararg args: Any?): CInt
+public expect fun sscanf(s: String?, format: String?, vararg args: Any?): CInt
 public expect fun getcharUnlocked(): CInt
 public expect fun putcharUnlocked(c: CInt): CInt
 public expect fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt
@@ -356,9 +356,9 @@ public expect fun stat(path: String?, buf: Stat?): CInt
 public expect fun pclose(stream: FILE?): CInt
 public expect fun fdopen(fd: CInt, mode: String?): FILE?
 public expect fun fileno(stream: FILE?): CInt
-public expect fun open(path: String?, oflag: CInt, ...): CInt
+public expect fun open(path: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun creat(path: String?, mode: ModeT): CInt
-public expect fun fcntl(fd: CInt, cmd: CInt, ...): CInt
+public expect fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun opendir(dirname: String?): DIR?
 public expect fun readdir(dirp: DIR?): Dirent?
 public expect fun closedir(dirp: DIR?): CInt
@@ -380,9 +380,9 @@ public expect fun lchown(path: String?, uid: UidT, gid: GidT): CInt
 public expect fun close(fd: CInt): CInt
 public expect fun dup(fd: CInt): CInt
 public expect fun dup2(src: CInt, dst: CInt): CInt
-public expect fun execl(path: String?, arg0: String?, ...): CInt
-public expect fun execle(path: String?, arg0: String?, ...): CInt
-public expect fun execlp(file: String?, arg0: String?, ...): CInt
+public expect fun execl(path: String?, arg0: String?, vararg args: Any?): CInt
+public expect fun execle(path: String?, arg0: String?, vararg args: Any?): CInt
+public expect fun execlp(file: String?, arg0: String?, vararg args: Any?): CInt
 public expect fun execv(prog: String?, argv: COpaquePointer?): CInt
 public expect fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 public expect fun execvp(c: String?, argv: COpaquePointer?): CInt
@@ -455,7 +455,7 @@ public expect fun times(buf: Tms?): ClockT
 public expect fun pthreadSelf(): PthreadT
 public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt
 public expect fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt
-public expect fun pthreadExit(value: COpaquePointer?): !
+public expect fun pthreadExit(value: COpaquePointer?): Nothing
 public expect fun pthreadAttrInit(attr: PthreadAttrT?): CInt
 public expect fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt
 public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT?, stacksize: ULong?): CInt
@@ -564,7 +564,7 @@ public expect fun tmpnam(ptr: String?): String?
 public expect fun openlog(ident: String?, logopt: CInt, facility: CInt)
 public expect fun closelog()
 public expect fun setlogmask(maskpri: CInt): CInt
-public expect fun syslog(priority: CInt, message: String?, ...)
+public expect fun syslog(priority: CInt, message: String?, vararg args: Any?)
 public expect fun nice(incr: CInt): CInt
 public expect fun grantpt(fd: CInt): CInt
 public expect fun posixOpenpt(flags: CInt): CInt
@@ -584,7 +584,7 @@ public expect fun openWmemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE?
 public expect fun getsid(pid: PidT): PidT
 public expect fun pause(): CInt
 public expect fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
-public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, ...): CInt
+public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg args: Any?): CInt
 public expect fun fdopendir(fd: CInt): DIR?
 public expect fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt
 public expect fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): CInt

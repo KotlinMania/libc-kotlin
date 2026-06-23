@@ -212,8 +212,8 @@ public const val SIG_ACK: SighandlerT = 4
 public const val L_tmpnam: CUInt = 260u
 public const val TMP_MAX: CUInt = 0x7fff_ffff
 
-public expect fun printf(format: String?, ...): CInt
-public expect fun fprintf(stream: FILE?, format: String?, ...): CInt
+public expect fun printf(format: String?, vararg args: Any?): CInt
+public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
 public expect fun isalnum(c: CInt): CInt
 public expect fun isalpha(c: CInt): CInt
 public expect fun iscntrl(c: CInt): CInt
@@ -272,9 +272,9 @@ public expect fun malloc(size: ULong): COpaquePointer?
 public expect fun msize(p: COpaquePointer?): ULong
 public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
 public expect fun free(p: COpaquePointer?)
-public expect fun abort(): !
-public expect fun exit(status: CInt): !
-public expect fun exit(status: CInt): !
+public expect fun abort(): Nothing
+public expect fun exit(status: CInt): Nothing
+public expect fun exit(status: CInt): Nothing
 public expect fun atexit(cb: (() -> Unit)?): CInt
 public expect fun system(s: String?): CInt
 public expect fun getenv(s: String?): String?
@@ -334,22 +334,22 @@ public expect fun popen(command: String?, mode: String?): FILE?
 public expect fun pclose(stream: FILE?): CInt
 public expect fun fdopen(fd: CInt, mode: String?): FILE?
 public expect fun fileno(stream: FILE?): CInt
-public expect fun open(path: String?, oflag: CInt, ...): CInt
-public expect fun wopen(path: WcharT?, oflag: CInt, ...): CInt
+public expect fun open(path: String?, oflag: CInt, vararg args: Any?): CInt
+public expect fun wopen(path: WcharT?, oflag: CInt, vararg args: Any?): CInt
 public expect fun creat(path: String?, mode: CInt): CInt
 public expect fun access(path: String?, amode: CInt): CInt
 public expect fun chdir(dir: String?): CInt
 public expect fun close(fd: CInt): CInt
 public expect fun dup(fd: CInt): CInt
 public expect fun dup2(src: CInt, dst: CInt): CInt
-public expect fun execl(path: String?, arg0: String?, ...): IntptrT
-public expect fun wexecl(path: WcharT?, arg0: WcharT?, ...): IntptrT
-public expect fun execle(path: String?, arg0: String?, ...): IntptrT
-public expect fun wexecle(path: WcharT?, arg0: WcharT?, ...): IntptrT
-public expect fun execlp(path: String?, arg0: String?, ...): IntptrT
-public expect fun wexeclp(path: WcharT?, arg0: WcharT?, ...): IntptrT
-public expect fun execlpe(path: String?, arg0: String?, ...): IntptrT
-public expect fun wexeclpe(path: WcharT?, arg0: WcharT?, ...): IntptrT
+public expect fun execl(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public expect fun wexecl(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
+public expect fun execle(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public expect fun wexecle(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
+public expect fun execlp(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public expect fun wexeclp(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
+public expect fun execlpe(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public expect fun wexeclpe(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
 public expect fun execv(prog: String?, argv: COpaquePointer?): IntptrT
 public expect fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 public expect fun execvp(c: String?, argv: COpaquePointer?): CInt

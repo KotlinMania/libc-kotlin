@@ -789,7 +789,7 @@ public data class VnodeInfo(
 
 public data class VnodeInfoPath(
     val vipVi: VnodeInfo,
-    val vipPath: List<[cChar>,
+    val vipPath: List<ByteArray>,
 )
 
 public data class ProcVnodepathinfo(
@@ -3050,7 +3050,7 @@ public const val PROC_PIDTHREADINFO: CInt = 5
 public const val PROC_PIDVNODEPATHINFO: CInt = 9
 public const val PROC_PIDPATHINFO_MAXSIZE: CInt = 4096
 public const val PROC_PIDLISTFDS: CInt = 1
-public val PROC_PIDLISTFD_SIZE: CInt = <proc_fdinfo>().toInt()
+// PROC_PIDLISTFD_SIZE = size_of<ProcFdinfo>() (struct size; computed at the FFI boundary)
 public const val PROX_FDTYPE_ATALK: CInt = 0
 public const val PROX_FDTYPE_VNODE: CInt = 1
 public const val PROX_FDTYPE_SOCKET: CInt = 2
@@ -3509,9 +3509,9 @@ public expect fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt
 public expect fun sysctlnametomib(name: String?, mibp: CInt?, sizep: ULong?): CInt
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
 public expect fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt
-public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, ...): CInt
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
-public expect fun shmOpen(name: String?, oflag: CInt, ...): CInt
+public expect fun shmOpen(name: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun ftok(pathname: String?, projId: CInt): KeyT
 public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer?
 public expect fun shmdt(shmaddr: COpaquePointer?): CInt
@@ -3658,7 +3658,7 @@ public expect fun memsetPattern8(b: COpaquePointer?, pattern8: COpaquePointer?, 
 public expect fun memsetPattern16(b: COpaquePointer?, pattern16: COpaquePointer?, len: ULong)
 public expect fun strtonum(numstr: String?, minval: CLongLong, maxval: CLongLong, errstrp: COpaquePointer?): CLongLong
 public expect fun mstats(): Mstats
-public expect fun mallocPrintf(format: String?, ...)
+public expect fun mallocPrintf(format: String?, vararg args: Any?)
 public expect fun mallocZoneCheck(zone: MallocZoneT?): BooleanT
 public expect fun mallocZonePrint(zone: MallocZoneT?, verbose: BooleanT)
 public expect fun mallocZoneStatistics(zone: MallocZoneT?, stats: MallocStatisticsT?)

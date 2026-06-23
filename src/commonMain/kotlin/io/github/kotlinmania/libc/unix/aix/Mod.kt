@@ -659,7 +659,7 @@ public const val ERA_T_FMT: NlItem = 59
 public const val ALT_DIGITS: NlItem = 60
 public const val YESEXPR: NlItem = 61
 public const val NOEXPR: NlItem = 62
-public val LC_GLOBAL_LOCALE: LocaleT = -1isize.toLocaleT()
+public val LC_GLOBAL_LOCALE: LocaleT = -1L.toLocaleT()
 public const val LC_COLLATE: CInt = 0
 public const val LC_CTYPE: CInt = 1
 public const val LC_MONETARY: CInt = 2
@@ -2397,12 +2397,12 @@ public expect fun hsearch(entry: Entry, action: ACTION): Entry?
 public expect fun ifFreenameindex(ptr: IfNameindex?)
 public expect fun ifNameindex(): IfNameindex?
 public expect fun initgroups(name: String?, basegid: GidT): CInt
-public expect fun ioctl(fildes: CInt, request: CInt, ...): CInt
+public expect fun ioctl(fildes: CInt, request: CInt, vararg args: Any?): CInt
 public expect fun jrand48(xseed: CUShort?): CLong
 public expect fun lcong48(p: CUShort?)
 public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: Sigevent?): CInt
-public expect fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUInt, ...): CInt
+public expect fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUInt, vararg args: Any?): CInt
 public expect fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: ULong): CInt
 public expect fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt
 public expect fun lrand48(): CLong
@@ -2410,7 +2410,7 @@ public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULo
 public expect fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T
 public expect fun lstat64(path: String?, buf: Stat64?): CInt
 public expect fun madvise(addr: CaddrT, len: ULong, advice: CInt): CInt
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, ...)
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 public expect fun mallinfo(): Mallinfo
 public expect fun mallopt(param: CInt, value: CInt): CInt
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
@@ -2423,7 +2423,7 @@ public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
 public expect fun mqClose(mqd: MqdT): CInt
 public expect fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt
 public expect fun mqNotify(mqd: MqdT, notification: Sigevent?): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
 public expect fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt): CInt
 public expect fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt
@@ -2440,7 +2440,7 @@ public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public expect fun nlLanginfo(item: NlItem): String?
 public expect fun nlLanginfoL(item: NlItem, loc: LocaleT): String?
 public expect fun nrand48(xseed: CUShort?): CLong
-public expect fun open64(path: String?, oflag: CInt, ...): CInt
+public expect fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun pollsetCreate(maxfd: CInt): PollsetT
 public expect fun pollsetCtl(ps: PollsetT, pollctlArray: PollCtl?, arrayLength: CInt): CInt
 public expect fun pollsetDestroy(ps: PollsetT): CInt
@@ -2506,10 +2506,10 @@ public expect fun semClose(sem: SemT?): CInt
 public expect fun semDestroy(sem: SemT?): CInt
 public expect fun semGetvalue(sem: SemT?, sval: CInt?): CInt
 public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun semTimedwait(sem: SemT?, abstime: Timespec?): CInt
 public expect fun semUnlink(name: String?): CInt
-public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, ...): CInt
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt
 public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
 public expect fun sendFile(socket: CInt?, iobuf: SfParms?, flags: CUInt): SsizeT
