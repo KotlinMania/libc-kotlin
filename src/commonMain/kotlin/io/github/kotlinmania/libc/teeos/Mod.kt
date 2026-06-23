@@ -164,7 +164,7 @@ public val MAP_HUGE_256MB: UInt = 28 shl 26
 public val MAP_HUGE_512MB: UInt = 29 shl 26
 public val MAP_HUGE_1GB: UInt = 30 shl 26
 public val MAP_HUGE_2GB: UInt = 31 shl 26
-public val MAP_HUGE_16GB: UInt = 34u32 shl 26
+public val MAP_HUGE_16GB: UInt = 34u shl 26
 public const val PROT_NONE: UInt = 0u
 public const val PROT_READ: UInt = 1u
 public const val PROT_WRITE: UInt = 2u
@@ -518,7 +518,7 @@ public expect fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong)
 public expect fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
 public expect fun pthreadSelf(): PthreadT
 public expect fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt
-public expect fun pthreadExit(value: COpaquePointer?): !
+public expect fun pthreadExit(value: COpaquePointer?): Nothing
 public expect fun pthreadAttrInit(attr: PthreadAttrT?): CInt
 public expect fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt
 public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
@@ -559,13 +559,13 @@ public expect fun pthreadMutexattrSetprotocol(a: PthreadMutexattrT?, protocol: C
 public expect fun pthreadAttrSetstack(attr: PthreadAttrT?, stack: COpaquePointer?, size: ULong): CInt
 public expect fun pthreadSetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?): CInt
 public expect fun pthreadGetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?): CInt
-public expect fun printf(fmt: String?, ...): CInt
-public expect fun scanf(fmt: String?, ...): CInt
-public expect fun snprintf(s: String?, n: ULong, fmt: String?, ...): CInt
-public expect fun sprintf(s: String?, fmt: String?, ...): CInt
+public expect fun printf(fmt: String?, vararg args: Any?): CInt
+public expect fun scanf(fmt: String?, vararg args: Any?): CInt
+public expect fun snprintf(s: String?, n: ULong, fmt: String?, vararg args: Any?): CInt
+public expect fun sprintf(s: String?, fmt: String?, vararg args: Any?): CInt
 public expect fun vsnprintf(s: String?, n: ULong, fmt: String?, ap: VaList): CInt
 public expect fun vsprintf(s: String?, fmt: String?, ap: VaList): CInt
-public expect fun abort(): !
+public expect fun abort(): Nothing
 public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun sysconf(name: CInt): CLong
@@ -582,7 +582,7 @@ public expect fun semClose(sem: SemT?): CInt
 public expect fun semDestroy(sem: SemT?): CInt
 public expect fun semGetvalue(sem: SemT?, valp: CInt?): CInt
 public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
-public expect fun semOpen(name: String?, flags: CInt, ...): SemT?
+public expect fun semOpen(name: String?, flags: CInt, vararg args: Any?): SemT?
 public expect fun semPost(sem: SemT?): CInt
 public expect fun semUnlink(name: String?): CInt
 public expect fun semWait(sem: SemT?): CInt

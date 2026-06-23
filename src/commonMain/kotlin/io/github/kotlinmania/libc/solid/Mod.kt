@@ -392,45 +392,45 @@ public expect fun fflush(arg1: FILE?): CInt
 public expect fun fgetc(arg1: FILE?): CInt
 public expect fun fgets(arg1: String?, arg2: CInt, arg3: FILE?): String?
 public expect fun fopen(arg1: String?, arg2: String?): FILE?
-public expect fun fprintf(arg1: FILE?, arg2: String?, ...): CInt
+public expect fun fprintf(arg1: FILE?, arg2: String?, vararg args: Any?): CInt
 public expect fun fputc(arg1: CInt, arg2: FILE?): CInt
 public expect fun fputs(arg1: String?, arg2: FILE?): CInt
 public expect fun fread(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: FILE?): ULong
 public expect fun freopen(arg1: String?, arg2: String?, arg3: FILE?): FILE?
-public expect fun fscanf(arg1: FILE?, arg2: String?, ...): CInt
+public expect fun fscanf(arg1: FILE?, arg2: String?, vararg args: Any?): CInt
 public expect fun fseek(arg1: FILE?, arg2: CLong, arg3: CInt): CInt
 public expect fun ftell(arg1: FILE?): CLong
 public expect fun fwrite(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: FILE?): ULong
 public expect fun getc(arg1: FILE?): CInt
 public expect fun getchar(): CInt
 public expect fun perror(arg1: String?)
-public expect fun printf(arg1: String?, ...): CInt
+public expect fun printf(arg1: String?, vararg args: Any?): CInt
 public expect fun putc(arg1: CInt, arg2: FILE?): CInt
 public expect fun putchar(arg1: CInt): CInt
 public expect fun puts(arg1: String?): CInt
 public expect fun remove(arg1: String?): CInt
 public expect fun rewind(arg1: FILE?)
-public expect fun scanf(arg1: String?, ...): CInt
+public expect fun scanf(arg1: String?, vararg args: Any?): CInt
 public expect fun setbuf(arg1: FILE?, arg2: String?)
 public expect fun setvbuf(arg1: FILE?, arg2: String?, arg3: CInt, arg4: ULong): CInt
-public expect fun sscanf(arg1: String?, arg2: String?, ...): CInt
+public expect fun sscanf(arg1: String?, arg2: String?, vararg args: Any?): CInt
 public expect fun tmpfile(): FILE?
 public expect fun ungetc(arg1: CInt, arg2: FILE?): CInt
 public expect fun vfprintf(arg1: FILE?, arg2: String?, arg3: VaList): CInt
 public expect fun vprintf(arg1: String?, arg2: VaList): CInt
 public expect fun gets(arg1: String?): String?
-public expect fun sprintf(arg1: String?, arg2: String?, ...): CInt
+public expect fun sprintf(arg1: String?, arg2: String?, vararg args: Any?): CInt
 public expect fun tmpnam(arg1: String?): String?
 public expect fun vsprintf(arg1: String?, arg2: String?, arg3: VaList): CInt
 public expect fun rename(arg1: String?, arg2: String?): CInt
-public expect fun asiprintf(arg1: COpaquePointer?, arg2: String?, ...): CInt
-public expect fun fiprintf(arg1: FILE?, arg2: String?, ...): CInt
-public expect fun fiscanf(arg1: FILE?, arg2: String?, ...): CInt
-public expect fun iprintf(arg1: String?, ...): CInt
-public expect fun iscanf(arg1: String?, ...): CInt
-public expect fun siprintf(arg1: String?, arg2: String?, ...): CInt
-public expect fun siscanf(arg1: String?, arg2: String?, ...): CInt
-public expect fun sniprintf(arg1: String?, arg2: ULong, arg3: String?, ...): CInt
+public expect fun asiprintf(arg1: COpaquePointer?, arg2: String?, vararg args: Any?): CInt
+public expect fun fiprintf(arg1: FILE?, arg2: String?, vararg args: Any?): CInt
+public expect fun fiscanf(arg1: FILE?, arg2: String?, vararg args: Any?): CInt
+public expect fun iprintf(arg1: String?, vararg args: Any?): CInt
+public expect fun iscanf(arg1: String?, vararg args: Any?): CInt
+public expect fun siprintf(arg1: String?, arg2: String?, vararg args: Any?): CInt
+public expect fun siscanf(arg1: String?, arg2: String?, vararg args: Any?): CInt
+public expect fun sniprintf(arg1: String?, arg2: ULong, arg3: String?, vararg args: Any?): CInt
 public expect fun vasiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt
 public expect fun vfiprintf(arg1: FILE?, arg2: String?, arg3: VaList): CInt
 public expect fun vfiscanf(arg1: FILE?, arg2: String?, arg3: VaList): CInt
@@ -440,7 +440,7 @@ public expect fun vsiprintf(arg1: String?, arg2: String?, arg3: VaList): CInt
 public expect fun vsiscanf(arg1: String?, arg2: String?, arg3: VaList): CInt
 public expect fun vsniprintf(arg1: String?, arg2: ULong, arg3: String?, arg4: VaList): CInt
 public expect fun vdiprintf(arg1: CInt, arg2: String?, arg3: VaList): CInt
-public expect fun diprintf(arg1: CInt, arg2: String?, ...): CInt
+public expect fun diprintf(arg1: CInt, arg2: String?, vararg args: Any?): CInt
 public expect fun fgetpos(arg1: FILE?, arg2: FposT?): CInt
 public expect fun fsetpos(arg1: FILE?, arg2: FposT?): CInt
 public expect fun fdopen(arg1: CInt, arg2: String?): FILE?
@@ -452,7 +452,7 @@ public expect fun getcUnlocked(arg1: FILE?): CInt
 public expect fun getcharUnlocked(): CInt
 public expect fun putcUnlocked(arg1: CInt, arg2: FILE?): CInt
 public expect fun putcharUnlocked(arg1: CInt): CInt
-public expect fun snprintf(arg1: String?, arg2: ULong, arg3: String?, ...): CInt
+public expect fun snprintf(arg1: String?, arg2: ULong, arg3: String?, vararg args: Any?): CInt
 public expect fun vsnprintf(arg1: String?, arg2: ULong, arg3: String?, arg4: VaList): CInt
 public expect fun getw(arg1: FILE?): CInt
 public expect fun putw(arg1: CInt, arg2: FILE?): CInt
@@ -468,8 +468,8 @@ public expect fun strtold(arg1: String?, arg2: COpaquePointer?): Double
 public expect fun strtodL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Double
 public expect fun strtofL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Float
 public expect fun strtoldL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Double
-public expect fun exit(arg1: CInt): !
-public expect fun abort(): !
+public expect fun exit(arg1: CInt): Nothing
+public expect fun abort(): Nothing
 public expect fun abs(arg1: CInt): CInt
 public expect fun atexit(arg1: (() -> Unit)?): CInt
 public expect fun atoi(arg1: String?): CInt
@@ -480,7 +480,7 @@ public expect fun ultoa(arg1: CULong, arg2: String?, arg3: CInt): String?
 public expect fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong, arg4: ULong, arg5: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 public expect fun calloc(arg1: ULong, arg2: ULong): COpaquePointer?
 public expect fun div(arg1: CInt, arg2: CInt): DivT
-public expect fun exit(arg1: CInt): !
+public expect fun exit(arg1: CInt): Nothing
 public expect fun free(arg1: COpaquePointer?)
 public expect fun getenv(arg1: String?): String?
 public expect fun labs(arg1: CLong): CLong
@@ -630,7 +630,7 @@ public expect fun lstat(arg1: String?, arg2: Stat?): CInt
 public expect fun fstat(arg1: CInt, arg2: Stat?): CInt
 public expect fun chmod(arg1: String?, arg2: ModeT): CInt
 public expect fun mkdir(arg1: String?, arg2: ModeT): CInt
-public expect fun open(arg1: String?, arg2: CInt, ...): CInt
+public expect fun open(arg1: String?, arg2: CInt, vararg args: Any?): CInt
 public expect fun creat(arg1: String?, arg2: CInt): CInt
 public expect fun close(arg1: CInt): CInt
 public expect fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt
@@ -647,7 +647,7 @@ public expect fun getwd(arg1: String?): String?
 public expect fun getcwd(arg1: String?, arg2: ULong): String?
 public expect fun getopt(arg1: CInt, arg2: COpaquePointer?, arg3: String?): CInt
 public expect fun getsubopt(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: COpaquePointer?): CInt
-public expect fun fcntl(arg1: CInt, arg2: CInt, ...): CInt
+public expect fun fcntl(arg1: CInt, arg2: CInt, vararg args: Any?): CInt
 public expect fun getpid(): PidT
 public expect fun sleep(arg1: CUInt): CUInt
 public expect fun usleep(arg1: UsecondsT): CInt
