@@ -10,8 +10,8 @@ public typealias BlksizeT = Long
 public typealias SusecondsT = Long
 public typealias U64 = CULong
 public typealias S64 = CLong
-public typealias GregsetT = [cUlong
-public typealias FpregsetT = [cUlong
+public typealias GregsetT = ULongArray
+public typealias FpregsetT = ULongArray
 
 public data class Sigaction(
     val saSigaction: SighandlerT,
@@ -258,7 +258,7 @@ public const val O_DSYNC: CInt = 4096
 public const val O_FSYNC: CInt = 0x101000
 public const val O_NOATIME: CInt = 262144
 public const val O_PATH: CInt = 2097152
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val MADV_SOFT_OFFLINE: CInt = 101
 public const val MAP_GROWSDOWN: CInt = 0x0100
 public const val MAP_ANON: CInt = 0x0020
@@ -931,4 +931,4 @@ public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldl
 public expect fun getcontext(ucp: UcontextT?): CInt
 public expect fun setcontext(ucp: UcontextT?): CInt
 public expect fun swapcontext(oucp: UcontextT?, ucp: UcontextT?): CInt
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, ...)
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
