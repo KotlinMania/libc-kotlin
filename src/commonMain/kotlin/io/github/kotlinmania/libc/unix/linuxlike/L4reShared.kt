@@ -594,11 +594,11 @@ public const val EI_NIDENT: ULong = 16uL
 public const val EI_MAG0: ULong = 0uL
 public val ELFMAG0: UByte = (0x7f).toUByte()
 public const val EI_MAG1: ULong = 1uL
-public const val ELFMAG1: UByte = b'E'
+public const val ELFMAG1: UByte = 0x45u
 public const val EI_MAG2: ULong = 2uL
-public const val ELFMAG2: UByte = b'L'
+public const val ELFMAG2: UByte = 0x4Cu
 public const val EI_MAG3: ULong = 3uL
-public const val ELFMAG3: UByte = b'F'
+public const val ELFMAG3: UByte = 0x46u
 public const val SELFMAG: ULong = 4uL
 public const val EI_CLASS: ULong = 4uL
 public val ELFCLASSNONE: UByte = (0).toUByte()
@@ -833,7 +833,8 @@ public const val IPC_EXCL: CInt = 1024
 public const val IPC_NOWAIT: CInt = 2048
 public const val IPC_RMID: CInt = 0
 public const val IPC_SET: CInt = 1
-public const val IPC_STAT: CInt = if cfg!(musl32_time64) { 0x102 } else { 2 }
+// IPC_STAT is 0x102 on musl32_time64 targets.
+public const val IPC_STAT: CInt = 2
 public const val IPC_INFO: CInt = 3
 public const val SHM_R: CInt = 256
 public const val SHM_W: CInt = 128
@@ -1242,13 +1243,13 @@ public const val MS_NOUSER: CULong = 0xffffffff80000000uL
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 public expect fun cPUALLOCSIZE(count: CInt): ULong
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
-public expect fun cPUCOUNTS(size: ULong, cpuset: &cpuSetT): CInt
-public expect fun cPUCOUNT(cpuset: &cpuSetT): CInt
-public expect fun cPUEQUAL(set1: &cpuSetT, set2: &cpuSetT): Boolean
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+public expect fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): CInt
+public expect fun cPUCOUNT(cpuset: CpuSetT?): CInt
+public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
 public expect fun iPTOSTOS(tos: UByte): UByte
 public expect fun iPTOSPREC(tos: UByte): UByte
 public expect fun rTTOS(tos: UByte): UByte
@@ -1305,7 +1306,7 @@ public expect fun shmdt(shmaddr: COpaquePointer?): CInt
 public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
 public expect fun errnoLocation(): CInt?
-public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, ...): COpaquePointer?
+public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer?
 public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 public expect fun globfree(pglob: GlobT?)
 public expect fun seekdir(dirp: DIR?, loc: CLong)
@@ -1321,7 +1322,7 @@ public expect fun settimeofday(tv: Timeval?, tz: Timezone?): CInt
 public expect fun semTimedwait(sem: SemT?, abstime: Timespec?): CInt
 public expect fun semGetvalue(sem: SemT?, sval: CInt?): CInt
 public expect fun mount(src: String?, target: String?, fstype: String?, flags: CULong, data: COpaquePointer?): CInt
-public expect fun prctl(option: CInt, ...): CInt
+public expect fun prctl(option: CInt, vararg args: Any?): CInt
 public expect fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt
 public expect fun sethostname(name: String?, len: ULong): CInt
 public expect fun schedGetPriorityMin(policy: CInt): CInt
@@ -1331,7 +1332,7 @@ public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong,
 public expect fun semClose(sem: SemT?): CInt
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 public expect fun initgroups(user: String?, group: GidT): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun getgrnam(name: String?): Group?
 public expect fun semUnlink(name: String?): CInt
 public expect fun daemon(nochdir: CInt, noclose: CInt): CInt

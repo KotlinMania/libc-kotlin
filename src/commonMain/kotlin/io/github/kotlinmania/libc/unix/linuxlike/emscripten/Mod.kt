@@ -1105,11 +1105,11 @@ public const val SOMAXCONN: CInt = 128
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
-public expect fun cPUEQUAL(set1: &cpuSetT, set2: &cpuSetT): Boolean
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
 
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
 public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
@@ -1134,7 +1134,7 @@ public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt):
 public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
 public expect fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt
 public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
-public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, ...): COpaquePointer?
+public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer?
 public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 public expect fun globfree(pglob: GlobT?)
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
@@ -1149,7 +1149,7 @@ public expect fun nlLanginfo(item: NlItem): String?
 public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt): CInt
 public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt, timeout: Timespec?): CInt
 public expect fun sync()
-public expect fun ioctl(fd: CInt, request: CInt, ...): CInt
+public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt
 public expect fun getpriority(which: CInt, who: IdT): CInt
 public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt
 public expect fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt

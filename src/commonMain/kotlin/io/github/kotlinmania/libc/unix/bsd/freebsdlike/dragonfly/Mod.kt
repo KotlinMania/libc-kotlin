@@ -648,7 +648,7 @@ public const val CPUCTL_UPDATE: CInt = 0xc0106304
 public const val CPUCTL_MSRSBIT: CInt = 0xc0106305
 public const val CPUCTL_MSRCBIT: CInt = 0xc0106306
 public const val CPUCTL_CPUID_COUNT: CInt = 0xc0106307
-public const val CPU_SETSIZE: ULong = <cpumask_t>() * 8
+// CPU_SETSIZE = size_of<CpumaskT>() * 8 (computed at the FFI boundary)
 public const val EVFILT_READ: Short = -1
 public const val EVFILT_WRITE: Short = -2
 public const val EVFILT_AIO: Short = -3
@@ -949,10 +949,10 @@ public const val RTAX_MAX: CInt = 11
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
 
 public expect fun errnoLocation(): CInt?
 public expect fun setgrent()
@@ -975,7 +975,7 @@ public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
 public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt
 public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt
 public expect fun schedGetcpu(): CInt
-public expect fun setproctitle(fmt: String?, ...)
+public expect fun setproctitle(fmt: String?, vararg args: Any?)
 public expect fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt
 public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer?
 public expect fun shmdt(shmaddr: COpaquePointer?): CInt
