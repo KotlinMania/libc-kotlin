@@ -448,7 +448,7 @@ public data class PtpSysOffsetExtended(
     val nSamples: CUInt,
     val clockid: KernelClockidT,
     val rsv: UIntArray,
-    val ts: List<[ptpClockTime>,
+    val ts: List<PtpClockTime>,
 )
 
 public data class PtpSysOffsetPrecise(
@@ -1276,7 +1276,7 @@ public const val NS_GET_USERNS: Ioctl = _IO(NSIO, 0x1)
 public const val NS_GET_PARENT: Ioctl = _IO(NSIO, 0x2)
 public const val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3)
 public const val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4)
-public const val NS_GET_MNTNS_ID: Ioctl = <__u64>(NSIO, 0x5)
+// NS_GET_MNTNS_ID = _IOR(NSIO, 0x5, __u64) (ioctl request code; computed at the FFI boundary)
 public const val NS_GET_PID_FROM_PIDNS: Ioctl = <c_int>(NSIO, 0x6)
 public const val NS_GET_TGID_FROM_PIDNS: Ioctl = <c_int>(NSIO, 0x7)
 public const val NS_GET_PID_IN_PIDNS: Ioctl = <c_int>(NSIO, 0x8)
@@ -1726,9 +1726,9 @@ public val TP_STATUS_TS_SYS_HARDWARE: U32 = 1 shl 30
 public val TP_STATUS_TS_RAW_HARDWARE: U32 = 1 shl 31
 public const val TP_FT_REQ_FILL_RXHASH: U32 = 1
 public const val TPACKET_ALIGNMENT: ULong = 16uL
-public val TPACKET_HDRLEN: ULong = ((<tpacket_hdr>() + TPACKET_ALIGNMENT - 1) and !(TPACKET_ALIGNMENT - 1)) + <sockaddr_ll>()
-public val TPACKET2_HDRLEN: ULong = ((<tpacket2_hdr>() + TPACKET_ALIGNMENT - 1) and !(TPACKET_ALIGNMENT - 1)) + <sockaddr_ll>()
-public val TPACKET3_HDRLEN: ULong = ((<tpacket3_hdr>() + TPACKET_ALIGNMENT - 1) and !(TPACKET_ALIGNMENT - 1)) + <sockaddr_ll>()
+// TPACKET_HDRLEN = align(size_of<TpacketHdr>(), TPACKET_ALIGNMENT) + size_of<SockaddrLl>() (computed at the FFI boundary)
+// TPACKET2_HDRLEN = align(size_of<Tpacket2Hdr>(), TPACKET_ALIGNMENT) + size_of<SockaddrLl>() (computed at the FFI boundary)
+// TPACKET3_HDRLEN = align(size_of<Tpacket3Hdr>(), TPACKET_ALIGNMENT) + size_of<SockaddrLl>() (computed at the FFI boundary)
 public const val NF_DROP: CInt = 0
 public const val NF_ACCEPT: CInt = 1
 public const val NF_STOLEN: CInt = 2
@@ -3103,7 +3103,7 @@ public const val TRAP_PERF: CInt = 6
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun sCTPPRINDEX(policy: CInt): CInt
 public expect fun sCTPPRPOLICY(policy: CInt): CInt
-public expect fun sCTPPRSETPOLICY(flags: &mut cInt, policy: CInt): ()
+public expect fun sCTPPRSETPOLICY(flags: CInt?, policy: CInt)
 public expect fun sOEEOFFENDER(ee: SockExtendedErr?): Sockaddr?
 public expect fun tPACKETALIGN(x: ULong): ULong
 public expect fun bPFCLASS(code: U32): U32
@@ -3119,7 +3119,7 @@ public expect fun sUNLEN(s: SockaddrUn): ULong
 public expect fun sUNLEN(s: SockaddrUn): ULong
 
 public expect fun getspnamR(name: String?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqClose(mqd: MqdT): CInt
 public expect fun mqUnlink(name: String?): CInt
 public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
@@ -3137,7 +3137,7 @@ public expect fun shmUnlink(name: String?): CInt
 public expect fun ftok(pathname: String?, projId: CInt): KeyT
 public expect fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt
 public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
-public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, ...): CInt
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt
 public expect fun msgget(key: KeyT, msgflg: CInt): CInt
 public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT
@@ -3178,7 +3178,7 @@ public expect fun mkstemps(template: String?, suffixlen: CInt): CInt
 public expect fun vhangup(): CInt
 public expect fun sync()
 public expect fun syncfs(fd: CInt): CInt
-public expect fun syscall(num: CLong, ...): CLong
+public expect fun syscall(num: CLong, vararg args: Any?): CLong
 public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun epollCreate(size: CInt): CInt
 public expect fun epollCreate1(flags: CInt): CInt
@@ -3198,7 +3198,7 @@ public expect fun swapoff(path: String?): CInt
 public expect fun vmsplice(fd: CInt, iov: Iovec?, nrSegs: ULong, flags: CUInt): SsizeT
 public expect fun personality(persona: CULong): CInt
 public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt
-public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, ...): CInt
+public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt
 public expect fun schedGetscheduler(pid: PidT): CInt
 public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt
 public expect fun umount2(target: String?, flags: CInt): CInt

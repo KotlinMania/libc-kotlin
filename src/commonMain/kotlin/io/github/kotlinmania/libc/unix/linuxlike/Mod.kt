@@ -322,14 +322,14 @@ public const val O_RDONLY: CInt = 0
 public const val O_WRONLY: CInt = 1
 public const val O_RDWR: CInt = 2
 public const val SOCK_CLOEXEC: CInt = O_CLOEXEC
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096u
+public const val S_IFCHR: ModeT = 8192u
+public const val S_IFBLK: ModeT = 24576u
+public const val S_IFDIR: ModeT = 16384u
+public const val S_IFREG: ModeT = 32768u
+public const val S_IFLNK: ModeT = 40960u
+public const val S_IFSOCK: ModeT = 49152u
+public const val S_IFMT: ModeT = 61440u
 public const val S_IRWXU: ModeT = 448
 public const val S_IXUSR: ModeT = 64
 public const val S_IWUSR: ModeT = 128
@@ -1310,14 +1310,14 @@ public const val STATX_ATTR_DAX: CInt = 0x200000
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 public expect fun sIGRTMAX(): CInt
 public expect fun sIGRTMIN(): CInt
 
-public expect fun ioctl(fd: CInt, request: Ioctl, ...): CInt
+public expect fun ioctl(fd: CInt, request: Ioctl, vararg args: Any?): CInt
 public expect fun libcCurrentSigrtmax(): CInt
 public expect fun libcCurrentSigrtmin(): CInt
 public expect fun semDestroy(sem: SemT?): CInt
@@ -1391,8 +1391,8 @@ public expect fun ftruncate64(fd: CInt, length: Off64T): CInt
 public expect fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T
 public expect fun lstat64(path: String?, buf: Stat64?): CInt
 public expect fun mmap64(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer?
-public expect fun open64(path: String?, oflag: CInt, ...): CInt
-public expect fun openat64(fd: CInt, path: String?, oflag: CInt, ...): CInt
+public expect fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt
+public expect fun openat64(fd: CInt, path: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt
 public expect fun pread64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT
 public expect fun pwrite64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT
