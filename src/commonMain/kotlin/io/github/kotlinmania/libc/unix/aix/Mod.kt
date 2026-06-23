@@ -417,8 +417,8 @@ public data class RegexT(
     val reErroff: ULong,
     val reLen: ULong,
     val reUcoll: List<WcharT>,
-    val reLsub: List<*mut cVoid>,
-    val reEsub: List<*mut cVoid>,
+    val reLsub: List<COpaquePointer?>,
+    val reEsub: List<COpaquePointer?>,
     val reMap: COpaquePointer?,
     val maxsub: CInt,
 )
@@ -2233,9 +2233,9 @@ public const val ACCOUNTING: CShort = 9
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
-public expect fun fDZERO(set: FdSet?): ()
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDZERO(set: FdSet?)
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
 
 public expect fun thrKill(id: ThreadT, sig: CInt): CInt
