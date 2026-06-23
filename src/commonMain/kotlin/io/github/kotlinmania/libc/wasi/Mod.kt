@@ -426,15 +426,15 @@ public const val TIMER_ABSTIME: CInt = 1
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 
-public expect fun exit(code: CInt): !
-public expect fun exit(code: CInt): !
-public expect fun abort(): !
+public expect fun exit(code: CInt): Nothing
+public expect fun exit(code: CInt): Nothing
+public expect fun abort(): Nothing
 public expect fun alignedAlloc(a: ULong, b: ULong): COpaquePointer?
 public expect fun calloc(amt: ULong, amt2: ULong): COpaquePointer?
-public expect fun exit(code: CInt): !
+public expect fun exit(code: CInt): Nothing
 public expect fun free(ptr: COpaquePointer?)
 public expect fun getenv(s: String?): String?
 public expect fun malloc(amt: ULong): COpaquePointer?
@@ -476,7 +476,7 @@ public expect fun perror(a: String?)
 public expect fun srand(a: CUInt)
 public expect fun atexit(a: (() -> Unit)?): CInt
 public expect fun atQuickExit(a: (() -> Unit)?): CInt
-public expect fun quickExit(a: CInt): !
+public expect fun quickExit(a: CInt): Nothing
 public expect fun posixMemalign(a: COpaquePointer?, b: ULong, c: ULong): CInt
 public expect fun randR(a: CUInt?): CInt
 public expect fun random(): CLong
@@ -551,13 +551,13 @@ public expect fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CI
 public expect fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
 public expect fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
 public expect fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
-public expect fun fprintf(stream: FILE?, format: String?, ...): CInt
-public expect fun printf(format: String?, ...): CInt
-public expect fun snprintf(s: String?, n: ULong, format: String?, ...): CInt
-public expect fun sprintf(s: String?, format: String?, ...): CInt
-public expect fun fscanf(stream: FILE?, format: String?, ...): CInt
-public expect fun scanf(format: String?, ...): CInt
-public expect fun sscanf(s: String?, format: String?, ...): CInt
+public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun printf(format: String?, vararg args: Any?): CInt
+public expect fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt
+public expect fun sprintf(s: String?, format: String?, vararg args: Any?): CInt
+public expect fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public expect fun scanf(format: String?, vararg args: Any?): CInt
+public expect fun sscanf(s: String?, format: String?, vararg args: Any?): CInt
 public expect fun getcharUnlocked(): CInt
 public expect fun putcharUnlocked(c: CInt): CInt
 public expect fun shutdown(socket: CInt, how: CInt): CInt
@@ -566,9 +566,9 @@ public expect fun mkdir(path: String?, mode: ModeT): CInt
 public expect fun stat(path: String?, buf: Stat?): CInt
 public expect fun fdopen(fd: CInt, mode: String?): FILE?
 public expect fun fileno(stream: FILE?): CInt
-public expect fun open(path: String?, oflag: CInt, ...): CInt
+public expect fun open(path: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun creat(path: String?, mode: ModeT): CInt
-public expect fun fcntl(fd: CInt, cmd: CInt, ...): CInt
+public expect fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt
 public expect fun opendir(dirname: String?): DIR?
 public expect fun fdopendir(fd: CInt): DIR?
 public expect fun readdir(dirp: DIR?): Dirent?
@@ -577,7 +577,7 @@ public expect fun rewinddir(dirp: DIR?)
 public expect fun dirfd(dirp: DIR?): CInt
 public expect fun seekdir(dirp: DIR?, loc: CLong)
 public expect fun telldir(dirp: DIR?): CLong
-public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, ...): CInt
+public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg args: Any?): CInt
 public expect fun fstatat(dirfd: CInt, pathname: String?, buf: Stat?, flags: CInt): CInt
 public expect fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt
 public expect fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
@@ -617,7 +617,7 @@ public expect fun localeconv(): Lconv?
 public expect fun readlink(path: String?, buf: String?, bufsz: ULong): SsizeT
 public expect fun timegm(tm: Tm?): TimeT
 public expect fun sysconf(name: CInt): CLong
-public expect fun ioctl(fd: CInt, request: CInt, ...): CInt
+public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt
 public expect fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt
 public expect fun ftello(stream: FILE?): OffT
 public expect fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt

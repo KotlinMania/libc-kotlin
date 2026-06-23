@@ -1506,18 +1506,18 @@ public const val FALLOC_FL_INSERT_RANGE: CInt = 0x0010
 public const val FALLOC_FL_KEEP_SIZE: CInt = 0x1000
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 public expect fun cPUALLOCSIZE(count: CInt): ULong
-public expect fun cPUCOUNTS(size: ULong, cpuset: &cpuSetT): CInt
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
-public expect fun cPUCOUNT(cpuset: &cpuSetT): CInt
-public expect fun cPUEQUAL(set1: &cpuSetT, set2: &cpuSetT): Boolean
+public expect fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): CInt
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+public expect fun cPUCOUNT(cpuset: CpuSetT?): CInt
+public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
 public expect fun cMSGLEN(length: CUInt): CUInt
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
@@ -1582,7 +1582,7 @@ public expect fun duplocale(base: LocaleT): LocaleT
 public expect fun uselocale(loc: LocaleT): LocaleT
 public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
 public expect fun semDestroy(sem: SemT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun semClose(sem: SemT?): CInt
 public expect fun semUnlink(name: String?): CInt
 public expect fun semTimedwait(sem: SemT?, abstime: Timespec?): CInt
@@ -1707,7 +1707,7 @@ public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong):
 public expect fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt
 public expect fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt
-public expect fun ioctl(fd: CInt, request: CInt, ...): CInt
+public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt
 public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
 public expect fun mount(src: String?, target: String?, flags: CUInt): CInt
 public expect fun umount(target: String?): CInt
