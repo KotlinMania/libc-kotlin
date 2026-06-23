@@ -226,7 +226,7 @@ public data class McontextT(
 )
 
 public data class VrregsetT(
-    val vrregs: List<[cUint>,
+    val vrregs: List<UIntArray>,
     val vscr: VscrT,
     val vrsave: CUInt,
 )

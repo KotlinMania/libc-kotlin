@@ -488,7 +488,7 @@ public const val IP_DROP_MEMBERSHIP: Int = 0x15
 
 public expect fun errno(): CInt?
 public expect fun bind(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int
-public expect fun ioctl(fd: Int, request: Int, ...): Int
+public expect fun ioctl(fd: Int, request: Int, vararg args: Any?): Int
 public expect fun dirfd(dirp: DIR?): Int
 public expect fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: Sockaddr?, addrlen: SocklenT?): Int
 public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int

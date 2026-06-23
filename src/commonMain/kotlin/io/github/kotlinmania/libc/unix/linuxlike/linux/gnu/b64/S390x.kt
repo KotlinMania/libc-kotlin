@@ -211,7 +211,7 @@ public const val O_TRUNC: CInt = 512
 public const val O_NOATIME: CInt = 262144
 public const val O_CLOEXEC: CInt = 0x80000
 public const val O_PATH: CInt = 2097152
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val EBFONT: CInt = 59
 public const val ENOSTR: CInt = 60
 public const val ENODATA: CInt = 61
@@ -852,5 +852,5 @@ public const val SYS_mseal: CLong = 462
 public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
 public expect fun getcontext(ucp: UcontextT?): CInt
 public expect fun setcontext(ucp: UcontextT?): CInt
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, ...)
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt

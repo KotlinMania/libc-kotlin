@@ -10,7 +10,7 @@ public typealias TimeT = Long
 public typealias SusecondsT = Int
 public typealias RegisterT = Int
 public typealias GregT = CUInt
-public typealias GregsetT = [GregT
+public typealias GregsetT = LongArray
 
 public data class McontextT(
     val gregs: GregsetT,

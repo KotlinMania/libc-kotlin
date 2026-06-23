@@ -1410,7 +1410,7 @@ public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT?,
 public expect fun mqClose(mqd: MqdT): CInt
 public expect fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt
 public expect fun mqNotify(mqd: MqdT, notification: Sigevent?): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
 public expect fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt): CInt
 public expect fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt

@@ -72,7 +72,7 @@ public data class UcontextT(
     val ucBrandData: List<COpaquePointer?>,
     val ucXsave: CLong,
     val ucFiller: CLong,
-    val ucXrs: Solaris::xrsT,
+    val ucXrs: XrsT,
     val ucLwpid: CUInt,
     val ucFiller: LongArray,
 )

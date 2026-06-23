@@ -675,7 +675,7 @@ public expect fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaqueP
 public expect fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt)
 public expect fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt
 public expect fun globfree64(pglob: Glob64T?)
-public expect fun ptrace(request: CUInt, ...): CLong
+public expect fun ptrace(request: CUInt, vararg args: Any?): CLong
 public expect fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 public expect fun getpriority(which: PriorityWhichT, who: IdT): CInt

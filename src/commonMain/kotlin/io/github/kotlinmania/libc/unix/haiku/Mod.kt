@@ -253,7 +253,7 @@ public data class PthreadRwlockT(
     val lockCount: Int,
     val readerCount: Int,
     val writerCount: Int,
-    val waiters: List<*mut cVoid>,
+    val waiters: List<COpaquePointer?>,
 )
 
 public data class PthreadSpinlockT(

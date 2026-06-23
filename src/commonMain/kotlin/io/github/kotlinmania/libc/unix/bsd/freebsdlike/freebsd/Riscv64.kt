@@ -23,7 +23,7 @@ public data class Gpregs(
 )
 
 public data class Fpregs(
-    val fpX: List<[u64>,
+    val fpX: List<ULongArray>,
     val fpFcsr: ULong,
     val fpFlags: CInt,
     val pad: CInt,

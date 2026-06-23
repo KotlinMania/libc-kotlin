@@ -300,7 +300,7 @@ public const val O_DSYNC: CInt = 4096
 public const val O_FSYNC: CInt = 0x101000
 public const val O_NOATIME: CInt = 262144
 public const val O_PATH: CInt = 2097152
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val MADV_SOFT_OFFLINE: CInt = 101
 public const val MAP_GROWSDOWN: CInt = 0x0100
 public const val EDEADLK: CInt = 35
@@ -649,5 +649,5 @@ public const val REG_CR2: CInt = 22
 
 public expect fun getcontext(ucp: UcontextT?): CInt
 public expect fun setcontext(ucp: UcontextT?): CInt
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, ...)
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt

@@ -804,7 +804,7 @@ public data class LocaleStruct(
     val ctypeB: CUShort?,
     val ctypeTolower: CInt?,
     val ctypeToupper: CInt?,
-    val names: List<*const cChar>,
+    val names: List<String?>,
 )
 
 public data class Utsname(

@@ -6,8 +6,8 @@ import kotlinx.cinterop.COpaquePointer
 
 public typealias GregT = ULong
 public typealias CpuSimpleLockNvT = CUInt
-public typealias GregsetT = [GregT
-public typealias FregsetT = [Fpreg
+public typealias GregsetT = LongArray
+public typealias FregsetT = List<Fpreg>
 
 public data class McontextT(
     val gregs: GregsetT,
