@@ -1030,7 +1030,7 @@ public data class Filedesc(
 
 public data class Fdescenttbl(
     val fdtNfiles: CInt,
-    val fdtOfiles: List<*mut cVoid>,
+    val fdtOfiles: List<COpaquePointer?>,
 )
 
 public data class Sx(
@@ -1379,13 +1379,13 @@ public const val CAP_RIGHTS_VERSION: Int = CAP_RIGHTS_VERSION_00
 public const val CAP_READ: ULong = capRight(0, 0x0000000000000001uL)
 public const val CAP_WRITE: ULong = capRight(0, 0x0000000000000002uL)
 public const val CAP_SEEK_TELL: ULong = capRight(0, 0x0000000000000004uL)
-public val CAP_SEEK: ULong = CAP_SEEK_TELL or 0x0000000000000008u64
+public val CAP_SEEK: ULong = CAP_SEEK_TELL or 0x0000000000000008uL
 public val CAP_PREAD: ULong = CAP_SEEK or CAP_READ
 public val CAP_PWRITE: ULong = CAP_SEEK or CAP_WRITE
 public const val CAP_MMAP: ULong = capRight(0, 0x0000000000000010uL)
 public val CAP_MMAP_R: ULong = CAP_MMAP or CAP_SEEK or CAP_READ
 public val CAP_MMAP_W: ULong = CAP_MMAP or CAP_SEEK or CAP_WRITE
-public val CAP_MMAP_X: ULong = CAP_MMAP or CAP_SEEK or 0x0000000000000020u64
+public val CAP_MMAP_X: ULong = CAP_MMAP or CAP_SEEK or 0x0000000000000020uL
 public val CAP_MMAP_RW: ULong = CAP_MMAP_R or CAP_MMAP_W
 public val CAP_MMAP_RX: ULong = CAP_MMAP_R or CAP_MMAP_X
 public val CAP_MMAP_WX: ULong = CAP_MMAP_W or CAP_MMAP_X
@@ -1411,13 +1411,13 @@ public val CAP_FSTATAT: ULong = CAP_FSTAT or CAP_LOOKUP
 public const val CAP_FSTATFS: ULong = capRight(0, 0x0000000000100000uL)
 public const val CAP_FUTIMES: ULong = capRight(0, 0x0000000000200000uL)
 public val CAP_FUTIMESAT: ULong = CAP_FUTIMES or CAP_LOOKUP
-public val CAP_LINKAT_TARGET: ULong = CAP_LOOKUP or 0x0000000000400000u64
-public val CAP_MKDIRAT: ULong = CAP_LOOKUP or 0x0000000000800000u64
-public val CAP_MKFIFOAT: ULong = CAP_LOOKUP or 0x0000000001000000u64
-public val CAP_MKNODAT: ULong = CAP_LOOKUP or 0x0000000002000000u64
-public val CAP_RENAMEAT_SOURCE: ULong = CAP_LOOKUP or 0x0000000004000000u64
-public val CAP_SYMLINKAT: ULong = CAP_LOOKUP or 0x0000000008000000u64
-public val CAP_UNLINKAT: ULong = CAP_LOOKUP or 0x0000000010000000u64
+public val CAP_LINKAT_TARGET: ULong = CAP_LOOKUP or 0x0000000000400000uL
+public val CAP_MKDIRAT: ULong = CAP_LOOKUP or 0x0000000000800000uL
+public val CAP_MKFIFOAT: ULong = CAP_LOOKUP or 0x0000000001000000uL
+public val CAP_MKNODAT: ULong = CAP_LOOKUP or 0x0000000002000000uL
+public val CAP_RENAMEAT_SOURCE: ULong = CAP_LOOKUP or 0x0000000004000000uL
+public val CAP_SYMLINKAT: ULong = CAP_LOOKUP or 0x0000000008000000uL
+public val CAP_UNLINKAT: ULong = CAP_LOOKUP or 0x0000000010000000uL
 public const val CAP_ACCEPT: ULong = capRight(0, 0x0000000020000000uL)
 public const val CAP_BIND: ULong = capRight(0, 0x0000000040000000uL)
 public const val CAP_CONNECT: ULong = capRight(0, 0x0000000080000000uL)
@@ -1430,10 +1430,10 @@ public const val CAP_RECV: ULong = CAP_READ
 public const val CAP_SEND: ULong = CAP_WRITE
 public const val CAP_SETSOCKOPT: ULong = capRight(0, 0x0000002000000000uL)
 public const val CAP_SHUTDOWN: ULong = capRight(0, 0x0000004000000000uL)
-public val CAP_BINDAT: ULong = CAP_LOOKUP or 0x0000008000000000u64
-public val CAP_CONNECTAT: ULong = CAP_LOOKUP or 0x0000010000000000u64
-public val CAP_LINKAT_SOURCE: ULong = CAP_LOOKUP or 0x0000020000000000u64
-public val CAP_RENAMEAT_TARGET: ULong = CAP_LOOKUP or 0x0000040000000000u64
+public val CAP_BINDAT: ULong = CAP_LOOKUP or 0x0000008000000000uL
+public val CAP_CONNECTAT: ULong = CAP_LOOKUP or 0x0000010000000000uL
+public val CAP_LINKAT_SOURCE: ULong = CAP_LOOKUP or 0x0000020000000000uL
+public val CAP_RENAMEAT_TARGET: ULong = CAP_LOOKUP or 0x0000040000000000uL
 public val CAP_SOCK_CLIENT: ULong = CAP_CONNECT or CAP_GETPEERNAME or CAP_GETSOCKNAME or CAP_GETSOCKOPT or CAP_PEELOFF or CAP_RECV or CAP_SEND or CAP_SETSOCKOPT or CAP_SHUTDOWN
 public val CAP_SOCK_SERVER: ULong = CAP_ACCEPT or CAP_BIND or CAP_GETPEERNAME or CAP_GETSOCKNAME or CAP_GETSOCKOPT or CAP_LISTEN or CAP_PEELOFF or CAP_RECV or CAP_SEND or CAP_SETSOCKOPT or CAP_SHUTDOWN
 public const val CAP_ALL0: ULong = capRight(0, 0x000007FFFFFFFFFFuL)
@@ -3043,12 +3043,12 @@ public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 public expect fun mALLOCXALIGN(lg: CUInt): CInt
 public expect fun sOCKCREDSIZE(ngrps: ULong): ULong
 public expect fun uname(buf: Utsname?): CInt
-public expect fun cPUZERO(cpuset: &mut cpusetT)
-public expect fun cPUFILL(cpuset: &mut cpusetT)
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpusetT)
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpusetT)
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpusetT): Boolean
-public expect fun cPUCOUNT(cpuset: &cpusetT): CInt
+public expect fun cPUZERO(cpuset: CpusetT?)
+public expect fun cPUFILL(cpuset: CpusetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpusetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpusetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean
+public expect fun cPUCOUNT(cpuset: CpusetT?): CInt
 public expect fun sOCKCRED2SIZE(ngrps: ULong): ULong
 public expect fun pROTMAX(x: CInt): CInt
 public expect fun pROTMAXEXTRACT(x: CInt): CInt
