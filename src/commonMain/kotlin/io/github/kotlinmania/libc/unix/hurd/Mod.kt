@@ -3055,19 +3055,19 @@ public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 public expect fun cPUALLOCSIZE(count: CInt): ULong
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
-public expect fun cPUCOUNTS(size: ULong, cpuset: &cpuSetT): CInt
-public expect fun cPUCOUNT(cpuset: &cpuSetT): CInt
-public expect fun cPUEQUAL(set1: &cpuSetT, set2: &cpuSetT): Boolean
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+public expect fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): CInt
+public expect fun cPUCOUNT(cpuset: CpuSetT?): CInt
+public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
 public expect fun iPTOSTOS(tos: UByte): UByte
 public expect fun iPTOSPREC(tos: UByte): UByte
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 public expect fun sIGRTMAX(): CInt
 public expect fun sIGRTMIN(): CInt
 
@@ -3086,7 +3086,7 @@ public expect fun sigsuspend(mask: SigsetT?): CInt
 public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt
 public expect fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt
 public expect fun sigaltstack(ss: StackT?, oss: StackT?): CInt
-public expect fun ioctl(fd: CInt, request: CULong, ...): CInt
+public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt
 public expect fun pipe2(fds: CInt?, flags: CInt): CInt
 public expect fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt
 public expect fun pread64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT
@@ -3106,7 +3106,7 @@ public expect fun aioReturn(aiocbp: Aiocb?): SsizeT
 public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt
 public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt
 public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqClose(mqd: MqdT): CInt
 public expect fun mqUnlink(name: String?): CInt
 public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
@@ -3266,10 +3266,10 @@ public expect fun statvfs(file: String?, buf: Statvfs?): CInt
 public expect fun statvfs64(file: String?, buf: Statvfs64?): CInt
 public expect fun fstatvfs(fildes: CInt, buf: Statvfs?): CInt
 public expect fun fstatvfs64(fildes: CInt, buf: Statvfs64?): CInt
-public expect fun open(file: String?, oflag: CInt, ...): CInt
-public expect fun open64(file: String?, oflag: CInt, ...): CInt
-public expect fun openat(fd: CInt, file: String?, oflag: CInt, ...): CInt
-public expect fun openat64(fd: CInt, file: String?, oflag: CInt, ...): CInt
+public expect fun open(file: String?, oflag: CInt, vararg args: Any?): CInt
+public expect fun open64(file: String?, oflag: CInt, vararg args: Any?): CInt
+public expect fun openat(fd: CInt, file: String?, oflag: CInt, vararg args: Any?): CInt
+public expect fun openat64(fd: CInt, file: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun fopen64(filename: String?, mode: String?): FILE?
 public expect fun freopen64(filename: String?, mode: String?, file: FILE?): FILE?
 public expect fun creat64(path: String?, mode: ModeT): CInt
@@ -3333,7 +3333,7 @@ public expect fun dirfd(dirp: DIR?): CInt
 public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt
 public expect fun errnoLocation(): CInt?
 public expect fun mmap64(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer?
-public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, ...): COpaquePointer?
+public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer?
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
 public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt
 public expect fun sync()

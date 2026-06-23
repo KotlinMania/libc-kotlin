@@ -1655,41 +1655,41 @@ public const val VREPRINT: ULong = 12uL
 public const val VDISCARD: ULong = 13uL
 public const val VWERASE: ULong = 14uL
 public const val VLNEXT: ULong = 15uL
-public val I_NREAD: CInt = STR or 0o1
-public val I_PUSH: CInt = STR or 0o2
-public val I_POP: CInt = STR or 0o3
-public val I_LOOK: CInt = STR or 0o4
-public val I_FLUSH: CInt = STR or 0o5
-public val I_SRDOPT: CInt = STR or 0o6
-public val I_GRDOPT: CInt = STR or 0o7
-public val I_STR: CInt = STR or 0o10
-public val I_SETSIG: CInt = STR or 0o11
-public val I_GETSIG: CInt = STR or 0o12
-public val I_FIND: CInt = STR or 0o13
-public val I_LINK: CInt = STR or 0o14
-public val I_UNLINK: CInt = STR or 0o15
-public val I_PEEK: CInt = STR or 0o17
-public val I_FDINSERT: CInt = STR or 0o20
-public val I_SENDFD: CInt = STR or 0o21
-public val I_RECVFD: CInt = STR or 0o16
-public val I_SWROPT: CInt = STR or 0o23
-public val I_GWROPT: CInt = STR or 0o24
-public val I_LIST: CInt = STR or 0o25
-public val I_PLINK: CInt = STR or 0o26
-public val I_PUNLINK: CInt = STR or 0o27
-public val I_ANCHOR: CInt = STR or 0o30
-public val I_FLUSHBAND: CInt = STR or 0o34
-public val I_CKBAND: CInt = STR or 0o35
-public val I_GETBAND: CInt = STR or 0o36
-public val I_ATMARK: CInt = STR or 0o37
-public val I_SETCLTIME: CInt = STR or 0o40
-public val I_GETCLTIME: CInt = STR or 0o41
-public val I_CANPUT: CInt = STR or 0o42
-public val I_SERROPT: CInt = STR or 0o43
-public val I_GERROPT: CInt = STR or 0o44
-public val I_ESETSIG: CInt = STR or 0o45
-public val I_EGETSIG: CInt = STR or 0o46
-public val __I_PUSH_NOCTTY: CInt = STR or 0o47
+public val I_NREAD: CInt = STR or 1
+public val I_PUSH: CInt = STR or 2
+public val I_POP: CInt = STR or 3
+public val I_LOOK: CInt = STR or 4
+public val I_FLUSH: CInt = STR or 5
+public val I_SRDOPT: CInt = STR or 6
+public val I_GRDOPT: CInt = STR or 7
+public val I_STR: CInt = STR or 8
+public val I_SETSIG: CInt = STR or 9
+public val I_GETSIG: CInt = STR or 10
+public val I_FIND: CInt = STR or 11
+public val I_LINK: CInt = STR or 12
+public val I_UNLINK: CInt = STR or 13
+public val I_PEEK: CInt = STR or 15
+public val I_FDINSERT: CInt = STR or 16
+public val I_SENDFD: CInt = STR or 17
+public val I_RECVFD: CInt = STR or 14
+public val I_SWROPT: CInt = STR or 19
+public val I_GWROPT: CInt = STR or 20
+public val I_LIST: CInt = STR or 21
+public val I_PLINK: CInt = STR or 22
+public val I_PUNLINK: CInt = STR or 23
+public val I_ANCHOR: CInt = STR or 24
+public val I_FLUSHBAND: CInt = STR or 28
+public val I_CKBAND: CInt = STR or 29
+public val I_GETBAND: CInt = STR or 30
+public val I_ATMARK: CInt = STR or 31
+public val I_SETCLTIME: CInt = STR or 32
+public val I_GETCLTIME: CInt = STR or 33
+public val I_CANPUT: CInt = STR or 34
+public val I_SERROPT: CInt = STR or 35
+public val I_GERROPT: CInt = STR or 36
+public val I_ESETSIG: CInt = STR or 37
+public val I_EGETSIG: CInt = STR or 38
+public val __I_PUSH_NOCTTY: CInt = STR or 39
 public const val SOCK_CLOEXEC: CInt = 0x080000
 public const val SOCK_NONBLOCK: CInt = 0x100000
 public const val SOCK_NDELAY: CInt = 0x200000
@@ -1803,10 +1803,10 @@ public const val SFV_FD_SELF: CInt = -2
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
 public expect fun sIGRTMAX(): CInt
 public expect fun sIGRTMIN(): CInt
 
@@ -1831,7 +1831,7 @@ public expect fun stackGetbounds(sp: StackT?): CInt
 public expect fun getgrouplist(name: String?, basegid: GidT, groups: GidT?, ngroups: CInt?): CInt
 public expect fun initgroups(name: String?, basegid: GidT): CInt
 public expect fun setgroups(ngroups: CInt, ptr: GidT?): CInt
-public expect fun ioctl(fildes: CInt, request: CInt, ...): CInt
+public expect fun ioctl(fildes: CInt, request: CInt, vararg args: Any?): CInt
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
 public expect fun errno(): CInt?
 public expect fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt
@@ -1922,7 +1922,7 @@ public expect fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
 public expect fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT
 public expect fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT
 public expect fun accept4(fd: CInt, address: Sockaddr?, addressLen: SocklenT?, flags: CInt): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
 public expect fun mqClose(mqd: MqdT): CInt
 public expect fun mqUnlink(name: String?): CInt
 public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
@@ -1946,7 +1946,7 @@ public expect fun getdtablesize(): CInt
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 public expect fun thrSelf(): ThreadT
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
 public expect fun getgrnam(name: String?): Group?
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
 public expect fun schedGetPriorityMin(policy: CInt): CInt
