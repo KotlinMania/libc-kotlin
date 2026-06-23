@@ -3469,6 +3469,9 @@ public const val DOT3COMPLIANCE_STATS: CInt = 1
 public const val DOT3COMPLIANCE_COLLS: CInt = 2
 public const val MAX_KCTL_NAME: ULong = 96uL
 
+// __DARWIN_ALIGNBYTES32 is size_of<u32>() - 1.
+public fun __DARWIN_ALIGN32(p: ULong): ULong = (p + 3uL) and (3uL).inv()
+
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 

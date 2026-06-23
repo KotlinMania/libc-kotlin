@@ -2058,6 +2058,9 @@ public const val SO_USELOOPBACK: CInt = 0x0040
 
 // _SS_ALIGNSIZE = size_of<Long>() (computed at the FFI boundary)
 public const val _SS_MAXSIZE: ULong = 128uL
+
+public fun _ALIGN(p: ULong, b: ULong): ULong = (p + b - 1uL) and (b - 1uL).inv()
+
 public const val _SS_PAD1SIZE: ULong = _SS_ALIGNSIZE - 2
 public const val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - 2 - _SS_PAD1SIZE - _SS_ALIGNSIZE
 public val TC_CPOSIX: TcflagT = CLOCAL or CREAD or CSIZE or CSTOPB or HUPCL or PARENB or PARODD
