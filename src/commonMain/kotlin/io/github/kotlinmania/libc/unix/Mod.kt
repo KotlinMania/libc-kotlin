@@ -205,10 +205,10 @@ public const val IPPROTO_TCP: CInt = 6
 public const val IPPROTO_UDP: CInt = 17
 public const val IPPROTO_IP: CInt = 0
 public const val IPPROTO_IPV6: CInt = 41
-public const val INADDR_LOOPBACK: InAddrT = 2130706433
-public const val INADDR_ANY: InAddrT = 0
-public const val INADDR_BROADCAST: InAddrT = 4294967295
-public const val INADDR_NONE: InAddrT = 4294967295
+public const val INADDR_LOOPBACK: InAddrT = 2130706433u
+public const val INADDR_ANY: InAddrT = 0u
+public const val INADDR_BROADCAST: InAddrT = 4294967295u
+public const val INADDR_NONE: InAddrT = 4294967295u
 public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
 public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 public val ARPOP_REQUEST: UShort = (1).toUShort()
