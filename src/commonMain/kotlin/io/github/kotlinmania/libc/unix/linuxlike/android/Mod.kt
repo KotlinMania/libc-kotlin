@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias Ioctl = CInt
 public typealias ClockT = CLong

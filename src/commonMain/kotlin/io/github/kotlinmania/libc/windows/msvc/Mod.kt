@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.windows.msvc
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val EOTHER: CInt = 131
 

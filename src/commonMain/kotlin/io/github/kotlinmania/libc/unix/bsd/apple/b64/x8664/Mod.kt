@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b64.x8664
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias BooleanT = CUInt
 

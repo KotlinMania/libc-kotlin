@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias L4UmwordT = CULong
 public typealias PthreadT = COpaquePointer?

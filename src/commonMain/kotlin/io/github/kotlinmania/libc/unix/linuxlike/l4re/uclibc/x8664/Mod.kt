@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.x8664
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias WcharT = CInt
 public typealias TimeT = CLong

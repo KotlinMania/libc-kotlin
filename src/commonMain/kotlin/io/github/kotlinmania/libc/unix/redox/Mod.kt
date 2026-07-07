@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias WcharT = Int
 public typealias BlkcntT = CULong

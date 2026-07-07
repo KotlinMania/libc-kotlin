@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias DevT = ULong
 public typealias SocklenT = UInt
@@ -1283,10 +1282,10 @@ public const val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3)
 public const val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4)
 
 // NS_GET_MNTNS_ID = _IOR(NSIO, 0x5, __u64) (ioctl request code; computed at the FFI boundary)
-public const val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x6)
-public const val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x7)
-public const val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x8)
-public const val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x9)
+public const val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x6)
+public const val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x7)
+public const val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x8)
+public const val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x9)
 public const val MNT_NS_INFO_SIZE_VER0: Ioctl = 16
 public const val NS_MNT_GET_INFO: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 10)
 public const val NS_MNT_GET_NEXT: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 11)
@@ -2332,7 +2331,7 @@ public const val PTP_MAX_SAMPLES: CUInt = 25u
 public const val PTP_CLOCK_GETCAPS: Ioctl = ioctlCode<ptp_clock_caps>(PTP_CLK_MAGIC, 1)
 public const val PTP_EXTTS_REQUEST: Ioctl = ioctlCode<ptp_extts_request>(PTP_CLK_MAGIC, 2)
 public const val PTP_PEROUT_REQUEST: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 3)
-public const val PTP_ENABLE_PPS: Ioctl = ioctlCode<c_int>(PTP_CLK_MAGIC, 4)
+public const val PTP_ENABLE_PPS: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 4)
 public const val PTP_SYS_OFFSET: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 5)
 public const val PTP_PIN_GETFUNC: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 6)
 public const val PTP_PIN_SETFUNC: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 7)
@@ -2341,7 +2340,7 @@ public const val PTP_SYS_OFFSET_EXTENDED: Ioctl = ioctlCode<ptp_sys_offset_exten
 public const val PTP_CLOCK_GETCAPS2: Ioctl = ioctlCode<ptp_clock_caps>(PTP_CLK_MAGIC, 10)
 public const val PTP_EXTTS_REQUEST2: Ioctl = ioctlCode<ptp_extts_request>(PTP_CLK_MAGIC, 11)
 public const val PTP_PEROUT_REQUEST2: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 12)
-public const val PTP_ENABLE_PPS2: Ioctl = ioctlCode<c_int>(PTP_CLK_MAGIC, 13)
+public const val PTP_ENABLE_PPS2: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 13)
 public const val PTP_SYS_OFFSET2: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 14)
 public const val PTP_PIN_GETFUNC2: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 15)
 public const val PTP_PIN_SETFUNC2: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 16)

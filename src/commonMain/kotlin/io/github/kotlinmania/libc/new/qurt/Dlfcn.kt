@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val RTLD_LAZY: CInt = 1
 public const val RTLD_NOW: CInt = 2

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias CaddrT = String?
 public typealias ClockidT = CLongLong

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias Elf32Half = UShort
 public typealias Elf32Word = UInt

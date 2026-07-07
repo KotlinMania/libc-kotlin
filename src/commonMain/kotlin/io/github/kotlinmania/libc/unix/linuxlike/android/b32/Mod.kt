@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ModeT = UShort
 public typealias Off64T = CLongLong

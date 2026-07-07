@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias GregT = CLong
 public typealias Elf64Addr = CULong

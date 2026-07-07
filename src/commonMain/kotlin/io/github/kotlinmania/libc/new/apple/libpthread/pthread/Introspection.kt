@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias PthreadIntrospectionHookT = ((CUInt, PthreadT, COpaquePointer?, ULong) -> Unit)?
 

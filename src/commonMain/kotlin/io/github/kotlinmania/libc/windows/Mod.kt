@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
@@ -15,7 +14,8 @@ public typealias SighandlerT = ULong
 public typealias WcharT = UShort
 public typealias ClockT = Int
 public typealias ErrnoT = CInt
-public typealias TimeT = Int
+// Upstream uses cfg_if: time_t = i32 on 32-bit x86 GNU, i64 everywhere else.
+// The 64-bit variant is the common case across modern Windows targets.
 public typealias TimeT = Long
 public typealias OffT = Int
 public typealias DevT = UInt
@@ -333,8 +333,6 @@ public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
 public expect fun free(p: COpaquePointer?)
 
 public expect fun abort(): Nothing
-
-public expect fun exit(status: CInt): Nothing
 
 public expect fun exit(status: CInt): Nothing
 

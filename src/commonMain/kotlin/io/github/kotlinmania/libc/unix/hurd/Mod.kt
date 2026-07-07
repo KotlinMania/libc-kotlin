@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias S16Type = CShort
 public typealias U16Type = CUShort

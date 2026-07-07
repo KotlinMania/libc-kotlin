@@ -2,18 +2,24 @@
 package io.github.kotlinmania.libc
 
 public typealias CSchar = Byte
+public typealias CUChar = UByte
 public typealias CUchar = UByte
 public typealias CShort = Short
+public typealias CUShort = UShort
 public typealias CUshort = UShort
 public typealias CLonglong = Long
 public typealias CUlonglong = ULong
+public typealias CLongLong = Long
+public typealias CULongLong = ULong
 public typealias CFloat = Float
 public typealias CDouble = Double
 public typealias CChar = Byte
 public typealias CInt = Int
+public typealias CUInt = UInt
 public typealias CUint = UInt
 public typealias CLong = Long
 public typealias CUlong = ULong
+public typealias CULong = ULong
 public typealias Int8T = Byte
 public typealias Int16T = Short
 public typealias Int32T = Int

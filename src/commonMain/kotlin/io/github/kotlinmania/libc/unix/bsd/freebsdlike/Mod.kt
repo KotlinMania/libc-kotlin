@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ModeT = UShort
 public typealias PthreadAttrT = COpaquePointer?

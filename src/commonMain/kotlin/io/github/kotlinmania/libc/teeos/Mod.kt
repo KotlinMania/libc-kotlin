@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias CBool = Int
 public typealias IntmaxT = Long

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.bioniclibc.sys
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class Msghdr(
     val msgName: COpaquePointer?,

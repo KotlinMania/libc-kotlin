@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias BlkcntT = Int
 public typealias BlksizeT = Int

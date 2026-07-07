@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias OffT = Long
 public typealias UsecondsT = UInt

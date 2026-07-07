@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias DoorAttrT = CUInt
 public typealias DoorIdT = CULongLong
