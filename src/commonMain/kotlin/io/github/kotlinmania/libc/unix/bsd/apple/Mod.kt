@@ -1323,7 +1323,7 @@ public data class IfData64(
     val ifiRecvtiming: UInt,
     val ifiXmittiming: UInt,
     val ifiLastchange: Timeval,
-    val ifiLastchange: Timeval32,
+    val ifiLastchange2: Timeval32,
 )
 
 public data class IfMsghdr2(
@@ -2097,7 +2097,6 @@ public const val _SC_XOPEN_VERSION: CInt = 116
 public const val _SC_XOPEN_XCU_VERSION: CInt = 121
 public const val _SC_PHYS_PAGES: CInt = 200
 public const val PTHREAD_STACK_MIN: ULong = 16384uL
-public const val PTHREAD_STACK_MIN: ULong = 8192uL
 public const val RLIMIT_CPU: CInt = 0
 public const val RLIMIT_FSIZE: CInt = 1
 public const val RLIMIT_DATA: CInt = 2
@@ -3135,7 +3134,6 @@ public const val SETALL: CInt = 9
 public const val SHM_RDONLY: CInt = 0x1000
 public const val SHM_RND: CInt = 0x2000
 public const val SHMLBA: CInt = 16 * 1024
-public const val SHMLBA: CInt = 4096
 public const val SHM_R: CInt = IPC_R
 public const val SHM_W: CInt = IPC_W
 public const val UF_SETTABLE: CUInt = 0x0000ffffu

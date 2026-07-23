@@ -129,7 +129,7 @@ public data class IpcPerm(
 public data class Stat64(
     val stDev: DevT,
     val stIno: CULong,
-    val stIno: InoT,
+    val stIno2: InoT,
     val stMode: ModeT,
     val stNlink: NlinkT,
     val stUid: UidT,
@@ -144,7 +144,7 @@ public data class Stat64(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stIno: Ino64T,
+    val stIno3: Ino64T,
 )
 
 public data class Statfs64(
@@ -364,7 +364,6 @@ public const val SA_NOCLDWAIT: CInt = 0x00000002
 public const val SOCK_STREAM: CInt = 1
 public const val SOCK_DGRAM: CInt = 2
 public const val F_GETLK: CInt = 12
-public const val F_GETLK: CInt = 5
 public const val F_GETOWN: CInt = 9
 public const val F_SETOWN: CInt = 8
 public const val PTRACE_GETFPXREGS: CUInt = 18u

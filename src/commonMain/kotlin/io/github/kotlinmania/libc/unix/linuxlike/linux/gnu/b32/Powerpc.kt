@@ -53,7 +53,6 @@ public data class IpcPerm(
     val seq: UInt,
 )
 
-public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stMode: ModeT,
@@ -127,7 +126,7 @@ public data class ShmidDs(
     val shmAtime: TimeT,
     val shmDtime: TimeT,
     val shmCtime: TimeT,
-    val shmSegsz: ULong,
+    val shmSegsz2: ULong,
     val shmCpid: PidT,
     val shmLpid: PidT,
     val shmNattch: ShmattT,
@@ -288,7 +287,6 @@ public const val MCL_ONFAULT: CInt = 0x8000
 public const val POLLWRNORM: CShort = 0x100
 public const val POLLWRBAND: CShort = 0x200
 public const val F_GETLK: CInt = 12
-public const val F_GETLK: CInt = 5
 public const val F_GETOWN: CInt = 9
 public const val F_SETOWN: CInt = 8
 public const val EFD_NONBLOCK: CInt = 0x800

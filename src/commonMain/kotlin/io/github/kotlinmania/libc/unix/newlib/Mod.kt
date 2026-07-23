@@ -9,12 +9,6 @@ public typealias ClockidT = CULong
 public typealias DevT = CShort
 public typealias InoT = CUShort
 public typealias OffT = CLong
-public typealias DevT = CShort
-public typealias InoT = CUShort
-public typealias OffT = CInt
-public typealias DevT = UInt
-public typealias InoT = UInt
-public typealias OffT = Long
 public typealias FsblkcntT = ULong
 public typealias FsfilcntT = UInt
 public typealias IdT = UInt
@@ -27,15 +21,12 @@ public typealias PthreadT = CULong
 public typealias PthreadKeyT = CUInt
 public typealias RlimT = UInt
 public typealias SaFamilyT = UShort
-public typealias SaFamilyT = UByte
 public typealias SocklenT = UInt
 public typealias SpeedT = UInt
 public typealias SusecondsT = Int
 public typealias TcflagT = UShort
-public typealias TcflagT = CUInt
 public typealias UsecondsT = UInt
 public typealias TimeT = CLongLong
-public typealias TimeT = Int
 
 public data class Addrinfo(
     val aiFlags: CInt,
@@ -45,7 +36,7 @@ public data class Addrinfo(
     val aiAddrlen: SocklenT,
     val aiAddr: Sockaddr?,
     val aiCanonname: String?,
-    val aiAddr: Sockaddr?,
+    val aiAddr2: Sockaddr?,
     val aiNext: Addrinfo?,
 )
 

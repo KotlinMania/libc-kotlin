@@ -9,28 +9,19 @@ import io.github.kotlinmania.libc.*
  * Ported from the linux-like upstream Rust libc module.
  */
 
-public typealias SaFamilyT = UShort
 
-public typealias SpeedT = CUInt
 
-public typealias TcflagT = CUInt
 
-public typealias ClockidT = CInt
 
-public typealias TimerT = COpaquePointer?
 
-public typealias UsecondsT = UInt
 
-public typealias KeyT = CInt
 
-public typealias IdT = CUInt
 
 /**
  * IPv4 address structure.
  *
  * Represents a 32-bit IPv4 address.
  */
-public data class InAddr(
     val sAddr: CUInt,
 )
 
@@ -39,7 +30,6 @@ public data class InAddr(
  *
  * Used for joining/leaving IPv4 multicast groups.
  */
-public data class IpMreq(
     val imrMultiaddr: InAddr,
     val imrInterface: InAddr,
 )
@@ -49,7 +39,6 @@ public data class IpMreq(
  *
  * Extended version of IpMreq that includes an interface index.
  */
-public data class IpMreqn(
     val imrMultiaddr: InAddr,
     val imrAddress: InAddr,
     val imrIfindex: CInt,
@@ -60,7 +49,6 @@ public data class IpMreqn(
  *
  * Used for source-specific multicast (SSM) operations.
  */
-public data class IpMreqSource(
     val imrMultiaddr: InAddr,
     val imrInterface: InAddr,
     val imrSourceaddr: InAddr,
@@ -71,7 +59,6 @@ public data class IpMreqSource(
  *
  * This is the base socket address type used in socket APIs.
  */
-public data class Sockaddr(
     val saFamily: CUShort,
     val saData: ByteArray,
 ) {
@@ -100,7 +87,6 @@ public data class Sockaddr(
  *
  * Used for IPv4 socket addressing (AF_INET).
  */
-public data class SockaddrIn(
     val sinFamily: CUShort,
     val sinPort: CUShort,
     val sinAddr: InAddr,
@@ -158,7 +144,6 @@ public data class In6Addr(
  *
  * Used for IPv6 socket addressing (AF_INET6).
  */
-public data class SockaddrIn6(
     val sin6Family: CUShort,
     val sin6Port: CUShort,
     val sin6Flowinfo: CUInt,
@@ -185,7 +170,6 @@ public data class Ipv6Mreq(
  *
  * Used for packet sockets (AF_PACKET).
  */
-public data class SockaddrLl(
     val sllFamily: CUShort,
     val sllProtocol: CUShort,
     val sllIfindex: CInt,
@@ -229,7 +213,6 @@ public data class SockaddrLl(
  *
  * Used for Unix domain sockets (AF_UNIX/AF_LOCAL).
  */
-public data class SockaddrUn(
     val sunFamily: CUShort,
     val sunPath: ByteArray,
 ) {
@@ -263,7 +246,6 @@ public data class SockaddrUn(
  * For Kotlin Multiplatform, we use a simplified representation as padding is handled
  * by platform-specific FFI layers.
  */
-public data class SockaddrStorage(
     val ssFamily: CUShort,
     val padding: ByteArray,
 ) {
@@ -298,7 +280,6 @@ public data class SockaddrStorage(
  * The upstream Rust code has different field ordering for Android vs other platforms,
  * but the logical structure is the same.
  */
-public data class Addrinfo(
     val aiFlags: CInt,
     val aiFamily: CInt,
     val aiSocktype: CInt,

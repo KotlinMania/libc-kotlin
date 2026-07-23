@@ -140,7 +140,7 @@ public data class ShmidDs(
     val shmAtime: TimeT,
     val shmDtime: TimeT,
     val shmCtime: TimeT,
-    val shmSegsz: ULong,
+    val shmSegsz2: ULong,
     val shmCpid: PidT,
     val shmLpid: PidT,
     val shmNattch: ShmattT,

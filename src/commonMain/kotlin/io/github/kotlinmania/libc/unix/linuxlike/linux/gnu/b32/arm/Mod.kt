@@ -56,7 +56,7 @@ public data class IpcPerm(
 public data class Stat64(
     val stDev: DevT,
     val stIno: CULong,
-    val stIno: InoT,
+    val stIno2: InoT,
     val stMode: ModeT,
     val stNlink: NlinkT,
     val stUid: UidT,
@@ -71,7 +71,7 @@ public data class Stat64(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stIno: Ino64T,
+    val stIno3: Ino64T,
 )
 
 public data class Statfs64(
@@ -325,7 +325,6 @@ public const val MCL_ONFAULT: CInt = 0x0004
 public const val POLLWRNORM: CShort = 0x100
 public const val POLLWRBAND: CShort = 0x200
 public const val F_GETLK: CInt = 12
-public const val F_GETLK: CInt = 5
 public const val F_GETOWN: CInt = 9
 public const val F_SETOWN: CInt = 8
 public const val EFD_NONBLOCK: CInt = 0x800

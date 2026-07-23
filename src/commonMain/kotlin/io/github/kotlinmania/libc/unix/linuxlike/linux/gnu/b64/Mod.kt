@@ -13,13 +13,9 @@ public typealias FsblkcntT = ULong
 public typealias FsfilcntT = ULong
 public typealias RlimT = ULong
 public typealias SyscallUlongT = CULongLong
-public typealias SyscallUlongT = CULong
 public typealias ClockT = Int
 public typealias TimeT = Int
 public typealias FswordT = Int
-public typealias FswordT = Long
-public typealias ClockT = Long
-public typealias TimeT = Long
 
 public data class SigsetT(
     val `val`: UIntArray,
@@ -65,38 +61,38 @@ public data class SemidDs(
 public data class Timex(
     val modes: CUInt,
     val offset: Long,
-    val offset: CLong,
+    val offset2: CLong,
     val freq: Long,
-    val freq: CLong,
+    val freq2: CLong,
     val maxerror: Long,
-    val maxerror: CLong,
+    val maxerror2: CLong,
     val esterror: Long,
-    val esterror: CLong,
+    val esterror2: CLong,
     val status: CInt,
     val constant: Long,
-    val constant: CLong,
+    val constant2: CLong,
     val precision: Long,
-    val precision: CLong,
+    val precision2: CLong,
     val tolerance: Long,
-    val tolerance: CLong,
+    val tolerance2: CLong,
     val time: Timeval,
     val tick: Long,
-    val tick: CLong,
+    val tick2: CLong,
     val ppsfreq: Long,
-    val ppsfreq: CLong,
+    val ppsfreq2: CLong,
     val jitter: Long,
-    val jitter: CLong,
+    val jitter2: CLong,
     val shift: CInt,
     val stabil: Long,
-    val stabil: CLong,
+    val stabil2: CLong,
     val jitcnt: Long,
-    val jitcnt: CLong,
+    val jitcnt2: CLong,
     val calcnt: Long,
-    val calcnt: CLong,
+    val calcnt2: CLong,
     val errcnt: Long,
-    val errcnt: CLong,
+    val errcnt2: CLong,
     val stbcnt: Long,
-    val stbcnt: CLong,
+    val stbcnt2: CLong,
     val tai: CInt,
     val unused1: Int,
     val unused2: Int,

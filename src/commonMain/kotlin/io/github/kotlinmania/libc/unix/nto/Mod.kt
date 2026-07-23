@@ -113,7 +113,6 @@ public data class SockaddrIn(
     val sinZero: ByteArray,
 )
 
-public data class SockaddrIn(
     val sinLen: UByte,
     val sinFamily: SaFamilyT,
     val sinPort: InPortT,
@@ -164,7 +163,6 @@ public data class SchedParam(
     val schedCurpriority: CInt,
 )
 
-public data class SchedParam(
     val schedPriority: CInt,
     val schedCurpriority: CInt,
 )
@@ -245,7 +243,6 @@ public data class Mmsghdr(
     val msgLen: CUInt,
 )
 
-public data class Mmsghdr(
     val msgHdr: Msghdr,
     val msgLen: SsizeT,
 )
@@ -569,7 +566,6 @@ public data class BpfStat(
     val bsCapt: ULong,
 )
 
-public data class BpfStat(
     val bsRecv: CUInt,
     val bsDrop: CUInt,
 )
@@ -677,7 +673,6 @@ public data class SockaddrDl(
     val sdlData: ByteArray,
 )
 
-public data class SockaddrDl(
     val sdlLen: CUChar,
     val sdlFamily: CUChar,
     val sdlIndex: CUShort,
@@ -861,43 +856,6 @@ public const val SO_VLANPRIO: CInt = 0x100c
 public const val USER_ATEXIT_MAX: CInt = 21
 public const val USER_MAXID: CInt = 22
 public const val SO_OVERFLOWED: CInt = 0x1009
-public const val SCM_CREDS: CInt = 0x03
-public const val AF_INET6: CInt = 28
-public const val AF_BLUETOOTH: CInt = 36
-public const val pseudo_AF_KEY: CInt = 27
-public const val MSG_NOSIGNAL: CInt = 0x20000
-public const val MSG_WAITFORONE: CInt = 0x00080000
-public const val IPPROTO_DIVERT: CInt = 258
-public const val RTF_BROADCAST: UInt = 0x400000u
-public const val UDP_ENCAP: CInt = 1
-public const val HW_MACHINE_ARCH: CInt = 11
-public const val AF_ARP: CInt = 35
-public const val AF_IEEE80211: CInt = 37
-public const val AF_NATM: CInt = 29
-public const val BIOCGDLTLIST: CULong = 0xffffffffc0104279uL
-public const val BIOCGETIF: CInt = 0x4020426b
-public const val BIOCGSEESENT: CInt = 0x40044276
-public const val BIOCGSTATS: CInt = 0x4008426f
-public const val BIOCSDLT: CInt = 0x80044278
-public const val BIOCSETIF: CInt = 0x8020426c
-public const val BIOCSSEESENT: CInt = 0x80044277
-public const val KERN_ARND: CInt = 37
-public const val KERN_IOV_MAX: CInt = 35
-public const val KERN_LOGSIGEXIT: CInt = 34
-public const val KERN_PROC_ARGS: CInt = 7
-public const val KERN_PROC_ENV: CInt = 35
-public const val KERN_PROC_GID: CInt = 11
-public const val KERN_PROC_RGID: CInt = 10
-public const val LOCAL_CONNWAIT: CInt = 4
-public const val LOCAL_CREDS: CInt = 2
-public const val MSG_NOTIFICATION: CInt = 0x00002000
-public const val NET_RT_IFLIST: CInt = 3
-public const val NI_NUMERICSCOPE: CInt = 0x00000020
-public const val PF_ARP: CInt = AF_ARP
-public const val PF_NATM: CInt = AF_NATM
-public const val pseudo_AF_HDRCMPLT: CInt = 31
-public const val SIOCGIFADDR: CInt = 0xc0206921
-public const val SO_SETFIB: CInt = 0x1014
 public const val MAP_TYPE: CInt = 0x3
 public const val IFF_UP: CInt = 0x00000001
 public const val IFF_BROADCAST: CInt = 0x00000002
@@ -2184,9 +2142,7 @@ public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: C
 
 public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt, timeout: Timespec?): CInt
 
-public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt): SsizeT
 
-public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt, timeout: Timespec?): SsizeT
 
 public expect fun semDestroy(sem: SemT?): CInt
 

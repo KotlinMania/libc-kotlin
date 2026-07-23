@@ -3,8 +3,6 @@ package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
 
-public typealias WcharT = UInt
-public typealias TimeT = Long
 
 public data class X8664CpuRegisters(
     val rdi: ULong,
@@ -29,12 +27,10 @@ public data class X8664CpuRegisters(
     val ss: UInt,
 )
 
-public data class McontextT(
     val cpu: X8664CpuRegisters,
     val fpu: X8664FpuRegisters,
 )
 
-public data class StackT(
     val ssSp: COpaquePointer?,
     val ssSize: ULong,
     val ssFlags: CInt,

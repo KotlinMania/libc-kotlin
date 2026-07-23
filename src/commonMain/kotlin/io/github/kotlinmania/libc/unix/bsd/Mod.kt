@@ -54,7 +54,7 @@ public data class Ifaddrs(
 
 public data class FdSet(
     val fdsBits: LongArray,
-    val fdsBits: IntArray,
+    val fdsBits2: IntArray,
 )
 
 public data class Msghdr(
@@ -109,15 +109,15 @@ public data class SockaddrUn(
 
 public data class Utsname(
     val sysname: ByteArray,
-    val sysname: ByteArray,
+    val sysname2: ByteArray,
     val nodename: ByteArray,
-    val nodename: ByteArray,
+    val nodename2: ByteArray,
     val release: ByteArray,
-    val release: ByteArray,
+    val release2: ByteArray,
     val version: ByteArray,
-    val version: ByteArray,
+    val version2: ByteArray,
     val machine: ByteArray,
-    val machine: ByteArray,
+    val machine2: ByteArray,
 )
 
 public const val LC_ALL: CInt = 0

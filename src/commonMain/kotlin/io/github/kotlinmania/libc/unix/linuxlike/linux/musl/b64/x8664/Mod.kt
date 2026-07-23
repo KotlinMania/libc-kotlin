@@ -24,13 +24,13 @@ public data class Stat(
     val stBlocks: BlkcntT,
     val stAtime: TimeT,
     val stAtimeNsec: Long,
-    val stAtimeNsec: CLong,
+    val stAtimeNsec2: CLong,
     val stMtime: TimeT,
     val stMtimeNsec: Long,
-    val stMtimeNsec: CLong,
+    val stMtimeNsec2: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: Long,
-    val stCtimeNsec: CLong,
+    val stCtimeNsec2: CLong,
 )
 
 public data class UserRegsStruct(

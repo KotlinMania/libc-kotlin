@@ -121,7 +121,7 @@ public data class McontextT(
     val mcXfpustateLen: RegisterT,
     val mcSpare: LongArray,
     val mcTlsbase: RegisterT,
-    val mcSpare: LongArray,
+    val mcSpare2: LongArray,
 )
 
 public data class Elf64Auxinfo(

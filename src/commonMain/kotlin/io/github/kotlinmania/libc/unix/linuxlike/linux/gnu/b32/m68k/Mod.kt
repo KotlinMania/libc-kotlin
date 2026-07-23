@@ -70,7 +70,7 @@ public data class Stat64(
     val stMtimeNsec: CULong,
     val stCtime: TimeT,
     val stCtimeNsec: CULong,
-    val stIno: Ino64T,
+    val stIno2: Ino64T,
 )
 
 public data class Statfs64(

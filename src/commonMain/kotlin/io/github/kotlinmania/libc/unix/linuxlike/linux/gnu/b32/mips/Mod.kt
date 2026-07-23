@@ -7,14 +7,14 @@ public typealias WcharT = Int
 
 public data class Stat(
     val stDev: CULong,
-    val stDev: DevT,
+    val stDev2: DevT,
     val stIno: InoT,
     val stMode: ModeT,
     val stNlink: NlinkT,
     val stUid: UidT,
     val stGid: GidT,
     val stRdev: CULong,
-    val stRdev: DevT,
+    val stRdev2: DevT,
     val stSize: OffT,
     val stBlksize: BlksizeT,
     val stBlocks: BlkcntT,
@@ -24,20 +24,20 @@ public data class Stat(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stBlksize: BlksizeT,
-    val stBlocks: BlkcntT,
+    val stBlksize2: BlksizeT,
+    val stBlocks2: BlkcntT,
 )
 
 public data class Stat64(
     val stDev: CULong,
-    val stDev: DevT,
+    val stDev2: DevT,
     val stIno: Ino64T,
     val stMode: ModeT,
     val stNlink: NlinkT,
     val stUid: UidT,
     val stGid: GidT,
     val stRdev: CULong,
-    val stRdev: DevT,
+    val stRdev2: DevT,
     val stSize: Off64T,
     val stBlksize: BlksizeT,
     val stBlocks: BlkcntT,
@@ -47,8 +47,8 @@ public data class Stat64(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stBlksize: BlksizeT,
-    val stBlocks: Blkcnt64T,
+    val stBlksize2: BlksizeT,
+    val stBlocks2: Blkcnt64T,
 )
 
 public data class Statfs(
@@ -703,7 +703,6 @@ public const val PTRACE_SETFPXREGS: CUInt = 19u
 public const val MAP_HUGETLB: CInt = 0x080000
 public const val EFD_NONBLOCK: CInt = 0x80
 public const val F_GETLK: CInt = 33
-public const val F_GETLK: CInt = 14
 public const val F_GETOWN: CInt = 23
 public const val F_SETOWN: CInt = 24
 public const val SFD_NONBLOCK: CInt = 0x80

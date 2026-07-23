@@ -5,7 +5,6 @@ import io.github.kotlinmania.libc.*
 
 public typealias RegoffT = CLong
 
-public data class StackT(
     val ssSp: COpaquePointer?,
     val ssFlags: CInt,
     val ssSize: ULong,

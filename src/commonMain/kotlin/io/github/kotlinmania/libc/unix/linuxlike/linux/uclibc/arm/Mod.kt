@@ -78,7 +78,7 @@ public data class Stat64(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stIno: Ino64T,
+    val stIno2: Ino64T,
 )
 
 public data class Flock(
@@ -221,7 +221,7 @@ public data class ShmidDs(
 
 public data class SemT(
     val size: ByteArray,
-    val size: ByteArray,
+    val size2: ByteArray,
 )
 
 public const val O_CLOEXEC: CInt = 524288

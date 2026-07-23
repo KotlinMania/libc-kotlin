@@ -211,7 +211,7 @@ public data class Aiocb(
     val next: COpaquePointer?,
     val prev: COpaquePointer?,
     val dummy4: ByteArray,
-    val dummy4: ByteArray,
+    val dummy42: ByteArray,
 )
 
 public data class Sigaction(
@@ -413,7 +413,7 @@ public data class Statvfs(
     val fFfree: FsfilcntT,
     val fFavail: FsfilcntT,
     val fFsid: CULong,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
     val fSpare: IntArray,
@@ -465,7 +465,7 @@ public data class FsidT(
 
 public data class CpuSetT(
     val bits: UIntArray,
-    val bits: ULongArray,
+    val bits2: ULongArray,
 )
 
 public data class IfNameindex(
@@ -592,17 +592,17 @@ public data class FfEffect(
     val trigger: FfTrigger,
     val replay: FfReplay,
     val u: ULongArray,
-    val u: UIntArray,
+    val u2: UIntArray,
 )
 
 public data class DlPhdrInfo(
     val dlpiAddr: Elf64Addr,
-    val dlpiAddr: Elf32Addr,
+    val dlpiAddr2: Elf32Addr,
     val dlpiName: String?,
     val dlpiPhdr: Elf64Phdr?,
-    val dlpiPhdr: Elf32Phdr?,
+    val dlpiPhdr2: Elf32Phdr?,
     val dlpiPhnum: Elf64Half,
-    val dlpiPhnum: Elf32Half,
+    val dlpiPhnum2: Elf32Half,
     val dlpiAdds: CULongLong,
     val dlpiSubs: CULongLong,
     val dlpiTlsModid: ULong,
@@ -826,10 +826,10 @@ public data class MqAttr(
     val mqMaxmsg: Long,
     val mqMsgsize: Long,
     val mqCurmsgs: Long,
-    val mqFlags: CLong,
-    val mqMaxmsg: CLong,
-    val mqMsgsize: CLong,
-    val mqCurmsgs: CLong,
+    val mqFlags2: CLong,
+    val mqMaxmsg2: CLong,
+    val mqMsgsize2: CLong,
+    val mqCurmsgs2: CLong,
 )
 
 public data class SockaddrNl(

@@ -3,12 +3,7 @@ package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
 
-public typealias WcharT = Int
-public typealias NlinkT = ULong
-public typealias BlksizeT = CLong
-public typealias U64 = CULongLong
 
-public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stNlink: NlinkT,
@@ -27,7 +22,6 @@ public data class Stat(
     val stCtimeNsec: CLong,
 )
 
-public data class Stat64(
     val stDev: DevT,
     val stIno: Ino64T,
     val stNlink: NlinkT,
@@ -50,7 +44,6 @@ public data class McontextT(
     val private: ULongArray,
 )
 
-public data class IpcPerm(
     val ipcPermKey: KeyT,
     val uid: UidT,
     val gid: GidT,
@@ -97,5 +90,3 @@ public const val ES: CInt = 24
 public const val FS: CInt = 25
 public const val GS: CInt = 26
 public const val MAP_32BIT: CInt = 0x0040
-public const val SIGSTKSZ: ULong = 8192uL
-public const val MINSIGSTKSZ: ULong = 2048uL

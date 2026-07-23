@@ -186,8 +186,8 @@ public data class Iocb(
     val aioData: U64,
     val aioKey: U32,
     val aioRwFlags: KernelRwfT,
-    val aioRwFlags: KernelRwfT,
-    val aioKey: U32,
+    val aioRwFlags2: KernelRwfT,
+    val aioKey2: U32,
     val aioLioOpcode: U16,
     val aioReqprio: S16,
     val aioFildes: U32,
@@ -245,7 +245,7 @@ public data class FanotifyEventInfoError(
 
 public data class SemT(
     val size: ByteArray,
-    val size: ByteArray,
+    val size2: ByteArray,
 )
 
 public data class MbstateT(
@@ -260,14 +260,14 @@ public data class Fpos64T(
 
 public data class FposT(
     val pos: OffT,
-    val pos: Off64T,
+    val pos2: Off64T,
     val state: MbstateT,
 )
 
 public data class Timespec(
     val tvSec: TimeT,
     val tvNsec: CLong,
-    val tvNsec: Long,
+    val tvNsec2: Long,
 )
 
 public data class Utmpx(
@@ -280,8 +280,8 @@ public data class Utmpx(
     val utExit: ExitStatus,
     val utSession: CLong,
     val utTv: Timeval,
-    val utSession: Int,
-    val utTv: Timeval,
+    val utSession2: Int,
+    val utTv2: Timeval,
     val utAddrV6: IntArray,
 )
 
@@ -474,8 +474,6 @@ public const val ST_RELATIME: CULong = 4096uL
 public const val NI_MAXHOST: SocklenT = 1025u
 public const val BINDERFS_SUPER_MAGIC: CLong = 0x6c6f6f70
 public const val XFS_SUPER_MAGIC: CLong = 0x58465342
-public const val BINDERFS_SUPER_MAGIC: CUInt = 0x6c6f6f70u
-public const val XFS_SUPER_MAGIC: CUInt = 0x58465342u
 public const val CPU_SETSIZE: CInt = 0x400
 public const val PTRACE_TRACEME: CUInt = 0u
 public const val PTRACE_PEEKTEXT: CUInt = 1u
@@ -622,8 +620,6 @@ public val GLOB_ONLYDIR: CInt = 1 shl 13
 public val GLOB_TILDE_CHECK: CInt = 1 shl 14
 public const val MADV_COLLAPSE: CInt = 25
 public const val PTHREAD_STACK_MIN: ULong = 16384uL
-public const val PTHREAD_STACK_MIN: ULong = 0x6000uL
-public const val PTHREAD_STACK_MIN: ULong = 131072uL
 public const val PTHREAD_MUTEX_ADAPTIVE_NP: CInt = 3
 public const val REG_STARTEND: CInt = 4
 public const val REG_EEND: CInt = 14

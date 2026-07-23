@@ -3,9 +3,7 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
 
-public typealias UcontextT = Sigcontext
 
-public data class Sigcontext(
     val scMask: CInt,
     val scRa: CLong,
     val scSp: CLong,
@@ -20,4 +18,3 @@ public data class Sigcontext(
     val scCookie: CLong,
 )
 
-public const val _MAX_PAGE_SHIFT: UInt = 12u

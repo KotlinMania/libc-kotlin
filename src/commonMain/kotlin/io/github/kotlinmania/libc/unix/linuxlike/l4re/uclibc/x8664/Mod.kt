@@ -115,7 +115,7 @@ public data class Termios(
 // C union; only one variant is valid at a time.
 public data class SemT(
     val size: ByteArray? = null,
-    val size: ByteArray? = null,
+    val size2: ByteArray? = null,
     val align: LongArray? = null,
 )
 

@@ -45,7 +45,7 @@ public data class IpcPerm(
     val cgid: GidT,
     val mode: ModeT,
     val seq: CInt,
-    val seq: CUShort,
+    val seq2: CUShort,
 )
 
 public data class UcontextT(

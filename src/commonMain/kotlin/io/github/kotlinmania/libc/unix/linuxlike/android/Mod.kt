@@ -108,7 +108,7 @@ public data class Flock64(
 
 public data class CpuSetT(
     val bits: List<CPUBITTYPE>,
-    val bits: List<CPUBITTYPE>,
+    val bits2: List<CPUBITTYPE>,
 )
 
 public data class SemT(
@@ -272,12 +272,12 @@ public data class Elf64Phdr(
 
 public data class DlPhdrInfo(
     val dlpiAddr: Elf64Addr,
-    val dlpiAddr: Elf32Addr,
+    val dlpiAddr2: Elf32Addr,
     val dlpiName: String?,
     val dlpiPhdr: Elf64Phdr?,
-    val dlpiPhdr: Elf32Phdr?,
+    val dlpiPhdr2: Elf32Phdr?,
     val dlpiPhnum: Elf64Half,
-    val dlpiPhnum: Elf32Half,
+    val dlpiPhnum2: Elf32Half,
     val dlpiAdds: CULongLong,
     val dlpiSubs: CULongLong,
     val dlpiTlsModid: ULong,
@@ -399,7 +399,7 @@ public data class FfEffect(
     val trigger: FfTrigger,
     val replay: FfReplay,
     val u: ULongArray,
-    val u: UIntArray,
+    val u2: UIntArray,
 )
 
 public data class UinputFfUpload(
@@ -2859,7 +2859,6 @@ public const val AT_MINSIGSTKSZ: CULong = 51uL
 public const val SI_DETHREAD: CInt = -7
 public const val TRAP_PERF: CInt = 6
 public const val XFS_SUPER_MAGIC: CLong = 0x58465342
-public const val XFS_SUPER_MAGIC: CUInt = 0x58465342u
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?

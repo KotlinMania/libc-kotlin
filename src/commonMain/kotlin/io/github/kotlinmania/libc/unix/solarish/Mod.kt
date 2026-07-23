@@ -471,7 +471,7 @@ public data class Utsname(
 
 public data class FdSet(
     val fdsBits: LongArray,
-    val fdsBits: IntArray,
+    val fdsBits2: IntArray,
 )
 
 public data class SockaddrStorage(
@@ -646,7 +646,6 @@ public const val IPV6_TCLASS: CInt = 0x26
 public const val IPV6_V6ONLY: CInt = 0x27
 public const val IPV6_BOUND_IF: CInt = 0x41
 public const val FD_SETSIZE: ULong = 65536uL
-public const val FD_SETSIZE: ULong = 1024uL
 public const val ST_RDONLY: CULong = 1uL
 public const val ST_NOSUID: CULong = 2uL
 public const val NI_MAXHOST: SocklenT = 1025u

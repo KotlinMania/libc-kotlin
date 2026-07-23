@@ -5,7 +5,6 @@ import io.github.kotlinmania.libc.*
 
 public typealias DoorAttrT = CUInt
 public typealias DoorIdT = CULongLong
-public typealias LgrpAffinityT = CUInt
 
 public enum class LgrpRsrcT(
     public val value: UInt,
@@ -15,7 +14,6 @@ public enum class LgrpRsrcT(
     LGRP_RSRC_TYPES(2u),
 }
 
-public data class Aiocb(
     val aioFildes: CInt,
     val aioBuf: COpaquePointer?,
     val aioNbytes: ULong,
@@ -30,7 +28,6 @@ public data class Aiocb(
     val aioFlags: CInt,
 )
 
-public data class ShmidDs(
     val shmPerm: IpcPerm,
     val shmSegsz: ULong,
     val shmFlags: UintptrT,
@@ -53,7 +50,6 @@ public data class XrsT(
     val xrsPtr: String?,
 )
 
-public data class Utmpx(
     val utUser: ByteArray,
     val utId: ByteArray,
     val utLine: ByteArray,
@@ -92,35 +88,20 @@ public data class DoorDescTDData(
     val dResv: IntArray? = null,
 )
 
-public const val O_DIRECT: CInt = 0x2000000
-public const val SIGINFO: CInt = 41
 public const val _UTMP_USER_LEN: ULong = 32uL
 public const val _UTMP_LINE_LEN: ULong = 32uL
 public const val _UTMP_ID_LEN: ULong = 4uL
 public const val PORT_SOURCE_POSTWAIT: CInt = 8
 public const val PORT_SOURCE_SIGNAL: CInt = 9
-public const val AF_LOCAL: CInt = 1
-public const val AF_FILE: CInt = 1
-public const val TCP_KEEPIDLE: CInt = 0x1d
-public const val TCP_KEEPINTVL: CInt = 0x1e
-public const val TCP_KEEPCNT: CInt = 0x1f
-public const val F_DUPFD_CLOEXEC: CInt = 47
-public const val F_DUPFD_CLOFORK: CInt = 49
-public const val F_DUP2FD_CLOEXEC: CInt = 48
-public const val F_DUP2FD_CLOFORK: CInt = 50
-public const val _PC_LAST: CInt = 102
 public const val PRIV_PROC_SENSITIVE: CUInt = 0x0008u
 public const val PRIV_PFEXEC_AUTH: CUInt = 0x0200u
 public const val PRIV_PROC_TPD: CUInt = 0x0400u
 public const val PRIV_TPD_UNSAFE: CUInt = 0x0800u
 public const val PRIV_PROC_TPD_RESET: CUInt = 0x1000u
 public const val PRIV_TPD_KILLABLE: CUInt = 0x2000u
-public const val POSIX_SPAWN_SETSID: CShort = 0x400
-public val PRIV_USER: CUInt = PRIV_DEBUG or PRIV_PROC_SENSITIVE or NET_MAC_AWARE or NET_MAC_AWARE_INHERIT or PRIV_XPOLICY or PRIV_AWARE_RESET or PRIV_PFEXEC or PRIV_PFEXEC_AUTH or PRIV_PROC_TPD or PRIV_TPD_UNSAFE or PRIV_TPD_KILLABLE or PRIV_PROC_TPD_RESET
 
 public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
-public expect fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt
 
 public expect fun doorCall(d: CInt, params: DoorArgT?): CInt
 
@@ -134,6 +115,4 @@ public expect fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt
 
 public expect fun euidaccess(path: String?, amode: CInt): CInt
 
-public expect fun openpty(amain: CInt?, asubord: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
 
-public expect fun forkpty(amain: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT

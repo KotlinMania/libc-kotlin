@@ -432,7 +432,6 @@ public expect fun fDZERO(set: FdSet?)
 
 public expect fun exit(code: CInt): Nothing
 
-public expect fun exit(code: CInt): Nothing
 
 public expect fun abort(): Nothing
 
@@ -440,7 +439,6 @@ public expect fun alignedAlloc(a: ULong, b: ULong): COpaquePointer?
 
 public expect fun calloc(amt: ULong, amt2: ULong): COpaquePointer?
 
-public expect fun exit(code: CInt): Nothing
 
 public expect fun free(ptr: COpaquePointer?)
 

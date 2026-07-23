@@ -51,21 +51,14 @@ public typealias LonglongT = Long
 public typealias ULonglongT = ULong
 public typealias BlkcntT = Long
 public typealias BlksizeT = Int
-public typealias FsblkcntT = FsblkcntT
-public typealias FsfilcntT = FsfilcntT
-public typealias CaddrT = CaddrT
 public typealias DaddrT = Long
 public typealias DevT = ULong
 public typealias FixptT = UInt
-public typealias GidT = GidT
 public typealias IdtypeT = CInt
 public typealias IdT = UInt
 public typealias InoT = ULong
 public typealias KeyT = CLong
-public typealias ModeT = ModeT
 public typealias NlinkT = UInt
-public typealias OffT = OffT
-public typealias PidT = PidT
 public typealias LwpidT = Int
 public typealias RlimT = ULong
 public typealias SegszT = Int
@@ -590,7 +583,6 @@ public expect fun calloc(arg1: ULong, arg2: ULong): COpaquePointer?
 
 public expect fun div(arg1: CInt, arg2: CInt): DivT
 
-public expect fun exit(arg1: CInt): Nothing
 
 public expect fun free(arg1: COpaquePointer?)
 
@@ -914,7 +906,6 @@ public expect fun rmdir(arg1: String?): CInt
 
 public expect fun chdir(arg1: String?): CInt
 
-public expect fun exit(arg1: CInt)
 
 public expect fun getwd(arg1: String?): String?
 

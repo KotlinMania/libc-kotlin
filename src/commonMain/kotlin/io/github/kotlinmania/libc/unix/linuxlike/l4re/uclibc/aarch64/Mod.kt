@@ -55,7 +55,7 @@ public data class Stat64(
     val stAtim: Timespec,
     val stMtim: Timespec,
     val stCtim: Timespec,
-    val stIno: Ino64T,
+    val stIno2: Ino64T,
 )
 
 public data class ShmidDs(

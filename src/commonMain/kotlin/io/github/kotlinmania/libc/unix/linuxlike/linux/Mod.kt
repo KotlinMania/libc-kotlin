@@ -74,7 +74,7 @@ public data class SignalfdSiginfo(
 public data class FanoutArgs(
     val id: U16,
     val typeFlags: U16,
-    val id: U16,
+    val id2: U16,
     val maxNumMembers: U32,
 )
 
@@ -296,7 +296,7 @@ public data class FfEffect(
     val trigger: FfTrigger,
     val replay: FfReplay,
     val u: ULongArray,
-    val u: UIntArray,
+    val u2: UIntArray,
 )
 
 public data class UinputFfUpload(
@@ -955,10 +955,10 @@ public data class MqAttr(
     val mqMaxmsg: Long,
     val mqMsgsize: Long,
     val mqCurmsgs: Long,
-    val mqFlags: CLong,
-    val mqMaxmsg: CLong,
-    val mqMsgsize: CLong,
-    val mqCurmsgs: CLong,
+    val mqFlags2: CLong,
+    val mqMaxmsg2: CLong,
+    val mqMsgsize2: CLong,
+    val mqCurmsgs2: CLong,
 )
 
 public data class HwtstampConfig(

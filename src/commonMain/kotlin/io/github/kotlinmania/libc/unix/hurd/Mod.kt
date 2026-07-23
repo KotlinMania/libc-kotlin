@@ -71,42 +71,12 @@ public typealias SigAtomicT = CInt
 public typealias Time64T = Int64T
 public typealias WcharT = CInt
 public typealias WintT = CUInt
-public typealias GidT = GidT
-public typealias UidT = UidT
-public typealias OffT = OffT
-public typealias Off64T = Off64T
-public typealias UsecondsT = UsecondsT
-public typealias PidT = PidT
-public typealias SocklenT = SocklenT
 public typealias InAddrT = UInt
 public typealias Float32 = Float
 public typealias Float64 = Double
 public typealias Float32x = Double
 public typealias Float64x = Double
 public typealias LocaleT = LocaleStruct?
-public typealias LocaleT = LocaleT
-public typealias UChar = UChar
-public typealias UShort = UShort
-public typealias UInt = UInt
-public typealias ULong = ULong
-public typealias QuadT = QuadT
-public typealias UQuadT = UQuadT
-public typealias FsidT = FsidT
-public typealias LoffT = LoffT
-public typealias InoT = InoT
-public typealias Ino64T = Ino64T
-public typealias DevT = DevT
-public typealias ModeT = ModeT
-public typealias NlinkT = NlinkT
-public typealias IdT = IdT
-public typealias DaddrT = DaddrT
-public typealias CaddrT = CaddrT
-public typealias KeyT = KeyT
-public typealias ClockT = ClockT
-public typealias ClockidT = ClockidT
-public typealias TimeT = TimeT
-public typealias TimerT = TimerT
-public typealias SusecondsT = SusecondsT
 public typealias Ulong = CULong
 public typealias Ushort = CUShort
 public typealias Uint = CUInt
@@ -116,21 +86,11 @@ public typealias UInt32T = Uint32T
 public typealias UInt64T = Uint64T
 public typealias RegisterT = CInt
 public typealias SigsetT = CULong
-public typealias SigsetT = SigsetT
 public typealias FdMask = CLong
-public typealias FdMask = FdMask
-public typealias BlksizeT = BlksizeT
-public typealias BlkcntT = BlkcntT
-public typealias FsblkcntT = FsblkcntT
-public typealias FsfilcntT = FsfilcntT
-public typealias Blkcnt64T = Blkcnt64T
-public typealias Fsblkcnt64T = Fsblkcnt64T
-public typealias Fsfilcnt64T = Fsfilcnt64T
 public typealias PthreadSpinlockT = CInt
 public typealias TssT = CInt
 public typealias ThrdT = CLong
 public typealias PthreadT = CLong
-public typealias PthreadT = PthreadT
 public typealias PthreadProcessShared = CUInt
 public typealias PthreadInheritsched = CUInt
 public typealias PthreadContentionscope = CUInt
@@ -143,7 +103,6 @@ public typealias PthreadMutexattrT = PthreadMutexattr
 public typealias PthreadMutexT = PthreadMutex
 public typealias PthreadCondattrT = PthreadCondattr
 public typealias PthreadCondT = PthreadCond
-public typealias PthreadSpinlockT = PthreadSpinlockT
 public typealias PthreadRwlockattrT = PthreadRwlockattr
 public typealias PthreadRwlockT = PthreadRwlock
 public typealias PthreadBarrierattrT = PthreadBarrierattr
@@ -153,8 +112,6 @@ public typealias PthreadKeyT = PthreadKey
 public typealias PthreadOnceT = PthreadOnce
 public typealias RlimitResource = CUInt
 public typealias RlimitResourceT = RlimitResource
-public typealias RlimT = RlimT
-public typealias Rlim64T = Rlim64T
 public typealias RusageWho = CInt
 public typealias PriorityWhich = CUInt
 public typealias SaFamilyT = CUChar
@@ -165,24 +122,13 @@ public typealias NfdsT = CULong
 public typealias TcflagT = CUInt
 public typealias CcT = CUChar
 public typealias SpeedT = CInt
-public typealias SigvalT = Sigval
 public typealias GregT = CInt
 public typealias GregsetT = LongArray
 public typealias IoctlDir = CUInt
 public typealias IoctlDatum = CUInt
 public typealias ErrorTCodes = CInt
-public typealias IntLeast8T = IntLeast8T
-public typealias IntLeast16T = IntLeast16T
-public typealias IntLeast32T = IntLeast32T
-public typealias IntLeast64T = IntLeast64T
-public typealias UintLeast8T = UintLeast8T
-public typealias UintLeast16T = UintLeast16T
-public typealias UintLeast32T = UintLeast32T
-public typealias UintLeast64T = UintLeast64T
 public typealias IntFast8T = CSchar
 public typealias UintFast8T = CUChar
-public typealias IntmaxT = IntmaxT
-public typealias UintmaxT = UintmaxT
 public typealias TcpSeq = UInt
 public typealias TcpCaState = CUInt
 public typealias IdtypeT = CUInt
@@ -840,8 +786,8 @@ public data class DlPhdrInfo(
 public data class Flock(
     val lType: CInt,
     val lWhence: CInt,
-    val lType: CShort,
-    val lWhence: CShort,
+    val lType2: CShort,
+    val lWhence2: CShort,
     val lStart: OffT,
     val lLen: OffT,
     val lPid: PidT,
@@ -850,8 +796,8 @@ public data class Flock(
 public data class Flock64(
     val lType: CInt,
     val lWhence: CInt,
-    val lType: CShort,
-    val lWhence: CShort,
+    val lType2: CShort,
+    val lWhence2: CShort,
     val lStart: OffT,
     val lLen: Off64T,
     val lPid: PidT,
@@ -884,7 +830,7 @@ public data class RegexT(
 
 public data class CpuSetT(
     val bits: UIntArray,
-    val bits: ULongArray,
+    val bits2: ULongArray,
 )
 
 public data class IfNameindex(
@@ -955,8 +901,8 @@ public data class Utmpx(
     val utExit: ExitStatus,
     val utSession: CLong,
     val utTv: Timeval,
-    val utSession: Int,
-    val utTv: Timeval,
+    val utSession2: Int,
+    val utTv2: Timeval,
     val utAddrV6: IntArray,
 )
 

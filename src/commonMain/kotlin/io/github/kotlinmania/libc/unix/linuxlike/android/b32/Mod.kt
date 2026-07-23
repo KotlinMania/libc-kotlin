@@ -40,7 +40,7 @@ public data class Stat(
     val stMtimeNsec: CLong,
     val stCtime: CLong,
     val stCtimeNsec: CLong,
-    val stIno: CULongLong,
+    val stIno2: CULongLong,
 )
 
 public data class Stat64(
@@ -60,7 +60,7 @@ public data class Stat64(
     val stMtimeNsec: CLong,
     val stCtime: CLong,
     val stCtimeNsec: CLong,
-    val stIno: CULongLong,
+    val stIno2: CULongLong,
 )
 
 public data class Statfs64(

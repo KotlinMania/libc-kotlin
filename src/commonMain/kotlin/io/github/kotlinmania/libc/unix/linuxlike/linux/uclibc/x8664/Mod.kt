@@ -230,7 +230,7 @@ public data class GlobT(
 
 public data class CpuSetT(
     val bits: UIntArray,
-    val bits: ULongArray,
+    val bits2: ULongArray,
 )
 
 public data class FsidT(
@@ -239,7 +239,7 @@ public data class FsidT(
 
 public data class SemT(
     val size: ByteArray,
-    val size: ByteArray,
+    val size2: ByteArray,
     val align: LongArray,
 )
 

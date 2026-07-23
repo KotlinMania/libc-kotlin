@@ -73,7 +73,7 @@ public data class PacketMreq(
 
 public data class CpuSetT(
     val bits: UIntArray,
-    val bits: ULongArray,
+    val bits2: ULongArray,
 )
 
 public data class Sembuf(
@@ -84,12 +84,12 @@ public data class Sembuf(
 
 public data class DlPhdrInfo(
     val dlpiAddr: Elf64Addr,
-    val dlpiAddr: Elf32Addr,
+    val dlpiAddr2: Elf32Addr,
     val dlpiName: String?,
     val dlpiPhdr: Elf64Phdr?,
-    val dlpiPhdr: Elf32Phdr?,
+    val dlpiPhdr2: Elf32Phdr?,
     val dlpiPhnum: Elf64Half,
-    val dlpiPhnum: Elf32Half,
+    val dlpiPhnum2: Elf32Half,
     val dlpiAdds: CULongLong,
     val dlpiSubs: CULongLong,
     val dlpiTlsModid: ULong,
@@ -379,14 +379,6 @@ public const val YESEXPR: NlItem = 0x50000
 public const val NOEXPR: NlItem = 0x50001
 public const val YESSTR: NlItem = 0x50002
 public const val NOSTR: NlItem = 0x50003
-public const val CODESET: NlItem = 10
-public const val CRNCYSTR: NlItem = 0x215
-public const val RADIXCHAR: NlItem = 0x100
-public const val THOUSEP: NlItem = 0x101
-public const val YESEXPR: NlItem = 0x500
-public const val NOEXPR: NlItem = 0x501
-public const val YESSTR: NlItem = 0x502
-public const val NOSTR: NlItem = 0x503
 public const val RUSAGE_CHILDREN: CInt = -1
 public const val L_tmpnam: CUInt = 20u
 public const val _PC_LINK_MAX: CInt = 0

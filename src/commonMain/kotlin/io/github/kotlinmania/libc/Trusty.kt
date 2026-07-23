@@ -12,7 +12,6 @@ public typealias CInt16T = Short
 public typealias CInt32T = Int
 public typealias CInt64T = Long
 public typealias TimeT = CLong
-public typealias ClockidT = CInt
 
 public data class Iovec(
     val iovBase: COpaquePointer?,

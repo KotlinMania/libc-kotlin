@@ -23,8 +23,8 @@ public data class Stat(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stBlksize: BlksizeT,
-    val stBlocks: BlkcntT,
+    val stBlksize2: BlksizeT,
+    val stBlocks2: BlkcntT,
 )
 
 public data class StackT(
@@ -53,9 +53,9 @@ public data class ShmidDs(
     val shmCpid: PidT,
     val shmLpid: PidT,
     val shmNattch: CULong,
-    val shmAtime: TimeT,
-    val shmDtime: TimeT,
-    val shmCtime: TimeT,
+    val shmAtime2: TimeT,
+    val shmDtime2: TimeT,
+    val shmCtime2: TimeT,
 )
 
 public data class Statfs(
@@ -100,14 +100,13 @@ public data class MsqidDs(
     val msgCtime: TimeT,
 )
 
-public data class MsqidDs(
     val msgPerm: IpcPerm,
     val msgStime: TimeT,
     val msgRtime: TimeT,
     val msgCtime: TimeT,
-    val msgStime: TimeT,
-    val msgRtime: TimeT,
-    val msgCtime: TimeT,
+    val msgStime2: TimeT,
+    val msgRtime2: TimeT,
+    val msgCtime2: TimeT,
     val msgCbytes: CULong,
     val msgQnum: MsgqnumT,
     val msgQbytes: MsglenT,

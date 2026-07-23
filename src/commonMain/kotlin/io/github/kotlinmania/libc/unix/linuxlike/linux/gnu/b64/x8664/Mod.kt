@@ -132,7 +132,7 @@ public data class Statvfs64(
 
 public data class PthreadAttrT(
     val size: UIntArray,
-    val size: ULongArray,
+    val size2: ULongArray,
 )
 
 public data class LibcFpxreg(

@@ -44,7 +44,7 @@ public data class KvmPage(
 
 public data class CAnonymousDomainset(
     val priv: ULongArray,
-    val priv: ULongArray,
+    val priv2: ULongArray,
 )
 
 public data class KinfoProc(

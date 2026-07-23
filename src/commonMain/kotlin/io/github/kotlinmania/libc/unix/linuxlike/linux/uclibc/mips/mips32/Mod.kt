@@ -224,7 +224,7 @@ public data class Sysinfo(
 
 public data class SemT(
     val size: ByteArray,
-    val size: ByteArray,
+    val size2: ByteArray,
 )
 
 public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 36uL

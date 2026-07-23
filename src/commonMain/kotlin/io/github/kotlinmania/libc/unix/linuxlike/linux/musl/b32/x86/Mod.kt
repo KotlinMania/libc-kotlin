@@ -24,7 +24,7 @@ public data class Stat(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stIno: InoT,
+    val stIno2: InoT,
 )
 
 public data class McontextT(
@@ -64,9 +64,9 @@ public data class ShmidDs(
     val shmLpid: PidT,
     val shmNattch: CULong,
     val pad3: CULong,
-    val shmAtime: TimeT,
-    val shmDtime: TimeT,
-    val shmCtime: TimeT,
+    val shmAtime2: TimeT,
+    val shmDtime2: TimeT,
+    val shmCtime2: TimeT,
 )
 
 public data class MsqidDs(
@@ -85,9 +85,9 @@ public data class MsqidDs(
     val msgQbytes: MsglenT,
     val msgLspid: PidT,
     val msgLrpid: PidT,
-    val msgStime: TimeT,
-    val msgRtime: TimeT,
-    val msgCtime: TimeT,
+    val msgStime2: TimeT,
+    val msgRtime2: TimeT,
+    val msgCtime2: TimeT,
 )
 
 public data class UserFpxregsStruct(

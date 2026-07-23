@@ -79,7 +79,6 @@ public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, `val`: 
 
 public expect fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt
 
-public expect fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt
 
 public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt
 

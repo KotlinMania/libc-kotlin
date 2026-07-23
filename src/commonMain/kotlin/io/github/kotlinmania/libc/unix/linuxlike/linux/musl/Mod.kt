@@ -6,9 +6,7 @@ import io.github.kotlinmania.libc.*
 public typealias PthreadT = COpaquePointer?
 public typealias ClockT = CLong
 public typealias TimeT = Long
-public typealias TimeT = CLong
 public typealias SusecondsT = Long
-public typealias SusecondsT = CLong
 public typealias InoT = ULong
 public typealias OffT = Long
 public typealias BlkcntT = Long
@@ -60,7 +58,7 @@ public data class SiginfoT(
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,
-    val siErrno: CInt,
+    val siErrno2: CInt,
     val pad: IntArray,
     val align: List<ULong>,
 )
@@ -75,7 +73,7 @@ public data class Statvfs(
     val fFfree: FsfilcntT,
     val fFavail: FsfilcntT,
     val fFsid: CULong,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
 )
@@ -90,7 +88,7 @@ public data class Statvfs64(
     val fFfree: Fsfilcnt64T,
     val fFavail: Fsfilcnt64T,
     val fFsid: CULong,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
 )
@@ -139,7 +137,7 @@ public data class Rtentry(
     val rtTos: CUChar,
     val rtClass: CUChar,
     val rtPad4: ShortArray,
-    val rtPad4: ShortArray,
+    val rtPad42: ShortArray,
     val rtMetric: CShort,
     val rtDev: String?,
     val rtMtu: CULong,
@@ -308,7 +306,7 @@ public data class Utmpx(
     val utHost: ByteArray,
     val utExit: ExitStatus,
     val utSession: CLong,
-    val utSession: CInt,
+    val utSession2: CInt,
     val utTv: Timeval,
     val utAddrV6: UIntArray,
 )
@@ -340,7 +338,6 @@ public const val DEAD_PROCESS: CShort = 8
 public const val ACCOUNTING: CShort = 9
 public const val SFD_CLOEXEC: CInt = 0x080000
 public const val NCCS: ULong = 32uL
-public const val NCCS: ULong = 19uL
 public const val O_TRUNC: CInt = 512
 public const val O_NOATIME: CInt = 262144
 public const val O_CLOEXEC: CInt = 0x80000
@@ -524,8 +521,6 @@ public const val UT_LINESIZE: ULong = 32uL
 public const val UT_NAMESIZE: ULong = 32uL
 public const val POSIX_FADV_DONTNEED: CInt = 6
 public const val POSIX_FADV_NOREUSE: CInt = 7
-public const val POSIX_FADV_DONTNEED: CInt = 4
-public const val POSIX_FADV_NOREUSE: CInt = 5
 
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
 
