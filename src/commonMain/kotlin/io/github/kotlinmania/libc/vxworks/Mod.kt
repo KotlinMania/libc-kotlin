@@ -653,6 +653,8 @@ public const val VKILL: ULong = 3uL
 public const val VEOF: ULong = 4uL
 public const val VMIN: ULong = 16uL
 public const val VTIME: ULong = 17uL
+private const val semErrorBase: CInt = 0x00160000
+private const val objErrorBase: CInt = 0x003d0000
 public const val S_semLib_INVALID_STATE: CInt = semErrorBase + 0x0065
 public const val S_semLib_INVALID_OPTION: CInt = semErrorBase + 0x0066
 public const val S_semLib_INVALID_QUEUE_TYPE: CInt = semErrorBase + 0x0067
@@ -671,8 +673,8 @@ public const val INADDR_ANY: InAddrT = 0u
 public const val INADDR_LOOPBACK: InAddrT = 2130706433u
 public const val INADDR_BROADCAST: InAddrT = 4294967295u
 public const val INADDR_NONE: InAddrT = 4294967295u
-public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
-public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 1u))
+public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u))
 public const val IPPROTO_UDP: CInt = 17
 public const val IP_TTL: CInt = 4
 public const val IP_MULTICAST_IF: CInt = 9
@@ -888,8 +890,8 @@ public const val FIODISKCHANGE: CInt = 13
 public const val FIOCANCEL: CInt = 14
 public const val FIOSQUEEZE: CInt = 15
 public const val FIOGETNAME: CInt = 18
-public const val FIONBIO: CInt = 0x90040010
-public const val PATH_MAX: CInt = _PARM_PATH_MAX
+public const val FIONBIO: CInt = -1878786032
+public const val PATH_MAX: CInt = 1024
 public const val _POSIX_PATH_MAX: CInt = 256
 public const val POLLIN: CShort = 0x0001
 public const val POLLPRI: CShort = 0x0002

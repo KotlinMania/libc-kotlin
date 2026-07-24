@@ -204,11 +204,11 @@ public const val SIGTERM: CInt = 15
 public const val SIGABRT: CInt = 22
 public const val NSIG: CInt = 23
 public const val SIG_ERR: CInt = -1
-public const val SIG_DFL: SighandlerT = 0
-public const val SIG_IGN: SighandlerT = 1
-public const val SIG_GET: SighandlerT = 2
-public const val SIG_SGE: SighandlerT = 3
-public const val SIG_ACK: SighandlerT = 4
+public const val SIG_DFL: SighandlerT = 0uL
+public const val SIG_IGN: SighandlerT = 1uL
+public const val SIG_GET: SighandlerT = 2uL
+public const val SIG_SGE: SighandlerT = 3uL
+public const val SIG_ACK: SighandlerT = 4uL
 public const val L_tmpnam: CUInt = 260u
 public const val TMP_MAX: CUInt = 0x7fff_ffff
 
