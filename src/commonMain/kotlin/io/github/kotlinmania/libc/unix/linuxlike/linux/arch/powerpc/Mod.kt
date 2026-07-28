@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.arch.powerpc
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val SOL_SOCKET: CInt = 1
 public const val SO_DEBUG: CInt = 1

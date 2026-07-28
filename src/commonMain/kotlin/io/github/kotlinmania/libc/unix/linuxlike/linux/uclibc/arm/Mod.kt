@@ -153,7 +153,7 @@ public data class Statvfs64(
 )
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class Sigaction(

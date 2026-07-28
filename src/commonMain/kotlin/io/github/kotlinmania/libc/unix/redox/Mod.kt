@@ -529,6 +529,7 @@ public const val PTHREAD_MUTEX_NORMAL: CInt = 2
 public const val PTHREAD_MUTEX_RECURSIVE: CInt = 3
 public const val PTHREAD_MUTEX_ROBUST: CInt = 0
 public const val PTHREAD_MUTEX_STALLED: CInt = 1
+
 // PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = crate::pthread_mutex_t { bytes: [0 (initializer represented at the FFI boundary)
 // PTHREAD_COND_INITIALIZER: PthreadCondT = crate::pthread_cond_t { bytes: [0 (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = crate::pthread_rwlock_t { bytes: [0 (initializer represented at the FFI boundary)
@@ -600,14 +601,14 @@ public val EPOLLEXCLUSIVE: CInt = 1 shl 28
 public val EPOLLWAKEUP: CInt = 1 shl 29
 public val EPOLLONESHOT: CInt = 1 shl 30
 public val EPOLLET: CInt = 1 shl 31
-public const val S_IFMT: CInt = 0o17_0000
-public const val S_IFDIR: CInt = 0o4_0000
-public const val S_IFCHR: CInt = 0o2_0000
-public const val S_IFBLK: CInt = 0o6_0000
-public const val S_IFREG: CInt = 0o10_0000
-public const val S_IFIFO: CInt = 0o1_0000
-public const val S_IFLNK: CInt = 0o12_0000
-public const val S_IFSOCK: CInt = 0o14_0000
+public const val S_IFMT: CInt = 61440
+public const val S_IFDIR: CInt = 16384
+public const val S_IFCHR: CInt = 8192
+public const val S_IFBLK: CInt = 24576
+public const val S_IFREG: CInt = 32768
+public const val S_IFIFO: CInt = 4096
+public const val S_IFLNK: CInt = 40960
+public const val S_IFSOCK: CInt = 49152
 public const val S_IRWXU: CInt = 448
 public const val S_IRUSR: CInt = 256
 public const val S_IWUSR: CInt = 128
@@ -724,8 +725,8 @@ public const val SO_DOMAIN: CInt = 39
 public const val SOCK_STREAM: CInt = 1
 public const val SOCK_DGRAM: CInt = 2
 public const val SOCK_RAW: CInt = 3
-public const val SOCK_NONBLOCK: CInt = 0o4_000
-public const val SOCK_CLOEXEC: CInt = 0o2_000_000
+public const val SOCK_NONBLOCK: CInt = 2048
+public const val SOCK_CLOEXEC: CInt = 524288
 public const val SOCK_SEQPACKET: CInt = 5
 public const val SOL_SOCKET: CInt = 1
 public const val SOMAXCONN: CInt = 128
@@ -747,66 +748,66 @@ public const val VDISCARD: ULong = 15uL
 public const val VMIN: ULong = 16uL
 public const val VTIME: ULong = 17uL
 public const val NCCS: ULong = 32uL
-public const val IGNBRK: TcflagT = 0o000_001
-public const val BRKINT: TcflagT = 0o000_002
-public const val IGNPAR: TcflagT = 0o000_004
-public const val PARMRK: TcflagT = 0o000_010
-public const val INPCK: TcflagT = 0o000_020
-public const val ISTRIP: TcflagT = 0o000_040
-public const val INLCR: TcflagT = 0o000_100
-public const val IGNCR: TcflagT = 0o000_200
-public const val ICRNL: TcflagT = 0o000_400
-public const val IXON: TcflagT = 0o001_000
-public const val IXOFF: TcflagT = 0o002_000
-public const val OPOST: TcflagT = 0o000_001
-public const val ONLCR: TcflagT = 0o000_002
-public const val OLCUC: TcflagT = 0o000_004
-public const val OCRNL: TcflagT = 0o000_010
-public const val ONOCR: TcflagT = 0o000_020
-public const val ONLRET: TcflagT = 0o000_040
-public const val OFILL: TcflagT = 0o0000_100
-public const val OFDEL: TcflagT = 0o0000_200
-public const val B0: SpeedT = 0o000_000
-public const val B50: SpeedT = 0o000_001
-public const val B75: SpeedT = 0o000_002
-public const val B110: SpeedT = 0o000_003
-public const val B134: SpeedT = 0o000_004
-public const val B150: SpeedT = 0o000_005
-public const val B200: SpeedT = 0o000_006
-public const val B300: SpeedT = 0o000_007
-public const val B600: SpeedT = 0o000_010
-public const val B1200: SpeedT = 0o000_011
-public const val B1800: SpeedT = 0o000_012
-public const val B2400: SpeedT = 0o000_013
-public const val B4800: SpeedT = 0o000_014
-public const val B9600: SpeedT = 0o000_015
-public const val B19200: SpeedT = 0o000_016
-public const val B38400: SpeedT = 0o000_017
-public const val B57600: SpeedT = 0o0_020
-public const val B115200: SpeedT = 0o0_021
-public const val B230400: SpeedT = 0o0_022
-public const val B460800: SpeedT = 0o0_023
-public const val B500000: SpeedT = 0o0_024
-public const val B576000: SpeedT = 0o0_025
-public const val B921600: SpeedT = 0o0_026
-public const val B1000000: SpeedT = 0o0_027
-public const val B1152000: SpeedT = 0o0_030
-public const val B1500000: SpeedT = 0o0_031
-public const val B2000000: SpeedT = 0o0_032
-public const val B2500000: SpeedT = 0o0_033
-public const val B3000000: SpeedT = 0o0_034
-public const val B3500000: SpeedT = 0o0_035
-public const val B4000000: SpeedT = 0o0_036
-public const val CSIZE: TcflagT = 0o001_400
-public const val CS5: TcflagT = 0o000_000
-public const val CS6: TcflagT = 0o000_400
-public const val CS7: TcflagT = 0o001_000
-public const val CS8: TcflagT = 0o001_400
-public const val CSTOPB: TcflagT = 0o002_000
-public const val CREAD: TcflagT = 0o004_000
-public const val PARENB: TcflagT = 0o010_000
-public const val PARODD: TcflagT = 0o020_000
-public const val HUPCL: TcflagT = 0o040_000
+public const val IGNBRK: TcflagT = 1
+public const val BRKINT: TcflagT = 2
+public const val IGNPAR: TcflagT = 4
+public const val PARMRK: TcflagT = 8
+public const val INPCK: TcflagT = 16
+public const val ISTRIP: TcflagT = 32
+public const val INLCR: TcflagT = 64
+public const val IGNCR: TcflagT = 128
+public const val ICRNL: TcflagT = 256
+public const val IXON: TcflagT = 512
+public const val IXOFF: TcflagT = 1024
+public const val OPOST: TcflagT = 1
+public const val ONLCR: TcflagT = 2
+public const val OLCUC: TcflagT = 4
+public const val OCRNL: TcflagT = 8
+public const val ONOCR: TcflagT = 16
+public const val ONLRET: TcflagT = 32
+public const val OFILL: TcflagT = 64
+public const val OFDEL: TcflagT = 128
+public const val B0: SpeedT = 0
+public const val B50: SpeedT = 1
+public const val B75: SpeedT = 2
+public const val B110: SpeedT = 3
+public const val B134: SpeedT = 4
+public const val B150: SpeedT = 5
+public const val B200: SpeedT = 6
+public const val B300: SpeedT = 7
+public const val B600: SpeedT = 8
+public const val B1200: SpeedT = 9
+public const val B1800: SpeedT = 10
+public const val B2400: SpeedT = 11
+public const val B4800: SpeedT = 12
+public const val B9600: SpeedT = 13
+public const val B19200: SpeedT = 14
+public const val B38400: SpeedT = 15
+public const val B57600: SpeedT = 16
+public const val B115200: SpeedT = 17
+public const val B230400: SpeedT = 18
+public const val B460800: SpeedT = 19
+public const val B500000: SpeedT = 20
+public const val B576000: SpeedT = 21
+public const val B921600: SpeedT = 22
+public const val B1000000: SpeedT = 23
+public const val B1152000: SpeedT = 24
+public const val B1500000: SpeedT = 25
+public const val B2000000: SpeedT = 26
+public const val B2500000: SpeedT = 27
+public const val B3000000: SpeedT = 28
+public const val B3500000: SpeedT = 29
+public const val B4000000: SpeedT = 30
+public const val CSIZE: TcflagT = 768
+public const val CS5: TcflagT = 0
+public const val CS6: TcflagT = 256
+public const val CS7: TcflagT = 512
+public const val CS8: TcflagT = 768
+public const val CSTOPB: TcflagT = 1024
+public const val CREAD: TcflagT = 2048
+public const val PARENB: TcflagT = 4096
+public const val PARODD: TcflagT = 8192
+public const val HUPCL: TcflagT = 16384
 public const val CLOCAL: TcflagT = 32768
 public const val ISIG: TcflagT = 0x0000_0080
 public const val ICANON: TcflagT = 0x0000_0100
@@ -936,80 +937,154 @@ public const val PRIO_USER: CInt = 2
 public const val RENAME_NOREPLACE: CUInt = 1u
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+public expect fun fDCLR(fd: CInt, set: FdSet?)
+
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+
+public expect fun fDSET(fd: CInt, set: FdSet?)
+
+public expect fun fDZERO(set: FdSet?)
 
 public expect fun errnoLocation(): CInt?
+
 public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt
+
 public expect fun dirfd(dirp: DIR?): CInt
+
 public expect fun pipe2(fds: CInt?, flags: CInt): CInt
+
 public expect fun getdtablesize(): CInt
+
 public expect fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt
+
 public expect fun getresuid(ruid: UidT?, euid: UidT?, suid: UidT?): CInt
+
 public expect fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt
+
 public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
+
 public expect fun getgrent(): Group?
+
 public expect fun setgrent()
+
 public expect fun endgrent()
+
 public expect fun getgrgid(gid: GidT): Group?
+
 public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun getgrnam(name: String?): Group?
+
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroups: CInt?): CInt
+
 public expect fun memalign(align: ULong, size: ULong): COpaquePointer?
+
 public expect fun getnameinfo(addr: Sockaddr?, addrlen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+
 public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
+
 public expect fun pthreadCreate(tid: PthreadT?, attr: PthreadAttrT?, start: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
+
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
+
 public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+
 public expect fun getpwent(): Passwd?
+
 public expect fun setpwent()
+
 public expect fun endpwent()
+
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+
 public expect fun pthreadCancel(thread: PthreadT): CInt
+
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
+
 public expect fun sigtimedwait(set: SigsetT?, sig: SiginfoT?, timeout: Timespec?): CInt
+
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
+
 public expect fun getsubopt(optionp: COpaquePointer?, tokens: COpaquePointer?, valuep: COpaquePointer?): CInt
+
 public expect fun mkostemp(template: String?, flags: CInt): CInt
+
 public expect fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt
+
 public expect fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer?
+
 public expect fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt
+
 public expect fun explicitBzero(p: COpaquePointer?, len: ULong)
+
 public expect fun strlcat(dst: String?, src: String?, siz: ULong): ULong
+
 public expect fun strlcpy(dst: String?, src: String?, siz: ULong): ULong
+
 public expect fun epollCreate(size: CInt): CInt
+
 public expect fun epollCreate1(flags: CInt): CInt
+
 public expect fun epollWait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt): CInt
+
 public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: EpollEvent?): CInt
-public expect fun ioctl(fd: CInt, request: CULong, ...): CInt
+
+public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt
+
 public expect fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
+
 public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt
+
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
 public expect fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt
+
 public expect fun shmUnlink(name: String?): CInt
+
 public expect fun getpriority(which: CInt, who: IdT): CInt
+
 public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt
+
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
+
 public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
+
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
+
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
+
 public expect fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt
+
 public expect fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT
+
 public expect fun recvmsg(socket: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun sendmsg(socket: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun futimens(fd: CInt, times: Timespec?): CInt
+
 public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+
 public expect fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+
 public expect fun uname(utsname: Utsname?): CInt
+
 public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
+
 public expect fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt
+
 public expect fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): ULong
+
 public expect fun loginTty(fd: CInt): CInt

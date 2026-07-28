@@ -181,60 +181,107 @@ public const val FOPEN_MAX: CUInt = 20u
 public const val EOK: CInt = 0
 public const val PAGESIZE: ULong = 4096uL
 public const val PAGE_SIZE: ULong = 4096uL
-public const val DT_UNKNOWN: CUChar = 0u
-public const val DT_FIFO: CUChar = 1u
-public const val DT_CHR: CUChar = 2u
-public const val DT_DIR: CUChar = 4u
-public const val DT_BLK: CUChar = 6u
-public const val DT_REG: CUChar = 8u
-public const val DT_LNK: CUChar = 10u
-public const val DT_SOCK: CUChar = 12u
+public val DT_UNKNOWN: CUChar = (0).toUByte()
+public val DT_FIFO: CUChar = (1).toUByte()
+public val DT_CHR: CUChar = (2).toUByte()
+public val DT_DIR: CUChar = (4).toUByte()
+public val DT_BLK: CUChar = (6).toUByte()
+public val DT_REG: CUChar = (8).toUByte()
+public val DT_LNK: CUChar = (10).toUByte()
+public val DT_SOCK: CUChar = (12).toUByte()
 
 public expect fun opendir(name: String?): DIR?
+
 public expect fun readdir(dirp: DIR?): Dirent?
+
 public expect fun closedir(dirp: DIR?): CInt
+
 public expect fun mkdir(path: String?, mode: ModeT): CInt
+
 public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+
 public expect fun pthreadAttrSetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong): CInt
+
 public expect fun clockGetcpuclockid(pid: PidT, clockId: ClockidT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
+
 public expect fun semClose(sem: SemT?): CInt
+
 public expect fun semUnlink(name: String?): CInt
+
 public expect fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer?
+
 public expect fun strlen(s: String?): ULong
+
 public expect fun strcpy(dest: String?, src: String?): String?
+
 public expect fun strncpy(dest: String?, src: String?, n: ULong): String?
+
 public expect fun strcat(dest: String?, src: String?): String?
+
 public expect fun strncat(dest: String?, src: String?, n: ULong): String?
+
 public expect fun strcmp(s1: String?, s2: String?): CInt
+
 public expect fun strncmp(s1: String?, s2: String?, n: ULong): CInt
+
 public expect fun strcoll(s1: String?, s2: String?): CInt
+
 public expect fun strxfrm(dest: String?, src: String?, n: ULong): ULong
+
 public expect fun strchr(s: String?, c: CInt): String?
+
 public expect fun strrchr(s: String?, c: CInt): String?
+
 public expect fun strspn(s: String?, accept: String?): ULong
+
 public expect fun strcspn(s: String?, reject: String?): ULong
+
 public expect fun strpbrk(s: String?, accept: String?): String?
+
 public expect fun strstr(haystack: String?, needle: String?): String?
+
 public expect fun strtok(s: String?, delim: String?): String?
+
 public expect fun strerror(errnum: CInt): String?
+
 public expect fun memchr(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+
 public expect fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: ULong): CInt
+
 public expect fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
+
 public expect fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
+
 public expect fun memset(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+
 public expect fun fork(): PidT
+
 public expect fun execve(filename: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun isalnum(c: CInt): CInt
+
 public expect fun isalpha(c: CInt): CInt
+
 public expect fun iscntrl(c: CInt): CInt
+
 public expect fun isdigit(c: CInt): CInt
+
 public expect fun isgraph(c: CInt): CInt
+
 public expect fun islower(c: CInt): CInt
+
 public expect fun isprint(c: CInt): CInt
+
 public expect fun ispunct(c: CInt): CInt
+
 public expect fun isspace(c: CInt): CInt
+
 public expect fun isupper(c: CInt): CInt
+
 public expect fun isxdigit(c: CInt): CInt
+
 public expect fun tolower(c: CInt): CInt
+
 public expect fun toupper(c: CInt): CInt

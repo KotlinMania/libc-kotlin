@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias NlinkT = UInt
 public typealias BlksizeT = CLong
@@ -15,11 +14,11 @@ public data class PthreadAttrT(
 )
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class SemT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 32uL

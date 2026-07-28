@@ -2,12 +2,11 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias GregT = ULong
 public typealias CpuSimpleLockNvT = CUInt
-public typealias GregsetT = [GregT
-public typealias FregsetT = [Fpreg
+public typealias GregsetT = LongArray
+public typealias FregsetT = List<Fpreg>
 
 public data class McontextT(
     val gregs: GregsetT,
@@ -17,8 +16,8 @@ public data class McontextT(
 
 // C union; only one variant is valid at a time.
 public data class Fpreg(
-    val uU64: ULong = null,
-    val uD: CDouble = null,
+    val uU64: ULong? = null,
+    val uD: CDouble? = null,
 )
 
 public const val PT_GETREGS: CInt = PT_FIRSTMACH + 0

@@ -62,7 +62,7 @@ public data class Itimerspec(
 )
 
 public data class FsidT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public data class PacketMreq(
@@ -245,7 +245,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val val: CInt,
+    val `val`: CInt,
 )
 
 public data class Rlimit64(
@@ -302,18 +302,18 @@ public data class Ifconf(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru(
-    val ifruAddr: Sockaddr = null,
-    val ifruDstaddr: Sockaddr = null,
-    val ifruBroadaddr: Sockaddr = null,
-    val ifruNetmask: Sockaddr = null,
-    val ifruHwaddr: Sockaddr = null,
-    val ifruFlags: CShort = null,
-    val ifruIfindex: CInt = null,
-    val ifruMetric: CInt = null,
-    val ifruMtu: CInt = null,
-    val ifruMap: CAnonymousIfruMap = null,
-    val ifruSlave: ByteArray = null,
-    val ifruNewname: ByteArray = null,
+    val ifruAddr: Sockaddr? = null,
+    val ifruDstaddr: Sockaddr? = null,
+    val ifruBroadaddr: Sockaddr? = null,
+    val ifruNetmask: Sockaddr? = null,
+    val ifruHwaddr: Sockaddr? = null,
+    val ifruFlags: CShort? = null,
+    val ifruIfindex: CInt? = null,
+    val ifruMetric: CInt? = null,
+    val ifruMtu: CInt? = null,
+    val ifruMap: CAnonymousIfruMap? = null,
+    val ifruSlave: ByteArray? = null,
+    val ifruNewname: ByteArray? = null,
     val ifruData: String? = null,
 )
 
@@ -592,133 +592,133 @@ public const val RLIM_SAVED_MAX: RlimT = RLIM_INFINITY
 public const val RLIM_SAVED_CUR: RlimT = RLIM_INFINITY
 public const val EI_NIDENT: ULong = 16uL
 public const val EI_MAG0: ULong = 0uL
-public const val ELFMAG0: UByte = 0x7fu
+public val ELFMAG0: UByte = (0x7f).toUByte()
 public const val EI_MAG1: ULong = 1uL
-public const val ELFMAG1: UByte = b'E'
+public const val ELFMAG1: UByte = 0x45u
 public const val EI_MAG2: ULong = 2uL
-public const val ELFMAG2: UByte = b'L'
+public const val ELFMAG2: UByte = 0x4Cu
 public const val EI_MAG3: ULong = 3uL
-public const val ELFMAG3: UByte = b'F'
+public const val ELFMAG3: UByte = 0x46u
 public const val SELFMAG: ULong = 4uL
 public const val EI_CLASS: ULong = 4uL
-public const val ELFCLASSNONE: UByte = 0u
-public const val ELFCLASS32: UByte = 1u
-public const val ELFCLASS64: UByte = 2u
+public val ELFCLASSNONE: UByte = (0).toUByte()
+public val ELFCLASS32: UByte = (1).toUByte()
+public val ELFCLASS64: UByte = (2).toUByte()
 public const val ELFCLASSNUM: ULong = 3uL
 public const val EI_DATA: ULong = 5uL
-public const val ELFDATANONE: UByte = 0u
-public const val ELFDATA2LSB: UByte = 1u
-public const val ELFDATA2MSB: UByte = 2u
+public val ELFDATANONE: UByte = (0).toUByte()
+public val ELFDATA2LSB: UByte = (1).toUByte()
+public val ELFDATA2MSB: UByte = (2).toUByte()
 public const val ELFDATANUM: ULong = 3uL
 public const val EI_VERSION: ULong = 6uL
 public const val EI_OSABI: ULong = 7uL
-public const val ELFOSABI_NONE: UByte = 0u
-public const val ELFOSABI_SYSV: UByte = 0u
-public const val ELFOSABI_HPUX: UByte = 1u
-public const val ELFOSABI_NETBSD: UByte = 2u
-public const val ELFOSABI_GNU: UByte = 3u
+public val ELFOSABI_NONE: UByte = (0).toUByte()
+public val ELFOSABI_SYSV: UByte = (0).toUByte()
+public val ELFOSABI_HPUX: UByte = (1).toUByte()
+public val ELFOSABI_NETBSD: UByte = (2).toUByte()
+public val ELFOSABI_GNU: UByte = (3).toUByte()
 public const val ELFOSABI_LINUX: UByte = ELFOSABI_GNU
-public const val ELFOSABI_SOLARIS: UByte = 6u
-public const val ELFOSABI_AIX: UByte = 7u
-public const val ELFOSABI_IRIX: UByte = 8u
-public const val ELFOSABI_FREEBSD: UByte = 9u
-public const val ELFOSABI_TRU64: UByte = 10u
-public const val ELFOSABI_MODESTO: UByte = 11u
-public const val ELFOSABI_OPENBSD: UByte = 12u
-public const val ELFOSABI_ARM: UByte = 97u
-public const val ELFOSABI_STANDALONE: UByte = 255u
+public val ELFOSABI_SOLARIS: UByte = (6).toUByte()
+public val ELFOSABI_AIX: UByte = (7).toUByte()
+public val ELFOSABI_IRIX: UByte = (8).toUByte()
+public val ELFOSABI_FREEBSD: UByte = (9).toUByte()
+public val ELFOSABI_TRU64: UByte = (10).toUByte()
+public val ELFOSABI_MODESTO: UByte = (11).toUByte()
+public val ELFOSABI_OPENBSD: UByte = (12).toUByte()
+public val ELFOSABI_ARM: UByte = (97).toUByte()
+public val ELFOSABI_STANDALONE: UByte = (255).toUByte()
 public const val EI_ABIVERSION: ULong = 8uL
 public const val EI_PAD: ULong = 9uL
-public const val ET_NONE: UShort = 0u
-public const val ET_REL: UShort = 1u
-public const val ET_EXEC: UShort = 2u
-public const val ET_DYN: UShort = 3u
-public const val ET_CORE: UShort = 4u
-public const val ET_NUM: UShort = 5u
-public const val ET_LOOS: UShort = 0xfe00u
-public const val ET_HIOS: UShort = 0xfeffu
-public const val ET_LOPROC: UShort = 0xff00u
-public const val ET_HIPROC: UShort = 0xffffu
-public const val EM_NONE: UShort = 0u
-public const val EM_M32: UShort = 1u
-public const val EM_SPARC: UShort = 2u
-public const val EM_386: UShort = 3u
-public const val EM_68K: UShort = 4u
-public const val EM_88K: UShort = 5u
-public const val EM_860: UShort = 7u
-public const val EM_MIPS: UShort = 8u
-public const val EM_S370: UShort = 9u
-public const val EM_MIPS_RS3_LE: UShort = 10u
-public const val EM_PARISC: UShort = 15u
-public const val EM_VPP500: UShort = 17u
-public const val EM_SPARC32PLUS: UShort = 18u
-public const val EM_960: UShort = 19u
-public const val EM_PPC: UShort = 20u
-public const val EM_PPC64: UShort = 21u
-public const val EM_S390: UShort = 22u
-public const val EM_V800: UShort = 36u
-public const val EM_FR20: UShort = 37u
-public const val EM_RH32: UShort = 38u
-public const val EM_RCE: UShort = 39u
-public const val EM_ARM: UShort = 40u
-public const val EM_FAKE_ALPHA: UShort = 41u
-public const val EM_SH: UShort = 42u
-public const val EM_SPARCV9: UShort = 43u
-public const val EM_TRICORE: UShort = 44u
-public const val EM_ARC: UShort = 45u
-public const val EM_H8_300: UShort = 46u
-public const val EM_H8_300H: UShort = 47u
-public const val EM_H8S: UShort = 48u
-public const val EM_H8_500: UShort = 49u
-public const val EM_IA_64: UShort = 50u
-public const val EM_MIPS_X: UShort = 51u
-public const val EM_COLDFIRE: UShort = 52u
-public const val EM_68HC12: UShort = 53u
-public const val EM_MMA: UShort = 54u
-public const val EM_PCP: UShort = 55u
-public const val EM_NCPU: UShort = 56u
-public const val EM_NDR1: UShort = 57u
-public const val EM_STARCORE: UShort = 58u
-public const val EM_ME16: UShort = 59u
-public const val EM_ST100: UShort = 60u
-public const val EM_TINYJ: UShort = 61u
-public const val EM_X86_64: UShort = 62u
-public const val EM_PDSP: UShort = 63u
-public const val EM_FX66: UShort = 66u
-public const val EM_ST9PLUS: UShort = 67u
-public const val EM_ST7: UShort = 68u
-public const val EM_68HC16: UShort = 69u
-public const val EM_68HC11: UShort = 70u
-public const val EM_68HC08: UShort = 71u
-public const val EM_68HC05: UShort = 72u
-public const val EM_SVX: UShort = 73u
-public const val EM_ST19: UShort = 74u
-public const val EM_VAX: UShort = 75u
-public const val EM_CRIS: UShort = 76u
-public const val EM_JAVELIN: UShort = 77u
-public const val EM_FIREPATH: UShort = 78u
-public const val EM_ZSP: UShort = 79u
-public const val EM_MMIX: UShort = 80u
-public const val EM_HUANY: UShort = 81u
-public const val EM_PRISM: UShort = 82u
-public const val EM_AVR: UShort = 83u
-public const val EM_FR30: UShort = 84u
-public const val EM_D10V: UShort = 85u
-public const val EM_D30V: UShort = 86u
-public const val EM_V850: UShort = 87u
-public const val EM_M32R: UShort = 88u
-public const val EM_MN10300: UShort = 89u
-public const val EM_MN10200: UShort = 90u
-public const val EM_PJ: UShort = 91u
-public const val EM_OPENRISC: UShort = 92u
-public const val EM_OR1K: UShort = 92u
-public const val EM_ARC_A5: UShort = 93u
-public const val EM_XTENSA: UShort = 94u
-public const val EM_AARCH64: UShort = 183u
-public const val EM_TILEPRO: UShort = 188u
-public const val EM_TILEGX: UShort = 191u
-public const val EM_RISCV: UShort = 243u
-public const val EM_ALPHA: UShort = 0x9026u
+public val ET_NONE: UShort = (0).toUShort()
+public val ET_REL: UShort = (1).toUShort()
+public val ET_EXEC: UShort = (2).toUShort()
+public val ET_DYN: UShort = (3).toUShort()
+public val ET_CORE: UShort = (4).toUShort()
+public val ET_NUM: UShort = (5).toUShort()
+public val ET_LOOS: UShort = (0xfe00).toUShort()
+public val ET_HIOS: UShort = (0xfeff).toUShort()
+public val ET_LOPROC: UShort = (0xff00).toUShort()
+public val ET_HIPROC: UShort = (0xffff).toUShort()
+public val EM_NONE: UShort = (0).toUShort()
+public val EM_M32: UShort = (1).toUShort()
+public val EM_SPARC: UShort = (2).toUShort()
+public val EM_386: UShort = (3).toUShort()
+public val EM_68K: UShort = (4).toUShort()
+public val EM_88K: UShort = (5).toUShort()
+public val EM_860: UShort = (7).toUShort()
+public val EM_MIPS: UShort = (8).toUShort()
+public val EM_S370: UShort = (9).toUShort()
+public val EM_MIPS_RS3_LE: UShort = (10).toUShort()
+public val EM_PARISC: UShort = (15).toUShort()
+public val EM_VPP500: UShort = (17).toUShort()
+public val EM_SPARC32PLUS: UShort = (18).toUShort()
+public val EM_960: UShort = (19).toUShort()
+public val EM_PPC: UShort = (20).toUShort()
+public val EM_PPC64: UShort = (21).toUShort()
+public val EM_S390: UShort = (22).toUShort()
+public val EM_V800: UShort = (36).toUShort()
+public val EM_FR20: UShort = (37).toUShort()
+public val EM_RH32: UShort = (38).toUShort()
+public val EM_RCE: UShort = (39).toUShort()
+public val EM_ARM: UShort = (40).toUShort()
+public val EM_FAKE_ALPHA: UShort = (41).toUShort()
+public val EM_SH: UShort = (42).toUShort()
+public val EM_SPARCV9: UShort = (43).toUShort()
+public val EM_TRICORE: UShort = (44).toUShort()
+public val EM_ARC: UShort = (45).toUShort()
+public val EM_H8_300: UShort = (46).toUShort()
+public val EM_H8_300H: UShort = (47).toUShort()
+public val EM_H8S: UShort = (48).toUShort()
+public val EM_H8_500: UShort = (49).toUShort()
+public val EM_IA_64: UShort = (50).toUShort()
+public val EM_MIPS_X: UShort = (51).toUShort()
+public val EM_COLDFIRE: UShort = (52).toUShort()
+public val EM_68HC12: UShort = (53).toUShort()
+public val EM_MMA: UShort = (54).toUShort()
+public val EM_PCP: UShort = (55).toUShort()
+public val EM_NCPU: UShort = (56).toUShort()
+public val EM_NDR1: UShort = (57).toUShort()
+public val EM_STARCORE: UShort = (58).toUShort()
+public val EM_ME16: UShort = (59).toUShort()
+public val EM_ST100: UShort = (60).toUShort()
+public val EM_TINYJ: UShort = (61).toUShort()
+public val EM_X86_64: UShort = (62).toUShort()
+public val EM_PDSP: UShort = (63).toUShort()
+public val EM_FX66: UShort = (66).toUShort()
+public val EM_ST9PLUS: UShort = (67).toUShort()
+public val EM_ST7: UShort = (68).toUShort()
+public val EM_68HC16: UShort = (69).toUShort()
+public val EM_68HC11: UShort = (70).toUShort()
+public val EM_68HC08: UShort = (71).toUShort()
+public val EM_68HC05: UShort = (72).toUShort()
+public val EM_SVX: UShort = (73).toUShort()
+public val EM_ST19: UShort = (74).toUShort()
+public val EM_VAX: UShort = (75).toUShort()
+public val EM_CRIS: UShort = (76).toUShort()
+public val EM_JAVELIN: UShort = (77).toUShort()
+public val EM_FIREPATH: UShort = (78).toUShort()
+public val EM_ZSP: UShort = (79).toUShort()
+public val EM_MMIX: UShort = (80).toUShort()
+public val EM_HUANY: UShort = (81).toUShort()
+public val EM_PRISM: UShort = (82).toUShort()
+public val EM_AVR: UShort = (83).toUShort()
+public val EM_FR30: UShort = (84).toUShort()
+public val EM_D10V: UShort = (85).toUShort()
+public val EM_D30V: UShort = (86).toUShort()
+public val EM_V850: UShort = (87).toUShort()
+public val EM_M32R: UShort = (88).toUShort()
+public val EM_MN10300: UShort = (89).toUShort()
+public val EM_MN10200: UShort = (90).toUShort()
+public val EM_PJ: UShort = (91).toUShort()
+public val EM_OPENRISC: UShort = (92).toUShort()
+public val EM_OR1K: UShort = (92).toUShort()
+public val EM_ARC_A5: UShort = (93).toUShort()
+public val EM_XTENSA: UShort = (94).toUShort()
+public val EM_AARCH64: UShort = (183).toUShort()
+public val EM_TILEPRO: UShort = (188).toUShort()
+public val EM_TILEGX: UShort = (191).toUShort()
+public val EM_RISCV: UShort = (243).toUShort()
+public val EM_ALPHA: UShort = (0x9026).toUShort()
 public const val EV_NONE: UInt = 0u
 public const val EV_CURRENT: UInt = 1u
 public const val EV_NUM: UInt = 2u
@@ -833,7 +833,9 @@ public const val IPC_EXCL: CInt = 1024
 public const val IPC_NOWAIT: CInt = 2048
 public const val IPC_RMID: CInt = 0
 public const val IPC_SET: CInt = 1
-public const val IPC_STAT: CInt = if cfg!(musl32_time64) { 0x102 } else { 2 }
+
+// IPC_STAT is 0x102 on musl32_time64 targets.
+public const val IPC_STAT: CInt = 2
 public const val IPC_INFO: CInt = 3
 public const val SHM_R: CInt = 256
 public const val SHM_W: CInt = 128
@@ -1018,14 +1020,14 @@ public const val MFD_HUGE_2GB: CUInt = 0x7c000000u
 public const val MFD_HUGE_16GB: CUInt = 0x88000000u
 public const val MFD_HUGE_MASK: CUInt = 63u
 public const val MFD_HUGE_SHIFT: CUInt = 26u
-public const val PACKET_HOST: CUChar = 0u
-public const val PACKET_BROADCAST: CUChar = 1u
-public const val PACKET_MULTICAST: CUChar = 2u
-public const val PACKET_OTHERHOST: CUChar = 3u
-public const val PACKET_OUTGOING: CUChar = 4u
-public const val PACKET_LOOPBACK: CUChar = 5u
-public const val PACKET_USER: CUChar = 6u
-public const val PACKET_KERNEL: CUChar = 7u
+public val PACKET_HOST: CUChar = (0).toUByte()
+public val PACKET_BROADCAST: CUChar = (1).toUByte()
+public val PACKET_MULTICAST: CUChar = (2).toUByte()
+public val PACKET_OTHERHOST: CUChar = (3).toUByte()
+public val PACKET_OUTGOING: CUChar = (4).toUByte()
+public val PACKET_LOOPBACK: CUChar = (5).toUByte()
+public val PACKET_USER: CUChar = (6).toUByte()
+public val PACKET_KERNEL: CUChar = (7).toUByte()
 public const val PACKET_ADD_MEMBERSHIP: CInt = 1
 public const val PACKET_DROP_MEMBERSHIP: CInt = 2
 public const val PACKET_RECV_OUTPUT: CInt = 3
@@ -1101,25 +1103,25 @@ public const val SIOCGRARP: CULong = 0x00008961uL
 public const val SIOCSRARP: CULong = 0x00008962uL
 public const val SIOCGIFMAP: CULong = 0x00008970uL
 public const val SIOCSIFMAP: CULong = 0x00008971uL
-public const val IPTOS_TOS_MASK: UByte = 0x1Eu
-public const val IPTOS_PREC_MASK: UByte = 0xE0u
-public const val IPTOS_ECN_NOT_ECT: UByte = 0x00u
-public const val RTF_UP: CUShort = 0x0001u
-public const val RTF_GATEWAY: CUShort = 0x0002u
-public const val RTF_HOST: CUShort = 0x0004u
-public const val RTF_REINSTATE: CUShort = 0x0008u
-public const val RTF_DYNAMIC: CUShort = 0x0010u
-public const val RTF_MODIFIED: CUShort = 0x0020u
-public const val RTF_MTU: CUShort = 0x0040u
+public val IPTOS_TOS_MASK: UByte = (0x1E).toUByte()
+public val IPTOS_PREC_MASK: UByte = (0xE0).toUByte()
+public val IPTOS_ECN_NOT_ECT: UByte = (0x00).toUByte()
+public val RTF_UP: CUShort = (0x0001).toUShort()
+public val RTF_GATEWAY: CUShort = (0x0002).toUShort()
+public val RTF_HOST: CUShort = (0x0004).toUShort()
+public val RTF_REINSTATE: CUShort = (0x0008).toUShort()
+public val RTF_DYNAMIC: CUShort = (0x0010).toUShort()
+public val RTF_MODIFIED: CUShort = (0x0020).toUShort()
+public val RTF_MTU: CUShort = (0x0040).toUShort()
 public const val RTF_MSS: CUShort = RTF_MTU
-public const val RTF_WINDOW: CUShort = 0x0080u
-public const val RTF_IRTT: CUShort = 0x0100u
-public const val RTF_REJECT: CUShort = 0x0200u
-public const val RTF_STATIC: CUShort = 0x0400u
-public const val RTF_XRESOLVE: CUShort = 0x0800u
-public const val RTF_NOFORWARD: CUShort = 0x1000u
-public const val RTF_THROW: CUShort = 0x2000u
-public const val RTF_NOPMTUDISC: CUShort = 0x4000u
+public val RTF_WINDOW: CUShort = (0x0080).toUShort()
+public val RTF_IRTT: CUShort = (0x0100).toUShort()
+public val RTF_REJECT: CUShort = (0x0200).toUShort()
+public val RTF_STATIC: CUShort = (0x0400).toUShort()
+public val RTF_XRESOLVE: CUShort = (0x0800).toUShort()
+public val RTF_NOFORWARD: CUShort = (0x1000).toUShort()
+public val RTF_THROW: CUShort = (0x2000).toUShort()
+public val RTF_NOPMTUDISC: CUShort = (0x4000).toUShort()
 public const val RTF_DEFAULT: UInt = 0x00010000u
 public const val RTF_ALLONLINK: UInt = 0x00020000u
 public const val RTF_ADDRCONF: UInt = 0x00040000u
@@ -1140,15 +1142,15 @@ public const val RTF_MULTICAST: UInt = 0x20000000u
 public const val RTF_BROADCAST: UInt = 0x10000000u
 public const val RTF_NAT: UInt = 0x08000000u
 public const val RTF_ADDRCLASSMASK: UInt = 0xF8000000u
-public const val RT_CLASS_UNSPEC: UByte = 0u
-public const val RT_CLASS_DEFAULT: UByte = 253u
-public const val RT_CLASS_MAIN: UByte = 254u
-public const val RT_CLASS_LOCAL: UByte = 255u
-public const val RT_CLASS_MAX: UByte = 255u
+public val RT_CLASS_UNSPEC: UByte = (0).toUByte()
+public val RT_CLASS_DEFAULT: UByte = (253).toUByte()
+public val RT_CLASS_MAIN: UByte = (254).toUByte()
+public val RT_CLASS_LOCAL: UByte = (255).toUByte()
+public val RT_CLASS_MAX: UByte = (255).toUByte()
 public const val MAX_ADDR_LEN: ULong = 7uL
-public const val ARPD_UPDATE: CUShort = 0x01u
-public const val ARPD_LOOKUP: CUShort = 0x02u
-public const val ARPD_FLUSH: CUShort = 0x03u
+public val ARPD_UPDATE: CUShort = (0x01).toUShort()
+public val ARPD_LOOKUP: CUShort = (0x02).toUShort()
+public val ARPD_FLUSH: CUShort = (0x03).toUShort()
 public const val ATF_MAGIC: CInt = 0x80
 public const val UDP_CORK: CInt = 1
 public const val UDP_ENCAP: CInt = 100
@@ -1241,128 +1243,251 @@ public const val MS_NOUSER: CULong = 0xffffffff80000000uL
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
+
 public expect fun cPUALLOCSIZE(count: CInt): ULong
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
-public expect fun cPUCOUNTS(size: ULong, cpuset: &cpuSetT): CInt
-public expect fun cPUCOUNT(cpuset: &cpuSetT): CInt
-public expect fun cPUEQUAL(set1: &cpuSetT, set2: &cpuSetT): Boolean
+
+public expect fun cPUZERO(cpuset: CpuSetT?)
+
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+
+public expect fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): CInt
+
+public expect fun cPUCOUNT(cpuset: CpuSetT?): CInt
+
+public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
+
 public expect fun iPTOSTOS(tos: UByte): UByte
+
 public expect fun iPTOSPREC(tos: UByte): UByte
+
 public expect fun rTTOS(tos: UByte): UByte
+
 public expect fun rTADDRCLASS(flags: UInt): UInt
+
 public expect fun rTLOCALADDR(flags: UInt): Boolean
-public expect fun eLF32RSYM(val: Elf32Word): Elf32Word
-public expect fun eLF32RTYPE(val: Elf32Word): Elf32Word
+
+public expect fun eLF32RSYM(`val`: Elf32Word): Elf32Word
+
+public expect fun eLF32RTYPE(`val`: Elf32Word): Elf32Word
+
 public expect fun eLF32RINFO(sym: Elf32Word, t: Elf32Word): Elf32Word
-public expect fun eLF64RSYM(val: Elf64Xword): Elf64Xword
-public expect fun eLF64RTYPE(val: Elf64Xword): Elf64Xword
+
+public expect fun eLF64RSYM(`val`: Elf64Xword): Elf64Xword
+
+public expect fun eLF64RTYPE(`val`: Elf64Xword): Elf64Xword
+
 public expect fun eLF64RINFO(sym: Elf64Xword, t: Elf64Xword): Elf64Xword
 
 public expect fun iopl(level: CInt): CInt
+
 public expect fun ioperm(from: CULong, num: CULong, turnOn: CInt): CInt
+
 public expect fun aioRead(aiocbp: Aiocb?): CInt
+
 public expect fun aioWrite(aiocbp: Aiocb?): CInt
+
 public expect fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt
+
 public expect fun aioError(aiocbp: Aiocb?): CInt
+
 public expect fun aioReturn(aiocbp: Aiocb?): SsizeT
+
 public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt
+
 public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt
+
 public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt
+
 public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
 public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+
 public expect fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt
+
 public expect fun processVmReadv(pid: PidT, localIov: Iovec?, liovcnt: CULong, remoteIov: Iovec?, riovcnt: CULong, flags: CULong): Long
+
 public expect fun processVmWritev(pid: PidT, localIov: Iovec?, liovcnt: CULong, remoteIov: Iovec?, riovcnt: CULong, flags: CULong): Long
+
 public expect fun futimes(fd: CInt, times: Timeval?): CInt
+
 public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt
+
 public expect fun abs(i: CInt): CInt
+
 public expect fun labs(i: CLong): CLong
+
 public expect fun rand(): CInt
+
 public expect fun srand(seed: CUInt)
+
 public expect fun drand48(): CDouble
+
 public expect fun erand48(xseed: CUShort?): CDouble
+
 public expect fun lrand48(): CLong
+
 public expect fun nrand48(xseed: CUShort?): CLong
+
 public expect fun jrand48(xseed: CUShort?): CLong
+
 public expect fun srand48(seed: CLong)
+
 public expect fun setpwent()
+
 public expect fun endpwent()
+
 public expect fun getpwent(): Passwd?
+
 public expect fun setgrent()
+
 public expect fun endgrent()
+
 public expect fun getgrent(): Group?
+
 public expect fun setspent()
+
 public expect fun endspent()
+
 public expect fun getspent(): Spwd?
+
 public expect fun getspnam(name: String?): Spwd?
+
 public expect fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt
+
 public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer?
+
 public expect fun shmdt(shmaddr: COpaquePointer?): CInt
+
 public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt
+
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
 public expect fun errnoLocation(): CInt?
-public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, ...): COpaquePointer?
+
+public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer?
+
 public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
+
 public expect fun globfree(pglob: GlobT?)
+
 public expect fun seekdir(dirp: DIR?, loc: CLong)
+
 public expect fun telldir(dirp: DIR?): CLong
+
 public expect fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
+
 public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt
+
 public expect fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT
+
 public expect fun nlLanginfo(item: NlItem): String?
+
 public expect fun nlLanginfoL(item: NlItem, locale: LocaleT): String?
+
 public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+
 public expect fun schedGetPriorityMax(policy: CInt): CInt
+
 public expect fun settimeofday(tv: Timeval?, tz: Timezone?): CInt
+
 public expect fun semTimedwait(sem: SemT?, abstime: Timespec?): CInt
+
 public expect fun semGetvalue(sem: SemT?, sval: CInt?): CInt
+
 public expect fun mount(src: String?, target: String?, fstype: String?, flags: CULong, data: COpaquePointer?): CInt
-public expect fun prctl(option: CInt, ...): CInt
+
+public expect fun prctl(option: CInt, vararg args: Any?): CInt
+
 public expect fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt
+
 public expect fun sethostname(name: String?, len: ULong): CInt
+
 public expect fun schedGetPriorityMin(policy: CInt): CInt
+
 public expect fun sysinfo(info: Sysinfo?): CInt
+
 public expect fun sigsuspend(mask: SigsetT?): CInt
+
 public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun semClose(sem: SemT?): CInt
+
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun initgroups(user: String?, group: GidT): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
+
 public expect fun getgrnam(name: String?): Group?
+
 public expect fun semUnlink(name: String?): CInt
+
 public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
+
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
+
 public expect fun getgrgid(gid: GidT): Group?
+
 public expect fun popen(command: String?, mode: String?): FILE?
+
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt
+
 public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
+
 public expect fun setmntent(filename: String?, ty: String?): FILE?
+
 public expect fun getmntent(stream: FILE?): Mntent?
+
 public expect fun addmntent(stream: FILE?, mnt: Mntent?): CInt
+
 public expect fun endmntent(streamp: FILE?): CInt
+
 public expect fun hasmntopt(mnt: Mntent?, opt: String?): String?
+
 public expect fun regcomp(preg: RegexT?, pattern: String?, cflags: CInt): CInt
+
 public expect fun regexec(preg: RegexT?, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: CInt): CInt
+
 public expect fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong
+
 public expect fun regfree(preg: RegexT?)
+
 public expect fun iconvOpen(tocode: String?, fromcode: String?): IconvT
+
 public expect fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong
+
 public expect fun iconvClose(cd: IconvT): CInt
+
 public expect fun gettid(): PidT
+
 public expect fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT?): CInt
+
 public expect fun timerDelete(timerid: TimerT): CInt
+
 public expect fun timerGetoverrun(timerid: TimerT): CInt
+
 public expect fun timerGettime(timerid: TimerT, currValue: Itimerspec?): CInt
+
 public expect fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt
+
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
+
 public expect fun schedGetcpu(): CInt
+
 public expect fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt
+
 public expect fun copyFileRange(fdIn: CInt, offIn: Off64T?, fdOut: CInt, offOut: Off64T?, len: ULong, flags: CUInt): SsizeT
+
 public expect fun freopen64(filename: String?, mode: String?, file: FILE?): FILE?
+
 public expect fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt
+
 public expect fun fsetpos64(stream: FILE?, ptr: Fpos64T?): CInt
+
 public expect fun ftello64(stream: FILE?): Off64T

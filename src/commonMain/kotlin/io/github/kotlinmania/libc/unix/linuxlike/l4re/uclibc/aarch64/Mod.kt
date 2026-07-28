@@ -83,7 +83,7 @@ public data class Sigaction(
 )
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class SiginfoT(
@@ -120,8 +120,8 @@ public data class Termios(
 
 // C union; only one variant is valid at a time.
 public data class SemT(
-    val size: ByteArray = null,
-    val align: CLongLong = null,
+    val size: ByteArray? = null,
+    val align: CLongLong? = null,
 )
 
 public const val O_CLOEXEC: CInt = 524288

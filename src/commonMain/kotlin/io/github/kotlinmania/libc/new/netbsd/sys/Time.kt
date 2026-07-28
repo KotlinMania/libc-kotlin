@@ -3,9 +3,6 @@ package io.github.kotlinmania.libc.new.netbsd.sys
 
 import io.github.kotlinmania.libc.*
 
-/**
- * Header: `sys/time.h`.
- */
 public data class Itimerspec(
     val itInterval: Timespec,
     val itValue: Timespec,

@@ -38,20 +38,22 @@ public typealias VmMapT = CAnonymousVmMap?
 public typealias VmMapEntryT = VmMapEntry?
 public typealias Pmap = CAnonymousPmap
 
-public enum class Lwpstat(public val value: UInt) {
+public enum class Lwpstat(
+    public val value: UInt,
+) {
     LSRUN(1u),
     LSSTOP(2u),
     LSSLEEP(3u),
-    ;
 }
 
-public enum class Procstat(public val value: UInt) {
+public enum class Procstat(
+    public val value: UInt,
+) {
     SIDL(1u),
     SACTIVE(2u),
     SSTOP(3u),
     SZOMB(4u),
     SCORE(5u),
-    ;
 }
 
 public data class Kevent(
@@ -648,7 +650,8 @@ public const val CPUCTL_UPDATE: CInt = 0xc0106304
 public const val CPUCTL_MSRSBIT: CInt = 0xc0106305
 public const val CPUCTL_MSRCBIT: CInt = 0xc0106306
 public const val CPUCTL_CPUID_COUNT: CInt = 0xc0106307
-public const val CPU_SETSIZE: ULong = <cpumask_t>() * 8
+
+// CPU_SETSIZE = size_of<CpumaskT>() * 8 (computed at the FFI boundary)
 public const val EVFILT_READ: Short = -1
 public const val EVFILT_WRITE: Short = -2
 public const val EVFILT_AIO: Short = -3
@@ -659,20 +662,20 @@ public const val EVFILT_TIMER: Short = -7
 public const val EVFILT_EXCEPT: Short = -8
 public const val EVFILT_USER: Short = -9
 public const val EVFILT_FS: Short = -10
-public const val EV_ADD: UShort = 0x1u
-public const val EV_DELETE: UShort = 0x2u
-public const val EV_ENABLE: UShort = 0x4u
-public const val EV_DISABLE: UShort = 0x8u
-public const val EV_ONESHOT: UShort = 0x10u
-public const val EV_CLEAR: UShort = 0x20u
-public const val EV_RECEIPT: UShort = 0x40u
-public const val EV_DISPATCH: UShort = 0x80u
-public const val EV_NODATA: UShort = 0x1000u
-public const val EV_FLAG1: UShort = 0x2000u
-public const val EV_ERROR: UShort = 0x4000u
-public const val EV_EOF: UShort = 0x8000u
-public const val EV_HUP: UShort = 0x8000u
-public const val EV_SYSFLAGS: UShort = 0xf000u
+public val EV_ADD: UShort = (0x1).toUShort()
+public val EV_DELETE: UShort = (0x2).toUShort()
+public val EV_ENABLE: UShort = (0x4).toUShort()
+public val EV_DISABLE: UShort = (0x8).toUShort()
+public val EV_ONESHOT: UShort = (0x10).toUShort()
+public val EV_CLEAR: UShort = (0x20).toUShort()
+public val EV_RECEIPT: UShort = (0x40).toUShort()
+public val EV_DISPATCH: UShort = (0x80).toUShort()
+public val EV_NODATA: UShort = (0x1000).toUShort()
+public val EV_FLAG1: UShort = (0x2000).toUShort()
+public val EV_ERROR: UShort = (0x4000).toUShort()
+public val EV_EOF: UShort = (0x8000).toUShort()
+public val EV_HUP: UShort = (0x8000).toUShort()
+public val EV_SYSFLAGS: UShort = (0xf000).toUShort()
 public const val FIODNAME: CULong = 0x80106678uL
 public const val NOTE_TRIGGER: UInt = 0x01000000u
 public const val NOTE_FFNOP: UInt = 0x00000000u
@@ -918,10 +921,10 @@ public const val WTRAPPED: CInt = 0x20
 public const val P_PID: IdtypeT = 0
 public const val P_PGID: IdtypeT = 2
 public const val P_ALL: IdtypeT = 7
-public const val RTP_PRIO_REALTIME: CUShort = 0u
-public const val RTP_PRIO_NORMAL: CUShort = 1u
-public const val RTP_PRIO_IDLE: CUShort = 2u
-public const val RTP_PRIO_THREAD: CUShort = 3u
+public val RTP_PRIO_REALTIME: CUShort = (0).toUShort()
+public val RTP_PRIO_NORMAL: CUShort = (1).toUShort()
+public val RTP_PRIO_IDLE: CUShort = (2).toUShort()
+public val RTP_PRIO_THREAD: CUShort = (3).toUShort()
 public const val UF_NOHISTORY: CULong = 0x00000040uL
 public const val UF_CACHE: CULong = 0x00000080uL
 public const val UF_XLINK: CULong = 0x00000100uL
@@ -948,61 +951,117 @@ public const val RTAX_MAX: CInt = 11
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
-public expect fun cPUZERO(cpuset: &mut cpuSetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpuSetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpuSetT): Boolean
+
+public expect fun cPUZERO(cpuset: CpuSetT?)
+
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
 
 public expect fun errnoLocation(): CInt?
+
 public expect fun setgrent()
+
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
 public expect fun setutxdb(type: CUInt, file: String?): CInt
+
 public expect fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): CInt
+
 public expect fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): String?
+
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt
+
 public expect fun freelocale(loc: LocaleT)
+
 public expect fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt
+
 public expect fun statfs(path: String?, buf: Statfs?): CInt
+
 public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt
+
 public expect fun uname(buf: Utsname?): CInt
+
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
+
 public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
+
 public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
+
 public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt
+
 public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt
+
 public expect fun schedGetcpu(): CInt
-public expect fun setproctitle(fmt: String?, ...)
+
+public expect fun setproctitle(fmt: String?, vararg args: Any?)
+
 public expect fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt
+
 public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer?
+
 public expect fun shmdt(shmaddr: COpaquePointer?): CInt
+
 public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt
+
 public expect fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt
+
 public expect fun updwtmpx(file: String?, ut: Utmpx?): CInt
+
 public expect fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx?
+
 public expect fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt
+
 public expect fun getutxuser(name: String?): Utmpx
+
 public expect fun utmpxname(file: String?): CInt
+
 public expect fun sysCheckpoint(tpe: CInt, fd: CInt, pid: PidT, retval: CInt): CInt
+
 public expect fun umtxSleep(ptr: CInt?, value: CInt, timeout: CInt): CInt
+
 public expect fun umtxWakeup(ptr: CInt?, count: CInt): CInt
+
 public expect fun dirname(path: String?): String?
+
 public expect fun basename(path: String?): String?
+
 public expect fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt
+
 public expect fun getmntvinfo(mntbufp: COpaquePointer?, mntvbufp: COpaquePointer?, flags: CInt): CInt
+
 public expect fun closefrom(lowfd: CInt): CInt
+
 public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt
+
 public expect fun aioError(aiocbp: Aiocb?): CInt
+
 public expect fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt
+
 public expect fun aioRead(aiocbp: Aiocb?): CInt
+
 public expect fun aioReturn(aiocbp: Aiocb?): SsizeT
+
 public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt
+
 public expect fun aioWrite(aiocbp: Aiocb?): CInt
+
 public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt
+
 public expect fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer?
+
 public expect fun freezero(ptr: COpaquePointer?, size: ULong)
+
 public expect fun kvmVmMapEntryFirst(kvm: KvmT?, map: VmMapT, entry: VmMapEntryT): VmMapEntryT
+
 public expect fun kvmVmMapEntryNext(kvm: KvmT?, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT

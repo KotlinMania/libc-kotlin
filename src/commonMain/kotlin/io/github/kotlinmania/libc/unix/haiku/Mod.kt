@@ -253,7 +253,7 @@ public data class PthreadRwlockT(
     val lockCount: Int,
     val readerCount: Int,
     val writerCount: Int,
-    val waiters: List<*mut cVoid>,
+    val waiters: List<COpaquePointer?>,
 )
 
 public data class PthreadSpinlockT(
@@ -395,7 +395,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val val: CInt,
+    val `val`: CInt,
 )
 
 public data class SockaddrUn(
@@ -512,14 +512,14 @@ public const val O_DSYNC: CInt = 0x00040000
 public const val O_NOFOLLOW: CInt = 0x00080000
 public const val O_NOCACHE: CInt = 0x00100000
 public const val O_DIRECTORY: CInt = 0x00200000
-public const val S_IFIFO: ModeT = 0o1_0000
-public const val S_IFCHR: ModeT = 0o2_0000
-public const val S_IFBLK: ModeT = 0o6_0000
-public const val S_IFDIR: ModeT = 0o4_0000
-public const val S_IFREG: ModeT = 0o10_0000
-public const val S_IFLNK: ModeT = 0o12_0000
-public const val S_IFSOCK: ModeT = 0o14_0000
-public const val S_IFMT: ModeT = 0o17_0000
+public const val S_IFIFO: ModeT = 4096
+public const val S_IFCHR: ModeT = 8192
+public const val S_IFBLK: ModeT = 24576
+public const val S_IFDIR: ModeT = 16384
+public const val S_IFREG: ModeT = 32768
+public const val S_IFLNK: ModeT = 40960
+public const val S_IFSOCK: ModeT = 49152
+public const val S_IFMT: ModeT = 61440
 public const val S_IRWXU: ModeT = 448
 public const val S_IRUSR: ModeT = 256
 public const val S_IWUSR: ModeT = 128
@@ -963,6 +963,7 @@ public const val _SC_THREAD_THREADS_MAX: CInt = 141
 public const val _SC_RE_DUP_MAX: CInt = 142
 public const val PTHREAD_STACK_MIN: ULong = 8192uL
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0, lock = 0, owner = -1, ownerCount = 0)
+
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { flags: 0, unused: Padding::uninit(), mutex: 0 as *mut _, waiter_count: 0, lock: 0, } (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { flags: 0, owner: -1, lock_sem: 0, lock_count: 0, reader_count: 0, writer_count: 0, waiters: [0 as *mut _ (initializer represented at the FFI boundary)
 public const val PTHREAD_MUTEX_DEFAULT: CInt = 0
@@ -1201,187 +1202,369 @@ public const val POSIX_SPAWN_SETSID: CInt = 0x40
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
+
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
-public expect fun fDCLR(fd: CInt, set: FdSet?): ()
+
+public expect fun fDCLR(fd: CInt, set: FdSet?)
+
 public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
-public expect fun fDSET(fd: CInt, set: FdSet?): ()
-public expect fun fDZERO(set: FdSet?): ()
+
+public expect fun fDSET(fd: CInt, set: FdSet?)
+
+public expect fun fDZERO(set: FdSet?)
 
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
+
 public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
+
 public expect fun getpriority(which: CInt, who: IdT): CInt
+
 public expect fun setpriority(which: CInt, who: IdT, priority: CInt): CInt
+
 public expect fun endusershell()
+
 public expect fun getpass(prompt: String?): String?
+
 public expect fun getusershell(): String?
+
 public expect fun issetugid(): CInt
+
 public expect fun setusershell()
+
 public expect fun utimensat(fd: CInt, path: String?, times: Timespec?, flag: CInt): CInt
+
 public expect fun futimens(fd: CInt, times: Timespec?): CInt
+
 public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt
+
 public expect fun errnop(): CInt?
+
 public expect fun abs(i: CInt): CInt
+
 public expect fun labs(i: CLong): CLong
+
 public expect fun rand(): CInt
+
 public expect fun srand(seed: CUInt)
+
 public expect fun getifaddrs(ifap: COpaquePointer?): CInt
+
 public expect fun freeifaddrs(ifa: Ifaddrs?)
+
 public expect fun ppoll(fds: Pollfd?, numfds: NfdsT, timeout: Timespec?, sigMask: SigsetT?): CInt
+
 public expect fun getspent(): Spwd?
+
 public expect fun getspentR(pwd: Spwd?, buf: String?, bufferSize: ULong, res: COpaquePointer?): CInt
+
 public expect fun setspent()
+
 public expect fun endspent()
+
 public expect fun getspnam(name: String?): Spwd?
+
 public expect fun getspnamR(name: String?, spwd: Spwd?, buffer: String?, bufferSize: ULong, res: COpaquePointer?): CInt
+
 public expect fun sgetspent(line: String?): Spwd?
+
 public expect fun sgetspentR(line: String?, spwd: Spwd?, buffer: String?, bufferSize: ULong, res: COpaquePointer?): CInt
+
 public expect fun fgetspent(file: FILE?): Spwd?
+
 public expect fun fgetspentR(file: FILE?, spwd: Spwd?, buffer: String?, bufferSize: ULong, res: COpaquePointer?): CInt
+
 public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
+
 public expect fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt
+
 public expect fun semDestroy(sem: SemT?): CInt
+
 public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
+
 public expect fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt
+
 public expect fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt
+
 public expect fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt
+
 public expect fun clockGetcpuclockid(pid: PidT, clkId: ClockidT?): CInt
+
 public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+
 public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt
+
 public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt
+
 public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+
 public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT?, clockId: ClockidT?): CInt
+
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
+
 public expect fun valloc(numBytes: ULong): COpaquePointer?
+
 public expect fun mallocUsableSize(ptr: COpaquePointer?): ULong
+
 public expect fun memalign(align: ULong, size: ULong): COpaquePointer?
+
 public expect fun setgroups(ngroups: CInt, ptr: GidT?): CInt
+
 public expect fun initgroups(name: String?, basegid: GidT): CInt
-public expect fun ioctl(fd: CInt, request: CULong, ...): CInt
+
+public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt
+
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
 public expect fun dirfd(dirp: DIR?): CInt
+
 public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+
 public expect fun pthreadMutexTimedlock(lock: PthreadMutexT?, abstime: Timespec?): CInt
+
 public expect fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt
+
 public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
+
 public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
+
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt
+
 public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
+
 public expect fun globfree(pglob: GlobT?)
+
 public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
+
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
+
 public expect fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt
+
 public expect fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt
+
 public expect fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt
+
 public expect fun shmUnlink(name: String?): CInt
+
 public expect fun seekdir(dirp: DIR?, loc: CLong)
+
 public expect fun telldir(dirp: DIR?): CLong
+
 public expect fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
+
 public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt
+
 public expect fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT
+
 public expect fun nlLanginfo(item: NlItem): String?
+
 public expect fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt
+
 public expect fun accept4(socket: CInt, address: Sockaddr?, addressLength: SocklenT?, flags: CInt): CInt
+
 public expect fun writev(fd: CInt, iov: Iovec?, count: CInt): SsizeT
+
 public expect fun readv(fd: CInt, iov: Iovec?, count: CInt): SsizeT
+
 public expect fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT
+
 public expect fun execvpe(file: String?, argv: COpaquePointer?, environment: COpaquePointer?): CInt
+
 public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun getgrouplist(user: String?, basegroup: GidT, grouplist: GidT?, groupcount: CInt?): CInt
+
 public expect fun sigaltstack(ss: StackT?, oss: StackT?): CInt
+
 public expect fun sigsuspend(mask: SigsetT?): CInt
+
 public expect fun semClose(sem: SemT?): CInt
+
 public expect fun getdtablesize(): CInt
+
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
-public expect fun semOpen(name: String?, oflag: CInt, ...): SemT?
+
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
+
 public expect fun getgrnam(name: String?): Group?
+
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
+
 public expect fun semUnlink(name: String?): CInt
+
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+
 public expect fun getpwent(): Passwd?
+
 public expect fun setpwent()
+
 public expect fun endpwent()
+
 public expect fun endgrent()
+
 public expect fun getgrent(): Group?
+
 public expect fun setgrent()
+
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
+
 public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
+
 public expect fun getgrgid(gid: GidT): Group?
+
 public expect fun popen(command: String?, mode: String?): FILE?
+
 public expect fun sethostname(name: String?, len: ULong): CInt
+
 public expect fun uname(buf: Utsname?): CInt
+
 public expect fun getutxent(): Utmpx?
+
 public expect fun getutxid(ut: Utmpx?): Utmpx?
+
 public expect fun getutxline(ut: Utmpx?): Utmpx?
+
 public expect fun pututxline(ut: Utmpx?): Utmpx?
+
 public expect fun setutxent()
+
 public expect fun endutxent()
+
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt
+
 public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt
+
 public expect fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt
+
 public expect fun getitimer(which: CInt, currValue: Itimerval?): CInt
+
 public expect fun setitimer(which: CInt, newValue: Itimerval?, oldValue: Itimerval?): CInt
+
 public expect fun regcomp(preg: RegexT?, pattern: String?, cflags: CInt): CInt
+
 public expect fun regexec(preg: RegexT?, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: CInt): CInt
+
 public expect fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong
+
 public expect fun regfree(preg: RegexT?)
+
 public expect fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt
+
 public expect fun msgget(key: KeyT, msgflg: CInt): CInt
+
 public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtype: CLong, msgflg: CInt): SsizeT
+
 public expect fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgflg: CInt): CInt
+
 public expect fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt
-public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, ...): CInt
+
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt
+
 public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
+
 public expect fun ftok(pathname: String?, projId: CInt): KeyT
+
 public expect fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+
 public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
+
 public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
+
 public expect fun hcreate(nelt: ULong): CInt
+
 public expect fun hdestroy()
+
 public expect fun hsearch(entry: ENTRY, action: ACTION): ENTRY?
+
 public expect fun drand48(): CDouble
+
 public expect fun erand48(xseed: CUShort?): CDouble
+
 public expect fun lrand48(): CLong
+
 public expect fun nrand48(xseed: CUShort?): CLong
+
 public expect fun mrand48(): CLong
+
 public expect fun jrand48(xseed: CUShort?): CLong
+
 public expect fun srand48(seed: CLong)
+
 public expect fun seed48(xseed: CUShort?): CUShort?
+
 public expect fun lcong48(p: CUShort?)
+
 public expect fun clearenv(): CInt
+
 public expect fun ctermid(s: String?): String?
+
 public expect fun sync()
+
 public expect fun getpagesize(): CInt
+
 public expect fun brk(addr: COpaquePointer?): CInt
+
 public expect fun sbrk(increment: IntptrT): COpaquePointer?
+
 public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun posixSpawnFileActionsInit(fileActions: PosixSpawnFileActionsT?): CInt
+
 public expect fun posixSpawnFileActionsDestroy(fileActions: PosixSpawnFileActionsT?): CInt
+
 public expect fun posixSpawnFileActionsAddopen(fileActions: PosixSpawnFileActionsT?, fildes: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
+
 public expect fun posixSpawnFileActionsAddclose(fileActions: PosixSpawnFileActionsT?, fildes: CInt): CInt
+
 public expect fun posixSpawnFileActionsAdddup2(fileActions: PosixSpawnFileActionsT?, fildes: CInt, newfildes: CInt): CInt
+
 public expect fun posixSpawnattrInit(attr: PosixSpawnattrT?): CInt
+
 public expect fun posixSpawnattrDestroy(attr: PosixSpawnattrT?): CInt
+
 public expect fun posixSpawnattrGetflags(attr: PosixSpawnattrT?, flags: CShort?): CInt
+
 public expect fun posixSpawnattrSetflags(attr: PosixSpawnattrT?, flags: CShort): CInt
+
 public expect fun posixSpawnattrGetpgroup(attr: PosixSpawnattrT?, pgroup: PidT?): CInt
+
 public expect fun posixSpawnattrSetpgroup(attr: PosixSpawnattrT?, pgroup: PidT): CInt
+
 public expect fun posixSpawnattrGetsigdefault(attr: PosixSpawnattrT?, sigdefault: SigsetT?): CInt
+
 public expect fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT?, sigdefault: SigsetT?): CInt
+
 public expect fun posixSpawnattrGetsigmask(attr: PosixSpawnattrT?, sigmask: SigsetT?): CInt
+
 public expect fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT?, sigmask: SigsetT?): CInt
+
 public expect fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt
+
 public expect fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt
+
 public expect fun strncasecmpL(string1: String?, string2: String?, length: ULong, locale: LocaleT): CInt
+
 public expect fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt
+
 public expect fun memmem(source: COpaquePointer?, sourceLength: ULong, search: COpaquePointer?, searchLength: ULong): COpaquePointer?
+
 public expect fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt
+
 public expect fun pthreadGetnameNp(thread: PthreadT, buffer: String?, length: ULong): CInt
+
 public expect fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt

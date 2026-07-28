@@ -3,9 +3,6 @@ package io.github.kotlinmania.libc.new.openbsd.sys
 
 import io.github.kotlinmania.libc.*
 
-/**
- * Header: `sys/ipc.h`.
- */
 public data class IpcPerm(
     val cuid: UidT,
     val cgid: GidT,

@@ -4,7 +4,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.COpaquePointer
 
-// __f_spare is layout padding ([c_int; 6]).
 public data class Statvfs(
     val fBsize: CULong,
     val fFrsize: CULong,
@@ -17,21 +16,18 @@ public data class Statvfs(
     val fFsid: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
+    val fSpare: IntArray,
 )
 
-public const val __SIZEOF_PTHREAD_MUTEX_T: Int = 40
-public const val __SIZEOF_PTHREAD_RWLOCK_T: Int = 56
-public const val __SIZEOF_PTHREAD_BARRIER_T: Int = 32
-
-// Initializer `size` is all-zero except the mutex-kind byte: index 16 on
-// little-endian, index 19 on big-endian.
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT =
-    PthreadMutexT(size = ByteArray(40).also { it[16] = 1 })
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT =
-    PthreadMutexT(size = ByteArray(40).also { it[16] = 2 })
-public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT =
-    PthreadMutexT(size = ByteArray(40).also { it[16] = 3 })
-
+public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 40uL
+public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 56uL
+public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
 public const val SYS_read: CLong = 0
 public const val SYS_write: CLong = 1
 public const val SYS_open: CLong = 2
@@ -206,16 +202,10 @@ public const val SYS_sethostname: CLong = 170
 public const val SYS_setdomainname: CLong = 171
 public const val SYS_iopl: CLong = 172
 public const val SYS_ioperm: CLong = 173
-
-// deprecated: functional up to 2.6 kernel
 public const val SYS_create_module: CLong = 174
 public const val SYS_init_module: CLong = 175
 public const val SYS_delete_module: CLong = 176
-
-// deprecated: functional up to 2.6 kernel
 public const val SYS_get_kernel_syms: CLong = 177
-
-// deprecated: functional up to 2.6 kernel
 public const val SYS_query_module: CLong = 178
 public const val SYS_quotactl: CLong = 179
 public const val SYS_nfsservctl: CLong = 180
@@ -402,11 +392,4 @@ public const val SYS_set_mempolicy_home_node: CLong = 450
 public const val SYS_fchmodat2: CLong = 452
 public const val SYS_mseal: CLong = 462
 
-public expect fun sysctl(
-    name: CInt?,
-    namelen: CInt,
-    oldp: COpaquePointer?,
-    oldlenp: ULong?,
-    newp: COpaquePointer?,
-    newlen: ULong,
-): CInt
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt

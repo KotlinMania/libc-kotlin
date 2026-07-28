@@ -3,10 +3,6 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 
-/**
- * Header: `semaphore.h`.
- */
-
 public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
 
 public expect fun semDestroy(sem: SemT?): CInt

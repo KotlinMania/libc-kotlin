@@ -3,10 +3,6 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 
-/**
- * Header: `time.h`.
- */
-
 public const val CLOCK_REALTIME: ClockidT = 0
 public const val CLOCK_MONOTONIC: ClockidT = 1
 public const val CLOCK_THREAD_CPUTIME_ID: ClockidT = 2

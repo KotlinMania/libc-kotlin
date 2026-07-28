@@ -4,9 +4,7 @@ package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 import io.github.kotlinmania.libc.*
 
 public typealias WcharT = UInt
-
 public typealias GregT = Int
-
 public typealias McontextT = Sigcontext
 
 public data class Sigcontext(
@@ -33,31 +31,30 @@ public data class Sigcontext(
     val faultAddress: CULong,
 )
 
-// __padding_rt_sigset is layout padding (Android has a smaller sigset_t on x86).
 public data class CAnonymousUcSigmaskWithPadding(
     val ucSigmask: SigsetT,
 )
 
-// C union; only one view is valid at a time.
-public data class CAnonymousUcSigmask(
-    val ucSigmask: CAnonymousUcSigmaskWithPadding? = null,
-    val ucSigmask64: Sigset64T? = null,
-)
-
-// __padding / __align / uc_regspace are layout padding.
 public data class UcontextT(
     val ucFlags: CULong,
     val ucLink: UcontextT?,
     val ucStack: StackT,
     val ucMcontext: McontextT,
     val ucSigmaskCAnonymousUnion: CAnonymousUcSigmask,
+    val align: LongArray,
+    val ucRegspace: ULongArray,
+)
+
+// C union; only one variant is valid at a time.
+public data class CAnonymousUcSigmask(
+    val ucSigmask: CAnonymousUcSigmaskWithPadding? = null,
+    val ucSigmask64: Sigset64T? = null,
 )
 
 public const val O_DIRECT: CInt = 0x10000
 public const val O_DIRECTORY: CInt = 0x4000
 public const val O_NOFOLLOW: CInt = 0x8000
-public const val O_LARGEFILE: CInt = 0x20000 // 0o400000
-
+public const val O_LARGEFILE: CInt = 131072
 public const val SYS_restart_syscall: CLong = 0
 public const val SYS_exit: CLong = 1
 public const val SYS_fork: CLong = 2
@@ -434,8 +431,6 @@ public const val SYS_landlock_restrict_self: CLong = 446
 public const val SYS_process_mrelease: CLong = 448
 public const val SYS_futex_waitv: CLong = 449
 public const val SYS_set_mempolicy_home_node: CLong = 450
-
-// offsets in mcontext_t.gregs from sys/ucontext.h
 public const val REG_R0: CInt = 0
 public const val REG_R1: CInt = 1
 public const val REG_R2: CInt = 2
@@ -452,13 +447,8 @@ public const val REG_R12: CInt = 12
 public const val REG_R13: CInt = 13
 public const val REG_R14: CInt = 14
 public const val REG_R15: CInt = 15
-
 public const val NGREG: CInt = 18
+public const val AT_SYSINFO_EHDR: CULong = 33uL
 
-// From NDK's asm/auxvec.h
-public const val AT_SYSINFO_EHDR: CULong = 33u
-
-// Before Android 5.0 (API 21) accept4 wasn't exposed by libc, so it is
-// implemented through the raw syscall.
-public fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt =
-    syscall(SYS_accept4, fd, addr, len, flg).toInt()
+// Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
+public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt

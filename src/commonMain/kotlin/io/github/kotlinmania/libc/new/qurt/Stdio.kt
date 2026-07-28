@@ -4,13 +4,8 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.COpaquePointer
 
-/**
- * Header: `stdio.h`.
- */
-
 public const val BUFSIZ: CUInt = 1024u
 public const val FILENAME_MAX: CUInt = 260u
-
 public const val EOF: CInt = -1
 
 public expect fun fopen(filename: String?, mode: String?): FILE?

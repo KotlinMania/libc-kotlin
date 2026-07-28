@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b64.riscv64
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias WcharT = UInt
 public typealias GregT = Long
@@ -57,12 +56,12 @@ public const val O_NOFOLLOW: CInt = 0x400000
 public const val O_LARGEFILE: CInt = 0x100000
 public const val SIGSTKSZ: ULong = 8192uL
 public const val MINSIGSTKSZ: ULong = 2048uL
-public val COMPAT_HWCAP_ISA_I: CULong = 1 shl (b'I' - b'A')
-public val COMPAT_HWCAP_ISA_M: CULong = 1 shl (b'M' - b'A')
-public val COMPAT_HWCAP_ISA_A: CULong = 1 shl (b'A' - b'A')
-public val COMPAT_HWCAP_ISA_F: CULong = 1 shl (b'F' - b'A')
-public val COMPAT_HWCAP_ISA_D: CULong = 1 shl (b'D' - b'A')
-public val COMPAT_HWCAP_ISA_C: CULong = 1 shl (b'C' - b'A')
+public val COMPAT_HWCAP_ISA_I: CULong = 1 shl ('I' - 'A')
+public val COMPAT_HWCAP_ISA_M: CULong = 1 shl ('M' - 'A')
+public val COMPAT_HWCAP_ISA_A: CULong = 1 shl ('A' - 'A')
+public val COMPAT_HWCAP_ISA_F: CULong = 1 shl ('F' - 'A')
+public val COMPAT_HWCAP_ISA_D: CULong = 1 shl ('D' - 'A')
+public val COMPAT_HWCAP_ISA_C: CULong = 1 shl ('C' - 'A')
 public const val SYS_io_setup: CLong = 0
 public const val SYS_io_destroy: CLong = 1
 public const val SYS_io_submit: CLong = 2

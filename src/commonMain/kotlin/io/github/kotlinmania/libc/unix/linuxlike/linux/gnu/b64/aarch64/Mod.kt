@@ -232,7 +232,7 @@ public const val O_DSYNC: CInt = 4096
 public const val O_FSYNC: CInt = 0x101000
 public const val O_NOATIME: CInt = 262144
 public const val O_PATH: CInt = 2097152
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val MADV_SOFT_OFFLINE: CInt = 101
 public const val MAP_GROWSDOWN: CInt = 0x0100
 public const val EUCLEAN: CInt = 117
@@ -867,7 +867,11 @@ public const val PROT_BTI: CInt = 0x10
 public const val PROT_MTE: CInt = 0x20
 
 public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+
 public expect fun getcontext(ucp: UcontextT?): CInt
+
 public expect fun setcontext(ucp: UcontextT?): CInt
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, ...)
+
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
+
 public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt

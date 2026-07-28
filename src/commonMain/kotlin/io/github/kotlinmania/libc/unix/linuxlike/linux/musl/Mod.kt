@@ -345,7 +345,7 @@ public const val NCCS: ULong = 19uL
 public const val O_TRUNC: CInt = 512
 public const val O_NOATIME: CInt = 262144
 public const val O_CLOEXEC: CInt = 0x80000
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val EBFONT: CInt = 59
 public const val ENOSTR: CInt = 60
 public const val ENODATA: CInt = 61
@@ -394,7 +394,9 @@ public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 8uL
 public const val __SIZEOF_PTHREAD_BARRIERATTR_T: ULong = 4uL
-public const val CPU_SETSIZE: CInt = if cfg!(musl_v1_2_3) { 1024 } else { 128 }
+
+// CPU_SETSIZE is 1024 on musl_v1_2_3 targets.
+public const val CPU_SETSIZE: CInt = 128
 public const val PTRACE_TRACEME: CInt = 0
 public const val PTRACE_PEEKTEXT: CInt = 1
 public const val PTRACE_PEEKDATA: CInt = 2
@@ -527,38 +529,73 @@ public const val POSIX_FADV_DONTNEED: CInt = 4
 public const val POSIX_FADV_NOREUSE: CInt = 5
 
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
+
 public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
+
 public expect fun prlimit(pid: PidT, resource: CInt, newLimit: Rlimit?, oldLimit: Rlimit?): CInt
+
 public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
-public expect fun ptrace(request: CInt, ...): CLong
+
+public expect fun ptrace(request: CInt, vararg args: Any?): CLong
+
 public expect fun getpriority(which: CInt, who: IdT): CInt
+
 public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt
+
 public expect fun fanotifyMark(fd: CInt, flags: CUInt, mask: CULongLong, dirfd: CInt, path: String?): CInt
+
 public expect fun preadv2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT
+
 public expect fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT
+
 public expect fun getauxval(type: CULong): CULong
+
 public expect fun explicitBzero(s: COpaquePointer?, len: ULong)
+
 public expect fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer?
+
 public expect fun adjtimex(buf: Timex?): CInt
+
 public expect fun clockAdjtime(clkId: ClockidT, buf: Timex?): CInt
+
 public expect fun ctermid(s: String?): String?
+
 public expect fun memfdCreate(name: String?, flags: CUInt): CInt
+
 public expect fun mlock2(addr: COpaquePointer?, len: ULong, flags: CUInt): CInt
+
 public expect fun mallocUsableSize(ptr: COpaquePointer?): ULong
+
 public expect fun euidaccess(pathname: String?, mode: CInt): CInt
+
 public expect fun eaccess(pathname: String?, mode: CInt): CInt
+
 public expect fun asctimeR(tm: Tm?, buf: String?): String?
+
 public expect fun dirname(path: String?): String?
+
 public expect fun basename(path: String?): String?
+
 public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
+
 public expect fun posixSpawnFileActionsAddchdirNp(actions: PosixSpawnFileActionsT?, path: String?): CInt
+
 public expect fun posixSpawnFileActionsAddfchdirNp(actions: PosixSpawnFileActionsT?, fd: CInt): CInt
+
 public expect fun getutxent(): Utmpx?
+
 public expect fun getutxid(ut: Utmpx?): Utmpx?
+
 public expect fun getutxline(ut: Utmpx?): Utmpx?
+
 public expect fun pututxline(ut: Utmpx?): Utmpx?
+
 public expect fun setutxent()
+
 public expect fun endutxent()
+
 public expect fun utmpxname(file: String?): CInt
+
 public expect fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt
+
 public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt

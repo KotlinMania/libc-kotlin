@@ -262,7 +262,7 @@ public data class KinfoVmentry(
     val kveVnRdev: ULong,
     val kveIsSpare: IntArray,
     val kveIsSpare: IntArray,
-    val kvePath: List<[cChar>,
+    val kvePath: List<ByteArray>,
 )
 
 public data class CAnonymousFilestat(
@@ -776,7 +776,7 @@ public data class MemoryTypeList(
 )
 
 public data class Pidfh(
-    val priva: List<[uintptrT>,
+    val priva: List<ULongArray>,
     val privb: List<UintptrT>,
 )
 
@@ -819,7 +819,7 @@ public data class SctpSndrcvinfo(
     val sinfoAssocId: SctpAssocT,
     val sinfoKeynumber: UShort,
     val sinfoKeynumberValid: UShort,
-    val reservePad: List<[u8>,
+    val reservePad: List<UByteArray>,
 )
 
 public data class SctpExtrcvinfo(
@@ -839,7 +839,7 @@ public data class SctpExtrcvinfo(
     val serinfoNextPpid: UInt,
     val sinfoKeynumber: UShort,
     val sinfoKeynumberValid: UShort,
-    val reservePad: List<[u8>,
+    val reservePad: List<UByteArray>,
 )
 
 public data class SctpSndinfo(
@@ -1030,7 +1030,7 @@ public data class Filedesc(
 
 public data class Fdescenttbl(
     val fdtNfiles: CInt,
-    val fdtOfiles: List<*mut cVoid>,
+    val fdtOfiles: List<COpaquePointer?>,
 )
 
 public data class Sx(
@@ -1320,55 +1320,55 @@ public data class XktlsSession(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousCrPid(
-    val crPid: PidT = null,
+    val crPid: PidT? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousElf32AuxvUnion(
-    val aVal: CInt = null,
+    val aVal: CInt? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfiEpoch(
-    val tt: TimeT = null,
-    val ph: ULong = null,
+    val tt: TimeT? = null,
+    val ph: ULong? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfiLastchange(
-    val tv: Timeval = null,
-    val ph: CAnonymousPh = null,
+    val tv: Timeval? = null,
+    val ph: CAnonymousPh? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru(
-    val ifruAddr: Sockaddr = null,
-    val ifruDstaddr: Sockaddr = null,
-    val ifruBroadaddr: Sockaddr = null,
-    val ifruBuffer: IfreqBuffer = null,
-    val ifruFlags: ShortArray = null,
-    val ifruIndex: CShort = null,
-    val ifruJid: CInt = null,
-    val ifruMetric: CInt = null,
-    val ifruMtu: CInt = null,
-    val ifruPhys: CInt = null,
-    val ifruMedia: CInt = null,
-    val ifruData: CaddrT = null,
-    val ifruCap: IntArray = null,
-    val ifruFib: CUInt = null,
-    val ifruVlanPcp: CUChar = null,
+    val ifruAddr: Sockaddr? = null,
+    val ifruDstaddr: Sockaddr? = null,
+    val ifruBroadaddr: Sockaddr? = null,
+    val ifruBuffer: IfreqBuffer? = null,
+    val ifruFlags: ShortArray? = null,
+    val ifruIndex: CShort? = null,
+    val ifruJid: CInt? = null,
+    val ifruMetric: CInt? = null,
+    val ifruMtu: CInt? = null,
+    val ifruPhys: CInt? = null,
+    val ifruMedia: CInt? = null,
+    val ifruData: CaddrT? = null,
+    val ifruCap: IntArray? = null,
+    val ifruFib: CUInt? = null,
+    val ifruVlanPcp: CUChar? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfcIfcu(
-    val ifcuBuf: CaddrT = null,
+    val ifcuBuf: CaddrT? = null,
     val ifcuReq: Ifreq? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class InDependaddr(
-    val id46Addr: InAddr4in6 = null,
-    val id6Addr: In6Addr = null,
+    val id46Addr: InAddr4in6? = null,
+    val id6Addr: In6Addr? = null,
 )
 
 public const val LIO_VECTORED: CInt = 4
@@ -1376,94 +1376,94 @@ public const val LIO_WRITEV: CInt = 5
 public const val LIO_READV: CInt = 6
 public const val CAP_RIGHTS_VERSION_00: Int = 0
 public const val CAP_RIGHTS_VERSION: Int = CAP_RIGHTS_VERSION_00
-public const val CAP_READ: ULong = cap_right!(0, 0x0000000000000001u64)
-public const val CAP_WRITE: ULong = cap_right!(0, 0x0000000000000002u64)
-public const val CAP_SEEK_TELL: ULong = cap_right!(0, 0x0000000000000004u64)
-public val CAP_SEEK: ULong = CAP_SEEK_TELL or 0x0000000000000008u64
+public const val CAP_READ: ULong = capRight(0, 0x0000000000000001uL)
+public const val CAP_WRITE: ULong = capRight(0, 0x0000000000000002uL)
+public const val CAP_SEEK_TELL: ULong = capRight(0, 0x0000000000000004uL)
+public val CAP_SEEK: ULong = CAP_SEEK_TELL or 0x0000000000000008uL
 public val CAP_PREAD: ULong = CAP_SEEK or CAP_READ
 public val CAP_PWRITE: ULong = CAP_SEEK or CAP_WRITE
-public const val CAP_MMAP: ULong = cap_right!(0, 0x0000000000000010u64)
+public const val CAP_MMAP: ULong = capRight(0, 0x0000000000000010uL)
 public val CAP_MMAP_R: ULong = CAP_MMAP or CAP_SEEK or CAP_READ
 public val CAP_MMAP_W: ULong = CAP_MMAP or CAP_SEEK or CAP_WRITE
-public val CAP_MMAP_X: ULong = CAP_MMAP or CAP_SEEK or 0x0000000000000020u64
+public val CAP_MMAP_X: ULong = CAP_MMAP or CAP_SEEK or 0x0000000000000020uL
 public val CAP_MMAP_RW: ULong = CAP_MMAP_R or CAP_MMAP_W
 public val CAP_MMAP_RX: ULong = CAP_MMAP_R or CAP_MMAP_X
 public val CAP_MMAP_WX: ULong = CAP_MMAP_W or CAP_MMAP_X
 public val CAP_MMAP_RWX: ULong = CAP_MMAP_R or CAP_MMAP_W or CAP_MMAP_X
-public const val CAP_CREATE: ULong = cap_right!(0, 0x0000000000000040u64)
-public const val CAP_FEXECVE: ULong = cap_right!(0, 0x0000000000000080u64)
-public const val CAP_FSYNC: ULong = cap_right!(0, 0x0000000000000100u64)
-public const val CAP_FTRUNCATE: ULong = cap_right!(0, 0x0000000000000200u64)
-public const val CAP_LOOKUP: ULong = cap_right!(0, 0x0000000000000400u64)
-public const val CAP_FCHDIR: ULong = cap_right!(0, 0x0000000000000800u64)
-public const val CAP_FCHFLAGS: ULong = cap_right!(0, 0x0000000000001000u64)
+public const val CAP_CREATE: ULong = capRight(0, 0x0000000000000040uL)
+public const val CAP_FEXECVE: ULong = capRight(0, 0x0000000000000080uL)
+public const val CAP_FSYNC: ULong = capRight(0, 0x0000000000000100uL)
+public const val CAP_FTRUNCATE: ULong = capRight(0, 0x0000000000000200uL)
+public const val CAP_LOOKUP: ULong = capRight(0, 0x0000000000000400uL)
+public const val CAP_FCHDIR: ULong = capRight(0, 0x0000000000000800uL)
+public const val CAP_FCHFLAGS: ULong = capRight(0, 0x0000000000001000uL)
 public val CAP_CHFLAGSAT: ULong = CAP_FCHFLAGS or CAP_LOOKUP
-public const val CAP_FCHMOD: ULong = cap_right!(0, 0x0000000000002000u64)
+public const val CAP_FCHMOD: ULong = capRight(0, 0x0000000000002000uL)
 public val CAP_FCHMODAT: ULong = CAP_FCHMOD or CAP_LOOKUP
-public const val CAP_FCHOWN: ULong = cap_right!(0, 0x0000000000004000u64)
+public const val CAP_FCHOWN: ULong = capRight(0, 0x0000000000004000uL)
 public val CAP_FCHOWNAT: ULong = CAP_FCHOWN or CAP_LOOKUP
-public const val CAP_FCNTL: ULong = cap_right!(0, 0x0000000000008000u64)
-public const val CAP_FLOCK: ULong = cap_right!(0, 0x0000000000010000u64)
-public const val CAP_FPATHCONF: ULong = cap_right!(0, 0x0000000000020000u64)
-public const val CAP_FSCK: ULong = cap_right!(0, 0x0000000000040000u64)
-public const val CAP_FSTAT: ULong = cap_right!(0, 0x0000000000080000u64)
+public const val CAP_FCNTL: ULong = capRight(0, 0x0000000000008000uL)
+public const val CAP_FLOCK: ULong = capRight(0, 0x0000000000010000uL)
+public const val CAP_FPATHCONF: ULong = capRight(0, 0x0000000000020000uL)
+public const val CAP_FSCK: ULong = capRight(0, 0x0000000000040000uL)
+public const val CAP_FSTAT: ULong = capRight(0, 0x0000000000080000uL)
 public val CAP_FSTATAT: ULong = CAP_FSTAT or CAP_LOOKUP
-public const val CAP_FSTATFS: ULong = cap_right!(0, 0x0000000000100000u64)
-public const val CAP_FUTIMES: ULong = cap_right!(0, 0x0000000000200000u64)
+public const val CAP_FSTATFS: ULong = capRight(0, 0x0000000000100000uL)
+public const val CAP_FUTIMES: ULong = capRight(0, 0x0000000000200000uL)
 public val CAP_FUTIMESAT: ULong = CAP_FUTIMES or CAP_LOOKUP
-public val CAP_LINKAT_TARGET: ULong = CAP_LOOKUP or 0x0000000000400000u64
-public val CAP_MKDIRAT: ULong = CAP_LOOKUP or 0x0000000000800000u64
-public val CAP_MKFIFOAT: ULong = CAP_LOOKUP or 0x0000000001000000u64
-public val CAP_MKNODAT: ULong = CAP_LOOKUP or 0x0000000002000000u64
-public val CAP_RENAMEAT_SOURCE: ULong = CAP_LOOKUP or 0x0000000004000000u64
-public val CAP_SYMLINKAT: ULong = CAP_LOOKUP or 0x0000000008000000u64
-public val CAP_UNLINKAT: ULong = CAP_LOOKUP or 0x0000000010000000u64
-public const val CAP_ACCEPT: ULong = cap_right!(0, 0x0000000020000000u64)
-public const val CAP_BIND: ULong = cap_right!(0, 0x0000000040000000u64)
-public const val CAP_CONNECT: ULong = cap_right!(0, 0x0000000080000000u64)
-public const val CAP_GETPEERNAME: ULong = cap_right!(0, 0x0000000100000000u64)
-public const val CAP_GETSOCKNAME: ULong = cap_right!(0, 0x0000000200000000u64)
-public const val CAP_GETSOCKOPT: ULong = cap_right!(0, 0x0000000400000000u64)
-public const val CAP_LISTEN: ULong = cap_right!(0, 0x0000000800000000u64)
-public const val CAP_PEELOFF: ULong = cap_right!(0, 0x0000001000000000u64)
+public val CAP_LINKAT_TARGET: ULong = CAP_LOOKUP or 0x0000000000400000uL
+public val CAP_MKDIRAT: ULong = CAP_LOOKUP or 0x0000000000800000uL
+public val CAP_MKFIFOAT: ULong = CAP_LOOKUP or 0x0000000001000000uL
+public val CAP_MKNODAT: ULong = CAP_LOOKUP or 0x0000000002000000uL
+public val CAP_RENAMEAT_SOURCE: ULong = CAP_LOOKUP or 0x0000000004000000uL
+public val CAP_SYMLINKAT: ULong = CAP_LOOKUP or 0x0000000008000000uL
+public val CAP_UNLINKAT: ULong = CAP_LOOKUP or 0x0000000010000000uL
+public const val CAP_ACCEPT: ULong = capRight(0, 0x0000000020000000uL)
+public const val CAP_BIND: ULong = capRight(0, 0x0000000040000000uL)
+public const val CAP_CONNECT: ULong = capRight(0, 0x0000000080000000uL)
+public const val CAP_GETPEERNAME: ULong = capRight(0, 0x0000000100000000uL)
+public const val CAP_GETSOCKNAME: ULong = capRight(0, 0x0000000200000000uL)
+public const val CAP_GETSOCKOPT: ULong = capRight(0, 0x0000000400000000uL)
+public const val CAP_LISTEN: ULong = capRight(0, 0x0000000800000000uL)
+public const val CAP_PEELOFF: ULong = capRight(0, 0x0000001000000000uL)
 public const val CAP_RECV: ULong = CAP_READ
 public const val CAP_SEND: ULong = CAP_WRITE
-public const val CAP_SETSOCKOPT: ULong = cap_right!(0, 0x0000002000000000u64)
-public const val CAP_SHUTDOWN: ULong = cap_right!(0, 0x0000004000000000u64)
-public val CAP_BINDAT: ULong = CAP_LOOKUP or 0x0000008000000000u64
-public val CAP_CONNECTAT: ULong = CAP_LOOKUP or 0x0000010000000000u64
-public val CAP_LINKAT_SOURCE: ULong = CAP_LOOKUP or 0x0000020000000000u64
-public val CAP_RENAMEAT_TARGET: ULong = CAP_LOOKUP or 0x0000040000000000u64
+public const val CAP_SETSOCKOPT: ULong = capRight(0, 0x0000002000000000uL)
+public const val CAP_SHUTDOWN: ULong = capRight(0, 0x0000004000000000uL)
+public val CAP_BINDAT: ULong = CAP_LOOKUP or 0x0000008000000000uL
+public val CAP_CONNECTAT: ULong = CAP_LOOKUP or 0x0000010000000000uL
+public val CAP_LINKAT_SOURCE: ULong = CAP_LOOKUP or 0x0000020000000000uL
+public val CAP_RENAMEAT_TARGET: ULong = CAP_LOOKUP or 0x0000040000000000uL
 public val CAP_SOCK_CLIENT: ULong = CAP_CONNECT or CAP_GETPEERNAME or CAP_GETSOCKNAME or CAP_GETSOCKOPT or CAP_PEELOFF or CAP_RECV or CAP_SEND or CAP_SETSOCKOPT or CAP_SHUTDOWN
 public val CAP_SOCK_SERVER: ULong = CAP_ACCEPT or CAP_BIND or CAP_GETPEERNAME or CAP_GETSOCKNAME or CAP_GETSOCKOPT or CAP_LISTEN or CAP_PEELOFF or CAP_RECV or CAP_SEND or CAP_SETSOCKOPT or CAP_SHUTDOWN
-public const val CAP_ALL0: ULong = cap_right!(0, 0x000007FFFFFFFFFFu64)
-public const val CAP_UNUSED0_44: ULong = cap_right!(0, 0x0000080000000000u64)
-public const val CAP_UNUSED0_57: ULong = cap_right!(0, 0x0100000000000000u64)
-public const val CAP_MAC_GET: ULong = cap_right!(1, 0x0000000000000001u64)
-public const val CAP_MAC_SET: ULong = cap_right!(1, 0x0000000000000002u64)
-public const val CAP_SEM_GETVALUE: ULong = cap_right!(1, 0x0000000000000004u64)
-public const val CAP_SEM_POST: ULong = cap_right!(1, 0x0000000000000008u64)
-public const val CAP_SEM_WAIT: ULong = cap_right!(1, 0x0000000000000010u64)
-public const val CAP_EVENT: ULong = cap_right!(1, 0x0000000000000020u64)
-public const val CAP_KQUEUE_EVENT: ULong = cap_right!(1, 0x0000000000000040u64)
-public const val CAP_IOCTL: ULong = cap_right!(1, 0x0000000000000080u64)
-public const val CAP_TTYHOOK: ULong = cap_right!(1, 0x0000000000000100u64)
-public const val CAP_PDGETPID: ULong = cap_right!(1, 0x0000000000000200u64)
-public const val CAP_PDWAIT: ULong = cap_right!(1, 0x0000000000000400u64)
-public const val CAP_PDKILL: ULong = cap_right!(1, 0x0000000000000800u64)
-public const val CAP_EXTATTR_DELETE: ULong = cap_right!(1, 0x0000000000001000u64)
-public const val CAP_EXTATTR_GET: ULong = cap_right!(1, 0x0000000000002000u64)
-public const val CAP_EXTATTR_LIST: ULong = cap_right!(1, 0x0000000000004000u64)
-public const val CAP_EXTATTR_SET: ULong = cap_right!(1, 0x0000000000008000u64)
-public const val CAP_ACL_CHECK: ULong = cap_right!(1, 0x0000000000010000u64)
-public const val CAP_ACL_DELETE: ULong = cap_right!(1, 0x0000000000020000u64)
-public const val CAP_ACL_GET: ULong = cap_right!(1, 0x0000000000040000u64)
-public const val CAP_ACL_SET: ULong = cap_right!(1, 0x0000000000080000u64)
-public const val CAP_KQUEUE_CHANGE: ULong = cap_right!(1, 0x0000000000100000u64)
+public const val CAP_ALL0: ULong = capRight(0, 0x000007FFFFFFFFFFuL)
+public const val CAP_UNUSED0_44: ULong = capRight(0, 0x0000080000000000uL)
+public const val CAP_UNUSED0_57: ULong = capRight(0, 0x0100000000000000uL)
+public const val CAP_MAC_GET: ULong = capRight(1, 0x0000000000000001uL)
+public const val CAP_MAC_SET: ULong = capRight(1, 0x0000000000000002uL)
+public const val CAP_SEM_GETVALUE: ULong = capRight(1, 0x0000000000000004uL)
+public const val CAP_SEM_POST: ULong = capRight(1, 0x0000000000000008uL)
+public const val CAP_SEM_WAIT: ULong = capRight(1, 0x0000000000000010uL)
+public const val CAP_EVENT: ULong = capRight(1, 0x0000000000000020uL)
+public const val CAP_KQUEUE_EVENT: ULong = capRight(1, 0x0000000000000040uL)
+public const val CAP_IOCTL: ULong = capRight(1, 0x0000000000000080uL)
+public const val CAP_TTYHOOK: ULong = capRight(1, 0x0000000000000100uL)
+public const val CAP_PDGETPID: ULong = capRight(1, 0x0000000000000200uL)
+public const val CAP_PDWAIT: ULong = capRight(1, 0x0000000000000400uL)
+public const val CAP_PDKILL: ULong = capRight(1, 0x0000000000000800uL)
+public const val CAP_EXTATTR_DELETE: ULong = capRight(1, 0x0000000000001000uL)
+public const val CAP_EXTATTR_GET: ULong = capRight(1, 0x0000000000002000uL)
+public const val CAP_EXTATTR_LIST: ULong = capRight(1, 0x0000000000004000uL)
+public const val CAP_EXTATTR_SET: ULong = capRight(1, 0x0000000000008000uL)
+public const val CAP_ACL_CHECK: ULong = capRight(1, 0x0000000000010000uL)
+public const val CAP_ACL_DELETE: ULong = capRight(1, 0x0000000000020000uL)
+public const val CAP_ACL_GET: ULong = capRight(1, 0x0000000000040000uL)
+public const val CAP_ACL_SET: ULong = capRight(1, 0x0000000000080000uL)
+public const val CAP_KQUEUE_CHANGE: ULong = capRight(1, 0x0000000000100000uL)
 public val CAP_KQUEUE: ULong = CAP_KQUEUE_EVENT or CAP_KQUEUE_CHANGE
-public const val CAP_ALL1: ULong = cap_right!(1, 0x00000000001FFFFFu64)
-public const val CAP_UNUSED1_22: ULong = cap_right!(1, 0x0000000000200000u64)
-public const val CAP_UNUSED1_57: ULong = cap_right!(1, 0x0100000000000000u64)
+public const val CAP_ALL1: ULong = capRight(1, 0x00000000001FFFFFuL)
+public const val CAP_UNUSED1_22: ULong = capRight(1, 0x0000000000200000uL)
+public const val CAP_UNUSED1_57: ULong = capRight(1, 0x0100000000000000uL)
 public val CAP_FCNTL_GETFL: UInt = 1 shl 3
 public val CAP_FCNTL_SETFL: UInt = 1 shl 4
 public val CAP_FCNTL_GETOWN: UInt = 1 shl 5
@@ -1532,6 +1532,9 @@ public const val MAP_PREFAULT_READ: CInt = 0x00040000
 public const val MAP_ALIGNMENT_SHIFT: CInt = 24
 public val MAP_ALIGNMENT_MASK: CInt = 0xff shl MAP_ALIGNMENT_SHIFT
 public val MAP_ALIGNED_SUPER: CInt = 1 shl MAP_ALIGNMENT_SHIFT
+
+public fun MAP_ALIGNED(a: CInt): CInt = a shl MAP_ALIGNMENT_SHIFT
+
 public const val POSIX_FADV_NORMAL: CInt = 0
 public const val POSIX_FADV_RANDOM: CInt = 1
 public const val POSIX_FADV_SEQUENTIAL: CInt = 2
@@ -1553,22 +1556,22 @@ public const val EVFILT_LIO: Short = -10
 public const val EVFILT_USER: Short = -11
 public const val EVFILT_SENDFILE: Short = -12
 public const val EVFILT_EMPTY: Short = -13
-public const val EV_ADD: UShort = 0x1u
-public const val EV_DELETE: UShort = 0x2u
-public const val EV_ENABLE: UShort = 0x4u
-public const val EV_DISABLE: UShort = 0x8u
-public const val EV_FORCEONESHOT: UShort = 0x100u
-public const val EV_KEEPUDATA: UShort = 0x200u
-public const val EV_ONESHOT: UShort = 0x10u
-public const val EV_CLEAR: UShort = 0x20u
-public const val EV_RECEIPT: UShort = 0x40u
-public const val EV_DISPATCH: UShort = 0x80u
-public const val EV_SYSFLAGS: UShort = 0xf000u
-public const val EV_DROP: UShort = 0x1000u
-public const val EV_FLAG1: UShort = 0x2000u
-public const val EV_FLAG2: UShort = 0x4000u
-public const val EV_EOF: UShort = 0x8000u
-public const val EV_ERROR: UShort = 0x4000u
+public val EV_ADD: UShort = (0x1).toUShort()
+public val EV_DELETE: UShort = (0x2).toUShort()
+public val EV_ENABLE: UShort = (0x4).toUShort()
+public val EV_DISABLE: UShort = (0x8).toUShort()
+public val EV_FORCEONESHOT: UShort = (0x100).toUShort()
+public val EV_KEEPUDATA: UShort = (0x200).toUShort()
+public val EV_ONESHOT: UShort = (0x10).toUShort()
+public val EV_CLEAR: UShort = (0x20).toUShort()
+public val EV_RECEIPT: UShort = (0x40).toUShort()
+public val EV_DISPATCH: UShort = (0x80).toUShort()
+public val EV_SYSFLAGS: UShort = (0xf000).toUShort()
+public val EV_DROP: UShort = (0x1000).toUShort()
+public val EV_FLAG1: UShort = (0x2000).toUShort()
+public val EV_FLAG2: UShort = (0x4000).toUShort()
+public val EV_EOF: UShort = (0x8000).toUShort()
+public val EV_ERROR: UShort = (0x4000).toUShort()
 public const val NOTE_TRIGGER: UInt = 0x01000000u
 public const val NOTE_FFNOP: UInt = 0x00000000u
 public const val NOTE_FFAND: UInt = 0x40000000u
@@ -2380,9 +2383,9 @@ public const val _UUID_NODE_LEN: ULong = 6uL
 public const val PD_DAEMON: CInt = 0x00000001
 public const val PD_CLOEXEC: CInt = 0x00000002
 public val PD_ALLOWED_AT_FORK: CInt = PD_DAEMON or PD_CLOEXEC
-public const val RTP_PRIO_REALTIME: CUShort = 2u
-public const val RTP_PRIO_NORMAL: CUShort = 3u
-public const val RTP_PRIO_IDLE: CUShort = 4u
+public val RTP_PRIO_REALTIME: CUShort = (2).toUShort()
+public val RTP_PRIO_NORMAL: CUShort = (3).toUShort()
+public val RTP_PRIO_IDLE: CUShort = (4).toUShort()
 public const val UF_SYSTEM: CULong = 0x00000080uL
 public const val UF_SPARSE: CULong = 0x00000100uL
 public const val UF_OFFLINE: CULong = 0x00000200uL
@@ -3021,8 +3024,8 @@ public const val RB_REROOT: CInt = 0x200000
 public const val RB_POWERCYCLE: CInt = 0x400000
 public const val RB_PROBE: CInt = 0x10000000
 public const val RB_MULTIPLE: CInt = 0x20000000
-public const val INC_ISIPV6: CUChar = 0x01u
-public const val INC_IPV6MINMTU: CUChar = 0x02u
+public val INC_ISIPV6: CUChar = (0x01).toUByte()
+public val INC_IPV6MINMTU: CUChar = (0x02).toUByte()
 public const val CLOCK_BOOTTIME: ClockidT = CLOCK_UPTIME
 public const val CLOCK_REALTIME_COARSE: ClockidT = CLOCK_REALTIME_FAST
 public const val CLOCK_MONOTONIC_COARSE: ClockidT = CLOCK_MONOTONIC_FAST
@@ -3039,264 +3042,523 @@ public const val KCMP_VM: CInt = 104
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+
 public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
+
 public expect fun mALLOCXALIGN(lg: CUInt): CInt
+
 public expect fun sOCKCREDSIZE(ngrps: ULong): ULong
+
 public expect fun uname(buf: Utsname?): CInt
-public expect fun cPUZERO(cpuset: &mut cpusetT): ()
-public expect fun cPUFILL(cpuset: &mut cpusetT): ()
-public expect fun cPUSET(cpu: ULong, cpuset: &mut cpusetT): ()
-public expect fun cPUCLR(cpu: ULong, cpuset: &mut cpusetT): ()
-public expect fun cPUISSET(cpu: ULong, cpuset: &cpusetT): Boolean
-public expect fun cPUCOUNT(cpuset: &cpusetT): CInt
+
+public expect fun cPUZERO(cpuset: CpusetT?)
+
+public expect fun cPUFILL(cpuset: CpusetT?)
+
+public expect fun cPUSET(cpu: ULong, cpuset: CpusetT?)
+
+public expect fun cPUCLR(cpu: ULong, cpuset: CpusetT?)
+
+public expect fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean
+
+public expect fun cPUCOUNT(cpuset: CpusetT?): CInt
+
 public expect fun sOCKCRED2SIZE(ngrps: ULong): ULong
+
 public expect fun pROTMAX(x: CInt): CInt
+
 public expect fun pROTMAXEXTRACT(x: CInt): CInt
 
 public expect fun fhlink(fhp: FhandleT?, to: String?): CInt
+
 public expect fun fhlinkat(fhp: FhandleT?, tofd: CInt, to: String?): CInt
+
 public expect fun fhreadlink(fhp: FhandleT?, buf: String?, bufsize: ULong): CInt
+
 public expect fun getfhat(fd: CInt, path: String?, fhp: Fhandle?, flag: CInt): CInt
+
 public expect fun error(): CInt?
+
 public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt
+
 public expect fun aioError(aiocbp: Aiocb?): CInt
+
 public expect fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt
+
 public expect fun aioRead(aiocbp: Aiocb?): CInt
+
 public expect fun aioReadv(aiocbp: Aiocb?): CInt
+
 public expect fun aioReturn(aiocbp: Aiocb?): SsizeT
+
 public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt
+
 public expect fun aioWrite(aiocbp: Aiocb?): CInt
+
 public expect fun aioWritev(aiocbp: Aiocb?): CInt
+
 public expect fun copyFileRange(infd: CInt, inoffp: OffT?, outfd: CInt, outoffp: OffT?, len: ULong, flags: CUInt): SsizeT
+
 public expect fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: CInt): String?
+
 public expect fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: String?): CInt
+
 public expect fun extattrDeleteFile(path: String?, attrnamespace: CInt, attrname: String?): CInt
+
 public expect fun extattrDeleteLink(path: String?, attrnamespace: CInt, attrname: String?): CInt
+
 public expect fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrGetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrGetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrListFile(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrListLink(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrSetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrSetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun fspacectl(fd: CInt, cmd: CInt, rqsr: SpacectlRange?, flags: CInt, rmsr: SpacectlRange?): CInt
+
 public expect fun jail(jail: Jail?): CInt
+
 public expect fun jailAttach(jid: CInt): CInt
+
 public expect fun jailRemove(jid: CInt): CInt
+
 public expect fun jailGet(iov: Iovec?, niov: CUInt, flags: CInt): CInt
+
 public expect fun jailSet(iov: Iovec?, niov: CUInt, flags: CInt): CInt
+
 public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt
+
 public expect fun getutxuser(user: String?): Utmpx?
+
 public expect fun setutxdb(type: CInt, file: String?): CInt
+
 public expect fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): SsizeT
+
 public expect fun mqGetfdNp(mqd: MqdT): CInt
+
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt
+
 public expect fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt
+
 public expect fun ftok(pathname: String?, projId: CInt): KeyT
+
 public expect fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt
+
 public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer?
+
 public expect fun shmdt(shmaddr: COpaquePointer?): CInt
+
 public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt
+
 public expect fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt
-public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, ...): CInt
+
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt
+
 public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
+
 public expect fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt
+
 public expect fun msgget(key: KeyT, msgflg: CInt): CInt
+
 public expect fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgflg: CInt): CInt
+
 public expect fun cfmakesane(termios: Termios?)
+
 public expect fun pdfork(fdp: CInt?, flags: CInt): PidT
+
 public expect fun pdgetpid(fd: CInt, pidp: PidT?): CInt
+
 public expect fun pdkill(fd: CInt, signum: CInt): CInt
+
 public expect fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: Rtprio?): CInt
+
 public expect fun uuidgen(store: Uuid?, count: CInt): CInt
+
 public expect fun thrKill(id: CLong, sig: CInt): CInt
+
 public expect fun thrKill2(pid: PidT, id: CLong, sig: CInt): CInt
+
 public expect fun thrSelf(tid: CLong?): CInt
+
 public expect fun pthreadGetthreadidNp(): CInt
+
 public expect fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: ULong, cpusetp: CpusetT?): CInt
+
 public expect fun pthreadSetaffinityNp(td: PthreadT, cpusetsize: ULong, cpusetp: CpusetT?): CInt
+
 public expect fun schedGetaffinity(pid: PidT, cpusetsz: ULong, cpuset: CpusetT?): CInt
+
 public expect fun schedSetaffinity(pid: PidT, cpusetsz: ULong, cpuset: CpusetT?): CInt
+
 public expect fun schedGetcpu(): CInt
+
 public expect fun pthreadMutexConsistent(mutex: PthreadMutexT?): CInt
+
 public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT?, robust: CInt?): CInt
+
 public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robust: CInt): CInt
+
 public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
+
 public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
+
 public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt
+
 public expect fun statfs(path: String?, buf: Statfs?): CInt
+
 public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt
+
 public expect fun dup3(src: CInt, dst: CInt, flags: CInt): CInt
+
 public expect fun xuname(nmln: CInt, buf: COpaquePointer?): CInt
+
 public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt): SsizeT
+
 public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt, timeout: Timespec?): SsizeT
+
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
+
 public expect fun fhopen(fhp: FhandleT?, flags: CInt): CInt
+
 public expect fun fhstat(fhp: Fhandle?, buf: Stat?): CInt
+
 public expect fun fhstatfs(fhp: FhandleT?, buf: Statfs?): CInt
+
 public expect fun getfh(path: String?, fhp: FhandleT?): CInt
+
 public expect fun lgetfh(path: String?, fhp: FhandleT?): CInt
+
 public expect fun getfsstat(buf: Statfs?, bufsize: CLong, mode: CInt): CInt
+
 public expect fun getmntinfo(mntbufp: COpaquePointer?, mode: CInt): CInt
+
 public expect fun mount(type: String?, dir: String?, flags: CInt, data: COpaquePointer?): CInt
+
 public expect fun nmount(iov: Iovec?, niov: CUInt, flags: CInt): CInt
-public expect fun setproctitle(fmt: String?, ...)
+
+public expect fun setproctitle(fmt: String?, vararg args: Any?)
+
 public expect fun rfork(flags: CInt): CInt
+
 public expect fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: CpusetT?): CInt
+
 public expect fun cpusetSetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: CpusetT?): CInt
+
 public expect fun cpuset(setid: CpusetidT?): CInt
+
 public expect fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid: CpusetidT?): CInt
+
 public expect fun cpusetSetid(which: CpuwhichT, id: IdT, setid: CpusetidT): CInt
+
 public expect fun capEnter(): CInt
+
 public expect fun capGetmode(modep: CUInt?): CInt
+
 public expect fun capFcntlsGet(fd: CInt, fcntlrightsp: UInt?): CInt
+
 public expect fun capFcntlsLimit(fd: CInt, fcntlrights: UInt): CInt
+
 public expect fun capIoctlsGet(fd: CInt, cmds: ULong?, maxcmds: ULong): Long
+
 public expect fun capIoctlsLimit(fd: CInt, cmds: ULong?, ncmds: ULong): CInt
-public expect fun capRightsInit(version: CInt, rights: CapRightsT?, ...): CapRightsT?
+
+public expect fun capRightsInit(version: CInt, rights: CapRightsT?, vararg args: Any?): CapRightsT?
+
 public expect fun capRightsGet(version: CInt, fd: CInt, rightsp: CapRightsT?): CInt
-public expect fun capRightsSet(rights: CapRightsT?, ...): CapRightsT?
-public expect fun capRightsClear(rights: CapRightsT?, ...): CapRightsT?
-public expect fun capRightsIsSet(rights: CapRightsT?, ...): Boolean
+
+public expect fun capRightsSet(rights: CapRightsT?, vararg args: Any?): CapRightsT?
+
+public expect fun capRightsClear(rights: CapRightsT?, vararg args: Any?): CapRightsT?
+
+public expect fun capRightsIsSet(rights: CapRightsT?, vararg args: Any?): Boolean
+
 public expect fun capRightsIsValid(rights: CapRightsT?): Boolean
+
 public expect fun capRightsLimit(fd: CInt, rights: CapRightsT?): CInt
+
 public expect fun capRightsMerge(dst: CapRightsT?, src: CapRightsT?): CapRightsT?
+
 public expect fun capRightsRemove(dst: CapRightsT?, src: CapRightsT?): CapRightsT?
+
 public expect fun capRightsContains(big: CapRightsT?, little: CapRightsT?): Boolean
+
 public expect fun capSandboxed(): Boolean
+
 public expect fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer?
+
 public expect fun ffs(value: CInt): CInt
+
 public expect fun ffsl(value: CLong): CInt
+
 public expect fun ffsll(value: CLongLong): CInt
+
 public expect fun fls(value: CInt): CInt
+
 public expect fun flsl(value: CLong): CInt
+
 public expect fun flsll(value: CLongLong): CInt
+
 public expect fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?)
+
 public expect fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+
 public expect fun mallctlnametomib(name: String?, mibp: ULong?, miplen: ULong?): CInt
+
 public expect fun mallctlbymib(mib: ULong?, mible: ULong, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+
 public expect fun mallocx(size: ULong, flags: CInt): COpaquePointer?
+
 public expect fun rallocx(ptr: COpaquePointer?, size: ULong, flags: CInt): COpaquePointer?
+
 public expect fun xallocx(ptr: COpaquePointer?, size: ULong, extra: ULong, flags: CInt): ULong
+
 public expect fun sallocx(ptr: COpaquePointer?, flags: CInt): ULong
+
 public expect fun dallocx(ptr: COpaquePointer?, flags: CInt)
+
 public expect fun sdallocx(ptr: COpaquePointer?, size: ULong, flags: CInt)
+
 public expect fun nallocx(size: ULong, flags: CInt): ULong
+
 public expect fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt
+
 public expect fun getpagesize(): CInt
+
 public expect fun getpagesizes(pagesize: ULong?, nelem: CInt): CInt
+
 public expect fun clockGetcpuclockid2(arg1: IdT, arg2: CInt, arg3: ClockidT?): CInt
+
 public expect fun strchrnul(s: String?, c: CInt): String?
+
 public expect fun shmCreateLargepage(path: String?, flags: CInt, psind: CInt, allocPolicy: CInt, mode: ModeT): CInt
+
 public expect fun shmRename(pathFrom: String?, pathTo: String?, flags: CInt): CInt
+
 public expect fun memfdCreate(name: String?, flags: CUInt): CInt
+
 public expect fun setaudit(auditinfo: AuditinfoT?): CInt
+
 public expect fun eventfd(initval: CUInt, flags: CInt): CInt
+
 public expect fun eventfdRead(fd: CInt, value: EventfdT?): CInt
+
 public expect fun eventfdWrite(fd: CInt, value: EventfdT): CInt
+
 public expect fun fdatasync(fd: CInt): CInt
+
 public expect fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt
-public expect fun setproctitleFast(fmt: String?, ...)
+
+public expect fun setproctitleFast(fmt: String?, vararg args: Any?)
+
 public expect fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt
+
 public expect fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt
-public expect fun umtxOp(obj: COpaquePointer?, op: CInt, val: CULong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt
+
+public expect fun umtxOp(obj: COpaquePointer?, op: CInt, `val`: CULong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt
+
 public expect fun sctpPeeloff(s: CInt, id: SctpAssocT): CInt
+
 public expect fun sctpBindx(s: CInt, addrs: Sockaddr?, num: CInt, tpe: CInt): CInt
+
 public expect fun sctpConnectx(s: CInt, addrs: Sockaddr?, addrcnt: CInt, id: SctpAssocT?): CInt
+
 public expect fun sctpGetaddrlen(family: SaFamilyT): CInt
+
 public expect fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt
+
 public expect fun sctpFreepaddrs(addrs: Sockaddr?)
+
 public expect fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt
+
 public expect fun sctpFreeladdrs(addrs: Sockaddr?)
+
 public expect fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: SocklenT?): CInt
+
 public expect fun sctpSendv(sd: CInt, iov: Iovec?, iovcnt: CInt, addrs: Sockaddr?, addrcnt: CInt, info: COpaquePointer?, infolen: SocklenT, infotype: CUInt, flags: CInt): SsizeT
+
 public expect fun sctpRecvv(sd: CInt, iov: Iovec?, iovcnt: CInt, from: Sockaddr?, fromlen: SocklenT?, info: COpaquePointer?, infolen: SocklenT?, infotype: CUInt?, flags: CInt?): SsizeT
+
 public expect fun timerfdCreate(clockid: CInt, flags: CInt): CInt
+
 public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt
+
 public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt
+
 public expect fun closefrom(lowfd: CInt)
+
 public expect fun closeRange(lowfd: CUInt, highfd: CUInt, flags: CInt): CInt
+
 public expect fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun kcmp(pid1: PidT, pid2: PidT, type: CInt, idx1: CULong, idx2: CULong): CInt
+
 public expect fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer?
+
 public expect fun memstatStrerror(error: CInt): String?
+
 public expect fun memstatMtlAlloc(): MemoryTypeList?
+
 public expect fun memstatMtlFirst(list: MemoryTypeList?): MemoryType?
+
 public expect fun memstatMtlNext(mtp: MemoryType?): MemoryType?
+
 public expect fun memstatMtlFind(list: MemoryTypeList?, allocator: CInt, name: String?): MemoryType?
+
 public expect fun memstatMtlFree(list: MemoryTypeList?)
+
 public expect fun memstatMtlGeterror(list: MemoryTypeList?): CInt
+
 public expect fun memstatGetName(mtp: MemoryType?): String?
+
 public expect fun kvmDpcpuSetcpu(kd: KvmT?, cpu: CUInt): CInt
+
 public expect fun kvmGetargv(kd: KvmT?, p: KinfoProc?, nchr: CInt): COpaquePointer?
+
 public expect fun kvmGetcptime(kd: KvmT?, cpTime: CLong?): CInt
+
 public expect fun kvmGetenvv(kd: KvmT?, p: KinfoProc?, nchr: CInt): COpaquePointer?
+
 public expect fun kvmGeterr(kd: KvmT?): String?
+
 public expect fun kvmGetmaxcpu(kd: KvmT?): CInt
+
 public expect fun kvmGetncpus(kd: KvmT?): CInt
+
 public expect fun kvmGetpcpu(kd: KvmT?, cpu: CInt): COpaquePointer?
+
 public expect fun kvmCounterU64Fetch(kd: KvmT?, base: CULong): ULong
+
 public expect fun kvmGetswapinfo(kd: KvmT?, info: KvmSwap?, maxswap: CInt, flags: CInt): CInt
+
 public expect fun kvmNative(kd: KvmT?): CInt
+
 public expect fun kvmNlist(kd: KvmT?, nl: Nlist?): CInt
+
 public expect fun kvmNlist2(kd: KvmT?, nl: KvmNlist?): CInt
+
 public expect fun kvmReadZpcpu(kd: KvmT?, base: CULong, buf: COpaquePointer?, size: ULong, cpu: CInt): SsizeT
+
 public expect fun kvmRead2(kd: KvmT?, addr: KvaddrT, buf: COpaquePointer?, nbytes: ULong): SsizeT
+
 public expect fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt
+
 public expect fun extattrStringToNamespace(string: String?, attrnamespace: CInt?): CInt
+
 public expect fun realhostname(host: String?, hsize: ULong, ip: InAddr?): CInt
+
 public expect fun realhostnameSa(host: String?, hsize: ULong, addr: Sockaddr?, addrlen: CInt): CInt
+
 public expect fun kldIsloaded(name: String?): CInt
+
 public expect fun kldLoad(name: String?): CInt
+
 public expect fun kinfoGetvmmap(pid: PidT, cntp: CInt?): KinfoVmentry?
+
 public expect fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt)
+
 public expect fun humanizeNumber(buf: String?, len: ULong, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt
-public expect fun flopen(path: String?, flags: CInt, ...): CInt
-public expect fun flopenat(fd: CInt, path: String?, flags: CInt, ...): CInt
+
+public expect fun flopen(path: String?, flags: CInt, vararg args: Any?): CInt
+
+public expect fun flopenat(fd: CInt, path: String?, flags: CInt, vararg args: Any?): CInt
+
 public expect fun getlocalbase(): String?
+
 public expect fun pidfileOpen(path: String?, mode: ModeT, pidptr: PidT?): Pidfh?
+
 public expect fun pidfileWrite(path: Pidfh?): CInt
+
 public expect fun pidfileClose(path: Pidfh?): CInt
+
 public expect fun pidfileRemove(path: Pidfh?): CInt
+
 public expect fun pidfileFileno(path: Pidfh?): CInt
+
 public expect fun procstatOpenSysctl(): Procstat?
+
 public expect fun procstatGetfiles(procstat: Procstat?, kp: KinfoProc?, mmapped: CInt): FilestatList?
+
 public expect fun procstatFreefiles(procstat: Procstat?, head: FilestatList?)
+
 public expect fun procstatGetprocs(procstat: Procstat?, what: CInt, arg: CInt, count: CUInt?): KinfoProc?
+
 public expect fun procstatFreeprocs(procstat: Procstat?, p: KinfoProc?)
+
 public expect fun procstatGetvmmap(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): KinfoVmentry?
+
 public expect fun procstatFreevmmap(procstat: Procstat?, vmmap: KinfoVmentry?)
+
 public expect fun procstatClose(procstat: Procstat?)
+
 public expect fun procstatFreeargv(procstat: Procstat?)
+
 public expect fun procstatFreeenvv(procstat: Procstat?)
+
 public expect fun procstatFreegroups(procstat: Procstat?, groups: GidT?)
+
 public expect fun procstatFreeptlwpinfo(procstat: Procstat?, pl: PtraceLwpinfo?)
+
 public expect fun procstatGetargv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer?
+
 public expect fun procstatGetenvv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer?
+
 public expect fun procstatGetgroups(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): GidT?
+
 public expect fun procstatGetosrel(procstat: Procstat?, kp: KinfoProc?, osrelp: CInt?): CInt
+
 public expect fun procstatGetpathname(procstat: Procstat?, kp: KinfoProc?, pathname: String?, maxlen: ULong): CInt
+
 public expect fun procstatGetrlimit(procstat: Procstat?, kp: KinfoProc?, which: CInt, rlimit: Rlimit?): CInt
+
 public expect fun procstatGetumask(procstat: Procstat?, kp: KinfoProc?, maskp: CUShort?): CInt
+
 public expect fun procstatOpenCore(filename: String?): Procstat?
+
 public expect fun procstatOpenKvm(nlistf: String?, memf: String?): Procstat?
+
 public expect fun procstatGetSocketInfo(proc: Procstat?, fst: Filestat?, sock: Sockstat?, errbuf: String?): CInt
+
 public expect fun procstatGetVnodeInfo(proc: Procstat?, fst: Filestat?, vn: Vnstat?, errbuf: String?): CInt
+
 public expect fun procstatGetPtsInfo(proc: Procstat?, fst: Filestat?, pts: Ptsstat?, errbuf: String?): CInt
+
 public expect fun procstatGetShmInfo(proc: Procstat?, fst: Filestat?, shm: Shmstat?, errbuf: String?): CInt
+
 public expect fun timerCreate(clockId: ClockidT, evp: Sigevent?, timerid: TimerT?): CInt
+
 public expect fun timerDelete(timerid: TimerT): CInt
+
 public expect fun timerGetoverrun(timerid: TimerT): CInt
+
 public expect fun timerGettime(timerid: TimerT, value: Itimerspec?): CInt
+
 public expect fun timerSettime(timerid: TimerT, flags: CInt, value: Itimerspec?, ovalue: Itimerspec?): CInt
+
 public expect fun devstatGetnumdevs(kd: KvmT?): CInt
+
 public expect fun devstatGetgeneration(kd: KvmT?): CLong
+
 public expect fun devstatGetversion(kd: KvmT?): CInt
+
 public expect fun devstatCheckversion(kd: KvmT?): CInt
+
 public expect fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt
+
 public expect fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt

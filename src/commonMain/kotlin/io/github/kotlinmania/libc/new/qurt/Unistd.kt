@@ -4,19 +4,13 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.COpaquePointer
 
-/**
- * Header: `unistd.h`.
- */
-
 public const val F_OK: CInt = 0
 public const val X_OK: CInt = 1
 public const val W_OK: CInt = 2
 public const val R_OK: CInt = 4
-
 public const val SEEK_SET: CInt = 0
 public const val SEEK_CUR: CInt = 1
 public const val SEEK_END: CInt = 2
-
 public const val _PC_LINK_MAX: CInt = 0
 public const val _PC_MAX_CANON: CInt = 1
 public const val _PC_MAX_INPUT: CInt = 2
@@ -38,7 +32,6 @@ public const val _PC_REC_XFER_ALIGN: CInt = 17
 public const val _PC_ALLOC_SIZE_MIN: CInt = 18
 public const val _PC_SYMLINK_MAX: CInt = 19
 public const val _PC_2_SYMLINKS: CInt = 20
-
 public const val _SC_ARG_MAX: CInt = 0
 public const val _SC_CHILD_MAX: CInt = 1
 public const val _SC_CLK_TCK: CInt = 2

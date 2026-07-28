@@ -63,22 +63,22 @@ public data class Reg(
 
 public data class Fpreg32(
     val fprEnv: UIntArray,
-    val fprAcc: List<[u8>,
+    val fprAcc: List<UByteArray>,
     val fprExSw: UInt,
     val fprPad: UByteArray,
 )
 
 public data class Fpreg(
     val fprEnv: ULongArray,
-    val fprAcc: List<[u8>,
-    val fprXacc: List<[u8>,
+    val fprAcc: List<UByteArray>,
+    val fprXacc: List<UByteArray>,
     val fprSpare: ULongArray,
 )
 
 public data class Xmmreg(
     val xmmEnv: UIntArray,
-    val xmmAcc: List<[u8>,
-    val xmmReg: List<[u8>,
+    val xmmAcc: List<UByteArray>,
+    val xmmReg: List<UByteArray>,
     val xmmPad: UByteArray,
 )
 
@@ -136,7 +136,7 @@ public data class MaxAlignT(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousElf64AuxvUnion(
-    val aVal: CLong = null,
+    val aVal: CLong? = null,
     val aPtr: COpaquePointer? = null,
     val aFcn: (() -> Unit)? = null,
 )

@@ -32,32 +32,38 @@ public typealias HttpFreeFunction = ((COpaquePointer?) -> Unit)?
 public typealias HttpPasswordCB = ((Int, HttpAuthType, COpaquePointer?, COpaquePointer?, COpaquePointer?, Int, COpaquePointer?, ULong?, Int?) -> Int)?
 public typealias SocklenT = UInt
 
-public enum class AudioFormat(public val value: UInt) {
+public enum class AudioFormat(
+    public val value: UInt,
+) {
     Stereo(0u),
     Mono(0x10u),
-    ;
 }
 
-public enum class DisplayMode(public val value: UInt) {
+public enum class DisplayMode(
+    public val value: UInt,
+) {
     Lcd(0u),
-    ;
 }
 
-public enum class DisplayPixelFormat(public val value: UInt) {
+public enum class DisplayPixelFormat(
+    public val value: UInt,
+) {
     Psm5650(0u),
     Psm5551(1u),
     Psm4444(2u),
     Psm8888(3u),
-    ;
 }
 
-public enum class DisplaySetBufSync(public val value: UInt) {
+public enum class DisplaySetBufSync(
+    public val value: UInt,
+) {
     Immediate(0u),
     NextFrame(1u),
-    ;
 }
 
-public enum class AudioOutputFrequency(public val value: Int) {
+public enum class AudioOutputFrequency(
+    public val value: Int,
+) {
     Khz48(48000),
     Khz44_1(44100),
     Khz32(32000),
@@ -67,23 +73,26 @@ public enum class AudioOutputFrequency(public val value: Int) {
     Khz12(12000),
     Khz11_025(11025),
     Khz8(8000),
-    ;
 }
 
-public enum class AudioInputFrequency(public val value: Int) {
+public enum class AudioInputFrequency(
+    public val value: Int,
+) {
     Khz44_1(44100),
     Khz22_05(22050),
     Khz11_025(11025),
-    ;
 }
 
-public enum class CtrlMode(public val value: UInt) {
+public enum class CtrlMode(
+    public val value: UInt,
+) {
     Digital(0u),
     Analog(1u),
-    ;
 }
 
-public enum class GeMatrixType(public val value: Int) {
+public enum class GeMatrixType(
+    public val value: Int,
+) {
     Bone0(0),
     Bone1(1),
     Bone2(2),
@@ -96,19 +105,21 @@ public enum class GeMatrixType(public val value: Int) {
     View(9),
     Projection(10),
     TexGen(11),
-    ;
 }
 
-public enum class GeListState(public val value: Int) {
+public enum class GeListState(
+    public val value: Int,
+) {
     Done(0),
     Queued(1),
     DrawingDone(2),
     StallReached(3),
     CancelDone(4),
-    ;
 }
 
-public enum class GeCommand(public val value: UByte) {
+public enum class GeCommand(
+    public val value: UByte,
+) {
     Nop(0u),
     Vaddr(0x1u),
     Iaddr(0x2u),
@@ -365,10 +376,11 @@ public enum class GeCommand(public val value: UByte) {
     UnknownFD(0xfdu),
     UnknownFE(0xfeu),
     NopFF(0xffu),
-    ;
 }
 
-public enum class SceSysMemPartitionId(public val value: Int) {
+public enum class SceSysMemPartitionId(
+    public val value: Int,
+) {
     SceKernelUnknownPartition(0),
     SceKernelPrimaryKernelPartition(1),
     SceKernelPrimaryUserPartition(2),
@@ -382,17 +394,19 @@ public enum class SceSysMemPartitionId(public val value: Int) {
     SceKernelExtendedMeKernelPartition(10),
     SceKernelVshellKernelPartition(11),
     SceKernelExtendedKernelPartition(12),
-    ;
 }
 
-public enum class SceSysMemBlockTypes(public val value: Int) {
+public enum class SceSysMemBlockTypes(
+    public val value: Int,
+) {
     Low(0),
     High(1),
     Addr(2),
-    ;
 }
 
-public enum class Interrupt(public val value: UInt) {
+public enum class Interrupt(
+    public val value: UInt,
+) {
     Gpio(4u),
     Ata(5u),
     Umd(6u),
@@ -419,20 +433,22 @@ public enum class Interrupt(public val value: UInt) {
     Mscm2(61u),
     Thread1(65u),
     Interrupt(66u),
-    ;
 }
 
-public enum class SubInterrupt(public val value: UInt) {
+public enum class SubInterrupt(
+    public val value: UInt,
+) {
     Gpio(Interrupt.Gpio.value),
     Ata(Interrupt.Ata.value),
     Umd(Interrupt.Umd.value),
     Dmacplus(Interrupt.Dmacplus.value),
     Ge(Interrupt.Ge.value),
     Display(Interrupt.Vblank.value),
-    ;
 }
 
-public enum class SceKernelIdListType(public val value: UInt) {
+public enum class SceKernelIdListType(
+    public val value: UInt,
+) {
     Thread(1u),
     Semaphore(2u),
     EventFlag(3u),
@@ -448,10 +464,11 @@ public enum class SceKernelIdListType(public val value: UInt) {
     DelayThread(65u),
     SuspendThread(66u),
     DormantThread(67u),
-    ;
 }
 
-public enum class UsbCamResolution(public val value: Int) {
+public enum class UsbCamResolution(
+    public val value: Int,
+) {
     Px160_120(0),
     Px176_144(1),
     Px320_240(2),
@@ -461,10 +478,11 @@ public enum class UsbCamResolution(public val value: Int) {
     Px1280_960(6),
     Px480_272(7),
     Px360_272(8),
-    ;
 }
 
-public enum class UsbCamResolutionEx(public val value: Int) {
+public enum class UsbCamResolutionEx(
+    public val value: Int,
+) {
     Px160_120(0),
     Px176_144(1),
     Px320_240(2),
@@ -474,18 +492,20 @@ public enum class UsbCamResolutionEx(public val value: Int) {
     Px640_480(6),
     Px1024_768(7),
     Px1280_960(8),
-    ;
 }
 
-public enum class UsbCamDelay(public val value: Int) {
+public enum class UsbCamDelay(
+    public val value: Int,
+) {
     NoDelay(0),
     Delay10Sec(1),
     Delay20Sec(2),
     Delay30Sec(3),
-    ;
 }
 
-public enum class UsbCamFrameRate(public val value: Int) {
+public enum class UsbCamFrameRate(
+    public val value: Int,
+) {
     Fps3_75(0),
     Fps5(1),
     Fps7_5(2),
@@ -494,18 +514,20 @@ public enum class UsbCamFrameRate(public val value: Int) {
     Fps20(5),
     Fps30(6),
     Fps60(7),
-    ;
 }
 
-public enum class UsbCamWb(public val value: Int) {
+public enum class UsbCamWb(
+    public val value: Int,
+) {
     Auto(0),
     Daylight(1),
     Fluorescent(2),
     Incadescent(3),
-    ;
 }
 
-public enum class UsbCamEffectMode(public val value: Int) {
+public enum class UsbCamEffectMode(
+    public val value: Int,
+) {
     Normal(0),
     Negative(1),
     Blackwhite(2),
@@ -513,10 +535,11 @@ public enum class UsbCamEffectMode(public val value: Int) {
     Blue(4),
     Red(5),
     Green(6),
-    ;
 }
 
-public enum class UsbCamEvLevel(public val value: Int) {
+public enum class UsbCamEvLevel(
+    public val value: Int,
+) {
     Pos2_0(0),
     Pos1_7(1),
     Pos1_5(2),
@@ -534,10 +557,11 @@ public enum class UsbCamEvLevel(public val value: Int) {
     Neg1_5(14),
     Neg1_7(15),
     Neg2_0(16),
-    ;
 }
 
-public enum class RtcCheckValidError(public val value: Int) {
+public enum class RtcCheckValidError(
+    public val value: Int,
+) {
     InvalidYear(-1),
     InvalidMonth(-2),
     InvalidDay(-3),
@@ -545,37 +569,42 @@ public enum class RtcCheckValidError(public val value: Int) {
     InvalidMinutes(-5),
     InvalidSeconds(-6),
     InvalidMicroseconds(-7),
-    ;
 }
 
-public enum class PowerTick(public val value: UInt) {
+public enum class PowerTick(
+    public val value: UInt,
+) {
     All(0u),
     Suspend(1u),
     Display(6u),
-    ;
 }
 
-public enum class IoAssignPerms(public val value: UInt) {
+public enum class IoAssignPerms(
+    public val value: UInt,
+) {
     RdWr(0u),
     RdOnly(1u),
-    ;
 }
 
-public enum class IoWhence(public val value: UInt) {
+public enum class IoWhence(
+    public val value: UInt,
+) {
     Set(0u),
     Cur(1u),
     End(2u),
-    ;
 }
 
-public enum class UmdType(public val value: UInt) {
+public enum class UmdType(
+    public val value: UInt,
+) {
     Game(0x10u),
     Video(0x20u),
     Audio(0x40u),
-    ;
 }
 
-public enum class GuPrimitive(public val value: UInt) {
+public enum class GuPrimitive(
+    public val value: UInt,
+) {
     Points(0u),
     Lines(1u),
     LineStrip(2u),
@@ -583,17 +612,19 @@ public enum class GuPrimitive(public val value: UInt) {
     TriangleStrip(4u),
     TriangleFan(5u),
     Sprites(6u),
-    ;
 }
 
-public enum class PatchPrimitive(public val value: UInt) {
+public enum class PatchPrimitive(
+    public val value: UInt,
+) {
     Points(0u),
     LineStrip(2u),
     TriangleStrip(4u),
-    ;
 }
 
-public enum class GuState(public val value: UInt) {
+public enum class GuState(
+    public val value: UInt,
+) {
     AlphaTest(0u),
     DepthTest(1u),
     ScissorTest(2u),
@@ -616,18 +647,20 @@ public enum class GuState(public val value: UInt) {
     FaceNormalReverse(19u),
     PatchFace(20u),
     Fragment2X(21u),
-    ;
 }
 
-public enum class MatrixMode(public val value: UInt) {
+public enum class MatrixMode(
+    public val value: UInt,
+) {
     Projection(0u),
     View(1u),
     Model(2u),
     Texture(3u),
-    ;
 }
 
-public enum class TexturePixelFormat(public val value: UInt) {
+public enum class TexturePixelFormat(
+    public val value: UInt,
+) {
     Psm5650(0u),
     Psm5551(1u),
     Psm4444(2u),
@@ -639,24 +672,27 @@ public enum class TexturePixelFormat(public val value: UInt) {
     PsmDxt1(8u),
     PsmDxt3(9u),
     PsmDxt5(10u),
-    ;
 }
 
-public enum class SplineMode(public val value: UInt) {
+public enum class SplineMode(
+    public val value: UInt,
+) {
     FillFill(0u),
     OpenFill(1u),
     FillOpen(2u),
     OpenOpen(3u),
-    ;
 }
 
-public enum class ShadingModel(public val value: UInt) {
+public enum class ShadingModel(
+    public val value: UInt,
+) {
     Flat(0u),
     Smooth(1u),
-    ;
 }
 
-public enum class LogicalOperation(public val value: UInt) {
+public enum class LogicalOperation(
+    public val value: UInt,
+) {
     Clear(0u),
     And(1u),
     AndReverse(2u),
@@ -673,54 +709,61 @@ public enum class LogicalOperation(public val value: UInt) {
     OrInverted(13u),
     Nand(14u),
     Set(15u),
-    ;
 }
 
-public enum class TextureFilter(public val value: UInt) {
+public enum class TextureFilter(
+    public val value: UInt,
+) {
     Nearest(0u),
     Linear(1u),
     NearestMipmapNearest(4u),
     LinearMipmapNearest(5u),
     NearestMipmapLinear(6u),
     LinearMipmapLinear(7u),
-    ;
 }
 
-public enum class TextureMapMode(public val value: UInt) {
+public enum class TextureMapMode(
+    public val value: UInt,
+) {
     TextureCoords(0u),
     TextureMatrix(1u),
     EnvironmentMap(2u),
-    ;
 }
 
-public enum class TextureLevelMode(public val value: UInt) {
+public enum class TextureLevelMode(
+    public val value: UInt,
+) {
     Auto(0u),
     Const(1u),
     Slope(2u),
-    ;
 }
 
-public enum class TextureProjectionMapMode(public val value: UInt) {
+public enum class TextureProjectionMapMode(
+    public val value: UInt,
+) {
     Position(0u),
     Uv(1u),
     NormalizedNormal(2u),
     Normal(3u),
-    ;
 }
 
-public enum class GuTexWrapMode(public val value: UInt) {
+public enum class GuTexWrapMode(
+    public val value: UInt,
+) {
     Repeat(0u),
     Clamp(1u),
-    ;
 }
 
-public enum class FrontFaceDirection(public val value: UInt) {
+public enum class FrontFaceDirection(
+    public val value: UInt,
+) {
     Clockwise(0u),
     CounterClockwise(1u),
-    ;
 }
 
-public enum class AlphaFunc(public val value: UInt) {
+public enum class AlphaFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(1u),
     Equal(2u),
@@ -729,10 +772,11 @@ public enum class AlphaFunc(public val value: UInt) {
     LessOrEqual(5u),
     Greater(6u),
     GreaterOrEqual(7u),
-    ;
 }
 
-public enum class StencilFunc(public val value: UInt) {
+public enum class StencilFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(1u),
     Equal(2u),
@@ -741,18 +785,20 @@ public enum class StencilFunc(public val value: UInt) {
     LessOrEqual(5u),
     Greater(6u),
     GreaterOrEqual(7u),
-    ;
 }
 
-public enum class ColorFunc(public val value: UInt) {
+public enum class ColorFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(1u),
     Equal(2u),
     NotEqual(3u),
-    ;
 }
 
-public enum class DepthFunc(public val value: UInt) {
+public enum class DepthFunc(
+    public val value: UInt,
+) {
     Never(0u),
     Always(1u),
     Equal(2u),
@@ -761,25 +807,28 @@ public enum class DepthFunc(public val value: UInt) {
     LessOrEqual(5u),
     Greater(6u),
     GreaterOrEqual(7u),
-    ;
 }
 
-public enum class TextureEffect(public val value: UInt) {
+public enum class TextureEffect(
+    public val value: UInt,
+) {
     Modulate(0u),
     Decal(1u),
     Blend(2u),
     Replace(3u),
     Add(4u),
-    ;
 }
 
-public enum class TextureColorComponent(public val value: UInt) {
+public enum class TextureColorComponent(
+    public val value: UInt,
+) {
     Rgb(0u),
     Rgba(1u),
-    ;
 }
 
-public enum class MipmapLevel(public val value: UInt) {
+public enum class MipmapLevel(
+    public val value: UInt,
+) {
     None(0u),
     Level1(1u),
     Level2(2u),
@@ -788,137 +837,155 @@ public enum class MipmapLevel(public val value: UInt) {
     Level5(5u),
     Level6(6u),
     Level7(7u),
-    ;
 }
 
-public enum class BlendOp(public val value: UInt) {
+public enum class BlendOp(
+    public val value: UInt,
+) {
     Add(0u),
     Subtract(1u),
     ReverseSubtract(2u),
     Min(3u),
     Max(4u),
     Abs(5u),
-    ;
 }
 
-public enum class BlendSrc(public val value: UInt) {
+public enum class BlendSrc(
+    public val value: UInt,
+) {
     SrcColor(0u),
     OneMinusSrcColor(1u),
     SrcAlpha(2u),
     OneMinusSrcAlpha(3u),
     Fix(10u),
-    ;
 }
 
-public enum class BlendDst(public val value: UInt) {
+public enum class BlendDst(
+    public val value: UInt,
+) {
     DstColor(0u),
     OneMinusDstColor(1u),
     DstAlpha(4u),
     OneMinusDstAlpha(5u),
     Fix(10u),
-    ;
 }
 
-public enum class StencilOperation(public val value: UInt) {
+public enum class StencilOperation(
+    public val value: UInt,
+) {
     Keep(0u),
     Zero(1u),
     Replace(2u),
     Invert(3u),
     Incr(4u),
     Decr(5u),
-    ;
 }
 
-public enum class LightMode(public val value: UInt) {
+public enum class LightMode(
+    public val value: UInt,
+) {
     SingleColor(0u),
     SeparateSpecularColor(1u),
-    ;
 }
 
-public enum class LightType(public val value: UInt) {
+public enum class LightType(
+    public val value: UInt,
+) {
     Directional(0u),
     Pointlight(1u),
     Spotlight(2u),
-    ;
 }
 
-public enum class GuContextType(public val value: UInt) {
+public enum class GuContextType(
+    public val value: UInt,
+) {
     Direct(0u),
     Call(1u),
     Send(2u),
-    ;
 }
 
-public enum class GuQueueMode(public val value: UInt) {
+public enum class GuQueueMode(
+    public val value: UInt,
+) {
     Tail(0u),
     Head(1u),
-    ;
 }
 
-public enum class GuSyncMode(public val value: UInt) {
+public enum class GuSyncMode(
+    public val value: UInt,
+) {
     Finish(0u),
     Signal(1u),
     Done(2u),
     List(3u),
     Send(4u),
-    ;
 }
 
-public enum class GuSyncBehavior(public val value: UInt) {
+public enum class GuSyncBehavior(
+    public val value: UInt,
+) {
     Wait(0u),
     NoWait(1u),
-    ;
 }
 
-public enum class GuCallbackId(public val value: UInt) {
+public enum class GuCallbackId(
+    public val value: UInt,
+) {
     Signal(1u),
     Finish(4u),
-    ;
 }
 
-public enum class SignalBehavior(public val value: UInt) {
+public enum class SignalBehavior(
+    public val value: UInt,
+) {
     Suspend(1u),
     Continue(2u),
-    ;
 }
 
-public enum class ClutPixelFormat(public val value: UInt) {
+public enum class ClutPixelFormat(
+    public val value: UInt,
+) {
     Psm5650(0u),
     Psm5551(1u),
     Psm4444(2u),
     Psm8888(3u),
-    ;
 }
 
-public enum class KeyType(public val value: Int) {
+public enum class KeyType(
+    public val value: Int,
+) {
     Directory(1),
     Integer(2),
     String(3),
     Bytes(4),
-    ;
 }
 
-public enum class UtilityMsgDialogMode(public val value: UInt) {
+public enum class UtilityMsgDialogMode(
+    public val value: UInt,
+) {
     Error(0u),
     Text(1u),
-    ;
 }
 
-public enum class UtilityMsgDialogPressed(public val value: UInt) {
+public enum class UtilityMsgDialogPressed(
+    public val value: UInt,
+) {
     Unknown1(0u),
     Yes(1u),
     No(2u),
     Back(3u),
-    ;
 }
 
-public enum class UtilityDialogButtonAccept(public val value: UInt) {
+public enum class UtilityDialogButtonAccept(
+    public val value: UInt,
+) {
     Circle(0u),
     Cross(1u),
-    ;
 }
 
-public enum class SceUtilityOskInputLanguage(public val value: UInt) {
+public enum class SceUtilityOskInputLanguage(
+    public val value: UInt,
+) {
     Default(0u),
     Japanese(1u),
     English(2u),
@@ -930,10 +997,11 @@ public enum class SceUtilityOskInputLanguage(public val value: UInt) {
     Portugese(8u),
     Russian(9u),
     Korean(10u),
-    ;
 }
 
-public enum class SceUtilityOskInputType(public val value: UInt) {
+public enum class SceUtilityOskInputType(
+    public val value: UInt,
+) {
     All(0u),
     LatinDigit(1u),
     LatinSymbol(2u),
@@ -951,27 +1019,30 @@ public enum class SceUtilityOskInputType(public val value: UInt) {
     RussianUppercase(0x20000u),
     Korean(0x40000u),
     Url(0x80000u),
-    ;
 }
 
-public enum class SceUtilityOskState(public val value: UInt) {
+public enum class SceUtilityOskState(
+    public val value: UInt,
+) {
     None(0u),
     Initializing(1u),
     Initialized(2u),
     Visible(3u),
     Quit(4u),
     Finished(5u),
-    ;
 }
 
-public enum class SceUtilityOskResult(public val value: UInt) {
+public enum class SceUtilityOskResult(
+    public val value: UInt,
+) {
     Unchanged(0u),
     Cancelled(1u),
     Changed(2u),
-    ;
 }
 
-public enum class SystemParamLanguage(public val value: UInt) {
+public enum class SystemParamLanguage(
+    public val value: UInt,
+) {
     Japanese(0u),
     English(1u),
     French(2u),
@@ -984,10 +1055,11 @@ public enum class SystemParamLanguage(public val value: UInt) {
     Korean(9u),
     ChineseTraditional(10u),
     ChineseSimplified(11u),
-    ;
 }
 
-public enum class SystemParamId(public val value: UInt) {
+public enum class SystemParamId(
+    public val value: UInt,
+) {
     StringNickname(1u),
     AdhocChannel(2u),
     WlanPowerSave(3u),
@@ -997,43 +1069,49 @@ public enum class SystemParamId(public val value: UInt) {
     DaylightSavings(7u),
     Language(8u),
     Unknown(9u),
-    ;
 }
 
-public enum class SystemParamAdhocChannel(public val value: UInt) {
+public enum class SystemParamAdhocChannel(
+    public val value: UInt,
+) {
     ChannelAutomatic(0u),
     Channel1(1u),
     Channel6(6u),
     Channel11(11u),
-    ;
 }
 
-public enum class SystemParamWlanPowerSaveState(public val value: UInt) {
+public enum class SystemParamWlanPowerSaveState(
+    public val value: UInt,
+) {
     Off(0u),
     On(1u),
-    ;
 }
 
-public enum class SystemParamDateFormat(public val value: UInt) {
+public enum class SystemParamDateFormat(
+    public val value: UInt,
+) {
     YYYYMMDD(0u),
     MMDDYYYY(1u),
     DDMMYYYY(2u),
-    ;
 }
 
-public enum class SystemParamTimeFormat(public val value: UInt) {
+public enum class SystemParamTimeFormat(
+    public val value: UInt,
+) {
     Hour24(0u),
     Hour12(1u),
-    ;
 }
 
-public enum class SystemParamDaylightSavings(public val value: UInt) {
+public enum class SystemParamDaylightSavings(
+    public val value: UInt,
+) {
     Std(0u),
     Dst(1u),
-    ;
 }
 
-public enum class AvModule(public val value: UInt) {
+public enum class AvModule(
+    public val value: UInt,
+) {
     AvCodec(0u),
     SasCore(1u),
     Atrac3Plus(2u),
@@ -1042,10 +1120,11 @@ public enum class AvModule(public val value: UInt) {
     Vaudio(5u),
     Aac(6u),
     G729(7u),
-    ;
 }
 
-public enum class Module(public val value: UInt) {
+public enum class Module(
+    public val value: UInt,
+) {
     NetCommon(0x100u),
     NetAdhoc(257u),
     NetInet(258u),
@@ -1069,29 +1148,32 @@ public enum class Module(public val value: UInt) {
     NpMatching2(1026u),
     NpDrm(0x500u),
     Irda(0x600u),
-    ;
 }
 
-public enum class NetModule(public val value: UInt) {
+public enum class NetModule(
+    public val value: UInt,
+) {
     NetCommon(1u),
     NetAdhoc(2u),
     NetInet(3u),
     NetParseUri(4u),
     NetHttp(5u),
     NetSsl(6u),
-    ;
 }
 
-public enum class UsbModule(public val value: UInt) {
+public enum class UsbModule(
+    public val value: UInt,
+) {
     UsbPspCm(1u),
     UsbAcc(2u),
     UsbMic(3u),
     UsbCam(4u),
     UsbGps(5u),
-    ;
 }
 
-public enum class NetParam(public val value: UInt) {
+public enum class NetParam(
+    public val value: UInt,
+) {
     Name(0u),
     Ssid(1u),
     Secure(2u),
@@ -1110,17 +1192,19 @@ public enum class NetParam(public val value: UInt) {
     ProxyPort(15u),
     Unknown1(16u),
     Unknown2(17u),
-    ;
 }
 
-public enum class UtilityNetconfAction(public val value: UInt) {
+public enum class UtilityNetconfAction(
+    public val value: UInt,
+) {
     ConnectAP(0u),
     DisplayStatus(1u),
     ConnectAdhoc(2u),
-    ;
 }
 
-public enum class UtilitySavedataMode(public val value: UInt) {
+public enum class UtilitySavedataMode(
+    public val value: UInt,
+) {
     AutoLoad(0u),
     AutoSave(1u),
     Load(2u),
@@ -1129,10 +1213,11 @@ public enum class UtilitySavedataMode(public val value: UInt) {
     ListSave(5u),
     ListDelete(6u),
     Delete(7u),
-    ;
 }
 
-public enum class UtilitySavedataFocus(public val value: UInt) {
+public enum class UtilitySavedataFocus(
+    public val value: UInt,
+) {
     Unknown1(0u),
     FirstList(1u),
     LastList(2u),
@@ -1142,81 +1227,92 @@ public enum class UtilitySavedataFocus(public val value: UInt) {
     Unknown3(6u),
     FirstEmpty(7u),
     LastEmpty(8u),
-    ;
 }
 
-public enum class UtilityGameSharingMode(public val value: UInt) {
+public enum class UtilityGameSharingMode(
+    public val value: UInt,
+) {
     Single(1u),
     Multiple(2u),
-    ;
 }
 
-public enum class UtilityGameSharingDataType(public val value: UInt) {
+public enum class UtilityGameSharingDataType(
+    public val value: UInt,
+) {
     File(1u),
     Memory(2u),
-    ;
 }
 
-public enum class UtilityHtmlViewerInterfaceMode(public val value: UInt) {
+public enum class UtilityHtmlViewerInterfaceMode(
+    public val value: UInt,
+) {
     Full(0u),
     Limited(1u),
     None(2u),
-    ;
 }
 
-public enum class UtilityHtmlViewerCookieMode(public val value: UInt) {
+public enum class UtilityHtmlViewerCookieMode(
+    public val value: UInt,
+) {
     Disabled(0u),
     Enabled(1u),
     Confirm(2u),
     Default(3u),
-    ;
 }
 
-public enum class UtilityHtmlViewerTextSize(public val value: UInt) {
+public enum class UtilityHtmlViewerTextSize(
+    public val value: UInt,
+) {
     Large(0u),
     Normal(1u),
     Small(2u),
-    ;
 }
 
-public enum class UtilityHtmlViewerDisplayMode(public val value: UInt) {
+public enum class UtilityHtmlViewerDisplayMode(
+    public val value: UInt,
+) {
     Normal(0u),
     Fit(1u),
     SmartFit(2u),
-    ;
 }
 
-public enum class UtilityHtmlViewerConnectMode(public val value: UInt) {
+public enum class UtilityHtmlViewerConnectMode(
+    public val value: UInt,
+) {
     Last(0u),
     ManualOnce(1u),
     ManualAll(2u),
-    ;
 }
 
-public enum class UtilityHtmlViewerDisconnectMode(public val value: UInt) {
+public enum class UtilityHtmlViewerDisconnectMode(
+    public val value: UInt,
+) {
     Enable(0u),
     Disable(1u),
     Confirm(2u),
-    ;
 }
 
-public enum class ScePspnetAdhocPtpState(public val value: UInt) {
+public enum class ScePspnetAdhocPtpState(
+    public val value: UInt,
+) {
     Closed(0u),
     Listen(1u),
     SynSent(2u),
     SynReceived(3u),
     Established(4u),
-    ;
 }
 
-public enum class AdhocMatchingMode(public val value: UInt) {
+public enum class AdhocMatchingMode(
+    public val value: UInt,
+) {
     Host(1u),
     Client(2u),
     Ptp(3u),
-    ;
 }
 
-public enum class ApctlState(public val value: UInt) {
+public enum class ApctlState(
+    public val value: UInt,
+) {
     Disconnected(0u),
     Scanning(1u),
     Joining(2u),
@@ -1224,10 +1320,11 @@ public enum class ApctlState(public val value: UInt) {
     GotIp(4u),
     EapAuth(5u),
     KeyExchange(6u),
-    ;
 }
 
-public enum class ApctlEvent(public val value: UInt) {
+public enum class ApctlEvent(
+    public val value: UInt,
+) {
     ConnectRequest(0u),
     ScanRequest(1u),
     ScanComplete(2u),
@@ -1239,10 +1336,11 @@ public enum class ApctlEvent(public val value: UInt) {
     EapAuth(8u),
     KeyExchange(9u),
     Reconnect(10u),
-    ;
 }
 
-public enum class ApctlInfo(public val value: UInt) {
+public enum class ApctlInfo(
+    public val value: UInt,
+) {
     ProfileName(0u),
     Bssid(1u),
     Ssid(2u),
@@ -1262,27 +1360,29 @@ public enum class ApctlInfo(public val value: UInt) {
     EapType(16u),
     StartBrowser(17u),
     Wifisp(18u),
-    ;
 }
 
-public enum class ApctlInfoSecurityType(public val value: UInt) {
+public enum class ApctlInfoSecurityType(
+    public val value: UInt,
+) {
     None(0u),
     Wep(1u),
     Wpa(2u),
-    ;
 }
 
-public enum class HttpMethod(public val value: UInt) {
+public enum class HttpMethod(
+    public val value: UInt,
+) {
     Get(0u),
     Post(1u),
     Head(2u),
-    ;
 }
 
-public enum class HttpAuthType(public val value: UInt) {
+public enum class HttpAuthType(
+    public val value: UInt,
+) {
     Basic(0u),
     Digest(1u),
-    ;
 }
 
 public data class Sockaddr(
@@ -1999,7 +2099,7 @@ public data class SceNetAdhocctlScanInfo(
 
 public data class SceNetAdhocctlGameModeInfo(
     val count: Int,
-    val macs: List<[u8>,
+    val macs: List<UByteArray>,
 )
 
 public data class SceNetAdhocPtpStat(
@@ -2152,7 +2252,7 @@ public data class SceUtilitySavedataParam(
     val gameName: UByteArray,
     val reserved: UByteArray,
     val saveName: UByteArray,
-    val saveNameList: [u8; 20usize]?,
+    val saveNameList: UByteArray?,
     val fileName: UByteArray,
     val reserved1: UByteArray,
     val dataBuf: COpaquePointer?,
@@ -2185,91 +2285,111 @@ public data class SceNetAdhocctlParams(
     val nickname: UByteArray,
 )
 
+public data class SceUid(
+    val value: Int,
+)
+
+public data class SceMpeg(
+    val value: COpaquePointer?,
+)
+
+public data class SceMpegStream(
+    val value: COpaquePointer?,
+)
+
+public data class Mp3Handle(
+    val value: Int,
+)
+
+public data class RegHandle(
+    val value: UInt,
+)
+
 // C union; only one variant is valid at a time.
 public data class ScePspVector3(
-    val fv: ScePspFVector3 = null,
-    val iv: ScePspIVector3 = null,
-    val f: List<Float> = null,
-    val i: IntArray = null,
+    val fv: ScePspFVector3? = null,
+    val iv: ScePspIVector3? = null,
+    val f: List<Float>? = null,
+    val i: IntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspVector4(
-    val fv: ScePspFVector4 = null,
-    val iv: ScePspIVector4 = null,
-    val qw: ByteArray = null,
-    val f: List<Float> = null,
-    val i: IntArray = null,
+    val fv: ScePspFVector4? = null,
+    val iv: ScePspIVector4? = null,
+    val qw: ByteArray? = null,
+    val f: List<Float>? = null,
+    val i: IntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspMatrix2(
-    val fm: ScePspFMatrix2 = null,
-    val im: ScePspIMatrix2 = null,
-    val fv: List<ScePspFVector2> = null,
-    val iv: List<ScePspIVector2> = null,
-    val v: List<ScePspVector2> = null,
-    val f: List<[f32> = null,
-    val i: List<[i32> = null,
+    val fm: ScePspFMatrix2? = null,
+    val im: ScePspIMatrix2? = null,
+    val fv: List<ScePspFVector2>? = null,
+    val iv: List<ScePspIVector2>? = null,
+    val v: List<ScePspVector2>? = null,
+    val f: List<FloatArray>? = null,
+    val i: List<IntArray>? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspMatrix3(
-    val fm: ScePspFMatrix3 = null,
-    val im: ScePspIMatrix3 = null,
-    val fv: List<ScePspFVector3> = null,
-    val iv: List<ScePspIVector3> = null,
-    val v: List<ScePspVector3> = null,
-    val f: List<[f32> = null,
-    val i: List<[i32> = null,
+    val fm: ScePspFMatrix3? = null,
+    val im: ScePspIMatrix3? = null,
+    val fv: List<ScePspFVector3>? = null,
+    val iv: List<ScePspIVector3>? = null,
+    val v: List<ScePspVector3>? = null,
+    val f: List<FloatArray>? = null,
+    val i: List<IntArray>? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspVector2(
-    val fv: ScePspFVector2 = null,
-    val iv: ScePspIVector2 = null,
-    val f: List<Float> = null,
-    val i: IntArray = null,
+    val fv: ScePspFVector2? = null,
+    val iv: ScePspIVector2? = null,
+    val f: List<Float>? = null,
+    val i: IntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class ScePspMatrix4(
-    val fm: ScePspFMatrix4 = null,
-    val im: ScePspIMatrix4 = null,
-    val fv: List<ScePspFVector4> = null,
-    val iv: List<ScePspIVector4> = null,
-    val v: List<ScePspVector4> = null,
-    val f: List<[f32> = null,
-    val i: List<[i32> = null,
+    val fm: ScePspFMatrix4? = null,
+    val im: ScePspIMatrix4? = null,
+    val fv: List<ScePspFVector4>? = null,
+    val iv: List<ScePspIVector4>? = null,
+    val v: List<ScePspVector4>? = null,
+    val f: List<FloatArray>? = null,
+    val i: List<IntArray>? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class UtilityNetData(
-    val asUint: UInt = null,
-    val asString: UByteArray = null,
+    val asUint: UInt? = null,
+    val asString: UByteArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class SceNetApctlInfo(
-    val name: UByteArray = null,
-    val bssid: UByteArray = null,
-    val ssid: UByteArray = null,
-    val ssidLength: UInt = null,
-    val securityType: UInt = null,
-    val strength: UByte = null,
-    val channel: UByte = null,
-    val powerSave: UByte = null,
-    val ip: UByteArray = null,
-    val subNetMask: UByteArray = null,
-    val gateway: UByteArray = null,
-    val primaryDns: UByteArray = null,
-    val secondaryDns: UByteArray = null,
-    val useProxy: UInt = null,
-    val proxyUrl: UByteArray = null,
-    val proxyPort: UShort = null,
-    val eapType: UInt = null,
-    val startBrowser: UInt = null,
-    val wifisp: UInt = null,
+    val name: UByteArray? = null,
+    val bssid: UByteArray? = null,
+    val ssid: UByteArray? = null,
+    val ssidLength: UInt? = null,
+    val securityType: UInt? = null,
+    val strength: UByte? = null,
+    val channel: UByte? = null,
+    val powerSave: UByte? = null,
+    val ip: UByteArray? = null,
+    val subNetMask: UByteArray? = null,
+    val gateway: UByteArray? = null,
+    val primaryDns: UByteArray? = null,
+    val secondaryDns: UByteArray? = null,
+    val useProxy: UInt? = null,
+    val proxyUrl: UByteArray? = null,
+    val proxyPort: UShort? = null,
+    val eapType: UInt? = null,
+    val startBrowser: UInt? = null,
+    val wifisp: UInt? = null,
 )
 
 public const val INT_MIN: CInt = -2147483648
@@ -2435,820 +2555,1637 @@ public const val UTILITY_HTMLVIEWER_ENABLE_FLASH: Int = 0x000400
 public const val UTILITY_HTMLVIEWER_DISABLE_LRTRIGGER: Int = 0x000800
 
 public expect fun sceAudioChReserve(channel: Int, sampleCount: Int, format: AudioFormat): Int
+
 public expect fun sceAudioChRelease(channel: Int): Int
+
 public expect fun sceAudioOutput(channel: Int, vol: Int, buf: COpaquePointer?): Int
+
 public expect fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: COpaquePointer?): Int
+
 public expect fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int
+
 public expect fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int
+
 public expect fun sceAudioGetChannelRestLen(channel: Int): Int
+
 public expect fun sceAudioGetChannelRestLength(channel: Int): Int
+
 public expect fun sceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int
+
 public expect fun sceAudioChangeChannelConfig(channel: Int, format: AudioFormat): Int
+
 public expect fun sceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int
+
 public expect fun sceAudioOutput2Reserve(sampleCount: Int): Int
+
 public expect fun sceAudioOutput2Release(): Int
+
 public expect fun sceAudioOutput2ChangeLength(sampleCount: Int): Int
+
 public expect fun sceAudioOutput2OutputBlocking(vol: Int, buf: COpaquePointer?): Int
+
 public expect fun sceAudioOutput2GetRestSample(): Int
+
 public expect fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFrequency, channels: Int): Int
+
 public expect fun sceAudioSRCChRelease(): Int
+
 public expect fun sceAudioSRCOutputBlocking(vol: Int, buf: COpaquePointer?): Int
+
 public expect fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int
+
 public expect fun sceAudioInputInitEx(params: AudioInputParams?): Int
+
 public expect fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?)
+
 public expect fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?)
+
 public expect fun sceAudioGetInputLength(): Int
+
 public expect fun sceAudioWaitInputEnd(): Int
+
 public expect fun sceAudioPollInputEnd(): Int
+
 public expect fun sceAtracGetAtracID(uiCodecType: UInt): Int
+
 public expect fun sceAtracSetDataAndGetID(buf: COpaquePointer?, bufsize: ULong): Int
+
 public expect fun sceAtracDecodeData(atracId: Int, outSamples: UShort?, outN: Int?, outEnd: Int?, outRemainFrame: Int?): Int
+
 public expect fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: Int?): Int
+
 public expect fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: COpaquePointer?, availableBytes: UInt?, readOffset: UInt?): Int
+
 public expect fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int
+
 public expect fun sceAtracGetBitrate(atracId: Int, outBitrate: Int?): Int
+
 public expect fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int
+
 public expect fun sceAtracReleaseAtracID(atracId: Int): Int
+
 public expect fun sceAtracGetNextSample(atracId: Int, outN: Int?): Int
+
 public expect fun sceAtracGetMaxSample(atracId: Int, outMax: Int?): Int
+
 public expect fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: Atrac3BufferInfo?): Int
+
 public expect fun sceAtracGetChannel(atracId: Int, puiChannel: UInt?): Int
+
 public expect fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: Int?): Int
+
 public expect fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: Int?, puiLoopStatus: UInt?): Int
+
 public expect fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: UInt?): Int
+
 public expect fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: UInt?, puiDataByte: UInt?): Int
+
 public expect fun sceAtracGetSoundSample(atracId: Int, piEndSample: Int?, piLoopStartSample: Int?, piLoopEndSample: Int?): Int
+
 public expect fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int
+
 public expect fun sceAtracSetData(atracId: Int, pucBufferAddr: COpaquePointer?, uiBufferByte: UInt): Int
+
 public expect fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int
+
 public expect fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int
+
 public expect fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: COpaquePointer?, uiSecondBufferByte: UInt): Int
+
 public expect fun sceCtrlSetSamplingCycle(cycle: Int): Int
+
 public expect fun sceCtrlGetSamplingCycle(pcycle: Int?): Int
+
 public expect fun sceCtrlSetSamplingMode(mode: CtrlMode): Int
+
 public expect fun sceCtrlGetSamplingMode(pmode: Int?): Int
+
 public expect fun sceCtrlPeekBufferPositive(padData: SceCtrlData?, count: Int): Int
+
 public expect fun sceCtrlPeekBufferNegative(padData: SceCtrlData?, count: Int): Int
+
 public expect fun sceCtrlReadBufferPositive(padData: SceCtrlData?, count: Int): Int
+
 public expect fun sceCtrlReadBufferNegative(padData: SceCtrlData?, count: Int): Int
+
 public expect fun sceCtrlPeekLatch(latchData: SceCtrlLatch?): Int
+
 public expect fun sceCtrlReadLatch(latchData: SceCtrlLatch?): Int
+
 public expect fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int
+
 public expect fun sceCtrlGetIdleCancelThreshold(idlereset: Int?, idleback: Int?): Int
+
 public expect fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt
+
 public expect fun sceDisplayGetMode(pmode: Int?, pwidth: Int?, pheight: Int?): Int
+
 public expect fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt
+
 public expect fun sceDisplayGetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong?, pixelFormat: DisplayPixelFormat?, sync: DisplaySetBufSync): Int
+
 public expect fun sceDisplayGetVcount(): UInt
+
 public expect fun sceDisplayWaitVblank(): Int
+
 public expect fun sceDisplayWaitVblankCB(): Int
+
 public expect fun sceDisplayWaitVblankStart(): Int
+
 public expect fun sceDisplayWaitVblankStartCB(): Int
+
 public expect fun sceDisplayGetAccumulatedHcount(): Int
+
 public expect fun sceDisplayGetCurrentHcount(): Int
+
 public expect fun sceDisplayGetFramePerSec(): Float
+
 public expect fun sceDisplayIsForeground(): Int
+
 public expect fun sceDisplayIsVblank(): Int
+
 public expect fun sceGeEdramGetSize(): UInt
+
 public expect fun sceGeEdramGetAddr(): COpaquePointer?
+
 public expect fun sceGeEdramSetAddrTranslation(width: Int): Int
+
 public expect fun sceGeGetCmd(cmd: Int): UInt
+
 public expect fun sceGeGetMtx(type: GeMatrixType, matrix: COpaquePointer?): Int
+
 public expect fun sceGeGetStack(stackId: Int, stack: GeStack?): Int
+
 public expect fun sceGeSaveContext(context: GeContext?): Int
+
 public expect fun sceGeRestoreContext(context: GeContext?): Int
+
 public expect fun sceGeListEnQueue(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: GeListArgs?): Int
+
 public expect fun sceGeListEnQueueHead(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: GeListArgs?): Int
+
 public expect fun sceGeListDeQueue(qid: Int): Int
+
 public expect fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): Int
+
 public expect fun sceGeListSync(qid: Int, syncType: Int): GeListState
+
 public expect fun sceGeDrawSync(syncType: Int): GeListState
+
 public expect fun sceGeBreak(mode: Int, pParam: GeBreakParam?): Int
+
 public expect fun sceGeContinue(): Int
+
 public expect fun sceGeSetCallback(cb: GeCallbackData?): Int
+
 public expect fun sceGeUnsetCallback(cbid: Int): Int
+
 public expect fun sceKernelExitGame()
+
 public expect fun sceKernelRegisterExitCallback(id: SceUid): Int
+
 public expect fun sceKernelLoadExec(file: COpaquePointer?, param: SceKernelLoadExecParam?): Int
+
 public expect fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid
+
 public expect fun sceKernelGetBlockHeadAddr(blockid: SceUid): COpaquePointer?
+
 public expect fun sceKernelFreePartitionMemory(blockid: SceUid): Int
+
 public expect fun sceKernelTotalFreeMemSize(): ULong
+
 public expect fun sceKernelMaxFreeMemSize(): ULong
+
 public expect fun sceKernelDevkitVersion(): UInt
+
 public expect fun sceKernelSetCompiledSdkVersion(version: UInt): Int
+
 public expect fun sceKernelGetCompiledSdkVersion(): UInt
+
 public expect fun sceKernelLibcTime(t: Int?): Int
+
 public expect fun sceKernelLibcClock(): UInt
+
 public expect fun sceKernelLibcGettimeofday(tp: Timeval?, tzp: Timezone?): Int
+
 public expect fun sceKernelDcacheWritebackAll()
+
 public expect fun sceKernelDcacheWritebackInvalidateAll()
+
 public expect fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt)
+
 public expect fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt)
+
 public expect fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt)
+
 public expect fun sceKernelIcacheInvalidateAll()
+
 public expect fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt)
+
 public expect fun sceKernelUtilsMt19937Init(ctx: SceKernelUtilsMt19937Context?, seed: UInt): Int
+
 public expect fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt
+
 public expect fun sceKernelUtilsMd5Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int
+
 public expect fun sceKernelUtilsMd5BlockInit(ctx: SceKernelUtilsMd5Context?): Int
+
 public expect fun sceKernelUtilsMd5BlockUpdate(ctx: SceKernelUtilsMd5Context?, data: COpaquePointer?, size: UInt): Int
+
 public expect fun sceKernelUtilsMd5BlockResult(ctx: SceKernelUtilsMd5Context?, digest: COpaquePointer?): Int
+
 public expect fun sceKernelUtilsSha1Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int
+
 public expect fun sceKernelUtilsSha1BlockInit(ctx: SceKernelUtilsSha1Context?): Int
+
 public expect fun sceKernelUtilsSha1BlockUpdate(ctx: SceKernelUtilsSha1Context?, data: COpaquePointer?, size: UInt): Int
+
 public expect fun sceKernelUtilsSha1BlockResult(ctx: SceKernelUtilsSha1Context?, digest: COpaquePointer?): Int
+
 public expect fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: COpaquePointer?, arg: COpaquePointer?): Int
+
 public expect fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int
+
 public expect fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int
+
 public expect fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int
+
 public expect fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: IntrHandlerOptionParam?): Int
+
 public expect fun sceKernelCpuSuspendIntr(): UInt
+
 public expect fun sceKernelCpuResumeIntr(flags: UInt)
+
 public expect fun sceKernelCpuResumeIntrWithSync(flags: UInt)
+
 public expect fun sceKernelIsCpuIntrSuspended(flags: UInt): Int
+
 public expect fun sceKernelIsCpuIntrEnable(): Int
+
 public expect fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
+
 public expect fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
+
 public expect fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid
+
 public expect fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
+
 public expect fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int
+
 public expect fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int
+
 public expect fun sceKernelUnloadModule(modId: SceUid): Int
+
 public expect fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: COpaquePointer?): Int
+
 public expect fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int
+
 public expect fun sceKernelQueryModuleInfo(modId: SceUid, info: SceKernelModuleInfo?): Int
+
 public expect fun sceKernelGetModuleIdList(readBuf: SceUid?, readBufSize: Int, idCount: Int?): Int
+
 public expect fun sceKernelVolatileMemLock(unk: Int, ptr: COpaquePointer?, size: Int?): Int
+
 public expect fun sceKernelVolatileMemTryLock(unk: Int, ptr: COpaquePointer?, size: Int?): Int
+
 public expect fun sceKernelVolatileMemUnlock(unk: Int): Int
+
 public expect fun sceKernelStdin(): SceUid
+
 public expect fun sceKernelStdout(): SceUid
+
 public expect fun sceKernelStderr(): SceUid
+
 public expect fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType
+
 public expect fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid
+
 public expect fun sceKernelDeleteThread(thid: SceUid): Int
+
 public expect fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: COpaquePointer?): Int
+
 public expect fun sceKernelExitThread(status: Int): Int
+
 public expect fun sceKernelExitDeleteThread(status: Int): Int
+
 public expect fun sceKernelTerminateThread(thid: SceUid): Int
+
 public expect fun sceKernelTerminateDeleteThread(thid: SceUid): Int
+
 public expect fun sceKernelSuspendDispatchThread(): Int
+
 public expect fun sceKernelResumeDispatchThread(state: Int): Int
+
 public expect fun sceKernelSleepThread(): Int
+
 public expect fun sceKernelSleepThreadCB(): Int
+
 public expect fun sceKernelWakeupThread(thid: SceUid): Int
+
 public expect fun sceKernelCancelWakeupThread(thid: SceUid): Int
+
 public expect fun sceKernelSuspendThread(thid: SceUid): Int
+
 public expect fun sceKernelResumeThread(thid: SceUid): Int
+
 public expect fun sceKernelWaitThreadEnd(thid: SceUid, timeout: UInt?): Int
+
 public expect fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: UInt?): Int
+
 public expect fun sceKernelDelayThread(delay: UInt): Int
+
 public expect fun sceKernelDelayThreadCB(delay: UInt): Int
+
 public expect fun sceKernelDelaySysClockThread(delay: SceKernelSysClock?): Int
+
 public expect fun sceKernelDelaySysClockThreadCB(delay: SceKernelSysClock?): Int
+
 public expect fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int
+
 public expect fun sceKernelChangeThreadPriority(thid: SceUid, priority: Int): Int
+
 public expect fun sceKernelRotateThreadReadyQueue(priority: Int): Int
+
 public expect fun sceKernelReleaseWaitThread(thid: SceUid): Int
+
 public expect fun sceKernelGetThreadId(): Int
+
 public expect fun sceKernelGetThreadCurrentPriority(): Int
+
 public expect fun sceKernelGetThreadExitStatus(thid: SceUid): Int
+
 public expect fun sceKernelCheckThreadStack(): Int
+
 public expect fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int
+
 public expect fun sceKernelReferThreadStatus(thid: SceUid, info: SceKernelThreadInfo?): Int
+
 public expect fun sceKernelReferThreadRunStatus(thid: SceUid, status: SceKernelThreadRunStatus?): Int
+
 public expect fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid
+
 public expect fun sceKernelDeleteSema(semaId: SceUid): Int
+
 public expect fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int
+
 public expect fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: UInt?): Int
+
 public expect fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: UInt?): Int
+
 public expect fun sceKernelPollSema(semaId: SceUid, signal: Int): Int
+
 public expect fun sceKernelReferSemaStatus(semaId: SceUid, info: SceKernelSemaInfo?): Int
+
 public expect fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid
+
 public expect fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int
+
 public expect fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int
+
 public expect fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?): Int
+
 public expect fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?, timeout: UInt?): Int
+
 public expect fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?, timeout: UInt?): Int
+
 public expect fun sceKernelDeleteEventFlag(evId: SceUid): Int
+
 public expect fun sceKernelReferEventFlagStatus(event: SceUid, status: SceKernelEventFlagInfo?): Int
+
 public expect fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid
+
 public expect fun sceKernelDeleteMbx(mbxId: SceUid): Int
+
 public expect fun sceKernelSendMbx(mbxId: SceUid, message: COpaquePointer?): Int
+
 public expect fun sceKernelReceiveMbx(mbxId: SceUid, message: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelReceiveMbxCB(mbxId: SceUid, message: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelPollMbx(mbxId: SceUid, pmessage: COpaquePointer?): Int
+
 public expect fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: Int?): Int
+
 public expect fun sceKernelReferMbxStatus(mbxId: SceUid, info: SceKernelMbxInfo?): Int
+
 public expect fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid
+
 public expect fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: SceKernelAlarmHandler?, common: COpaquePointer?): SceUid
+
 public expect fun sceKernelCancelAlarm(alarmId: SceUid): Int
+
 public expect fun sceKernelReferAlarmStatus(alarmId: SceUid, info: SceKernelAlarmInfo?): Int
+
 public expect fun sceKernelCreateCallback(name: COpaquePointer?, func: SceKernelCallbackFunction, arg: COpaquePointer?): SceUid
+
 public expect fun sceKernelReferCallbackStatus(cb: SceUid, status: SceKernelCallbackInfo?): Int
+
 public expect fun sceKernelDeleteCallback(cb: SceUid): Int
+
 public expect fun sceKernelNotifyCallback(cb: SceUid, arg2: Int): Int
+
 public expect fun sceKernelCancelCallback(cb: SceUid): Int
+
 public expect fun sceKernelGetCallbackCount(cb: SceUid): Int
+
 public expect fun sceKernelCheckCallback(): Int
+
 public expect fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: SceUid?, readBufSize: Int, idCount: Int?): Int
+
 public expect fun sceKernelReferSystemStatus(status: SceKernelSystemStatus?): Int
+
 public expect fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid
+
 public expect fun sceKernelDeleteMsgPipe(uid: SceUid): Int
+
 public expect fun sceKernelSendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelSendMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelTrySendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int
+
 public expect fun sceKernelReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int
+
 public expect fun sceKernelCancelMsgPipe(uid: SceUid, send: Int?, recv: Int?): Int
+
 public expect fun sceKernelReferMsgPipeStatus(uid: SceUid, info: SceKernelMppInfo?): Int
+
 public expect fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid
+
 public expect fun sceKernelDeleteVpl(uid: SceUid): Int
+
 public expect fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?): Int
+
 public expect fun sceKernelFreeVpl(uid: SceUid, data: COpaquePointer?): Int
+
 public expect fun sceKernelCancelVpl(uid: SceUid, num: Int?): Int
+
 public expect fun sceKernelReferVplStatus(uid: SceUid, info: SceKernelVplInfo?): Int
+
 public expect fun sceKernelCreateFpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, blocks: UInt, opt: SceKernelFplOptParam?): Int
+
 public expect fun sceKernelDeleteFpl(uid: SceUid): Int
+
 public expect fun sceKernelAllocateFpl(uid: SceUid, data: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelAllocateFplCB(uid: SceUid, data: COpaquePointer?, timeout: UInt?): Int
+
 public expect fun sceKernelTryAllocateFpl(uid: SceUid, data: COpaquePointer?): Int
+
 public expect fun sceKernelFreeFpl(uid: SceUid, data: COpaquePointer?): Int
+
 public expect fun sceKernelCancelFpl(uid: SceUid, pnum: Int?): Int
+
 public expect fun sceKernelReferFplStatus(uid: SceUid, info: SceKernelFplInfo?): Int
+
 public expect fun sceKernelUSec2SysClock(usec: UInt, clock: SceKernelSysClock?): Int
+
 public expect fun sceKernelUSec2SysClockWide(usec: UInt): Long
+
 public expect fun sceKernelSysClock2USec(clock: SceKernelSysClock?, low: UInt?, high: UInt?): Int
+
 public expect fun sceKernelSysClock2USecWide(clock: Long, low: UInt?, high: UInt?): Int
+
 public expect fun sceKernelGetSystemTime(time: SceKernelSysClock?): Int
+
 public expect fun sceKernelGetSystemTimeWide(): Long
+
 public expect fun sceKernelGetSystemTimeLow(): UInt
+
 public expect fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid
+
 public expect fun sceKernelDeleteVTimer(uid: SceUid): Int
+
 public expect fun sceKernelGetVTimerBase(uid: SceUid, base: SceKernelSysClock?): Int
+
 public expect fun sceKernelGetVTimerBaseWide(uid: SceUid): Long
+
 public expect fun sceKernelGetVTimerTime(uid: SceUid, time: SceKernelSysClock?): Int
+
 public expect fun sceKernelGetVTimerTimeWide(uid: SceUid): Long
+
 public expect fun sceKernelSetVTimerTime(uid: SceUid, time: SceKernelSysClock?): Int
+
 public expect fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long
+
 public expect fun sceKernelStartVTimer(uid: SceUid): Int
+
 public expect fun sceKernelStopVTimer(uid: SceUid): Int
+
 public expect fun sceKernelSetVTimerHandler(uid: SceUid, time: SceKernelSysClock?, handler: SceKernelVTimerHandler, common: COpaquePointer?): Int
+
 public expect fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: COpaquePointer?): Int
+
 public expect fun sceKernelCancelVTimerHandler(uid: SceUid): Int
+
 public expect fun sceKernelReferVTimerStatus(uid: SceUid, info: SceKernelVTimerInfo?): Int
+
 public expect fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: COpaquePointer?): SceUid
+
 public expect fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int
+
 public expect fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: SceKernelThreadEventHandlerInfo?): Int
+
 public expect fun sceKernelReferThreadProfiler(): DebugProfilerRegs?
+
 public expect fun sceKernelReferGlobalProfiler(): DebugProfilerRegs?
+
 public expect fun sceUsbStart(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int
+
 public expect fun sceUsbStop(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int
+
 public expect fun sceUsbActivate(pid: UInt): Int
+
 public expect fun sceUsbDeactivate(pid: UInt): Int
+
 public expect fun sceUsbGetState(): Int
+
 public expect fun sceUsbGetDrvState(driverName: COpaquePointer?): Int
+
 public expect fun sceUsbCamSetupStill(param: UsbCamSetupStillParam?): Int
+
 public expect fun sceUsbCamSetupStillEx(param: UsbCamSetupStillExParam?): Int
+
 public expect fun sceUsbCamStillInputBlocking(buf: COpaquePointer?, size: ULong): Int
+
 public expect fun sceUsbCamStillInput(buf: COpaquePointer?, size: ULong): Int
+
 public expect fun sceUsbCamStillWaitInputEnd(): Int
+
 public expect fun sceUsbCamStillPollInputEnd(): Int
+
 public expect fun sceUsbCamStillCancelInput(): Int
+
 public expect fun sceUsbCamStillGetInputLength(): Int
+
 public expect fun sceUsbCamSetupVideo(param: UsbCamSetupVideoParam?, workArea: COpaquePointer?, workAreaSize: Int): Int
+
 public expect fun sceUsbCamSetupVideoEx(param: UsbCamSetupVideoExParam?, workArea: COpaquePointer?, workAreaSize: Int): Int
+
 public expect fun sceUsbCamStartVideo(): Int
+
 public expect fun sceUsbCamStopVideo(): Int
+
 public expect fun sceUsbCamReadVideoFrameBlocking(buf: COpaquePointer?, size: ULong): Int
+
 public expect fun sceUsbCamReadVideoFrame(buf: COpaquePointer?, size: ULong): Int
+
 public expect fun sceUsbCamWaitReadVideoFrameEnd(): Int
+
 public expect fun sceUsbCamPollReadVideoFrameEnd(): Int
+
 public expect fun sceUsbCamGetReadVideoFrameSize(): Int
+
 public expect fun sceUsbCamSetSaturation(saturation: Int): Int
+
 public expect fun sceUsbCamSetBrightness(brightness: Int): Int
+
 public expect fun sceUsbCamSetContrast(contrast: Int): Int
+
 public expect fun sceUsbCamSetSharpness(sharpness: Int): Int
+
 public expect fun sceUsbCamSetImageEffectMode(effectMode: UsbCamEffectMode): Int
+
 public expect fun sceUsbCamSetEvLevel(exposureLevel: UsbCamEvLevel): Int
+
 public expect fun sceUsbCamSetReverseMode(reverseFlags: Int): Int
+
 public expect fun sceUsbCamSetZoom(zoom: Int): Int
+
 public expect fun sceUsbCamGetSaturation(saturation: Int?): Int
+
 public expect fun sceUsbCamGetBrightness(brightness: Int?): Int
+
 public expect fun sceUsbCamGetContrast(contrast: Int?): Int
+
 public expect fun sceUsbCamGetSharpness(sharpness: Int?): Int
+
 public expect fun sceUsbCamGetImageEffectMode(effectMode: UsbCamEffectMode?): Int
+
 public expect fun sceUsbCamGetEvLevel(exposureLevel: UsbCamEvLevel?): Int
+
 public expect fun sceUsbCamGetReverseMode(reverseFlags: Int?): Int
+
 public expect fun sceUsbCamGetZoom(zoom: Int?): Int
+
 public expect fun sceUsbCamAutoImageReverseSW(on: Int): Int
+
 public expect fun sceUsbCamGetAutoImageReverseState(): Int
+
 public expect fun sceUsbCamGetLensDirection(): Int
+
 public expect fun sceUsbstorBootRegisterNotify(eventFlag: SceUid): Int
+
 public expect fun sceUsbstorBootUnregisterNotify(eventFlag: UInt): Int
+
 public expect fun sceUsbstorBootSetCapacity(size: UInt): Int
+
 public expect fun scePowerRegisterCallback(slot: Int, cbid: SceUid): Int
+
 public expect fun scePowerUnregisterCallback(slot: Int): Int
+
 public expect fun scePowerIsPowerOnline(): Int
+
 public expect fun scePowerIsBatteryExist(): Int
+
 public expect fun scePowerIsBatteryCharging(): Int
+
 public expect fun scePowerGetBatteryChargingStatus(): Int
+
 public expect fun scePowerIsLowBattery(): Int
+
 public expect fun scePowerGetBatteryLifePercent(): Int
+
 public expect fun scePowerGetBatteryLifeTime(): Int
+
 public expect fun scePowerGetBatteryTemp(): Int
+
 public expect fun scePowerGetBatteryElec(): Int
+
 public expect fun scePowerGetBatteryVolt(): Int
+
 public expect fun scePowerSetCpuClockFrequency(cpufreq: Int): Int
+
 public expect fun scePowerSetBusClockFrequency(busfreq: Int): Int
+
 public expect fun scePowerGetCpuClockFrequency(): Int
+
 public expect fun scePowerGetCpuClockFrequencyInt(): Int
+
 public expect fun scePowerGetCpuClockFrequencyFloat(): Float
+
 public expect fun scePowerGetBusClockFrequency(): Int
+
 public expect fun scePowerGetBusClockFrequencyInt(): Int
+
 public expect fun scePowerGetBusClockFrequencyFloat(): Float
+
 public expect fun scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int
+
 public expect fun scePowerLock(unknown: Int): Int
+
 public expect fun scePowerUnlock(unknown: Int): Int
+
 public expect fun scePowerTick(t: PowerTick): Int
+
 public expect fun scePowerGetIdleTimer(): Int
+
 public expect fun scePowerIdleTimerEnable(unknown: Int): Int
+
 public expect fun scePowerIdleTimerDisable(unknown: Int): Int
+
 public expect fun scePowerRequestStandby(): Int
+
 public expect fun scePowerRequestSuspend(): Int
+
 public expect fun sceWlanDevIsPowerOn(): Int
+
 public expect fun sceWlanGetSwitchState(): Int
+
 public expect fun sceWlanGetEtherAddr(etherAddr: COpaquePointer?): Int
+
 public expect fun sceWlanDevAttach(): Int
+
 public expect fun sceWlanDevDetach(): Int
+
 public expect fun sceRtcGetTickResolution(): UInt
+
 public expect fun sceRtcGetCurrentTick(tick: ULong?): Int
+
 public expect fun sceRtcGetCurrentClock(tm: ScePspDateTime?, tz: Int): Int
+
 public expect fun sceRtcGetCurrentClockLocalTime(tm: ScePspDateTime?): Int
+
 public expect fun sceRtcConvertUtcToLocalTime(tickUtc: ULong?, tickLocal: ULong?): Int
+
 public expect fun sceRtcConvertLocalTimeToUTC(tickLocal: ULong?, tickUtc: ULong?): Int
+
 public expect fun sceRtcIsLeapYear(year: Int): Int
+
 public expect fun sceRtcGetDaysInMonth(year: Int, month: Int): Int
+
 public expect fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int
+
 public expect fun sceRtcCheckValid(date: ScePspDateTime?): Int
+
 public expect fun sceRtcSetTick(date: ScePspDateTime?, tick: ULong?): Int
+
 public expect fun sceRtcGetTick(date: ScePspDateTime?, tick: ULong?): Int
+
 public expect fun sceRtcCompareTick(tick1: ULong?, tick2: ULong?): Int
+
 public expect fun sceRtcTickAddTicks(destTick: ULong?, srcTick: ULong?, numTicks: ULong): Int
+
 public expect fun sceRtcTickAddMicroseconds(destTick: ULong?, srcTick: ULong?, numMs: ULong): Int
+
 public expect fun sceRtcTickAddSeconds(destTick: ULong?, srcTick: ULong?, numSeconds: ULong): Int
+
 public expect fun sceRtcTickAddMinutes(destTick: ULong?, srcTick: ULong?, numMinutes: ULong): Int
+
 public expect fun sceRtcTickAddHours(destTick: ULong?, srcTick: ULong?, numHours: ULong): Int
+
 public expect fun sceRtcTickAddDays(destTick: ULong?, srcTick: ULong?, numDays: ULong): Int
+
 public expect fun sceRtcTickAddWeeks(destTick: ULong?, srcTick: ULong?, numWeeks: ULong): Int
+
 public expect fun sceRtcTickAddMonths(destTick: ULong?, srcTick: ULong?, numMonths: ULong): Int
+
 public expect fun sceRtcTickAddYears(destTick: ULong?, srcTick: ULong?, numYears: ULong): Int
+
 public expect fun sceRtcSetTimeT(date: ScePspDateTime?, time: UInt): Int
+
 public expect fun sceRtcGetTimeT(date: ScePspDateTime?, time: UInt?): Int
+
 public expect fun sceRtcSetTime64T(date: ScePspDateTime?, time: ULong): Int
+
 public expect fun sceRtcGetTime64T(date: ScePspDateTime?, time: ULong?): Int
+
 public expect fun sceRtcSetDosTime(date: ScePspDateTime?, dosTime: UInt): Int
+
 public expect fun sceRtcGetDosTime(date: ScePspDateTime?, dosTime: UInt): Int
+
 public expect fun sceRtcSetWin32FileTime(date: ScePspDateTime?, time: ULong?): Int
+
 public expect fun sceRtcGetWin32FileTime(date: ScePspDateTime?, time: ULong?): Int
+
 public expect fun sceRtcParseDateTime(destTick: ULong?, dateString: COpaquePointer?): Int
+
 public expect fun sceRtcFormatRFC3339(pszDateTime: String?, pUtc: ULong?, timeZoneMinutes: Int): Int
+
 public expect fun sceRtcFormatRFC3339LocalTime(pszDateTime: String?, pUtc: ULong?): Int
+
 public expect fun sceRtcParseRFC3339(pUtc: ULong?, pszDateTime: COpaquePointer?): Int
+
 public expect fun sceRtcFormatRFC2822(pszDateTime: String?, pUtc: ULong?, timeZoneMinutes: Int): Int
+
 public expect fun sceRtcFormatRFC2822LocalTime(pszDateTime: String?, pUtc: ULong?): Int
+
 public expect fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid
+
 public expect fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid
+
 public expect fun sceIoClose(fd: SceUid): Int
+
 public expect fun sceIoCloseAsync(fd: SceUid): Int
+
 public expect fun sceIoRead(fd: SceUid, data: COpaquePointer?, size: UInt): Int
+
 public expect fun sceIoReadAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int
+
 public expect fun sceIoWrite(fd: SceUid, data: COpaquePointer?, size: ULong): Int
+
 public expect fun sceIoWriteAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int
+
 public expect fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long
+
 public expect fun sceIoLseekAsync(fd: SceUid, offset: Long, whence: IoWhence): Int
+
 public expect fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int
+
 public expect fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int
+
 public expect fun sceIoRemove(file: COpaquePointer?): Int
+
 public expect fun sceIoMkdir(dir: COpaquePointer?, mode: IoPermissions): Int
+
 public expect fun sceIoRmdir(path: COpaquePointer?): Int
+
 public expect fun sceIoChdir(path: COpaquePointer?): Int
+
 public expect fun sceIoRename(oldname: COpaquePointer?, newname: COpaquePointer?): Int
+
 public expect fun sceIoDopen(dirname: COpaquePointer?): SceUid
+
 public expect fun sceIoDread(fd: SceUid, dir: SceIoDirent?): Int
+
 public expect fun sceIoDclose(fd: SceUid): Int
+
 public expect fun sceIoDevctl(dev: COpaquePointer?, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int
+
 public expect fun sceIoAssign(dev1: COpaquePointer?, dev2: COpaquePointer?, dev3: COpaquePointer?, mode: IoAssignPerms, unk1: COpaquePointer?, unk2: Int): Int
+
 public expect fun sceIoUnassign(dev: COpaquePointer?): Int
+
 public expect fun sceIoGetstat(file: COpaquePointer?, stat: SceIoStat?): Int
+
 public expect fun sceIoChstat(file: COpaquePointer?, stat: SceIoStat?, bits: Int): Int
+
 public expect fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int
+
 public expect fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int
+
 public expect fun sceIoSync(device: COpaquePointer?, unk: UInt): Int
+
 public expect fun sceIoWaitAsync(fd: SceUid, res: Long?): Int
+
 public expect fun sceIoWaitAsyncCB(fd: SceUid, res: Long?): Int
+
 public expect fun sceIoPollAsync(fd: SceUid, res: Long?): Int
+
 public expect fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: Long?): Int
+
 public expect fun sceIoCancel(fd: SceUid): Int
+
 public expect fun sceIoGetDevType(fd: SceUid): Int
+
 public expect fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int
+
 public expect fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: COpaquePointer?): Int
+
 public expect fun sceJpegInitMJpeg(): Int
+
 public expect fun sceJpegFinishMJpeg(): Int
+
 public expect fun sceJpegCreateMJpeg(width: Int, height: Int): Int
+
 public expect fun sceJpegDeleteMJpeg(): Int
+
 public expect fun sceJpegDecodeMJpeg(jpegBuf: COpaquePointer?, size: ULong, rgba: COpaquePointer?, unk: UInt): Int
+
 public expect fun sceUmdCheckMedium(): Int
+
 public expect fun sceUmdGetDiscInfo(info: UmdInfo?): Int
+
 public expect fun sceUmdActivate(unit: Int, drive: COpaquePointer?): Int
+
 public expect fun sceUmdDeactivate(unit: Int, drive: COpaquePointer?): Int
+
 public expect fun sceUmdWaitDriveStat(state: Int): Int
+
 public expect fun sceUmdWaitDriveStatWithTimer(state: Int, timeout: UInt): Int
+
 public expect fun sceUmdWaitDriveStatCB(state: Int, timeout: UInt): Int
+
 public expect fun sceUmdCancelWaitDriveStat(): Int
+
 public expect fun sceUmdGetDriveStat(): Int
+
 public expect fun sceUmdGetErrorStat(): Int
+
 public expect fun sceUmdRegisterUMDCallBack(cbid: Int): Int
+
 public expect fun sceUmdUnRegisterUMDCallBack(cbid: Int): Int
+
 public expect fun sceUmdReplacePermit(): Int
+
 public expect fun sceUmdReplaceProhibit(): Int
+
 public expect fun sceMpegInit(): Int
+
 public expect fun sceMpegFinish()
+
 public expect fun sceMpegRingbufferQueryMemSize(packets: Int): Int
+
 public expect fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int
+
 public expect fun sceMpegRingbufferDestruct(ringbuffer: SceMpegRingbuffer?)
+
 public expect fun sceMpegRingbufferAvailableSize(ringbuffer: SceMpegRingbuffer?): Int
+
 public expect fun sceMpegRingbufferPut(ringbuffer: SceMpegRingbuffer?, numPackets: Int, available: Int): Int
+
 public expect fun sceMpegQueryMemSize(unk: Int): Int
+
 public expect fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: SceMpegRingbuffer?, frameWidth: Int, unk1: Int, unk2: Int): Int
+
 public expect fun sceMpegDelete(handle: SceMpeg)
+
 public expect fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: Int?): Int
+
 public expect fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: Int?): Int
+
 public expect fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream
+
 public expect fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream)
+
 public expect fun sceMpegFlushAllStream(handle: SceMpeg): Int
+
 public expect fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer?
+
 public expect fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?)
+
 public expect fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: Int?, outSize: Int?): Int
+
 public expect fun sceMpegInitAu(handle: SceMpeg, esBuffer: COpaquePointer?, au: SceMpegAu?): Int
+
 public expect fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: SceMpegAu?, unk: Int?): Int
+
 public expect fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: SceMpegAvcMode?): Int
+
 public expect fun sceMpegAvcDecode(handle: SceMpeg, au: SceMpegAu?, iframeWidth: Int, buffer: COpaquePointer?, init: Int?): Int
+
 public expect fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: COpaquePointer?, status: Int?): Int
+
 public expect fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: SceMpegAu?, unk: COpaquePointer?): Int
+
 public expect fun sceMpegAtracDecode(handle: SceMpeg, au: SceMpegAu?, buffer: COpaquePointer?, init: Int): Int
+
 public expect fun sceMpegBaseYCrCbCopyVme(yuvBuffer: COpaquePointer?, buffer: Int?, type: Int): Int
+
 public expect fun sceMpegBaseCscInit(width: Int): Int
+
 public expect fun sceMpegBaseCscVme(rgbBuffer: COpaquePointer?, rgbBuffer2: COpaquePointer?, width: Int, yCrCbBuffer: SceMpegYCrCbBuffer?): Int
+
 public expect fun sceMpegbaseBEA18F91(lli: SceMpegLLI?): Int
+
 public expect fun sceHprmPeekCurrentKey(key: Int?): Int
-public expect fun sceHprmPeekLatch(latch: [u32; 4]?): Int
-public expect fun sceHprmReadLatch(latch: [u32; 4]?): Int
+
+public expect fun sceHprmPeekLatch(latch: UIntArray?): Int
+
+public expect fun sceHprmReadLatch(latch: UIntArray?): Int
+
 public expect fun sceHprmIsHeadphoneExist(): Int
+
 public expect fun sceHprmIsRemoteExist(): Int
+
 public expect fun sceHprmIsMicrophoneExist(): Int
+
 public expect fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int)
+
 public expect fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int)
+
 public expect fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int)
+
 public expect fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int)
+
 public expect fun sceGuDisplay(state: Boolean): Boolean
+
 public expect fun sceGuDepthFunc(function: DepthFunc)
+
 public expect fun sceGuDepthMask(mask: Int)
+
 public expect fun sceGuDepthOffset(offset: Int)
+
 public expect fun sceGuDepthRange(near: Int, far: Int)
+
 public expect fun sceGuFog(near: Float, far: Float, color: UInt)
+
 public expect fun sceGuInit()
+
 public expect fun sceGuTerm()
+
 public expect fun sceGuBreak(mode: Int)
+
 public expect fun sceGuContinue()
+
 public expect fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback
+
 public expect fun sceGuSignal(behavior: SignalBehavior, signal: Int)
+
 public expect fun sceGuSendCommandf(cmd: GeCommand, argument: Float)
+
 public expect fun sceGuSendCommandi(cmd: GeCommand, argument: Int)
+
 public expect fun sceGuGetMemory(size: Int): COpaquePointer?
+
 public expect fun sceGuStart(contextType: GuContextType, list: COpaquePointer?)
+
 public expect fun sceGuFinish(): Int
+
 public expect fun sceGuFinishId(id: UInt): Int
+
 public expect fun sceGuCallList(list: COpaquePointer?)
+
 public expect fun sceGuCallMode(mode: Int)
+
 public expect fun sceGuCheckList(): Int
+
 public expect fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: GeContext?)
+
 public expect fun sceGuSwapBuffers(): COpaquePointer?
+
 public expect fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState
+
 public expect fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGuEndObject()
+
 public expect fun sceGuSetStatus(state: GuState, status: Int)
+
 public expect fun sceGuGetStatus(state: GuState): Boolean
+
 public expect fun sceGuSetAllStatus(status: Int)
+
 public expect fun sceGuGetAllStatus(): Int
+
 public expect fun sceGuEnable(state: GuState)
+
 public expect fun sceGuDisable(state: GuState)
-public expect fun sceGuLight(light: Int, type: LightType, components: Int, position: &ScePspFVector3)
+
+public expect fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3?)
+
 public expect fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float)
+
 public expect fun sceGuLightColor(light: Int, component: Int, color: UInt)
+
 public expect fun sceGuLightMode(mode: LightMode)
-public expect fun sceGuLightSpot(light: Int, direction: &ScePspFVector3, exponent: Float, cutoff: Float)
+
+public expect fun sceGuLightSpot(light: Int, direction: ScePspFVector3?, exponent: Float, cutoff: Float)
+
 public expect fun sceGuClear(flags: Int)
+
 public expect fun sceGuClearColor(color: UInt)
+
 public expect fun sceGuClearDepth(depth: UInt)
+
 public expect fun sceGuClearStencil(stencil: UInt)
+
 public expect fun sceGuPixelMask(mask: UInt)
+
 public expect fun sceGuColor(color: UInt)
+
 public expect fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt)
+
 public expect fun sceGuColorMaterial(components: Int)
+
 public expect fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int)
+
 public expect fun sceGuAmbient(color: UInt)
+
 public expect fun sceGuAmbientColor(color: UInt)
+
 public expect fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt)
+
 public expect fun sceGuMaterial(components: Int, color: UInt)
+
 public expect fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt)
+
 public expect fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int)
+
 public expect fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation)
+
 public expect fun sceGuSpecular(power: Float)
+
 public expect fun sceGuFrontFace(order: FrontFaceDirection)
+
 public expect fun sceGuLogicalOp(op: LogicalOperation)
-public expect fun sceGuSetDither(matrix: &ScePspIMatrix4)
+
+public expect fun sceGuSetDither(matrix: ScePspIMatrix4?)
+
 public expect fun sceGuShadeModel(mode: ShadingModel)
+
 public expect fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?)
+
 public expect fun sceGuTexEnvColor(color: UInt)
+
 public expect fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter)
+
 public expect fun sceGuTexFlush()
+
 public expect fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent)
+
 public expect fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?)
+
 public expect fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float)
+
 public expect fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt)
+
 public expect fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int)
+
 public expect fun sceGuTexOffset(u: Float, v: Float)
+
 public expect fun sceGuTexProjMapMode(mode: TextureProjectionMapMode)
+
 public expect fun sceGuTexScale(u: Float, v: Float)
+
 public expect fun sceGuTexSlope(slope: Float)
+
 public expect fun sceGuTexSync()
+
 public expect fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode)
+
 public expect fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?)
+
 public expect fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt)
+
 public expect fun sceGuOffset(x: UInt, y: UInt)
+
 public expect fun sceGuScissor(x: Int, y: Int, w: Int, h: Int)
+
 public expect fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int)
+
 public expect fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt)
+
 public expect fun sceGuPatchFrontFace(a0: UInt)
+
 public expect fun sceGuPatchPrim(prim: PatchPrimitive)
+
 public expect fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
-public expect fun sceGuSetMatrix(type: MatrixMode, matrix: &ScePspFMatrix4)
-public expect fun sceGuBoneMatrix(index: UInt, matrix: &ScePspFMatrix4)
+
+public expect fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4?)
+
+public expect fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4?)
+
 public expect fun sceGuMorphWeight(index: Int, weight: Float)
+
 public expect fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+
 public expect fun sceGumFastInverse()
+
 public expect fun sceGumFullInverse()
+
 public expect fun sceGumLoadIdentity()
-public expect fun sceGumLoadMatrix(m: &ScePspFMatrix4)
-public expect fun sceGumLookAt(eye: &ScePspFVector3, center: &ScePspFVector3, up: &ScePspFVector3)
+
+public expect fun sceGumLoadMatrix(m: ScePspFMatrix4?)
+
+public expect fun sceGumLookAt(eye: ScePspFVector3?, center: ScePspFVector3?, up: ScePspFVector3?)
+
 public expect fun sceGumMatrixMode(mode: MatrixMode)
-public expect fun sceGumMultMatrix(m: &ScePspFMatrix4)
+
+public expect fun sceGumMultMatrix(m: ScePspFMatrix4?)
+
 public expect fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float)
+
 public expect fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float)
+
 public expect fun sceGumPopMatrix()
+
 public expect fun sceGumPushMatrix()
+
 public expect fun sceGumRotateX(angle: Float)
+
 public expect fun sceGumRotateY(angle: Float)
+
 public expect fun sceGumRotateZ(angle: Float)
-public expect fun sceGumRotateXYZ(v: &ScePspFVector3)
-public expect fun sceGumRotateZYX(v: &ScePspFVector3)
-public expect fun sceGumScale(v: &ScePspFVector3)
-public expect fun sceGumStoreMatrix(m: &mut ScePspFMatrix4)
-public expect fun sceGumTranslate(v: &ScePspFVector3)
+
+public expect fun sceGumRotateXYZ(v: ScePspFVector3?)
+
+public expect fun sceGumRotateZYX(v: ScePspFVector3?)
+
+public expect fun sceGumScale(v: ScePspFVector3?)
+
+public expect fun sceGumStoreMatrix(m: ScePspFMatrix4?)
+
+public expect fun sceGumTranslate(v: ScePspFVector3?)
+
 public expect fun sceGumUpdateMatrix()
+
 public expect fun sceMp3ReserveMp3Handle(args: SceMp3InitArg?): Int
+
 public expect fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int
+
 public expect fun sceMp3InitResource(): Int
+
 public expect fun sceMp3TermResource(): Int
+
 public expect fun sceMp3Init(handle: Mp3Handle): Int
+
 public expect fun sceMp3Decode(handle: Mp3Handle, dst: COpaquePointer?): Int
+
 public expect fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: COpaquePointer?, toWrite: Int?, srcPos: Int?): Int
+
 public expect fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int
+
 public expect fun sceMp3CheckStreamDataNeeded(handle: Mp3Handle): Int
+
 public expect fun sceMp3SetLoopNum(handle: Mp3Handle, loop: Int): Int
+
 public expect fun sceMp3GetLoopNum(handle: Mp3Handle): Int
+
 public expect fun sceMp3GetSumDecodedSample(handle: Mp3Handle): Int
+
 public expect fun sceMp3GetMaxOutputSample(handle: Mp3Handle): Int
+
 public expect fun sceMp3GetSamplingRate(handle: Mp3Handle): Int
+
 public expect fun sceMp3GetBitRate(handle: Mp3Handle): Int
+
 public expect fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int
+
 public expect fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int
+
 public expect fun sceRegOpenRegistry(reg: Key?, mode: Int, handle: RegHandle?): Int
+
 public expect fun sceRegFlushRegistry(handle: RegHandle): Int
+
 public expect fun sceRegCloseRegistry(handle: RegHandle): Int
+
 public expect fun sceRegOpenCategory(handle: RegHandle, name: COpaquePointer?, mode: Int, dirHandle: RegHandle?): Int
+
 public expect fun sceRegRemoveCategory(handle: RegHandle, name: COpaquePointer?): Int
+
 public expect fun sceRegCloseCategory(dirHandle: RegHandle): Int
+
 public expect fun sceRegFlushCategory(dirHandle: RegHandle): Int
+
 public expect fun sceRegGetKeyInfo(dirHandle: RegHandle, name: COpaquePointer?, keyHandle: RegHandle?, type: KeyType?, size: ULong?): Int
+
 public expect fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: COpaquePointer?, type: KeyType?, size: ULong?): Int
+
 public expect fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: COpaquePointer?, size: ULong): Int
+
 public expect fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int
+
 public expect fun sceRegSetKeyValue(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int
+
 public expect fun sceRegGetKeysNum(dirHandle: RegHandle, num: Int?): Int
+
 public expect fun sceRegGetKeys(dirHandle: RegHandle, buf: COpaquePointer?, num: Int): Int
+
 public expect fun sceRegCreateKey(dirHandle: RegHandle, name: COpaquePointer?, type: Int, size: ULong): Int
+
 public expect fun sceRegRemoveRegistry(key: Key?): Int
+
 public expect fun sceOpenPSIDGetOpenPSID(openpsid: OpenPSID?): Int
+
 public expect fun sceUtilityMsgDialogInitStart(params: UtilityMsgDialogParams?): Int
+
 public expect fun sceUtilityMsgDialogShutdownStart()
+
 public expect fun sceUtilityMsgDialogGetStatus(): Int
+
 public expect fun sceUtilityMsgDialogUpdate(n: Int)
+
 public expect fun sceUtilityMsgDialogAbort(): Int
+
 public expect fun sceUtilityNetconfInitStart(data: UtilityNetconfData?): Int
+
 public expect fun sceUtilityNetconfShutdownStart(): Int
+
 public expect fun sceUtilityNetconfUpdate(unknown: Int): Int
+
 public expect fun sceUtilityNetconfGetStatus(): Int
+
 public expect fun sceUtilityCheckNetParam(id: Int): Int
+
 public expect fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: UtilityNetData?): Int
+
 public expect fun sceUtilitySavedataInitStart(params: SceUtilitySavedataParam?): Int
+
 public expect fun sceUtilitySavedataGetStatus(): Int
+
 public expect fun sceUtilitySavedataShutdownStart(): Int
+
 public expect fun sceUtilitySavedataUpdate(unknown: Int)
+
 public expect fun sceUtilityGameSharingInitStart(params: UtilityGameSharingParams?): Int
+
 public expect fun sceUtilityGameSharingShutdownStart()
+
 public expect fun sceUtilityGameSharingGetStatus(): Int
+
 public expect fun sceUtilityGameSharingUpdate(n: Int)
+
 public expect fun sceUtilityHtmlViewerInitStart(params: UtilityHtmlViewerParam?): Int
+
 public expect fun sceUtilityHtmlViewerShutdownStart(): Int
+
 public expect fun sceUtilityHtmlViewerUpdate(n: Int): Int
+
 public expect fun sceUtilityHtmlViewerGetStatus(): Int
+
 public expect fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int
+
 public expect fun sceUtilitySetSystemParamString(id: SystemParamId, str: COpaquePointer?): Int
+
 public expect fun sceUtilityGetSystemParamInt(id: SystemParamId, value: Int?): Int
+
 public expect fun sceUtilityGetSystemParamString(id: SystemParamId, str: COpaquePointer?, len: Int): Int
+
 public expect fun sceUtilityOskInitStart(params: SceUtilityOskParams?): Int
+
 public expect fun sceUtilityOskShutdownStart(): Int
+
 public expect fun sceUtilityOskUpdate(n: Int): Int
+
 public expect fun sceUtilityOskGetStatus(): Int
+
 public expect fun sceUtilityLoadNetModule(module: NetModule): Int
+
 public expect fun sceUtilityUnloadNetModule(module: NetModule): Int
+
 public expect fun sceUtilityLoadAvModule(module: AvModule): Int
+
 public expect fun sceUtilityUnloadAvModule(module: AvModule): Int
+
 public expect fun sceUtilityLoadUsbModule(module: UsbModule): Int
+
 public expect fun sceUtilityUnloadUsbModule(module: UsbModule): Int
+
 public expect fun sceUtilityLoadModule(module: Module): Int
+
 public expect fun sceUtilityUnloadModule(module: Module): Int
+
 public expect fun sceUtilityCreateNetParam(conf: Int): Int
-public expect fun sceUtilitySetNetParam(param: NetParam, val: COpaquePointer?): Int
+
+public expect fun sceUtilitySetNetParam(param: NetParam, `val`: COpaquePointer?): Int
+
 public expect fun sceUtilityCopyNetParam(src: Int, dest: Int): Int
+
 public expect fun sceUtilityDeleteNetParam(conf: Int): Int
+
 public expect fun sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int
+
 public expect fun sceNetTerm(): Int
+
 public expect fun sceNetFreeThreadinfo(thid: Int): Int
+
 public expect fun sceNetThreadAbort(thid: Int): Int
+
 public expect fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?)
+
 public expect fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?)
+
 public expect fun sceNetGetLocalEtherAddr(mac: COpaquePointer?): Int
+
 public expect fun sceNetGetMallocStat(stat: SceNetMallocStat?): Int
+
 public expect fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: SceNetAdhocctlAdhocId?): Int
+
 public expect fun sceNetAdhocctlTerm(): Int
+
 public expect fun sceNetAdhocctlConnect(name: COpaquePointer?): Int
+
 public expect fun sceNetAdhocctlDisconnect(): Int
+
 public expect fun sceNetAdhocctlGetState(event: Int?): Int
+
 public expect fun sceNetAdhocctlCreate(name: COpaquePointer?): Int
+
 public expect fun sceNetAdhocctlJoin(scaninfo: SceNetAdhocctlScanInfo?): Int
+
 public expect fun sceNetAdhocctlGetAdhocId(id: SceNetAdhocctlAdhocId?): Int
+
 public expect fun sceNetAdhocctlCreateEnterGameMode(name: COpaquePointer?, unknown: Int, num: Int, macs: COpaquePointer?, timeout: UInt, unknown2: Int): Int
+
 public expect fun sceNetAdhocctlJoinEnterGameMode(name: COpaquePointer?, hostmac: COpaquePointer?, timeout: UInt, unknown: Int): Int
+
 public expect fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: SceNetAdhocctlGameModeInfo?): Int
+
 public expect fun sceNetAdhocctlExitGameMode(): Int
+
 public expect fun sceNetAdhocctlGetPeerList(length: Int?, buf: COpaquePointer?): Int
+
 public expect fun sceNetAdhocctlGetPeerInfo(mac: COpaquePointer?, size: Int, peerinfo: SceNetAdhocctlPeerInfo?): Int
+
 public expect fun sceNetAdhocctlScan(): Int
+
 public expect fun sceNetAdhocctlGetScanInfo(length: Int?, buf: COpaquePointer?): Int
+
 public expect fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: COpaquePointer?): Int
+
 public expect fun sceNetAdhocctlDelHandler(id: Int): Int
+
 public expect fun sceNetAdhocctlGetNameByAddr(mac: COpaquePointer?, nickname: COpaquePointer?): Int
+
 public expect fun sceNetAdhocctlGetAddrByName(nickname: COpaquePointer?, length: Int?, buf: COpaquePointer?): Int
+
 public expect fun sceNetAdhocctlGetParameter(params: SceNetAdhocctlParams?): Int
+
 public expect fun sceNetAdhocInit(): Int
+
 public expect fun sceNetAdhocTerm(): Int
+
 public expect fun sceNetAdhocPdpCreate(mac: COpaquePointer?, port: UShort, bufSize: UInt, unk1: Int): Int
+
 public expect fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int
+
 public expect fun sceNetAdhocPdpSend(id: Int, destMacAddr: COpaquePointer?, port: UShort, data: COpaquePointer?, len: UInt, timeout: UInt, nonblock: Int): Int
+
 public expect fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: COpaquePointer?, port: UShort?, data: COpaquePointer?, dataLength: COpaquePointer?, timeout: UInt, nonblock: Int): Int
+
 public expect fun sceNetAdhocGetPdpStat(size: Int?, stat: SceNetAdhocPdpStat?): Int
+
 public expect fun sceNetAdhocGameModeCreateMaster(data: COpaquePointer?, size: Int): Int
+
 public expect fun sceNetAdhocGameModeCreateReplica(mac: COpaquePointer?, data: COpaquePointer?, size: Int): Int
+
 public expect fun sceNetAdhocGameModeUpdateMaster(): Int
+
 public expect fun sceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int
+
 public expect fun sceNetAdhocGameModeDeleteMaster(): Int
+
 public expect fun sceNetAdhocGameModeDeleteReplica(id: Int): Int
+
 public expect fun sceNetAdhocPtpOpen(srcmac: COpaquePointer?, srcport: UShort, destmac: COpaquePointer?, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int
+
 public expect fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int
+
 public expect fun sceNetAdhocPtpListen(srcmac: COpaquePointer?, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int
+
 public expect fun sceNetAdhocPtpAccept(id: Int, mac: COpaquePointer?, port: UShort?, timeout: UInt, nonblock: Int): Int
+
 public expect fun sceNetAdhocPtpSend(id: Int, data: COpaquePointer?, dataSize: Int?, timeout: UInt, nonblock: Int): Int
+
 public expect fun sceNetAdhocPtpRecv(id: Int, data: COpaquePointer?, dataSize: Int?, timeout: UInt, nonblock: Int): Int
+
 public expect fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int
+
 public expect fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int
+
 public expect fun sceNetAdhocGetPtpStat(size: Int?, stat: SceNetAdhocPtpStat?): Int
+
 public expect fun sceNetAdhocMatchingInit(memsize: Int): Int
+
 public expect fun sceNetAdhocMatchingTerm(): Int
+
 public expect fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int
+
 public expect fun sceNetAdhocMatchingDelete(matchingId: Int): Int
+
 public expect fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingStop(matchingId: Int): Int
+
 public expect fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingSendData(matchingId: Int, mac: COpaquePointer?, dataLen: Int, data: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: Int?, optData: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: Int?, buf: COpaquePointer?): Int
+
 public expect fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int
+
 public expect fun sceNetAdhocMatchingGetPoolStat(poolstat: AdhocPoolStat?): Int
+
 public expect fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int
+
 public expect fun sceNetApctlTerm(): Int
+
 public expect fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: SceNetApctlInfo?): Int
+
 public expect fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: COpaquePointer?): Int
+
 public expect fun sceNetApctlDelHandler(handlerId: Int): Int
+
 public expect fun sceNetApctlConnect(connIndex: Int): Int
+
 public expect fun sceNetApctlDisconnect(): Int
+
 public expect fun sceNetApctlGetState(pstate: ApctlState?): Int
+
 public expect fun sceNetInetInit(): Int
+
 public expect fun sceNetInetTerm(): Int
+
 public expect fun sceNetInetAccept(s: Int, addr: Sockaddr?, addrLen: SocklenT?): Int
+
 public expect fun sceNetInetBind(s: Int, myAddr: Sockaddr?, addrLen: SocklenT): Int
+
 public expect fun sceNetInetConnect(s: Int, servAddr: Sockaddr?, addrLen: SocklenT): Int
+
 public expect fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: SocklenT?): Int
+
 public expect fun sceNetInetListen(s: Int, backlog: Int): Int
+
 public expect fun sceNetInetRecv(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong
+
 public expect fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: Sockaddr?, fromLen: SocklenT?): ULong
+
 public expect fun sceNetInetSend(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong
+
 public expect fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, toLen: SocklenT): ULong
+
 public expect fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: SocklenT): Int
+
 public expect fun sceNetInetShutdown(s: Int, how: Int): Int
+
 public expect fun sceNetInetSocket(domain: Int, type: Int, protocol: Int): Int
+
 public expect fun sceNetInetClose(s: Int): Int
+
 public expect fun sceNetInetGetErrno(): Int
+
 public expect fun sceSslInit(unknown1: Int): Int
+
 public expect fun sceSslEnd(): Int
+
 public expect fun sceSslGetUsedMemoryMax(memory: UInt?): Int
+
 public expect fun sceSslGetUsedMemoryCurrent(memory: UInt?): Int
+
 public expect fun sceHttpInit(unknown1: UInt): Int
+
 public expect fun sceHttpEnd(): Int
+
 public expect fun sceHttpCreateTemplate(agent: COpaquePointer?, unknown1: Int, unknown2: Int): Int
+
 public expect fun sceHttpDeleteTemplate(templateid: Int): Int
+
 public expect fun sceHttpCreateConnection(templateid: Int, host: COpaquePointer?, unknown1: COpaquePointer?, port: UShort, unknown2: Int): Int
+
 public expect fun sceHttpCreateConnectionWithURL(templateid: Int, url: COpaquePointer?, unknown1: Int): Int
+
 public expect fun sceHttpDeleteConnection(connectionId: Int): Int
+
 public expect fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: COpaquePointer?, contentLength: ULong): Int
+
 public expect fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: COpaquePointer?, contentLength: ULong): Int
+
 public expect fun sceHttpDeleteRequest(requestId: Int): Int
+
 public expect fun sceHttpSendRequest(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int
+
 public expect fun sceHttpAbortRequest(requestId: Int): Int
+
 public expect fun sceHttpReadData(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int
+
 public expect fun sceHttpGetContentLength(requestId: Int, contentLength: ULong?): Int
+
 public expect fun sceHttpGetStatusCode(requestId: Int, statusCode: Int?): Int
+
 public expect fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int
+
 public expect fun sceHttpSetResolveRetry(id: Int, count: Int): Int
+
 public expect fun sceHttpSetConnectTimeOut(id: Int, timeout: UInt): Int
+
 public expect fun sceHttpSetSendTimeOut(id: Int, timeout: UInt): Int
+
 public expect fun sceHttpSetRecvTimeOut(id: Int, timeout: UInt): Int
+
 public expect fun sceHttpEnableKeepAlive(id: Int): Int
+
 public expect fun sceHttpDisableKeepAlive(id: Int): Int
+
 public expect fun sceHttpEnableRedirect(id: Int): Int
+
 public expect fun sceHttpDisableRedirect(id: Int): Int
+
 public expect fun sceHttpEnableCookie(id: Int): Int
+
 public expect fun sceHttpDisableCookie(id: Int): Int
+
 public expect fun sceHttpSaveSystemCookie(): Int
+
 public expect fun sceHttpLoadSystemCookie(): Int
+
 public expect fun sceHttpAddExtraHeader(id: Int, name: COpaquePointer?, value: COpaquePointer?, unknown1: Int): Int
+
 public expect fun sceHttpDeleteHeader(id: Int, name: COpaquePointer?): Int
+
 public expect fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int
+
 public expect fun sceHttpsEnd(): Int
+
 public expect fun sceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int
+
 public expect fun sceHttpDisableAuth(id: Int): Int
+
 public expect fun sceHttpDisableCache(id: Int): Int
+
 public expect fun sceHttpEnableAuth(id: Int): Int
+
 public expect fun sceHttpEnableCache(id: Int): Int
+
 public expect fun sceHttpEndCache(): Int
+
 public expect fun sceHttpGetAllHeader(request: Int, header: COpaquePointer?, headerSize: UInt?): Int
+
 public expect fun sceHttpGetNetworkErrno(request: Int, errNum: Int?): Int
+
 public expect fun sceHttpGetProxy(id: Int, activateFlag: Int?, mode: Int?, proxyHost: COpaquePointer?, len: ULong, proxyPort: UShort?): Int
+
 public expect fun sceHttpInitCache(maxSize: ULong): Int
+
 public expect fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int
+
 public expect fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: COpaquePointer?, newProxyPort: UShort): Int
+
 public expect fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int
+
 public expect fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int
+
 public expect fun sceNetResolverInit(): Int
+
 public expect fun sceNetResolverCreate(rid: Int?, buf: COpaquePointer?, bufLength: UInt): Int
+
 public expect fun sceNetResolverDelete(rid: Int): Int
+
 public expect fun sceNetResolverStartNtoA(rid: Int, hostname: COpaquePointer?, addr: InAddr?, timeout: UInt, retry: Int): Int
+
 public expect fun sceNetResolverStartAtoN(rid: Int, addr: InAddr?, hostname: COpaquePointer?, hostnameLen: UInt, timeout: UInt, retry: Int): Int
+
 public expect fun sceNetResolverStop(rid: Int): Int
+
 public expect fun sceNetResolverTerm(): Int

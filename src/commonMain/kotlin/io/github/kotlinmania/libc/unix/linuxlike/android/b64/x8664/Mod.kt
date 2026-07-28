@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b64.x8664
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias WcharT = Int
 public typealias GregT = Long
@@ -153,8 +152,8 @@ public data class MaxAlignT(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousUcSigmask(
-    val ucSigmask: SigsetT = null,
-    val ucSigmask64: Sigset64T = null,
+    val ucSigmask: SigsetT? = null,
+    val ucSigmask64: Sigset64T? = null,
 )
 
 public const val O_DIRECT: CInt = 0x4000

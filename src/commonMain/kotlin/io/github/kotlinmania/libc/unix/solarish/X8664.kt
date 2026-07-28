@@ -69,18 +69,18 @@ public data class UcontextT(
     val ucSigmask: SigsetT,
     val ucStack: StackT,
     val ucMcontext: McontextT,
-    val ucBrandData: List<*mut cVoid>,
+    val ucBrandData: List<COpaquePointer?>,
     val ucXsave: CLong,
     val ucFiller: CLong,
-    val ucXrs: Solaris::xrsT,
+    val ucXrs: XrsT,
     val ucLwpid: CUInt,
     val ucFiller: LongArray,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousFpRegSet(
-    val fpchipState: CAnonymousFpchipState = null,
-    val fFpregs: List<[u32> = null,
+    val fpchipState: CAnonymousFpchipState? = null,
+    val fFpregs: List<UIntArray>? = null,
 )
 
 public const val REG_GSBASE: CInt = 27

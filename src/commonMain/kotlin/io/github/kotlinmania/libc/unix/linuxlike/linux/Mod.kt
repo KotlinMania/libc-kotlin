@@ -29,11 +29,12 @@ public typealias S32 = CInt
 public typealias SctpAssocT = S32
 public typealias EventfdT = ULong
 
-public enum class TpacketVersions(public val value: UInt) {
+public enum class TpacketVersions(
+    public val value: UInt,
+) {
     TPACKET_V1(0u),
     TPACKET_V2(1u),
     TPACKET_V3(2u),
-    ;
 }
 
 public data class Dqblk(
@@ -318,7 +319,7 @@ public data class UinputAbsSetup(
 )
 
 public data class CAnonymousKernelFsidT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public data class PosixSpawnFileActionsT(
@@ -407,7 +408,7 @@ public data class SeccompNotif(
 
 public data class SeccompNotifResp(
     val id: U64,
-    val val: S64,
+    val `val`: S64,
     val error: S32,
     val flags: U32,
 )
@@ -448,7 +449,7 @@ public data class PtpSysOffsetExtended(
     val nSamples: CUInt,
     val clockid: KernelClockidT,
     val rsv: UIntArray,
-    val ts: List<[ptpClockTime>,
+    val ts: List<PtpClockTime>,
 )
 
 public data class PtpSysOffsetPrecise(
@@ -1039,70 +1040,73 @@ public data class XskTxMetadata(
 
 // C union; only one variant is valid at a time.
 public data class TpacketReqU(
-    val req: TpacketReq = null,
-    val req3: TpacketReq3 = null,
+    val req: TpacketReq? = null,
+    val req3: TpacketReq3? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class TpacketBdHeaderU(
-    val bh1: TpacketHdrV1 = null,
+    val bh1: TpacketHdrV1? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class IwreqData(
-    val name: ByteArray = null,
-    val essid: IwPoint = null,
-    val nwid: IwParam = null,
-    val freq: IwFreq = null,
-    val sens: IwParam = null,
-    val bitrate: IwParam = null,
-    val txpower: IwParam = null,
-    val rts: IwParam = null,
-    val frag: IwParam = null,
-    val mode: U32 = null,
-    val retry: IwParam = null,
-    val encoding: IwPoint = null,
-    val power: IwParam = null,
-    val qual: IwQuality = null,
-    val apAddr: Sockaddr = null,
-    val addr: Sockaddr = null,
-    val param: IwParam = null,
-    val data: IwPoint = null,
+    val name: ByteArray? = null,
+    val essid: IwPoint? = null,
+    val nwid: IwParam? = null,
+    val freq: IwFreq? = null,
+    val sens: IwParam? = null,
+    val bitrate: IwParam? = null,
+    val txpower: IwParam? = null,
+    val rts: IwParam? = null,
+    val frag: IwParam? = null,
+    val mode: U32? = null,
+    val retry: IwParam? = null,
+    val encoding: IwPoint? = null,
+    val power: IwParam? = null,
+    val qual: IwQuality? = null,
+    val apAddr: Sockaddr? = null,
+    val addr: Sockaddr? = null,
+    val param: IwParam? = null,
+    val data: IwPoint? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIwreq(
-    val ifrnName: ByteArray = null,
+    val ifrnName: ByteArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousPtpPeroutRequest1(
-    val start: PtpClockTime = null,
-    val phase: PtpClockTime = null,
+    val start: PtpClockTime? = null,
+    val phase: PtpClockTime? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousPtpPeroutRequest2(
-    val on: PtpClockTime = null,
-    val rsv: UIntArray = null,
+    val on: PtpClockTime? = null,
+    val rsv: UIntArray? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousXskTxMetadataUnion(
-    val request: XskTxMetadataRequest = null,
-    val completion: XskTxMetadataCompletion = null,
+    val request: XskTxMetadataRequest? = null,
+    val completion: XskTxMetadataCompletion? = null,
 )
 
 public typealias PidType = CUInt
+
 public const val PIDTYPE_PID: PidType = 0u
 public const val PIDTYPE_TGID: PidType = 1u
 public const val PIDTYPE_PGID: PidType = 2u
 public const val PIDTYPE_SID: PidType = 3u
 public const val PIDTYPE_MAX: PidType = 4u
 public typealias ProcCnMcastOp = CUInt
+
 public const val PROC_CN_MCAST_LISTEN: ProcCnMcastOp = 1u
 public const val PROC_CN_MCAST_IGNORE: ProcCnMcastOp = 2u
 public typealias ProcCnEvent = CUInt
+
 public const val PROC_EVENT_NONE: ProcCnEvent = 0x00000000u
 public const val PROC_EVENT_FORK: ProcCnEvent = 0x00000001u
 public const val PROC_EVENT_EXEC: ProcCnEvent = 0x00000002u
@@ -1123,15 +1127,15 @@ public const val IFF_LOWER_UP: CInt = 0x10000
 public const val IFF_DORMANT: CInt = 0x20000
 public const val IFF_ECHO: CInt = 0x40000
 public const val AT_EXECVE_CHECK: CInt = 0x10000
-public const val IFA_UNSPEC: CUShort = 0u
-public const val IFA_ADDRESS: CUShort = 1u
-public const val IFA_LOCAL: CUShort = 2u
-public const val IFA_LABEL: CUShort = 3u
-public const val IFA_BROADCAST: CUShort = 4u
-public const val IFA_ANYCAST: CUShort = 5u
-public const val IFA_CACHEINFO: CUShort = 6u
-public const val IFA_MULTICAST: CUShort = 7u
-public const val IFA_FLAGS: CUShort = 8u
+public val IFA_UNSPEC: CUShort = (0).toUShort()
+public val IFA_ADDRESS: CUShort = (1).toUShort()
+public val IFA_LOCAL: CUShort = (2).toUShort()
+public val IFA_LABEL: CUShort = (3).toUShort()
+public val IFA_BROADCAST: CUShort = (4).toUShort()
+public val IFA_ANYCAST: CUShort = (5).toUShort()
+public val IFA_CACHEINFO: CUShort = (6).toUShort()
+public val IFA_MULTICAST: CUShort = (7).toUShort()
+public val IFA_FLAGS: CUShort = (8).toUShort()
 public const val IFA_F_SECONDARY: UInt = 0x01u
 public const val IFA_F_TEMPORARY: UInt = 0x01u
 public const val IFA_F_NODAD: UInt = 0x02u
@@ -1153,75 +1157,75 @@ public const val RWF_APPEND: CInt = 0x00000010
 public const val RWF_NOAPPEND: CInt = 0x00000020
 public const val RWF_ATOMIC: CInt = 0x00000040
 public const val RWF_DONTCACHE: CInt = 0x00000080
-public const val IFLA_UNSPEC: CUShort = 0u
-public const val IFLA_ADDRESS: CUShort = 1u
-public const val IFLA_BROADCAST: CUShort = 2u
-public const val IFLA_IFNAME: CUShort = 3u
-public const val IFLA_MTU: CUShort = 4u
-public const val IFLA_LINK: CUShort = 5u
-public const val IFLA_QDISC: CUShort = 6u
-public const val IFLA_STATS: CUShort = 7u
-public const val IFLA_COST: CUShort = 8u
-public const val IFLA_PRIORITY: CUShort = 9u
-public const val IFLA_MASTER: CUShort = 10u
-public const val IFLA_WIRELESS: CUShort = 11u
-public const val IFLA_PROTINFO: CUShort = 12u
-public const val IFLA_TXQLEN: CUShort = 13u
-public const val IFLA_MAP: CUShort = 14u
-public const val IFLA_WEIGHT: CUShort = 15u
-public const val IFLA_OPERSTATE: CUShort = 16u
-public const val IFLA_LINKMODE: CUShort = 17u
-public const val IFLA_LINKINFO: CUShort = 18u
-public const val IFLA_NET_NS_PID: CUShort = 19u
-public const val IFLA_IFALIAS: CUShort = 20u
-public const val IFLA_NUM_VF: CUShort = 21u
-public const val IFLA_VFINFO_LIST: CUShort = 22u
-public const val IFLA_STATS64: CUShort = 23u
-public const val IFLA_VF_PORTS: CUShort = 24u
-public const val IFLA_PORT_SELF: CUShort = 25u
-public const val IFLA_AF_SPEC: CUShort = 26u
-public const val IFLA_GROUP: CUShort = 27u
-public const val IFLA_NET_NS_FD: CUShort = 28u
-public const val IFLA_EXT_MASK: CUShort = 29u
-public const val IFLA_PROMISCUITY: CUShort = 30u
-public const val IFLA_NUM_TX_QUEUES: CUShort = 31u
-public const val IFLA_NUM_RX_QUEUES: CUShort = 32u
-public const val IFLA_CARRIER: CUShort = 33u
-public const val IFLA_PHYS_PORT_ID: CUShort = 34u
-public const val IFLA_CARRIER_CHANGES: CUShort = 35u
-public const val IFLA_PHYS_SWITCH_ID: CUShort = 36u
-public const val IFLA_LINK_NETNSID: CUShort = 37u
-public const val IFLA_PHYS_PORT_NAME: CUShort = 38u
-public const val IFLA_PROTO_DOWN: CUShort = 39u
-public const val IFLA_GSO_MAX_SEGS: CUShort = 40u
-public const val IFLA_GSO_MAX_SIZE: CUShort = 41u
-public const val IFLA_PAD: CUShort = 42u
-public const val IFLA_XDP: CUShort = 43u
-public const val IFLA_EVENT: CUShort = 44u
-public const val IFLA_NEW_NETNSID: CUShort = 45u
-public const val IFLA_IF_NETNSID: CUShort = 46u
+public val IFLA_UNSPEC: CUShort = (0).toUShort()
+public val IFLA_ADDRESS: CUShort = (1).toUShort()
+public val IFLA_BROADCAST: CUShort = (2).toUShort()
+public val IFLA_IFNAME: CUShort = (3).toUShort()
+public val IFLA_MTU: CUShort = (4).toUShort()
+public val IFLA_LINK: CUShort = (5).toUShort()
+public val IFLA_QDISC: CUShort = (6).toUShort()
+public val IFLA_STATS: CUShort = (7).toUShort()
+public val IFLA_COST: CUShort = (8).toUShort()
+public val IFLA_PRIORITY: CUShort = (9).toUShort()
+public val IFLA_MASTER: CUShort = (10).toUShort()
+public val IFLA_WIRELESS: CUShort = (11).toUShort()
+public val IFLA_PROTINFO: CUShort = (12).toUShort()
+public val IFLA_TXQLEN: CUShort = (13).toUShort()
+public val IFLA_MAP: CUShort = (14).toUShort()
+public val IFLA_WEIGHT: CUShort = (15).toUShort()
+public val IFLA_OPERSTATE: CUShort = (16).toUShort()
+public val IFLA_LINKMODE: CUShort = (17).toUShort()
+public val IFLA_LINKINFO: CUShort = (18).toUShort()
+public val IFLA_NET_NS_PID: CUShort = (19).toUShort()
+public val IFLA_IFALIAS: CUShort = (20).toUShort()
+public val IFLA_NUM_VF: CUShort = (21).toUShort()
+public val IFLA_VFINFO_LIST: CUShort = (22).toUShort()
+public val IFLA_STATS64: CUShort = (23).toUShort()
+public val IFLA_VF_PORTS: CUShort = (24).toUShort()
+public val IFLA_PORT_SELF: CUShort = (25).toUShort()
+public val IFLA_AF_SPEC: CUShort = (26).toUShort()
+public val IFLA_GROUP: CUShort = (27).toUShort()
+public val IFLA_NET_NS_FD: CUShort = (28).toUShort()
+public val IFLA_EXT_MASK: CUShort = (29).toUShort()
+public val IFLA_PROMISCUITY: CUShort = (30).toUShort()
+public val IFLA_NUM_TX_QUEUES: CUShort = (31).toUShort()
+public val IFLA_NUM_RX_QUEUES: CUShort = (32).toUShort()
+public val IFLA_CARRIER: CUShort = (33).toUShort()
+public val IFLA_PHYS_PORT_ID: CUShort = (34).toUShort()
+public val IFLA_CARRIER_CHANGES: CUShort = (35).toUShort()
+public val IFLA_PHYS_SWITCH_ID: CUShort = (36).toUShort()
+public val IFLA_LINK_NETNSID: CUShort = (37).toUShort()
+public val IFLA_PHYS_PORT_NAME: CUShort = (38).toUShort()
+public val IFLA_PROTO_DOWN: CUShort = (39).toUShort()
+public val IFLA_GSO_MAX_SEGS: CUShort = (40).toUShort()
+public val IFLA_GSO_MAX_SIZE: CUShort = (41).toUShort()
+public val IFLA_PAD: CUShort = (42).toUShort()
+public val IFLA_XDP: CUShort = (43).toUShort()
+public val IFLA_EVENT: CUShort = (44).toUShort()
+public val IFLA_NEW_NETNSID: CUShort = (45).toUShort()
+public val IFLA_IF_NETNSID: CUShort = (46).toUShort()
 public const val IFLA_TARGET_NETNSID: CUShort = IFLA_IF_NETNSID
-public const val IFLA_CARRIER_UP_COUNT: CUShort = 47u
-public const val IFLA_CARRIER_DOWN_COUNT: CUShort = 48u
-public const val IFLA_NEW_IFINDEX: CUShort = 49u
-public const val IFLA_MIN_MTU: CUShort = 50u
-public const val IFLA_MAX_MTU: CUShort = 51u
-public const val IFLA_PROP_LIST: CUShort = 52u
-public const val IFLA_ALT_IFNAME: CUShort = 53u
-public const val IFLA_PERM_ADDRESS: CUShort = 54u
-public const val IFLA_PROTO_DOWN_REASON: CUShort = 55u
-public const val IFLA_PARENT_DEV_NAME: CUShort = 56u
-public const val IFLA_PARENT_DEV_BUS_NAME: CUShort = 57u
-public const val IFLA_GRO_MAX_SIZE: CUShort = 58u
-public const val IFLA_TSO_MAX_SIZE: CUShort = 59u
-public const val IFLA_TSO_MAX_SEGS: CUShort = 60u
-public const val IFLA_ALLMULTI: CUShort = 61u
-public const val IFLA_INFO_UNSPEC: CUShort = 0u
-public const val IFLA_INFO_KIND: CUShort = 1u
-public const val IFLA_INFO_DATA: CUShort = 2u
-public const val IFLA_INFO_XSTATS: CUShort = 3u
-public const val IFLA_INFO_SLAVE_KIND: CUShort = 4u
-public const val IFLA_INFO_SLAVE_DATA: CUShort = 5u
+public val IFLA_CARRIER_UP_COUNT: CUShort = (47).toUShort()
+public val IFLA_CARRIER_DOWN_COUNT: CUShort = (48).toUShort()
+public val IFLA_NEW_IFINDEX: CUShort = (49).toUShort()
+public val IFLA_MIN_MTU: CUShort = (50).toUShort()
+public val IFLA_MAX_MTU: CUShort = (51).toUShort()
+public val IFLA_PROP_LIST: CUShort = (52).toUShort()
+public val IFLA_ALT_IFNAME: CUShort = (53).toUShort()
+public val IFLA_PERM_ADDRESS: CUShort = (54).toUShort()
+public val IFLA_PROTO_DOWN_REASON: CUShort = (55).toUShort()
+public val IFLA_PARENT_DEV_NAME: CUShort = (56).toUShort()
+public val IFLA_PARENT_DEV_BUS_NAME: CUShort = (57).toUShort()
+public val IFLA_GRO_MAX_SIZE: CUShort = (58).toUShort()
+public val IFLA_TSO_MAX_SIZE: CUShort = (59).toUShort()
+public val IFLA_TSO_MAX_SEGS: CUShort = (60).toUShort()
+public val IFLA_ALLMULTI: CUShort = (61).toUShort()
+public val IFLA_INFO_UNSPEC: CUShort = (0).toUShort()
+public val IFLA_INFO_KIND: CUShort = (1).toUShort()
+public val IFLA_INFO_DATA: CUShort = (2).toUShort()
+public val IFLA_INFO_XSTATS: CUShort = (3).toUShort()
+public val IFLA_INFO_SLAVE_KIND: CUShort = (4).toUShort()
+public val IFLA_INFO_SLAVE_DATA: CUShort = (5).toUShort()
 public const val SEEK_DATA: CInt = 3
 public const val SEEK_HOLE: CInt = 4
 public const val MPOL_DEFAULT: CInt = 0
@@ -1232,6 +1236,7 @@ public const val MPOL_LOCAL: CInt = 4
 public val MPOL_F_NUMA_BALANCING: CInt = 1 shl 13
 public val MPOL_F_RELATIVE_NODES: CInt = 1 shl 14
 public val MPOL_F_STATIC_NODES: CInt = 1 shl 15
+
 // PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = crate::pthread_mutex_t { size: [0 (initializer represented at the FFI boundary)
 // PTHREAD_COND_INITIALIZER: PthreadCondT = crate::pthread_cond_t { size: [0 (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = crate::pthread_rwlock_t { size: [0 (initializer represented at the FFI boundary)
@@ -1259,13 +1264,13 @@ public const val QFMT_VFS_OLD: CInt = 1
 public const val QFMT_VFS_V0: CInt = 2
 public const val QFMT_VFS_V1: CInt = 4
 public const val EFD_SEMAPHORE: CInt = 0x1
-public val RB_AUTOBOOT: CInt = 0x01234567u32.toInt()
-public val RB_HALT_SYSTEM: CInt = 0xcdef0123u32.toInt()
-public val RB_ENABLE_CAD: CInt = 0x89abcdefu32.toInt()
-public val RB_DISABLE_CAD: CInt = 0x00000000u32.toInt()
-public val RB_POWER_OFF: CInt = 0x4321fedcu32.toInt()
-public val RB_SW_SUSPEND: CInt = 0xd000fce2u32.toInt()
-public val RB_KEXEC: CInt = 0x45584543u32.toInt()
+public val RB_AUTOBOOT: CInt = 0x01234567.toInt()
+public val RB_HALT_SYSTEM: CInt = 0xcdef0123.toInt()
+public val RB_ENABLE_CAD: CInt = 0x89abcdef.toInt()
+public val RB_DISABLE_CAD: CInt = 0x00000000.toInt()
+public val RB_POWER_OFF: CInt = 0x4321fedc.toInt()
+public val RB_SW_SUSPEND: CInt = 0xd000fce2.toInt()
+public val RB_KEXEC: CInt = 0x45584543.toInt()
 public const val SYNC_FILE_RANGE_WAIT_BEFORE: CUInt = 1u
 public const val SYNC_FILE_RANGE_WRITE: CUInt = 2u
 public const val SYNC_FILE_RANGE_WAIT_AFTER: CUInt = 4u
@@ -1276,15 +1281,16 @@ public const val NS_GET_USERNS: Ioctl = _IO(NSIO, 0x1)
 public const val NS_GET_PARENT: Ioctl = _IO(NSIO, 0x2)
 public const val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3)
 public const val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4)
-public const val NS_GET_MNTNS_ID: Ioctl = <__u64>(NSIO, 0x5)
-public const val NS_GET_PID_FROM_PIDNS: Ioctl = <c_int>(NSIO, 0x6)
-public const val NS_GET_TGID_FROM_PIDNS: Ioctl = <c_int>(NSIO, 0x7)
-public const val NS_GET_PID_IN_PIDNS: Ioctl = <c_int>(NSIO, 0x8)
-public const val NS_GET_TGID_IN_PIDNS: Ioctl = <c_int>(NSIO, 0x9)
+
+// NS_GET_MNTNS_ID = _IOR(NSIO, 0x5, __u64) (ioctl request code; computed at the FFI boundary)
+public const val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x6)
+public const val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x7)
+public const val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x8)
+public const val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x9)
 public const val MNT_NS_INFO_SIZE_VER0: Ioctl = 16
-public const val NS_MNT_GET_INFO: Ioctl = <mnt_ns_info>(NSIO, 10)
-public const val NS_MNT_GET_NEXT: Ioctl = <mnt_ns_info>(NSIO, 11)
-public const val NS_MNT_GET_PREV: Ioctl = <mnt_ns_info>(NSIO, 12)
+public const val NS_MNT_GET_INFO: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 10)
+public const val NS_MNT_GET_NEXT: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 11)
+public const val NS_MNT_GET_PREV: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 12)
 public val PIDFD_NONBLOCK: CUInt = O_NONBLOCK.toUInt()
 public val PIDFD_THREAD: CUInt = O_EXCL.toUInt()
 public val PIDFD_SIGNAL_THREAD: CUInt = 1 shl 0
@@ -1305,7 +1311,7 @@ public const val PIDFD_GET_TIME_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 7)
 public const val PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 8)
 public const val PIDFD_GET_USER_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 9)
 public const val PIDFD_GET_UTS_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 10)
-public const val PIDFD_GET_INFO: Ioctl = <pidfd_info>(PIDFS_IOCTL_MAGIC, 11)
+public const val PIDFD_GET_INFO: Ioctl = ioctlCode<pidfd_info>(PIDFS_IOCTL_MAGIC, 11)
 public const val PR_SET_MDWE: CInt = 65
 public const val PR_GET_MDWE: CInt = 66
 public val PR_MDWE_REFUSE_EXEC_GAIN: CUInt = 1 shl 0
@@ -1726,9 +1732,10 @@ public val TP_STATUS_TS_SYS_HARDWARE: U32 = 1 shl 30
 public val TP_STATUS_TS_RAW_HARDWARE: U32 = 1 shl 31
 public const val TP_FT_REQ_FILL_RXHASH: U32 = 1
 public const val TPACKET_ALIGNMENT: ULong = 16uL
-public val TPACKET_HDRLEN: ULong = ((<tpacket_hdr>() + TPACKET_ALIGNMENT - 1) and !(TPACKET_ALIGNMENT - 1)) + <sockaddr_ll>()
-public val TPACKET2_HDRLEN: ULong = ((<tpacket2_hdr>() + TPACKET_ALIGNMENT - 1) and !(TPACKET_ALIGNMENT - 1)) + <sockaddr_ll>()
-public val TPACKET3_HDRLEN: ULong = ((<tpacket3_hdr>() + TPACKET_ALIGNMENT - 1) and !(TPACKET_ALIGNMENT - 1)) + <sockaddr_ll>()
+
+// TPACKET_HDRLEN = align(size_of<TpacketHdr>(), TPACKET_ALIGNMENT) + size_of<SockaddrLl>() (computed at the FFI boundary)
+// TPACKET2_HDRLEN = align(size_of<Tpacket2Hdr>(), TPACKET_ALIGNMENT) + size_of<SockaddrLl>() (computed at the FFI boundary)
+// TPACKET3_HDRLEN = align(size_of<Tpacket3Hdr>(), TPACKET_ALIGNMENT) + size_of<SockaddrLl>() (computed at the FFI boundary)
 public const val NF_DROP: CInt = 0
 public const val NF_ACCEPT: CInt = 1
 public const val NF_STOLEN: CInt = 2
@@ -2062,136 +2069,136 @@ public const val IW_EV_PARAM_PK_LEN: ULong = 12uL
 public const val IW_EV_ADDR_PK_LEN: ULong = 20uL
 public const val IW_EV_QUAL_PK_LEN: ULong = 8uL
 public const val IW_EV_POINT_PK_LEN: ULong = 8uL
-public const val NUD_NONE: UShort = 0x00u
-public const val NUD_INCOMPLETE: UShort = 0x01u
-public const val NUD_REACHABLE: UShort = 0x02u
-public const val NUD_STALE: UShort = 0x04u
-public const val NUD_DELAY: UShort = 0x08u
-public const val NUD_PROBE: UShort = 0x10u
-public const val NUD_FAILED: UShort = 0x20u
-public const val NUD_NOARP: UShort = 0x40u
-public const val NUD_PERMANENT: UShort = 0x80u
-public const val NTF_USE: UByte = 0x01u
-public const val NTF_SELF: UByte = 0x02u
-public const val NTF_MASTER: UByte = 0x04u
-public const val NTF_PROXY: UByte = 0x08u
-public const val NTF_ROUTER: UByte = 0x80u
-public const val NDA_UNSPEC: CUShort = 0u
-public const val NDA_DST: CUShort = 1u
-public const val NDA_LLADDR: CUShort = 2u
-public const val NDA_CACHEINFO: CUShort = 3u
-public const val NDA_PROBES: CUShort = 4u
-public const val NDA_VLAN: CUShort = 5u
-public const val NDA_PORT: CUShort = 6u
-public const val NDA_VNI: CUShort = 7u
-public const val NDA_IFINDEX: CUShort = 8u
+public val NUD_NONE: UShort = (0x00).toUShort()
+public val NUD_INCOMPLETE: UShort = (0x01).toUShort()
+public val NUD_REACHABLE: UShort = (0x02).toUShort()
+public val NUD_STALE: UShort = (0x04).toUShort()
+public val NUD_DELAY: UShort = (0x08).toUShort()
+public val NUD_PROBE: UShort = (0x10).toUShort()
+public val NUD_FAILED: UShort = (0x20).toUShort()
+public val NUD_NOARP: UShort = (0x40).toUShort()
+public val NUD_PERMANENT: UShort = (0x80).toUShort()
+public val NTF_USE: UByte = (0x01).toUByte()
+public val NTF_SELF: UByte = (0x02).toUByte()
+public val NTF_MASTER: UByte = (0x04).toUByte()
+public val NTF_PROXY: UByte = (0x08).toUByte()
+public val NTF_ROUTER: UByte = (0x80).toUByte()
+public val NDA_UNSPEC: CUShort = (0).toUShort()
+public val NDA_DST: CUShort = (1).toUShort()
+public val NDA_LLADDR: CUShort = (2).toUShort()
+public val NDA_CACHEINFO: CUShort = (3).toUShort()
+public val NDA_PROBES: CUShort = (4).toUShort()
+public val NDA_VLAN: CUShort = (5).toUShort()
+public val NDA_PORT: CUShort = (6).toUShort()
+public val NDA_VNI: CUShort = (7).toUShort()
+public val NDA_IFINDEX: CUShort = (8).toUShort()
 public const val NLM_F_BULK: CInt = 0x200
-public const val TCA_UNSPEC: CUShort = 0u
-public const val TCA_KIND: CUShort = 1u
-public const val TCA_OPTIONS: CUShort = 2u
-public const val TCA_STATS: CUShort = 3u
-public const val TCA_XSTATS: CUShort = 4u
-public const val TCA_RATE: CUShort = 5u
-public const val TCA_FCNT: CUShort = 6u
-public const val TCA_STATS2: CUShort = 7u
-public const val TCA_STAB: CUShort = 8u
-public const val RTM_NEWLINK: UShort = 16u
-public const val RTM_DELLINK: UShort = 17u
-public const val RTM_GETLINK: UShort = 18u
-public const val RTM_SETLINK: UShort = 19u
-public const val RTM_NEWADDR: UShort = 20u
-public const val RTM_DELADDR: UShort = 21u
-public const val RTM_GETADDR: UShort = 22u
-public const val RTM_NEWROUTE: UShort = 24u
-public const val RTM_DELROUTE: UShort = 25u
-public const val RTM_GETROUTE: UShort = 26u
-public const val RTM_NEWNEIGH: UShort = 28u
-public const val RTM_DELNEIGH: UShort = 29u
-public const val RTM_GETNEIGH: UShort = 30u
-public const val RTM_NEWRULE: UShort = 32u
-public const val RTM_DELRULE: UShort = 33u
-public const val RTM_GETRULE: UShort = 34u
-public const val RTM_NEWQDISC: UShort = 36u
-public const val RTM_DELQDISC: UShort = 37u
-public const val RTM_GETQDISC: UShort = 38u
-public const val RTM_NEWTCLASS: UShort = 40u
-public const val RTM_DELTCLASS: UShort = 41u
-public const val RTM_GETTCLASS: UShort = 42u
-public const val RTM_NEWTFILTER: UShort = 44u
-public const val RTM_DELTFILTER: UShort = 45u
-public const val RTM_GETTFILTER: UShort = 46u
-public const val RTM_NEWACTION: UShort = 48u
-public const val RTM_DELACTION: UShort = 49u
-public const val RTM_GETACTION: UShort = 50u
-public const val RTM_NEWPREFIX: UShort = 52u
-public const val RTM_GETMULTICAST: UShort = 58u
-public const val RTM_GETANYCAST: UShort = 62u
-public const val RTM_NEWNEIGHTBL: UShort = 64u
-public const val RTM_GETNEIGHTBL: UShort = 66u
-public const val RTM_SETNEIGHTBL: UShort = 67u
-public const val RTM_NEWNDUSEROPT: UShort = 68u
-public const val RTM_NEWADDRLABEL: UShort = 72u
-public const val RTM_DELADDRLABEL: UShort = 73u
-public const val RTM_GETADDRLABEL: UShort = 74u
-public const val RTM_GETDCB: UShort = 78u
-public const val RTM_SETDCB: UShort = 79u
-public const val RTM_NEWNETCONF: UShort = 80u
-public const val RTM_GETNETCONF: UShort = 82u
-public const val RTM_NEWMDB: UShort = 84u
-public const val RTM_DELMDB: UShort = 85u
-public const val RTM_GETMDB: UShort = 86u
-public const val RTM_NEWNSID: UShort = 88u
-public const val RTM_DELNSID: UShort = 89u
-public const val RTM_GETNSID: UShort = 90u
+public val TCA_UNSPEC: CUShort = (0).toUShort()
+public val TCA_KIND: CUShort = (1).toUShort()
+public val TCA_OPTIONS: CUShort = (2).toUShort()
+public val TCA_STATS: CUShort = (3).toUShort()
+public val TCA_XSTATS: CUShort = (4).toUShort()
+public val TCA_RATE: CUShort = (5).toUShort()
+public val TCA_FCNT: CUShort = (6).toUShort()
+public val TCA_STATS2: CUShort = (7).toUShort()
+public val TCA_STAB: CUShort = (8).toUShort()
+public val RTM_NEWLINK: UShort = (16).toUShort()
+public val RTM_DELLINK: UShort = (17).toUShort()
+public val RTM_GETLINK: UShort = (18).toUShort()
+public val RTM_SETLINK: UShort = (19).toUShort()
+public val RTM_NEWADDR: UShort = (20).toUShort()
+public val RTM_DELADDR: UShort = (21).toUShort()
+public val RTM_GETADDR: UShort = (22).toUShort()
+public val RTM_NEWROUTE: UShort = (24).toUShort()
+public val RTM_DELROUTE: UShort = (25).toUShort()
+public val RTM_GETROUTE: UShort = (26).toUShort()
+public val RTM_NEWNEIGH: UShort = (28).toUShort()
+public val RTM_DELNEIGH: UShort = (29).toUShort()
+public val RTM_GETNEIGH: UShort = (30).toUShort()
+public val RTM_NEWRULE: UShort = (32).toUShort()
+public val RTM_DELRULE: UShort = (33).toUShort()
+public val RTM_GETRULE: UShort = (34).toUShort()
+public val RTM_NEWQDISC: UShort = (36).toUShort()
+public val RTM_DELQDISC: UShort = (37).toUShort()
+public val RTM_GETQDISC: UShort = (38).toUShort()
+public val RTM_NEWTCLASS: UShort = (40).toUShort()
+public val RTM_DELTCLASS: UShort = (41).toUShort()
+public val RTM_GETTCLASS: UShort = (42).toUShort()
+public val RTM_NEWTFILTER: UShort = (44).toUShort()
+public val RTM_DELTFILTER: UShort = (45).toUShort()
+public val RTM_GETTFILTER: UShort = (46).toUShort()
+public val RTM_NEWACTION: UShort = (48).toUShort()
+public val RTM_DELACTION: UShort = (49).toUShort()
+public val RTM_GETACTION: UShort = (50).toUShort()
+public val RTM_NEWPREFIX: UShort = (52).toUShort()
+public val RTM_GETMULTICAST: UShort = (58).toUShort()
+public val RTM_GETANYCAST: UShort = (62).toUShort()
+public val RTM_NEWNEIGHTBL: UShort = (64).toUShort()
+public val RTM_GETNEIGHTBL: UShort = (66).toUShort()
+public val RTM_SETNEIGHTBL: UShort = (67).toUShort()
+public val RTM_NEWNDUSEROPT: UShort = (68).toUShort()
+public val RTM_NEWADDRLABEL: UShort = (72).toUShort()
+public val RTM_DELADDRLABEL: UShort = (73).toUShort()
+public val RTM_GETADDRLABEL: UShort = (74).toUShort()
+public val RTM_GETDCB: UShort = (78).toUShort()
+public val RTM_SETDCB: UShort = (79).toUShort()
+public val RTM_NEWNETCONF: UShort = (80).toUShort()
+public val RTM_GETNETCONF: UShort = (82).toUShort()
+public val RTM_NEWMDB: UShort = (84).toUShort()
+public val RTM_DELMDB: UShort = (85).toUShort()
+public val RTM_GETMDB: UShort = (86).toUShort()
+public val RTM_NEWNSID: UShort = (88).toUShort()
+public val RTM_DELNSID: UShort = (89).toUShort()
+public val RTM_GETNSID: UShort = (90).toUShort()
 public const val RTM_F_NOTIFY: CUInt = 0x100u
 public const val RTM_F_CLONED: CUInt = 0x200u
 public const val RTM_F_EQUALIZE: CUInt = 0x400u
 public const val RTM_F_PREFIX: CUInt = 0x800u
-public const val RTA_UNSPEC: CUShort = 0u
-public const val RTA_DST: CUShort = 1u
-public const val RTA_SRC: CUShort = 2u
-public const val RTA_IIF: CUShort = 3u
-public const val RTA_OIF: CUShort = 4u
-public const val RTA_GATEWAY: CUShort = 5u
-public const val RTA_PRIORITY: CUShort = 6u
-public const val RTA_PREFSRC: CUShort = 7u
-public const val RTA_METRICS: CUShort = 8u
-public const val RTA_MULTIPATH: CUShort = 9u
-public const val RTA_PROTOINFO: CUShort = 10u
-public const val RTA_FLOW: CUShort = 11u
-public const val RTA_CACHEINFO: CUShort = 12u
-public const val RTA_SESSION: CUShort = 13u
-public const val RTA_MP_ALGO: CUShort = 14u
-public const val RTA_TABLE: CUShort = 15u
-public const val RTA_MARK: CUShort = 16u
-public const val RTA_MFC_STATS: CUShort = 17u
-public const val RTN_UNSPEC: CUChar = 0u
-public const val RTN_UNICAST: CUChar = 1u
-public const val RTN_LOCAL: CUChar = 2u
-public const val RTN_BROADCAST: CUChar = 3u
-public const val RTN_ANYCAST: CUChar = 4u
-public const val RTN_MULTICAST: CUChar = 5u
-public const val RTN_BLACKHOLE: CUChar = 6u
-public const val RTN_UNREACHABLE: CUChar = 7u
-public const val RTN_PROHIBIT: CUChar = 8u
-public const val RTN_THROW: CUChar = 9u
-public const val RTN_NAT: CUChar = 10u
-public const val RTN_XRESOLVE: CUChar = 11u
-public const val RTPROT_UNSPEC: CUChar = 0u
-public const val RTPROT_REDIRECT: CUChar = 1u
-public const val RTPROT_KERNEL: CUChar = 2u
-public const val RTPROT_BOOT: CUChar = 3u
-public const val RTPROT_STATIC: CUChar = 4u
-public const val RT_SCOPE_UNIVERSE: CUChar = 0u
-public const val RT_SCOPE_SITE: CUChar = 200u
-public const val RT_SCOPE_LINK: CUChar = 253u
-public const val RT_SCOPE_HOST: CUChar = 254u
-public const val RT_SCOPE_NOWHERE: CUChar = 255u
-public const val RT_TABLE_UNSPEC: CUChar = 0u
-public const val RT_TABLE_COMPAT: CUChar = 252u
-public const val RT_TABLE_DEFAULT: CUChar = 253u
-public const val RT_TABLE_MAIN: CUChar = 254u
-public const val RT_TABLE_LOCAL: CUChar = 255u
+public val RTA_UNSPEC: CUShort = (0).toUShort()
+public val RTA_DST: CUShort = (1).toUShort()
+public val RTA_SRC: CUShort = (2).toUShort()
+public val RTA_IIF: CUShort = (3).toUShort()
+public val RTA_OIF: CUShort = (4).toUShort()
+public val RTA_GATEWAY: CUShort = (5).toUShort()
+public val RTA_PRIORITY: CUShort = (6).toUShort()
+public val RTA_PREFSRC: CUShort = (7).toUShort()
+public val RTA_METRICS: CUShort = (8).toUShort()
+public val RTA_MULTIPATH: CUShort = (9).toUShort()
+public val RTA_PROTOINFO: CUShort = (10).toUShort()
+public val RTA_FLOW: CUShort = (11).toUShort()
+public val RTA_CACHEINFO: CUShort = (12).toUShort()
+public val RTA_SESSION: CUShort = (13).toUShort()
+public val RTA_MP_ALGO: CUShort = (14).toUShort()
+public val RTA_TABLE: CUShort = (15).toUShort()
+public val RTA_MARK: CUShort = (16).toUShort()
+public val RTA_MFC_STATS: CUShort = (17).toUShort()
+public val RTN_UNSPEC: CUChar = (0).toUByte()
+public val RTN_UNICAST: CUChar = (1).toUByte()
+public val RTN_LOCAL: CUChar = (2).toUByte()
+public val RTN_BROADCAST: CUChar = (3).toUByte()
+public val RTN_ANYCAST: CUChar = (4).toUByte()
+public val RTN_MULTICAST: CUChar = (5).toUByte()
+public val RTN_BLACKHOLE: CUChar = (6).toUByte()
+public val RTN_UNREACHABLE: CUChar = (7).toUByte()
+public val RTN_PROHIBIT: CUChar = (8).toUByte()
+public val RTN_THROW: CUChar = (9).toUByte()
+public val RTN_NAT: CUChar = (10).toUByte()
+public val RTN_XRESOLVE: CUChar = (11).toUByte()
+public val RTPROT_UNSPEC: CUChar = (0).toUByte()
+public val RTPROT_REDIRECT: CUChar = (1).toUByte()
+public val RTPROT_KERNEL: CUChar = (2).toUByte()
+public val RTPROT_BOOT: CUChar = (3).toUByte()
+public val RTPROT_STATIC: CUChar = (4).toUByte()
+public val RT_SCOPE_UNIVERSE: CUChar = (0).toUByte()
+public val RT_SCOPE_SITE: CUChar = (200).toUByte()
+public val RT_SCOPE_LINK: CUChar = (253).toUByte()
+public val RT_SCOPE_HOST: CUChar = (254).toUByte()
+public val RT_SCOPE_NOWHERE: CUChar = (255).toUByte()
+public val RT_TABLE_UNSPEC: CUChar = (0).toUByte()
+public val RT_TABLE_COMPAT: CUChar = (252).toUByte()
+public val RT_TABLE_DEFAULT: CUChar = (253).toUByte()
+public val RT_TABLE_MAIN: CUChar = (254).toUByte()
+public val RT_TABLE_LOCAL: CUChar = (255).toUByte()
 public val RTMSG_OVERRUN: UInt = NLMSG_OVERRUN.toUInt()
 public const val RTMSG_NEWDEVICE: UInt = 0x11u
 public const val RTMSG_DELDEVICE: UInt = 0x12u
@@ -2322,24 +2329,24 @@ public const val HWTSTAMP_FILTER_PTP_V2_SYNC: CUInt = 13u
 public const val HWTSTAMP_FILTER_PTP_V2_DELAY_REQ: CUInt = 14u
 public const val HWTSTAMP_FILTER_NTP_ALL: CUInt = 15u
 public const val PTP_MAX_SAMPLES: CUInt = 25u
-public const val PTP_CLOCK_GETCAPS: Ioctl = <ptp_clock_caps>(PTP_CLK_MAGIC, 1)
-public const val PTP_EXTTS_REQUEST: Ioctl = <ptp_extts_request>(PTP_CLK_MAGIC, 2)
-public const val PTP_PEROUT_REQUEST: Ioctl = <ptp_perout_request>(PTP_CLK_MAGIC, 3)
-public const val PTP_ENABLE_PPS: Ioctl = <c_int>(PTP_CLK_MAGIC, 4)
-public const val PTP_SYS_OFFSET: Ioctl = <ptp_sys_offset>(PTP_CLK_MAGIC, 5)
-public const val PTP_PIN_GETFUNC: Ioctl = <ptp_pin_desc>(PTP_CLK_MAGIC, 6)
-public const val PTP_PIN_SETFUNC: Ioctl = <ptp_pin_desc>(PTP_CLK_MAGIC, 7)
-public const val PTP_SYS_OFFSET_PRECISE: Ioctl = <ptp_sys_offset_precise>(PTP_CLK_MAGIC, 8)
-public const val PTP_SYS_OFFSET_EXTENDED: Ioctl = <ptp_sys_offset_extended>(PTP_CLK_MAGIC, 9)
-public const val PTP_CLOCK_GETCAPS2: Ioctl = <ptp_clock_caps>(PTP_CLK_MAGIC, 10)
-public const val PTP_EXTTS_REQUEST2: Ioctl = <ptp_extts_request>(PTP_CLK_MAGIC, 11)
-public const val PTP_PEROUT_REQUEST2: Ioctl = <ptp_perout_request>(PTP_CLK_MAGIC, 12)
-public const val PTP_ENABLE_PPS2: Ioctl = <c_int>(PTP_CLK_MAGIC, 13)
-public const val PTP_SYS_OFFSET2: Ioctl = <ptp_sys_offset>(PTP_CLK_MAGIC, 14)
-public const val PTP_PIN_GETFUNC2: Ioctl = <ptp_pin_desc>(PTP_CLK_MAGIC, 15)
-public const val PTP_PIN_SETFUNC2: Ioctl = <ptp_pin_desc>(PTP_CLK_MAGIC, 16)
-public const val PTP_SYS_OFFSET_PRECISE2: Ioctl = <ptp_sys_offset_precise>(PTP_CLK_MAGIC, 17)
-public const val PTP_SYS_OFFSET_EXTENDED2: Ioctl = <ptp_sys_offset_extended>(PTP_CLK_MAGIC, 18)
+public const val PTP_CLOCK_GETCAPS: Ioctl = ioctlCode<ptp_clock_caps>(PTP_CLK_MAGIC, 1)
+public const val PTP_EXTTS_REQUEST: Ioctl = ioctlCode<ptp_extts_request>(PTP_CLK_MAGIC, 2)
+public const val PTP_PEROUT_REQUEST: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 3)
+public const val PTP_ENABLE_PPS: Ioctl = ioctlCode<c_int>(PTP_CLK_MAGIC, 4)
+public const val PTP_SYS_OFFSET: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 5)
+public const val PTP_PIN_GETFUNC: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 6)
+public const val PTP_PIN_SETFUNC: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 7)
+public const val PTP_SYS_OFFSET_PRECISE: Ioctl = ioctlCode<ptp_sys_offset_precise>(PTP_CLK_MAGIC, 8)
+public const val PTP_SYS_OFFSET_EXTENDED: Ioctl = ioctlCode<ptp_sys_offset_extended>(PTP_CLK_MAGIC, 9)
+public const val PTP_CLOCK_GETCAPS2: Ioctl = ioctlCode<ptp_clock_caps>(PTP_CLK_MAGIC, 10)
+public const val PTP_EXTTS_REQUEST2: Ioctl = ioctlCode<ptp_extts_request>(PTP_CLK_MAGIC, 11)
+public const val PTP_PEROUT_REQUEST2: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 12)
+public const val PTP_ENABLE_PPS2: Ioctl = ioctlCode<c_int>(PTP_CLK_MAGIC, 13)
+public const val PTP_SYS_OFFSET2: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 14)
+public const val PTP_PIN_GETFUNC2: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 15)
+public const val PTP_PIN_SETFUNC2: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 16)
+public const val PTP_SYS_OFFSET_PRECISE2: Ioctl = ioctlCode<ptp_sys_offset_precise>(PTP_CLK_MAGIC, 17)
+public const val PTP_SYS_OFFSET_EXTENDED2: Ioctl = ioctlCode<ptp_sys_offset_extended>(PTP_CLK_MAGIC, 18)
 public const val PTP_PF_NONE: CUInt = 0u
 public const val PTP_PF_EXTTS: CUInt = 1u
 public const val PTP_PF_PEROUT: CUInt = 2u
@@ -2461,16 +2468,19 @@ public const val IN_IGNORED: UInt = 0x0000_8000
 public const val IN_ONLYDIR: UInt = 0x0100_0000
 public const val IN_DONT_FOLLOW: UInt = 0x0200_0000
 public const val IN_EXCL_UNLINK: UInt = 0x0400_0000
-public const val SECBIT_NOROOT: CInt = issecure_mask(SECURE_NOROOT)
-public const val SECBIT_NOROOT_LOCKED: CInt = issecure_mask(SECURE_NOROOT_LOCKED)
-public const val SECBIT_NO_SETUID_FIXUP: CInt = issecure_mask(SECURE_NO_SETUID_FIXUP)
-public const val SECBIT_NO_SETUID_FIXUP_LOCKED: CInt = issecure_mask(SECURE_NO_SETUID_FIXUP_LOCKED)
-public const val SECBIT_KEEP_CAPS: CInt = issecure_mask(SECURE_KEEP_CAPS)
-public const val SECBIT_KEEP_CAPS_LOCKED: CInt = issecure_mask(SECURE_KEEP_CAPS_LOCKED)
-public const val SECBIT_NO_CAP_AMBIENT_RAISE: CInt = issecure_mask(SECURE_NO_CAP_AMBIENT_RAISE)
-public const val SECBIT_EXEC_RESTRICT_FILE: CInt = issecure_mask(SECURE_EXEC_RESTRICT_FILE)
-public const val SECBIT_EXEC_RESTRICT_FILE_LOCKED: CInt = issecure_mask(SECURE_EXEC_RESTRICT_FILE_LOCKED)
-public const val SECBIT_EXEC_DENY_INTERACTIVE: CInt = issecure_mask(SECURE_EXEC_DENY_INTERACTIVE)
+
+public fun issecure_mask(x: CInt): CInt = 1 shl x
+
+public val SECBIT_NOROOT: CInt = issecure_mask(SECURE_NOROOT)
+public val SECBIT_NOROOT_LOCKED: CInt = issecure_mask(SECURE_NOROOT_LOCKED)
+public val SECBIT_NO_SETUID_FIXUP: CInt = issecure_mask(SECURE_NO_SETUID_FIXUP)
+public val SECBIT_NO_SETUID_FIXUP_LOCKED: CInt = issecure_mask(SECURE_NO_SETUID_FIXUP_LOCKED)
+public val SECBIT_KEEP_CAPS: CInt = issecure_mask(SECURE_KEEP_CAPS)
+public val SECBIT_KEEP_CAPS_LOCKED: CInt = issecure_mask(SECURE_KEEP_CAPS_LOCKED)
+public val SECBIT_NO_CAP_AMBIENT_RAISE: CInt = issecure_mask(SECURE_NO_CAP_AMBIENT_RAISE)
+public val SECBIT_EXEC_RESTRICT_FILE: CInt = issecure_mask(SECURE_EXEC_RESTRICT_FILE)
+public val SECBIT_EXEC_RESTRICT_FILE_LOCKED: CInt = issecure_mask(SECURE_EXEC_RESTRICT_FILE_LOCKED)
+public val SECBIT_EXEC_DENY_INTERACTIVE: CInt = issecure_mask(SECURE_EXEC_DENY_INTERACTIVE)
 public const val SECUREBITS_DEFAULT: CInt = 0x00000000
 public val SECURE_ALL_BITS: CInt = SECBIT_NOROOT or SECBIT_NO_SETUID_FIXUP or SECBIT_KEEP_CAPS or SECBIT_NO_CAP_AMBIENT_RAISE or SECBIT_EXEC_RESTRICT_FILE or SECBIT_EXEC_DENY_INTERACTIVE
 public val SECURE_ALL_LOCKS: CInt = SECURE_ALL_BITS shl 1
@@ -2726,16 +2736,16 @@ public const val FAN_MARK_INODE: CUInt = 0x0000_0000
 public const val FAN_MARK_MOUNT: CUInt = 0x0000_0010
 public const val FAN_MARK_FILESYSTEM: CUInt = 0x0000_0100
 public val FAN_MARK_IGNORE_SURV: CUInt = FAN_MARK_IGNORE or FAN_MARK_IGNORED_SURV_MODIFY
-public const val FANOTIFY_METADATA_VERSION: UByte = 3u
-public const val FAN_EVENT_INFO_TYPE_FID: UByte = 1u
-public const val FAN_EVENT_INFO_TYPE_DFID_NAME: UByte = 2u
-public const val FAN_EVENT_INFO_TYPE_DFID: UByte = 3u
-public const val FAN_EVENT_INFO_TYPE_PIDFD: UByte = 4u
-public const val FAN_EVENT_INFO_TYPE_ERROR: UByte = 5u
-public const val FAN_EVENT_INFO_TYPE_OLD_DFID_NAME: UByte = 10u
-public const val FAN_EVENT_INFO_TYPE_NEW_DFID_NAME: UByte = 12u
-public const val FAN_RESPONSE_INFO_NONE: UByte = 0u
-public const val FAN_RESPONSE_INFO_AUDIT_RULE: UByte = 1u
+public val FANOTIFY_METADATA_VERSION: UByte = (3).toUByte()
+public val FAN_EVENT_INFO_TYPE_FID: UByte = (1).toUByte()
+public val FAN_EVENT_INFO_TYPE_DFID_NAME: UByte = (2).toUByte()
+public val FAN_EVENT_INFO_TYPE_DFID: UByte = (3).toUByte()
+public val FAN_EVENT_INFO_TYPE_PIDFD: UByte = (4).toUByte()
+public val FAN_EVENT_INFO_TYPE_ERROR: UByte = (5).toUByte()
+public val FAN_EVENT_INFO_TYPE_OLD_DFID_NAME: UByte = (10).toUByte()
+public val FAN_EVENT_INFO_TYPE_NEW_DFID_NAME: UByte = (12).toUByte()
+public val FAN_RESPONSE_INFO_NONE: UByte = (0).toUByte()
+public val FAN_RESPONSE_INFO_AUDIT_RULE: UByte = (1).toUByte()
 public const val FAN_ALLOW: UInt = 0x01u
 public const val FAN_DENY: UInt = 0x02u
 public const val FAN_AUDIT: UInt = 0x10u
@@ -2759,11 +2769,15 @@ public const val FUTEX_CMP_REQUEUE_PI: CInt = 12
 public const val FUTEX_LOCK_PI2: CInt = 13
 public const val FUTEX_PRIVATE_FLAG: CInt = 128
 public const val FUTEX_CLOCK_REALTIME: CInt = 256
-public val FUTEX_CMD_MASK: CInt = (FUTEX_PRIVATE_FLAG | FUTEX_CLOCK_REALTIME).inv()
+public val FUTEX_CMD_MASK: CInt = (FUTEX_PRIVATE_FLAG or FUTEX_CLOCK_REALTIME).inv()
 public const val FUTEX_WAITERS: UInt = 0x80000000u
 public const val FUTEX_OWNER_DIED: UInt = 0x40000000u
 public const val FUTEX_TID_MASK: UInt = 0x3fffffffu
 public const val FUTEX_BITSET_MATCH_ANY: CInt = 0xffffffff
+
+public fun FUTEX_OP(op: CInt, oparg: CInt, cmp: CInt, cmparg: CInt): CInt =
+    ((op and 0xf) shl 28) or ((cmp and 0xf) shl 24) or ((oparg and 0xfff) shl 12) or (cmparg and 0xfff)
+
 public const val FUTEX_OP_SET: CInt = 0
 public const val FUTEX_OP_ADD: CInt = 1
 public const val FUTEX_OP_OR: CInt = 2
@@ -2795,11 +2809,11 @@ public const val LINUX_REBOOT_CMD_POWER_OFF: CInt = 0x4321FEDC
 public const val LINUX_REBOOT_CMD_RESTART2: CInt = 0xA1B2C3D4
 public const val LINUX_REBOOT_CMD_SW_SUSPEND: CInt = 0xD000FCE2
 public const val LINUX_REBOOT_CMD_KEXEC: CInt = 0x45584543
-public const val SO_EE_ORIGIN_NONE: UByte = 0u
-public const val SO_EE_ORIGIN_LOCAL: UByte = 1u
-public const val SO_EE_ORIGIN_ICMP: UByte = 2u
-public const val SO_EE_ORIGIN_ICMP6: UByte = 3u
-public const val SO_EE_ORIGIN_TXSTATUS: UByte = 4u
+public val SO_EE_ORIGIN_NONE: UByte = (0).toUByte()
+public val SO_EE_ORIGIN_LOCAL: UByte = (1).toUByte()
+public val SO_EE_ORIGIN_ICMP: UByte = (2).toUByte()
+public val SO_EE_ORIGIN_ICMP6: UByte = (3).toUByte()
+public val SO_EE_ORIGIN_TXSTATUS: UByte = (4).toUByte()
 public const val SO_EE_ORIGIN_TIMESTAMPING: UByte = SO_EE_ORIGIN_TXSTATUS
 public const val SCTP_FUTURE_ASSOC: CInt = 0
 public const val SCTP_CURRENT_ASSOC: CInt = 1
@@ -3102,144 +3116,283 @@ public const val TRAP_PERF: CInt = 6
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun sCTPPRINDEX(policy: CInt): CInt
+
 public expect fun sCTPPRPOLICY(policy: CInt): CInt
-public expect fun sCTPPRSETPOLICY(flags: &mut cInt, policy: CInt): ()
+
+public expect fun sCTPPRSETPOLICY(flags: CInt?, policy: CInt)
+
 public expect fun sOEEOFFENDER(ee: SockExtendedErr?): Sockaddr?
+
 public expect fun tPACKETALIGN(x: ULong): ULong
+
 public expect fun bPFCLASS(code: U32): U32
+
 public expect fun bPFSIZE(code: U32): U32
+
 public expect fun bPFMODE(code: U32): U32
+
 public expect fun bPFOP(code: U32): U32
+
 public expect fun bPFSRC(code: U32): U32
+
 public expect fun bPFRVAL(code: U32): U32
+
 public expect fun bPFMISCOP(code: U32): U32
+
 public expect fun bPFSTMT(code: U16, k: U32): SockFilter
+
 public expect fun bPFJUMP(code: U16, k: U32, jt: U8, jf: U8): SockFilter
+
 public expect fun sUNLEN(s: SockaddrUn): ULong
+
 public expect fun sUNLEN(s: SockaddrUn): ULong
 
 public expect fun getspnamR(name: String?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt
-public expect fun mqOpen(name: String?, oflag: CInt, ...): MqdT
+
+public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
+
 public expect fun mqClose(mqd: MqdT): CInt
+
 public expect fun mqUnlink(name: String?): CInt
+
 public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
+
 public expect fun mqTimedreceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?, absTimeout: Timespec?): SsizeT
+
 public expect fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt): CInt
+
 public expect fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt, absTimeout: Timespec?): CInt
+
 public expect fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt
+
 public expect fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt
+
 public expect fun mrand48(): CLong
+
 public expect fun seed48(xseed: CUShort?): CUShort?
+
 public expect fun lcong48(p: CUShort?)
+
 public expect fun lutimes(file: String?, times: Timeval?): CInt
+
 public expect fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt
+
 public expect fun shmUnlink(name: String?): CInt
+
 public expect fun ftok(pathname: String?, projId: CInt): KeyT
+
 public expect fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt
+
 public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
-public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, ...): CInt
+
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt
+
 public expect fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt
+
 public expect fun msgget(key: KeyT, msgflg: CInt): CInt
+
 public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT
+
 public expect fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgflg: CInt): CInt
+
 public expect fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt
+
 public expect fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt
+
 public expect fun readahead(fd: CInt, offset: Off64T, count: ULong): SsizeT
+
 public expect fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT
+
 public expect fun lgetxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT
+
 public expect fun fgetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: ULong): SsizeT
+
 public expect fun setxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong, flags: CInt): CInt
+
 public expect fun lsetxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong, flags: CInt): CInt
+
 public expect fun fsetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: ULong, flags: CInt): CInt
+
 public expect fun listxattr(path: String?, list: String?, size: ULong): SsizeT
+
 public expect fun llistxattr(path: String?, list: String?, size: ULong): SsizeT
+
 public expect fun flistxattr(filedes: CInt, list: String?, size: ULong): SsizeT
+
 public expect fun removexattr(path: String?, name: String?): CInt
+
 public expect fun lremovexattr(path: String?, name: String?): CInt
+
 public expect fun fremovexattr(filedes: CInt, name: String?): CInt
+
 public expect fun signalfd(fd: CInt, mask: SigsetT?, flags: CInt): CInt
+
 public expect fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt
+
 public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt
+
 public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt
+
 public expect fun quotactl(cmd: CInt, special: String?, id: CInt, data: String?): CInt
+
 public expect fun epollPwait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt, sigmask: SigsetT?): CInt
+
 public expect fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt
+
 public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt
+
 public expect fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt
+
 public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt
+
 public expect fun reboot(howTo: CInt): CInt
+
 public expect fun setfsgid(gid: GidT): CInt
+
 public expect fun setfsuid(uid: UidT): CInt
+
 public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
+
 public expect fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUInt): CInt
+
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
+
 public expect fun remapFilePages(addr: COpaquePointer?, size: ULong, prot: CInt, pgoff: ULong, flags: CInt): CInt
+
 public expect fun mkstemps(template: String?, suffixlen: CInt): CInt
+
 public expect fun vhangup(): CInt
+
 public expect fun sync()
+
 public expect fun syncfs(fd: CInt): CInt
-public expect fun syscall(num: CLong, ...): CLong
+
+public expect fun syscall(num: CLong, vararg args: Any?): CLong
+
 public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+
 public expect fun epollCreate(size: CInt): CInt
+
 public expect fun epollCreate1(flags: CInt): CInt
+
 public expect fun epollWait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt): CInt
+
 public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: EpollEvent?): CInt
+
 public expect fun unshare(flags: CInt): CInt
+
 public expect fun umount(target: String?): CInt
+
 public expect fun tee(fdIn: CInt, fdOut: CInt, len: ULong, flags: CUInt): SsizeT
+
 public expect fun splice(fdIn: CInt, offIn: LoffT?, fdOut: CInt, offOut: LoffT?, len: ULong, flags: CUInt): SsizeT
+
 public expect fun eventfd(initval: CUInt, flags: CInt): CInt
+
 public expect fun eventfdRead(fd: CInt, value: EventfdT?): CInt
+
 public expect fun eventfdWrite(fd: CInt, value: EventfdT): CInt
+
 public expect fun schedRrGetInterval(pid: PidT, tp: Timespec?): CInt
+
 public expect fun schedSetparam(pid: PidT, param: SchedParam?): CInt
+
 public expect fun setns(fd: CInt, nstype: CInt): CInt
+
 public expect fun swapoff(path: String?): CInt
+
 public expect fun vmsplice(fd: CInt, iov: Iovec?, nrSegs: ULong, flags: CUInt): SsizeT
+
 public expect fun personality(persona: CULong): CInt
+
 public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt
-public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, ...): CInt
+
+public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt
+
 public expect fun schedGetscheduler(pid: PidT): CInt
+
 public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt
+
 public expect fun umount2(target: String?, flags: CInt): CInt
+
 public expect fun swapon(path: String?, swapflags: CInt): CInt
+
 public expect fun schedSetscheduler(pid: PidT, policy: CInt, param: SchedParam?): CInt
+
 public expect fun sendfile(outFd: CInt, inFd: CInt, offset: OffT?, count: ULong): SsizeT
+
 public expect fun sigaltstack(ss: StackT?, oss: StackT?): CInt
+
 public expect fun getdtablesize(): CInt
+
 public expect fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroups: CInt?): CInt
+
 public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+
 public expect fun posixSpawnattrInit(attr: PosixSpawnattrT?): CInt
+
 public expect fun posixSpawnattrDestroy(attr: PosixSpawnattrT?): CInt
+
 public expect fun posixSpawnattrGetsigdefault(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+
 public expect fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+
 public expect fun posixSpawnattrGetsigmask(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+
 public expect fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+
 public expect fun posixSpawnattrGetflags(attr: PosixSpawnattrT?, flags: CShort?): CInt
+
 public expect fun posixSpawnattrSetflags(attr: PosixSpawnattrT?, flags: CShort): CInt
+
 public expect fun posixSpawnattrGetpgroup(attr: PosixSpawnattrT?, flags: PidT?): CInt
+
 public expect fun posixSpawnattrSetpgroup(attr: PosixSpawnattrT?, flags: PidT): CInt
+
 public expect fun posixSpawnattrGetschedpolicy(attr: PosixSpawnattrT?, flags: CInt?): CInt
+
 public expect fun posixSpawnattrSetschedpolicy(attr: PosixSpawnattrT?, flags: CInt): CInt
+
 public expect fun posixSpawnattrGetschedparam(attr: PosixSpawnattrT?, param: SchedParam?): CInt
+
 public expect fun posixSpawnattrSetschedparam(attr: PosixSpawnattrT?, param: SchedParam?): CInt
+
 public expect fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT?): CInt
+
 public expect fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT?): CInt
+
 public expect fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
+
 public expect fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT?, fd: CInt): CInt
+
 public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT?, fd: CInt, newfd: CInt): CInt
+
 public expect fun freadUnlocked(buf: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong
+
 public expect fun inotifyRmWatch(fd: CInt, wd: CInt): CInt
+
 public expect fun inotifyInit(): CInt
+
 public expect fun inotifyInit1(flags: CInt): CInt
+
 public expect fun inotifyAddWatch(fd: CInt, path: String?, mask: UInt): CInt
+
 public expect fun fanotifyInit(flags: CUInt, eventFFlags: CUInt): CInt
+
 public expect fun gethostid(): CLong
+
 public expect fun klogctl(syslogType: CInt, bufp: String?, len: CInt): CInt
+
 public expect fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt
+
 public expect fun fgetpos64(stream: FILE?, ptr: Fpos64T?): CInt
+
 public expect fun fopen64(filename: String?, mode: String?): FILE?
+
 public expect fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt
+
 public expect fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: ULong): SsizeT
+
 public expect fun tmpfile64(): FILE?

@@ -4,19 +4,14 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.COpaquePointer
 
-/**
- * s390x
- */
-
 public typealias BlksizeT = Long
 public typealias NlinkT = ULong
-public typealias SuusecondsT = Long
+public typealias SusecondsT = Long
 public typealias WcharT = Int
 public typealias GregT = ULong
 public typealias U64 = ULong
 public typealias S64 = Long
 
-// __glibc_reserved0 is layout padding.
 public data class Sigaction(
     val saSigaction: SighandlerT,
     val saFlags: CInt,
@@ -24,87 +19,184 @@ public data class Sigaction(
     val saMask: SigsetT,
 )
 
-// f_spare is layout padding.
 public data class Statfs(
-    val fType: CUInt, val fBsize: CUInt, val fBlocks: FsblkcntT, val fBfree: FsblkcntT,
-    val fBavail: FsblkcntT, val fFiles: FsfilcntT, val fFfree: FsfilcntT, val fFsid: FsidT,
-    val fNamelen: CUInt, val fFrsize: CUInt, val fFlags: CUInt,
+    val fType: CUInt,
+    val fBsize: CUInt,
+    val fBlocks: FsblkcntT,
+    val fBfree: FsblkcntT,
+    val fBavail: FsblkcntT,
+    val fFiles: FsfilcntT,
+    val fFfree: FsfilcntT,
+    val fFsid: FsidT,
+    val fNamelen: CUInt,
+    val fFrsize: CUInt,
+    val fFlags: CUInt,
+    val fSpare: UIntArray,
 )
 
 public data class Flock(
-    val lType: CShort, val lWhence: CShort, val lStart: OffT, val lLen: OffT, val lPid: PidT,
+    val lType: CShort,
+    val lWhence: CShort,
+    val lStart: OffT,
+    val lLen: OffT,
+    val lPid: PidT,
 )
 
 public data class Flock64(
-    val lType: CShort, val lWhence: CShort, val lStart: Off64T, val lLen: Off64T, val lPid: PidT,
+    val lType: CShort,
+    val lWhence: CShort,
+    val lStart: Off64T,
+    val lLen: Off64T,
+    val lPid: PidT,
 )
 
-// _pad / _pad2 are layout padding.
-public data class SiginfoT(val siSigno: CInt, val siErrno: CInt, val siCode: CInt)
+public data class SiginfoT(
+    val siSigno: CInt,
+    val siErrno: CInt,
+    val siCode: CInt,
+)
 
-public data class StackT(val ssSp: COpaquePointer?, val ssFlags: CInt, val ssSize: ULong)
+public data class StackT(
+    val ssSp: COpaquePointer?,
+    val ssFlags: CInt,
+    val ssSize: ULong,
+)
 
-// st_pad0 / __glibc_reserved are layout padding.
 public data class Stat(
-    val stDev: DevT, val stIno: InoT, val stNlink: NlinkT, val stMode: ModeT,
-    val stUid: UidT, val stGid: GidT, val stRdev: DevT, val stSize: OffT,
-    val stAtime: TimeT, val stAtimeNsec: CLong, val stMtime: TimeT, val stMtimeNsec: CLong,
-    val stCtime: TimeT, val stCtimeNsec: CLong, val stBlksize: BlksizeT, val stBlocks: BlkcntT,
+    val stDev: DevT,
+    val stIno: InoT,
+    val stNlink: NlinkT,
+    val stMode: ModeT,
+    val stUid: UidT,
+    val stGid: GidT,
+    val stRdev: DevT,
+    val stSize: OffT,
+    val stAtime: TimeT,
+    val stAtimeNsec: CLong,
+    val stMtime: TimeT,
+    val stMtimeNsec: CLong,
+    val stCtime: TimeT,
+    val stCtimeNsec: CLong,
+    val stBlksize: BlksizeT,
+    val stBlocks: BlkcntT,
 )
 
 public data class Stat64(
-    val stDev: DevT, val stIno: Ino64T, val stNlink: NlinkT, val stMode: ModeT,
-    val stUid: UidT, val stGid: GidT, val stRdev: DevT, val stSize: OffT,
-    val stAtime: TimeT, val stAtimeNsec: CLong, val stMtime: TimeT, val stMtimeNsec: CLong,
-    val stCtime: TimeT, val stCtimeNsec: CLong, val stBlksize: BlksizeT, val stBlocks: Blkcnt64T,
+    val stDev: DevT,
+    val stIno: Ino64T,
+    val stNlink: NlinkT,
+    val stMode: ModeT,
+    val stUid: UidT,
+    val stGid: GidT,
+    val stRdev: DevT,
+    val stSize: OffT,
+    val stAtime: TimeT,
+    val stAtimeNsec: CLong,
+    val stMtime: TimeT,
+    val stMtimeNsec: CLong,
+    val stCtime: TimeT,
+    val stCtimeNsec: CLong,
+    val stBlksize: BlksizeT,
+    val stBlocks: Blkcnt64T,
 )
 
-public data class PthreadAttrT(val size: ULongArray)
+public data class PthreadAttrT(
+    val size: ULongArray,
+)
 
-// __pad1 / __unused1 / __unused2 are layout padding.
 public data class IpcPerm(
-    val key: KeyT, val uid: UidT, val gid: GidT, val cuid: UidT, val cgid: GidT,
-    val mode: ModeT, val seq: CUShort,
+    val key: KeyT,
+    val uid: UidT,
+    val gid: GidT,
+    val cuid: UidT,
+    val cgid: GidT,
+    val mode: ModeT,
+    val seq: CUShort,
 )
 
-// __unused4 / __unused5 are layout padding.
 public data class ShmidDs(
-    val shmPerm: IpcPerm, val shmSegsz: ULong, val shmAtime: TimeT, val shmDtime: TimeT,
-    val shmCtime: TimeT, val shmCpid: PidT, val shmLpid: PidT, val shmNattch: ShmattT,
+    val shmPerm: IpcPerm,
+    val shmSegsz: ULong,
+    val shmAtime: TimeT,
+    val shmDtime: TimeT,
+    val shmCtime: TimeT,
+    val shmCpid: PidT,
+    val shmLpid: PidT,
+    val shmNattch: ShmattT,
 )
 
-// __f_spare is layout padding.
 public data class Statvfs(
-    val fBsize: CULong, val fFrsize: CULong, val fBlocks: FsblkcntT, val fBfree: FsblkcntT,
-    val fBavail: FsblkcntT, val fFiles: FsfilcntT, val fFfree: FsfilcntT, val fFavail: FsfilcntT,
-    val fFsid: CULong, val fFlag: CULong, val fNamemax: CULong,
+    val fBsize: CULong,
+    val fFrsize: CULong,
+    val fBlocks: FsblkcntT,
+    val fBfree: FsblkcntT,
+    val fBavail: FsblkcntT,
+    val fFiles: FsfilcntT,
+    val fFfree: FsfilcntT,
+    val fFavail: FsfilcntT,
+    val fFsid: CULong,
+    val fFlag: CULong,
+    val fNamemax: CULong,
+    val fSpare: IntArray,
 )
 
-public data class PswT(val mask: ULong, val addr: ULong)
+public data class PswT(
+    val mask: ULong,
+    val addr: ULong,
+)
 
-// __pad is layout padding.
-public data class FpregsetT(val fpc: UInt, val fprs: List<Fpreg>)
+public data class FpregsetT(
+    val fpc: UInt,
+    val fprs: List<FpregT>,
+)
 
 public data class McontextT(
-    val psw: PswT, val gregs: ULongArray, val aregs: UIntArray, val fpregs: FpregsetT,
+    val psw: PswT,
+    val gregs: ULongArray,
+    val aregs: UIntArray,
+    val fpregs: FpregsetT,
 )
 
 public data class UcontextT(
-    val ucFlags: CULong, val ucLink: UcontextT?, val ucStack: StackT,
-    val ucMcontext: McontextT, val ucSigmask: SigsetT,
+    val ucFlags: CULong,
+    val ucLink: UcontextT?,
+    val ucStack: StackT,
+    val ucMcontext: McontextT,
+    val ucSigmask: SigsetT,
 )
 
 public data class Statfs64(
-    val fType: CUInt, val fBsize: CUInt, val fBlocks: ULong, val fBfree: ULong,
-    val fBavail: ULong, val fFiles: ULong, val fFfree: ULong, val fFsid: FsidT,
-    val fNamelen: CUInt, val fFrsize: CUInt, val fFlags: CUInt, val fSpare: UIntArray,
+    val fType: CUInt,
+    val fBsize: CUInt,
+    val fBlocks: ULong,
+    val fBfree: ULong,
+    val fBavail: ULong,
+    val fFiles: ULong,
+    val fFfree: ULong,
+    val fFsid: FsidT,
+    val fNamelen: CUInt,
+    val fFrsize: CUInt,
+    val fFlags: CUInt,
+    val fSpare: UIntArray,
 )
 
-// __f_spare is layout padding.
 public data class Statvfs64(
-    val fBsize: CULong, val fFrsize: CULong, val fBlocks: ULong, val fBfree: ULong,
-    val fBavail: ULong, val fFiles: ULong, val fFfree: ULong, val fFavail: ULong,
-    val fFsid: CULong, val fFlag: CULong, val fNamemax: CULong,
+    val fBsize: CULong,
+    val fFrsize: CULong,
+    val fBlocks: ULong,
+    val fBfree: ULong,
+    val fBavail: ULong,
+    val fFiles: ULong,
+    val fFfree: ULong,
+    val fFavail: ULong,
+    val fFsid: CULong,
+    val fFlag: CULong,
+    val fNamemax: CULong,
+    val fSpare: IntArray,
+)
+
+public data class FpregT(
+    val d: CDouble,
 )
 
 public const val POSIX_FADV_DONTNEED: CInt = 6
@@ -119,7 +211,7 @@ public const val O_TRUNC: CInt = 512
 public const val O_NOATIME: CInt = 262144
 public const val O_CLOEXEC: CInt = 0x80000
 public const val O_PATH: CInt = 2097152
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val EBFONT: CInt = 59
 public const val ENOSTR: CInt = 60
 public const val ENODATA: CInt = 61
@@ -146,9 +238,9 @@ public const val __SIZEOF_PTHREAD_BARRIERATTR_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 40uL
 public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 56uL
 public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
-public const val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = pthread_mutex_t { size: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ], }
-public const val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = pthread_mutex_t { size: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ], }
-public const val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = pthread_mutex_t { size: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ], }
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
 public const val EUCLEAN: CInt = 117
 public const val ENOTNAM: CInt = 118
 public const val ENAVAIL: CInt = 119
@@ -756,3 +848,13 @@ public const val SYS_process_mrelease: CLong = 448
 public const val SYS_futex_waitv: CLong = 449
 public const val SYS_set_mempolicy_home_node: CLong = 450
 public const val SYS_mseal: CLong = 462
+
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+
+public expect fun getcontext(ucp: UcontextT?): CInt
+
+public expect fun setcontext(ucp: UcontextT?): CInt
+
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
+
+public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt

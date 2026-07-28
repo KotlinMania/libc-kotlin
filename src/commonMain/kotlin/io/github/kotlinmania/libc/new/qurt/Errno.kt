@@ -2,13 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
-
-/**
- * Header: `errno.h`.
- *
- * Standard error codes, verified to match the QuRT SDK.
- */
 
 public const val EPERM: CInt = 1
 public const val ENOENT: CInt = 2
@@ -145,9 +138,4 @@ public const val ENOTRECOVERABLE: CInt = 131
 public const val ERFKILL: CInt = 132
 public const val EHWPOISON: CInt = 133
 
-// Linked as "__errno_location"; returns a pointer to the thread errno slot.
-public expect fun errnoLocation(): COpaquePointer?
-
-public expect fun errno(): CInt
-
-public expect fun setErrno(value: CInt)
+public expect fun errnoLocation(): CInt?

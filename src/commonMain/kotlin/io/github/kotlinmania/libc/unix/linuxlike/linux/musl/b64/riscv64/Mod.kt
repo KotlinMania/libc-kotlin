@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.riscv64
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias WcharT = CInt
 public typealias NlinkT = CUInt
@@ -85,9 +84,9 @@ public data class RiscvMcQExtState(
 
 // C union; only one variant is valid at a time.
 public data class RiscvMcFpState(
-    val f: RiscvMcFExtState = null,
-    val d: RiscvMcDExtState = null,
-    val q: RiscvMcQExtState = null,
+    val f: RiscvMcFExtState? = null,
+    val d: RiscvMcDExtState? = null,
+    val q: RiscvMcQExtState? = null,
 )
 
 public const val SYS_read: CLong = 63

@@ -5,7 +5,6 @@ import io.github.kotlinmania.libc.*
 
 public typealias UcontextT = Sigcontext
 
-// __sc_unused is layout padding.
 public data class Sigcontext(
     val scRdi: CLong,
     val scRsi: CLong,
@@ -38,8 +37,6 @@ public data class Sigcontext(
     val scCookie: CLong,
 )
 
-// repr(packed). __fx_unused1 / __fx_unused3 are layout padding.
-// fx_st is [[u64; 2]; 8] (flattened to 16) and fx_xmm is [[u64; 2]; 16] (flattened to 32).
 public data class Fxsave64(
     val fxFcw: UShort,
     val fxFsw: UShort,
@@ -49,37 +46,11 @@ public data class Fxsave64(
     val fxRdp: ULong,
     val fxMxcsr: UInt,
     val fxMxcsrMask: UInt,
-    val fxSt: ULongArray,
-    val fxXmm: ULongArray,
-) {
-    init {
-        require(fxSt.size == 16) { "fx_st must be 16 entries (8 x 2)" }
-        require(fxXmm.size == 32) { "fx_xmm must be 32 entries (16 x 2)" }
-    }
+    val fxSt: List<ULongArray>,
+    val fxXmm: List<ULongArray>,
+)
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-        other as Fxsave64
-        return fxFcw == other.fxFcw && fxFsw == other.fxFsw && fxFtw == other.fxFtw &&
-            fxFop == other.fxFop && fxRip == other.fxRip && fxRdp == other.fxRdp &&
-            fxMxcsr == other.fxMxcsr && fxMxcsrMask == other.fxMxcsrMask &&
-            fxSt.contentEquals(other.fxSt) && fxXmm.contentEquals(other.fxXmm)
-    }
-
-    override fun hashCode(): Int {
-        var result = fxFcw.hashCode()
-        result = 31 * result + fxSt.contentHashCode()
-        result = 31 * result + fxXmm.contentHashCode()
-        return result
-    }
-}
-
-// _ALIGNBYTES = size_of::<c_long>() - 1
-internal const val ALIGNBYTES: Int = 7
-
-public const val MAX_PAGE_SHIFT: UInt = 12u
-
+public const val _MAX_PAGE_SHIFT: UInt = 12u
 public const val PT_STEP: CInt = PT_FIRSTMACH + 0
 public const val PT_GETREGS: CInt = PT_FIRSTMACH + 1
 public const val PT_SETREGS: CInt = PT_FIRSTMACH + 2

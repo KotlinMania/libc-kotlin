@@ -36,7 +36,7 @@ public data class Msghdr(
     /** Ancillary data buffer length */
     val msgControlen: CUInt,
     /** Flags on received message */
-    val msgFlags: CInt
+    val msgFlags: CInt,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,14 +45,18 @@ public data class Msghdr(
         if (msgName != null) {
             if (other.msgName == null) return false
             if (!msgName.contentEquals(other.msgName)) return false
-        } else if (other.msgName != null) return false
+        } else if (other.msgName != null) {
+            return false
+        }
         if (msgNamelen != other.msgNamelen) return false
         if (msgIov != other.msgIov) return false
         if (msgIovlen != other.msgIovlen) return false
         if (msgControl != null) {
             if (other.msgControl == null) return false
             if (!msgControl.contentEquals(other.msgControl)) return false
-        } else if (other.msgControl != null) return false
+        } else if (other.msgControl != null) {
+            return false
+        }
         if (msgControlen != other.msgControlen) return false
         if (msgFlags != other.msgFlags) return false
         return true
@@ -87,7 +91,7 @@ public data class Cmsghdr(
     /** Originating protocol */
     val cmsgLevel: CInt,
     /** Protocol-specific type */
-    val cmsgType: CInt
+    val cmsgType: CInt,
 )
 
 /**
@@ -100,7 +104,7 @@ public data class Iovec(
     /** Base address of memory region */
     val iovBase: ByteArray,
     /** Size of the region */
-    val iovLen: ULong
+    val iovLen: ULong,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

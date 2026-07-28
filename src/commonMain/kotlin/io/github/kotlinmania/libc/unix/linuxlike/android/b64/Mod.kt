@@ -9,7 +9,7 @@ public typealias Off64T = Long
 public typealias SocklenT = UInt
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class Sigaction(

@@ -173,14 +173,25 @@ public const val GRND_NONBLOCK: CUInt = 0x1u
 public const val GRND_RANDOM: CUInt = 0x2u
 
 public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+
 public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT?, param: SchedParam?): CInt
+
 public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT?, param: SchedParam?): CInt
+
 public expect fun pthreadAttrGetprocessoridNp(attr: PthreadAttrT?, processorId: CInt?): CInt
+
 public expect fun pthreadAttrSetprocessoridNp(attr: PthreadAttrT?, processorId: CInt): CInt
+
 public expect fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt
+
 public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt
+
 public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT?, clockId: ClockidT?): CInt
+
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
+
 public expect fun pthreadGetprocessoridNp(): CInt
+
 public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
+
 public expect fun gethostid(): CLong

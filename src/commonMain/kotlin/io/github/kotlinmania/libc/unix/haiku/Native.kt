@@ -121,7 +121,7 @@ public data class SystemInfo(
 )
 
 public data class ObjectWaitInfo(
-    val object: Int,
+    val `object`: Int,
     val type: UShort,
     val events: UShort,
 )
@@ -233,22 +233,23 @@ public data class CpuTopologyNodeInfo(
 
 // C union; only one variant is valid at a time.
 public data class CpuidInfo(
-    val eax0: CAnonymousEax0 = null,
-    val eax1: CAnonymousEax1 = null,
-    val eax2: CAnonymousEax2 = null,
-    val eax3: CAnonymousEax3 = null,
-    val asChars: ByteArray = null,
-    val regs: CAnonymousRegs = null,
+    val eax0: CAnonymousEax0? = null,
+    val eax1: CAnonymousEax1? = null,
+    val eax2: CAnonymousEax2? = null,
+    val eax3: CAnonymousEax3? = null,
+    val asChars: ByteArray? = null,
+    val regs: CAnonymousRegs? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousCpuTopologyInfoData(
-    val root: CpuTopologyRootInfo = null,
-    val package: CpuTopologyPackageInfo = null,
-    val core: CpuTopologyCoreInfo = null,
+    val root: CpuTopologyRootInfo? = null,
+    val `package`: CpuTopologyPackageInfo? = null,
+    val core: CpuTopologyCoreInfo? = null,
 )
 
 public typealias ThreadState = CUInt
+
 public const val B_THREAD_RUNNING: ThreadState = 1u
 public const val B_THREAD_READY: ThreadState = 2u
 public const val B_THREAD_RECEIVING: ThreadState = 3u
@@ -256,11 +257,13 @@ public const val B_THREAD_ASLEEP: ThreadState = 4u
 public const val B_THREAD_SUSPENDED: ThreadState = 5u
 public const val B_THREAD_WAITING: ThreadState = 6u
 public typealias ImageType = CUInt
+
 public const val B_APP_IMAGE: ImageType = 1u
 public const val B_LIBRARY_IMAGE: ImageType = 2u
 public const val B_ADD_ON_IMAGE: ImageType = 3u
 public const val B_SYSTEM_IMAGE: ImageType = 4u
 public typealias BeTaskFlags = CUInt
+
 public const val B_DEFAULT_MEDIA_PRIORITY: BeTaskFlags = 0x000u
 public const val B_OFFLINE_PROCESSING: BeTaskFlags = 0x001u
 public const val B_STATUS_RENDERING: BeTaskFlags = 0x002u
@@ -275,9 +278,11 @@ public const val B_LIVE_3D_RENDERING: BeTaskFlags = 0x200u
 public const val B_NUMBER_CRUNCHING: BeTaskFlags = 0x400u
 public const val B_MIDI_PROCESSING: BeTaskFlags = 0x800u
 public typealias SchdulerMode = CUInt
+
 public const val SCHEDULER_MODE_LOW_LATENCY: SchdulerMode = 0u
 public const val SCHEDULER_MODE_POWER_SAVING: SchdulerMode = 1u
 public typealias PathBaseDirectory = CUInt
+
 public const val B_FIND_PATH_INSTALLATION_LOCATION_DIRECTORY: PathBaseDirectory = 0u
 public const val B_FIND_PATH_ADD_ONS_DIRECTORY: PathBaseDirectory = 1u
 public const val B_FIND_PATH_APPS_DIRECTORY: PathBaseDirectory = 2u
@@ -305,6 +310,7 @@ public const val B_FIND_PATH_VAR_DIRECTORY: PathBaseDirectory = 23u
 public const val B_FIND_PATH_IMAGE_PATH: PathBaseDirectory = 1000u
 public const val B_FIND_PATH_PACKAGE_PATH: PathBaseDirectory = 1001u
 public typealias DirectoryWhich = CUInt
+
 public const val B_DESKTOP_DIRECTORY: DirectoryWhich = 0u
 public const val B_TRASH_DIRECTORY: DirectoryWhich = 1u
 public const val B_SYSTEM_DIRECTORY: DirectoryWhich = 1000u
@@ -386,12 +392,14 @@ public const val B_PREFERENCES_DIRECTORY: DirectoryWhich = 4001u
 public const val B_UTILITIES_DIRECTORY: DirectoryWhich = 4002u
 public const val B_PACKAGE_LINKS_DIRECTORY: DirectoryWhich = 4003u
 public typealias TopologyLevelType = CUInt
+
 public const val B_TOPOLOGY_UNKNOWN: TopologyLevelType = 0u
 public const val B_TOPOLOGY_ROOT: TopologyLevelType = 1u
 public const val B_TOPOLOGY_SMT: TopologyLevelType = 2u
 public const val B_TOPOLOGY_CORE: TopologyLevelType = 3u
 public const val B_TOPOLOGY_PACKAGE: TopologyLevelType = 4u
 public typealias CpuPlatform = CUInt
+
 public const val B_CPU_UNKNOWN: CpuPlatform = 0u
 public const val B_CPU_x86: CpuPlatform = 1u
 public const val B_CPU_x86_64: CpuPlatform = 2u
@@ -406,6 +414,7 @@ public const val B_CPU_SH: CpuPlatform = 10u
 public const val B_CPU_SPARC: CpuPlatform = 11u
 public const val B_CPU_RISC_V: CpuPlatform = 12u
 public typealias CpuVendor = CUInt
+
 public const val B_CPU_VENDOR_UNKNOWN: CpuVendor = 0u
 public const val B_CPU_VENDOR_AMD: CpuVendor = 1u
 public const val B_CPU_VENDOR_CYRIX: CpuVendor = 2u
@@ -472,20 +481,20 @@ public const val B_FIRST_REAL_TIME_PRIORITY: Int = B_REAL_TIME_DISPLAY_PRIORITY
 public const val B_ONE_SHOT_ABSOLUTE_ALARM: UInt = 1u
 public const val B_ONE_SHOT_RELATIVE_ALARM: UInt = 2u
 public const val B_PERIODIC_ALARM: UInt = 3u
-public const val B_OBJECT_TYPE_FD: UShort = 0u
-public const val B_OBJECT_TYPE_SEMAPHORE: UShort = 1u
-public const val B_OBJECT_TYPE_PORT: UShort = 2u
-public const val B_OBJECT_TYPE_THREAD: UShort = 3u
-public const val B_EVENT_READ: UShort = 0x0001u
-public const val B_EVENT_WRITE: UShort = 0x0002u
-public const val B_EVENT_ERROR: UShort = 0x0004u
-public const val B_EVENT_PRIORITY_READ: UShort = 0x0008u
-public const val B_EVENT_PRIORITY_WRITE: UShort = 0x0010u
-public const val B_EVENT_HIGH_PRIORITY_READ: UShort = 0x0020u
-public const val B_EVENT_HIGH_PRIORITY_WRITE: UShort = 0x0040u
-public const val B_EVENT_DISCONNECTED: UShort = 0x0080u
-public const val B_EVENT_ACQUIRE_SEMAPHORE: UShort = 0x0001u
-public const val B_EVENT_INVALID: UShort = 0x1000u
+public val B_OBJECT_TYPE_FD: UShort = (0).toUShort()
+public val B_OBJECT_TYPE_SEMAPHORE: UShort = (1).toUShort()
+public val B_OBJECT_TYPE_PORT: UShort = (2).toUShort()
+public val B_OBJECT_TYPE_THREAD: UShort = (3).toUShort()
+public val B_EVENT_READ: UShort = (0x0001).toUShort()
+public val B_EVENT_WRITE: UShort = (0x0002).toUShort()
+public val B_EVENT_ERROR: UShort = (0x0004).toUShort()
+public val B_EVENT_PRIORITY_READ: UShort = (0x0008).toUShort()
+public val B_EVENT_PRIORITY_WRITE: UShort = (0x0010).toUShort()
+public val B_EVENT_HIGH_PRIORITY_READ: UShort = (0x0020).toUShort()
+public val B_EVENT_HIGH_PRIORITY_WRITE: UShort = (0x0040).toUShort()
+public val B_EVENT_DISCONNECTED: UShort = (0x0080).toUShort()
+public val B_EVENT_ACQUIRE_SEMAPHORE: UShort = (0x0001).toUShort()
+public val B_EVENT_INVALID: UShort = (0x1000).toUShort()
 public const val B_FS_IS_READONLY: UInt = 0x00000001u
 public const val B_FS_IS_REMOVABLE: UInt = 0x00000002u
 public const val B_FS_IS_PERSISTENT: UInt = 0x00000004u
@@ -702,180 +711,305 @@ public const val B_DEV_TOO_LATE: StatusT = B_DEVICE_ERROR_BASE + 30
 public const val B_TRANSLATION_BASE_ERROR: StatusT = B_TRANSLATION_ERROR_BASE + 0
 public const val B_NO_TRANSLATOR: StatusT = B_TRANSLATION_ERROR_BASE + 1
 public const val B_ILLEGAL_DATA: StatusT = B_TRANSLATION_ERROR_BASE + 2
-public const val B_AFFINE_TRANSFORM_TYPE: UInt = haiku_constant!('A', 'M', 'T', 'X')
-public const val B_ALIGNMENT_TYPE: UInt = haiku_constant!('A', 'L', 'G', 'N')
-public const val B_ANY_TYPE: UInt = haiku_constant!('A', 'N', 'Y', 'T')
-public const val B_ATOM_TYPE: UInt = haiku_constant!('A', 'T', 'O', 'M')
-public const val B_ATOMREF_TYPE: UInt = haiku_constant!('A', 'T', 'M', 'R')
-public const val B_BOOL_TYPE: UInt = haiku_constant!('B', 'O', 'O', 'L')
-public const val B_CHAR_TYPE: UInt = haiku_constant!('C', 'H', 'A', 'R')
-public const val B_COLOR_8_BIT_TYPE: UInt = haiku_constant!('C', 'L', 'R', 'B')
-public const val B_DOUBLE_TYPE: UInt = haiku_constant!('D', 'B', 'L', 'E')
-public const val B_FLOAT_TYPE: UInt = haiku_constant!('F', 'L', 'O', 'T')
-public const val B_GRAYSCALE_8_BIT_TYPE: UInt = haiku_constant!('G', 'R', 'Y', 'B')
-public const val B_INT16_TYPE: UInt = haiku_constant!('S', 'H', 'R', 'T')
-public const val B_INT32_TYPE: UInt = haiku_constant!('L', 'O', 'N', 'G')
-public const val B_INT64_TYPE: UInt = haiku_constant!('L', 'L', 'N', 'G')
-public const val B_INT8_TYPE: UInt = haiku_constant!('B', 'Y', 'T', 'E')
-public const val B_LARGE_ICON_TYPE: UInt = haiku_constant!('I', 'C', 'O', 'N')
-public const val B_MEDIA_PARAMETER_GROUP_TYPE: UInt = haiku_constant!('B', 'M', 'C', 'G')
-public const val B_MEDIA_PARAMETER_TYPE: UInt = haiku_constant!('B', 'M', 'C', 'T')
-public const val B_MEDIA_PARAMETER_WEB_TYPE: UInt = haiku_constant!('B', 'M', 'C', 'W')
-public const val B_MESSAGE_TYPE: UInt = haiku_constant!('M', 'S', 'G', 'G')
-public const val B_MESSENGER_TYPE: UInt = haiku_constant!('M', 'S', 'N', 'G')
-public const val B_MIME_TYPE: UInt = haiku_constant!('M', 'I', 'M', 'E')
-public const val B_MINI_ICON_TYPE: UInt = haiku_constant!('M', 'I', 'C', 'N')
-public const val B_MONOCHROME_1_BIT_TYPE: UInt = haiku_constant!('M', 'N', 'O', 'B')
-public const val B_OBJECT_TYPE: UInt = haiku_constant!('O', 'P', 'T', 'R')
-public const val B_OFF_T_TYPE: UInt = haiku_constant!('O', 'F', 'F', 'T')
-public const val B_PATTERN_TYPE: UInt = haiku_constant!('P', 'A', 'T', 'N')
-public const val B_POINTER_TYPE: UInt = haiku_constant!('P', 'N', 'T', 'R')
-public const val B_POINT_TYPE: UInt = haiku_constant!('B', 'P', 'N', 'T')
-public const val B_PROPERTY_INFO_TYPE: UInt = haiku_constant!('S', 'C', 'T', 'D')
-public const val B_RAW_TYPE: UInt = haiku_constant!('R', 'A', 'W', 'T')
-public const val B_RECT_TYPE: UInt = haiku_constant!('R', 'E', 'C', 'T')
-public const val B_REF_TYPE: UInt = haiku_constant!('R', 'R', 'E', 'F')
-public const val B_RGB_32_BIT_TYPE: UInt = haiku_constant!('R', 'G', 'B', 'B')
-public const val B_RGB_COLOR_TYPE: UInt = haiku_constant!('R', 'G', 'B', 'C')
-public const val B_SIZE_TYPE: UInt = haiku_constant!('S', 'I', 'Z', 'E')
-public const val B_SIZE_T_TYPE: UInt = haiku_constant!('S', 'I', 'Z', 'T')
-public const val B_SSIZE_T_TYPE: UInt = haiku_constant!('S', 'S', 'Z', 'T')
-public const val B_STRING_TYPE: UInt = haiku_constant!('C', 'S', 'T', 'R')
-public const val B_STRING_LIST_TYPE: UInt = haiku_constant!('S', 'T', 'R', 'L')
-public const val B_TIME_TYPE: UInt = haiku_constant!('T', 'I', 'M', 'E')
-public const val B_UINT16_TYPE: UInt = haiku_constant!('U', 'S', 'H', 'T')
-public const val B_UINT32_TYPE: UInt = haiku_constant!('U', 'L', 'N', 'G')
-public const val B_UINT64_TYPE: UInt = haiku_constant!('U', 'L', 'L', 'G')
-public const val B_UINT8_TYPE: UInt = haiku_constant!('U', 'B', 'Y', 'T')
-public const val B_VECTOR_ICON_TYPE: UInt = haiku_constant!('V', 'I', 'C', 'N')
-public const val B_XATTR_TYPE: UInt = haiku_constant!('X', 'A', 'T', 'R')
-public const val B_NETWORK_ADDRESS_TYPE: UInt = haiku_constant!('N', 'W', 'A', 'D')
-public const val B_MIME_STRING_TYPE: UInt = haiku_constant!('M', 'I', 'M', 'S')
-public const val B_ASCII_TYPE: UInt = haiku_constant!('T', 'E', 'X', 'T')
+public const val B_AFFINE_TRANSFORM_TYPE: UInt = haikuConstant('A', 'M', 'T', 'X')
+public const val B_ALIGNMENT_TYPE: UInt = haikuConstant('A', 'L', 'G', 'N')
+public const val B_ANY_TYPE: UInt = haikuConstant('A', 'N', 'Y', 'T')
+public const val B_ATOM_TYPE: UInt = haikuConstant('A', 'T', 'O', 'M')
+public const val B_ATOMREF_TYPE: UInt = haikuConstant('A', 'T', 'M', 'R')
+public const val B_BOOL_TYPE: UInt = haikuConstant('B', 'O', 'O', 'L')
+public const val B_CHAR_TYPE: UInt = haikuConstant('C', 'H', 'A', 'R')
+public const val B_COLOR_8_BIT_TYPE: UInt = haikuConstant('C', 'L', 'R', 'B')
+public const val B_DOUBLE_TYPE: UInt = haikuConstant('D', 'B', 'L', 'E')
+public const val B_FLOAT_TYPE: UInt = haikuConstant('F', 'L', 'O', 'T')
+public const val B_GRAYSCALE_8_BIT_TYPE: UInt = haikuConstant('G', 'R', 'Y', 'B')
+public const val B_INT16_TYPE: UInt = haikuConstant('S', 'H', 'R', 'T')
+public const val B_INT32_TYPE: UInt = haikuConstant('L', 'O', 'N', 'G')
+public const val B_INT64_TYPE: UInt = haikuConstant('L', 'L', 'N', 'G')
+public const val B_INT8_TYPE: UInt = haikuConstant('B', 'Y', 'T', 'E')
+public const val B_LARGE_ICON_TYPE: UInt = haikuConstant('I', 'C', 'O', 'N')
+public const val B_MEDIA_PARAMETER_GROUP_TYPE: UInt = haikuConstant('B', 'M', 'C', 'G')
+public const val B_MEDIA_PARAMETER_TYPE: UInt = haikuConstant('B', 'M', 'C', 'T')
+public const val B_MEDIA_PARAMETER_WEB_TYPE: UInt = haikuConstant('B', 'M', 'C', 'W')
+public const val B_MESSAGE_TYPE: UInt = haikuConstant('M', 'S', 'G', 'G')
+public const val B_MESSENGER_TYPE: UInt = haikuConstant('M', 'S', 'N', 'G')
+public const val B_MIME_TYPE: UInt = haikuConstant('M', 'I', 'M', 'E')
+public const val B_MINI_ICON_TYPE: UInt = haikuConstant('M', 'I', 'C', 'N')
+public const val B_MONOCHROME_1_BIT_TYPE: UInt = haikuConstant('M', 'N', 'O', 'B')
+public const val B_OBJECT_TYPE: UInt = haikuConstant('O', 'P', 'T', 'R')
+public const val B_OFF_T_TYPE: UInt = haikuConstant('O', 'F', 'F', 'T')
+public const val B_PATTERN_TYPE: UInt = haikuConstant('P', 'A', 'T', 'N')
+public const val B_POINTER_TYPE: UInt = haikuConstant('P', 'N', 'T', 'R')
+public const val B_POINT_TYPE: UInt = haikuConstant('B', 'P', 'N', 'T')
+public const val B_PROPERTY_INFO_TYPE: UInt = haikuConstant('S', 'C', 'T', 'D')
+public const val B_RAW_TYPE: UInt = haikuConstant('R', 'A', 'W', 'T')
+public const val B_RECT_TYPE: UInt = haikuConstant('R', 'E', 'C', 'T')
+public const val B_REF_TYPE: UInt = haikuConstant('R', 'R', 'E', 'F')
+public const val B_RGB_32_BIT_TYPE: UInt = haikuConstant('R', 'G', 'B', 'B')
+public const val B_RGB_COLOR_TYPE: UInt = haikuConstant('R', 'G', 'B', 'C')
+public const val B_SIZE_TYPE: UInt = haikuConstant('S', 'I', 'Z', 'E')
+public const val B_SIZE_T_TYPE: UInt = haikuConstant('S', 'I', 'Z', 'T')
+public const val B_SSIZE_T_TYPE: UInt = haikuConstant('S', 'S', 'Z', 'T')
+public const val B_STRING_TYPE: UInt = haikuConstant('C', 'S', 'T', 'R')
+public const val B_STRING_LIST_TYPE: UInt = haikuConstant('S', 'T', 'R', 'L')
+public const val B_TIME_TYPE: UInt = haikuConstant('T', 'I', 'M', 'E')
+public const val B_UINT16_TYPE: UInt = haikuConstant('U', 'S', 'H', 'T')
+public const val B_UINT32_TYPE: UInt = haikuConstant('U', 'L', 'N', 'G')
+public const val B_UINT64_TYPE: UInt = haikuConstant('U', 'L', 'L', 'G')
+public const val B_UINT8_TYPE: UInt = haikuConstant('U', 'B', 'Y', 'T')
+public const val B_VECTOR_ICON_TYPE: UInt = haikuConstant('V', 'I', 'C', 'N')
+public const val B_XATTR_TYPE: UInt = haikuConstant('X', 'A', 'T', 'R')
+public const val B_NETWORK_ADDRESS_TYPE: UInt = haikuConstant('N', 'W', 'A', 'D')
+public const val B_MIME_STRING_TYPE: UInt = haikuConstant('M', 'I', 'M', 'S')
+public const val B_ASCII_TYPE: UInt = haikuConstant('T', 'E', 'X', 'T')
 
 public expect fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId
+
 public expect fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: AreaId): AreaId
+
 public expect fun findArea(name: String?): AreaId
+
 public expect fun areaFor(address: COpaquePointer?): AreaId
+
 public expect fun deleteArea(id: AreaId): StatusT
+
 public expect fun resizeArea(id: AreaId, newSize: ULong): StatusT
+
 public expect fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT
+
 public expect fun getAreaInfo(id: AreaId, areaInfo: AreaInfo?, size: ULong): StatusT
+
 public expect fun getNextAreaInfo(team: TeamId, cookie: Long?, areaInfo: AreaInfo?, size: ULong): StatusT
+
 public expect fun createPort(capacity: Int, name: String?): PortId
+
 public expect fun findPort(name: String?): PortId
+
 public expect fun readPort(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: ULong): SsizeT
+
 public expect fun readPortEtc(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: BigtimeT): SsizeT
+
 public expect fun writePort(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: ULong): StatusT
+
 public expect fun writePortEtc(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: BigtimeT): StatusT
+
 public expect fun closePort(port: PortId): StatusT
+
 public expect fun deletePort(port: PortId): StatusT
+
 public expect fun portBufferSize(port: PortId): SsizeT
+
 public expect fun portBufferSizeEtc(port: PortId, flags: UInt, timeout: BigtimeT): SsizeT
+
 public expect fun portCount(port: PortId): SsizeT
+
 public expect fun setPortOwner(port: PortId, team: TeamId): StatusT
+
 public expect fun getPortInfo(port: PortId, buf: PortInfo?, portInfoSize: ULong): StatusT
+
 public expect fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?, portInfoSize: ULong): StatusT
+
 public expect fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, infoSize: ULong, flags: UInt, timeout: BigtimeT): StatusT
+
 public expect fun createSem(count: Int, name: String?): SemId
+
 public expect fun deleteSem(id: SemId): StatusT
+
 public expect fun acquireSem(id: SemId): StatusT
+
 public expect fun acquireSemEtc(id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT
+
 public expect fun releaseSem(id: SemId): StatusT
+
 public expect fun releaseSemEtc(id: SemId, count: Int, flags: UInt): StatusT
+
 public expect fun switchSem(semToBeReleased: SemId, id: SemId): StatusT
+
 public expect fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT
+
 public expect fun getSemCount(id: SemId, threadCount: Int?): StatusT
+
 public expect fun setSemOwner(id: SemId, team: TeamId): StatusT
+
 public expect fun getSemInfo(id: SemId, info: SemInfo?, infoSize: ULong): StatusT
+
 public expect fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?, infoSize: ULong): StatusT
+
 public expect fun killTeam(team: TeamId): StatusT
+
 public expect fun getTeamInfo(team: TeamId, info: TeamInfo?, size: ULong): StatusT
+
 public expect fun getNextTeamInfo(cookie: Int?, info: TeamInfo?, size: ULong): StatusT
+
 public expect fun spawnThread(func: ThreadFunc, name: String?, priority: Int, data: COpaquePointer?): ThreadId
+
 public expect fun killThread(thread: ThreadId): StatusT
+
 public expect fun resumeThread(thread: ThreadId): StatusT
+
 public expect fun suspendThread(thread: ThreadId): StatusT
+
 public expect fun renameThread(thread: ThreadId, newName: String?): StatusT
+
 public expect fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT
+
 public expect fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int
+
 public expect fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT
+
 public expect fun exitThread(status: StatusT)
+
 public expect fun waitForThread(thread: ThreadId, returnValue: StatusT?): StatusT
+
 public expect fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT
+
 public expect fun findThread(name: String?): ThreadId
+
 public expect fun getSchedulerMode(): Int
+
 public expect fun setSchedulerMode(mode: Int): StatusT
+
 public expect fun sendData(thread: ThreadId, code: Int, buffer: COpaquePointer?, bufferSize: ULong): StatusT
+
 public expect fun receiveData(sender: ThreadId?, buffer: COpaquePointer?, bufferSize: ULong): Int
+
 public expect fun hasData(thread: ThreadId): Boolean
+
 public expect fun snooze(amount: BigtimeT): StatusT
+
 public expect fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): StatusT
+
 public expect fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT
+
 public expect fun getThreadInfo(id: ThreadId, info: ThreadInfo?, size: ULong): StatusT
+
 public expect fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?, size: ULong): StatusT
+
 public expect fun getPthreadThreadId(thread: PthreadT): ThreadId
+
 public expect fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?, size: ULong): StatusT
+
 public expect fun realTimeClock(): CULong
+
 public expect fun setRealTimeClock(secsSinceJan1st1970: CULong)
+
 public expect fun realTimeClockUsecs(): BigtimeT
+
 public expect fun systemTime(): BigtimeT
+
 public expect fun systemTimeNsecs(): NanotimeT
-public expect fun setAlarm(when: BigtimeT, flags: UInt): BigtimeT
+
+public expect fun setAlarm(`when`: BigtimeT, flags: UInt): BigtimeT
+
 public expect fun debugger(message: String?)
+
 public expect fun disableDebugger(state: CInt): CInt
+
 public expect fun getSystemInfo(info: SystemInfo?): StatusT
+
 public expect fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?, size: ULong): StatusT
+
 public expect fun getCpuTopologyInfo(topologyInfos: CpuTopologyNodeInfo?, topologyInfoCount: UInt?): StatusT
+
 public expect fun isComputerOn(): Int
+
 public expect fun isComputerOnFire(): CDouble
+
 public expect fun sendSignal(threadID: ThreadId, signal: CUInt): CInt
+
 public expect fun setSignalStack(base: COpaquePointer?, size: ULong)
+
 public expect fun waitForObjects(infos: ObjectWaitInfo?, numInfos: CInt): SsizeT
+
 public expect fun waitForObjectsEtc(infos: ObjectWaitInfo?, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT
+
 public expect fun fsReadAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, readBytes: ULong): SsizeT
+
 public expect fun fsWriteAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, writeBytes: ULong): SsizeT
+
 public expect fun fsRemoveAttr(fd: CInt, attribute: String?): CInt
+
 public expect fun fsStatAttr(fd: CInt, attribute: String?, attrInfo: AttrInfo?): CInt
+
 public expect fun fsOpenAttr(path: String?, attribute: String?, type: UInt, openMode: CInt): CInt
+
 public expect fun fsFopenAttr(fd: CInt, attribute: String?, type: UInt, openMode: CInt): CInt
+
 public expect fun fsCloseAttr(fd: CInt): CInt
+
 public expect fun fsOpenAttrDir(path: String?): DIR?
+
 public expect fun fsLopenAttrDir(path: String?): DIR?
+
 public expect fun fsFopenAttrDir(fd: CInt): DIR?
+
 public expect fun fsCloseAttrDir(dir: DIR?): CInt
+
 public expect fun fsReadAttrDir(dir: DIR?): Dirent?
+
 public expect fun fsRewindAttrDir(dir: DIR?)
+
 public expect fun fsCreateIndex(device: DevT, name: String?, type: UInt, flags: UInt): CInt
+
 public expect fun fsRemoveIndex(device: DevT, name: String?): CInt
+
 public expect fun fsStatIndex(device: DevT, name: String?, indexInfo: IndexInfo?): CInt
+
 public expect fun fsOpenIndexDir(device: DevT): DIR?
+
 public expect fun fsCloseIndexDir(indexDirectory: DIR?): CInt
+
 public expect fun fsReadIndexDir(indexDirectory: DIR?): Dirent?
+
 public expect fun fsRewindIndexDir(indexDirectory: DIR?)
+
 public expect fun devForPath(path: String?): DevT
+
 public expect fun nextDev(pos: Int?): DevT
+
 public expect fun fsStatDev(dev: DevT, info: FsInfo?): CInt
+
 public expect fun fsOpenQuery(device: DevT, query: String?, flags: UInt): DIR?
+
 public expect fun fsOpenLiveQuery(device: DevT, query: String?, flags: UInt, port: PortId, token: Int): DIR?
+
 public expect fun fsCloseQuery(d: DIR?): CInt
+
 public expect fun fsReadQuery(d: DIR?): Dirent?
+
 public expect fun getPathForDirent(dent: Dirent?, buf: String?, len: ULong): StatusT
+
 public expect fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): DevT
+
 public expect fun fsUnmountVolume(path: String?, flags: UInt): StatusT
+
 public expect fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): ThreadId
+
 public expect fun loadAddOn(path: String?): ImageId
+
 public expect fun unloadAddOn(image: ImageId): StatusT
+
 public expect fun getImageSymbol(image: ImageId, name: String?, symbolType: Int, symbolLocation: COpaquePointer?): StatusT
+
 public expect fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: String?, nameLength: Int?, symbolType: Int?, symbolLocation: COpaquePointer?): StatusT
+
 public expect fun clearCaches(address: COpaquePointer?, length: ULong, flags: UInt)
+
 public expect fun getImageInfo(image: ImageId, info: ImageInfo?, size: ULong): StatusT
+
 public expect fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?, size: ULong): StatusT
+
 public expect fun findPath(codePointer: COpaquePointer?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: String?, bufferSize: ULong): StatusT
+
 public expect fun findPathEtc(codePointer: COpaquePointer?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): StatusT
+
 public expect fun findPathForPath(path: String?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: String?, bufferSize: ULong): StatusT
+
 public expect fun findPathForPathEtc(path: String?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): StatusT
+
 public expect fun findPaths(baseDirectory: PathBaseDirectory, subPath: String?, paths: COpaquePointer?, pathCount: ULong?): StatusT
+
 public expect fun findPathsEtc(architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, paths: COpaquePointer?, pathCount: ULong?): StatusT
+
 public expect fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: String?, length: Int): StatusT
+
 public expect fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): StatusT

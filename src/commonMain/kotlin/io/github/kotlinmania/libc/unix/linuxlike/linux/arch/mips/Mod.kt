@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.arch.mips
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class Termios2(
     val cIflag: TcflagT,

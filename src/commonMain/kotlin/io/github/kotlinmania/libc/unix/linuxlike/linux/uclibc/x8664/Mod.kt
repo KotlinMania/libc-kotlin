@@ -202,7 +202,7 @@ public data class Termios(
 )
 
 public data class SigsetT(
-    val val: ULongArray,
+    val `val`: ULongArray,
 )
 
 public data class Sysinfo(
@@ -235,7 +235,7 @@ public data class CpuSetT(
 )
 
 public data class FsidT(
-    val val: IntArray,
+    val `val`: IntArray,
 )
 
 public data class SemT(
@@ -280,7 +280,7 @@ public const val ENODATA: CInt = 0x3d
 public const val O_APPEND: CInt = 1024
 public const val O_ACCMODE: CInt = 3
 public const val O_CLOEXEC: CInt = 0x80000
-public const val O_CREAT: CInt = 0100
+public const val O_CREAT: CInt = 64
 public const val O_DIRECTORY: CInt = 65536
 public const val O_EXCL: CInt = 128
 public const val O_NOFOLLOW: CInt = 0x20000

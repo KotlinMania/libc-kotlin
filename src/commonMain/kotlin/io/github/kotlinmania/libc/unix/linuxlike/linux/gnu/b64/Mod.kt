@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias InoT = ULong
 public typealias OffT = Long
@@ -23,8 +22,8 @@ public typealias ClockT = Long
 public typealias TimeT = Long
 
 public data class SigsetT(
-    val val: UIntArray,
-    val val: ULongArray,
+    val `val`: UIntArray,
+    val `val`: ULongArray,
 )
 
 public data class Sysinfo(

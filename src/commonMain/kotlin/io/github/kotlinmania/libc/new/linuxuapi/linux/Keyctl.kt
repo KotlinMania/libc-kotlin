@@ -1,9 +1,7 @@
 // port-lint: source new/linux_uapi/linux/keyctl.rs
 package io.github.kotlinmania.libc.new.linuxuapi.linux
 
-/**
- * Header: `linux/keyctl.h`.
- */
+import io.github.kotlinmania.libc.*
 
 public const val KEY_SPEC_THREAD_KEYRING: Int = -1
 public const val KEY_SPEC_PROCESS_KEYRING: Int = -2
@@ -13,7 +11,6 @@ public const val KEY_SPEC_USER_SESSION_KEYRING: Int = -5
 public const val KEY_SPEC_GROUP_KEYRING: Int = -6
 public const val KEY_SPEC_REQKEY_AUTH_KEY: Int = -7
 public const val KEY_SPEC_REQUESTOR_KEYRING: Int = -8
-
 public const val KEY_REQKEY_DEFL_NO_CHANGE: Int = -1
 public const val KEY_REQKEY_DEFL_DEFAULT: Int = 0
 public const val KEY_REQKEY_DEFL_THREAD_KEYRING: Int = 1
@@ -23,7 +20,6 @@ public const val KEY_REQKEY_DEFL_USER_KEYRING: Int = 4
 public const val KEY_REQKEY_DEFL_USER_SESSION_KEYRING: Int = 5
 public const val KEY_REQKEY_DEFL_GROUP_KEYRING: Int = 6
 public const val KEY_REQKEY_DEFL_REQUESTOR_KEYRING: Int = 7
-
 public const val KEYCTL_GET_KEYRING_ID: UInt = 0u
 public const val KEYCTL_JOIN_SESSION_KEYRING: UInt = 1u
 public const val KEYCTL_UPDATE: UInt = 2u
@@ -56,12 +52,10 @@ public const val KEYCTL_PKEY_VERIFY: UInt = 28u
 public const val KEYCTL_RESTRICT_KEYRING: UInt = 29u
 public const val KEYCTL_MOVE: UInt = 30u
 public const val KEYCTL_CAPABILITIES: UInt = 31u
-
 public const val KEYCTL_SUPPORTS_ENCRYPT: UInt = 0x01u
 public const val KEYCTL_SUPPORTS_DECRYPT: UInt = 0x02u
 public const val KEYCTL_SUPPORTS_SIGN: UInt = 0x04u
 public const val KEYCTL_SUPPORTS_VERIFY: UInt = 0x08u
-
 public const val KEYCTL_CAPS0_CAPABILITIES: UInt = 0x01u
 public const val KEYCTL_CAPS0_PERSISTENT_KEYRINGS: UInt = 0x02u
 public const val KEYCTL_CAPS0_DIFFIE_HELLMAN: UInt = 0x04u

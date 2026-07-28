@@ -1,5 +1,6 @@
 import org.gradle.api.GradleException
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.testing.AbstractTestTask
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -27,7 +28,6 @@ import java.nio.file.StandardCopyOption
 import java.util.Base64
 import java.util.UUID
 import java.util.zip.ZipInputStream
-import org.gradle.api.publish.maven.MavenPublication
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -708,7 +708,8 @@ publishing {
                 license {
                     name.set(providers.gradleProperty("project.pom.licenseName").getOrElse("MIT"))
                     url.set(
-                        providers.gradleProperty("project.pom.licenseUrl")
+                        providers
+                            .gradleProperty("project.pom.licenseUrl")
                             .getOrElse("https://opensource.org/licenses/MIT"),
                     )
                     distribution.set("repo")
@@ -753,9 +754,10 @@ signing {
 }
 
 // Never stage/publish the C++ wrapper publication to Maven Central.
-tasks.matching {
-    it.name.startsWith("publish") && it.name.contains("MainPublication")
-}.configureEach { enabled = false }
+tasks
+    .matching {
+        it.name.startsWith("publish") && it.name.contains("MainPublication")
+    }.configureEach { enabled = false }
 
 // Zip the staged Maven layout into a single Central Portal deployment bundle.
 val centralPortalBundle by tasks.registering(Zip::class) {
@@ -775,38 +777,49 @@ val publishToCentralPortal by tasks.registering {
     description = "Uploads the deployment bundle to the Sonatype Central Portal."
     dependsOn(centralPortalBundle)
     doLast {
-        val user = providers.gradleProperty("mavenCentralUsername").orNull
-            ?: error("mavenCentralUsername is required to publish to the Central Portal.")
-        val password = providers.gradleProperty("mavenCentralPassword").orNull
-            ?: error("mavenCentralPassword is required to publish to the Central Portal.")
+        val user =
+            providers.gradleProperty("mavenCentralUsername").orNull
+                ?: error("mavenCentralUsername is required to publish to the Central Portal.")
+        val password =
+            providers.gradleProperty("mavenCentralPassword").orNull
+                ?: error("mavenCentralPassword is required to publish to the Central Portal.")
         val publishingType = providers.gradleProperty("centralPublishingType").getOrElse("USER_MANAGED")
         val token = Base64.getEncoder().encodeToString("$user:$password".toByteArray(Charsets.UTF_8))
 
-        val bundle = centralPortalBundle.get().archiveFile.get().asFile
+        val bundle =
+            centralPortalBundle
+                .get()
+                .archiveFile
+                .get()
+                .asFile
         require(bundle.exists()) { "Deployment bundle not found: $bundle" }
 
         // Build the multipart/form-data body by hand (single 'bundle' part).
         val boundary = "CentralPortalBoundary" + UUID.randomUUID().toString().replace("-", "")
         val crlf = "\r\n"
-        val preamble = (
-            "--$boundary$crlf" +
-                "Content-Disposition: form-data; name=\"bundle\"; filename=\"${bundle.name}\"$crlf" +
-                "Content-Type: application/octet-stream$crlf$crlf"
-        ).toByteArray(Charsets.UTF_8)
+        val preamble =
+            (
+                "--$boundary$crlf" +
+                    "Content-Disposition: form-data; name=\"bundle\"; filename=\"${bundle.name}\"$crlf" +
+                    "Content-Type: application/octet-stream$crlf$crlf"
+            ).toByteArray(Charsets.UTF_8)
         val epilogue = "$crlf--$boundary--$crlf".toByteArray(Charsets.UTF_8)
         val body = preamble + bundle.readBytes() + epilogue
 
         val deploymentName = "$publishProjectName-$version"
-        val uploadUri = URI(
-            "https://central.sonatype.com/api/v1/publisher/upload" +
-                "?name=$deploymentName&publishingType=$publishingType",
-        )
-        val request = HttpRequest.newBuilder()
-            .uri(uploadUri)
-            .header("Authorization", "Bearer $token")
-            .header("Content-Type", "multipart/form-data; boundary=$boundary")
-            .POST(HttpRequest.BodyPublishers.ofByteArray(body))
-            .build()
+        val uploadUri =
+            URI(
+                "https://central.sonatype.com/api/v1/publisher/upload" +
+                    "?name=$deploymentName&publishingType=$publishingType",
+            )
+        val request =
+            HttpRequest
+                .newBuilder()
+                .uri(uploadUri)
+                .header("Authorization", "Bearer $token")
+                .header("Content-Type", "multipart/form-data; boundary=$boundary")
+                .POST(HttpRequest.BodyPublishers.ofByteArray(body))
+                .build()
 
         val client = HttpClient.newHttpClient()
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())

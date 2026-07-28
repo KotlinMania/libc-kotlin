@@ -4,11 +4,8 @@ package io.github.kotlinmania.libc.unix.haiku
 import io.github.kotlinmania.libc.*
 
 public typealias TimeT = Long
-
 public typealias ElfAddr = Elf64Addr
-
 public typealias ElfHalf = Elf64Half
-
 public typealias ElfPhdr = Elf64Phdr
 
 public data class Elf64Phdr(

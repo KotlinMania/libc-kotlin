@@ -255,7 +255,7 @@ public val MAP_HUGE_16GB: CInt = 34 shl MAP_HUGE_SHIFT
 public const val MINSIGSTKSZ: CInt = 2048
 public const val MSG_COPY: CInt = 16384
 public const val NI_MAXHOST: SocklenT = 1025
-public val O_TMPFILE: CInt = 0o20000000 or O_DIRECTORY
+public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val PACKET_MR_UNICAST: CInt = 3
 public const val PF_NFC: CInt = 39
 public const val PF_VSOCK: CInt = 40
@@ -275,22 +275,41 @@ public const val UDP_SEGMENT: CInt = 103
 public val YESEXPR: CInt = ((5) shl 8) or (0)
 
 public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
-public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, val: CInt?): CInt
-public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, val: CInt): CInt
-public expect fun ptrace(request: CUInt, ...): CLong
+
+public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+
+public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt
+
+public expect fun ptrace(request: CUInt, vararg args: Any?): CLong
+
 public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt): CInt
+
 public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt, timeout: Timespec?): CInt
+
 public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+
 public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+
 public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+
 public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+
 public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+
 public expect fun sethostid(hostid: CLong): CInt
+
 public expect fun fanotifyMark(fd: CInt, flags: CUInt, mask: ULong, dirfd: CInt, path: String?): CInt
+
 public expect fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt
+
 public expect fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt
+
 public expect fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt
+
 public expect fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt
+
 public expect fun getpriority(which: PriorityWhichT, who: IdT): CInt
+
 public expect fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt
+
 public expect fun getauxval(type: CULong): CULong
