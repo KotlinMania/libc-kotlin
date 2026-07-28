@@ -2,16 +2,13 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias FflagsT = UInt
 public typealias VmProtT = UChar
 public typealias KvaddrT = ULong
 public typealias SegszT = Long
 public typealias FixptT = UInt
-public typealias FixptT = FixptT
 public typealias LwpidT = Int
-public typealias LwpidT = LwpidT
 public typealias BlksizeT = Int
 public typealias KsizeT = ULong
 public typealias InpGenT = ULong
@@ -187,9 +184,9 @@ public data class PtraceScRemote(
 
 public data class CpusetT(
     val bits: LongArray,
-    val bits: LongArray,
-    val bits: LongArray,
-    val bits: LongArray,
+    val bits2: LongArray,
+    val bits3: LongArray,
+    val bits4: LongArray,
 )
 
 public data class CapRightsT(
@@ -258,10 +255,10 @@ public data class KinfoVmentry(
     val kveVnRdev: UInt,
     val kveVnMode: UShort,
     val kveStatus: UShort,
-    val kveVnFsid: ULong,
-    val kveVnRdev: ULong,
+    val kveVnFsid2: ULong,
+    val kveVnRdev2: ULong,
     val kveIsSpare: IntArray,
-    val kveIsSpare: IntArray,
+    val kveIsSpare2: IntArray,
     val kvePath: List<ByteArray>,
 )
 
@@ -751,8 +748,8 @@ public data class TcpInfo(
     val tcpiRcvAdv: UInt,
     val tcpiDupacks: UInt,
     val tcpiPad: UIntArray,
-    val tcpiPad: UIntArray,
-    val tcpiPad: UIntArray,
+    val tcpiPad2: UIntArray,
+    val tcpiPad3: UIntArray,
 )
 
 public data class UmtxTime(
@@ -1095,7 +1092,7 @@ public data class MqAttr(
 
 public data class Ptsstat(
     val dev: ULong,
-    val dev: UInt,
+    val dev2: UInt,
     val devname: ByteArray,
 )
 
@@ -1471,7 +1468,6 @@ public val CAP_FCNTL_SETOWN: UInt = 1 shl 6
 public const val DEVSTAT_N_TRANS_FLAGS: CInt = 4
 public const val DEVSTAT_NAME_LEN: CInt = 16
 public const val CPU_SETSIZE: CInt = 1024
-public const val CPU_SETSIZE: CInt = 256
 public const val SIGEV_THREAD_ID: CInt = 4
 public const val EXTATTR_NAMESPACE_EMPTY: CInt = 0
 public const val EXTATTR_NAMESPACE_USER: CInt = 1
@@ -1508,7 +1504,7 @@ public const val RLIMIT_NPTS: CInt = 11
 public const val RLIMIT_SWAP: CInt = 12
 public const val RLIMIT_KQUEUES: CInt = 13
 public const val RLIMIT_UMTXP: CInt = 14
-public const val RLIM_NLIMITS: RlimT = 15
+public const val RLIM_NLIMITS: RlimT = 15uL
 public const val RLIM_SAVED_MAX: RlimT = RLIM_INFINITY
 public const val RLIM_SAVED_CUR: RlimT = RLIM_INFINITY
 public const val CP_USER: CInt = 0
@@ -1810,9 +1806,7 @@ public const val TIOCM_DCD: CInt = 0x40
 public const val H4DISC: CInt = 0x7
 public const val VM_TOTAL: CInt = 1
 public const val BIOCSETFNR: CULong = 0x80104282uL
-public const val BIOCSETFNR: CULong = 0x80084282uL
 public const val FIODGNAME: CULong = 0x80106678uL
-public const val FIODGNAME: CULong = 0x80086678uL
 public const val FIONWRITE: CULong = 0x40046677uL
 public const val FIONSPACE: CULong = 0x40046676uL
 public const val FIOSEEKDATA: CULong = 0xc0086661uL
@@ -2333,13 +2327,13 @@ public const val WCONTINUED: CInt = 4
 public const val WNOWAIT: CInt = 8
 public const val WEXITED: CInt = 16
 public const val WTRAPPED: CInt = 32
-public const val P_PID: IdtypeT = 0
-public const val P_PGID: IdtypeT = 2
-public const val P_ALL: IdtypeT = 7
+public const val P_PID: IdtypeT = 0u
+public const val P_PGID: IdtypeT = 2u
+public const val P_ALL: IdtypeT = 7u
 public const val UTIME_OMIT: CLong = -2
 public const val UTIME_NOW: CLong = -1
-public const val B460800: SpeedT = 460800
-public const val B921600: SpeedT = 921600
+public const val B460800: SpeedT = 460800u
+public const val B921600: SpeedT = 921600u
 public const val AT_FDCWD: CInt = -100
 public const val AT_EACCESS: CInt = 0x100
 public const val AT_SYMLINK_NOFOLLOW: CInt = 0x200
@@ -2374,9 +2368,9 @@ public const val AT_USRSTACKBASE: CInt = 35
 public const val AT_USRSTACKLIM: CInt = 36
 public const val AT_HWCAP3: CInt = 38
 public const val AT_HWCAP4: CInt = 39
-public const val TABDLY: TcflagT = 0x00000004
-public const val TAB0: TcflagT = 0x00000000
-public const val TAB3: TcflagT = 0x00000004
+public const val TABDLY: TcflagT = 0x00000004u
+public const val TAB0: TcflagT = 0x00000000u
+public const val TAB3: TcflagT = 0x00000004u
 public const val _PC_ACL_NFS4: CInt = 64
 public const val _SC_CPUSET_SIZE: CInt = 122
 public const val _UUID_NODE_LEN: ULong = 6uL
@@ -2433,7 +2427,6 @@ public const val COMMLEN: ULong = 19uL
 public const val KI_EMULNAMELEN: ULong = 16uL
 public const val KI_NGROUPS: ULong = 16uL
 public const val KI_NSPARE_INT: ULong = 4uL
-public const val KI_NSPARE_INT: ULong = 2uL
 public const val KI_NSPARE_LONG: ULong = 12uL
 public const val KI_CRF_CAPABILITY_MODE: ULong = 0x00000001uL
 public const val KI_CRF_GRP_OVERFLOW: ULong = 0x80000000uL
@@ -2545,7 +2538,6 @@ public const val PRI_MAX_IDLE: CInt = PRI_MAX
 public const val NZERO: CInt = 0
 public const val RUSAGE_THREAD: CInt = 1
 public const val ARG_MAX: CInt = 256 * 1024
-public const val ARG_MAX: CInt = 2 * 256 * 1024
 public const val CHILD_MAX: CInt = 40
 public const val MAXCOMLEN: ULong = 19uL
 public const val MAXINTERP: CInt = PATH_MAX
@@ -2778,7 +2770,6 @@ public const val PS_FST_FFLAG_HASLOCK: CInt = 0x4000
 public const val MAXFIDSZ: CInt = 16
 public const val MFSNAMELEN: CInt = 16
 public const val MNAMELEN: CInt = 88
-public const val MNAMELEN: CInt = 1024
 public const val MNT_SUJ: ULong = 0x100000000uL
 public const val MNT_AUTOMOUNTED: ULong = 0x200000000uL
 public const val MNT_UNTRUSTED: ULong = 0x800000000uL

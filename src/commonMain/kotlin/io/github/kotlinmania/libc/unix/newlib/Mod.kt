@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias BlkcntT = Int
 public typealias BlksizeT = Int
@@ -10,12 +9,6 @@ public typealias ClockidT = CULong
 public typealias DevT = CShort
 public typealias InoT = CUShort
 public typealias OffT = CLong
-public typealias DevT = CShort
-public typealias InoT = CUShort
-public typealias OffT = CInt
-public typealias DevT = UInt
-public typealias InoT = UInt
-public typealias OffT = Long
 public typealias FsblkcntT = ULong
 public typealias FsfilcntT = UInt
 public typealias IdT = UInt
@@ -28,15 +21,12 @@ public typealias PthreadT = CULong
 public typealias PthreadKeyT = CUInt
 public typealias RlimT = UInt
 public typealias SaFamilyT = UShort
-public typealias SaFamilyT = UByte
 public typealias SocklenT = UInt
 public typealias SpeedT = UInt
 public typealias SusecondsT = Int
 public typealias TcflagT = UShort
-public typealias TcflagT = CUInt
 public typealias UsecondsT = UInt
 public typealias TimeT = CLongLong
-public typealias TimeT = Int
 
 public data class Addrinfo(
     val aiFlags: CInt,
@@ -46,7 +36,7 @@ public data class Addrinfo(
     val aiAddrlen: SocklenT,
     val aiAddr: Sockaddr?,
     val aiCanonname: String?,
-    val aiAddr: Sockaddr?,
+    val aiAddr2: Sockaddr?,
     val aiNext: Addrinfo?,
 )
 
@@ -373,28 +363,28 @@ public const val SEEK_CUR: CInt = 1
 public const val SEEK_END: CInt = 2
 public const val FIOCLEX: CULong = 0x20006601uL
 public const val FIONCLEX: CULong = 0x20006602uL
-public const val S_BLKSIZE: ModeT = 1024
-public const val S_IREAD: ModeT = 256
-public const val S_IWRITE: ModeT = 128
-public const val S_IEXEC: ModeT = 64
-public const val S_ENFMT: ModeT = 1024
-public const val S_IFMT: ModeT = 61440
-public const val S_IFDIR: ModeT = 16384
-public const val S_IFCHR: ModeT = 8192
-public const val S_IFBLK: ModeT = 24576
-public const val S_IFREG: ModeT = 32768
-public const val S_IFLNK: ModeT = 40960
-public const val S_IFSOCK: ModeT = 49152
-public const val S_IFIFO: ModeT = 4096
-public const val S_IRUSR: ModeT = 256
-public const val S_IWUSR: ModeT = 128
-public const val S_IXUSR: ModeT = 64
-public const val S_IRGRP: ModeT = 32
-public const val S_IWGRP: ModeT = 16
-public const val S_IXGRP: ModeT = 8
-public const val S_IROTH: ModeT = 4
-public const val S_IWOTH: ModeT = 2
-public const val S_IXOTH: ModeT = 1
+public const val S_BLKSIZE: ModeT = 1024u
+public const val S_IREAD: ModeT = 256u
+public const val S_IWRITE: ModeT = 128u
+public const val S_IEXEC: ModeT = 64u
+public const val S_ENFMT: ModeT = 1024u
+public const val S_IFMT: ModeT = 61440u
+public const val S_IFDIR: ModeT = 16384u
+public const val S_IFCHR: ModeT = 8192u
+public const val S_IFBLK: ModeT = 24576u
+public const val S_IFREG: ModeT = 32768u
+public const val S_IFLNK: ModeT = 40960u
+public const val S_IFSOCK: ModeT = 49152u
+public const val S_IFIFO: ModeT = 4096u
+public const val S_IRUSR: ModeT = 256u
+public const val S_IWUSR: ModeT = 128u
+public const val S_IXUSR: ModeT = 64u
+public const val S_IRGRP: ModeT = 32u
+public const val S_IWGRP: ModeT = 16u
+public const val S_IXGRP: ModeT = 8u
+public const val S_IROTH: ModeT = 4u
+public const val S_IWOTH: ModeT = 2u
+public const val S_IXOTH: ModeT = 1u
 public const val SOL_TCP: CInt = 6
 public const val PF_UNSPEC: CInt = 0
 public const val PF_INET: CInt = 2

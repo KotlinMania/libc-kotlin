@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ShmattT = CULong
 public typealias RegoffT = CInt
@@ -24,10 +23,10 @@ public data class Msghdr(
     val msgNamelen: SocklenT,
     val msgIov: Iovec?,
     val msgIovlen: CInt,
-    val msgIovlen: ULong,
+    val msgIovlen2: ULong,
     val msgControl: COpaquePointer?,
     val msgControllen: SocklenT,
-    val msgControllen: ULong,
+    val msgControllen2: ULong,
     val msgFlags: CInt,
 )
 
@@ -83,7 +82,7 @@ public data class IpcPerm(
     val cuid: UidT,
     val cgid: GidT,
     val mode: CUShort,
-    val mode: CUInt,
+    val mode2: CUInt,
     val pad1: CUShort,
     val seq: CUShort,
     val pad2: CUShort,
@@ -102,7 +101,7 @@ public data class Statvfs(
     val fFavail: FsfilcntT,
     val fFsid: CULong,
     val fUnused: CInt,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
     val fSpare: IntArray,
@@ -123,7 +122,7 @@ public data class Sysinfo(
     val freehigh: CULong,
     val memUnit: CUInt,
     val f: ByteArray,
-    val f: ByteArray,
+    val f2: ByteArray,
 )
 
 public data class RegexT(
@@ -148,7 +147,7 @@ public data class Rtentry(
     val rtTos: CUChar,
     val rtClass: CUChar,
     val rtPad4: ShortArray,
-    val rtPad4: CShort,
+    val rtPad42: CShort,
     val rtMetric: CShort,
     val rtDev: String?,
     val rtMtu: CULong,
@@ -284,7 +283,7 @@ public const val EDEADLK: CInt = 0x23
 public const val EDEADLOCK: CInt = EDEADLK
 public const val EXTA: CUInt = B19200
 public const val EXTB: CUInt = B38400
-public const val EXTPROC: TcflagT = 65536
+public const val EXTPROC: TcflagT = 65536u
 public const val FOPEN_MAX: CInt = 16
 public const val F_GETOWN: CInt = 9
 public const val F_OFD_GETLK: CInt = 36
@@ -299,7 +298,7 @@ public const val IPV6_ROUTER_ALERT_ISOLATE: CInt = 30
 public const val MAP_HUGE_SHIFT: CInt = 26
 public const val MAP_HUGE_MASK: CInt = 0x3f
 public const val MSG_COPY: CInt = 16384
-public const val NI_MAXHOST: SocklenT = 1025
+public const val NI_MAXHOST: SocklenT = 1025u
 public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val PACKET_MR_UNICAST: CInt = 3
 public const val PF_NFC: CInt = 39

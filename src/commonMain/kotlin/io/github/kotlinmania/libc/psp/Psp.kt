@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong

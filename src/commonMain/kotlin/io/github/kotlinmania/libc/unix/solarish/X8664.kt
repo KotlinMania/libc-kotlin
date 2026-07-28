@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias GregT = CLong
 public typealias Elf64Addr = CULong
@@ -43,7 +42,6 @@ public data class CAnonymousElf64Phdr(
     val pAlign: Elf64Xword,
 )
 
-public data class DlPhdrInfo(
     val dlpiAddr: Elf64Addr,
     val dlpiName: String?,
     val dlpiPhdr: Elf64Phdr?,
@@ -74,7 +72,7 @@ public data class UcontextT(
     val ucFiller: CLong,
     val ucXrs: XrsT,
     val ucLwpid: CUInt,
-    val ucFiller: LongArray,
+    val ucFiller2: LongArray,
 )
 
 // C union; only one variant is valid at a time.

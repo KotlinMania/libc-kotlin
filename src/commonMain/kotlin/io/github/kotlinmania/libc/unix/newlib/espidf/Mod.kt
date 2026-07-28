@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.newlib.espidf
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ClockT = CULong
 public typealias WcharT = UInt

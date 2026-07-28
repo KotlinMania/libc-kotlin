@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.netbsd.net
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class IfData(
     val ifiType: CUChar,

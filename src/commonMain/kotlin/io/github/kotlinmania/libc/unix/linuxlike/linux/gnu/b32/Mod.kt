@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ClockT = Int
 public typealias ShmattT = CULong
@@ -25,38 +24,11 @@ public typealias FsblkcntT = ULong
 public typealias FsfilcntT = ULong
 public typealias RlimT = ULong
 public typealias BlksizeT = Long
-public typealias TimeT = Long
-public typealias SusecondsT = Int
-public typealias InoT = Ino64T
-public typealias OffT = Long
-public typealias BlkcntT = Long
-public typealias FsblkcntT = ULong
-public typealias FsfilcntT = ULong
-public typealias RlimT = ULong
-public typealias BlksizeT = Int
-public typealias TimeT = Int
-public typealias SusecondsT = Int
-public typealias InoT = Ino64T
-public typealias OffT = Long
-public typealias BlkcntT = Long
-public typealias FsblkcntT = ULong
-public typealias FsfilcntT = ULong
-public typealias RlimT = ULong
-public typealias BlksizeT = Int
-public typealias TimeT = Int
-public typealias SusecondsT = Int
-public typealias InoT = InoT
-public typealias OffT = Int
-public typealias BlkcntT = Int
-public typealias FsblkcntT = CULong
-public typealias FsfilcntT = CULong
-public typealias RlimT = CULong
-public typealias BlksizeT = Int
 
 public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
-    val stIno: InoT,
+    val stIno2: InoT,
     val stMode: ModeT,
     val stNlink: NlinkT,
     val stUid: UidT,
@@ -71,7 +43,7 @@ public data class Stat(
     val stMtimeNsec: CLong,
     val stCtime: TimeT,
     val stCtimeNsec: CLong,
-    val stIno: InoT,
+    val stIno3: InoT,
 )
 
 public data class Statvfs(
@@ -155,7 +127,6 @@ public data class Timex(
     val unused11: Int,
 )
 
-public data class Timex(
     val modes: CUInt,
     val offset: CLong,
     val freq: CLong,
@@ -233,52 +204,11 @@ public const val SA_RESTART: CInt = 0x2
 public const val SA_NOCLDSTOP: CInt = 0x00000008
 public const val EPOLL_CLOEXEC: CInt = 0x400000
 public const val EFD_CLOEXEC: CInt = 0x400000
-public const val O_NOATIME: CInt = 262144
-public const val O_PATH: CInt = 2097152
-public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
-public const val SA_ONSTACK: CInt = 0x08000000
-public const val PTRACE_DETACH: CUInt = 17u
-public const val F_RDLCK: CInt = 0
-public const val F_WRLCK: CInt = 1
-public const val F_UNLCK: CInt = 2
-public const val SFD_CLOEXEC: CInt = 0x080000
-public const val NCCS: ULong = 32uL
-public const val O_TRUNC: CInt = 512
-public const val O_CLOEXEC: CInt = 0x80000
-public const val EBFONT: CInt = 59
-public const val ENOSTR: CInt = 60
-public const val ENODATA: CInt = 61
-public const val ETIME: CInt = 62
-public const val ENOSR: CInt = 63
-public const val ENONET: CInt = 64
-public const val ENOPKG: CInt = 65
-public const val EREMOTE: CInt = 66
-public const val ENOLINK: CInt = 67
-public const val EADV: CInt = 68
-public const val ESRMNT: CInt = 69
-public const val ECOMM: CInt = 70
-public const val EPROTO: CInt = 71
-public const val EDOTDOT: CInt = 73
-public const val SA_NODEFER: CInt = 0x40000000
-public const val SA_RESETHAND: CInt = 0x80000000
-public const val SA_RESTART: CInt = 0x10000000
-public const val SA_NOCLDSTOP: CInt = 0x00000001
-public const val EPOLL_CLOEXEC: CInt = 0x80000
-public const val EFD_CLOEXEC: CInt = 0x80000
 public const val F_SETLK: CInt = 8
 public const val F_SETLKW: CInt = 9
-public const val F_SETLK: CInt = 34
-public const val F_SETLKW: CInt = 35
-public const val F_SETLK: CInt = 13
-public const val F_SETLKW: CInt = 14
-public const val F_SETLK: CInt = 6
-public const val F_SETLKW: CInt = 7
 public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
 public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
 public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 ])
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 ])
-public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 ])
 public const val PTRACE_GETFPREGS: CUInt = 14u
 public const val PTRACE_SETFPREGS: CUInt = 15u
 public const val PTRACE_GETREGS: CUInt = 12u

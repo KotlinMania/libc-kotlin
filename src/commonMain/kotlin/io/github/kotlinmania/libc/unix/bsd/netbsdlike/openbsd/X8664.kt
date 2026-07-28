@@ -3,9 +3,7 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
 
-public typealias UcontextT = Sigcontext
 
-public data class Sigcontext(
     val scRdi: CLong,
     val scRsi: CLong,
     val scRdx: CLong,
@@ -50,7 +48,6 @@ public data class Fxsave64(
     val fxXmm: List<ULongArray>,
 )
 
-public const val _MAX_PAGE_SHIFT: UInt = 12u
 public const val PT_STEP: CInt = PT_FIRSTMACH + 0
 public const val PT_GETREGS: CInt = PT_FIRSTMACH + 1
 public const val PT_SETREGS: CInt = PT_FIRSTMACH + 2

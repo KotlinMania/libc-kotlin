@@ -2,14 +2,11 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias PthreadT = COpaquePointer?
 public typealias ClockT = CLong
 public typealias TimeT = Long
-public typealias TimeT = CLong
 public typealias SusecondsT = Long
-public typealias SusecondsT = CLong
 public typealias InoT = ULong
 public typealias OffT = Long
 public typealias BlkcntT = Long
@@ -61,7 +58,7 @@ public data class SiginfoT(
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,
-    val siErrno: CInt,
+    val siErrno2: CInt,
     val pad: IntArray,
     val align: List<ULong>,
 )
@@ -76,7 +73,7 @@ public data class Statvfs(
     val fFfree: FsfilcntT,
     val fFavail: FsfilcntT,
     val fFsid: CULong,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
 )
@@ -91,7 +88,7 @@ public data class Statvfs64(
     val fFfree: Fsfilcnt64T,
     val fFavail: Fsfilcnt64T,
     val fFsid: CULong,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
 )
@@ -140,7 +137,7 @@ public data class Rtentry(
     val rtTos: CUChar,
     val rtClass: CUChar,
     val rtPad4: ShortArray,
-    val rtPad4: ShortArray,
+    val rtPad42: ShortArray,
     val rtMetric: CShort,
     val rtDev: String?,
     val rtMtu: CULong,
@@ -309,7 +306,7 @@ public data class Utmpx(
     val utHost: ByteArray,
     val utExit: ExitStatus,
     val utSession: CLong,
-    val utSession: CInt,
+    val utSession2: CInt,
     val utTv: Timeval,
     val utAddrV6: UIntArray,
 )
@@ -341,7 +338,6 @@ public const val DEAD_PROCESS: CShort = 8
 public const val ACCOUNTING: CShort = 9
 public const val SFD_CLOEXEC: CInt = 0x080000
 public const val NCCS: ULong = 32uL
-public const val NCCS: ULong = 19uL
 public const val O_TRUNC: CInt = 512
 public const val O_NOATIME: CInt = 262144
 public const val O_CLOEXEC: CInt = 0x80000
@@ -381,7 +377,7 @@ public const val O_EXEC: CInt = 2097152
 public const val O_SEARCH: CInt = 2097152
 public const val O_ACCMODE: CInt = 2097155
 public const val O_NDELAY: CInt = O_NONBLOCK
-public const val NI_MAXHOST: SocklenT = 255
+public const val NI_MAXHOST: SocklenT = 255u
 public const val PTHREAD_STACK_MIN: ULong = 2048uL
 public const val MAP_ANONYMOUS: CInt = MAP_ANON
 public const val SOCK_SEQPACKET: CInt = 5
@@ -446,22 +442,22 @@ public const val TCSAFLUSH: CInt = 2
 public const val RTLD_GLOBAL: CInt = 0x100
 public const val RTLD_NOLOAD: CInt = 0x4
 public const val CLOCK_SGI_CYCLE: ClockidT = 10
-public const val B0: SpeedT = 0
-public const val B50: SpeedT = 1
-public const val B75: SpeedT = 2
-public const val B110: SpeedT = 3
-public const val B134: SpeedT = 4
-public const val B150: SpeedT = 5
-public const val B200: SpeedT = 6
-public const val B300: SpeedT = 7
-public const val B600: SpeedT = 8
-public const val B1200: SpeedT = 9
-public const val B1800: SpeedT = 10
-public const val B2400: SpeedT = 11
-public const val B4800: SpeedT = 12
-public const val B9600: SpeedT = 13
-public const val B19200: SpeedT = 14
-public const val B38400: SpeedT = 15
+public const val B0: SpeedT = 0u
+public const val B50: SpeedT = 1u
+public const val B75: SpeedT = 2u
+public const val B110: SpeedT = 3u
+public const val B134: SpeedT = 4u
+public const val B150: SpeedT = 5u
+public const val B200: SpeedT = 6u
+public const val B300: SpeedT = 7u
+public const val B600: SpeedT = 8u
+public const val B1200: SpeedT = 9u
+public const val B1800: SpeedT = 10u
+public const val B2400: SpeedT = 11u
+public const val B4800: SpeedT = 12u
+public const val B9600: SpeedT = 13u
+public const val B19200: SpeedT = 14u
+public const val B38400: SpeedT = 15u
 public const val EXTA: SpeedT = B19200
 public const val EXTB: SpeedT = B38400
 public const val REG_OK: CInt = 0
@@ -525,8 +521,6 @@ public const val UT_LINESIZE: ULong = 32uL
 public const val UT_NAMESIZE: ULong = 32uL
 public const val POSIX_FADV_DONTNEED: CInt = 6
 public const val POSIX_FADV_NOREUSE: CInt = 7
-public const val POSIX_FADV_DONTNEED: CInt = 4
-public const val POSIX_FADV_NOREUSE: CInt = 5
 
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
 

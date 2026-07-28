@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias OffT = Long
 public typealias UsecondsT = UInt
@@ -55,7 +54,7 @@ public data class Ifaddrs(
 
 public data class FdSet(
     val fdsBits: LongArray,
-    val fdsBits: IntArray,
+    val fdsBits2: IntArray,
 )
 
 public data class Msghdr(
@@ -110,15 +109,15 @@ public data class SockaddrUn(
 
 public data class Utsname(
     val sysname: ByteArray,
-    val sysname: ByteArray,
+    val sysname2: ByteArray,
     val nodename: ByteArray,
-    val nodename: ByteArray,
+    val nodename2: ByteArray,
     val release: ByteArray,
-    val release: ByteArray,
+    val release2: ByteArray,
     val version: ByteArray,
-    val version: ByteArray,
+    val version2: ByteArray,
     val machine: ByteArray,
-    val machine: ByteArray,
+    val machine2: ByteArray,
 )
 
 public const val LC_ALL: CInt = 0
@@ -247,54 +246,54 @@ public const val VDISCARD: ULong = 15uL
 public const val VMIN: ULong = 16uL
 public const val VTIME: ULong = 17uL
 public const val VSTATUS: ULong = 18uL
-public const val _POSIX_VDISABLE: CcT = 0xff
-public const val IGNBRK: TcflagT = 0x00000001
-public const val BRKINT: TcflagT = 0x00000002
-public const val IGNPAR: TcflagT = 0x00000004
-public const val PARMRK: TcflagT = 0x00000008
-public const val INPCK: TcflagT = 0x00000010
-public const val ISTRIP: TcflagT = 0x00000020
-public const val INLCR: TcflagT = 0x00000040
-public const val IGNCR: TcflagT = 0x00000080
-public const val ICRNL: TcflagT = 0x00000100
-public const val IXON: TcflagT = 0x00000200
-public const val IXOFF: TcflagT = 0x00000400
-public const val IXANY: TcflagT = 0x00000800
-public const val IMAXBEL: TcflagT = 0x00002000
-public const val OPOST: TcflagT = 0x1
-public const val ONLCR: TcflagT = 0x2
-public const val OXTABS: TcflagT = 0x4
-public const val ONOEOT: TcflagT = 0x8
-public const val CIGNORE: TcflagT = 0x00000001
-public const val CSIZE: TcflagT = 0x00000300
-public const val CS5: TcflagT = 0x00000000
-public const val CS6: TcflagT = 0x00000100
-public const val CS7: TcflagT = 0x00000200
-public const val CS8: TcflagT = 0x00000300
-public const val CSTOPB: TcflagT = 0x00000400
-public const val CREAD: TcflagT = 0x00000800
-public const val PARENB: TcflagT = 0x00001000
-public const val PARODD: TcflagT = 0x00002000
-public const val HUPCL: TcflagT = 0x00004000
-public const val CLOCAL: TcflagT = 0x00008000
-public const val ECHOKE: TcflagT = 0x00000001
-public const val ECHOE: TcflagT = 0x00000002
-public const val ECHOK: TcflagT = 0x00000004
-public const val ECHO: TcflagT = 0x00000008
-public const val ECHONL: TcflagT = 0x00000010
-public const val ECHOPRT: TcflagT = 0x00000020
-public const val ECHOCTL: TcflagT = 0x00000040
-public const val ISIG: TcflagT = 0x00000080
-public const val ICANON: TcflagT = 0x00000100
-public const val ALTWERASE: TcflagT = 0x00000200
-public const val IEXTEN: TcflagT = 0x00000400
-public const val EXTPROC: TcflagT = 0x00000800
-public const val TOSTOP: TcflagT = 0x00400000
-public const val FLUSHO: TcflagT = 0x00800000
-public const val NOKERNINFO: TcflagT = 0x02000000
-public const val PENDIN: TcflagT = 0x20000000
-public const val NOFLSH: TcflagT = 0x80000000
-public const val MDMBUF: TcflagT = 0x00100000
+public const val _POSIX_VDISABLE: CcT = 0xffu
+public const val IGNBRK: TcflagT = 0x00000001u
+public const val BRKINT: TcflagT = 0x00000002u
+public const val IGNPAR: TcflagT = 0x00000004u
+public const val PARMRK: TcflagT = 0x00000008u
+public const val INPCK: TcflagT = 0x00000010u
+public const val ISTRIP: TcflagT = 0x00000020u
+public const val INLCR: TcflagT = 0x00000040u
+public const val IGNCR: TcflagT = 0x00000080u
+public const val ICRNL: TcflagT = 0x00000100u
+public const val IXON: TcflagT = 0x00000200u
+public const val IXOFF: TcflagT = 0x00000400u
+public const val IXANY: TcflagT = 0x00000800u
+public const val IMAXBEL: TcflagT = 0x00002000u
+public const val OPOST: TcflagT = 0x1u
+public const val ONLCR: TcflagT = 0x2u
+public const val OXTABS: TcflagT = 0x4u
+public const val ONOEOT: TcflagT = 0x8u
+public const val CIGNORE: TcflagT = 0x00000001u
+public const val CSIZE: TcflagT = 0x00000300u
+public const val CS5: TcflagT = 0x00000000u
+public const val CS6: TcflagT = 0x00000100u
+public const val CS7: TcflagT = 0x00000200u
+public const val CS8: TcflagT = 0x00000300u
+public const val CSTOPB: TcflagT = 0x00000400u
+public const val CREAD: TcflagT = 0x00000800u
+public const val PARENB: TcflagT = 0x00001000u
+public const val PARODD: TcflagT = 0x00002000u
+public const val HUPCL: TcflagT = 0x00004000u
+public const val CLOCAL: TcflagT = 0x00008000u
+public const val ECHOKE: TcflagT = 0x00000001u
+public const val ECHOE: TcflagT = 0x00000002u
+public const val ECHOK: TcflagT = 0x00000004u
+public const val ECHO: TcflagT = 0x00000008u
+public const val ECHONL: TcflagT = 0x00000010u
+public const val ECHOPRT: TcflagT = 0x00000020u
+public const val ECHOCTL: TcflagT = 0x00000040u
+public const val ISIG: TcflagT = 0x00000080u
+public const val ICANON: TcflagT = 0x00000100u
+public const val ALTWERASE: TcflagT = 0x00000200u
+public const val IEXTEN: TcflagT = 0x00000400u
+public const val EXTPROC: TcflagT = 0x00000800u
+public const val TOSTOP: TcflagT = 0x00400000u
+public const val FLUSHO: TcflagT = 0x00800000u
+public const val NOKERNINFO: TcflagT = 0x02000000u
+public const val PENDIN: TcflagT = 0x20000000u
+public const val NOFLSH: TcflagT = 0x80000000u
+public const val MDMBUF: TcflagT = 0x00100000u
 public const val WNOHANG: CInt = 0x00000001
 public const val WUNTRACED: CInt = 0x00000002
 public const val RTLD_LAZY: CInt = 0x1

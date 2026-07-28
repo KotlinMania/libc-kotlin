@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.musl.sys
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 /**
  * Header: `sys/socket.h`.

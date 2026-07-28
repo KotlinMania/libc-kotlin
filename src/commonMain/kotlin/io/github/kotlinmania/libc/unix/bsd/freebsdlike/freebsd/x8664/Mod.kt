@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.x8664
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ClockT = Int
 public typealias WcharT = Int
@@ -122,7 +121,7 @@ public data class McontextT(
     val mcXfpustateLen: RegisterT,
     val mcSpare: LongArray,
     val mcTlsbase: RegisterT,
-    val mcSpare: LongArray,
+    val mcSpare2: LongArray,
 )
 
 public data class Elf64Auxinfo(

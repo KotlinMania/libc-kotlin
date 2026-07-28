@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ModeT = UShort
 public typealias Off64T = CLongLong
@@ -41,7 +40,7 @@ public data class Stat(
     val stMtimeNsec: CLong,
     val stCtime: CLong,
     val stCtimeNsec: CLong,
-    val stIno: CULongLong,
+    val stIno2: CULongLong,
 )
 
 public data class Stat64(
@@ -61,7 +60,7 @@ public data class Stat64(
     val stMtimeNsec: CLong,
     val stCtime: CLong,
     val stCtimeNsec: CLong,
-    val stIno: CULongLong,
+    val stIno2: CULongLong,
 )
 
 public data class Statfs64(

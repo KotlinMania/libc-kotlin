@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ShmattT = CULong
 public typealias MsgqnumT = CULong
@@ -23,7 +22,7 @@ public data class Statvfs(
     val fFfree: FsfilcntT,
     val fFavail: FsfilcntT,
     val fFsid: CULong,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
     val fSpare: IntArray,
@@ -51,7 +50,7 @@ public data class Rtentry(
     val rtTos: CUChar,
     val rtClass: CUChar,
     val rtPad4: ShortArray,
-    val rtPad4: CShort,
+    val rtPad42: CShort,
     val rtMetric: CShort,
     val rtDev: String?,
     val rtMtu: CULong,
@@ -226,7 +225,7 @@ public const val BUFSIZ: CInt = 4096
 public const val EDEADLOCK: CInt = EDEADLK
 public const val EXTA: CUInt = B19200
 public const val EXTB: CUInt = B38400
-public const val EXTPROC: TcflagT = 65536
+public const val EXTPROC: TcflagT = 65536u
 public const val FOPEN_MAX: CInt = 16
 public const val F_GETOWN: CInt = 9
 public const val F_OFD_GETLK: CInt = 36
@@ -254,7 +253,7 @@ public val MAP_HUGE_2GB: CInt = 31 shl MAP_HUGE_SHIFT
 public val MAP_HUGE_16GB: CInt = 34 shl MAP_HUGE_SHIFT
 public const val MINSIGSTKSZ: CInt = 2048
 public const val MSG_COPY: CInt = 16384
-public const val NI_MAXHOST: SocklenT = 1025
+public const val NI_MAXHOST: SocklenT = 1025u
 public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 public const val PACKET_MR_UNICAST: CInt = 3
 public const val PF_NFC: CInt = 39

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias DevT = ULong
 public typealias SocklenT = UInt
@@ -75,7 +74,7 @@ public data class SignalfdSiginfo(
 public data class FanoutArgs(
     val id: U16,
     val typeFlags: U16,
-    val id: U16,
+    val id2: U16,
     val maxNumMembers: U32,
 )
 
@@ -297,7 +296,7 @@ public data class FfEffect(
     val trigger: FfTrigger,
     val replay: FfReplay,
     val u: ULongArray,
-    val u: UIntArray,
+    val u2: UIntArray,
 )
 
 public data class UinputFfUpload(
@@ -956,10 +955,10 @@ public data class MqAttr(
     val mqMaxmsg: Long,
     val mqMsgsize: Long,
     val mqCurmsgs: Long,
-    val mqFlags: CLong,
-    val mqMaxmsg: CLong,
-    val mqMsgsize: CLong,
-    val mqCurmsgs: CLong,
+    val mqFlags2: CLong,
+    val mqMaxmsg2: CLong,
+    val mqMsgsize2: CLong,
+    val mqCurmsgs2: CLong,
 )
 
 public data class HwtstampConfig(
@@ -1283,11 +1282,11 @@ public const val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3)
 public const val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4)
 
 // NS_GET_MNTNS_ID = _IOR(NSIO, 0x5, __u64) (ioctl request code; computed at the FFI boundary)
-public const val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x6)
-public const val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x7)
-public const val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x8)
-public const val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<c_int>(NSIO, 0x9)
-public const val MNT_NS_INFO_SIZE_VER0: Ioctl = 16
+public const val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x6)
+public const val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x7)
+public const val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x8)
+public const val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x9)
+public const val MNT_NS_INFO_SIZE_VER0: Ioctl = 16uL
 public const val NS_MNT_GET_INFO: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 10)
 public const val NS_MNT_GET_NEXT: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 11)
 public const val NS_MNT_GET_PREV: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 12)
@@ -1402,50 +1401,50 @@ public const val BPF_NET_OFF: CInt = SKF_NET_OFF
 public const val BPF_LL_OFF: CInt = SKF_LL_OFF
 public const val BPF_MEMWORDS: CInt = 16
 public const val BPF_MAXINSNS: CInt = 4096
-public const val BPF_LD: U32 = 0x00
-public const val BPF_LDX: U32 = 0x01
-public const val BPF_ST: U32 = 0x02
-public const val BPF_STX: U32 = 0x03
-public const val BPF_ALU: U32 = 0x04
-public const val BPF_JMP: U32 = 0x05
-public const val BPF_RET: U32 = 0x06
-public const val BPF_MISC: U32 = 0x07
-public const val BPF_W: U32 = 0x00
-public const val BPF_H: U32 = 0x08
-public const val BPF_B: U32 = 0x10
-public const val BPF_IMM: U32 = 0x00
-public const val BPF_ABS: U32 = 0x20
-public const val BPF_IND: U32 = 0x40
-public const val BPF_MEM: U32 = 0x60
-public const val BPF_LEN: U32 = 0x80
-public const val BPF_MSH: U32 = 0xa0
-public const val BPF_ADD: U32 = 0x00
-public const val BPF_SUB: U32 = 0x10
-public const val BPF_MUL: U32 = 0x20
-public const val BPF_DIV: U32 = 0x30
-public const val BPF_OR: U32 = 0x40
-public const val BPF_AND: U32 = 0x50
-public const val BPF_LSH: U32 = 0x60
-public const val BPF_RSH: U32 = 0x70
-public const val BPF_NEG: U32 = 0x80
-public const val BPF_MOD: U32 = 0x90
-public const val BPF_XOR: U32 = 0xa0
-public const val BPF_JA: U32 = 0x00
-public const val BPF_JEQ: U32 = 0x10
-public const val BPF_JGT: U32 = 0x20
-public const val BPF_JGE: U32 = 0x30
-public const val BPF_JSET: U32 = 0x40
-public const val BPF_K: U32 = 0x00
-public const val BPF_X: U32 = 0x08
-public const val BPF_A: U32 = 0x10
-public const val BPF_TAX: U32 = 0x00
-public const val BPF_TXA: U32 = 0x80
-public const val RESOLVE_NO_XDEV: U64 = 0x01
-public const val RESOLVE_NO_MAGICLINKS: U64 = 0x02
-public const val RESOLVE_NO_SYMLINKS: U64 = 0x04
-public const val RESOLVE_BENEATH: U64 = 0x08
-public const val RESOLVE_IN_ROOT: U64 = 0x10
-public const val RESOLVE_CACHED: U64 = 0x20
+public const val BPF_LD: U32 = 0x00u
+public const val BPF_LDX: U32 = 0x01u
+public const val BPF_ST: U32 = 0x02u
+public const val BPF_STX: U32 = 0x03u
+public const val BPF_ALU: U32 = 0x04u
+public const val BPF_JMP: U32 = 0x05u
+public const val BPF_RET: U32 = 0x06u
+public const val BPF_MISC: U32 = 0x07u
+public const val BPF_W: U32 = 0x00u
+public const val BPF_H: U32 = 0x08u
+public const val BPF_B: U32 = 0x10u
+public const val BPF_IMM: U32 = 0x00u
+public const val BPF_ABS: U32 = 0x20u
+public const val BPF_IND: U32 = 0x40u
+public const val BPF_MEM: U32 = 0x60u
+public const val BPF_LEN: U32 = 0x80u
+public const val BPF_MSH: U32 = 0xa0u
+public const val BPF_ADD: U32 = 0x00u
+public const val BPF_SUB: U32 = 0x10u
+public const val BPF_MUL: U32 = 0x20u
+public const val BPF_DIV: U32 = 0x30u
+public const val BPF_OR: U32 = 0x40u
+public const val BPF_AND: U32 = 0x50u
+public const val BPF_LSH: U32 = 0x60u
+public const val BPF_RSH: U32 = 0x70u
+public const val BPF_NEG: U32 = 0x80u
+public const val BPF_MOD: U32 = 0x90u
+public const val BPF_XOR: U32 = 0xa0u
+public const val BPF_JA: U32 = 0x00u
+public const val BPF_JEQ: U32 = 0x10u
+public const val BPF_JGT: U32 = 0x20u
+public const val BPF_JGE: U32 = 0x30u
+public const val BPF_JSET: U32 = 0x40u
+public const val BPF_K: U32 = 0x00u
+public const val BPF_X: U32 = 0x08u
+public const val BPF_A: U32 = 0x10u
+public const val BPF_TAX: U32 = 0x00u
+public const val BPF_TXA: U32 = 0x80u
+public const val RESOLVE_NO_XDEV: U64 = 0x01uL
+public const val RESOLVE_NO_MAGICLINKS: U64 = 0x02uL
+public const val RESOLVE_NO_SYMLINKS: U64 = 0x04uL
+public const val RESOLVE_BENEATH: U64 = 0x08uL
+public const val RESOLVE_IN_ROOT: U64 = 0x10uL
+public const val RESOLVE_CACHED: U64 = 0x20uL
 public const val ETH_ALEN: CInt = 6
 public const val ETH_HLEN: CInt = 14
 public const val ETH_ZLEN: CInt = 60
@@ -1714,7 +1713,7 @@ public const val PACKET_FANOUT_FLAG_ROLLOVER: CUInt = 0x1000u
 public const val PACKET_FANOUT_FLAG_UNIQUEID: CUInt = 0x2000u
 public const val PACKET_FANOUT_FLAG_IGNORE_OUTGOING: CUInt = 0x4000u
 public const val PACKET_FANOUT_FLAG_DEFRAG: CUInt = 0x8000u
-public const val TP_STATUS_KERNEL: U32 = 0
+public const val TP_STATUS_KERNEL: U32 = 0u
 public val TP_STATUS_USER: U32 = 1 shl 0
 public val TP_STATUS_COPY: U32 = 1 shl 1
 public val TP_STATUS_LOSING: U32 = 1 shl 2
@@ -1723,14 +1722,14 @@ public val TP_STATUS_VLAN_VALID: U32 = 1 shl 4
 public val TP_STATUS_BLK_TMO: U32 = 1 shl 5
 public val TP_STATUS_VLAN_TPID_VALID: U32 = 1 shl 6
 public val TP_STATUS_CSUM_VALID: U32 = 1 shl 7
-public const val TP_STATUS_AVAILABLE: U32 = 0
+public const val TP_STATUS_AVAILABLE: U32 = 0u
 public val TP_STATUS_SEND_REQUEST: U32 = 1 shl 0
 public val TP_STATUS_SENDING: U32 = 1 shl 1
 public val TP_STATUS_WRONG_FORMAT: U32 = 1 shl 2
 public val TP_STATUS_TS_SOFTWARE: U32 = 1 shl 29
 public val TP_STATUS_TS_SYS_HARDWARE: U32 = 1 shl 30
 public val TP_STATUS_TS_RAW_HARDWARE: U32 = 1 shl 31
-public const val TP_FT_REQ_FILL_RXHASH: U32 = 1
+public const val TP_FT_REQ_FILL_RXHASH: U32 = 1u
 public const val TPACKET_ALIGNMENT: ULong = 16uL
 
 // TPACKET_HDRLEN = align(size_of<TpacketHdr>(), TPACKET_ALIGNMENT) + size_of<SockaddrLl>() (computed at the FFI boundary)
@@ -2332,7 +2331,7 @@ public const val PTP_MAX_SAMPLES: CUInt = 25u
 public const val PTP_CLOCK_GETCAPS: Ioctl = ioctlCode<ptp_clock_caps>(PTP_CLK_MAGIC, 1)
 public const val PTP_EXTTS_REQUEST: Ioctl = ioctlCode<ptp_extts_request>(PTP_CLK_MAGIC, 2)
 public const val PTP_PEROUT_REQUEST: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 3)
-public const val PTP_ENABLE_PPS: Ioctl = ioctlCode<c_int>(PTP_CLK_MAGIC, 4)
+public const val PTP_ENABLE_PPS: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 4)
 public const val PTP_SYS_OFFSET: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 5)
 public const val PTP_PIN_GETFUNC: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 6)
 public const val PTP_PIN_SETFUNC: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 7)
@@ -2341,7 +2340,7 @@ public const val PTP_SYS_OFFSET_EXTENDED: Ioctl = ioctlCode<ptp_sys_offset_exten
 public const val PTP_CLOCK_GETCAPS2: Ioctl = ioctlCode<ptp_clock_caps>(PTP_CLK_MAGIC, 10)
 public const val PTP_EXTTS_REQUEST2: Ioctl = ioctlCode<ptp_extts_request>(PTP_CLK_MAGIC, 11)
 public const val PTP_PEROUT_REQUEST2: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 12)
-public const val PTP_ENABLE_PPS2: Ioctl = ioctlCode<c_int>(PTP_CLK_MAGIC, 13)
+public const val PTP_ENABLE_PPS2: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 13)
 public const val PTP_SYS_OFFSET2: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 14)
 public const val PTP_PIN_GETFUNC2: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 15)
 public const val PTP_PIN_SETFUNC2: Ioctl = ioctlCode<ptp_pin_desc>(PTP_CLK_MAGIC, 16)
@@ -2355,53 +2354,53 @@ public const val TLS_TX: CInt = 1
 public const val TLS_RX: CInt = 2
 public const val TLS_TX_ZEROCOPY_RO: CInt = 3
 public const val TLS_RX_EXPECT_NO_PAD: CInt = 4
-public const val TLS_1_2_VERSION_MAJOR: U8 = 0x3
-public const val TLS_1_2_VERSION_MINOR: U8 = 0x3
-public const val TLS_1_3_VERSION_MAJOR: U8 = 0x3
-public const val TLS_1_3_VERSION_MINOR: U8 = 0x4
-public const val TLS_CIPHER_AES_GCM_128: U16 = 51
+public const val TLS_1_2_VERSION_MAJOR: U8 = 0x3u
+public const val TLS_1_2_VERSION_MINOR: U8 = 0x3u
+public const val TLS_1_3_VERSION_MAJOR: U8 = 0x3u
+public const val TLS_1_3_VERSION_MINOR: U8 = 0x4u
+public const val TLS_CIPHER_AES_GCM_128: U16 = 51u
 public const val TLS_CIPHER_AES_GCM_128_IV_SIZE: ULong = 8uL
 public const val TLS_CIPHER_AES_GCM_128_KEY_SIZE: ULong = 16uL
 public const val TLS_CIPHER_AES_GCM_128_SALT_SIZE: ULong = 4uL
 public const val TLS_CIPHER_AES_GCM_128_TAG_SIZE: ULong = 16uL
 public const val TLS_CIPHER_AES_GCM_128_REC_SEQ_SIZE: ULong = 8uL
-public const val TLS_CIPHER_AES_GCM_256: U16 = 52
+public const val TLS_CIPHER_AES_GCM_256: U16 = 52u
 public const val TLS_CIPHER_AES_GCM_256_IV_SIZE: ULong = 8uL
 public const val TLS_CIPHER_AES_GCM_256_KEY_SIZE: ULong = 32uL
 public const val TLS_CIPHER_AES_GCM_256_SALT_SIZE: ULong = 4uL
 public const val TLS_CIPHER_AES_GCM_256_TAG_SIZE: ULong = 16uL
 public const val TLS_CIPHER_AES_GCM_256_REC_SEQ_SIZE: ULong = 8uL
-public const val TLS_CIPHER_AES_CCM_128: U16 = 53
+public const val TLS_CIPHER_AES_CCM_128: U16 = 53u
 public const val TLS_CIPHER_AES_CCM_128_IV_SIZE: ULong = 8uL
 public const val TLS_CIPHER_AES_CCM_128_KEY_SIZE: ULong = 16uL
 public const val TLS_CIPHER_AES_CCM_128_SALT_SIZE: ULong = 4uL
 public const val TLS_CIPHER_AES_CCM_128_TAG_SIZE: ULong = 16uL
 public const val TLS_CIPHER_AES_CCM_128_REC_SEQ_SIZE: ULong = 8uL
-public const val TLS_CIPHER_CHACHA20_POLY1305: U16 = 54
+public const val TLS_CIPHER_CHACHA20_POLY1305: U16 = 54u
 public const val TLS_CIPHER_CHACHA20_POLY1305_IV_SIZE: ULong = 12uL
 public const val TLS_CIPHER_CHACHA20_POLY1305_KEY_SIZE: ULong = 32uL
 public const val TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE: ULong = 0uL
 public const val TLS_CIPHER_CHACHA20_POLY1305_TAG_SIZE: ULong = 16uL
 public const val TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE: ULong = 8uL
-public const val TLS_CIPHER_SM4_GCM: U16 = 55
+public const val TLS_CIPHER_SM4_GCM: U16 = 55u
 public const val TLS_CIPHER_SM4_GCM_IV_SIZE: ULong = 8uL
 public const val TLS_CIPHER_SM4_GCM_KEY_SIZE: ULong = 16uL
 public const val TLS_CIPHER_SM4_GCM_SALT_SIZE: ULong = 4uL
 public const val TLS_CIPHER_SM4_GCM_TAG_SIZE: ULong = 16uL
 public const val TLS_CIPHER_SM4_GCM_REC_SEQ_SIZE: ULong = 8uL
-public const val TLS_CIPHER_SM4_CCM: U16 = 56
+public const val TLS_CIPHER_SM4_CCM: U16 = 56u
 public const val TLS_CIPHER_SM4_CCM_IV_SIZE: ULong = 8uL
 public const val TLS_CIPHER_SM4_CCM_KEY_SIZE: ULong = 16uL
 public const val TLS_CIPHER_SM4_CCM_SALT_SIZE: ULong = 4uL
 public const val TLS_CIPHER_SM4_CCM_TAG_SIZE: ULong = 16uL
 public const val TLS_CIPHER_SM4_CCM_REC_SEQ_SIZE: ULong = 8uL
-public const val TLS_CIPHER_ARIA_GCM_128: U16 = 57
+public const val TLS_CIPHER_ARIA_GCM_128: U16 = 57u
 public const val TLS_CIPHER_ARIA_GCM_128_IV_SIZE: ULong = 8uL
 public const val TLS_CIPHER_ARIA_GCM_128_KEY_SIZE: ULong = 16uL
 public const val TLS_CIPHER_ARIA_GCM_128_SALT_SIZE: ULong = 4uL
 public const val TLS_CIPHER_ARIA_GCM_128_TAG_SIZE: ULong = 16uL
 public const val TLS_CIPHER_ARIA_GCM_128_REC_SEQ_SIZE: ULong = 8uL
-public const val TLS_CIPHER_ARIA_GCM_256: U16 = 58
+public const val TLS_CIPHER_ARIA_GCM_256: U16 = 58u
 public const val TLS_CIPHER_ARIA_GCM_256_IV_SIZE: ULong = 8uL
 public const val TLS_CIPHER_ARIA_GCM_256_KEY_SIZE: ULong = 32uL
 public const val TLS_CIPHER_ARIA_GCM_256_SALT_SIZE: ULong = 4uL
@@ -2652,36 +2651,36 @@ public const val NFT_TRACETYPE_RETURN: CInt = 2
 public const val NFT_TRACETYPE_RULE: CInt = 3
 public const val NFT_NG_INCREMENTAL: CInt = 0
 public const val NFT_NG_RANDOM: CInt = 1
-public const val FF_MAX: U16 = 0x7f
+public const val FF_MAX: U16 = 0x7fu
 public val FF_CNT: ULong = FF_MAX.toULong() + 1
-public const val INPUT_PROP_POINTER: U16 = 0x00
-public const val INPUT_PROP_DIRECT: U16 = 0x01
-public const val INPUT_PROP_BUTTONPAD: U16 = 0x02
-public const val INPUT_PROP_SEMI_MT: U16 = 0x03
-public const val INPUT_PROP_TOPBUTTONPAD: U16 = 0x04
-public const val INPUT_PROP_POINTING_STICK: U16 = 0x05
-public const val INPUT_PROP_ACCELEROMETER: U16 = 0x06
-public const val INPUT_PROP_MAX: U16 = 0x1f
+public const val INPUT_PROP_POINTER: U16 = 0x00u
+public const val INPUT_PROP_DIRECT: U16 = 0x01u
+public const val INPUT_PROP_BUTTONPAD: U16 = 0x02u
+public const val INPUT_PROP_SEMI_MT: U16 = 0x03u
+public const val INPUT_PROP_TOPBUTTONPAD: U16 = 0x04u
+public const val INPUT_PROP_POINTING_STICK: U16 = 0x05u
+public const val INPUT_PROP_ACCELEROMETER: U16 = 0x06u
+public const val INPUT_PROP_MAX: U16 = 0x1fu
 public val INPUT_PROP_CNT: ULong = INPUT_PROP_MAX.toULong() + 1
-public const val EV_MAX: U16 = 0x1f
+public const val EV_MAX: U16 = 0x1fu
 public val EV_CNT: ULong = EV_MAX.toULong() + 1
-public const val SYN_MAX: U16 = 0xf
+public const val SYN_MAX: U16 = 0xfu
 public val SYN_CNT: ULong = SYN_MAX.toULong() + 1
-public const val KEY_MAX: U16 = 0x2ff
+public const val KEY_MAX: U16 = 0x2ffu
 public val KEY_CNT: ULong = KEY_MAX.toULong() + 1
-public const val REL_MAX: U16 = 0x0f
+public const val REL_MAX: U16 = 0x0fu
 public val REL_CNT: ULong = REL_MAX.toULong() + 1
-public const val ABS_MAX: U16 = 0x3f
+public const val ABS_MAX: U16 = 0x3fu
 public val ABS_CNT: ULong = ABS_MAX.toULong() + 1
-public const val SW_MAX: U16 = 0x10
+public const val SW_MAX: U16 = 0x10u
 public val SW_CNT: ULong = SW_MAX.toULong() + 1
-public const val MSC_MAX: U16 = 0x07
+public const val MSC_MAX: U16 = 0x07u
 public val MSC_CNT: ULong = MSC_MAX.toULong() + 1
-public const val LED_MAX: U16 = 0x0f
+public const val LED_MAX: U16 = 0x0fu
 public val LED_CNT: ULong = LED_MAX.toULong() + 1
-public const val REP_MAX: U16 = 0x01
+public const val REP_MAX: U16 = 0x01u
 public val REP_CNT: ULong = REP_MAX.toULong() + 1
-public const val SND_MAX: U16 = 0x07
+public const val SND_MAX: U16 = 0x07u
 public val SND_CNT: ULong = SND_MAX.toULong() + 1
 public const val UINPUT_VERSION: CUInt = 5u
 public const val UINPUT_MAX_NAME_SIZE: ULong = 80uL
@@ -3094,23 +3093,23 @@ public val XDP_TXMD_FLAGS_TIMESTAMP: U32 = 1 shl 0
 public val XDP_TXMD_FLAGS_CHECKSUM: U32 = 1 shl 1
 public val XDP_TX_METADATA: U32 = 1 shl 1
 public const val SOL_XDP: CInt = 283
-public const val MOUNT_ATTR_RDONLY: U64 = 0x00000001
-public const val MOUNT_ATTR_NOSUID: U64 = 0x00000002
-public const val MOUNT_ATTR_NODEV: U64 = 0x00000004
-public const val MOUNT_ATTR_NOEXEC: U64 = 0x00000008
-public const val MOUNT_ATTR__ATIME: U64 = 0x00000070
-public const val MOUNT_ATTR_RELATIME: U64 = 0x00000000
-public const val MOUNT_ATTR_NOATIME: U64 = 0x00000010
-public const val MOUNT_ATTR_STRICTATIME: U64 = 0x00000020
-public const val MOUNT_ATTR_NODIRATIME: U64 = 0x00000080
-public const val MOUNT_ATTR_IDMAP: U64 = 0x00100000
-public const val MOUNT_ATTR_NOSYMFOLLOW: U64 = 0x00200000
+public const val MOUNT_ATTR_RDONLY: U64 = 0x00000001uL
+public const val MOUNT_ATTR_NOSUID: U64 = 0x00000002uL
+public const val MOUNT_ATTR_NODEV: U64 = 0x00000004uL
+public const val MOUNT_ATTR_NOEXEC: U64 = 0x00000008uL
+public const val MOUNT_ATTR__ATIME: U64 = 0x00000070uL
+public const val MOUNT_ATTR_RELATIME: U64 = 0x00000000uL
+public const val MOUNT_ATTR_NOATIME: U64 = 0x00000010uL
+public const val MOUNT_ATTR_STRICTATIME: U64 = 0x00000020uL
+public const val MOUNT_ATTR_NODIRATIME: U64 = 0x00000080uL
+public const val MOUNT_ATTR_IDMAP: U64 = 0x00100000uL
+public const val MOUNT_ATTR_NOSYMFOLLOW: U64 = 0x00200000uL
 public const val MOUNT_ATTR_SIZE_VER0: CInt = 32
 public val SCHED_FLAG_KEEP_ALL: CInt = SCHED_FLAG_KEEP_POLICY or SCHED_FLAG_KEEP_PARAMS
 public val SCHED_FLAG_UTIL_CLAMP: CInt = SCHED_FLAG_UTIL_CLAMP_MIN or SCHED_FLAG_UTIL_CLAMP_MAX
 public val SCHED_FLAG_ALL: CInt = SCHED_FLAG_RESET_ON_FORK or SCHED_FLAG_RECLAIM or SCHED_FLAG_DL_OVERRUN or SCHED_FLAG_KEEP_ALL or SCHED_FLAG_UTIL_CLAMP
-public const val EPIOCSPARAMS: Ioctl = 0x40088a01
-public const val EPIOCGPARAMS: Ioctl = 0x80088a02
+public const val EPIOCSPARAMS: Ioctl = 0x40088a01uL
+public const val EPIOCGPARAMS: Ioctl = 0x80088a02uL
 public const val SI_DETHREAD: CInt = -7
 public const val TRAP_PERF: CInt = 6
 

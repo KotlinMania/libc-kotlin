@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
@@ -18,10 +17,6 @@ public typealias SighandlerT = ULong
 public typealias CcT = CUChar
 public typealias UidT = CUShort
 public typealias GidT = CUShort
-public typealias UidT = Int
-public typealias GidT = Int
-public typealias UidT = UInt
-public typealias GidT = UInt
 public typealias LocaleT = COpaquePointer?
 
 public data class Group(
@@ -39,13 +34,13 @@ public data class Utimbuf(
 public data class Timeval(
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
-    val tvUsec: Suseconds64T,
+    val tvUsec2: Suseconds64T,
 )
 
 public data class Timespec(
     val tvSec: TimeT,
     val tvNsec: Long,
-    val tvNsec: CLong,
+    val tvNsec2: CLong,
 )
 
 public data class Rlimit(
@@ -75,7 +70,7 @@ public data class Rusage(
 public data class Ipv6Mreq(
     val ipv6mrMultiaddr: In6Addr,
     val ipv6mrInterface: CInt,
-    val ipv6mrInterface: CUInt,
+    val ipv6mrInterface2: CUInt,
 )
 
 public data class Hostent(
@@ -129,7 +124,7 @@ public data class Servent(
     val sName: String?,
     val sAliases: COpaquePointer?,
     val sPort: CShort,
-    val sPort: CInt,
+    val sPort2: CInt,
     val sProto: String?,
 )
 
@@ -137,7 +132,7 @@ public data class Protoent(
     val pName: String?,
     val pAliases: COpaquePointer?,
     val pProto: CInt,
-    val pProto: CShort,
+    val pProto2: CShort,
 )
 
 public data class In6Addr(
@@ -161,9 +156,9 @@ public const val FD_CLOEXEC: CInt = 0x1
 public const val USRQUOTA: CInt = 0
 public const val GRPQUOTA: CInt = 1
 public const val SIGIOT: CInt = 6
-public const val S_ISUID: ModeT = 2048
-public const val S_ISGID: ModeT = 1024
-public const val S_ISVTX: ModeT = 512
+public const val S_ISUID: ModeT = 2048u
+public const val S_ISGID: ModeT = 1024u
+public const val S_ISVTX: ModeT = 512u
 public const val IF_NAMESIZE: ULong = 16uL
 public const val IFNAMSIZ: ULong = IF_NAMESIZE
 public const val LOG_EMERG: CInt = 0
@@ -206,10 +201,10 @@ public const val IPPROTO_TCP: CInt = 6
 public const val IPPROTO_UDP: CInt = 17
 public const val IPPROTO_IP: CInt = 0
 public const val IPPROTO_IPV6: CInt = 41
-public const val INADDR_LOOPBACK: InAddrT = 2130706433
-public const val INADDR_ANY: InAddrT = 0
-public const val INADDR_BROADCAST: InAddrT = 4294967295
-public const val INADDR_NONE: InAddrT = 4294967295
+public const val INADDR_LOOPBACK: InAddrT = 2130706433u
+public const val INADDR_ANY: InAddrT = 0u
+public const val INADDR_BROADCAST: InAddrT = 4294967295u
+public const val INADDR_NONE: InAddrT = 4294967295u
 public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
 public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 public val ARPOP_REQUEST: UShort = (1).toUShort()
@@ -219,16 +214,10 @@ public const val ATF_PERM: CInt = 0x04
 public const val ATF_PUBL: CInt = 0x08
 public const val ATF_USETRAILERS: CInt = 0x10
 public val FNM_PERIOD: CInt = 1 shl 1
-public val FNM_PERIOD: CInt = 1 shl 2
 public const val FNM_NOMATCH: CInt = 1
 public val FNM_CASEFOLD: CInt = 1 shl 3
-public val FNM_CASEFOLD: CInt = 1 shl 4
 public val FNM_PATHNAME: CInt = 1 shl 1
-public val FNM_PATHNAME: CInt = 1 shl 0
 public val FNM_NOESCAPE: CInt = 1 shl 0
-public val FNM_NOESCAPE: CInt = 1 shl 2
-public val FNM_NOESCAPE: CInt = 1 shl 3
-public val FNM_NOESCAPE: CInt = 1 shl 1
 
 public expect fun isalnum(c: CInt): CInt
 
@@ -350,7 +339,6 @@ public expect fun abort(): Nothing
 
 public expect fun exit(status: CInt): Nothing
 
-public expect fun exit(status: CInt): Nothing
 
 public expect fun system(s: String?): CInt
 
@@ -816,7 +804,6 @@ public expect fun chroot(name: String?): CInt
 
 public expect fun usleep(secs: UsecondsT): CInt
 
-public expect fun usleep(secs: CUInt): CInt
 
 public expect fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT
 
@@ -918,7 +905,6 @@ public expect fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt
 
 public expect fun adjtime(delta: Timeval?, olddelta: Timeval?): CInt
 
-public expect fun adjtime(delta: Timeval?, olddelta: Timeval?): CInt
 
 public expect fun stpncpy(dst: String?, src: String?, n: ULong): String?
 
@@ -952,7 +938,6 @@ public expect fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfd
 
 public expect fun sigaction(signum: CInt, act: Sigaction?, oldact: Sigaction?): CInt
 
-public expect fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): SsizeT
 
 public expect fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FILE?
 
@@ -960,18 +945,13 @@ public expect fun openMemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE?
 
 public expect fun atexit(cb: (() -> Unit)?): CInt
 
-public expect fun sigaction(signum: CInt, act: Sigaction?, oldact: Sigaction?): CInt
 
-public expect fun readlink(path: String?, buf: String?, bufsz: ULong): SsizeT
 
-public expect fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timespec?, sigmask: SigsetT?): CInt
 
 public expect fun cfmakeraw(termios: Termios?): CInt
 
-public expect fun cfmakeraw(termios: Termios?)
 
 public expect fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt
 
-public expect fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt
 
 public expect fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt

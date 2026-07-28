@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias Elf32Half = UShort
 public typealias Elf32Word = UInt
@@ -74,7 +73,7 @@ public data class PacketMreq(
 
 public data class CpuSetT(
     val bits: UIntArray,
-    val bits: ULongArray,
+    val bits2: ULongArray,
 )
 
 public data class Sembuf(
@@ -85,12 +84,12 @@ public data class Sembuf(
 
 public data class DlPhdrInfo(
     val dlpiAddr: Elf64Addr,
-    val dlpiAddr: Elf32Addr,
+    val dlpiAddr2: Elf32Addr,
     val dlpiName: String?,
     val dlpiPhdr: Elf64Phdr?,
-    val dlpiPhdr: Elf32Phdr?,
+    val dlpiPhdr2: Elf32Phdr?,
     val dlpiPhnum: Elf64Half,
-    val dlpiPhnum: Elf32Half,
+    val dlpiPhnum2: Elf32Half,
     val dlpiAdds: CULongLong,
     val dlpiSubs: CULongLong,
     val dlpiTlsModid: ULong,
@@ -380,14 +379,6 @@ public const val YESEXPR: NlItem = 0x50000
 public const val NOEXPR: NlItem = 0x50001
 public const val YESSTR: NlItem = 0x50002
 public const val NOSTR: NlItem = 0x50003
-public const val CODESET: NlItem = 10
-public const val CRNCYSTR: NlItem = 0x215
-public const val RADIXCHAR: NlItem = 0x100
-public const val THOUSEP: NlItem = 0x101
-public const val YESEXPR: NlItem = 0x500
-public const val NOEXPR: NlItem = 0x501
-public const val YESSTR: NlItem = 0x502
-public const val NOSTR: NlItem = 0x503
 public const val RUSAGE_CHILDREN: CInt = -1
 public const val L_tmpnam: CUInt = 20u
 public const val _PC_LINK_MAX: CInt = 0
@@ -789,9 +780,9 @@ public const val POSIX_MADV_RANDOM: CInt = 1
 public const val POSIX_MADV_SEQUENTIAL: CInt = 2
 public const val POSIX_MADV_WILLNEED: CInt = 3
 public const val POSIX_MADV_DONTNEED: CInt = 4
-public const val S_IEXEC: ModeT = 64
-public const val S_IWRITE: ModeT = 128
-public const val S_IREAD: ModeT = 256
+public const val S_IEXEC: ModeT = 64u
+public const val S_IWRITE: ModeT = 128u
+public const val S_IREAD: ModeT = 256u
 public const val F_LOCK: CInt = 1
 public const val F_TEST: CInt = 3
 public const val F_TLOCK: CInt = 2
@@ -996,11 +987,11 @@ public const val PR_SCHED_CORE_SCOPE_PROCESS_GROUP: CInt = 2
 public const val ITIMER_REAL: CInt = 0
 public const val ITIMER_VIRTUAL: CInt = 1
 public const val ITIMER_PROF: CInt = 2
-public const val _POSIX_VDISABLE: CcT = 0
+public const val _POSIX_VDISABLE: CcT = 0u
 public const val IPV6_RTHDR_LOOSE: CInt = 0
 public const val IPV6_RTHDR_STRICT: CInt = 1
-public const val IUTF8: TcflagT = 0x00004000
-public const val CMSPAR: TcflagT = 1073741824
+public const val IUTF8: TcflagT = 0x00004000u
+public const val CMSPAR: TcflagT = 1073741824u
 public const val MFD_CLOEXEC: CUInt = 0x0001u
 public const val MFD_ALLOW_SEALING: CUInt = 0x0002u
 public const val MFD_HUGETLB: CUInt = 0x0004u

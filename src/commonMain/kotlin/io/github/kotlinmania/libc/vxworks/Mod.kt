@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
@@ -179,7 +178,6 @@ public data class SchedParam(
     val schedSsMaxRepl: CInt,
 )
 
-public data class SchedParam(
     val schedPriority: CInt,
     val schedSsLowPriority: CInt,
     val schedSsReplPeriod: Timespec,
@@ -243,7 +241,6 @@ public data class PthreadMutexT(
     val mutexSemName: ByteArray,
 )
 
-public data class Timespec(
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
@@ -656,6 +653,8 @@ public const val VKILL: ULong = 3uL
 public const val VEOF: ULong = 4uL
 public const val VMIN: ULong = 16uL
 public const val VTIME: ULong = 17uL
+private const val semErrorBase: CInt = 0x00160000
+private const val objErrorBase: CInt = 0x003d0000
 public const val S_semLib_INVALID_STATE: CInt = semErrorBase + 0x0065
 public const val S_semLib_INVALID_OPTION: CInt = semErrorBase + 0x0066
 public const val S_semLib_INVALID_QUEUE_TYPE: CInt = semErrorBase + 0x0067
@@ -670,12 +669,12 @@ public const val IPPROTO_ICMP: CInt = 1
 public const val IPPROTO_TCP: CInt = 6
 public const val IPPROTO_IPV6: CInt = 41
 public const val IPPROTO_ICMPV6: CInt = 58
-public const val INADDR_ANY: InAddrT = 0
-public const val INADDR_LOOPBACK: InAddrT = 2130706433
-public const val INADDR_BROADCAST: InAddrT = 4294967295
-public const val INADDR_NONE: InAddrT = 4294967295
-public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
-public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+public const val INADDR_ANY: InAddrT = 0u
+public const val INADDR_LOOPBACK: InAddrT = 2130706433u
+public const val INADDR_BROADCAST: InAddrT = 4294967295u
+public const val INADDR_NONE: InAddrT = 4294967295u
+public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 1u))
+public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u))
 public const val IPPROTO_UDP: CInt = 17
 public const val IP_TTL: CInt = 4
 public const val IP_MULTICAST_IF: CInt = 9
@@ -785,57 +784,57 @@ public const val AF_TIPC: CInt = 33
 public const val AF_MIPC: CInt = 34
 public const val AF_MIPC_SAFE: CInt = 35
 public const val AF_MAX: CInt = 39
-public const val B0: SpeedT = 0
-public const val B50: SpeedT = 50
-public const val B75: SpeedT = 75
-public const val B110: SpeedT = 110
-public const val B134: SpeedT = 134
-public const val B150: SpeedT = 150
-public const val B200: SpeedT = 200
-public const val B300: SpeedT = 300
-public const val B600: SpeedT = 600
-public const val B1200: SpeedT = 1200
-public const val B1800: SpeedT = 1800
-public const val B2400: SpeedT = 2400
-public const val B4800: SpeedT = 4800
-public const val B9600: SpeedT = 9600
-public const val B19200: SpeedT = 19200
-public const val B38400: SpeedT = 38400
-public const val B57600: SpeedT = 57600
-public const val B115200: SpeedT = 115200
-public const val B230400: SpeedT = 230400
-public const val IGNBRK: TcflagT = 0x00000001
-public const val BRKINT: TcflagT = 0x00000002
-public const val IGNCR: TcflagT = 0x00000200
-public const val IGNPAR: TcflagT = 0x00000000
-public const val INPCK: TcflagT = 0x00000020
-public const val ISTRIP: TcflagT = 0x00000040
-public const val INLCR: TcflagT = 0x00000100
-public const val ISIG: TcflagT = 0x00000001
-public const val IXOFF: TcflagT = 0x00010000
-public const val IXON: TcflagT = 0x00002000
-public const val PARMRK: TcflagT = 0x00000000
-public const val NOFLSH: TcflagT = 0x00000000
+public const val B0: SpeedT = 0u
+public const val B50: SpeedT = 50u
+public const val B75: SpeedT = 75u
+public const val B110: SpeedT = 110u
+public const val B134: SpeedT = 134u
+public const val B150: SpeedT = 150u
+public const val B200: SpeedT = 200u
+public const val B300: SpeedT = 300u
+public const val B600: SpeedT = 600u
+public const val B1200: SpeedT = 1200u
+public const val B1800: SpeedT = 1800u
+public const val B2400: SpeedT = 2400u
+public const val B4800: SpeedT = 4800u
+public const val B9600: SpeedT = 9600u
+public const val B19200: SpeedT = 19200u
+public const val B38400: SpeedT = 38400u
+public const val B57600: SpeedT = 57600u
+public const val B115200: SpeedT = 115200u
+public const val B230400: SpeedT = 230400u
+public const val IGNBRK: TcflagT = 0x00000001u
+public const val BRKINT: TcflagT = 0x00000002u
+public const val IGNCR: TcflagT = 0x00000200u
+public const val IGNPAR: TcflagT = 0x00000000u
+public const val INPCK: TcflagT = 0x00000020u
+public const val ISTRIP: TcflagT = 0x00000040u
+public const val INLCR: TcflagT = 0x00000100u
+public const val ISIG: TcflagT = 0x00000001u
+public const val IXOFF: TcflagT = 0x00010000u
+public const val IXON: TcflagT = 0x00002000u
+public const val PARMRK: TcflagT = 0x00000000u
+public const val NOFLSH: TcflagT = 0x00000000u
 public const val NCCS: ULong = 20uL
-public const val OPOST: TcflagT = 0x00000001
-public const val ONLCR: TcflagT = 0x00000004
-public const val ECHO: TcflagT = 0x00000010
-public const val OCRNL: TcflagT = 0x00000010
-public const val ECHOE: TcflagT = 0x00000020
-public const val ECHOK: TcflagT = 0x00000040
-public const val ECHONL: TcflagT = 0x00000100
+public const val OPOST: TcflagT = 0x00000001u
+public const val ONLCR: TcflagT = 0x00000004u
+public const val ECHO: TcflagT = 0x00000010u
+public const val OCRNL: TcflagT = 0x00000010u
+public const val ECHOE: TcflagT = 0x00000020u
+public const val ECHOK: TcflagT = 0x00000040u
+public const val ECHONL: TcflagT = 0x00000100u
 public const val IFNAMSIZ: ULong = 16uL
 public const val IF_NAMESIZE: ULong = IFNAMSIZ
-public const val CLOCAL: TcflagT = 0x1
-public const val CREAD: TcflagT = 0x2
-public const val CS5: TcflagT = 0x0
-public const val CS6: TcflagT = 0x4
-public const val CS7: TcflagT = 0x8
-public const val CS8: TcflagT = 0xc
-public const val CSTOPB: TcflagT = 0x20
-public const val CSIZE: TcflagT = 0xc
-public const val PARODD: TcflagT = 0x80
-public const val PARENB: TcflagT = 0x40
+public const val CLOCAL: TcflagT = 0x1u
+public const val CREAD: TcflagT = 0x2u
+public const val CS5: TcflagT = 0x0u
+public const val CS6: TcflagT = 0x4u
+public const val CS7: TcflagT = 0x8u
+public const val CS8: TcflagT = 0xcu
+public const val CSTOPB: TcflagT = 0x20u
+public const val CSIZE: TcflagT = 0xcu
+public const val PARODD: TcflagT = 0x80u
+public const val PARENB: TcflagT = 0x40u
 public val DT_FIFO: CUChar = (1).toUByte()
 public val DT_CHR: CUChar = (2).toUByte()
 public val DT_DIR: CUChar = (4).toUByte()
@@ -860,13 +859,13 @@ public const val _PC_NO_TRUNC: CInt = 10
 public const val _PC_PATH_MAX: CInt = 11
 public const val _PC_PIPE_BUF: CInt = 12
 public const val _PC_VDISABLE: CInt = 20
-public const val HUPCL: TcflagT = 0x10
+public const val HUPCL: TcflagT = 0x10u
 public const val SHUT_RD: CInt = 0
 public const val SHUT_WR: CInt = 1
 public const val SHUT_RDWR: CInt = 2
-public const val ICANON: TcflagT = 0x00000002
-public const val ICRNL: TcflagT = 0x00000400
-public const val IEXTEN: TcflagT = 0x00000000
+public const val ICANON: TcflagT = 0x00000002u
+public const val ICRNL: TcflagT = 0x00000400u
+public const val IEXTEN: TcflagT = 0x00000000u
 public const val TCP_NODELAY: CInt = 1
 public const val TCP_MAXSEG: CInt = 2
 public const val TCP_NOPUSH: CInt = 3
@@ -891,8 +890,8 @@ public const val FIODISKCHANGE: CInt = 13
 public const val FIOCANCEL: CInt = 14
 public const val FIOSQUEEZE: CInt = 15
 public const val FIOGETNAME: CInt = 18
-public const val FIONBIO: CInt = 0x90040010
-public const val PATH_MAX: CInt = _PARM_PATH_MAX
+public const val FIONBIO: CInt = -1878786032
+public const val PATH_MAX: CInt = 1024
 public const val _POSIX_PATH_MAX: CInt = 256
 public const val POLLIN: CShort = 0x0001
 public const val POLLPRI: CShort = 0x0002

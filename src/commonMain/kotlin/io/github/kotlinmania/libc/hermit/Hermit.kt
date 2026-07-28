@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
@@ -181,26 +180,26 @@ public const val POLLRDBAND: Short = 0x080
 public const val POLLWRNORM: Short = 0x0100
 public const val POLLWRBAND: Short = 0x0200
 public const val POLLRDHUP: Short = 0x2000
-public const val S_IRWXU: ModeT = 448
-public const val S_IRUSR: ModeT = 256
-public const val S_IWUSR: ModeT = 128
-public const val S_IXUSR: ModeT = 64
-public const val S_IRWXG: ModeT = 56
-public const val S_IRGRP: ModeT = 32
-public const val S_IWGRP: ModeT = 16
-public const val S_IXGRP: ModeT = 8
-public const val S_IRWXO: ModeT = 7
-public const val S_IROTH: ModeT = 4
-public const val S_IWOTH: ModeT = 2
-public const val S_IXOTH: ModeT = 1
-public const val S_IFMT: ModeT = 61440
-public const val S_IFSOCK: ModeT = 49152
-public const val S_IFLNK: ModeT = 40960
-public const val S_IFREG: ModeT = 32768
-public const val S_IFBLK: ModeT = 24576
-public const val S_IFDIR: ModeT = 16384
-public const val S_IFCHR: ModeT = 8192
-public const val S_IFIFO: ModeT = 4096
+public const val S_IRWXU: ModeT = 448u
+public const val S_IRUSR: ModeT = 256u
+public const val S_IWUSR: ModeT = 128u
+public const val S_IXUSR: ModeT = 64u
+public const val S_IRWXG: ModeT = 56u
+public const val S_IRGRP: ModeT = 32u
+public const val S_IWGRP: ModeT = 16u
+public const val S_IXGRP: ModeT = 8u
+public const val S_IRWXO: ModeT = 7u
+public const val S_IROTH: ModeT = 4u
+public const val S_IWOTH: ModeT = 2u
+public const val S_IXOTH: ModeT = 1u
+public const val S_IFMT: ModeT = 61440u
+public const val S_IFSOCK: ModeT = 49152u
+public const val S_IFLNK: ModeT = 40960u
+public const val S_IFREG: ModeT = 32768u
+public const val S_IFBLK: ModeT = 24576u
+public const val S_IFDIR: ModeT = 16384u
+public const val S_IFCHR: ModeT = 8192u
+public const val S_IFIFO: ModeT = 4096u
 public const val SHUT_RD: Int = 0
 public const val SHUT_WR: Int = 1
 public const val SHUT_RDWR: Int = 2

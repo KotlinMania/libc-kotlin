@@ -60,12 +60,12 @@ public data class CAnonymousSockaddrCanCanAddr(
     val j1939: CAnonymousSockaddrCanJ1939 = null,
 )
 
-public const val CAN_EFF_FLAG: CanidT = 0x80000000
-public const val CAN_RTR_FLAG: CanidT = 0x40000000
-public const val CAN_ERR_FLAG: CanidT = 0x20000000
-public const val CAN_SFF_MASK: CanidT = 0x000007FF
-public const val CAN_EFF_MASK: CanidT = 0x1FFFFFFF
-public const val CAN_ERR_MASK: CanidT = 0x1FFFFFFF
+public const val CAN_EFF_FLAG: CanidT = 0x80000000u
+public const val CAN_RTR_FLAG: CanidT = 0x40000000u
+public const val CAN_ERR_FLAG: CanidT = 0x20000000u
+public const val CAN_SFF_MASK: CanidT = 0x000007FFu
+public const val CAN_EFF_MASK: CanidT = 0x1FFFFFFFu
+public const val CAN_ERR_MASK: CanidT = 0x1FFFFFFFu
 public const val CANXL_PRIO_MASK: CanidT = CAN_SFF_MASK
 public const val CAN_SFF_ID_BITS: CInt = 11
 public const val CAN_EFF_ID_BITS: CInt = 29
@@ -101,4 +101,4 @@ public const val CAN_ISOTP: CInt = 6
 public const val CAN_J1939: CInt = 7
 public const val CAN_NPROTO: CInt = 8
 public const val SOL_CAN_BASE: CInt = 100
-public const val CAN_INV_FILTER: CanidT = 0x20000000
+public const val CAN_INV_FILTER: CanidT = 0x20000000u

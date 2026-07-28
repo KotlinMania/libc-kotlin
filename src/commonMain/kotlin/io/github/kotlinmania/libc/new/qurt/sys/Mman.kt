@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt.sys
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val PROT_NONE: CInt = 0x00
 public const val PROT_READ: CInt = 0x01

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val EXIT_SUCCESS: CInt = 0
 public const val EXIT_FAILURE: CInt = 1

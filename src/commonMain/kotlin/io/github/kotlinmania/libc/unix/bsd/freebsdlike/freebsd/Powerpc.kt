@@ -3,13 +3,7 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
 
-public typealias ClockT = UInt
-public typealias WcharT = Int
-public typealias TimeT = Long
-public typealias SusecondsT = Int
-public typealias RegisterT = Int
 
-public data class McontextT(
     val mcVers: CInt,
     val mcFlags: CInt,
     val mcOnstack: CInt,
@@ -21,8 +15,3 @@ public data class McontextT(
     val mcVsxfpreg: ULongArray,
 )
 
-public const val BIOCSRTIMEOUT: CULong = 0x8010426duL
-public const val BIOCGRTIMEOUT: CULong = 0x4010426euL
-public const val MAP_32BIT: CInt = 0x00080000
-public const val MINSIGSTKSZ: ULong = 2048uL
-public const val TIOCTIMESTAMP: CULong = 0x40107459uL

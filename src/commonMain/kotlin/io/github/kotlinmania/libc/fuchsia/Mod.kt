@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
@@ -212,7 +211,7 @@ public data class Aiocb(
     val next: COpaquePointer?,
     val prev: COpaquePointer?,
     val dummy4: ByteArray,
-    val dummy4: ByteArray,
+    val dummy42: ByteArray,
 )
 
 public data class Sigaction(
@@ -414,7 +413,7 @@ public data class Statvfs(
     val fFfree: FsfilcntT,
     val fFavail: FsfilcntT,
     val fFsid: CULong,
-    val fFsid: CULong,
+    val fFsid2: CULong,
     val fFlag: CULong,
     val fNamemax: CULong,
     val fSpare: IntArray,
@@ -466,7 +465,7 @@ public data class FsidT(
 
 public data class CpuSetT(
     val bits: UIntArray,
-    val bits: ULongArray,
+    val bits2: ULongArray,
 )
 
 public data class IfNameindex(
@@ -593,17 +592,17 @@ public data class FfEffect(
     val trigger: FfTrigger,
     val replay: FfReplay,
     val u: ULongArray,
-    val u: UIntArray,
+    val u2: UIntArray,
 )
 
 public data class DlPhdrInfo(
     val dlpiAddr: Elf64Addr,
-    val dlpiAddr: Elf32Addr,
+    val dlpiAddr2: Elf32Addr,
     val dlpiName: String?,
     val dlpiPhdr: Elf64Phdr?,
-    val dlpiPhdr: Elf32Phdr?,
+    val dlpiPhdr2: Elf32Phdr?,
     val dlpiPhnum: Elf64Half,
-    val dlpiPhnum: Elf32Half,
+    val dlpiPhnum2: Elf32Half,
     val dlpiAdds: CULongLong,
     val dlpiSubs: CULongLong,
     val dlpiTlsModid: ULong,
@@ -827,10 +826,10 @@ public data class MqAttr(
     val mqMaxmsg: Long,
     val mqMsgsize: Long,
     val mqCurmsgs: Long,
-    val mqFlags: CLong,
-    val mqMaxmsg: CLong,
-    val mqMsgsize: CLong,
-    val mqCurmsgs: CLong,
+    val mqFlags2: CLong,
+    val mqMaxmsg2: CLong,
+    val mqMsgsize2: CLong,
+    val mqCurmsgs2: CLong,
 )
 
 public data class SockaddrNl(
@@ -877,9 +876,9 @@ public const val FD_CLOEXEC: CInt = 0x1
 public const val USRQUOTA: CInt = 0
 public const val GRPQUOTA: CInt = 1
 public const val SIGIOT: CInt = 6
-public const val S_ISUID: ModeT = 2048
-public const val S_ISGID: ModeT = 1024
-public const val S_ISVTX: ModeT = 512
+public const val S_ISUID: ModeT = 2048u
+public const val S_ISGID: ModeT = 1024u
+public const val S_ISVTX: ModeT = 512u
 public const val IF_NAMESIZE: ULong = 16uL
 public const val IFNAMSIZ: ULong = IF_NAMESIZE
 public const val LOG_EMERG: CInt = 0
@@ -925,10 +924,10 @@ public const val IPPROTO_TCP: CInt = 6
 public const val IPPROTO_UDP: CInt = 17
 public const val IPPROTO_IP: CInt = 0
 public const val IPPROTO_IPV6: CInt = 41
-public const val INADDR_LOOPBACK: InAddrT = 2130706433
-public const val INADDR_ANY: InAddrT = 0
-public const val INADDR_BROADCAST: InAddrT = 4294967295
-public const val INADDR_NONE: InAddrT = 4294967295
+public const val INADDR_LOOPBACK: InAddrT = 2130706433u
+public const val INADDR_ANY: InAddrT = 0u
+public const val INADDR_BROADCAST: InAddrT = 4294967295u
+public const val INADDR_NONE: InAddrT = 4294967295u
 public const val EXIT_FAILURE: CInt = 1
 public const val EXIT_SUCCESS: CInt = 0
 public const val RAND_MAX: CInt = 2147483647
@@ -987,26 +986,26 @@ public const val RUSAGE_SELF: CInt = 0
 public const val O_RDONLY: CInt = 0
 public const val O_WRONLY: CInt = 1
 public const val O_RDWR: CInt = 2
-public const val S_IFIFO: ModeT = 4096
-public const val S_IFCHR: ModeT = 8192
-public const val S_IFBLK: ModeT = 24576
-public const val S_IFDIR: ModeT = 16384
-public const val S_IFREG: ModeT = 32768
-public const val S_IFLNK: ModeT = 40960
-public const val S_IFSOCK: ModeT = 49152
-public const val S_IFMT: ModeT = 61440
-public const val S_IRWXU: ModeT = 448
-public const val S_IXUSR: ModeT = 64
-public const val S_IWUSR: ModeT = 128
-public const val S_IRUSR: ModeT = 256
-public const val S_IRWXG: ModeT = 56
-public const val S_IXGRP: ModeT = 8
-public const val S_IWGRP: ModeT = 16
-public const val S_IRGRP: ModeT = 32
-public const val S_IRWXO: ModeT = 7
-public const val S_IXOTH: ModeT = 1
-public const val S_IWOTH: ModeT = 2
-public const val S_IROTH: ModeT = 4
+public const val S_IFIFO: ModeT = 4096u
+public const val S_IFCHR: ModeT = 8192u
+public const val S_IFBLK: ModeT = 24576u
+public const val S_IFDIR: ModeT = 16384u
+public const val S_IFREG: ModeT = 32768u
+public const val S_IFLNK: ModeT = 40960u
+public const val S_IFSOCK: ModeT = 49152u
+public const val S_IFMT: ModeT = 61440u
+public const val S_IRWXU: ModeT = 448u
+public const val S_IXUSR: ModeT = 64u
+public const val S_IWUSR: ModeT = 128u
+public const val S_IRUSR: ModeT = 256u
+public const val S_IRWXG: ModeT = 56u
+public const val S_IXGRP: ModeT = 8u
+public const val S_IWGRP: ModeT = 16u
+public const val S_IRGRP: ModeT = 32u
+public const val S_IRWXO: ModeT = 7u
+public const val S_IXOTH: ModeT = 1u
+public const val S_IWOTH: ModeT = 2u
+public const val S_IROTH: ModeT = 4u
 public const val F_OK: CInt = 0
 public const val R_OK: CInt = 4
 public const val W_OK: CInt = 2
@@ -1367,26 +1366,26 @@ public const val VKILL: ULong = 3uL
 public const val VINTR: ULong = 0uL
 public const val VQUIT: ULong = 1uL
 public const val VLNEXT: ULong = 15uL
-public const val IGNBRK: TcflagT = 0x00000001
-public const val BRKINT: TcflagT = 0x00000002
-public const val IGNPAR: TcflagT = 0x00000004
-public const val PARMRK: TcflagT = 0x00000008
-public const val INPCK: TcflagT = 0x00000010
-public const val ISTRIP: TcflagT = 0x00000020
-public const val INLCR: TcflagT = 0x00000040
-public const val IGNCR: TcflagT = 0x00000080
-public const val ICRNL: TcflagT = 0x00000100
-public const val IXANY: TcflagT = 0x00000800
-public const val IMAXBEL: TcflagT = 0x00002000
-public const val OPOST: TcflagT = 0x1
-public const val CS5: TcflagT = 0x00000000
-public const val CRTSCTS: TcflagT = 0x80000000
-public const val ECHO: TcflagT = 0x00000008
-public const val OCRNL: TcflagT = 8
-public const val ONOCR: TcflagT = 16
-public const val ONLRET: TcflagT = 32
-public const val OFILL: TcflagT = 64
-public const val OFDEL: TcflagT = 128
+public const val IGNBRK: TcflagT = 0x00000001u
+public const val BRKINT: TcflagT = 0x00000002u
+public const val IGNPAR: TcflagT = 0x00000004u
+public const val PARMRK: TcflagT = 0x00000008u
+public const val INPCK: TcflagT = 0x00000010u
+public const val ISTRIP: TcflagT = 0x00000020u
+public const val INLCR: TcflagT = 0x00000040u
+public const val IGNCR: TcflagT = 0x00000080u
+public const val ICRNL: TcflagT = 0x00000100u
+public const val IXANY: TcflagT = 0x00000800u
+public const val IMAXBEL: TcflagT = 0x00002000u
+public const val OPOST: TcflagT = 0x1u
+public const val CS5: TcflagT = 0x00000000u
+public const val CRTSCTS: TcflagT = 0x80000000u
+public const val ECHO: TcflagT = 0x00000008u
+public const val OCRNL: TcflagT = 8u
+public const val ONOCR: TcflagT = 16u
+public const val ONLRET: TcflagT = 32u
+public const val OFILL: TcflagT = 64u
+public const val OFDEL: TcflagT = 128u
 public const val CLONE_VM: CInt = 0x100
 public const val CLONE_FS: CInt = 0x200
 public const val CLONE_FILES: CInt = 0x400
@@ -1470,9 +1469,9 @@ public const val CLD_CONTINUED: CInt = 6
 public const val SIGEV_SIGNAL: CInt = 0
 public const val SIGEV_NONE: CInt = 1
 public const val SIGEV_THREAD: CInt = 2
-public const val P_ALL: IdtypeT = 0
-public const val P_PID: IdtypeT = 1
-public const val P_PGID: IdtypeT = 2
+public const val P_ALL: IdtypeT = 0u
+public const val P_PID: IdtypeT = 1u
+public const val P_PGID: IdtypeT = 2u
 public const val UTIME_OMIT: CLong = 1073741822
 public const val UTIME_NOW: CLong = 1073741823
 public const val POLLIN: CShort = 0x1
@@ -1722,9 +1721,9 @@ public const val POSIX_MADV_NORMAL: CInt = 0
 public const val POSIX_MADV_RANDOM: CInt = 1
 public const val POSIX_MADV_SEQUENTIAL: CInt = 2
 public const val POSIX_MADV_WILLNEED: CInt = 3
-public const val S_IEXEC: ModeT = 64
-public const val S_IWRITE: ModeT = 128
-public const val S_IREAD: ModeT = 256
+public const val S_IEXEC: ModeT = 64u
+public const val S_IWRITE: ModeT = 128u
+public const val S_IREAD: ModeT = 256u
 public const val F_LOCK: CInt = 1
 public const val F_TEST: CInt = 3
 public const val F_TLOCK: CInt = 2
@@ -1975,7 +1974,7 @@ public const val TFD_NONBLOCK: CInt = O_NONBLOCK
 public const val TFD_TIMER_ABSTIME: CInt = 1
 public const val XATTR_CREATE: CInt = 0x1
 public const val XATTR_REPLACE: CInt = 0x2
-public const val _POSIX_VDISABLE: CcT = 0
+public const val _POSIX_VDISABLE: CcT = 0u
 public const val FALLOC_FL_KEEP_SIZE: CInt = 0x01
 public const val FALLOC_FL_PUNCH_HOLE: CInt = 0x02
 public const val FALLOC_FL_COLLAPSE_RANGE: CInt = 0x08
@@ -1984,8 +1983,8 @@ public const val FALLOC_FL_INSERT_RANGE: CInt = 0x20
 public const val FALLOC_FL_UNSHARE_RANGE: CInt = 0x40
 public const val ENOATTR: CInt = ENODATA
 public const val SO_ORIGINAL_DST: CInt = 80
-public const val IUTF8: TcflagT = 0x00004000
-public const val CMSPAR: TcflagT = 1073741824
+public const val IUTF8: TcflagT = 0x00004000u
+public const val CMSPAR: TcflagT = 1073741824u
 public const val MFD_CLOEXEC: CUInt = 0x0001u
 public const val MFD_ALLOW_SEALING: CUInt = 0x0002u
 public const val PT_NULL: UInt = 0u
@@ -2114,7 +2113,7 @@ public const val O_EXEC: CInt = O_PATH
 public const val O_SEARCH: CInt = O_PATH
 public val O_ACCMODE: CInt = 3 or O_SEARCH
 public const val O_NDELAY: CInt = O_NONBLOCK
-public const val NI_MAXHOST: SocklenT = 255
+public const val NI_MAXHOST: SocklenT = 255u
 public const val PTHREAD_STACK_MIN: ULong = 2048uL
 public const val POSIX_FADV_DONTNEED: CInt = 4
 public const val POSIX_FADV_NOREUSE: CInt = 5
@@ -2181,7 +2180,7 @@ public const val RTLD_GLOBAL: CInt = 0x100
 public const val RTLD_NOLOAD: CInt = 0x4
 public const val MCL_CURRENT: CInt = 0x0001
 public const val MCL_FUTURE: CInt = 0x0002
-public const val CBAUD: TcflagT = 4111
+public const val CBAUD: TcflagT = 4111u
 public const val TAB1: CInt = 0x00000800
 public const val TAB2: CInt = 0x00001000
 public const val TAB3: CInt = 0x00001800
@@ -2198,73 +2197,73 @@ public const val VSTART: ULong = 8uL
 public const val VSTOP: ULong = 9uL
 public const val VDISCARD: ULong = 13uL
 public const val VTIME: ULong = 5uL
-public const val IXON: TcflagT = 0x00000400
-public const val IXOFF: TcflagT = 0x00001000
-public const val ONLCR: TcflagT = 0x4
-public const val CSIZE: TcflagT = 0x00000030
-public const val CS6: TcflagT = 0x00000010
-public const val CS7: TcflagT = 0x00000020
-public const val CS8: TcflagT = 0x00000030
-public const val CSTOPB: TcflagT = 0x00000040
-public const val CREAD: TcflagT = 0x00000080
-public const val PARENB: TcflagT = 0x00000100
-public const val PARODD: TcflagT = 0x00000200
-public const val HUPCL: TcflagT = 0x00000400
-public const val CLOCAL: TcflagT = 0x00000800
-public const val ECHOKE: TcflagT = 0x00000800
-public const val ECHOE: TcflagT = 0x00000010
-public const val ECHOK: TcflagT = 0x00000020
-public const val ECHONL: TcflagT = 0x00000040
-public const val ECHOPRT: TcflagT = 0x00000400
-public const val ECHOCTL: TcflagT = 0x00000200
-public const val ISIG: TcflagT = 0x00000001
-public const val ICANON: TcflagT = 0x00000002
-public const val PENDIN: TcflagT = 0x00004000
-public const val NOFLSH: TcflagT = 0x00000080
-public const val CIBAUD: TcflagT = 269418496
-public const val CBAUDEX: TcflagT = 4096
+public const val IXON: TcflagT = 0x00000400u
+public const val IXOFF: TcflagT = 0x00001000u
+public const val ONLCR: TcflagT = 0x4u
+public const val CSIZE: TcflagT = 0x00000030u
+public const val CS6: TcflagT = 0x00000010u
+public const val CS7: TcflagT = 0x00000020u
+public const val CS8: TcflagT = 0x00000030u
+public const val CSTOPB: TcflagT = 0x00000040u
+public const val CREAD: TcflagT = 0x00000080u
+public const val PARENB: TcflagT = 0x00000100u
+public const val PARODD: TcflagT = 0x00000200u
+public const val HUPCL: TcflagT = 0x00000400u
+public const val CLOCAL: TcflagT = 0x00000800u
+public const val ECHOKE: TcflagT = 0x00000800u
+public const val ECHOE: TcflagT = 0x00000010u
+public const val ECHOK: TcflagT = 0x00000020u
+public const val ECHONL: TcflagT = 0x00000040u
+public const val ECHOPRT: TcflagT = 0x00000400u
+public const val ECHOCTL: TcflagT = 0x00000200u
+public const val ISIG: TcflagT = 0x00000001u
+public const val ICANON: TcflagT = 0x00000002u
+public const val PENDIN: TcflagT = 0x00004000u
+public const val NOFLSH: TcflagT = 0x00000080u
+public const val CIBAUD: TcflagT = 269418496u
+public const val CBAUDEX: TcflagT = 4096u
 public const val VSWTC: ULong = 7uL
-public const val OLCUC: TcflagT = 2
-public const val NLDLY: TcflagT = 256
-public const val CRDLY: TcflagT = 1536
-public const val TABDLY: TcflagT = 6144
-public const val BSDLY: TcflagT = 8192
-public const val FFDLY: TcflagT = 32768
-public const val VTDLY: TcflagT = 16384
-public const val XTABS: TcflagT = 6144
-public const val B0: SpeedT = 0
-public const val B50: SpeedT = 1
-public const val B75: SpeedT = 2
-public const val B110: SpeedT = 3
-public const val B134: SpeedT = 4
-public const val B150: SpeedT = 5
-public const val B200: SpeedT = 6
-public const val B300: SpeedT = 7
-public const val B600: SpeedT = 8
-public const val B1200: SpeedT = 9
-public const val B1800: SpeedT = 10
-public const val B2400: SpeedT = 11
-public const val B4800: SpeedT = 12
-public const val B9600: SpeedT = 13
-public const val B19200: SpeedT = 14
-public const val B38400: SpeedT = 15
+public const val OLCUC: TcflagT = 2u
+public const val NLDLY: TcflagT = 256u
+public const val CRDLY: TcflagT = 1536u
+public const val TABDLY: TcflagT = 6144u
+public const val BSDLY: TcflagT = 8192u
+public const val FFDLY: TcflagT = 32768u
+public const val VTDLY: TcflagT = 16384u
+public const val XTABS: TcflagT = 6144u
+public const val B0: SpeedT = 0u
+public const val B50: SpeedT = 1u
+public const val B75: SpeedT = 2u
+public const val B110: SpeedT = 3u
+public const val B134: SpeedT = 4u
+public const val B150: SpeedT = 5u
+public const val B200: SpeedT = 6u
+public const val B300: SpeedT = 7u
+public const val B600: SpeedT = 8u
+public const val B1200: SpeedT = 9u
+public const val B1800: SpeedT = 10u
+public const val B2400: SpeedT = 11u
+public const val B4800: SpeedT = 12u
+public const val B9600: SpeedT = 13u
+public const val B19200: SpeedT = 14u
+public const val B38400: SpeedT = 15u
 public const val EXTA: SpeedT = B19200
 public const val EXTB: SpeedT = B38400
-public const val B57600: SpeedT = 4097
-public const val B115200: SpeedT = 4098
-public const val B230400: SpeedT = 4099
-public const val B460800: SpeedT = 4100
-public const val B500000: SpeedT = 4101
-public const val B576000: SpeedT = 4102
-public const val B921600: SpeedT = 4103
-public const val B1000000: SpeedT = 4104
-public const val B1152000: SpeedT = 4105
-public const val B1500000: SpeedT = 4106
-public const val B2000000: SpeedT = 4107
-public const val B2500000: SpeedT = 4108
-public const val B3000000: SpeedT = 4109
-public const val B3500000: SpeedT = 4110
-public const val B4000000: SpeedT = 4111
+public const val B57600: SpeedT = 4097u
+public const val B115200: SpeedT = 4098u
+public const val B230400: SpeedT = 4099u
+public const val B460800: SpeedT = 4100u
+public const val B500000: SpeedT = 4101u
+public const val B576000: SpeedT = 4102u
+public const val B921600: SpeedT = 4103u
+public const val B1000000: SpeedT = 4104u
+public const val B1152000: SpeedT = 4105u
+public const val B1500000: SpeedT = 4106u
+public const val B2000000: SpeedT = 4107u
+public const val B2500000: SpeedT = 4108u
+public const val B3000000: SpeedT = 4109u
+public const val B3500000: SpeedT = 4110u
+public const val B4000000: SpeedT = 4111u
 public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 56uL
 public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 40uL
 public const val O_ASYNC: CInt = 0x00000400
@@ -2444,7 +2443,7 @@ public const val SIGPWR: CInt = 30
 public const val SIG_SETMASK: CInt = 2
 public const val SIG_BLOCK: CInt = 0x000000
 public const val SIG_UNBLOCK: CInt = 0x01
-public const val EXTPROC: TcflagT = 0x00010000
+public const val EXTPROC: TcflagT = 0x00010000u
 public const val MAP_HUGETLB: CInt = 0x040000
 public const val F_GETLK: CInt = 5
 public const val F_GETOWN: CInt = 9
@@ -2455,9 +2454,9 @@ public const val VEOF: ULong = 4uL
 public const val VEOL: ULong = 11uL
 public const val VEOL2: ULong = 16uL
 public const val VMIN: ULong = 6uL
-public const val IEXTEN: TcflagT = 0x00008000
-public const val TOSTOP: TcflagT = 0x00000100
-public const val FLUSHO: TcflagT = 0x00001000
+public const val IEXTEN: TcflagT = 0x00008000u
+public const val TOSTOP: TcflagT = 0x00000100u
+public const val FLUSHO: TcflagT = 0x00001000u
 public const val TCGETS: CInt = 0x5401
 public const val TCSETS: CInt = 0x5402
 public const val TCSETSW: CInt = 0x5403

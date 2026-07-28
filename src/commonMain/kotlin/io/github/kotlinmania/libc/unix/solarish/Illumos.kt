@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias LgrpRsrcT = CInt
 public typealias LgrpAffinityT = CInt
@@ -148,14 +147,14 @@ public const val LGRP_RSRC_MEM: LgrpRsrcT = 1
 public const val P_DISABLED: CInt = 0x008
 public const val AT_SUN_HWCAP2: CUInt = 2023u
 public const val AT_SUN_FPTYPE: CUInt = 2027u
-public const val B1000000: SpeedT = 24
-public const val B1152000: SpeedT = 25
-public const val B1500000: SpeedT = 26
-public const val B2000000: SpeedT = 27
-public const val B2500000: SpeedT = 28
-public const val B3000000: SpeedT = 29
-public const val B3500000: SpeedT = 30
-public const val B4000000: SpeedT = 31
+public const val B1000000: SpeedT = 24u
+public const val B1152000: SpeedT = 25u
+public const val B1500000: SpeedT = 26u
+public const val B2000000: SpeedT = 27u
+public const val B2500000: SpeedT = 28u
+public const val B3000000: SpeedT = 29u
+public const val B3500000: SpeedT = 30u
+public const val B4000000: SpeedT = 31u
 public const val SI_ADDRESS_WIDTH: CInt = 520
 public const val TFD_CLOEXEC: Int = 524288
 public const val TFD_NONBLOCK: Int = 2048

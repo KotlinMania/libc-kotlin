@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.newlib.rtems
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class SockaddrUn(
     val sunFamily: SaFamilyT,

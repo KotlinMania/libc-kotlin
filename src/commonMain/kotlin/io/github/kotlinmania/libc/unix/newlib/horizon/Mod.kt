@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.newlib.horizon
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias WcharT = CUInt
 public typealias URegisterT = CUInt

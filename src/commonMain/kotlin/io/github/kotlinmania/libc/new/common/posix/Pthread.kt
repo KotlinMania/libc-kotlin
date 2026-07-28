@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.common.posix
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
@@ -80,7 +79,6 @@ public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, `val`: 
 
 public expect fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt
 
-public expect fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt
 
 public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt
 

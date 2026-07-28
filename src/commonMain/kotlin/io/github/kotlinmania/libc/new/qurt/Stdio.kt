@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val BUFSIZ: CUInt = 1024u
 public const val FILENAME_MAX: CUInt = 260u

@@ -14,7 +14,7 @@ public data class Rtentry(
     val rtTos: CUChar,
     val rtClass: CUChar,
     val rtPad4: ShortArray,
-    val rtPad4: CShort,
+    val rtPad42: CShort,
     val rtMetric: CShort,
     val rtDev: String?,
     val rtMtu: CULong,

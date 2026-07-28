@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias NlinkT = UShort
 public typealias InoT = UShort

@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias BlksizeT = Int
 public typealias EventfdT = ULong
@@ -1093,8 +1092,8 @@ public const val AI_NUMERICHOST: CInt = 0x00000004
 public const val AI_NUMERICSERV: CInt = 0x00000008
 public const val AI_ADDRCONFIG: CInt = 0x00000400
 public const val AI_SRV: CInt = 0x00000800
-public const val NI_MAXHOST: SocklenT = 1025
-public const val NI_MAXSERV: SocklenT = 32
+public const val NI_MAXHOST: SocklenT = 1025u
+public const val NI_MAXSERV: SocklenT = 32u
 public const val NI_NOFQDN: CInt = 0x00000001
 public const val NI_NUMERICHOST: CInt = 0x000000002
 public const val NI_NAMEREQD: CInt = 0x000000004
@@ -1283,16 +1282,16 @@ public const val WALTSIG: CInt = 0x00000004
 public const val WALLSIG: CInt = 0x00000008
 public const val WTRAPPED: CInt = 0x00000040
 public const val WNOZOMBIE: CInt = 0x00020000
-public const val P_ALL: IdtypeT = 0
-public const val P_PID: IdtypeT = 1
-public const val P_PGID: IdtypeT = 4
+public const val P_ALL: IdtypeT = 0u
+public const val P_PID: IdtypeT = 1u
+public const val P_PGID: IdtypeT = 4u
 public const val UTIME_OMIT: CLong = 1073741822
 public const val UTIME_NOW: CLong = 1073741823
-public const val B460800: SpeedT = 460800
-public const val B921600: SpeedT = 921600
-public const val ONOCR: TcflagT = 0x20
-public const val ONLRET: TcflagT = 0x40
-public const val CDTRCTS: TcflagT = 0x00020000
+public const val B460800: SpeedT = 460800u
+public const val B921600: SpeedT = 921600u
+public const val ONOCR: TcflagT = 0x20u
+public const val ONLRET: TcflagT = 0x40u
+public const val CDTRCTS: TcflagT = 0x00020000u
 public val CHWFLOW: TcflagT = MDMBUF or CRTSCTS or CDTRCTS
 public const val SOCK_CLOEXEC: CInt = 0x10000000
 public const val SOCK_NONBLOCK: CInt = 0x20000000

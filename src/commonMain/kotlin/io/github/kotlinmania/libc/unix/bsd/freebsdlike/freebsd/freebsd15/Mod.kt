@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias NlinkT = ULong
 public typealias DevT = ULong
@@ -45,7 +44,7 @@ public data class KvmPage(
 
 public data class CAnonymousDomainset(
     val priv: ULongArray,
-    val priv: ULongArray,
+    val priv2: ULongArray,
 )
 
 public data class KinfoProc(

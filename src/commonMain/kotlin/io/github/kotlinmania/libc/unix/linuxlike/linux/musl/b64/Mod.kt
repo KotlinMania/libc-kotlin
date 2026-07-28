@@ -2,11 +2,9 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias RegoffT = CLong
 
-public data class StackT(
     val ssSp: COpaquePointer?,
     val ssFlags: CInt,
     val ssSize: ULong,

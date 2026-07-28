@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.nto.net
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public data class Ifreq(
     val ifrName: ByteArray,

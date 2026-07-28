@@ -2,11 +2,7 @@
 package io.github.kotlinmania.libc
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
-public typealias SizeT = ULong
-public typealias SsizeT = Long
-public typealias OffT = Long
 public typealias CUint8T = UByte
 public typealias CUint16T = UShort
 public typealias CUint32T = UInt
@@ -15,10 +11,7 @@ public typealias CInt8T = Byte
 public typealias CInt16T = Short
 public typealias CInt32T = Int
 public typealias CInt64T = Long
-public typealias IntptrT = Long
-public typealias UintptrT = ULong
 public typealias TimeT = CLong
-public typealias ClockidT = CInt
 
 public data class Iovec(
     val iovBase: COpaquePointer?,

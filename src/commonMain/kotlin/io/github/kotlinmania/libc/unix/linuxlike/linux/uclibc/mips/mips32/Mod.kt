@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public typealias ClockT = Int
 public typealias TimeT = Int
@@ -225,7 +224,7 @@ public data class Sysinfo(
 
 public data class SemT(
     val size: ByteArray,
-    val size: ByteArray,
+    val size2: ByteArray,
 )
 
 public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 36uL

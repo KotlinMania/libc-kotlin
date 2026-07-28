@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.COpaquePointer
 
 public const val PTHREAD_CREATE_JOINABLE: CInt = 0
 public const val PTHREAD_CREATE_DETACHED: CInt = 1
