@@ -220,4 +220,4 @@ public const val RLIMIT_RTPRIO: RlimitResourceT = 14uL
 public const val RLIMIT_RTTIME: RlimitResourceT = 15uL
 public const val RLIM_NLIMITS: RlimitResourceT = 16uL
 public const val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
-public val RLIM_INFINITY: RlimT = 0.inv()
+public const val RLIM_INFINITY: RlimT = 0xFFFFFFFFFFFFFFFFuL

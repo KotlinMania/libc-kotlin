@@ -15,6 +15,7 @@ public data class Termios(
     val cOspeed: SpeedT,
 )
 
+public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stMode: ModeT,
@@ -33,11 +34,13 @@ public data class Termios(
     val stCtimeNsec: CLong,
 )
 
+public data class StackT(
     val ssSp: COpaquePointer?,
     val ssFlags: CInt,
     val ssSize: ULong,
 )
 
+public data class IpcPerm(
     val key: KeyT,
     val ipcPermKey: KeyT,
     val uid: UidT,
@@ -48,6 +51,7 @@ public data class Termios(
     val seq: CInt,
 )
 
+public data class ShmidDs(
     val shmPerm: IpcPerm,
     val shmAtime: TimeT,
     val shmDtime: TimeT,
@@ -61,6 +65,7 @@ public data class Termios(
     val shmCtime2: TimeT,
 )
 
+public data class MsqidDs(
     val msgPerm: IpcPerm,
     val msgStime: TimeT,
     val msgRtime: TimeT,

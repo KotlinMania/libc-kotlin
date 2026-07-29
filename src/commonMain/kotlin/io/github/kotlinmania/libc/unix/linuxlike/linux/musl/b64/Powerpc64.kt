@@ -15,6 +15,7 @@ public data class Termios(
     val cOspeed: SpeedT,
 )
 
+public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stNlink: NlinkT,
@@ -33,6 +34,7 @@ public data class Termios(
     val stCtimeNsec: CLong,
 )
 
+public data class ShmidDs(
     val shmPerm: IpcPerm,
     val shmAtime: TimeT,
     val shmDtime: TimeT,
@@ -43,6 +45,7 @@ public data class Termios(
     val shmNattch: CULong,
 )
 
+public data class IpcPerm(
     val key: KeyT,
     val ipcPermKey: KeyT,
     val uid: UidT,

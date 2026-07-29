@@ -3,6 +3,7 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11
 
 import io.github.kotlinmania.libc.*
 
+public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stMode: ModeT,

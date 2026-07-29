@@ -178,6 +178,7 @@ public data class SchedParam(
     val schedSsMaxRepl: CInt,
 )
 
+public data class SchedParam(
     val schedPriority: CInt,
     val schedSsLowPriority: CInt,
     val schedSsReplPeriod: Timespec,
@@ -241,6 +242,7 @@ public data class PthreadMutexT(
     val mutexSemName: ByteArray,
 )
 
+public data class Timespec(
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
@@ -495,9 +497,9 @@ public const val CLOCK_PROCESS_CPUTIME_ID: CInt = 0x2
 public const val CLOCK_THREAD_CPUTIME_ID: CInt = 0x3
 public const val TIMER_ABSTIME: CInt = 0x1
 public const val TIMER_RELTIME: CInt = 0x0
-public const val PTHREAD_INITIALIZED_OBJ: CInt = 0xF70990EF
+public const val PTHREAD_INITIALIZED_OBJ: CInt = 0xF70990EF.toInt()
 public const val PTHREAD_DESTROYED_OBJ: CInt = -1
-public const val PTHREAD_VALID_OBJ: CInt = 0xEC542A37
+public const val PTHREAD_VALID_OBJ: CInt = 0xEC542A37.toInt()
 public const val PTHREAD_INVALID_OBJ: CInt = -1
 public const val PTHREAD_UNUSED_YET_OBJ: CInt = -1
 public const val PTHREAD_PRIO_NONE: CInt = 0
@@ -1064,7 +1066,7 @@ public const val MAP_CONTIG: CInt = 0x0020
 public const val MS_SYNC: CInt = 0x0001
 public const val MS_ASYNC: CInt = 0x0002
 public const val MS_INVALIDATE: CInt = 0x0004
-public const val TIOCGWINSZ: CInt = 0x1740087468
+public const val TIOCGWINSZ: CInt = 0x1740087468.toInt()
 public const val TIOCSWINSZ: CInt = -0x7ff78b99
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.

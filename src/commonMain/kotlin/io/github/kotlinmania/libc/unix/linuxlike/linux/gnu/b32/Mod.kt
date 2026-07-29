@@ -127,6 +127,7 @@ public data class Timex(
     val unused11: Int,
 )
 
+public data class Timex(
     val modes: CUInt,
     val offset: CLong,
     val freq: CLong,

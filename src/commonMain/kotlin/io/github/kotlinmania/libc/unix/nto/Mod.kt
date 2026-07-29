@@ -113,6 +113,7 @@ public data class SockaddrIn(
     val sinZero: ByteArray,
 )
 
+public data class SockaddrIn(
     val sinLen: UByte,
     val sinFamily: SaFamilyT,
     val sinPort: InPortT,
@@ -163,6 +164,7 @@ public data class SchedParam(
     val schedCurpriority: CInt,
 )
 
+public data class SchedParam(
     val schedPriority: CInt,
     val schedCurpriority: CInt,
 )
@@ -243,6 +245,7 @@ public data class Mmsghdr(
     val msgLen: CUInt,
 )
 
+public data class Mmsghdr(
     val msgHdr: Msghdr,
     val msgLen: SsizeT,
 )
@@ -566,6 +569,7 @@ public data class BpfStat(
     val bsCapt: ULong,
 )
 
+public data class BpfStat(
     val bsRecv: CUInt,
     val bsDrop: CUInt,
 )
@@ -673,6 +677,7 @@ public data class SockaddrDl(
     val sdlData: ByteArray,
 )
 
+public data class SockaddrDl(
     val sdlLen: CUChar,
     val sdlFamily: CUChar,
     val sdlIndex: CUShort,
@@ -728,7 +733,7 @@ public data class MaxAlignT(
     val ld: ByteArray,
 )
 
-public const val _SYSNAME_SIZE: ULong = 256 + 1
+public const val _SYSNAME_SIZE: ULong = 256uL + 1
 public const val RLIM_INFINITY: RlimT = 0xfffffffffffffffduL
 public const val O_LARGEFILE: CInt = 32768
 public const val EXIT_FAILURE: CInt = 1
@@ -830,7 +835,7 @@ public const val FIONSPACE: CInt = 1074030200
 public const val FIONWRITE: CInt = 1074030201
 public const val IFF_ACCEPTRTADV: CInt = 0x40000000
 public const val IFF_IP6FORWARDING: CInt = 0x20000000
-public const val IFF_SHIM: CInt = 0x80000000
+public const val IFF_SHIM: CInt = 0x80000000.toInt()
 public const val KERN_ARND: CInt = 81
 public const val KERN_IOV_MAX: CInt = 38
 public const val KERN_LOGSIGEXIT: CInt = 46
@@ -1127,7 +1132,7 @@ public const val TIOCM_DSR: CInt = 0x2000
 public const val SCHED_OTHER: CInt = 3
 public const val SCHED_FIFO: CInt = 1
 public const val SCHED_RR: CInt = 2
-public const val IPC_PRIVATE: KeyT = 0
+public const val IPC_PRIVATE: KeyT = 0u
 public const val IPC_CREAT: CInt = 512
 public const val IPC_EXCL: CInt = 1024
 public const val IPC_NOWAIT: CInt = 2048
@@ -1615,7 +1620,7 @@ public const val DEAD_PROCESS: CShort = 8
 public const val ACCOUNTING: CShort = 9
 public const val ENOTSUP: CInt = 48
 public const val BUFSIZ: CUInt = 1024u
-public const val TMP_MAX: CUInt = 26 * 26 * 26
+public const val TMP_MAX: CUInt = 26u * 26 * 26
 public const val FOPEN_MAX: CUInt = 16u
 public const val FILENAME_MAX: CUInt = 255u
 public const val NI_MAXHOST: SocklenT = 1025u
@@ -2019,7 +2024,7 @@ public const val _SS_MAXSIZE: ULong = 128uL
 public fun _ALIGN(p: ULong, b: ULong): ULong = (p + b - 1uL) and (b - 1uL).inv()
 
 public const val _SS_PAD1SIZE: ULong = _SS_ALIGNSIZE - 2
-public const val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - 2 - _SS_PAD1SIZE - _SS_ALIGNSIZE
+public const val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - 2u - _SS_PAD1SIZE - _SS_ALIGNSIZE
 public val TC_CPOSIX: TcflagT = CLOCAL or CREAD or CSIZE or CSTOPB or HUPCL or PARENB or PARODD
 public const val TCGETS: CInt = 0x404c540d
 public const val TC_OPOSIX: TcflagT = OPOST
@@ -2111,9 +2116,9 @@ public const val PTHREAD_MUTEX_ROBUST: CInt = 0x10
 public const val PTHREAD_PROCESS_PRIVATE: CInt = 0x00
 public const val PTHREAD_PROCESS_SHARED: CInt = 0x01
 public const val PTHREAD_KEYS_MAX: ULong = 128uL
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000, owner = 0xffffffff)
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffb)
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = -2.toUInt(), spare = 0)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000u, owner = 0xffffffffu)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffbu)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = -2.toUInt(), spare = 0u)
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?

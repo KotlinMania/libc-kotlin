@@ -7,6 +7,7 @@ public data class SchedParam(
     val schedPriority: CInt,
 )
 
+public data class SchedParam(
     val schedPriority: CInt,
     val schedSsLowPriority: CInt,
     val schedSsReplPeriod: Timespec,

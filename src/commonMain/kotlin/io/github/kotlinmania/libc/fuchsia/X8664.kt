@@ -4,6 +4,7 @@ package io.github.kotlinmania.libc.fuchsia
 import io.github.kotlinmania.libc.*
 
 
+public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stNlink: NlinkT,
@@ -22,6 +23,7 @@ import io.github.kotlinmania.libc.*
     val stCtimeNsec: CLong,
 )
 
+public data class Stat(
     val stDev: DevT,
     val stIno: Ino64T,
     val stNlink: NlinkT,
@@ -44,6 +46,7 @@ public data class McontextT(
     val private: ULongArray,
 )
 
+public data class IpcPerm(
     val ipcPermKey: KeyT,
     val uid: UidT,
     val gid: GidT,
