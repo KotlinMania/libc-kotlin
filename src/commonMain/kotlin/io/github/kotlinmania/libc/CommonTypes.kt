@@ -118,7 +118,138 @@ public typealias RlimitResourceT = CInt
 
 // --- 64-bit types ---
 public typealias U64 = ULong
+public typealias U32 = UInt
+
+// --- Additional type aliases needed by platform modules ---
+public typealias SegszT = Long
+public typealias Blkcnt64T = Long
+public typealias Fsblkcnt64T = ULong
+public typealias Fsfilcnt64T = ULong
+public typealias Rlimit64T = ULong
+public typealias MsgqnumT = ULong
+public typealias MsglenT = ULong
+public typealias MqdT = CInt
+public typealias ShmattT = UShort
+public typealias UcredT = UInt
+public typealias TimeT = Long
 
 // --- Constants ---
 public const val INT_MIN: CInt = -2147483648
 public const val INT_MAX: CInt = 2147483647
+
+// --- Common struct definitions ---
+// These are defined in multiple platform modules in the Rust source, but
+// in the Kotlin port all platform files are compiled together in commonMain.
+// The definitions here provide the canonical versions; platform modules that
+// need different field layouts may shadow them with their own data classes.
+
+public data class Sockaddr(
+    val saFamily: SaFamilyT,
+    val saData: List<CChar>,
+)
+
+public data class Timeval(
+    val tvSec: TimeT,
+    val tvUsec: CLong,
+)
+
+public data class Timespec(
+    val tvSec: TimeT,
+    val tvNsec: CLong,
+)
+
+public data class Rlimit(
+    val rlimCur: ULong,
+    val rlimMax: ULong,
+)
+
+public data class Rlimit64(
+    val rlimCur: ULong,
+    val rlimMax: ULong,
+)
+
+public data class Group(
+    val grName: String?,
+    val grPasswd: String?,
+    val grGid: GidT,
+    val grMem: List<String?>,
+)
+
+public data class In6Addr(
+    val s6Addr: List<UByte>,
+)
+
+public data class Winsize(
+    val wsRow: CUShort,
+    val wsCol: CUShort,
+    val wsXpixel: CUShort,
+    val wsYpixel: CUShort,
+)
+
+public data class Rusage(
+    val ruUtime: Timeval,
+    val ruStime: Timeval,
+    val ruMaxrss: CLong,
+    val ruIxrss: CLong,
+    val ruIdrss: CLong,
+    val ruIsrss: CLong,
+    val ruMinflt: CLong,
+    val ruMajflt: CLong,
+    val ruNswap: CLong,
+    val ruInblock: CLong,
+    val ruOublock: CLong,
+    val ruMsgsnd: CLong,
+    val ruMsgrcv: CLong,
+    val ruNsignals: CLong,
+    val ruNvcsw: CLong,
+    val ruNivcsw: CLong,
+)
+
+public data class Cmsghdr(
+    val cmsgLen: ULong,
+    val cmsgLevel: CInt,
+    val cmsgType: CInt,
+)
+
+public data class Sigval(
+    val sivalPtr: COpaquePointer?,
+)
+
+public data class Itimerval(
+    val itInterval: Timeval,
+    val itValue: Timeval,
+)
+
+public data class Timezone(
+    val tzMinuteswest: CInt,
+    val tzDsttime: CInt,
+)
+
+public data class StackT(
+    val ssSp: COpaquePointer?,
+    val ssFlags: CInt,
+    val ssSize: ULong,
+)
+
+public data class SchedParam(
+    val schedPriority: CInt,
+)
+
+public data class Termios(
+    val cIflag: TcflagT,
+    val cOflag: TcflagT,
+    val cCflag: TcflagT,
+    val cLflag: TcflagT,
+    val cCc: List<CcT>,
+    val cLine: CcT,
+    val cIspeed: SpeedT,
+    val cOspeed: SpeedT,
+)
+
+public data class KvmT(
+    val private: COpaquePointer?,
+)
+
+public data class SemT(
+    val `val`: IntArray,
+)
