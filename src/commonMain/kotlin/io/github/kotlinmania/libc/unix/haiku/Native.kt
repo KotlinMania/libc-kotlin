@@ -3,6 +3,9 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 
+internal fun haikuConstant(a: Char, b: Char, c: Char, d: Char): UInt =
+    ((a.code.toUInt() shl 24) + (b.code.toUInt() shl 16) + (c.code.toUInt() shl 8) + d.code.toUInt())
+
 public typealias StatusT = Int
 public typealias BigtimeT = Long
 public typealias NanotimeT = Long

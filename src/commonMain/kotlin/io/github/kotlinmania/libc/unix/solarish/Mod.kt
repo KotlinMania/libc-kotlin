@@ -3,6 +3,11 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 
+internal val _TIOC: CInt = 0x5400
+internal val tIOC: CInt = 0x7400
+internal val STR: CInt = 0x5300
+internal val _IOC: CULong = 0x54000000uL
+
 public typealias CaddrT = String?
 public typealias ClockidT = CInt
 public typealias BlkcntT = CLong
