@@ -72,11 +72,11 @@ public data class MaxAlignT(
 
 public const val RLIM_INFINITY: RlimT = 0xFFFFFFFFFFFFFFFFuL
 public const val VEOF: ULong = 4uL
-public const val RLIMIT_RSS: RlimitResourceT = 5uL
-public const val RLIMIT_AS: RlimitResourceT = 9uL
-public const val RLIMIT_MEMLOCK: RlimitResourceT = 8uL
-public const val RLIMIT_NOFILE: RlimitResourceT = 7uL
-public const val RLIMIT_NPROC: RlimitResourceT = 6uL
+public const val RLIMIT_RSS: RlimitResourceT = 5.toInt()
+public const val RLIMIT_AS: RlimitResourceT = 9.toInt()
+public const val RLIMIT_MEMLOCK: RlimitResourceT = 8.toInt()
+public const val RLIMIT_NOFILE: RlimitResourceT = 7.toInt()
+public const val RLIMIT_NPROC: RlimitResourceT = 6.toInt()
 public const val O_APPEND: CInt = 1024
 public const val O_CREAT: CInt = 64
 public const val O_EXCL: CInt = 128
