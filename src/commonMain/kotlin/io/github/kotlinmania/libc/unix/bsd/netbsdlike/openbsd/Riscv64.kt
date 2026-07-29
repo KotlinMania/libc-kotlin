@@ -4,6 +4,7 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 import io.github.kotlinmania.libc.*
 
 
+public data class Sigcontext(
     val scMask: CInt,
     val scRa: CLong,
     val scSp: CLong,

@@ -5,11 +5,13 @@ import io.github.kotlinmania.libc.*
 
 public typealias CGregT = ULong
 
+public data class McontextT(
     val gregs: List<CGregT>,
     val mcTlsbase: CGregT,
     val fpregs: FpregsetT,
 )
 
+public data class UcontextT(
     val ucFlags: CUInt,
     val ucLink: UcontextT?,
     val ucSigmask: SigsetT,

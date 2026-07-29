@@ -178,6 +178,7 @@ public data class SchedParam(
     val schedSsMaxRepl: CInt,
 )
 
+public data class SchedParam(
     val schedPriority: CInt,
     val schedSsLowPriority: CInt,
     val schedSsReplPeriod: Timespec,
@@ -241,6 +242,7 @@ public data class PthreadMutexT(
     val mutexSemName: ByteArray,
 )
 
+public data class Timespec(
     val tvSec: TimeT,
     val tvNsec: CLong,
 )

@@ -22,6 +22,7 @@ import io.github.kotlinmania.libc.*
  *
  * Represents a 32-bit IPv4 address.
  */
+public data class InAddr(
     val sAddr: CUInt,
 )
 
@@ -30,6 +31,7 @@ import io.github.kotlinmania.libc.*
  *
  * Used for joining/leaving IPv4 multicast groups.
  */
+public data class IpMreq(
     val imrMultiaddr: InAddr,
     val imrInterface: InAddr,
 )
@@ -39,6 +41,7 @@ import io.github.kotlinmania.libc.*
  *
  * Extended version of IpMreq that includes an interface index.
  */
+public data class IpMreqn(
     val imrMultiaddr: InAddr,
     val imrAddress: InAddr,
     val imrIfindex: CInt,
@@ -49,6 +52,7 @@ import io.github.kotlinmania.libc.*
  *
  * Used for source-specific multicast (SSM) operations.
  */
+public data class IpMreqSource(
     val imrMultiaddr: InAddr,
     val imrInterface: InAddr,
     val imrSourceaddr: InAddr,
@@ -59,6 +63,7 @@ import io.github.kotlinmania.libc.*
  *
  * This is the base socket address type used in socket APIs.
  */
+public data class Sockaddr(
     val saFamily: CUShort,
     val saData: ByteArray,
 ) {
@@ -87,6 +92,7 @@ import io.github.kotlinmania.libc.*
  *
  * Used for IPv4 socket addressing (AF_INET).
  */
+public data class SockaddrIn(
     val sinFamily: CUShort,
     val sinPort: CUShort,
     val sinAddr: InAddr,
@@ -144,6 +150,7 @@ public data class In6Addr(
  *
  * Used for IPv6 socket addressing (AF_INET6).
  */
+public data class SockaddrIn6(
     val sin6Family: CUShort,
     val sin6Port: CUShort,
     val sin6Flowinfo: CUInt,
@@ -170,6 +177,7 @@ public data class Ipv6Mreq(
  *
  * Used for packet sockets (AF_PACKET).
  */
+public data class Addrinfo(
     val sllFamily: CUShort,
     val sllProtocol: CUShort,
     val sllIfindex: CInt,
@@ -213,6 +221,7 @@ public data class Ipv6Mreq(
  *
  * Used for Unix domain sockets (AF_UNIX/AF_LOCAL).
  */
+public data class SockaddrLl(
     val sunFamily: CUShort,
     val sunPath: ByteArray,
 ) {
@@ -246,6 +255,7 @@ public data class Ipv6Mreq(
  * For Kotlin Multiplatform, we use a simplified representation as padding is handled
  * by platform-specific FFI layers.
  */
+public data class FdSet(
     val ssFamily: CUShort,
     val padding: ByteArray,
 ) {
@@ -280,6 +290,7 @@ public data class Ipv6Mreq(
  * The upstream Rust code has different field ordering for Android vs other platforms,
  * but the logical structure is the same.
  */
+public data class Tm(
     val aiFlags: CInt,
     val aiFamily: CInt,
     val aiSocktype: CInt,

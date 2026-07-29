@@ -6,6 +6,7 @@ import io.github.kotlinmania.libc.*
 public typealias GregsetT = LongArray
 public typealias FregsetT = List<Fpreg>
 
+public data class McontextT(
     val gregs: GregsetT,
     val fregs: FregsetT,
     val spare: List<GregT>,

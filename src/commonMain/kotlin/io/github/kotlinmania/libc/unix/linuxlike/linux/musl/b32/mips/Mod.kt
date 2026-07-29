@@ -100,6 +100,7 @@ public data class MsqidDs(
     val msgCtime: TimeT,
 )
 
+public data class MsqidDs(
     val msgPerm: IpcPerm,
     val msgStime: TimeT,
     val msgRtime: TimeT,

@@ -113,6 +113,7 @@ public data class SockaddrIn(
     val sinZero: ByteArray,
 )
 
+public data class SockaddrIn(
     val sinLen: UByte,
     val sinFamily: SaFamilyT,
     val sinPort: InPortT,
@@ -163,6 +164,7 @@ public data class SchedParam(
     val schedCurpriority: CInt,
 )
 
+public data class SchedParam(
     val schedPriority: CInt,
     val schedCurpriority: CInt,
 )
@@ -243,6 +245,7 @@ public data class Mmsghdr(
     val msgLen: CUInt,
 )
 
+public data class Mmsghdr(
     val msgHdr: Msghdr,
     val msgLen: SsizeT,
 )
@@ -566,6 +569,7 @@ public data class BpfStat(
     val bsCapt: ULong,
 )
 
+public data class BpfStat(
     val bsRecv: CUInt,
     val bsDrop: CUInt,
 )
@@ -673,6 +677,7 @@ public data class SockaddrDl(
     val sdlData: ByteArray,
 )
 
+public data class SockaddrDl(
     val sdlLen: CUChar,
     val sdlFamily: CUChar,
     val sdlIndex: CUShort,

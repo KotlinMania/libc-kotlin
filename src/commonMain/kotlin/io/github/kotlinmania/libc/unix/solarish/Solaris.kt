@@ -14,6 +14,7 @@ public enum class LgrpRsrcT(
     LGRP_RSRC_TYPES(2u),
 }
 
+public data class Aiocb(
     val aioFildes: CInt,
     val aioBuf: COpaquePointer?,
     val aioNbytes: ULong,
@@ -28,6 +29,7 @@ public enum class LgrpRsrcT(
     val aioFlags: CInt,
 )
 
+public data class ShmidDs(
     val shmPerm: IpcPerm,
     val shmSegsz: ULong,
     val shmFlags: UintptrT,
@@ -50,6 +52,7 @@ public data class XrsT(
     val xrsPtr: String?,
 )
 
+public data class Utmpx(
     val utUser: ByteArray,
     val utId: ByteArray,
     val utLine: ByteArray,

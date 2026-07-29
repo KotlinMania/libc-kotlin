@@ -42,6 +42,7 @@ public data class CAnonymousElf64Phdr(
     val pAlign: Elf64Xword,
 )
 
+public data class DlPhdrInfo(
     val dlpiAddr: Elf64Addr,
     val dlpiName: String?,
     val dlpiPhdr: Elf64Phdr?,
