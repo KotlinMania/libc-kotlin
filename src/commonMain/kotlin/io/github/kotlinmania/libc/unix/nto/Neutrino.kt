@@ -199,7 +199,7 @@ public data class SyspageEntry(
 
 public const val SYSMGR_PID: UInt = 1u
 public const val SYSMGR_CHID: UInt = 1u
-public const val SYSMGR_COID: UInt = _NTO_SIDE_CHANNEL
+public val SYSMGR_COID: UInt = _NTO_SIDE_CHANNEL
 public const val SYSMGR_HANDLE: UInt = 0u
 public const val STATE_DEAD: CInt = 0x00
 public const val STATE_RUNNING: CInt = 0x01
@@ -381,9 +381,9 @@ public const val _NTO_COF_MASK: UInt = 65535u
 public const val _NTO_SIDE_CHANNEL: UInt = 1073741824u
 public const val _NTO_CONNECTION_SCOID: UInt = 65536u
 public const val _NTO_GLOBAL_CHANNEL: UInt = 1073741824u
-public val _NTO_TIMEOUT_MASK: UInt = (1 shl STATE_MAX) - 1
-public val _NTO_TIMEOUT_ACTIVE: UInt = 1 shl STATE_MAX
-public val _NTO_TIMEOUT_IMMEDIATE: UInt = 1 shl (STATE_MAX + 1)
+public val _NTO_TIMEOUT_MASK: UInt = (1 shl STATE_MAX) - 1u
+public val _NTO_TIMEOUT_ACTIVE: UInt = 1u shl STATE_MAX
+public val _NTO_TIMEOUT_IMMEDIATE: UInt = 1u shl (STATE_MAX + 1u)
 public const val _NTO_IC_LATENCY: UInt = 0u
 public const val _NTO_INTR_FLAGS_END: UInt = 1u
 public const val _NTO_INTR_FLAGS_NO_UNMASK: UInt = 2u

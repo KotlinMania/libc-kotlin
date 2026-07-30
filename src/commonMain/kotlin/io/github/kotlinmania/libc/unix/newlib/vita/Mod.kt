@@ -144,7 +144,7 @@ public const val EAI_ADDRFAMILY: CInt = -9
 public const val EAI_MEMORY: CInt = -10
 public const val EAI_SYSTEM: CInt = -11
 public const val EAI_OVERFLOW: CInt = -12
-public const val PTHREAD_STACK_MIN: ULong = 32 * 1024
+public const val PTHREAD_STACK_MIN: ULong = 32 * 1024uL
 public const val IP_HDRINCL: CInt = 2
 
 public expect fun futimens(fd: CInt, times: Timespec?): CInt

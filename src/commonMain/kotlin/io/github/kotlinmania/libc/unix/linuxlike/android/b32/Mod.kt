@@ -186,7 +186,7 @@ public const val PTRACE_SETFPREGS: CInt = 15
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0)
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0)
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(lock = PTHREAD_MUTEX_INITIALIZER, cond = PTHREAD_COND_INITIALIZER, numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0)
-public const val PTHREAD_STACK_MIN: ULong = 4096 * 2
+public const val PTHREAD_STACK_MIN: ULong = 4096 * 2uL
 public const val CPU_SETSIZE: ULong = 32uL
 public const val __CPU_BITS: ULong = 32uL
 public const val UT_LINESIZE: ULong = 8uL
