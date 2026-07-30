@@ -362,7 +362,7 @@ public const val PROT_WRITE: CInt = 2
 public const val PROT_EXEC: CInt = 4
 public const val XATTR_CREATE: CInt = 0x1
 public const val XATTR_REPLACE: CInt = 0x2
-public val RLIM64_INFINITY: CULongLong = 0.inv()
+public val RLIM64_INFINITY: CULongLong = 0.toULong().inv()
 public const val LC_CTYPE: CInt = 0
 public const val LC_NUMERIC: CInt = 1
 public const val LC_TIME: CInt = 2
@@ -790,7 +790,7 @@ public const val EPOLLRDHUP: CInt = 0x2000
 public const val EPOLLEXCLUSIVE: CInt = 0x10000000
 public const val EPOLLWAKEUP: CInt = 0x20000000
 public const val EPOLLONESHOT: CInt = 0x40000000
-public const val EPOLLET: CInt = 0x80000000
+public const val EPOLLET: CInt = -2147483648
 public const val EPOLL_CTL_ADD: CInt = 1
 public const val EPOLL_CTL_MOD: CInt = 3
 public const val EPOLL_CTL_DEL: CInt = 2
@@ -877,7 +877,7 @@ public const val CLONE_NEWIPC: CInt = 0x08000000
 public const val CLONE_NEWUSER: CInt = 0x10000000
 public const val CLONE_NEWPID: CInt = 0x20000000
 public const val CLONE_NEWNET: CInt = 0x40000000
-public const val CLONE_IO: CInt = 0x80000000
+public const val CLONE_IO: CInt = -2147483648
 public const val WNOHANG: CInt = 0x00000001
 public const val WUNTRACED: CInt = 0x00000002
 public const val WSTOPPED: CInt = WUNTRACED
@@ -913,7 +913,7 @@ public const val PTRACE_EVENT_EXIT: CInt = 6
 public const val PTRACE_EVENT_SECCOMP: CInt = 7
 public const val __WNOTHREAD: CInt = 0x20000000
 public const val __WALL: CInt = 0x40000000
-public const val __WCLONE: CInt = 0x80000000
+public const val __WCLONE: CInt = -2147483648
 public const val SPLICE_F_MOVE: CUInt = 0x01u
 public const val SPLICE_F_NONBLOCK: CUInt = 0x02u
 public const val SPLICE_F_MORE: CUInt = 0x04u
@@ -1230,7 +1230,7 @@ public const val STATX_BTIME: CUInt = 0x0800u
 public const val STATX_ALL: CUInt = 0x0fffu
 public const val STATX_MNT_ID: CUInt = 0x1000u
 public const val STATX_DIOALIGN: CUInt = 0x2000u
-public const val STATX__RESERVED: CInt = 0x80000000
+public const val STATX__RESERVED: CInt = -2147483648
 public const val STATX_ATTR_COMPRESSED: CInt = 0x0004
 public const val STATX_ATTR_IMMUTABLE: CInt = 0x0010
 public const val STATX_ATTR_APPEND: CInt = 0x0020
@@ -1240,6 +1240,55 @@ public const val STATX_ATTR_AUTOMOUNT: CInt = 0x1000
 public const val STATX_ATTR_MOUNT_ROOT: CInt = 0x2000
 public const val STATX_ATTR_VERITY: CInt = 0x100000
 public const val STATX_ATTR_DAX: CInt = 0x200000
+
+// ioctl helper functions (from unix/linux_like/mod.rs)
+private const val _IOC_NRBITS: UInt = 8u
+private const val _IOC_TYPEBITS: UInt = 8u
+private const val _IOC_SIZEBITS: UInt = 14u
+private const val _IOC_DIRBITS: UInt = 2u
+
+private const val _IOC_NRMASK: UInt = (1u shl _IOC_NRBITS.toInt()) - 1u
+private const val _IOC_TYPEMASK: UInt = (1u shl _IOC_TYPEBITS.toInt()) - 1u
+private const val _IOC_SIZEMASK: UInt = (1u shl _IOC_SIZEBITS.toInt()) - 1u
+private const val _IOC_DIRMASK: UInt = (1u shl _IOC_DIRBITS.toInt()) - 1u
+
+private const val _IOC_NRSHIFT: UInt = 0u
+private const val _IOC_TYPESHIFT: UInt = _IOC_NRSHIFT + _IOC_NRBITS
+private const val _IOC_SIZESHIFT: UInt = _IOC_TYPESHIFT + _IOC_TYPEBITS
+private const val _IOC_DIRSHIFT: UInt = _IOC_SIZESHIFT + _IOC_SIZEBITS
+
+private const val _IOC_NONE: UInt = 0u
+private const val _IOC_WRITE: UInt = 1u
+private const val _IOC_READ: UInt = 2u
+
+public const val T_TYPE: UInt = 84u
+
+private fun ioc(dir: UInt, ty: UInt, nr: UInt, size: UInt): Ioctl =
+    ((dir shl _IOC_DIRSHIFT.toInt()) or
+        (ty shl _IOC_TYPESHIFT.toInt()) or
+        (nr shl _IOC_NRSHIFT.toInt()) or
+        (size shl _IOC_SIZESHIFT.toInt())).toInt()
+
+public fun _IO(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_NONE, ty, nr, 0u)
+public fun ioctlCode(ty: UInt, nr: UInt): Ioctl = _IO(ty, nr)
+public inline fun <reified T> ioctlCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
+public inline fun <reified T> ioReadCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_READ, ty, nr, sizeOf<T>().toUInt())
+public inline fun <reified T> ioWriteCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
+public inline fun <reified T> ioReadWriteCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_READ or _IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
+
+private inline fun <reified T> sizeOf(): Int = when (T::class) {
+    Int::class -> 4
+    UInt::class -> 4
+    Long::class -> 8
+    ULong::class -> 8
+    Short::class -> 2
+    UShort::class -> 2
+    Byte::class -> 1
+    UByte::class -> 1
+    Float::class -> 4
+    Double::class -> 8
+    else -> 0
+}
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
@@ -1433,3 +1482,5 @@ public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: 
 public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
 
 public expect fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUInt, statxbuf: Statx?): CInt
+
+internal fun cmsgAlign(len: ULong): ULong = (len + ULong.SIZE_BYTES.toULong() - 1uL) and (ULong.SIZE_BYTES.toULong() - 1uL).inv()

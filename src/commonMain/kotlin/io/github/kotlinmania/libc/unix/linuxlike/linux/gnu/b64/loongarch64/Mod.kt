@@ -225,23 +225,23 @@ public const val __SIZEOF_PTHREAD_BARRIERATTR_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 40uL
 public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 56uL
 public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
-public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
-public val HWCAP_LOONGARCH_CPUCFG: CULong = 1 shl 0uL
-public val HWCAP_LOONGARCH_LAM: CULong = 1 shl 1uL
-public val HWCAP_LOONGARCH_UAL: CULong = 1 shl 2uL
-public val HWCAP_LOONGARCH_FPU: CULong = 1 shl 3uL
-public val HWCAP_LOONGARCH_LSX: CULong = 1 shl 4uL
-public val HWCAP_LOONGARCH_LASX: CULong = 1 shl 5uL
-public val HWCAP_LOONGARCH_CRC32: CULong = 1 shl 6uL
-public val HWCAP_LOONGARCH_COMPLEX: CULong = 1 shl 7uL
-public val HWCAP_LOONGARCH_CRYPTO: CULong = 1 shl 8uL
-public val HWCAP_LOONGARCH_LVZ: CULong = 1 shl 9uL
-public val HWCAP_LOONGARCH_LBT_X86: CULong = 1 shl 10uL
-public val HWCAP_LOONGARCH_LBT_ARM: CULong = 1 shl 11uL
-public val HWCAP_LOONGARCH_LBT_MIPS: CULong = 1 shl 12uL
-public val HWCAP_LOONGARCH_PTW: CULong = 1 shl 13uL
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val HWCAP_LOONGARCH_CPUCFG: CULong = 1.toULong() shl 0
+public val HWCAP_LOONGARCH_LAM: CULong = 1.toULong() shl 1
+public val HWCAP_LOONGARCH_UAL: CULong = 1.toULong() shl 2
+public val HWCAP_LOONGARCH_FPU: CULong = 1.toULong() shl 3
+public val HWCAP_LOONGARCH_LSX: CULong = 1.toULong() shl 4
+public val HWCAP_LOONGARCH_LASX: CULong = 1.toULong() shl 5
+public val HWCAP_LOONGARCH_CRC32: CULong = 1.toULong() shl 6
+public val HWCAP_LOONGARCH_COMPLEX: CULong = 1.toULong() shl 7
+public val HWCAP_LOONGARCH_CRYPTO: CULong = 1.toULong() shl 8
+public val HWCAP_LOONGARCH_LVZ: CULong = 1.toULong() shl 9
+public val HWCAP_LOONGARCH_LBT_X86: CULong = 1.toULong() shl 10
+public val HWCAP_LOONGARCH_LBT_ARM: CULong = 1.toULong() shl 11
+public val HWCAP_LOONGARCH_LBT_MIPS: CULong = 1.toULong() shl 12
+public val HWCAP_LOONGARCH_PTW: CULong = 1.toULong() shl 13
 public const val SYS_io_setup: CLong = 0
 public const val SYS_io_destroy: CLong = 1
 public const val SYS_io_submit: CLong = 2
@@ -695,7 +695,7 @@ public const val SOCK_DGRAM: CInt = 2
 public const val SFD_NONBLOCK: CInt = 0x800
 public const val SFD_CLOEXEC: CInt = 0x080000
 public const val SA_NODEFER: CInt = 0x40000000
-public const val SA_RESETHAND: CInt = 0x80000000
+public const val SA_RESETHAND: CInt = -2147483648
 public const val SA_RESTART: CInt = 0x10000000
 public const val SA_NOCLDSTOP: CInt = 0x00000001
 public const val SA_ONSTACK: CInt = 0x08000000

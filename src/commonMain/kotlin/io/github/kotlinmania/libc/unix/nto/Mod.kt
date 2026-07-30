@@ -733,7 +733,7 @@ public data class MaxAlignT(
     val ld: ByteArray,
 )
 
-public const val _SYSNAME_SIZE: ULong = 256 + 1uL
+public val _SYSNAME_SIZE: ULong = 256 + 1uL
 public const val RLIM_INFINITY: RlimT = 0xfffffffffffffffduL
 public const val O_LARGEFILE: CInt = 32768
 public const val EXIT_FAILURE: CInt = 1
@@ -835,7 +835,7 @@ public const val FIONSPACE: CInt = 1074030200
 public const val FIONWRITE: CInt = 1074030201
 public const val IFF_ACCEPTRTADV: CInt = 0x40000000
 public const val IFF_IP6FORWARDING: CInt = 0x20000000
-public const val IFF_SHIM: CInt = 0x80000000
+public const val IFF_SHIM: CInt = -2147483648
 public const val KERN_ARND: CInt = 81
 public const val KERN_IOV_MAX: CInt = 38
 public const val KERN_LOGSIGEXIT: CInt = 46
