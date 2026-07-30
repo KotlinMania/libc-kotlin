@@ -1080,13 +1080,13 @@ public val TUNSETTXFILTER: Ioctl = ioctlCode<CInt>(T_TYPE, 209.toUInt())
 public val TUNGETIFF: Ioctl = ioctlCode<CInt>(T_TYPE, 210.toUInt())
 public val TUNGETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 211.toUInt())
 public val TUNSETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 212.toUInt())
-public val TUNATTACHFILTER: Ioctl = ioctlCode<sock_fprog>(T_TYPE, 213)
-public val TUNDETACHFILTER: Ioctl = ioctlCode<sock_fprog>(T_TYPE, 214)
+public val TUNATTACHFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 213)
+public val TUNDETACHFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 214)
 public val TUNGETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 215.toUInt())
 public val TUNSETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 216.toUInt())
 public val TUNSETQUEUE: Ioctl = ioctlCode<CInt>(T_TYPE, 217.toUInt())
 public val TUNSETIFINDEX: Ioctl = ioctlCode<CInt>(T_TYPE, 218.toUInt())
-public val TUNGETFILTER: Ioctl = ioctlCode<sock_fprog>(T_TYPE, 219)
+public val TUNGETFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 219)
 public val TUNSETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 220.toUInt())
 public val TUNGETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 221.toUInt())
 public val TUNSETVNETBE: Ioctl = ioctlCode<CInt>(T_TYPE, 222.toUInt())
@@ -1223,7 +1223,7 @@ public inline fun <reified T> ioReadCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_RE
 public inline fun <reified T> ioWriteCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
 public inline fun <reified T> ioReadWriteCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_READ or _IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
 
-private inline fun <reified T> sizeOf(): Int = when (T::class) {
+public inline fun <reified T> sizeOf(): Int = when (T::class) {
     Int::class -> 4
     UInt::class -> 4
     Long::class -> 8

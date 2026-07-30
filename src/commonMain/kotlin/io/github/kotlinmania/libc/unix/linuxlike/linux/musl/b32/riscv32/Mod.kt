@@ -70,8 +70,7 @@ public data class MaxAlignT(
     val priv: Pair<Long, Double>,
 )
 
-public val RLIM_INFINITY: RlimT = 0.inv()
-public const val VEOF: ULong = 4uL
+public val RLIM_INFINITY: RlimT = 0.inv().toULong()public const val VEOF: ULong = 4uL
 public const val RLIMIT_RSS: RlimitResourceT = 5
 public const val RLIMIT_AS: RlimitResourceT = 9
 public const val RLIMIT_MEMLOCK: RlimitResourceT = 8

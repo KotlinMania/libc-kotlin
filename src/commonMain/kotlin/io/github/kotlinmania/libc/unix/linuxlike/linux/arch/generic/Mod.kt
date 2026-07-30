@@ -218,4 +218,4 @@ public const val RLIMIT_RTPRIO: RlimitResourceT = 14
 public const val RLIMIT_RTTIME: RlimitResourceT = 15
 public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
 public const val RLIM_NLIMITS: CInt = 16
-public val RLIM_INFINITY: RlimT = 0.inv()
+public val RLIM_INFINITY: RlimT = 0.inv().toULong()

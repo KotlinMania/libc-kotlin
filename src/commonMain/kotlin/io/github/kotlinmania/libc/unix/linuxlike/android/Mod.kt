@@ -831,8 +831,7 @@ public val LC_ADDRESS_MASK: CInt = 1 shl LC_ADDRESS
 public val LC_TELEPHONE_MASK: CInt = 1 shl LC_TELEPHONE
 public val LC_MEASUREMENT_MASK: CInt = 1 shl LC_MEASUREMENT
 public val LC_IDENTIFICATION_MASK: CInt = 1 shl LC_IDENTIFICATION
-public val LC_ALL_MASK: CInt = LC_CTYPE_MASK.or(LC_NUMERIC_MASK) or LC_TIME_MASK.or(LC_COLLATE_MASK) or LC_MONETARY_MASK.or(LC_MESSAGES_MASK) or LC_PAPER_MASK.or(LC_NAME_MASK) or LC_ADDRESS_MASK.or(LC_TELEPHONE_MASK) or LC_MEASUREMENT_MASK.or(LC_IDENTIFICATION_MASK)
-public const val MAP_ANON: CInt = 0x0020
+public val LC_ALL_MASK: CInt = LC_CTYPE_MASK.or(LC_NUMERIC_MASK) or LC_TIME_MASK.or(LC_COLLATE_MASK) or LC_MONETARY_MASK.or(LC_MESSAGES_MASK) or LC_PAPER_MASK.or(LC_NAME_MASK) or LC_ADDRESS_MASK.or(LC_TELEPHONE_MASK) or LC_MEASUREMENT_MASK.or(LC_IDENTIFICATION_MASK).toInt()public const val MAP_ANON: CInt = 0x0020
 public const val MAP_ANONYMOUS: CInt = 0x0020
 public const val MAP_GROWSDOWN: CInt = 0x0100
 public const val MAP_DENYWRITE: CInt = 0x0800
@@ -2424,8 +2423,7 @@ public val PR_MTE_TCF_SYNC: CULong = 1.toULong() shl 1
 public val PR_MTE_TCF_ASYNC: CULong = 1.toULong() shl 2
 public val PR_MTE_TCF_MASK: CULong = PR_MTE_TCF_SYNC or PR_MTE_TCF_ASYNC
 public const val PR_MTE_TAG_SHIFT: CULong = 3uL
-public val PR_MTE_TAG_MASK: CULong = 0xffff shl PR_MTE_TAG_SHIFT
-public const val PR_MTE_TCF_SHIFT: CULong = 1uL
+public val PR_MTE_TAG_MASK: CULong = 0xffff shl PR_MTE_TAG_SHIFT.toULong()public const val PR_MTE_TCF_SHIFT: CULong = 1uL
 public const val PR_SET_IO_FLUSHER: CInt = 57
 public const val PR_GET_IO_FLUSHER: CInt = 58
 public const val PR_SET_SYSCALL_USER_DISPATCH: CInt = 59
