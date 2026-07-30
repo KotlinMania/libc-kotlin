@@ -799,9 +799,10 @@ public data class FpregsetT(
 )
 
 // --- Helper functions ---
-public fun toSighandlerT(value: ULong): SighandlerT = value
-public fun toClockidT(value: CInt): ClockidT = value
-public fun toLocaleT(value: COpaquePointer?): LocaleT = value
+public fun ULong.toSighandlerT(): SighandlerT = this
+public fun Int.toSighandlerT(): SighandlerT = this.toULong()
+public fun CInt.toClockidT(): ClockidT = this
+public fun COpaquePointer?.toLocaleT(): LocaleT = this
 
 // --- Constants ---
 public const val INT_MIN: CInt = -2147483648

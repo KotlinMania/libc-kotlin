@@ -1269,12 +1269,11 @@ private fun ioc(dir: UInt, ty: UInt, nr: UInt, size: UInt): Ioctl =
         (nr shl _IOC_NRSHIFT.toInt()) or
         (size shl _IOC_SIZESHIFT.toInt())).toInt()
 
-public fun _IO(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_NONE, ty, nr, 0u)
-public fun ioctlCode(ty: UInt, nr: UInt): Ioctl = _IO(ty, nr)
-public inline fun <reified T> ioctlCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
-public inline fun <reified T> ioReadCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_READ, ty, nr, sizeOf<T>().toUInt())
-public inline fun <reified T> ioWriteCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
-public inline fun <reified T> ioReadWriteCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_READ or _IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
+public fun _IO(ty: UInt, nr: Int): Ioctl = ioc(_IOC_NONE, ty, nr.toUInt(), 0u)
+public inline fun <reified T> ioctlCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
+public inline fun <reified T> ioReadCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_READ, ty, nr.toUInt(), sizeOf<T>().toUInt())
+public inline fun <reified T> ioWriteCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
+public inline fun <reified T> ioReadWriteCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_READ or _IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
 
 private inline fun <reified T> sizeOf(): Int = when (T::class) {
     Int::class -> 4
