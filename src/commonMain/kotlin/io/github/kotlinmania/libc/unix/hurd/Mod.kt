@@ -1184,15 +1184,15 @@ public val IPOPT_CONTROL: UByte = (0x00).toUByte()
 public val IPOPT_RESERVED1: UByte = (0x20).toUByte()
 public val IPOPT_MEASUREMENT: UByte = (0x40).toUByte()
 public val IPOPT_RESERVED2: UByte = (0x60).toUByte()
-public val IPOPT_END: UByte = 0u or IPOPT_CONTROL
-public val IPOPT_NOOP: UByte = 1u or IPOPT_CONTROL
-public val IPOPT_SEC: UByte = 2u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_LSRR: UByte = 3u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_TIMESTAMP: UByte = 4u or IPOPT_MEASUREMENT
-public val IPOPT_RR: UByte = 7u or IPOPT_CONTROL
-public val IPOPT_SID: UByte = 8u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_SSRR: UByte = 9u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_RA: UByte = 20u or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_END: UByte = 0.toUByte() or IPOPT_CONTROL
+public val IPOPT_NOOP: UByte = 1.toUByte() or IPOPT_CONTROL
+public val IPOPT_SEC: UByte = 2.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_LSRR: UByte = 3.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_TIMESTAMP: UByte = 4.toUByte() or IPOPT_MEASUREMENT
+public val IPOPT_RR: UByte = 7.toUByte() or IPOPT_CONTROL
+public val IPOPT_SID: UByte = 8.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_SSRR: UByte = 9.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_RA: UByte = 20.toUByte() or IPOPT_CONTROL or IPOPT_COPY
 public val IPVERSION: UByte = (4).toUByte()
 public val MAXTTL: UByte = (255).toUByte()
 public val IPDEFTTL: UByte = (64).toUByte()
@@ -2990,7 +2990,7 @@ public const val SS_DISABLE: CInt = 4
 public const val SHUT_RD: CInt = 0
 public const val SHUT_WR: CInt = 1
 public const val SHUT_RDWR: CInt = 2
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(lock = 0, ownerId = 0, cnt = 0, shpid = 0, type = PTHREAD_MUTEX_TIMED.toInt(), flags = 0)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(lock = 0.toUInt(), ownerId = 0.toUInt(), cnt = 0.toUInt(), shpid = 0.toUInt(), type = PTHREAD_MUTEX_TIMED.toInt(), flags = 0.toUInt())
 
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __lock: __PTHREAD_SPIN_LOCK_INITIALIZER, __queue: 0i64 as *mut __pthread, __attr: 0i64 as *mut __pthread_condattr, __wrefs: 0, __data: 0i64 as *mut c_void, } (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { __held: __PTHREAD_SPIN_LOCK_INITIALIZER, __lock: __PTHREAD_SPIN_LOCK_INITIALIZER, __readers: 0, __readerqueue: 0i64 as *mut __pthread, __writerqueue: 0i64 as *mut __pthread, __attr: 0i64 as *mut __pthread_rwlockattr, __data: 0i64 as *mut c_void, } (initializer represented at the FFI boundary)

@@ -961,7 +961,7 @@ public const val _SC_THREAD_KEYS_MAX: CInt = 140
 public const val _SC_THREAD_THREADS_MAX: CInt = 141
 public const val _SC_RE_DUP_MAX: CInt = 142
 public const val PTHREAD_STACK_MIN: ULong = 8192uL
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0, lock = 0, owner = -1, ownerCount = 0)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0.toUInt(), lock = 0.toUInt(), owner = -1.toUInt(), ownerCount = 0.toUInt())
 
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { flags: 0, unused: Padding::uninit(), mutex: 0 as *mut _, waiter_count: 0, lock: 0, } (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { flags: 0, owner: -1, lock_sem: 0, lock_count: 0, reader_count: 0, writer_count: 0, waiters: [0 as *mut _ (initializer represented at the FFI boundary)

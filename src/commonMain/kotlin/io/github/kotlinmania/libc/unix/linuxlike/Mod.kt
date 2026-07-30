@@ -12,58 +12,8 @@ public typealias UsecondsT = UInt
 public typealias KeyT = CInt
 public typealias IdT = CUInt
 
-public data class InAddr(
-    val sAddr: InAddrT,
-)
-
-public data class IpMreq(
-    val imrMultiaddr: InAddr,
-    val imrInterface: InAddr,
-)
-
-public data class IpMreqn(
-    val imrMultiaddr: InAddr,
-    val imrAddress: InAddr,
-    val imrIfindex: CInt,
-)
-
-public data class IpMreqSource(
-    val imrMultiaddr: InAddr,
-    val imrInterface: InAddr,
-    val imrSourceaddr: InAddr,
-)
-
-public data class Sockaddr(
-    val saFamily: SaFamilyT,
-    val saData: ByteArray,
-)
-
-public data class SockaddrIn(
-    val sinFamily: SaFamilyT,
-    val sinPort: InPortT,
-    val sinAddr: InAddr,
-    val sinZero: UByteArray,
-)
-
-public data class SockaddrIn6(
-    val sin6Family: SaFamilyT,
-    val sin6Port: InPortT,
-    val sin6Flowinfo: UInt,
-    val sin6Addr: In6Addr,
-    val sin6ScopeId: UInt,
-)
-
-public data class Addrinfo(
-    val aiFlags: CInt,
-    val aiFamily: CInt,
-    val aiSocktype: CInt,
-    val aiProtocol: CInt,
-    val aiAddrlen: SocklenT,
-    val aiAddr: Sockaddr?,
-    val aiCanonname: String?,
-    val aiAddr2: Sockaddr?,
-    val aiNext: Addrinfo?,
-)
+// Common struct types (InAddr, IpMreq, Sockaddr, SockaddrIn, SockaddrIn6, Tm, FdSet, etc.)
+// are defined in CommonTypes.kt (root package) to avoid cross-package duplicates.
 
 public data class SockaddrLl(
     val sllFamily: CUShort,
@@ -93,9 +43,7 @@ public data class Tm(
     val tmZone: String?,
 )
 
-public data class SchedParam(
-    val schedPriority: CInt,
-)
+// SchedParam is defined in CommonTypes.kt (root package)
 
 public data class DlInfo(
     val dliFname: String?,
@@ -965,10 +913,10 @@ public const val CLD_CONTINUED: CInt = 6
 public const val SIGEV_SIGNAL: CInt = 0
 public const val SIGEV_NONE: CInt = 1
 public const val SIGEV_THREAD: CInt = 2
-public const val P_ALL: IdtypeT = 0u
-public const val P_PID: IdtypeT = 1u
-public const val P_PGID: IdtypeT = 2u
-public const val P_PIDFD: IdtypeT = 3u
+public const val P_ALL: IdtypeT = 0
+public const val P_PID: IdtypeT = 1
+public const val P_PGID: IdtypeT = 2
+public const val P_PIDFD: IdtypeT = 3
 public const val UTIME_OMIT: CLong = 1073741822
 public const val UTIME_NOW: CLong = 1073741823
 public const val POLLIN: CShort = 0x1
@@ -1003,15 +951,15 @@ public const val IPOPT_CONTROL: UByte = 0x00u
 public const val IPOPT_RESERVED1: UByte = 0x20u
 public const val IPOPT_MEASUREMENT: UByte = 0x40u
 public const val IPOPT_RESERVED2: UByte = 0x60u
-public val IPOPT_END: UByte = 0u or IPOPT_CONTROL
-public val IPOPT_NOOP: UByte = 1u or IPOPT_CONTROL
-public val IPOPT_SEC: UByte = 2u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_LSRR: UByte = 3u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_TIMESTAMP: UByte = 4u or IPOPT_MEASUREMENT
-public val IPOPT_RR: UByte = 7u or IPOPT_CONTROL
-public val IPOPT_SID: UByte = 8u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_SSRR: UByte = 9u or IPOPT_CONTROL or IPOPT_COPY
-public val IPOPT_RA: UByte = 20u or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_END: UByte = 0.toUByte() or IPOPT_CONTROL
+public val IPOPT_NOOP: UByte = 1.toUByte() or IPOPT_CONTROL
+public val IPOPT_SEC: UByte = 2.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_LSRR: UByte = 3.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_TIMESTAMP: UByte = 4.toUByte() or IPOPT_MEASUREMENT
+public val IPOPT_RR: UByte = 7.toUByte() or IPOPT_CONTROL
+public val IPOPT_SID: UByte = 8.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_SSRR: UByte = 9.toUByte() or IPOPT_CONTROL or IPOPT_COPY
+public val IPOPT_RA: UByte = 20.toUByte() or IPOPT_CONTROL or IPOPT_COPY
 public const val IPVERSION: UByte = 4u
 public const val MAXTTL: UByte = 255u
 public const val IPDEFTTL: UByte = 64u
@@ -1119,34 +1067,34 @@ public const val TUN_F_USO4: CUInt = 0x20u
 public const val TUN_F_USO6: CUInt = 0x40u
 public const val TUN_PKT_STRIP: CInt = 0x0001
 public const val TUN_FLT_ALLMULTI: CInt = 0x0001
-public val TUNSETNOCSUM: Ioctl = ioctlCode<CInt>(T_TYPE, 200)
-public val TUNSETDEBUG: Ioctl = ioctlCode<CInt>(T_TYPE, 201)
-public val TUNSETIFF: Ioctl = ioctlCode<CInt>(T_TYPE, 202)
-public val TUNSETPERSIST: Ioctl = ioctlCode<CInt>(T_TYPE, 203)
-public val TUNSETOWNER: Ioctl = ioctlCode<CInt>(T_TYPE, 204)
-public val TUNSETLINK: Ioctl = ioctlCode<CInt>(T_TYPE, 205)
-public val TUNSETGROUP: Ioctl = ioctlCode<CInt>(T_TYPE, 206)
-public val TUNGETFEATURES: Ioctl = ioctlCode<CInt>(T_TYPE, 207)
-public val TUNSETOFFLOAD: Ioctl = ioctlCode<CInt>(T_TYPE, 208)
-public val TUNSETTXFILTER: Ioctl = ioctlCode<CInt>(T_TYPE, 209)
-public val TUNGETIFF: Ioctl = ioctlCode<CInt>(T_TYPE, 210)
-public val TUNGETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 211)
-public val TUNSETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 212)
+public val TUNSETNOCSUM: Ioctl = ioctlCode<CInt>(T_TYPE, 200.toUInt())
+public val TUNSETDEBUG: Ioctl = ioctlCode<CInt>(T_TYPE, 201.toUInt())
+public val TUNSETIFF: Ioctl = ioctlCode<CInt>(T_TYPE, 202.toUInt())
+public val TUNSETPERSIST: Ioctl = ioctlCode<CInt>(T_TYPE, 203.toUInt())
+public val TUNSETOWNER: Ioctl = ioctlCode<CInt>(T_TYPE, 204.toUInt())
+public val TUNSETLINK: Ioctl = ioctlCode<CInt>(T_TYPE, 205.toUInt())
+public val TUNSETGROUP: Ioctl = ioctlCode<CInt>(T_TYPE, 206.toUInt())
+public val TUNGETFEATURES: Ioctl = ioctlCode<CInt>(T_TYPE, 207.toUInt())
+public val TUNSETOFFLOAD: Ioctl = ioctlCode<CInt>(T_TYPE, 208.toUInt())
+public val TUNSETTXFILTER: Ioctl = ioctlCode<CInt>(T_TYPE, 209.toUInt())
+public val TUNGETIFF: Ioctl = ioctlCode<CInt>(T_TYPE, 210.toUInt())
+public val TUNGETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 211.toUInt())
+public val TUNSETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 212.toUInt())
 public val TUNATTACHFILTER: Ioctl = ioctlCode<sock_fprog>(T_TYPE, 213)
 public val TUNDETACHFILTER: Ioctl = ioctlCode<sock_fprog>(T_TYPE, 214)
-public val TUNGETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 215)
-public val TUNSETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 216)
-public val TUNSETQUEUE: Ioctl = ioctlCode<CInt>(T_TYPE, 217)
-public val TUNSETIFINDEX: Ioctl = ioctlCode<CInt>(T_TYPE, 218)
+public val TUNGETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 215.toUInt())
+public val TUNSETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 216.toUInt())
+public val TUNSETQUEUE: Ioctl = ioctlCode<CInt>(T_TYPE, 217.toUInt())
+public val TUNSETIFINDEX: Ioctl = ioctlCode<CInt>(T_TYPE, 218.toUInt())
 public val TUNGETFILTER: Ioctl = ioctlCode<sock_fprog>(T_TYPE, 219)
-public val TUNSETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 220)
-public val TUNGETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 221)
-public val TUNSETVNETBE: Ioctl = ioctlCode<CInt>(T_TYPE, 222)
-public val TUNGETVNETBE: Ioctl = ioctlCode<CInt>(T_TYPE, 223)
-public val TUNSETSTEERINGEBPF: Ioctl = ioctlCode<CInt>(T_TYPE, 224)
-public val TUNSETFILTEREBPF: Ioctl = ioctlCode<CInt>(T_TYPE, 225)
-public val TUNSETCARRIER: Ioctl = ioctlCode<CInt>(T_TYPE, 226)
-public val TUNGETDEVNETNS: Ioctl = _IO(T_TYPE, 227)
+public val TUNSETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 220.toUInt())
+public val TUNGETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 221.toUInt())
+public val TUNSETVNETBE: Ioctl = ioctlCode<CInt>(T_TYPE, 222.toUInt())
+public val TUNGETVNETBE: Ioctl = ioctlCode<CInt>(T_TYPE, 223.toUInt())
+public val TUNSETSTEERINGEBPF: Ioctl = ioctlCode<CInt>(T_TYPE, 224.toUInt())
+public val TUNSETFILTEREBPF: Ioctl = ioctlCode<CInt>(T_TYPE, 225.toUInt())
+public val TUNSETCARRIER: Ioctl = ioctlCode<CInt>(T_TYPE, 226.toUInt())
+public val TUNGETDEVNETNS: Ioctl = _IO(T_TYPE, 227.toUInt())
 public val FS_IOC_GETFLAGS: Ioctl = ioctlCode<CLong>('f'.toUInt(), 1)
 public val FS_IOC_SETFLAGS: Ioctl = ioctlCode<CLong>('f'.toUInt(), 2)
 public val FS_IOC_GETVERSION: Ioctl = ioctlCode<CLong>('v'.toUInt(), 1)
@@ -1155,7 +1103,7 @@ public val FS_IOC32_GETFLAGS: Ioctl = ioctlCode<CInt>('f'.toUInt(), 1)
 public val FS_IOC32_SETFLAGS: Ioctl = ioctlCode<CInt>('f'.toUInt(), 2)
 public val FS_IOC32_GETVERSION: Ioctl = ioctlCode<CInt>('v'.toUInt(), 1)
 public val FS_IOC32_SETVERSION: Ioctl = ioctlCode<CInt>('v'.toUInt(), 2)
-public val FICLONE: Ioctl = ioctlCode<CInt>(0x94, 9)
+public val FICLONE: Ioctl = ioctlCode<CInt>(0x94, 9.toUInt())
 public val FICLONERANGE: Ioctl = ioctlCode<file_clone_range>(0x94, 13)
 public const val ADFS_SUPER_MAGIC: CLong = 0x0000adf5
 public const val AFFS_SUPER_MAGIC: CLong = 0x0000adff
@@ -1247,15 +1195,15 @@ private const val _IOC_TYPEBITS: UInt = 8u
 private const val _IOC_SIZEBITS: UInt = 14u
 private const val _IOC_DIRBITS: UInt = 2u
 
-private const val _IOC_NRMASK: UInt = (1u shl _IOC_NRBITS.toInt()) - 1u
-private const val _IOC_TYPEMASK: UInt = (1u shl _IOC_TYPEBITS.toInt()) - 1u
-private const val _IOC_SIZEMASK: UInt = (1u shl _IOC_SIZEBITS.toInt()) - 1u
-private const val _IOC_DIRMASK: UInt = (1u shl _IOC_DIRBITS.toInt()) - 1u
+private val _IOC_NRMASK: UInt = (1u shl _IOC_NRBITS.toInt()) - 1u
+private val _IOC_TYPEMASK: UInt = (1u shl _IOC_TYPEBITS.toInt()) - 1u
+private val _IOC_SIZEMASK: UInt = (1u shl _IOC_SIZEBITS.toInt()) - 1u
+private val _IOC_DIRMASK: UInt = (1u shl _IOC_DIRBITS.toInt()) - 1u
 
 private const val _IOC_NRSHIFT: UInt = 0u
-private const val _IOC_TYPESHIFT: UInt = _IOC_NRSHIFT + _IOC_NRBITS
-private const val _IOC_SIZESHIFT: UInt = _IOC_TYPESHIFT + _IOC_TYPEBITS
-private const val _IOC_DIRSHIFT: UInt = _IOC_SIZESHIFT + _IOC_SIZEBITS
+private val _IOC_TYPESHIFT: UInt = _IOC_NRSHIFT + _IOC_NRBITS
+private val _IOC_SIZESHIFT: UInt = _IOC_TYPESHIFT + _IOC_TYPEBITS
+private val _IOC_DIRSHIFT: UInt = _IOC_SIZESHIFT + _IOC_SIZEBITS
 
 private const val _IOC_NONE: UInt = 0u
 private const val _IOC_WRITE: UInt = 1u

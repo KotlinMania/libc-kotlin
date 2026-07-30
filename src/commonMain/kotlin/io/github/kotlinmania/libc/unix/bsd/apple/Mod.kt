@@ -2556,7 +2556,7 @@ public const val _CS_PATH: CInt = 1
 public const val _CS_DARWIN_USER_DIR: CInt = 65536
 public const val _CS_DARWIN_USER_TEMP_DIR: CInt = 65537
 public const val _CS_DARWIN_USER_CACHE_DIR: CInt = 65538
-public val OS_UNFAIR_LOCK_INIT: OsUnfairLock = OsUnfairLock(osUnfairLockOpaque = 0)
+public val OS_UNFAIR_LOCK_INIT: OsUnfairLock = OsUnfairLock(osUnfairLockOpaque = 0.toUInt())
 public const val OS_LOG_TYPE_DEFAULT: OsLogTypeT = 0x00u
 public const val OS_LOG_TYPE_INFO: OsLogTypeT = 0x01u
 public const val OS_LOG_TYPE_DEBUG: OsLogTypeT = 0x02u
