@@ -2,6 +2,13 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.ENODATA
+import io.github.kotlinmania.libc.unix.linuxlike.IPC_STAT
+import io.github.kotlinmania.libc.unix.linuxlike.MSG_FIN
+import io.github.kotlinmania.libc.unix.linuxlike.NLMSG_MIN_TYPE
+import io.github.kotlinmania.libc.unix.linuxlike.NLMSG_OVERRUN
+import io.github.kotlinmania.libc.unix.linuxlike.O_CLOEXEC
+import io.github.kotlinmania.libc.unix.linuxlike.O_EXCL
 import io.github.kotlinmania.libc.unix.linuxlike._IO
 import io.github.kotlinmania.libc.unix.linuxlike.ioctlCode
 import io.github.kotlinmania.libc.unix.linuxlike.ioReadCode
@@ -1288,20 +1295,20 @@ internal const val NSIO: UInt = 0xb7u
 internal const val PIDFS_IOCTL_MAGIC: UInt = 0xFFu
 internal const val PTP_CLK_MAGIC: UInt = 61u
 
-public val NS_GET_USERNS: Ioctl = _IO(NSIO, 0x1)
-public val NS_GET_PARENT: Ioctl = _IO(NSIO, 0x2)
-public val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3)
-public val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4)
+public val NS_GET_USERNS: Ioctl = _IO(NSIO, 0x1.toUInt())
+public val NS_GET_PARENT: Ioctl = _IO(NSIO, 0x2.toUInt())
+public val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3.toUInt())
+public val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4.toUInt())
 
 // NS_GET_MNTNS_ID = _IOR(NSIO, 0x5, __u64) (ioctl request code; computed at the FFI boundary)
-public val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x6)
-public val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x7)
-public val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x8)
-public val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x9)
+public val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x6.toUInt())
+public val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x7.toUInt())
+public val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x8.toUInt())
+public val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x9.toUInt())
 public const val MNT_NS_INFO_SIZE_VER0: Ioctl = 16
-public val NS_MNT_GET_INFO: Ioctl = ioctlCode<MntNsInfo>(NSIO, 10)
-public val NS_MNT_GET_NEXT: Ioctl = ioctlCode<MntNsInfo>(NSIO, 11)
-public val NS_MNT_GET_PREV: Ioctl = ioctlCode<MntNsInfo>(NSIO, 12)
+public val NS_MNT_GET_INFO: Ioctl = ioctlCode<MntNsInfo>(NSIO, 10.toUInt())
+public val NS_MNT_GET_NEXT: Ioctl = ioctlCode<MntNsInfo>(NSIO, 11.toUInt())
+public val NS_MNT_GET_PREV: Ioctl = ioctlCode<MntNsInfo>(NSIO, 12.toUInt())
 public val PIDFD_NONBLOCK: CUInt = O_NONBLOCK.toUInt()
 public val PIDFD_THREAD: CUInt = O_EXCL.toUInt()
 public val PIDFD_SIGNAL_THREAD: CUInt = 1.toUInt() shl 0.toInt()
@@ -1322,7 +1329,7 @@ public val PIDFD_GET_TIME_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 7.toUInt())
 public val PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 8.toUInt())
 public val PIDFD_GET_USER_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 9.toUInt())
 public val PIDFD_GET_UTS_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 10.toUInt())
-public val PIDFD_GET_INFO: Ioctl = ioctlCode<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11)
+public val PIDFD_GET_INFO: Ioctl = ioctlCode<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11.toUInt())
 public const val PR_SET_MDWE: CInt = 65
 public const val PR_GET_MDWE: CInt = 66
 public val PR_MDWE_REFUSE_EXEC_GAIN: CUInt = 1.toUInt() shl 0
@@ -2340,24 +2347,24 @@ public const val HWTSTAMP_FILTER_PTP_V2_SYNC: CUInt = 13u
 public const val HWTSTAMP_FILTER_PTP_V2_DELAY_REQ: CUInt = 14u
 public const val HWTSTAMP_FILTER_NTP_ALL: CUInt = 15u
 public const val PTP_MAX_SAMPLES: CUInt = 25u
-public val PTP_CLOCK_GETCAPS: Ioctl = ioctlCode<PtpClockCaps>(PTP_CLK_MAGIC, 1)
-public val PTP_EXTTS_REQUEST: Ioctl = ioctlCode<PtpExttsRequest>(PTP_CLK_MAGIC, 2)
-public val PTP_PEROUT_REQUEST: Ioctl = ioctlCode<PtpPeroutRequest>(PTP_CLK_MAGIC, 3)
+public val PTP_CLOCK_GETCAPS: Ioctl = ioctlCode<PtpClockCaps>(PTP_CLK_MAGIC, 1.toUInt())
+public val PTP_EXTTS_REQUEST: Ioctl = ioctlCode<PtpExttsRequest>(PTP_CLK_MAGIC, 2.toUInt())
+public val PTP_PEROUT_REQUEST: Ioctl = ioctlCode<PtpPeroutRequest>(PTP_CLK_MAGIC, 3.toUInt())
 public val PTP_ENABLE_PPS: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 4.toUInt())
-public val PTP_SYS_OFFSET: Ioctl = ioctlCode<PtpSysOffset>(PTP_CLK_MAGIC, 5)
-public val PTP_PIN_GETFUNC: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 6)
-public val PTP_PIN_SETFUNC: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 7)
-public val PTP_SYS_OFFSET_PRECISE: Ioctl = ioctlCode<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 8)
-public val PTP_SYS_OFFSET_EXTENDED: Ioctl = ioctlCode<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 9)
-public val PTP_CLOCK_GETCAPS2: Ioctl = ioctlCode<PtpClockCaps>(PTP_CLK_MAGIC, 10)
-public val PTP_EXTTS_REQUEST2: Ioctl = ioctlCode<PtpExttsRequest>(PTP_CLK_MAGIC, 11)
-public val PTP_PEROUT_REQUEST2: Ioctl = ioctlCode<PtpPeroutRequest>(PTP_CLK_MAGIC, 12)
+public val PTP_SYS_OFFSET: Ioctl = ioctlCode<PtpSysOffset>(PTP_CLK_MAGIC, 5.toUInt())
+public val PTP_PIN_GETFUNC: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 6.toUInt())
+public val PTP_PIN_SETFUNC: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 7.toUInt())
+public val PTP_SYS_OFFSET_PRECISE: Ioctl = ioctlCode<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 8.toUInt())
+public val PTP_SYS_OFFSET_EXTENDED: Ioctl = ioctlCode<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 9.toUInt())
+public val PTP_CLOCK_GETCAPS2: Ioctl = ioctlCode<PtpClockCaps>(PTP_CLK_MAGIC, 10.toUInt())
+public val PTP_EXTTS_REQUEST2: Ioctl = ioctlCode<PtpExttsRequest>(PTP_CLK_MAGIC, 11.toUInt())
+public val PTP_PEROUT_REQUEST2: Ioctl = ioctlCode<PtpPeroutRequest>(PTP_CLK_MAGIC, 12.toUInt())
 public val PTP_ENABLE_PPS2: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 13.toUInt())
-public val PTP_SYS_OFFSET2: Ioctl = ioctlCode<PtpSysOffset>(PTP_CLK_MAGIC, 14)
-public val PTP_PIN_GETFUNC2: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 15)
-public val PTP_PIN_SETFUNC2: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 16)
-public val PTP_SYS_OFFSET_PRECISE2: Ioctl = ioctlCode<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 17)
-public val PTP_SYS_OFFSET_EXTENDED2: Ioctl = ioctlCode<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 18)
+public val PTP_SYS_OFFSET2: Ioctl = ioctlCode<PtpSysOffset>(PTP_CLK_MAGIC, 14.toUInt())
+public val PTP_PIN_GETFUNC2: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 15.toUInt())
+public val PTP_PIN_SETFUNC2: Ioctl = ioctlCode<PtpPinDesc>(PTP_CLK_MAGIC, 16.toUInt())
+public val PTP_SYS_OFFSET_PRECISE2: Ioctl = ioctlCode<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 17.toUInt())
+public val PTP_SYS_OFFSET_EXTENDED2: Ioctl = ioctlCode<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 18.toUInt())
 public const val PTP_PF_NONE: CUInt = 0u
 public const val PTP_PF_EXTTS: CUInt = 1u
 public const val PTP_PF_PEROUT: CUInt = 2u
@@ -2498,7 +2505,7 @@ public val SECURE_ALL_LOCKS: CInt = SECURE_ALL_BITS shl 1
 public const val IN_MASK_CREATE: UInt = 0x1000_0000u
 public const val IN_MASK_ADD: UInt = 0x2000_0000u
 public const val IN_ISDIR: UInt = 0x4000_0000u
-public const val IN_ONESHOT: UInt = 0x8000_0000
+public const val IN_ONESHOT: UInt = 0x8000_0000u
 public val IN_ALL_EVENTS: UInt = IN_ACCESS or IN_MODIFY or IN_ATTRIB or IN_CLOSE_WRITE or IN_CLOSE_NOWRITE or IN_OPEN or IN_MOVED_FROM or IN_MOVED_TO or IN_DELETE or IN_CREATE or IN_DELETE_SELF or IN_MOVE_SELF
 public const val IN_CLOEXEC: CInt = O_CLOEXEC
 public const val IN_NONBLOCK: CInt = O_NONBLOCK
@@ -3077,11 +3084,11 @@ public const val SCHED_FLAG_KEEP_POLICY: CInt = 0x08
 public const val SCHED_FLAG_KEEP_PARAMS: CInt = 0x10
 public const val SCHED_FLAG_UTIL_CLAMP_MIN: CInt = 0x20
 public const val SCHED_FLAG_UTIL_CLAMP_MAX: CInt = 0x40
-public val XDP_SHARED_UMEM: U16 = 1 shl 0
-public val XDP_COPY: U16 = 1 shl 1
-public val XDP_ZEROCOPY: U16 = 1 shl 2
-public val XDP_USE_NEED_WAKEUP: U16 = 1 shl 3
-public val XDP_USE_SG: U16 = 1 shl 4
+public val XDP_SHARED_UMEM: U16 = (1 shl 0).toUShort()
+public val XDP_COPY: U16 = (1 shl 1).toUShort()
+public val XDP_ZEROCOPY: U16 = (1 shl 2).toUShort()
+public val XDP_USE_NEED_WAKEUP: U16 = (1 shl 3).toUShort()
+public val XDP_USE_SG: U16 = (1 shl 4).toUShort()
 public val XDP_UMEM_UNALIGNED_CHUNK_FLAG: U32 = 1.toUInt() shl 0
 public val XDP_RING_NEED_WAKEUP: U32 = 1.toUInt() shl 0
 public const val XDP_MMAP_OFFSETS: CInt = 1

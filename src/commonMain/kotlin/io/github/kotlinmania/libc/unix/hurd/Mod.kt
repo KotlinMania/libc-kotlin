@@ -1003,7 +1003,7 @@ public const val __SIZEOF_PTHREAD_ONCE_T: ULong = 8uL
 public const val __PTHREAD_SPIN_LOCK_INITIALIZER: CInt = 0
 public const val PTHREAD_MUTEX_NORMAL: CInt = 0
 public const val RLIM_INFINITY: RlimT = 2147483647uL
-public const val RLIM64_INFINITY: Rlim64T = 9223372036854775807
+public const val RLIM64_INFINITY: Rlim64T = 9223372036854775807uL
 public const val RLIM_SAVED_MAX: RlimT = RLIM_INFINITY
 public const val RLIM_SAVED_CUR: RlimT = RLIM_INFINITY
 public const val PRIO_MIN: CInt = -20
@@ -2990,7 +2990,7 @@ public const val SS_DISABLE: CInt = 4
 public const val SHUT_RD: CInt = 0
 public const val SHUT_WR: CInt = 1
 public const val SHUT_RDWR: CInt = 2
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(lock = 0.toUInt(), ownerId = 0.toUInt(), cnt = 0.toUInt(), shpid = 0.toUInt(), type = PTHREAD_MUTEX_TIMED.toInt(), flags = 0.toUInt())
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutex(lock = 0.toUInt(), ownerId = 0.toUInt(), cnt = 0.toUInt(), shpid = 0, type = PTHREAD_MUTEX_TIMED.toInt(), flags = 0)
 
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __lock: __PTHREAD_SPIN_LOCK_INITIALIZER, __queue: 0i64 as *mut __pthread, __attr: 0i64 as *mut __pthread_condattr, __wrefs: 0, __data: 0i64 as *mut c_void, } (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { __held: __PTHREAD_SPIN_LOCK_INITIALIZER, __lock: __PTHREAD_SPIN_LOCK_INITIALIZER, __readers: 0, __readerqueue: 0i64 as *mut __pthread, __writerqueue: 0i64 as *mut __pthread, __attr: 0i64 as *mut __pthread_rwlockattr, __data: 0i64 as *mut c_void, } (initializer represented at the FFI boundary)

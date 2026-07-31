@@ -2,6 +2,13 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_CTYPE_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MESSAGES_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MONETARY_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_NUMERIC_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_TIME_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.O_DIRECTORY
 
 public typealias Ioctl = CInt
 public typealias ClockT = CLong
@@ -2198,7 +2205,7 @@ public const val IN_EXCL_UNLINK: UInt = 0x0400_0000u
 public const val IN_MASK_CREATE: UInt = 0x1000_0000u
 public const val IN_MASK_ADD: UInt = 0x2000_0000u
 public const val IN_ISDIR: UInt = 0x4000_0000u
-public const val IN_ONESHOT: UInt = 0x8000_0000
+public const val IN_ONESHOT: UInt = 0x8000_0000u
 public val IN_ALL_EVENTS: UInt = IN_ACCESS or IN_MODIFY or IN_ATTRIB or IN_CLOSE_WRITE or IN_CLOSE_NOWRITE or IN_OPEN or IN_MOVED_FROM or IN_MOVED_TO or IN_DELETE or IN_CREATE or IN_DELETE_SELF or IN_MOVE_SELF
 public const val IN_CLOEXEC: CInt = O_CLOEXEC
 public const val IN_NONBLOCK: CInt = O_NONBLOCK

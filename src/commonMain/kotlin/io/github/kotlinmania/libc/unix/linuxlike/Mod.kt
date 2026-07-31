@@ -268,6 +268,13 @@ public const val RUSAGE_SELF: CInt = 0
 public const val O_RDONLY: CInt = 0
 public const val O_WRONLY: CInt = 1
 public const val O_RDWR: CInt = 2
+public const val O_CLOEXEC: CInt = 0x80000
+public const val O_EXCL: CInt = 0x80
+public const val O_DIRECTORY: CInt = 0x10000
+public const val IPC_STAT: CInt = 2
+public const val ENODATA: CInt = 61
+public const val NLMSG_MIN_TYPE: CInt = 0x10
+public const val EOPNOTSUPP: CInt = 95
 public const val SOCK_CLOEXEC: CInt = O_CLOEXEC
 public const val S_IFIFO: ModeT = 4096u
 public const val S_IFCHR: ModeT = 8192u
@@ -1080,13 +1087,13 @@ public val TUNSETTXFILTER: Ioctl = ioctlCode<CInt>(T_TYPE, 209.toUInt())
 public val TUNGETIFF: Ioctl = ioctlCode<CInt>(T_TYPE, 210.toUInt())
 public val TUNGETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 211.toUInt())
 public val TUNSETSNDBUF: Ioctl = ioctlCode<CInt>(T_TYPE, 212.toUInt())
-public val TUNATTACHFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 213)
-public val TUNDETACHFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 214)
+public val TUNATTACHFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 213.toUInt())
+public val TUNDETACHFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 214.toUInt())
 public val TUNGETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 215.toUInt())
 public val TUNSETVNETHDRSZ: Ioctl = ioctlCode<CInt>(T_TYPE, 216.toUInt())
 public val TUNSETQUEUE: Ioctl = ioctlCode<CInt>(T_TYPE, 217.toUInt())
 public val TUNSETIFINDEX: Ioctl = ioctlCode<CInt>(T_TYPE, 218.toUInt())
-public val TUNGETFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 219)
+public val TUNGETFILTER: Ioctl = ioctlCode<SockFprog>(T_TYPE, 219.toUInt())
 public val TUNSETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 220.toUInt())
 public val TUNGETVNETLE: Ioctl = ioctlCode<CInt>(T_TYPE, 221.toUInt())
 public val TUNSETVNETBE: Ioctl = ioctlCode<CInt>(T_TYPE, 222.toUInt())
@@ -1095,16 +1102,16 @@ public val TUNSETSTEERINGEBPF: Ioctl = ioctlCode<CInt>(T_TYPE, 224.toUInt())
 public val TUNSETFILTEREBPF: Ioctl = ioctlCode<CInt>(T_TYPE, 225.toUInt())
 public val TUNSETCARRIER: Ioctl = ioctlCode<CInt>(T_TYPE, 226.toUInt())
 public val TUNGETDEVNETNS: Ioctl = _IO(T_TYPE, 227.toUInt())
-public val FS_IOC_GETFLAGS: Ioctl = ioctlCode<CLong>('f'.toUInt(), 1)
-public val FS_IOC_SETFLAGS: Ioctl = ioctlCode<CLong>('f'.toUInt(), 2)
-public val FS_IOC_GETVERSION: Ioctl = ioctlCode<CLong>('v'.toUInt(), 1)
-public val FS_IOC_SETVERSION: Ioctl = ioctlCode<CLong>('v'.toUInt(), 2)
-public val FS_IOC32_GETFLAGS: Ioctl = ioctlCode<CInt>('f'.toUInt(), 1)
-public val FS_IOC32_SETFLAGS: Ioctl = ioctlCode<CInt>('f'.toUInt(), 2)
-public val FS_IOC32_GETVERSION: Ioctl = ioctlCode<CInt>('v'.toUInt(), 1)
-public val FS_IOC32_SETVERSION: Ioctl = ioctlCode<CInt>('v'.toUInt(), 2)
-public val FICLONE: Ioctl = ioctlCode<CInt>(0x94, 9.toUInt())
-public val FICLONERANGE: Ioctl = ioctlCode<file_clone_range>(0x94, 13)
+public val FS_IOC_GETFLAGS: Ioctl = ioctlCode<CLong>('f'.toUInt(), 1.toUInt())
+public val FS_IOC_SETFLAGS: Ioctl = ioctlCode<CLong>('f'.toUInt(), 2.toUInt())
+public val FS_IOC_GETVERSION: Ioctl = ioctlCode<CLong>('v'.toUInt(), 1.toUInt())
+public val FS_IOC_SETVERSION: Ioctl = ioctlCode<CLong>('v'.toUInt(), 2.toUInt())
+public val FS_IOC32_GETFLAGS: Ioctl = ioctlCode<CInt>('f'.toUInt(), 1.toUInt())
+public val FS_IOC32_SETFLAGS: Ioctl = ioctlCode<CInt>('f'.toUInt(), 2.toUInt())
+public val FS_IOC32_GETVERSION: Ioctl = ioctlCode<CInt>('v'.toUInt(), 1.toUInt())
+public val FS_IOC32_SETVERSION: Ioctl = ioctlCode<CInt>('v'.toUInt(), 2.toUInt())
+public val FICLONE: Ioctl = ioctlCode<CInt>(0x94.toUInt(), 9.toUInt())
+public val FICLONERANGE: Ioctl = ioctlCode<file_clone_range>(0x94.toUInt(), 13.toUInt())
 public const val ADFS_SUPER_MAGIC: CLong = 0x0000adf5
 public const val AFFS_SUPER_MAGIC: CLong = 0x0000adff
 public const val AFS_SUPER_MAGIC: CLong = 0x5346414f
@@ -1205,23 +1212,23 @@ private val _IOC_TYPESHIFT: UInt = _IOC_NRSHIFT + _IOC_NRBITS
 private val _IOC_SIZESHIFT: UInt = _IOC_TYPESHIFT + _IOC_TYPEBITS
 private val _IOC_DIRSHIFT: UInt = _IOC_SIZESHIFT + _IOC_SIZEBITS
 
-private const val _IOC_NONE: UInt = 0u
-private const val _IOC_WRITE: UInt = 1u
-private const val _IOC_READ: UInt = 2u
+internal const val _IOC_NONE: UInt = 0u
+internal const val _IOC_WRITE: UInt = 1u
+internal const val _IOC_READ: UInt = 2u
 
 public const val T_TYPE: UInt = 84u
 
-private fun ioc(dir: UInt, ty: UInt, nr: UInt, size: UInt): Ioctl =
+internal fun ioc(dir: UInt, ty: UInt, nr: UInt, size: UInt): Ioctl =
     ((dir shl _IOC_DIRSHIFT.toInt()) or
         (ty shl _IOC_TYPESHIFT.toInt()) or
         (nr shl _IOC_NRSHIFT.toInt()) or
         (size shl _IOC_SIZESHIFT.toInt())).toInt()
 
-public fun _IO(ty: UInt, nr: Int): Ioctl = ioc(_IOC_NONE, ty, nr.toUInt(), 0u)
-public inline fun <reified T> ioctlCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
-public inline fun <reified T> ioReadCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_READ, ty, nr.toUInt(), sizeOf<T>().toUInt())
-public inline fun <reified T> ioWriteCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
-public inline fun <reified T> ioReadWriteCode(ty: UInt, nr: Int): Ioctl = ioc(_IOC_READ or _IOC_WRITE, ty, nr.toUInt(), sizeOf<T>().toUInt())
+public fun _IO(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_NONE, ty, nr, 0u)
+public inline fun <reified T> ioctlCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
+public inline fun <reified T> ioReadCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_READ, ty, nr, sizeOf<T>().toUInt())
+public inline fun <reified T> ioWriteCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
+public inline fun <reified T> ioReadWriteCode(ty: UInt, nr: UInt): Ioctl = ioc(_IOC_READ or _IOC_WRITE, ty, nr, sizeOf<T>().toUInt())
 
 public inline fun <reified T> sizeOf(): Int = when (T::class) {
     Int::class -> 4

@@ -2,6 +2,14 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.EOPNOTSUPP
+import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_CTYPE_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MESSAGES_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MONETARY_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_NUMERIC_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_TIME_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.NLMSG_MIN_TYPE
 
 public typealias PthreadT = CULong
 public typealias PriorityWhichT = CUInt
@@ -505,8 +513,8 @@ public const val PTRACE_SYSCALL_INFO_NONE: U8 = 0u
 public const val PTRACE_SYSCALL_INFO_ENTRY: U8 = 1u
 public const val PTRACE_SYSCALL_INFO_EXIT: U8 = 2u
 public const val PTRACE_SYSCALL_INFO_SECCOMP: U8 = 3u
-public const val PTRACE_SET_SYSCALL_USER_DISPATCH_CONFIG: U8 = 0x4210
-public const val PTRACE_GET_SYSCALL_USER_DISPATCH_CONFIG: U8 = 0x4211
+public const val PTRACE_SET_SYSCALL_USER_DISPATCH_CONFIG: CUInt = 0x4210u
+public const val PTRACE_GET_SYSCALL_USER_DISPATCH_CONFIG: CUInt = 0x4211u
 public val TCA_PAD: CUShort = (9).toUShort()
 public val TCA_DUMP_INVISIBLE: CUShort = (10).toUShort()
 public val TCA_CHAIN: CUShort = (11).toUShort()
