@@ -1020,9 +1020,9 @@ public const val WNOHANG: CInt = 0x01
 public const val WUNTRACED: CInt = 0x02
 public const val WCONTINUED: CInt = 0x04
 
-// PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = pthread_mutex_t { mutexSemId: null_mut(), mutexValid: PTHREAD_VALID_OBJ, mutexInitted: PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount: 0, mutexSavPriority: -1, mutexAttr: PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName: [0 (initializer represented at the FFI boundary)
-// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { condSemId: null_mut(), condValid: PTHREAD_VALID_OBJ, condInitted: PTHREAD_UNUSED_YET_OBJ, condRefCount: 0, condMutex: null_mut(), condAttr: PTHREAD_CONDATTR_INITIALIZER, condSemName: [0 (initializer represented at the FFI boundary)
-// PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { rwlockSemId: null_mut(), rwlockReadersRefCount: 0, rwlockValid: PTHREAD_VALID_OBJ, rwlockInitted: PTHREAD_UNUSED_YET_OBJ, rwlockAttr: PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName: [0 (initializer represented at the FFI boundary)
+// PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = pthread_mutex_t { mutexSemId: null, mutexValid: PTHREAD_VALID_OBJ, mutexInitted: PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount: 0, mutexSavPriority: -1, mutexAttr: PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName: [0 (initializer represented at the FFI boundary)
+// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { condSemId: null, condValid: PTHREAD_VALID_OBJ, condInitted: PTHREAD_UNUSED_YET_OBJ, condRefCount: 0, condMutex: null, condAttr: PTHREAD_CONDATTR_INITIALIZER, condSemName: [0 (initializer represented at the FFI boundary)
+// PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { rwlockSemId: null, rwlockReadersRefCount: 0, rwlockValid: PTHREAD_VALID_OBJ, rwlockInitted: PTHREAD_UNUSED_YET_OBJ, rwlockAttr: PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName: [0 (initializer represented at the FFI boundary)
 public const val SEEK_SET: CInt = 0
 public const val SEEK_CUR: CInt = 1
 public const val SEEK_END: CInt = 2

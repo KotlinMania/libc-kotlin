@@ -928,9 +928,9 @@ public const val SCHED_FIFO: CInt = 1
 public const val SCHED_OTHER: CInt = 2
 public const val SCHED_RR: CInt = 3
 public const val ST_NOSUID: CULong = 2uL
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null_mut()
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = null_mut()
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null_mut()
+// PTHREAD_MUTEX_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
+// PTHREAD_COND_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
+// PTHREAD_RWLOCK_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
 public const val PTHREAD_MUTEX_ERRORCHECK: CInt = 1
 public const val PTHREAD_MUTEX_RECURSIVE: CInt = 2
 public const val PTHREAD_MUTEX_NORMAL: CInt = 3

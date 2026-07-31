@@ -1024,9 +1024,9 @@ public const val _SC_RAW_SOCKETS: CInt = 119
 public const val _SC_SYMLOOP_MAX: CInt = 120
 public const val _SC_PHYS_PAGES: CInt = 121
 public const val _CS_PATH: CInt = 1
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null_mut()
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = null_mut()
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null_mut()
+// PTHREAD_MUTEX_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
+// PTHREAD_COND_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
+// PTHREAD_RWLOCK_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
 public const val PTHREAD_MUTEX_ERRORCHECK: CInt = 1
 public const val PTHREAD_MUTEX_RECURSIVE: CInt = 2
 public const val PTHREAD_MUTEX_NORMAL: CInt = 3

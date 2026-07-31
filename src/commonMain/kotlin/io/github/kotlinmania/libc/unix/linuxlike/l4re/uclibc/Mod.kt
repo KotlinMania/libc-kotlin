@@ -321,10 +321,10 @@ public const val PTHREAD_MUTEX_ERRORCHECK_NP: CInt = 2
 public const val PTHREAD_MUTEX_ADAPTIVE_NP: CInt = 3
 public const val __LT_SPINLOCK_INIT: CInt = 0
 public val __LOCK_INITIALIZER: PthreadFastlock = PthreadFastlock(status = 0, spinlock = __LT_SPINLOCK_INIT)
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 0, mCount = 0, mOwner = null_mut(), mKind = PTHREAD_MUTEX_TIMED_NP, mLock = __LOCK_INITIALIZER)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 0, mCount = 0, mOwner = null, mKind = PTHREAD_MUTEX_TIMED_NP, mLock = __LOCK_INITIALIZER)
 
-// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __c_lock: __LOCK_INITIALIZER, __c_waiting: core::ptr::null_mut(), __padding: [0 (initializer represented at the FFI boundary)
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwLock = __LOCK_INITIALIZER, rwReaders = 0, rwWriter = null_mut(), rwReadWaiting = null_mut(), rwWriteWaiting = null_mut(), rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)
+// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __c_lock: __LOCK_INITIALIZER, __c_waiting: core::ptr::null, __padding: [0 (initializer represented at the FFI boundary)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwLock = __LOCK_INITIALIZER, rwReaders = 0, rwWriter = null, rwReadWaiting = null, rwWriteWaiting = null, rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)
 
 public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
 

@@ -116,6 +116,10 @@ public typealias PthreadOnceT = CInt
 // --- Resource limit types ---
 public typealias RlimitResourceT = CInt
 
+// --- Common constants (platform-specific values overridden in subpackages) ---
+public const val O_NONBLOCK: CInt = 2048
+public const val NSIO: UInt = 0xb7u
+
 // --- 64-bit types ---
 public typealias U64 = ULong
 
@@ -423,7 +427,6 @@ public typealias CpuSetT = ULong
 public typealias U8 = UByte
 public typealias U16 = UShort
 public typealias U32 = UInt
-public typealias U64 = ULong
 public typealias S16 = Short
 public typealias S32 = Int
 public typealias S64 = Long
