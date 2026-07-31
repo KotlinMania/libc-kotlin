@@ -38,7 +38,8 @@ public fun ftello64(stream: FILE?): Off64T = ftello(stream)
 
 public fun ftruncate64(fd: CInt, length: Off64T): CInt = ftruncate(fd, length)
 
-public fun getrlimit64(resource: CInt, rlim: Rlimit64?): CInt = getrlimit(resource, rlim)
+public fun getrlimit64(resource: CInt, rlim: Rlimit64?): CInt =
+    getrlimit(resource, rlim?.let { Rlimit(it.rlimCur, it.rlimMax) })
 
 public fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T = lseek(fd, offset, whence)
 
@@ -65,7 +66,7 @@ public fun preadv64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
     preadv(fd, iov, iovcnt, offset)
 
 public fun prlimit64(pid: PidT, resource: CInt, newLimit: Rlimit64?, oldLimit: Rlimit64?): CInt =
-    prlimit(pid, resource, newLimit, oldLimit)
+    prlimit(pid, resource, newLimit?.let { Rlimit(it.rlimCur, it.rlimMax) }, oldLimit?.let { Rlimit(it.rlimCur, it.rlimMax) })
 
 public fun pwrite64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT =
     pwrite(fd, buf, count, offset)
@@ -80,7 +81,8 @@ public fun readdir64R(dirp: Dir?, entry: Dirent64?, result: Dirent64?): CInt = r
 public fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: ULong): SsizeT =
     sendfile(outFd, inFd, offset, count)
 
-public fun setrlimit64(resource: CInt, rlim: Rlimit64?): CInt = setrlimit(resource, rlim)
+public fun setrlimit64(resource: CInt, rlim: Rlimit64?): CInt =
+    setrlimit(resource, rlim?.let { Rlimit(it.rlimCur, it.rlimMax) })
 
 public fun stat64(pathname: String?, statbuf: Stat64?): CInt = stat(pathname, statbuf)
 

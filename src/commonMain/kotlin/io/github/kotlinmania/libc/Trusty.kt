@@ -11,17 +11,6 @@ public typealias CInt8T = Byte
 public typealias CInt16T = Short
 public typealias CInt32T = Int
 public typealias CInt64T = Long
-public typealias TimeT = CLong
-
-public data class Iovec(
-    val iovBase: COpaquePointer?,
-    val iovLen: ULong,
-)
-
-public data class Timespec(
-    val tvSec: TimeT,
-    val tvNsec: CLong,
-)
 
 public const val PROT_READ: Int = 1
 public const val PROT_WRITE: Int = 2

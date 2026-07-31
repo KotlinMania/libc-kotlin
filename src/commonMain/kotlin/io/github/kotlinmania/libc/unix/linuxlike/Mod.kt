@@ -1212,13 +1212,13 @@ private val _IOC_TYPESHIFT: UInt = _IOC_NRSHIFT + _IOC_NRBITS
 private val _IOC_SIZESHIFT: UInt = _IOC_TYPESHIFT + _IOC_TYPEBITS
 private val _IOC_DIRSHIFT: UInt = _IOC_SIZESHIFT + _IOC_SIZEBITS
 
-internal const val _IOC_NONE: UInt = 0u
-internal const val _IOC_WRITE: UInt = 1u
-internal const val _IOC_READ: UInt = 2u
+public const val _IOC_NONE: UInt = 0u
+public const val _IOC_WRITE: UInt = 1u
+public const val _IOC_READ: UInt = 2u
 
 public const val T_TYPE: UInt = 84u
 
-internal fun ioc(dir: UInt, ty: UInt, nr: UInt, size: UInt): Ioctl =
+public fun ioc(dir: UInt, ty: UInt, nr: UInt, size: UInt): Ioctl =
     ((dir shl _IOC_DIRSHIFT.toInt()) or
         (ty shl _IOC_TYPESHIFT.toInt()) or
         (nr shl _IOC_NRSHIFT.toInt()) or
