@@ -125,7 +125,7 @@ public fun pwritev64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): Ssize
 
 public fun readdir64(dirp: DIR?): Dirent? = readdir(dirp)
 
-public fun readdir64R(dirp: DIR?, entry: Dirent?, result: Dirent?): CInt = readdirR(dirp, entry, result)
+public fun readdir64R(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt = readdirR(dirp, entry, result)
 
 public fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: ULong): SsizeT =
     sendfile(outFd, inFd, offset, count)

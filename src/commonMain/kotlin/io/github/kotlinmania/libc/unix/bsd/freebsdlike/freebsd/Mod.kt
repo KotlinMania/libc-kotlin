@@ -6,6 +6,7 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_UPTIME
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_REALTIME_FAST
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_MONOTONIC_FAST
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RLIM_INFINITY
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RlimT
 
 public const val PATH_MAX: CInt = 4096
 public typealias FflagsT = UInt
@@ -1517,7 +1518,7 @@ public const val RLIMIT_NPTS: CInt = 11
 public const val RLIMIT_SWAP: CInt = 12
 public const val RLIMIT_KQUEUES: CInt = 13
 public const val RLIMIT_UMTXP: CInt = 14
-public const val RLIM_NLIMITS: RlimT = 15uL
+public const val RLIM_NLIMITS: RlimT = 15
 public const val RLIM_SAVED_MAX: RlimT = RLIM_INFINITY
 public const val RLIM_SAVED_CUR: RlimT = RLIM_INFINITY
 public const val CP_USER: CInt = 0

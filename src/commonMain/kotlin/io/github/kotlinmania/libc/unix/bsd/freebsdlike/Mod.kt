@@ -2,15 +2,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.bsd.POLLERR
-import io.github.kotlinmania.libc.unix.bsd.POLLHUP
-import io.github.kotlinmania.libc.unix.bsd.POLLIN
-import io.github.kotlinmania.libc.unix.bsd.POLLNVAL
-import io.github.kotlinmania.libc.unix.bsd.POLLOUT
-import io.github.kotlinmania.libc.unix.bsd.POLLPRI
-import io.github.kotlinmania.libc.unix.bsd.POLLRDBAND
-import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
-import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 
 public const val POLLIN: CShort = 0x0001
 public const val POLLPRI: CShort = 0x0002
