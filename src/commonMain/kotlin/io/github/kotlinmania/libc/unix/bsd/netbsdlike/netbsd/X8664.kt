@@ -5,20 +5,6 @@ import io.github.kotlinmania.libc.*
 
 public typealias CGregT = ULong
 
-public data class McontextT(
-    val gregs: List<CGregT>,
-    val mcTlsbase: CGregT,
-    val fpregs: FpregsetT,
-)
-
-public data class UcontextT(
-    val ucFlags: CUInt,
-    val ucLink: UcontextT?,
-    val ucSigmask: SigsetT,
-    val ucStack: StackT,
-    val ucMcontext: McontextT,
-)
-
 public const val _REG_RDI: CInt = 0
 public const val _REG_RSI: CInt = 1
 public const val _REG_RDX: CInt = 2

@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.sparc64
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
 
 public typealias WcharT = Int
 public typealias NlinkT = UInt

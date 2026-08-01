@@ -100,21 +100,6 @@ public data class MsqidDs(
     val msgCtime: TimeT,
 )
 
-public data class MsqidDs(
-    val msgPerm: IpcPerm,
-    val msgStime: TimeT,
-    val msgRtime: TimeT,
-    val msgCtime: TimeT,
-    val msgStime2: TimeT,
-    val msgRtime2: TimeT,
-    val msgCtime2: TimeT,
-    val msgCbytes: CULong,
-    val msgQnum: MsgqnumT,
-    val msgQbytes: MsglenT,
-    val msgLspid: PidT,
-    val msgLrpid: PidT,
-)
-
 public data class MaxAlignT(
     val priv: List<Float>,
 )

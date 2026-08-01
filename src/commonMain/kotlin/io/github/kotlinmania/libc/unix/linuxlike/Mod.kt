@@ -271,7 +271,6 @@ public const val O_RDWR: CInt = 2
 public const val O_CLOEXEC: CInt = 0x80000
 public const val O_EXCL: CInt = 0x80
 public const val O_DIRECTORY: CInt = 0x10000
-public const val IPC_STAT: CInt = 2
 public const val ENODATA: CInt = 61
 public const val NLMSG_MIN_TYPE: CInt = 0x10
 public const val EOPNOTSUPP: CInt = 95
