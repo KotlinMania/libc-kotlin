@@ -2,6 +2,11 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.arch.mips
 
 import io.github.kotlinmania.libc.*
+io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMP_NEW
+io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPNS_NEW
+io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPING_NEW
+io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_SNDTIMEO_NEW
+io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_RCVTIMEO_NEW
 
 public data class Termios2(
     val cIflag: TcflagT,

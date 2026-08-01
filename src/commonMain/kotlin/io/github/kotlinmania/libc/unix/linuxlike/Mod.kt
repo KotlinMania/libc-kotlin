@@ -273,6 +273,7 @@ public const val O_EXCL: CInt = 0x80
 public const val O_DIRECTORY: CInt = 0x10000
 public const val ENODATA: CInt = 61
 public const val NLMSG_MIN_TYPE: CInt = 0x10
+public const val NLMSG_OVERRUN: CInt = 0x4
 public const val EOPNOTSUPP: CInt = 95
 public const val SOCK_CLOEXEC: CInt = O_CLOEXEC
 public const val S_IFIFO: ModeT = 4096u

@@ -3,6 +3,11 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*
 
+public const val B19200: SpeedT = 19200u
+public const val B38400: SpeedT = 38400u
+public const val EDEADLK: CInt = 35
+public const val EOPNOTSUPP: CInt = 95
+public const val O_DIRECTORY: CInt = 0x10000
 public typealias ShmattT = CULong
 public typealias MsgqnumT = CULong
 public typealias MsglenT = CULong

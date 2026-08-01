@@ -11,7 +11,20 @@ import io.github.kotlinmania.libc.unix.bsd.LC_MONETARY
 import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
 import io.github.kotlinmania.libc.unix.bsd.LC_TIME
 import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
+import io.github.kotlinmania.libc.unix.bsd.MDMBUF
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 
+public const val CRTSCTS: TcflagT = 0x00010000u
+public const val IOCPARM_MASK: UInt = 0x1fffu
+public const val LC_CTYPE: Int = 0
+public const val LC_NUMERIC: Int = 1
+public const val LC_TIME: Int = 2
+public const val LC_COLLATE: Int = 3
+public const val LC_MONETARY: Int = 4
+public const val LC_MESSAGES: Int = 5
+public const val MDMBUF: TcflagT = 0x00100000u
+public const val O_RDWR: CInt = 0x0002
+public const val O_WRONLY: CInt = 0x0001
 public typealias BlksizeT = Int
 public typealias EventfdT = ULong
 public typealias FsblkcntT = ULong

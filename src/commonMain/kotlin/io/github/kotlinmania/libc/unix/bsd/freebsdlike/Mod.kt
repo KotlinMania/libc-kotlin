@@ -12,6 +12,15 @@ import io.github.kotlinmania.libc.unix.bsd.POLLRDBAND
 import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
 import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 
+public const val POLLIN: CShort = 0x0001
+public const val POLLPRI: CShort = 0x0002
+public const val POLLOUT: CShort = 0x0004
+public const val POLLERR: CShort = 0x0008
+public const val POLLHUP: CShort = 0x0010
+public const val POLLNVAL: CShort = 0x0020
+public const val POLLRDNORM: CShort = 0x0040
+public const val POLLRDBAND: CShort = 0x0080
+public const val POLLWRBAND: CShort = 0x0100
 public typealias ModeT = UShort
 public typealias PthreadAttrT = COpaquePointer?
 public typealias RlimT = Long
@@ -323,9 +332,6 @@ public data class Elf64Phdr(
 // Generic ELF type aliases for DlPhdrInfo — the upstream Rust cfg-gates
 // these to Elf64_* or Elf32_* per architecture. Here the 64-bit variants
 // are used as the commonMain default.
-public typealias ElfAddr = ULong
-public typealias ElfPhdr = Elf64Phdr
-public typealias ElfHalf = UShort
 
 public data class DlPhdrInfo(
     val dlpiAddr: ElfAddr,

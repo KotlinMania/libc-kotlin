@@ -2,7 +2,12 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
+io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_UPTIME
+io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_REALTIME_FAST
+io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_MONOTONIC_FAST
+io.github.kotlinmania.libc.unix.bsd.freebsdlike.RLIM_INFINITY
 
+public const val PATH_MAX: CInt = 4096
 public typealias FflagsT = UInt
 public typealias VmProtT = UChar
 public typealias KvaddrT = ULong

@@ -16,6 +16,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.ioReadWriteCode
 import io.github.kotlinmania.libc.unix.linuxlike.T_TYPE
 import io.github.kotlinmania.libc.unix.linuxlike.cmsgAlign
 
+public const val NLMSG_OVERRUN: CInt = 0x4
 public typealias DevT = ULong
 public typealias SocklenT = UInt
 public typealias ModeT = UInt
@@ -3087,7 +3088,8 @@ public const val PF_NO_SETAFFINITY: CInt = 0x04000000
 public const val PF_MCE_EARLY: CInt = 0x08000000
 public const val PF_MEMALLOC_PIN: CInt = 0x10000000
 public const val PF_BLOCK_TS: CInt = 0x20000000
-public val PF_SUSPEND_TASK: CInt = PF_SUSPEND_TASK_UINT.to()
+private const val PF_SUSPEND_TASK_UINT: CUInt = 0x80000000u
+public val PF_SUSPEND_TASK: CInt = PF_SUSPEND_TASK_UINT.toInt()
 public const val CLONE_PIDFD: CInt = 0x1000
 public const val SCHED_FLAG_RESET_ON_FORK: CInt = 0x01
 public const val SCHED_FLAG_RECLAIM: CInt = 0x02

@@ -6,6 +6,8 @@ import io.github.kotlinmania.libc.unix.linuxlike.Elf32Word
 import io.github.kotlinmania.libc.unix.linuxlike.Elf64Word
 import io.github.kotlinmania.libc.unix.linuxlike.Elf64Xword
 
+public const val MAP_ANON: CInt = 0x0020
+public const val O_DIRECTORY: CInt = 0x10000
 public typealias PthreadT = COpaquePointer?
 public typealias ClockT = CLong
 public typealias TimeT = Long

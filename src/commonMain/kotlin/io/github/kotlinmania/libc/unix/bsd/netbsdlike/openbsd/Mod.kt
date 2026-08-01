@@ -4,7 +4,31 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.bsd.O_SYNC
 import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
+import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
+import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
+import io.github.kotlinmania.libc.unix.bsd.LC_MONETARY
+import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
+import io.github.kotlinmania.libc.unix.bsd.LC_TIME
+import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
+import io.github.kotlinmania.libc.unix.bsd.MDMBUF
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
+import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO1
+import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO2
+import io.github.kotlinmania.libc.unix.bsd.RTF_BLACKHOLE
+import io.github.kotlinmania.libc.unix.bsd.RTF_REJECT
+import io.github.kotlinmania.libc.unix.bsd.RTF_STATIC
 
+public const val CRTSCTS: TcflagT = 0x00010000u
+public const val LC_CTYPE: Int = 0
+public const val LC_NUMERIC: Int = 1
+public const val LC_TIME: Int = 2
+public const val LC_COLLATE: Int = 3
+public const val LC_MONETARY: Int = 4
+public const val LC_MESSAGES: Int = 5
+public const val MDMBUF: TcflagT = 0x00100000u
+public const val O_SYNC: CInt = 0x0080
+public const val POLLRDNORM: CShort = 0x0040
+public const val RTF_PROTO2: CInt = 0x4000
 public typealias ClockT = Long
 public typealias SusecondsT = CLong
 public typealias DevT = Int
@@ -1315,6 +1339,7 @@ public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY
 public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC
 public val LC_TIME_MASK: CInt = 1 shl LC_TIME
 public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES
+public const val _LC_LAST: CInt = 7
 public val LC_ALL_MASK: CInt = (1 shl _LC_LAST) - 2
 public val LC_GLOBAL_LOCALE: LocaleT = LC_GLOBAL_LOCALE_SENTINEL
 public const val RB_ASKNAME: CInt = 0x00001
