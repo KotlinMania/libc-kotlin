@@ -1176,6 +1176,7 @@ public const val ONOCR: TcflagT = 0x20u
 public const val ONLRET: TcflagT = 0x40u
 public const val CMGROUP_MAX: ULong = 16uL
 public const val EUI64_LEN: ULong = 8uL
+public const val SIZEOF_LONG: ULong = 8uL
 public const val BPF_ALIGNMENT: ULong = SIZEOF_LONG
 public val RTP_PRIO_MIN: CUShort = (0).toUShort()
 public val RTP_PRIO_MAX: CUShort = (31).toUShort()
