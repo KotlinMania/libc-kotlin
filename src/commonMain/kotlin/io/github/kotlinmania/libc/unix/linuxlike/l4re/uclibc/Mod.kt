@@ -4,6 +4,11 @@ package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.linuxlike.PTHREAD_PROCESS_PRIVATE
 
+public const val B19200: SpeedT = 14u
+public const val B38400: SpeedT = 15u
+public const val EOPNOTSUPP: CInt = 95
+public const val O_DIRECTORY: CInt = 0x10000
+
 public typealias ShmattT = CULong
 public typealias RegoffT = CInt
 public typealias RlimT = CULong

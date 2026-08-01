@@ -2,6 +2,8 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.O_SYNC
+import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
 
 public typealias ClockT = Long
 public typealias SusecondsT = CLong
@@ -34,6 +36,9 @@ public typealias Elf64Sword = Int
 public typealias Elf64Sxword = Long
 public typealias Elf64Word = UInt
 public typealias Elf64Xword = ULong
+public typealias ElfAddr = Elf64Addr
+public typealias ElfHalf = Elf64Half
+public typealias ElfPhdr = Elf64Phdr
 public typealias ENTRY = Entry
 public typealias ACTION = CUInt
 public typealias PosixSpawnattrT = COpaquePointer?

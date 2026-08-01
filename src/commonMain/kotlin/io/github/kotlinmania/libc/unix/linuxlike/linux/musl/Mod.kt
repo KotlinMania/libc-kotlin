@@ -2,6 +2,9 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.Elf32Word
+import io.github.kotlinmania.libc.unix.linuxlike.Elf64Word
+import io.github.kotlinmania.libc.unix.linuxlike.Elf64Xword
 
 public typealias PthreadT = COpaquePointer?
 public typealias ClockT = CLong

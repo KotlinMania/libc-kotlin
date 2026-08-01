@@ -593,6 +593,12 @@ public data class Clockinfo(
     val profhz: CInt,
 )
 
+public typealias DevstatSupportFlags = UInt
+public typealias DevstatTypeFlags = UInt
+public typealias DevstatPriority = UInt
+public typealias DevstatMatchFlags = UInt
+public typealias DevstatSelectMode = UInt
+
 public data class CAnonymousStailqEntryDevstat(
     val stqeNext: Devstat?,
 )

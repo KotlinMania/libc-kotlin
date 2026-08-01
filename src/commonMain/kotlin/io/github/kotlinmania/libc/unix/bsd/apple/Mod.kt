@@ -129,6 +129,8 @@ public typealias VmStatistics64DataT = VmStatistics64
 public typealias TaskT = MachPortT
 public typealias TaskInspectT = MachPortT
 public typealias SysdirSearchPathEnumerationState = CUInt
+public typealias SysdirSearchPathDirectoryT = CUInt
+public typealias SysdirSearchPathDomainMaskT = CUInt
 public typealias CCStatus = Int
 public typealias CCCryptorStatus = Int
 public typealias CCRNGStatus = CCCryptorStatus
@@ -3948,9 +3950,9 @@ public expect fun taskThreads(targetTask: TaskInspectT, actList: ThreadActArrayT
 
 public expect fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: MachMsgTypeNumberT?): KernReturnT
 
-public expect fun sysdirStartSearchPathEnumeration(dir: SysdirSearchPathDirectoryT, domainMask: SysdirSearchPathDomainMaskT): SysdirSearchPathEnumerationState
+public external fun sysdirStartSearchPathEnumeration(dir: SysdirSearchPathDirectoryT, domainMask: SysdirSearchPathDomainMaskT): SysdirSearchPathEnumerationState
 
-public expect fun sysdirGetNextSearchPathEnumeration(state: SysdirSearchPathEnumerationState, path: String?): SysdirSearchPathEnumerationState
+public external fun sysdirGetNextSearchPathEnumeration(state: SysdirSearchPathEnumerationState, path: COpaquePointer?): SysdirSearchPathEnumerationState
 
 public expect fun getattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt
 

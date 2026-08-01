@@ -2,6 +2,15 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.O_NONBLOCK
+import io.github.kotlinmania.libc.unix.bsd.O_RDWR
+import io.github.kotlinmania.libc.unix.bsd.O_WRONLY
+import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
+import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
+import io.github.kotlinmania.libc.unix.bsd.LC_MONETARY
+import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
+import io.github.kotlinmania.libc.unix.bsd.LC_TIME
+import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
 
 public typealias BlksizeT = Int
 public typealias EventfdT = ULong
@@ -10,7 +19,7 @@ public typealias FsfilcntT = ULong
 public typealias IdtypeT = CInt
 public typealias ShmattT = CUInt
 public typealias CpusetT = Cpuset
-public typealias PthreadSpinT = PthreadSpinT
+public typealias PthreadSpinT = Byte
 public typealias Elf32Addr = UInt
 public typealias Elf32Half = UShort
 public typealias Elf32Lword = ULong
@@ -25,6 +34,9 @@ public typealias Elf64Sword = Int
 public typealias Elf64Sxword = Long
 public typealias Elf64Word = UInt
 public typealias Elf64Xword = ULong
+public typealias ElfAddr = Elf64Addr
+public typealias ElfHalf = Elf64Half
+public typealias ElfPhdr = Elf64Phdr
 public typealias IconvT = COpaquePointer?
 
 public enum class FaeAction(

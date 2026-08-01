@@ -2,6 +2,15 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.POLLERR
+import io.github.kotlinmania.libc.unix.bsd.POLLHUP
+import io.github.kotlinmania.libc.unix.bsd.POLLIN
+import io.github.kotlinmania.libc.unix.bsd.POLLNVAL
+import io.github.kotlinmania.libc.unix.bsd.POLLOUT
+import io.github.kotlinmania.libc.unix.bsd.POLLPRI
+import io.github.kotlinmania.libc.unix.bsd.POLLRDBAND
+import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
+import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 
 public typealias ModeT = UShort
 public typealias PthreadAttrT = COpaquePointer?
@@ -33,6 +42,9 @@ public typealias Elf64Sword = Int
 public typealias Elf64Sxword = Long
 public typealias Elf64Word = UInt
 public typealias Elf64Xword = ULong
+public typealias ElfAddr = Elf64Addr
+public typealias ElfHalf = Elf64Half
+public typealias ElfPhdr = Elf64Phdr
 public typealias IconvT = COpaquePointer?
 public typealias KvmT = COpaquePointer?
 public typealias PosixSpawnattrT = COpaquePointer?
@@ -307,6 +319,13 @@ public data class Elf64Phdr(
     val pMemsz: Elf64Xword,
     val pAlign: Elf64Xword,
 )
+
+// Generic ELF type aliases for DlPhdrInfo — the upstream Rust cfg-gates
+// these to Elf64_* or Elf32_* per architecture. Here the 64-bit variants
+// are used as the commonMain default.
+public typealias ElfAddr = ULong
+public typealias ElfPhdr = Elf64Phdr
+public typealias ElfHalf = UShort
 
 public data class DlPhdrInfo(
     val dlpiAddr: ElfAddr,

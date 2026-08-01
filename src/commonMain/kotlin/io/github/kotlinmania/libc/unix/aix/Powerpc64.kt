@@ -3,6 +3,9 @@ package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
 
+// Opaque type — C empty enum used as an opaque pointer target.
+public class LockDataInstrumented
+
 public data class SigsetT(
     val ssSet: ULongArray,
 )

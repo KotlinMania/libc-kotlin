@@ -3,6 +3,9 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.linuxlike.EOPNOTSUPP
+import io.github.kotlinmania.libc.unix.linuxlike.Elf32Word
+import io.github.kotlinmania.libc.unix.linuxlike.Elf64Word
+import io.github.kotlinmania.libc.unix.linuxlike.Elf64Xword
 import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_CTYPE_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_MESSAGES_MASK
