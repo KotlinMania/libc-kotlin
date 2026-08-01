@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.PTHREAD_PROCESS_PRIVATE
 
 public typealias ShmattT = CULong
 public typealias RegoffT = CInt

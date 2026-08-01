@@ -600,6 +600,21 @@ public const val ENOLINK: CInt = 87
 public const val ESTALE: CInt = 88
 public const val EOWNERDEAD: CInt = 89
 public const val ENOTRECOVERABLE: CInt = 90
+
+// NFS errnos: Refer to pkgs_v2/storage/fs/nfs/h/nfs/nfsCommon.h
+private const val M_nfsStat: CInt = 48 shl 16
+private const val NFSERR_REMOTE: CInt = 71
+private const val NFSERR_WFLUSH: CInt = 99
+private const val NFSERR_BADHANDLE: CInt = 10001
+private const val NFSERR_NOT_SYNC: CInt = 10002
+private const val NFSERR_BAD_COOKIE: CInt = 10003
+private const val NFSERR_TOOSMALL: CInt = 10005
+private const val NFSERR_BADTYPE: CInt = 10007
+private const val NFSERR_JUKEBOX: CInt = 10008
+
+// internal offset values for below constants
+private const val taskErrorBase: CInt = 0x00030000
+
 public const val S_nfsLib_NFS_OK: CInt = OK
 public const val S_nfsLib_NFSERR_PERM: CInt = EPERM
 public const val S_nfsLib_NFSERR_NOENT: CInt = ENOENT
@@ -942,7 +957,7 @@ public const val RTLD_NOW: CInt = 2
 public const val RTLD_GLOBAL: CInt = 256
 public val SIG_DFL: SighandlerT = 0.toSighandlerT()
 public val SIG_IGN: SighandlerT = 1.toSighandlerT()
-public val SIG_ERR: SighandlerT = -1.toLong().toSighandlerT()
+public val SIG_ERR: SighandlerT = 0.toSighandlerT().inv()
 public const val SIGHUP: CInt = 1
 public const val SIGINT: CInt = 2
 public const val SIGQUIT: CInt = 3
@@ -1707,8 +1722,6 @@ public expect fun errnoSet(err: CInt): CInt
 
 public expect fun errnoGet(): CInt
 
-public expect fun exit(status: CInt): Nothing
-
 public expect fun setgid(gid: GidT): CInt
 
 public expect fun getgid(): GidT
@@ -1748,8 +1761,6 @@ public expect fun taskNameGet(taskId: TASKID, bufName: String?, bufsize: ULong):
 public expect fun rtpInfoGet(rtpId: RTPID, rtpStruct: RTPDESC?): CInt
 
 public expect fun rtpSpawn(pubrtpFileName: String?, argv: COpaquePointer?, envp: COpaquePointer?, priority: CInt, uStackSize: ULong, options: CInt, taskOptions: CInt): RTPID
-
-public expect fun realpath(fileName: String?, resolvedName: String?): String?
 
 public expect fun pathIsAbsolute(filepath: String?, pNameTail: COpaquePointer?): BOOL
 

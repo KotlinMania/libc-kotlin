@@ -648,7 +648,7 @@ public expect fun getpid(): PidT
 
 public expect fun gettimeofday(tv: Timeval?, tz: COpaquePointer?): CInt
 
-public expect fun strftime(restrict: String?, sz: ULong, restrict: String?, restrict: Tm?): ULong
+public expect fun strftime(s: String?, sz: ULong, format: String?, tm: Tm?): ULong
 
 public expect fun time(t: TimeT?): TimeT
 

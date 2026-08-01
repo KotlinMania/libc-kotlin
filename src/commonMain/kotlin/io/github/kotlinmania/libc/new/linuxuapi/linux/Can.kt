@@ -56,8 +56,8 @@ public data class CanFilter(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousSockaddrCanCanAddr(
-    val tp: CAnonymousSockaddrCanTp = null,
-    val j1939: CAnonymousSockaddrCanJ1939 = null,
+    val tp: CAnonymousSockaddrCanTp? = null,
+    val j1939: CAnonymousSockaddrCanJ1939? = null,
 )
 
 public const val CAN_EFF_FLAG: CanidT = 0x80000000u

@@ -699,7 +699,7 @@ public data class MaxAlignT(
     val ld: ByteArray,
 )
 
-public val _SYSNAME_SIZE: ULong = 256 + 1uL
+public val _SYSNAME_SIZE: ULong = 256uL + 1uL
 public const val RLIM_INFINITY: RlimT = 0xfffffffffffffffduL
 public const val O_LARGEFILE: CInt = 32768
 public const val EXIT_FAILURE: CInt = 1
@@ -1018,7 +1018,7 @@ public const val CLD_STOPPED: CInt = 5
 public const val CLD_CONTINUED: CInt = 6
 public const val UTIME_OMIT: CLong = 0x40000002
 public const val UTIME_NOW: CLong = 0x40000001
-public val POLLIN: CShort = (POLLRDNORM or POLLRDBAND).toShort()
+public val POLLIN: CShort = (POLLRDNORM.toInt() or POLLRDBAND.toInt()).toShort()
 public const val POLLPRI: CShort = 0x0008
 public const val POLLOUT: CShort = 0x0002
 public const val POLLERR: CShort = 0x0020
@@ -1586,7 +1586,7 @@ public const val DEAD_PROCESS: CShort = 8
 public const val ACCOUNTING: CShort = 9
 public const val ENOTSUP: CInt = 48
 public const val BUFSIZ: CUInt = 1024u
-public const val TMP_MAX: CUInt = 26u * 26u * 26u
+public const val TMP_MAX: CUInt = 17576u
 public const val FOPEN_MAX: CUInt = 16u
 public const val FILENAME_MAX: CUInt = 255u
 public const val NI_MAXHOST: SocklenT = 1025u
@@ -1989,8 +1989,8 @@ public const val _SS_MAXSIZE: ULong = 128uL
 
 public fun _ALIGN(p: ULong, b: ULong): ULong = (p + b - 1uL) and (b - 1uL).inv()
 
-public val _SS_PAD1SIZE: ULong = _SS_ALIGNSIZE - 2
-public val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - 2 - _SS_PAD1SIZE - _SS_ALIGNSIZE
+public val _SS_PAD1SIZE: ULong = _SS_ALIGNSIZE - 2uL
+public val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - 2uL - _SS_PAD1SIZE - _SS_ALIGNSIZE
 public val TC_CPOSIX: TcflagT = CLOCAL or CREAD or CSIZE or CSTOPB or HUPCL or PARENB or PARODD
 public const val TCGETS: CInt = 0x404c540d
 public const val TC_OPOSIX: TcflagT = OPOST
