@@ -13,7 +13,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.LC_MONETARY_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_NUMERIC_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_TIME_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.NLMSG_MIN_TYPE
-io.github.kotlinmania.libc.unix.linuxlike.linux.FanotifyEventInfoHeader
+import io.github.kotlinmania.libc.unix.linuxlike.linux.FanotifyEventInfoHeader
 
 public typealias PthreadT = CULong
 public typealias PriorityWhichT = CUInt

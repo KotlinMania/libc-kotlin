@@ -3177,8 +3177,6 @@ public expect fun bPFJUMP(code: U16, k: U32, jt: U8, jf: U8): SockFilter
 
 public expect fun sUNLEN(s: SockaddrUn): ULong
 
-public expect fun sUNLEN(s: SockaddrUn): ULong
-
 public expect fun getspnamR(name: String?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt
 
 public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT

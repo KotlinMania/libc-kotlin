@@ -2,7 +2,7 @@
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
-io.github.kotlinmania.libc.unix.hurd.LocaleStruct
+import io.github.kotlinmania.libc.unix.hurd.LocaleStruct
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong

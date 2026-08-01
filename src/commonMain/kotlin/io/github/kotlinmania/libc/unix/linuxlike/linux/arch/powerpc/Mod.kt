@@ -2,11 +2,11 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.arch.powerpc
 
 import io.github.kotlinmania.libc.*
-io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMP_NEW
-io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPNS_NEW
-io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPING_NEW
-io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_SNDTIMEO_NEW
-io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_RCVTIMEO_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMP_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPNS_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPING_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_SNDTIMEO_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_RCVTIMEO_NEW
 
 public const val SOL_SOCKET: CInt = 1
 public const val SO_DEBUG: CInt = 1

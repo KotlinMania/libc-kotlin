@@ -3,17 +3,18 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.Dirent
 import io.github.kotlinmania.libc.FILE
 import io.github.kotlinmania.libc.FposT
 import io.github.kotlinmania.libc.Iovec
 import io.github.kotlinmania.libc.ModeT
 import io.github.kotlinmania.libc.Off64T
+import io.github.kotlinmania.libc.OffT
 import io.github.kotlinmania.libc.PidT
 import io.github.kotlinmania.libc.Rlimit
 import io.github.kotlinmania.libc.Rlimit64
 import io.github.kotlinmania.libc.SsizeT
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.Dirent
 import io.github.kotlinmania.libc.Stat
 import io.github.kotlinmania.libc.Statfs
 import io.github.kotlinmania.libc.Statvfs
@@ -25,11 +26,9 @@ import io.github.kotlinmania.libc.unix.fseeko
 import io.github.kotlinmania.libc.unix.fsetpos
 import io.github.kotlinmania.libc.unix.fstat
 import io.github.kotlinmania.libc.unix.fstatat
-import io.github.kotlinmania.libc.unix.fstatfs
 import io.github.kotlinmania.libc.unix.fstatvfs
 import io.github.kotlinmania.libc.unix.ftello
 import io.github.kotlinmania.libc.unix.ftruncate
-import io.github.kotlinmania.libc.unix.getrlimit
 import io.github.kotlinmania.libc.unix.lseek
 import io.github.kotlinmania.libc.unix.lstat
 import io.github.kotlinmania.libc.unix.mmap
@@ -37,23 +36,21 @@ import io.github.kotlinmania.libc.unix.pread
 import io.github.kotlinmania.libc.unix.pwrite
 import io.github.kotlinmania.libc.unix.readdir
 import io.github.kotlinmania.libc.unix.readdirR
-import io.github.kotlinmania.libc.unix.setrlimit
 import io.github.kotlinmania.libc.unix.stat
-import io.github.kotlinmania.libc.unix.statfs
 import io.github.kotlinmania.libc.unix.statvfs
 import io.github.kotlinmania.libc.unix.tmpfile
 import io.github.kotlinmania.libc.unix.truncate
-import io.github.kotlinmania.libc.unix.linuxlike.preadv
-import io.github.kotlinmania.libc.unix.linuxlike.pwritev
+import io.github.kotlinmania.libc.unix.linuxlike.fstatfs
 import io.github.kotlinmania.libc.unix.linuxlike.posixFadvise
+import io.github.kotlinmania.libc.unix.linuxlike.statfs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.fallocate
 import io.github.kotlinmania.libc.unix.linuxlike.linux.posixFallocate
 import io.github.kotlinmania.libc.unix.linuxlike.linux.sendfile
 
-// In musl, the LFS64 types are identical to their non-64 counterparts.
-// These typealiases make the LFS64 wrappers type-compatible with the
-// underlying functions.
-public typealias Dir = DIR?
+// preadv and pwritev are standard POSIX functions available in musl.
+public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+
+public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
 
 /**
  * LFS64 entry points. Each is a thin alias for its non-`64` counterpart.
@@ -126,9 +123,9 @@ public fun pwrite64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T
 public fun pwritev64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT =
     pwritev(fd, iov, iovcnt, offset)
 
-public fun readdir64(dirp: Dir?): Dirent? = readdir(dirp)
+public fun readdir64(dirp: DIR?): Dirent? = readdir(dirp)
 
-public fun readdir64R(dirp: Dir?, entry: Dirent?, result: Dirent?): CInt = readdirR(dirp, entry, result)
+public fun readdir64R(dirp: DIR?, entry: Dirent?, result: Dirent?): CInt = readdirR(dirp, entry, result)
 
 public fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: ULong): SsizeT =
     sendfile(outFd, inFd, offset, count)
