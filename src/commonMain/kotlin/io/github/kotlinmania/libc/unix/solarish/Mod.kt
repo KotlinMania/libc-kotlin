@@ -1435,9 +1435,9 @@ public val _COND_MAGIC: UShort = (0x4356).toUShort()
 public val _RWL_MAGIC: UShort = (0x5257).toUShort()
 public const val NCCS: ULong = 19uL
 public val LOG_CRON: CInt = 15 shl 3
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(pthreadMutexFlag1 = 0.toUByte(), pthreadMutexFlag2 = 0.toUByte(), pthreadMutexCeiling = 0.toUByte(), pthreadMutexType = PTHREAD_PROCESS_PRIVATE, pthreadMutexMagic = _MUTEX_MAGIC, pthreadMutexLock = 0.toUByte(), pthreadMutexData = 0.toUByte())
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(pthreadMutexFlag1 = 0.toUShort(), pthreadMutexFlag2 = 0.toUByte(), pthreadMutexCeiling = 0.toUByte(), pthreadMutexType = PTHREAD_PROCESS_PRIVATE, pthreadMutexMagic = _MUTEX_MAGIC, pthreadMutexLock = 0uL, pthreadMutexData = 0uL)
 
-// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __pthread_cond_flag: [0 (initializer represented at the FFI boundary)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(pthreadCondFlag = ubyteArrayOf(0u, 0u, 0u, 0u), pthreadCondType = PTHREAD_PROCESS_PRIVATE, pthreadCondMagic = _COND_MAGIC, pthreadCondData = 0uL)
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(pthreadRwlockReaders = 0, pthreadRwlockType = PTHREAD_PROCESS_PRIVATE, pthreadRwlockMagic = _RWL_MAGIC, pthreadRwlockMutex = PTHREAD_MUTEX_INITIALIZER, pthreadRwlockReadercv = PTHREAD_COND_INITIALIZER, pthreadRwlockWritercv = PTHREAD_COND_INITIALIZER)
 public const val PTHREAD_MUTEX_NORMAL: CInt = 0
 public const val PTHREAD_MUTEX_ERRORCHECK: CInt = 2

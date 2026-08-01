@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.new.nto.net
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.nto.BpfInsn
 
 public val BPF_LD: UShort = (0x00).toUShort()
 public val BPF_LDX: UShort = (0x01).toUShort()
@@ -42,21 +43,21 @@ public val BPF_A: UShort = (0x10).toUShort()
 public val BPF_TAX: UShort = (0x00).toUShort()
 public val BPF_TXA: UShort = (0x80).toUShort()
 
-// Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun bPFCLASS(code: UInt): UInt
+// Inline helper functions (Rust `f!`/`safe_f!`); pure bitwise operations.
+public fun bPFCLASS(code: UInt): UInt = code and 0x07u
 
-public expect fun bPFSIZE(code: UInt): UInt
+public fun bPFSIZE(code: UInt): UInt = code and 0x18u
 
-public expect fun bPFMODE(code: UInt): UInt
+public fun bPFMODE(code: UInt): UInt = code and 0xe0u
 
-public expect fun bPFOP(code: UInt): UInt
+public fun bPFOP(code: UInt): UInt = code and 0xf0u
 
-public expect fun bPFSRC(code: UInt): UInt
+public fun bPFSRC(code: UInt): UInt = code and 0x08u
 
-public expect fun bPFRVAL(code: UInt): UInt
+public fun bPFRVAL(code: UInt): UInt = code and 0x18u
 
-public expect fun bPFMISCOP(code: UInt): UInt
+public fun bPFMISCOP(code: UInt): UInt = code and 0xf8u
 
-public expect fun bPFSTMT(code: UShort, k: UInt): BpfInsn
+public fun bPFSTMT(code: UShort, k: UInt): BpfInsn = BpfInsn(code = code, jt = 0.toUByte(), jf = 0.toUByte(), k = k)
 
-public expect fun bPFJUMP(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn
+public fun bPFJUMP(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn = BpfInsn(code = code, jt = jt, jf = jf, k = k)

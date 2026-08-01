@@ -144,6 +144,7 @@ public val PRIV_USER: CUInt = PRIV_DEBUG or NET_MAC_AWARE or NET_MAC_AWARE_INHER
 public const val LGRP_RSRC_COUNT: LgrpRsrcT = 2
 public const val LGRP_RSRC_CPU: LgrpRsrcT = 0
 public const val LGRP_RSRC_MEM: LgrpRsrcT = 1
+public const val LGRP_RSRC_TYPES: LgrpRsrcT = 2
 public const val P_DISABLED: CInt = 0x008
 public const val AT_SUN_HWCAP2: CUInt = 2023u
 public const val AT_SUN_FPTYPE: CUInt = 2027u

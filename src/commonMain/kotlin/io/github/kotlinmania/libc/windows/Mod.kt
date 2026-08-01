@@ -210,7 +210,7 @@ public const val SIG_GET: SighandlerT = 2uL
 public const val SIG_SGE: SighandlerT = 3uL
 public const val SIG_ACK: SighandlerT = 4uL
 public const val L_tmpnam: CUInt = 260u
-public const val TMP_MAX: CUInt = 0x7fff_ffff
+public const val TMP_MAX: CUInt = 0x7fff_ffffu
 
 public expect fun printf(format: String?, vararg args: Any?): CInt
 

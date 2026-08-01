@@ -1985,6 +1985,7 @@ public const val SIGEV_THREAD: CInt = 135
 public const val SO_USELOOPBACK: CInt = 0x0040
 
 // _SS_ALIGNSIZE = size_of<Long>() (computed at the FFI boundary)
+public const val _SS_ALIGNSIZE: ULong = 8uL
 public const val _SS_MAXSIZE: ULong = 128uL
 
 public fun _ALIGN(p: ULong, b: ULong): ULong = (p + b - 1uL) and (b - 1uL).inv()
@@ -2082,9 +2083,9 @@ public const val PTHREAD_MUTEX_ROBUST: CInt = 0x10
 public const val PTHREAD_PROCESS_PRIVATE: CInt = 0x00
 public const val PTHREAD_PROCESS_SHARED: CInt = 0x01
 public const val PTHREAD_KEYS_MAX: ULong = 128uL
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000, owner = 0xffffffff)
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffb)
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = -2.toUInt(), spare = 0)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000u, owner = 0xffffffffu)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffbu)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = 0xfffffffeu, spare = 0u)
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?

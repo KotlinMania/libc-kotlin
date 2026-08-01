@@ -320,10 +320,10 @@ public data class PollfdExtU(
     val data: ULong? = null,
 )
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mtWord = intArrayOf(0, 2, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cvWord = intArrayOf(0, 0, 0, 0, 2, 0))
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = intArrayOf(2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = intArrayOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mtWord = longArrayOf(0, 2, 0, 0, 0, 0, 0, 0))
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cvWord = longArrayOf(0, 0, 0, 0, 2, 0))
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = longArrayOf(2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = longArrayOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
 public const val RLIM_INFINITY: CULong = 0x7fffffffffffffffuL
 
 public expect fun getsystemcfg(label: CInt): CULong

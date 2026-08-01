@@ -2,6 +2,9 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.*
+import io.github.kotlinmania.libc.unix.linuxlike.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.*
 
 /**
  * LFS64 entry points. Each is a thin alias for its non-`64` counterpart.

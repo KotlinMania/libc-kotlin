@@ -6,13 +6,9 @@ import io.github.kotlinmania.libc.*
 public typealias DoorAttrT = CUInt
 public typealias DoorIdT = CULongLong
 
-public enum class LgrpRsrcT(
-    public val value: UInt,
-) {
-    LGRP_RSRC_CPU(0u),
-    LGRP_RSRC_MEM(1u),
-    LGRP_RSRC_TYPES(2u),
-}
+// LgrpRsrcT is declared as a typealias in Illumos.kt (CInt) with const val
+// constants LGRP_RSRC_CPU, LGRP_RSRC_MEM, LGRP_RSRC_COUNT.
+// LGRP_RSRC_TYPES is added there as well to cover the Solaris enum variant.
 
 public data class XrsT(
     val xrsId: CULong,

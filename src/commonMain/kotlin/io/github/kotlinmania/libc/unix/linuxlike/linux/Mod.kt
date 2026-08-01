@@ -6,7 +6,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.ENODATA
 import io.github.kotlinmania.libc.unix.linuxlike.IPC_STAT
 import io.github.kotlinmania.libc.unix.linuxlike.MSG_FIN
 import io.github.kotlinmania.libc.unix.linuxlike.NLMSG_MIN_TYPE
-import io.github.kotlinmania.libc.unix.linuxlike.NLMSG_OVERRUN
 import io.github.kotlinmania.libc.unix.linuxlike.O_CLOEXEC
 import io.github.kotlinmania.libc.unix.linuxlike.O_EXCL
 import io.github.kotlinmania.libc.unix.linuxlike._IO
@@ -2488,6 +2487,19 @@ public const val IN_DONT_FOLLOW: UInt = 0x0200_0000u
 public const val IN_EXCL_UNLINK: UInt = 0x0400_0000u
 
 public fun issecure_mask(x: CInt): CInt = 1 shl x
+
+public const val SECURE_NOROOT: CInt = 0
+public const val SECURE_NOROOT_LOCKED: CInt = 1
+public const val SECURE_NO_SETUID_FIXUP: CInt = 2
+public const val SECURE_NO_SETUID_FIXUP_LOCKED: CInt = 3
+public const val SECURE_KEEP_CAPS: CInt = 4
+public const val SECURE_KEEP_CAPS_LOCKED: CInt = 5
+public const val SECURE_NO_CAP_AMBIENT_RAISE: CInt = 6
+public const val SECURE_NO_CAP_AMBIENT_RAISE_LOCKED: CInt = 7
+public const val SECURE_EXEC_RESTRICT_FILE: CInt = 8
+public const val SECURE_EXEC_RESTRICT_FILE_LOCKED: CInt = 9
+public const val SECURE_EXEC_DENY_INTERACTIVE: CInt = 10
+public const val SECURE_EXEC_DENY_INTERACTIVE_LOCKED: CInt = 11
 
 public val SECBIT_NOROOT: CInt = issecure_mask(SECURE_NOROOT)
 public val SECBIT_NOROOT_LOCKED: CInt = issecure_mask(SECURE_NOROOT_LOCKED)

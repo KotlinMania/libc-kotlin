@@ -807,6 +807,11 @@ public fun Int.toSighandlerT(): SighandlerT = this.toULong()
 public fun CInt.toClockidT(): ClockidT = this
 public fun COpaquePointer?.toLocaleT(): LocaleT = this
 
+// Sentinel for LC_GLOBAL_LOCALE — C defines it as ((locale_t) -1).
+// Since COpaquePointer is a modeled opaque class (not a raw pointer),
+// we use a dedicated singleton to represent this sentinel value.
+public val LC_GLOBAL_LOCALE_SENTINEL: COpaquePointer = COpaquePointer()
+
 // --- Constants ---
 public const val INT_MIN: CInt = -2147483648
 public const val INT_MAX: CInt = 2147483647
