@@ -602,7 +602,7 @@ public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
 
 public expect fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt
 
-public expect fun pthreadOnce(pot: PthreadOnceT?, f: OnceFn?): CInt
+public expect fun pthreadOnce(pot: PthreadOnceT?, f: OnceFn): CInt
 
 public expect fun pthreadEqual(p1: PthreadT, p2: PthreadT): CInt
 

@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
 
-public expect fun pthreadCreateFromMachThread(thread: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public expect fun pthreadCreateFromMachThread(thread: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt

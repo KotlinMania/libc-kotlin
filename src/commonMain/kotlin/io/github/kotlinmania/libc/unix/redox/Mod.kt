@@ -984,7 +984,7 @@ public expect fun getnameinfo(addr: Sockaddr?, addrlen: SocklenT, host: String?,
 
 public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
-public expect fun pthreadCreate(tid: PthreadT?, attr: PthreadAttrT?, start: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
+public expect fun pthreadCreate(tid: PthreadT, attr: PthreadAttrT?, start: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
 
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
 

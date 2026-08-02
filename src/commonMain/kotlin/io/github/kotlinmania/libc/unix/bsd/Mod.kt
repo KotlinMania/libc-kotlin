@@ -517,7 +517,7 @@ public expect fun sigaltstack(ss: StackT?, oss: StackT?): CInt
 
 public expect fun sigsuspend(mask: SigsetT?): CInt
 
-public expect fun semClose(sem: SemT?): CInt
+public expect fun semClose(sem: SemT): CInt
 
 public expect fun getdtablesize(): CInt
 
@@ -525,7 +525,7 @@ public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: UL
 
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
 
-public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT
 
 public expect fun getgrnam(name: String?): Group?
 
@@ -553,7 +553,7 @@ public expect fun popen(command: String?, mode: String?): FILE?
 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun acct(filename: String?): CInt
 

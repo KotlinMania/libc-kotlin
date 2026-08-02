@@ -42,7 +42,7 @@ public data class KvmPage(
 public data class KinfoProc(
     val kiStructsize: CInt,
     val kiLayout: CInt,
-    val kiArgs: Pargs?,
+    val kiArgs: Pargs,
     val kiPaddr: COpaquePointer?,
     val kiAddr: COpaquePointer?,
     val kiTracep: COpaquePointer?,

@@ -2969,7 +2969,7 @@ public expect fun sceKernelReferMbxStatus(mbxId: SceUid, info: SceKernelMbxInfo?
 
 public expect fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid
 
-public expect fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: SceKernelAlarmHandler?, common: COpaquePointer?): SceUid
+public expect fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid
 
 public expect fun sceKernelCancelAlarm(alarmId: SceUid): Int
 

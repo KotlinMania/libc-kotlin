@@ -1267,9 +1267,9 @@ public expect fun libcCurrentSigrtmax(): CInt
 
 public expect fun libcCurrentSigrtmin(): CInt
 
-public expect fun semDestroy(sem: SemT?): CInt
+public expect fun semDestroy(sem: SemT): CInt
 
-public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
+public expect fun semInit(sem: SemT, pshared: CInt, value: CUInt): CInt
 
 public expect fun fdatasync(fd: CInt): CInt
 

@@ -670,15 +670,15 @@ public expect fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt
 
 public expect fun pthreadExit(value: COpaquePointer?): Nothing
 
-public expect fun pthreadAttrInit(attr: PthreadAttrT?): CInt
+public expect fun pthreadAttrInit(attr: PthreadAttrT): CInt
 
-public expect fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt
+public expect fun pthreadAttrDestroy(attr: PthreadAttrT): CInt
 
-public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT?, stacksize: ULong?): CInt
+public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT, stacksize: ULong?): CInt
 
-public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stackSize: ULong): CInt
+public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT, stackSize: ULong): CInt
 
-public expect fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, state: CInt): CInt
+public expect fun pthreadAttrSetdetachstate(attr: PthreadAttrT, state: CInt): CInt
 
 public expect fun pthreadDetach(thread: PthreadT): CInt
 
@@ -692,55 +692,55 @@ public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer?
 
 public expect fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt
 
-public expect fun pthreadMutexInit(lock: PthreadMutexT?, attr: PthreadMutexattrT?): CInt
+public expect fun pthreadMutexInit(lock: PthreadMutexT, attr: PthreadMutexattrT): CInt
 
-public expect fun pthreadMutexDestroy(lock: PthreadMutexT?): CInt
+public expect fun pthreadMutexDestroy(lock: PthreadMutexT): CInt
 
-public expect fun pthreadMutexLock(lock: PthreadMutexT?): CInt
+public expect fun pthreadMutexLock(lock: PthreadMutexT): CInt
 
-public expect fun pthreadMutexTrylock(lock: PthreadMutexT?): CInt
+public expect fun pthreadMutexTrylock(lock: PthreadMutexT): CInt
 
-public expect fun pthreadMutexUnlock(lock: PthreadMutexT?): CInt
+public expect fun pthreadMutexUnlock(lock: PthreadMutexT): CInt
 
-public expect fun pthreadMutexattrInit(attr: PthreadMutexattrT?): CInt
+public expect fun pthreadMutexattrInit(attr: PthreadMutexattrT): CInt
 
-public expect fun pthreadMutexattrDestroy(attr: PthreadMutexattrT?): CInt
+public expect fun pthreadMutexattrDestroy(attr: PthreadMutexattrT): CInt
 
-public expect fun pthreadMutexattrSettype(attr: PthreadMutexattrT?, type: CInt): CInt
+public expect fun pthreadMutexattrSettype(attr: PthreadMutexattrT, type: CInt): CInt
 
-public expect fun pthreadCondInit(cond: PthreadCondT?, attr: PthreadCondattrT?): CInt
+public expect fun pthreadCondInit(cond: PthreadCondT, attr: PthreadCondattrT): CInt
 
-public expect fun pthreadCondWait(cond: PthreadCondT?, lock: PthreadMutexT?): CInt
+public expect fun pthreadCondWait(cond: PthreadCondT, lock: PthreadMutexT): CInt
 
-public expect fun pthreadCondTimedwait(cond: PthreadCondT?, lock: PthreadMutexT?, abstime: Timespec?): CInt
+public expect fun pthreadCondTimedwait(cond: PthreadCondT, lock: PthreadMutexT, abstime: Timespec?): CInt
 
-public expect fun pthreadCondSignal(cond: PthreadCondT?): CInt
+public expect fun pthreadCondSignal(cond: PthreadCondT): CInt
 
-public expect fun pthreadCondBroadcast(cond: PthreadCondT?): CInt
+public expect fun pthreadCondBroadcast(cond: PthreadCondT): CInt
 
-public expect fun pthreadCondDestroy(cond: PthreadCondT?): CInt
+public expect fun pthreadCondDestroy(cond: PthreadCondT): CInt
 
-public expect fun pthreadCondattrInit(attr: PthreadCondattrT?): CInt
+public expect fun pthreadCondattrInit(attr: PthreadCondattrT): CInt
 
-public expect fun pthreadCondattrDestroy(attr: PthreadCondattrT?): CInt
+public expect fun pthreadCondattrDestroy(attr: PthreadCondattrT): CInt
 
-public expect fun pthreadRwlockInit(lock: PthreadRwlockT?, attr: PthreadRwlockattrT?): CInt
+public expect fun pthreadRwlockInit(lock: PthreadRwlockT, attr: PthreadRwlockattrT): CInt
 
-public expect fun pthreadRwlockDestroy(lock: PthreadRwlockT?): CInt
+public expect fun pthreadRwlockDestroy(lock: PthreadRwlockT): CInt
 
-public expect fun pthreadRwlockRdlock(lock: PthreadRwlockT?): CInt
+public expect fun pthreadRwlockRdlock(lock: PthreadRwlockT): CInt
 
-public expect fun pthreadRwlockTryrdlock(lock: PthreadRwlockT?): CInt
+public expect fun pthreadRwlockTryrdlock(lock: PthreadRwlockT): CInt
 
-public expect fun pthreadRwlockWrlock(lock: PthreadRwlockT?): CInt
+public expect fun pthreadRwlockWrlock(lock: PthreadRwlockT): CInt
 
-public expect fun pthreadRwlockTrywrlock(lock: PthreadRwlockT?): CInt
+public expect fun pthreadRwlockTrywrlock(lock: PthreadRwlockT): CInt
 
-public expect fun pthreadRwlockUnlock(lock: PthreadRwlockT?): CInt
+public expect fun pthreadRwlockUnlock(lock: PthreadRwlockT): CInt
 
-public expect fun pthreadRwlockattrInit(attr: PthreadRwlockattrT?): CInt
+public expect fun pthreadRwlockattrInit(attr: PthreadRwlockattrT): CInt
 
-public expect fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt
+public expect fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT): CInt
 
 public expect fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt
 
@@ -819,11 +819,11 @@ public expect fun setlocale(category: CInt, locale: String?): String?
 
 public expect fun localeconv(): Lconv?
 
-public expect fun semWait(sem: SemT?): CInt
+public expect fun semWait(sem: SemT): CInt
 
-public expect fun semTrywait(sem: SemT?): CInt
+public expect fun semTrywait(sem: SemT): CInt
 
-public expect fun semPost(sem: SemT?): CInt
+public expect fun semPost(sem: SemT): CInt
 
 public expect fun statvfs(path: String?, buf: Statvfs?): CInt
 

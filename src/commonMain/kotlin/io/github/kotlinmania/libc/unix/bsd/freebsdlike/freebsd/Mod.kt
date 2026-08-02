@@ -1362,7 +1362,7 @@ public data class CAnonymousIfrIfru(
     val ifruMtu: CInt? = null,
     val ifruPhys: CInt? = null,
     val ifruMedia: CInt? = null,
-    val ifruData: CaddrT? = null,
+    val ifruData: CaddrT = null,
     val ifruCap: IntArray? = null,
     val ifruFib: CUInt? = null,
     val ifruVlanPcp: CUChar? = null,
@@ -1370,7 +1370,7 @@ public data class CAnonymousIfrIfru(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfcIfcu(
-    val ifcuBuf: CaddrT? = null,
+    val ifcuBuf: CaddrT = null,
     val ifcuReq: Ifreq? = null,
 )
 
@@ -3208,21 +3208,21 @@ public expect fun schedSetaffinity(pid: PidT, cpusetsz: ULong, cpuset: CpusetT?)
 
 public expect fun schedGetcpu(): CInt
 
-public expect fun pthreadMutexConsistent(mutex: PthreadMutexT?): CInt
+public expect fun pthreadMutexConsistent(mutex: PthreadMutexT): CInt
 
-public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT?, robust: CInt?): CInt
+public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT, robust: CInt?): CInt
 
-public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robust: CInt): CInt
+public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT, robust: CInt): CInt
 
-public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
+public expect fun pthreadSpinInit(lock: PthreadSpinlockT, pshared: CInt): CInt
 
-public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
+public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT): CInt
 
-public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
+public expect fun pthreadSpinLock(lock: PthreadSpinlockT): CInt
 
-public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
+public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT): CInt
 
-public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
+public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT): CInt
 
 public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt
 
@@ -3432,35 +3432,35 @@ public expect fun memstatMtlGeterror(list: MemoryTypeList?): CInt
 
 public expect fun memstatGetName(mtp: MemoryType?): String?
 
-public expect fun kvmDpcpuSetcpu(kd: KvmT?, cpu: CUInt): CInt
+public expect fun kvmDpcpuSetcpu(kd: KvmT, cpu: CUInt): CInt
 
-public expect fun kvmGetargv(kd: KvmT?, p: KinfoProc?, nchr: CInt): COpaquePointer?
+public expect fun kvmGetargv(kd: KvmT, p: KinfoProc?, nchr: CInt): COpaquePointer?
 
-public expect fun kvmGetcptime(kd: KvmT?, cpTime: CLong?): CInt
+public expect fun kvmGetcptime(kd: KvmT, cpTime: CLong?): CInt
 
-public expect fun kvmGetenvv(kd: KvmT?, p: KinfoProc?, nchr: CInt): COpaquePointer?
+public expect fun kvmGetenvv(kd: KvmT, p: KinfoProc?, nchr: CInt): COpaquePointer?
 
-public expect fun kvmGeterr(kd: KvmT?): String?
+public expect fun kvmGeterr(kd: KvmT): String?
 
-public expect fun kvmGetmaxcpu(kd: KvmT?): CInt
+public expect fun kvmGetmaxcpu(kd: KvmT): CInt
 
-public expect fun kvmGetncpus(kd: KvmT?): CInt
+public expect fun kvmGetncpus(kd: KvmT): CInt
 
-public expect fun kvmGetpcpu(kd: KvmT?, cpu: CInt): COpaquePointer?
+public expect fun kvmGetpcpu(kd: KvmT, cpu: CInt): COpaquePointer?
 
-public expect fun kvmCounterU64Fetch(kd: KvmT?, base: CULong): ULong
+public expect fun kvmCounterU64Fetch(kd: KvmT, base: CULong): ULong
 
-public expect fun kvmGetswapinfo(kd: KvmT?, info: KvmSwap?, maxswap: CInt, flags: CInt): CInt
+public expect fun kvmGetswapinfo(kd: KvmT, info: KvmSwap?, maxswap: CInt, flags: CInt): CInt
 
-public expect fun kvmNative(kd: KvmT?): CInt
+public expect fun kvmNative(kd: KvmT): CInt
 
-public expect fun kvmNlist(kd: KvmT?, nl: Nlist?): CInt
+public expect fun kvmNlist(kd: KvmT, nl: Nlist?): CInt
 
-public expect fun kvmNlist2(kd: KvmT?, nl: KvmNlist?): CInt
+public expect fun kvmNlist2(kd: KvmT, nl: KvmNlist?): CInt
 
-public expect fun kvmReadZpcpu(kd: KvmT?, base: CULong, buf: COpaquePointer?, size: ULong, cpu: CInt): SsizeT
+public expect fun kvmReadZpcpu(kd: KvmT, base: CULong, buf: COpaquePointer?, size: ULong, cpu: CInt): SsizeT
 
-public expect fun kvmRead2(kd: KvmT?, addr: KvaddrT, buf: COpaquePointer?, nbytes: ULong): SsizeT
+public expect fun kvmRead2(kd: KvmT, addr: KvaddrT, buf: COpaquePointer?, nbytes: ULong): SsizeT
 
 public expect fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt
 
@@ -3546,7 +3546,7 @@ public expect fun procstatGetPtsInfo(proc: Procstat?, fst: Filestat?, pts: Ptsst
 
 public expect fun procstatGetShmInfo(proc: Procstat?, fst: Filestat?, shm: Shmstat?, errbuf: String?): CInt
 
-public expect fun timerCreate(clockId: ClockidT, evp: Sigevent?, timerid: TimerT?): CInt
+public expect fun timerCreate(clockId: ClockidT, evp: Sigevent?, timerid: TimerT): CInt
 
 public expect fun timerDelete(timerid: TimerT): CInt
 
@@ -3556,13 +3556,13 @@ public expect fun timerGettime(timerid: TimerT, value: Itimerspec?): CInt
 
 public expect fun timerSettime(timerid: TimerT, flags: CInt, value: Itimerspec?, ovalue: Itimerspec?): CInt
 
-public expect fun devstatGetnumdevs(kd: KvmT?): CInt
+public expect fun devstatGetnumdevs(kd: KvmT): CInt
 
-public expect fun devstatGetgeneration(kd: KvmT?): CLong
+public expect fun devstatGetgeneration(kd: KvmT): CLong
 
-public expect fun devstatGetversion(kd: KvmT?): CInt
+public expect fun devstatGetversion(kd: KvmT): CInt
 
-public expect fun devstatCheckversion(kd: KvmT?): CInt
+public expect fun devstatCheckversion(kd: KvmT): CInt
 
 public expect fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt
 

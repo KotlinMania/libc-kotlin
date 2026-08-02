@@ -314,7 +314,7 @@ public data class Sigevent(
     val sigevSigno: CInt,
     val sigevNotify: CInt,
     val sigevNotifyFunction: ((Sigval) -> Unit)?,
-    val sigevNotifyAttributes: PthreadAttrT?,
+    val sigevNotifyAttributes: PthreadAttrT,
 )
 
 public data class Osigevent(
@@ -2251,47 +2251,47 @@ public expect fun thrSelf(): ThreadT
 
 public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
-public expect fun pthreadAttrGetdetachstate(attr: PthreadAttrT?, detachstate: CInt?): CInt
+public expect fun pthreadAttrGetdetachstate(attr: PthreadAttrT, detachstate: CInt?): CInt
 
-public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt
+public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt
 
-public expect fun pthreadAttrGetinheritsched(attr: PthreadAttrT?, inheritsched: CInt?): CInt
+public expect fun pthreadAttrGetinheritsched(attr: PthreadAttrT, inheritsched: CInt?): CInt
 
-public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT?, param: SchedParam?): CInt
+public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt
 
-public expect fun pthreadAttrGetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+public expect fun pthreadAttrGetstackaddr(attr: PthreadAttrT, stackaddr: COpaquePointer?): CInt
 
-public expect fun pthreadAttrGetschedpolicy(attr: PthreadAttrT?, policy: CInt?): CInt
+public expect fun pthreadAttrGetschedpolicy(attr: PthreadAttrT, policy: CInt?): CInt
 
-public expect fun pthreadAttrGetscope(attr: PthreadAttrT?, contentionscope: CInt?): CInt
+public expect fun pthreadAttrGetscope(attr: PthreadAttrT, contentionscope: CInt?): CInt
 
-public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+public expect fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
 
-public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt
+public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT, guardsize: ULong): CInt
 
-public expect fun pthreadAttrSetinheritsched(attr: PthreadAttrT?, inheritsched: CInt): CInt
+public expect fun pthreadAttrSetinheritsched(attr: PthreadAttrT, inheritsched: CInt): CInt
 
-public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT?, param: SchedParam?): CInt
+public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt
 
-public expect fun pthreadAttrSetschedpolicy(attr: PthreadAttrT?, policy: CInt): CInt
+public expect fun pthreadAttrSetschedpolicy(attr: PthreadAttrT, policy: CInt): CInt
 
-public expect fun pthreadAttrSetscope(attr: PthreadAttrT?, contentionscope: CInt): CInt
+public expect fun pthreadAttrSetscope(attr: PthreadAttrT, contentionscope: CInt): CInt
 
-public expect fun pthreadAttrSetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong): CInt
+public expect fun pthreadAttrSetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong): CInt
 
-public expect fun pthreadAttrSetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+public expect fun pthreadAttrSetstackaddr(attr: PthreadAttrT, stackaddr: COpaquePointer?): CInt
 
-public expect fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT?): CInt
+public expect fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT): CInt
 
-public expect fun pthreadBarrierattrGetpshared(attr: PthreadBarrierattrT?, pshared: CInt?): CInt
+public expect fun pthreadBarrierattrGetpshared(attr: PthreadBarrierattrT, pshared: CInt?): CInt
 
-public expect fun pthreadBarrierattrInit(attr: PthreadBarrierattrT?): CInt
+public expect fun pthreadBarrierattrInit(attr: PthreadBarrierattrT): CInt
 
-public expect fun pthreadBarrierattrSetpshared(attr: PthreadBarrierattrT?, pshared: CInt): CInt
+public expect fun pthreadBarrierattrSetpshared(attr: PthreadBarrierattrT, pshared: CInt): CInt
 
 public expect fun pthreadBarrierDestroy(barrier: PthreadBarrierT?): CInt
 
-public expect fun pthreadBarrierInit(barrier: PthreadBarrierT?, attr: PthreadBarrierattrT?, count: CUInt): CInt
+public expect fun pthreadBarrierInit(barrier: PthreadBarrierT?, attr: PthreadBarrierattrT, count: CUInt): CInt
 
 public expect fun pthreadBarrierWait(barrier: PthreadBarrierT?): CInt
 
@@ -2301,15 +2301,15 @@ public expect fun pthreadCleanupPop(execute: CInt): COpaquePointer?
 
 public expect fun pthreadCleanupPush(routine: ((COpaquePointer?) -> Unit)?, arg: COpaquePointer?): COpaquePointer?
 
-public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT?, clockId: ClockidT?): CInt
+public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt
 
-public expect fun pthreadCondattrGetpshared(attr: PthreadCondattrT?, pshared: CInt?): CInt
+public expect fun pthreadCondattrGetpshared(attr: PthreadCondattrT, pshared: CInt?): CInt
 
-public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
+public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt
 
-public expect fun pthreadCondattrSetpshared(attr: PthreadCondattrT?, pshared: CInt): CInt
+public expect fun pthreadCondattrSetpshared(attr: PthreadCondattrT, pshared: CInt): CInt
 
-public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
+public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
 
 public expect fun pthreadGetconcurrency(): CInt
 
@@ -2319,23 +2319,23 @@ public expect fun pthreadGetschedparam(thread: PthreadT, policy: CInt?, param: S
 
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
 
-public expect fun pthreadMutexattrGetprioceiling(attr: PthreadMutexattrT?, prioceiling: CInt?): CInt
+public expect fun pthreadMutexattrGetprioceiling(attr: PthreadMutexattrT, prioceiling: CInt?): CInt
 
-public expect fun pthreadMutexattrGetprotocol(attr: PthreadMutexattrT?, protocol: CInt?): CInt
+public expect fun pthreadMutexattrGetprotocol(attr: PthreadMutexattrT, protocol: CInt?): CInt
 
-public expect fun pthreadMutexattrGetpshared(attr: PthreadMutexattrT?, pshared: CInt?): CInt
+public expect fun pthreadMutexattrGetpshared(attr: PthreadMutexattrT, pshared: CInt?): CInt
 
-public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT?, robust: CInt?): CInt
+public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT, robust: CInt?): CInt
 
-public expect fun pthreadMutexattrGettype(attr: PthreadMutexattrT?, type: CInt?): CInt
+public expect fun pthreadMutexattrGettype(attr: PthreadMutexattrT, type: CInt?): CInt
 
-public expect fun pthreadMutexattrSetprioceiling(attr: PthreadMutexattrT?, prioceiling: CInt): CInt
+public expect fun pthreadMutexattrSetprioceiling(attr: PthreadMutexattrT, prioceiling: CInt): CInt
 
-public expect fun pthreadMutexattrSetprotocol(attr: PthreadMutexattrT?, protocol: CInt): CInt
+public expect fun pthreadMutexattrSetprotocol(attr: PthreadMutexattrT, protocol: CInt): CInt
 
-public expect fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT?, pshared: CInt): CInt
+public expect fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT, pshared: CInt): CInt
 
-public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robust: CInt): CInt
+public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT, robust: CInt): CInt
 
 public expect fun pthreadMutexConsistent(mutex: PthreadMutexT?): CInt
 
@@ -2347,9 +2347,9 @@ public expect fun pthreadMutexTimedlock(mutex: PthreadMutexT?, abstime: Timespec
 
 public expect fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt
 
-public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT?, pshared: CInt?): CInt
+public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT, pshared: CInt?): CInt
 
-public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT?, pshared: CInt): CInt
+public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT, pshared: CInt): CInt
 
 public expect fun pthreadRwlockTimedrdlock(rwlock: PthreadRwlockT?, abstime: Timespec?): CInt
 
@@ -2673,17 +2673,17 @@ public expect fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt
 
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
 
-public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
-public expect fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT?, fd: CInt): CInt
+public expect fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT, fd: CInt): CInt
 
-public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT?, fd: CInt, newfd: CInt): CInt
+public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT, fd: CInt, newfd: CInt): CInt
 
-public expect fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
+public expect fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
 
-public expect fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT): CInt
 
-public expect fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT): CInt
 
 public expect fun posixSpawnattrDestroy(attr: PosixSpawnattrT?): CInt
 
@@ -2713,7 +2713,7 @@ public expect fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT?, default: S
 
 public expect fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT?, default: SigsetT?): CInt
 
-public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
 public expect fun pread64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT
 

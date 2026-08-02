@@ -19,7 +19,7 @@ public typealias FsfilcntT = ULong
 public typealias IdtypeT = CUInt
 public typealias ShmattT = CUInt
 public typealias MqdT = CInt
-public typealias SemT = Sem?
+public typealias SemT = Sem
 public typealias CpusetT = CpumaskT
 public typealias CpuSetT = CpumaskT
 public typealias RegisterT = CLong
@@ -1061,6 +1061,6 @@ public expect fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer?
 
 public expect fun freezero(ptr: COpaquePointer?, size: ULong)
 
-public expect fun kvmVmMapEntryFirst(kvm: KvmT?, map: VmMapT, entry: VmMapEntryT): VmMapEntryT
+public expect fun kvmVmMapEntryFirst(kvm: KvmT, map: VmMapT, entry: VmMapEntryT): VmMapEntryT
 
-public expect fun kvmVmMapEntryNext(kvm: KvmT?, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT
+public expect fun kvmVmMapEntryNext(kvm: KvmT, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT

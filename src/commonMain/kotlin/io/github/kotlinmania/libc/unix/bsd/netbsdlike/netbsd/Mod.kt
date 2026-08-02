@@ -765,7 +765,7 @@ public val FUTEX_WAITERS: UInt = 1.toUInt() shl 31
 public val FUTEX_OWNER_DIED: UInt = 1.toUInt() shl 30
 public val FUTEX_SYNCOBJ_1: UInt = 1.toUInt() shl 29
 public val FUTEX_SYNCOBJ_0: UInt = 1.toUInt() shl 28
-public val FUTEX_TID_MASK: UInt = (1u shl 28) - 1u
+public val FUTEX_TID_MASK: UInt = (1u.toUInt() shl 28) - 1u.toUInt()
 public val FUTEX_BITSET_MATCH_ANY: UInt = 0.toUInt().inv()
 public const val IP_RECVDSTADDR: CInt = 7
 public const val IP_SENDSRCADDR: CInt = IP_RECVDSTADDR
@@ -1593,7 +1593,7 @@ public expect fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?,
 
 public expect fun iconvClose(cd: IconvT): CInt
 
-public expect fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT?): CInt
+public expect fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT): CInt
 
 public expect fun timerDelete(timerid: TimerT): CInt
 

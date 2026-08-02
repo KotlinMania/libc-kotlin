@@ -50,7 +50,7 @@ public data class CAnonymousDomainset(
 public data class KinfoProc(
     val kiStructsize: CInt,
     val kiLayout: CInt,
-    val kiArgs: Pargs?,
+    val kiArgs: Pargs,
     val kiPaddr: COpaquePointer?,
     val kiAddr: COpaquePointer?,
     val kiTracep: COpaquePointer?,
@@ -243,4 +243,4 @@ public expect fun basename(path: String?): String?
 
 public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
 
-public expect fun kvmKerndisp(kd: KvmT?): KssizeT
+public expect fun kvmKerndisp(kd: KvmT): KssizeT

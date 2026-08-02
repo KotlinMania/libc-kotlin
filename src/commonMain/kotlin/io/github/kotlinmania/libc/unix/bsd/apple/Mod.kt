@@ -1236,7 +1236,7 @@ public data class Sigevent(
     val sigevNotify: CInt,
     val sigevSigno: CInt,
     val sigevValue: Sigval,
-    val sigevNotifyAttributes: PthreadAttrT?,
+    val sigevNotifyAttributes: PthreadAttrT,
 )
 
 public data class ProcessorCpuLoadInfo(
@@ -3578,17 +3578,17 @@ public expect fun machHostSelf(): MachPortT
 
 public expect fun machThreadSelf(): MachPortT
 
-public expect fun pthreadCondTimedwaitRelativeNp(cond: PthreadCondT?, lock: PthreadMutexT?, timeout: Timespec?): CInt
+public expect fun pthreadCondTimedwaitRelativeNp(cond: PthreadCondT, lock: PthreadMutexT, timeout: Timespec?): CInt
 
-public expect fun pthreadAttrGetscope(attr: PthreadAttrT?, contentionscope: CInt?): CInt
+public expect fun pthreadAttrGetscope(attr: PthreadAttrT, contentionscope: CInt?): CInt
 
-public expect fun pthreadAttrGetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+public expect fun pthreadAttrGetstackaddr(attr: PthreadAttrT, stackaddr: COpaquePointer?): CInt
 
-public expect fun pthreadAttrGetdetachstate(attr: PthreadAttrT?, detachstate: CInt?): CInt
+public expect fun pthreadAttrGetdetachstate(attr: PthreadAttrT, detachstate: CInt?): CInt
 
-public expect fun pthreadAttrSetscope(attr: PthreadAttrT?, contentionscope: CInt): CInt
+public expect fun pthreadAttrSetscope(attr: PthreadAttrT, contentionscope: CInt): CInt
 
-public expect fun pthreadAttrSetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+public expect fun pthreadAttrSetstackaddr(attr: PthreadAttrT, stackaddr: COpaquePointer?): CInt
 
 public expect fun pthreadSetnameNp(name: String?): CInt
 
@@ -3760,47 +3760,47 @@ public expect fun dyldGetImageVmaddrSlide(imageIndex: UInt): IntptrT
 
 public expect fun dyldGetImageName(imageIndex: UInt): String?
 
-public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
-public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
-public expect fun posixSpawnattrInit(attr: PosixSpawnattrT?): CInt
+public expect fun posixSpawnattrInit(attr: PosixSpawnattrT): CInt
 
-public expect fun posixSpawnattrDestroy(attr: PosixSpawnattrT?): CInt
+public expect fun posixSpawnattrDestroy(attr: PosixSpawnattrT): CInt
 
-public expect fun posixSpawnattrGetsigdefault(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+public expect fun posixSpawnattrGetsigdefault(attr: PosixSpawnattrT, default: SigsetT?): CInt
 
-public expect fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+public expect fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT, default: SigsetT?): CInt
 
-public expect fun posixSpawnattrGetsigmask(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+public expect fun posixSpawnattrGetsigmask(attr: PosixSpawnattrT, default: SigsetT?): CInt
 
-public expect fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT?, default: SigsetT?): CInt
+public expect fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT, default: SigsetT?): CInt
 
-public expect fun posixSpawnattrGetflags(attr: PosixSpawnattrT?, flags: CShort?): CInt
+public expect fun posixSpawnattrGetflags(attr: PosixSpawnattrT, flags: CShort?): CInt
 
-public expect fun posixSpawnattrSetflags(attr: PosixSpawnattrT?, flags: CShort): CInt
+public expect fun posixSpawnattrSetflags(attr: PosixSpawnattrT, flags: CShort): CInt
 
-public expect fun posixSpawnattrGetpgroup(attr: PosixSpawnattrT?, flags: PidT?): CInt
+public expect fun posixSpawnattrGetpgroup(attr: PosixSpawnattrT, flags: PidT?): CInt
 
-public expect fun posixSpawnattrSetpgroup(attr: PosixSpawnattrT?, flags: PidT): CInt
+public expect fun posixSpawnattrSetpgroup(attr: PosixSpawnattrT, flags: PidT): CInt
 
-public expect fun posixSpawnattrSetarchprefNp(attr: PosixSpawnattrT?, count: ULong, pref: CpuTypeT?, subpref: CpuSubtypeT?, ocount: ULong?): CInt
+public expect fun posixSpawnattrSetarchprefNp(attr: PosixSpawnattrT, count: ULong, pref: CpuTypeT?, subpref: CpuSubtypeT?, ocount: ULong?): CInt
 
-public expect fun posixSpawnattrGetarchprefNp(attr: PosixSpawnattrT?, count: ULong, pref: CpuTypeT?, subpref: CpuSubtypeT?, ocount: ULong?): CInt
+public expect fun posixSpawnattrGetarchprefNp(attr: PosixSpawnattrT, count: ULong, pref: CpuTypeT?, subpref: CpuSubtypeT?, ocount: ULong?): CInt
 
-public expect fun posixSpawnattrGetbinprefNp(attr: PosixSpawnattrT?, count: ULong, pref: CpuTypeT?, ocount: ULong?): CInt
+public expect fun posixSpawnattrGetbinprefNp(attr: PosixSpawnattrT, count: ULong, pref: CpuTypeT?, ocount: ULong?): CInt
 
-public expect fun posixSpawnattrSetbinprefNp(attr: PosixSpawnattrT?, count: ULong, pref: CpuTypeT?, ocount: ULong?): CInt
+public expect fun posixSpawnattrSetbinprefNp(attr: PosixSpawnattrT, count: ULong, pref: CpuTypeT?, ocount: ULong?): CInt
 
-public expect fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT): CInt
 
-public expect fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT): CInt
 
-public expect fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
+public expect fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
 
-public expect fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT?, fd: CInt): CInt
+public expect fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT, fd: CInt): CInt
 
-public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT?, fd: CInt, newfd: CInt): CInt
+public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT, fd: CInt, newfd: CInt): CInt
 
 public expect fun uname(buf: Utsname?): CInt
 
@@ -3850,29 +3850,29 @@ public expect fun mstats(): Mstats
 
 public expect fun mallocPrintf(format: String?, vararg args: Any?)
 
-public expect fun mallocZoneCheck(zone: MallocZoneT?): BooleanT
+public expect fun mallocZoneCheck(zone: MallocZoneT): BooleanT
 
-public expect fun mallocZonePrint(zone: MallocZoneT?, verbose: BooleanT)
+public expect fun mallocZonePrint(zone: MallocZoneT, verbose: BooleanT)
 
-public expect fun mallocZoneStatistics(zone: MallocZoneT?, stats: MallocStatisticsT?)
+public expect fun mallocZoneStatistics(zone: MallocZoneT, stats: MallocStatisticsT?)
 
-public expect fun mallocZoneLog(zone: MallocZoneT?, address: COpaquePointer?)
+public expect fun mallocZoneLog(zone: MallocZoneT, address: COpaquePointer?)
 
 public expect fun mallocZonePrintPtrInfo(ptr: COpaquePointer?)
 
-public expect fun mallocDefaultZone(): MallocZoneT?
+public expect fun mallocDefaultZone(): MallocZoneT
 
-public expect fun mallocZoneFromPtr(ptr: COpaquePointer?): MallocZoneT?
+public expect fun mallocZoneFromPtr(ptr: COpaquePointer?): MallocZoneT
 
-public expect fun mallocZoneMalloc(zone: MallocZoneT?, size: ULong): COpaquePointer?
+public expect fun mallocZoneMalloc(zone: MallocZoneT, size: ULong): COpaquePointer?
 
-public expect fun mallocZoneValloc(zone: MallocZoneT?, size: ULong): COpaquePointer?
+public expect fun mallocZoneValloc(zone: MallocZoneT, size: ULong): COpaquePointer?
 
-public expect fun mallocZoneCalloc(zone: MallocZoneT?, numItems: ULong, size: ULong): COpaquePointer?
+public expect fun mallocZoneCalloc(zone: MallocZoneT, numItems: ULong, size: ULong): COpaquePointer?
 
-public expect fun mallocZoneRealloc(zone: MallocZoneT?, ptr: COpaquePointer?, size: ULong): COpaquePointer?
+public expect fun mallocZoneRealloc(zone: MallocZoneT, ptr: COpaquePointer?, size: ULong): COpaquePointer?
 
-public expect fun mallocZoneFree(zone: MallocZoneT?, ptr: COpaquePointer?)
+public expect fun mallocZoneFree(zone: MallocZoneT, ptr: COpaquePointer?)
 
 public expect fun procListpids(t: UInt, typeinfo: UInt, buffer: COpaquePointer?, buffersize: CInt): CInt
 
@@ -3898,7 +3898,7 @@ public expect fun procKmsgbuf(buffer: COpaquePointer?, buffersize: UInt): CInt
 
 public expect fun procLibversion(major: CInt?, minor: CInt?): CInt
 
-public expect fun procPidRusage(pid: CInt, flavor: CInt, buffer: RusageInfoT?): CInt
+public expect fun procPidRusage(pid: CInt, flavor: CInt, buffer: RusageInfoT): CInt
 
 public expect fun procSetNoSmt(): CInt
 
@@ -3936,7 +3936,7 @@ public expect fun vmDeallocate(targetTask: VmMapT, address: VmAddressT, size: Vm
 
 public expect fun hostStatistics64(hostPriv: HostT, flavor: HostFlavorT, hostInfo64Out: HostInfo64T, hostInfo64OutCnt: MachMsgTypeNumberT?): KernReturnT
 
-public expect fun hostProcessorInfo(host: HostT, flavor: ProcessorFlavorT, outProcessorCount: NaturalT?, outProcessorInfo: ProcessorInfoArrayT?, outProcessorInfoCnt: MachMsgTypeNumberT?): KernReturnT
+public expect fun hostProcessorInfo(host: HostT, flavor: ProcessorFlavorT, outProcessorCount: NaturalT?, outProcessorInfo: ProcessorInfoArrayT, outProcessorInfoCnt: MachMsgTypeNumberT?): KernReturnT
 
 public expect fun taskForPid(host: MachPortT, pid: PidT, task: MachPortT?): KernReturnT
 
@@ -3946,7 +3946,7 @@ public expect fun taskCreate(targetTask: TaskT, ledgers: LedgerArrayT, ledgersCn
 
 public expect fun taskTerminate(targetTask: TaskT): KernReturnT
 
-public expect fun taskThreads(targetTask: TaskInspectT, actList: ThreadActArrayT?, actListCnt: MachMsgTypeNumberT?): KernReturnT
+public expect fun taskThreads(targetTask: TaskInspectT, actList: ThreadActArrayT, actListCnt: MachMsgTypeNumberT?): KernReturnT
 
 public expect fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: MachMsgTypeNumberT?): KernReturnT
 

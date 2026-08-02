@@ -1389,9 +1389,9 @@ public expect fun schedGetPriorityMax(policy: CInt): CInt
 
 public expect fun settimeofday(tv: Timeval?, tz: Timezone?): CInt
 
-public expect fun semTimedwait(sem: SemT?, abstime: Timespec?): CInt
+public expect fun semTimedwait(sem: SemT, abstime: Timespec?): CInt
 
-public expect fun semGetvalue(sem: SemT?, sval: CInt?): CInt
+public expect fun semGetvalue(sem: SemT, sval: CInt?): CInt
 
 public expect fun mount(src: String?, target: String?, fstype: String?, flags: CULong, data: COpaquePointer?): CInt
 
@@ -1409,13 +1409,13 @@ public expect fun sigsuspend(mask: SigsetT?): CInt
 
 public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 
-public expect fun semClose(sem: SemT?): CInt
+public expect fun semClose(sem: SemT): CInt
 
 public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
 
 public expect fun initgroups(user: String?, group: GidT): CInt
 
-public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT
 
 public expect fun getgrnam(name: String?): Group?
 
@@ -1443,13 +1443,13 @@ public expect fun endmntent(streamp: FILE?): CInt
 
 public expect fun hasmntopt(mnt: Mntent?, opt: String?): String?
 
-public expect fun regcomp(preg: RegexT?, pattern: String?, cflags: CInt): CInt
+public expect fun regcomp(preg: RegexT, pattern: String?, cflags: CInt): CInt
 
-public expect fun regexec(preg: RegexT?, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: CInt): CInt
+public expect fun regexec(preg: RegexT, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: CInt): CInt
 
-public expect fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong
+public expect fun regerror(errcode: CInt, preg: RegexT, errbuf: String?, errbufSize: ULong): ULong
 
-public expect fun regfree(preg: RegexT?)
+public expect fun regfree(preg: RegexT)
 
 public expect fun iconvOpen(tocode: String?, fromcode: String?): IconvT
 
@@ -1459,7 +1459,7 @@ public expect fun iconvClose(cd: IconvT): CInt
 
 public expect fun gettid(): PidT
 
-public expect fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT?): CInt
+public expect fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT): CInt
 
 public expect fun timerDelete(timerid: TimerT): CInt
 

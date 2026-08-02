@@ -928,7 +928,7 @@ public expect fun realpath(pathname: String?, resolved: String?): String?
 
 public expect fun pthreadSelf(): PthreadT
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: PthreadT, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt
 

@@ -5,7 +5,7 @@ import io.github.kotlinmania.libc.*
 
 public expect fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
 
-public expect fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT?): CInt
+public expect fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT): CInt
 
 public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt
 

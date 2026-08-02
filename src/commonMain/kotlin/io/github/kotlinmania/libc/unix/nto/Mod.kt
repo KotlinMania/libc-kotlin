@@ -2386,9 +2386,9 @@ public expect fun getitimer(which: CInt, currValue: Itimerval?): CInt
 
 public expect fun setitimer(which: CInt, value: Itimerval?, ovalue: Itimerval?): CInt
 
-public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
-public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
 public expect fun posixSpawnattrInit(attr: PosixSpawnattrT?): CInt
 
@@ -2418,15 +2418,15 @@ public expect fun posixSpawnattrGetschedparam(attr: PosixSpawnattrT?, param: Sch
 
 public expect fun posixSpawnattrSetschedparam(attr: PosixSpawnattrT?, param: SchedParam?): CInt
 
-public expect fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT): CInt
 
-public expect fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT): CInt
 
-public expect fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
+public expect fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
 
-public expect fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT?, fd: CInt): CInt
+public expect fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT, fd: CInt): CInt
 
-public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT?, fd: CInt, newfd: CInt): CInt
+public expect fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT, fd: CInt, newfd: CInt): CInt
 
 public expect fun popen(command: String?, mode: String?): FILE?
 

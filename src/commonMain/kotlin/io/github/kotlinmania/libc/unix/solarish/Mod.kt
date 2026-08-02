@@ -1944,59 +1944,59 @@ public expect fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt
 
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
 
-public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
-public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT?, attrp: PosixSpawnattrT?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT, argv: COpaquePointer?, envp: COpaquePointer?): CInt
 
-public expect fun posixSpawnFileActionsInit(fileActions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsInit(fileActions: PosixSpawnFileActionsT): CInt
 
-public expect fun posixSpawnFileActionsDestroy(fileActions: PosixSpawnFileActionsT?): CInt
+public expect fun posixSpawnFileActionsDestroy(fileActions: PosixSpawnFileActionsT): CInt
 
-public expect fun posixSpawnFileActionsAddopen(fileActions: PosixSpawnFileActionsT?, fildes: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
+public expect fun posixSpawnFileActionsAddopen(fileActions: PosixSpawnFileActionsT, fildes: CInt, path: String?, oflag: CInt, mode: ModeT): CInt
 
-public expect fun posixSpawnFileActionsAddclose(fileActions: PosixSpawnFileActionsT?, fildes: CInt): CInt
+public expect fun posixSpawnFileActionsAddclose(fileActions: PosixSpawnFileActionsT, fildes: CInt): CInt
 
-public expect fun posixSpawnFileActionsAdddup2(fileActions: PosixSpawnFileActionsT?, fildes: CInt, newfildes: CInt): CInt
+public expect fun posixSpawnFileActionsAdddup2(fileActions: PosixSpawnFileActionsT, fildes: CInt, newfildes: CInt): CInt
 
-public expect fun posixSpawnFileActionsAddclosefromNp(fileActions: PosixSpawnFileActionsT?, lowfiledes: CInt): CInt
+public expect fun posixSpawnFileActionsAddclosefromNp(fileActions: PosixSpawnFileActionsT, lowfiledes: CInt): CInt
 
-public expect fun posixSpawnFileActionsAddchdir(fileActions: PosixSpawnFileActionsT?, path: String?): CInt
+public expect fun posixSpawnFileActionsAddchdir(fileActions: PosixSpawnFileActionsT, path: String?): CInt
 
-public expect fun posixSpawnFileActionsAddchdirNp(fileActions: PosixSpawnFileActionsT?, path: String?): CInt
+public expect fun posixSpawnFileActionsAddchdirNp(fileActions: PosixSpawnFileActionsT, path: String?): CInt
 
-public expect fun posixSpawnFileActionsAddfchdir(fileActions: PosixSpawnFileActionsT?, fd: CInt): CInt
+public expect fun posixSpawnFileActionsAddfchdir(fileActions: PosixSpawnFileActionsT, fd: CInt): CInt
 
-public expect fun posixSpawnattrInit(attr: PosixSpawnattrT?): CInt
+public expect fun posixSpawnattrInit(attr: PosixSpawnattrT): CInt
 
-public expect fun posixSpawnattrDestroy(attr: PosixSpawnattrT?): CInt
+public expect fun posixSpawnattrDestroy(attr: PosixSpawnattrT): CInt
 
-public expect fun posixSpawnattrSetflags(attr: PosixSpawnattrT?, flags: CShort): CInt
+public expect fun posixSpawnattrSetflags(attr: PosixSpawnattrT, flags: CShort): CInt
 
-public expect fun posixSpawnattrGetflags(attr: PosixSpawnattrT?, flags: CShort?): CInt
+public expect fun posixSpawnattrGetflags(attr: PosixSpawnattrT, flags: CShort?): CInt
 
-public expect fun posixSpawnattrSetpgroup(attr: PosixSpawnattrT?, pgroup: PidT): CInt
+public expect fun posixSpawnattrSetpgroup(attr: PosixSpawnattrT, pgroup: PidT): CInt
 
-public expect fun posixSpawnattrGetpgroup(attr: PosixSpawnattrT?, pgroup: PidT?): CInt
+public expect fun posixSpawnattrGetpgroup(attr: PosixSpawnattrT, pgroup: PidT?): CInt
 
-public expect fun posixSpawnattrSetschedparam(attr: PosixSpawnattrT?, param: SchedParam?): CInt
+public expect fun posixSpawnattrSetschedparam(attr: PosixSpawnattrT, param: SchedParam?): CInt
 
-public expect fun posixSpawnattrGetschedparam(attr: PosixSpawnattrT?, param: SchedParam?): CInt
+public expect fun posixSpawnattrGetschedparam(attr: PosixSpawnattrT, param: SchedParam?): CInt
 
-public expect fun posixSpawnattrSetschedpolicy(attr: PosixSpawnattrT?, policy: CInt): CInt
+public expect fun posixSpawnattrSetschedpolicy(attr: PosixSpawnattrT, policy: CInt): CInt
 
-public expect fun posixSpawnattrGetschedpolicy(attr: PosixSpawnattrT?, policy: CInt?): CInt
+public expect fun posixSpawnattrGetschedpolicy(attr: PosixSpawnattrT, policy: CInt?): CInt
 
-public expect fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT?, sigdefault: SigsetT?): CInt
+public expect fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT, sigdefault: SigsetT?): CInt
 
-public expect fun posixSpawnattrGetsigdefault(attr: PosixSpawnattrT?, sigdefault: SigsetT?): CInt
+public expect fun posixSpawnattrGetsigdefault(attr: PosixSpawnattrT, sigdefault: SigsetT?): CInt
 
-public expect fun posixSpawnattrSetsigignoreNp(attr: PosixSpawnattrT?, sigignore: SigsetT?): CInt
+public expect fun posixSpawnattrSetsigignoreNp(attr: PosixSpawnattrT, sigignore: SigsetT?): CInt
 
-public expect fun posixSpawnattrGetsigignoreNp(attr: PosixSpawnattrT?, sigignore: SigsetT?): CInt
+public expect fun posixSpawnattrGetsigignoreNp(attr: PosixSpawnattrT, sigignore: SigsetT?): CInt
 
-public expect fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT?, sigmask: SigsetT?): CInt
+public expect fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT, sigmask: SigsetT?): CInt
 
-public expect fun posixSpawnattrGetsigmask(attr: PosixSpawnattrT?, sigmask: SigsetT?): CInt
+public expect fun posixSpawnattrGetsigmask(attr: PosixSpawnattrT, sigmask: SigsetT?): CInt
 
 public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer?
 
@@ -2192,33 +2192,33 @@ public expect fun timerGettime(timerid: TimerT, value: Itimerspec?): CInt
 
 public expect fun timerSettime(timerid: TimerT, flags: CInt, value: Itimerspec?, ovalue: Itimerspec?): CInt
 
-public expect fun ucredGet(pid: PidT): UcredT?
+public expect fun ucredGet(pid: PidT): UcredT
 
 public expect fun getpeerucred(fd: CInt, ucred: COpaquePointer?): CInt
 
-public expect fun ucredFree(ucred: UcredT?)
+public expect fun ucredFree(ucred: UcredT)
 
-public expect fun ucredGeteuid(ucred: UcredT?): UidT
+public expect fun ucredGeteuid(ucred: UcredT): UidT
 
-public expect fun ucredGetruid(ucred: UcredT?): UidT
+public expect fun ucredGetruid(ucred: UcredT): UidT
 
-public expect fun ucredGetsuid(ucred: UcredT?): UidT
+public expect fun ucredGetsuid(ucred: UcredT): UidT
 
-public expect fun ucredGetegid(ucred: UcredT?): GidT
+public expect fun ucredGetegid(ucred: UcredT): GidT
 
-public expect fun ucredGetrgid(ucred: UcredT?): GidT
+public expect fun ucredGetrgid(ucred: UcredT): GidT
 
-public expect fun ucredGetsgid(ucred: UcredT?): GidT
+public expect fun ucredGetsgid(ucred: UcredT): GidT
 
-public expect fun ucredGetgroups(ucred: UcredT?, groups: COpaquePointer?): CInt
+public expect fun ucredGetgroups(ucred: UcredT, groups: COpaquePointer?): CInt
 
-public expect fun ucredGetpid(ucred: UcredT?): PidT
+public expect fun ucredGetpid(ucred: UcredT): PidT
 
-public expect fun ucredGetprojid(ucred: UcredT?): ProjidT
+public expect fun ucredGetprojid(ucred: UcredT): ProjidT
 
-public expect fun ucredGetzoneid(ucred: UcredT?): ZoneidT
+public expect fun ucredGetzoneid(ucred: UcredT): ZoneidT
 
-public expect fun ucredGetpflags(ucred: UcredT?, flags: CUInt): CUInt
+public expect fun ucredGetpflags(ucred: UcredT, flags: CUInt): CUInt
 
 public expect fun ucredSize(): ULong
 

@@ -280,9 +280,9 @@ public val YESEXPR: CInt = ((5) shl 8) or (0)
 
 public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
 
-public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CInt?): CInt
 
-public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt
+public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT, `val`: CInt): CInt
 
 public expect fun ptrace(request: CUInt, vararg args: Any?): CLong
 

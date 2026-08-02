@@ -696,7 +696,7 @@ public data class CAnonymousIfrIfru(
     val ifruMetric: CInt? = null,
     val ifruVnetid: Long? = null,
     val ifruMedia: ULong? = null,
-    val ifruData: CaddrT? = null,
+    val ifruData: CaddrT = null,
     val ifruIndex: CUInt? = null,
 )
 
@@ -1252,7 +1252,7 @@ public const val IFF_LINK2: CInt = 0x4000
 public const val IFF_MULTICAST: CInt = 0x8000
 public val PTHREAD_STACK_MIN: ULong = 1uL shl _MAX_PAGE_SHIFT.toInt()
 public val MINSIGSTKSZ: ULong = 3uL shl _MAX_PAGE_SHIFT.toInt()
-public val SIGSTKSZ: ULong = MINSIGSTKSZ + (1uL shl _MAX_PAGE_SHIFT.toInt()) * 4uL
+public val SIGSTKSZ: ULong = MINSIGSTKSZ + ((1uL shl _MAX_PAGE_SHIFT.toInt()) * 4uL)
 public const val PT_SET_EVENT_MASK: CInt = 12
 public const val PT_GET_EVENT_MASK: CInt = 13
 public const val PT_GET_PROCESS_STATE: CInt = 14
@@ -1439,11 +1439,11 @@ public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
 
 public expect fun getthrid(): PidT
 
-public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt
+public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt
 
-public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt
+public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT, guardsize: ULong): CInt
 
-public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+public expect fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
 
 public expect fun pthreadMainNp(): CInt
 

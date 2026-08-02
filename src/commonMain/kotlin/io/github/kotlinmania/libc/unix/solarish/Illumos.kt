@@ -196,7 +196,7 @@ public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): Ss
 
 public expect fun getpagesizes2(pagesize: ULong?, nelem: CInt): CInt
 
-public expect fun posixSpawnFileActionsAddfchdirNp(fileActions: PosixSpawnFileActionsT?, fd: CInt): CInt
+public expect fun posixSpawnFileActionsAddfchdirNp(fileActions: PosixSpawnFileActionsT, fd: CInt): CInt
 
 public expect fun ptsnameR(fildes: CInt, name: String?, namelen: ULong): CInt
 
