@@ -72,3 +72,5 @@ DerivedData/
 *.xcuserstate
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
+NEXT_ACTIONS.md
+port_lint_proposed_changes.md
