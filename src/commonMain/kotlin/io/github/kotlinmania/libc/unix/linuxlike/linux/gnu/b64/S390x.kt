@@ -3,6 +3,7 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias BlksizeT = Long
 public typealias NlinkT = ULong
@@ -54,7 +55,22 @@ public data class SiginfoT(
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class StackT(
     val ssSp: COpaquePointer?,
