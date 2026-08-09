@@ -5,6 +5,7 @@ import io.github.kotlinmania.libc.*
 
 public typealias GregT = ULong
 
+public data class IpcPerm(
     val key: KeyT,
     val ipcPermKey: KeyT,
     val uid: UidT,
@@ -15,6 +16,7 @@ public typealias GregT = ULong
     val seq: CInt,
 )
 
+public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stNlink: NlinkT,
@@ -33,6 +35,7 @@ public typealias GregT = ULong
     val stBlocks: BlkcntT,
 )
 
+public data class Statfs(
     val fType: CUInt,
     val fBsize: CUInt,
     val fBlocks: FsblkcntT,

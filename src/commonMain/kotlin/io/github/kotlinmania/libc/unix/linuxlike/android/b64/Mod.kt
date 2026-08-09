@@ -136,7 +136,7 @@ public const val SA_NOCLDSTOP: CInt = 0x00000001
 public const val SA_NOCLDWAIT: CInt = 0x00000002
 public const val SA_NODEFER: CInt = 0x40000000
 public const val SA_ONSTACK: CInt = 0x08000000
-public const val SA_RESETHAND: CInt = 0x80000000
+public const val SA_RESETHAND: CInt = 0x80000000.toInt()
 public const val SA_RESTART: CInt = 0x10000000
 public const val SA_SIGINFO: CInt = 0x00000004
 public const val RTLD_GLOBAL: CInt = 0x00100
@@ -144,7 +144,7 @@ public const val RTLD_NOW: CInt = 2
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0)
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0)
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0)
-public const val PTHREAD_STACK_MIN: ULong = 4096 * 4
+public val PTHREAD_STACK_MIN: ULong = 4096uL * 4
 public const val CPU_SETSIZE: ULong = 1024uL
 public const val __CPU_BITS: ULong = 64uL
 public const val UT_LINESIZE: ULong = 32uL

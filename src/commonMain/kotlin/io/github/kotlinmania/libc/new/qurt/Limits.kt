@@ -4,7 +4,7 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 
 public const val CHAR_BIT: CUInt = 8u
-public const val CHAR_MAX: CChar = 255
+public const val CHAR_MAX: CChar = 255.toByte()
 public const val CHAR_MIN: CChar = 0
 public const val SCHAR_MAX: CSchar = 127
 public const val SCHAR_MIN: CSchar = -128

@@ -53,6 +53,7 @@ public data class IpcPerm(
     val seq: UInt,
 )
 
+public data class Stat(
     val stDev: DevT,
     val stIno: InoT,
     val stMode: ModeT,

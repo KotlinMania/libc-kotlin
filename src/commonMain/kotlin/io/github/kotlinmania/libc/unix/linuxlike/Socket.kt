@@ -22,6 +22,7 @@ import io.github.kotlinmania.libc.*
  *
  * Represents a 32-bit IPv4 address.
  */
+public data class InAddr(
     val sAddr: CUInt,
 )
 
@@ -30,6 +31,7 @@ import io.github.kotlinmania.libc.*
  *
  * Used for joining/leaving IPv4 multicast groups.
  */
+public data class IpMreq(
     val imrMultiaddr: InAddr,
     val imrInterface: InAddr,
 )
@@ -39,6 +41,7 @@ import io.github.kotlinmania.libc.*
  *
  * Extended version of IpMreq that includes an interface index.
  */
+public data class IpMreqn(
     val imrMultiaddr: InAddr,
     val imrAddress: InAddr,
     val imrIfindex: CInt,
@@ -49,6 +52,7 @@ import io.github.kotlinmania.libc.*
  *
  * Used for source-specific multicast (SSM) operations.
  */
+public data class IpMreq(
     val imrMultiaddr: InAddr,
     val imrInterface: InAddr,
     val imrSourceaddr: InAddr,
@@ -59,6 +63,7 @@ import io.github.kotlinmania.libc.*
  *
  * This is the base socket address type used in socket APIs.
  */
+public data class Sockaddr(
     val saFamily: CUShort,
     val saData: ByteArray,
 ) {
@@ -170,6 +175,7 @@ public data class Ipv6Mreq(
  *
  * Used for packet sockets (AF_PACKET).
  */
+public data class SockaddrLl(
     val sllFamily: CUShort,
     val sllProtocol: CUShort,
     val sllIfindex: CInt,
