@@ -1,5 +1,6 @@
 // port-lint: source unix/cygwin/mod.rs
 package io.github.kotlinmania.libc.unix.cygwin
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
@@ -427,7 +428,20 @@ public data class SiginfoT(
     val siPid: PidT,
     val siUid: UidT,
     val siErrno: CInt,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid
+    public fun siUid(): UidT = siUid
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Dirent(
     val dVersion: UInt,

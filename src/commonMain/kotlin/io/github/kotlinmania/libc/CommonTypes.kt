@@ -1,5 +1,6 @@
 // port-lint: source types.rs
 package io.github.kotlinmania.libc
+import io.github.kotlinmania.libc.unix.Sigval
 
 /**
  * Common C type aliases shared across all platform modules.
@@ -667,7 +668,18 @@ public data class SiginfoT(
     val siUid: UidT,
     val siStatus: CInt,
     val siAddr: COpaquePointer?,
-)
+    val siValue: Sigval? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid
+    public fun siUid(): UidT = siUid
+    public fun siStatus(): CInt = siStatus
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Sigevent(
     val sigevValue: Sigval,

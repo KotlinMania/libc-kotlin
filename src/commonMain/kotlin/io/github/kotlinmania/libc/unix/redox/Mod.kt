@@ -1,5 +1,6 @@
 // port-lint: source unix/redox/mod.rs
 package io.github.kotlinmania.libc.unix.redox
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
@@ -154,7 +155,22 @@ public data class SiginfoT(
     val siErrno: CInt,
     val siCode: CInt,
     val align: List<ULong>,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): Int = siPid ?: 0
+    public fun siUid(): Int = siUid ?: 0
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Sockaddr(
     val saFamily: SaFamilyT,

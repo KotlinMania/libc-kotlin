@@ -1,5 +1,6 @@
 // port-lint: source unix/nto/mod.rs
 package io.github.kotlinmania.libc.unix.nto
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
@@ -237,7 +238,22 @@ public data class SiginfoT(
     val siCode: CInt,
     val siErrno: CInt,
     val data: UByteArray,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Sigaction(
     val saSigaction: SighandlerT,

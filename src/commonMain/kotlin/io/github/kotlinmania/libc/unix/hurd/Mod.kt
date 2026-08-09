@@ -1,5 +1,6 @@
 // port-lint: source unix/hurd/mod.rs
 package io.github.kotlinmania.libc.unix.hurd
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
@@ -336,7 +337,17 @@ public data class SiginfoT(
     val siStatus: CInt,
     val siBand: CLong,
     val siValue: Sigval,
-)
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid
+    public fun siUid(): UidT = siUid
+    public fun siStatus(): CInt = siStatus
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Timespec(
     val tvSec: TimeT,
