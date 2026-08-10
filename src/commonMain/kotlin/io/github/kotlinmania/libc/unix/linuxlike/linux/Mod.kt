@@ -934,7 +934,7 @@ public data class PthreadCondT(
 )
 
 public data class PthreadMutexT(
-    val size: ByteArray,
+    val size: List<Int>,
 )
 
 public data class PthreadRwlockT(

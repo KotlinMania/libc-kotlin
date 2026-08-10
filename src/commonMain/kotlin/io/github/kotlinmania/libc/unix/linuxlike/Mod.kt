@@ -67,7 +67,7 @@ internal inline fun <reified T> ioReadWriteCode(ty: UInt, nr: UInt): Int {
             (size shl _IOC_SIZESHIFT))
 }
 
-internal inline fun _IO(ty: UInt, nr: UInt): Int {
+internal fun _IO(ty: UInt, nr: UInt): Int {
     return ((_IOC_NONE.toInt() shl _IOC_DIRSHIFT) or
             (ty.toInt() shl _IOC_TYPESHIFT) or
             (nr.toInt() shl _IOC_NRSHIFT))
