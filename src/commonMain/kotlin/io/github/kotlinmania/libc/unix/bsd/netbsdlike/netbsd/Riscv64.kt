@@ -6,6 +6,12 @@ import io.github.kotlinmania.libc.*
 public typealias GregsetT = LongArray
 public typealias FregsetT = List<Fpreg>
 
+public data class McontextT(
+    val gregs: GregsetT,
+    val fregs: FregsetT,
+    val spare: List<GregT>,
+)
+
 // C union; only one variant is valid at a time.
 public data class Fpreg(
     val uU64: ULong? = null,

@@ -70,13 +70,13 @@ public data class MaxAlignT(
     val priv: Pair<Long, Double>,
 )
 
-public val RLIM_INFINITY: RlimT = 0.inv().toULong()
+public const val RLIM_INFINITY: RlimT = 0xFFFFFFFFFFFFFFFFuL
 public const val VEOF: ULong = 4uL
-public const val RLIMIT_RSS: RlimitResourceT = 5
-public const val RLIMIT_AS: RlimitResourceT = 9
-public const val RLIMIT_MEMLOCK: RlimitResourceT = 8
-public const val RLIMIT_NOFILE: RlimitResourceT = 7
-public const val RLIMIT_NPROC: RlimitResourceT = 6
+public const val RLIMIT_RSS: RlimitResourceT = 5.toInt()
+public const val RLIMIT_AS: RlimitResourceT = 9.toInt()
+public const val RLIMIT_MEMLOCK: RlimitResourceT = 8.toInt()
+public const val RLIMIT_NOFILE: RlimitResourceT = 7.toInt()
+public const val RLIMIT_NPROC: RlimitResourceT = 6.toInt()
 public const val O_APPEND: CInt = 1024
 public const val O_CREAT: CInt = 64
 public const val O_EXCL: CInt = 128

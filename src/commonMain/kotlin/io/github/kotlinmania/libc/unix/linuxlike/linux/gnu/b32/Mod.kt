@@ -128,6 +128,40 @@ public data class Timex(
     val unused11: Int,
 )
 
+public data class Timex(
+    val modes: CUInt,
+    val offset: CLong,
+    val freq: CLong,
+    val maxerror: CLong,
+    val esterror: CLong,
+    val status: CInt,
+    val constant: CLong,
+    val precision: CLong,
+    val tolerance: CLong,
+    val time: Timeval,
+    val tick: CLong,
+    val ppsfreq: CLong,
+    val jitter: CLong,
+    val shift: CInt,
+    val stabil: CLong,
+    val jitcnt: CLong,
+    val calcnt: CLong,
+    val errcnt: CLong,
+    val stbcnt: CLong,
+    val tai: CInt,
+    val unused1: Int,
+    val unused2: Int,
+    val unused3: Int,
+    val unused4: Int,
+    val unused5: Int,
+    val unused6: Int,
+    val unused7: Int,
+    val unused8: Int,
+    val unused9: Int,
+    val unused10: Int,
+    val unused11: Int,
+)
+
 public const val POSIX_FADV_DONTNEED: CInt = 4
 public const val POSIX_FADV_NOREUSE: CInt = 5
 public const val F_OFD_GETLK: CInt = 36
@@ -174,9 +208,9 @@ public const val EPOLL_CLOEXEC: CInt = 0x400000
 public const val EFD_CLOEXEC: CInt = 0x400000
 public const val F_SETLK: CInt = 8
 public const val F_SETLKW: CInt = 9
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = byteArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = byteArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = byteArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = listOf( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ))
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = listOf( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ))
+public val PTHREAD_ADAPTIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = PthreadMutexT(size = listOf( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ))
 public const val PTRACE_GETFPREGS: CUInt = 14u
 public const val PTRACE_SETFPREGS: CUInt = 15u
 public const val PTRACE_GETREGS: CUInt = 12u

@@ -6,13 +6,64 @@ import io.github.kotlinmania.libc.*
 public typealias DoorAttrT = CUInt
 public typealias DoorIdT = CULongLong
 
-// LgrpRsrcT is declared as a typealias in Illumos.kt (CInt) with const val
-// constants LGRP_RSRC_CPU, LGRP_RSRC_MEM, LGRP_RSRC_COUNT.
-// LGRP_RSRC_TYPES is added there as well to cover the Solaris enum variant.
+public enum class LgrpRsrcT(
+    public val value: UInt,
+) {
+    LGRP_RSRC_CPU(0u),
+    LGRP_RSRC_MEM(1u),
+    LGRP_RSRC_TYPES(2u),
+}
+
+public data class Aiocb(
+    val aioFildes: CInt,
+    val aioBuf: COpaquePointer?,
+    val aioNbytes: ULong,
+    val aioOffset: OffT,
+    val aioReqprio: CInt,
+    val aioSigevent: Sigevent,
+    val aioLioOpcode: CInt,
+    val aioResultp: AioResultT,
+    val aioState: CChar,
+    val aioReturned: CChar,
+    val aioPad1: ByteArray,
+    val aioFlags: CInt,
+)
+
+public data class ShmidDs(
+    val shmPerm: IpcPerm,
+    val shmSegsz: ULong,
+    val shmFlags: UintptrT,
+    val shmLkcnt: CUShort,
+    val shmLpid: PidT,
+    val shmCpid: PidT,
+    val shmNattch: ShmattT,
+    val shmCnattch: CULong,
+    val shmAtime: TimeT,
+    val shmDtime: TimeT,
+    val shmCtime: TimeT,
+    val shmAmp: COpaquePointer?,
+    val shmGransize: ULong,
+    val shmAllocated: ULong,
+    val shmPad4: LongArray,
+)
 
 public data class XrsT(
     val xrsId: CULong,
     val xrsPtr: String?,
+)
+
+public data class Utmpx(
+    val utUser: ByteArray,
+    val utId: ByteArray,
+    val utLine: ByteArray,
+    val utPid: PidT,
+    val utType: CShort,
+    val utExit: ExitStatus,
+    val utTv: Timeval,
+    val utSession: CInt,
+    val pad: IntArray,
+    val utSyslen: CShort,
+    val utHost: ByteArray,
 )
 
 public data class DoorDescTDDataDDesc(

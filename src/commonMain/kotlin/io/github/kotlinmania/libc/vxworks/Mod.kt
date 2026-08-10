@@ -179,6 +179,14 @@ public data class SchedParam(
     val schedSsMaxRepl: CInt,
 )
 
+public data class SchedParam(
+    val schedPriority: CInt,
+    val schedSsLowPriority: CInt,
+    val schedSsReplPeriod: Timespec,
+    val schedSsInitBudget: Timespec,
+    val schedSsMaxRepl: CInt,
+)
+
 public data class PthreadAttrT(
     val threadAttrStatus: CInt,
     val threadAttrStacksize: ULong,
@@ -243,6 +251,11 @@ public data class PthreadMutexT(
     val mutexSavPriority: CInt,
     val mutexAttr: PthreadMutexattrT,
     val mutexSemName: ByteArray,
+)
+
+public data class Timespec(
+    val tvSec: TimeT,
+    val tvNsec: CLong,
 )
 
 public data class Tm(
@@ -495,9 +508,9 @@ public const val CLOCK_PROCESS_CPUTIME_ID: CInt = 0x2
 public const val CLOCK_THREAD_CPUTIME_ID: CInt = 0x3
 public const val TIMER_ABSTIME: CInt = 0x1
 public const val TIMER_RELTIME: CInt = 0x0
-public const val PTHREAD_INITIALIZED_OBJ: CInt = -150368017
+public const val PTHREAD_INITIALIZED_OBJ: CInt = 0xF70990EF.toInt()
 public const val PTHREAD_DESTROYED_OBJ: CInt = -1
-public const val PTHREAD_VALID_OBJ: CInt = -330028489
+public const val PTHREAD_VALID_OBJ: CInt = 0xEC542A37.toInt()
 public const val PTHREAD_INVALID_OBJ: CInt = -1
 public const val PTHREAD_UNUSED_YET_OBJ: CInt = -1
 public const val PTHREAD_PRIO_NONE: CInt = 0
@@ -652,8 +665,8 @@ public val S_nfsLib_NFSERR_BAD_COOKIE: CInt = M_nfsStat.or(NFSERR_BAD_COOKIE).to
 public const val S_nfsLib_NFSERR_NOTSUPP: CInt = EOPNOTSUPP
 public val S_nfsLib_NFSERR_TOOSMALL: CInt = M_nfsStat.or(NFSERR_TOOSMALL).toInt()
 public const val S_nfsLib_NFSERR_SERVERFAULT: CInt = EIO
-public val S_nfsLib_NFSERR_BADTYPE: CInt = M_nfsStat.or(NFSERR_BADTYPE).toInt()
-public val S_nfsLib_NFSERR_JUKEBOX: CInt = M_nfsStat.or(NFSERR_JUKEBOX).toInt()
+public val S_nfsLib_NFSERR_BADTYPE: CInt = M_nfsStat or NFSERR_BADTYPE.toInt()
+public val S_nfsLib_NFSERR_JUKEBOX: CInt = M_nfsStat or NFSERR_JUKEBOX.toInt()
 public val S_taskLib_NAME_NOT_FOUND: CInt = taskErrorBase + 0x0065
 public val S_taskLib_TASK_HOOK_TABLE_FULL: CInt = taskErrorBase + 0x0066
 public val S_taskLib_TASK_HOOK_NOT_FOUND: CInt = taskErrorBase + 0x0067

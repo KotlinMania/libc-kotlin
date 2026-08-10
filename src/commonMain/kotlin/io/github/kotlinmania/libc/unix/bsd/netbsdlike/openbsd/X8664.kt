@@ -4,6 +4,38 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 import io.github.kotlinmania.libc.*
 
 
+public data class Sigcontext(
+    val scRdi: CLong,
+    val scRsi: CLong,
+    val scRdx: CLong,
+    val scRcx: CLong,
+    val scR8: CLong,
+    val scR9: CLong,
+    val scR10: CLong,
+    val scR11: CLong,
+    val scR12: CLong,
+    val scR13: CLong,
+    val scR14: CLong,
+    val scR15: CLong,
+    val scRbp: CLong,
+    val scRbx: CLong,
+    val scRax: CLong,
+    val scGs: CLong,
+    val scFs: CLong,
+    val scEs: CLong,
+    val scDs: CLong,
+    val scTrapno: CLong,
+    val scErr: CLong,
+    val scRip: CLong,
+    val scCs: CLong,
+    val scRflags: CLong,
+    val scRsp: CLong,
+    val scSs: CLong,
+    val scFpstate: Fxsave64?,
+    val scMask: CInt,
+    val scCookie: CLong,
+)
+
 public data class Fxsave64(
     val fxFcw: UShort,
     val fxFsw: UShort,

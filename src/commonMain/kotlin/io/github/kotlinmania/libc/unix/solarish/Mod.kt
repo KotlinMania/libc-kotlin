@@ -4,6 +4,11 @@ import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
+internal val _TIOC: CInt = 0x5400
+internal val tIOC: CInt = 0x7400
+internal val STR: CInt = 0x5300
+internal val _IOC: CULong = 0x54000000uL
+
 public typealias CaddrT = String?
 public typealias ClockidT = CInt
 public typealias BlkcntT = CLong
@@ -617,9 +622,9 @@ public const val SS_DISABLE: CInt = 2
 public const val FIOCLEX: CInt = 0x20006601
 public const val FIONCLEX: CInt = 0x20006602
 public const val FIONREAD: CInt = 0x4004667f
-public const val FIONBIO: CInt = -2147195266
-public const val FIOASYNC: CInt = -2147195267
-public const val FIOSETOWN: CInt = -2147195268
+public const val FIONBIO: CInt = 0x8004667e.toInt()
+public const val FIOASYNC: CInt = 0x8004667d.toInt()
+public const val FIOSETOWN: CInt = 0x8004667c.toInt()
 public const val FIOGETOWN: CInt = 0x4004667b
 public const val SIGCHLD: CInt = 18
 public const val SIGCLD: CInt = SIGCHLD
@@ -788,7 +793,7 @@ public const val WTRAPPED: CInt = 0x02
 public const val WSTOPPED: CInt = WUNTRACED
 public const val WCONTINUED: CInt = 0x08
 public const val WNOWAIT: CInt = 0x80
-public const val AT_FDCWD: CInt = -3041965
+public const val AT_FDCWD: CInt = 0xffd19553.toInt()
 public const val AT_SYMLINK_NOFOLLOW: CInt = 0x1000
 public const val AT_SYMLINK_FOLLOW: CInt = 0x2000
 public const val AT_REMOVEDIR: CInt = 0x1
@@ -1234,7 +1239,7 @@ public const val IFF_NOFAILOVER: CInt = 0x0008000000
 public const val IFF_FAILED: CInt = 0x0010000000
 public const val IFF_STANDBY: CInt = 0x0020000000
 public const val IFF_INACTIVE: CInt = 0x0040000000
-public const val IFF_OFFLINE: CInt = -2147483648
+public const val IFF_OFFLINE: CInt = 0x0080000000.toInt()
 public const val IFF_COS_ENABLED: CLongLong = 0x0200000000
 public const val IFF_PREFERRED: CLongLong = 0x0400000000
 public const val IFF_TEMPORARY: CLongLong = 0x0800000000
@@ -1793,9 +1798,9 @@ public const val SI_ARCHITECTURE_64: CInt = 517
 public const val SI_ARCHITECTURE_K: CInt = 518
 public const val SI_ARCHITECTURE_NATIVE: CInt = 519
 public const val LGRP_COOKIE_NONE: LgrpCookieT = 0uL
-public const val LGRP_AFF_NONE: LgrpAffinityT = 0x0
-public const val LGRP_AFF_WEAK: LgrpAffinityT = 0x10
-public const val LGRP_AFF_STRONG: LgrpAffinityT = 0x100
+public const val LGRP_AFF_NONE: LgrpAffinityT = 0x0.toInt()
+public const val LGRP_AFF_WEAK: LgrpAffinityT = 0x10.toInt()
+public const val LGRP_AFF_STRONG: LgrpAffinityT = 0x100.toInt()
 public const val LGRP_CONTENT_ALL: LgrpContentT = 0u
 public const val LGRP_CONTENT_HIERARCHY: LgrpContentT = LGRP_CONTENT_ALL
 public const val LGRP_CONTENT_DIRECT: LgrpContentT = 1u

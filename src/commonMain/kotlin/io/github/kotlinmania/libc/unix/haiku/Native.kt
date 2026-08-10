@@ -3,6 +3,9 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 
+internal fun haikuConstant(a: Char, b: Char, c: Char, d: Char): UInt =
+    ((a.code.toUInt() shl 24) + (b.code.toUInt() shl 16) + (c.code.toUInt() shl 8) + d.code.toUInt())
+
 public typealias StatusT = Int
 public typealias BigtimeT = Long
 public typealias NanotimeT = Long
@@ -454,11 +457,11 @@ public const val B_CLONE_ADDRESS: UInt = 3u
 public const val B_ANY_KERNEL_ADDRESS: UInt = 4u
 public const val B_RANDOMIZED_ANY_ADDRESS: UInt = 6u
 public const val B_RANDOMIZED_BASE_ADDRESS: UInt = 7u
-public val B_READ_AREA: UInt = 1.toUInt() shl 0
-public val B_WRITE_AREA: UInt = 1.toUInt() shl 1
-public val B_EXECUTE_AREA: UInt = 1.toUInt() shl 2
-public val B_STACK_AREA: UInt = 1.toUInt() shl 3
-public val B_CLONEABLE_AREA: UInt = 1.toUInt() shl 8
+public val B_READ_AREA: UInt = 1u shl 0
+public val B_WRITE_AREA: UInt = 1u shl 1
+public val B_EXECUTE_AREA: UInt = 1u shl 2
+public val B_STACK_AREA: UInt = 1u shl 3
+public val B_CLONEABLE_AREA: UInt = 1u shl 8
 public const val B_CAN_INTERRUPT: UInt = 0x01u
 public const val B_CHECK_PERMISSION: UInt = 0x04u
 public const val B_KILL_CAN_INTERRUPT: UInt = 0x20u

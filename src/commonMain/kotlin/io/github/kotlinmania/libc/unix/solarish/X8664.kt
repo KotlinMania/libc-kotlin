@@ -42,6 +42,17 @@ public data class CAnonymousElf64Phdr(
     val pAlign: Elf64Xword,
 )
 
+public data class DlPhdrInfo(
+    val dlpiAddr: Elf64Addr,
+    val dlpiName: String?,
+    val dlpiPhdr: Elf64Phdr?,
+    val dlpiPhnum: Elf64Half,
+    val dlpiAdds: CULongLong,
+    val dlpiSubs: CULongLong,
+    val dlpiTlsModid: CULong,
+    val dlpiTlsData: COpaquePointer?,
+)
+
 public data class FpregsetT(
     val fpRegSet: CAnonymousFpRegSet,
 )

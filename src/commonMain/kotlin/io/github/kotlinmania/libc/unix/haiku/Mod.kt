@@ -973,7 +973,7 @@ public const val _SC_THREAD_KEYS_MAX: CInt = 140
 public const val _SC_THREAD_THREADS_MAX: CInt = 141
 public const val _SC_RE_DUP_MAX: CInt = 142
 public const val PTHREAD_STACK_MIN: ULong = 8192uL
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0.toUInt(), lock = 0, owner = -1, ownerCount = 0)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0u, lock = 0, owner = -1, ownerCount = 0)
 
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { flags: 0, unused: Padding::uninit(), mutex: 0 as *mut _, waiter_count: 0, lock: 0, } (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { flags: 0, owner: -1, lock_sem: 0, lock_count: 0, reader_count: 0, writer_count: 0, waiters: [0 as *mut _ (initializer represented at the FFI boundary)
@@ -1029,9 +1029,9 @@ public const val CLD_DUMPED: CInt = 62
 public const val CLD_TRAPPED: CInt = 63
 public const val CLD_STOPPED: CInt = 64
 public const val CLD_CONTINUED: CInt = 65
-public const val P_ALL: IdtypeT = 0
-public const val P_PID: IdtypeT = 1
-public const val P_PGID: IdtypeT = 2
+public const val P_ALL: IdtypeT = 0.toInt()
+public const val P_PID: IdtypeT = 1.toInt()
+public const val P_PGID: IdtypeT = 2.toInt()
 public const val UTIME_OMIT: CLong = 1000000001
 public const val UTIME_NOW: CLong = 1000000000
 public const val VINTR: ULong = 0uL
