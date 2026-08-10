@@ -715,7 +715,7 @@ public data class MaxAlignT(
     val ld: ByteArray,
 )
 
-public val _SYSNAME_SIZE: ULong = 256uL + 1
+public val _SYSNAME_SIZE: ULong = 256uL + 1uL
 public const val RLIM_INFINITY: RlimT = 0xfffffffffffffffduL
 public const val O_LARGEFILE: CInt = 32768
 public const val EXIT_FAILURE: CInt = 1
@@ -1602,7 +1602,7 @@ public const val DEAD_PROCESS: CShort = 8
 public const val ACCOUNTING: CShort = 9
 public const val ENOTSUP: CInt = 48
 public const val BUFSIZ: CUInt = 1024u
-public val TMP_MAX: CUInt = 26u * 26 * 26
+public val TMP_MAX: CUInt = 26u * 26u * 26u
 public const val FOPEN_MAX: CUInt = 16u
 public const val FILENAME_MAX: CUInt = 255u
 public const val NI_MAXHOST: SocklenT = 1025u
@@ -2006,7 +2006,7 @@ public const val _SS_MAXSIZE: ULong = 128uL
 
 public fun _ALIGN(p: ULong, b: ULong): ULong = (p + b - 1uL) and (b - 1uL).inv()
 
-public val _SS_PAD1SIZE: ULong = _SS_ALIGNSIZE - 2
+public val _SS_PAD1SIZE: ULong = _SS_ALIGNSIZE - 2uL
 public val _SS_PAD2SIZE: ULong = _SS_MAXSIZE - 2u - _SS_PAD1SIZE - _SS_ALIGNSIZE
 public val TC_CPOSIX: TcflagT = CLOCAL or CREAD or CSIZE or CSTOPB or HUPCL or PARENB or PARODD
 public const val TCGETS: CInt = 0x404c540d
@@ -2101,7 +2101,7 @@ public const val PTHREAD_PROCESS_SHARED: CInt = 0x01
 public const val PTHREAD_KEYS_MAX: ULong = 128uL
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000u, owner = 0xffffffffu)
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffbu)
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = -2.toUInt(), spare = 0u)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = 0xFFFFFFFEu, spare = 0u)
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?

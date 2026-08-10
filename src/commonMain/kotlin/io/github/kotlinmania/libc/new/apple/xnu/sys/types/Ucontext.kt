@@ -11,5 +11,5 @@ public data class DarwinUcontext(
     val ucStack: StackT,
     val ucLink: UcontextT?,
     val ucMcsize: ULong,
-    val ucMcontext: McontextT,
+    val ucMcontext: COpaquePointer?,
 )
