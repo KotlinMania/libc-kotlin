@@ -4,10 +4,10 @@ import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
-internal val _TIOC: CInt = 0x5400
-internal val tIOC: CInt = 0x7400
-internal val STR: CInt = 0x5300
-internal val _IOC: CULong = 0x54000000uL
+internal const val _TIOC: CInt = 0x5400
+internal const val tIOC: CInt = 0x7400
+internal const val STR: CInt = 0x5300
+internal const val _IOC: CULong = 0x54000000uL
 
 public typealias CaddrT = String?
 public typealias ClockidT = CInt
@@ -1494,9 +1494,6 @@ public const val USER_PROCESS: CShort = 7
 public const val DEAD_PROCESS: CShort = 8
 public const val ACCOUNTING: CShort = 9
 public const val DOWN_TIME: CShort = 10
-internal const val _TIOC: CInt = ('T'.code shl 8)
-internal const val tIOC: CInt = ('t'.code shl 8)
-internal const val STR: CInt = ('S'.code shl 8)
 public val TCGETA: CInt = _TIOC or 1
 public val TCSETA: CInt = _TIOC or 2
 public val TCSETAW: CInt = _TIOC or 3

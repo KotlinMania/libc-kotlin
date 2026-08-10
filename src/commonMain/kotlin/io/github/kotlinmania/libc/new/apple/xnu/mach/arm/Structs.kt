@@ -24,7 +24,3 @@ public data class DarwinArmNeonState64(
     val fpsr: UInt,
     val fpcr: UInt,
 )
-
-public data class DarwinArmNeonState64(
-    val opaque: ByteArray,
-)

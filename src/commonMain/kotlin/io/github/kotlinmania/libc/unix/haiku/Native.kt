@@ -12,8 +12,6 @@ public typealias NanotimeT = Long
 public typealias TypeCode = UInt
 public typealias PerformCode = UInt
 
-internal fun haikuConstant(a: Char, b: Char, c: Char, d: Char): UInt =
-    ((a.code.toUInt() shl 24) + (b.code.toUInt() shl 16) + (c.code.toUInt() shl 8) + d.code.toUInt())
 public typealias AreaId = Int
 public typealias PortId = Int
 public typealias SemId = Int

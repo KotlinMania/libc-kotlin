@@ -55,6 +55,3 @@ public data class IpcPerm(
     val mode: ModeT,
     val seq: CUShort,
 )
-
-public const val MINSIGSTKSZ: ULong = 6144uL
-public const val SIGSTKSZ: ULong = 12288uL

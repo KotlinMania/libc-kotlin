@@ -10,9 +10,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.O_CLOEXEC
 import io.github.kotlinmania.libc.unix.linuxlike.O_EXCL
 import io.github.kotlinmania.libc.unix.linuxlike._IO
 import io.github.kotlinmania.libc.unix.linuxlike.ioctlCode
-import io.github.kotlinmania.libc.unix.linuxlike.ioReadCode
-import io.github.kotlinmania.libc.unix.linuxlike.ioWriteCode
-import io.github.kotlinmania.libc.unix.linuxlike.ioReadWriteCode
 import io.github.kotlinmania.libc.unix.linuxlike.T_TYPE
 import io.github.kotlinmania.libc.unix.linuxlike.cmsgAlign
 
@@ -1290,10 +1287,11 @@ public const val SYNC_FILE_RANGE_WAIT_AFTER: CUInt = 4u
 public const val MREMAP_MAYMOVE: CInt = 1
 public const val MREMAP_FIXED: CInt = 2
 public const val MREMAP_DONTUNMAP: CInt = 4
-public val NS_GET_USERNS: Ioctl = _IO(NSIO, 0x1)
-public val NS_GET_PARENT: Ioctl = _IO(NSIO, 0x2)
-public val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3)
-public val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4)
+internal const val NSIO: UInt = 0xb7u
+public val NS_GET_USERNS: Ioctl = _IO(NSIO, 0x1u)
+public val NS_GET_PARENT: Ioctl = _IO(NSIO, 0x2u)
+public val NS_GET_NSTYPE: Ioctl = _IO(NSIO, 0x3u)
+public val NS_GET_OWNER_UID: Ioctl = _IO(NSIO, 0x4u)
 
 // NS_GET_MNTNS_ID = _IOR(NSIO, 0x5, __u64) (ioctl request code; computed at the FFI boundary)
 public val NS_GET_PID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x6)

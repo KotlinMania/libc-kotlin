@@ -7,6 +7,7 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_REALTIME_FAST
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_MONOTONIC_FAST
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RLIM_INFINITY
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RlimT
+import io.github.kotlinmania.libc.unix.bsd.PATH_MAX
 
 internal fun capRight(idx: Int, bit: ULong): ULong =
     (1uL shl (57 + idx)) or bit
@@ -1387,7 +1388,6 @@ public const val LIO_WRITEV: CInt = 5
 public const val LIO_READV: CInt = 6
 public const val CAP_RIGHTS_VERSION_00: Int = 0
 
-internal fun capRight(idx: Int, bit: ULong): ULong = (1uL shl (57 + idx)) or bit
 public const val CAP_RIGHTS_VERSION: Int = CAP_RIGHTS_VERSION_00
 public val CAP_READ: ULong = capRight(0, 0x0000000000000001uL)
 public val CAP_WRITE: ULong = capRight(0, 0x0000000000000002uL)
