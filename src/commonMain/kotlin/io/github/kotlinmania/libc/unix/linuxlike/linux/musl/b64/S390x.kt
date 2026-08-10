@@ -5,50 +5,7 @@ import io.github.kotlinmania.libc.*
 
 public typealias GregT = ULong
 
-public data class IpcPerm(
-    val key: KeyT,
-    val ipcPermKey: KeyT,
-    val uid: UidT,
-    val gid: GidT,
-    val cuid: UidT,
-    val cgid: GidT,
-    val mode: ModeT,
-    val seq: CInt,
-)
-
-public data class Stat(
-    val stDev: DevT,
-    val stIno: InoT,
-    val stNlink: NlinkT,
-    val stMode: ModeT,
-    val stUid: UidT,
-    val stGid: GidT,
-    val stRdev: DevT,
-    val stSize: OffT,
-    val stAtime: TimeT,
-    val stAtimeNsec: CLong,
-    val stMtime: TimeT,
-    val stMtimeNsec: CLong,
-    val stCtime: TimeT,
-    val stCtimeNsec: CLong,
-    val stBlksize: BlksizeT,
-    val stBlocks: BlkcntT,
-)
-
-public data class Statfs(
-    val fType: CUInt,
-    val fBsize: CUInt,
-    val fBlocks: FsblkcntT,
-    val fBfree: FsblkcntT,
-    val fBavail: FsblkcntT,
-    val fFiles: FsfilcntT,
-    val fFfree: FsfilcntT,
-    val fFsid: FsidT,
-    val fNamelen: CUInt,
-    val fFrsize: CUInt,
-    val fFlags: CUInt,
-    val fSpare: UIntArray,
-)
+// IpcPerm, Stat, Statfs are defined in Mips64.kt (first definitions in this package).
 
 public data class PswT(
     val mask: CULong,

@@ -179,14 +179,6 @@ public data class SchedParam(
     val schedSsMaxRepl: CInt,
 )
 
-public data class SchedParam(
-    val schedPriority: CInt,
-    val schedSsLowPriority: CInt,
-    val schedSsReplPeriod: Timespec,
-    val schedSsInitBudget: Timespec,
-    val schedSsMaxRepl: CInt,
-)
-
 public data class PthreadAttrT(
     val threadAttrStatus: CInt,
     val threadAttrStacksize: ULong,
@@ -251,11 +243,6 @@ public data class PthreadMutexT(
     val mutexSavPriority: CInt,
     val mutexAttr: PthreadMutexattrT,
     val mutexSemName: ByteArray,
-)
-
-public data class Timespec(
-    val tvSec: TimeT,
-    val tvNsec: CLong,
 )
 
 public data class Tm(

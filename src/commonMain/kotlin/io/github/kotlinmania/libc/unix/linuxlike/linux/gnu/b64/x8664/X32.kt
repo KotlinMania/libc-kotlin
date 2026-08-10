@@ -3,19 +3,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664
 
 import io.github.kotlinmania.libc.*
 
-public data class Statvfs(
-    val fBsize: CULong,
-    val fFrsize: CULong,
-    val fBlocks: FsblkcntT,
-    val fBfree: FsblkcntT,
-    val fBavail: FsblkcntT,
-    val fFiles: FsfilcntT,
-    val fFfree: FsfilcntT,
-    val fFavail: FsfilcntT,
-    val fFsid: CULong,
-    val fFlag: CULong,
-    val fNamemax: CULong,
-    val fSpare: IntArray,
-)
+// Statvfs is defined in NotX32.kt (first definition in this package).
 
 public const val __X32_SYSCALL_BIT: CLong = 0x40000000

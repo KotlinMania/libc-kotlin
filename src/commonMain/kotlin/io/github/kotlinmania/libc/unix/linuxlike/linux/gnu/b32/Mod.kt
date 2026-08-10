@@ -128,39 +128,7 @@ public data class Timex(
     val unused11: Int,
 )
 
-public data class Timex(
-    val modes: CUInt,
-    val offset: CLong,
-    val freq: CLong,
-    val maxerror: CLong,
-    val esterror: CLong,
-    val status: CInt,
-    val constant: CLong,
-    val precision: CLong,
-    val tolerance: CLong,
-    val time: Timeval,
-    val tick: CLong,
-    val ppsfreq: CLong,
-    val jitter: CLong,
-    val shift: CInt,
-    val stabil: CLong,
-    val jitcnt: CLong,
-    val calcnt: CLong,
-    val errcnt: CLong,
-    val stbcnt: CLong,
-    val tai: CInt,
-    val unused1: Int,
-    val unused2: Int,
-    val unused3: Int,
-    val unused4: Int,
-    val unused5: Int,
-    val unused6: Int,
-    val unused7: Int,
-    val unused8: Int,
-    val unused9: Int,
-    val unused10: Int,
-    val unused11: Int,
-)
+
 
 public const val POSIX_FADV_DONTNEED: CInt = 4
 public const val POSIX_FADV_NOREUSE: CInt = 5
