@@ -21,3 +21,5 @@ public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
 
 public actual fun strlen(cs: String?): ULong =
     if (cs != null) strlen(cs) else 0uL
+public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
+    realloc(p, size)
