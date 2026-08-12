@@ -3961,11 +3961,6 @@ public fun taskTerminate(targetTask: TaskT): KernReturnT = 0
 public fun taskThreads(targetTask: TaskInspectT, actList: ThreadActArrayT, actListCnt: MachMsgTypeNumberT?): KernReturnT = 0
 
 public fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: MachMsgTypeNumberT?): KernReturnT = 0
-
-public external fun sysdirStartSearchPathEnumeration(dir: SysdirSearchPathDirectoryT, domainMask: SysdirSearchPathDomainMaskT): SysdirSearchPathEnumerationState
-
-public external fun sysdirGetNextSearchPathEnumeration(state: SysdirSearchPathEnumerationState, path: COpaquePointer?): SysdirSearchPathEnumerationState
-
 public fun getattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt = -1
 
 public fun fgetattrlist(fd: CInt, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt = -1
