@@ -13,14 +13,20 @@ package io.github.kotlinmania.libc
 /**
  * Opaque pointer to arbitrary C memory, equivalent to C's `void*`.
  * In kotlinx.cinterop this type exists natively; here it is modeled as an
- * opaque class so the same signatures compile on all Kotlin targets.
+ * opaque class with an optional address value so the same signatures compile
+ * on all Kotlin targets.
+ *
+ * On JS/WASM, the [value] field holds the numeric pointer returned by the
+ * N-API addon. On native targets using cinterop, this class is not used
+ * (kotlinx.cinterop.COpaquePointer is used instead).
  */
-public class COpaquePointer
+public class COpaquePointer(public val value: Long = 0L)
 
 /**
  * Opaque C stdio file handle (`FILE*` in C).
+ * On JS/WASM, [handle] holds the numeric FILE pointer from N-API.
  */
-public class FILE
+public class FILE(public val handle: Int = -1)
 
 /**
  * Opaque C directory stream handle (`DIR*` in C).
