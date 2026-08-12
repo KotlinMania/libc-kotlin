@@ -355,6 +355,15 @@ val jvmToolchainVersion = providers.gradleProperty("jvm.toolchain").getOrElse("2
 kotlin {
     jvmToolchain(jvmToolchainVersion)
 
+    // Configure cinterop for all native targets — imports real C library headers
+    targets.withType<KotlinNativeTarget>().configureEach {
+        compilations.getByName("main") {
+            cinterops.create("libc") {
+                defFile = project.file("src/nativeInterop/cinterop/libc.def")
+            }
+        }
+    }
+
     applyDefaultHierarchyTemplate()
 
     compilerOptions {
