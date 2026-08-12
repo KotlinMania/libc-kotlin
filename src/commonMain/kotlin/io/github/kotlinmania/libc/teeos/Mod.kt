@@ -504,290 +504,290 @@ public const val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 public const val PTHREAD_MUTEX_STALLED: CInt = 0
 public const val PTHREAD_MUTEX_ROBUST: CInt = 1
 
-public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer?
+public fun calloc(nobj: ULong, size: ULong): COpaquePointer? = null
 
-public expect fun malloc(size: ULong): COpaquePointer?
+public fun malloc(size: ULong): COpaquePointer? = null
 
-public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
+public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
 
-public expect fun alignedAlloc(align: ULong, len: ULong): COpaquePointer?
+public fun alignedAlloc(align: ULong, len: ULong): COpaquePointer? = null
 
-public expect fun free(p: COpaquePointer?)
+public fun free(p: COpaquePointer?) { }
 
-public expect fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt
+public fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt = -1
 
-public expect fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+public fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
 
-public expect fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT?
+public fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT? = null
 
-public expect fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt
+public fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt = -1
 
-public expect fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
+public fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? = null
 
-public expect fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
+public fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? = null
 
-public expect fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+public fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
 
-public expect fun pthreadSelf(): PthreadT
+public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt
+public fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt = -1
 
-public expect fun pthreadExit(value: COpaquePointer?): Nothing
+public fun pthreadExit(value: COpaquePointer?): Nothing { throw UnsupportedOperationException() }
 
-public expect fun pthreadAttrInit(attr: PthreadAttrT?): CInt
+public fun pthreadAttrInit(attr: PthreadAttrT?): CInt = -1
 
-public expect fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt
+public fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt = -1
 
-public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+public fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt = -1
 
-public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stackSize: ULong): CInt
+public fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stackSize: ULong): CInt = -1
 
-public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT?, size: ULong?): CInt
+public fun pthreadAttrGetstacksize(attr: PthreadAttrT?, size: ULong?): CInt = -1
 
-public expect fun pthreadAttrSettee(attr: PthreadAttrT?, ca: CInt, taskId: CInt, shadow: CInt): CInt
+public fun pthreadAttrSettee(attr: PthreadAttrT?, ca: CInt, taskId: CInt, shadow: CInt): CInt = -1
 
-public expect fun schedYield(): CInt
+public fun schedYield(): CInt = -1
 
-public expect fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt
+public fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt = -1
 
-public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
+public fun pthreadKeyDelete(key: PthreadKeyT): CInt = -1
 
-public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer?
+public fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? = null
 
-public expect fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt
+public fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt = -1
 
-public expect fun pthreadMutexDestroy(lock: PthreadMutexT?): CInt
+public fun pthreadMutexDestroy(lock: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexInit(lock: PthreadMutexT?, attr: PthreadMutexattrT?): CInt
+public fun pthreadMutexInit(lock: PthreadMutexT?, attr: PthreadMutexattrT?): CInt = -1
 
-public expect fun pthreadMutexLock(lock: PthreadMutexT?): CInt
+public fun pthreadMutexLock(lock: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexTrylock(lock: PthreadMutexT?): CInt
+public fun pthreadMutexTrylock(lock: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexUnlock(lock: PthreadMutexT?): CInt
+public fun pthreadMutexUnlock(lock: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexattrDestroy(attr: PthreadMutexattrT?): CInt
+public fun pthreadMutexattrDestroy(attr: PthreadMutexattrT?): CInt = -1
 
-public expect fun pthreadMutexattrInit(attr: PthreadMutexattrT?): CInt
+public fun pthreadMutexattrInit(attr: PthreadMutexattrT?): CInt = -1
 
-public expect fun pthreadMutexattrSettype(attr: PthreadMutexattrT?, type: CInt): CInt
+public fun pthreadMutexattrSettype(attr: PthreadMutexattrT?, type: CInt): CInt = -1
 
-public expect fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT?, pshared: CInt): CInt
+public fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT?, pshared: CInt): CInt = -1
 
-public expect fun pthreadCondBroadcast(cond: PthreadCondT?): CInt
+public fun pthreadCondBroadcast(cond: PthreadCondT?): CInt = -1
 
-public expect fun pthreadCondDestroy(cond: PthreadCondT?): CInt
+public fun pthreadCondDestroy(cond: PthreadCondT?): CInt = -1
 
-public expect fun pthreadCondInit(cond: PthreadCondT?, attr: PthreadCondattrT?): CInt
+public fun pthreadCondInit(cond: PthreadCondT?, attr: PthreadCondattrT?): CInt = -1
 
-public expect fun pthreadCondSignal(cond: PthreadCondT?): CInt
+public fun pthreadCondSignal(cond: PthreadCondT?): CInt = -1
 
-public expect fun pthreadCondWait(cond: PthreadCondT?, lock: PthreadMutexT?): CInt
+public fun pthreadCondWait(cond: PthreadCondT?, lock: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadCondTimedwait(cond: PthreadCondT?, lock: PthreadMutexT?, abstime: Timespec?): CInt
+public fun pthreadCondTimedwait(cond: PthreadCondT?, lock: PthreadMutexT?, abstime: Timespec?): CInt = -1
 
-public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robustness: CInt): CInt
+public fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robustness: CInt): CInt = -1
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
 
-public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
+public fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt = -1
 
-public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt
+public fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt = -1
 
-public expect fun pthreadOnce(pot: PthreadOnceT?, f: OnceFn): CInt
+public fun pthreadOnce(pot: PthreadOnceT?, f: OnceFn): CInt = -1
 
-public expect fun pthreadEqual(p1: PthreadT, p2: PthreadT): CInt
+public fun pthreadEqual(p1: PthreadT, p2: PthreadT): CInt = -1
 
-public expect fun pthreadMutexattrSetprotocol(a: PthreadMutexattrT?, protocol: CInt): CInt
+public fun pthreadMutexattrSetprotocol(a: PthreadMutexattrT?, protocol: CInt): CInt = -1
 
-public expect fun pthreadAttrSetstack(attr: PthreadAttrT?, stack: COpaquePointer?, size: ULong): CInt
+public fun pthreadAttrSetstack(attr: PthreadAttrT?, stack: COpaquePointer?, size: ULong): CInt = -1
 
-public expect fun pthreadSetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?): CInt
+public fun pthreadSetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?): CInt = -1
 
-public expect fun pthreadGetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?): CInt
+public fun pthreadGetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?): CInt = -1
 
-public expect fun printf(fmt: String?, vararg args: Any?): CInt
+public fun printf(fmt: String?, vararg args: Any?): CInt = -1
 
-public expect fun scanf(fmt: String?, vararg args: Any?): CInt
+public fun scanf(fmt: String?, vararg args: Any?): CInt = -1
 
-public expect fun snprintf(s: String?, n: ULong, fmt: String?, vararg args: Any?): CInt
+public fun snprintf(s: String?, n: ULong, fmt: String?, vararg args: Any?): CInt = -1
 
-public expect fun sprintf(s: String?, fmt: String?, vararg args: Any?): CInt
+public fun sprintf(s: String?, fmt: String?, vararg args: Any?): CInt = -1
 
-public expect fun vsnprintf(s: String?, n: ULong, fmt: String?, ap: VaList): CInt
+public fun vsnprintf(s: String?, n: ULong, fmt: String?, ap: VaList): CInt = -1
 
-public expect fun vsprintf(s: String?, fmt: String?, ap: VaList): CInt
+public fun vsprintf(s: String?, fmt: String?, ap: VaList): CInt = -1
 
-public expect fun abort(): Nothing
+public fun abort(): Nothing { throw UnsupportedOperationException() }
 
-public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+public fun schedGetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
 
-public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+public fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
 
-public expect fun sysconf(name: CInt): CLong
+public fun sysconf(name: CInt): CLong = -1L
 
-public expect fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer?
+public fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? = null
 
-public expect fun munmap(addr: COpaquePointer?, len: ULong): CInt
+public fun munmap(addr: COpaquePointer?, len: ULong): CInt = -1
 
-public expect fun errnoLocation(): CInt?
+public fun errnoLocation(): CInt? = null
 
-public expect fun strerror(e: CInt): String?
+public fun strerror(e: CInt): String? = null
 
-public expect fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt
+public fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt = -1
 
-public expect fun getpid(): PidT
+public fun getpid(): PidT = -1
 
-public expect fun gettimeofday(tv: Timeval?, tz: COpaquePointer?): CInt
+public fun gettimeofday(tv: Timeval?, tz: COpaquePointer?): CInt = -1
 
-public expect fun strftime(s: String?, sz: ULong, format: String?, tm: Tm?): ULong
+public fun strftime(s: String?, sz: ULong, format: String?, tm: Tm?): ULong = 0uL
 
-public expect fun time(t: TimeT?): TimeT
+public fun time(t: TimeT?): TimeT = -1L
 
-public expect fun semClose(sem: SemT?): CInt
+public fun semClose(sem: SemT?): CInt = -1
 
-public expect fun semDestroy(sem: SemT?): CInt
+public fun semDestroy(sem: SemT?): CInt = -1
 
-public expect fun semGetvalue(sem: SemT?, valp: CInt?): CInt
+public fun semGetvalue(sem: SemT?, valp: CInt?): CInt = -1
 
-public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
+public fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt = -1
 
-public expect fun semOpen(name: String?, flags: CInt, vararg args: Any?): SemT?
+public fun semOpen(name: String?, flags: CInt, vararg args: Any?): SemT? = null
 
-public expect fun semPost(sem: SemT?): CInt
+public fun semPost(sem: SemT?): CInt = -1
 
-public expect fun semUnlink(name: String?): CInt
+public fun semUnlink(name: String?): CInt = -1
 
-public expect fun semWait(sem: SemT?): CInt
+public fun semWait(sem: SemT?): CInt = -1
 
-public expect fun setlocale(cat: CInt, name: String?): String?
+public fun setlocale(cat: CInt, name: String?): String? = null
 
-public expect fun strcoll(l: String?, r: String?): CInt
+public fun strcoll(l: String?, r: String?): CInt = -1
 
-public expect fun strxfrm(dest: String?, src: String?, n: ULong): ULong
+public fun strxfrm(dest: String?, src: String?, n: ULong): ULong = 0uL
 
-public expect fun strtod(s: String?, p: COpaquePointer?): CDouble
+public fun strtod(s: String?, p: COpaquePointer?): CDouble = 0.0
 
-public expect fun mbrtowc(wc: WcharT?, src: String?, n: ULong, st: MbstateT?): ULong
+public fun mbrtowc(wc: WcharT?, src: String?, n: ULong, st: MbstateT?): ULong = 0uL
 
-public expect fun wcrtomb(s: String?, wc: WcharT, st: MbstateT?): ULong
+public fun wcrtomb(s: String?, wc: WcharT, st: MbstateT?): ULong = 0uL
 
-public expect fun wctob(c: WintT): CInt
+public fun wctob(c: WintT): CInt = -1
 
-public expect fun srandom(seed: CUInt)
+public fun srandom(seed: CUInt) { }
 
-public expect fun initstate(seed: CUInt, state: String?, size: ULong): String?
+public fun initstate(seed: CUInt, state: String?, size: ULong): String? = null
 
-public expect fun setstate(state: String?): String?
+public fun setstate(state: String?): String? = null
 
-public expect fun random(): CLong
+public fun random(): CLong = -1L
 
-public expect fun strchr(s: String?, c: CInt): String?
+public fun strchr(s: String?, c: CInt): String? = null
 
-public expect fun strlen(cs: String?): ULong
+public fun strlen(cs: String?): ULong = 0uL
 
-public expect fun strcmp(l: String?, r: String?): CInt
+public fun strcmp(l: String?, r: String?): CInt = -1
 
-public expect fun strcpy(dest: String?, src: String?): String?
+public fun strcpy(dest: String?, src: String?): String? = null
 
-public expect fun strncmp(l: String?, r: String?, n: ULong): CInt
+public fun strncmp(l: String?, r: String?, n: ULong): CInt = -1
 
-public expect fun strncpy(dest: String?, src: String?, n: ULong): String?
+public fun strncpy(dest: String?, src: String?, n: ULong): String? = null
 
-public expect fun strnlen(cs: String?, n: ULong): ULong
+public fun strnlen(cs: String?, n: ULong): ULong = 0uL
 
-public expect fun strrchr(s: String?, c: CInt): String?
+public fun strrchr(s: String?, c: CInt): String? = null
 
-public expect fun strstr(h: String?, n: String?): String?
+public fun strstr(h: String?, n: String?): String? = null
 
-public expect fun wcschr(s: WcharT?, c: WcharT): WcharT?
+public fun wcschr(s: WcharT?, c: WcharT): WcharT? = null
 
-public expect fun wcslen(s: WcharT?): ULong
+public fun wcslen(s: WcharT?): ULong = 0uL
 
-public expect fun isalpha(c: CInt): CInt
+public fun isalpha(c: CInt): CInt = -1
 
-public expect fun isascii(c: CInt): CInt
+public fun isascii(c: CInt): CInt = -1
 
-public expect fun isdigit(c: CInt): CInt
+public fun isdigit(c: CInt): CInt = -1
 
-public expect fun islower(c: CInt): CInt
+public fun islower(c: CInt): CInt = -1
 
-public expect fun isprint(c: CInt): CInt
+public fun isprint(c: CInt): CInt = -1
 
-public expect fun isspace(c: CInt): CInt
+public fun isspace(c: CInt): CInt = -1
 
-public expect fun iswctype(wc: WintT, ttype: WctypeT): CInt
+public fun iswctype(wc: WintT, ttype: WctypeT): CInt = -1
 
-public expect fun iswdigit(wc: WintT): CInt
+public fun iswdigit(wc: WintT): CInt = -1
 
-public expect fun iswlower(wc: WintT): CInt
+public fun iswlower(wc: WintT): CInt = -1
 
-public expect fun iswspace(wc: WintT): CInt
+public fun iswspace(wc: WintT): CInt = -1
 
-public expect fun iswupper(wc: WintT): CInt
+public fun iswupper(wc: WintT): CInt = -1
 
-public expect fun towupper(wc: WintT): WintT
+public fun towupper(wc: WintT): WintT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun towlower(wc: WintT): WintT
+public fun towlower(wc: WintT): WintT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun atan(x: CDouble): CDouble
+public fun atan(x: CDouble): CDouble = 0.0
 
-public expect fun ceil(x: CDouble): CDouble
+public fun ceil(x: CDouble): CDouble = 0.0
 
-public expect fun ceilf(x: CFloat): CFloat
+public fun ceilf(x: CFloat): CFloat = 0.0f
 
-public expect fun exp(x: CDouble): CDouble
+public fun exp(x: CDouble): CDouble = 0.0
 
-public expect fun fabs(x: CDouble): CDouble
+public fun fabs(x: CDouble): CDouble = 0.0
 
-public expect fun floor(x: CDouble): CDouble
+public fun floor(x: CDouble): CDouble = 0.0
 
-public expect fun frexp(x: CDouble, e: CInt?): CDouble
+public fun frexp(x: CDouble, e: CInt?): CDouble = 0.0
 
-public expect fun log(x: CDouble): CDouble
+public fun log(x: CDouble): CDouble = 0.0
 
-public expect fun log2(x: CDouble): CDouble
+public fun log2(x: CDouble): CDouble = 0.0
 
-public expect fun pow(x: CDouble, y: CDouble): CDouble
+public fun pow(x: CDouble, y: CDouble): CDouble = 0.0
 
-public expect fun roundf(x: CFloat): CFloat
+public fun roundf(x: CFloat): CFloat = 0.0f
 
-public expect fun scalbn(x: CDouble, n: CInt): CDouble
+public fun scalbn(x: CDouble, n: CInt): CDouble = 0.0
 
-public expect fun sqrt(x: CDouble): CDouble
+public fun sqrt(x: CDouble): CDouble = 0.0
 
-public expect fun abs(x: CInt): CInt
+public fun abs(x: CInt): CInt = -1
 
-public expect fun atof(s: String?): CDouble
+public fun atof(s: String?): CDouble = 0.0
 
-public expect fun atoi(s: String?): CInt
+public fun atoi(s: String?): CInt = -1
 
-public expect fun atol(s: String?): CLong
+public fun atol(s: String?): CLong = -1L
 
-public expect fun atoll(s: String?): CLongLong
+public fun atoll(s: String?): CLongLong = -1L
 
-public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc): COpaquePointer?
+public fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc): COpaquePointer? = null
 
-public expect fun div(num: CInt, den: CInt): DivT
+public fun div(num: CInt, den: CInt): DivT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun ecvt(x: CDouble, n: CInt, dp: CInt?, sign: CInt?): String?
+public fun ecvt(x: CDouble, n: CInt, dp: CInt?, sign: CInt?): String? = null
 
-public expect fun imaxabs(a: IntmaxT): IntmaxT
+public fun imaxabs(a: IntmaxT): IntmaxT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun llabs(a: CLongLong): CLongLong
+public fun llabs(a: CLongLong): CLongLong = -1L
 
-public expect fun qsort(base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc)
+public fun qsort(base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc) { }
 
-public expect fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong
+public fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong = 0uL
 
-public expect fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong
+public fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong = -1L
 
-public expect fun wcstod(s: WcharT?, p: COpaquePointer?): CDouble
+public fun wcstod(s: WcharT?, p: COpaquePointer?): CDouble = 0.0

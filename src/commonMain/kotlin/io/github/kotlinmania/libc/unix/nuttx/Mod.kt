@@ -485,30 +485,30 @@ public const val IP_MULTICAST_TTL: Int = 0x12
 public const val IP_ADD_MEMBERSHIP: Int = 0x14
 public const val IP_DROP_MEMBERSHIP: Int = 0x15
 
-public expect fun errno(): CInt?
+public fun errno(): CInt? = null
 
-public expect fun bind(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int
+public fun bind(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int = -1
 
-public expect fun ioctl(fd: Int, request: Int, vararg args: Any?): Int
+public fun ioctl(fd: Int, request: Int, vararg args: Any?): Int = -1
 
-public expect fun dirfd(dirp: DIR?): Int
+public fun dirfd(dirp: DIR?): Int = -1
 
-public expect fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: Sockaddr?, addrlen: SocklenT?): Int
+public fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: Sockaddr?, addrlen: SocklenT?): Int = -1
 
-public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int
+public fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int = -1
 
-public expect fun clockGettime(clockid: ClockidT, tp: Timespec?): Int
+public fun clockGettime(clockid: ClockidT, tp: Timespec?): Int = -1
 
-public expect fun futimens(fd: Int, times: Timespec?): Int
+public fun futimens(fd: Int, times: Timespec?): Int = -1
 
-public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): Int
+public fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): Int = -1
 
-public expect fun pthreadSetnameNp(thread: PthreadT, name: String?): Int
+public fun pthreadSetnameNp(thread: PthreadT, name: String?): Int = -1
 
-public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): Int
+public fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): Int = -1
 
-public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long
+public fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long = -1L
 
-public expect fun arc4random(): UInt
+public fun arc4random(): UInt = 0u
 
-public expect fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong)
+public fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) { }

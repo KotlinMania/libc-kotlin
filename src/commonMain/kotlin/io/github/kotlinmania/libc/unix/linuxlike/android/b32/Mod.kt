@@ -195,4 +195,4 @@ public const val UT_HOSTSIZE: ULong = 16uL
 public const val SIGSTKSZ: ULong = 8192uL
 public const val MINSIGSTKSZ: ULong = 2048uL
 
-public expect fun timegm64(tm: Tm?): Time64T
+public fun timegm64(tm: Tm?): Time64T { throw UnsupportedOperationException("Not implemented on this platform") }

@@ -842,4 +842,4 @@ public const val B3500000: SpeedT = 4110u
 public const val B4000000: SpeedT = 4111u
 public const val EHWPOISON: CInt = 168
 
-public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1

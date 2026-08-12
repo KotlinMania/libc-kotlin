@@ -881,12 +881,12 @@ public const val SYS_mseal: CLong = 462
 public const val PROT_BTI: CInt = 0x10
 public const val PROT_MTE: CInt = 0x20
 
-public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
 
-public expect fun getcontext(ucp: UcontextT?): CInt
+public fun getcontext(ucp: UcontextT?): CInt = -1
 
-public expect fun setcontext(ucp: UcontextT?): CInt
+public fun setcontext(ucp: UcontextT?): CInt = -1
 
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
+public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
 
-public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt
+public fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt = -1

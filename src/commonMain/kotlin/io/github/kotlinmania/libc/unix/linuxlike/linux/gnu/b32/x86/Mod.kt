@@ -960,10 +960,10 @@ public const val REG_EFL: CInt = 16
 public const val REG_UESP: CInt = 17
 public const val REG_SS: CInt = 18
 
-public expect fun getcontext(ucp: UcontextT?): CInt
+public fun getcontext(ucp: UcontextT?): CInt = -1
 
-public expect fun setcontext(ucp: UcontextT?): CInt
+public fun setcontext(ucp: UcontextT?): CInt = -1
 
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
+public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
 
-public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt
+public fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt = -1

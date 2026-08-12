@@ -92,34 +92,34 @@ public const val SIGEV_SIGNAL: CInt = 1
 public const val SIGEV_THREAD: CInt = 2
 public const val SA_SIGINFO: CInt = 1
 
-public expect fun signal(sig: CInt, handler: SighandlerT): SighandlerT
+public fun signal(sig: CInt, handler: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun kill(pid: PidT, sig: CInt): CInt
+public fun kill(pid: PidT, sig: CInt): CInt = -1
 
-public expect fun raise(sig: CInt): CInt
+public fun raise(sig: CInt): CInt = -1
 
-public expect fun alarm(seconds: CUInt): CUInt
+public fun alarm(seconds: CUInt): CUInt = 0u
 
-public expect fun pause(): CInt
+public fun pause(): CInt = -1
 
-public expect fun sigemptyset(set: SigsetT?): CInt
+public fun sigemptyset(set: SigsetT?): CInt = -1
 
-public expect fun sigfillset(set: SigsetT?): CInt
+public fun sigfillset(set: SigsetT?): CInt = -1
 
-public expect fun sigaddset(set: SigsetT?, signum: CInt): CInt
+public fun sigaddset(set: SigsetT?, signum: CInt): CInt = -1
 
-public expect fun sigdelset(set: SigsetT?, signum: CInt): CInt
+public fun sigdelset(set: SigsetT?, signum: CInt): CInt = -1
 
-public expect fun sigismember(set: SigsetT?, signum: CInt): CInt
+public fun sigismember(set: SigsetT?, signum: CInt): CInt = -1
 
-public expect fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+public fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt = -1
 
-public expect fun sigpending(set: SigsetT?): CInt
+public fun sigpending(set: SigsetT?): CInt = -1
 
-public expect fun sigsuspend(mask: SigsetT?): CInt
+public fun sigsuspend(mask: SigsetT?): CInt = -1
 
-public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
+public fun sigwait(set: SigsetT?, sig: CInt?): CInt = -1
 
-public expect fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt
+public fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt = -1
 
-public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt
+public fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt = -1

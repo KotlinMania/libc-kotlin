@@ -55,4 +55,4 @@ public const val BIOCSRTIMEOUT: CULong = 0x8010426duL
 public const val BIOCGRTIMEOUT: CULong = 0x4010426euL
 public const val BIOCSETFNR: CULong = 0x8010427euL
 
-public expect fun exchangedata(path1: String?, path2: String?, options: CUInt): CInt
+public fun exchangedata(path1: String?, path2: String?, options: CUInt): CInt = -1

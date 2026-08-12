@@ -212,336 +212,336 @@ public const val SIG_ACK: SighandlerT = 4uL
 public const val L_tmpnam: CUInt = 260u
 public const val TMP_MAX: CUInt = 0x7fffffffu
 
-public expect fun printf(format: String?, vararg args: Any?): CInt
+public fun printf(format: String?, vararg args: Any?): CInt = -1
 
-public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt = -1
 
-public expect fun isalnum(c: CInt): CInt
+public fun isalnum(c: CInt): CInt = -1
 
-public expect fun isalpha(c: CInt): CInt
+public fun isalpha(c: CInt): CInt = -1
 
-public expect fun iscntrl(c: CInt): CInt
+public fun iscntrl(c: CInt): CInt = -1
 
-public expect fun isdigit(c: CInt): CInt
+public fun isdigit(c: CInt): CInt = -1
 
-public expect fun isgraph(c: CInt): CInt
+public fun isgraph(c: CInt): CInt = -1
 
-public expect fun islower(c: CInt): CInt
+public fun islower(c: CInt): CInt = -1
 
-public expect fun isprint(c: CInt): CInt
+public fun isprint(c: CInt): CInt = -1
 
-public expect fun ispunct(c: CInt): CInt
+public fun ispunct(c: CInt): CInt = -1
 
-public expect fun isspace(c: CInt): CInt
+public fun isspace(c: CInt): CInt = -1
 
-public expect fun isupper(c: CInt): CInt
+public fun isupper(c: CInt): CInt = -1
 
-public expect fun isxdigit(c: CInt): CInt
+public fun isxdigit(c: CInt): CInt = -1
 
-public expect fun isblank(c: CInt): CInt
+public fun isblank(c: CInt): CInt = -1
 
-public expect fun tolower(c: CInt): CInt
+public fun tolower(c: CInt): CInt = -1
 
-public expect fun toupper(c: CInt): CInt
+public fun toupper(c: CInt): CInt = -1
 
-public expect fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?)
+public fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) { }
 
-public expect fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
+public fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) { }
 
-public expect fun fopen(filename: String?, mode: String?): FILE?
+public fun fopen(filename: String?, mode: String?): FILE? = null
 
-public expect fun freopen(filename: String?, mode: String?, file: FILE?): FILE?
+public fun freopen(filename: String?, mode: String?, file: FILE?): FILE? = null
 
-public expect fun fflush(file: FILE?): CInt
+public fun fflush(file: FILE?): CInt = -1
 
-public expect fun fclose(file: FILE?): CInt
+public fun fclose(file: FILE?): CInt = -1
 
-public expect fun remove(filename: String?): CInt
+public fun remove(filename: String?): CInt = -1
 
-public expect fun rename(oldname: String?, newname: String?): CInt
+public fun rename(oldname: String?, newname: String?): CInt = -1
 
-public expect fun tmpfile(): FILE?
+public fun tmpfile(): FILE? = null
 
-public expect fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt
+public fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt = -1
 
-public expect fun setbuf(stream: FILE?, buf: String?)
+public fun setbuf(stream: FILE?, buf: String?) { }
 
-public expect fun getchar(): CInt
+public fun getchar(): CInt = -1
 
-public expect fun putchar(c: CInt): CInt
+public fun putchar(c: CInt): CInt = -1
 
-public expect fun fgetc(stream: FILE?): CInt
+public fun fgetc(stream: FILE?): CInt = -1
 
-public expect fun fgets(buf: String?, n: CInt, stream: FILE?): String?
+public fun fgets(buf: String?, n: CInt, stream: FILE?): String? = null
 
-public expect fun fputc(c: CInt, stream: FILE?): CInt
+public fun fputc(c: CInt, stream: FILE?): CInt = -1
 
-public expect fun fputs(s: String?, stream: FILE?): CInt
+public fun fputs(s: String?, stream: FILE?): CInt = -1
 
-public expect fun puts(s: String?): CInt
+public fun puts(s: String?): CInt = -1
 
-public expect fun ungetc(c: CInt, stream: FILE?): CInt
+public fun ungetc(c: CInt, stream: FILE?): CInt = -1
 
-public expect fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong
+public fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong = 0uL
 
-public expect fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong
+public fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong = 0uL
 
-public expect fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt
+public fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt = -1
 
-public expect fun ftell(stream: FILE?): CLong
+public fun ftell(stream: FILE?): CLong = -1L
 
-public expect fun rewind(stream: FILE?)
+public fun rewind(stream: FILE?) { }
 
-public expect fun fgetpos(stream: FILE?, ptr: FposT?): CInt
+public fun fgetpos(stream: FILE?, ptr: FposT?): CInt = -1
 
-public expect fun fsetpos(stream: FILE?, ptr: FposT?): CInt
+public fun fsetpos(stream: FILE?, ptr: FposT?): CInt = -1
 
-public expect fun feof(stream: FILE?): CInt
+public fun feof(stream: FILE?): CInt = -1
 
-public expect fun ferror(stream: FILE?): CInt
+public fun ferror(stream: FILE?): CInt = -1
 
-public expect fun perror(s: String?)
+public fun perror(s: String?) { }
 
-public expect fun atof(s: String?): CDouble
+public fun atof(s: String?): CDouble = 0.0
 
-public expect fun atoi(s: String?): CInt
+public fun atoi(s: String?): CInt = -1
 
-public expect fun atol(s: String?): CLong
+public fun atol(s: String?): CLong = -1L
 
-public expect fun atoll(s: String?): CLongLong
+public fun atoll(s: String?): CLongLong = -1L
 
-public expect fun strtod(s: String?, endp: COpaquePointer?): CDouble
+public fun strtod(s: String?, endp: COpaquePointer?): CDouble = 0.0
 
-public expect fun strtof(s: String?, endp: COpaquePointer?): CFloat
+public fun strtof(s: String?, endp: COpaquePointer?): CFloat = 0.0f
 
-public expect fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong
+public fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong = -1L
 
-public expect fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong
+public fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong = -1L
 
-public expect fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong
+public fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong = 0uL
 
-public expect fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong
+public fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong = 0uL
 
-public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer?
+public fun calloc(nobj: ULong, size: ULong): COpaquePointer? = null
 
-public expect fun malloc(size: ULong): COpaquePointer?
+public fun malloc(size: ULong): COpaquePointer? = null
 
-public expect fun msize(p: COpaquePointer?): ULong
+public fun msize(p: COpaquePointer?): ULong = 0uL
 
-public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
+public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
 
-public expect fun free(p: COpaquePointer?)
+public fun free(p: COpaquePointer?) { }
 
-public expect fun abort(): Nothing
+public fun abort(): Nothing { throw UnsupportedOperationException() }
 
-public expect fun exit(status: CInt): Nothing
+public fun exit(status: CInt): Nothing { throw UnsupportedOperationException() }
 
-public expect fun atexit(cb: (() -> Unit)?): CInt
+public fun atexit(cb: (() -> Unit)?): CInt = -1
 
-public expect fun system(s: String?): CInt
+public fun system(s: String?): CInt = -1
 
-public expect fun getenv(s: String?): String?
+public fun getenv(s: String?): String? = null
 
-public expect fun strcpy(dst: String?, src: String?): String?
+public fun strcpy(dst: String?, src: String?): String? = null
 
-public expect fun strncpy(dst: String?, src: String?, n: ULong): String?
+public fun strncpy(dst: String?, src: String?, n: ULong): String? = null
 
-public expect fun strcat(s: String?, ct: String?): String?
+public fun strcat(s: String?, ct: String?): String? = null
 
-public expect fun strncat(s: String?, ct: String?, n: ULong): String?
+public fun strncat(s: String?, ct: String?, n: ULong): String? = null
 
-public expect fun strcmp(cs: String?, ct: String?): CInt
+public fun strcmp(cs: String?, ct: String?): CInt = -1
 
-public expect fun strncmp(cs: String?, ct: String?, n: ULong): CInt
+public fun strncmp(cs: String?, ct: String?, n: ULong): CInt = -1
 
-public expect fun strcoll(cs: String?, ct: String?): CInt
+public fun strcoll(cs: String?, ct: String?): CInt = -1
 
-public expect fun strchr(cs: String?, c: CInt): String?
+public fun strchr(cs: String?, c: CInt): String? = null
 
-public expect fun strrchr(cs: String?, c: CInt): String?
+public fun strrchr(cs: String?, c: CInt): String? = null
 
-public expect fun strspn(cs: String?, ct: String?): ULong
+public fun strspn(cs: String?, ct: String?): ULong = 0uL
 
-public expect fun strcspn(cs: String?, ct: String?): ULong
+public fun strcspn(cs: String?, ct: String?): ULong = 0uL
 
-public expect fun strdup(cs: String?): String?
+public fun strdup(cs: String?): String? = null
 
-public expect fun strpbrk(cs: String?, ct: String?): String?
+public fun strpbrk(cs: String?, ct: String?): String? = null
 
-public expect fun strstr(cs: String?, ct: String?): String?
+public fun strstr(cs: String?, ct: String?): String? = null
 
-public expect fun strlen(cs: String?): ULong
+public fun strlen(cs: String?): ULong = 0uL
 
-public expect fun strnlen(cs: String?, maxlen: ULong): ULong
+public fun strnlen(cs: String?, maxlen: ULong): ULong = 0uL
 
-public expect fun strerror(n: CInt): String?
+public fun strerror(n: CInt): String? = null
 
-public expect fun strtok(s: String?, t: String?): String?
+public fun strtok(s: String?, t: String?): String? = null
 
-public expect fun strxfrm(s: String?, ct: String?, n: ULong): ULong
+public fun strxfrm(s: String?, ct: String?, n: ULong): ULong = 0uL
 
-public expect fun wcslen(buf: WcharT?): ULong
+public fun wcslen(buf: WcharT?): ULong = 0uL
 
-public expect fun wcsnlen(str: WcharT?, numberOfElements: ULong): ULong
+public fun wcsnlen(str: WcharT?, numberOfElements: ULong): ULong = 0uL
 
-public expect fun wcstombs(dest: String?, src: WcharT?, n: ULong): ULong
+public fun wcstombs(dest: String?, src: WcharT?, n: ULong): ULong = 0uL
 
-public expect fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+public fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
 
-public expect fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt
+public fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt = -1
 
-public expect fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
+public fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? = null
 
-public expect fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
+public fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? = null
 
-public expect fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
+public fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
 
-public expect fun abs(i: CInt): CInt
+public fun abs(i: CInt): CInt = -1
 
-public expect fun labs(i: CLong): CLong
+public fun labs(i: CLong): CLong = -1L
 
-public expect fun rand(): CInt
+public fun rand(): CInt = -1
 
-public expect fun srand(seed: CUInt)
+public fun srand(seed: CUInt) { }
 
-public expect fun signal(signum: CInt, handler: SighandlerT): SighandlerT
+public fun signal(signum: CInt, handler: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun raise(signum: CInt): CInt
+public fun raise(signum: CInt): CInt = -1
 
-public expect fun clock(): ClockT
+public fun clock(): ClockT = -1
 
-public expect fun ctime(sourceTime: TimeT?): String?
+public fun ctime(sourceTime: TimeT?): String? = null
 
-public expect fun difftime(timeEnd: TimeT, timeStart: TimeT): CDouble
+public fun difftime(timeEnd: TimeT, timeStart: TimeT): CDouble = 0.0
 
-public expect fun gmtimeS(destTime: Tm?, srcTime: TimeT?): CInt
+public fun gmtimeS(destTime: Tm?, srcTime: TimeT?): CInt = -1
 
-public expect fun getDaylight(hours: CInt?): ErrnoT
+public fun getDaylight(hours: CInt?): ErrnoT = -1
 
-public expect fun getDstbias(seconds: CLong?): ErrnoT
+public fun getDstbias(seconds: CLong?): ErrnoT = -1
 
-public expect fun getTimezone(seconds: CLong?): ErrnoT
+public fun getTimezone(seconds: CLong?): ErrnoT = -1
 
-public expect fun getTzname(pReturnValue: ULong?, timeZoneName: String?, sizeInBytes: ULong, index: CInt): ErrnoT
+public fun getTzname(pReturnValue: ULong?, timeZoneName: String?, sizeInBytes: ULong, index: CInt): ErrnoT = -1
 
-public expect fun localtimeS(tmDest: Tm?, sourceTime: TimeT?): ErrnoT
+public fun localtimeS(tmDest: Tm?, sourceTime: TimeT?): ErrnoT = -1
 
-public expect fun time(destTime: TimeT?): TimeT
+public fun time(destTime: TimeT?): TimeT = -1L
 
-public expect fun tzset()
+public fun tzset() { }
 
-public expect fun chmod(path: String?, mode: CInt): CInt
+public fun chmod(path: String?, mode: CInt): CInt = -1
 
-public expect fun wchmod(path: WcharT?, mode: CInt): CInt
+public fun wchmod(path: WcharT?, mode: CInt): CInt = -1
 
-public expect fun mkdir(path: String?): CInt
+public fun mkdir(path: String?): CInt = -1
 
-public expect fun wrmdir(path: WcharT?): CInt
+public fun wrmdir(path: WcharT?): CInt = -1
 
-public expect fun fstat(fildes: CInt, buf: Stat?): CInt
+public fun fstat(fildes: CInt, buf: Stat?): CInt = -1
 
-public expect fun stat(path: String?, buf: Stat?): CInt
+public fun stat(path: String?, buf: Stat?): CInt = -1
 
-public expect fun wstat(path: WcharT?, buf: Stat?): CInt
+public fun wstat(path: WcharT?, buf: Stat?): CInt = -1
 
-public expect fun wutime(file: WcharT?, buf: Utimbuf?): CInt
+public fun wutime(file: WcharT?, buf: Utimbuf?): CInt = -1
 
-public expect fun popen(command: String?, mode: String?): FILE?
+public fun popen(command: String?, mode: String?): FILE? = null
 
-public expect fun pclose(stream: FILE?): CInt
+public fun pclose(stream: FILE?): CInt = -1
 
-public expect fun fdopen(fd: CInt, mode: String?): FILE?
+public fun fdopen(fd: CInt, mode: String?): FILE? = null
 
-public expect fun fileno(stream: FILE?): CInt
+public fun fileno(stream: FILE?): CInt = -1
 
-public expect fun open(path: String?, oflag: CInt, vararg args: Any?): CInt
+public fun open(path: String?, oflag: CInt, vararg args: Any?): CInt = -1
 
-public expect fun wopen(path: WcharT?, oflag: CInt, vararg args: Any?): CInt
+public fun wopen(path: WcharT?, oflag: CInt, vararg args: Any?): CInt = -1
 
-public expect fun creat(path: String?, mode: CInt): CInt
+public fun creat(path: String?, mode: CInt): CInt = -1
 
-public expect fun access(path: String?, amode: CInt): CInt
+public fun access(path: String?, amode: CInt): CInt = -1
 
-public expect fun chdir(dir: String?): CInt
+public fun chdir(dir: String?): CInt = -1
 
-public expect fun close(fd: CInt): CInt
+public fun close(fd: CInt): CInt = -1
 
-public expect fun dup(fd: CInt): CInt
+public fun dup(fd: CInt): CInt = -1
 
-public expect fun dup2(src: CInt, dst: CInt): CInt
+public fun dup2(src: CInt, dst: CInt): CInt = -1
 
-public expect fun execl(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public fun execl(path: String?, arg0: String?, vararg args: Any?): IntptrT = -1L
 
-public expect fun wexecl(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
+public fun wexecl(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT = -1L
 
-public expect fun execle(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public fun execle(path: String?, arg0: String?, vararg args: Any?): IntptrT = -1L
 
-public expect fun wexecle(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
+public fun wexecle(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT = -1L
 
-public expect fun execlp(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public fun execlp(path: String?, arg0: String?, vararg args: Any?): IntptrT = -1L
 
-public expect fun wexeclp(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
+public fun wexeclp(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT = -1L
 
-public expect fun execlpe(path: String?, arg0: String?, vararg args: Any?): IntptrT
+public fun execlpe(path: String?, arg0: String?, vararg args: Any?): IntptrT = -1L
 
-public expect fun wexeclpe(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT
+public fun wexeclpe(path: WcharT?, arg0: WcharT?, vararg args: Any?): IntptrT = -1L
 
-public expect fun execv(prog: String?, argv: COpaquePointer?): IntptrT
+public fun execv(prog: String?, argv: COpaquePointer?): IntptrT = -1L
 
-public expect fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt = -1
 
-public expect fun execvp(c: String?, argv: COpaquePointer?): CInt
+public fun execvp(c: String?, argv: COpaquePointer?): CInt = -1
 
-public expect fun execvpe(c: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public fun execvpe(c: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt = -1
 
-public expect fun wexecv(prog: WcharT?, argv: COpaquePointer?): IntptrT
+public fun wexecv(prog: WcharT?, argv: COpaquePointer?): IntptrT = -1L
 
-public expect fun wexecve(prog: WcharT?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT
+public fun wexecve(prog: WcharT?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT = -1L
 
-public expect fun wexecvp(c: WcharT?, argv: COpaquePointer?): IntptrT
+public fun wexecvp(c: WcharT?, argv: COpaquePointer?): IntptrT = -1L
 
-public expect fun wexecvpe(c: WcharT?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT
+public fun wexecvpe(c: WcharT?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT = -1L
 
-public expect fun getcwd(buf: String?, size: CInt): String?
+public fun getcwd(buf: String?, size: CInt): String? = null
 
-public expect fun getpid(): CInt
+public fun getpid(): CInt = -1
 
-public expect fun isatty(fd: CInt): CInt
+public fun isatty(fd: CInt): CInt = -1
 
-public expect fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong
+public fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong = -1L
 
-public expect fun lseek64(fd: CInt, offset: CLongLong, origin: CInt): CLongLong
+public fun lseek64(fd: CInt, offset: CLongLong, origin: CInt): CLongLong = -1L
 
-public expect fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt
+public fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt = -1
 
-public expect fun read(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt
+public fun read(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt = -1
 
-public expect fun rmdir(path: String?): CInt
+public fun rmdir(path: String?): CInt = -1
 
-public expect fun unlink(c: String?): CInt
+public fun unlink(c: String?): CInt = -1
 
-public expect fun write(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt
+public fun write(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt = -1
 
-public expect fun commit(fd: CInt): CInt
+public fun commit(fd: CInt): CInt = -1
 
-public expect fun getOsfhandle(fd: CInt): IntptrT
+public fun getOsfhandle(fd: CInt): IntptrT = -1L
 
-public expect fun openOsfhandle(osfhandle: IntptrT, flags: CInt): CInt
+public fun openOsfhandle(osfhandle: IntptrT, flags: CInt): CInt = -1
 
-public expect fun setlocale(category: CInt, locale: String?): String?
+public fun setlocale(category: CInt, locale: String?): String? = null
 
-public expect fun wsetlocale(category: CInt, locale: WcharT?): WcharT?
+public fun wsetlocale(category: CInt, locale: WcharT?): WcharT? = null
 
-public expect fun alignedMalloc(size: ULong, alignment: ULong): COpaquePointer?
+public fun alignedMalloc(size: ULong, alignment: ULong): COpaquePointer? = null
 
-public expect fun alignedFree(ptr: COpaquePointer?)
+public fun alignedFree(ptr: COpaquePointer?) { }
 
-public expect fun alignedRealloc(memblock: COpaquePointer?, size: ULong, alignment: ULong): COpaquePointer?
+public fun alignedRealloc(memblock: COpaquePointer?, size: ULong, alignment: ULong): COpaquePointer? = null
 
-public expect fun putenv(envstring: String?): CInt
+public fun putenv(envstring: String?): CInt = -1
 
-public expect fun wputenv(envstring: WcharT?): CInt
+public fun wputenv(envstring: WcharT?): CInt = -1
 
-public expect fun putenvS(envstring: String?, valueString: String?): ErrnoT
+public fun putenvS(envstring: String?, valueString: String?): ErrnoT = -1
 
-public expect fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT
+public fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT = -1

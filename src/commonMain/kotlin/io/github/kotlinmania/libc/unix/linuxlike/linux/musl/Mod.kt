@@ -543,74 +543,74 @@ public const val UT_NAMESIZE: ULong = 32uL
 public const val POSIX_FADV_DONTNEED: CInt = 6
 public const val POSIX_FADV_NOREUSE: CInt = 7
 
-public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
+public fun getrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
 
-public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
+public fun setrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
 
-public expect fun prlimit(pid: PidT, resource: CInt, newLimit: Rlimit?, oldLimit: Rlimit?): CInt
+public fun prlimit(pid: PidT, resource: CInt, newLimit: Rlimit?, oldLimit: Rlimit?): CInt = -1
 
-public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
+public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
 
-public expect fun ptrace(request: CInt, vararg args: Any?): CLong
+public fun ptrace(request: CInt, vararg args: Any?): CLong = -1L
 
-public expect fun getpriority(which: CInt, who: IdT): CInt
+public fun getpriority(which: CInt, who: IdT): CInt = -1
 
-public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt
+public fun setpriority(which: CInt, who: IdT, prio: CInt): CInt = -1
 
-public expect fun fanotifyMark(fd: CInt, flags: CUInt, mask: CULongLong, dirfd: CInt, path: String?): CInt
+public fun fanotifyMark(fd: CInt, flags: CUInt, mask: CULongLong, dirfd: CInt, path: String?): CInt = -1
 
-public expect fun preadv2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT
+public fun preadv2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT = -1L
 
-public expect fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT
+public fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT = -1L
 
-public expect fun getauxval(type: CULong): CULong
+public fun getauxval(type: CULong): CULong = 0uL
 
-public expect fun explicitBzero(s: COpaquePointer?, len: ULong)
+public fun explicitBzero(s: COpaquePointer?, len: ULong) { }
 
-public expect fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer?
+public fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? = null
 
-public expect fun adjtimex(buf: Timex?): CInt
+public fun adjtimex(buf: Timex?): CInt = -1
 
-public expect fun clockAdjtime(clkId: ClockidT, buf: Timex?): CInt
+public fun clockAdjtime(clkId: ClockidT, buf: Timex?): CInt = -1
 
-public expect fun ctermid(s: String?): String?
+public fun ctermid(s: String?): String? = null
 
-public expect fun memfdCreate(name: String?, flags: CUInt): CInt
+public fun memfdCreate(name: String?, flags: CUInt): CInt = -1
 
-public expect fun mlock2(addr: COpaquePointer?, len: ULong, flags: CUInt): CInt
+public fun mlock2(addr: COpaquePointer?, len: ULong, flags: CUInt): CInt = -1
 
-public expect fun mallocUsableSize(ptr: COpaquePointer?): ULong
+public fun mallocUsableSize(ptr: COpaquePointer?): ULong = 0uL
 
-public expect fun euidaccess(pathname: String?, mode: CInt): CInt
+public fun euidaccess(pathname: String?, mode: CInt): CInt = -1
 
-public expect fun eaccess(pathname: String?, mode: CInt): CInt
+public fun eaccess(pathname: String?, mode: CInt): CInt = -1
 
-public expect fun asctimeR(tm: Tm?, buf: String?): String?
+public fun asctimeR(tm: Tm?, buf: String?): String? = null
 
-public expect fun dirname(path: String?): String?
+public fun dirname(path: String?): String? = null
 
-public expect fun basename(path: String?): String?
+public fun basename(path: String?): String? = null
 
-public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
+public fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT = -1L
 
-public expect fun posixSpawnFileActionsAddchdirNp(actions: PosixSpawnFileActionsT, path: String?): CInt
+public fun posixSpawnFileActionsAddchdirNp(actions: PosixSpawnFileActionsT, path: String?): CInt = -1
 
-public expect fun posixSpawnFileActionsAddfchdirNp(actions: PosixSpawnFileActionsT, fd: CInt): CInt
+public fun posixSpawnFileActionsAddfchdirNp(actions: PosixSpawnFileActionsT, fd: CInt): CInt = -1
 
-public expect fun getutxent(): Utmpx?
+public fun getutxent(): Utmpx? = null
 
-public expect fun getutxid(ut: Utmpx?): Utmpx?
+public fun getutxid(ut: Utmpx?): Utmpx? = null
 
-public expect fun getutxline(ut: Utmpx?): Utmpx?
+public fun getutxline(ut: Utmpx?): Utmpx? = null
 
-public expect fun pututxline(ut: Utmpx?): Utmpx?
+public fun pututxline(ut: Utmpx?): Utmpx? = null
 
-public expect fun setutxent()
+public fun setutxent() { }
 
-public expect fun endutxent()
+public fun endutxent() { }
 
-public expect fun utmpxname(file: String?): CInt
+public fun utmpxname(file: String?): CInt = -1
 
-public expect fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt
+public fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt = -1
 
-public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt
+public fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt = -1

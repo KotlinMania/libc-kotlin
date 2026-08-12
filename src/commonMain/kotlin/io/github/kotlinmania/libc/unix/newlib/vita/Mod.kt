@@ -147,36 +147,36 @@ public const val EAI_OVERFLOW: CInt = -12
 public val PTHREAD_STACK_MIN: ULong = 32uL * 1024uL
 public const val IP_HDRINCL: CInt = 2
 
-public expect fun futimens(fd: CInt, times: Timespec?): CInt
+public fun futimens(fd: CInt, times: Timespec?): CInt = -1
 
-public expect fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+public fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT = -1L
 
-public expect fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+public fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT = -1L
 
-public expect fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT
+public fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT = -1L
 
-public expect fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT
+public fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT = -1L
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
 
-public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt
+public fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt = -1
 
-public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt
+public fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt = -1
 
-public expect fun pthreadAttrGetprocessoridNp(attr: PthreadAttrT, processorId: CInt?): CInt
+public fun pthreadAttrGetprocessoridNp(attr: PthreadAttrT, processorId: CInt?): CInt = -1
 
-public expect fun pthreadAttrSetprocessoridNp(attr: PthreadAttrT, processorId: CInt): CInt
+public fun pthreadAttrSetprocessoridNp(attr: PthreadAttrT, processorId: CInt): CInt = -1
 
-public expect fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt
+public fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt = -1
 
-public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt
+public fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt = -1
 
-public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt
+public fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt = -1
 
-public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt
+public fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt = -1
 
-public expect fun pthreadGetprocessoridNp(): CInt
+public fun pthreadGetprocessoridNp(): CInt = -1
 
-public expect fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt
+public fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt = -1
 
-public expect fun pipe2(fds: CInt?, flags: CInt): CInt
+public fun pipe2(fds: CInt?, flags: CInt): CInt = -1

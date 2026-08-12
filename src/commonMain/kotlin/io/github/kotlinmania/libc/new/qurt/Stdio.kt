@@ -7,84 +7,84 @@ public const val BUFSIZ: CUInt = 1024u
 public const val FILENAME_MAX: CUInt = 260u
 public const val EOF: CInt = -1
 
-public expect fun fopen(filename: String?, mode: String?): FILE?
+public fun fopen(filename: String?, mode: String?): FILE? = null
 
-public expect fun freopen(filename: String?, mode: String?, stream: FILE?): FILE?
+public fun freopen(filename: String?, mode: String?, stream: FILE?): FILE? = null
 
-public expect fun fclose(stream: FILE?): CInt
+public fun fclose(stream: FILE?): CInt = -1
 
-public expect fun fflush(stream: FILE?): CInt
+public fun fflush(stream: FILE?): CInt = -1
 
-public expect fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong
+public fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong = 0uL
 
-public expect fun fwrite(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong
+public fun fwrite(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong = 0uL
 
-public expect fun fgetc(stream: FILE?): CInt
+public fun fgetc(stream: FILE?): CInt = -1
 
-public expect fun fputc(c: CInt, stream: FILE?): CInt
+public fun fputc(c: CInt, stream: FILE?): CInt = -1
 
-public expect fun getchar(): CInt
+public fun getchar(): CInt = -1
 
-public expect fun putchar(c: CInt): CInt
+public fun putchar(c: CInt): CInt = -1
 
-public expect fun ungetc(c: CInt, stream: FILE?): CInt
+public fun ungetc(c: CInt, stream: FILE?): CInt = -1
 
-public expect fun fgets(s: String?, size: CInt, stream: FILE?): String?
+public fun fgets(s: String?, size: CInt, stream: FILE?): String? = null
 
-public expect fun fputs(s: String?, stream: FILE?): CInt
+public fun fputs(s: String?, stream: FILE?): CInt = -1
 
-public expect fun gets(s: String?): String?
+public fun gets(s: String?): String? = null
 
-public expect fun puts(s: String?): CInt
+public fun puts(s: String?): CInt = -1
 
-public expect fun printf(format: String?, vararg args: Any?): CInt
+public fun printf(format: String?, vararg args: Any?): CInt = -1
 
-public expect fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt = -1
 
-public expect fun sprintf(s: String?, format: String?, vararg args: Any?): CInt
+public fun sprintf(s: String?, format: String?, vararg args: Any?): CInt = -1
 
-public expect fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt
+public fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt = -1
 
-public expect fun vprintf(format: String?, ap: VaList): CInt
+public fun vprintf(format: String?, ap: VaList): CInt = -1
 
-public expect fun vfprintf(stream: FILE?, format: String?, ap: VaList): CInt
+public fun vfprintf(stream: FILE?, format: String?, ap: VaList): CInt = -1
 
-public expect fun vsprintf(s: String?, format: String?, ap: VaList): CInt
+public fun vsprintf(s: String?, format: String?, ap: VaList): CInt = -1
 
-public expect fun vsnprintf(s: String?, n: ULong, format: String?, ap: VaList): CInt
+public fun vsnprintf(s: String?, n: ULong, format: String?, ap: VaList): CInt = -1
 
-public expect fun scanf(format: String?, vararg args: Any?): CInt
+public fun scanf(format: String?, vararg args: Any?): CInt = -1
 
-public expect fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt
+public fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt = -1
 
-public expect fun sscanf(s: String?, format: String?, vararg args: Any?): CInt
+public fun sscanf(s: String?, format: String?, vararg args: Any?): CInt = -1
 
-public expect fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt
+public fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt = -1
 
-public expect fun ftell(stream: FILE?): CLong
+public fun ftell(stream: FILE?): CLong = -1L
 
-public expect fun rewind(stream: FILE?)
+public fun rewind(stream: FILE?) { }
 
-public expect fun fgetpos(stream: FILE?, pos: FposT?): CInt
+public fun fgetpos(stream: FILE?, pos: FposT?): CInt = -1
 
-public expect fun fsetpos(stream: FILE?, pos: FposT?): CInt
+public fun fsetpos(stream: FILE?, pos: FposT?): CInt = -1
 
-public expect fun clearerr(stream: FILE?)
+public fun clearerr(stream: FILE?) { }
 
-public expect fun feof(stream: FILE?): CInt
+public fun feof(stream: FILE?): CInt = -1
 
-public expect fun ferror(stream: FILE?): CInt
+public fun ferror(stream: FILE?): CInt = -1
 
-public expect fun perror(s: String?)
+public fun perror(s: String?) { }
 
-public expect fun remove(filename: String?): CInt
+public fun remove(filename: String?): CInt = -1
 
-public expect fun rename(old: String?, new: String?): CInt
+public fun rename(old: String?, new: String?): CInt = -1
 
-public expect fun tmpfile(): FILE?
+public fun tmpfile(): FILE? = null
 
-public expect fun tmpnam(s: String?): String?
+public fun tmpnam(s: String?): String? = null
 
-public expect fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt
+public fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt = -1
 
-public expect fun setbuf(stream: FILE?, buffer: String?)
+public fun setbuf(stream: FILE?, buffer: String?) { }

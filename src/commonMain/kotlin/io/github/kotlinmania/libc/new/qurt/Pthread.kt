@@ -23,80 +23,80 @@ public const val PTHREAD_SCOPE_PROCESS: CInt = 1
 public const val PTHREAD_INHERIT_SCHED: CInt = 0
 public const val PTHREAD_EXPLICIT_SCHED: CInt = 1
 
-public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
+public fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt = -1
 
-public expect fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt
+public fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt = -1
 
-public expect fun pthreadDetach(thread: PthreadT): CInt
+public fun pthreadDetach(thread: PthreadT): CInt = -1
 
-public expect fun pthreadExit(retval: COpaquePointer?): Nothing
+public fun pthreadExit(retval: COpaquePointer?): Nothing { throw UnsupportedOperationException() }
 
-public expect fun pthreadSelf(): PthreadT
+public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt
+public fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt = -1
 
-public expect fun pthreadAttrInit(attr: PthreadAttrT?): CInt
+public fun pthreadAttrInit(attr: PthreadAttrT?): CInt = -1
 
-public expect fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt
+public fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt = -1
 
-public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stacksize: ULong): CInt
+public fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stacksize: ULong): CInt = -1
 
-public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT?, stacksize: ULong?): CInt
+public fun pthreadAttrGetstacksize(attr: PthreadAttrT?, stacksize: ULong?): CInt = -1
 
-public expect fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, detachstate: CInt): CInt
+public fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, detachstate: CInt): CInt = -1
 
-public expect fun pthreadAttrGetdetachstate(attr: PthreadAttrT?, detachstate: CInt?): CInt
+public fun pthreadAttrGetdetachstate(attr: PthreadAttrT?, detachstate: CInt?): CInt = -1
 
-public expect fun pthreadMutexInit(mutex: PthreadMutexT?, attr: PthreadMutexattrT?): CInt
+public fun pthreadMutexInit(mutex: PthreadMutexT?, attr: PthreadMutexattrT?): CInt = -1
 
-public expect fun pthreadMutexDestroy(mutex: PthreadMutexT?): CInt
+public fun pthreadMutexDestroy(mutex: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexLock(mutex: PthreadMutexT?): CInt
+public fun pthreadMutexLock(mutex: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexTrylock(mutex: PthreadMutexT?): CInt
+public fun pthreadMutexTrylock(mutex: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexUnlock(mutex: PthreadMutexT?): CInt
+public fun pthreadMutexUnlock(mutex: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadMutexattrInit(attr: PthreadMutexattrT?): CInt
+public fun pthreadMutexattrInit(attr: PthreadMutexattrT?): CInt = -1
 
-public expect fun pthreadMutexattrDestroy(attr: PthreadMutexattrT?): CInt
+public fun pthreadMutexattrDestroy(attr: PthreadMutexattrT?): CInt = -1
 
-public expect fun pthreadMutexattrSettype(attr: PthreadMutexattrT?, kind: CInt): CInt
+public fun pthreadMutexattrSettype(attr: PthreadMutexattrT?, kind: CInt): CInt = -1
 
-public expect fun pthreadMutexattrGettype(attr: PthreadMutexattrT?, kind: CInt?): CInt
+public fun pthreadMutexattrGettype(attr: PthreadMutexattrT?, kind: CInt?): CInt = -1
 
-public expect fun pthreadCondInit(cond: PthreadCondT?, attr: PthreadCondattrT?): CInt
+public fun pthreadCondInit(cond: PthreadCondT?, attr: PthreadCondattrT?): CInt = -1
 
-public expect fun pthreadCondDestroy(cond: PthreadCondT?): CInt
+public fun pthreadCondDestroy(cond: PthreadCondT?): CInt = -1
 
-public expect fun pthreadCondWait(cond: PthreadCondT?, mutex: PthreadMutexT?): CInt
+public fun pthreadCondWait(cond: PthreadCondT?, mutex: PthreadMutexT?): CInt = -1
 
-public expect fun pthreadCondTimedwait(cond: PthreadCondT?, mutex: PthreadMutexT?, abstime: Timespec?): CInt
+public fun pthreadCondTimedwait(cond: PthreadCondT?, mutex: PthreadMutexT?, abstime: Timespec?): CInt = -1
 
-public expect fun pthreadCondSignal(cond: PthreadCondT?): CInt
+public fun pthreadCondSignal(cond: PthreadCondT?): CInt = -1
 
-public expect fun pthreadCondBroadcast(cond: PthreadCondT?): CInt
+public fun pthreadCondBroadcast(cond: PthreadCondT?): CInt = -1
 
-public expect fun pthreadCondattrInit(attr: PthreadCondattrT?): CInt
+public fun pthreadCondattrInit(attr: PthreadCondattrT?): CInt = -1
 
-public expect fun pthreadCondattrDestroy(attr: PthreadCondattrT?): CInt
+public fun pthreadCondattrDestroy(attr: PthreadCondattrT?): CInt = -1
 
-public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
+public fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt = -1
 
-public expect fun pthreadKeyCreate(key: PthreadKeyT?, destructor: ((COpaquePointer?) -> Unit)?): CInt
+public fun pthreadKeyCreate(key: PthreadKeyT?, destructor: ((COpaquePointer?) -> Unit)?): CInt = -1
 
-public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
+public fun pthreadKeyDelete(key: PthreadKeyT): CInt = -1
 
-public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer?
+public fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? = null
 
-public expect fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt
+public fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt = -1
 
-public expect fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt
+public fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt = -1
 
-public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt
+public fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt = -1
 
-public expect fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+public fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
 
-public expect fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+public fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
 
-public expect fun posixMemalign(memptr: COpaquePointer?, alignment: ULong, size: ULong): CInt
+public fun posixMemalign(memptr: COpaquePointer?, alignment: ULong, size: ULong): CInt = -1

@@ -355,14 +355,16 @@ val jvmToolchainVersion = providers.gradleProperty("jvm.toolchain").getOrElse("2
 kotlin {
     jvmToolchain(jvmToolchainVersion)
 
-    // Configure cinterop for all native targets — imports real C library headers
-    targets.withType<KotlinNativeTarget>().configureEach {
-        compilations.getByName("main") {
-            cinterops.create("libc") {
-                defFile = project.file("src/nativeInterop/cinterop/libc.def")
-            }
-        }
-    }
+    // cinterop for real C library headers — requires Xcode (Apple targets) or
+    // platform SDK (Linux/Windows/Android). Disabled until per-platform def files
+    // are in place; commonMain functions have default bodies that compile everywhere.
+    // targets.withType<KotlinNativeTarget>().configureEach {
+    //     compilations.getByName("main") {
+    //         cinterops.create("libc") {
+    //             defFile = project.file("src/nativeInterop/cinterop/libc.def")
+    //         }
+    //     }
+    // }
 
     applyDefaultHierarchyTemplate()
 

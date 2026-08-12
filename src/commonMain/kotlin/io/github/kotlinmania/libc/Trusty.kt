@@ -19,32 +19,32 @@ public const val STDOUT_FILENO: CInt = 1
 public const val STDERR_FILENO: CInt = 2
 public const val AT_PAGESZ: CULong = 6uL
 
-public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer?
+public fun calloc(nobj: ULong, size: ULong): COpaquePointer? = null
 
-public expect fun malloc(size: ULong): COpaquePointer?
+public fun malloc(size: ULong): COpaquePointer? = null
 
-public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
+public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
 
-public expect fun free(p: COpaquePointer?)
+public fun free(p: COpaquePointer?) { }
 
-public expect fun memalign(align: ULong, size: ULong): COpaquePointer?
+public fun memalign(align: ULong, size: ULong): COpaquePointer? = null
 
-public expect fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt
+public fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt = -1
 
-public expect fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT
+public fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT = -1L
 
-public expect fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+public fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT = -1L
 
-public expect fun close(fd: CInt): CInt
+public fun close(fd: CInt): CInt = -1
 
-public expect fun strlen(cs: String?): ULong
+public fun strlen(cs: String?): ULong = 0uL
 
-public expect fun getauxval(type: CULong): CULong
+public fun getauxval(type: CULong): CULong = 0uL
 
-public expect fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer?
+public fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? = null
 
-public expect fun munmap(addr: COpaquePointer?, len: ULong): CInt
+public fun munmap(addr: COpaquePointer?, len: ULong): CInt = -1
 
-public expect fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt
+public fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt = -1
 
-public expect fun nanosleep(rqtp: Timespec?, rmtp: Timespec?): CInt
+public fun nanosleep(rqtp: Timespec?, rmtp: Timespec?): CInt = -1

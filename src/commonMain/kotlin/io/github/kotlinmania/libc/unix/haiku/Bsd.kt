@@ -44,50 +44,50 @@ public const val IOC_IN: CULong = 0x80000000uL
 public val IOC_INOUT: CULong = IOC_IN or IOC_OUT
 public const val IOC_DIRMASK: CULong = 0xe0000000uL
 
-public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
+public fun daemon(nochdir: CInt, noclose: CInt): CInt = -1
 
-public expect fun getprogname(): String?
+public fun getprogname(): String? = null
 
-public expect fun setprogname(progname: String?)
+public fun setprogname(progname: String?) { }
 
-public expect fun arc4random(): UInt
+public fun arc4random(): UInt = 0u
 
-public expect fun arc4randomUniform(upperBound: UInt): UInt
+public fun arc4randomUniform(upperBound: UInt): UInt = 0u
 
-public expect fun arc4randomBuf(buf: COpaquePointer?, n: ULong)
+public fun arc4randomBuf(buf: COpaquePointer?, n: ULong) { }
 
-public expect fun mkstemps(template: String?, suffixlen: CInt): CInt
+public fun mkstemps(template: String?, suffixlen: CInt): CInt = -1
 
-public expect fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong
+public fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong = -1L
 
-public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+public fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt = -1
 
-public expect fun loginTty(fd: CInt): CInt
+public fun loginTty(fd: CInt): CInt = -1
 
-public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+public fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT = -1
 
-public expect fun strsep(string: COpaquePointer?, delimiters: String?): String?
+public fun strsep(string: COpaquePointer?, delimiters: String?): String? = null
 
-public expect fun explicitBzero(buf: COpaquePointer?, len: ULong)
+public fun explicitBzero(buf: COpaquePointer?, len: ULong) { }
 
-public expect fun slInit(): StringList?
+public fun slInit(): StringList? = null
 
-public expect fun slAdd(sl: StringList?, n: String?): CInt
+public fun slAdd(sl: StringList?, n: String?): CInt = -1
 
-public expect fun slFree(sl: StringList?, i: CInt)
+public fun slFree(sl: StringList?, i: CInt) { }
 
-public expect fun slFind(sl: StringList?, n: String?): String?
+public fun slFind(sl: StringList?, n: String?): String? = null
 
-public expect fun kqueue(): CInt
+public fun kqueue(): CInt = -1
 
-public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt
+public fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt = -1
 
-public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
+public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
 
-public expect fun lutimes(file: String?, times: Timeval?): CInt
+public fun lutimes(file: String?, times: Timeval?): CInt = -1
 
-public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+public fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
 
-public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+public fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
 
-public expect fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT
+public fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT = -1

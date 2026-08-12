@@ -162,52 +162,52 @@ public const val TFD_NONBLOCK: Int = 2048
 public val TFD_TIMER_ABSTIME: Int = 1 shl 0
 public val TFD_TIMER_CANCEL_ON_SET: Int = 1 shl 1
 
-public expect fun eventfd(initval: CUInt, flags: CInt): CInt
+public fun eventfd(initval: CUInt, flags: CInt): CInt = -1
 
-public expect fun epollPwait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt, sigmask: SigsetT?): CInt
+public fun epollPwait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt, sigmask: SigsetT?): CInt = -1
 
-public expect fun epollCreate(size: CInt): CInt
+public fun epollCreate(size: CInt): CInt = -1
 
-public expect fun epollCreate1(flags: CInt): CInt
+public fun epollCreate1(flags: CInt): CInt = -1
 
-public expect fun epollWait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt): CInt
+public fun epollWait(epfd: CInt, events: EpollEvent?, maxevents: CInt, timeout: CInt): CInt = -1
 
-public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: EpollEvent?): CInt
+public fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: EpollEvent?): CInt = -1
 
-public expect fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt
+public fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt = -1
 
-public expect fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: PsetidT?): CInt
+public fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: PsetidT?): CInt = -1
 
-public expect fun psetGetloadavg(pset: PsetidT, load: CDouble?, num: CInt): CInt
+public fun psetGetloadavg(pset: PsetidT, load: CDouble?, num: CInt): CInt = -1
 
-public expect fun pthreadAttrGetNp(thread: PthreadT, attr: PthreadAttrT?): CInt
+public fun pthreadAttrGetNp(thread: PthreadT, attr: PthreadAttrT?): CInt = -1
 
-public expect fun pthreadAttrGetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+public fun pthreadAttrGetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt = -1
 
-public expect fun pthreadAttrSetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong): CInt
+public fun pthreadAttrSetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong): CInt = -1
 
-public expect fun pthreadAttrSetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt
+public fun pthreadAttrSetstackaddr(attr: PthreadAttrT?, stackaddr: COpaquePointer?): CInt = -1
 
-public expect fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt
+public fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt = -1
 
-public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+public fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
 
-public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+public fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
 
-public expect fun getpagesizes2(pagesize: ULong?, nelem: CInt): CInt
+public fun getpagesizes2(pagesize: ULong?, nelem: CInt): CInt = -1
 
-public expect fun posixSpawnFileActionsAddfchdirNp(fileActions: PosixSpawnFileActionsT, fd: CInt): CInt
+public fun posixSpawnFileActionsAddfchdirNp(fileActions: PosixSpawnFileActionsT, fd: CInt): CInt = -1
 
-public expect fun ptsnameR(fildes: CInt, name: String?, namelen: ULong): CInt
+public fun ptsnameR(fildes: CInt, name: String?, namelen: ULong): CInt = -1
 
-public expect fun syncfs(fd: CInt): CInt
+public fun syncfs(fd: CInt): CInt = -1
 
-public expect fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt
+public fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt = -1
 
-public expect fun strncasecmpL(s1: String?, s2: String?, n: ULong, loc: LocaleT): CInt
+public fun strncasecmpL(s1: String?, s2: String?, n: ULong, loc: LocaleT): CInt = -1
 
-public expect fun timerfdCreate(clockid: CInt, flags: CInt): CInt
+public fun timerfdCreate(clockid: CInt, flags: CInt): CInt = -1
 
-public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt
+public fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt = -1
 
-public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt
+public fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt = -1

@@ -8,34 +8,34 @@ public const val CLOCK_MONOTONIC: ClockidT = 1
 public const val CLOCK_THREAD_CPUTIME_ID: ClockidT = 2
 public const val CLOCK_PROCESS_CPUTIME_ID: ClockidT = 3
 
-public expect fun time(tloc: TimeT?): TimeT
+public fun time(tloc: TimeT?): TimeT = -1L
 
-public expect fun clock(): ClockT
+public fun clock(): ClockT = -1L
 
-public expect fun difftime(time1: TimeT, time0: TimeT): CDouble
+public fun difftime(time1: TimeT, time0: TimeT): CDouble = 0.0
 
-public expect fun mktime(tm: Tm?): TimeT
+public fun mktime(tm: Tm?): TimeT = -1L
 
-public expect fun gmtime(timep: TimeT?): Tm?
+public fun gmtime(timep: TimeT?): Tm? = null
 
-public expect fun gmtimeR(timep: TimeT?, result: Tm?): Tm?
+public fun gmtimeR(timep: TimeT?, result: Tm?): Tm? = null
 
-public expect fun localtime(timep: TimeT?): Tm?
+public fun localtime(timep: TimeT?): Tm? = null
 
-public expect fun localtimeR(timep: TimeT?, result: Tm?): Tm?
+public fun localtimeR(timep: TimeT?, result: Tm?): Tm? = null
 
-public expect fun asctime(tm: Tm?): String?
+public fun asctime(tm: Tm?): String? = null
 
-public expect fun asctimeR(tm: Tm?, buf: String?): String?
+public fun asctimeR(tm: Tm?, buf: String?): String? = null
 
-public expect fun ctime(timep: TimeT?): String?
+public fun ctime(timep: TimeT?): String? = null
 
-public expect fun ctimeR(timep: TimeT?, buf: String?): String?
+public fun ctimeR(timep: TimeT?, buf: String?): String? = null
 
-public expect fun strftime(s: String?, maxsize: ULong, format: String?, timeptr: Tm?): ULong
+public fun strftime(s: String?, maxsize: ULong, format: String?, timeptr: Tm?): ULong = 0uL
 
-public expect fun strptime(s: String?, format: String?, tm: Tm?): String?
+public fun strptime(s: String?, format: String?, tm: Tm?): String? = null
 
-public expect fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt
+public fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt = -1
 
-public expect fun nanosleep(req: Timespec?, rem: Timespec?): CInt
+public fun nanosleep(req: Timespec?, rem: Timespec?): CInt = -1
