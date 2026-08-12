@@ -74,3 +74,6 @@ DerivedData/
 *.xcodeproj/xcuserdata/
 NEXT_ACTIONS.md
 port_lint_proposed_changes.md
+native/node-libc/build
+native/node-libc/node_modules
+native/node-libc/package-lock.json
