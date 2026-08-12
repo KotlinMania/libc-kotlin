@@ -750,6 +750,34 @@ is the same; only the offending target list shrank.
 Wire Kotlin/Native `cinterop` and (where applicable) Node N-API in the
 same session. Never label FFI work "next pass."
 
+### Default hierarchy template — `nativeMain` covers all native targets
+
+The workspace uses `applyDefaultHierarchyTemplate()` (already in every
+repo's `build.gradle.kts`). This auto-creates intermediate source sets
+like `nativeMain`, `appleMain`, `iosMain`, `linuxMain`,
+`androidNativeMain`, etc. based on which targets are declared.
+
+For `expect`/`actual` declarations:
+
+- An `actual fun` in `nativeMain` satisfies the `expect fun` for **all**
+  native targets at once — no need to write one per target.
+- If a function's implementation differs between platforms (e.g. Linux
+  vs macOS), put that `actual fun` in the appropriate intermediate source
+  set (`linuxMain`, `appleMain`, etc.) or the leaf target source set.
+- The compiler matches `actual` declarations from the closest source set
+  in the hierarchy. A `nativeMain` actual is used by all native targets
+  unless a more specific source set overrides it.
+
+This means the FFI layer for a `*-sys-kotlin` port (like `libc-kotlin`)
+needs `actual fun` written once in `nativeMain` (delegating to
+`platform.posix.*` or a `cinterop` C++ wrapper), not duplicated across
+every individual native target.
+
+For JS/WASM targets: use a Node N-API C++ addon (no insecure NPM
+libraries). For JVM: JNA or JNI bindings. These are separate source
+sets (`jsMain`/`wasmJsMain`/`jvmMain`) and do not share the
+`nativeMain` actuals.
+
 ---
 
 ## 11. Branch + PR ops — the session shape
