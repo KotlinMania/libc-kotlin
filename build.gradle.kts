@@ -435,10 +435,10 @@ kotlin {
     linuxArm64 { configureBenchmarkCompilation() }
     mingwX64 { configureBenchmarkCompilation() }
 
-    // Android NDK — always built (full target surface, no opt-in gate).
-    androidNativeArm32 { configureBenchmarkCompilation() }
+    // Android NDK — 64-bit only (matching kotlinmania/template). 32-bit targets
+    // (androidNativeArm32, androidNativeX86) are not supported: size_t is UInt on
+    // 32-bit vs ULong on 64-bit, breaking posixMain metadata compilation (§10).
     androidNativeArm64 { configureBenchmarkCompilation() }
-    androidNativeX86 { configureBenchmarkCompilation() }
     androidNativeX64 { configureBenchmarkCompilation() }
 
     // Web
@@ -954,10 +954,8 @@ tasks.register("swiftExportSmokeTest") {
 // ============================================================================
 val nativeTargetNames =
     listOf(
-        "androidNativeArm32",
         "androidNativeArm64",
         "androidNativeX64",
-        "androidNativeX86",
         "iosArm64",
         "iosSimulatorArm64",
         "iosX64",
