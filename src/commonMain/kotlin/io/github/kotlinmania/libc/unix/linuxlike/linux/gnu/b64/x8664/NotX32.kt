@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
 
 public data class Statvfs(
     val fBsize: CULong,
@@ -388,4 +389,4 @@ public const val SYS_set_mempolicy_home_node: CLong = 450
 public const val SYS_fchmodat2: CLong = 452
 public const val SYS_mseal: CLong = 462
 
-public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1

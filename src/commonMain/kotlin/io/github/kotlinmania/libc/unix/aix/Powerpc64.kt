@@ -1,7 +1,11 @@
 // port-lint: source unix/aix/powerpc64.rs
 package io.github.kotlinmania.libc.unix.aix
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
+
+// Opaque type — C empty enum used as an opaque pointer target.
+public class LockDataInstrumented
 
 public data class SigsetT(
     val ssSet: ULongArray,
@@ -250,7 +254,17 @@ public data class SiginfoT(
     val siValue: Sigval,
     val siFlags: CInt,
     val pad: IntArray,
-)
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid
+    public fun siUid(): UidT = siUid
+    public fun siStatus(): CInt = siStatus
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class PollfdExt(
     val fd: CInt,
@@ -320,10 +334,10 @@ public data class PollfdExtU(
     val data: ULong? = null,
 )
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mtWord = listOf(0, 2, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cvWord = listOf(0, 0, 0, 0, 2, 0))
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = listOf(2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = listOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mtWord = longArrayOf(0, 2, 0, 0, 0, 0, 0, 0))
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cvWord = longArrayOf(0, 0, 0, 0, 2, 0))
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = longArrayOf(2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = longArrayOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
 public const val RLIM_INFINITY: CULong = 0x7fffffffffffffffuL
 
-public expect fun getsystemcfg(label: CInt): CULong
+public fun getsystemcfg(label: CInt): CULong = 0uL

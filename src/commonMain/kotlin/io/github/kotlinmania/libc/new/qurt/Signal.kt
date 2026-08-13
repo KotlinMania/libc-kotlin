@@ -1,5 +1,6 @@
 // port-lint: source new/qurt/signal.rs
 package io.github.kotlinmania.libc.new.qurt
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
@@ -22,7 +23,21 @@ public data class SiginfoT(
     val siSigno: CInt,
     val siCode: CInt,
     val siValue: Sigval,
-)
+    val siAddr: COpaquePointer? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Sigaction(
     val saHandler: ((CInt) -> Unit)?,
@@ -77,34 +92,34 @@ public const val SIGEV_SIGNAL: CInt = 1
 public const val SIGEV_THREAD: CInt = 2
 public const val SA_SIGINFO: CInt = 1
 
-public expect fun signal(sig: CInt, handler: SighandlerT): SighandlerT
+public fun signal(sig: CInt, handler: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun kill(pid: PidT, sig: CInt): CInt
+public fun kill(pid: PidT, sig: CInt): CInt = -1
 
-public expect fun raise(sig: CInt): CInt
+public fun raise(sig: CInt): CInt = -1
 
-public expect fun alarm(seconds: CUInt): CUInt
+public fun alarm(seconds: CUInt): CUInt = 0u
 
-public expect fun pause(): CInt
+public fun pause(): CInt = -1
 
-public expect fun sigemptyset(set: SigsetT?): CInt
+public fun sigemptyset(set: SigsetT?): CInt = -1
 
-public expect fun sigfillset(set: SigsetT?): CInt
+public fun sigfillset(set: SigsetT?): CInt = -1
 
-public expect fun sigaddset(set: SigsetT?, signum: CInt): CInt
+public fun sigaddset(set: SigsetT?, signum: CInt): CInt = -1
 
-public expect fun sigdelset(set: SigsetT?, signum: CInt): CInt
+public fun sigdelset(set: SigsetT?, signum: CInt): CInt = -1
 
-public expect fun sigismember(set: SigsetT?, signum: CInt): CInt
+public fun sigismember(set: SigsetT?, signum: CInt): CInt = -1
 
-public expect fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+public fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt = -1
 
-public expect fun sigpending(set: SigsetT?): CInt
+public fun sigpending(set: SigsetT?): CInt = -1
 
-public expect fun sigsuspend(mask: SigsetT?): CInt
+public fun sigsuspend(mask: SigsetT?): CInt = -1
 
-public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
+public fun sigwait(set: SigsetT?, sig: CInt?): CInt = -1
 
-public expect fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt
+public fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt = -1
 
-public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt
+public fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt = -1

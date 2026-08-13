@@ -27,16 +27,7 @@ public data class X8664CpuRegisters(
     val ss: UInt,
 )
 
-public data class McontextT(
-    val cpu: X8664CpuRegisters,
-    val fpu: X8664FpuRegisters,
-)
-
-public data class StackT(
-    val ssSp: COpaquePointer?,
-    val ssSize: ULong,
-    val ssFlags: CInt,
-)
+// McontextT and StackT are defined in Aarch64.kt (first definitions in this package).
 
 public data class FsaveArea64(
     val fpuControlWord: UInt,

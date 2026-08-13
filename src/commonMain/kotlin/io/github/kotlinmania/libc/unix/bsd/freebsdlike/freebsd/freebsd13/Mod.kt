@@ -50,7 +50,7 @@ public data class CAnonymousDomainset(
 public data class KinfoProc(
     val kiStructsize: CInt,
     val kiLayout: CInt,
-    val kiArgs: Pargs?,
+    val kiArgs: Pargs,
     val kiPaddr: COpaquePointer?,
     val kiAddr: COpaquePointer?,
     val kiTracep: COpaquePointer?,
@@ -223,22 +223,22 @@ public const val DOMAINSET_POLICY_PREFER: CInt = 3
 public const val DOMAINSET_POLICY_INTERLEAVE: CInt = 4
 public const val MINCORE_SUPER: CInt = 0x20
 
-public expect fun setgrent()
+public fun setgrent() { }
 
-public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
 
-public expect fun freelocale(loc: LocaleT)
+public fun freelocale(loc: LocaleT) { }
 
-public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT
+public fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT = -1L
 
-public expect fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: DomainsetT?, policy: CInt?): CInt
+public fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: DomainsetT?, policy: CInt?): CInt = -1
 
-public expect fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: DomainsetT?, policy: CInt): CInt
+public fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: DomainsetT?, policy: CInt): CInt = -1
 
-public expect fun dirname(path: String?): String?
+public fun dirname(path: String?): String? = null
 
-public expect fun basename(path: String?): String?
+public fun basename(path: String?): String? = null
 
-public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?)
+public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) { }
 
-public expect fun kvmKerndisp(kd: KvmT?): KssizeT
+public fun kvmKerndisp(kd: KvmT): KssizeT { throw UnsupportedOperationException("Not implemented on this platform") }

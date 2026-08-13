@@ -2,6 +2,8 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.sparc64
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias WcharT = Int
 public typealias NlinkT = UInt
@@ -37,7 +39,22 @@ public data class SiginfoT(
     val siCode: CInt,
     val pad: IntArray,
     val align: List<ULong>,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Flock(
     val lType: CShort,
@@ -838,4 +855,4 @@ public const val SYS_process_mrelease: CLong = 448
 public const val SYS_futex_waitv: CLong = 449
 public const val SYS_set_mempolicy_home_node: CLong = 450
 
-public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1

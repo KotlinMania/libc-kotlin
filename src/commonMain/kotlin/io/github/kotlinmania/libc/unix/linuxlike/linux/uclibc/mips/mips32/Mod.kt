@@ -1,5 +1,6 @@
 // port-lint: source unix/linux_like/linux/uclibc/mips/mips32/mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
@@ -100,7 +101,22 @@ public data class SiginfoT(
     val siCode: CInt,
     val siErrno: CInt,
     val pad: IntArray,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Glob64T(
     val glPathc: ULong,
@@ -622,12 +638,12 @@ public const val SYS_process_mrelease: CLong = 4000 + 448
 public const val SYS_futex_waitv: CLong = 4000 + 449
 public const val SYS_set_mempolicy_home_node: CLong = 4000 + 450
 
-public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
 
-public expect fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt
+public fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt = -1
 
-public expect fun globfree64(pglob: Glob64T?)
+public fun globfree64(pglob: Glob64T?) { }
 
-public expect fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+public fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
 
-public expect fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt
+public fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1

@@ -2,6 +2,12 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.PTHREAD_PROCESS_PRIVATE
+
+public const val B19200: SpeedT = 14u
+public const val B38400: SpeedT = 15u
+public const val EOPNOTSUPP: CInt = 95
+public const val O_DIRECTORY: CInt = 0x10000
 
 public typealias ShmattT = CULong
 public typealias RegoffT = CInt
@@ -277,7 +283,7 @@ public const val SOMAXCONN: CInt = 128
 public const val ST_RELATIME: CULong = 4096uL
 public const val SO_TIMESTAMP: CInt = 29
 public val RLIM_INFINITY: RlimT = 0uL.inv()
-public const val AF_NFC: CInt = PF_NFC
+public const val AF_NFC: CInt = 39
 public const val BUFSIZ: CInt = 256
 public const val EDEADLK: CInt = 0x23
 public const val EDEADLOCK: CInt = EDEADLK
@@ -321,31 +327,31 @@ public const val PTHREAD_MUTEX_ERRORCHECK_NP: CInt = 2
 public const val PTHREAD_MUTEX_ADAPTIVE_NP: CInt = 3
 public const val __LT_SPINLOCK_INIT: CInt = 0
 public val __LOCK_INITIALIZER: PthreadFastlock = PthreadFastlock(status = 0, spinlock = __LT_SPINLOCK_INIT)
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 0, mCount = 0, mOwner = null_mut(), mKind = PTHREAD_MUTEX_TIMED_NP, mLock = __LOCK_INITIALIZER)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 0, mCount = 0, mOwner = null, mKind = PTHREAD_MUTEX_TIMED_NP, mLock = __LOCK_INITIALIZER)
 
-// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __c_lock: __LOCK_INITIALIZER, __c_waiting: core::ptr::null_mut(), __padding: [0 (initializer represented at the FFI boundary)
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwLock = __LOCK_INITIALIZER, rwReaders = 0, rwWriter = null_mut(), rwReadWaiting = null_mut(), rwWriteWaiting = null_mut(), rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)
+// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __c_lock: __LOCK_INITIALIZER, __c_waiting: core::ptr::null, __padding: [0 (initializer represented at the FFI boundary)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwLock = __LOCK_INITIALIZER, rwReaders = 0, rwWriter = null, rwReadWaiting = null, rwWriteWaiting = null, rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)
 
-public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
+public fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt = -1
 
-public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+public fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt = -1
 
-public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt
+public fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt = -1
 
-public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+public fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt = -1
 
-public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt = -1
 
-public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+public fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT = -1L
 
-public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+public fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT = -1L
 
-public expect fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt
+public fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt = -1
 
-public expect fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt
+public fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt = -1
 
-public expect fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt
+public fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt = -1
 
-public expect fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt
+public fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt = -1
 
-public expect fun getauxval(type: CULong): CULong
+public fun getauxval(type: CULong): CULong = 0uL

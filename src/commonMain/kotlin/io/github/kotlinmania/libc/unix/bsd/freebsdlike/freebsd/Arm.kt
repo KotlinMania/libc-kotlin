@@ -6,10 +6,3 @@ import io.github.kotlinmania.libc.*
 public typealias GregT = CUInt
 public typealias GregsetT = LongArray
 
-public data class McontextT(
-    val gregs: GregsetT,
-    val mcVfpSize: ULong,
-    val mcVfpPtr: COpaquePointer?,
-    val mcSpare: UIntArray,
-)
-

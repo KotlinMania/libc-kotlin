@@ -2,11 +2,12 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
 
-public expect fun pthreadAttrSetQosClassNp(attr: PthreadAttrT?, `class`: QosClassT, priority: CInt): CInt
+public fun pthreadAttrSetQosClassNp(attr: PthreadAttrT, `class`: QosClassT, priority: CInt): CInt = -1
 
-public expect fun pthreadAttrGetQosClassNp(attr: PthreadAttrT?, `class`: QosClassT?, priority: CInt?): CInt
+public fun pthreadAttrGetQosClassNp(attr: PthreadAttrT, `class`: QosClassT?, priority: CInt?): CInt = -1
 
-public expect fun pthreadSetQosClassSelfNp(`class`: QosClassT, priority: CInt): CInt
+public fun pthreadSetQosClassSelfNp(`class`: QosClassT, priority: CInt): CInt = -1
 
-public expect fun pthreadGetQosClassNp(thread: PthreadT, `class`: QosClassT?, priority: CInt?): CInt
+public fun pthreadGetQosClassNp(thread: PthreadT, `class`: QosClassT?, priority: CInt?): CInt = -1

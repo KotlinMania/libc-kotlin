@@ -1,5 +1,6 @@
 // port-lint: source unix/linux_like/l4re/uclibc/x86_64/mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.x8664
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 
@@ -85,7 +86,22 @@ public data class SiginfoT(
     val siErrno: CInt,
     val siCode: CInt,
     val pad: IntArray,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class StackT(
     val ssSp: COpaquePointer?,
@@ -315,17 +331,17 @@ public const val O_ASYNC: CInt = 8192
 public const val O_CREAT: CInt = 0x40
 public const val O_DIRECT: CInt = 16384
 public const val O_DIRECTORY: CInt = 65536
-public const val O_DSYNC: CInt = O_SYNC
+public val O_DSYNC: CInt = O_SYNC
 public const val O_EXCL: CInt = 0x80
-public const val O_FSYNC: CInt = O_SYNC
+public val O_FSYNC: CInt = O_SYNC
 public const val O_LARGEFILE: CInt = 0
-public const val O_NDELAY: CInt = O_NONBLOCK
+public val O_NDELAY: CInt = O_NONBLOCK
 public const val O_NOATIME: CInt = 262144
 public const val O_NOCTTY: CInt = 0x100
 public const val O_NOFOLLOW: CInt = 131072
 public const val O_NONBLOCK: CInt = 0x800
 public const val O_PATH: CInt = 2097152
-public const val O_RSYNC: CInt = O_SYNC
+public val O_RSYNC: CInt = O_SYNC
 public const val O_SYNC: CInt = 4096
 public const val O_TRUNC: CInt = 0x200
 public const val PARENB: TcflagT = 0x100u

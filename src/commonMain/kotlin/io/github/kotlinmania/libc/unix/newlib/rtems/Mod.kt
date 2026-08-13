@@ -67,18 +67,18 @@ public const val WNOHANG: CInt = 1
 public const val WUNTRACED: CInt = 2
 public const val SOMAXCONN: CInt = 128
 
-public expect fun futimens(fd: CInt, times: Timespec?): CInt
+public fun futimens(fd: CInt, times: Timespec?): CInt = -1
 
-public expect fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+public fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT = -1L
 
-public expect fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
+public fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT = -1L
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
 
-public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
+public fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt = -1
 
-public expect fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt
+public fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt = -1
 
-public expect fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong)
+public fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) { }
 
-public expect fun setgroups(ngroups: CInt, grouplist: GidT?): CInt
+public fun setgroups(ngroups: CInt, grouplist: GidT?): CInt = -1

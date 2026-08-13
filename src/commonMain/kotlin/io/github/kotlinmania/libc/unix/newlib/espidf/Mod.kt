@@ -61,15 +61,15 @@ public data class SockaddrStorage(
 public const val AF_UNIX: CInt = 1
 public const val AF_INET6: CInt = 10
 public const val FIONBIO: CULong = 2147772030uL
-public val POLLIN: CShort = 1.toShort() shl 0
-public val POLLRDNORM: CShort = 1.toShort() shl 1
-public val POLLRDBAND: CShort = 1.toShort() shl 2
+public val POLLIN: CShort = (1 shl 0).toShort()
+public val POLLRDNORM: CShort = (1 shl 1).toShort()
+public val POLLRDBAND: CShort = (1 shl 2).toShort()
 public val POLLPRI: CShort = POLLRDBAND
-public val POLLOUT: CShort = 1.toShort() shl 3
+public val POLLOUT: CShort = (1 shl 3).toShort()
 public val POLLWRNORM: CShort = POLLOUT
-public val POLLWRBAND: CShort = 1.toShort() shl 4
-public val POLLERR: CShort = 1.toShort() shl 5
-public val POLLHUP: CShort = 1.toShort() shl 6
+public val POLLWRBAND: CShort = (1 shl 4).toShort()
+public val POLLERR: CShort = (1 shl 5).toShort()
+public val POLLHUP: CShort = (1 shl 6).toShort()
 public const val SOL_SOCKET: CInt = 0xfff
 public const val MSG_OOB: CInt = 0x04
 public const val MSG_PEEK: CInt = 0x01
@@ -92,14 +92,14 @@ public const val SIGHUP: CInt = 1
 public const val SIGQUIT: CInt = 3
 public const val NSIG: ULong = 32uL
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
 
-public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
+public fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT = -1L
 
-public expect fun gethostname(name: String?, namelen: SsizeT)
+public fun gethostname(name: String?, namelen: SsizeT) { }
 
-public expect fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT
+public fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT = -1L
 
-public expect fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT
+public fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT = -1L
 
-public expect fun eventfd(initval: CUInt, flags: CInt): CInt
+public fun eventfd(initval: CUInt, flags: CInt): CInt = -1

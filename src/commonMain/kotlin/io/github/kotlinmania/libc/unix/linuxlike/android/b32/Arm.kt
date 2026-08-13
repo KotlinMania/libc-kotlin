@@ -451,4 +451,4 @@ public const val NGREG: CInt = 18
 public const val AT_SYSINFO_EHDR: CULong = 33uL
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt
+public fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt = -1

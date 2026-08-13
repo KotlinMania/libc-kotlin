@@ -113,32 +113,32 @@ public const val TCP_KEEPINTVL: CInt = 5
 public const val TCP_KEEPCNT: CInt = 6
 public const val EAI_SYSTEM: CInt = -11
 
-public expect fun socket(domain: CInt, type: CInt, protocol: CInt): CInt
+public fun socket(domain: CInt, type: CInt, protocol: CInt): CInt = -1
 
-public expect fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt
+public fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt = -1
 
-public expect fun bind(socket: CInt, addr: Sockaddr?, addrlen: SocklenT): CInt
+public fun bind(socket: CInt, addr: Sockaddr?, addrlen: SocklenT): CInt = -1
 
-public expect fun listen(socket: CInt, backlog: CInt): CInt
+public fun listen(socket: CInt, backlog: CInt): CInt = -1
 
-public expect fun accept(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+public fun accept(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt = -1
 
-public expect fun accept4(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt
+public fun accept4(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt = -1
 
-public expect fun getsockname(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+public fun getsockname(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt = -1
 
-public expect fun getpeername(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+public fun getpeername(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt = -1
 
-public expect fun sendto(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT
+public fun sendto(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT = -1L
 
-public expect fun recvfrom(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT
+public fun recvfrom(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT = -1L
 
-public expect fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt
+public fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt = -1
 
-public expect fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT): CInt
+public fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT): CInt = -1
 
-public expect fun getaddrinfo(host: String?, serv: String?, hint: Addrinfo?, res: COpaquePointer?): CInt
+public fun getaddrinfo(host: String?, serv: String?, hint: Addrinfo?, res: COpaquePointer?): CInt = -1
 
-public expect fun freeaddrinfo(p: Addrinfo?)
+public fun freeaddrinfo(p: Addrinfo?) { }
 
-public expect fun gaiStrerror(ecode: CInt): String?
+public fun gaiStrerror(ecode: CInt): String? = null

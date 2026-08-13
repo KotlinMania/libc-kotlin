@@ -2,6 +2,8 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.mips64
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias BlksizeT = Long
 public typealias NlinkT = ULong
@@ -144,7 +146,22 @@ public data class SiginfoT(
     val siSigno: CInt,
     val siCode: CInt,
     val siErrno: CInt,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class IpcPerm(
     val key: KeyT,
@@ -825,4 +842,4 @@ public const val B3500000: SpeedT = 4110u
 public const val B4000000: SpeedT = 4111u
 public const val EHWPOISON: CInt = 168
 
-public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1

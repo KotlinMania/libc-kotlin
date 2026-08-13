@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias WcharT = Int
 
@@ -53,25 +54,7 @@ public data class IpcPerm(
     val seq: UInt,
 )
 
-public data class Stat(
-    val stDev: DevT,
-    val stIno: InoT,
-    val stMode: ModeT,
-    val stNlink: NlinkT,
-    val stUid: UidT,
-    val stGid: GidT,
-    val stRdev: DevT,
-    val stSize: OffT,
-    val stBlksize: BlksizeT,
-    val stBlocks: BlkcntT,
-    val stAtime: TimeT,
-    val stAtimeNsec: CLong,
-    val stMtime: TimeT,
-    val stMtimeNsec: CLong,
-    val stCtime: TimeT,
-    val stCtimeNsec: CLong,
-)
-
+// Stat is defined in Mod.kt (first definition in this package).
 public data class Stat64(
     val stDev: DevT,
     val stIno: Ino64T,
@@ -151,7 +134,22 @@ public data class SiginfoT(
     val siCode: CInt,
     val pad: IntArray,
     val align: List<ULong>,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class StackT(
     val ssSp: COpaquePointer?,

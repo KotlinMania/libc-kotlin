@@ -11,35 +11,35 @@ import io.github.kotlinmania.libc.*
  * actual, so these are declared here as expects.
  */
 
-public expect fun cfmakeraw(termios: Termios?)
+public fun cfmakeraw(termios: Termios?) { }
 
-public expect fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt
+public fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt = -1
 
-public expect fun openpty(
+public fun openpty(
     amain: CInt?,
     asubord: CInt?,
     name: String?,
     termp: Termios?,
     winp: Winsize?,
-): CInt
+): CInt = -1
 
-public expect fun forkpty(
+public fun forkpty(
     amain: CInt?,
     name: String?,
     termp: Termios?,
     winp: Winsize?,
-): PidT
+): PidT = -1
 
-public expect fun getpwentR(
+public fun getpwentR(
     pwd: Passwd?,
     buf: String?,
     buflen: ULong,
     result: Passwd?,
-): CInt
+): CInt = -1
 
-public expect fun getgrentR(
+public fun getgrentR(
     grp: Group?,
     buf: String?,
     buflen: ULong,
     result: Group?,
-): CInt
+): CInt = -1

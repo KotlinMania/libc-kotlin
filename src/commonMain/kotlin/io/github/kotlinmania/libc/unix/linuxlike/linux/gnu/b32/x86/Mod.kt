@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.x86
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias WcharT = Int
 public typealias GregT = Int
@@ -206,7 +207,22 @@ public data class SiginfoT(
     val siCode: CInt,
     val pad: IntArray,
     val align: List<ULong>,
-)
+    val siAddr: COpaquePointer? = null,
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class StackT(
     val ssSp: COpaquePointer?,
@@ -944,10 +960,10 @@ public const val REG_EFL: CInt = 16
 public const val REG_UESP: CInt = 17
 public const val REG_SS: CInt = 18
 
-public expect fun getcontext(ucp: UcontextT?): CInt
+public fun getcontext(ucp: UcontextT?): CInt = -1
 
-public expect fun setcontext(ucp: UcontextT?): CInt
+public fun setcontext(ucp: UcontextT?): CInt = -1
 
-public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
+public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
 
-public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt
+public fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt = -1

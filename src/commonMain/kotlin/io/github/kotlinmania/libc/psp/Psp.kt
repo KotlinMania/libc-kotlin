@@ -2553,1638 +2553,1638 @@ public const val UTILITY_HTMLVIEWER_ENABLE_ANALOG_HOLD: Int = 0x000200
 public const val UTILITY_HTMLVIEWER_ENABLE_FLASH: Int = 0x000400
 public const val UTILITY_HTMLVIEWER_DISABLE_LRTRIGGER: Int = 0x000800
 
-public expect fun sceAudioChReserve(channel: Int, sampleCount: Int, format: AudioFormat): Int
+public fun sceAudioChReserve(channel: Int, sampleCount: Int, format: AudioFormat): Int = -1
 
-public expect fun sceAudioChRelease(channel: Int): Int
+public fun sceAudioChRelease(channel: Int): Int = -1
 
-public expect fun sceAudioOutput(channel: Int, vol: Int, buf: COpaquePointer?): Int
+public fun sceAudioOutput(channel: Int, vol: Int, buf: COpaquePointer?): Int = -1
 
-public expect fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: COpaquePointer?): Int
+public fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: COpaquePointer?): Int = -1
 
-public expect fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int
+public fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int = -1
 
-public expect fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int
+public fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int = -1
 
-public expect fun sceAudioGetChannelRestLen(channel: Int): Int
+public fun sceAudioGetChannelRestLen(channel: Int): Int = -1
 
-public expect fun sceAudioGetChannelRestLength(channel: Int): Int
+public fun sceAudioGetChannelRestLength(channel: Int): Int = -1
 
-public expect fun sceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int
+public fun sceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int = -1
 
-public expect fun sceAudioChangeChannelConfig(channel: Int, format: AudioFormat): Int
+public fun sceAudioChangeChannelConfig(channel: Int, format: AudioFormat): Int = -1
 
-public expect fun sceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int
+public fun sceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int = -1
 
-public expect fun sceAudioOutput2Reserve(sampleCount: Int): Int
+public fun sceAudioOutput2Reserve(sampleCount: Int): Int = -1
 
-public expect fun sceAudioOutput2Release(): Int
+public fun sceAudioOutput2Release(): Int = -1
 
-public expect fun sceAudioOutput2ChangeLength(sampleCount: Int): Int
+public fun sceAudioOutput2ChangeLength(sampleCount: Int): Int = -1
 
-public expect fun sceAudioOutput2OutputBlocking(vol: Int, buf: COpaquePointer?): Int
+public fun sceAudioOutput2OutputBlocking(vol: Int, buf: COpaquePointer?): Int = -1
 
-public expect fun sceAudioOutput2GetRestSample(): Int
+public fun sceAudioOutput2GetRestSample(): Int = -1
 
-public expect fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFrequency, channels: Int): Int
+public fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFrequency, channels: Int): Int = -1
 
-public expect fun sceAudioSRCChRelease(): Int
+public fun sceAudioSRCChRelease(): Int = -1
 
-public expect fun sceAudioSRCOutputBlocking(vol: Int, buf: COpaquePointer?): Int
+public fun sceAudioSRCOutputBlocking(vol: Int, buf: COpaquePointer?): Int = -1
 
-public expect fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int
+public fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int = -1
 
-public expect fun sceAudioInputInitEx(params: AudioInputParams?): Int
+public fun sceAudioInputInitEx(params: AudioInputParams?): Int = -1
 
-public expect fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?)
+public fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) { }
 
-public expect fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?)
+public fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) { }
 
-public expect fun sceAudioGetInputLength(): Int
+public fun sceAudioGetInputLength(): Int = -1
 
-public expect fun sceAudioWaitInputEnd(): Int
+public fun sceAudioWaitInputEnd(): Int = -1
 
-public expect fun sceAudioPollInputEnd(): Int
+public fun sceAudioPollInputEnd(): Int = -1
 
-public expect fun sceAtracGetAtracID(uiCodecType: UInt): Int
+public fun sceAtracGetAtracID(uiCodecType: UInt): Int = -1
 
-public expect fun sceAtracSetDataAndGetID(buf: COpaquePointer?, bufsize: ULong): Int
+public fun sceAtracSetDataAndGetID(buf: COpaquePointer?, bufsize: ULong): Int = -1
 
-public expect fun sceAtracDecodeData(atracId: Int, outSamples: UShort?, outN: Int?, outEnd: Int?, outRemainFrame: Int?): Int
+public fun sceAtracDecodeData(atracId: Int, outSamples: UShort?, outN: Int?, outEnd: Int?, outRemainFrame: Int?): Int = -1
 
-public expect fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: Int?): Int
+public fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: Int?): Int = -1
 
-public expect fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: COpaquePointer?, availableBytes: UInt?, readOffset: UInt?): Int
+public fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: COpaquePointer?, availableBytes: UInt?, readOffset: UInt?): Int = -1
 
-public expect fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int
+public fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int = -1
 
-public expect fun sceAtracGetBitrate(atracId: Int, outBitrate: Int?): Int
+public fun sceAtracGetBitrate(atracId: Int, outBitrate: Int?): Int = -1
 
-public expect fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int
+public fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int = -1
 
-public expect fun sceAtracReleaseAtracID(atracId: Int): Int
+public fun sceAtracReleaseAtracID(atracId: Int): Int = -1
 
-public expect fun sceAtracGetNextSample(atracId: Int, outN: Int?): Int
+public fun sceAtracGetNextSample(atracId: Int, outN: Int?): Int = -1
 
-public expect fun sceAtracGetMaxSample(atracId: Int, outMax: Int?): Int
+public fun sceAtracGetMaxSample(atracId: Int, outMax: Int?): Int = -1
 
-public expect fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: Atrac3BufferInfo?): Int
+public fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: Atrac3BufferInfo?): Int = -1
 
-public expect fun sceAtracGetChannel(atracId: Int, puiChannel: UInt?): Int
+public fun sceAtracGetChannel(atracId: Int, puiChannel: UInt?): Int = -1
 
-public expect fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: Int?): Int
+public fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: Int?): Int = -1
 
-public expect fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: Int?, puiLoopStatus: UInt?): Int
+public fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: Int?, puiLoopStatus: UInt?): Int = -1
 
-public expect fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: UInt?): Int
+public fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: UInt?): Int = -1
 
-public expect fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: UInt?, puiDataByte: UInt?): Int
+public fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: UInt?, puiDataByte: UInt?): Int = -1
 
-public expect fun sceAtracGetSoundSample(atracId: Int, piEndSample: Int?, piLoopStartSample: Int?, piLoopEndSample: Int?): Int
+public fun sceAtracGetSoundSample(atracId: Int, piEndSample: Int?, piLoopStartSample: Int?, piLoopEndSample: Int?): Int = -1
 
-public expect fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int
+public fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int = -1
 
-public expect fun sceAtracSetData(atracId: Int, pucBufferAddr: COpaquePointer?, uiBufferByte: UInt): Int
+public fun sceAtracSetData(atracId: Int, pucBufferAddr: COpaquePointer?, uiBufferByte: UInt): Int = -1
 
-public expect fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int
+public fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int = -1
 
-public expect fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int
+public fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int = -1
 
-public expect fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: COpaquePointer?, uiSecondBufferByte: UInt): Int
+public fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: COpaquePointer?, uiSecondBufferByte: UInt): Int = -1
 
-public expect fun sceCtrlSetSamplingCycle(cycle: Int): Int
+public fun sceCtrlSetSamplingCycle(cycle: Int): Int = -1
 
-public expect fun sceCtrlGetSamplingCycle(pcycle: Int?): Int
+public fun sceCtrlGetSamplingCycle(pcycle: Int?): Int = -1
 
-public expect fun sceCtrlSetSamplingMode(mode: CtrlMode): Int
+public fun sceCtrlSetSamplingMode(mode: CtrlMode): Int = -1
 
-public expect fun sceCtrlGetSamplingMode(pmode: Int?): Int
+public fun sceCtrlGetSamplingMode(pmode: Int?): Int = -1
 
-public expect fun sceCtrlPeekBufferPositive(padData: SceCtrlData?, count: Int): Int
+public fun sceCtrlPeekBufferPositive(padData: SceCtrlData?, count: Int): Int = -1
 
-public expect fun sceCtrlPeekBufferNegative(padData: SceCtrlData?, count: Int): Int
+public fun sceCtrlPeekBufferNegative(padData: SceCtrlData?, count: Int): Int = -1
 
-public expect fun sceCtrlReadBufferPositive(padData: SceCtrlData?, count: Int): Int
+public fun sceCtrlReadBufferPositive(padData: SceCtrlData?, count: Int): Int = -1
 
-public expect fun sceCtrlReadBufferNegative(padData: SceCtrlData?, count: Int): Int
+public fun sceCtrlReadBufferNegative(padData: SceCtrlData?, count: Int): Int = -1
 
-public expect fun sceCtrlPeekLatch(latchData: SceCtrlLatch?): Int
+public fun sceCtrlPeekLatch(latchData: SceCtrlLatch?): Int = -1
 
-public expect fun sceCtrlReadLatch(latchData: SceCtrlLatch?): Int
+public fun sceCtrlReadLatch(latchData: SceCtrlLatch?): Int = -1
 
-public expect fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int
+public fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int = -1
 
-public expect fun sceCtrlGetIdleCancelThreshold(idlereset: Int?, idleback: Int?): Int
+public fun sceCtrlGetIdleCancelThreshold(idlereset: Int?, idleback: Int?): Int = -1
 
-public expect fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt
+public fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt = 0u
 
-public expect fun sceDisplayGetMode(pmode: Int?, pwidth: Int?, pheight: Int?): Int
+public fun sceDisplayGetMode(pmode: Int?, pwidth: Int?, pheight: Int?): Int = -1
 
-public expect fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt
+public fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt = 0u
 
-public expect fun sceDisplayGetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong?, pixelFormat: DisplayPixelFormat?, sync: DisplaySetBufSync): Int
+public fun sceDisplayGetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong?, pixelFormat: DisplayPixelFormat?, sync: DisplaySetBufSync): Int = -1
 
-public expect fun sceDisplayGetVcount(): UInt
+public fun sceDisplayGetVcount(): UInt = 0u
 
-public expect fun sceDisplayWaitVblank(): Int
+public fun sceDisplayWaitVblank(): Int = -1
 
-public expect fun sceDisplayWaitVblankCB(): Int
+public fun sceDisplayWaitVblankCB(): Int = -1
 
-public expect fun sceDisplayWaitVblankStart(): Int
+public fun sceDisplayWaitVblankStart(): Int = -1
 
-public expect fun sceDisplayWaitVblankStartCB(): Int
+public fun sceDisplayWaitVblankStartCB(): Int = -1
 
-public expect fun sceDisplayGetAccumulatedHcount(): Int
+public fun sceDisplayGetAccumulatedHcount(): Int = -1
 
-public expect fun sceDisplayGetCurrentHcount(): Int
+public fun sceDisplayGetCurrentHcount(): Int = -1
 
-public expect fun sceDisplayGetFramePerSec(): Float
+public fun sceDisplayGetFramePerSec(): Float = 0.0f
 
-public expect fun sceDisplayIsForeground(): Int
+public fun sceDisplayIsForeground(): Int = -1
 
-public expect fun sceDisplayIsVblank(): Int
+public fun sceDisplayIsVblank(): Int = -1
 
-public expect fun sceGeEdramGetSize(): UInt
+public fun sceGeEdramGetSize(): UInt = 0u
 
-public expect fun sceGeEdramGetAddr(): COpaquePointer?
+public fun sceGeEdramGetAddr(): COpaquePointer? = null
 
-public expect fun sceGeEdramSetAddrTranslation(width: Int): Int
+public fun sceGeEdramSetAddrTranslation(width: Int): Int = -1
 
-public expect fun sceGeGetCmd(cmd: Int): UInt
+public fun sceGeGetCmd(cmd: Int): UInt = 0u
 
-public expect fun sceGeGetMtx(type: GeMatrixType, matrix: COpaquePointer?): Int
+public fun sceGeGetMtx(type: GeMatrixType, matrix: COpaquePointer?): Int = -1
 
-public expect fun sceGeGetStack(stackId: Int, stack: GeStack?): Int
+public fun sceGeGetStack(stackId: Int, stack: GeStack?): Int = -1
 
-public expect fun sceGeSaveContext(context: GeContext?): Int
+public fun sceGeSaveContext(context: GeContext?): Int = -1
 
-public expect fun sceGeRestoreContext(context: GeContext?): Int
+public fun sceGeRestoreContext(context: GeContext?): Int = -1
 
-public expect fun sceGeListEnQueue(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: GeListArgs?): Int
+public fun sceGeListEnQueue(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: GeListArgs?): Int = -1
 
-public expect fun sceGeListEnQueueHead(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: GeListArgs?): Int
+public fun sceGeListEnQueueHead(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: GeListArgs?): Int = -1
 
-public expect fun sceGeListDeQueue(qid: Int): Int
+public fun sceGeListDeQueue(qid: Int): Int = -1
 
-public expect fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): Int
+public fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): Int = -1
 
-public expect fun sceGeListSync(qid: Int, syncType: Int): GeListState
+public fun sceGeListSync(qid: Int, syncType: Int): GeListState { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun sceGeDrawSync(syncType: Int): GeListState
+public fun sceGeDrawSync(syncType: Int): GeListState { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun sceGeBreak(mode: Int, pParam: GeBreakParam?): Int
+public fun sceGeBreak(mode: Int, pParam: GeBreakParam?): Int = -1
 
-public expect fun sceGeContinue(): Int
+public fun sceGeContinue(): Int = -1
 
-public expect fun sceGeSetCallback(cb: GeCallbackData?): Int
+public fun sceGeSetCallback(cb: GeCallbackData?): Int = -1
 
-public expect fun sceGeUnsetCallback(cbid: Int): Int
+public fun sceGeUnsetCallback(cbid: Int): Int = -1
 
-public expect fun sceKernelExitGame()
+public fun sceKernelExitGame() { }
 
-public expect fun sceKernelRegisterExitCallback(id: SceUid): Int
+public fun sceKernelRegisterExitCallback(id: SceUid): Int = -1
 
-public expect fun sceKernelLoadExec(file: COpaquePointer?, param: SceKernelLoadExecParam?): Int
+public fun sceKernelLoadExec(file: COpaquePointer?, param: SceKernelLoadExecParam?): Int = -1
 
-public expect fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid
+public fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid = SceUid(0)
 
-public expect fun sceKernelGetBlockHeadAddr(blockid: SceUid): COpaquePointer?
+public fun sceKernelGetBlockHeadAddr(blockid: SceUid): COpaquePointer? = null
 
-public expect fun sceKernelFreePartitionMemory(blockid: SceUid): Int
+public fun sceKernelFreePartitionMemory(blockid: SceUid): Int = -1
 
-public expect fun sceKernelTotalFreeMemSize(): ULong
+public fun sceKernelTotalFreeMemSize(): ULong = 0uL
 
-public expect fun sceKernelMaxFreeMemSize(): ULong
+public fun sceKernelMaxFreeMemSize(): ULong = 0uL
 
-public expect fun sceKernelDevkitVersion(): UInt
+public fun sceKernelDevkitVersion(): UInt = 0u
 
-public expect fun sceKernelSetCompiledSdkVersion(version: UInt): Int
+public fun sceKernelSetCompiledSdkVersion(version: UInt): Int = -1
 
-public expect fun sceKernelGetCompiledSdkVersion(): UInt
+public fun sceKernelGetCompiledSdkVersion(): UInt = 0u
 
-public expect fun sceKernelLibcTime(t: Int?): Int
+public fun sceKernelLibcTime(t: Int?): Int = -1
 
-public expect fun sceKernelLibcClock(): UInt
+public fun sceKernelLibcClock(): UInt = 0u
 
-public expect fun sceKernelLibcGettimeofday(tp: Timeval?, tzp: Timezone?): Int
+public fun sceKernelLibcGettimeofday(tp: Timeval?, tzp: Timezone?): Int = -1
 
-public expect fun sceKernelDcacheWritebackAll()
+public fun sceKernelDcacheWritebackAll() { }
 
-public expect fun sceKernelDcacheWritebackInvalidateAll()
+public fun sceKernelDcacheWritebackInvalidateAll() { }
 
-public expect fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt)
+public fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt) { }
 
-public expect fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt)
+public fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt) { }
 
-public expect fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt)
+public fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt) { }
 
-public expect fun sceKernelIcacheInvalidateAll()
+public fun sceKernelIcacheInvalidateAll() { }
 
-public expect fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt)
+public fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt) { }
 
-public expect fun sceKernelUtilsMt19937Init(ctx: SceKernelUtilsMt19937Context?, seed: UInt): Int
+public fun sceKernelUtilsMt19937Init(ctx: SceKernelUtilsMt19937Context?, seed: UInt): Int = -1
 
-public expect fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt
+public fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt = 0u
 
-public expect fun sceKernelUtilsMd5Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int
+public fun sceKernelUtilsMd5Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int = -1
 
-public expect fun sceKernelUtilsMd5BlockInit(ctx: SceKernelUtilsMd5Context?): Int
+public fun sceKernelUtilsMd5BlockInit(ctx: SceKernelUtilsMd5Context?): Int = -1
 
-public expect fun sceKernelUtilsMd5BlockUpdate(ctx: SceKernelUtilsMd5Context?, data: COpaquePointer?, size: UInt): Int
+public fun sceKernelUtilsMd5BlockUpdate(ctx: SceKernelUtilsMd5Context?, data: COpaquePointer?, size: UInt): Int = -1
 
-public expect fun sceKernelUtilsMd5BlockResult(ctx: SceKernelUtilsMd5Context?, digest: COpaquePointer?): Int
+public fun sceKernelUtilsMd5BlockResult(ctx: SceKernelUtilsMd5Context?, digest: COpaquePointer?): Int = -1
 
-public expect fun sceKernelUtilsSha1Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int
+public fun sceKernelUtilsSha1Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int = -1
 
-public expect fun sceKernelUtilsSha1BlockInit(ctx: SceKernelUtilsSha1Context?): Int
+public fun sceKernelUtilsSha1BlockInit(ctx: SceKernelUtilsSha1Context?): Int = -1
 
-public expect fun sceKernelUtilsSha1BlockUpdate(ctx: SceKernelUtilsSha1Context?, data: COpaquePointer?, size: UInt): Int
+public fun sceKernelUtilsSha1BlockUpdate(ctx: SceKernelUtilsSha1Context?, data: COpaquePointer?, size: UInt): Int = -1
 
-public expect fun sceKernelUtilsSha1BlockResult(ctx: SceKernelUtilsSha1Context?, digest: COpaquePointer?): Int
+public fun sceKernelUtilsSha1BlockResult(ctx: SceKernelUtilsSha1Context?, digest: COpaquePointer?): Int = -1
 
-public expect fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: COpaquePointer?, arg: COpaquePointer?): Int
+public fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: COpaquePointer?, arg: COpaquePointer?): Int = -1
 
-public expect fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int
+public fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int = -1
 
-public expect fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int
+public fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int = -1
 
-public expect fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int
+public fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int = -1
 
-public expect fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: IntrHandlerOptionParam?): Int
+public fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: IntrHandlerOptionParam?): Int = -1
 
-public expect fun sceKernelCpuSuspendIntr(): UInt
+public fun sceKernelCpuSuspendIntr(): UInt = 0u
 
-public expect fun sceKernelCpuResumeIntr(flags: UInt)
+public fun sceKernelCpuResumeIntr(flags: UInt) { }
 
-public expect fun sceKernelCpuResumeIntrWithSync(flags: UInt)
+public fun sceKernelCpuResumeIntrWithSync(flags: UInt) { }
 
-public expect fun sceKernelIsCpuIntrSuspended(flags: UInt): Int
+public fun sceKernelIsCpuIntrSuspended(flags: UInt): Int = -1
 
-public expect fun sceKernelIsCpuIntrEnable(): Int
+public fun sceKernelIsCpuIntrEnable(): Int = -1
 
-public expect fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
+public fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
 
-public expect fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
+public fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
 
-public expect fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid
+public fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
 
-public expect fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
+public fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
 
-public expect fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int
+public fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int = -1
 
-public expect fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int
+public fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int = -1
 
-public expect fun sceKernelUnloadModule(modId: SceUid): Int
+public fun sceKernelUnloadModule(modId: SceUid): Int = -1
 
-public expect fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: COpaquePointer?): Int
+public fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: COpaquePointer?): Int = -1
 
-public expect fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int
+public fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int = -1
 
-public expect fun sceKernelQueryModuleInfo(modId: SceUid, info: SceKernelModuleInfo?): Int
+public fun sceKernelQueryModuleInfo(modId: SceUid, info: SceKernelModuleInfo?): Int = -1
 
-public expect fun sceKernelGetModuleIdList(readBuf: SceUid?, readBufSize: Int, idCount: Int?): Int
+public fun sceKernelGetModuleIdList(readBuf: SceUid?, readBufSize: Int, idCount: Int?): Int = -1
 
-public expect fun sceKernelVolatileMemLock(unk: Int, ptr: COpaquePointer?, size: Int?): Int
+public fun sceKernelVolatileMemLock(unk: Int, ptr: COpaquePointer?, size: Int?): Int = -1
 
-public expect fun sceKernelVolatileMemTryLock(unk: Int, ptr: COpaquePointer?, size: Int?): Int
+public fun sceKernelVolatileMemTryLock(unk: Int, ptr: COpaquePointer?, size: Int?): Int = -1
 
-public expect fun sceKernelVolatileMemUnlock(unk: Int): Int
+public fun sceKernelVolatileMemUnlock(unk: Int): Int = -1
 
-public expect fun sceKernelStdin(): SceUid
+public fun sceKernelStdin(): SceUid = SceUid(0)
 
-public expect fun sceKernelStdout(): SceUid
+public fun sceKernelStdout(): SceUid = SceUid(0)
 
-public expect fun sceKernelStderr(): SceUid
+public fun sceKernelStderr(): SceUid = SceUid(0)
 
-public expect fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType
+public fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid
+public fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid = SceUid(0)
 
-public expect fun sceKernelDeleteThread(thid: SceUid): Int
+public fun sceKernelDeleteThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: COpaquePointer?): Int
+public fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: COpaquePointer?): Int = -1
 
-public expect fun sceKernelExitThread(status: Int): Int
+public fun sceKernelExitThread(status: Int): Int = -1
 
-public expect fun sceKernelExitDeleteThread(status: Int): Int
+public fun sceKernelExitDeleteThread(status: Int): Int = -1
 
-public expect fun sceKernelTerminateThread(thid: SceUid): Int
+public fun sceKernelTerminateThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelTerminateDeleteThread(thid: SceUid): Int
+public fun sceKernelTerminateDeleteThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelSuspendDispatchThread(): Int
+public fun sceKernelSuspendDispatchThread(): Int = -1
 
-public expect fun sceKernelResumeDispatchThread(state: Int): Int
+public fun sceKernelResumeDispatchThread(state: Int): Int = -1
 
-public expect fun sceKernelSleepThread(): Int
+public fun sceKernelSleepThread(): Int = -1
 
-public expect fun sceKernelSleepThreadCB(): Int
+public fun sceKernelSleepThreadCB(): Int = -1
 
-public expect fun sceKernelWakeupThread(thid: SceUid): Int
+public fun sceKernelWakeupThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelCancelWakeupThread(thid: SceUid): Int
+public fun sceKernelCancelWakeupThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelSuspendThread(thid: SceUid): Int
+public fun sceKernelSuspendThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelResumeThread(thid: SceUid): Int
+public fun sceKernelResumeThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelWaitThreadEnd(thid: SceUid, timeout: UInt?): Int
+public fun sceKernelWaitThreadEnd(thid: SceUid, timeout: UInt?): Int = -1
 
-public expect fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: UInt?): Int
+public fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: UInt?): Int = -1
 
-public expect fun sceKernelDelayThread(delay: UInt): Int
+public fun sceKernelDelayThread(delay: UInt): Int = -1
 
-public expect fun sceKernelDelayThreadCB(delay: UInt): Int
+public fun sceKernelDelayThreadCB(delay: UInt): Int = -1
 
-public expect fun sceKernelDelaySysClockThread(delay: SceKernelSysClock?): Int
+public fun sceKernelDelaySysClockThread(delay: SceKernelSysClock?): Int = -1
 
-public expect fun sceKernelDelaySysClockThreadCB(delay: SceKernelSysClock?): Int
+public fun sceKernelDelaySysClockThreadCB(delay: SceKernelSysClock?): Int = -1
 
-public expect fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int
+public fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int = -1
 
-public expect fun sceKernelChangeThreadPriority(thid: SceUid, priority: Int): Int
+public fun sceKernelChangeThreadPriority(thid: SceUid, priority: Int): Int = -1
 
-public expect fun sceKernelRotateThreadReadyQueue(priority: Int): Int
+public fun sceKernelRotateThreadReadyQueue(priority: Int): Int = -1
 
-public expect fun sceKernelReleaseWaitThread(thid: SceUid): Int
+public fun sceKernelReleaseWaitThread(thid: SceUid): Int = -1
 
-public expect fun sceKernelGetThreadId(): Int
+public fun sceKernelGetThreadId(): Int = -1
 
-public expect fun sceKernelGetThreadCurrentPriority(): Int
+public fun sceKernelGetThreadCurrentPriority(): Int = -1
 
-public expect fun sceKernelGetThreadExitStatus(thid: SceUid): Int
+public fun sceKernelGetThreadExitStatus(thid: SceUid): Int = -1
 
-public expect fun sceKernelCheckThreadStack(): Int
+public fun sceKernelCheckThreadStack(): Int = -1
 
-public expect fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int
+public fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int = -1
 
-public expect fun sceKernelReferThreadStatus(thid: SceUid, info: SceKernelThreadInfo?): Int
+public fun sceKernelReferThreadStatus(thid: SceUid, info: SceKernelThreadInfo?): Int = -1
 
-public expect fun sceKernelReferThreadRunStatus(thid: SceUid, status: SceKernelThreadRunStatus?): Int
+public fun sceKernelReferThreadRunStatus(thid: SceUid, status: SceKernelThreadRunStatus?): Int = -1
 
-public expect fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid
+public fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid = SceUid(0)
 
-public expect fun sceKernelDeleteSema(semaId: SceUid): Int
+public fun sceKernelDeleteSema(semaId: SceUid): Int = -1
 
-public expect fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int
+public fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int = -1
 
-public expect fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: UInt?): Int
+public fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: UInt?): Int = -1
 
-public expect fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: UInt?): Int
+public fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: UInt?): Int = -1
 
-public expect fun sceKernelPollSema(semaId: SceUid, signal: Int): Int
+public fun sceKernelPollSema(semaId: SceUid, signal: Int): Int = -1
 
-public expect fun sceKernelReferSemaStatus(semaId: SceUid, info: SceKernelSemaInfo?): Int
+public fun sceKernelReferSemaStatus(semaId: SceUid, info: SceKernelSemaInfo?): Int = -1
 
-public expect fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid
+public fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid = SceUid(0)
 
-public expect fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int
+public fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int = -1
 
-public expect fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int
+public fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int = -1
 
-public expect fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?): Int
+public fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?): Int = -1
 
-public expect fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?, timeout: UInt?): Int
+public fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?, timeout: UInt?): Int
+public fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: UInt?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelDeleteEventFlag(evId: SceUid): Int
+public fun sceKernelDeleteEventFlag(evId: SceUid): Int = -1
 
-public expect fun sceKernelReferEventFlagStatus(event: SceUid, status: SceKernelEventFlagInfo?): Int
+public fun sceKernelReferEventFlagStatus(event: SceUid, status: SceKernelEventFlagInfo?): Int = -1
 
-public expect fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid
+public fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid = SceUid(0)
 
-public expect fun sceKernelDeleteMbx(mbxId: SceUid): Int
+public fun sceKernelDeleteMbx(mbxId: SceUid): Int = -1
 
-public expect fun sceKernelSendMbx(mbxId: SceUid, message: COpaquePointer?): Int
+public fun sceKernelSendMbx(mbxId: SceUid, message: COpaquePointer?): Int = -1
 
-public expect fun sceKernelReceiveMbx(mbxId: SceUid, message: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelReceiveMbx(mbxId: SceUid, message: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelReceiveMbxCB(mbxId: SceUid, message: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelReceiveMbxCB(mbxId: SceUid, message: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelPollMbx(mbxId: SceUid, pmessage: COpaquePointer?): Int
+public fun sceKernelPollMbx(mbxId: SceUid, pmessage: COpaquePointer?): Int = -1
 
-public expect fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: Int?): Int
+public fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: Int?): Int = -1
 
-public expect fun sceKernelReferMbxStatus(mbxId: SceUid, info: SceKernelMbxInfo?): Int
+public fun sceKernelReferMbxStatus(mbxId: SceUid, info: SceKernelMbxInfo?): Int = -1
 
-public expect fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid
+public fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid = SceUid(0)
 
-public expect fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: SceKernelAlarmHandler?, common: COpaquePointer?): SceUid
+public fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid = SceUid(0)
 
-public expect fun sceKernelCancelAlarm(alarmId: SceUid): Int
+public fun sceKernelCancelAlarm(alarmId: SceUid): Int = -1
 
-public expect fun sceKernelReferAlarmStatus(alarmId: SceUid, info: SceKernelAlarmInfo?): Int
+public fun sceKernelReferAlarmStatus(alarmId: SceUid, info: SceKernelAlarmInfo?): Int = -1
 
-public expect fun sceKernelCreateCallback(name: COpaquePointer?, func: SceKernelCallbackFunction, arg: COpaquePointer?): SceUid
+public fun sceKernelCreateCallback(name: COpaquePointer?, func: SceKernelCallbackFunction, arg: COpaquePointer?): SceUid = SceUid(0)
 
-public expect fun sceKernelReferCallbackStatus(cb: SceUid, status: SceKernelCallbackInfo?): Int
+public fun sceKernelReferCallbackStatus(cb: SceUid, status: SceKernelCallbackInfo?): Int = -1
 
-public expect fun sceKernelDeleteCallback(cb: SceUid): Int
+public fun sceKernelDeleteCallback(cb: SceUid): Int = -1
 
-public expect fun sceKernelNotifyCallback(cb: SceUid, arg2: Int): Int
+public fun sceKernelNotifyCallback(cb: SceUid, arg2: Int): Int = -1
 
-public expect fun sceKernelCancelCallback(cb: SceUid): Int
+public fun sceKernelCancelCallback(cb: SceUid): Int = -1
 
-public expect fun sceKernelGetCallbackCount(cb: SceUid): Int
+public fun sceKernelGetCallbackCount(cb: SceUid): Int = -1
 
-public expect fun sceKernelCheckCallback(): Int
+public fun sceKernelCheckCallback(): Int = -1
 
-public expect fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: SceUid?, readBufSize: Int, idCount: Int?): Int
+public fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: SceUid?, readBufSize: Int, idCount: Int?): Int = -1
 
-public expect fun sceKernelReferSystemStatus(status: SceKernelSystemStatus?): Int
+public fun sceKernelReferSystemStatus(status: SceKernelSystemStatus?): Int = -1
 
-public expect fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid
+public fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid = SceUid(0)
 
-public expect fun sceKernelDeleteMsgPipe(uid: SceUid): Int
+public fun sceKernelDeleteMsgPipe(uid: SceUid): Int = -1
 
-public expect fun sceKernelSendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelSendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelSendMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelSendMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelTrySendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int
+public fun sceKernelTrySendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int = -1
 
-public expect fun sceKernelReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int
+public fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int = -1
 
-public expect fun sceKernelCancelMsgPipe(uid: SceUid, send: Int?, recv: Int?): Int
+public fun sceKernelCancelMsgPipe(uid: SceUid, send: Int?, recv: Int?): Int = -1
 
-public expect fun sceKernelReferMsgPipeStatus(uid: SceUid, info: SceKernelMppInfo?): Int
+public fun sceKernelReferMsgPipeStatus(uid: SceUid, info: SceKernelMppInfo?): Int = -1
 
-public expect fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid
+public fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid = SceUid(0)
 
-public expect fun sceKernelDeleteVpl(uid: SceUid): Int
+public fun sceKernelDeleteVpl(uid: SceUid): Int = -1
 
-public expect fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?): Int
+public fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?): Int = -1
 
-public expect fun sceKernelFreeVpl(uid: SceUid, data: COpaquePointer?): Int
+public fun sceKernelFreeVpl(uid: SceUid, data: COpaquePointer?): Int = -1
 
-public expect fun sceKernelCancelVpl(uid: SceUid, num: Int?): Int
+public fun sceKernelCancelVpl(uid: SceUid, num: Int?): Int = -1
 
-public expect fun sceKernelReferVplStatus(uid: SceUid, info: SceKernelVplInfo?): Int
+public fun sceKernelReferVplStatus(uid: SceUid, info: SceKernelVplInfo?): Int = -1
 
-public expect fun sceKernelCreateFpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, blocks: UInt, opt: SceKernelFplOptParam?): Int
+public fun sceKernelCreateFpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, blocks: UInt, opt: SceKernelFplOptParam?): Int = -1
 
-public expect fun sceKernelDeleteFpl(uid: SceUid): Int
+public fun sceKernelDeleteFpl(uid: SceUid): Int = -1
 
-public expect fun sceKernelAllocateFpl(uid: SceUid, data: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelAllocateFpl(uid: SceUid, data: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelAllocateFplCB(uid: SceUid, data: COpaquePointer?, timeout: UInt?): Int
+public fun sceKernelAllocateFplCB(uid: SceUid, data: COpaquePointer?, timeout: UInt?): Int = -1
 
-public expect fun sceKernelTryAllocateFpl(uid: SceUid, data: COpaquePointer?): Int
+public fun sceKernelTryAllocateFpl(uid: SceUid, data: COpaquePointer?): Int = -1
 
-public expect fun sceKernelFreeFpl(uid: SceUid, data: COpaquePointer?): Int
+public fun sceKernelFreeFpl(uid: SceUid, data: COpaquePointer?): Int = -1
 
-public expect fun sceKernelCancelFpl(uid: SceUid, pnum: Int?): Int
+public fun sceKernelCancelFpl(uid: SceUid, pnum: Int?): Int = -1
 
-public expect fun sceKernelReferFplStatus(uid: SceUid, info: SceKernelFplInfo?): Int
+public fun sceKernelReferFplStatus(uid: SceUid, info: SceKernelFplInfo?): Int = -1
 
-public expect fun sceKernelUSec2SysClock(usec: UInt, clock: SceKernelSysClock?): Int
+public fun sceKernelUSec2SysClock(usec: UInt, clock: SceKernelSysClock?): Int = -1
 
-public expect fun sceKernelUSec2SysClockWide(usec: UInt): Long
+public fun sceKernelUSec2SysClockWide(usec: UInt): Long = -1L
 
-public expect fun sceKernelSysClock2USec(clock: SceKernelSysClock?, low: UInt?, high: UInt?): Int
+public fun sceKernelSysClock2USec(clock: SceKernelSysClock?, low: UInt?, high: UInt?): Int = -1
 
-public expect fun sceKernelSysClock2USecWide(clock: Long, low: UInt?, high: UInt?): Int
+public fun sceKernelSysClock2USecWide(clock: Long, low: UInt?, high: UInt?): Int = -1
 
-public expect fun sceKernelGetSystemTime(time: SceKernelSysClock?): Int
+public fun sceKernelGetSystemTime(time: SceKernelSysClock?): Int = -1
 
-public expect fun sceKernelGetSystemTimeWide(): Long
+public fun sceKernelGetSystemTimeWide(): Long = -1L
 
-public expect fun sceKernelGetSystemTimeLow(): UInt
+public fun sceKernelGetSystemTimeLow(): UInt = 0u
 
-public expect fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid
+public fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid = SceUid(0)
 
-public expect fun sceKernelDeleteVTimer(uid: SceUid): Int
+public fun sceKernelDeleteVTimer(uid: SceUid): Int = -1
 
-public expect fun sceKernelGetVTimerBase(uid: SceUid, base: SceKernelSysClock?): Int
+public fun sceKernelGetVTimerBase(uid: SceUid, base: SceKernelSysClock?): Int = -1
 
-public expect fun sceKernelGetVTimerBaseWide(uid: SceUid): Long
+public fun sceKernelGetVTimerBaseWide(uid: SceUid): Long = -1L
 
-public expect fun sceKernelGetVTimerTime(uid: SceUid, time: SceKernelSysClock?): Int
+public fun sceKernelGetVTimerTime(uid: SceUid, time: SceKernelSysClock?): Int = -1
 
-public expect fun sceKernelGetVTimerTimeWide(uid: SceUid): Long
+public fun sceKernelGetVTimerTimeWide(uid: SceUid): Long = -1L
 
-public expect fun sceKernelSetVTimerTime(uid: SceUid, time: SceKernelSysClock?): Int
+public fun sceKernelSetVTimerTime(uid: SceUid, time: SceKernelSysClock?): Int = -1
 
-public expect fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long
+public fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long = -1L
 
-public expect fun sceKernelStartVTimer(uid: SceUid): Int
+public fun sceKernelStartVTimer(uid: SceUid): Int = -1
 
-public expect fun sceKernelStopVTimer(uid: SceUid): Int
+public fun sceKernelStopVTimer(uid: SceUid): Int = -1
 
-public expect fun sceKernelSetVTimerHandler(uid: SceUid, time: SceKernelSysClock?, handler: SceKernelVTimerHandler, common: COpaquePointer?): Int
+public fun sceKernelSetVTimerHandler(uid: SceUid, time: SceKernelSysClock?, handler: SceKernelVTimerHandler, common: COpaquePointer?): Int = -1
 
-public expect fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: COpaquePointer?): Int
+public fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: COpaquePointer?): Int = -1
 
-public expect fun sceKernelCancelVTimerHandler(uid: SceUid): Int
+public fun sceKernelCancelVTimerHandler(uid: SceUid): Int = -1
 
-public expect fun sceKernelReferVTimerStatus(uid: SceUid, info: SceKernelVTimerInfo?): Int
+public fun sceKernelReferVTimerStatus(uid: SceUid, info: SceKernelVTimerInfo?): Int = -1
 
-public expect fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: COpaquePointer?): SceUid
+public fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: COpaquePointer?): SceUid = SceUid(0)
 
-public expect fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int
+public fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int = -1
 
-public expect fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: SceKernelThreadEventHandlerInfo?): Int
+public fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: SceKernelThreadEventHandlerInfo?): Int = -1
 
-public expect fun sceKernelReferThreadProfiler(): DebugProfilerRegs?
+public fun sceKernelReferThreadProfiler(): DebugProfilerRegs? = null
 
-public expect fun sceKernelReferGlobalProfiler(): DebugProfilerRegs?
+public fun sceKernelReferGlobalProfiler(): DebugProfilerRegs? = null
 
-public expect fun sceUsbStart(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int
+public fun sceUsbStart(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int = -1
 
-public expect fun sceUsbStop(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int
+public fun sceUsbStop(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int = -1
 
-public expect fun sceUsbActivate(pid: UInt): Int
+public fun sceUsbActivate(pid: UInt): Int = -1
 
-public expect fun sceUsbDeactivate(pid: UInt): Int
+public fun sceUsbDeactivate(pid: UInt): Int = -1
 
-public expect fun sceUsbGetState(): Int
+public fun sceUsbGetState(): Int = -1
 
-public expect fun sceUsbGetDrvState(driverName: COpaquePointer?): Int
+public fun sceUsbGetDrvState(driverName: COpaquePointer?): Int = -1
 
-public expect fun sceUsbCamSetupStill(param: UsbCamSetupStillParam?): Int
+public fun sceUsbCamSetupStill(param: UsbCamSetupStillParam?): Int = -1
 
-public expect fun sceUsbCamSetupStillEx(param: UsbCamSetupStillExParam?): Int
+public fun sceUsbCamSetupStillEx(param: UsbCamSetupStillExParam?): Int = -1
 
-public expect fun sceUsbCamStillInputBlocking(buf: COpaquePointer?, size: ULong): Int
+public fun sceUsbCamStillInputBlocking(buf: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceUsbCamStillInput(buf: COpaquePointer?, size: ULong): Int
+public fun sceUsbCamStillInput(buf: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceUsbCamStillWaitInputEnd(): Int
+public fun sceUsbCamStillWaitInputEnd(): Int = -1
 
-public expect fun sceUsbCamStillPollInputEnd(): Int
+public fun sceUsbCamStillPollInputEnd(): Int = -1
 
-public expect fun sceUsbCamStillCancelInput(): Int
+public fun sceUsbCamStillCancelInput(): Int = -1
 
-public expect fun sceUsbCamStillGetInputLength(): Int
+public fun sceUsbCamStillGetInputLength(): Int = -1
 
-public expect fun sceUsbCamSetupVideo(param: UsbCamSetupVideoParam?, workArea: COpaquePointer?, workAreaSize: Int): Int
+public fun sceUsbCamSetupVideo(param: UsbCamSetupVideoParam?, workArea: COpaquePointer?, workAreaSize: Int): Int = -1
 
-public expect fun sceUsbCamSetupVideoEx(param: UsbCamSetupVideoExParam?, workArea: COpaquePointer?, workAreaSize: Int): Int
+public fun sceUsbCamSetupVideoEx(param: UsbCamSetupVideoExParam?, workArea: COpaquePointer?, workAreaSize: Int): Int = -1
 
-public expect fun sceUsbCamStartVideo(): Int
+public fun sceUsbCamStartVideo(): Int = -1
 
-public expect fun sceUsbCamStopVideo(): Int
+public fun sceUsbCamStopVideo(): Int = -1
 
-public expect fun sceUsbCamReadVideoFrameBlocking(buf: COpaquePointer?, size: ULong): Int
+public fun sceUsbCamReadVideoFrameBlocking(buf: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceUsbCamReadVideoFrame(buf: COpaquePointer?, size: ULong): Int
+public fun sceUsbCamReadVideoFrame(buf: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceUsbCamWaitReadVideoFrameEnd(): Int
+public fun sceUsbCamWaitReadVideoFrameEnd(): Int = -1
 
-public expect fun sceUsbCamPollReadVideoFrameEnd(): Int
+public fun sceUsbCamPollReadVideoFrameEnd(): Int = -1
 
-public expect fun sceUsbCamGetReadVideoFrameSize(): Int
+public fun sceUsbCamGetReadVideoFrameSize(): Int = -1
 
-public expect fun sceUsbCamSetSaturation(saturation: Int): Int
+public fun sceUsbCamSetSaturation(saturation: Int): Int = -1
 
-public expect fun sceUsbCamSetBrightness(brightness: Int): Int
+public fun sceUsbCamSetBrightness(brightness: Int): Int = -1
 
-public expect fun sceUsbCamSetContrast(contrast: Int): Int
+public fun sceUsbCamSetContrast(contrast: Int): Int = -1
 
-public expect fun sceUsbCamSetSharpness(sharpness: Int): Int
+public fun sceUsbCamSetSharpness(sharpness: Int): Int = -1
 
-public expect fun sceUsbCamSetImageEffectMode(effectMode: UsbCamEffectMode): Int
+public fun sceUsbCamSetImageEffectMode(effectMode: UsbCamEffectMode): Int = -1
 
-public expect fun sceUsbCamSetEvLevel(exposureLevel: UsbCamEvLevel): Int
+public fun sceUsbCamSetEvLevel(exposureLevel: UsbCamEvLevel): Int = -1
 
-public expect fun sceUsbCamSetReverseMode(reverseFlags: Int): Int
+public fun sceUsbCamSetReverseMode(reverseFlags: Int): Int = -1
 
-public expect fun sceUsbCamSetZoom(zoom: Int): Int
+public fun sceUsbCamSetZoom(zoom: Int): Int = -1
 
-public expect fun sceUsbCamGetSaturation(saturation: Int?): Int
+public fun sceUsbCamGetSaturation(saturation: Int?): Int = -1
 
-public expect fun sceUsbCamGetBrightness(brightness: Int?): Int
+public fun sceUsbCamGetBrightness(brightness: Int?): Int = -1
 
-public expect fun sceUsbCamGetContrast(contrast: Int?): Int
+public fun sceUsbCamGetContrast(contrast: Int?): Int = -1
 
-public expect fun sceUsbCamGetSharpness(sharpness: Int?): Int
+public fun sceUsbCamGetSharpness(sharpness: Int?): Int = -1
 
-public expect fun sceUsbCamGetImageEffectMode(effectMode: UsbCamEffectMode?): Int
+public fun sceUsbCamGetImageEffectMode(effectMode: UsbCamEffectMode?): Int = -1
 
-public expect fun sceUsbCamGetEvLevel(exposureLevel: UsbCamEvLevel?): Int
+public fun sceUsbCamGetEvLevel(exposureLevel: UsbCamEvLevel?): Int = -1
 
-public expect fun sceUsbCamGetReverseMode(reverseFlags: Int?): Int
+public fun sceUsbCamGetReverseMode(reverseFlags: Int?): Int = -1
 
-public expect fun sceUsbCamGetZoom(zoom: Int?): Int
+public fun sceUsbCamGetZoom(zoom: Int?): Int = -1
 
-public expect fun sceUsbCamAutoImageReverseSW(on: Int): Int
+public fun sceUsbCamAutoImageReverseSW(on: Int): Int = -1
 
-public expect fun sceUsbCamGetAutoImageReverseState(): Int
+public fun sceUsbCamGetAutoImageReverseState(): Int = -1
 
-public expect fun sceUsbCamGetLensDirection(): Int
+public fun sceUsbCamGetLensDirection(): Int = -1
 
-public expect fun sceUsbstorBootRegisterNotify(eventFlag: SceUid): Int
+public fun sceUsbstorBootRegisterNotify(eventFlag: SceUid): Int = -1
 
-public expect fun sceUsbstorBootUnregisterNotify(eventFlag: UInt): Int
+public fun sceUsbstorBootUnregisterNotify(eventFlag: UInt): Int = -1
 
-public expect fun sceUsbstorBootSetCapacity(size: UInt): Int
+public fun sceUsbstorBootSetCapacity(size: UInt): Int = -1
 
-public expect fun scePowerRegisterCallback(slot: Int, cbid: SceUid): Int
+public fun scePowerRegisterCallback(slot: Int, cbid: SceUid): Int = -1
 
-public expect fun scePowerUnregisterCallback(slot: Int): Int
+public fun scePowerUnregisterCallback(slot: Int): Int = -1
 
-public expect fun scePowerIsPowerOnline(): Int
+public fun scePowerIsPowerOnline(): Int = -1
 
-public expect fun scePowerIsBatteryExist(): Int
+public fun scePowerIsBatteryExist(): Int = -1
 
-public expect fun scePowerIsBatteryCharging(): Int
+public fun scePowerIsBatteryCharging(): Int = -1
 
-public expect fun scePowerGetBatteryChargingStatus(): Int
+public fun scePowerGetBatteryChargingStatus(): Int = -1
 
-public expect fun scePowerIsLowBattery(): Int
+public fun scePowerIsLowBattery(): Int = -1
 
-public expect fun scePowerGetBatteryLifePercent(): Int
+public fun scePowerGetBatteryLifePercent(): Int = -1
 
-public expect fun scePowerGetBatteryLifeTime(): Int
+public fun scePowerGetBatteryLifeTime(): Int = -1
 
-public expect fun scePowerGetBatteryTemp(): Int
+public fun scePowerGetBatteryTemp(): Int = -1
 
-public expect fun scePowerGetBatteryElec(): Int
+public fun scePowerGetBatteryElec(): Int = -1
 
-public expect fun scePowerGetBatteryVolt(): Int
+public fun scePowerGetBatteryVolt(): Int = -1
 
-public expect fun scePowerSetCpuClockFrequency(cpufreq: Int): Int
+public fun scePowerSetCpuClockFrequency(cpufreq: Int): Int = -1
 
-public expect fun scePowerSetBusClockFrequency(busfreq: Int): Int
+public fun scePowerSetBusClockFrequency(busfreq: Int): Int = -1
 
-public expect fun scePowerGetCpuClockFrequency(): Int
+public fun scePowerGetCpuClockFrequency(): Int = -1
 
-public expect fun scePowerGetCpuClockFrequencyInt(): Int
+public fun scePowerGetCpuClockFrequencyInt(): Int = -1
 
-public expect fun scePowerGetCpuClockFrequencyFloat(): Float
+public fun scePowerGetCpuClockFrequencyFloat(): Float = 0.0f
 
-public expect fun scePowerGetBusClockFrequency(): Int
+public fun scePowerGetBusClockFrequency(): Int = -1
 
-public expect fun scePowerGetBusClockFrequencyInt(): Int
+public fun scePowerGetBusClockFrequencyInt(): Int = -1
 
-public expect fun scePowerGetBusClockFrequencyFloat(): Float
+public fun scePowerGetBusClockFrequencyFloat(): Float = 0.0f
 
-public expect fun scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int
+public fun scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int = -1
 
-public expect fun scePowerLock(unknown: Int): Int
+public fun scePowerLock(unknown: Int): Int = -1
 
-public expect fun scePowerUnlock(unknown: Int): Int
+public fun scePowerUnlock(unknown: Int): Int = -1
 
-public expect fun scePowerTick(t: PowerTick): Int
+public fun scePowerTick(t: PowerTick): Int = -1
 
-public expect fun scePowerGetIdleTimer(): Int
+public fun scePowerGetIdleTimer(): Int = -1
 
-public expect fun scePowerIdleTimerEnable(unknown: Int): Int
+public fun scePowerIdleTimerEnable(unknown: Int): Int = -1
 
-public expect fun scePowerIdleTimerDisable(unknown: Int): Int
+public fun scePowerIdleTimerDisable(unknown: Int): Int = -1
 
-public expect fun scePowerRequestStandby(): Int
+public fun scePowerRequestStandby(): Int = -1
 
-public expect fun scePowerRequestSuspend(): Int
+public fun scePowerRequestSuspend(): Int = -1
 
-public expect fun sceWlanDevIsPowerOn(): Int
+public fun sceWlanDevIsPowerOn(): Int = -1
 
-public expect fun sceWlanGetSwitchState(): Int
+public fun sceWlanGetSwitchState(): Int = -1
 
-public expect fun sceWlanGetEtherAddr(etherAddr: COpaquePointer?): Int
+public fun sceWlanGetEtherAddr(etherAddr: COpaquePointer?): Int = -1
 
-public expect fun sceWlanDevAttach(): Int
+public fun sceWlanDevAttach(): Int = -1
 
-public expect fun sceWlanDevDetach(): Int
+public fun sceWlanDevDetach(): Int = -1
 
-public expect fun sceRtcGetTickResolution(): UInt
+public fun sceRtcGetTickResolution(): UInt = 0u
 
-public expect fun sceRtcGetCurrentTick(tick: ULong?): Int
+public fun sceRtcGetCurrentTick(tick: ULong?): Int = -1
 
-public expect fun sceRtcGetCurrentClock(tm: ScePspDateTime?, tz: Int): Int
+public fun sceRtcGetCurrentClock(tm: ScePspDateTime?, tz: Int): Int = -1
 
-public expect fun sceRtcGetCurrentClockLocalTime(tm: ScePspDateTime?): Int
+public fun sceRtcGetCurrentClockLocalTime(tm: ScePspDateTime?): Int = -1
 
-public expect fun sceRtcConvertUtcToLocalTime(tickUtc: ULong?, tickLocal: ULong?): Int
+public fun sceRtcConvertUtcToLocalTime(tickUtc: ULong?, tickLocal: ULong?): Int = -1
 
-public expect fun sceRtcConvertLocalTimeToUTC(tickLocal: ULong?, tickUtc: ULong?): Int
+public fun sceRtcConvertLocalTimeToUTC(tickLocal: ULong?, tickUtc: ULong?): Int = -1
 
-public expect fun sceRtcIsLeapYear(year: Int): Int
+public fun sceRtcIsLeapYear(year: Int): Int = -1
 
-public expect fun sceRtcGetDaysInMonth(year: Int, month: Int): Int
+public fun sceRtcGetDaysInMonth(year: Int, month: Int): Int = -1
 
-public expect fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int
+public fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int = -1
 
-public expect fun sceRtcCheckValid(date: ScePspDateTime?): Int
+public fun sceRtcCheckValid(date: ScePspDateTime?): Int = -1
 
-public expect fun sceRtcSetTick(date: ScePspDateTime?, tick: ULong?): Int
+public fun sceRtcSetTick(date: ScePspDateTime?, tick: ULong?): Int = -1
 
-public expect fun sceRtcGetTick(date: ScePspDateTime?, tick: ULong?): Int
+public fun sceRtcGetTick(date: ScePspDateTime?, tick: ULong?): Int = -1
 
-public expect fun sceRtcCompareTick(tick1: ULong?, tick2: ULong?): Int
+public fun sceRtcCompareTick(tick1: ULong?, tick2: ULong?): Int = -1
 
-public expect fun sceRtcTickAddTicks(destTick: ULong?, srcTick: ULong?, numTicks: ULong): Int
+public fun sceRtcTickAddTicks(destTick: ULong?, srcTick: ULong?, numTicks: ULong): Int = -1
 
-public expect fun sceRtcTickAddMicroseconds(destTick: ULong?, srcTick: ULong?, numMs: ULong): Int
+public fun sceRtcTickAddMicroseconds(destTick: ULong?, srcTick: ULong?, numMs: ULong): Int = -1
 
-public expect fun sceRtcTickAddSeconds(destTick: ULong?, srcTick: ULong?, numSeconds: ULong): Int
+public fun sceRtcTickAddSeconds(destTick: ULong?, srcTick: ULong?, numSeconds: ULong): Int = -1
 
-public expect fun sceRtcTickAddMinutes(destTick: ULong?, srcTick: ULong?, numMinutes: ULong): Int
+public fun sceRtcTickAddMinutes(destTick: ULong?, srcTick: ULong?, numMinutes: ULong): Int = -1
 
-public expect fun sceRtcTickAddHours(destTick: ULong?, srcTick: ULong?, numHours: ULong): Int
+public fun sceRtcTickAddHours(destTick: ULong?, srcTick: ULong?, numHours: ULong): Int = -1
 
-public expect fun sceRtcTickAddDays(destTick: ULong?, srcTick: ULong?, numDays: ULong): Int
+public fun sceRtcTickAddDays(destTick: ULong?, srcTick: ULong?, numDays: ULong): Int = -1
 
-public expect fun sceRtcTickAddWeeks(destTick: ULong?, srcTick: ULong?, numWeeks: ULong): Int
+public fun sceRtcTickAddWeeks(destTick: ULong?, srcTick: ULong?, numWeeks: ULong): Int = -1
 
-public expect fun sceRtcTickAddMonths(destTick: ULong?, srcTick: ULong?, numMonths: ULong): Int
+public fun sceRtcTickAddMonths(destTick: ULong?, srcTick: ULong?, numMonths: ULong): Int = -1
 
-public expect fun sceRtcTickAddYears(destTick: ULong?, srcTick: ULong?, numYears: ULong): Int
+public fun sceRtcTickAddYears(destTick: ULong?, srcTick: ULong?, numYears: ULong): Int = -1
 
-public expect fun sceRtcSetTimeT(date: ScePspDateTime?, time: UInt): Int
+public fun sceRtcSetTimeT(date: ScePspDateTime?, time: UInt): Int = -1
 
-public expect fun sceRtcGetTimeT(date: ScePspDateTime?, time: UInt?): Int
+public fun sceRtcGetTimeT(date: ScePspDateTime?, time: UInt?): Int = -1
 
-public expect fun sceRtcSetTime64T(date: ScePspDateTime?, time: ULong): Int
+public fun sceRtcSetTime64T(date: ScePspDateTime?, time: ULong): Int = -1
 
-public expect fun sceRtcGetTime64T(date: ScePspDateTime?, time: ULong?): Int
+public fun sceRtcGetTime64T(date: ScePspDateTime?, time: ULong?): Int = -1
 
-public expect fun sceRtcSetDosTime(date: ScePspDateTime?, dosTime: UInt): Int
+public fun sceRtcSetDosTime(date: ScePspDateTime?, dosTime: UInt): Int = -1
 
-public expect fun sceRtcGetDosTime(date: ScePspDateTime?, dosTime: UInt): Int
+public fun sceRtcGetDosTime(date: ScePspDateTime?, dosTime: UInt): Int = -1
 
-public expect fun sceRtcSetWin32FileTime(date: ScePspDateTime?, time: ULong?): Int
+public fun sceRtcSetWin32FileTime(date: ScePspDateTime?, time: ULong?): Int = -1
 
-public expect fun sceRtcGetWin32FileTime(date: ScePspDateTime?, time: ULong?): Int
+public fun sceRtcGetWin32FileTime(date: ScePspDateTime?, time: ULong?): Int = -1
 
-public expect fun sceRtcParseDateTime(destTick: ULong?, dateString: COpaquePointer?): Int
+public fun sceRtcParseDateTime(destTick: ULong?, dateString: COpaquePointer?): Int = -1
 
-public expect fun sceRtcFormatRFC3339(pszDateTime: String?, pUtc: ULong?, timeZoneMinutes: Int): Int
+public fun sceRtcFormatRFC3339(pszDateTime: String?, pUtc: ULong?, timeZoneMinutes: Int): Int = -1
 
-public expect fun sceRtcFormatRFC3339LocalTime(pszDateTime: String?, pUtc: ULong?): Int
+public fun sceRtcFormatRFC3339LocalTime(pszDateTime: String?, pUtc: ULong?): Int = -1
 
-public expect fun sceRtcParseRFC3339(pUtc: ULong?, pszDateTime: COpaquePointer?): Int
+public fun sceRtcParseRFC3339(pUtc: ULong?, pszDateTime: COpaquePointer?): Int = -1
 
-public expect fun sceRtcFormatRFC2822(pszDateTime: String?, pUtc: ULong?, timeZoneMinutes: Int): Int
+public fun sceRtcFormatRFC2822(pszDateTime: String?, pUtc: ULong?, timeZoneMinutes: Int): Int = -1
 
-public expect fun sceRtcFormatRFC2822LocalTime(pszDateTime: String?, pUtc: ULong?): Int
+public fun sceRtcFormatRFC2822LocalTime(pszDateTime: String?, pUtc: ULong?): Int = -1
 
-public expect fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid
+public fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid = SceUid(0)
 
-public expect fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid
+public fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid = SceUid(0)
 
-public expect fun sceIoClose(fd: SceUid): Int
+public fun sceIoClose(fd: SceUid): Int = -1
 
-public expect fun sceIoCloseAsync(fd: SceUid): Int
+public fun sceIoCloseAsync(fd: SceUid): Int = -1
 
-public expect fun sceIoRead(fd: SceUid, data: COpaquePointer?, size: UInt): Int
+public fun sceIoRead(fd: SceUid, data: COpaquePointer?, size: UInt): Int = -1
 
-public expect fun sceIoReadAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int
+public fun sceIoReadAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int = -1
 
-public expect fun sceIoWrite(fd: SceUid, data: COpaquePointer?, size: ULong): Int
+public fun sceIoWrite(fd: SceUid, data: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceIoWriteAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int
+public fun sceIoWriteAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int = -1
 
-public expect fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long
+public fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long = -1L
 
-public expect fun sceIoLseekAsync(fd: SceUid, offset: Long, whence: IoWhence): Int
+public fun sceIoLseekAsync(fd: SceUid, offset: Long, whence: IoWhence): Int = -1
 
-public expect fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int
+public fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int = -1
 
-public expect fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int
+public fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int = -1
 
-public expect fun sceIoRemove(file: COpaquePointer?): Int
+public fun sceIoRemove(file: COpaquePointer?): Int = -1
 
-public expect fun sceIoMkdir(dir: COpaquePointer?, mode: IoPermissions): Int
+public fun sceIoMkdir(dir: COpaquePointer?, mode: IoPermissions): Int = -1
 
-public expect fun sceIoRmdir(path: COpaquePointer?): Int
+public fun sceIoRmdir(path: COpaquePointer?): Int = -1
 
-public expect fun sceIoChdir(path: COpaquePointer?): Int
+public fun sceIoChdir(path: COpaquePointer?): Int = -1
 
-public expect fun sceIoRename(oldname: COpaquePointer?, newname: COpaquePointer?): Int
+public fun sceIoRename(oldname: COpaquePointer?, newname: COpaquePointer?): Int = -1
 
-public expect fun sceIoDopen(dirname: COpaquePointer?): SceUid
+public fun sceIoDopen(dirname: COpaquePointer?): SceUid = SceUid(0)
 
-public expect fun sceIoDread(fd: SceUid, dir: SceIoDirent?): Int
+public fun sceIoDread(fd: SceUid, dir: SceIoDirent?): Int = -1
 
-public expect fun sceIoDclose(fd: SceUid): Int
+public fun sceIoDclose(fd: SceUid): Int = -1
 
-public expect fun sceIoDevctl(dev: COpaquePointer?, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int
+public fun sceIoDevctl(dev: COpaquePointer?, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int = -1
 
-public expect fun sceIoAssign(dev1: COpaquePointer?, dev2: COpaquePointer?, dev3: COpaquePointer?, mode: IoAssignPerms, unk1: COpaquePointer?, unk2: Int): Int
+public fun sceIoAssign(dev1: COpaquePointer?, dev2: COpaquePointer?, dev3: COpaquePointer?, mode: IoAssignPerms, unk1: COpaquePointer?, unk2: Int): Int = -1
 
-public expect fun sceIoUnassign(dev: COpaquePointer?): Int
+public fun sceIoUnassign(dev: COpaquePointer?): Int = -1
 
-public expect fun sceIoGetstat(file: COpaquePointer?, stat: SceIoStat?): Int
+public fun sceIoGetstat(file: COpaquePointer?, stat: SceIoStat?): Int = -1
 
-public expect fun sceIoChstat(file: COpaquePointer?, stat: SceIoStat?, bits: Int): Int
+public fun sceIoChstat(file: COpaquePointer?, stat: SceIoStat?, bits: Int): Int = -1
 
-public expect fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int
+public fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int = -1
 
-public expect fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int
+public fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int = -1
 
-public expect fun sceIoSync(device: COpaquePointer?, unk: UInt): Int
+public fun sceIoSync(device: COpaquePointer?, unk: UInt): Int = -1
 
-public expect fun sceIoWaitAsync(fd: SceUid, res: Long?): Int
+public fun sceIoWaitAsync(fd: SceUid, res: Long?): Int = -1
 
-public expect fun sceIoWaitAsyncCB(fd: SceUid, res: Long?): Int
+public fun sceIoWaitAsyncCB(fd: SceUid, res: Long?): Int = -1
 
-public expect fun sceIoPollAsync(fd: SceUid, res: Long?): Int
+public fun sceIoPollAsync(fd: SceUid, res: Long?): Int = -1
 
-public expect fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: Long?): Int
+public fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: Long?): Int = -1
 
-public expect fun sceIoCancel(fd: SceUid): Int
+public fun sceIoCancel(fd: SceUid): Int = -1
 
-public expect fun sceIoGetDevType(fd: SceUid): Int
+public fun sceIoGetDevType(fd: SceUid): Int = -1
 
-public expect fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int
+public fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int = -1
 
-public expect fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: COpaquePointer?): Int
+public fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: COpaquePointer?): Int = -1
 
-public expect fun sceJpegInitMJpeg(): Int
+public fun sceJpegInitMJpeg(): Int = -1
 
-public expect fun sceJpegFinishMJpeg(): Int
+public fun sceJpegFinishMJpeg(): Int = -1
 
-public expect fun sceJpegCreateMJpeg(width: Int, height: Int): Int
+public fun sceJpegCreateMJpeg(width: Int, height: Int): Int = -1
 
-public expect fun sceJpegDeleteMJpeg(): Int
+public fun sceJpegDeleteMJpeg(): Int = -1
 
-public expect fun sceJpegDecodeMJpeg(jpegBuf: COpaquePointer?, size: ULong, rgba: COpaquePointer?, unk: UInt): Int
+public fun sceJpegDecodeMJpeg(jpegBuf: COpaquePointer?, size: ULong, rgba: COpaquePointer?, unk: UInt): Int = -1
 
-public expect fun sceUmdCheckMedium(): Int
+public fun sceUmdCheckMedium(): Int = -1
 
-public expect fun sceUmdGetDiscInfo(info: UmdInfo?): Int
+public fun sceUmdGetDiscInfo(info: UmdInfo?): Int = -1
 
-public expect fun sceUmdActivate(unit: Int, drive: COpaquePointer?): Int
+public fun sceUmdActivate(unit: Int, drive: COpaquePointer?): Int = -1
 
-public expect fun sceUmdDeactivate(unit: Int, drive: COpaquePointer?): Int
+public fun sceUmdDeactivate(unit: Int, drive: COpaquePointer?): Int = -1
 
-public expect fun sceUmdWaitDriveStat(state: Int): Int
+public fun sceUmdWaitDriveStat(state: Int): Int = -1
 
-public expect fun sceUmdWaitDriveStatWithTimer(state: Int, timeout: UInt): Int
+public fun sceUmdWaitDriveStatWithTimer(state: Int, timeout: UInt): Int = -1
 
-public expect fun sceUmdWaitDriveStatCB(state: Int, timeout: UInt): Int
+public fun sceUmdWaitDriveStatCB(state: Int, timeout: UInt): Int = -1
 
-public expect fun sceUmdCancelWaitDriveStat(): Int
+public fun sceUmdCancelWaitDriveStat(): Int = -1
 
-public expect fun sceUmdGetDriveStat(): Int
+public fun sceUmdGetDriveStat(): Int = -1
 
-public expect fun sceUmdGetErrorStat(): Int
+public fun sceUmdGetErrorStat(): Int = -1
 
-public expect fun sceUmdRegisterUMDCallBack(cbid: Int): Int
+public fun sceUmdRegisterUMDCallBack(cbid: Int): Int = -1
 
-public expect fun sceUmdUnRegisterUMDCallBack(cbid: Int): Int
+public fun sceUmdUnRegisterUMDCallBack(cbid: Int): Int = -1
 
-public expect fun sceUmdReplacePermit(): Int
+public fun sceUmdReplacePermit(): Int = -1
 
-public expect fun sceUmdReplaceProhibit(): Int
+public fun sceUmdReplaceProhibit(): Int = -1
 
-public expect fun sceMpegInit(): Int
+public fun sceMpegInit(): Int = -1
 
-public expect fun sceMpegFinish()
+public fun sceMpegFinish() { }
 
-public expect fun sceMpegRingbufferQueryMemSize(packets: Int): Int
+public fun sceMpegRingbufferQueryMemSize(packets: Int): Int = -1
 
-public expect fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int
+public fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int = -1
 
-public expect fun sceMpegRingbufferDestruct(ringbuffer: SceMpegRingbuffer?)
+public fun sceMpegRingbufferDestruct(ringbuffer: SceMpegRingbuffer?) { }
 
-public expect fun sceMpegRingbufferAvailableSize(ringbuffer: SceMpegRingbuffer?): Int
+public fun sceMpegRingbufferAvailableSize(ringbuffer: SceMpegRingbuffer?): Int = -1
 
-public expect fun sceMpegRingbufferPut(ringbuffer: SceMpegRingbuffer?, numPackets: Int, available: Int): Int
+public fun sceMpegRingbufferPut(ringbuffer: SceMpegRingbuffer?, numPackets: Int, available: Int): Int = -1
 
-public expect fun sceMpegQueryMemSize(unk: Int): Int
+public fun sceMpegQueryMemSize(unk: Int): Int = -1
 
-public expect fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: SceMpegRingbuffer?, frameWidth: Int, unk1: Int, unk2: Int): Int
+public fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: SceMpegRingbuffer?, frameWidth: Int, unk1: Int, unk2: Int): Int = -1
 
-public expect fun sceMpegDelete(handle: SceMpeg)
+public fun sceMpegDelete(handle: SceMpeg) { }
 
-public expect fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: Int?): Int
+public fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: Int?): Int = -1
 
-public expect fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: Int?): Int
+public fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: Int?): Int = -1
 
-public expect fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream
+public fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream)
+public fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) { }
 
-public expect fun sceMpegFlushAllStream(handle: SceMpeg): Int
+public fun sceMpegFlushAllStream(handle: SceMpeg): Int = -1
 
-public expect fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer?
+public fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer? = null
 
-public expect fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?)
+public fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?) { }
 
-public expect fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: Int?, outSize: Int?): Int
+public fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: Int?, outSize: Int?): Int = -1
 
-public expect fun sceMpegInitAu(handle: SceMpeg, esBuffer: COpaquePointer?, au: SceMpegAu?): Int
+public fun sceMpegInitAu(handle: SceMpeg, esBuffer: COpaquePointer?, au: SceMpegAu?): Int = -1
 
-public expect fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: SceMpegAu?, unk: Int?): Int
+public fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: SceMpegAu?, unk: Int?): Int = -1
 
-public expect fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: SceMpegAvcMode?): Int
+public fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: SceMpegAvcMode?): Int = -1
 
-public expect fun sceMpegAvcDecode(handle: SceMpeg, au: SceMpegAu?, iframeWidth: Int, buffer: COpaquePointer?, init: Int?): Int
+public fun sceMpegAvcDecode(handle: SceMpeg, au: SceMpegAu?, iframeWidth: Int, buffer: COpaquePointer?, init: Int?): Int = -1
 
-public expect fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: COpaquePointer?, status: Int?): Int
+public fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: COpaquePointer?, status: Int?): Int = -1
 
-public expect fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: SceMpegAu?, unk: COpaquePointer?): Int
+public fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: SceMpegAu?, unk: COpaquePointer?): Int = -1
 
-public expect fun sceMpegAtracDecode(handle: SceMpeg, au: SceMpegAu?, buffer: COpaquePointer?, init: Int): Int
+public fun sceMpegAtracDecode(handle: SceMpeg, au: SceMpegAu?, buffer: COpaquePointer?, init: Int): Int = -1
 
-public expect fun sceMpegBaseYCrCbCopyVme(yuvBuffer: COpaquePointer?, buffer: Int?, type: Int): Int
+public fun sceMpegBaseYCrCbCopyVme(yuvBuffer: COpaquePointer?, buffer: Int?, type: Int): Int = -1
 
-public expect fun sceMpegBaseCscInit(width: Int): Int
+public fun sceMpegBaseCscInit(width: Int): Int = -1
 
-public expect fun sceMpegBaseCscVme(rgbBuffer: COpaquePointer?, rgbBuffer2: COpaquePointer?, width: Int, yCrCbBuffer: SceMpegYCrCbBuffer?): Int
+public fun sceMpegBaseCscVme(rgbBuffer: COpaquePointer?, rgbBuffer2: COpaquePointer?, width: Int, yCrCbBuffer: SceMpegYCrCbBuffer?): Int = -1
 
-public expect fun sceMpegbaseBEA18F91(lli: SceMpegLLI?): Int
+public fun sceMpegbaseBEA18F91(lli: SceMpegLLI?): Int = -1
 
-public expect fun sceHprmPeekCurrentKey(key: Int?): Int
+public fun sceHprmPeekCurrentKey(key: Int?): Int = -1
 
-public expect fun sceHprmPeekLatch(latch: UIntArray?): Int
+public fun sceHprmPeekLatch(latch: UIntArray?): Int = -1
 
-public expect fun sceHprmReadLatch(latch: UIntArray?): Int
+public fun sceHprmReadLatch(latch: UIntArray?): Int = -1
 
-public expect fun sceHprmIsHeadphoneExist(): Int
+public fun sceHprmIsHeadphoneExist(): Int = -1
 
-public expect fun sceHprmIsRemoteExist(): Int
+public fun sceHprmIsRemoteExist(): Int = -1
 
-public expect fun sceHprmIsMicrophoneExist(): Int
+public fun sceHprmIsMicrophoneExist(): Int = -1
 
-public expect fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int)
+public fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int) { }
 
-public expect fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int)
+public fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int) { }
 
-public expect fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int)
+public fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) { }
 
-public expect fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int)
+public fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) { }
 
-public expect fun sceGuDisplay(state: Boolean): Boolean
+public fun sceGuDisplay(state: Boolean): Boolean = false
 
-public expect fun sceGuDepthFunc(function: DepthFunc)
+public fun sceGuDepthFunc(function: DepthFunc) { }
 
-public expect fun sceGuDepthMask(mask: Int)
+public fun sceGuDepthMask(mask: Int) { }
 
-public expect fun sceGuDepthOffset(offset: Int)
+public fun sceGuDepthOffset(offset: Int) { }
 
-public expect fun sceGuDepthRange(near: Int, far: Int)
+public fun sceGuDepthRange(near: Int, far: Int) { }
 
-public expect fun sceGuFog(near: Float, far: Float, color: UInt)
+public fun sceGuFog(near: Float, far: Float, color: UInt) { }
 
-public expect fun sceGuInit()
+public fun sceGuInit() { }
 
-public expect fun sceGuTerm()
+public fun sceGuTerm() { }
 
-public expect fun sceGuBreak(mode: Int)
+public fun sceGuBreak(mode: Int) { }
 
-public expect fun sceGuContinue()
+public fun sceGuContinue() { }
 
-public expect fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback
+public fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun sceGuSignal(behavior: SignalBehavior, signal: Int)
+public fun sceGuSignal(behavior: SignalBehavior, signal: Int) { }
 
-public expect fun sceGuSendCommandf(cmd: GeCommand, argument: Float)
+public fun sceGuSendCommandf(cmd: GeCommand, argument: Float) { }
 
-public expect fun sceGuSendCommandi(cmd: GeCommand, argument: Int)
+public fun sceGuSendCommandi(cmd: GeCommand, argument: Int) { }
 
-public expect fun sceGuGetMemory(size: Int): COpaquePointer?
+public fun sceGuGetMemory(size: Int): COpaquePointer? = null
 
-public expect fun sceGuStart(contextType: GuContextType, list: COpaquePointer?)
+public fun sceGuStart(contextType: GuContextType, list: COpaquePointer?) { }
 
-public expect fun sceGuFinish(): Int
+public fun sceGuFinish(): Int = -1
 
-public expect fun sceGuFinishId(id: UInt): Int
+public fun sceGuFinishId(id: UInt): Int = -1
 
-public expect fun sceGuCallList(list: COpaquePointer?)
+public fun sceGuCallList(list: COpaquePointer?) { }
 
-public expect fun sceGuCallMode(mode: Int)
+public fun sceGuCallMode(mode: Int) { }
 
-public expect fun sceGuCheckList(): Int
+public fun sceGuCheckList(): Int = -1
 
-public expect fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: GeContext?)
+public fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: GeContext?) { }
 
-public expect fun sceGuSwapBuffers(): COpaquePointer?
+public fun sceGuSwapBuffers(): COpaquePointer? = null
 
-public expect fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState
+public fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGuEndObject()
+public fun sceGuEndObject() { }
 
-public expect fun sceGuSetStatus(state: GuState, status: Int)
+public fun sceGuSetStatus(state: GuState, status: Int) { }
 
-public expect fun sceGuGetStatus(state: GuState): Boolean
+public fun sceGuGetStatus(state: GuState): Boolean = false
 
-public expect fun sceGuSetAllStatus(status: Int)
+public fun sceGuSetAllStatus(status: Int) { }
 
-public expect fun sceGuGetAllStatus(): Int
+public fun sceGuGetAllStatus(): Int = -1
 
-public expect fun sceGuEnable(state: GuState)
+public fun sceGuEnable(state: GuState) { }
 
-public expect fun sceGuDisable(state: GuState)
+public fun sceGuDisable(state: GuState) { }
 
-public expect fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3?)
+public fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3?) { }
 
-public expect fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float)
+public fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float) { }
 
-public expect fun sceGuLightColor(light: Int, component: Int, color: UInt)
+public fun sceGuLightColor(light: Int, component: Int, color: UInt) { }
 
-public expect fun sceGuLightMode(mode: LightMode)
+public fun sceGuLightMode(mode: LightMode) { }
 
-public expect fun sceGuLightSpot(light: Int, direction: ScePspFVector3?, exponent: Float, cutoff: Float)
+public fun sceGuLightSpot(light: Int, direction: ScePspFVector3?, exponent: Float, cutoff: Float) { }
 
-public expect fun sceGuClear(flags: Int)
+public fun sceGuClear(flags: Int) { }
 
-public expect fun sceGuClearColor(color: UInt)
+public fun sceGuClearColor(color: UInt) { }
 
-public expect fun sceGuClearDepth(depth: UInt)
+public fun sceGuClearDepth(depth: UInt) { }
 
-public expect fun sceGuClearStencil(stencil: UInt)
+public fun sceGuClearStencil(stencil: UInt) { }
 
-public expect fun sceGuPixelMask(mask: UInt)
+public fun sceGuPixelMask(mask: UInt) { }
 
-public expect fun sceGuColor(color: UInt)
+public fun sceGuColor(color: UInt) { }
 
-public expect fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt)
+public fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt) { }
 
-public expect fun sceGuColorMaterial(components: Int)
+public fun sceGuColorMaterial(components: Int) { }
 
-public expect fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int)
+public fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int) { }
 
-public expect fun sceGuAmbient(color: UInt)
+public fun sceGuAmbient(color: UInt) { }
 
-public expect fun sceGuAmbientColor(color: UInt)
+public fun sceGuAmbientColor(color: UInt) { }
 
-public expect fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt)
+public fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt) { }
 
-public expect fun sceGuMaterial(components: Int, color: UInt)
+public fun sceGuMaterial(components: Int, color: UInt) { }
 
-public expect fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt)
+public fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt) { }
 
-public expect fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int)
+public fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int) { }
 
-public expect fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation)
+public fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation) { }
 
-public expect fun sceGuSpecular(power: Float)
+public fun sceGuSpecular(power: Float) { }
 
-public expect fun sceGuFrontFace(order: FrontFaceDirection)
+public fun sceGuFrontFace(order: FrontFaceDirection) { }
 
-public expect fun sceGuLogicalOp(op: LogicalOperation)
+public fun sceGuLogicalOp(op: LogicalOperation) { }
 
-public expect fun sceGuSetDither(matrix: ScePspIMatrix4?)
+public fun sceGuSetDither(matrix: ScePspIMatrix4?) { }
 
-public expect fun sceGuShadeModel(mode: ShadingModel)
+public fun sceGuShadeModel(mode: ShadingModel) { }
 
-public expect fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?)
+public fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?) { }
 
-public expect fun sceGuTexEnvColor(color: UInt)
+public fun sceGuTexEnvColor(color: UInt) { }
 
-public expect fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter)
+public fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter) { }
 
-public expect fun sceGuTexFlush()
+public fun sceGuTexFlush() { }
 
-public expect fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent)
+public fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent) { }
 
-public expect fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?)
+public fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?) { }
 
-public expect fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float)
+public fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float) { }
 
-public expect fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt)
+public fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt) { }
 
-public expect fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int)
+public fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int) { }
 
-public expect fun sceGuTexOffset(u: Float, v: Float)
+public fun sceGuTexOffset(u: Float, v: Float) { }
 
-public expect fun sceGuTexProjMapMode(mode: TextureProjectionMapMode)
+public fun sceGuTexProjMapMode(mode: TextureProjectionMapMode) { }
 
-public expect fun sceGuTexScale(u: Float, v: Float)
+public fun sceGuTexScale(u: Float, v: Float) { }
 
-public expect fun sceGuTexSlope(slope: Float)
+public fun sceGuTexSlope(slope: Float) { }
 
-public expect fun sceGuTexSync()
+public fun sceGuTexSync() { }
 
-public expect fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode)
+public fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode) { }
 
-public expect fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?)
+public fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?) { }
 
-public expect fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt)
+public fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt) { }
 
-public expect fun sceGuOffset(x: UInt, y: UInt)
+public fun sceGuOffset(x: UInt, y: UInt) { }
 
-public expect fun sceGuScissor(x: Int, y: Int, w: Int, h: Int)
+public fun sceGuScissor(x: Int, y: Int, w: Int, h: Int) { }
 
-public expect fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int)
+public fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int) { }
 
-public expect fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt)
+public fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt) { }
 
-public expect fun sceGuPatchFrontFace(a0: UInt)
+public fun sceGuPatchFrontFace(a0: UInt) { }
 
-public expect fun sceGuPatchPrim(prim: PatchPrimitive)
+public fun sceGuPatchPrim(prim: PatchPrimitive) { }
 
-public expect fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4?)
+public fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4?) { }
 
-public expect fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4?)
+public fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4?) { }
 
-public expect fun sceGuMorphWeight(index: Int, weight: Float)
+public fun sceGuMorphWeight(index: Int, weight: Float) { }
 
-public expect fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
+public fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 
-public expect fun sceGumFastInverse()
+public fun sceGumFastInverse() { }
 
-public expect fun sceGumFullInverse()
+public fun sceGumFullInverse() { }
 
-public expect fun sceGumLoadIdentity()
+public fun sceGumLoadIdentity() { }
 
-public expect fun sceGumLoadMatrix(m: ScePspFMatrix4?)
+public fun sceGumLoadMatrix(m: ScePspFMatrix4?) { }
 
-public expect fun sceGumLookAt(eye: ScePspFVector3?, center: ScePspFVector3?, up: ScePspFVector3?)
+public fun sceGumLookAt(eye: ScePspFVector3?, center: ScePspFVector3?, up: ScePspFVector3?) { }
 
-public expect fun sceGumMatrixMode(mode: MatrixMode)
+public fun sceGumMatrixMode(mode: MatrixMode) { }
 
-public expect fun sceGumMultMatrix(m: ScePspFMatrix4?)
+public fun sceGumMultMatrix(m: ScePspFMatrix4?) { }
 
-public expect fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float)
+public fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) { }
 
-public expect fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float)
+public fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float) { }
 
-public expect fun sceGumPopMatrix()
+public fun sceGumPopMatrix() { }
 
-public expect fun sceGumPushMatrix()
+public fun sceGumPushMatrix() { }
 
-public expect fun sceGumRotateX(angle: Float)
+public fun sceGumRotateX(angle: Float) { }
 
-public expect fun sceGumRotateY(angle: Float)
+public fun sceGumRotateY(angle: Float) { }
 
-public expect fun sceGumRotateZ(angle: Float)
+public fun sceGumRotateZ(angle: Float) { }
 
-public expect fun sceGumRotateXYZ(v: ScePspFVector3?)
+public fun sceGumRotateXYZ(v: ScePspFVector3?) { }
 
-public expect fun sceGumRotateZYX(v: ScePspFVector3?)
+public fun sceGumRotateZYX(v: ScePspFVector3?) { }
 
-public expect fun sceGumScale(v: ScePspFVector3?)
+public fun sceGumScale(v: ScePspFVector3?) { }
 
-public expect fun sceGumStoreMatrix(m: ScePspFMatrix4?)
+public fun sceGumStoreMatrix(m: ScePspFMatrix4?) { }
 
-public expect fun sceGumTranslate(v: ScePspFVector3?)
+public fun sceGumTranslate(v: ScePspFVector3?) { }
 
-public expect fun sceGumUpdateMatrix()
+public fun sceGumUpdateMatrix() { }
 
-public expect fun sceMp3ReserveMp3Handle(args: SceMp3InitArg?): Int
+public fun sceMp3ReserveMp3Handle(args: SceMp3InitArg?): Int = -1
 
-public expect fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int
+public fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3InitResource(): Int
+public fun sceMp3InitResource(): Int = -1
 
-public expect fun sceMp3TermResource(): Int
+public fun sceMp3TermResource(): Int = -1
 
-public expect fun sceMp3Init(handle: Mp3Handle): Int
+public fun sceMp3Init(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3Decode(handle: Mp3Handle, dst: COpaquePointer?): Int
+public fun sceMp3Decode(handle: Mp3Handle, dst: COpaquePointer?): Int = -1
 
-public expect fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: COpaquePointer?, toWrite: Int?, srcPos: Int?): Int
+public fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: COpaquePointer?, toWrite: Int?, srcPos: Int?): Int = -1
 
-public expect fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int
+public fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int = -1
 
-public expect fun sceMp3CheckStreamDataNeeded(handle: Mp3Handle): Int
+public fun sceMp3CheckStreamDataNeeded(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3SetLoopNum(handle: Mp3Handle, loop: Int): Int
+public fun sceMp3SetLoopNum(handle: Mp3Handle, loop: Int): Int = -1
 
-public expect fun sceMp3GetLoopNum(handle: Mp3Handle): Int
+public fun sceMp3GetLoopNum(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3GetSumDecodedSample(handle: Mp3Handle): Int
+public fun sceMp3GetSumDecodedSample(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3GetMaxOutputSample(handle: Mp3Handle): Int
+public fun sceMp3GetMaxOutputSample(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3GetSamplingRate(handle: Mp3Handle): Int
+public fun sceMp3GetSamplingRate(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3GetBitRate(handle: Mp3Handle): Int
+public fun sceMp3GetBitRate(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int
+public fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int = -1
 
-public expect fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int
+public fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int = -1
 
-public expect fun sceRegOpenRegistry(reg: Key?, mode: Int, handle: RegHandle?): Int
+public fun sceRegOpenRegistry(reg: Key?, mode: Int, handle: RegHandle?): Int = -1
 
-public expect fun sceRegFlushRegistry(handle: RegHandle): Int
+public fun sceRegFlushRegistry(handle: RegHandle): Int = -1
 
-public expect fun sceRegCloseRegistry(handle: RegHandle): Int
+public fun sceRegCloseRegistry(handle: RegHandle): Int = -1
 
-public expect fun sceRegOpenCategory(handle: RegHandle, name: COpaquePointer?, mode: Int, dirHandle: RegHandle?): Int
+public fun sceRegOpenCategory(handle: RegHandle, name: COpaquePointer?, mode: Int, dirHandle: RegHandle?): Int = -1
 
-public expect fun sceRegRemoveCategory(handle: RegHandle, name: COpaquePointer?): Int
+public fun sceRegRemoveCategory(handle: RegHandle, name: COpaquePointer?): Int = -1
 
-public expect fun sceRegCloseCategory(dirHandle: RegHandle): Int
+public fun sceRegCloseCategory(dirHandle: RegHandle): Int = -1
 
-public expect fun sceRegFlushCategory(dirHandle: RegHandle): Int
+public fun sceRegFlushCategory(dirHandle: RegHandle): Int = -1
 
-public expect fun sceRegGetKeyInfo(dirHandle: RegHandle, name: COpaquePointer?, keyHandle: RegHandle?, type: KeyType?, size: ULong?): Int
+public fun sceRegGetKeyInfo(dirHandle: RegHandle, name: COpaquePointer?, keyHandle: RegHandle?, type: KeyType?, size: ULong?): Int = -1
 
-public expect fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: COpaquePointer?, type: KeyType?, size: ULong?): Int
+public fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: COpaquePointer?, type: KeyType?, size: ULong?): Int = -1
 
-public expect fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: COpaquePointer?, size: ULong): Int
+public fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int
+public fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceRegSetKeyValue(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int
+public fun sceRegSetKeyValue(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int = -1
 
-public expect fun sceRegGetKeysNum(dirHandle: RegHandle, num: Int?): Int
+public fun sceRegGetKeysNum(dirHandle: RegHandle, num: Int?): Int = -1
 
-public expect fun sceRegGetKeys(dirHandle: RegHandle, buf: COpaquePointer?, num: Int): Int
+public fun sceRegGetKeys(dirHandle: RegHandle, buf: COpaquePointer?, num: Int): Int = -1
 
-public expect fun sceRegCreateKey(dirHandle: RegHandle, name: COpaquePointer?, type: Int, size: ULong): Int
+public fun sceRegCreateKey(dirHandle: RegHandle, name: COpaquePointer?, type: Int, size: ULong): Int = -1
 
-public expect fun sceRegRemoveRegistry(key: Key?): Int
+public fun sceRegRemoveRegistry(key: Key?): Int = -1
 
-public expect fun sceOpenPSIDGetOpenPSID(openpsid: OpenPSID?): Int
+public fun sceOpenPSIDGetOpenPSID(openpsid: OpenPSID?): Int = -1
 
-public expect fun sceUtilityMsgDialogInitStart(params: UtilityMsgDialogParams?): Int
+public fun sceUtilityMsgDialogInitStart(params: UtilityMsgDialogParams?): Int = -1
 
-public expect fun sceUtilityMsgDialogShutdownStart()
+public fun sceUtilityMsgDialogShutdownStart() { }
 
-public expect fun sceUtilityMsgDialogGetStatus(): Int
+public fun sceUtilityMsgDialogGetStatus(): Int = -1
 
-public expect fun sceUtilityMsgDialogUpdate(n: Int)
+public fun sceUtilityMsgDialogUpdate(n: Int) { }
 
-public expect fun sceUtilityMsgDialogAbort(): Int
+public fun sceUtilityMsgDialogAbort(): Int = -1
 
-public expect fun sceUtilityNetconfInitStart(data: UtilityNetconfData?): Int
+public fun sceUtilityNetconfInitStart(data: UtilityNetconfData?): Int = -1
 
-public expect fun sceUtilityNetconfShutdownStart(): Int
+public fun sceUtilityNetconfShutdownStart(): Int = -1
 
-public expect fun sceUtilityNetconfUpdate(unknown: Int): Int
+public fun sceUtilityNetconfUpdate(unknown: Int): Int = -1
 
-public expect fun sceUtilityNetconfGetStatus(): Int
+public fun sceUtilityNetconfGetStatus(): Int = -1
 
-public expect fun sceUtilityCheckNetParam(id: Int): Int
+public fun sceUtilityCheckNetParam(id: Int): Int = -1
 
-public expect fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: UtilityNetData?): Int
+public fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: UtilityNetData?): Int = -1
 
-public expect fun sceUtilitySavedataInitStart(params: SceUtilitySavedataParam?): Int
+public fun sceUtilitySavedataInitStart(params: SceUtilitySavedataParam?): Int = -1
 
-public expect fun sceUtilitySavedataGetStatus(): Int
+public fun sceUtilitySavedataGetStatus(): Int = -1
 
-public expect fun sceUtilitySavedataShutdownStart(): Int
+public fun sceUtilitySavedataShutdownStart(): Int = -1
 
-public expect fun sceUtilitySavedataUpdate(unknown: Int)
+public fun sceUtilitySavedataUpdate(unknown: Int) { }
 
-public expect fun sceUtilityGameSharingInitStart(params: UtilityGameSharingParams?): Int
+public fun sceUtilityGameSharingInitStart(params: UtilityGameSharingParams?): Int = -1
 
-public expect fun sceUtilityGameSharingShutdownStart()
+public fun sceUtilityGameSharingShutdownStart() { }
 
-public expect fun sceUtilityGameSharingGetStatus(): Int
+public fun sceUtilityGameSharingGetStatus(): Int = -1
 
-public expect fun sceUtilityGameSharingUpdate(n: Int)
+public fun sceUtilityGameSharingUpdate(n: Int) { }
 
-public expect fun sceUtilityHtmlViewerInitStart(params: UtilityHtmlViewerParam?): Int
+public fun sceUtilityHtmlViewerInitStart(params: UtilityHtmlViewerParam?): Int = -1
 
-public expect fun sceUtilityHtmlViewerShutdownStart(): Int
+public fun sceUtilityHtmlViewerShutdownStart(): Int = -1
 
-public expect fun sceUtilityHtmlViewerUpdate(n: Int): Int
+public fun sceUtilityHtmlViewerUpdate(n: Int): Int = -1
 
-public expect fun sceUtilityHtmlViewerGetStatus(): Int
+public fun sceUtilityHtmlViewerGetStatus(): Int = -1
 
-public expect fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int
+public fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int = -1
 
-public expect fun sceUtilitySetSystemParamString(id: SystemParamId, str: COpaquePointer?): Int
+public fun sceUtilitySetSystemParamString(id: SystemParamId, str: COpaquePointer?): Int = -1
 
-public expect fun sceUtilityGetSystemParamInt(id: SystemParamId, value: Int?): Int
+public fun sceUtilityGetSystemParamInt(id: SystemParamId, value: Int?): Int = -1
 
-public expect fun sceUtilityGetSystemParamString(id: SystemParamId, str: COpaquePointer?, len: Int): Int
+public fun sceUtilityGetSystemParamString(id: SystemParamId, str: COpaquePointer?, len: Int): Int = -1
 
-public expect fun sceUtilityOskInitStart(params: SceUtilityOskParams?): Int
+public fun sceUtilityOskInitStart(params: SceUtilityOskParams?): Int = -1
 
-public expect fun sceUtilityOskShutdownStart(): Int
+public fun sceUtilityOskShutdownStart(): Int = -1
 
-public expect fun sceUtilityOskUpdate(n: Int): Int
+public fun sceUtilityOskUpdate(n: Int): Int = -1
 
-public expect fun sceUtilityOskGetStatus(): Int
+public fun sceUtilityOskGetStatus(): Int = -1
 
-public expect fun sceUtilityLoadNetModule(module: NetModule): Int
+public fun sceUtilityLoadNetModule(module: NetModule): Int = -1
 
-public expect fun sceUtilityUnloadNetModule(module: NetModule): Int
+public fun sceUtilityUnloadNetModule(module: NetModule): Int = -1
 
-public expect fun sceUtilityLoadAvModule(module: AvModule): Int
+public fun sceUtilityLoadAvModule(module: AvModule): Int = -1
 
-public expect fun sceUtilityUnloadAvModule(module: AvModule): Int
+public fun sceUtilityUnloadAvModule(module: AvModule): Int = -1
 
-public expect fun sceUtilityLoadUsbModule(module: UsbModule): Int
+public fun sceUtilityLoadUsbModule(module: UsbModule): Int = -1
 
-public expect fun sceUtilityUnloadUsbModule(module: UsbModule): Int
+public fun sceUtilityUnloadUsbModule(module: UsbModule): Int = -1
 
-public expect fun sceUtilityLoadModule(module: Module): Int
+public fun sceUtilityLoadModule(module: Module): Int = -1
 
-public expect fun sceUtilityUnloadModule(module: Module): Int
+public fun sceUtilityUnloadModule(module: Module): Int = -1
 
-public expect fun sceUtilityCreateNetParam(conf: Int): Int
+public fun sceUtilityCreateNetParam(conf: Int): Int = -1
 
-public expect fun sceUtilitySetNetParam(param: NetParam, `val`: COpaquePointer?): Int
+public fun sceUtilitySetNetParam(param: NetParam, `val`: COpaquePointer?): Int = -1
 
-public expect fun sceUtilityCopyNetParam(src: Int, dest: Int): Int
+public fun sceUtilityCopyNetParam(src: Int, dest: Int): Int = -1
 
-public expect fun sceUtilityDeleteNetParam(conf: Int): Int
+public fun sceUtilityDeleteNetParam(conf: Int): Int = -1
 
-public expect fun sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int
+public fun sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int = -1
 
-public expect fun sceNetTerm(): Int
+public fun sceNetTerm(): Int = -1
 
-public expect fun sceNetFreeThreadinfo(thid: Int): Int
+public fun sceNetFreeThreadinfo(thid: Int): Int = -1
 
-public expect fun sceNetThreadAbort(thid: Int): Int
+public fun sceNetThreadAbort(thid: Int): Int = -1
 
-public expect fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?)
+public fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?) { }
 
-public expect fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?)
+public fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?) { }
 
-public expect fun sceNetGetLocalEtherAddr(mac: COpaquePointer?): Int
+public fun sceNetGetLocalEtherAddr(mac: COpaquePointer?): Int = -1
 
-public expect fun sceNetGetMallocStat(stat: SceNetMallocStat?): Int
+public fun sceNetGetMallocStat(stat: SceNetMallocStat?): Int = -1
 
-public expect fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: SceNetAdhocctlAdhocId?): Int
+public fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: SceNetAdhocctlAdhocId?): Int = -1
 
-public expect fun sceNetAdhocctlTerm(): Int
+public fun sceNetAdhocctlTerm(): Int = -1
 
-public expect fun sceNetAdhocctlConnect(name: COpaquePointer?): Int
+public fun sceNetAdhocctlConnect(name: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocctlDisconnect(): Int
+public fun sceNetAdhocctlDisconnect(): Int = -1
 
-public expect fun sceNetAdhocctlGetState(event: Int?): Int
+public fun sceNetAdhocctlGetState(event: Int?): Int = -1
 
-public expect fun sceNetAdhocctlCreate(name: COpaquePointer?): Int
+public fun sceNetAdhocctlCreate(name: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocctlJoin(scaninfo: SceNetAdhocctlScanInfo?): Int
+public fun sceNetAdhocctlJoin(scaninfo: SceNetAdhocctlScanInfo?): Int = -1
 
-public expect fun sceNetAdhocctlGetAdhocId(id: SceNetAdhocctlAdhocId?): Int
+public fun sceNetAdhocctlGetAdhocId(id: SceNetAdhocctlAdhocId?): Int = -1
 
-public expect fun sceNetAdhocctlCreateEnterGameMode(name: COpaquePointer?, unknown: Int, num: Int, macs: COpaquePointer?, timeout: UInt, unknown2: Int): Int
+public fun sceNetAdhocctlCreateEnterGameMode(name: COpaquePointer?, unknown: Int, num: Int, macs: COpaquePointer?, timeout: UInt, unknown2: Int): Int = -1
 
-public expect fun sceNetAdhocctlJoinEnterGameMode(name: COpaquePointer?, hostmac: COpaquePointer?, timeout: UInt, unknown: Int): Int
+public fun sceNetAdhocctlJoinEnterGameMode(name: COpaquePointer?, hostmac: COpaquePointer?, timeout: UInt, unknown: Int): Int = -1
 
-public expect fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: SceNetAdhocctlGameModeInfo?): Int
+public fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: SceNetAdhocctlGameModeInfo?): Int = -1
 
-public expect fun sceNetAdhocctlExitGameMode(): Int
+public fun sceNetAdhocctlExitGameMode(): Int = -1
 
-public expect fun sceNetAdhocctlGetPeerList(length: Int?, buf: COpaquePointer?): Int
+public fun sceNetAdhocctlGetPeerList(length: Int?, buf: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocctlGetPeerInfo(mac: COpaquePointer?, size: Int, peerinfo: SceNetAdhocctlPeerInfo?): Int
+public fun sceNetAdhocctlGetPeerInfo(mac: COpaquePointer?, size: Int, peerinfo: SceNetAdhocctlPeerInfo?): Int = -1
 
-public expect fun sceNetAdhocctlScan(): Int
+public fun sceNetAdhocctlScan(): Int = -1
 
-public expect fun sceNetAdhocctlGetScanInfo(length: Int?, buf: COpaquePointer?): Int
+public fun sceNetAdhocctlGetScanInfo(length: Int?, buf: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: COpaquePointer?): Int
+public fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocctlDelHandler(id: Int): Int
+public fun sceNetAdhocctlDelHandler(id: Int): Int = -1
 
-public expect fun sceNetAdhocctlGetNameByAddr(mac: COpaquePointer?, nickname: COpaquePointer?): Int
+public fun sceNetAdhocctlGetNameByAddr(mac: COpaquePointer?, nickname: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocctlGetAddrByName(nickname: COpaquePointer?, length: Int?, buf: COpaquePointer?): Int
+public fun sceNetAdhocctlGetAddrByName(nickname: COpaquePointer?, length: Int?, buf: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocctlGetParameter(params: SceNetAdhocctlParams?): Int
+public fun sceNetAdhocctlGetParameter(params: SceNetAdhocctlParams?): Int = -1
 
-public expect fun sceNetAdhocInit(): Int
+public fun sceNetAdhocInit(): Int = -1
 
-public expect fun sceNetAdhocTerm(): Int
+public fun sceNetAdhocTerm(): Int = -1
 
-public expect fun sceNetAdhocPdpCreate(mac: COpaquePointer?, port: UShort, bufSize: UInt, unk1: Int): Int
+public fun sceNetAdhocPdpCreate(mac: COpaquePointer?, port: UShort, bufSize: UInt, unk1: Int): Int = -1
 
-public expect fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int
+public fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int = -1
 
-public expect fun sceNetAdhocPdpSend(id: Int, destMacAddr: COpaquePointer?, port: UShort, data: COpaquePointer?, len: UInt, timeout: UInt, nonblock: Int): Int
+public fun sceNetAdhocPdpSend(id: Int, destMacAddr: COpaquePointer?, port: UShort, data: COpaquePointer?, len: UInt, timeout: UInt, nonblock: Int): Int = -1
 
-public expect fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: COpaquePointer?, port: UShort?, data: COpaquePointer?, dataLength: COpaquePointer?, timeout: UInt, nonblock: Int): Int
+public fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: COpaquePointer?, port: UShort?, data: COpaquePointer?, dataLength: COpaquePointer?, timeout: UInt, nonblock: Int): Int = -1
 
-public expect fun sceNetAdhocGetPdpStat(size: Int?, stat: SceNetAdhocPdpStat?): Int
+public fun sceNetAdhocGetPdpStat(size: Int?, stat: SceNetAdhocPdpStat?): Int = -1
 
-public expect fun sceNetAdhocGameModeCreateMaster(data: COpaquePointer?, size: Int): Int
+public fun sceNetAdhocGameModeCreateMaster(data: COpaquePointer?, size: Int): Int = -1
 
-public expect fun sceNetAdhocGameModeCreateReplica(mac: COpaquePointer?, data: COpaquePointer?, size: Int): Int
+public fun sceNetAdhocGameModeCreateReplica(mac: COpaquePointer?, data: COpaquePointer?, size: Int): Int = -1
 
-public expect fun sceNetAdhocGameModeUpdateMaster(): Int
+public fun sceNetAdhocGameModeUpdateMaster(): Int = -1
 
-public expect fun sceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int
+public fun sceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int = -1
 
-public expect fun sceNetAdhocGameModeDeleteMaster(): Int
+public fun sceNetAdhocGameModeDeleteMaster(): Int = -1
 
-public expect fun sceNetAdhocGameModeDeleteReplica(id: Int): Int
+public fun sceNetAdhocGameModeDeleteReplica(id: Int): Int = -1
 
-public expect fun sceNetAdhocPtpOpen(srcmac: COpaquePointer?, srcport: UShort, destmac: COpaquePointer?, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int
+public fun sceNetAdhocPtpOpen(srcmac: COpaquePointer?, srcport: UShort, destmac: COpaquePointer?, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int = -1
 
-public expect fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int
+public fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int = -1
 
-public expect fun sceNetAdhocPtpListen(srcmac: COpaquePointer?, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int
+public fun sceNetAdhocPtpListen(srcmac: COpaquePointer?, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int = -1
 
-public expect fun sceNetAdhocPtpAccept(id: Int, mac: COpaquePointer?, port: UShort?, timeout: UInt, nonblock: Int): Int
+public fun sceNetAdhocPtpAccept(id: Int, mac: COpaquePointer?, port: UShort?, timeout: UInt, nonblock: Int): Int = -1
 
-public expect fun sceNetAdhocPtpSend(id: Int, data: COpaquePointer?, dataSize: Int?, timeout: UInt, nonblock: Int): Int
+public fun sceNetAdhocPtpSend(id: Int, data: COpaquePointer?, dataSize: Int?, timeout: UInt, nonblock: Int): Int = -1
 
-public expect fun sceNetAdhocPtpRecv(id: Int, data: COpaquePointer?, dataSize: Int?, timeout: UInt, nonblock: Int): Int
+public fun sceNetAdhocPtpRecv(id: Int, data: COpaquePointer?, dataSize: Int?, timeout: UInt, nonblock: Int): Int = -1
 
-public expect fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int
+public fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int = -1
 
-public expect fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int
+public fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int = -1
 
-public expect fun sceNetAdhocGetPtpStat(size: Int?, stat: SceNetAdhocPtpStat?): Int
+public fun sceNetAdhocGetPtpStat(size: Int?, stat: SceNetAdhocPtpStat?): Int = -1
 
-public expect fun sceNetAdhocMatchingInit(memsize: Int): Int
+public fun sceNetAdhocMatchingInit(memsize: Int): Int = -1
 
-public expect fun sceNetAdhocMatchingTerm(): Int
+public fun sceNetAdhocMatchingTerm(): Int = -1
 
-public expect fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int
+public fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int = -1
 
-public expect fun sceNetAdhocMatchingDelete(matchingId: Int): Int
+public fun sceNetAdhocMatchingDelete(matchingId: Int): Int = -1
 
-public expect fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: COpaquePointer?): Int
+public fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingStop(matchingId: Int): Int
+public fun sceNetAdhocMatchingStop(matchingId: Int): Int = -1
 
-public expect fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int
+public fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: COpaquePointer?): Int
+public fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int
+public fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingSendData(matchingId: Int, mac: COpaquePointer?, dataLen: Int, data: COpaquePointer?): Int
+public fun sceNetAdhocMatchingSendData(matchingId: Int, mac: COpaquePointer?, dataLen: Int, data: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: COpaquePointer?): Int
+public fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: COpaquePointer?): Int
+public fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: Int?, optData: COpaquePointer?): Int
+public fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: Int?, optData: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: Int?, buf: COpaquePointer?): Int
+public fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: Int?, buf: COpaquePointer?): Int = -1
 
-public expect fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int
+public fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int = -1
 
-public expect fun sceNetAdhocMatchingGetPoolStat(poolstat: AdhocPoolStat?): Int
+public fun sceNetAdhocMatchingGetPoolStat(poolstat: AdhocPoolStat?): Int = -1
 
-public expect fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int
+public fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int = -1
 
-public expect fun sceNetApctlTerm(): Int
+public fun sceNetApctlTerm(): Int = -1
 
-public expect fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: SceNetApctlInfo?): Int
+public fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: SceNetApctlInfo?): Int = -1
 
-public expect fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: COpaquePointer?): Int
+public fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: COpaquePointer?): Int = -1
 
-public expect fun sceNetApctlDelHandler(handlerId: Int): Int
+public fun sceNetApctlDelHandler(handlerId: Int): Int = -1
 
-public expect fun sceNetApctlConnect(connIndex: Int): Int
+public fun sceNetApctlConnect(connIndex: Int): Int = -1
 
-public expect fun sceNetApctlDisconnect(): Int
+public fun sceNetApctlDisconnect(): Int = -1
 
-public expect fun sceNetApctlGetState(pstate: ApctlState?): Int
+public fun sceNetApctlGetState(pstate: ApctlState?): Int = -1
 
-public expect fun sceNetInetInit(): Int
+public fun sceNetInetInit(): Int = -1
 
-public expect fun sceNetInetTerm(): Int
+public fun sceNetInetTerm(): Int = -1
 
-public expect fun sceNetInetAccept(s: Int, addr: Sockaddr?, addrLen: SocklenT?): Int
+public fun sceNetInetAccept(s: Int, addr: Sockaddr?, addrLen: SocklenT?): Int = -1
 
-public expect fun sceNetInetBind(s: Int, myAddr: Sockaddr?, addrLen: SocklenT): Int
+public fun sceNetInetBind(s: Int, myAddr: Sockaddr?, addrLen: SocklenT): Int = -1
 
-public expect fun sceNetInetConnect(s: Int, servAddr: Sockaddr?, addrLen: SocklenT): Int
+public fun sceNetInetConnect(s: Int, servAddr: Sockaddr?, addrLen: SocklenT): Int = -1
 
-public expect fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: SocklenT?): Int
+public fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: SocklenT?): Int = -1
 
-public expect fun sceNetInetListen(s: Int, backlog: Int): Int
+public fun sceNetInetListen(s: Int, backlog: Int): Int = -1
 
-public expect fun sceNetInetRecv(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong
+public fun sceNetInetRecv(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong = 0uL
 
-public expect fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: Sockaddr?, fromLen: SocklenT?): ULong
+public fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: Sockaddr?, fromLen: SocklenT?): ULong = 0uL
 
-public expect fun sceNetInetSend(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong
+public fun sceNetInetSend(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong = 0uL
 
-public expect fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, toLen: SocklenT): ULong
+public fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, toLen: SocklenT): ULong = 0uL
 
-public expect fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: SocklenT): Int
+public fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: SocklenT): Int = -1
 
-public expect fun sceNetInetShutdown(s: Int, how: Int): Int
+public fun sceNetInetShutdown(s: Int, how: Int): Int = -1
 
-public expect fun sceNetInetSocket(domain: Int, type: Int, protocol: Int): Int
+public fun sceNetInetSocket(domain: Int, type: Int, protocol: Int): Int = -1
 
-public expect fun sceNetInetClose(s: Int): Int
+public fun sceNetInetClose(s: Int): Int = -1
 
-public expect fun sceNetInetGetErrno(): Int
+public fun sceNetInetGetErrno(): Int = -1
 
-public expect fun sceSslInit(unknown1: Int): Int
+public fun sceSslInit(unknown1: Int): Int = -1
 
-public expect fun sceSslEnd(): Int
+public fun sceSslEnd(): Int = -1
 
-public expect fun sceSslGetUsedMemoryMax(memory: UInt?): Int
+public fun sceSslGetUsedMemoryMax(memory: UInt?): Int = -1
 
-public expect fun sceSslGetUsedMemoryCurrent(memory: UInt?): Int
+public fun sceSslGetUsedMemoryCurrent(memory: UInt?): Int = -1
 
-public expect fun sceHttpInit(unknown1: UInt): Int
+public fun sceHttpInit(unknown1: UInt): Int = -1
 
-public expect fun sceHttpEnd(): Int
+public fun sceHttpEnd(): Int = -1
 
-public expect fun sceHttpCreateTemplate(agent: COpaquePointer?, unknown1: Int, unknown2: Int): Int
+public fun sceHttpCreateTemplate(agent: COpaquePointer?, unknown1: Int, unknown2: Int): Int = -1
 
-public expect fun sceHttpDeleteTemplate(templateid: Int): Int
+public fun sceHttpDeleteTemplate(templateid: Int): Int = -1
 
-public expect fun sceHttpCreateConnection(templateid: Int, host: COpaquePointer?, unknown1: COpaquePointer?, port: UShort, unknown2: Int): Int
+public fun sceHttpCreateConnection(templateid: Int, host: COpaquePointer?, unknown1: COpaquePointer?, port: UShort, unknown2: Int): Int = -1
 
-public expect fun sceHttpCreateConnectionWithURL(templateid: Int, url: COpaquePointer?, unknown1: Int): Int
+public fun sceHttpCreateConnectionWithURL(templateid: Int, url: COpaquePointer?, unknown1: Int): Int = -1
 
-public expect fun sceHttpDeleteConnection(connectionId: Int): Int
+public fun sceHttpDeleteConnection(connectionId: Int): Int = -1
 
-public expect fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: COpaquePointer?, contentLength: ULong): Int
+public fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: COpaquePointer?, contentLength: ULong): Int = -1
 
-public expect fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: COpaquePointer?, contentLength: ULong): Int
+public fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: COpaquePointer?, contentLength: ULong): Int = -1
 
-public expect fun sceHttpDeleteRequest(requestId: Int): Int
+public fun sceHttpDeleteRequest(requestId: Int): Int = -1
 
-public expect fun sceHttpSendRequest(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int
+public fun sceHttpSendRequest(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int = -1
 
-public expect fun sceHttpAbortRequest(requestId: Int): Int
+public fun sceHttpAbortRequest(requestId: Int): Int = -1
 
-public expect fun sceHttpReadData(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int
+public fun sceHttpReadData(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int = -1
 
-public expect fun sceHttpGetContentLength(requestId: Int, contentLength: ULong?): Int
+public fun sceHttpGetContentLength(requestId: Int, contentLength: ULong?): Int = -1
 
-public expect fun sceHttpGetStatusCode(requestId: Int, statusCode: Int?): Int
+public fun sceHttpGetStatusCode(requestId: Int, statusCode: Int?): Int = -1
 
-public expect fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int
+public fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int = -1
 
-public expect fun sceHttpSetResolveRetry(id: Int, count: Int): Int
+public fun sceHttpSetResolveRetry(id: Int, count: Int): Int = -1
 
-public expect fun sceHttpSetConnectTimeOut(id: Int, timeout: UInt): Int
+public fun sceHttpSetConnectTimeOut(id: Int, timeout: UInt): Int = -1
 
-public expect fun sceHttpSetSendTimeOut(id: Int, timeout: UInt): Int
+public fun sceHttpSetSendTimeOut(id: Int, timeout: UInt): Int = -1
 
-public expect fun sceHttpSetRecvTimeOut(id: Int, timeout: UInt): Int
+public fun sceHttpSetRecvTimeOut(id: Int, timeout: UInt): Int = -1
 
-public expect fun sceHttpEnableKeepAlive(id: Int): Int
+public fun sceHttpEnableKeepAlive(id: Int): Int = -1
 
-public expect fun sceHttpDisableKeepAlive(id: Int): Int
+public fun sceHttpDisableKeepAlive(id: Int): Int = -1
 
-public expect fun sceHttpEnableRedirect(id: Int): Int
+public fun sceHttpEnableRedirect(id: Int): Int = -1
 
-public expect fun sceHttpDisableRedirect(id: Int): Int
+public fun sceHttpDisableRedirect(id: Int): Int = -1
 
-public expect fun sceHttpEnableCookie(id: Int): Int
+public fun sceHttpEnableCookie(id: Int): Int = -1
 
-public expect fun sceHttpDisableCookie(id: Int): Int
+public fun sceHttpDisableCookie(id: Int): Int = -1
 
-public expect fun sceHttpSaveSystemCookie(): Int
+public fun sceHttpSaveSystemCookie(): Int = -1
 
-public expect fun sceHttpLoadSystemCookie(): Int
+public fun sceHttpLoadSystemCookie(): Int = -1
 
-public expect fun sceHttpAddExtraHeader(id: Int, name: COpaquePointer?, value: COpaquePointer?, unknown1: Int): Int
+public fun sceHttpAddExtraHeader(id: Int, name: COpaquePointer?, value: COpaquePointer?, unknown1: Int): Int = -1
 
-public expect fun sceHttpDeleteHeader(id: Int, name: COpaquePointer?): Int
+public fun sceHttpDeleteHeader(id: Int, name: COpaquePointer?): Int = -1
 
-public expect fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int
+public fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int = -1
 
-public expect fun sceHttpsEnd(): Int
+public fun sceHttpsEnd(): Int = -1
 
-public expect fun sceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int
+public fun sceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int = -1
 
-public expect fun sceHttpDisableAuth(id: Int): Int
+public fun sceHttpDisableAuth(id: Int): Int = -1
 
-public expect fun sceHttpDisableCache(id: Int): Int
+public fun sceHttpDisableCache(id: Int): Int = -1
 
-public expect fun sceHttpEnableAuth(id: Int): Int
+public fun sceHttpEnableAuth(id: Int): Int = -1
 
-public expect fun sceHttpEnableCache(id: Int): Int
+public fun sceHttpEnableCache(id: Int): Int = -1
 
-public expect fun sceHttpEndCache(): Int
+public fun sceHttpEndCache(): Int = -1
 
-public expect fun sceHttpGetAllHeader(request: Int, header: COpaquePointer?, headerSize: UInt?): Int
+public fun sceHttpGetAllHeader(request: Int, header: COpaquePointer?, headerSize: UInt?): Int = -1
 
-public expect fun sceHttpGetNetworkErrno(request: Int, errNum: Int?): Int
+public fun sceHttpGetNetworkErrno(request: Int, errNum: Int?): Int = -1
 
-public expect fun sceHttpGetProxy(id: Int, activateFlag: Int?, mode: Int?, proxyHost: COpaquePointer?, len: ULong, proxyPort: UShort?): Int
+public fun sceHttpGetProxy(id: Int, activateFlag: Int?, mode: Int?, proxyHost: COpaquePointer?, len: ULong, proxyPort: UShort?): Int = -1
 
-public expect fun sceHttpInitCache(maxSize: ULong): Int
+public fun sceHttpInitCache(maxSize: ULong): Int = -1
 
-public expect fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int
+public fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int = -1
 
-public expect fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: COpaquePointer?, newProxyPort: UShort): Int
+public fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: COpaquePointer?, newProxyPort: UShort): Int = -1
 
-public expect fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int
+public fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int = -1
 
-public expect fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int
+public fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int = -1
 
-public expect fun sceNetResolverInit(): Int
+public fun sceNetResolverInit(): Int = -1
 
-public expect fun sceNetResolverCreate(rid: Int?, buf: COpaquePointer?, bufLength: UInt): Int
+public fun sceNetResolverCreate(rid: Int?, buf: COpaquePointer?, bufLength: UInt): Int = -1
 
-public expect fun sceNetResolverDelete(rid: Int): Int
+public fun sceNetResolverDelete(rid: Int): Int = -1
 
-public expect fun sceNetResolverStartNtoA(rid: Int, hostname: COpaquePointer?, addr: InAddr?, timeout: UInt, retry: Int): Int
+public fun sceNetResolverStartNtoA(rid: Int, hostname: COpaquePointer?, addr: InAddr?, timeout: UInt, retry: Int): Int = -1
 
-public expect fun sceNetResolverStartAtoN(rid: Int, addr: InAddr?, hostname: COpaquePointer?, hostnameLen: UInt, timeout: UInt, retry: Int): Int
+public fun sceNetResolverStartAtoN(rid: Int, addr: InAddr?, hostname: COpaquePointer?, hostnameLen: UInt, timeout: UInt, retry: Int): Int = -1
 
-public expect fun sceNetResolverStop(rid: Int): Int
+public fun sceNetResolverStop(rid: Int): Int = -1
 
-public expect fun sceNetResolverTerm(): Int
+public fun sceNetResolverTerm(): Int = -1

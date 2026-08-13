@@ -3,6 +3,11 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*
 
+public const val B19200: SpeedT = 19200u
+public const val B38400: SpeedT = 38400u
+public const val EDEADLK: CInt = 35
+public const val EOPNOTSUPP: CInt = 95
+public const val O_DIRECTORY: CInt = 0x10000
 public typealias ShmattT = CULong
 public typealias MsgqnumT = CULong
 public typealias MsglenT = CULong
@@ -220,7 +225,7 @@ public const val PRIO_PGRP: CInt = 1
 public const val PRIO_USER: CInt = 2
 public const val SOMAXCONN: CInt = 128
 public const val ST_RELATIME: CULong = 4096uL
-public const val AF_NFC: CInt = PF_NFC
+public val AF_NFC: CInt = PF_NFC
 public const val BUFSIZ: CInt = 4096
 public const val EDEADLOCK: CInt = EDEADLK
 public const val EXTA: CUInt = B19200
@@ -265,7 +270,7 @@ public const val PTRACE_SETSIGMASK: CUInt = 0x420bu
 public const val RTLD_NOLOAD: CInt = 0x00004
 public const val RUSAGE_THREAD: CInt = 1
 public const val SHM_EXEC: CInt = 32768
-public const val SIGPOLL: CInt = SIGIO
+public const val SIGPOLL: CInt = 29
 public const val SOCK_DCCP: CInt = 6
 public const val SOCK_PACKET: CInt = 10
 public const val TCP_COOKIE_TRANSACTIONS: CInt = 15
@@ -273,42 +278,42 @@ public const val UDP_GRO: CInt = 104
 public const val UDP_SEGMENT: CInt = 103
 public val YESEXPR: CInt = ((5) shl 8) or (0)
 
-public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
+public fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt = -1
 
-public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt
+public fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CInt?): CInt = -1
 
-public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt
+public fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT, `val`: CInt): CInt = -1
 
-public expect fun ptrace(request: CUInt, vararg args: Any?): CLong
+public fun ptrace(request: CUInt, vararg args: Any?): CLong = -1L
 
-public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt): CInt
+public fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt): CInt = -1
 
-public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt, timeout: Timespec?): CInt
+public fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt, timeout: Timespec?): CInt = -1
 
-public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+public fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt = -1
 
-public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+public fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT = -1
 
-public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt = -1
 
-public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+public fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT = -1L
 
-public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT
+public fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT = -1L
 
-public expect fun sethostid(hostid: CLong): CInt
+public fun sethostid(hostid: CLong): CInt = -1
 
-public expect fun fanotifyMark(fd: CInt, flags: CUInt, mask: ULong, dirfd: CInt, path: String?): CInt
+public fun fanotifyMark(fd: CInt, flags: CUInt, mask: ULong, dirfd: CInt, path: String?): CInt = -1
 
-public expect fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt
+public fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt = -1
 
-public expect fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt
+public fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt = -1
 
-public expect fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt
+public fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt = -1
 
-public expect fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt
+public fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt = -1
 
-public expect fun getpriority(which: PriorityWhichT, who: IdT): CInt
+public fun getpriority(which: PriorityWhichT, who: IdT): CInt = -1
 
-public expect fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt
+public fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt = -1
 
-public expect fun getauxval(type: CULong): CULong
+public fun getauxval(type: CULong): CULong = 0uL

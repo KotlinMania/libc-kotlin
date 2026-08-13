@@ -171,26 +171,26 @@ public const val SCHED_RR: CInt = 2
 public const val GRND_NONBLOCK: CUInt = 0x1u
 public const val GRND_RANDOM: CUInt = 0x2u
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
 
-public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT?, param: SchedParam?): CInt
+public fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt = -1
 
-public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT?, param: SchedParam?): CInt
+public fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt = -1
 
-public expect fun pthreadAttrGetprocessoridNp(attr: PthreadAttrT?, processorId: CInt?): CInt
+public fun pthreadAttrGetprocessoridNp(attr: PthreadAttrT, processorId: CInt?): CInt = -1
 
-public expect fun pthreadAttrSetprocessoridNp(attr: PthreadAttrT?, processorId: CInt): CInt
+public fun pthreadAttrSetprocessoridNp(attr: PthreadAttrT, processorId: CInt): CInt = -1
 
-public expect fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt
+public fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt = -1
 
-public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt
+public fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt = -1
 
-public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT?, clockId: ClockidT?): CInt
+public fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt = -1
 
-public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt
+public fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt = -1
 
-public expect fun pthreadGetprocessoridNp(): CInt
+public fun pthreadGetprocessoridNp(): CInt = -1
 
-public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
+public fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT = -1L
 
-public expect fun gethostid(): CLong
+public fun gethostid(): CLong = -1L

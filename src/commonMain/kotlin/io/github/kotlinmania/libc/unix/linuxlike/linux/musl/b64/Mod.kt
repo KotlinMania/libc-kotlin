@@ -5,11 +5,7 @@ import io.github.kotlinmania.libc.*
 
 public typealias RegoffT = CLong
 
-public data class StackT(
-    val ssSp: COpaquePointer?,
-    val ssFlags: CInt,
-    val ssSize: ULong,
-)
+// StackT is defined in Mips64.kt (first definition in this package).
 
 public data class PthreadAttrT(
     val size: ULongArray,

@@ -61,6 +61,12 @@ public data class CAnonymousIfrIfru(
     val ifruB: CAnonymousIfrIfruIfruB? = null,
 )
 
+// C struct; buf and buflen are deprecated but contribute to union size.
+public data class CAnonymousIfrIfruIfruB(
+    val bBuflen: CUInt? = null,
+    val bBuf: COpaquePointer? = null,
+)
+
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfcIfcu(
     val ifcuBuf: COpaquePointer? = null,

@@ -186,7 +186,7 @@ public const val PTRACE_SETFPREGS: CInt = 15
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0)
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0)
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(lock = PTHREAD_MUTEX_INITIALIZER, cond = PTHREAD_COND_INITIALIZER, numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0)
-public val PTHREAD_STACK_MIN: ULong = 4096uL * 2
+public val PTHREAD_STACK_MIN: ULong = 4096uL * 2uL
 public const val CPU_SETSIZE: ULong = 32uL
 public const val __CPU_BITS: ULong = 32uL
 public const val UT_LINESIZE: ULong = 8uL
@@ -195,4 +195,4 @@ public const val UT_HOSTSIZE: ULong = 16uL
 public const val SIGSTKSZ: ULong = 8192uL
 public const val MINSIGSTKSZ: ULong = 2048uL
 
-public expect fun timegm64(tm: Tm?): Time64T
+public fun timegm64(tm: Tm?): Time64T { throw UnsupportedOperationException("Not implemented on this platform") }

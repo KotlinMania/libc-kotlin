@@ -56,8 +56,8 @@ public data class CanFilter(
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousSockaddrCanCanAddr(
-    val tp: CAnonymousSockaddrCanTp = null,
-    val j1939: CAnonymousSockaddrCanJ1939 = null,
+    val tp: CAnonymousSockaddrCanTp? = null,
+    val j1939: CAnonymousSockaddrCanJ1939? = null,
 )
 
 public const val CAN_EFF_FLAG: CanidT = 0x80000000u
@@ -87,7 +87,7 @@ public const val CANXL_SEC: CInt = 0x01
 
 // CAN_MTU = size_of<CanFrame>() (struct size; computed at the FFI boundary)
 // CANFD_MTU = size_of<CanfdFrame>() (struct size; computed at the FFI boundary)
-// CANXL_MTU = size_of<CanxlFrame>() (struct size; computed at the FFI boundary)
+public const val CANXL_MTU: ULong = 128uL
 // CANXL_HDR_SIZE = offset_of(CanxlFrame, data) (field offset; computed at the FFI boundary)
 public const val CANXL_HDR_SIZE: ULong = 12uL
 public val CANXL_MIN_MTU: ULong = CANXL_HDR_SIZE + 64u

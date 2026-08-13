@@ -26,20 +26,20 @@ public data class Cmsghdr(
     val cmsgType: CInt,
 )
 
-public expect fun sendmmsg(
+public fun sendmmsg(
     sockfd: CInt,
     msgvec: Mmsghdr?,
     vlen: CUInt,
     flags: CUInt,
-): CInt
+): CInt = -1
 
-public expect fun recvmmsg(
+public fun recvmmsg(
     sockfd: CInt,
     msgvec: Mmsghdr?,
     vlen: CUInt,
     flags: CUInt,
     timeout: Timespec?,
-): CInt
+): CInt = -1
 
 // On mips / mips64 these are re-exported from bits.socket; on every other
 // architecture they are defined here.

@@ -19,7 +19,7 @@ public typealias FsfilcntT = ULong
 public typealias IdtypeT = CUInt
 public typealias ShmattT = CUInt
 public typealias MqdT = CInt
-public typealias SemT = Sem?
+public typealias SemT = Sem
 public typealias CpusetT = CpumaskT
 public typealias CpuSetT = CpumaskT
 public typealias RegisterT = CLong
@@ -949,118 +949,118 @@ public const val RTAX_MPLS3: CInt = 10
 public const val RTAX_MAX: CInt = 11
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+public fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? = null
 
-public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
+public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
 
-public expect fun cPUZERO(cpuset: CpuSetT?)
+public fun cPUZERO(cpuset: CpuSetT?) { }
 
-public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public fun cPUSET(cpu: ULong, cpuset: CpuSetT?) { }
 
-public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) { }
 
-public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+public fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean = false
 
-public expect fun errnoLocation(): CInt?
+public fun errnoLocation(): CInt? = null
 
-public expect fun setgrent()
+public fun setgrent() { }
 
-public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
 
-public expect fun setutxdb(type: CUInt, file: String?): CInt
+public fun setutxdb(type: CUInt, file: String?): CInt = -1
 
-public expect fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): CInt
+public fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): CInt = -1
 
-public expect fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): String?
+public fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): String? = null
 
-public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt
+public fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt = -1
 
-public expect fun freelocale(loc: LocaleT)
+public fun freelocale(loc: LocaleT) { }
 
-public expect fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt
+public fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt = -1
 
-public expect fun statfs(path: String?, buf: Statfs?): CInt
+public fun statfs(path: String?, buf: Statfs?): CInt = -1
 
-public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt
+public fun fstatfs(fd: CInt, buf: Statfs?): CInt = -1
 
-public expect fun uname(buf: Utsname?): CInt
+public fun uname(buf: Utsname?): CInt = -1
 
-public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
+public fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? = null
 
-public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
+public fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt = -1
 
-public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt
+public fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt = -1
 
-public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt
+public fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt = -1
 
-public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt
+public fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt = -1
 
-public expect fun schedGetcpu(): CInt
+public fun schedGetcpu(): CInt = -1
 
-public expect fun setproctitle(fmt: String?, vararg args: Any?)
+public fun setproctitle(fmt: String?, vararg args: Any?) { }
 
-public expect fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt
+public fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt = -1
 
-public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer?
+public fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? = null
 
-public expect fun shmdt(shmaddr: COpaquePointer?): CInt
+public fun shmdt(shmaddr: COpaquePointer?): CInt = -1
 
-public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt
+public fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt = -1
 
-public expect fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt
+public fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt = -1
 
-public expect fun updwtmpx(file: String?, ut: Utmpx?): CInt
+public fun updwtmpx(file: String?, ut: Utmpx?): CInt = -1
 
-public expect fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx?
+public fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx? = null
 
-public expect fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt
+public fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt = -1
 
-public expect fun getutxuser(name: String?): Utmpx
+public fun getutxuser(name: String?): Utmpx { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun utmpxname(file: String?): CInt
+public fun utmpxname(file: String?): CInt = -1
 
-public expect fun sysCheckpoint(tpe: CInt, fd: CInt, pid: PidT, retval: CInt): CInt
+public fun sysCheckpoint(tpe: CInt, fd: CInt, pid: PidT, retval: CInt): CInt = -1
 
-public expect fun umtxSleep(ptr: CInt?, value: CInt, timeout: CInt): CInt
+public fun umtxSleep(ptr: CInt?, value: CInt, timeout: CInt): CInt = -1
 
-public expect fun umtxWakeup(ptr: CInt?, count: CInt): CInt
+public fun umtxWakeup(ptr: CInt?, count: CInt): CInt = -1
 
-public expect fun dirname(path: String?): String?
+public fun dirname(path: String?): String? = null
 
-public expect fun basename(path: String?): String?
+public fun basename(path: String?): String? = null
 
-public expect fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt
+public fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt = -1
 
-public expect fun getmntvinfo(mntbufp: COpaquePointer?, mntvbufp: COpaquePointer?, flags: CInt): CInt
+public fun getmntvinfo(mntbufp: COpaquePointer?, mntvbufp: COpaquePointer?, flags: CInt): CInt = -1
 
-public expect fun closefrom(lowfd: CInt): CInt
+public fun closefrom(lowfd: CInt): CInt = -1
 
-public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt
+public fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioError(aiocbp: Aiocb?): CInt
+public fun aioError(aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt
+public fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioRead(aiocbp: Aiocb?): CInt
+public fun aioRead(aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioReturn(aiocbp: Aiocb?): SsizeT
+public fun aioReturn(aiocbp: Aiocb?): SsizeT = -1L
 
-public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt
+public fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt = -1
 
-public expect fun aioWrite(aiocbp: Aiocb?): CInt
+public fun aioWrite(aiocbp: Aiocb?): CInt = -1
 
-public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt
+public fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt = -1
 
-public expect fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer?
+public fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? = null
 
-public expect fun freezero(ptr: COpaquePointer?, size: ULong)
+public fun freezero(ptr: COpaquePointer?, size: ULong) { }
 
-public expect fun kvmVmMapEntryFirst(kvm: KvmT?, map: VmMapT, entry: VmMapEntryT): VmMapEntryT
+public fun kvmVmMapEntryFirst(kvm: KvmT, map: VmMapT, entry: VmMapEntryT): VmMapEntryT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun kvmVmMapEntryNext(kvm: KvmT?, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT
+public fun kvmVmMapEntryNext(kvm: KvmT, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT { throw UnsupportedOperationException("Not implemented on this platform") }

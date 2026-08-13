@@ -2,6 +2,9 @@
 package io.github.kotlinmania.libc.new.apple.xnu.arm
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmExceptionState64
+import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmNeonState64
+import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmThreadState64
 
 public typealias McontextT = DarwinMcontext64?
 

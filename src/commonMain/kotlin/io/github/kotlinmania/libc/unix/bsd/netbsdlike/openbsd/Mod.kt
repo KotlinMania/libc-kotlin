@@ -1,8 +1,35 @@
 // port-lint: source unix/bsd/netbsdlike/openbsd/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.O_SYNC
+import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
+import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
+import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
+import io.github.kotlinmania.libc.unix.bsd.LC_MONETARY
+import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
+import io.github.kotlinmania.libc.unix.bsd.LC_TIME
+import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
+import io.github.kotlinmania.libc.unix.bsd.MDMBUF
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
+import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO1
+import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO2
+import io.github.kotlinmania.libc.unix.bsd.RTF_BLACKHOLE
+import io.github.kotlinmania.libc.unix.bsd.RTF_REJECT
+import io.github.kotlinmania.libc.unix.bsd.RTF_STATIC
 
+public const val CRTSCTS: TcflagT = 0x00010000u
+public const val LC_CTYPE: Int = 0
+public const val LC_NUMERIC: Int = 1
+public const val LC_TIME: Int = 2
+public const val LC_COLLATE: Int = 3
+public const val LC_MONETARY: Int = 4
+public const val LC_MESSAGES: Int = 5
+public const val MDMBUF: TcflagT = 0x00100000u
+public const val O_SYNC: CInt = 0x0080
+public const val POLLRDNORM: CShort = 0x0040
+public const val RTF_PROTO2: CInt = 0x4000
 public typealias ClockT = Long
 public typealias SusecondsT = CLong
 public typealias DevT = Int
@@ -34,6 +61,9 @@ public typealias Elf64Sword = Int
 public typealias Elf64Sxword = Long
 public typealias Elf64Word = UInt
 public typealias Elf64Xword = ULong
+public typealias ElfAddr = Elf64Addr
+public typealias ElfHalf = Elf64Half
+public typealias ElfPhdr = Elf64Phdr
 public typealias ENTRY = Entry
 public typealias ACTION = CUInt
 public typealias PosixSpawnattrT = COpaquePointer?
@@ -606,7 +636,21 @@ public data class SiginfoT(
     val siCode: CInt,
     val siErrno: CInt,
     val siAddr: String?,
-)
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): String? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Lastlog(
     val llTime: TimeT,
@@ -667,7 +711,7 @@ public data class CAnonymousIfrIfru(
     val ifruMetric: CInt? = null,
     val ifruVnetid: Long? = null,
     val ifruMedia: ULong? = null,
-    val ifruData: CaddrT? = null,
+    val ifruData: CaddrT = null,
     val ifruIndex: CUInt? = null,
 )
 
@@ -928,9 +972,9 @@ public const val SCHED_FIFO: CInt = 1
 public const val SCHED_OTHER: CInt = 2
 public const val SCHED_RR: CInt = 3
 public const val ST_NOSUID: CULong = 2uL
-public const val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null_mut()
-public const val PTHREAD_COND_INITIALIZER: PthreadCondT = null_mut()
-public const val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null_mut()
+// PTHREAD_MUTEX_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
+// PTHREAD_COND_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
+// PTHREAD_RWLOCK_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
 public const val PTHREAD_MUTEX_ERRORCHECK: CInt = 1
 public const val PTHREAD_MUTEX_RECURSIVE: CInt = 2
 public const val PTHREAD_MUTEX_NORMAL: CInt = 3
@@ -1221,9 +1265,9 @@ public const val IFF_LINK0: CInt = 0x1000
 public const val IFF_LINK1: CInt = 0x2000
 public const val IFF_LINK2: CInt = 0x4000
 public const val IFF_MULTICAST: CInt = 0x8000
-public val PTHREAD_STACK_MIN: ULong = 1 shl _MAX_PAGE_SHIFT
-public val MINSIGSTKSZ: ULong = 3 shl _MAX_PAGE_SHIFT
-public val SIGSTKSZ: ULong = MINSIGSTKSZ + (1 shl _MAX_PAGE_SHIFT) * 4u
+public val PTHREAD_STACK_MIN: ULong = 1uL shl _MAX_PAGE_SHIFT.toInt()
+public val MINSIGSTKSZ: ULong = 3uL shl _MAX_PAGE_SHIFT.toInt()
+public val SIGSTKSZ: ULong = MINSIGSTKSZ + (1uL shl _MAX_PAGE_SHIFT.toInt()) * 4u
 public const val PT_SET_EVENT_MASK: CInt = 12
 public const val PT_GET_EVENT_MASK: CInt = 13
 public const val PT_GET_PROCESS_STATE: CInt = 14
@@ -1310,8 +1354,9 @@ public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY
 public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC
 public val LC_TIME_MASK: CInt = 1 shl LC_TIME
 public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES
+public const val _LC_LAST: CInt = 7
 public val LC_ALL_MASK: CInt = (1 shl _LC_LAST) - 2
-public val LC_GLOBAL_LOCALE: LocaleT = -1L.toLocaleT()
+public val LC_GLOBAL_LOCALE: LocaleT = LC_GLOBAL_LOCALE_SENTINEL
 public const val RB_ASKNAME: CInt = 0x00001
 public const val RB_SINGLE: CInt = 0x00002
 public const val RB_NOSYNC: CInt = 0x00004
@@ -1373,128 +1418,128 @@ public const val RTAX_SEARCH: CInt = 14
 public const val RTAX_MAX: CInt = 15
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+public fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? = null
 
-public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
+public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
 
-public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt
+public fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt = -1
 
-public expect fun settimeofday(tp: Timeval?, tz: Timezone?): CInt
+public fun settimeofday(tp: Timeval?, tz: Timezone?): CInt = -1
 
-public expect fun pledge(promises: String?, execpromises: String?): CInt
+public fun pledge(promises: String?, execpromises: String?): CInt = -1
 
-public expect fun unveil(path: String?, permissions: String?): CInt
+public fun unveil(path: String?, permissions: String?): CInt = -1
 
-public expect fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong
+public fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong = -1L
 
-public expect fun dup3(src: CInt, dst: CInt, flags: CInt): CInt
+public fun dup3(src: CInt, dst: CInt, flags: CInt): CInt = -1
 
-public expect fun chflags(path: String?, flags: CUInt): CInt
+public fun chflags(path: String?, flags: CUInt): CInt = -1
 
-public expect fun fchflags(fd: CInt, flags: CUInt): CInt
+public fun fchflags(fd: CInt, flags: CUInt): CInt = -1
 
-public expect fun chflagsat(fd: CInt, path: String?, flags: CUInt, atflag: CInt): CInt
+public fun chflagsat(fd: CInt, path: String?, flags: CUInt, atflag: CInt): CInt = -1
 
-public expect fun dirfd(dirp: DIR?): CInt
+public fun dirfd(dirp: DIR?): CInt = -1
 
-public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt
+public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt = -1
 
-public expect fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt
+public fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt = -1
 
-public expect fun getresuid(ruid: UidT?, euid: UidT?, suid: UidT?): CInt
+public fun getresuid(ruid: UidT?, euid: UidT?, suid: UidT?): CInt = -1
 
-public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt
+public fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt = -1
 
-public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
 
-public expect fun getthrid(): PidT
+public fun getthrid(): PidT = -1
 
-public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt
+public fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt = -1
 
-public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt
+public fun pthreadAttrSetguardsize(attr: PthreadAttrT, guardsize: ULong): CInt = -1
 
-public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+public fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong?): CInt = -1
 
-public expect fun pthreadMainNp(): CInt
+public fun pthreadMainNp(): CInt = -1
 
-public expect fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong)
+public fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong) { }
 
-public expect fun pthreadSetNameNp(tid: PthreadT, name: String?)
+public fun pthreadSetNameNp(tid: PthreadT, name: String?) { }
 
-public expect fun pthreadStacksegNp(thread: PthreadT, sinfo: StackT?): CInt
+public fun pthreadStacksegNp(thread: PthreadT, sinfo: StackT?): CInt = -1
 
-public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+public fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt = -1
 
-public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+public fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT = -1
 
-public expect fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
 
-public expect fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt
+public fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt = -1
 
-public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
+public fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt = -1
 
-public expect fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CInt
+public fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CInt = -1
 
-public expect fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt
+public fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt = -1
 
-public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
+public fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? = null
 
-public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
+public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
 
-public expect fun uselocale(loc: LocaleT): LocaleT
+public fun uselocale(loc: LocaleT): LocaleT = null
 
-public expect fun freelocale(loc: LocaleT)
+public fun freelocale(loc: LocaleT) { }
 
-public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
+public fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT = null
 
-public expect fun duplocale(base: LocaleT): LocaleT
+public fun duplocale(base: LocaleT): LocaleT = null
 
-public expect fun explicitBzero(s: COpaquePointer?, len: ULong)
+public fun explicitBzero(s: COpaquePointer?, len: ULong) { }
 
-public expect fun setproctitle(fmt: String?, vararg args: Any?)
+public fun setproctitle(fmt: String?, vararg args: Any?) { }
 
-public expect fun freezero(ptr: COpaquePointer?, size: ULong)
+public fun freezero(ptr: COpaquePointer?, size: ULong) { }
 
-public expect fun mallocConceal(size: ULong): COpaquePointer?
+public fun mallocConceal(size: ULong): COpaquePointer? = null
 
-public expect fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer?
+public fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer? = null
 
-public expect fun srand48Deterministic(seed: CLong)
+public fun srand48Deterministic(seed: CLong) { }
 
-public expect fun seed48Deterministic(xseed: CUShort?): CUShort?
+public fun seed48Deterministic(xseed: CUShort?): CUShort? = null
 
-public expect fun lcong48Deterministic(p: CUShort?)
+public fun lcong48Deterministic(p: CUShort?) { }
 
-public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
+public fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
 
-public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
+public fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
 
-public expect fun hcreate(nelt: ULong): CInt
+public fun hcreate(nelt: ULong): CInt = -1
 
-public expect fun hdestroy()
+public fun hdestroy() { }
 
-public expect fun hsearch(entry: ENTRY, action: ACTION): ENTRY?
+public fun hsearch(entry: ENTRY, action: ACTION): ENTRY? = null
 
-public expect fun futex(uaddr: UInt?, op: CInt, `val`: CInt, timeout: Timespec?, uaddr2: UInt?): CInt
+public fun futex(uaddr: UInt?, op: CInt, `val`: CInt, timeout: Timespec?, uaddr2: UInt?): CInt = -1
 
-public expect fun mimmutable(addr: COpaquePointer?, len: ULong): CInt
+public fun mimmutable(addr: COpaquePointer?, len: ULong): CInt = -1
 
-public expect fun reboot(mode: CInt): CInt
+public fun reboot(mode: CInt): CInt = -1
 
-public expect fun statfs(path: String?, buf: Statfs?): CInt
+public fun statfs(path: String?, buf: Statfs?): CInt = -1
 
-public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt
+public fun fstatfs(fd: CInt, buf: Statfs?): CInt = -1
 
-public expect fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt
+public fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt = -1
 
-public expect fun getfsstat(buf: Statfs?, bufsize: ULong, flags: CInt): CInt
+public fun getfsstat(buf: Statfs?, bufsize: ULong, flags: CInt): CInt = -1
 
-public expect fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt
+public fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt = -1
 
-public expect fun backtrace(addrlist: COpaquePointer?, len: ULong): ULong
+public fun backtrace(addrlist: COpaquePointer?, len: ULong): ULong = 0uL
 
-public expect fun backtraceSymbols(addrlist: COpaquePointer?, len: ULong): COpaquePointer?
+public fun backtraceSymbols(addrlist: COpaquePointer?, len: ULong): COpaquePointer? = null
 
-public expect fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: CInt): CInt
+public fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: CInt): CInt = -1
 
-public expect fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer?
+public fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer? = null

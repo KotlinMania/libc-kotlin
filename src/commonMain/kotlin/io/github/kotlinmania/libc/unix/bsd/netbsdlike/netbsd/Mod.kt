@@ -1,8 +1,31 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.O_NONBLOCK
+import io.github.kotlinmania.libc.unix.bsd.O_RDWR
+import io.github.kotlinmania.libc.unix.bsd.O_WRONLY
+import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
+import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
+import io.github.kotlinmania.libc.unix.bsd.LC_MONETARY
+import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
+import io.github.kotlinmania.libc.unix.bsd.LC_TIME
+import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
+import io.github.kotlinmania.libc.unix.bsd.MDMBUF
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 
+public const val CRTSCTS: TcflagT = 0x00010000u
+public const val IOCPARM_MASK: UInt = 0x1fffu
+public const val LC_CTYPE: Int = 0
+public const val LC_NUMERIC: Int = 1
+public const val LC_TIME: Int = 2
+public const val LC_COLLATE: Int = 3
+public const val LC_MONETARY: Int = 4
+public const val LC_MESSAGES: Int = 5
+public const val MDMBUF: TcflagT = 0x00100000u
+public const val O_RDWR: CInt = 0x0002
+public const val O_WRONLY: CInt = 0x0001
 public typealias BlksizeT = Int
 public typealias EventfdT = ULong
 public typealias FsblkcntT = ULong
@@ -10,7 +33,7 @@ public typealias FsfilcntT = ULong
 public typealias IdtypeT = CInt
 public typealias ShmattT = CUInt
 public typealias CpusetT = Cpuset
-public typealias PthreadSpinT = PthreadSpinT
+public typealias PthreadSpinT = Byte
 public typealias Elf32Addr = UInt
 public typealias Elf32Half = UShort
 public typealias Elf32Lword = ULong
@@ -25,6 +48,9 @@ public typealias Elf64Sword = Int
 public typealias Elf64Sxword = Long
 public typealias Elf64Word = UInt
 public typealias Elf64Xword = ULong
+public typealias ElfAddr = Elf64Addr
+public typealias ElfHalf = Elf64Half
+public typealias ElfPhdr = Elf64Phdr
 public typealias IconvT = COpaquePointer?
 
 public enum class FaeAction(
@@ -121,7 +147,21 @@ public data class SiginfoT(
     val siCode: CInt,
     val siErrno: CInt,
     val siAddr: COpaquePointer?,
-)
+    val siValue: Sigval? = null,
+    val siPid: PidT? = null,
+    val siUid: UidT? = null,
+    val siStatus: CInt? = null,
+    val siUtime: CLong? = null,
+    val siStime: CLong? = null,
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval? = siValue
+    public fun siPid(): PidT = siPid ?: 0
+    public fun siUid(): UidT = siUid ?: 0u
+    public fun siStatus(): CInt = siStatus ?: 0
+    public fun siUtime(): CLong = siUtime ?: 0L
+    public fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class PthreadAttrT(
     val ptaMagic: CUInt,
@@ -740,7 +780,7 @@ public val FUTEX_WAITERS: UInt = 1u shl 31
 public val FUTEX_OWNER_DIED: UInt = 1u shl 30
 public val FUTEX_SYNCOBJ_1: UInt = 1u shl 29
 public val FUTEX_SYNCOBJ_0: UInt = 1u shl 28
-public val FUTEX_TID_MASK: UInt = (1 shl 28) - 1
+public val FUTEX_TID_MASK: UInt = (1u shl 28) - 1u
 public val FUTEX_BITSET_MATCH_ANY: UInt = 0u.inv()
 public const val IP_RECVDSTADDR: CInt = 7
 public const val IP_SENDSRCADDR: CInt = IP_RECVDSTADDR
@@ -1292,7 +1332,7 @@ public const val B921600: SpeedT = 921600u
 public const val ONOCR: TcflagT = 0x20u
 public const val ONLRET: TcflagT = 0x40u
 public const val CDTRCTS: TcflagT = 0x00020000u
-public val CHWFLOW: TcflagT = MDMBUF or CRTSCTS or CDTRCTS
+public val CHWFLOW: TcflagT = MDMBUF.or(CRTSCTS).or(CDTRCTS)
 public const val SOCK_CLOEXEC: CInt = 0x10000000
 public const val SOCK_NONBLOCK: CInt = 0x20000000
 public const val FIOSEEKDATA: CULong = 0xc0086661uL
@@ -1406,344 +1446,344 @@ public const val TFD_TIMER_ABSTIME: Int = O_WRONLY
 public const val TFD_TIMER_CANCEL_ON_SET: Int = O_RDWR
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
+public fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? = null
 
-public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
+public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
 
-public expect fun dirfd(dirp: DIR?): CInt
+public fun dirfd(dirp: DIR?): CInt = -1
 
-public expect fun sOCKCREDSIZE(ngrps: ULong): ULong
+public fun sOCKCREDSIZE(ngrps: ULong): ULong = 0uL
 
-public expect fun pROTMPROTECT(x: CInt): CInt
+public fun pROTMPROTECT(x: CInt): CInt = -1
 
-public expect fun pROTMPROTECTEXTRACT(x: CInt): CInt
+public fun pROTMPROTECTEXTRACT(x: CInt): CInt = -1
 
-public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt
+public fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt = -1
 
-public expect fun reallocarr(ptr: COpaquePointer?, number: ULong, size: ULong): CInt
+public fun reallocarr(ptr: COpaquePointer?, number: ULong, size: ULong): CInt = -1
 
-public expect fun chflags(path: String?, flags: CULong): CInt
+public fun chflags(path: String?, flags: CULong): CInt = -1
 
-public expect fun fchflags(fd: CInt, flags: CULong): CInt
+public fun fchflags(fd: CInt, flags: CULong): CInt = -1
 
-public expect fun lchflags(path: String?, flags: CULong): CInt
+public fun lchflags(path: String?, flags: CULong): CInt = -1
 
-public expect fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT
+public fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
 
-public expect fun extattrListFile(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT
+public fun extattrListFile(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
 
-public expect fun extattrListLink(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT
+public fun extattrListLink(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
 
-public expect fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: String?): CInt
+public fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: String?): CInt = -1
 
-public expect fun extattrDeleteFile(path: String?, attrnamespace: CInt, attrname: String?): CInt
+public fun extattrDeleteFile(path: String?, attrnamespace: CInt, attrname: String?): CInt = -1
 
-public expect fun extattrDeleteLink(path: String?, attrnamespace: CInt, attrname: String?): CInt
+public fun extattrDeleteLink(path: String?, attrnamespace: CInt, attrname: String?): CInt = -1
 
-public expect fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+public fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
 
-public expect fun extattrGetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+public fun extattrGetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
 
-public expect fun extattrGetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT
+public fun extattrGetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
 
-public expect fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt
+public fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt = -1
 
-public expect fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): CInt
+public fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): CInt = -1
 
-public expect fun extattrSetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): CInt
+public fun extattrSetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): CInt = -1
 
-public expect fun extattrSetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): CInt
+public fun extattrSetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): CInt = -1
 
-public expect fun extattrStringToNamespace(string: String?, attrnamespace: CInt?): CInt
+public fun extattrStringToNamespace(string: String?, attrnamespace: CInt?): CInt = -1
 
-public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+public fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt = -1
 
-public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+public fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT = -1
 
-public expect fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt
+public fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt = -1
 
-public expect fun lutimes(file: String?, times: Timeval?): CInt
+public fun lutimes(file: String?, times: Timeval?): CInt = -1
 
-public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
+public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
 
-public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt = -1
 
-public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
 
-public expect fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
 
-public expect fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt
+public fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
 
-public expect fun sysctlnametomib(sname: String?, name: CInt?, namelenp: ULong?): CInt
+public fun sysctlnametomib(sname: String?, name: CInt?, namelenp: ULong?): CInt = -1
 
-public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: ULong, eventlist: Kevent?, nevents: ULong, timeout: Timespec?): CInt
+public fun kevent(kq: CInt, changelist: Kevent?, nchanges: ULong, eventlist: Kevent?, nevents: ULong, timeout: Timespec?): CInt = -1
 
-public expect fun mount(src: String?, target: String?, flags: CInt, data: COpaquePointer?, size: ULong): CInt
+public fun mount(src: String?, target: String?, flags: CInt, data: COpaquePointer?, size: ULong): CInt = -1
 
-public expect fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT
+public fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT = -1
 
-public expect fun mqClose(mqd: MqdT): CInt
+public fun mqClose(mqd: MqdT): CInt = -1
 
-public expect fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt
+public fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt = -1
 
-public expect fun mqNotify(mqd: MqdT, notification: Sigevent?): CInt
+public fun mqNotify(mqd: MqdT, notification: Sigevent?): CInt = -1
 
-public expect fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT
+public fun mqReceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?): SsizeT = -1L
 
-public expect fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt): CInt
+public fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt): CInt = -1
 
-public expect fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt
+public fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt = -1
 
-public expect fun mqTimedreceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?, absTimeout: Timespec?): SsizeT
+public fun mqTimedreceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt?, absTimeout: Timespec?): SsizeT = -1L
 
-public expect fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt, absTimeout: Timespec?): CInt
+public fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgPrio: CUInt, absTimeout: Timespec?): CInt = -1
 
-public expect fun mqUnlink(name: String?): CInt
+public fun mqUnlink(name: String?): CInt = -1
 
-public expect fun ptrace(request: CInt, pid: PidT, addr: COpaquePointer?, data: CInt): CInt
+public fun ptrace(request: CInt, pid: PidT, addr: COpaquePointer?, data: CInt): CInt = -1
 
-public expect fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt
+public fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt = -1
 
-public expect fun pthreadGetnameNp(t: PthreadT, name: String?, len: ULong): CInt
+public fun pthreadGetnameNp(t: PthreadT, name: String?, len: ULong): CInt = -1
 
-public expect fun pthreadSetnameNp(t: PthreadT, name: String?, arg: COpaquePointer?): CInt
+public fun pthreadSetnameNp(t: PthreadT, name: String?, arg: COpaquePointer?): CInt = -1
 
-public expect fun pthreadAttrGetNp(thread: PthreadT, attr: PthreadAttrT?): CInt
+public fun pthreadAttrGetNp(thread: PthreadT, attr: PthreadAttrT?): CInt = -1
 
-public expect fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT?): CInt
+public fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT?): CInt = -1
 
-public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt
+public fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?): CInt = -1
 
-public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt
+public fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt = -1
 
-public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+public fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt = -1
 
-public expect fun pthreadGetaffinityNp(thread: PthreadT, size: ULong, set: CpusetT?): CInt
+public fun pthreadGetaffinityNp(thread: PthreadT, size: ULong, set: CpusetT?): CInt = -1
 
-public expect fun pthreadSetaffinityNp(thread: PthreadT, size: ULong, set: CpusetT?): CInt
+public fun pthreadSetaffinityNp(thread: PthreadT, size: ULong, set: CpusetT?): CInt = -1
 
-public expect fun cpusetCreate(): CpusetT?
+public fun cpusetCreate(): CpusetT? = null
 
-public expect fun cpusetDestroy(set: CpusetT?)
+public fun cpusetDestroy(set: CpusetT?) { }
 
-public expect fun cpusetClr(cpu: CpuidT, set: CpusetT?): CInt
+public fun cpusetClr(cpu: CpuidT, set: CpusetT?): CInt = -1
 
-public expect fun cpusetSet(cpu: CpuidT, set: CpusetT?): CInt
+public fun cpusetSet(cpu: CpuidT, set: CpusetT?): CInt = -1
 
-public expect fun cpusetIsset(cpu: CpuidT, set: CpusetT?): CInt
+public fun cpusetIsset(cpu: CpuidT, set: CpusetT?): CInt = -1
 
-public expect fun cpusetSize(set: CpusetT?): ULong
+public fun cpusetSize(set: CpusetT?): ULong = 0uL
 
-public expect fun cpusetZero(set: CpusetT?)
+public fun cpusetZero(set: CpusetT?) { }
 
-public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt
+public fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt = -1
 
-public expect fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt
+public fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt = -1
 
-public expect fun duplocale(base: LocaleT): LocaleT
+public fun duplocale(base: LocaleT): LocaleT = null
 
-public expect fun freelocale(loc: LocaleT)
+public fun freelocale(loc: LocaleT) { }
 
-public expect fun localeconvL(loc: LocaleT): Lconv?
+public fun localeconvL(loc: LocaleT): Lconv? = null
 
-public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
+public fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT = null
 
-public expect fun settimeofday(tv: Timeval?, tz: COpaquePointer?): CInt
+public fun settimeofday(tv: Timeval?, tz: COpaquePointer?): CInt = -1
 
-public expect fun dup3(src: CInt, dst: CInt, flags: CInt): CInt
+public fun dup3(src: CInt, dst: CInt, flags: CInt): CInt = -1
 
-public expect fun kqueue1(flags: CInt): CInt
+public fun kqueue1(flags: CInt): CInt = -1
 
-public expect fun lwpSelf(): LwpidT
+public fun lwpSelf(): LwpidT = -1
 
-public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer?
+public fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? = null
 
-public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
+public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
 
-public expect fun dlauxinfo(): COpaquePointer?
+public fun dlauxinfo(): COpaquePointer? = null
 
-public expect fun iconvOpen(tocode: String?, fromcode: String?): IconvT
+public fun iconvOpen(tocode: String?, fromcode: String?): IconvT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong
+public fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong = 0uL
 
-public expect fun iconvClose(cd: IconvT): CInt
+public fun iconvClose(cd: IconvT): CInt = -1
 
-public expect fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT?): CInt
+public fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT): CInt = -1
 
-public expect fun timerDelete(timerid: TimerT): CInt
+public fun timerDelete(timerid: TimerT): CInt = -1
 
-public expect fun timerGetoverrun(timerid: TimerT): CInt
+public fun timerGetoverrun(timerid: TimerT): CInt = -1
 
-public expect fun timerGettime(timerid: TimerT, currValue: Itimerspec?): CInt
+public fun timerGettime(timerid: TimerT, currValue: Itimerspec?): CInt = -1
 
-public expect fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt
+public fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt = -1
 
-public expect fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer?
+public fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? = null
 
-public expect fun explicitMemset(b: COpaquePointer?, c: CInt, len: ULong)
+public fun explicitMemset(b: COpaquePointer?, c: CInt, len: ULong) { }
 
-public expect fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt
+public fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt = -1
 
-public expect fun setproctitle(fmt: String?, vararg args: Any?)
+public fun setproctitle(fmt: String?, vararg args: Any?) { }
 
-public expect fun mremap(oldp: COpaquePointer?, oldsize: ULong, newp: COpaquePointer?, newsize: ULong, flags: CInt): COpaquePointer?
+public fun mremap(oldp: COpaquePointer?, oldsize: ULong, newp: COpaquePointer?, newsize: ULong, flags: CInt): COpaquePointer? = null
 
-public expect fun schedRrGetInterval(pid: PidT, t: Timespec?): CInt
+public fun schedRrGetInterval(pid: PidT, t: Timespec?): CInt = -1
 
-public expect fun schedSetparam(pid: PidT, param: SchedParam?): CInt
+public fun schedSetparam(pid: PidT, param: SchedParam?): CInt = -1
 
-public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt
+public fun schedGetparam(pid: PidT, param: SchedParam?): CInt = -1
 
-public expect fun schedGetscheduler(pid: PidT): CInt
+public fun schedGetscheduler(pid: PidT): CInt = -1
 
-public expect fun schedSetscheduler(pid: PidT, policy: CInt, param: SchedParam?): CInt
+public fun schedSetscheduler(pid: PidT, policy: CInt, param: SchedParam?): CInt = -1
 
-public expect fun pollts(fds: Pollfd?, nfds: NfdsT, ts: Timespec?, sigmask: SigsetT?): CInt
+public fun pollts(fds: Pollfd?, nfds: NfdsT, ts: Timespec?, sigmask: SigsetT?): CInt = -1
 
-public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT
+public fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT = -1L
 
-public expect fun reboot(mode: CInt, bootstr: String?): CInt
+public fun reboot(mode: CInt, bootstr: String?): CInt = -1
 
-public expect fun lwpPark(clock: ClockidT, flags: CInt, ts: Timespec?, unpark: LwpidT, hint: COpaquePointer?, unparkhint: COpaquePointer?): CInt
+public fun lwpPark(clock: ClockidT, flags: CInt, ts: Timespec?, unpark: LwpidT, hint: COpaquePointer?, unparkhint: COpaquePointer?): CInt = -1
 
-public expect fun lwpUnpark(lwp: LwpidT, hint: COpaquePointer?): CInt
+public fun lwpUnpark(lwp: LwpidT, hint: COpaquePointer?): CInt = -1
 
-public expect fun lwpUnparkAll(targets: LwpidT?, ntargets: ULong, hint: COpaquePointer?): CInt
+public fun lwpUnparkAll(targets: LwpidT?, ntargets: ULong, hint: COpaquePointer?): CInt = -1
 
-public expect fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt
+public fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt = -1
 
-public expect fun getvfsstat(buf: Statvfs?, bufsize: ULong, flags: CInt): CInt
+public fun getvfsstat(buf: Statvfs?, bufsize: ULong, flags: CInt): CInt = -1
 
-public expect fun eventfd(`val`: CUInt, flags: CInt): CInt
+public fun eventfd(`val`: CUInt, flags: CInt): CInt = -1
 
-public expect fun eventfdRead(efd: CInt, valp: EventfdT?): CInt
+public fun eventfdRead(efd: CInt, valp: EventfdT?): CInt = -1
 
-public expect fun eventfdWrite(efd: CInt, `val`: EventfdT): CInt
+public fun eventfdWrite(efd: CInt, `val`: EventfdT): CInt = -1
 
-public expect fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt
+public fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt = -1
 
-public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt
+public fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt = -1
 
-public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt
+public fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt = -1
 
-public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
+public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) { }
 
-public expect fun aioRead(aiocbp: Aiocb?): CInt
+public fun aioRead(aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioWrite(aiocbp: Aiocb?): CInt
+public fun aioWrite(aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt
+public fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioError(aiocbp: Aiocb?): CInt
+public fun aioError(aiocbp: Aiocb?): CInt = -1
 
-public expect fun aioReturn(aiocbp: Aiocb?): SsizeT
+public fun aioReturn(aiocbp: Aiocb?): SsizeT = -1L
 
-public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt
+public fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt = -1
 
-public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt
+public fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt = -1
 
-public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt
+public fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt = -1
 
-public expect fun getpwentR(pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+public fun getpwentR(pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public expect fun getgrentR(grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+public fun getgrentR(grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public expect fun efopen(p: String?, m: String?): FILE
+public fun efopen(p: String?, m: String?): FILE { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun emalloc(n: ULong): COpaquePointer?
+public fun emalloc(n: ULong): COpaquePointer? = null
 
-public expect fun ecalloc(n: ULong, c: ULong): COpaquePointer?
+public fun ecalloc(n: ULong, c: ULong): COpaquePointer? = null
 
-public expect fun erealloc(p: COpaquePointer?, n: ULong): COpaquePointer?
+public fun erealloc(p: COpaquePointer?, n: ULong): COpaquePointer? = null
 
-public expect fun ereallocarr(p: COpaquePointer?, n: ULong, s: ULong)
+public fun ereallocarr(p: COpaquePointer?, n: ULong, s: ULong) { }
 
-public expect fun estrdup(s: String?): String?
+public fun estrdup(s: String?): String? = null
 
-public expect fun estrndup(s: String?, len: ULong): String?
+public fun estrndup(s: String?, len: ULong): String? = null
 
-public expect fun estrlcpy(dst: String?, src: String?, len: ULong): ULong
+public fun estrlcpy(dst: String?, src: String?, len: ULong): ULong = 0uL
 
-public expect fun estrlcat(dst: String?, src: String?, len: ULong): ULong
+public fun estrlcat(dst: String?, src: String?, len: ULong): ULong = 0uL
 
-public expect fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): IntmaxT
+public fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): IntmaxT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT
+public fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun easprintf(string: COpaquePointer?, fmt: String?, vararg args: Any?): CInt
+public fun easprintf(string: COpaquePointer?, fmt: String?, vararg args: Any?): CInt = -1
 
-public expect fun evasprintf(string: COpaquePointer?, fmt: String?, vararg args: Any?): CInt
+public fun evasprintf(string: COpaquePointer?, fmt: String?, vararg args: Any?): CInt = -1
 
-public expect fun esetfunc(cb: ((CInt, String?) -> Unit)?): ((CInt, String?) -> Unit)?
+public fun esetfunc(cb: ((CInt, String?) -> Unit)?): ((CInt, String?) -> Unit) = cb ?: throw IllegalArgumentException("callback required")
 
-public expect fun securePath(path: String?): CInt
+public fun securePath(path: String?): CInt = -1
 
-public expect fun snprintb(buf: String?, buflen: ULong, fmt: String?, `val`: ULong): CInt
+public fun snprintb(buf: String?, buflen: ULong, fmt: String?, `val`: ULong): CInt = -1
 
-public expect fun snprintbM(buf: String?, buflen: ULong, fmt: String?, `val`: ULong, max: ULong): CInt
+public fun snprintbM(buf: String?, buflen: ULong, fmt: String?, `val`: ULong, max: ULong): CInt = -1
 
-public expect fun getbootfile(): String?
+public fun getbootfile(): String? = null
 
-public expect fun getbyteorder(): CInt
+public fun getbyteorder(): CInt = -1
 
-public expect fun getdiskrawname(buf: String?, buflen: ULong, name: String?): String?
+public fun getdiskrawname(buf: String?, buflen: ULong, name: String?): String? = null
 
-public expect fun getdiskcookedname(buf: String?, buflen: ULong, name: String?): String?
+public fun getdiskcookedname(buf: String?, buflen: ULong, name: String?): String? = null
 
-public expect fun getfsspecname(buf: String?, buflen: ULong, spec: String?): String?
+public fun getfsspecname(buf: String?, buflen: ULong, spec: String?): String? = null
 
-public expect fun strpct(buf: String?, bufsiz: ULong, numerator: UintmaxT, denominator: UintmaxT, precision: ULong): String?
+public fun strpct(buf: String?, bufsiz: ULong, numerator: UintmaxT, denominator: UintmaxT, precision: ULong): String? = null
 
-public expect fun strspct(buf: String?, bufsiz: ULong, numerator: IntmaxT, denominator: IntmaxT, precision: ULong): String?
+public fun strspct(buf: String?, bufsiz: ULong, numerator: IntmaxT, denominator: IntmaxT, precision: ULong): String? = null
 
-public expect fun login(ut: Utmp?)
+public fun login(ut: Utmp?) { }
 
-public expect fun loginx(ut: Utmpx?)
+public fun loginx(ut: Utmpx?) { }
 
-public expect fun logout(line: String?)
+public fun logout(line: String?) { }
 
-public expect fun logoutx(line: String?, status: CInt, tpe: CInt)
+public fun logoutx(line: String?, status: CInt, tpe: CInt) { }
 
-public expect fun logwtmp(line: String?, name: String?, host: String?)
+public fun logwtmp(line: String?, name: String?, host: String?) { }
 
-public expect fun logwtmpx(line: String?, name: String?, host: String?, status: CInt, tpe: CInt)
+public fun logwtmpx(line: String?, name: String?, host: String?, status: CInt, tpe: CInt) { }
 
-public expect fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT
+public fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT = -1L
 
-public expect fun lgetxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT
+public fun lgetxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT = -1L
 
-public expect fun fgetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: ULong): SsizeT
+public fun fgetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: ULong): SsizeT = -1L
 
-public expect fun setxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): CInt
+public fun setxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): CInt = -1
 
-public expect fun lsetxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): CInt
+public fun lsetxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): CInt = -1
 
-public expect fun fsetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: ULong, flags: CInt): CInt
+public fun fsetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: ULong, flags: CInt): CInt = -1
 
-public expect fun listxattr(path: String?, list: String?, size: ULong): SsizeT
+public fun listxattr(path: String?, list: String?, size: ULong): SsizeT = -1L
 
-public expect fun llistxattr(path: String?, list: String?, size: ULong): SsizeT
+public fun llistxattr(path: String?, list: String?, size: ULong): SsizeT = -1L
 
-public expect fun flistxattr(filedes: CInt, list: String?, size: ULong): SsizeT
+public fun flistxattr(filedes: CInt, list: String?, size: ULong): SsizeT = -1L
 
-public expect fun removexattr(path: String?, name: String?): CInt
+public fun removexattr(path: String?, name: String?): CInt = -1
 
-public expect fun lremovexattr(path: String?, name: String?): CInt
+public fun lremovexattr(path: String?, name: String?): CInt = -1
 
-public expect fun fremovexattr(fd: CInt, path: String?, name: String?): CInt
+public fun fremovexattr(fd: CInt, path: String?, name: String?): CInt = -1
 
-public expect fun stringToFlags(stringP: COpaquePointer?, setp: CULong?, clrp: CULong?): CInt
+public fun stringToFlags(stringP: COpaquePointer?, setp: CULong?, clrp: CULong?): CInt = -1
 
-public expect fun flagsToString(flags: CULong, def: String?): CInt
+public fun flagsToString(flags: CULong, def: String?): CInt = -1
 
-public expect fun kinfoGetvmmap(pid: PidT, cntp: ULong?): KinfoVmentry?
+public fun kinfoGetvmmap(pid: PidT, cntp: ULong?): KinfoVmentry? = null
 
-public expect fun backtrace(addrlist: COpaquePointer?, len: ULong): ULong
+public fun backtrace(addrlist: COpaquePointer?, len: ULong): ULong = 0uL
 
-public expect fun backtraceSymbols(addrlist: COpaquePointer?, len: ULong): COpaquePointer?
+public fun backtraceSymbols(addrlist: COpaquePointer?, len: ULong): COpaquePointer? = null
 
-public expect fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: CInt): CInt
+public fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: CInt): CInt = -1
 
-public expect fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer?
+public fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer? = null
 
-public expect fun backtraceSymbolsFdFmt(addrlist: COpaquePointer?, len: ULong, fd: CInt, fmt: String?): CInt
+public fun backtraceSymbolsFdFmt(addrlist: COpaquePointer?, len: ULong, fd: CInt, fmt: String?): CInt = -1

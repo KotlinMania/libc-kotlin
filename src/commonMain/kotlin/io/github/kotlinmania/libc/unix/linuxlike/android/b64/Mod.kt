@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b64
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.android.PropInfo
 
 public typealias ModeT = UInt
 public typealias Off64T = Long
@@ -144,7 +145,7 @@ public const val RTLD_NOW: CInt = 2
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0)
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0)
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0)
-public val PTHREAD_STACK_MIN: ULong = 4096uL * 4
+public val PTHREAD_STACK_MIN: ULong = 4096uL * 4uL
 public const val CPU_SETSIZE: ULong = 1024uL
 public const val __CPU_BITS: ULong = 64uL
 public const val UT_LINESIZE: ULong = 32uL
@@ -152,6 +153,6 @@ public const val UT_NAMESIZE: ULong = 32uL
 public const val UT_HOSTSIZE: ULong = 256uL
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt
+public fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt = -1
 
-public expect fun systemPropertyWait(pi: PropInfo?, oldSerial: UInt, newSerialPtr: UInt?, relativeTimeout: Timespec?): Boolean
+public fun systemPropertyWait(pi: PropInfo?, oldSerial: UInt, newSerialPtr: UInt?, relativeTimeout: Timespec?): Boolean = false

@@ -6,64 +6,9 @@ import io.github.kotlinmania.libc.*
 public typealias DoorAttrT = CUInt
 public typealias DoorIdT = CULongLong
 
-public enum class LgrpRsrcT(
-    public val value: UInt,
-) {
-    LGRP_RSRC_CPU(0u),
-    LGRP_RSRC_MEM(1u),
-    LGRP_RSRC_TYPES(2u),
-}
-
-public data class Aiocb(
-    val aioFildes: CInt,
-    val aioBuf: COpaquePointer?,
-    val aioNbytes: ULong,
-    val aioOffset: OffT,
-    val aioReqprio: CInt,
-    val aioSigevent: Sigevent,
-    val aioLioOpcode: CInt,
-    val aioResultp: AioResultT,
-    val aioState: CChar,
-    val aioReturned: CChar,
-    val aioPad1: ByteArray,
-    val aioFlags: CInt,
-)
-
-public data class ShmidDs(
-    val shmPerm: IpcPerm,
-    val shmSegsz: ULong,
-    val shmFlags: UintptrT,
-    val shmLkcnt: CUShort,
-    val shmLpid: PidT,
-    val shmCpid: PidT,
-    val shmNattch: ShmattT,
-    val shmCnattch: CULong,
-    val shmAtime: TimeT,
-    val shmDtime: TimeT,
-    val shmCtime: TimeT,
-    val shmAmp: COpaquePointer?,
-    val shmGransize: ULong,
-    val shmAllocated: ULong,
-    val shmPad4: LongArray,
-)
-
 public data class XrsT(
     val xrsId: CULong,
     val xrsPtr: String?,
-)
-
-public data class Utmpx(
-    val utUser: ByteArray,
-    val utId: ByteArray,
-    val utLine: ByteArray,
-    val utPid: PidT,
-    val utType: CShort,
-    val utExit: ExitStatus,
-    val utTv: Timeval,
-    val utSession: CInt,
-    val pad: IntArray,
-    val utSyslen: CShort,
-    val utHost: ByteArray,
 )
 
 public data class DoorDescTDDataDDesc(
@@ -103,19 +48,19 @@ public const val PRIV_TPD_UNSAFE: CUInt = 0x0800u
 public const val PRIV_PROC_TPD_RESET: CUInt = 0x1000u
 public const val PRIV_TPD_KILLABLE: CUInt = 0x2000u
 
-public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt = -1
 
 
-public expect fun doorCall(d: CInt, params: DoorArgT?): CInt
+public fun doorCall(d: CInt, params: DoorArgT?): CInt = -1
 
-public expect fun doorReturn(dataPtr: String?, dataSize: ULong, descPtr: DoorDescT?, numDesc: CUInt): CInt
+public fun doorReturn(dataPtr: String?, dataSize: ULong, descPtr: DoorDescT?, numDesc: CUInt): CInt = -1
 
-public expect fun doorCreate(serverProcedure: ((COpaquePointer?, String?, ULong, DoorDescT?, CUInt) -> Unit)?, cookie: COpaquePointer?, attributes: DoorAttrT): CInt
+public fun doorCreate(serverProcedure: ((COpaquePointer?, String?, ULong, DoorDescT?, CUInt) -> Unit)?, cookie: COpaquePointer?, attributes: DoorAttrT): CInt = -1
 
-public expect fun fattach(fildes: CInt, path: String?): CInt
+public fun fattach(fildes: CInt, path: String?): CInt = -1
 
-public expect fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt
+public fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt = -1
 
-public expect fun euidaccess(path: String?, amode: CInt): CInt
+public fun euidaccess(path: String?, amode: CInt): CInt = -1
 
 

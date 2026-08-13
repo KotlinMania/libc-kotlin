@@ -15,46 +15,7 @@ public data class Termios(
     val cOspeed: SpeedT,
 )
 
-public data class Stat(
-    val stDev: DevT,
-    val stIno: InoT,
-    val stNlink: NlinkT,
-    val stMode: ModeT,
-    val stUid: UidT,
-    val stGid: GidT,
-    val stRdev: DevT,
-    val stSize: OffT,
-    val stBlksize: BlksizeT,
-    val stBlocks: BlkcntT,
-    val stAtime: TimeT,
-    val stAtimeNsec: CLong,
-    val stMtime: TimeT,
-    val stMtimeNsec: CLong,
-    val stCtime: TimeT,
-    val stCtimeNsec: CLong,
-)
-
-public data class ShmidDs(
-    val shmPerm: IpcPerm,
-    val shmAtime: TimeT,
-    val shmDtime: TimeT,
-    val shmCtime: TimeT,
-    val shmSegsz: ULong,
-    val shmCpid: PidT,
-    val shmLpid: PidT,
-    val shmNattch: CULong,
-)
-
-public data class IpcPerm(
-    val key: KeyT,
-    val ipcPermKey: KeyT,
-    val uid: UidT,
-    val gid: GidT,
-    val cuid: UidT,
-    val cgid: GidT,
-    val mode: ModeT,
-    val seq: CInt,
-)
+// Stat, ShmidDs, IpcPerm are defined in Mips64.kt / Mod.kt (first definitions in this package).
 
 public const val MADV_SOFT_OFFLINE: CInt = 101
 public const val MAP_32BIT: CInt = 0x0040

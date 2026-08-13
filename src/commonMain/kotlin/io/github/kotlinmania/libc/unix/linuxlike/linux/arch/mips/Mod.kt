@@ -2,6 +2,11 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.arch.mips
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMP_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPNS_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMPING_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_SNDTIMEO_NEW
+import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_RCVTIMEO_NEW
 
 public data class Termios2(
     val cIflag: TcflagT,
@@ -212,6 +217,6 @@ public const val RLIMIT_MSGQUEUE: RlimitResourceT = 12.toInt()
 public const val RLIMIT_NICE: RlimitResourceT = 13.toInt()
 public const val RLIMIT_RTPRIO: RlimitResourceT = 14.toInt()
 public const val RLIMIT_RTTIME: RlimitResourceT = 15.toInt()
-public const val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
 public const val RLIM_NLIMITS: CInt = 16
+public const val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
 public const val RLIM_INFINITY: RlimT = 0xFFFFFFFFFFFFFFFFuL

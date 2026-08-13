@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd13
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.*
 
 public const val PROC_KPTI_CTL: CInt = PROC_PROCCTL_MD_MIN
 public const val PROC_KPTI_CTL_ENABLE_ON_EXEC: CInt = 1

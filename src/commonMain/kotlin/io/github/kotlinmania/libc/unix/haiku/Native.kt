@@ -11,6 +11,7 @@ public typealias BigtimeT = Long
 public typealias NanotimeT = Long
 public typealias TypeCode = UInt
 public typealias PerformCode = UInt
+
 public typealias AreaId = Int
 public typealias PortId = Int
 public typealias SemId = Int
@@ -764,254 +765,254 @@ public val B_NETWORK_ADDRESS_TYPE: UInt = haikuConstant('N', 'W', 'A', 'D')
 public val B_MIME_STRING_TYPE: UInt = haikuConstant('M', 'I', 'M', 'S')
 public val B_ASCII_TYPE: UInt = haikuConstant('T', 'E', 'X', 'T')
 
-public expect fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId
+public fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: AreaId): AreaId
+public fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: AreaId): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun findArea(name: String?): AreaId
+public fun findArea(name: String?): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun areaFor(address: COpaquePointer?): AreaId
+public fun areaFor(address: COpaquePointer?): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun deleteArea(id: AreaId): StatusT
+public fun deleteArea(id: AreaId): StatusT = 0
 
-public expect fun resizeArea(id: AreaId, newSize: ULong): StatusT
+public fun resizeArea(id: AreaId, newSize: ULong): StatusT = 0
 
-public expect fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT
+public fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT = 0
 
-public expect fun getAreaInfo(id: AreaId, areaInfo: AreaInfo?, size: ULong): StatusT
+public fun getAreaInfo(id: AreaId, areaInfo: AreaInfo?, size: ULong): StatusT = 0
 
-public expect fun getNextAreaInfo(team: TeamId, cookie: Long?, areaInfo: AreaInfo?, size: ULong): StatusT
+public fun getNextAreaInfo(team: TeamId, cookie: Long?, areaInfo: AreaInfo?, size: ULong): StatusT = 0
 
-public expect fun createPort(capacity: Int, name: String?): PortId
+public fun createPort(capacity: Int, name: String?): PortId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun findPort(name: String?): PortId
+public fun findPort(name: String?): PortId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun readPort(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: ULong): SsizeT
+public fun readPort(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: ULong): SsizeT = -1L
 
-public expect fun readPortEtc(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: BigtimeT): SsizeT
+public fun readPortEtc(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: BigtimeT): SsizeT = -1L
 
-public expect fun writePort(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: ULong): StatusT
+public fun writePort(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: ULong): StatusT = 0
 
-public expect fun writePortEtc(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: BigtimeT): StatusT
+public fun writePortEtc(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: BigtimeT): StatusT = 0
 
-public expect fun closePort(port: PortId): StatusT
+public fun closePort(port: PortId): StatusT = 0
 
-public expect fun deletePort(port: PortId): StatusT
+public fun deletePort(port: PortId): StatusT = 0
 
-public expect fun portBufferSize(port: PortId): SsizeT
+public fun portBufferSize(port: PortId): SsizeT = -1L
 
-public expect fun portBufferSizeEtc(port: PortId, flags: UInt, timeout: BigtimeT): SsizeT
+public fun portBufferSizeEtc(port: PortId, flags: UInt, timeout: BigtimeT): SsizeT = -1L
 
-public expect fun portCount(port: PortId): SsizeT
+public fun portCount(port: PortId): SsizeT = -1L
 
-public expect fun setPortOwner(port: PortId, team: TeamId): StatusT
+public fun setPortOwner(port: PortId, team: TeamId): StatusT = 0
 
-public expect fun getPortInfo(port: PortId, buf: PortInfo?, portInfoSize: ULong): StatusT
+public fun getPortInfo(port: PortId, buf: PortInfo?, portInfoSize: ULong): StatusT = 0
 
-public expect fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?, portInfoSize: ULong): StatusT
+public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?, portInfoSize: ULong): StatusT = 0
 
-public expect fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, infoSize: ULong, flags: UInt, timeout: BigtimeT): StatusT
+public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, infoSize: ULong, flags: UInt, timeout: BigtimeT): StatusT = 0
 
-public expect fun createSem(count: Int, name: String?): SemId
+public fun createSem(count: Int, name: String?): SemId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun deleteSem(id: SemId): StatusT
+public fun deleteSem(id: SemId): StatusT = 0
 
-public expect fun acquireSem(id: SemId): StatusT
+public fun acquireSem(id: SemId): StatusT = 0
 
-public expect fun acquireSemEtc(id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT
+public fun acquireSemEtc(id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT = 0
 
-public expect fun releaseSem(id: SemId): StatusT
+public fun releaseSem(id: SemId): StatusT = 0
 
-public expect fun releaseSemEtc(id: SemId, count: Int, flags: UInt): StatusT
+public fun releaseSemEtc(id: SemId, count: Int, flags: UInt): StatusT = 0
 
-public expect fun switchSem(semToBeReleased: SemId, id: SemId): StatusT
+public fun switchSem(semToBeReleased: SemId, id: SemId): StatusT = 0
 
-public expect fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT
+public fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT = 0
 
-public expect fun getSemCount(id: SemId, threadCount: Int?): StatusT
+public fun getSemCount(id: SemId, threadCount: Int?): StatusT = 0
 
-public expect fun setSemOwner(id: SemId, team: TeamId): StatusT
+public fun setSemOwner(id: SemId, team: TeamId): StatusT = 0
 
-public expect fun getSemInfo(id: SemId, info: SemInfo?, infoSize: ULong): StatusT
+public fun getSemInfo(id: SemId, info: SemInfo?, infoSize: ULong): StatusT = 0
 
-public expect fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?, infoSize: ULong): StatusT
+public fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?, infoSize: ULong): StatusT = 0
 
-public expect fun killTeam(team: TeamId): StatusT
+public fun killTeam(team: TeamId): StatusT = 0
 
-public expect fun getTeamInfo(team: TeamId, info: TeamInfo?, size: ULong): StatusT
+public fun getTeamInfo(team: TeamId, info: TeamInfo?, size: ULong): StatusT = 0
 
-public expect fun getNextTeamInfo(cookie: Int?, info: TeamInfo?, size: ULong): StatusT
+public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?, size: ULong): StatusT = 0
 
-public expect fun spawnThread(func: ThreadFunc, name: String?, priority: Int, data: COpaquePointer?): ThreadId
+public fun spawnThread(func: ThreadFunc, name: String?, priority: Int, data: COpaquePointer?): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun killThread(thread: ThreadId): StatusT
+public fun killThread(thread: ThreadId): StatusT = 0
 
-public expect fun resumeThread(thread: ThreadId): StatusT
+public fun resumeThread(thread: ThreadId): StatusT = 0
 
-public expect fun suspendThread(thread: ThreadId): StatusT
+public fun suspendThread(thread: ThreadId): StatusT = 0
 
-public expect fun renameThread(thread: ThreadId, newName: String?): StatusT
+public fun renameThread(thread: ThreadId, newName: String?): StatusT = 0
 
-public expect fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT
+public fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT = 0
 
-public expect fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int
+public fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int = -1
 
-public expect fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT
+public fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun exitThread(status: StatusT)
+public fun exitThread(status: StatusT) { }
 
-public expect fun waitForThread(thread: ThreadId, returnValue: StatusT?): StatusT
+public fun waitForThread(thread: ThreadId, returnValue: StatusT?): StatusT = 0
 
-public expect fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT
+public fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT = 0
 
-public expect fun findThread(name: String?): ThreadId
+public fun findThread(name: String?): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun getSchedulerMode(): Int
+public fun getSchedulerMode(): Int = -1
 
-public expect fun setSchedulerMode(mode: Int): StatusT
+public fun setSchedulerMode(mode: Int): StatusT = 0
 
-public expect fun sendData(thread: ThreadId, code: Int, buffer: COpaquePointer?, bufferSize: ULong): StatusT
+public fun sendData(thread: ThreadId, code: Int, buffer: COpaquePointer?, bufferSize: ULong): StatusT = 0
 
-public expect fun receiveData(sender: ThreadId?, buffer: COpaquePointer?, bufferSize: ULong): Int
+public fun receiveData(sender: ThreadId?, buffer: COpaquePointer?, bufferSize: ULong): Int = -1
 
-public expect fun hasData(thread: ThreadId): Boolean
+public fun hasData(thread: ThreadId): Boolean = false
 
-public expect fun snooze(amount: BigtimeT): StatusT
+public fun snooze(amount: BigtimeT): StatusT = 0
 
-public expect fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): StatusT
+public fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): StatusT = 0
 
-public expect fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT
+public fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT = 0
 
-public expect fun getThreadInfo(id: ThreadId, info: ThreadInfo?, size: ULong): StatusT
+public fun getThreadInfo(id: ThreadId, info: ThreadInfo?, size: ULong): StatusT = 0
 
-public expect fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?, size: ULong): StatusT
+public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?, size: ULong): StatusT = 0
 
-public expect fun getPthreadThreadId(thread: PthreadT): ThreadId
+public fun getPthreadThreadId(thread: PthreadT): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?, size: ULong): StatusT
+public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?, size: ULong): StatusT = 0
 
-public expect fun realTimeClock(): CULong
+public fun realTimeClock(): CULong = 0uL
 
-public expect fun setRealTimeClock(secsSinceJan1st1970: CULong)
+public fun setRealTimeClock(secsSinceJan1st1970: CULong) { }
 
-public expect fun realTimeClockUsecs(): BigtimeT
+public fun realTimeClockUsecs(): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun systemTime(): BigtimeT
+public fun systemTime(): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun systemTimeNsecs(): NanotimeT
+public fun systemTimeNsecs(): NanotimeT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun setAlarm(`when`: BigtimeT, flags: UInt): BigtimeT
+public fun setAlarm(`when`: BigtimeT, flags: UInt): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun debugger(message: String?)
+public fun debugger(message: String?) { }
 
-public expect fun disableDebugger(state: CInt): CInt
+public fun disableDebugger(state: CInt): CInt = -1
 
-public expect fun getSystemInfo(info: SystemInfo?): StatusT
+public fun getSystemInfo(info: SystemInfo?): StatusT = 0
 
-public expect fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?, size: ULong): StatusT
+public fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?, size: ULong): StatusT = 0
 
-public expect fun getCpuTopologyInfo(topologyInfos: CpuTopologyNodeInfo?, topologyInfoCount: UInt?): StatusT
+public fun getCpuTopologyInfo(topologyInfos: CpuTopologyNodeInfo?, topologyInfoCount: UInt?): StatusT = 0
 
-public expect fun isComputerOn(): Int
+public fun isComputerOn(): Int = -1
 
-public expect fun isComputerOnFire(): CDouble
+public fun isComputerOnFire(): CDouble = 0.0
 
-public expect fun sendSignal(threadID: ThreadId, signal: CUInt): CInt
+public fun sendSignal(threadID: ThreadId, signal: CUInt): CInt = -1
 
-public expect fun setSignalStack(base: COpaquePointer?, size: ULong)
+public fun setSignalStack(base: COpaquePointer?, size: ULong) { }
 
-public expect fun waitForObjects(infos: ObjectWaitInfo?, numInfos: CInt): SsizeT
+public fun waitForObjects(infos: ObjectWaitInfo?, numInfos: CInt): SsizeT = -1L
 
-public expect fun waitForObjectsEtc(infos: ObjectWaitInfo?, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT
+public fun waitForObjectsEtc(infos: ObjectWaitInfo?, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT = -1L
 
-public expect fun fsReadAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, readBytes: ULong): SsizeT
+public fun fsReadAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, readBytes: ULong): SsizeT = -1L
 
-public expect fun fsWriteAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, writeBytes: ULong): SsizeT
+public fun fsWriteAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, writeBytes: ULong): SsizeT = -1L
 
-public expect fun fsRemoveAttr(fd: CInt, attribute: String?): CInt
+public fun fsRemoveAttr(fd: CInt, attribute: String?): CInt = -1
 
-public expect fun fsStatAttr(fd: CInt, attribute: String?, attrInfo: AttrInfo?): CInt
+public fun fsStatAttr(fd: CInt, attribute: String?, attrInfo: AttrInfo?): CInt = -1
 
-public expect fun fsOpenAttr(path: String?, attribute: String?, type: UInt, openMode: CInt): CInt
+public fun fsOpenAttr(path: String?, attribute: String?, type: UInt, openMode: CInt): CInt = -1
 
-public expect fun fsFopenAttr(fd: CInt, attribute: String?, type: UInt, openMode: CInt): CInt
+public fun fsFopenAttr(fd: CInt, attribute: String?, type: UInt, openMode: CInt): CInt = -1
 
-public expect fun fsCloseAttr(fd: CInt): CInt
+public fun fsCloseAttr(fd: CInt): CInt = -1
 
-public expect fun fsOpenAttrDir(path: String?): DIR?
+public fun fsOpenAttrDir(path: String?): DIR? = null
 
-public expect fun fsLopenAttrDir(path: String?): DIR?
+public fun fsLopenAttrDir(path: String?): DIR? = null
 
-public expect fun fsFopenAttrDir(fd: CInt): DIR?
+public fun fsFopenAttrDir(fd: CInt): DIR? = null
 
-public expect fun fsCloseAttrDir(dir: DIR?): CInt
+public fun fsCloseAttrDir(dir: DIR?): CInt = -1
 
-public expect fun fsReadAttrDir(dir: DIR?): Dirent?
+public fun fsReadAttrDir(dir: DIR?): Dirent? = null
 
-public expect fun fsRewindAttrDir(dir: DIR?)
+public fun fsRewindAttrDir(dir: DIR?) { }
 
-public expect fun fsCreateIndex(device: DevT, name: String?, type: UInt, flags: UInt): CInt
+public fun fsCreateIndex(device: DevT, name: String?, type: UInt, flags: UInt): CInt = -1
 
-public expect fun fsRemoveIndex(device: DevT, name: String?): CInt
+public fun fsRemoveIndex(device: DevT, name: String?): CInt = -1
 
-public expect fun fsStatIndex(device: DevT, name: String?, indexInfo: IndexInfo?): CInt
+public fun fsStatIndex(device: DevT, name: String?, indexInfo: IndexInfo?): CInt = -1
 
-public expect fun fsOpenIndexDir(device: DevT): DIR?
+public fun fsOpenIndexDir(device: DevT): DIR? = null
 
-public expect fun fsCloseIndexDir(indexDirectory: DIR?): CInt
+public fun fsCloseIndexDir(indexDirectory: DIR?): CInt = -1
 
-public expect fun fsReadIndexDir(indexDirectory: DIR?): Dirent?
+public fun fsReadIndexDir(indexDirectory: DIR?): Dirent? = null
 
-public expect fun fsRewindIndexDir(indexDirectory: DIR?)
+public fun fsRewindIndexDir(indexDirectory: DIR?) { }
 
-public expect fun devForPath(path: String?): DevT
+public fun devForPath(path: String?): DevT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun nextDev(pos: Int?): DevT
+public fun nextDev(pos: Int?): DevT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun fsStatDev(dev: DevT, info: FsInfo?): CInt
+public fun fsStatDev(dev: DevT, info: FsInfo?): CInt = -1
 
-public expect fun fsOpenQuery(device: DevT, query: String?, flags: UInt): DIR?
+public fun fsOpenQuery(device: DevT, query: String?, flags: UInt): DIR? = null
 
-public expect fun fsOpenLiveQuery(device: DevT, query: String?, flags: UInt, port: PortId, token: Int): DIR?
+public fun fsOpenLiveQuery(device: DevT, query: String?, flags: UInt, port: PortId, token: Int): DIR? = null
 
-public expect fun fsCloseQuery(d: DIR?): CInt
+public fun fsCloseQuery(d: DIR?): CInt = -1
 
-public expect fun fsReadQuery(d: DIR?): Dirent?
+public fun fsReadQuery(d: DIR?): Dirent? = null
 
-public expect fun getPathForDirent(dent: Dirent?, buf: String?, len: ULong): StatusT
+public fun getPathForDirent(dent: Dirent?, buf: String?, len: ULong): StatusT = 0
 
-public expect fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): DevT
+public fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): DevT { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun fsUnmountVolume(path: String?, flags: UInt): StatusT
+public fun fsUnmountVolume(path: String?, flags: UInt): StatusT = 0
 
-public expect fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): ThreadId
+public fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun loadAddOn(path: String?): ImageId
+public fun loadAddOn(path: String?): ImageId { throw UnsupportedOperationException("Not implemented on this platform") }
 
-public expect fun unloadAddOn(image: ImageId): StatusT
+public fun unloadAddOn(image: ImageId): StatusT = 0
 
-public expect fun getImageSymbol(image: ImageId, name: String?, symbolType: Int, symbolLocation: COpaquePointer?): StatusT
+public fun getImageSymbol(image: ImageId, name: String?, symbolType: Int, symbolLocation: COpaquePointer?): StatusT = 0
 
-public expect fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: String?, nameLength: Int?, symbolType: Int?, symbolLocation: COpaquePointer?): StatusT
+public fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: String?, nameLength: Int?, symbolType: Int?, symbolLocation: COpaquePointer?): StatusT = 0
 
-public expect fun clearCaches(address: COpaquePointer?, length: ULong, flags: UInt)
+public fun clearCaches(address: COpaquePointer?, length: ULong, flags: UInt) { }
 
-public expect fun getImageInfo(image: ImageId, info: ImageInfo?, size: ULong): StatusT
+public fun getImageInfo(image: ImageId, info: ImageInfo?, size: ULong): StatusT = 0
 
-public expect fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?, size: ULong): StatusT
+public fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?, size: ULong): StatusT = 0
 
-public expect fun findPath(codePointer: COpaquePointer?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: String?, bufferSize: ULong): StatusT
+public fun findPath(codePointer: COpaquePointer?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: String?, bufferSize: ULong): StatusT = 0
 
-public expect fun findPathEtc(codePointer: COpaquePointer?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): StatusT
+public fun findPathEtc(codePointer: COpaquePointer?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): StatusT = 0
 
-public expect fun findPathForPath(path: String?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: String?, bufferSize: ULong): StatusT
+public fun findPathForPath(path: String?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: String?, bufferSize: ULong): StatusT = 0
 
-public expect fun findPathForPathEtc(path: String?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): StatusT
+public fun findPathForPathEtc(path: String?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): StatusT = 0
 
-public expect fun findPaths(baseDirectory: PathBaseDirectory, subPath: String?, paths: COpaquePointer?, pathCount: ULong?): StatusT
+public fun findPaths(baseDirectory: PathBaseDirectory, subPath: String?, paths: COpaquePointer?, pathCount: ULong?): StatusT = 0
 
-public expect fun findPathsEtc(architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, paths: COpaquePointer?, pathCount: ULong?): StatusT
+public fun findPathsEtc(architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, paths: COpaquePointer?, pathCount: ULong?): StatusT = 0
 
-public expect fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: String?, length: Int): StatusT
+public fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: String?, length: Int): StatusT = 0
 
-public expect fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): StatusT
+public fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): StatusT = 0

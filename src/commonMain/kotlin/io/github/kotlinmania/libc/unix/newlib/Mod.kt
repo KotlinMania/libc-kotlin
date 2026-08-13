@@ -203,7 +203,7 @@ public data class PthreadCondattrT(
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { size: [__PTHREAD_INITIALIZER_BYTE (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { size: [__PTHREAD_INITIALIZER_BYTE (initializer represented at the FFI boundary)
 public const val NCCS: ULong = 11uL
-public const val NCCS: ULong = 32uL
+// DUPLICATE: public const val NCCS: ULong = 32uL
 public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 32uL
 public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 12uL
@@ -212,30 +212,30 @@ public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 8uL
 public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 12uL
 public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
-public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_COND_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 96uL
-public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 64uL
-public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 24uL
-public const val __SIZEOF_PTHREAD_COND_T: ULong = 28uL
-public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 24uL
-public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 32uL
-public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 8uL
-public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
-public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 56uL
-public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 40uL
-public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_COND_T: ULong = 48uL
-public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 4uL
-public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 56uL
-public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 8uL
-public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_COND_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 96uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 64uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 24uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_COND_T: ULong = 28uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 24uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 32uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 8uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 56uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 40uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_COND_T: ULong = 48uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 4uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 56uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 8uL
+// DUPLICATE: public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
 public const val __SIZEOF_PTHREAD_BARRIERATTR_T: ULong = 4uL
 public const val __PTHREAD_MUTEX_HAVE_PREV: ULong = 1uL
 public const val __PTHREAD_RWLOCK_INT_FLAGS_SHARED: ULong = 1uL
@@ -243,8 +243,8 @@ public const val PTHREAD_MUTEX_NORMAL: CInt = 0
 public const val PTHREAD_MUTEX_RECURSIVE: CInt = 1
 public const val PTHREAD_MUTEX_ERRORCHECK: CInt = 2
 public const val FD_SETSIZE: ULong = 64uL
-public const val FD_SETSIZE: ULong = 256uL
-public const val FD_SETSIZE: ULong = 1024uL
+// DUPLICATE: public const val FD_SETSIZE: ULong = 256uL
+// DUPLICATE: public const val FD_SETSIZE: ULong = 1024uL
 public const val EPERM: CInt = 1
 public const val ENOENT: CInt = 2
 public const val ESRCH: CInt = 3
@@ -356,7 +356,7 @@ public const val O_SYNC: CInt = 8192
 public const val O_NONBLOCK: CInt = 16384
 public const val O_ACCMODE: CInt = 3
 public const val O_CLOEXEC: CInt = 0x40000
-public const val O_CLOEXEC: CInt = 0x80000
+// DUPLICATE: public const val O_CLOEXEC: CInt = 0x80000
 public const val RTLD_LAZY: CInt = 0x1
 public const val SEEK_SET: CInt = 0
 public const val SEEK_CUR: CInt = 1
@@ -389,7 +389,7 @@ public const val SOL_TCP: CInt = 6
 public const val PF_UNSPEC: CInt = 0
 public const val PF_INET: CInt = 2
 public const val PF_INET6: CInt = 10
-public const val PF_INET6: CInt = 23
+// DUPLICATE: public const val PF_INET6: CInt = 23
 public const val AF_UNSPEC: CInt = 0
 public const val AF_INET: CInt = 2
 public const val CLOCK_REALTIME: ClockidT = 1uL
@@ -434,7 +434,7 @@ public const val SO_RCVLOWAT: CInt = 0x1004
 public const val SO_SNDTIMEO: CInt = 0x1005
 public const val SO_RCVTIMEO: CInt = 0x1006
 public const val SO_ERROR: CInt = 0x1009
-public const val SO_ERROR: CInt = 0x1007
+// DUPLICATE: public const val SO_ERROR: CInt = 0x1007
 public const val SO_TYPE: CInt = 0x1008
 public const val SOCK_CLOEXEC: CInt = O_CLOEXEC
 public const val INET_ADDRSTRLEN: CInt = 16
@@ -457,43 +457,43 @@ public const val IFF_ALTPHYS: CInt = IFF_LINK2
 public const val IFF_MULTICAST: CInt = 0x8000
 public const val TCP_NODELAY: CInt = 1
 public const val TCP_MAXSEG: CInt = 2
-public const val TCP_NODELAY: CInt = 1
-public const val TCP_MAXSEG: CInt = 8194
-public const val TCP_NODELAY: CInt = 8193
-public const val TCP_MAXSEG: CInt = 8194
+// DUPLICATE: public const val TCP_NODELAY: CInt = 1
+// DUPLICATE: public const val TCP_MAXSEG: CInt = 8194
+// DUPLICATE: public const val TCP_NODELAY: CInt = 8193
+// DUPLICATE: public const val TCP_MAXSEG: CInt = 8194
 public const val TCP_NOPUSH: CInt = 4
 public const val TCP_NOOPT: CInt = 8
 public const val TCP_KEEPIDLE: CInt = 3
 public const val TCP_KEEPINTVL: CInt = 4
 public const val TCP_KEEPCNT: CInt = 5
-public const val TCP_KEEPIDLE: CInt = 256
-public const val TCP_KEEPINTVL: CInt = 512
-public const val TCP_KEEPCNT: CInt = 1024
+// DUPLICATE: public const val TCP_KEEPIDLE: CInt = 256
+// DUPLICATE: public const val TCP_KEEPINTVL: CInt = 512
+// DUPLICATE: public const val TCP_KEEPCNT: CInt = 1024
 public const val IP_TOS: CInt = 7
-public const val IP_TOS: CInt = 1
-public const val IP_TOS: CInt = 3
+// DUPLICATE: public const val IP_TOS: CInt = 1
+// DUPLICATE: public const val IP_TOS: CInt = 3
 public const val IP_TTL: CInt = 4
-public const val IP_TTL: CInt = 2
-public const val IP_TTL: CInt = 8
+// DUPLICATE: public const val IP_TTL: CInt = 2
+// DUPLICATE: public const val IP_TTL: CInt = 8
 public const val IP_MULTICAST_IF: CInt = 6
 public const val IP_MULTICAST_TTL: CInt = 5
 public const val IP_MULTICAST_LOOP: CInt = 7
-public const val IP_MULTICAST_IF: CInt = 9
-public const val IP_MULTICAST_TTL: CInt = 10
-public const val IP_MULTICAST_LOOP: CInt = 11
+// DUPLICATE: public const val IP_MULTICAST_IF: CInt = 9
+// DUPLICATE: public const val IP_MULTICAST_TTL: CInt = 10
+// DUPLICATE: public const val IP_MULTICAST_LOOP: CInt = 11
 public const val IP_ADD_MEMBERSHIP: CInt = 12
 public const val IP_DROP_MEMBERSHIP: CInt = 13
-public const val IP_ADD_MEMBERSHIP: CInt = 3
-public const val IP_DROP_MEMBERSHIP: CInt = 4
-public const val IP_ADD_MEMBERSHIP: CInt = 11
-public const val IP_DROP_MEMBERSHIP: CInt = 12
+// DUPLICATE: public const val IP_ADD_MEMBERSHIP: CInt = 3
+// DUPLICATE: public const val IP_DROP_MEMBERSHIP: CInt = 4
+// DUPLICATE: public const val IP_ADD_MEMBERSHIP: CInt = 11
+// DUPLICATE: public const val IP_DROP_MEMBERSHIP: CInt = 12
 public const val IPV6_UNICAST_HOPS: CInt = 4
 public const val IPV6_MULTICAST_IF: CInt = 768
 public const val IPV6_MULTICAST_HOPS: CInt = 769
 public const val IPV6_MULTICAST_LOOP: CInt = 770
-public const val IPV6_MULTICAST_IF: CInt = 9
-public const val IPV6_MULTICAST_HOPS: CInt = 10
-public const val IPV6_MULTICAST_LOOP: CInt = 11
+// DUPLICATE: public const val IPV6_MULTICAST_IF: CInt = 9
+// DUPLICATE: public const val IPV6_MULTICAST_HOPS: CInt = 10
+// DUPLICATE: public const val IPV6_MULTICAST_LOOP: CInt = 11
 public const val IPV6_V6ONLY: CInt = 27
 public const val IPV6_JOIN_GROUP: CInt = 12
 public const val IPV6_LEAVE_GROUP: CInt = 13
@@ -503,18 +503,18 @@ public const val HOST_NOT_FOUND: CInt = 210
 public const val NO_DATA: CInt = 211
 public const val NO_RECOVERY: CInt = 212
 public const val TRY_AGAIN: CInt = 213
-public const val HOST_NOT_FOUND: CInt = 1
-public const val NO_DATA: CInt = 2
-public const val NO_RECOVERY: CInt = 3
-public const val TRY_AGAIN: CInt = 4
+// DUPLICATE: public const val HOST_NOT_FOUND: CInt = 1
+// DUPLICATE: public const val NO_DATA: CInt = 2
+// DUPLICATE: public const val NO_RECOVERY: CInt = 3
+// DUPLICATE: public const val TRY_AGAIN: CInt = 4
 public const val NO_ADDRESS: CInt = 2
 public const val AI_PASSIVE: CInt = 1
 public const val AI_CANONNAME: CInt = 2
 public const val AI_NUMERICHOST: CInt = 4
 public const val AI_NUMERICSERV: CInt = 8
 public const val AI_ADDRCONFIG: CInt = 64
-public const val AI_NUMERICSERV: CInt = 0
-public const val AI_ADDRCONFIG: CInt = 0
+// DUPLICATE: public const val AI_NUMERICSERV: CInt = 0
+// DUPLICATE: public const val AI_ADDRCONFIG: CInt = 0
 public const val NI_MAXHOST: CInt = 1025
 public const val NI_MAXSERV: CInt = 32
 public const val NI_NOFQDN: CInt = 1
@@ -522,16 +522,16 @@ public const val NI_NUMERICHOST: CInt = 2
 public const val NI_NAMEREQD: CInt = 4
 public const val NI_NUMERICSERV: CInt = 8
 public const val NI_DGRAM: CInt = 16
-public const val NI_NUMERICSERV: CInt = 0
-public const val NI_DGRAM: CInt = 0
+// DUPLICATE: public const val NI_NUMERICSERV: CInt = 0
+// DUPLICATE: public const val NI_DGRAM: CInt = 0
 public const val EAI_FAMILY: CInt = 204
 public const val EAI_MEMORY: CInt = 203
 public const val EAI_NONAME: CInt = 200
 public const val EAI_SOCKTYPE: CInt = 10
-public const val EAI_FAMILY: CInt = -303
-public const val EAI_MEMORY: CInt = -304
-public const val EAI_NONAME: CInt = -305
-public const val EAI_SOCKTYPE: CInt = -307
+// DUPLICATE: public const val EAI_FAMILY: CInt = -303
+// DUPLICATE: public const val EAI_MEMORY: CInt = -304
+// DUPLICATE: public const val EAI_NONAME: CInt = -305
+// DUPLICATE: public const val EAI_SOCKTYPE: CInt = -307
 public const val EXIT_SUCCESS: CInt = 0
 public const val EXIT_FAILURE: CInt = 1
 public const val PRIO_PROCESS: CInt = 0
@@ -539,86 +539,86 @@ public const val PRIO_PGRP: CInt = 1
 public const val PRIO_USER: CInt = 2
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun fDCLR(fd: CInt, set: FdSet?)
+public fun fDCLR(fd: CInt, set: FdSet?) { }
 
-public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
+public fun fDISSET(fd: CInt, set: FdSet?): Boolean = false
 
-public expect fun fDSET(fd: CInt, set: FdSet?)
+public fun fDSET(fd: CInt, set: FdSet?) { }
 
-public expect fun fDZERO(set: FdSet?)
+public fun fDZERO(set: FdSet?) { }
 
-public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt
+public fun getrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
 
-public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt
+public fun setrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
 
-public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt
+public fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt = -1
 
-public expect fun semDestroy(sem: SemT?): CInt
+public fun semDestroy(sem: SemT?): CInt = -1
 
-public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt
+public fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt = -1
 
-public expect fun abs(i: CInt): CInt
+public fun abs(i: CInt): CInt = -1
 
-public expect fun labs(i: CLong): CLong
+public fun labs(i: CLong): CLong = -1L
 
-public expect fun rand(): CInt
+public fun rand(): CInt = -1
 
-public expect fun srand(seed: CUInt)
+public fun srand(seed: CUInt) { }
 
-public expect fun bind(fd: CInt, addr: Sockaddr?, len: SocklenT): CInt
+public fun bind(fd: CInt, addr: Sockaddr?, len: SocklenT): CInt = -1
 
-public expect fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt
+public fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt = -1
 
-public expect fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt
+public fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt = -1
 
-public expect fun clockGetres(clockId: ClockidT, res: Timespec?): CInt
+public fun clockGetres(clockId: ClockidT, res: Timespec?): CInt = -1
 
-public expect fun closesocket(sockfd: CInt): CInt
+public fun closesocket(sockfd: CInt): CInt = -1
 
-public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt
+public fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt = -1
 
-public expect fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: Sockaddr?, addrLen: SocklenT?): Long
+public fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: Sockaddr?, addrLen: SocklenT?): Long = -1L
 
-public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt
+public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt = -1
 
-public expect fun memalign(align: ULong, size: ULong): COpaquePointer?
+public fun memalign(align: ULong, size: ULong): COpaquePointer? = null
 
-public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt = -1
 
-public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt
+public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
 
-public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+public fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public expect fun sigaltstack(ss: StackT?, oss: StackT?): CInt
+public fun sigaltstack(ss: StackT?, oss: StackT?): CInt = -1
 
-public expect fun semClose(sem: SemT?): CInt
+public fun semClose(sem: SemT?): CInt = -1
 
-public expect fun getdtablesize(): CInt
+public fun getdtablesize(): CInt = -1
 
-public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+public fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+public fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt = -1
 
-public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT?
+public fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT? = null
 
-public expect fun getgrnam(name: String?): Group?
+public fun getgrnam(name: String?): Group? = null
 
-public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
+public fun pthreadKill(thread: PthreadT, sig: CInt): CInt = -1
 
-public expect fun semUnlink(name: String?): CInt
+public fun semUnlink(name: String?): CInt = -1
 
-public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
+public fun daemon(nochdir: CInt, noclose: CInt): CInt = -1
 
-public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+public fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt
+public fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
+public fun sigwait(set: SigsetT?, sig: CInt?): CInt = -1
 
-public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
+public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
 
-public expect fun getgrgid(gid: GidT): Group?
+public fun getgrgid(gid: GidT): Group? = null
 
-public expect fun popen(command: String?, mode: String?): FILE?
+public fun popen(command: String?, mode: String?): FILE? = null
 
-public expect fun uname(buf: Utsname?): CInt
+public fun uname(buf: Utsname?): CInt = -1
