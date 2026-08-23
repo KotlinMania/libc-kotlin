@@ -765,13 +765,13 @@ public val B_NETWORK_ADDRESS_TYPE: UInt = haikuConstant('N', 'W', 'A', 'D')
 public val B_MIME_STRING_TYPE: UInt = haikuConstant('M', 'I', 'M', 'S')
 public val B_ASCII_TYPE: UInt = haikuConstant('T', 'E', 'X', 'T')
 
-public fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: AreaId): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: AreaId): AreaId = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun findArea(name: String?): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun findArea(name: String?): AreaId = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun areaFor(address: COpaquePointer?): AreaId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun areaFor(address: COpaquePointer?): AreaId = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun deleteArea(id: AreaId): StatusT = 0
 
@@ -783,9 +783,9 @@ public fun getAreaInfo(id: AreaId, areaInfo: AreaInfo?, size: ULong): StatusT = 
 
 public fun getNextAreaInfo(team: TeamId, cookie: Long?, areaInfo: AreaInfo?, size: ULong): StatusT = 0
 
-public fun createPort(capacity: Int, name: String?): PortId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun createPort(capacity: Int, name: String?): PortId = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun findPort(name: String?): PortId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun findPort(name: String?): PortId = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun readPort(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: ULong): SsizeT = -1L
 
@@ -813,7 +813,7 @@ public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?, port
 
 public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, infoSize: ULong, flags: UInt, timeout: BigtimeT): StatusT = 0
 
-public fun createSem(count: Int, name: String?): SemId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun createSem(count: Int, name: String?): SemId = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun deleteSem(id: SemId): StatusT = 0
 
@@ -843,7 +843,7 @@ public fun getTeamInfo(team: TeamId, info: TeamInfo?, size: ULong): StatusT = 0
 
 public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?, size: ULong): StatusT = 0
 
-public fun spawnThread(func: ThreadFunc, name: String?, priority: Int, data: COpaquePointer?): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun spawnThread(func: ThreadFunc, name: String?, priority: Int, data: COpaquePointer?): ThreadId = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun killThread(thread: ThreadId): StatusT = 0
 
@@ -857,7 +857,7 @@ public fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT = 0
 
 public fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int = -1
 
-public fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun exitThread(status: StatusT) { }
 
@@ -865,7 +865,7 @@ public fun waitForThread(thread: ThreadId, returnValue: StatusT?): StatusT = 0
 
 public fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT = 0
 
-public fun findThread(name: String?): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun findThread(name: String?): ThreadId = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getSchedulerMode(): Int = -1
 
@@ -887,7 +887,7 @@ public fun getThreadInfo(id: ThreadId, info: ThreadInfo?, size: ULong): StatusT 
 
 public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?, size: ULong): StatusT = 0
 
-public fun getPthreadThreadId(thread: PthreadT): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getPthreadThreadId(thread: PthreadT): ThreadId = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?, size: ULong): StatusT = 0
 
@@ -895,13 +895,13 @@ public fun realTimeClock(): CULong = 0uL
 
 public fun setRealTimeClock(secsSinceJan1st1970: CULong) { }
 
-public fun realTimeClockUsecs(): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun realTimeClockUsecs(): BigtimeT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun systemTime(): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun systemTime(): BigtimeT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun systemTimeNsecs(): NanotimeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun systemTimeNsecs(): NanotimeT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun setAlarm(`when`: BigtimeT, flags: UInt): BigtimeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun setAlarm(`when`: BigtimeT, flags: UInt): BigtimeT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun debugger(message: String?) { }
 
@@ -965,9 +965,9 @@ public fun fsReadIndexDir(indexDirectory: DIR?): Dirent? = null
 
 public fun fsRewindIndexDir(indexDirectory: DIR?) { }
 
-public fun devForPath(path: String?): DevT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun devForPath(path: String?): DevT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun nextDev(pos: Int?): DevT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun nextDev(pos: Int?): DevT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun fsStatDev(dev: DevT, info: FsInfo?): CInt = -1
 
@@ -981,13 +981,13 @@ public fun fsReadQuery(d: DIR?): Dirent? = null
 
 public fun getPathForDirent(dent: Dirent?, buf: String?, len: ULong): StatusT = 0
 
-public fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): DevT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): DevT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun fsUnmountVolume(path: String?, flags: UInt): StatusT = 0
 
-public fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): ThreadId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): ThreadId = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun loadAddOn(path: String?): ImageId { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun loadAddOn(path: String?): ImageId = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun unloadAddOn(image: ImageId): StatusT = 0
 

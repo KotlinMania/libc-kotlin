@@ -1,23 +1,22 @@
 // port-lint: source unix/bsd/netbsdlike/openbsd/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.bsd.O_SYNC
-import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
+import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
 import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
+import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
 import io.github.kotlinmania.libc.unix.bsd.LC_MONETARY
 import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
 import io.github.kotlinmania.libc.unix.bsd.LC_TIME
-import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
 import io.github.kotlinmania.libc.unix.bsd.MDMBUF
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
+import io.github.kotlinmania.libc.unix.bsd.O_SYNC
+import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
+import io.github.kotlinmania.libc.unix.bsd.RTF_BLACKHOLE
 import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO1
 import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO2
-import io.github.kotlinmania.libc.unix.bsd.RTF_BLACKHOLE
 import io.github.kotlinmania.libc.unix.bsd.RTF_REJECT
 import io.github.kotlinmania.libc.unix.bsd.RTF_STATIC
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 
 public const val CRTSCTS: TcflagT = 0x00010000u
 public const val LC_CTYPE: Int = 0
@@ -644,11 +643,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): String? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid ?: 0
+
     public fun siUid(): UidT = siUid ?: 0u
+
     public fun siStatus(): CInt = siStatus ?: 0
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -972,6 +977,7 @@ public const val SCHED_FIFO: CInt = 1
 public const val SCHED_OTHER: CInt = 2
 public const val SCHED_RR: CInt = 3
 public const val ST_NOSUID: CULong = 2uL
+
 // PTHREAD_MUTEX_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
 // PTHREAD_COND_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
 // PTHREAD_RWLOCK_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin

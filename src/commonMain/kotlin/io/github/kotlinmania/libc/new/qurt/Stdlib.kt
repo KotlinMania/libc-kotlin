@@ -15,9 +15,9 @@ public fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer? = null
 
 public fun free(ptr: COpaquePointer?) { }
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
-public fun exit(status: CInt): Nothing { throw UnsupportedOperationException() }
+public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
 public fun atexit(function: (() -> Unit)?): CInt = -1
 
@@ -59,8 +59,8 @@ public fun labs(j: CLong): CLong = -1L
 
 public fun llabs(j: CLongLong): CLongLong = -1L
 
-public fun div(numer: CInt, denom: CInt): DivT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun div(numer: CInt, denom: CInt): DivT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ldiv(numer: CLong, denom: CLong): LdivT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ldiv(numer: CLong, denom: CLong): LdivT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun lldiv(numer: CLongLong, denom: CLongLong): LldivT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lldiv(numer: CLongLong, denom: CLongLong): LldivT = throw UnsupportedOperationException("Not implemented on this platform")

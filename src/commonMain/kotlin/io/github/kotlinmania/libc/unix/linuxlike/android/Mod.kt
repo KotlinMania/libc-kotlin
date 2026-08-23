@@ -1,8 +1,7 @@
 // port-lint: source unix/linux_like/android/mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.android
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_CTYPE_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_MESSAGES_MASK
@@ -487,11 +486,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid ?: 0
+
     public fun siUid(): UidT = siUid ?: 0u
+
     public fun siStatus(): CInt = siStatus ?: 0
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -2960,7 +2965,7 @@ public fun schedCpucount(setsize: ULong, set: CpuSetT?): CInt = -1
 
 public fun schedGetcpu(): CInt = -1
 
-public fun mallinfo(): Mallinfo { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mallinfo(): Mallinfo = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mallocInfo(options: CInt, stream: FILE?): CInt = -1
 

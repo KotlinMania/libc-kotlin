@@ -203,6 +203,7 @@ public data class PthreadCondattrT(
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { size: [__PTHREAD_INITIALIZER_BYTE (initializer represented at the FFI boundary)
 // PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { size: [__PTHREAD_INITIALIZER_BYTE (initializer represented at the FFI boundary)
 public const val NCCS: ULong = 11uL
+
 // DUPLICATE: public const val NCCS: ULong = 32uL
 public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 32uL
 public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 4uL
@@ -212,6 +213,7 @@ public const val __SIZEOF_PTHREAD_CONDATTR_T: ULong = 8uL
 public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 4uL
 public const val __SIZEOF_PTHREAD_RWLOCKATTR_T: ULong = 12uL
 public const val __SIZEOF_PTHREAD_BARRIER_T: ULong = 32uL
+
 // DUPLICATE: public const val __SIZEOF_PTHREAD_ATTR_T: ULong = 4uL
 // DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEX_T: ULong = 4uL
 // DUPLICATE: public const val __SIZEOF_PTHREAD_MUTEXATTR_T: ULong = 4uL
@@ -243,6 +245,7 @@ public const val PTHREAD_MUTEX_NORMAL: CInt = 0
 public const val PTHREAD_MUTEX_RECURSIVE: CInt = 1
 public const val PTHREAD_MUTEX_ERRORCHECK: CInt = 2
 public const val FD_SETSIZE: ULong = 64uL
+
 // DUPLICATE: public const val FD_SETSIZE: ULong = 256uL
 // DUPLICATE: public const val FD_SETSIZE: ULong = 1024uL
 public const val EPERM: CInt = 1
@@ -356,6 +359,7 @@ public const val O_SYNC: CInt = 8192
 public const val O_NONBLOCK: CInt = 16384
 public const val O_ACCMODE: CInt = 3
 public const val O_CLOEXEC: CInt = 0x40000
+
 // DUPLICATE: public const val O_CLOEXEC: CInt = 0x80000
 public const val RTLD_LAZY: CInt = 0x1
 public const val SEEK_SET: CInt = 0
@@ -389,6 +393,7 @@ public const val SOL_TCP: CInt = 6
 public const val PF_UNSPEC: CInt = 0
 public const val PF_INET: CInt = 2
 public const val PF_INET6: CInt = 10
+
 // DUPLICATE: public const val PF_INET6: CInt = 23
 public const val AF_UNSPEC: CInt = 0
 public const val AF_INET: CInt = 2
@@ -434,6 +439,7 @@ public const val SO_RCVLOWAT: CInt = 0x1004
 public const val SO_SNDTIMEO: CInt = 0x1005
 public const val SO_RCVTIMEO: CInt = 0x1006
 public const val SO_ERROR: CInt = 0x1009
+
 // DUPLICATE: public const val SO_ERROR: CInt = 0x1007
 public const val SO_TYPE: CInt = 0x1008
 public const val SOCK_CLOEXEC: CInt = O_CLOEXEC
@@ -457,6 +463,7 @@ public const val IFF_ALTPHYS: CInt = IFF_LINK2
 public const val IFF_MULTICAST: CInt = 0x8000
 public const val TCP_NODELAY: CInt = 1
 public const val TCP_MAXSEG: CInt = 2
+
 // DUPLICATE: public const val TCP_NODELAY: CInt = 1
 // DUPLICATE: public const val TCP_MAXSEG: CInt = 8194
 // DUPLICATE: public const val TCP_NODELAY: CInt = 8193
@@ -466,23 +473,28 @@ public const val TCP_NOOPT: CInt = 8
 public const val TCP_KEEPIDLE: CInt = 3
 public const val TCP_KEEPINTVL: CInt = 4
 public const val TCP_KEEPCNT: CInt = 5
+
 // DUPLICATE: public const val TCP_KEEPIDLE: CInt = 256
 // DUPLICATE: public const val TCP_KEEPINTVL: CInt = 512
 // DUPLICATE: public const val TCP_KEEPCNT: CInt = 1024
 public const val IP_TOS: CInt = 7
+
 // DUPLICATE: public const val IP_TOS: CInt = 1
 // DUPLICATE: public const val IP_TOS: CInt = 3
 public const val IP_TTL: CInt = 4
+
 // DUPLICATE: public const val IP_TTL: CInt = 2
 // DUPLICATE: public const val IP_TTL: CInt = 8
 public const val IP_MULTICAST_IF: CInt = 6
 public const val IP_MULTICAST_TTL: CInt = 5
 public const val IP_MULTICAST_LOOP: CInt = 7
+
 // DUPLICATE: public const val IP_MULTICAST_IF: CInt = 9
 // DUPLICATE: public const val IP_MULTICAST_TTL: CInt = 10
 // DUPLICATE: public const val IP_MULTICAST_LOOP: CInt = 11
 public const val IP_ADD_MEMBERSHIP: CInt = 12
 public const val IP_DROP_MEMBERSHIP: CInt = 13
+
 // DUPLICATE: public const val IP_ADD_MEMBERSHIP: CInt = 3
 // DUPLICATE: public const val IP_DROP_MEMBERSHIP: CInt = 4
 // DUPLICATE: public const val IP_ADD_MEMBERSHIP: CInt = 11
@@ -491,6 +503,7 @@ public const val IPV6_UNICAST_HOPS: CInt = 4
 public const val IPV6_MULTICAST_IF: CInt = 768
 public const val IPV6_MULTICAST_HOPS: CInt = 769
 public const val IPV6_MULTICAST_LOOP: CInt = 770
+
 // DUPLICATE: public const val IPV6_MULTICAST_IF: CInt = 9
 // DUPLICATE: public const val IPV6_MULTICAST_HOPS: CInt = 10
 // DUPLICATE: public const val IPV6_MULTICAST_LOOP: CInt = 11
@@ -503,6 +516,7 @@ public const val HOST_NOT_FOUND: CInt = 210
 public const val NO_DATA: CInt = 211
 public const val NO_RECOVERY: CInt = 212
 public const val TRY_AGAIN: CInt = 213
+
 // DUPLICATE: public const val HOST_NOT_FOUND: CInt = 1
 // DUPLICATE: public const val NO_DATA: CInt = 2
 // DUPLICATE: public const val NO_RECOVERY: CInt = 3
@@ -513,6 +527,7 @@ public const val AI_CANONNAME: CInt = 2
 public const val AI_NUMERICHOST: CInt = 4
 public const val AI_NUMERICSERV: CInt = 8
 public const val AI_ADDRCONFIG: CInt = 64
+
 // DUPLICATE: public const val AI_NUMERICSERV: CInt = 0
 // DUPLICATE: public const val AI_ADDRCONFIG: CInt = 0
 public const val NI_MAXHOST: CInt = 1025
@@ -522,12 +537,14 @@ public const val NI_NUMERICHOST: CInt = 2
 public const val NI_NAMEREQD: CInt = 4
 public const val NI_NUMERICSERV: CInt = 8
 public const val NI_DGRAM: CInt = 16
+
 // DUPLICATE: public const val NI_NUMERICSERV: CInt = 0
 // DUPLICATE: public const val NI_DGRAM: CInt = 0
 public const val EAI_FAMILY: CInt = 204
 public const val EAI_MEMORY: CInt = 203
 public const val EAI_NONAME: CInt = 200
 public const val EAI_SOCKTYPE: CInt = 10
+
 // DUPLICATE: public const val EAI_FAMILY: CInt = -303
 // DUPLICATE: public const val EAI_MEMORY: CInt = -304
 // DUPLICATE: public const val EAI_NONAME: CInt = -305

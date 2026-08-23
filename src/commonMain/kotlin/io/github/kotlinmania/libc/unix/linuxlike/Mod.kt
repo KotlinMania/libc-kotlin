@@ -22,56 +22,65 @@ internal const val _IOC_WRITE: UInt = 1u
 internal const val _IOC_READ: UInt = 2u
 
 internal inline fun <reified T> ioctlCode(ty: UInt, nr: UInt): Int {
-    val size = when (T::class) {
-        CInt::class, Int::class -> 4
-        CUInt::class, UInt::class -> 4
-        CLong::class, Long::class -> 8
-        CULong::class, ULong::class -> 8
-        CShort::class, Short::class -> 2
-        CUShort::class, UShort::class -> 2
-        CChar::class, Byte::class -> 1
-        CUChar::class, UByte::class -> 1
-        else -> 4
-    }
-    return ((_IOC_WRITE.toInt() shl _IOC_DIRSHIFT) or
+    val size =
+        when (T::class) {
+            CInt::class, Int::class -> 4
+            CUInt::class, UInt::class -> 4
+            CLong::class, Long::class -> 8
+            CULong::class, ULong::class -> 8
+            CShort::class, Short::class -> 2
+            CUShort::class, UShort::class -> 2
+            CChar::class, Byte::class -> 1
+            CUChar::class, UByte::class -> 1
+            else -> 4
+        }
+    return (
+        (_IOC_WRITE.toInt() shl _IOC_DIRSHIFT) or
             (ty.toInt() shl _IOC_TYPESHIFT) or
             (nr.toInt() shl _IOC_NRSHIFT) or
-            (size shl _IOC_SIZESHIFT))
+            (size shl _IOC_SIZESHIFT)
+    )
 }
 
 internal inline fun <reified T> ioReadCode(ty: UInt, nr: UInt): Int {
-    val size = when (T::class) {
-        CInt::class, Int::class -> 4
-        CUInt::class, UInt::class -> 4
-        CLong::class, Long::class -> 8
-        CULong::class, ULong::class -> 8
-        else -> 4
-    }
-    return ((_IOC_READ.toInt() shl _IOC_DIRSHIFT) or
+    val size =
+        when (T::class) {
+            CInt::class, Int::class -> 4
+            CUInt::class, UInt::class -> 4
+            CLong::class, Long::class -> 8
+            CULong::class, ULong::class -> 8
+            else -> 4
+        }
+    return (
+        (_IOC_READ.toInt() shl _IOC_DIRSHIFT) or
             (ty.toInt() shl _IOC_TYPESHIFT) or
             (nr.toInt() shl _IOC_NRSHIFT) or
-            (size shl _IOC_SIZESHIFT))
+            (size shl _IOC_SIZESHIFT)
+    )
 }
 
 internal inline fun <reified T> ioReadWriteCode(ty: UInt, nr: UInt): Int {
-    val size = when (T::class) {
-        CInt::class, Int::class -> 4
-        CUInt::class, UInt::class -> 4
-        CLong::class, Long::class -> 8
-        CULong::class, ULong::class -> 8
-        else -> 4
-    }
-    return ((_IOC_READ.toInt() or _IOC_WRITE.toInt()) shl _IOC_DIRSHIFT or
+    val size =
+        when (T::class) {
+            CInt::class, Int::class -> 4
+            CUInt::class, UInt::class -> 4
+            CLong::class, Long::class -> 8
+            CULong::class, ULong::class -> 8
+            else -> 4
+        }
+    return (
+        (_IOC_READ.toInt() or _IOC_WRITE.toInt()) shl _IOC_DIRSHIFT or
             (ty.toInt() shl _IOC_TYPESHIFT) or
             (nr.toInt() shl _IOC_NRSHIFT) or
-            (size shl _IOC_SIZESHIFT))
+            (size shl _IOC_SIZESHIFT)
+    )
 }
 
-internal fun _IO(ty: UInt, nr: UInt): Int {
-    return ((_IOC_NONE.toInt() shl _IOC_DIRSHIFT) or
-            (ty.toInt() shl _IOC_TYPESHIFT) or
-            (nr.toInt() shl _IOC_NRSHIFT))
-}
+internal fun _IO(ty: UInt, nr: UInt): Int = (
+    (_IOC_NONE.toInt() shl _IOC_DIRSHIFT) or
+        (ty.toInt() shl _IOC_TYPESHIFT) or
+        (nr.toInt() shl _IOC_NRSHIFT)
+)
 
 public typealias SaFamilyT = UShort
 public typealias SpeedT = CUInt
@@ -601,6 +610,7 @@ public const val MSG_MORE: CInt = 0x8000
 public const val MSG_WAITFORONE: CInt = 0x10000
 public const val MSG_FASTOPEN: CInt = 0x20000000
 public const val MSG_CMSG_CLOEXEC: CInt = 0x40000000
+
 // SO_TIMESTAMP and SCM_TIMESTAMP are defined per arch sub-module.
 public const val SOCK_RAW: CInt = 3
 public const val SOCK_RDM: CInt = 4

@@ -559,9 +559,9 @@ public fun strtofL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Float =
 
 public fun strtoldL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Double = 0.0
 
-public fun exit(arg1: CInt): Nothing { throw UnsupportedOperationException() }
+public fun exit(arg1: CInt): Nothing = throw UnsupportedOperationException()
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun abs(arg1: CInt): CInt = -1
 
@@ -581,8 +581,7 @@ public fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong, ar
 
 public fun calloc(arg1: ULong, arg2: ULong): COpaquePointer? = null
 
-public fun div(arg1: CInt, arg2: CInt): DivT { throw UnsupportedOperationException("Not implemented on this platform") }
-
+public fun div(arg1: CInt, arg2: CInt): DivT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun free(arg1: COpaquePointer?) { }
 
@@ -590,7 +589,7 @@ public fun getenv(arg1: String?): String? = null
 
 public fun labs(arg1: CLong): CLong = -1L
 
-public fun ldiv(arg1: CLong, arg2: CLong): LdivT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ldiv(arg1: CLong, arg2: CLong): LdivT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun malloc(arg1: ULong): COpaquePointer? = null
 
@@ -660,7 +659,7 @@ public fun atoll(arg1: String?): CLongLong = -1L
 
 public fun llabs(arg1: CLongLong): CLongLong = -1L
 
-public fun lldiv(arg1: CLongLong, arg2: CLongLong): LldivT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lldiv(arg1: CLongLong, arg2: CLongLong): LldivT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun strtoll(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CLongLong = -1L
 
@@ -694,11 +693,11 @@ public fun getprogname(): String? = null
 
 public fun setprogname(arg1: String?) { }
 
-public fun qabs(arg1: QuadT): QuadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun qabs(arg1: QuadT): QuadT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun strtoq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): QuadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun strtoq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): QuadT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun strtouq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): UQuadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun strtouq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): UQuadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun strsuftoll(arg1: String?, arg2: String?, arg3: CLongLong, arg4: CLongLong): CLongLong = -1L
 
@@ -706,7 +705,7 @@ public fun strsuftollx(arg1: String?, arg2: String?, arg3: CLongLong, arg4: CLon
 
 public fun l64aR(arg1: CLong, arg2: String?, arg3: CInt): CInt = -1
 
-public fun qdiv(arg1: QuadT, arg2: QuadT): QdivT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun qdiv(arg1: QuadT, arg2: QuadT): QdivT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun strtolL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CLong = -1L
 
@@ -716,9 +715,9 @@ public fun strtollL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: Loca
 
 public fun strtoullL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CULongLong = 0uL
 
-public fun strtoqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): QuadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun strtoqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): QuadT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun strtouqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): UQuadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun strtouqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): UQuadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mbCurMaxL(arg1: LocaleT): ULong = 0uL
 
@@ -840,7 +839,7 @@ public fun strcasecmp(arg1: String?, arg2: String?): CInt = -1
 
 public fun strncasecmp(arg1: String?, arg2: String?, arg3: ULong): CInt = -1
 
-public fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun raise(arg1: CInt): CInt = -1
 
@@ -905,7 +904,6 @@ public fun access(arg1: String?, arg2: CInt): CInt = -1
 public fun rmdir(arg1: String?): CInt = -1
 
 public fun chdir(arg1: String?): CInt = -1
-
 
 public fun getwd(arg1: String?): String? = null
 

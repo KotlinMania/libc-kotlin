@@ -79,7 +79,6 @@ public fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT, `val`: CInt): C
 
 public fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt = -1
 
-
 public fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt = -1
 
 public fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt = -1

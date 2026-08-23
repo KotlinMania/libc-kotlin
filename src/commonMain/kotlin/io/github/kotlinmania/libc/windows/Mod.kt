@@ -14,6 +14,7 @@ public typealias SighandlerT = ULong
 public typealias WcharT = UShort
 public typealias ClockT = Int
 public typealias ErrnoT = CInt
+
 // Upstream uses cfg_if: time_t = i32 on 32-bit x86 GNU, i64 everywhere else.
 // The 64-bit variant is the common case across modern Windows targets.
 public typealias TimeT = Long
@@ -332,9 +333,9 @@ public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
 
 public fun free(p: COpaquePointer?) { }
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
-public fun exit(status: CInt): Nothing { throw UnsupportedOperationException() }
+public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
 public fun atexit(cb: (() -> Unit)?): CInt = -1
 
@@ -404,7 +405,7 @@ public fun rand(): CInt = -1
 
 public fun srand(seed: CUInt) { }
 
-public fun signal(signum: CInt, handler: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun signal(signum: CInt, handler: SighandlerT): SighandlerT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun raise(signum: CInt): CInt = -1
 

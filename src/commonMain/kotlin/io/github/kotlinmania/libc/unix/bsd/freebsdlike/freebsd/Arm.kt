@@ -5,4 +5,3 @@ import io.github.kotlinmania.libc.*
 
 public typealias GregT = CUInt
 public typealias GregsetT = LongArray
-

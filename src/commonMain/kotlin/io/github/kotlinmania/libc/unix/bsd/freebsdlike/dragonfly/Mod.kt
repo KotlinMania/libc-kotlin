@@ -1021,7 +1021,7 @@ public fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx? = nu
 
 public fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt = -1
 
-public fun getutxuser(name: String?): Utmpx { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getutxuser(name: String?): Utmpx = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun utmpxname(file: String?): CInt = -1
 
@@ -1061,6 +1061,6 @@ public fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? = null
 
 public fun freezero(ptr: COpaquePointer?, size: ULong) { }
 
-public fun kvmVmMapEntryFirst(kvm: KvmT, map: VmMapT, entry: VmMapEntryT): VmMapEntryT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun kvmVmMapEntryFirst(kvm: KvmT, map: VmMapT, entry: VmMapEntryT): VmMapEntryT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun kvmVmMapEntryNext(kvm: KvmT, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun kvmVmMapEntryNext(kvm: KvmT, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT = throw UnsupportedOperationException("Not implemented on this platform")

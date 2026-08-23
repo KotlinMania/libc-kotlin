@@ -1,8 +1,7 @@
 // port-lint: source unix/cygwin/mod.rs
 package io.github.kotlinmania.libc.unix.cygwin
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias WcharT = CUShort
 public typealias BlkcntT = Long
@@ -435,11 +434,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid
+
     public fun siUid(): UidT = siUid
+
     public fun siStatus(): CInt = siStatus ?: 0
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 

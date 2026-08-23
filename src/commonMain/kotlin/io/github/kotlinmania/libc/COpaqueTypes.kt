@@ -20,13 +20,17 @@ package io.github.kotlinmania.libc
  * N-API addon. On native targets using cinterop, this class is not used
  * (kotlinx.cinterop.COpaquePointer is used instead).
  */
-public class COpaquePointer(public val value: Long = 0L)
+public class COpaquePointer(
+    public val value: Long = 0L,
+)
 
 /**
  * Opaque C stdio file handle (`FILE*` in C).
  * On JS/WASM, [handle] holds the numeric FILE pointer from N-API.
  */
-public class FILE(public val handle: Int = -1)
+public class FILE(
+    public val handle: Int = -1,
+)
 
 /**
  * Opaque C directory stream handle (`DIR*` in C).

@@ -676,11 +676,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid
+
     public fun siUid(): UidT = siUid
+
     public fun siStatus(): CInt = siStatus
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -809,8 +815,11 @@ public data class IfData(
 
 // --- Helper functions ---
 public fun ULong.toSighandlerT(): SighandlerT = this
+
 public fun Int.toSighandlerT(): SighandlerT = this.toULong()
+
 public fun CInt.toClockidT(): ClockidT = this
+
 public fun COpaquePointer?.toLocaleT(): LocaleT = this
 
 // Sentinel for LC_GLOBAL_LOCALE — C defines it as ((locale_t) -1).

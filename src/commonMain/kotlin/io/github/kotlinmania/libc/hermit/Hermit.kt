@@ -363,9 +363,9 @@ public fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULo
 
 public fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong) { }
 
-public fun exit(status: Int): Nothing { throw UnsupportedOperationException() }
+public fun exit(status: Int): Nothing = throw UnsupportedOperationException()
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun errno(): Int = -1
 

@@ -84,16 +84,27 @@ public fun sleepNapi(secs: UInt): UInt = LibcNative.sleep(secs.toInt()).toUInt()
 // ─── math ─────────────────────────────────────────────────────────
 
 public fun ceilNapi(x: Double): Double = LibcNative.ceil(x)
+
 public fun floorNapi(x: Double): Double = LibcNative.floor(x)
+
 public fun roundNapi(x: Double): Double = LibcNative.round(x)
+
 public fun sqrtNapi(x: Double): Double = LibcNative.sqrt(x)
+
 public fun powNapi(base: Double, exp: Double): Double = LibcNative.pow(base, exp)
+
 public fun fabsNapi(x: Double): Double = LibcNative.fabs(x)
+
 public fun sinNapi(x: Double): Double = LibcNative.sin(x)
+
 public fun cosNapi(x: Double): Double = LibcNative.cos(x)
+
 public fun tanNapi(x: Double): Double = LibcNative.tan(x)
+
 public fun ceilfNapi(x: Float): Float = LibcNative.ceilf(x)
+
 public fun floorfNapi(x: Float): Float = LibcNative.floorf(x)
+
 public fun roundfNapi(x: Float): Float = LibcNative.roundf(x)
 
 // ─── errno ────────────────────────────────────────────────────────

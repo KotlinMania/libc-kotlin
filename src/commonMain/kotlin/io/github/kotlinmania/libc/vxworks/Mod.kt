@@ -1,8 +1,7 @@
 // port-lint: source vxworks/mod.rs
 package io.github.kotlinmania.libc.vxworks
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
@@ -219,11 +218,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid
+
     public fun siUid(): UidT = siUid
+
     public fun siStatus(): CInt = siStatus
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -1199,9 +1204,9 @@ public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
 
 public fun free(p: COpaquePointer?) { }
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
-public fun exit(status: CInt): Nothing { throw UnsupportedOperationException() }
+public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
 public fun atexit(cb: (() -> Unit)?): CInt = -1
 
@@ -1209,7 +1214,7 @@ public fun system(s: String?): CInt = -1
 
 public fun getenv(s: String?): String? = null
 
-public fun cfgetospeed(termios: Termios?): SpeedT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun cfgetospeed(termios: Termios?): SpeedT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun cfmakeraw(termios: Termios?): CInt = -1
 
@@ -1341,9 +1346,9 @@ public fun chown(path: String?, uid: UidT, gid: GidT): CInt = -1
 
 public fun fpathconf(filedes: CInt, name: CInt): CLong = -1L
 
-public fun getegid(): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getegid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun geteuid(): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun geteuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt = -1
 
@@ -1365,7 +1370,7 @@ public fun ttyname(fd: CInt): String? = null
 
 public fun wait(status: CInt?): PidT = -1
 
-public fun umask(mask: ModeT): ModeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun umask(mask: ModeT): ModeT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mlock(addr: COpaquePointer?, len: ULong): CInt = -1
 
@@ -1391,7 +1396,7 @@ public fun shmUnlink(name: String?): CInt = -1
 
 public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
 
-public fun pthreadExit(value: COpaquePointer?): Nothing { throw UnsupportedOperationException() }
+public fun pthreadExit(value: COpaquePointer?): Nothing = throw UnsupportedOperationException()
 
 public fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, state: CInt): CInt = -1
 
@@ -1603,7 +1608,7 @@ public fun pthreadAttrGetname(attr: PthreadAttrT?, name: COpaquePointer?): CInt 
 
 public fun pthreadJoin(thread: PthreadT, status: COpaquePointer?): CInt = -1
 
-public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadSelf(): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt = -1
 
@@ -1675,7 +1680,7 @@ public fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: C
 
 public fun freeaddrinfo(res: Addrinfo?) { }
 
-public fun signal(signum: CInt, handler: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun signal(signum: CInt, handler: SighandlerT): SighandlerT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getpid(): PidT = -1
 
@@ -1735,11 +1740,11 @@ public fun errnoGet(): CInt = -1
 
 public fun setgid(gid: GidT): CInt = -1
 
-public fun getgid(): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getgid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun setuid(uid: UidT): CInt = -1
 
-public fun getuid(): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun sigemptyset(set: SigsetT?): CInt = -1
 
@@ -1761,7 +1766,7 @@ public fun taskKill(taskId: TASKID, signo: CInt): CInt = -1
 
 public fun raise(signo: CInt): CInt = -1
 
-public fun taskIdSelf(): TASKID { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun taskIdSelf(): TASKID = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun taskDelay(ticks: VxTicksT): CInt = -1
 
@@ -1771,9 +1776,9 @@ public fun taskNameGet(taskId: TASKID, bufName: String?, bufsize: ULong): CInt =
 
 public fun rtpInfoGet(rtpId: RTPID, rtpStruct: RTPDESC?): CInt = -1
 
-public fun rtpSpawn(pubrtpFileName: String?, argv: COpaquePointer?, envp: COpaquePointer?, priority: CInt, uStackSize: ULong, options: CInt, taskOptions: CInt): RTPID { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun rtpSpawn(pubrtpFileName: String?, argv: COpaquePointer?, envp: COpaquePointer?, priority: CInt, uStackSize: ULong, options: CInt, taskOptions: CInt): RTPID = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun pathIsAbsolute(filepath: String?, pNameTail: COpaquePointer?): BOOL { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pathIsAbsolute(filepath: String?, pNameTail: COpaquePointer?): BOOL = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT = -1L
 
@@ -1805,6 +1810,6 @@ public fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt = -1
 
 public fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt = -1
 
-public fun vxCpuEnabledGet(): CpusetT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun vxCpuEnabledGet(): CpusetT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun vxCpuConfiguredGet(): CpusetT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun vxCpuConfiguredGet(): CpusetT = throw UnsupportedOperationException("Not implemented on this platform")

@@ -1,8 +1,7 @@
 // port-lint: source unix/hurd/mod.rs
 package io.github.kotlinmania.libc.unix.hurd
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias S16Type = CShort
 public typealias U16Type = CUShort
@@ -341,11 +340,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid
+
     public fun siUid(): UidT = siUid
+
     public fun siStatus(): CInt = siStatus
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -3654,9 +3659,9 @@ public fun memalign(align: ULong, size: ULong): COpaquePointer? = null
 
 public fun mallopt(param: CInt, value: CInt): CInt = -1
 
-public fun mallinfo(): Mallinfo { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mallinfo(): Mallinfo = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun mallinfo2(): Mallinfo2 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mallinfo2(): Mallinfo2 = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mallocInfo(options: CInt, stream: FILE?): CInt = -1
 
@@ -3664,7 +3669,7 @@ public fun mallocUsableSize(ptr: COpaquePointer?): ULong = 0uL
 
 public fun mallocTrim(pad: ULong): CInt = -1
 
-public fun iconvOpen(tocode: String?, fromcode: String?): IconvT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong = 0uL
 

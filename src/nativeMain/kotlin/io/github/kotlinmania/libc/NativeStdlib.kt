@@ -50,7 +50,7 @@ public actual fun mmap(
     prot: CInt,
     flags: CInt,
     fd: CInt,
-    offset: OffT
+    offset: OffT,
 ): COpaquePointer? = null
 
 public actual fun munmap(addr: COpaquePointer?, len: ULong): CInt = -1

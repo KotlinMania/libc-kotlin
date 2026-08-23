@@ -1,8 +1,7 @@
 // port-lint: source unix/nto/mod.rs
 package io.github.kotlinmania.libc.unix.nto
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias ClockT = UInt
 public typealias SaFamilyT = UByte
@@ -247,11 +246,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid ?: 0
+
     public fun siUid(): UidT = siUid ?: 0u
+
     public fun siStatus(): CInt = siStatus ?: 0
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -2130,8 +2135,6 @@ public fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt): 
 
 public fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt, timeout: Timespec?): CInt = -1
 
-
-
 public fun semDestroy(sem: SemT?): CInt = -1
 
 public fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt = -1
@@ -2242,7 +2245,7 @@ public fun endspent() { }
 
 public fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt = -1
 
-public fun ftok(pathname: String?, projId: CInt): KeyT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ftok(pathname: String?, projId: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
 
@@ -2468,7 +2471,7 @@ public fun ctermid(s: String?): String? = null
 
 public fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt = -1
 
-public fun mallinfo(): Mallinfo { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mallinfo(): Mallinfo = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getpwentR(pwd: Passwd?, buf: String?, bufsize: CInt, result: COpaquePointer?): CInt = -1
 

@@ -50,7 +50,6 @@ public const val PRIV_TPD_KILLABLE: CUInt = 0x2000u
 
 public fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt = -1
 
-
 public fun doorCall(d: CInt, params: DoorArgT?): CInt = -1
 
 public fun doorReturn(dataPtr: String?, dataSize: ULong, descPtr: DoorDescT?, numDesc: CUInt): CInt = -1
@@ -62,5 +61,3 @@ public fun fattach(fildes: CInt, path: String?): CInt = -1
 public fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt = -1
 
 public fun euidaccess(path: String?, amode: CInt): CInt = -1
-
-

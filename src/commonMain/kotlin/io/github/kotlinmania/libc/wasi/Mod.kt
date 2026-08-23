@@ -430,15 +430,13 @@ public fun fDSET(fd: CInt, set: FdSet?) { }
 
 public fun fDZERO(set: FdSet?) { }
 
-public fun exit(code: CInt): Nothing { throw UnsupportedOperationException() }
+public fun exit(code: CInt): Nothing = throw UnsupportedOperationException()
 
-
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun alignedAlloc(a: ULong, b: ULong): COpaquePointer? = null
 
 public fun calloc(amt: ULong, amt2: ULong): COpaquePointer? = null
-
 
 public fun free(ptr: COpaquePointer?) { }
 
@@ -522,7 +520,7 @@ public fun atexit(a: (() -> Unit)?): CInt = -1
 
 public fun atQuickExit(a: (() -> Unit)?): CInt = -1
 
-public fun quickExit(a: CInt): Nothing { throw UnsupportedOperationException() }
+public fun quickExit(a: CInt): Nothing = throw UnsupportedOperationException()
 
 public fun posixMemalign(a: COpaquePointer?, b: ULong, c: ULong): CInt = -1
 
@@ -926,7 +924,7 @@ public fun fchmod(fd: CInt, mode: ModeT): CInt = -1
 
 public fun realpath(pathname: String?, resolved: String?): String? = null
 
-public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadSelf(): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadCreate(native: PthreadT, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
 
