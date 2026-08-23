@@ -1,5 +1,7 @@
 package io.github.kotlinmania.libc
 
+// JVM actuals — libc FFI is not available on stock JVM. Real FFI requires JNI.
+
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("libc calloc is not available on JVM target")
 
