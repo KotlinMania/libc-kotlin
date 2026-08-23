@@ -355,9 +355,13 @@ val jvmToolchainVersion = providers.gradleProperty("jvm.toolchain").getOrElse("2
 kotlin {
     jvmToolchain(jvmToolchainVersion)
 
-    // cinterop for real C library headers — requires Xcode (Apple targets) or
-    // platform SDK (Linux/Windows/Android). Disabled until per-platform def files
-    // are in place; commonMain functions have default bodies that compile everywhere.
+    // cinterop for real C library headers — binds to the actual system libc
+    // via generated C bindings, matching upstream Rust's `extern "C"` approach.
+    // NOT platform.posix (which is a curated POSIX abstraction with different
+    // bit widths across 32/64-bit targets).
+    // TODO: Requires full Xcode (not just CLT) for Apple targets. Enable when
+    // Xcode is available. Until then, actuals use platform.posix with .convert()
+    // to bridge type differences.
     // targets.withType<KotlinNativeTarget>().configureEach {
     //     compilations.getByName("main") {
     //         cinterops.create("libc") {
