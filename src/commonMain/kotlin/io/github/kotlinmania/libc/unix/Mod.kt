@@ -335,10 +335,9 @@ public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
 
 public fun free(p: COpaquePointer?) { }
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
-public fun exit(status: CInt): Nothing { throw UnsupportedOperationException() }
-
+public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
 public fun system(s: String?): CInt = -1
 
@@ -536,11 +535,11 @@ public fun fpathconf(filedes: CInt, name: CInt): CLong = -1L
 
 public fun getcwd(buf: String?, size: ULong): String? = null
 
-public fun getegid(): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getegid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun geteuid(): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun geteuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun getgid(): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getgid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt = -1
 
@@ -556,7 +555,7 @@ public fun getpid(): PidT = -1
 
 public fun getppid(): PidT = -1
 
-public fun getuid(): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun isatty(fd: CInt): CInt = -1
 
@@ -616,7 +615,7 @@ public fun pread(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): Ss
 
 public fun pwrite(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): SsizeT = -1L
 
-public fun umask(mask: ModeT): ModeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun umask(mask: ModeT): ModeT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun utime(file: String?, buf: Utimbuf?): CInt = -1
 
@@ -654,7 +653,7 @@ public fun truncate(path: String?, length: OffT): CInt = -1
 
 public fun ftruncate(fd: CInt, length: OffT): CInt = -1
 
-public fun signal(signum: CInt, handler: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun signal(signum: CInt, handler: SighandlerT): SighandlerT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getrusage(resource: CInt, usage: Rusage?): CInt = -1
 
@@ -662,13 +661,13 @@ public fun realpath(pathname: String?, resolved: String?): String? = null
 
 public fun times(buf: Tms?): ClockT = -1L
 
-public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadSelf(): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt = -1
 
 public fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt = -1
 
-public fun pthreadExit(value: COpaquePointer?): Nothing { throw UnsupportedOperationException() }
+public fun pthreadExit(value: COpaquePointer?): Nothing = throw UnsupportedOperationException()
 
 public fun pthreadAttrInit(attr: PthreadAttrT): CInt = -1
 
@@ -804,7 +803,6 @@ public fun chroot(name: String?): CInt = -1
 
 public fun usleep(secs: UsecondsT): CInt = -1
 
-
 public fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT = -1L
 
 public fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT = -1L
@@ -853,9 +851,9 @@ public fun ftello(stream: FILE?): OffT = -1L
 
 public fun tcdrain(fd: CInt): CInt = -1
 
-public fun cfgetispeed(termios: Termios?): SpeedT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun cfgetispeed(termios: Termios?): SpeedT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun cfgetospeed(termios: Termios?): SpeedT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun cfgetospeed(termios: Termios?): SpeedT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun cfsetispeed(termios: Termios?, speed: SpeedT): CInt = -1
 
@@ -905,7 +903,6 @@ public fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt = -1
 
 public fun adjtime(delta: Timeval?, olddelta: Timeval?): CInt = -1
 
-
 public fun stpncpy(dst: String?, src: String?, n: ULong): String? = null
 
 public fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt = -1
@@ -938,20 +935,14 @@ public fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSe
 
 public fun sigaction(signum: CInt, act: Sigaction?, oldact: Sigaction?): CInt = -1
 
-
 public fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FILE? = null
 
 public fun openMemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE? = null
 
 public fun atexit(cb: (() -> Unit)?): CInt = -1
 
-
-
-
 public fun cfmakeraw(termios: Termios?): CInt = -1
 
-
 public fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt = -1
-
 
 public fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt = -1

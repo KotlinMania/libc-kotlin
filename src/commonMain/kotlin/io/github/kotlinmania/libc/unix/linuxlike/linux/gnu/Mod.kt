@@ -746,9 +746,9 @@ public fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt = -
 
 public fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt = -1
 
-public fun mallinfo(): Mallinfo { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mallinfo(): Mallinfo = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun mallinfo2(): Mallinfo2 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mallinfo2(): Mallinfo2 = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mallocStats() { }
 

@@ -1,8 +1,7 @@
 // port-lint: source unix/aix/powerpc64.rs
 package io.github.kotlinmania.libc.unix.aix
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 // Opaque type — C empty enum used as an opaque pointer target.
 public class LockDataInstrumented
@@ -258,11 +257,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid
+
     public fun siUid(): UidT = siUid
+
     public fun siStatus(): CInt = siStatus
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 

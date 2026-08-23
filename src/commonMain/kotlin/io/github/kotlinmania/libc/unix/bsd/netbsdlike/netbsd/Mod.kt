@@ -1,18 +1,17 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.bsd.O_NONBLOCK
-import io.github.kotlinmania.libc.unix.bsd.O_RDWR
-import io.github.kotlinmania.libc.unix.bsd.O_WRONLY
+import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
 import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
+import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
 import io.github.kotlinmania.libc.unix.bsd.LC_MONETARY
 import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
 import io.github.kotlinmania.libc.unix.bsd.LC_TIME
-import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
 import io.github.kotlinmania.libc.unix.bsd.MDMBUF
+import io.github.kotlinmania.libc.unix.bsd.O_NONBLOCK
+import io.github.kotlinmania.libc.unix.bsd.O_RDWR
+import io.github.kotlinmania.libc.unix.bsd.O_WRONLY
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 
 public const val CRTSCTS: TcflagT = 0x00010000u
@@ -155,11 +154,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid ?: 0
+
     public fun siUid(): UidT = siUid ?: 0u
+
     public fun siStatus(): CInt = siStatus ?: 0
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -1602,7 +1607,7 @@ public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CIn
 
 public fun dlauxinfo(): COpaquePointer? = null
 
-public fun iconvOpen(tocode: String?, fromcode: String?): IconvT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong = 0uL
 
@@ -1688,7 +1693,7 @@ public fun getpwentR(pwd: Passwd?, buf: String?, buflen: ULong, result: COpaqueP
 
 public fun getgrentR(grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public fun efopen(p: String?, m: String?): FILE { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun efopen(p: String?, m: String?): FILE = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun emalloc(n: ULong): COpaquePointer? = null
 
@@ -1706,9 +1711,9 @@ public fun estrlcpy(dst: String?, src: String?, len: ULong): ULong = 0uL
 
 public fun estrlcat(dst: String?, src: String?, len: ULong): ULong = 0uL
 
-public fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): IntmaxT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): IntmaxT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun easprintf(string: COpaquePointer?, fmt: String?, vararg args: Any?): CInt = -1
 

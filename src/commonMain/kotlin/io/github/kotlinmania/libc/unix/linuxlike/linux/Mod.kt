@@ -10,8 +10,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.O_CLOEXEC
 import io.github.kotlinmania.libc.unix.linuxlike.O_EXCL
 import io.github.kotlinmania.libc.unix.linuxlike._IO
 import io.github.kotlinmania.libc.unix.linuxlike.ioctlCode
-import io.github.kotlinmania.libc.unix.linuxlike.T_TYPE
-import io.github.kotlinmania.libc.unix.linuxlike.cmsgAlign
 
 public const val NLMSG_OVERRUN: CInt = 0x4
 public typealias DevT = ULong
@@ -1299,6 +1297,7 @@ public val NS_GET_TGID_FROM_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x7u)
 public val NS_GET_PID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x8u)
 public val NS_GET_TGID_IN_PIDNS: Ioctl = ioctlCode<CInt>(NSIO, 0x9u)
 public const val MNT_NS_INFO_SIZE_VER0: Int = 16
+
 // Upstream struct not yet ported: mnt_ns_info
 // public val NS_MNT_GET_INFO: Ioctl = ioctlCode<mnt_ns_info>(NSIO, 10u)
 // Upstream struct not yet ported: mnt_ns_info
@@ -1326,6 +1325,7 @@ public val PIDFD_GET_TIME_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 7u)
 public val PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 8u)
 public val PIDFD_GET_USER_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 9u)
 public val PIDFD_GET_UTS_NAMESPACE: Ioctl = _IO(PIDFS_IOCTL_MAGIC, 10u)
+
 // Upstream struct not yet ported: pidfd_info
 // public val PIDFD_GET_INFO: Ioctl = ioctlCode<pidfd_info>(PIDFS_IOCTL_MAGIC, 11u)
 public const val PR_SET_MDWE: CInt = 65
@@ -2346,6 +2346,7 @@ public const val HWTSTAMP_FILTER_PTP_V2_DELAY_REQ: CUInt = 14u
 public const val HWTSTAMP_FILTER_NTP_ALL: CUInt = 15u
 public const val PTP_MAX_SAMPLES: CUInt = 25u
 internal const val PTP_CLK_MAGIC: UInt = 0x3Du
+
 // Upstream struct not yet ported: ptp_clock_caps
 // public val PTP_CLOCK_GETCAPS: Ioctl = ioctlCode<ptp_clock_caps>(PTP_CLK_MAGIC, 1u)
 // Upstream struct not yet ported: ptp_extts_request
@@ -2353,6 +2354,7 @@ internal const val PTP_CLK_MAGIC: UInt = 0x3Du
 // Upstream struct not yet ported: ptp_perout_request
 // public val PTP_PEROUT_REQUEST: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 3u)
 public val PTP_ENABLE_PPS: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 4u)
+
 // Upstream struct not yet ported: ptp_sys_offset
 // public val PTP_SYS_OFFSET: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 5u)
 // Upstream struct not yet ported: ptp_pin_desc
@@ -2370,6 +2372,7 @@ public val PTP_ENABLE_PPS: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 4u)
 // Upstream struct not yet ported: ptp_perout_request
 // public val PTP_PEROUT_REQUEST2: Ioctl = ioctlCode<ptp_perout_request>(PTP_CLK_MAGIC, 12u)
 public val PTP_ENABLE_PPS2: Ioctl = ioctlCode<CInt>(PTP_CLK_MAGIC, 13u)
+
 // Upstream struct not yet ported: ptp_sys_offset
 // public val PTP_SYS_OFFSET2: Ioctl = ioctlCode<ptp_sys_offset>(PTP_CLK_MAGIC, 14u)
 // Upstream struct not yet ported: ptp_pin_desc
@@ -3172,23 +3175,23 @@ public fun sOEEOFFENDER(ee: SockExtendedErr?): Sockaddr? = null
 
 public fun tPACKETALIGN(x: ULong): ULong = 0uL
 
-public fun bPFCLASS(code: U32): U32 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFCLASS(code: U32): U32 = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFSIZE(code: U32): U32 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFSIZE(code: U32): U32 = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFMODE(code: U32): U32 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFMODE(code: U32): U32 = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFOP(code: U32): U32 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFOP(code: U32): U32 = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFSRC(code: U32): U32 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFSRC(code: U32): U32 = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFRVAL(code: U32): U32 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFRVAL(code: U32): U32 = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFMISCOP(code: U32): U32 { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFMISCOP(code: U32): U32 = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFSTMT(code: U16, k: U32): SockFilter { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFSTMT(code: U16, k: U32): SockFilter = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun bPFJUMP(code: U16, k: U32, jt: U8, jf: U8): SockFilter { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun bPFJUMP(code: U16, k: U32, jt: U8, jf: U8): SockFilter = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun sUNLEN(s: SockaddrUn): ULong = 0uL
 
@@ -3224,7 +3227,7 @@ public fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt = -1
 
 public fun shmUnlink(name: String?): CInt = -1
 
-public fun ftok(pathname: String?, projId: CInt): KeyT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ftok(pathname: String?, projId: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt = -1
 

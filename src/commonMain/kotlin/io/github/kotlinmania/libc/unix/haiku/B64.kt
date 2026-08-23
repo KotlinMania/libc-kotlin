@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 
-
 public data class Elf64Phdr(
     val pType: Elf64Word,
     val pFlags: Elf64Word,

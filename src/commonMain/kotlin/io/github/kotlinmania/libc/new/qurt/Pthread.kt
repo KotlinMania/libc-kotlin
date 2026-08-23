@@ -29,9 +29,9 @@ public fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt = -1
 
 public fun pthreadDetach(thread: PthreadT): CInt = -1
 
-public fun pthreadExit(retval: COpaquePointer?): Nothing { throw UnsupportedOperationException() }
+public fun pthreadExit(retval: COpaquePointer?): Nothing = throw UnsupportedOperationException()
 
-public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadSelf(): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt = -1
 

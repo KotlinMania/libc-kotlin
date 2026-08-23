@@ -1,8 +1,7 @@
 // port-lint: source unix/bsd/freebsdlike/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public const val POLLIN: CShort = 0x0001
 public const val POLLPRI: CShort = 0x0002
@@ -122,11 +121,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid
+
     public fun siUid(): UidT = siUid
+
     public fun siStatus(): CInt = siStatus
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -1051,6 +1056,7 @@ public const val _SC_RAW_SOCKETS: CInt = 119
 public const val _SC_SYMLOOP_MAX: CInt = 120
 public const val _SC_PHYS_PAGES: CInt = 121
 public const val _CS_PATH: CInt = 1
+
 // PTHREAD_MUTEX_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
 // PTHREAD_COND_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
 // PTHREAD_RWLOCK_INITIALIZER: FFI boundary initializer — zero-valued struct, not representable in Kotlin
@@ -1498,7 +1504,7 @@ public fun ntpGettime(buf: Ntptimeval?): CInt = -1
 
 public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
 
-public fun iconvOpen(tocode: String?, fromcode: String?): IconvT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong = 0uL
 

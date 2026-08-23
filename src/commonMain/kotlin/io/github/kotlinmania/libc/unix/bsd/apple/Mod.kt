@@ -1,8 +1,7 @@
 // port-lint: source unix/bsd/apple/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.apple
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias WcharT = Int
 public typealias ClockT = CULong
@@ -243,11 +242,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid
+
     public fun siUid(): UidT = siUid
+
     public fun siStatus(): CInt = siStatus
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -3568,7 +3573,7 @@ public fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt = -1
 
 public fun shmOpen(name: String?, oflag: CInt, vararg args: Any?): CInt = -1
 
-public fun ftok(pathname: String?, projId: CInt): KeyT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ftok(pathname: String?, projId: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? = null
 
@@ -3586,9 +3591,9 @@ public fun machAbsoluteTime(): ULong = 0uL
 
 public fun machTimebaseInfo(info: MachTimebaseInfo?): CInt = -1
 
-public fun machHostSelf(): MachPortT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun machHostSelf(): MachPortT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun machThreadSelf(): MachPortT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun machThreadSelf(): MachPortT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadCondTimedwaitRelativeNp(cond: PthreadCondT, lock: PthreadMutexT, timeout: Timespec?): CInt = -1
 
@@ -3606,9 +3611,9 @@ public fun pthreadSetnameNp(name: String?): CInt = -1
 
 public fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt = -1
 
-public fun pthreadMachThreadNp(thread: PthreadT): MachPortT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadMachThreadNp(thread: PthreadT): MachPortT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun pthreadFromMachThreadNp(port: MachPortT): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadFromMachThreadNp(port: MachPortT): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadGetStackaddrNp(thread: PthreadT): COpaquePointer? = null
 
@@ -3648,13 +3653,13 @@ public fun osUnfairLockAssertOwner(lock: OsUnfairLockT) { }
 
 public fun osUnfairLockAssertNotOwner(lock: OsUnfairLockT) { }
 
-public fun osLogCreate(subsystem: String?, category: String?): OsLogT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun osLogCreate(subsystem: String?, category: String?): OsLogT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun osLogTypeEnabled(oslog: OsLogT, tpe: OsLogTypeT): Boolean = false
 
-public fun osSignpostIdMakeWithPointer(log: OsLogT, ptr: COpaquePointer?): OsSignpostIdT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun osSignpostIdMakeWithPointer(log: OsLogT, ptr: COpaquePointer?): OsSignpostIdT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun osSignpostIdGenerate(log: OsLogT): OsSignpostIdT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun osSignpostIdGenerate(log: OsLogT): OsSignpostIdT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun osSignpostEnabled(log: OsLogT): Boolean = false
 
@@ -3840,7 +3845,7 @@ public fun fcopyfile(from: CInt, to: CInt, state: CopyfileStateT, flags: Copyfil
 
 public fun copyfileStateFree(s: CopyfileStateT): CInt = -1
 
-public fun copyfileStateAlloc(): CopyfileStateT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun copyfileStateAlloc(): CopyfileStateT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun copyfileStateGet(s: CopyfileStateT, flags: UInt, dst: COpaquePointer?): CInt = -1
 
@@ -3858,7 +3863,7 @@ public fun memsetPattern16(b: COpaquePointer?, pattern16: COpaquePointer?, len: 
 
 public fun strtonum(numstr: String?, minval: CLongLong, maxval: CLongLong, errstrp: COpaquePointer?): CLongLong = -1L
 
-public fun mstats(): Mstats { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mstats(): Mstats = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mallocPrintf(format: String?, vararg args: Any?) { }
 
@@ -3926,7 +3931,7 @@ public fun gethostid(): CLong = -1L
 
 public fun sethostid(hostid: CLong) { }
 
-public fun cCRandomGenerateBytes(bytes: COpaquePointer?, size: ULong): CCRNGStatus { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun cCRandomGenerateBytes(bytes: COpaquePointer?, size: ULong): CCRNGStatus = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt = -1
 
@@ -3961,6 +3966,7 @@ public fun taskTerminate(targetTask: TaskT): KernReturnT = 0
 public fun taskThreads(targetTask: TaskInspectT, actList: ThreadActArrayT, actListCnt: MachMsgTypeNumberT?): KernReturnT = 0
 
 public fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: MachMsgTypeNumberT?): KernReturnT = 0
+
 public fun getattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt = -1
 
 public fun fgetattrlist(fd: CInt, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt = -1
@@ -3999,7 +4005,7 @@ public fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaque
 
 public fun taskSetInfo(targetTask: TaskT, flavor: TaskFlavorT, taskInfoIn: TaskInfoT, taskInfoInCnt: MachMsgTypeNumberT): KernReturnT = 0
 
-public fun iconvOpen(tocode: String?, fromcode: String?): IconvT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong = 0uL
 

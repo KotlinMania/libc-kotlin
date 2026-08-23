@@ -241,4 +241,4 @@ public fun basename(path: String?): String? = null
 
 public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) { }
 
-public fun kvmKerndisp(kd: KvmT): KssizeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun kvmKerndisp(kd: KvmT): KssizeT = throw UnsupportedOperationException("Not implemented on this platform")

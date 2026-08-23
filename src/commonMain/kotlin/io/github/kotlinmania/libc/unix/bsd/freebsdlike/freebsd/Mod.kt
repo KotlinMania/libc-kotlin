@@ -2,12 +2,12 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_UPTIME
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_REALTIME_FAST
+import io.github.kotlinmania.libc.unix.bsd.PATH_MAX
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_MONOTONIC_FAST
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_REALTIME_FAST
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_UPTIME
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RLIM_INFINITY
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RlimT
-import io.github.kotlinmania.libc.unix.bsd.PATH_MAX
 
 internal fun capRight(idx: Int, bit: ULong): ULong =
     (1uL shl (57 + idx)) or bit
@@ -3158,7 +3158,7 @@ public fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CI
 
 public fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt = -1
 
-public fun ftok(pathname: String?, projId: CInt): KeyT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ftok(pathname: String?, projId: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt = -1
 

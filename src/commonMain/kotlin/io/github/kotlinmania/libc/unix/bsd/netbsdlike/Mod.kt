@@ -716,7 +716,7 @@ public fun gethostid(): CLong = -1L
 
 public fun sethostid(hostid: CLong): CInt = -1
 
-public fun ftok(path: String?, id: CInt): KeyT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ftok(path: String?, id: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun dirname(path: String?): String? = null
 

@@ -528,11 +528,11 @@ public fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaq
 
 public fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
 
-public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadSelf(): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt = -1
 
-public fun pthreadExit(value: COpaquePointer?): Nothing { throw UnsupportedOperationException() }
+public fun pthreadExit(value: COpaquePointer?): Nothing = throw UnsupportedOperationException()
 
 public fun pthreadAttrInit(attr: PthreadAttrT?): CInt = -1
 
@@ -626,7 +626,7 @@ public fun vsnprintf(s: String?, n: ULong, fmt: String?, ap: VaList): CInt = -1
 
 public fun vsprintf(s: String?, fmt: String?, ap: VaList): CInt = -1
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun schedGetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
 
@@ -734,9 +734,9 @@ public fun iswspace(wc: WintT): CInt = -1
 
 public fun iswupper(wc: WintT): CInt = -1
 
-public fun towupper(wc: WintT): WintT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun towupper(wc: WintT): WintT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun towlower(wc: WintT): WintT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun towlower(wc: WintT): WintT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun atan(x: CDouble): CDouble = 0.0
 
@@ -776,11 +776,11 @@ public fun atoll(s: String?): CLongLong = -1L
 
 public fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc): COpaquePointer? = null
 
-public fun div(num: CInt, den: CInt): DivT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun div(num: CInt, den: CInt): DivT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun ecvt(x: CDouble, n: CInt, dp: CInt?, sign: CInt?): String? = null
 
-public fun imaxabs(a: IntmaxT): IntmaxT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun imaxabs(a: IntmaxT): IntmaxT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun llabs(a: CLongLong): CLongLong = -1L
 

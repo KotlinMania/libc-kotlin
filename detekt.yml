@@ -51,6 +51,7 @@ style:
   UnusedPrivateProperty: { active: false }
   RedundantVisibilityModifierRule: { active: false }
   UnnecessaryAbstractClass: { active: false }
+  MayBeConst: { active: false }
 
 complexity:
   active: true

@@ -11,9 +11,7 @@ public actual fun malloc(size: ULong): COpaquePointer? =
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("libc realloc is not available on JVM target")
 
-public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("libc free is not available on JVM target")
-}
+public actual fun free(p: COpaquePointer?): Unit = throw UnsupportedOperationException("libc free is not available on JVM target")
 
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("libc memalign is not available on JVM target")
@@ -41,7 +39,7 @@ public actual fun mmap(
     prot: CInt,
     flags: CInt,
     fd: CInt,
-    offset: OffT
+    offset: OffT,
 ): COpaquePointer? =
     throw UnsupportedOperationException("libc mmap is not available on JVM target")
 

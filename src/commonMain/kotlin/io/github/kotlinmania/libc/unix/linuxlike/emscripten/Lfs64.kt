@@ -10,7 +10,6 @@ import io.github.kotlinmania.libc.FposT
 import io.github.kotlinmania.libc.Iovec
 import io.github.kotlinmania.libc.ModeT
 import io.github.kotlinmania.libc.Off64T
-import io.github.kotlinmania.libc.OffT
 import io.github.kotlinmania.libc.Rlimit
 import io.github.kotlinmania.libc.Rlimit64
 import io.github.kotlinmania.libc.SsizeT
@@ -28,6 +27,9 @@ import io.github.kotlinmania.libc.unix.fstatat
 import io.github.kotlinmania.libc.unix.fstatvfs
 import io.github.kotlinmania.libc.unix.ftello
 import io.github.kotlinmania.libc.unix.ftruncate
+import io.github.kotlinmania.libc.unix.linuxlike.fstatfs
+import io.github.kotlinmania.libc.unix.linuxlike.posixFadvise
+import io.github.kotlinmania.libc.unix.linuxlike.statfs
 import io.github.kotlinmania.libc.unix.lseek
 import io.github.kotlinmania.libc.unix.lstat
 import io.github.kotlinmania.libc.unix.mmap
@@ -39,9 +41,6 @@ import io.github.kotlinmania.libc.unix.stat
 import io.github.kotlinmania.libc.unix.statvfs
 import io.github.kotlinmania.libc.unix.tmpfile
 import io.github.kotlinmania.libc.unix.truncate
-import io.github.kotlinmania.libc.unix.linuxlike.fstatfs
-import io.github.kotlinmania.libc.unix.linuxlike.posixFadvise
-import io.github.kotlinmania.libc.unix.linuxlike.statfs
 
 /**
  * LFS64 entry points. Each is a thin alias for its non-64 counterpart.

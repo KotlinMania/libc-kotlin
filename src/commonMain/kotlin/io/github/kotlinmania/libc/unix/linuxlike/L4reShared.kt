@@ -1263,17 +1263,17 @@ public fun rTADDRCLASS(flags: UInt): UInt = 0u
 
 public fun rTLOCALADDR(flags: UInt): Boolean = false
 
-public fun eLF32RSYM(`val`: Elf32Word): Elf32Word { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun eLF32RSYM(`val`: Elf32Word): Elf32Word = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF32RTYPE(`val`: Elf32Word): Elf32Word { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun eLF32RTYPE(`val`: Elf32Word): Elf32Word = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF32RINFO(sym: Elf32Word, t: Elf32Word): Elf32Word { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun eLF32RINFO(sym: Elf32Word, t: Elf32Word): Elf32Word = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF64RSYM(`val`: Elf64Xword): Elf64Xword { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun eLF64RSYM(`val`: Elf64Xword): Elf64Xword = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF64RTYPE(`val`: Elf64Xword): Elf64Xword { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun eLF64RTYPE(`val`: Elf64Xword): Elf64Xword = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF64RINFO(sym: Elf64Xword, t: Elf64Xword): Elf64Xword { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun eLF64RINFO(sym: Elf64Xword, t: Elf64Xword): Elf64Xword = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun iopl(level: CInt): CInt = -1
 
@@ -1451,7 +1451,7 @@ public fun regerror(errcode: CInt, preg: RegexT, errbuf: String?, errbufSize: UL
 
 public fun regfree(preg: RegexT) { }
 
-public fun iconvOpen(tocode: String?, fromcode: String?): IconvT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong = 0uL
 

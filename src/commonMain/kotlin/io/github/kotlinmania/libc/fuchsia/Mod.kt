@@ -1,8 +1,7 @@
 // port-lint: source fuchsia/mod.rs
 package io.github.kotlinmania.libc.fuchsia
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public typealias IntmaxT = Long
 public typealias UintmaxT = ULong
@@ -750,11 +749,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid ?: 0
+
     public fun siUid(): UidT = siUid ?: 0u
+
     public fun siStatus(): CInt = siStatus ?: 0
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -2658,9 +2663,9 @@ public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
 
 public fun free(p: COpaquePointer?) { }
 
-public fun abort(): Nothing { throw UnsupportedOperationException() }
+public fun abort(): Nothing = throw UnsupportedOperationException()
 
-public fun exit(status: CInt): Nothing { throw UnsupportedOperationException() }
+public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
 public fun atexit(cb: (() -> Unit)?): CInt = -1
 
@@ -2860,11 +2865,11 @@ public fun fpathconf(filedes: CInt, name: CInt): CLong = -1L
 
 public fun getcwd(buf: String?, size: ULong): String? = null
 
-public fun getegid(): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getegid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun geteuid(): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun geteuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun getgid(): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getgid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt = -1
 
@@ -2880,7 +2885,7 @@ public fun getpid(): PidT = -1
 
 public fun getppid(): PidT = -1
 
-public fun getuid(): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun getuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun isatty(fd: CInt): CInt = -1
 
@@ -2934,7 +2939,7 @@ public fun pread(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): Ss
 
 public fun pwrite(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): SsizeT = -1L
 
-public fun umask(mask: ModeT): ModeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun umask(mask: ModeT): ModeT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun utime(file: String?, buf: Utimbuf?): CInt = -1
 
@@ -2968,7 +2973,7 @@ public fun symlink(path1: String?, path2: String?): CInt = -1
 
 public fun ftruncate(fd: CInt, length: OffT): CInt = -1
 
-public fun signal(signum: CInt, handler: SighandlerT): SighandlerT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun signal(signum: CInt, handler: SighandlerT): SighandlerT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun realpath(pathname: String?, resolved: String?): String? = null
 
@@ -2978,11 +2983,11 @@ public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
 
 public fun times(buf: Tms?): ClockT = -1L
 
-public fun pthreadSelf(): PthreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pthreadSelf(): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt = -1
 
-public fun pthreadExit(value: COpaquePointer?): Nothing { throw UnsupportedOperationException() }
+public fun pthreadExit(value: COpaquePointer?): Nothing = throw UnsupportedOperationException()
 
 public fun pthreadAttrInit(attr: PthreadAttrT?): CInt = -1
 
@@ -3174,9 +3179,9 @@ public fun ftello(stream: FILE?): OffT = -1L
 
 public fun tcdrain(fd: CInt): CInt = -1
 
-public fun cfgetispeed(termios: Termios?): SpeedT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun cfgetispeed(termios: Termios?): SpeedT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun cfgetospeed(termios: Termios?): SpeedT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun cfgetospeed(termios: Termios?): SpeedT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun cfmakeraw(termios: Termios?) { }
 
@@ -3318,7 +3323,7 @@ public fun shmdt(shmaddr: COpaquePointer?): CInt = -1
 
 public fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt = -1
 
-public fun ftok(pathname: String?, projId: CInt): KeyT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ftok(pathname: String?, projId: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt = -1
 

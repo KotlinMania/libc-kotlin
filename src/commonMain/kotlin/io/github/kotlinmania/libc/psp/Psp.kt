@@ -2727,9 +2727,9 @@ public fun sceGeListDeQueue(qid: Int): Int = -1
 
 public fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): Int = -1
 
-public fun sceGeListSync(qid: Int, syncType: Int): GeListState { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun sceGeListSync(qid: Int, syncType: Int): GeListState = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun sceGeDrawSync(syncType: Int): GeListState { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun sceGeDrawSync(syncType: Int): GeListState = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun sceGeBreak(mode: Int, pParam: GeBreakParam?): Int = -1
 
@@ -2855,7 +2855,7 @@ public fun sceKernelStdout(): SceUid = SceUid(0)
 
 public fun sceKernelStderr(): SceUid = SceUid(0)
 
-public fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid = SceUid(0)
 
@@ -3461,7 +3461,7 @@ public fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, of
 
 public fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: Int?): Int = -1
 
-public fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) { }
 
@@ -3535,7 +3535,7 @@ public fun sceGuBreak(mode: Int) { }
 
 public fun sceGuContinue() { }
 
-public fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun sceGuSignal(behavior: SignalBehavior, signal: Int) { }
 
@@ -3561,7 +3561,7 @@ public fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: GeCo
 
 public fun sceGuSwapBuffers(): COpaquePointer? = null
 
-public fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) { }
 

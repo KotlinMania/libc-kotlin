@@ -2247,7 +2247,7 @@ public fun fDISSET(fd: CInt, set: FdSet?): Boolean = false
 
 public fun thrKill(id: ThreadT, sig: CInt): CInt = -1
 
-public fun thrSelf(): ThreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun thrSelf(): ThreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
 
@@ -2383,7 +2383,7 @@ public fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf
 
 public fun iconvClose(cd: IconvT): CInt = -1
 
-public fun iconvOpen(tocode: String?, fromcode: String?): IconvT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun acct(filename: String?): CInt = -1
 
@@ -2483,7 +2483,7 @@ public fun fstatvfs64(fd: CInt, buf: Statvfs64?): CInt = -1
 
 public fun ftello64(stream: FILE?): Off64T = -1L
 
-public fun ftok(path: String?, id: CInt): KeyT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ftok(path: String?, id: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun ftruncate64(fd: CInt, length: Off64T): CInt = -1
 
@@ -2591,7 +2591,7 @@ public fun madvise(addr: CaddrT, len: ULong, advice: CInt): CInt = -1
 
 public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
 
-public fun mallinfo(): Mallinfo { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun mallinfo(): Mallinfo = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun mallopt(param: CInt, value: CInt): CInt = -1
 
@@ -2651,7 +2651,7 @@ public fun nrand48(xseed: CUShort?): CLong = -1L
 
 public fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt = -1
 
-public fun pollsetCreate(maxfd: CInt): PollsetT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun pollsetCreate(maxfd: CInt): PollsetT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pollsetCtl(ps: PollsetT, pollctlArray: PollCtl?, arrayLength: CInt): CInt = -1
 

@@ -1,8 +1,7 @@
 // port-lint: source unix/solarish/mod.rs
 package io.github.kotlinmania.libc.unix.solarish
-import io.github.kotlinmania.libc.unix.Sigval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 internal const val _TIOC: CInt = 0x5400
 internal const val tIOC: CInt = 0x7400
@@ -518,11 +517,17 @@ public data class SiginfoT(
     val siStime: CLong? = null,
 ) {
     public fun siAddr(): COpaquePointer? = siAddr
+
     public fun siValue(): Sigval? = siValue
+
     public fun siPid(): PidT = siPid ?: 0
+
     public fun siUid(): UidT = siUid ?: 0u
+
     public fun siStatus(): CInt = siStatus ?: 0
+
     public fun siUtime(): CLong = siUtime ?: 0L
+
     public fun siStime(): CLong = siStime ?: 0L
 }
 
@@ -2106,7 +2111,7 @@ public fun getdtablesize(): CInt = -1
 
 public fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
 
-public fun thrSelf(): ThreadT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun thrSelf(): ThreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt = -1
 
@@ -2216,25 +2221,25 @@ public fun getpeerucred(fd: CInt, ucred: COpaquePointer?): CInt = -1
 
 public fun ucredFree(ucred: UcredT) { }
 
-public fun ucredGeteuid(ucred: UcredT): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGeteuid(ucred: UcredT): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ucredGetruid(ucred: UcredT): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGetruid(ucred: UcredT): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ucredGetsuid(ucred: UcredT): UidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGetsuid(ucred: UcredT): UidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ucredGetegid(ucred: UcredT): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGetegid(ucred: UcredT): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ucredGetrgid(ucred: UcredT): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGetrgid(ucred: UcredT): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ucredGetsgid(ucred: UcredT): GidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGetsgid(ucred: UcredT): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun ucredGetgroups(ucred: UcredT, groups: COpaquePointer?): CInt = -1
 
 public fun ucredGetpid(ucred: UcredT): PidT = -1
 
-public fun ucredGetprojid(ucred: UcredT): ProjidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGetprojid(ucred: UcredT): ProjidT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ucredGetzoneid(ucred: UcredT): ZoneidT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun ucredGetzoneid(ucred: UcredT): ZoneidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun ucredGetpflags(ucred: UcredT, flags: CUInt): CUInt = 0u
 
@@ -2316,11 +2321,11 @@ public fun aioWrite(aiocbp: Aiocb?): CInt = -1
 
 public fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt = -1
 
-public fun major(version: CInt, devnum: DevT): MajorT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun major(version: CInt, devnum: DevT): MajorT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun minor(version: CInt, devnum: DevT): MinorT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun minor(version: CInt, devnum: DevT): MinorT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun makedev(version: CInt, majdev: MajorT, mindev: MinorT): DevT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun makedev(version: CInt, majdev: MajorT, mindev: MinorT): DevT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun arc4random(): UInt = 0u
 
@@ -2338,26 +2343,26 @@ public fun sendfile(outFd: CInt, inFd: CInt, off: OffT?, len: ULong): SsizeT = -
 
 public fun sendfilev(fildes: CInt, vec: SendfilevecT?, sfvcnt: CInt, xferred: ULong?): SsizeT = -1L
 
-public fun lgrpInit(view: LgrpViewT): LgrpCookieT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lgrpInit(view: LgrpViewT): LgrpCookieT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun lgrpFini(cookie: LgrpCookieT): CInt = -1
 
-public fun lgrpAffinityGet(idtype: IdtypeT, id: IdT, lgrp: LgrpIdT): LgrpAffinityT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lgrpAffinityGet(idtype: IdtypeT, id: IdT, lgrp: LgrpIdT): LgrpAffinityT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun lgrpAffinitySet(idtype: IdtypeT, id: IdT, lgrp: LgrpIdT, aff: LgrpAffinityT): CInt = -1
 
 public fun lgrpCpus(cookie: LgrpCookieT, lgrp: LgrpIdT, cpuids: ProcessoridT?, count: CUInt, content: LgrpContentT): CInt = -1
 
-public fun lgrpMemSize(cookie: LgrpCookieT, lgrp: LgrpIdT, tpe: LgrpMemSizeFlagT, content: LgrpContentT): LgrpMemSizeT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lgrpMemSize(cookie: LgrpCookieT, lgrp: LgrpIdT, tpe: LgrpMemSizeFlagT, content: LgrpContentT): LgrpMemSizeT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun lgrpNlgrps(cookie: LgrpCookieT): CInt = -1
 
-public fun lgrpView(cookie: LgrpCookieT): LgrpViewT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lgrpView(cookie: LgrpCookieT): LgrpViewT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun lgrpHome(idtype: IdtypeT, id: IdT): LgrpIdT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lgrpHome(idtype: IdtypeT, id: IdT): LgrpIdT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun lgrpVersion(version: CInt): CInt = -1
 
 public fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: LgrpIdT?, count: CUInt, tpe: LgrpRsrcT): CInt = -1
 
-public fun lgrpRoot(cookie: LgrpCookieT): LgrpIdT { throw UnsupportedOperationException("Not implemented on this platform") }
+public fun lgrpRoot(cookie: LgrpCookieT): LgrpIdT = throw UnsupportedOperationException("Not implemented on this platform")
