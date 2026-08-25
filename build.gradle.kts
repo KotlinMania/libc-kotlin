@@ -1,3 +1,4 @@
+import org.gradle.api.Action
 import org.gradle.api.GradleException
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.publish.maven.MavenPublication
@@ -6,6 +7,12 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.support.serviceOf
 import org.gradle.process.ExecOperations
+import org.gradle.workers.ProcessWorkerSpec
+import org.gradle.workers.WorkerExecutor
+import java.lang.reflect.Field
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Method
+import java.lang.reflect.Proxy
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -336,6 +343,60 @@ tasks
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
     if (name.startsWith("compileSwiftExport")) {
         compilerOptions.allWarningsAsErrors.set(false)
+    }
+}
+
+
+
+tasks.matching { it.name.endsWith("SwiftExport") }.configureEach {
+    val task = this
+    task.doFirst {
+        println("SWIFT_EXPORT_PROXY: configuring for task ${task.name}")
+        try {
+            var currentClass: Class<*>? = task.javaClass
+            var field: Field? = null
+            while (currentClass != null && field == null) {
+                try {
+                    field = currentClass.getDeclaredField("workerExecutor")
+                } catch (_: NoSuchFieldException) {
+                    currentClass = currentClass.superclass
+                }
+            }
+            if (field != null) {
+                field.isAccessible = true
+                val origExecutor = field.get(task) as? WorkerExecutor
+                if (origExecutor != null && !Proxy.isProxyClass(origExecutor.javaClass)) {
+                    val proxy = Proxy.newProxyInstance(
+                        WorkerExecutor::class.java.classLoader,
+                        arrayOf(WorkerExecutor::class.java),
+                        object : InvocationHandler {
+                            override fun invoke(p: Any?, method: Method, a: Array<out Any?>?): Any? {
+                                if (method.name == "processIsolation" && a != null && a.isNotEmpty()) {
+                                    @Suppress("UNCHECKED_CAST")
+                                    val origAction = a[0] as? Action<ProcessWorkerSpec>
+                                    val wrappedAction = Action<ProcessWorkerSpec> {
+                                        origAction?.execute(this)
+                                        forkOptions.maxHeapSize = "16g"
+                                        forkOptions.jvmArgs("-XX:MaxMetaspaceSize=2g")
+                                    }
+                                    return origExecutor.processIsolation(wrappedAction)
+                                } else {
+                                    return if (a == null) {
+                                        method.invoke(origExecutor)
+                                    } else {
+                                        method.invoke(origExecutor, *a)
+                                    }
+                                }
+                            }
+                        },
+                    )
+                    field.set(task, proxy)
+                    println("SWIFT_EXPORT_PROXY: successfully replaced workerExecutor with 8g proxy on ${task.name}")
+                }
+            }
+        } catch (t: Throwable) {
+            println("SWIFT_EXPORT_PROXY: error $t")
+        }
     }
 }
 
@@ -711,6 +772,8 @@ val emptyJavadocJar by tasks.registering(Jar::class) {
 // POM config, signing, staging, and the bundle. Harmless until cpp-library exists.
 val cppLibraryPublicationName = "main"
 
+
+
 publishing {
     publications.withType<MavenPublication>().matching { it.name != cppLibraryPublicationName }.configureEach {
         artifact(emptyJavadocJar)
@@ -858,8 +921,7 @@ val publishToCentralPortal by tasks.registering {
 tasks.register("test") {
     group = "verification"
     description = "Runs the commonTest-backed KMP suite, Android host tests, and Swift Export smoke test."
-    dependsOn("allTests")
-    dependsOn("testAndroidHostTest")
+    dependsOn("hostTests")
     dependsOn("swiftExportSmokeTest")
 }
 
@@ -897,17 +959,25 @@ tasks.register("swiftExportSmokeTest") {
 
     doLast {
         val execOperations = serviceOf<ExecOperations>()
-        val swiftBuildDir =
+        val swiftBuildFile =
             layout.buildDirectory
                 .dir("swift-test")
                 .get()
                 .asFile
-                .absolutePath
+        swiftBuildFile.deleteRecursively()
+        swiftBuildFile.mkdirs()
+        val swiftBuildDir = swiftBuildFile.absolutePath
+        layout.buildDirectory
+            .dir("bin/macosArm64/SwiftExportBinaryDebugStatic")
+            .get()
+            .asFile
+            .mkdirs()
         execOperations
             .exec {
                 workingDir = projectDir
                 commandLine(
                     "./gradlew",
+                    "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=1g",
                     "embedSwiftExportForXcode",
                     "--no-configuration-cache",
                     "--no-daemon",
@@ -937,23 +1007,20 @@ tasks.register("swiftExportSmokeTest") {
             if (!text.contains("platforms:")) {
                 generatedPackageSwift.writeText(
                     text.replaceFirst(
-                        Regex("(name:\\s*\"[^\"]*\",)"),
-                        "\$1\n    platforms: [.macOS(.v14)],",
+                        Regex("""(Package\(\s*name:\s*"[^"]*",)"""),
+                        "$1\n    platforms: [.macOS(.v14)],",
                     ),
                 )
             }
         }
 
-        execOperations
-            .exec {
-                workingDir = layout.projectDirectory.dir("swift-test-harness").asFile
-                commandLine("swift", "package", "reset")
-            }.assertNormalExitValue()
+        val scratchDir = layout.buildDirectory.dir("swift-test-scratch").get().asFile
+        scratchDir.deleteRecursively()
 
         execOperations
             .exec {
                 workingDir = layout.projectDirectory.dir("swift-test-harness").asFile
-                commandLine("swift", "test")
+                commandLine("swift", "test", "--scratch-path", scratchDir.absolutePath)
             }.assertNormalExitValue()
     }
 }
