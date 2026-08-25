@@ -403,7 +403,7 @@ public enum class SceSysMemBlockTypes(
     Addr(2),
 }
 
-public enum class Interrupt(
+public enum class PspInterrupt(
     public val value: UInt,
 ) {
     Gpio(4u),
@@ -437,12 +437,12 @@ public enum class Interrupt(
 public enum class SubInterrupt(
     public val value: UInt,
 ) {
-    Gpio(Interrupt.Gpio.value),
-    Ata(Interrupt.Ata.value),
-    Umd(Interrupt.Umd.value),
-    Dmacplus(Interrupt.Dmacplus.value),
-    Ge(Interrupt.Ge.value),
-    Display(Interrupt.Vblank.value),
+    Gpio(PspInterrupt.Gpio.value),
+    Ata(PspInterrupt.Ata.value),
+    Umd(PspInterrupt.Umd.value),
+    Dmacplus(PspInterrupt.Dmacplus.value),
+    Ge(PspInterrupt.Ge.value),
+    Display(PspInterrupt.Vblank.value),
 }
 
 public enum class SceKernelIdListType(

@@ -69,7 +69,7 @@ public data class Aiocb(
     val aioReqprio: CInt,
     val aioSigevent: Sigevent,
     val state: CInt,
-    val errno: CInt,
+    val _errno: CInt,
     val retval: SsizeT,
 )
 
