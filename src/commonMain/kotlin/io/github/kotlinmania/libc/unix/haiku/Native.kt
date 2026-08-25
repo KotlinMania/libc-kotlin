@@ -124,7 +124,7 @@ public data class SystemInfo(
 )
 
 public data class ObjectWaitInfo(
-    val `object`: Int,
+    val obj: Int,
     val type: UShort,
     val events: UShort,
 )
@@ -247,7 +247,7 @@ public data class CpuidInfo(
 // C union; only one variant is valid at a time.
 public data class CAnonymousCpuTopologyInfoData(
     val root: CpuTopologyRootInfo? = null,
-    val `package`: CpuTopologyPackageInfo? = null,
+    val pkg: CpuTopologyPackageInfo? = null,
     val core: CpuTopologyCoreInfo? = null,
 )
 

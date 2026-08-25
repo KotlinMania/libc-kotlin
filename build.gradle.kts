@@ -1020,7 +1020,7 @@ tasks.register("swiftExportSmokeTest") {
         execOperations
             .exec {
                 workingDir = layout.projectDirectory.dir("swift-test-harness").asFile
-                commandLine("swift", "test", "--scratch-path", scratchDir.absolutePath)
+                commandLine("swift", "test", "-j", "1", "--scratch-path", scratchDir.absolutePath)
             }.assertNormalExitValue()
     }
 }

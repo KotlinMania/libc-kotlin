@@ -1,9 +1,11 @@
-import XCTest
+import Testing
 import Libc
 
-final class LibcExportTests: XCTestCase {
+@Suite("Libc Export Smoke Tests")
+struct LibcExportTests {
+    @Test("Swift module loads cleanly")
     func testSwiftModuleLoads() throws {
-        XCTAssertTrue(true, "Libc swift module imported cleanly")
+        #expect(true)
     }
 }
 

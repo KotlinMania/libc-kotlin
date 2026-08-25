@@ -397,7 +397,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val `val`: CInt,
+    val value: CInt,
 )
 
 public data class SockaddrUn(

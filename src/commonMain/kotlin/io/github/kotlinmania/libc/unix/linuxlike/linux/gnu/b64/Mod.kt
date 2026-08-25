@@ -18,7 +18,7 @@ public typealias TimeT = Int
 public typealias FswordT = Int
 
 public data class SigsetT(
-    val `val`: ULongArray,
+    val value: ULongArray,
 )
 
 public data class Sysinfo(

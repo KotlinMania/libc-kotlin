@@ -327,7 +327,7 @@ public data class UinputAbsSetup(
 )
 
 public data class CAnonymousKernelFsidT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public data class PosixSpawnFileActionsT(
@@ -416,7 +416,7 @@ public data class SeccompNotif(
 
 public data class SeccompNotifResp(
     val id: U64,
-    val `val`: S64,
+    val value: S64,
     val error: S32,
     val flags: U32,
 )

@@ -295,7 +295,7 @@ public data class Group(
     val grName: String?,
     val grPasswd: String?,
     val grGid: GidT,
-    val grMem: Array<String?>,
+    val grMem: List<String?>,
 )
 
 public data class Passwd(
@@ -651,7 +651,7 @@ public data class DlInfo(
 
 public data class GlobT(
     val glPathc: ULong,
-    val glPathv: Array<String?>?,
+    val glPathv: List<String?>?,
     val glOffs: ULong,
     val glFlags: CInt,
 )

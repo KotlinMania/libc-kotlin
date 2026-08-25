@@ -1476,7 +1476,7 @@ public data class CAnonymousIfrIfru6(
 
 // C union; only one variant is valid at a time.
 public data class Semun(
-    val `val`: CInt? = null,
+    val value: CInt? = null,
     val buf: SemidDs? = null,
     val array: CUShort? = null,
 )
