@@ -22,6 +22,10 @@ import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.wasm.yarn.WasmYarnRootEnvSpec
 import java.io.ByteArrayInputStream
+import java.lang.reflect.Field
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Method
+import java.lang.reflect.Proxy
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -931,6 +935,50 @@ tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     }
 }
 
+// SwiftExport runs inside a Gradle WorkerExecutor process isolation which defaults to 512m heap.
+// For libc-kotlin (351 source files, tens of thousands of declarations), Analysis API needs 6GB.
+tasks.matching { it.name.endsWith("SwiftExport") }.configureEach {
+    doFirst {
+        try {
+            var clazz: Class<*>? = this.javaClass
+            var targetField: Field? = null
+            while (clazz != null && targetField == null) {
+                try {
+                    targetField = clazz.getDeclaredField("workerExecutor")
+                } catch (_: NoSuchFieldException) {
+                    clazz = clazz.superclass
+                }
+            }
+            if (targetField != null) {
+                targetField.isAccessible = true
+                val original = targetField.get(this) as? org.gradle.workers.WorkerExecutor
+                if (original != null) {
+                    val handler = InvocationHandler { _, method: Method, args: Array<Any?>? ->
+                        if (method.name == "processIsolation" && args != null && args.isNotEmpty()) {
+                            @Suppress("UNCHECKED_CAST")
+                            val origAction = args[0] as? org.gradle.api.Action<in org.gradle.workers.ProcessWorkerSpec>
+                            val customAction = org.gradle.api.Action<org.gradle.workers.ProcessWorkerSpec> {
+                                this.forkOptions.maxHeapSize = "6g"
+                                origAction?.execute(this)
+                            }
+                            original.processIsolation(customAction)
+                        } else {
+                            if (args == null) method.invoke(original) else method.invoke(original, *args)
+                        }
+                    }
+                    val proxy = Proxy.newProxyInstance(
+                        org.gradle.workers.WorkerExecutor::class.java.classLoader,
+                        arrayOf(org.gradle.workers.WorkerExecutor::class.java),
+                        handler,
+                    )
+                    targetField.set(this, proxy)
+                }
+            }
+        } catch (_: Throwable) {
+        }
+    }
+}
+
 // Swift Export smoke test — produces the SPM package via embedSwiftExportForXcode
 // (spawned with the Xcode-style env it requires) and runs `swift test` against it,
 // so Swift Export breakage surfaces locally, not only in the swift.yml CI job.
@@ -970,6 +1018,7 @@ tasks.register("swiftExportSmokeTest") {
                         "FRAMEWORKS_FOLDER_PATH" to "Frameworks",
                         "MACOSX_DEPLOYMENT_TARGET" to "14.0",
                         "DEPLOYMENT_TARGET_SETTING_NAME" to "MACOSX_DEPLOYMENT_TARGET",
+                        "JAVA_TOOL_OPTIONS" to "-Xmx6g",
                     ),
                 )
             }.assertNormalExitValue()
@@ -983,7 +1032,7 @@ tasks.register("swiftExportSmokeTest") {
         execOperations
             .exec {
                 workingDir = layout.projectDirectory.dir("swift-test-harness").asFile
-                commandLine("swift", "test")
+                commandLine("swift", "test", "-j", "1")
             }.assertNormalExitValue()
     }
 }

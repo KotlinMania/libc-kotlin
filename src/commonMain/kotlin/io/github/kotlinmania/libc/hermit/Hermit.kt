@@ -1,7 +1,6 @@
 // port-lint: source hermit.rs
 package io.github.kotlinmania.libc.hermit
 
-import io.github.kotlinmania.libc.Padding
 
 /**
  * Hermit C type definitions.
@@ -90,9 +89,9 @@ public data class SockaddrIn6(
 public data class SockaddrStorage(
     public val ssLen: UByte,
     public val ssFamily: SaFamily,
-    public val ssPad1: Padding<UByteArray>,
+    public val ssPad1: List<UByte>,
     public val ssAlign: Long,
-    public val ssPad2: Padding<UByteArray>,
+    public val ssPad2: List<UByte>,
 )
 
 public data class Stat(
