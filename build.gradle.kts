@@ -1,18 +1,14 @@
-import org.gradle.api.Action
+import groovy.json.JsonSlurper
 import org.gradle.api.GradleException
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.api.tasks.testing.AbstractTestTask
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.support.serviceOf
+import org.gradle.plugins.signing.Sign
 import org.gradle.process.ExecOperations
-import org.gradle.workers.ProcessWorkerSpec
-import org.gradle.workers.WorkerExecutor
-import java.lang.reflect.Field
-import java.lang.reflect.InvocationHandler
-import java.lang.reflect.Method
-import java.lang.reflect.Proxy
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -44,9 +40,6 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kotlinx.benchmark)
     alias(libs.plugins.kotlin.allopen)
-    // First-party publishing (not vanniktech): libc will host the cpp-library
-    // Node N-API addon, whose native publication vanniktech rejects. maven-publish
-    // is permissive; Central Portal upload is a bespoke task. See socket2-kotlin.
     `maven-publish`
     signing
 }
@@ -346,60 +339,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().con
     }
 }
 
-
-
-tasks.matching { it.name.endsWith("SwiftExport") }.configureEach {
-    val task = this
-    task.doFirst {
-        println("SWIFT_EXPORT_PROXY: configuring for task ${task.name}")
-        try {
-            var currentClass: Class<*>? = task.javaClass
-            var field: Field? = null
-            while (currentClass != null && field == null) {
-                try {
-                    field = currentClass.getDeclaredField("workerExecutor")
-                } catch (_: NoSuchFieldException) {
-                    currentClass = currentClass.superclass
-                }
-            }
-            if (field != null) {
-                field.isAccessible = true
-                val origExecutor = field.get(task) as? WorkerExecutor
-                if (origExecutor != null && !Proxy.isProxyClass(origExecutor.javaClass)) {
-                    val proxy = Proxy.newProxyInstance(
-                        WorkerExecutor::class.java.classLoader,
-                        arrayOf(WorkerExecutor::class.java),
-                        object : InvocationHandler {
-                            override fun invoke(p: Any?, method: Method, a: Array<out Any?>?): Any? {
-                                if (method.name == "processIsolation" && a != null && a.isNotEmpty()) {
-                                    @Suppress("UNCHECKED_CAST")
-                                    val origAction = a[0] as? Action<ProcessWorkerSpec>
-                                    val wrappedAction = Action<ProcessWorkerSpec> {
-                                        origAction?.execute(this)
-                                        forkOptions.maxHeapSize = "16g"
-                                        forkOptions.jvmArgs("-XX:MaxMetaspaceSize=2g")
-                                    }
-                                    return origExecutor.processIsolation(wrappedAction)
-                                } else {
-                                    return if (a == null) {
-                                        method.invoke(origExecutor)
-                                    } else {
-                                        method.invoke(origExecutor, *a)
-                                    }
-                                }
-                            }
-                        },
-                    )
-                    field.set(task, proxy)
-                    println("SWIFT_EXPORT_PROXY: successfully replaced workerExecutor with 8g proxy on ${task.name}")
-                }
-            }
-        } catch (t: Throwable) {
-            println("SWIFT_EXPORT_PROXY: error $t")
-        }
-    }
-}
-
 val jvmToolchainVersion = providers.gradleProperty("jvm.toolchain").getOrElse("21").toInt()
 
 // ============================================================================
@@ -415,21 +354,6 @@ val jvmToolchainVersion = providers.gradleProperty("jvm.toolchain").getOrElse("2
 // ============================================================================
 kotlin {
     jvmToolchain(jvmToolchainVersion)
-
-    // cinterop for real C library headers — binds to the actual system libc
-    // via generated C bindings, matching upstream Rust's `extern "C"` approach.
-    // NOT platform.posix (which is a curated POSIX abstraction with different
-    // bit widths across 32/64-bit targets).
-    // TODO: Requires full Xcode (not just CLT) for Apple targets. Enable when
-    // Xcode is available. Until then, actuals use platform.posix with .convert()
-    // to bridge type differences.
-    // targets.withType<KotlinNativeTarget>().configureEach {
-    //     compilations.getByName("main") {
-    //         cinterops.create("libc") {
-    //             defFile = project.file("src/nativeInterop/cinterop/libc.def")
-    //         }
-    //     }
-    // }
 
     applyDefaultHierarchyTemplate()
 
@@ -511,9 +435,7 @@ kotlin {
     linuxArm64 { configureBenchmarkCompilation() }
     mingwX64 { configureBenchmarkCompilation() }
 
-    // Android NDK — 64-bit only (matching kotlinmania/template). 32-bit targets
-    // (androidNativeArm32, androidNativeX86) are not supported: size_t is UInt on
-    // 32-bit vs ULong on 64-bit, breaking posixMain metadata compilation (§10).
+    // Android NDK — 64-bit only (32-bit retired §5.5.3, 2026-06-25).
     androidNativeArm64 { configureBenchmarkCompilation() }
     androidNativeX64 { configureBenchmarkCompilation() }
 
@@ -753,8 +675,7 @@ rootProject.extensions.configure<NodeJsRootExtension>("kotlinNodeJs") {
 // OSSRH was sunset 2025-06-30; the Central Portal is the only path. Sonatype
 // ships no first-party Gradle plugin, so we use Gradle's own maven-publish +
 // signing (KGP populates the KMP publications) and upload the deployment
-// bundle to the Portal API ourselves. No convenience plugin = no clash with
-// the cpp-library native publication libc will host for the Node addon.
+// bundle to the Portal API ourselves.
 //
 // Flow: publish all KMP publications into a local staging Maven layout ->
 // zip it -> POST the zip to the Portal upload endpoint with a Bearer token.
@@ -767,15 +688,8 @@ val emptyJavadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
 }
 
-// The cpp-library plugin (added with the Node addon) registers a native
-// publication named "main" that must never reach Maven Central. Exclude it from
-// POM config, signing, staging, and the bundle. Harmless until cpp-library exists.
-val cppLibraryPublicationName = "main"
-
-
-
 publishing {
-    publications.withType<MavenPublication>().matching { it.name != cppLibraryPublicationName }.configureEach {
+    publications.withType<MavenPublication>().configureEach {
         artifact(emptyJavadocJar)
         pom {
             name.set(publishProjectName)
@@ -827,21 +741,24 @@ signing {
     val signingEnabled = project.findProperty("RELEASE_SIGNING_ENABLED") != "false" && signingKey != null
     if (signingEnabled) {
         useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
-        sign(publishing.publications.matching { it.name != cppLibraryPublicationName })
+        sign(publishing.publications)
     }
 }
 
-// Never stage/publish the C++ wrapper publication to Maven Central.
-tasks
-    .matching {
-        it.name.startsWith("publish") && it.name.contains("MainPublication")
-    }.configureEach { enabled = false }
+val centralPortalPublishTasks =
+    tasks.withType<PublishToMavenRepository>().matching {
+        it.name.endsWith("ToCentralPortalStagingRepository")
+    }
+
+centralPortalPublishTasks.configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
 
 // Zip the staged Maven layout into a single Central Portal deployment bundle.
 val centralPortalBundle by tasks.registering(Zip::class) {
     group = "publishing"
     description = "Bundles the staged Maven artifacts into a Central Portal deployment zip."
-    dependsOn("publishAllPublicationsToCentralPortalStagingRepository")
+    dependsOn(centralPortalPublishTasks)
     from(layout.buildDirectory.dir("staging-deploy"))
     archiveFileName.set("$publishProjectName-$version-bundle.zip")
     destinationDirectory.set(layout.buildDirectory.dir("central-portal"))
@@ -872,7 +789,6 @@ val publishToCentralPortal by tasks.registering {
                 .asFile
         require(bundle.exists()) { "Deployment bundle not found: $bundle" }
 
-        // Build the multipart/form-data body by hand (single 'bundle' part).
         val boundary = "CentralPortalBoundary" + UUID.randomUUID().toString().replace("-", "")
         val crlf = "\r\n"
         val preamble =
@@ -904,9 +820,57 @@ val publishToCentralPortal by tasks.registering {
         if (response.statusCode() !in 200..299) {
             error("Central Portal upload failed: HTTP ${response.statusCode()} — ${response.body()}")
         }
+        val deploymentId = response.body().trim()
         logger.lifecycle(
-            "Central Portal upload accepted (deployment id: ${response.body()}). " +
+            "Central Portal upload accepted (deployment id: $deploymentId). " +
                 "publishingType=$publishingType.",
+        )
+        val automaticPublishing = publishingType.equals("AUTOMATIC", ignoreCase = true)
+        val terminalStates =
+            if (automaticPublishing) {
+                setOf("PUBLISHED")
+            } else {
+                setOf("VALIDATED", "PUBLISHED")
+            }
+        val statusUri = URI("https://central.sonatype.com/api/v1/publisher/status?id=$deploymentId")
+        val statusAttempts =
+            providers.gradleProperty("centralPublishStatusAttempts").map(String::toInt).getOrElse(120)
+        val statusDelayMillis =
+            providers.gradleProperty("centralPublishStatusDelayMillis").map(String::toLong).getOrElse(10_000L)
+        repeat(statusAttempts) { attempt ->
+            val statusRequest =
+                HttpRequest
+                    .newBuilder()
+                    .uri(statusUri)
+                    .header("Authorization", "Bearer $token")
+                    .POST(HttpRequest.BodyPublishers.noBody())
+                    .build()
+            val statusResponse = client.send(statusRequest, HttpResponse.BodyHandlers.ofString())
+            if (statusResponse.statusCode() !in 200..299) {
+                error("Central Portal status check failed: HTTP ${statusResponse.statusCode()} — ${statusResponse.body()}")
+            }
+            val statusBody = JsonSlurper().parseText(statusResponse.body()) as Map<*, *>
+            val deploymentState =
+                statusBody["deploymentState"]?.toString()
+                    ?: error("Central Portal status response did not contain deploymentState: ${statusResponse.body()}")
+            when (deploymentState) {
+                "FAILED" -> error("Central Portal deployment failed: ${statusBody["errors"] ?: statusResponse.body()}")
+                in terminalStates -> {
+                    logger.lifecycle("Central Portal deployment $deploymentId reached $deploymentState.")
+                    return@doLast
+                }
+            }
+            logger.lifecycle(
+                "Central Portal deployment $deploymentId is $deploymentState " +
+                    "(${attempt + 1}/$statusAttempts).",
+            )
+            if (attempt + 1 < statusAttempts) {
+                Thread.sleep(statusDelayMillis)
+            }
+        }
+        error(
+            "Central Portal deployment $deploymentId did not reach " +
+                "${terminalStates.joinToString("/")} after $statusAttempts checks.",
         )
     }
 }
@@ -947,7 +911,6 @@ tasks.register("hostTests") {
     )
 }
 
-
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
 tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     doLast {
@@ -977,16 +940,6 @@ tasks.register("swiftExportSmokeTest") {
     group = "verification"
     description = "Builds the Swift Export SPM package and runs swift test against it."
     outputs.upToDateWhen { false }
-    mustRunAfter(
-        "macosArm64Test",
-        "jvmTest",
-        "jsNodeTest",
-        "wasmJsNodeTest",
-        "wasmWasiNodeTest",
-        "testAndroidHostTest",
-        "compileKotlinWasmWasi",
-        "compileKotlinWasmJs",
-    )
 
     doLast {
         val execOperations = serviceOf<ExecOperations>()
@@ -1019,21 +972,6 @@ tasks.register("swiftExportSmokeTest") {
                     ),
                 )
             }.assertNormalExitValue()
-
-        val spmDir = layout.buildDirectory.dir("SPMPackage").orNull?.asFile
-        if (spmDir != null && spmDir.exists()) {
-            spmDir.walkTopDown().filter { it.name == "Package.swift" }.forEach { file ->
-                val text = file.readText()
-                if (!text.contains("platforms:")) {
-                    file.writeText(
-                        text.replaceFirst(
-                            Regex("""(let package = Package\s*\(\s*name:\s*"[^"]*",)"""),
-                            "$1\n    platforms: [.macOS(.v14)],",
-                        ),
-                    )
-                }
-            }
-        }
 
         execOperations
             .exec {
