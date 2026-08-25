@@ -4,7 +4,7 @@ package io.github.kotlinmania.libc.unix.newlib
 import io.github.kotlinmania.libc.*
 
 public data class SigsetT(
-    val `val`: UInt,
+    val value: UInt,
 )
 
 public data class Stat(

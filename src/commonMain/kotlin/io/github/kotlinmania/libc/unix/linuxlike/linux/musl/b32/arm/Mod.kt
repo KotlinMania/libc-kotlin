@@ -108,7 +108,7 @@ public data class UcontextT(
 )
 
 public data class MaxAlignT(
-    val priv: Pair<Long, Long>,
+    val priv: LongArray,
 )
 
 public const val SIGSTKSZ: ULong = 8192uL

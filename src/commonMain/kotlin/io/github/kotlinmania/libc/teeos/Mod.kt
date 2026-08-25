@@ -83,7 +83,7 @@ public data class MbstateT(
 )
 
 public data class SemT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public data class DivT(

@@ -208,7 +208,7 @@ public data class Termios(
 )
 
 public data class SigsetT(
-    val `val`: ULongArray,
+    val value: ULongArray,
 )
 
 public data class Sysinfo(
@@ -241,7 +241,7 @@ public data class CpuSetT(
 )
 
 public data class FsidT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public data class SemT(

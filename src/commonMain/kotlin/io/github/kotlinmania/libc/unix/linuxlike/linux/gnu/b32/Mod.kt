@@ -67,7 +67,7 @@ public data class PthreadAttrT(
 )
 
 public data class SigsetT(
-    val `val`: ULongArray,
+    val value: ULongArray,
 )
 
 public data class Sysinfo(

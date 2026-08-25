@@ -404,8 +404,8 @@ public data class Lconv(
     val thousandsSep: String?,
     val fracGrouping: String?,
     val fracSep: String?,
-    val `false`: String?,
-    val `true`: String?,
+    val falseValue: String?,
+    val trueValue: String?,
     val no: String?,
     val yes: String?,
 )

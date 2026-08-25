@@ -61,23 +61,23 @@ public data class Passwd(
 )
 
 public data class SemT(
-    val `val`: List<ULong>,
+    val value: List<ULong>,
 )
 
 public data class PthreadAttrT(
-    val `val`: List<ULong>,
+    val value: List<ULong>,
 )
 
 public data class PthreadMutexT(
-    val `val`: List<ULong>,
+    val value: List<ULong>,
 )
 
 public data class PthreadCondT(
-    val `val`: List<ULong>,
+    val value: List<ULong>,
 )
 
 public data class PthreadCondattrT(
-    val `val`: List<ULong>,
+    val value: List<ULong>,
 )
 
 public data class DlInfo(
@@ -140,7 +140,7 @@ public data class Addrinfo(
 )
 
 public data class PthreadRwlockT(
-    val `val`: List<ULong>,
+    val value: List<ULong>,
 )
 
 public data class Statvfs(
@@ -163,11 +163,11 @@ public data class Dirent(
 )
 
 public data class FdSet(
-    val `val`: UIntArray,
+    val value: UIntArray,
 )
 
 public data class SigsetT(
-    val `val`: UIntArray,
+    val value: UIntArray,
 )
 
 public data class Sigaction(

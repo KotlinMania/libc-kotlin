@@ -63,7 +63,7 @@ public data class Itimerspec(
 )
 
 public data class FsidT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public data class PacketMreq(
@@ -246,7 +246,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val `val`: CInt,
+    val value: CInt,
 )
 
 public data class Rlimit64(

@@ -14,11 +14,11 @@ public data class PthreadAttrT(
 )
 
 public data class SigsetT(
-    val `val`: ULongArray,
+    val value: ULongArray,
 )
 
 public data class SemT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public const val __SIZEOF_PTHREAD_RWLOCK_T: ULong = 32uL

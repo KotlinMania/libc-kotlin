@@ -75,11 +75,11 @@ public enum class ACTION(
 }
 
 public data class FsidT(
-    val `val`: UIntArray,
+    val value: UIntArray,
 )
 
 public data class Fsid64T(
-    val `val`: List<Uint64T>,
+    val value: List<Uint64T>,
 )
 
 public data class Timezone(

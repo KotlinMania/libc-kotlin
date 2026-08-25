@@ -460,7 +460,7 @@ public data class Itimerspec(
 )
 
 public data class FsidT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public data class CpuSetT(
@@ -672,7 +672,7 @@ public data class PthreadAttrT(
 )
 
 public data class SigsetT(
-    val `val`: ULongArray,
+    val value: ULongArray,
 )
 
 public data class ShmidDs(
@@ -731,7 +731,7 @@ public data class Cmsghdr(
 )
 
 public data class SemT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public data class SiginfoT(

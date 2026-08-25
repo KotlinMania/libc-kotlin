@@ -67,7 +67,7 @@ public data class MsqidDs(
 )
 
 public data class MaxAlignT(
-    val priv: Pair<Long, Double>,
+    val priv: DoubleArray,
 )
 
 public const val RLIM_INFINITY: RlimT = 0xFFFFFFFFFFFFFFFFuL

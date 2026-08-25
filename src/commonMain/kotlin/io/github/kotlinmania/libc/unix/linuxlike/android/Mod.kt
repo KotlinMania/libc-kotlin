@@ -61,7 +61,7 @@ public data class StackT(
 )
 
 public data class FsidT(
-    val `val`: IntArray,
+    val value: IntArray,
 )
 
 public data class Termios(
@@ -431,7 +431,7 @@ public data class Option(
     val name: String?,
     val hasArg: CInt,
     val flag: CInt?,
-    val `val`: CInt,
+    val value: CInt,
 )
 
 public data class CAnonymousIfruMap(
