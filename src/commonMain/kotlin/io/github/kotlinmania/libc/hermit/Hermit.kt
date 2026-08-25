@@ -1,128 +1,139 @@
 // port-lint: source hermit.rs
 package io.github.kotlinmania.libc.hermit
 
-import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.Padding
 
-public typealias IntmaxT = Long
-public typealias UintmaxT = ULong
-public typealias IntptrT = Long
-public typealias UintptrT = ULong
-public typealias SizeT = ULong
-public typealias SsizeT = Long
-public typealias PtrdiffT = Long
-public typealias ClockidT = Int
+/**
+ * Hermit C type definitions.
+ */
+
+public typealias Intmax = Long
+public typealias Uintmax = ULong
+public typealias Intptr = Long
+public typealias Uintptr = ULong
+
+public typealias Size = ULong
+public typealias Ssize = Long
+public typealias Ptrdiff = Long
+
+public typealias ClockId = Int
 public typealias InAddrT = UInt
 public typealias InPortT = UShort
-public typealias ModeT = UInt
-public typealias NfdsT = ULong
-public typealias PidT = Int
-public typealias SaFamilyT = UByte
-public typealias SocklenT = UInt
-public typealias TimeT = Long
+public typealias Mode = UInt
+public typealias Nfds = ULong
+public typealias Pid = Int
+public typealias SaFamily = UByte
+public typealias Socklen = UInt
+public typealias Time = Long
 
 public data class Addrinfo(
-    val aiFlags: Int,
-    val aiFamily: Int,
-    val aiSocktype: Int,
-    val aiProtocol: Int,
-    val aiAddrlen: SocklenT,
-    val aiCanonname: String?,
-    val aiAddr: Sockaddr?,
-    val aiNext: Addrinfo?,
+    public val aiFlags: Int,
+    public val aiFamily: Int,
+    public val aiSocktype: Int,
+    public val aiProtocol: Int,
+    public val aiAddrlen: Socklen,
+    public val aiCanonname: Long,
+    public val aiAddr: Long,
+    public val aiNext: Long,
 )
 
 public data class Dirent64(
-    val dIno: ULong,
-    val dOff: Long,
-    val dReclen: UShort,
-    val dType: UByte,
-    val dName: ByteArray,
+    public val dIno: ULong,
+    public val dOff: Long,
+    public val dReclen: UShort,
+    public val dType: UByte,
+    public val dName: ByteArray,
 )
 
 public data class In6Addr(
-    val s6Addr: UByteArray,
+    public val s6Addr: UByteArray,
 )
 
 public data class InAddr(
-    val sAddr: InAddrT,
+    public val sAddr: InAddrT,
 )
 
 public data class Iovec(
-    val iovBase: COpaquePointer?,
-    val iovLen: ULong,
+    public val iovBase: Long,
+    public val iovLen: ULong,
 )
 
 public data class Pollfd(
-    val fd: Int,
-    val events: Short,
-    val revents: Short,
+    public val fd: Int,
+    public val events: Short,
+    public val revents: Short,
 )
 
 public data class Sockaddr(
-    val saLen: UByte,
-    val saFamily: SaFamilyT,
-    val saData: ByteArray,
+    public val saLen: UByte,
+    public val saFamily: SaFamily,
+    public val saData: ByteArray,
 )
 
 public data class SockaddrIn(
-    val sinLen: UByte,
-    val sinFamily: SaFamilyT,
-    val sinPort: InPortT,
-    val sinAddr: InAddr,
-    val sinZero: ByteArray,
+    public val sinLen: UByte,
+    public val sinFamily: SaFamily,
+    public val sinPort: InPortT,
+    public val sinAddr: InAddr,
+    public val sinZero: ByteArray,
 )
 
 public data class SockaddrIn6(
-    val sin6Len: UByte,
-    val sin6Family: SaFamilyT,
-    val sin6Port: InPortT,
-    val sin6Flowinfo: UInt,
-    val sin6Addr: In6Addr,
-    val sin6ScopeId: UInt,
+    public val sin6Len: UByte,
+    public val sin6Family: SaFamily,
+    public val sin6Port: InPortT,
+    public val sin6Flowinfo: UInt,
+    public val sin6Addr: In6Addr,
+    public val sin6ScopeId: UInt,
 )
 
 public data class SockaddrStorage(
-    val ssLen: UByte,
-    val ssFamily: SaFamilyT,
-    val ssAlign: Long,
+    public val ssLen: UByte,
+    public val ssFamily: SaFamily,
+    public val ssPad1: Padding<UByteArray>,
+    public val ssAlign: Long,
+    public val ssPad2: Padding<UByteArray>,
 )
 
 public data class Stat(
-    val stDev: ULong,
-    val stIno: ULong,
-    val stNlink: ULong,
-    val stMode: ModeT,
-    val stUid: UInt,
-    val stGid: UInt,
-    val stRdev: ULong,
-    val stSize: Long,
-    val stBlksize: Long,
-    val stBlocks: Long,
-    val stAtim: Timespec,
-    val stMtim: Timespec,
-    val stCtim: Timespec,
+    public val stDev: ULong,
+    public val stIno: ULong,
+    public val stNlink: ULong,
+    public val stMode: Mode,
+    public val stUid: UInt,
+    public val stGid: UInt,
+    public val stRdev: ULong,
+    public val stSize: Long,
+    public val stBlksize: Long,
+    public val stBlocks: Long,
+    public val stAtim: Timespec,
+    public val stMtim: Timespec,
+    public val stCtim: Timespec,
 )
 
 public data class Timespec(
-    val tvSec: TimeT,
-    val tvNsec: Int,
+    public val tvSec: Time,
+    public val tvNsec: Int,
 )
 
 public const val AF_UNSPEC: Int = 0
 public const val AF_INET: Int = 3
 public const val AF_INET6: Int = 1
 public const val AF_VSOCK: Int = 2
-public const val CLOCK_REALTIME: ClockidT = 1
-public const val CLOCK_MONOTONIC: ClockidT = 4
-public val DT_UNKNOWN: UByte = (0).toUByte()
-public val DT_FIFO: UByte = (1).toUByte()
-public val DT_CHR: UByte = (2).toUByte()
-public val DT_DIR: UByte = (4).toUByte()
-public val DT_BLK: UByte = (6).toUByte()
-public val DT_REG: UByte = (8).toUByte()
-public val DT_LNK: UByte = (10).toUByte()
-public val DT_SOCK: UByte = (12).toUByte()
-public val DT_WHT: UByte = (14).toUByte()
+
+public const val CLOCK_REALTIME: ClockId = 1
+public const val CLOCK_MONOTONIC: ClockId = 4
+
+public const val DT_UNKNOWN: UByte = 0u
+public const val DT_FIFO: UByte = 1u
+public const val DT_CHR: UByte = 2u
+public const val DT_DIR: UByte = 4u
+public const val DT_BLK: UByte = 6u
+public const val DT_REG: UByte = 8u
+public const val DT_LNK: UByte = 10u
+public const val DT_SOCK: UByte = 12u
+public const val DT_WHT: UByte = 14u
+
 public const val EAI_AGAIN: Int = 2
 public const val EAI_BADFLAGS: Int = 3
 public const val EAI_FAIL: Int = 4
@@ -134,41 +145,52 @@ public const val EAI_SERVICE: Int = 9
 public const val EAI_SOCKTYPE: Int = 10
 public const val EAI_SYSTEM: Int = 11
 public const val EAI_OVERFLOW: Int = 14
-public const val EFD_SEMAPHORE: Short = 1
-public const val EFD_NONBLOCK: Short = 2048
-public const val EFD_CLOEXEC: Short = 16384
+
+public const val EFD_SEMAPHORE: Short = 0x001
+public const val EFD_NONBLOCK: Short = 0x800
+public const val EFD_CLOEXEC: Short = 0x4000
+
 public const val F_DUPFD: Int = 0
 public const val F_GETFD: Int = 1
 public const val F_SETFD: Int = 2
 public const val F_GETFL: Int = 3
 public const val F_SETFL: Int = 4
+
 public const val FD_CLOEXEC: Int = 1
-public const val FIONBIO: Int = 0x8008667e.toInt()
+
+public const val FIONBIO: Int = -0x7ff79982 // 0x8008667e as signed i32
+
 public const val FUTEX_RELATIVE_TIMEOUT: UInt = 1u
+
 public const val IP_TOS: Int = 1
 public const val IP_TTL: Int = 2
 public const val IP_ADD_MEMBERSHIP: Int = 3
 public const val IP_DROP_MEMBERSHIP: Int = 4
 public const val IP_MULTICAST_TTL: Int = 5
 public const val IP_MULTICAST_LOOP: Int = 7
+
 public const val IPPROTO_IP: Int = 0
 public const val IPPROTO_TCP: Int = 6
 public const val IPPROTO_UDP: Int = 17
 public const val IPPROTO_IPV6: Int = 41
+
 public const val IPV6_ADD_MEMBERSHIP: Int = 12
 public const val IPV6_DROP_MEMBERSHIP: Int = 13
 public const val IPV6_MULTICAST_LOOP: Int = 19
 public const val IPV6_V6ONLY: Int = 27
+
 public const val MSG_PEEK: Int = 1
-public const val O_RDONLY: Int = 0
-public const val O_WRONLY: Int = 1
-public const val O_RDWR: Int = 2
-public const val O_CREAT: Int = 64
-public const val O_EXCL: Int = 128
-public const val O_TRUNC: Int = 512
-public const val O_APPEND: Int = 1024
-public const val O_NONBLOCK: Int = 2048
-public const val O_DIRECTORY: Int = 65536
+
+public const val O_RDONLY: Int = 0x0
+public const val O_WRONLY: Int = 0x1
+public const val O_RDWR: Int = 0x2
+public const val O_CREAT: Int = 0x40
+public const val O_EXCL: Int = 0x80
+public const val O_TRUNC: Int = 0x200
+public const val O_APPEND: Int = 0x400
+public const val O_NONBLOCK: Int = 0x800
+public const val O_DIRECTORY: Int = 0x10000
+
 public const val POLLIN: Short = 0x1
 public const val POLLPRI: Short = 0x2
 public const val POLLOUT: Short = 0x4
@@ -180,29 +202,33 @@ public const val POLLRDBAND: Short = 0x080
 public const val POLLWRNORM: Short = 0x0100
 public const val POLLWRBAND: Short = 0x0200
 public const val POLLRDHUP: Short = 0x2000
-public const val S_IRWXU: ModeT = 448u
-public const val S_IRUSR: ModeT = 256u
-public const val S_IWUSR: ModeT = 128u
-public const val S_IXUSR: ModeT = 64u
-public const val S_IRWXG: ModeT = 56u
-public const val S_IRGRP: ModeT = 32u
-public const val S_IWGRP: ModeT = 16u
-public const val S_IXGRP: ModeT = 8u
-public const val S_IRWXO: ModeT = 7u
-public const val S_IROTH: ModeT = 4u
-public const val S_IWOTH: ModeT = 2u
-public const val S_IXOTH: ModeT = 1u
-public const val S_IFMT: ModeT = 61440u
-public const val S_IFSOCK: ModeT = 49152u
-public const val S_IFLNK: ModeT = 40960u
-public const val S_IFREG: ModeT = 32768u
-public const val S_IFBLK: ModeT = 24576u
-public const val S_IFDIR: ModeT = 16384u
-public const val S_IFCHR: ModeT = 8192u
-public const val S_IFIFO: ModeT = 4096u
+
+public const val S_IRWXU: Mode = 0x1c0u
+public const val S_IRUSR: Mode = 0x100u
+public const val S_IWUSR: Mode = 0x080u
+public const val S_IXUSR: Mode = 0x040u
+public const val S_IRWXG: Mode = 0x038u
+public const val S_IRGRP: Mode = 0x020u
+public const val S_IWGRP: Mode = 0x010u
+public const val S_IXGRP: Mode = 0x008u
+public const val S_IRWXO: Mode = 0x007u
+public const val S_IROTH: Mode = 0x004u
+public const val S_IWOTH: Mode = 0x002u
+public const val S_IXOTH: Mode = 0x001u
+
+public const val S_IFMT: Mode = 0xf000u
+public const val S_IFSOCK: Mode = 0xc000u
+public const val S_IFLNK: Mode = 0xa000u
+public const val S_IFREG: Mode = 0x8000u
+public const val S_IFBLK: Mode = 0x6000u
+public const val S_IFDIR: Mode = 0x4000u
+public const val S_IFCHR: Mode = 0x2000u
+public const val S_IFIFO: Mode = 0x1000u
+
 public const val SHUT_RD: Int = 0
 public const val SHUT_WR: Int = 1
 public const val SHUT_RDWR: Int = 2
+
 public const val SO_REUSEADDR: Int = 0x0004
 public const val SO_KEEPALIVE: Int = 0x0008
 public const val SO_BROADCAST: Int = 0x0020
@@ -212,15 +238,20 @@ public const val SO_RCVBUF: Int = 0x1002
 public const val SO_SNDTIMEO: Int = 0x1005
 public const val SO_RCVTIMEO: Int = 0x1006
 public const val SO_ERROR: Int = 0x1007
+
 public const val SOCK_STREAM: Int = 1
 public const val SOCK_DGRAM: Int = 2
-public const val SOCK_NONBLOCK: Int = 2048
-public const val SOCK_CLOEXEC: Int = 16384
+public const val SOCK_NONBLOCK: Int = 0x800
+public const val SOCK_CLOEXEC: Int = 0x4000
+
 public const val SOL_SOCKET: Int = 4095
-public const val STDIN_FILENO: CInt = 0
-public const val STDOUT_FILENO: CInt = 1
-public const val STDERR_FILENO: CInt = 2
+
+public const val STDIN_FILENO: Int = 0
+public const val STDOUT_FILENO: Int = 1
+public const val STDERR_FILENO: Int = 2
+
 public const val TCP_NODELAY: Int = 1
+
 public const val EPERM: Int = 1
 public const val ENOENT: Int = 2
 public const val ESRCH: Int = 3
@@ -354,95 +385,3 @@ public const val EOWNERDEAD: Int = 130
 public const val ENOTRECOVERABLE: Int = 131
 public const val ERFKILL: Int = 132
 public const val EHWPOISON: Int = 133
-
-public fun alloc(size: ULong, align: ULong): COpaquePointer? = null
-
-public fun allocZeroed(size: ULong, align: ULong): COpaquePointer? = null
-
-public fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer? = null
-
-public fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong) { }
-
-public fun exit(status: Int): Nothing = throw UnsupportedOperationException()
-
-public fun abort(): Nothing = throw UnsupportedOperationException()
-
-public fun errno(): Int = -1
-
-public fun clockGettime(clockid: ClockidT, tp: Timespec?): Int = -1
-
-public fun nanosleep(req: Timespec?): Int = -1
-
-public fun availableParallelism(): ULong = 0uL
-
-public fun futexWait(address: UInt?, expected: UInt, timeout: Timespec?, flags: UInt): Int = -1
-
-public fun futexWake(address: UInt?, count: Int): Int = -1
-
-public fun stat(path: String?, stat: Stat?): Int = -1
-
-public fun fstat(fd: Int, stat: Stat?): Int = -1
-
-public fun lstat(path: String?, stat: Stat?): Int = -1
-
-public fun open(path: String?, flags: Int, mode: ModeT): Int = -1
-
-public fun unlink(path: String?): Int = -1
-
-public fun mkdir(path: String?, mode: ModeT): Int = -1
-
-public fun rmdir(path: String?): Int = -1
-
-public fun read(fd: Int, buf: COpaquePointer?, len: ULong): Long = -1L
-
-public fun write(fd: Int, buf: COpaquePointer?, len: ULong): Long = -1L
-
-public fun readv(fd: Int, iov: Iovec?, iovcnt: ULong): Long = -1L
-
-public fun writev(fd: Int, iov: Iovec?, iovcnt: ULong): Long = -1L
-
-public fun close(fd: Int): Int = -1
-
-public fun dup(fd: Int): Int = -1
-
-public fun fcntl(fd: Int, cmd: Int, arg: Int): Int = -1
-
-public fun getdents64(fd: Int, dirp: Dirent64?, count: ULong): Long = -1L
-
-public fun getaddrinfo(nodename: String?, servname: String?, hints: Addrinfo?, res: COpaquePointer?): Int = -1
-
-public fun freeaddrinfo(ai: Addrinfo?) { }
-
-public fun socket(domain: Int, ty: Int, protocol: Int): Int = -1
-
-public fun bind(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int = -1
-
-public fun listen(sockfd: Int, backlog: Int): Int = -1
-
-public fun accept(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT?): Int = -1
-
-public fun connect(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int = -1
-
-public fun recv(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long = -1L
-
-public fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: Sockaddr?, addrlen: SocklenT?): Long = -1L
-
-public fun send(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long = -1L
-
-public fun sendto(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, tolen: SocklenT): Long = -1L
-
-public fun getpeername(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT?): Int = -1
-
-public fun getsockname(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT?): Int = -1
-
-public fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: SocklenT?): Int = -1
-
-public fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: SocklenT): Int = -1
-
-public fun ioctl(sockfd: Int, cmd: Int, argp: COpaquePointer?): Int = -1
-
-public fun shutdown(sockfd: Int, how: Int): Int = -1
-
-public fun eventfd(initval: ULong, flags: Short): Int = -1
-
-public fun poll(fds: Pollfd?, nfds: NfdsT, timeout: Int): Int = -1

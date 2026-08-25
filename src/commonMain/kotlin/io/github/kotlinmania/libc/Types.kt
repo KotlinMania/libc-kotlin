@@ -5,13 +5,19 @@ package io.github.kotlinmania.libc
  * Platform-agnostic support types.
  */
 
-// Padding<T> upstream is a `MaybeUninit<T>` wrapper representing uninitialized
-// struct padding. Kotlin has no equivalent for uninitialized memory, and the
-// ported structs omit padding fields rather than model them, so it is not
-// reproduced here.
+/**
+ * A transparent wrapper that represents uninitialized padding while providing a default.
+ */
+public data class Padding<T>(public val value: T) {
+    public companion object {
+        /**
+         * Const constructor for uninitialized padding in const contexts.
+         */
+        public fun <T> uninit(value: T): Padding<T> = Padding(value)
+    }
+}
 
 /**
- * The default repr type used for C-style enums. This is `c_int` under MSVC and
- * `c_uint` everywhere else.
+ * The default repr type used for C style enums.
  */
 public typealias CEnumRepr = CUInt
