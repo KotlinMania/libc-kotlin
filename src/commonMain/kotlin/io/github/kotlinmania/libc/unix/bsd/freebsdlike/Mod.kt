@@ -1,4 +1,4 @@
-// port-lint: source unix/bsd/freebsdlike/mod.rs
+// port-lint: source libc/src/unix/bsd/freebsdlike/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

@@ -1,4 +1,4 @@
-// port-lint: source sgx.rs
+// port-lint: source libc/src/sgx.rs
 package io.github.kotlinmania.libc.sgx
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source new/glibc/posix/unistd.rs
+// port-lint: source libc/src/new/glibc/posix/unistd.rs
 package io.github.kotlinmania.libc.new.glibc.posix
 
 /**

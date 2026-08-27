@@ -1,4 +1,4 @@
-// port-lint: source N/A (JS/WASM N-API bridge implementations)
+// port-lint: source libc/src/N/A
 package io.github.kotlinmania.libc
 
 /**

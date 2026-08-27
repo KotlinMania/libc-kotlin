@@ -1,4 +1,4 @@
-// port-lint: source new/solaris/mod.rs
+// port-lint: source libc/src/new/solaris/mod.rs
 package io.github.kotlinmania.libc.new.solaris
 
 /**

@@ -1,6 +1,6 @@
 @file:OptIn(kotlin.wasm.ExperimentalWasmInterop::class)
 
-// port-lint: source new/common/linux_like/pthread.rs
+// port-lint: source libc/src/new/common/linux_like/pthread.rs
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadAttrT

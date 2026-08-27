@@ -1,4 +1,4 @@
-// port-lint: source new/relibc/unistd.rs
+// port-lint: source libc/src/new/relibc/unistd.rs
 package io.github.kotlinmania.libc.new.relibc
 
 /**

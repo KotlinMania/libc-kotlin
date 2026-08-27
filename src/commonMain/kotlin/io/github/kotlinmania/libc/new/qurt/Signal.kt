@@ -1,4 +1,4 @@
-// port-lint: source new/qurt/signal.rs
+// port-lint: source libc/src/new/qurt/signal.rs
 package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

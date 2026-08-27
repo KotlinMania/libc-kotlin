@@ -1,4 +1,4 @@
-// port-lint: source new/netbsd/sys/statvfs.rs
+// port-lint: source libc/src/new/netbsd/sys/statvfs.rs
 package io.github.kotlinmania.libc.new.netbsd.sys
 
 import io.github.kotlinmania.libc.*

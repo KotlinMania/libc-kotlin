@@ -1,4 +1,4 @@
-// port-lint: source new/emscripten/unistd.rs
+// port-lint: source libc/src/new/emscripten/unistd.rs
 package io.github.kotlinmania.libc.new.emscripten
 
 /**

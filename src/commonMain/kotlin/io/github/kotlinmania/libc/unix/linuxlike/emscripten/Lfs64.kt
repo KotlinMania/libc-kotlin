@@ -1,4 +1,4 @@
-// port-lint: source unix/linux_like/emscripten/lfs64.rs
+// port-lint: source libc/src/unix/linux_like/emscripten/lfs64.rs
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
 
 import io.github.kotlinmania.libc.CInt

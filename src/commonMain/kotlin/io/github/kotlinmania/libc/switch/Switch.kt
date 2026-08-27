@@ -1,4 +1,4 @@
-// port-lint: source switch.rs
+// port-lint: source libc/src/switch.rs
 package io.github.kotlinmania.libc.switch
 
 /**

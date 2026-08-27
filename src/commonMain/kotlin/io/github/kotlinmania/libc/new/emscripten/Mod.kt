@@ -1,4 +1,4 @@
-// port-lint: source new/emscripten/mod.rs
+// port-lint: source libc/src/new/emscripten/mod.rs
 package io.github.kotlinmania.libc.new.emscripten
 
 /**

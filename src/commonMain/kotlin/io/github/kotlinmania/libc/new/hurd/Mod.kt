@@ -1,4 +1,4 @@
-// port-lint: source new/hurd/mod.rs
+// port-lint: source libc/src/new/hurd/mod.rs
 package io.github.kotlinmania.libc.new.hurd
 
 /**

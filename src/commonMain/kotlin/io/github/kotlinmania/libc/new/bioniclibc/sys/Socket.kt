@@ -1,4 +1,4 @@
-// port-lint: source new/bionic_libc/sys/socket.rs
+// port-lint: source libc/src/new/bionic_libc/sys/socket.rs
 package io.github.kotlinmania.libc.new.bioniclibc.sys
 
 import io.github.kotlinmania.libc.*

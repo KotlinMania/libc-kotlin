@@ -1,4 +1,4 @@
-// port-lint: source new/rtems/mod.rs
+// port-lint: source libc/src/new/rtems/mod.rs
 package io.github.kotlinmania.libc.new.rtems
 
 /**

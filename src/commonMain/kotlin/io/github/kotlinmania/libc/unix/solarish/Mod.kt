@@ -1,4 +1,4 @@
-// port-lint: source unix/solarish/mod.rs
+// port-lint: source libc/src/unix/solarish/mod.rs
 package io.github.kotlinmania.libc.unix.solarish
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

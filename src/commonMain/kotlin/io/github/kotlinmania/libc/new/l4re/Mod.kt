@@ -1,4 +1,4 @@
-// port-lint: source new/l4re/mod.rs
+// port-lint: source libc/src/new/l4re/mod.rs
 package io.github.kotlinmania.libc.new.l4re
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source new/xous/mod.rs
+// port-lint: source libc/src/new/xous/mod.rs
 package io.github.kotlinmania.libc.new.xous
 
 /**

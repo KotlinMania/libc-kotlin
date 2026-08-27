@@ -1,4 +1,4 @@
-// port-lint: source new/apple/xnu/i386/_mcontext.rs
+// port-lint: source libc/src/new/apple/xnu/i386/_mcontext.rs
 package io.github.kotlinmania.libc.new.apple.xnu.i386
 
 import io.github.kotlinmania.libc.*

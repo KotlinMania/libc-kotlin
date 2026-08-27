@@ -1,4 +1,4 @@
-// port-lint: source new/apple/mod.rs
+// port-lint: source libc/src/new/apple/mod.rs
 package io.github.kotlinmania.libc.new.apple
 
 /**

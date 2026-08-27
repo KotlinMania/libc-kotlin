@@ -1,4 +1,4 @@
-// port-lint: tests sgx.rs
+// port-lint: tests libc/src/sgx.rs
 package io.github.kotlinmania.libc.sgx
 
 import kotlin.test.Test

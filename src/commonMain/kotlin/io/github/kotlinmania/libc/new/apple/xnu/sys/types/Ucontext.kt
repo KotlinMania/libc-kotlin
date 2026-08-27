@@ -1,4 +1,4 @@
-// port-lint: source new/apple/xnu/sys/_types/_ucontext.rs
+// port-lint: source libc/src/new/apple/xnu/sys/_types/_ucontext.rs
 package io.github.kotlinmania.libc.new.apple.xnu.sys.types
 
 import io.github.kotlinmania.libc.*

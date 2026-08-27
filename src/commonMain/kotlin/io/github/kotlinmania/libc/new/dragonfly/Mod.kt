@@ -1,4 +1,4 @@
-// port-lint: source new/dragonfly/mod.rs
+// port-lint: source libc/src/new/dragonfly/mod.rs
 package io.github.kotlinmania.libc.new.dragonfly
 
 /**

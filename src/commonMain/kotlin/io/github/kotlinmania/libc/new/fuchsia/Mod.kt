@@ -1,4 +1,4 @@
-// port-lint: source new/fuchsia/mod.rs
+// port-lint: source libc/src/new/fuchsia/mod.rs
 package io.github.kotlinmania.libc.new.fuchsia
 
 /**

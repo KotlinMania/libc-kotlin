@@ -1,4 +1,4 @@
-// port-lint: source new/emscripten/sched.rs
+// port-lint: source libc/src/new/emscripten/sched.rs
 package io.github.kotlinmania.libc.new.emscripten
 
 import io.github.kotlinmania.libc.*

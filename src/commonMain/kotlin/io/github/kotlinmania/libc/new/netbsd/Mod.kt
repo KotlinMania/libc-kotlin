@@ -1,4 +1,4 @@
-// port-lint: source new/netbsd/mod.rs
+// port-lint: source libc/src/new/netbsd/mod.rs
 package io.github.kotlinmania.libc.new.netbsd
 
 /**

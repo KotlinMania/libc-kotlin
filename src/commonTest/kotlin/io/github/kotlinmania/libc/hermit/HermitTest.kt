@@ -1,4 +1,4 @@
-// port-lint: tests hermit.rs
+// port-lint: tests libc/src/hermit.rs
 package io.github.kotlinmania.libc.hermit
 
 import kotlin.test.Test
