@@ -1,7 +1,6 @@
 // port-lint: source libc/src/hermit.rs
 package io.github.kotlinmania.libc.hermit
 
-
 /**
  * Hermit C type definitions.
  */

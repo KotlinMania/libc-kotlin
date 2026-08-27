@@ -1,31 +1,56 @@
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
 // port-lint: source libc/src/new/common/posix/pthread.rs
+
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
-public actual class PthreadT internal constructor(internal val rawHandle: Int)
+public actual class PthreadT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadAttrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadAttrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadMutexT internal constructor(internal val rawHandle: Int)
+public actual class PthreadMutexT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadMutexattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadMutexattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadCondT internal constructor(internal val rawHandle: Int)
+public actual class PthreadCondT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadCondattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadCondattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadRwlockT internal constructor(internal val rawHandle: Int)
+public actual class PthreadRwlockT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadRwlockattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadRwlockattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadBarrierT internal constructor(internal val rawHandle: Int)
+public actual class PthreadBarrierT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadBarrierattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadBarrierattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadSpinlockT internal constructor(internal val rawHandle: Int)
+public actual class PthreadSpinlockT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadOnceT internal constructor(internal val rawHandle: Int)
+public actual class PthreadOnceT internal constructor(
+    internal val rawHandle: Int,
+)
 
 @JsFun("(thread) => globalThis.libcKotlinPthread.pthreadCancel(thread)")
 private external fun wasmPthreadCancel(thread: Int): Int

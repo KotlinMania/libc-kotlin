@@ -1,12 +1,15 @@
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
 // port-lint: source libc/src/new/common/linux_like/pthread.rs
+
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadAttrT
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadT
 
-public actual class CpuSetT internal constructor(internal val rawHandle: Int)
+public actual class CpuSetT internal constructor(
+    internal val rawHandle: Int,
+)
 
 @JsFun("(thread, cpusetsize, cpuset) => globalThis.libcKotlinPthread?.getaffinityNp?.(thread, cpusetsize, cpuset) ?? 38")
 private external fun wasmPthreadGetaffinityNp(thread: Int, cpusetsize: Int, cpuset: Int): Int

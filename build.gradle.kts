@@ -918,7 +918,11 @@ tasks.register("hostTests") {
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
 tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     doLast {
-        val spmDir = layout.buildDirectory.dir("SPMPackage").orNull?.asFile
+        val spmDir =
+            layout.buildDirectory
+                .dir("SPMPackage")
+                .orNull
+                ?.asFile
         if (spmDir != null && spmDir.exists()) {
             spmDir.walkTopDown().filter { it.name == "Package.swift" }.forEach { file ->
                 val text = file.readText()
@@ -953,24 +957,27 @@ tasks.matching { it.name.endsWith("SwiftExport") }.configureEach {
                 targetField.isAccessible = true
                 val original = targetField.get(this) as? org.gradle.workers.WorkerExecutor
                 if (original != null) {
-                    val handler = InvocationHandler { _, method: Method, args: Array<Any?>? ->
-                        if (method.name == "processIsolation" && args != null && args.isNotEmpty()) {
-                            @Suppress("UNCHECKED_CAST")
-                            val origAction = args[0] as? org.gradle.api.Action<in org.gradle.workers.ProcessWorkerSpec>
-                            val customAction = org.gradle.api.Action<org.gradle.workers.ProcessWorkerSpec> {
-                                this.forkOptions.maxHeapSize = "6g"
-                                origAction?.execute(this)
+                    val handler =
+                        InvocationHandler { _, method: Method, args: Array<Any?>? ->
+                            if (method.name == "processIsolation" && args != null && args.isNotEmpty()) {
+                                @Suppress("UNCHECKED_CAST")
+                                val origAction = args[0] as? org.gradle.api.Action<in org.gradle.workers.ProcessWorkerSpec>
+                                val customAction =
+                                    org.gradle.api.Action<org.gradle.workers.ProcessWorkerSpec> {
+                                        this.forkOptions.maxHeapSize = "6g"
+                                        origAction?.execute(this)
+                                    }
+                                original.processIsolation(customAction)
+                            } else {
+                                if (args == null) method.invoke(original) else method.invoke(original, *args)
                             }
-                            original.processIsolation(customAction)
-                        } else {
-                            if (args == null) method.invoke(original) else method.invoke(original, *args)
                         }
-                    }
-                    val proxy = Proxy.newProxyInstance(
-                        org.gradle.workers.WorkerExecutor::class.java.classLoader,
-                        arrayOf(org.gradle.workers.WorkerExecutor::class.java),
-                        handler,
-                    )
+                    val proxy =
+                        Proxy.newProxyInstance(
+                            org.gradle.workers.WorkerExecutor::class.java.classLoader,
+                            arrayOf(org.gradle.workers.WorkerExecutor::class.java),
+                            handler,
+                        )
                     targetField.set(this, proxy)
                 }
             }

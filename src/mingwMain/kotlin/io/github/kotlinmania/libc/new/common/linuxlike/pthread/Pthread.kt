@@ -10,7 +10,11 @@ import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadT
 // pthread_getw32threadhandle_np to get a Win32 HANDLE first.
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT): Int = 38
+
 public actual fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT): Int = 38
+
 public actual fun pthreadGetnameNp(thread: PthreadT, name: ByteArray, len: ULong): Int = 38
+
 public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT): Int = 38
+
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String): Int = 38

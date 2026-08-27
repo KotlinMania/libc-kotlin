@@ -19,14 +19,21 @@ public actual fun pthreadKill(thread: PthreadT, sig: Int): Int =
 public actual fun pthreadSetschedprio(native: PthreadT, priority: Int): Int = 38
 
 public actual fun pthreadSpinDestroy(lock: PthreadSpinlockT): Int = 38
+
 public actual fun pthreadSpinInit(lock: PthreadSpinlockT, pshared: Int): Int = 38
+
 public actual fun pthreadSpinLock(lock: PthreadSpinlockT): Int = 38
+
 public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT): Int = 38
+
 public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT): Int = 38
 
 public actual fun pthreadBarrierDestroy(barrier: PthreadBarrierT): Int = 38
+
 public actual fun pthreadBarrierWait(barrier: PthreadBarrierT): Int = 38
+
 public actual fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT): Int = 38
+
 public actual fun pthreadBarrierattrInit(attr: PthreadBarrierattrT): Int = 38
 
 public actual fun pthreadMutexConsistent(mutex: PthreadMutexT): Int = 38

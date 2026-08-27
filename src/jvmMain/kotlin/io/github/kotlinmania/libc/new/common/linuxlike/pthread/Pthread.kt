@@ -4,14 +4,23 @@ package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadAttrT
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadT
 
-public actual class CpuSetT internal constructor(internal val rawHandle: Long)
+public actual class CpuSetT internal constructor(
+    internal val rawHandle: Long,
+)
 
 private object PthreadLinuxNpNative {
-    init { System.loadLibrary("libc_kotlin_pthread") }
+    init {
+        System.loadLibrary("libc_kotlin_pthread")
+    }
+
     @JvmStatic external fun getaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
+
     @JvmStatic external fun getattrNp(thread: Long, attr: Long): Int
+
     @JvmStatic external fun getnameNp(thread: Long, name: ByteArray, len: Long): Int
+
     @JvmStatic external fun setaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
+
     @JvmStatic external fun setnameNp(thread: Long, name: String): Int
 }
 

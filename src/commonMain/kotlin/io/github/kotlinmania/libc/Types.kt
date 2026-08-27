@@ -8,7 +8,9 @@ package io.github.kotlinmania.libc
 /**
  * A transparent wrapper that represents uninitialized padding while providing a default.
  */
-public data class Padding<T>(public val value: T) {
+public data class Padding<T>(
+    public val value: T,
+) {
     public companion object {
         /**
          * Const constructor for uninitialized padding in const contexts.
