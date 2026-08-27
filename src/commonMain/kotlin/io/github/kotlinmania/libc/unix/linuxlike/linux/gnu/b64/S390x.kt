@@ -1,4 +1,4 @@
-// port-lint: source unix/linux_like/linux/gnu/b64/s390x.rs
+// port-lint: source libc/src/unix/linux_like/linux/gnu/b64/s390x.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64
 
 import io.github.kotlinmania.libc.*

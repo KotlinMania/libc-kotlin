@@ -1,6 +1,6 @@
 @file:OptIn(kotlin.wasm.ExperimentalWasmInterop::class)
 
-// port-lint: source new/common/posix/pthread.rs
+// port-lint: source libc/src/new/common/posix/pthread.rs
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
 import kotlin.wasm.WasmImport

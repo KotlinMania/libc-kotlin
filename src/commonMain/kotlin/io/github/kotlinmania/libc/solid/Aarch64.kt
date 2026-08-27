@@ -1,4 +1,4 @@
-// port-lint: source solid/aarch64.rs
+// port-lint: source libc/src/solid/aarch64.rs
 package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*

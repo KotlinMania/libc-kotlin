@@ -1,4 +1,4 @@
-// port-lint: source new/wasi/mod.rs
+// port-lint: source libc/src/new/wasi/mod.rs
 package io.github.kotlinmania.libc.new.wasi
 
 /**

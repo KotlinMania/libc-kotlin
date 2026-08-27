@@ -1,4 +1,4 @@
-// port-lint: source new/vxworks/unistd.rs
+// port-lint: source libc/src/new/vxworks/unistd.rs
 package io.github.kotlinmania.libc.new.vxworks
 
 /**

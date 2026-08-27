@@ -1,4 +1,4 @@
-// port-lint: source trusty.rs
+// port-lint: source libc/src/trusty.rs
 package io.github.kotlinmania.libc.trusty
 
 /**

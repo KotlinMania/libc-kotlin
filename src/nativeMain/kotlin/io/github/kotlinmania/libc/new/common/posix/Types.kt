@@ -1,4 +1,4 @@
-// port-lint: source new/common/posix/mod.rs
+// port-lint: source libc/src/new/common/posix/mod.rs
 package io.github.kotlinmania.libc.new.common.posix
 
 import kotlinx.cinterop.COpaquePointer

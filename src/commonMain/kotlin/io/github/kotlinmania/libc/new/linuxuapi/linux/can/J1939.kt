@@ -1,4 +1,4 @@
-// port-lint: source new/linux_uapi/linux/can/j1939.rs
+// port-lint: source libc/src/new/linux_uapi/linux/can/j1939.rs
 package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*

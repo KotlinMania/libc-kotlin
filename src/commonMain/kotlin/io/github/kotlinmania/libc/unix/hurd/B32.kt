@@ -1,4 +1,4 @@
-// port-lint: source unix/hurd/b32.rs
+// port-lint: source libc/src/unix/hurd/b32.rs
 package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*

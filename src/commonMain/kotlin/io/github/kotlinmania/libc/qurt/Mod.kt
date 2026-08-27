@@ -1,4 +1,4 @@
-// port-lint: source qurt/mod.rs
+// port-lint: source libc/src/qurt/mod.rs
 package io.github.kotlinmania.libc.qurt
 
 /**

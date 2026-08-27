@@ -1,4 +1,4 @@
-// port-lint: source new/apple/libc/unistd.rs
+// port-lint: source libc/src/new/apple/libc/unistd.rs
 package io.github.kotlinmania.libc.new.apple.libc
 
 /**

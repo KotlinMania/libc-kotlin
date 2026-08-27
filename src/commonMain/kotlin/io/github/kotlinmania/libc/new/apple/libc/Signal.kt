@@ -1,4 +1,4 @@
-// port-lint: source new/apple/libc/signal.rs
+// port-lint: source libc/src/new/apple/libc/signal.rs
 package io.github.kotlinmania.libc.new.apple.libc
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source new/musl/sys/socket.rs
+// port-lint: source libc/src/new/musl/sys/socket.rs
 package io.github.kotlinmania.libc.new.musl.sys
 
 import io.github.kotlinmania.libc.*

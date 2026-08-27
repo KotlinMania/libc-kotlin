@@ -1,4 +1,4 @@
-// port-lint: source new/uclibc/pthread.rs
+// port-lint: source libc/src/new/uclibc/pthread.rs
 package io.github.kotlinmania.libc.new.uclibc
 
 /**

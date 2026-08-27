@@ -1,4 +1,4 @@
-// port-lint: source new/glibc/sysdeps/unix/mod.rs
+// port-lint: source libc/src/new/glibc/sysdeps/unix/mod.rs
 package io.github.kotlinmania.libc.new.glibc.sysdeps.unix
 
 /**

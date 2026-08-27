@@ -1,4 +1,4 @@
-// port-lint: source new/netbsd/sys/timex.rs
+// port-lint: source libc/src/new/netbsd/sys/timex.rs
 package io.github.kotlinmania.libc.new.netbsd.sys
 
 import io.github.kotlinmania.libc.*

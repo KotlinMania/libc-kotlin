@@ -1,4 +1,4 @@
-// port-lint: source new/nto/net/bpf.rs
+// port-lint: source libc/src/new/nto/net/bpf.rs
 package io.github.kotlinmania.libc.new.nto.net
 
 import io.github.kotlinmania.libc.*

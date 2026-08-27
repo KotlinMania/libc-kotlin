@@ -1,4 +1,4 @@
-// port-lint: source new/common/linux_like/mod.rs
+// port-lint: source libc/src/new/common/linux_like/mod.rs
 package io.github.kotlinmania.libc.new.common.linuxlike
 
 /**

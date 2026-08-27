@@ -1,4 +1,4 @@
-// port-lint: tests switch.rs
+// port-lint: tests libc/src/switch.rs
 package io.github.kotlinmania.libc.switch
 
 import kotlin.test.Test

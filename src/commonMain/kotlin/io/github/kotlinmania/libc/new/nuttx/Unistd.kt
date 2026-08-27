@@ -1,4 +1,4 @@
-// port-lint: source new/nuttx/unistd.rs
+// port-lint: source libc/src/new/nuttx/unistd.rs
 package io.github.kotlinmania.libc.new.nuttx
 
 /**

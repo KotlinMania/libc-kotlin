@@ -1,4 +1,4 @@
-// port-lint: tests trusty.rs
+// port-lint: tests libc/src/trusty.rs
 package io.github.kotlinmania.libc.trusty
 
 import kotlin.test.Test
