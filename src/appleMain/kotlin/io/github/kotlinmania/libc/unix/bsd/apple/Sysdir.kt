@@ -12,5 +12,3 @@ public fun sysdirGetNextSearchPathEnumeration(
     state: SysdirSearchPathEnumerationState,
     path: COpaquePointer?,
 ): SysdirSearchPathEnumerationState = 0u
-
-

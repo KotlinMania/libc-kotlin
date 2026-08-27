@@ -14,10 +14,15 @@ package io.github.kotlinmania.libc.new.common.posix
  */
 
 /** `sched_param` — scheduling parameters object; POSIX mandates the `schedPriority` field. */
-public data class SchedParam(public val schedPriority: Int)
+public data class SchedParam(
+    public val schedPriority: Int,
+)
 
 /** `timespec` — POSIX time specification. */
-public data class Timespec(public val tvSec: Long, public val tvNsec: Long)
+public data class Timespec(
+    public val tvSec: Long,
+    public val tvNsec: Long,
+)
 
 /** `sigset_t` — opaque signal-mask bitset whose layout varies per platform. */
 public expect class SigsetT

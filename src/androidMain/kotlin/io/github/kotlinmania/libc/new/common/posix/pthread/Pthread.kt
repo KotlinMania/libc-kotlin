@@ -1,45 +1,83 @@
 // port-lint: source libc/src/new/common/posix/pthread.rs
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
-public actual class PthreadT internal constructor(internal val rawHandle: Long)
+public actual class PthreadT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadAttrT internal constructor(internal val rawHandle: Long)
+public actual class PthreadAttrT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadMutexT internal constructor(internal val rawHandle: Long)
+public actual class PthreadMutexT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadMutexattrT internal constructor(internal val rawHandle: Long)
+public actual class PthreadMutexattrT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadCondT internal constructor(internal val rawHandle: Long)
+public actual class PthreadCondT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadCondattrT internal constructor(internal val rawHandle: Long)
+public actual class PthreadCondattrT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadRwlockT internal constructor(internal val rawHandle: Long)
+public actual class PthreadRwlockT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadRwlockattrT internal constructor(internal val rawHandle: Long)
+public actual class PthreadRwlockattrT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadBarrierT internal constructor(internal val rawHandle: Long)
+public actual class PthreadBarrierT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadBarrierattrT internal constructor(internal val rawHandle: Long)
+public actual class PthreadBarrierattrT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadSpinlockT internal constructor(internal val rawHandle: Long)
+public actual class PthreadSpinlockT internal constructor(
+    internal val rawHandle: Long,
+)
 
-public actual class PthreadOnceT internal constructor(internal val rawHandle: Long)
+public actual class PthreadOnceT internal constructor(
+    internal val rawHandle: Long,
+)
 
 private object PthreadNative {
-    init { System.loadLibrary("libc_kotlin_pthread") }
+    init {
+        System.loadLibrary("libc_kotlin_pthread")
+    }
 
     @JvmStatic external fun pthreadCancel(thread: Long): Int
+
     @JvmStatic external fun pthreadKill(thread: Long, sig: Int): Int
+
     @JvmStatic external fun pthreadSetschedprio(thread: Long, priority: Int): Int
+
     @JvmStatic external fun pthreadSpinDestroy(lock: Long): Int
+
     @JvmStatic external fun pthreadSpinInit(lock: Long, pshared: Int): Int
+
     @JvmStatic external fun pthreadSpinLock(lock: Long): Int
+
     @JvmStatic external fun pthreadSpinTrylock(lock: Long): Int
+
     @JvmStatic external fun pthreadSpinUnlock(lock: Long): Int
+
     @JvmStatic external fun pthreadBarrierDestroy(barrier: Long): Int
+
     @JvmStatic external fun pthreadBarrierWait(barrier: Long): Int
+
     @JvmStatic external fun pthreadBarrierattrDestroy(attr: Long): Int
+
     @JvmStatic external fun pthreadBarrierattrInit(attr: Long): Int
+
     @JvmStatic external fun pthreadMutexConsistent(mutex: Long): Int
 }
 

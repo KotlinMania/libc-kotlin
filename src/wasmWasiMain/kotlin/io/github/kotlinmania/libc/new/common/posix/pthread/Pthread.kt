@@ -1,33 +1,58 @@
 @file:OptIn(kotlin.wasm.ExperimentalWasmInterop::class)
 
 // port-lint: source libc/src/new/common/posix/pthread.rs
+
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
 import kotlin.wasm.WasmImport
 
-public actual class PthreadT internal constructor(internal val rawHandle: Int)
+public actual class PthreadT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadAttrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadAttrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadMutexT internal constructor(internal val rawHandle: Int)
+public actual class PthreadMutexT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadMutexattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadMutexattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadCondT internal constructor(internal val rawHandle: Int)
+public actual class PthreadCondT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadCondattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadCondattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadRwlockT internal constructor(internal val rawHandle: Int)
+public actual class PthreadRwlockT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadRwlockattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadRwlockattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadBarrierT internal constructor(internal val rawHandle: Int)
+public actual class PthreadBarrierT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadBarrierattrT internal constructor(internal val rawHandle: Int)
+public actual class PthreadBarrierattrT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadSpinlockT internal constructor(internal val rawHandle: Int)
+public actual class PthreadSpinlockT internal constructor(
+    internal val rawHandle: Int,
+)
 
-public actual class PthreadOnceT internal constructor(internal val rawHandle: Int)
+public actual class PthreadOnceT internal constructor(
+    internal val rawHandle: Int,
+)
 
 @WasmImport("libc_kotlin_pthread", "pthread_cancel")
 private external fun wasiPthreadCancel(thread: Int): Int

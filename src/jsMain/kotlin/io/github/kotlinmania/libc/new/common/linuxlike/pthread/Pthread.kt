@@ -4,15 +4,21 @@ package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadAttrT
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadT
 
-public actual class CpuSetT internal constructor(internal val rawHandle: Int)
+public actual class CpuSetT internal constructor(
+    internal val rawHandle: Int,
+)
 
 @JsModule("libc-kotlin-pthread")
 @JsNonModule
 private external object PthreadLinuxNpAddon {
     fun getaffinityNp(thread: Int, cpusetsize: Int, cpuset: Int): Int
+
     fun getattrNp(thread: Int, attr: Int): Int
+
     fun getnameNp(thread: Int, name: ByteArray, len: Int): Int
+
     fun setaffinityNp(thread: Int, cpusetsize: Int, cpuset: Int): Int
+
     fun setnameNp(thread: Int, name: String): Int
 }
 

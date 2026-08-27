@@ -1,13 +1,16 @@
 @file:OptIn(kotlin.wasm.ExperimentalWasmInterop::class)
 
 // port-lint: source libc/src/new/common/linux_like/pthread.rs
+
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadAttrT
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadT
 import kotlin.wasm.WasmImport
 
-public actual class CpuSetT internal constructor(internal val rawHandle: Int)
+public actual class CpuSetT internal constructor(
+    internal val rawHandle: Int,
+)
 
 @WasmImport("libc_kotlin_pthread", "getaffinity_np")
 private external fun wasiPthreadGetaffinityNp(thread: Int, cpusetsize: Int, cpuset: Int): Int
