@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/dragonfly/unistd.rs
+// port-lint: source new/dragonfly/unistd.rs
 package io.github.kotlinmania.libc.new.dragonfly
 
 /**

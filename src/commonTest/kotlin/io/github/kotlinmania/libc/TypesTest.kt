@@ -1,4 +1,4 @@
-// port-lint: tests libc/src/types.rs
+// port-lint: tests types.rs
 package io.github.kotlinmania.libc
 
 import kotlin.test.Test

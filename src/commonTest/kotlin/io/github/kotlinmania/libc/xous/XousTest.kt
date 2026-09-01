@@ -1,4 +1,4 @@
-// port-lint: tests libc/src/xous.rs
+// port-lint: tests xous.rs
 package io.github.kotlinmania.libc.xous
 
 import kotlin.test.Test

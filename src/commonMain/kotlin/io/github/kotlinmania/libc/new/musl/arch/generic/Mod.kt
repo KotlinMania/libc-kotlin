@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/musl/arch/generic/mod.rs
+// port-lint: source new/musl/arch/generic/mod.rs
 package io.github.kotlinmania.libc.new.musl.arch.generic
 
 /**

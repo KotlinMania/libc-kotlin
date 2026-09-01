@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/linux_like/linux/musl/b64/wasm32/mod.rs
+// port-lint: source unix/linux_like/linux/musl/b64/wasm32/mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.wasm32
 
 import io.github.kotlinmania.libc.*

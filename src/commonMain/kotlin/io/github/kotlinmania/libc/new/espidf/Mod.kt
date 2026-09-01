@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/espidf/mod.rs
+// port-lint: source new/espidf/mod.rs
 package io.github.kotlinmania.libc.new.espidf
 
 /**

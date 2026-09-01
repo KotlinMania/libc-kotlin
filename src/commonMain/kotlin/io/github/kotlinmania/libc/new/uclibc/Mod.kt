@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/uclibc/mod.rs
+// port-lint: source new/uclibc/mod.rs
 package io.github.kotlinmania.libc.new.uclibc
 
 /**

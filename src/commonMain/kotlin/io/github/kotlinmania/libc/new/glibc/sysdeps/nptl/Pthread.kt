@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/glibc/sysdeps/nptl/pthread.rs
+// port-lint: source new/glibc/sysdeps/nptl/pthread.rs
 package io.github.kotlinmania.libc.new.glibc.sysdeps.nptl
 
 /**

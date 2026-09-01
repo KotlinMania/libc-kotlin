@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/nto/mod.rs
+// port-lint: source unix/nto/mod.rs
 package io.github.kotlinmania.libc.unix.nto
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

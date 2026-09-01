@@ -1,4 +1,4 @@
-// port-lint: source libc/src/psp.rs
+// port-lint: source psp.rs
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*

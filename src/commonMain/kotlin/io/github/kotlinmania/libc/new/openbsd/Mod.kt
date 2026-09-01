@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/openbsd/mod.rs
+// port-lint: source new/openbsd/mod.rs
 package io.github.kotlinmania.libc.new.openbsd
 
 /**

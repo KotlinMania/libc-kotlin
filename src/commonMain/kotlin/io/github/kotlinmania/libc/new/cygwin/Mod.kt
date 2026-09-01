@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/cygwin/mod.rs
+// port-lint: source new/cygwin/mod.rs
 package io.github.kotlinmania.libc.new.cygwin
 
 /**

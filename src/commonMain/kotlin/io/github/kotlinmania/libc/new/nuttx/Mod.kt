@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/nuttx/mod.rs
+// port-lint: source new/nuttx/mod.rs
 package io.github.kotlinmania.libc.new.nuttx
 
 /**

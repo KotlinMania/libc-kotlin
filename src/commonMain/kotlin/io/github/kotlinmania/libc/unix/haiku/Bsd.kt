@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/haiku/bsd.rs
+// port-lint: source unix/haiku/bsd.rs
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*

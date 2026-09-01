@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/illumos/unistd.rs
+// port-lint: source new/illumos/unistd.rs
 package io.github.kotlinmania.libc.new.illumos
 
 /**

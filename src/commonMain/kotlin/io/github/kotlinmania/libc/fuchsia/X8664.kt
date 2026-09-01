@@ -1,4 +1,4 @@
-// port-lint: source libc/src/fuchsia/x86_64.rs
+// port-lint: source fuchsia/x86_64.rs
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*

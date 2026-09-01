@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/nto/net/if_.rs
+// port-lint: source new/nto/net/if_.rs
 package io.github.kotlinmania.libc.new.nto.net
 
 import io.github.kotlinmania.libc.*

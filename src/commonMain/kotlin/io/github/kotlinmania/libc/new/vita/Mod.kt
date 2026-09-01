@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/vita/mod.rs
+// port-lint: source new/vita/mod.rs
 package io.github.kotlinmania.libc.new.vita
 
 /**

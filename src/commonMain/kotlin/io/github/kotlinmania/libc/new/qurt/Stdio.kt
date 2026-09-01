@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/qurt/stdio.rs
+// port-lint: source new/qurt/stdio.rs
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*

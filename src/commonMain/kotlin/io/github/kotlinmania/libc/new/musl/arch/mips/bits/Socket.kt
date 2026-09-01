@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/musl/arch/mips/bits/socket.rs
+// port-lint: source new/musl/arch/mips/bits/socket.rs
 package io.github.kotlinmania.libc.new.musl.arch.mips.bits
 
 import io.github.kotlinmania.libc.*

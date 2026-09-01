@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/newlib/powerpc/mod.rs
+// port-lint: source unix/newlib/powerpc/mod.rs
 package io.github.kotlinmania.libc.unix.newlib.powerpc
 
 import io.github.kotlinmania.libc.*

@@ -2,7 +2,7 @@
   "type": "port",
   "name": "libc-kotlin",
   "source": {
-    "path": "tmp",
+    "path": "tmp/libc/src",
     "lang": "rust"
   },
   "target": {

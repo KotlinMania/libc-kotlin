@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/aix/powerpc64.rs
+// port-lint: source unix/aix/powerpc64.rs
 package io.github.kotlinmania.libc.unix.aix
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

@@ -1,4 +1,4 @@
-// port-lint: source libc/src/vxworks/mod.rs
+// port-lint: source vxworks/mod.rs
 package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/aix/mod.rs
+// port-lint: source new/aix/mod.rs
 package io.github.kotlinmania.libc.new.aix
 
 /**

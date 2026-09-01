@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/bionic_libc/unistd.rs
+// port-lint: source new/bionic_libc/unistd.rs
 package io.github.kotlinmania.libc.new.bioniclibc
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/teeos/mod.rs
+// port-lint: source new/teeos/mod.rs
 package io.github.kotlinmania.libc.new.teeos
 
 /**

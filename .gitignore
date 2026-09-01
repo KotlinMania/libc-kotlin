@@ -38,6 +38,7 @@ kotlin-js-store/*
 # entries match the old subdir layout's build output.
 tools/ast_distance
 tools/ast_distance/build/
+tools/ast_distance_bin
 
 # JVM heap dumps
 *.hprof

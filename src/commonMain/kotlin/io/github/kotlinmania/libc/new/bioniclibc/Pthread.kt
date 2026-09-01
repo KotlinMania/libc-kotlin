@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/bionic_libc/pthread.rs
+// port-lint: source new/bionic_libc/pthread.rs
 package io.github.kotlinmania.libc.new.bioniclibc
 
 /**

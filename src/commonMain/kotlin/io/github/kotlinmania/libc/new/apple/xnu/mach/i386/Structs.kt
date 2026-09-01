@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/apple/xnu/mach/i386/_structs.rs
+// port-lint: source new/apple/xnu/mach/i386/_structs.rs
 package io.github.kotlinmania.libc.new.apple.xnu.mach.i386
 
 import io.github.kotlinmania.libc.*

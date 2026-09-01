@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/linux_like/linux/uclibc/mod.rs
+// port-lint: source unix/linux_like/linux/uclibc/mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*

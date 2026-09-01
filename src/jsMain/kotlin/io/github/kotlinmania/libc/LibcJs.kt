@@ -1,4 +1,4 @@
-// port-lint: source libc/src/N/A
+// port-lint: source N/A
 package io.github.kotlinmania.libc
 
 /**

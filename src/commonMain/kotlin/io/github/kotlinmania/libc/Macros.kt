@@ -1,4 +1,4 @@
-// port-lint: source libc/src/macros.rs
+// port-lint: source macros.rs
 package io.github.kotlinmania.libc
 
 /**

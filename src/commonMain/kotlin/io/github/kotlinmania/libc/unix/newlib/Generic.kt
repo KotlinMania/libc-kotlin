@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/newlib/generic.rs
+// port-lint: source unix/newlib/generic.rs
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*

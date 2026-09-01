@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/bsd/netbsdlike/netbsd/aarch64.rs
+// port-lint: source unix/bsd/netbsdlike/netbsd/aarch64.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*

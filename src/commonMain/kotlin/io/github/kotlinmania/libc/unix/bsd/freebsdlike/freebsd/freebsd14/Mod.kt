@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/bsd/freebsdlike/freebsd/freebsd14/mod.rs
+// port-lint: source unix/bsd/freebsdlike/freebsd/freebsd14/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd14
 
 import io.github.kotlinmania.libc.*

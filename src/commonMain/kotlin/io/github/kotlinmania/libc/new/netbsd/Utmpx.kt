@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/netbsd/utmpx_.rs
+// port-lint: source new/netbsd/utmpx_.rs
 package io.github.kotlinmania.libc.new.netbsd
 
 import io.github.kotlinmania.libc.*

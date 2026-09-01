@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/common/posix/pthread.rs
+// port-lint: source new/common/posix/pthread.rs
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
 public actual class PthreadT internal constructor(

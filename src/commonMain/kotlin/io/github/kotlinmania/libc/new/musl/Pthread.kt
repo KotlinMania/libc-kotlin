@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/musl/pthread.rs
+// port-lint: source new/musl/pthread.rs
 package io.github.kotlinmania.libc.new.musl
 
 /**
