@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/bsd/netbsdlike/netbsd/mod.rs
+// port-lint: source unix/bsd/netbsdlike/netbsd/mod.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

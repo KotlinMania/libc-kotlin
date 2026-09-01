@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/nto/aarch64.rs
+// port-lint: source unix/nto/aarch64.rs
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*

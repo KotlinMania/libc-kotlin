@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/redox/mod.rs
+// port-lint: source new/redox/mod.rs
 package io.github.kotlinmania.libc.new.redox
 
 /**

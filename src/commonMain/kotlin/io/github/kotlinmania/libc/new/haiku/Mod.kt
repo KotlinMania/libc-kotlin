@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/haiku/mod.rs
+// port-lint: source new/haiku/mod.rs
 package io.github.kotlinmania.libc.new.haiku
 
 /**

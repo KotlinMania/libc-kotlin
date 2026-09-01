@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/linux_like/linux/arch/sparc/mod.rs
+// port-lint: source unix/linux_like/linux/arch/sparc/mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.arch.sparc
 
 import io.github.kotlinmania.libc.*

@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/linux_like/emscripten/mod.rs
+// port-lint: source unix/linux_like/emscripten/mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

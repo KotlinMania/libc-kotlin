@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/vxworks/mod.rs
+// port-lint: source new/vxworks/mod.rs
 package io.github.kotlinmania.libc.new.vxworks
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/redox/mod.rs
+// port-lint: source unix/redox/mod.rs
 package io.github.kotlinmania.libc.unix.redox
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

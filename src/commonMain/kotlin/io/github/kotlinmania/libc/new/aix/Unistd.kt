@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/aix/unistd.rs
+// port-lint: source new/aix/unistd.rs
 package io.github.kotlinmania.libc.new.aix
 
 /**

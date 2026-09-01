@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/linux_like/linux_l4re_shared.rs
+// port-lint: source unix/linux_like/linux_l4re_shared.rs
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*

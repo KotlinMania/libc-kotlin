@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/openbsd/sys/ipc.rs
+// port-lint: source new/openbsd/sys/ipc.rs
 package io.github.kotlinmania.libc.new.openbsd.sys
 
 import io.github.kotlinmania.libc.*

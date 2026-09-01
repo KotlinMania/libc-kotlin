@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/hermit_abi/mod.rs
+// port-lint: source new/hermit_abi/mod.rs
 package io.github.kotlinmania.libc.new.hermitabi
 
 /**

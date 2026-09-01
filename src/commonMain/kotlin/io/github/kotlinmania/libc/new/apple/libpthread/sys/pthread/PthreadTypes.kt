@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/apple/libpthread/sys/_pthread/_pthread_types.rs
+// port-lint: source new/apple/libpthread/sys/_pthread/_pthread_types.rs
 package io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread
 
 import io.github.kotlinmania.libc.*

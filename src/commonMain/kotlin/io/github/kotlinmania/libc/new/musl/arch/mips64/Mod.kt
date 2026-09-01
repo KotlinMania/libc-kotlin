@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/musl/arch/mips64/mod.rs
+// port-lint: source new/musl/arch/mips64/mod.rs
 package io.github.kotlinmania.libc.new.musl.arch.mips64
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/common/solarish.rs
+// port-lint: source new/common/solarish.rs
 package io.github.kotlinmania.libc.new.common
 
 /**

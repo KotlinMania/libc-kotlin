@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/freebsd/unistd.rs
+// port-lint: source new/freebsd/unistd.rs
 package io.github.kotlinmania.libc.new.freebsd
 
 /**

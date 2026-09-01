@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/cygwin/mod.rs
+// port-lint: source unix/cygwin/mod.rs
 package io.github.kotlinmania.libc.unix.cygwin
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval

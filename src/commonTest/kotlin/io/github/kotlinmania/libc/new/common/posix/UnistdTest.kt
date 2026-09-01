@@ -1,4 +1,4 @@
-// port-lint: tests libc/src/new/common/posix/unistd.rs
+// port-lint: tests new/common/posix/unistd.rs
 package io.github.kotlinmania.libc.new.common.posix
 
 import kotlin.test.Test

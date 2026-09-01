@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/linux_uapi/linux/mod.rs
+// port-lint: source new/linux_uapi/linux/mod.rs
 package io.github.kotlinmania.libc.new.linuxuapi.linux
 
 /**

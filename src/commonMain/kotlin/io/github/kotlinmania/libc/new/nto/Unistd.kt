@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/nto/unistd.rs
+// port-lint: source new/nto/unistd.rs
 package io.github.kotlinmania.libc.new.nto
 
 /**

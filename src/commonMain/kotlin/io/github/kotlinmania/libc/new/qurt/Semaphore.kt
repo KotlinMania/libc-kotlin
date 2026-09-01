@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/qurt/semaphore.rs
+// port-lint: source new/qurt/semaphore.rs
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*

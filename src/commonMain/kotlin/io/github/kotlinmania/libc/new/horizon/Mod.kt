@@ -1,4 +1,4 @@
-// port-lint: source libc/src/new/horizon/mod.rs
+// port-lint: source new/horizon/mod.rs
 package io.github.kotlinmania.libc.new.horizon
 
 /**

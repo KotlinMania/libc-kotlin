@@ -1,4 +1,4 @@
-// port-lint: source libc/src/wasi/mod.rs
+// port-lint: source wasi/mod.rs
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*

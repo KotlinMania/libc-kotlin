@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/nto/neutrino.rs
+// port-lint: source unix/nto/neutrino.rs
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*

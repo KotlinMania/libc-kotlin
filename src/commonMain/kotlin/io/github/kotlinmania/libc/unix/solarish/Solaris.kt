@@ -1,4 +1,4 @@
-// port-lint: source libc/src/unix/solarish/solaris.rs
+// port-lint: source unix/solarish/solaris.rs
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
