@@ -1082,29 +1082,29 @@ public expect fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer?
 
 public expect fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer?
 
-public fun isalnum(c: CInt): CInt = -1
+public expect fun isalnum(c: CInt): CInt
 
-public fun isalpha(c: CInt): CInt = -1
+public expect fun isalpha(c: CInt): CInt
 
-public fun iscntrl(c: CInt): CInt = -1
+public expect fun iscntrl(c: CInt): CInt
 
-public fun isdigit(c: CInt): CInt = -1
+public expect fun isdigit(c: CInt): CInt
 
-public fun isgraph(c: CInt): CInt = -1
+public expect fun isgraph(c: CInt): CInt
 
-public fun islower(c: CInt): CInt = -1
+public expect fun islower(c: CInt): CInt
 
-public fun isprint(c: CInt): CInt = -1
+public expect fun isprint(c: CInt): CInt
 
-public fun ispunct(c: CInt): CInt = -1
+public expect fun ispunct(c: CInt): CInt
 
-public fun isspace(c: CInt): CInt = -1
+public expect fun isspace(c: CInt): CInt
 
-public fun isupper(c: CInt): CInt = -1
+public expect fun isupper(c: CInt): CInt
 
-public fun isxdigit(c: CInt): CInt = -1
+public expect fun isxdigit(c: CInt): CInt
 
-public fun isblank(c: CInt): CInt = -1
+public expect fun isblank(c: CInt): CInt
 
 public fun tolower(c: CInt): CInt = -1
 
@@ -1652,7 +1652,7 @@ public fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT = -1L
 
 public fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT = -1L
 
-public fun isatty(fd: CInt): CInt = -1
+public expect fun isatty(fd: CInt): CInt
 
 public fun dup(src: CInt): CInt = -1
 
