@@ -138,4 +138,4 @@ public const val ENOTRECOVERABLE: CInt = 131
 public const val ERFKILL: CInt = 132
 public const val EHWPOISON: CInt = 133
 
-public fun errnoLocation(): CInt? = null
+public expect fun errnoLocation(): CInt? 

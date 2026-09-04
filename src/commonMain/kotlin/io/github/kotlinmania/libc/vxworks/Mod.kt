@@ -1480,8 +1480,8 @@ public expect fun sigdelset(set: SigsetT?, signum: CInt): CInt
 public expect fun sigismember(set: SigsetT?, signum: CInt): CInt
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oset: SigsetT?): CInt
 public expect fun kill(pid: PidT, signo: CInt): CInt
-public fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt = -1 
-public fun sigqueue(rtpId: RTPID, signo: CInt, pValue: Sigval?, sigCode: CInt): CInt = -1 
+public fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt = -1
+public fun sigqueue(rtpId: RTPID, signo: CInt, pValue: Sigval?, sigCode: CInt): CInt = -1
 public expect fun taskKill(taskId: TASKID, signo: CInt): CInt
 public expect fun raise(signo: CInt): CInt
 public fun taskIdSelf(): TASKID = throw UnsupportedOperationException("Not implemented on this platform")

@@ -331,4 +331,4 @@ public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = 
 public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = longArrayOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
 public const val RLIM_INFINITY: CULong = 0x7fffffffffffffffuL
 
-public fun getsystemcfg(label: CInt): CULong = 0uL
+public expect fun getsystemcfg(label: CInt): CULong 

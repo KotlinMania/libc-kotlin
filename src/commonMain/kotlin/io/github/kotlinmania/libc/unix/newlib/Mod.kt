@@ -556,86 +556,46 @@ public const val PRIO_PGRP: CInt = 1
 public const val PRIO_USER: CInt = 2
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public fun fDCLR(fd: CInt, set: FdSet?) { }
-
-public fun fDISSET(fd: CInt, set: FdSet?): Boolean = false
-
-public fun fDSET(fd: CInt, set: FdSet?) { }
-
-public fun fDZERO(set: FdSet?) { }
-
-public fun getrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
-
-public fun setrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
-
-public fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt = -1
-
-public fun semDestroy(sem: SemT?): CInt = -1
-
-public fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt = -1
-
-public fun abs(i: CInt): CInt = -1
-
-public fun labs(i: CLong): CLong = -1L
-
-public fun rand(): CInt = -1
-
-public fun srand(seed: CUInt) { }
-
-public fun bind(fd: CInt, addr: Sockaddr?, len: SocklenT): CInt = -1
-
-public fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt = -1
-
-public fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt = -1
-
-public fun clockGetres(clockId: ClockidT, res: Timespec?): CInt = -1
-
-public fun closesocket(sockfd: CInt): CInt = -1
-
-public fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt = -1
-
-public fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: Sockaddr?, addrLen: SocklenT?): Long = -1L
-
-public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt = -1
-
-public fun memalign(align: ULong, size: ULong): COpaquePointer? = null
-
-public fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt = -1
-
-public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
-
-public fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
-
-public fun sigaltstack(ss: StackT?, oss: StackT?): CInt = -1
-
-public fun semClose(sem: SemT?): CInt = -1
-
-public fun getdtablesize(): CInt = -1
-
-public fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
-
-public fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt = -1
-
-public fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT? = null
-
-public fun getgrnam(name: String?): Group? = null
-
-public fun pthreadKill(thread: PthreadT, sig: CInt): CInt = -1
-
-public fun semUnlink(name: String?): CInt = -1
-
-public fun daemon(nochdir: CInt, noclose: CInt): CInt = -1
-
-public fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
-
-public fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
-
-public fun sigwait(set: SigsetT?, sig: CInt?): CInt = -1
-
+public expect fun fDCLR(fd: CInt, set: FdSet?)
+public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean 
+public expect fun fDSET(fd: CInt, set: FdSet?)
+public expect fun fDZERO(set: FdSet?)
+public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt 
+public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt 
+public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt 
+public expect fun semDestroy(sem: SemT?): CInt 
+public expect fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt 
+public expect fun abs(i: CInt): CInt 
+public expect fun labs(i: CLong): CLong 
+public expect fun rand(): CInt 
+public expect fun srand(seed: CUInt)
+public expect fun bind(fd: CInt, addr: Sockaddr?, len: SocklenT): CInt 
+public expect fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt 
+public expect fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt 
+public expect fun clockGetres(clockId: ClockidT, res: Timespec?): CInt 
+public expect fun closesocket(sockfd: CInt): CInt 
+public expect fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt 
+public expect fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: Sockaddr?, addrLen: SocklenT?): Long 
+public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt 
+public expect fun memalign(align: ULong, size: ULong): COpaquePointer? 
+public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt 
+public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt 
+public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
+public expect fun sigaltstack(ss: StackT?, oss: StackT?): CInt 
+public expect fun semClose(sem: SemT?): CInt 
+public expect fun getdtablesize(): CInt 
+public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
+public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt 
+public expect fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT? 
+public expect fun getgrnam(name: String?): Group? 
+public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt 
+public expect fun semUnlink(name: String?): CInt 
+public expect fun daemon(nochdir: CInt, noclose: CInt): CInt 
+public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
+public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
+public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
 public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
 
-public fun getgrgid(gid: GidT): Group? = null
-
-public fun popen(command: String?, mode: String?): FILE? = null
-
-public fun uname(buf: Utsname?): CInt = -1
+public expect fun getgrgid(gid: GidT): Group? 
+public expect fun popen(command: String?, mode: String?): FILE? 
+public expect fun uname(buf: Utsname?): CInt 

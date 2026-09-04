@@ -1111,106 +1111,56 @@ public const val PRIO_USER: CInt = 2
 public const val SOMAXCONN: CInt = 128
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
-
-public fun cPUZERO(cpuset: CpuSetT?) { }
-
-public fun cPUSET(cpu: ULong, cpuset: CpuSetT?) { }
-
-public fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) { }
-
-public fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean = false
-
-public fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean = false
-
-public fun getrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
-
-public fun setrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
-
-public fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt = -1
-
-public fun abs(i: CInt): CInt = -1
-
-public fun labs(i: CLong): CLong = -1L
-
-public fun rand(): CInt = -1
-
-public fun srand(seed: CUInt) { }
-
-public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
-
-public fun setpwent() { }
-
-public fun endpwent() { }
-
-public fun getpwent(): Passwd? = null
-
-public fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt = -1
-
-public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
-
-public fun errnoLocation(): CInt? = null
-
-public fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt = -1
-
-public fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
-
-public fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
-
-public fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt = -1
-
-public fun nlLanginfoL(item: NlItem, locale: LocaleT): String? = null
-
-public fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt = -1
-
-public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt = -1
-
-public fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt = -1
-
-public fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt = -1
-
-public fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? = null
-
+public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? 
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean 
+public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean 
+public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt 
+public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt 
+public expect fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt 
+public expect fun abs(i: CInt): CInt 
+public expect fun labs(i: CLong): CLong 
+public expect fun rand(): CInt 
+public expect fun srand(seed: CUInt)
+public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt 
+public expect fun setpwent()
+public expect fun endpwent()
+public expect fun getpwent(): Passwd? 
+public expect fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt 
+public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
+public expect fun errnoLocation(): CInt? 
+public expect fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt 
+public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT 
+public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT 
+public expect fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt 
+public expect fun nlLanginfoL(item: NlItem, locale: LocaleT): String? 
+public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt 
+public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt 
+public expect fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt 
+public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt 
+public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? 
 public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
 
-public fun globfree(pglob: GlobT?) { }
-
-public fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt = -1
-
-public fun shmUnlink(name: String?): CInt = -1
-
-public fun seekdir(dirp: DIR?, loc: CLong) { }
-
-public fun telldir(dirp: DIR?): CLong = -1L
-
-public fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt = -1
-
-public fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt = -1
-
-public fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT = -1L
-
-public fun mkstemps(template: String?, suffixlen: CInt): CInt = -1
-
-public fun nlLanginfo(item: NlItem): String? = null
-
-public fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt): CInt = -1
-
-public fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt, timeout: Timespec?): CInt = -1
-
-public fun sync() { }
-
-public fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt = -1
-
-public fun getpriority(which: CInt, who: IdT): CInt = -1
-
-public fun setpriority(which: CInt, who: IdT, prio: CInt): CInt = -1
-
-public fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt = -1
-
-public fun getgrgid(gid: GidT): Group? = null
-
-public fun getgrnam(name: String?): Group? = null
-
-public fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
-
-public fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt = -1
+public expect fun globfree(pglob: GlobT?)
+public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt 
+public expect fun shmUnlink(name: String?): CInt 
+public expect fun seekdir(dirp: DIR?, loc: CLong)
+public expect fun telldir(dirp: DIR?): CLong 
+public expect fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt 
+public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt 
+public expect fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT 
+public expect fun mkstemps(template: String?, suffixlen: CInt): CInt 
+public expect fun nlLanginfo(item: NlItem): String? 
+public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt): CInt 
+public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt, timeout: Timespec?): CInt 
+public expect fun sync()
+public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt 
+public expect fun getpriority(which: CInt, who: IdT): CInt 
+public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt 
+public expect fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt 
+public expect fun getgrgid(gid: GidT): Group? 
+public expect fun getgrnam(name: String?): Group? 
+public expect fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
+public expect fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 

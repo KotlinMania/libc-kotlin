@@ -332,26 +332,15 @@ public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 
 // PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __c_lock: __LOCK_INITIALIZER, __c_waiting: core::ptr::null, __padding: [0 (initializer represented at the FFI boundary)
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwLock = __LOCK_INITIALIZER, rwReaders = 0, rwWriter = null, rwReadWaiting = null, rwWriteWaiting = null, rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)
 
-public fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt = -1
-
-public fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt = -1
-
-public fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt = -1
-
-public fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt = -1
-
-public fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt = -1
-
-public fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT = -1L
-
-public fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT = -1L
-
-public fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt = -1
-
-public fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt = -1
-
-public fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt = -1
-
-public fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt = -1
-
-public fun getauxval(type: CULong): CULong = 0uL
+public expect fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt 
+public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT?, `val`: CInt?): CInt 
+public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT?, `val`: CInt): CInt 
+public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt 
+public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt 
+public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT 
+public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT 
+public expect fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt 
+public expect fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt 
+public expect fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt 
+public expect fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt 
+public expect fun getauxval(type: CULong): CULong 

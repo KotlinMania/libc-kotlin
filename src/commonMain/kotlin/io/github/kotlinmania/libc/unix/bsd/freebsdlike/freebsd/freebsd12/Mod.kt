@@ -208,16 +208,10 @@ public const val SPECNAMELEN: CInt = 63
 public const val KI_NSPARE_PTR: ULong = 6uL
 public const val MINCORE_SUPER: CInt = 0x20
 
-public fun setgrent() { }
-
-public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
-
-public fun freelocale(loc: LocaleT) { }
-
-public fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT = -1L
-
-public fun dirname(path: String?): String? = null
-
-public fun basename(path: String?): String? = null
-
+public expect fun setgrent()
+public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
+public expect fun freelocale(loc: LocaleT)
+public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT 
+public expect fun dirname(path: String?): String? 
+public expect fun basename(path: String?): String? 
 public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) { }
