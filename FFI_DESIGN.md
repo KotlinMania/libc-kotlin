@@ -193,6 +193,30 @@ public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
 - **`build.gradle.kts`** — gains `cpp-library` plugin and cinterop wiring
 - **`src/nativeInterop/cinterop/`** — gains C/C++ wrapper source files
 
+### Key learnings (from Phase 1)
+
+1. **C macros (CMSG_\*)**: cinterop cannot see C macros. Write C wrapper
+   functions that expose the macros, include them via the .def file.
+   Import from `libc.cinterop.*` (the packageName set in build.gradle.kts).
+
+2. **Standard C library calls (calloc, malloc, etc.)**: Use `platform.posix.*`
+   directly — Kotlin/Native provides these out of the box. No custom cinterop
+   needed for standard POSIX functions. The cinterop .def file is only needed
+   for C macros and non-POSIX platform-specific functions.
+
+3. **String conversion**: `platform.posix` functions accept `String?` directly
+   for `const char*` parameters (Kotlin/Native auto-converts). Return values
+   use `.toKString()` to convert `CPointer<ByteVar>?` → `String?`.
+
+4. **COpaquePointer bridge**: `COpaquePointer.value` (Long) ↔ `CPointer<ByteVar>`
+   via `value.toCPointer<ByteVar>()` and `CPointer.toLong()`.
+
+5. **Package matching**: expect/actual must be in the same package. If the
+   expect is in `io.github.kotlinmania.libc.vxworks`, the actual must be too.
+
+6. **CInt import**: `CInt` is a typealias in `CommonTypes.kt` (= `Int`). Import
+   it from the common package in nativeMain actuals.
+
 ### Rollout plan
 
 1. **Phase 1: CMSG functions** (3 functions in vxworks/Mod.kt)
