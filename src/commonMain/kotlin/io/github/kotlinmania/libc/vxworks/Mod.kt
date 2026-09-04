@@ -1074,11 +1074,13 @@ public const val TIOCGWINSZ: CInt = 0x1740087468.toInt()
 public const val TIOCSWINSZ: CInt = -0x7ff78b99
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
+// These take raw pointers (COpaquePointer) to C structs in a message buffer,
+// matching the Rust signatures which use *const msghdr / *const cmsghdr.
+public expect fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer?
 
-public fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? = null
+public expect fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer?
 
-public fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? = null
+public expect fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer?
 
 public fun isalnum(c: CInt): CInt = -1
 
@@ -1182,13 +1184,13 @@ public fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong = 0uL
 
 public fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong = 0uL
 
-public fun calloc(nobj: ULong, size: ULong): COpaquePointer? = null
+public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer?
 
-public fun malloc(size: ULong): COpaquePointer? = null
+public expect fun malloc(size: ULong): COpaquePointer?
 
-public fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? = null
+public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer?
 
-public fun free(p: COpaquePointer?) { }
+public expect fun free(p: COpaquePointer?)
 
 public fun abort(): Nothing = throw UnsupportedOperationException()
 
@@ -1198,7 +1200,7 @@ public fun atexit(cb: (() -> Unit)?): CInt = -1
 
 public fun system(s: String?): CInt = -1
 
-public fun getenv(s: String?): String? = null
+public expect fun getenv(s: String?): String?
 
 public fun cfgetospeed(termios: Termios?): SpeedT = throw UnsupportedOperationException("Not implemented on this platform")
 
@@ -1230,7 +1232,7 @@ public fun strspn(cs: String?, ct: String?): ULong = 0uL
 
 public fun strcspn(cs: String?, ct: String?): ULong = 0uL
 
-public fun strdup(cs: String?): String? = null
+public expect fun strdup(cs: String?): String?
 
 public fun strpbrk(cs: String?, ct: String?): String? = null
 
@@ -1244,7 +1246,7 @@ public fun strlen(cs: String?): ULong = 0uL
 
 public fun strnlen(cs: String?, n: ULong): ULong = 0uL
 
-public fun strerror(n: CInt): String? = null
+public expect fun strerror(n: CInt): String?
 
 public fun strtok(s: String?, t: String?): String? = null
 
@@ -1254,21 +1256,21 @@ public fun wcslen(buf: WcharT?): ULong = 0uL
 
 public fun wcstombs(dest: String?, src: WcharT?, n: ULong): ULong = 0uL
 
-public fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
+public expect fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
 
 public fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT? = null
 
-public fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt = -1
+public expect fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt
 
-public fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? = null
+public expect fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
 
-public fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
+public expect fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
 
-public fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? = null
+public expect fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer?
 
-public fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? = null
+public expect fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
 
-public fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? = null
+public expect fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer?
 
 public fun uname(buf: Utsname?): CInt = -1
 
@@ -1338,7 +1340,7 @@ public fun geteuid(): UidT = throw UnsupportedOperationException("Not implemente
 
 public fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt = -1
 
-public fun getlogin(): String? = null
+public expect fun getlogin(): String?
 
 public fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CInt = -1
 
@@ -1352,7 +1354,7 @@ public fun setegid(gid: GidT): CInt = -1
 
 public fun sleep(secs: CUInt): CUInt = 0u
 
-public fun ttyname(fd: CInt): String? = null
+public expect fun ttyname(fd: CInt): String?
 
 public fun wait(status: CInt?): PidT = -1
 
@@ -1402,7 +1404,7 @@ public fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: CInt): 
 
 public fun dlopen(filename: String?, flag: CInt): COpaquePointer? = null
 
-public fun dlerror(): String? = null
+public expect fun dlerror(): String?
 
 public fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? = null
 
@@ -1432,7 +1434,7 @@ public fun usleep(secs: UsecondsT): CInt = -1
 
 public fun putenv(string: String?): CInt = -1
 
-public fun setlocale(category: CInt, locale: String?): String? = null
+public expect fun setlocale(category: CInt, locale: String?): String?
 
 public fun localeconv(): Lconv? = null
 
@@ -1642,7 +1644,7 @@ public fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt = -1
 
 public fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt = -1
 
-public fun gaiStrerror(errcode: CInt): String? = null
+public expect fun gaiStrerror(errcode: CInt): String?
 
 public fun close(fd: CInt): CInt = -1
 

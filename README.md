@@ -1,5 +1,9 @@
 # libc-kotlin in Kotlin
 
+> **Before working in this repo, read [`FFI_DESIGN.md`](FFI_DESIGN.md)** —
+> the authoritative design for porting the 922 stub functions to real
+> C/C++ FFI implementations via cinterop (native) and N-API (JS/WASM).
+
 [![GitHub link](https://img.shields.io/badge/GitHub-KotlinMania%2Flibc--kotlin-blue.svg)](https://github.com/KotlinMania/libc-kotlin)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.kotlinmania/libc-kotlin)](https://central.sonatype.com/artifact/io.github.kotlinmania/libc-kotlin)
 [![Build status](https://img.shields.io/github/actions/workflow/status/KotlinMania/libc-kotlin/ci.yml?branch=main)](https://github.com/KotlinMania/libc-kotlin/actions)

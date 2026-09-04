@@ -2533,11 +2533,14 @@ public fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean = false
 
 public fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean = false
 
-public fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? = null
+// Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
+// These take raw pointers (COpaquePointer) to C structs in a message buffer,
+// matching the Rust signatures which use *const msghdr / *const cmsghdr.
+public expect fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer?
 
-public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
+public expect fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer?
 
-public fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? = null
+public expect fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer?
 
 public fun isalnum(c: CInt): CInt = -1
 
