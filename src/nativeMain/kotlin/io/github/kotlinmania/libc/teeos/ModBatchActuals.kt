@@ -302,24 +302,14 @@ public actual fun wcschr(s: WcharT?, c: WcharT): WcharT? =
 public actual fun wcslen(s: WcharT?): ULong =
     throw UnsupportedOperationException("wcslen requires manual FFI bridge — not yet implemented")
 
-public actual fun isalpha(c: CInt): CInt =
-    throw UnsupportedOperationException("isalpha requires manual FFI bridge — not yet implemented")
-
+public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
 public actual fun isascii(c: CInt): CInt =
     throw UnsupportedOperationException("isascii requires manual FFI bridge — not yet implemented")
 
-public actual fun isdigit(c: CInt): CInt =
-    throw UnsupportedOperationException("isdigit requires manual FFI bridge — not yet implemented")
-
-public actual fun islower(c: CInt): CInt =
-    throw UnsupportedOperationException("islower requires manual FFI bridge — not yet implemented")
-
-public actual fun isprint(c: CInt): CInt =
-    throw UnsupportedOperationException("isprint requires manual FFI bridge — not yet implemented")
-
-public actual fun isspace(c: CInt): CInt =
-    throw UnsupportedOperationException("isspace requires manual FFI bridge — not yet implemented")
-
+public actual fun isdigit(c: CInt): CInt = platform.posix.isdigit(c)
+public actual fun islower(c: CInt): CInt = platform.posix.islower(c)
+public actual fun isprint(c: CInt): CInt = platform.posix.isprint(c)
+public actual fun isspace(c: CInt): CInt = platform.posix.isspace(c)
 public actual fun iswctype(wc: WintT, ttype: WctypeT): CInt =
     throw UnsupportedOperationException("iswctype requires manual FFI bridge — not yet implemented")
 

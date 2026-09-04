@@ -39,48 +39,20 @@ public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
 public actual fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUEQUAL requires manual FFI bridge — not yet implemented")
 
-public actual fun isalnum(c: CInt): CInt =
-    throw UnsupportedOperationException("isalnum requires manual FFI bridge — not yet implemented")
-
-public actual fun isalpha(c: CInt): CInt =
-    throw UnsupportedOperationException("isalpha requires manual FFI bridge — not yet implemented")
-
-public actual fun iscntrl(c: CInt): CInt =
-    throw UnsupportedOperationException("iscntrl requires manual FFI bridge — not yet implemented")
-
-public actual fun isdigit(c: CInt): CInt =
-    throw UnsupportedOperationException("isdigit requires manual FFI bridge — not yet implemented")
-
-public actual fun isgraph(c: CInt): CInt =
-    throw UnsupportedOperationException("isgraph requires manual FFI bridge — not yet implemented")
-
-public actual fun islower(c: CInt): CInt =
-    throw UnsupportedOperationException("islower requires manual FFI bridge — not yet implemented")
-
-public actual fun isprint(c: CInt): CInt =
-    throw UnsupportedOperationException("isprint requires manual FFI bridge — not yet implemented")
-
-public actual fun ispunct(c: CInt): CInt =
-    throw UnsupportedOperationException("ispunct requires manual FFI bridge — not yet implemented")
-
-public actual fun isspace(c: CInt): CInt =
-    throw UnsupportedOperationException("isspace requires manual FFI bridge — not yet implemented")
-
-public actual fun isupper(c: CInt): CInt =
-    throw UnsupportedOperationException("isupper requires manual FFI bridge — not yet implemented")
-
-public actual fun isxdigit(c: CInt): CInt =
-    throw UnsupportedOperationException("isxdigit requires manual FFI bridge — not yet implemented")
-
-public actual fun isblank(c: CInt): CInt =
-    throw UnsupportedOperationException("isblank requires manual FFI bridge — not yet implemented")
-
-public actual fun tolower(c: CInt): CInt =
-    throw UnsupportedOperationException("tolower requires manual FFI bridge — not yet implemented")
-
-public actual fun toupper(c: CInt): CInt =
-    throw UnsupportedOperationException("toupper requires manual FFI bridge — not yet implemented")
-
+public actual fun isalnum(c: CInt): CInt = platform.posix.isalnum(c)
+public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
+public actual fun iscntrl(c: CInt): CInt = platform.posix.iscntrl(c)
+public actual fun isdigit(c: CInt): CInt = platform.posix.isdigit(c)
+public actual fun isgraph(c: CInt): CInt = platform.posix.isgraph(c)
+public actual fun islower(c: CInt): CInt = platform.posix.islower(c)
+public actual fun isprint(c: CInt): CInt = platform.posix.isprint(c)
+public actual fun ispunct(c: CInt): CInt = platform.posix.ispunct(c)
+public actual fun isspace(c: CInt): CInt = platform.posix.isspace(c)
+public actual fun isupper(c: CInt): CInt = platform.posix.isupper(c)
+public actual fun isxdigit(c: CInt): CInt = platform.posix.isxdigit(c)
+public actual fun isblank(c: CInt): CInt = platform.posix.isblank(c)
+public actual fun tolower(c: CInt): CInt = platform.posix.tolower(c)
+public actual fun toupper(c: CInt): CInt = platform.posix.toupper(c)
 public actual fun fopen(filename: String?, mode: String?): FILE? =
     throw UnsupportedOperationException("fopen requires manual FFI bridge — not yet implemented")
 
@@ -109,12 +81,8 @@ public actual fun setbuf(stream: FILE?, buf: String?) {
     throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun getchar(): CInt =
-    throw UnsupportedOperationException("getchar requires manual FFI bridge — not yet implemented")
-
-public actual fun putchar(c: CInt): CInt =
-    throw UnsupportedOperationException("putchar requires manual FFI bridge — not yet implemented")
-
+public actual fun getchar(): CInt = platform.posix.getchar()
+public actual fun putchar(c: CInt): CInt = platform.posix.putchar(c)
 public actual fun fgetc(stream: FILE?): CInt =
     throw UnsupportedOperationException("fgetc requires manual FFI bridge — not yet implemented")
 
@@ -332,15 +300,11 @@ public actual fun getcharUnlocked(): CInt =
 public actual fun putcharUnlocked(c: CInt): CInt =
     throw UnsupportedOperationException("putcharUnlocked requires manual FFI bridge — not yet implemented")
 
-public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    throw UnsupportedOperationException("socket requires manual FFI bridge — not yet implemented")
-
+public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt = platform.posix.socket(domain, ty, protocol)
 public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt =
     throw UnsupportedOperationException("connect requires manual FFI bridge — not yet implemented")
 
-public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    throw UnsupportedOperationException("listen requires manual FFI bridge — not yet implemented")
-
+public actual fun listen(socket: CInt, backlog: CInt): CInt = platform.posix.listen(socket, backlog)
 public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
     throw UnsupportedOperationException("accept requires manual FFI bridge — not yet implemented")
 
@@ -359,9 +323,7 @@ public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVec
 public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT =
     throw UnsupportedOperationException("sendto requires manual FFI bridge — not yet implemented")
 
-public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    throw UnsupportedOperationException("shutdown requires manual FFI bridge — not yet implemented")
-
+public actual fun shutdown(socket: CInt, how: CInt): CInt = platform.posix.shutdown(socket, how)
 public actual fun chmod(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("chmod requires manual FFI bridge — not yet implemented")
 
@@ -456,15 +418,9 @@ public actual fun chown(path: String?, uid: UidT, gid: GidT): CInt =
 public actual fun lchown(path: String?, uid: UidT, gid: GidT): CInt =
     throw UnsupportedOperationException("lchown requires manual FFI bridge — not yet implemented")
 
-public actual fun close(fd: CInt): CInt =
-    throw UnsupportedOperationException("close requires manual FFI bridge — not yet implemented")
-
-public actual fun dup(fd: CInt): CInt =
-    throw UnsupportedOperationException("dup requires manual FFI bridge — not yet implemented")
-
-public actual fun dup2(src: CInt, dst: CInt): CInt =
-    throw UnsupportedOperationException("dup2 requires manual FFI bridge — not yet implemented")
-
+public actual fun close(fd: CInt): CInt = platform.posix.close(fd)
+public actual fun dup(fd: CInt): CInt = platform.posix.dup(fd)
+public actual fun dup2(src: CInt, dst: CInt): CInt = platform.posix.dup2(src, dst)
 public actual fun execl(path: String?, arg0: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("execl requires manual FFI bridge — not yet implemented")
 
@@ -513,9 +469,7 @@ public actual fun getpid(): PidT =
 public actual fun getppid(): PidT =
     throw UnsupportedOperationException("getppid requires manual FFI bridge — not yet implemented")
 
-public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires manual FFI bridge — not yet implemented")
-
+public actual fun isatty(fd: CInt): CInt = platform.posix.isatty(fd)
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link requires manual FFI bridge — not yet implemented")
 
@@ -525,9 +479,7 @@ public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
 public actual fun pathconf(path: String?, name: CInt): CLong =
     throw UnsupportedOperationException("pathconf requires manual FFI bridge — not yet implemented")
 
-public actual fun pause(): CInt =
-    throw UnsupportedOperationException("pause requires manual FFI bridge — not yet implemented")
-
+public actual fun pause(): CInt = platform.posix.pause()
 public actual fun pipe(fds: CInt?): CInt =
     throw UnsupportedOperationException("pipe requires manual FFI bridge — not yet implemented")
 
@@ -600,12 +552,8 @@ public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("munlock requires manual FFI bridge — not yet implemented")
 
-public actual fun mlockall(flags: CInt): CInt =
-    throw UnsupportedOperationException("mlockall requires manual FFI bridge — not yet implemented")
-
-public actual fun munlockall(): CInt =
-    throw UnsupportedOperationException("munlockall requires manual FFI bridge — not yet implemented")
-
+public actual fun mlockall(flags: CInt): CInt = platform.posix.mlockall(flags)
+public actual fun munlockall(): CInt = platform.posix.munlockall()
 public actual fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
     throw UnsupportedOperationException("mmap requires manual FFI bridge — not yet implemented")
 
@@ -618,9 +566,7 @@ public actual fun ifIndextoname(ifindex: CUInt, ifname: String?): String? =
 public actual fun lstat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("lstat requires manual FFI bridge — not yet implemented")
 
-public actual fun fsync(fd: CInt): CInt =
-    throw UnsupportedOperationException("fsync requires manual FFI bridge — not yet implemented")
-
+public actual fun fsync(fd: CInt): CInt = platform.posix.fsync(fd)
 public actual fun setenv(name: String?, `val`: String?, overwrite: CInt): CInt =
     throw UnsupportedOperationException("setenv requires manual FFI bridge — not yet implemented")
 
@@ -765,9 +711,7 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
 public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt =
     throw UnsupportedOperationException("getsockopt requires manual FFI bridge — not yet implemented")
 
-public actual fun raise(signum: CInt): CInt =
-    throw UnsupportedOperationException("raise requires manual FFI bridge — not yet implemented")
-
+public actual fun raise(signum: CInt): CInt = platform.posix.raise(signum)
 public actual fun sigaction(signum: CInt, act: Sigaction?, oldact: Sigaction?): CInt =
     throw UnsupportedOperationException("sigaction requires manual FFI bridge — not yet implemented")
 
@@ -838,9 +782,7 @@ public actual fun getprotobyname(name: String?): Protoent? =
 public actual fun getprotobynumber(proto: CInt): Protoent? =
     throw UnsupportedOperationException("getprotobynumber requires manual FFI bridge — not yet implemented")
 
-public actual fun usleep(secs: CUInt): CInt =
-    throw UnsupportedOperationException("usleep requires manual FFI bridge — not yet implemented")
-
+public actual fun usleep(secs: CUInt): CInt = platform.posix.usleep(secs)
 public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
     throw UnsupportedOperationException("send requires manual FFI bridge — not yet implemented")
 
@@ -953,15 +895,11 @@ public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?):
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
     throw UnsupportedOperationException("tcflow requires manual FFI bridge — not yet implemented")
 
-public actual fun tcflush(fd: CInt, action: CInt): CInt =
-    throw UnsupportedOperationException("tcflush requires manual FFI bridge — not yet implemented")
-
+public actual fun tcflush(fd: CInt, action: CInt): CInt = platform.posix.tcflush(fd, action)
 public actual fun tcgetsid(fd: CInt): PidT =
     throw UnsupportedOperationException("tcgetsid requires manual FFI bridge — not yet implemented")
 
-public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
-    throw UnsupportedOperationException("tcsendbreak requires manual FFI bridge — not yet implemented")
-
+public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt = platform.posix.tcsendbreak(fd, duration)
 public actual fun mkstemp(template: String?): CInt =
     throw UnsupportedOperationException("mkstemp requires manual FFI bridge — not yet implemented")
 
@@ -979,9 +917,7 @@ public actual fun closelog() {
     throw UnsupportedOperationException("closelog requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun setlogmask(maskpri: CInt): CInt =
-    throw UnsupportedOperationException("setlogmask requires manual FFI bridge — not yet implemented")
-
+public actual fun setlogmask(maskpri: CInt): CInt = platform.posix.setlogmask(maskpri)
 public actual fun syslog(priority: CInt, message: String?, vararg args: Any?) {
     throw UnsupportedOperationException("syslog requires manual FFI bridge — not yet implemented")
 }

@@ -9,12 +9,8 @@ import kotlinx.cinterop.ExperimentalForeignApi
 public actual fun kill(pid: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("kill requires manual FFI bridge — not yet implemented")
 
-public actual fun raise(sig: CInt): CInt =
-    throw UnsupportedOperationException("raise requires manual FFI bridge — not yet implemented")
-
-public actual fun pause(): CInt =
-    throw UnsupportedOperationException("pause requires manual FFI bridge — not yet implemented")
-
+public actual fun raise(sig: CInt): CInt = platform.posix.raise(sig)
+public actual fun pause(): CInt = platform.posix.pause()
 public actual fun sigemptyset(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigemptyset requires manual FFI bridge — not yet implemented")
 

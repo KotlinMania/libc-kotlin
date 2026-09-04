@@ -6,18 +6,14 @@ package io.github.kotlinmania.libc.wasi
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
-    throw UnsupportedOperationException("socket requires manual FFI bridge — not yet implemented")
-
+public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt = platform.posix.socket(domain, type, protocol)
 public actual fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt =
     throw UnsupportedOperationException("connect requires manual FFI bridge — not yet implemented")
 
 public actual fun bind(socket: CInt, addr: Sockaddr?, addrlen: SocklenT): CInt =
     throw UnsupportedOperationException("bind requires manual FFI bridge — not yet implemented")
 
-public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    throw UnsupportedOperationException("listen requires manual FFI bridge — not yet implemented")
-
+public actual fun listen(socket: CInt, backlog: CInt): CInt = platform.posix.listen(socket, backlog)
 public actual fun accept(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt =
     throw UnsupportedOperationException("accept requires manual FFI bridge — not yet implemented")
 

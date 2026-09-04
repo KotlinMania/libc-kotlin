@@ -237,9 +237,7 @@ public actual fun sendfile(outFd: CInt, inFd: CInt, offset: OffT?, count: ULong)
 public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: ULong): SsizeT =
     throw UnsupportedOperationException("sendfile64 requires manual FFI bridge — not yet implemented")
 
-public actual fun shutdown(fd: CInt, how: CInt): CInt =
-    throw UnsupportedOperationException("shutdown requires manual FFI bridge — not yet implemented")
-
+public actual fun shutdown(fd: CInt, how: CInt): CInt = platform.posix.shutdown(fd, how)
 public actual fun sethostname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("sethostname requires manual FFI bridge — not yet implemented")
 

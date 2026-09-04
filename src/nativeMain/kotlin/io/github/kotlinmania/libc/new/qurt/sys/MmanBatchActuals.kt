@@ -21,11 +21,7 @@ public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("munlock requires manual FFI bridge — not yet implemented")
 
-public actual fun mlockall(flags: CInt): CInt =
-    throw UnsupportedOperationException("mlockall requires manual FFI bridge — not yet implemented")
-
-public actual fun munlockall(): CInt =
-    throw UnsupportedOperationException("munlockall requires manual FFI bridge — not yet implemented")
-
+public actual fun mlockall(flags: CInt): CInt = platform.posix.mlockall(flags)
+public actual fun munlockall(): CInt = platform.posix.munlockall()
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("msync requires manual FFI bridge — not yet implemented")

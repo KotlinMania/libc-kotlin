@@ -12,48 +12,20 @@ public actual fun printf(format: String?, vararg args: Any?): CInt =
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun isalnum(c: CInt): CInt =
-    throw UnsupportedOperationException("isalnum requires manual FFI bridge — not yet implemented")
-
-public actual fun isalpha(c: CInt): CInt =
-    throw UnsupportedOperationException("isalpha requires manual FFI bridge — not yet implemented")
-
-public actual fun iscntrl(c: CInt): CInt =
-    throw UnsupportedOperationException("iscntrl requires manual FFI bridge — not yet implemented")
-
-public actual fun isdigit(c: CInt): CInt =
-    throw UnsupportedOperationException("isdigit requires manual FFI bridge — not yet implemented")
-
-public actual fun isgraph(c: CInt): CInt =
-    throw UnsupportedOperationException("isgraph requires manual FFI bridge — not yet implemented")
-
-public actual fun islower(c: CInt): CInt =
-    throw UnsupportedOperationException("islower requires manual FFI bridge — not yet implemented")
-
-public actual fun isprint(c: CInt): CInt =
-    throw UnsupportedOperationException("isprint requires manual FFI bridge — not yet implemented")
-
-public actual fun ispunct(c: CInt): CInt =
-    throw UnsupportedOperationException("ispunct requires manual FFI bridge — not yet implemented")
-
-public actual fun isspace(c: CInt): CInt =
-    throw UnsupportedOperationException("isspace requires manual FFI bridge — not yet implemented")
-
-public actual fun isupper(c: CInt): CInt =
-    throw UnsupportedOperationException("isupper requires manual FFI bridge — not yet implemented")
-
-public actual fun isxdigit(c: CInt): CInt =
-    throw UnsupportedOperationException("isxdigit requires manual FFI bridge — not yet implemented")
-
-public actual fun isblank(c: CInt): CInt =
-    throw UnsupportedOperationException("isblank requires manual FFI bridge — not yet implemented")
-
-public actual fun tolower(c: CInt): CInt =
-    throw UnsupportedOperationException("tolower requires manual FFI bridge — not yet implemented")
-
-public actual fun toupper(c: CInt): CInt =
-    throw UnsupportedOperationException("toupper requires manual FFI bridge — not yet implemented")
-
+public actual fun isalnum(c: CInt): CInt = platform.posix.isalnum(c)
+public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
+public actual fun iscntrl(c: CInt): CInt = platform.posix.iscntrl(c)
+public actual fun isdigit(c: CInt): CInt = platform.posix.isdigit(c)
+public actual fun isgraph(c: CInt): CInt = platform.posix.isgraph(c)
+public actual fun islower(c: CInt): CInt = platform.posix.islower(c)
+public actual fun isprint(c: CInt): CInt = platform.posix.isprint(c)
+public actual fun ispunct(c: CInt): CInt = platform.posix.ispunct(c)
+public actual fun isspace(c: CInt): CInt = platform.posix.isspace(c)
+public actual fun isupper(c: CInt): CInt = platform.posix.isupper(c)
+public actual fun isxdigit(c: CInt): CInt = platform.posix.isxdigit(c)
+public actual fun isblank(c: CInt): CInt = platform.posix.isblank(c)
+public actual fun tolower(c: CInt): CInt = platform.posix.tolower(c)
+public actual fun toupper(c: CInt): CInt = platform.posix.toupper(c)
 public actual fun fopen(filename: String?, mode: String?): FILE? =
     throw UnsupportedOperationException("fopen requires manual FFI bridge — not yet implemented")
 
@@ -82,12 +54,8 @@ public actual fun setbuf(stream: FILE?, buf: String?) {
     throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun getchar(): CInt =
-    throw UnsupportedOperationException("getchar requires manual FFI bridge — not yet implemented")
-
-public actual fun putchar(c: CInt): CInt =
-    throw UnsupportedOperationException("putchar requires manual FFI bridge — not yet implemented")
-
+public actual fun getchar(): CInt = platform.posix.getchar()
+public actual fun putchar(c: CInt): CInt = platform.posix.putchar(c)
 public actual fun fgetc(stream: FILE?): CInt =
     throw UnsupportedOperationException("fgetc requires manual FFI bridge — not yet implemented")
 
@@ -275,9 +243,7 @@ public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun raise(signum: CInt): CInt =
-    throw UnsupportedOperationException("raise requires manual FFI bridge — not yet implemented")
-
+public actual fun raise(signum: CInt): CInt = platform.posix.raise(signum)
 public actual fun clock(): ClockT =
     throw UnsupportedOperationException("clock requires manual FFI bridge — not yet implemented")
 
@@ -360,15 +326,9 @@ public actual fun access(path: String?, amode: CInt): CInt =
 public actual fun chdir(dir: String?): CInt =
     throw UnsupportedOperationException("chdir requires manual FFI bridge — not yet implemented")
 
-public actual fun close(fd: CInt): CInt =
-    throw UnsupportedOperationException("close requires manual FFI bridge — not yet implemented")
-
-public actual fun dup(fd: CInt): CInt =
-    throw UnsupportedOperationException("dup requires manual FFI bridge — not yet implemented")
-
-public actual fun dup2(src: CInt, dst: CInt): CInt =
-    throw UnsupportedOperationException("dup2 requires manual FFI bridge — not yet implemented")
-
+public actual fun close(fd: CInt): CInt = platform.posix.close(fd)
+public actual fun dup(fd: CInt): CInt = platform.posix.dup(fd)
+public actual fun dup2(src: CInt, dst: CInt): CInt = platform.posix.dup2(src, dst)
 public actual fun execl(path: String?, arg0: String?, vararg args: Any?): IntptrT =
     throw UnsupportedOperationException("execl requires manual FFI bridge — not yet implemented")
 
@@ -420,12 +380,8 @@ public actual fun wexecvpe(c: WcharT?, argv: COpaquePointer?, envp: COpaquePoint
 public actual fun getcwd(buf: String?, size: CInt): String? =
     throw UnsupportedOperationException("getcwd requires manual FFI bridge — not yet implemented")
 
-public actual fun getpid(): CInt =
-    throw UnsupportedOperationException("getpid requires manual FFI bridge — not yet implemented")
-
-public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires manual FFI bridge — not yet implemented")
-
+public actual fun getpid(): CInt = platform.posix.getpid()
+public actual fun isatty(fd: CInt): CInt = platform.posix.isatty(fd)
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
     throw UnsupportedOperationException("lseek requires manual FFI bridge — not yet implemented")
 

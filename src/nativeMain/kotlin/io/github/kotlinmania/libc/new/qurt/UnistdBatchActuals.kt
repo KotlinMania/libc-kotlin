@@ -9,9 +9,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 public actual fun access(pathname: String?, mode: CInt): CInt =
     throw UnsupportedOperationException("access requires manual FFI bridge — not yet implemented")
 
-public actual fun close(fd: CInt): CInt =
-    throw UnsupportedOperationException("close requires manual FFI bridge — not yet implemented")
-
+public actual fun close(fd: CInt): CInt = platform.posix.close(fd)
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     throw UnsupportedOperationException("lseek requires manual FFI bridge — not yet implemented")
 
