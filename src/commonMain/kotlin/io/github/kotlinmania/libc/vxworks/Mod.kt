@@ -1210,13 +1210,13 @@ public fun cfsetispeed(termios: Termios?, speed: SpeedT): CInt = -1
 
 public fun cfsetospeed(termios: Termios?, speed: SpeedT): CInt = -1
 
-public fun strcpy(dst: String?, src: String?): String? = null
+public expect fun strcpy(dst: String?, src: String?): String? 
 
-public fun strncpy(dst: String?, src: String?, n: ULong): String? = null
+public expect fun strncpy(dst: String?, src: String?, n: ULong): String? 
 
-public fun strcat(s: String?, ct: String?): String? = null
+public expect fun strcat(s: String?, ct: String?): String? 
 
-public fun strncat(s: String?, ct: String?, n: ULong): String? = null
+public expect fun strncat(s: String?, ct: String?, n: ULong): String? 
 
 public fun strcmp(cs: String?, ct: String?): CInt = -1
 
@@ -1224,9 +1224,9 @@ public fun strncmp(cs: String?, ct: String?, n: ULong): CInt = -1
 
 public fun strcoll(cs: String?, ct: String?): CInt = -1
 
-public fun strchr(cs: String?, c: CInt): String? = null
+public expect fun strchr(cs: String?, c: CInt): String? 
 
-public fun strrchr(cs: String?, c: CInt): String? = null
+public expect fun strrchr(cs: String?, c: CInt): String? 
 
 public fun strspn(cs: String?, ct: String?): ULong = 0uL
 
@@ -1234,9 +1234,9 @@ public fun strcspn(cs: String?, ct: String?): ULong = 0uL
 
 public expect fun strdup(cs: String?): String?
 
-public fun strpbrk(cs: String?, ct: String?): String? = null
+public expect fun strpbrk(cs: String?, ct: String?): String? 
 
-public fun strstr(cs: String?, ct: String?): String? = null
+public expect fun strstr(cs: String?, ct: String?): String? 
 
 public fun strcasecmp(s1: String?, s2: String?): CInt = -1
 
@@ -1248,7 +1248,7 @@ public fun strnlen(cs: String?, n: ULong): ULong = 0uL
 
 public expect fun strerror(n: CInt): String?
 
-public fun strtok(s: String?, t: String?): String? = null
+public expect fun strtok(s: String?, t: String?): String? 
 
 public fun strxfrm(s: String?, ct: String?, n: ULong): ULong = 0uL
 
@@ -1280,7 +1280,7 @@ public fun tcflush(fd: CInt, action: CInt): CInt = -1
 
 public fun pclose(stream: FILE?): CInt = -1
 
-public fun mkdtemp(template: String?): String? = null
+public expect fun mkdtemp(template: String?): String? 
 
 public fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt = -1
 
@@ -1450,7 +1450,7 @@ public fun ftello(stream: FILE?): OffT = -1L
 
 public fun mkstemp(template: String?): CInt = -1
 
-public fun tmpnam(ptr: String?): String? = null
+public expect fun tmpnam(ptr: String?): String? 
 
 public fun openlog(ident: String?, logopt: CInt, facility: CInt) { }
 
@@ -1480,7 +1480,7 @@ public fun utime(file: String?, buf: Utimbuf?): CInt = -1
 
 public fun memalign(blockSize: ULong, sizeArg: ULong): COpaquePointer? = null
 
-public fun getcwd(buf: String?, size: ULong): String? = null
+public expect fun getcwd(buf: String?, size: ULong): String? 
 
 public fun chdir(attr: String?): CInt = -1
 
@@ -1684,7 +1684,7 @@ public fun setenv(envVarName: String?, envVarValue: String?, overwrite: CInt): C
 
 public fun unsetenv(envVarName: String?): CInt = -1
 
-public fun realpath(fileName: String?, resolvedName: String?): String? = null
+public expect fun realpath(fileName: String?, resolvedName: String?): String? 
 
 public fun link(src: String?, dst: String?): CInt = -1
 
