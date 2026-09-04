@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 
 public actual fun opendir(name: String?): DIR? =
     throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
@@ -94,8 +95,7 @@ public actual fun memchr(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
     throw UnsupportedOperationException("memchr requires manual FFI bridge — not yet implemented")
 
 public actual fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: ULong): CInt =
-    throw UnsupportedOperationException("memcmp requires manual FFI bridge — not yet implemented")
-
+    platform.posix.memcmp(s1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), s2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
 

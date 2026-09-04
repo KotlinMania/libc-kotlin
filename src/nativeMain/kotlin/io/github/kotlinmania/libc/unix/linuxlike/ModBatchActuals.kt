@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
@@ -52,8 +53,7 @@ public actual fun fdatasync(fd: CInt): CInt =
     throw UnsupportedOperationException("fdatasync requires manual FFI bridge — not yet implemented")
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("mincore requires manual FFI bridge — not yet implemented")
-
+    platform.posix.mincore(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, vec?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGetres requires manual FFI bridge — not yet implemented")
 

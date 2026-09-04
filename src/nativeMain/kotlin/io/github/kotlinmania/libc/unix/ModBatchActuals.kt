@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 
 public actual fun isalnum(c: CInt): CInt = platform.posix.isalnum(c)
 public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
@@ -232,8 +233,7 @@ public actual fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT? =
     throw UnsupportedOperationException("wmemchr requires manual FFI bridge — not yet implemented")
 
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt =
-    throw UnsupportedOperationException("memcmp requires manual FFI bridge — not yet implemented")
-
+    platform.posix.memcmp(cx?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), ct?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
 
@@ -529,19 +529,16 @@ public actual fun killpg(pgrp: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("killpg requires manual FFI bridge — not yet implemented")
 
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("mlock requires manual FFI bridge — not yet implemented")
-
+    platform.posix.mlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("munlock requires manual FFI bridge — not yet implemented")
-
+    platform.posix.munlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun mlockall(flags: CInt): CInt = platform.posix.mlockall(flags)
 public actual fun munlockall(): CInt = platform.posix.munlockall()
 public actual fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
     throw UnsupportedOperationException("mmap requires manual FFI bridge — not yet implemented")
 
 public actual fun munmap(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("munmap requires manual FFI bridge — not yet implemented")
-
+    platform.posix.munmap(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun ifIndextoname(ifindex: CUInt, ifname: String?): String? =
     throw UnsupportedOperationException("ifIndextoname requires manual FFI bridge — not yet implemented")
 
@@ -701,8 +698,7 @@ public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointe
     throw UnsupportedOperationException("dlsym requires manual FFI bridge — not yet implemented")
 
 public actual fun dlclose(handle: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("dlclose requires manual FFI bridge — not yet implemented")
-
+    platform.posix.dlclose(handle?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getaddrinfo requires manual FFI bridge — not yet implemented")
 

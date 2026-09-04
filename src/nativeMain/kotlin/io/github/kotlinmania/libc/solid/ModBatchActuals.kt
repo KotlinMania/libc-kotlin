@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 
 public actual fun isalnum(c: CInt): CInt = platform.posix.isalnum(c)
 public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
@@ -468,8 +469,7 @@ public actual fun memchr(arg1: COpaquePointer?, arg2: CInt, arg3: ULong): COpaqu
     throw UnsupportedOperationException("memchr requires manual FFI bridge — not yet implemented")
 
 public actual fun memcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong): CInt =
-    throw UnsupportedOperationException("memcmp requires manual FFI bridge — not yet implemented")
-
+    platform.posix.memcmp(arg1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3)
 public actual fun memcpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
 
@@ -591,8 +591,7 @@ public actual fun strerrorL(arg1: CInt, arg2: LocaleT): String? =
     throw UnsupportedOperationException("strerrorL requires manual FFI bridge — not yet implemented")
 
 public actual fun bcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong): CInt =
-    throw UnsupportedOperationException("bcmp requires manual FFI bridge — not yet implemented")
-
+    platform.posix.bcmp(arg1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3)
 public actual fun bcopy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong) {
     throw UnsupportedOperationException("bcopy requires manual FFI bridge — not yet implemented")
 }
@@ -673,11 +672,9 @@ public actual fun creat(arg1: String?, arg2: CInt): CInt =
 
 public actual fun close(arg1: CInt): CInt = platform.posix.close(arg1)
 public actual fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    throw UnsupportedOperationException("read requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("read requires manual FFI bridge — type width mismatch (SsizeT/size_t)")
 public actual fun write(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    throw UnsupportedOperationException("write requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("write requires manual FFI bridge — type width mismatch (SsizeT/size_t)")
 public actual fun unlink(arg1: String?): CInt =
     throw UnsupportedOperationException("unlink requires manual FFI bridge — not yet implemented")
 
