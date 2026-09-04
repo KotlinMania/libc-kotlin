@@ -78,3 +78,6 @@ port_lint_proposed_changes.md
 native/node-libc/build
 native/node-libc/node_modules
 native/node-libc/package-lock.json
+
+# Session files
+2026*
