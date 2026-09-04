@@ -2174,7 +2174,7 @@ public expect fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt
 public expect fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt 
 public expect fun ifNameindex(): IfNameindex? 
 public expect fun ifFreenameindex(ptr: IfNameindex?)
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt 
@@ -2236,14 +2236,14 @@ public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun getgrgid(gid: GidT): Group? 
 public expect fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroups: CInt?): CInt 
 public expect fun pthreadMutexattrGetpshared(attr: PthreadMutexattrT?, pshared: CInt?): CInt 
 public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT?, robustness: CInt?): CInt 
 public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robustness: CInt): CInt 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun getitimer(which: CInt, currValue: Itimerval?): CInt 
 public expect fun setitimer(which: CInt, value: Itimerval?, ovalue: Itimerval?): CInt 
@@ -2289,7 +2289,7 @@ public expect fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, old
 public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt 
 public expect fun setrlimit(resource: CInt, rlp: Rlimit?): CInt 
 public expect fun lioListio(mode: CInt, list: COpaquePointer?, nent: CInt, sig: Sigevent?): CInt 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public expect fun memsetS(s: COpaquePointer?, smax: ULong, c: CInt, n: ULong): CInt 
 public expect fun regcomp(preg: RegexT?, pattern: String?, cflags: CInt): CInt 
@@ -2317,4 +2317,4 @@ public expect fun mqTimedsend(mqdes: MqdT, msgPtr: String?, msgLen: ULong, msgPr
 public expect fun mqUnlink(name: String?): CInt 
 public expect fun getErrnoPtr(): CInt? 
 public expect fun myThreadExit(valuePtr: COpaquePointer?)
-public fun cxaAtexit(cb: (() -> Unit)?, arg: COpaquePointer?, dso: COpaquePointer?): CInt = -1
+public expect fun cxaAtexit(cb: (() -> Unit)?, arg: COpaquePointer?, dso: COpaquePointer?): CInt

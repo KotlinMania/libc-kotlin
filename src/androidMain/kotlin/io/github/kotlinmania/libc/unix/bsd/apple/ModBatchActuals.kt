@@ -765,3 +765,7 @@ public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?,
 public actual fun iconvClose(cd: IconvT): CInt =
     throw UnsupportedOperationException("iconvClose not available on Android host — use androidNative target for FFI")
 
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsortR not available on Android host — use androidNative target for FFI")
+}

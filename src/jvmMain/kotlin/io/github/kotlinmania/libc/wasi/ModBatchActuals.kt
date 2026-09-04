@@ -838,3 +838,15 @@ public actual fun pthreadRwlockattrInit(attr: PthreadRwlockattrT?): CInt =
 public actual fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrDestroy not available on JVM — no C library access")
 
+
+public actual fun atexit(a: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit not available on JVM — no C library access")
+
+public actual fun atQuickExit(a: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atQuickExit not available on JVM — no C library access")
+
+public actual fun pthreadCreate(native: PthreadT, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on JVM — no C library access")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate not available on JVM — no C library access")

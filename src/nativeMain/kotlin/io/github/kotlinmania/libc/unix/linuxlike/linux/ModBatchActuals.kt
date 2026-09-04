@@ -393,3 +393,9 @@ public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: UL
 
 public actual fun tmpfile64(): FILE? =
     throw UnsupportedOperationException("tmpfile64 requires manual FFI bridge — not yet implemented")
+
+public actual fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("clone requires manual FFI bridge — not yet implemented")
+
+public actual fun fopen64(filename: String?, mode: String?): FILE? =
+    throw UnsupportedOperationException("fopen64 requires manual FFI bridge — not yet implemented")

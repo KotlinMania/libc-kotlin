@@ -274,3 +274,13 @@ public actual fun mempcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong)
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("tgkill not available on Android host — use androidNative target for FFI")
 
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR not available on Android host — use androidNative target for FFI")
+}
+
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
+    throw UnsupportedOperationException("glob64 not available on Android host — use androidNative target for FFI")
+
+public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("pthreadSigqueue not available on Android host — use androidNative target for FFI")

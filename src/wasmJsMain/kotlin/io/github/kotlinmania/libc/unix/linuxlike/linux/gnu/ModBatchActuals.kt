@@ -274,3 +274,13 @@ public actual fun mempcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong)
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("tgkill requires N-API addon")
 
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR requires N-API addon")
+}
+
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
+    throw UnsupportedOperationException("glob64 requires N-API addon")
+
+public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("pthreadSigqueue requires N-API addon")

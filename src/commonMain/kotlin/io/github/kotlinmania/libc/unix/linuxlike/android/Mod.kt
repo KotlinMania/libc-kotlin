@@ -2970,7 +2970,7 @@ public expect fun personality(persona: CUInt): CInt
 public expect fun prctl(option: CInt, vararg args: Any?): CInt 
 public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt 
 public expect fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt 
-public fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt = -1
+public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt
 
 public expect fun schedGetscheduler(pid: PidT): CInt 
 public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt 
@@ -3019,9 +3019,9 @@ public expect fun systemPropertySet(name: String?, value: String?): CInt
 public expect fun systemPropertyGet(name: String?, value: String?): CInt 
 public expect fun systemPropertyFind(name: String?): PropInfo? 
 public expect fun systemPropertyFindNth(n: CUInt): PropInfo? 
-public fun systemPropertyForeach(callback: ((PropInfo?, COpaquePointer?) -> Unit)?, cookie: COpaquePointer?): CInt = -1
+public expect fun systemPropertyForeach(callback: ((PropInfo?, COpaquePointer?) -> Unit)?, cookie: COpaquePointer?): CInt
 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public fun arc4random(): UInt = 0u
 

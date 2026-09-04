@@ -134,3 +134,12 @@ public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt =
 
 public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt =
     throw UnsupportedOperationException("pthreadSpinUnlock requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadOnce requires manual FFI bridge — not yet implemented")

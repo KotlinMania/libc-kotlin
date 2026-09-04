@@ -64,3 +64,13 @@ public actual fun labs(j: CLong): CLong =
 
 public actual fun llabs(j: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs requires manual FFI bridge — not yet implemented")
+
+public actual fun atexit(function: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit requires manual FFI bridge — not yet implemented")
+
+public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("bsearch requires manual FFI bridge — not yet implemented")

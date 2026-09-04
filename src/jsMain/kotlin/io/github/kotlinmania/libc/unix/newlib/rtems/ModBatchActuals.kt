@@ -25,3 +25,6 @@ public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
 public actual fun setgroups(ngroups: CInt, grouplist: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires N-API addon")
 
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires N-API addon")

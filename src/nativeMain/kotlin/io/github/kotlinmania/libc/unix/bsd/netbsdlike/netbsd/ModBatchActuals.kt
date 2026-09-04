@@ -509,3 +509,10 @@ public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt
 
 public actual fun backtraceSymbolsFdFmt(addrlist: COpaquePointer?, len: ULong, fd: CInt, fmt: String?): CInt =
     throw UnsupportedOperationException("backtraceSymbolsFdFmt requires manual FFI bridge — not yet implemented")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr requires manual FFI bridge — not yet implemented")
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
+}

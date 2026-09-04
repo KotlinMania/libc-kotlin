@@ -107,3 +107,12 @@ public actual fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULon
 
 public actual fun posixMemalign(memptr: COpaquePointer?, alignment: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("posixMemalign requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, destructor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadOnce requires manual FFI bridge — not yet implemented")

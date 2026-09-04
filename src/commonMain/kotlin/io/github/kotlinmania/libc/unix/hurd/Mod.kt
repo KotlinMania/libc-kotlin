@@ -3138,7 +3138,7 @@ public expect fun getmntent(stream: FILE?): Mntent?
 public expect fun addmntent(stream: FILE?, mnt: Mntent?): CInt 
 public expect fun endmntent(streamp: FILE?): CInt 
 public expect fun hasmntopt(mnt: Mntent?, opt: String?): String? 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadKill(threadid: PthreadT, signo: CInt): CInt 
 public expect fun pthreadCancel(thread: PthreadT): CInt 
@@ -3156,7 +3156,7 @@ public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT?, clockId: Cloc
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt 
 public expect fun pthreadCondattrGetpshared(attr: PthreadCondattrT?, pshared: CInt?): CInt 
 public expect fun pthreadCondattrSetpshared(attr: PthreadCondattrT?, pshared: CInt): CInt 
-public fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt = -1
+public expect fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt
 
 public expect fun pthreadBarrierattrInit(attr: PthreadBarrierattrT?): CInt 
 public expect fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT?): CInt 
@@ -3170,7 +3170,7 @@ public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
 public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt 
 public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt 
 public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun pthreadSigmask(how: CInt, newmask: SigsetT?, oldmask: SigsetT?): CInt 
 public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt 
@@ -3201,7 +3201,7 @@ public expect fun timerGetoverrun(timerid: TimerT): CInt
 public expect fun timerGettime(timerid: TimerT, currValue: Itimerspec?): CInt 
 public expect fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt 
 public expect fun fstat(fd: CInt, buf: Stat?): CInt 
-public fun fstat64(fd: CInt, buf: Stat64?): CInt = -1
+public expect fun fstat64(fd: CInt, buf: Stat64?): CInt
 public expect fun fstatat(fd: CInt, file: String?, buf: Stat?, flag: CInt): CInt 
 public expect fun fstatat64(fd: CInt, file: String?, buf: Stat64?, flag: CInt): CInt 
 public expect fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUInt, statxbuf: Statx?): CInt 
@@ -3209,7 +3209,7 @@ public expect fun ftruncate(fd: CInt, length: OffT): CInt
 public expect fun ftruncate64(fd: CInt, length: Off64T): CInt 
 public expect fun truncate64(file: String?, length: Off64T): CInt 
 public expect fun lstat(file: String?, buf: Stat?): CInt 
-public fun lstat64(file: String?, buf: Stat64?): CInt = -1
+public expect fun lstat64(file: String?, buf: Stat64?): CInt
 public expect fun statfs(path: String?, buf: Statfs?): CInt 
 public expect fun statfs64(file: String?, buf: Statfs64?): CInt 
 public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt 
@@ -3219,11 +3219,11 @@ public expect fun statvfs64(file: String?, buf: Statvfs64?): CInt
 public expect fun fstatvfs(fildes: CInt, buf: Statvfs?): CInt 
 public expect fun fstatvfs64(fildes: CInt, buf: Statvfs64?): CInt 
 public expect fun open(file: String?, oflag: CInt, vararg args: Any?): CInt 
-public fun open64(file: String?, oflag: CInt, vararg args: Any?): CInt = -1
+public expect fun open64(file: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun openat(fd: CInt, file: String?, oflag: CInt, vararg args: Any?): CInt 
 public expect fun openat64(fd: CInt, file: String?, oflag: CInt, vararg args: Any?): CInt 
-public fun fopen64(filename: String?, mode: String?): FILE? = null
-public fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? = null
+public expect fun fopen64(filename: String?, mode: String?): FILE?
+public expect fun freopen64(filename: String?, mode: String?, file: FILE?): FILE?
 public expect fun creat64(path: String?, mode: ModeT): CInt 
 public expect fun mkostemp(template: String?, flags: CInt): CInt 
 public expect fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt 
@@ -3274,7 +3274,7 @@ public expect fun euidaccess(pathname: String?, mode: CInt): CInt
 public expect fun eaccess(pathname: String?, mode: CInt): CInt 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt 
 public expect fun stat(file: String?, buf: Stat?): CInt 
-public fun stat64(file: String?, buf: Stat64?): CInt = -1
+public expect fun stat64(file: String?, buf: Stat64?): CInt
 public expect fun readdir(dirp: DIR?): Dirent? 
 public expect fun readdir64(dirp: DIR?): Dirent64? 
 public expect fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt 
@@ -3324,7 +3324,7 @@ public expect fun jrand48(xseed: CUShort?): CLong
 public expect fun srand48(seed: CLong)
 public expect fun seed48(xseed: CUShort?): CUShort? 
 public expect fun lcong48(p: CUShort?)
-public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) { }
+public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
 
 public expect fun brk(addr: COpaquePointer?): CInt 
 public expect fun sbrk(increment: IntptrT): COpaquePointer? 
@@ -3348,10 +3348,10 @@ public expect fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt
 public expect fun regexec(preg: RegexT?, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: CInt): CInt 
 public expect fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong 
 public expect fun regfree(preg: RegexT?)
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
-public fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt = -1
+public expect fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt
 
 public expect fun globfree64(pglob: Glob64T?)
 public expect fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT 
@@ -3378,7 +3378,7 @@ public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public expect fun uselocale(loc: LocaleT): LocaleT 
 public expect fun nlLanginfo(item: NlItem): String? 
 public expect fun nlLanginfoL(item: NlItem, locale: LocaleT): String? 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public expect fun gnuGetLibcRelease(): String? 
 public expect fun gnuGetLibcVersion(): String? 

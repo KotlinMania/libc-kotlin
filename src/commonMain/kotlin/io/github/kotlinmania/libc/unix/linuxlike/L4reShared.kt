@@ -1312,7 +1312,7 @@ public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
 public expect fun errnoLocation(): CInt? 
 public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? 
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun seekdir(dirp: DIR?, loc: CLong)
@@ -1346,7 +1346,7 @@ public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt
 public expect fun getgrgid(gid: GidT): Group? 
 public expect fun popen(command: String?, mode: String?): FILE? 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public expect fun setmntent(filename: String?, ty: String?): FILE? 
 public expect fun getmntent(stream: FILE?): Mntent? 
@@ -1371,7 +1371,7 @@ public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: 
 public expect fun schedGetcpu(): CInt 
 public expect fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt 
 public expect fun copyFileRange(fdIn: CInt, offIn: Off64T?, fdOut: CInt, offOut: Off64T?, len: ULong, flags: CUInt): SsizeT 
-public fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? = null
+public expect fun freopen64(filename: String?, mode: String?, file: FILE?): FILE?
 public expect fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt 
 public expect fun fsetpos64(stream: FILE?, ptr: Fpos64T?): CInt 
 public expect fun ftello64(stream: FILE?): Off64T 

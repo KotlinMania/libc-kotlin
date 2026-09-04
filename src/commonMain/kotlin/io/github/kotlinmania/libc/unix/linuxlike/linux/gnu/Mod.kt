@@ -641,7 +641,7 @@ public const val REG_ERPAREN: CInt = 16
 public expect fun fgetspentR(fp: FILE?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt 
 public expect fun sgetspentR(s: String?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt 
 public expect fun getspentR(spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt 
-public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) { }
+public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
 
 public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt): CInt 
 public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt, timeout: Timespec?): CInt 
@@ -681,7 +681,7 @@ public expect fun ctermid(s: String?): String?
 public expect fun backtrace(buf: COpaquePointer?, sz: CInt): CInt 
 public expect fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaquePointer? 
 public expect fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt)
-public fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt = -1
+public expect fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt
 
 public expect fun globfree64(pglob: Glob64T?)
 public expect fun ptrace(request: CUInt, vararg args: Any?): CLong 
@@ -691,7 +691,7 @@ public expect fun getpriority(which: PriorityWhichT, who: IdT): CInt
 public expect fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt 
 public expect fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CInt?): CInt 
 public expect fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT, `val`: CInt): CInt 
-public fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt = -1
+public expect fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt
 public expect fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt 
 public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt 
 public fun mallinfo(): Mallinfo = throw UnsupportedOperationException("Not implemented on this platform")

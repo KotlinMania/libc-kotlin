@@ -130,3 +130,6 @@ public actual fun popen(command: String?, mode: String?): FILE? =
 public actual fun uname(buf: Utsname?): CInt =
     throw UnsupportedOperationException("uname not available on Android host — use androidNative target for FFI")
 
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on Android host — use androidNative target for FFI")

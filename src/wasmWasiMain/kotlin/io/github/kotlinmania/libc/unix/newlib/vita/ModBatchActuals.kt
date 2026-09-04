@@ -51,3 +51,6 @@ public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
 public actual fun pipe2(fds: CInt?, flags: CInt): CInt =
     throw UnsupportedOperationException("pipe2 not available on WASI — no C library access")
 
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on WASI — no C library access")

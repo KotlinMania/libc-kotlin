@@ -490,7 +490,7 @@ public expect fun bind(sockfd: Int, addr: Sockaddr?, addrlen: SocklenT): Int
 public expect fun ioctl(fd: Int, request: Int, vararg args: Any?): Int 
 public expect fun dirfd(dirp: DIR?): Int 
 public expect fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: Sockaddr?, addrlen: SocklenT?): Int 
-public fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int = -1
+public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int
 
 public expect fun clockGettime(clockid: ClockidT, tp: Timespec?): Int 
 public expect fun futimens(fd: Int, times: Timespec?): Int 

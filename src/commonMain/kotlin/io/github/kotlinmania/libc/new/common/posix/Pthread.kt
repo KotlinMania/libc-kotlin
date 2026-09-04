@@ -3,7 +3,7 @@ package io.github.kotlinmania.libc.new.common.posix
 
 import io.github.kotlinmania.libc.*
 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt 
 public expect fun pthreadAttrGetinheritsched(attr: PthreadAttrT, inheritsched: CInt?): CInt 
@@ -27,7 +27,7 @@ public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: Clock
 public expect fun pthreadCondattrGetpshared(attr: PthreadCondattrT, pshared: CInt?): CInt 
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt 
 public expect fun pthreadCondattrSetpshared(attr: PthreadCondattrT, pshared: CInt): CInt 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadGetcpuclockid(thread: PthreadT, clkId: ClockidT?): CInt 
 public expect fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt 
@@ -42,7 +42,7 @@ public expect fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT, pshared: C
 public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT, robustness: CInt): CInt 
 public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT, `val`: CInt?): CInt 
 public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT, `val`: CInt): CInt 
-public fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt = -1
+public expect fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt
 
 public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt 
 public expect fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt 

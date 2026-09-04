@@ -786,3 +786,22 @@ public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =
     throw UnsupportedOperationException("lseek requires manual FFI bridge — not yet implemented")
+
+public actual fun atexit(arg1: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit requires manual FFI bridge — not yet implemented")
+
+public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong, arg4: ULong, arg5: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("bsearch requires manual FFI bridge — not yet implemented")
+
+public actual fun qsort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun atQuickExit(arg1: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atQuickExit requires manual FFI bridge — not yet implemented")
+
+public actual fun heapsort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?): CInt =
+    throw UnsupportedOperationException("heapsort requires manual FFI bridge — not yet implemented")
+
+public actual fun mergesort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?): CInt =
+    throw UnsupportedOperationException("mergesort requires manual FFI bridge — not yet implemented")

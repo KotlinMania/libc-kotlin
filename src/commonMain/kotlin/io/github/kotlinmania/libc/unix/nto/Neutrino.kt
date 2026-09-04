@@ -523,9 +523,9 @@ public expect fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, 
 public expect fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: Sigval?): CInt 
 public expect fun signalReturn(info: SighandlerInfo?): CInt 
 public expect fun signalFault(sigcode: CUInt, regs: COpaquePointer?, refaddr: ULong): CInt 
-public fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt = -1
+public expect fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt
 
-public fun signalActionR(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt = -1
+public expect fun signalActionR(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt
 
 public expect fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: SigsetT?, oldset: SigsetT?): CInt 
 public expect fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: SigsetT?, oldset: SigsetT?): CInt 
@@ -535,9 +535,9 @@ public expect fun signalWaitinfo(set: SigsetT?, info: SiginfoT?): CInt
 public expect fun signalWaitinfoR(set: SigsetT?, info: SiginfoT?): CInt 
 public expect fun signalWaitinfoMask(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): CInt 
 public expect fun signalWaitinfoMaskR(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): CInt 
-public fun threadCreate(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt = -1
+public expect fun threadCreate(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt
 
-public fun threadCreateR(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt = -1
+public expect fun threadCreateR(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt
 
 public expect fun threadDestroy(tid: CInt, priority: CInt, status: COpaquePointer?): CInt 
 public expect fun threadDestroyR(tid: CInt, priority: CInt, status: COpaquePointer?): CInt 
@@ -545,30 +545,30 @@ public expect fun threadDetach(tid: CInt): CInt
 public expect fun threadDetachR(tid: CInt): CInt 
 public expect fun threadJoin(tid: CInt, status: COpaquePointer?): CInt 
 public expect fun threadJoinR(tid: CInt, status: COpaquePointer?): CInt 
-public fun threadCancel(tid: CInt, canstub: (() -> Unit)?): CInt = -1
+public expect fun threadCancel(tid: CInt, canstub: (() -> Unit)?): CInt
 
-public fun threadCancelR(tid: CInt, canstub: (() -> Unit)?): CInt = -1
+public expect fun threadCancelR(tid: CInt, canstub: (() -> Unit)?): CInt
 
 public expect fun threadCtl(cmd: CInt, data: COpaquePointer?): CInt 
 public expect fun threadCtlR(cmd: CInt, data: COpaquePointer?): CInt 
 public expect fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt 
 public expect fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt 
-public fun interruptHookTrace(handler: ((CInt) -> Sigevent?)?, flags: CUInt): CInt = -1
+public expect fun interruptHookTrace(handler: ((CInt) -> Sigevent?)?, flags: CUInt): CInt
 
-public fun interruptHookIdle(handler: ((ULong?, QtimeEntry?) -> Unit)?, flags: CUInt): CInt = -1
+public expect fun interruptHookIdle(handler: ((ULong?, QtimeEntry?) -> Unit)?, flags: CUInt): CInt
 
-public fun interruptHookIdle2(handler: (() -> Unit)?, flags: CUInt): CInt = -1
+public expect fun interruptHookIdle2(handler: (() -> Unit)?, flags: CUInt): CInt
 
 public expect fun interruptHookOverdriveEvent(event: Sigevent?, flags: CUInt): CInt 
 public expect fun interruptAttachEvent(intr: CInt, event: Sigevent?, flags: CUInt): CInt 
 public expect fun interruptAttachEventR(intr: CInt, event: Sigevent?, flags: CUInt): CInt 
-public fun interruptAttach(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt = -1
+public expect fun interruptAttach(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
 
-public fun interruptAttachR(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt = -1
+public expect fun interruptAttachR(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
 
-public fun interruptAttachArray(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt = -1
+public expect fun interruptAttachArray(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
 
-public fun interruptAttachArrayR(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt = -1
+public expect fun interruptAttachArrayR(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt
 
 public expect fun interruptDetach(id: CInt): CInt 
 public expect fun interruptDetachR(id: CInt): CInt 

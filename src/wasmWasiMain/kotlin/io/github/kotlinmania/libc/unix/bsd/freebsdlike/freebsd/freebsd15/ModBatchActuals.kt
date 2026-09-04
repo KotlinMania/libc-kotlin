@@ -29,3 +29,7 @@ public actual fun dirname(path: String?): String? =
 public actual fun basename(path: String?): String? =
     throw UnsupportedOperationException("basename not available on WASI — no C library access")
 
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR not available on WASI — no C library access")
+}

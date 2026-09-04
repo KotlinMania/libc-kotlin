@@ -1248,7 +1248,7 @@ public expect fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt
 public expect fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt 
 public expect fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt 
 public expect fun clockGetcpuclockid(pid: PidT, clkId: ClockidT?): CInt 
-public fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt 
 public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT, guardsize: ULong): CInt 
@@ -1265,14 +1265,14 @@ public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
 public expect fun dirfd(dirp: DIR?): CInt 
 public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt 
 public expect fun pthreadMutexTimedlock(lock: PthreadMutexT?, abstime: Timespec?): CInt 
-public fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt = -1
+public expect fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt
 public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt 
 public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt 
 public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt 
 public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt 
 public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt 
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt 
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt 
@@ -1315,7 +1315,7 @@ public expect fun endgrent()
 public expect fun getgrent(): Group? 
 public expect fun setgrent()
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun getgrgid(gid: GidT): Group? 
 public expect fun popen(command: String?, mode: String?): FILE? 
@@ -1346,9 +1346,9 @@ public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt
 public fun ftok(pathname: String?, projId: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public expect fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? 
-public fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
-public fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
 public expect fun hcreate(nelt: ULong): CInt 
 public expect fun hdestroy()

@@ -16,3 +16,6 @@ public actual fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULon
 public actual fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
     throw UnsupportedOperationException("pthreadAttrSetaffinityNp requires N-API addon")
 
+
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
+    throw UnsupportedOperationException("glob64 requires N-API addon")

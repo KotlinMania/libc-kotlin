@@ -291,3 +291,15 @@ public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: T
 
 public actual fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUInt, statxbuf: Statx?): CInt =
     throw UnsupportedOperationException("statx requires manual FFI bridge — not yet implemented")
+
+public actual fun fstat64(fildes: CInt, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("fstat64 requires manual FFI bridge — not yet implemented")
+
+public actual fun lstat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("lstat64 requires manual FFI bridge — not yet implemented")
+
+public actual fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("open64 requires manual FFI bridge — not yet implemented")
+
+public actual fun stat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("stat64 requires manual FFI bridge — not yet implemented")

@@ -936,4 +936,4 @@ public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldl
 public expect fun getcontext(ucp: UcontextT?): CInt 
 public expect fun setcontext(ucp: UcontextT?): CInt 
 public expect fun swapcontext(oucp: UcontextT?, ucp: UcontextT?): CInt 
-public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)

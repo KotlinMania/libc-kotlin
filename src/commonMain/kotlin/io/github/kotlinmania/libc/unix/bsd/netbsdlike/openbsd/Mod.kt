@@ -1443,7 +1443,7 @@ public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
 public expect fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CInt 
 public expect fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt 
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public expect fun uselocale(loc: LocaleT): LocaleT 
 public expect fun freelocale(loc: LocaleT)
@@ -1457,9 +1457,9 @@ public expect fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer?
 public expect fun srand48Deterministic(seed: CLong)
 public expect fun seed48Deterministic(xseed: CUShort?): CUShort? 
 public expect fun lcong48Deterministic(p: CUShort?)
-public fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
-public fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
 public expect fun hcreate(nelt: ULong): CInt 
 public expect fun hdestroy()

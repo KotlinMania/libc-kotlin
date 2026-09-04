@@ -25,3 +25,7 @@ public actual fun dirname(path: String?): String? =
 
 public actual fun basename(path: String?): String? =
     throw UnsupportedOperationException("basename requires manual FFI bridge — not yet implemented")
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
+}

@@ -16,3 +16,6 @@ public actual fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULon
 public actual fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
     throw UnsupportedOperationException("pthreadAttrSetaffinityNp not available on WASI — no C library access")
 
+
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
+    throw UnsupportedOperationException("glob64 not available on WASI — no C library access")

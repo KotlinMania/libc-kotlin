@@ -231,6 +231,6 @@ public expect fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, s
 public expect fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: DomainsetT?, policy: CInt): CInt 
 public expect fun dirname(path: String?): String? 
 public expect fun basename(path: String?): String? 
-public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) { }
+public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?)
 
 public fun kvmKerndisp(kd: KvmT): KssizeT = throw UnsupportedOperationException("Not implemented on this platform")

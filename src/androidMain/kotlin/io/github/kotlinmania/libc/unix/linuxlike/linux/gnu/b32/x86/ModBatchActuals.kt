@@ -12,3 +12,7 @@ public actual fun setcontext(ucp: UcontextT?): CInt =
 public actual fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("swapcontext not available on Android host — use androidNative target for FFI")
 
+
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) {
+    throw UnsupportedOperationException("makecontext not available on Android host — use androidNative target for FFI")
+}

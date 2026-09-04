@@ -65,7 +65,7 @@ public expect fun slFree(sl: StringList?, i: CInt)
 public expect fun slFind(sl: StringList?, n: String?): String? 
 public expect fun kqueue(): CInt 
 public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public expect fun lutimes(file: String?, times: Timeval?): CInt 
 public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT 

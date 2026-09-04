@@ -40,3 +40,6 @@ public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
     throw UnsupportedOperationException("arc4randomBuf not available on JVM — no C library access")
 }
 
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =
+    throw UnsupportedOperationException("pthreadCreate not available on JVM — no C library access")

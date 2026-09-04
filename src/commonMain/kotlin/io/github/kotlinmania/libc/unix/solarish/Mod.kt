@@ -1868,7 +1868,7 @@ public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
 public expect fun sethostname(name: String?, len: CInt): CInt 
 public expect fun ifNameindex(): IfNameindex? 
 public expect fun ifFreenameindex(ptr: IfNameindex?)
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt 
 public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT?, clockId: ClockidT?): CInt 
@@ -1879,7 +1879,7 @@ public expect fun pthreadMutexTimedlock(lock: PthreadMutexT?, abstime: Timespec?
 public expect fun pthreadGetnameNp(tid: PthreadT, name: String?, len: ULong): CInt 
 public expect fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt 
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt 
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt 
@@ -1973,7 +1973,7 @@ public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun getgrgid(gid: GidT): Group? 
 public expect fun setgrent()
@@ -2052,7 +2052,7 @@ public fun getpflags(flags: CUInt): CUInt = 0u
 public expect fun setpflags(flags: CUInt, value: CUInt): CInt 
 public expect fun sysinfo(command: CInt, buf: String?, count: CLong): CInt 
 public expect fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public expect fun getpagesize(): CInt 
 public expect fun getpagesizes(pagesize: ULong?, nelem: CInt): CInt 

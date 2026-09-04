@@ -761,3 +761,15 @@ public actual fun lgrpVersion(version: CInt): CInt =
 public actual fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: LgrpIdT?, count: CUInt, tpe: LgrpRsrcT): CInt =
     throw UnsupportedOperationException("lgrpResources not available on WASI — no C library access")
 
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on WASI — no C library access")
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob not available on WASI — no C library access")
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on WASI — no C library access")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr not available on WASI — no C library access")

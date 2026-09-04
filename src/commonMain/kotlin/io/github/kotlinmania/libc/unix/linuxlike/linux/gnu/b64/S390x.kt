@@ -860,6 +860,6 @@ public const val SYS_mseal: CLong = 462
 public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
 public expect fun getcontext(ucp: UcontextT?): CInt 
 public expect fun setcontext(ucp: UcontextT?): CInt 
-public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 
 public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt 

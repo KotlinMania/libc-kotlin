@@ -1384,7 +1384,7 @@ public expect fun uselocale(loc: LocaleT): LocaleT
 public expect fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: CInt): CInt 
 public expect fun ntpAdjtime(buf: Timex?): CInt 
 public expect fun ntpGettime(buf: Ntptimeval?): CInt 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
 

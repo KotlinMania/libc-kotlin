@@ -36,3 +36,6 @@ public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): 
 public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("gethostid not available on WASI — no C library access")
 
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on WASI — no C library access")

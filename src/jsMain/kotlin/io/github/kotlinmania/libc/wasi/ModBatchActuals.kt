@@ -838,3 +838,15 @@ public actual fun pthreadRwlockattrInit(attr: PthreadRwlockattrT?): CInt =
 public actual fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrDestroy requires N-API addon")
 
+
+public actual fun atexit(a: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit requires N-API addon")
+
+public actual fun atQuickExit(a: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atQuickExit requires N-API addon")
+
+public actual fun pthreadCreate(native: PthreadT, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires N-API addon")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate requires N-API addon")

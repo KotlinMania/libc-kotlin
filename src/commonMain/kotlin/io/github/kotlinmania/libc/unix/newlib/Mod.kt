@@ -594,7 +594,7 @@ public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun getgrgid(gid: GidT): Group? 
 public expect fun popen(command: String?, mode: String?): FILE? 

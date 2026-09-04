@@ -105,3 +105,12 @@ public actual fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULon
 public actual fun posixMemalign(memptr: COpaquePointer?, alignment: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("posixMemalign not available on JVM — no C library access")
 
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on JVM — no C library access")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, destructor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate not available on JVM — no C library access")
+
+public actual fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadOnce not available on JVM — no C library access")

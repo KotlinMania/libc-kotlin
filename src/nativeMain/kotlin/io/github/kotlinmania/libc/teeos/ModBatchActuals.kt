@@ -365,3 +365,9 @@ public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong =
 
 public actual fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong =
     throw UnsupportedOperationException("strtol requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

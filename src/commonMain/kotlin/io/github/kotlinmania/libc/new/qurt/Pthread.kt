@@ -23,7 +23,7 @@ public const val PTHREAD_SCOPE_PROCESS: CInt = 1
 public const val PTHREAD_INHERIT_SCHED: CInt = 0
 public const val PTHREAD_EXPLICIT_SCHED: CInt = 1
 
-public fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
 
 public expect fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt 
 public expect fun pthreadDetach(thread: PthreadT): CInt 
@@ -56,12 +56,12 @@ public expect fun pthreadCondBroadcast(cond: PthreadCondT?): CInt
 public expect fun pthreadCondattrInit(attr: PthreadCondattrT?): CInt 
 public expect fun pthreadCondattrDestroy(attr: PthreadCondattrT?): CInt 
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt 
-public fun pthreadKeyCreate(key: PthreadKeyT?, destructor: ((COpaquePointer?) -> Unit)?): CInt = -1
+public expect fun pthreadKeyCreate(key: PthreadKeyT?, destructor: ((COpaquePointer?) -> Unit)?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt 
 public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? 
 public expect fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt 
-public fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt = -1
+public expect fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt
 
 public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt 
 public expect fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt 

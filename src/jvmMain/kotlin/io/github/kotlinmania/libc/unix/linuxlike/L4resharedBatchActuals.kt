@@ -345,3 +345,12 @@ public actual fun fsetpos64(stream: FILE?, ptr: Fpos64T?): CInt =
 public actual fun ftello64(stream: FILE?): Off64T =
     throw UnsupportedOperationException("ftello64 not available on JVM — no C library access")
 
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob not available on JVM — no C library access")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr not available on JVM — no C library access")
+
+public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
+    throw UnsupportedOperationException("freopen64 not available on JVM — no C library access")

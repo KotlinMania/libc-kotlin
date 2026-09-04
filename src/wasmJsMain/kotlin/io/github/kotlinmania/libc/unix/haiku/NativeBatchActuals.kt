@@ -322,3 +322,6 @@ public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: B
 public actual fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): StatusT =
     throw UnsupportedOperationException("getCpuid requires N-API addon")
 
+
+public actual fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT =
+    throw UnsupportedOperationException("onExitThread requires N-API addon")

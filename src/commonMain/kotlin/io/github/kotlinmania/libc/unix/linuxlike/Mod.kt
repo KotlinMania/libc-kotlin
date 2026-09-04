@@ -1356,20 +1356,20 @@ public expect fun statvfs64(path: String?, buf: Statvfs64?): CInt
 public expect fun fstatvfs64(fd: CInt, buf: Statvfs64?): CInt 
 public expect fun statfs64(path: String?, buf: Statfs64?): CInt 
 public expect fun creat64(path: String?, mode: ModeT): CInt 
-public fun fstat64(fildes: CInt, buf: Stat64?): CInt = -1
+public expect fun fstat64(fildes: CInt, buf: Stat64?): CInt
 public expect fun fstatat64(dirfd: CInt, pathname: String?, buf: Stat64?, flags: CInt): CInt 
 public expect fun ftruncate64(fd: CInt, length: Off64T): CInt 
 public expect fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T 
-public fun lstat64(path: String?, buf: Stat64?): CInt = -1
+public expect fun lstat64(path: String?, buf: Stat64?): CInt
 public expect fun mmap64(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? 
-public fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt = -1
+public expect fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt
 public expect fun openat64(fd: CInt, path: String?, oflag: CInt, vararg args: Any?): CInt 
 public expect fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt 
 public expect fun pread64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT 
 public expect fun pwrite64(fd: CInt, buf: COpaquePointer?, count: ULong, offset: Off64T): SsizeT 
 public expect fun readdir64(dirp: DIR?): Dirent64? 
 public expect fun readdir64R(dirp: DIR?, entry: Dirent64?, result: COpaquePointer?): CInt 
-public fun stat64(path: String?, buf: Stat64?): CInt = -1
+public expect fun stat64(path: String?, buf: Stat64?): CInt
 public expect fun truncate64(path: String?, length: Off64T): CInt 
 public expect fun preadv64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT 
 public expect fun pwritev64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT 

@@ -802,3 +802,7 @@ public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CIn
 public actual fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt =
     throw UnsupportedOperationException("devstatBuildmatch requires N-API addon")
 
+
+public actual fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?) {
+    throw UnsupportedOperationException("mallocStatsPrint requires N-API addon")
+}

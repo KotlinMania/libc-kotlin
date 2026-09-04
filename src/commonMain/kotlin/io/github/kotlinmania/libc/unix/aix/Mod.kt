@@ -2241,7 +2241,7 @@ public expect fun fDISSET(fd: CInt, set: FdSet?): Boolean
 public expect fun thrKill(id: ThreadT, sig: CInt): CInt 
 public fun thrSelf(): ThreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun pthreadAttrGetdetachstate(attr: PthreadAttrT, detachstate: CInt?): CInt 
 public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt 
@@ -2267,13 +2267,13 @@ public expect fun pthreadBarrierInit(barrier: PthreadBarrierT?, attr: PthreadBar
 public expect fun pthreadBarrierWait(barrier: PthreadBarrierT?): CInt 
 public expect fun pthreadCancel(thread: PthreadT): CInt 
 public expect fun pthreadCleanupPop(execute: CInt): COpaquePointer? 
-public fun pthreadCleanupPush(routine: ((COpaquePointer?) -> Unit)?, arg: COpaquePointer?): COpaquePointer? = null
+public expect fun pthreadCleanupPush(routine: ((COpaquePointer?) -> Unit)?, arg: COpaquePointer?): COpaquePointer?
 
 public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt 
 public expect fun pthreadCondattrGetpshared(attr: PthreadCondattrT, pshared: CInt?): CInt 
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt 
 public expect fun pthreadCondattrSetpshared(attr: PthreadCondattrT, pshared: CInt): CInt 
-public fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt
 
 public expect fun pthreadGetconcurrency(): CInt 
 public expect fun pthreadGetcpuclockid(threadId: PthreadT, clockId: ClockidT?): CInt 
@@ -2292,7 +2292,7 @@ public expect fun pthreadMutexConsistent(mutex: PthreadMutexT?): CInt
 public expect fun pthreadMutexGetprioceiling(mutex: PthreadMutexT?, prioceiling: CInt?): CInt 
 public expect fun pthreadMutexSetprioceiling(mutex: PthreadMutexT?, prioceiling: CInt, oldCeiling: CInt?): CInt 
 public expect fun pthreadMutexTimedlock(mutex: PthreadMutexT?, abstime: Timespec?): CInt 
-public fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt = -1
+public expect fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt
 
 public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT, pshared: CInt?): CInt 
 public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT, pshared: CInt): CInt 
@@ -2355,12 +2355,12 @@ public expect fun ffsll(value: CLongLong): CInt
 public expect fun fgetgrent(file: FILE?): Group? 
 public expect fun fgetpos64(stream: FILE?, ptr: Fpos64T?): CInt 
 public expect fun fgetpwent(file: FILE?): Passwd? 
-public fun fopen64(filename: String?, mode: String?): FILE? = null
+public expect fun fopen64(filename: String?, mode: String?): FILE?
 public expect fun freelocale(loc: LocaleT)
-public fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? = null
+public expect fun freopen64(filename: String?, mode: String?, file: FILE?): FILE?
 public expect fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt 
 public expect fun fsetpos64(stream: FILE?, ptr: Fpos64T?): CInt 
-public fun fstat64(fildes: CInt, buf: Stat64?): CInt = -1
+public expect fun fstat64(fildes: CInt, buf: Stat64?): CInt
 public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt 
 public expect fun fstatfs64(fd: CInt, buf: Statfs64?): CInt 
 public expect fun fstatvfs64(fd: CInt, buf: Statvfs64?): CInt 
@@ -2397,7 +2397,7 @@ public expect fun getutline(u: Utmp?): Utmp?
 public expect fun getutxent(): Utmpx? 
 public expect fun getutxid(ut: Utmpx?): Utmpx? 
 public expect fun getutxline(ut: Utmpx?): Utmpx? 
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun hasmntopt(mnt: Mntent?, opt: String?): String? 
@@ -2410,19 +2410,19 @@ public expect fun initgroups(name: String?, basegid: GidT): CInt
 public expect fun ioctl(fildes: CInt, request: CInt, vararg args: Any?): CInt 
 public expect fun jrand48(xseed: CUShort?): CLong 
 public expect fun lcong48(p: CUShort?)
-public fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
 public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: Sigevent?): CInt 
 public expect fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUInt, vararg args: Any?): CInt 
 public expect fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: ULong): CInt 
 public expect fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt 
 public expect fun lrand48(): CLong 
-public fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
 public expect fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T 
-public fun lstat64(path: String?, buf: Stat64?): CInt = -1
+public expect fun lstat64(path: String?, buf: Stat64?): CInt
 public expect fun madvise(addr: CaddrT, len: ULong, advice: CInt): CInt 
-public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 
 public fun mallinfo(): Mallinfo = throw UnsupportedOperationException("Not implemented on this platform")
 
@@ -2454,7 +2454,7 @@ public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public expect fun nlLanginfo(item: NlItem): String? 
 public expect fun nlLanginfoL(item: NlItem, loc: LocaleT): String? 
 public expect fun nrand48(xseed: CUShort?): CLong 
-public fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt = -1
+public expect fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt
 public fun pollsetCreate(maxfd: CInt): PollsetT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public expect fun pollsetCtl(ps: PollsetT, pollctlArray: PollCtl?, arrayLength: CInt): CInt 
@@ -2559,7 +2559,7 @@ public expect fun shmUnlink(name: String?): CInt
 public expect fun splice(socket1: CInt, socket2: CInt, flags: CInt): CInt 
 public expect fun srand(seed: CUInt)
 public expect fun srand48(seed: CLong)
-public fun stat64(path: String?, buf: Stat64?): CInt = -1
+public expect fun stat64(path: String?, buf: Stat64?): CInt
 public expect fun stat64at(dirfd: CInt, path: String?, buf: Stat64?, flags: CInt): CInt 
 public expect fun statfs(path: String?, buf: Statfs?): CInt 
 public expect fun statfs64(path: String?, buf: Statfs64?): CInt 

@@ -290,3 +290,15 @@ public actual fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUInt
     throw UnsupportedOperationException("statx requires N-API addon")
 }
 
+
+public actual fun fstat64(fildes: CInt, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("fstat64 requires N-API addon")
+
+public actual fun lstat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("lstat64 requires N-API addon")
+
+public actual fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("open64 requires N-API addon")
+
+public actual fun stat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("stat64 requires N-API addon")

@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public actual fun fDCLR(fd: CInt, set: FdSet?) {
     throw UnsupportedOperationException("fDCLR not available on Android host — use androidNative target for FFI")
@@ -763,3 +764,16 @@ public actual fun updwtmpx(file: String?, utmpx: Utmpx?) {
     throw UnsupportedOperationException("updwtmpx not available on Android host — use androidNative target for FFI")
 }
 
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR not available on Android host — use androidNative target for FFI")
+}
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on Android host — use androidNative target for FFI")
+
+public actual fun pthreadCreate(native: PthreadT, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on Android host — use androidNative target for FFI")
+
+public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("pthreadSigqueue not available on Android host — use androidNative target for FFI")

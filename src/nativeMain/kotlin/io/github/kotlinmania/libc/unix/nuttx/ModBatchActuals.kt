@@ -42,3 +42,6 @@ public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): L
 public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
 }
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

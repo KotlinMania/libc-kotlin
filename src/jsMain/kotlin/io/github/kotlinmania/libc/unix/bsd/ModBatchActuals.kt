@@ -287,3 +287,12 @@ public actual fun devname(dev: DevT, modeT: ModeT): String? =
 public actual fun issetugid(): CInt =
     throw UnsupportedOperationException("issetugid requires N-API addon")
 
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob requires N-API addon")
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork requires N-API addon")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires N-API addon")

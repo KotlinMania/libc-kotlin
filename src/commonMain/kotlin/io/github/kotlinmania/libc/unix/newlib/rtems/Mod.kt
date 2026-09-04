@@ -70,7 +70,7 @@ public const val SOMAXCONN: CInt = 128
 public expect fun futimens(fd: CInt, times: Timespec?): CInt 
 public expect fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT 
 public expect fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt 
 public expect fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt 

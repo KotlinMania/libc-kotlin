@@ -876,6 +876,6 @@ public const val PROT_MTE: CInt = 0x20
 public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
 public expect fun getcontext(ucp: UcontextT?): CInt 
 public expect fun setcontext(ucp: UcontextT?): CInt 
-public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 
 public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt 

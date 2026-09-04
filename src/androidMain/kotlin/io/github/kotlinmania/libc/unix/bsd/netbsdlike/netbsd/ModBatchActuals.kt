@@ -507,3 +507,10 @@ public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt
 public actual fun backtraceSymbolsFdFmt(addrlist: COpaquePointer?, len: ULong, fd: CInt, fmt: String?): CInt =
     throw UnsupportedOperationException("backtraceSymbolsFdFmt not available on Android host — use androidNative target for FFI")
 
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr not available on Android host — use androidNative target for FFI")
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR not available on Android host — use androidNative target for FFI")
+}

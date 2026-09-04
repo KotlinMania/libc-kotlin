@@ -12,3 +12,7 @@ public actual fun setcontext(ucp: UcontextT?): CInt =
 public actual fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("swapcontext requires N-API addon")
 
+
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) {
+    throw UnsupportedOperationException("makecontext requires N-API addon")
+}

@@ -233,3 +233,9 @@ public actual fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): UL
 public actual fun loginTty(fd: CInt): CInt =
     throw UnsupportedOperationException("loginTty not available on JVM — no C library access")
 
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on JVM — no C library access")
+
+public actual fun pthreadCreate(tid: PthreadT, attr: PthreadAttrT?, start: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on JVM — no C library access")

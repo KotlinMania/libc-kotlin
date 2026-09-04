@@ -542,3 +542,42 @@ public actual fun interruptMask(intr: CInt, id: CInt): CInt =
 
 public actual fun interruptUnmask(intr: CInt, id: CInt): CInt =
     throw UnsupportedOperationException("interruptUnmask requires manual FFI bridge — not yet implemented")
+
+public actual fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
+    throw UnsupportedOperationException("signalAction requires manual FFI bridge — not yet implemented")
+
+public actual fun signalActionR(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
+    throw UnsupportedOperationException("signalActionR requires manual FFI bridge — not yet implemented")
+
+public actual fun threadCreate(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt =
+    throw UnsupportedOperationException("threadCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun threadCreateR(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt =
+    throw UnsupportedOperationException("threadCreateR requires manual FFI bridge — not yet implemented")
+
+public actual fun threadCancel(tid: CInt, canstub: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("threadCancel requires manual FFI bridge — not yet implemented")
+
+public actual fun threadCancelR(tid: CInt, canstub: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("threadCancelR requires manual FFI bridge — not yet implemented")
+
+public actual fun interruptHookTrace(handler: ((CInt) -> Sigevent?)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookTrace requires manual FFI bridge — not yet implemented")
+
+public actual fun interruptHookIdle(handler: ((ULong?, QtimeEntry?) -> Unit)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookIdle requires manual FFI bridge — not yet implemented")
+
+public actual fun interruptHookIdle2(handler: (() -> Unit)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookIdle2 requires manual FFI bridge — not yet implemented")
+
+public actual fun interruptAttach(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttach requires manual FFI bridge — not yet implemented")
+
+public actual fun interruptAttachR(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachR requires manual FFI bridge — not yet implemented")
+
+public actual fun interruptAttachArray(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachArray requires manual FFI bridge — not yet implemented")
+
+public actual fun interruptAttachArrayR(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachArrayR requires manual FFI bridge — not yet implemented")

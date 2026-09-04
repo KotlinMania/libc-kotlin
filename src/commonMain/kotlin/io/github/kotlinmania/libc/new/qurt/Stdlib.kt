@@ -15,7 +15,7 @@ public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
-public fun atexit(function: (() -> Unit)?): CInt = -1
+public expect fun atexit(function: (() -> Unit)?): CInt
 
 public expect fun getenv(name: String?): String? 
 public expect fun setenv(name: String?, value: String?, overwrite: CInt): CInt 
@@ -33,9 +33,9 @@ public fun strtof(nptr: String?, endptr: COpaquePointer?): CFloat = 0.0f
 
 public expect fun rand(): CInt 
 public expect fun srand(seed: CUInt)
-public fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) { }
+public expect fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?)
 
-public fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
 public expect fun abs(j: CInt): CInt 
 public expect fun labs(j: CLong): CLong 

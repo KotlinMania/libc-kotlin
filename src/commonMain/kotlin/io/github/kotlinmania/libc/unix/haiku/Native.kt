@@ -823,7 +823,7 @@ public fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT = throw Unsuppor
 
 public expect fun exitThread(status: StatusT)
 public expect fun waitForThread(thread: ThreadId, returnValue: StatusT?): StatusT 
-public fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT = 0
+public expect fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT
 
 public fun findThread(name: String?): ThreadId = throw UnsupportedOperationException("Not implemented on this platform")
 

@@ -19,3 +19,6 @@ public actual fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT =
 public actual fun eventfd(initval: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("eventfd not available on Android host — use androidNative target for FFI")
 
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on Android host — use androidNative target for FFI")

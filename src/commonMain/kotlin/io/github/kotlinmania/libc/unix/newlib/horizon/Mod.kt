@@ -171,7 +171,7 @@ public const val SCHED_RR: CInt = 2
 public const val GRND_NONBLOCK: CUInt = 0x1u
 public const val GRND_RANDOM: CUInt = 0x2u
 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt 
 public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt 

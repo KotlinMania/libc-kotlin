@@ -472,9 +472,9 @@ public expect fun fputs(a: String?, f: FILE?): CInt
 public expect fun puts(a: String?): CInt 
 public expect fun perror(a: String?)
 public expect fun srand(a: CUInt)
-public fun atexit(a: (() -> Unit)?): CInt = -1
+public expect fun atexit(a: (() -> Unit)?): CInt
 
-public fun atQuickExit(a: (() -> Unit)?): CInt = -1
+public expect fun atQuickExit(a: (() -> Unit)?): CInt
 
 public fun quickExit(a: CInt): Nothing = throw UnsupportedOperationException()
 
@@ -688,7 +688,7 @@ public expect fun fchmod(fd: CInt, mode: ModeT): CInt
 public expect fun realpath(pathname: String?, resolved: String?): String? 
 public fun pthreadSelf(): PthreadT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun pthreadCreate(native: PthreadT, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt 
 public expect fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt 
@@ -698,7 +698,7 @@ public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT?, stacksize: ULong?
 public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stackSize: ULong): CInt 
 public expect fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, state: CInt): CInt 
 public expect fun pthreadDetach(thread: PthreadT): CInt 
-public fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt = -1
+public expect fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt 
 public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? 

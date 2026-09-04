@@ -51,7 +51,7 @@ public const val PRIV_TPD_KILLABLE: CUInt = 0x2000u
 public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt 
 public expect fun doorCall(d: CInt, params: DoorArgT?): CInt 
 public expect fun doorReturn(dataPtr: String?, dataSize: ULong, descPtr: DoorDescT?, numDesc: CUInt): CInt 
-public fun doorCreate(serverProcedure: ((COpaquePointer?, String?, ULong, DoorDescT?, CUInt) -> Unit)?, cookie: COpaquePointer?, attributes: DoorAttrT): CInt = -1
+public expect fun doorCreate(serverProcedure: ((COpaquePointer?, String?, ULong, DoorDescT?, CUInt) -> Unit)?, cookie: COpaquePointer?, attributes: DoorAttrT): CInt
 
 public expect fun fattach(fildes: CInt, path: String?): CInt 
 public expect fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt 

@@ -1081,3 +1081,43 @@ public actual fun gnuGetLibcRelease(): String? =
 public actual fun gnuGetLibcVersion(): String? =
     throw UnsupportedOperationException("gnuGetLibcVersion not available on Android host — use androidNative target for FFI")
 
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on Android host — use androidNative target for FFI")
+
+public actual fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadOnce not available on Android host — use androidNative target for FFI")
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on Android host — use androidNative target for FFI")
+
+public actual fun fstat64(fd: CInt, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("fstat64 not available on Android host — use androidNative target for FFI")
+
+public actual fun lstat64(file: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("lstat64 not available on Android host — use androidNative target for FFI")
+
+public actual fun open64(file: String?, oflag: CInt, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("open64 not available on Android host — use androidNative target for FFI")
+
+public actual fun fopen64(filename: String?, mode: String?): FILE? =
+    throw UnsupportedOperationException("fopen64 not available on Android host — use androidNative target for FFI")
+
+public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
+    throw UnsupportedOperationException("freopen64 not available on Android host — use androidNative target for FFI")
+
+public actual fun stat64(file: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("stat64 not available on Android host — use androidNative target for FFI")
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR not available on Android host — use androidNative target for FFI")
+}
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob not available on Android host — use androidNative target for FFI")
+
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
+    throw UnsupportedOperationException("glob64 not available on Android host — use androidNative target for FFI")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr not available on Android host — use androidNative target for FFI")

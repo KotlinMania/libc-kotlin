@@ -513,3 +513,6 @@ public actual fun kvmRead(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: 
 public actual fun kvmWrite(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT =
     throw UnsupportedOperationException("kvmWrite requires N-API addon")
 
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr requires N-API addon")

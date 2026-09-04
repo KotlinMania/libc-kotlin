@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 
 public actual fun fDCLR(fd: CInt, set: FdSet?) {
     throw UnsupportedOperationException("fDCLR requires N-API addon")
@@ -763,3 +764,16 @@ public actual fun updwtmpx(file: String?, utmpx: Utmpx?) {
     throw UnsupportedOperationException("updwtmpx requires N-API addon")
 }
 
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR requires N-API addon")
+}
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork requires N-API addon")
+
+public actual fun pthreadCreate(native: PthreadT, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires N-API addon")
+
+public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("pthreadSigqueue requires N-API addon")

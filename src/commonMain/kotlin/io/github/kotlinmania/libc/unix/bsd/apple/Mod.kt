@@ -3741,7 +3741,7 @@ public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
 public expect fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt 
 public expect fun freadlink(fd: CInt, buf: String?, size: ULong): CInt 
 public expect fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt 
-public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) { }
+public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?)
 
 public expect fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt 
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? 

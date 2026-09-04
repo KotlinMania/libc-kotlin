@@ -481,3 +481,14 @@ public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS requires N-API addon")
 
+
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort requires N-API addon")
+}
+
+public actual fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortS requires N-API addon")
+}
+
+public actual fun atexit(cb: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit requires N-API addon")

@@ -1083,3 +1083,43 @@ public actual fun gnuGetLibcRelease(): String? =
 
 public actual fun gnuGetLibcVersion(): String? =
     throw UnsupportedOperationException("gnuGetLibcVersion requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadOnce requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork requires manual FFI bridge — not yet implemented")
+
+public actual fun fstat64(fd: CInt, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("fstat64 requires manual FFI bridge — not yet implemented")
+
+public actual fun lstat64(file: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("lstat64 requires manual FFI bridge — not yet implemented")
+
+public actual fun open64(file: String?, oflag: CInt, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("open64 requires manual FFI bridge — not yet implemented")
+
+public actual fun fopen64(filename: String?, mode: String?): FILE? =
+    throw UnsupportedOperationException("fopen64 requires manual FFI bridge — not yet implemented")
+
+public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
+    throw UnsupportedOperationException("freopen64 requires manual FFI bridge — not yet implemented")
+
+public actual fun stat64(file: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("stat64 requires manual FFI bridge — not yet implemented")
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob requires manual FFI bridge — not yet implemented")
+
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
+    throw UnsupportedOperationException("glob64 requires manual FFI bridge — not yet implemented")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr requires manual FFI bridge — not yet implemented")

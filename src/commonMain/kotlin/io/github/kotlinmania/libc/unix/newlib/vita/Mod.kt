@@ -152,7 +152,7 @@ public expect fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT
 public expect fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT 
 public expect fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT 
 public expect fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt 
 public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt 

@@ -130,3 +130,6 @@ public actual fun popen(command: String?, mode: String?): FILE? =
 public actual fun uname(buf: Utsname?): CInt =
     throw UnsupportedOperationException("uname not available on WASI — no C library access")
 
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on WASI — no C library access")

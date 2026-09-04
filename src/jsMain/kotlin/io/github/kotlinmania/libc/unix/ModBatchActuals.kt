@@ -1036,3 +1036,19 @@ public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("fnmatch requires N-API addon")
 
+
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort requires N-API addon")
+}
+
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("bsearch requires N-API addon")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate requires N-API addon")
+
+public actual fun atexit(cb: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit requires N-API addon")
+
+public actual fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("sigqueue requires N-API addon")

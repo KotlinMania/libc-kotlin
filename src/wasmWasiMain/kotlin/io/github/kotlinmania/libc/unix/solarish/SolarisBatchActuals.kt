@@ -21,3 +21,6 @@ public actual fun pthreadGetattrNp(thread: PthreadT, attr: PthreadAttrT?): CInt 
 public actual fun euidaccess(path: String?, amode: CInt): CInt =
     throw UnsupportedOperationException("euidaccess not available on WASI — no C library access")
 
+
+public actual fun doorCreate(serverProcedure: ((COpaquePointer?, String?, ULong, DoorDescT?, CUInt) -> Unit)?, cookie: COpaquePointer?, attributes: DoorAttrT): CInt =
+    throw UnsupportedOperationException("doorCreate not available on WASI — no C library access")

@@ -62,3 +62,13 @@ public actual fun labs(j: CLong): CLong =
 public actual fun llabs(j: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs requires N-API addon")
 
+
+public actual fun atexit(function: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit requires N-API addon")
+
+public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort requires N-API addon")
+}
+
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("bsearch requires N-API addon")

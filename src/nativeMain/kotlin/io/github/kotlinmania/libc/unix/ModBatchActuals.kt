@@ -1038,3 +1038,19 @@ public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
 
 public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("fnmatch requires manual FFI bridge — not yet implemented")
+
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("bsearch requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun atexit(cb: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit requires manual FFI bridge — not yet implemented")
+
+public actual fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("sigqueue requires manual FFI bridge for ambiguous type")

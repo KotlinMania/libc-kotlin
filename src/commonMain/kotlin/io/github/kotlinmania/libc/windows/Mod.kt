@@ -229,9 +229,9 @@ public expect fun isxdigit(c: CInt): CInt
 public expect fun isblank(c: CInt): CInt 
 public expect fun tolower(c: CInt): CInt 
 public expect fun toupper(c: CInt): CInt 
-public fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) { }
+public expect fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?)
 
-public fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) { }
+public expect fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
 
 public expect fun fopen(filename: String?, mode: String?): FILE? 
 public expect fun freopen(filename: String?, mode: String?, file: FILE?): FILE? 
@@ -282,7 +282,7 @@ public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
-public fun atexit(cb: (() -> Unit)?): CInt = -1
+public expect fun atexit(cb: (() -> Unit)?): CInt
 
 public expect fun system(s: String?): CInt 
 public expect fun getenv(s: String?): String? 

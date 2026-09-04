@@ -540,3 +540,42 @@ public actual fun interruptMask(intr: CInt, id: CInt): CInt =
 public actual fun interruptUnmask(intr: CInt, id: CInt): CInt =
     throw UnsupportedOperationException("interruptUnmask not available on Android host — use androidNative target for FFI")
 
+
+public actual fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
+    throw UnsupportedOperationException("signalAction not available on Android host — use androidNative target for FFI")
+
+public actual fun signalActionR(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
+    throw UnsupportedOperationException("signalActionR not available on Android host — use androidNative target for FFI")
+
+public actual fun threadCreate(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt =
+    throw UnsupportedOperationException("threadCreate not available on Android host — use androidNative target for FFI")
+
+public actual fun threadCreateR(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt =
+    throw UnsupportedOperationException("threadCreateR not available on Android host — use androidNative target for FFI")
+
+public actual fun threadCancel(tid: CInt, canstub: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("threadCancel not available on Android host — use androidNative target for FFI")
+
+public actual fun threadCancelR(tid: CInt, canstub: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("threadCancelR not available on Android host — use androidNative target for FFI")
+
+public actual fun interruptHookTrace(handler: ((CInt) -> Sigevent?)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookTrace not available on Android host — use androidNative target for FFI")
+
+public actual fun interruptHookIdle(handler: ((ULong?, QtimeEntry?) -> Unit)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookIdle not available on Android host — use androidNative target for FFI")
+
+public actual fun interruptHookIdle2(handler: (() -> Unit)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookIdle2 not available on Android host — use androidNative target for FFI")
+
+public actual fun interruptAttach(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttach not available on Android host — use androidNative target for FFI")
+
+public actual fun interruptAttachR(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachR not available on Android host — use androidNative target for FFI")
+
+public actual fun interruptAttachArray(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachArray not available on Android host — use androidNative target for FFI")
+
+public actual fun interruptAttachArrayR(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachArrayR not available on Android host — use androidNative target for FFI")

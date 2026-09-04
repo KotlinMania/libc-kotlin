@@ -528,7 +528,7 @@ public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stackSize: ULong)
 public expect fun pthreadAttrGetstacksize(attr: PthreadAttrT?, size: ULong?): CInt 
 public expect fun pthreadAttrSettee(attr: PthreadAttrT?, ca: CInt, taskId: CInt, shadow: CInt): CInt 
 public expect fun schedYield(): CInt 
-public fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt = -1
+public expect fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt 
 public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? 
@@ -549,7 +549,7 @@ public expect fun pthreadCondSignal(cond: PthreadCondT?): CInt
 public expect fun pthreadCondWait(cond: PthreadCondT?, lock: PthreadMutexT?): CInt 
 public expect fun pthreadCondTimedwait(cond: PthreadCondT?, lock: PthreadMutexT?, abstime: Timespec?): CInt 
 public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robustness: CInt): CInt 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt 
 public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt 

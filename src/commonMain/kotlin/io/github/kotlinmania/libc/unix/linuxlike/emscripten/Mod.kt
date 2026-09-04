@@ -1141,7 +1141,7 @@ public expect fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
 public expect fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt 
 public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt 
 public expect fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? 
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt 

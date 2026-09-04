@@ -233,9 +233,9 @@ public expect fun isxdigit(c: CInt): CInt
 public expect fun isblank(c: CInt): CInt 
 public expect fun tolower(c: CInt): CInt 
 public expect fun toupper(c: CInt): CInt 
-public fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) { }
+public expect fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?)
 
-public fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
 public expect fun fopen(filename: String?, mode: String?): FILE? 
 public expect fun freopen(filename: String?, mode: String?, file: FILE?): FILE? 
@@ -469,7 +469,7 @@ public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT, stackSize: ULong):
 public expect fun pthreadAttrSetdetachstate(attr: PthreadAttrT, state: CInt): CInt 
 public expect fun pthreadDetach(thread: PthreadT): CInt 
 public expect fun schedYield(): CInt 
-public fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt = -1
+public expect fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt 
 public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? 
@@ -584,7 +584,7 @@ public expect fun getline(lineptr: COpaquePointer?, n: ULong?, stream: FILE?): S
 public expect fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt 
 public expect fun adjtime(delta: Timeval?, olddelta: Timeval?): CInt 
 public expect fun stpncpy(dst: String?, src: String?, n: ULong): String? 
-public fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt = -1
+public expect fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt
 public expect fun confstr(name: CInt, buf: String?, len: ULong): ULong 
 public expect fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt 
 public expect fun flock(fd: CInt, operation: CInt): CInt 
@@ -601,7 +601,7 @@ public expect fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfd
 public expect fun sigaction(signum: CInt, act: Sigaction?, oldact: Sigaction?): CInt 
 public expect fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FILE? 
 public expect fun openMemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE? 
-public fun atexit(cb: (() -> Unit)?): CInt = -1
+public expect fun atexit(cb: (() -> Unit)?): CInt
 
 public expect fun cfmakeraw(termios: Termios?): CInt 
 public expect fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt 

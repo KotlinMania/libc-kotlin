@@ -363,3 +363,9 @@ public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong =
 public actual fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong =
     throw UnsupportedOperationException("strtol not available on JVM — no C library access")
 
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate not available on JVM — no C library access")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on JVM — no C library access")

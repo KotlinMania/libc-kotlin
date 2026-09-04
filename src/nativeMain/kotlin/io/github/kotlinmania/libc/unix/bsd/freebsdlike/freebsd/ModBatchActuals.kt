@@ -804,3 +804,7 @@ public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CIn
 
 public actual fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt =
     throw UnsupportedOperationException("devstatBuildmatch requires manual FFI bridge — not yet implemented")
+
+public actual fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?) {
+    throw UnsupportedOperationException("mallocStatsPrint requires manual FFI bridge — not yet implemented")
+}

@@ -165,3 +165,6 @@ public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: UL
 public actual fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrgidR not available on Android host — use androidNative target for FFI")
 
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob not available on Android host — use androidNative target for FFI")

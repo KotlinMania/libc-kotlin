@@ -3186,7 +3186,7 @@ public expect fun ffsll(value: CLongLong): CInt
 public expect fun fls(value: CInt): CInt 
 public expect fun flsl(value: CLong): CInt 
 public expect fun flsll(value: CLongLong): CInt 
-public fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?) { }
+public expect fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?)
 
 public expect fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
 public expect fun mallctlnametomib(name: String?, mibp: ULong?, miplen: ULong?): CInt 

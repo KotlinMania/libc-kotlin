@@ -1005,3 +1005,46 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCleanupPush(routine: ((COpaquePointer?) -> Unit)?, arg: COpaquePointer?): COpaquePointer? =
+    throw UnsupportedOperationException("pthreadCleanupPush requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadOnce requires manual FFI bridge — not yet implemented")
+
+public actual fun fopen64(filename: String?, mode: String?): FILE? =
+    throw UnsupportedOperationException("fopen64 requires manual FFI bridge — not yet implemented")
+
+public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
+    throw UnsupportedOperationException("freopen64 requires manual FFI bridge — not yet implemented")
+
+public actual fun fstat64(fildes: CInt, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("fstat64 requires manual FFI bridge — not yet implemented")
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob requires manual FFI bridge — not yet implemented")
+
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("lfind requires manual FFI bridge — not yet implemented")
+
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("lsearch requires manual FFI bridge — not yet implemented")
+
+public actual fun lstat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("lstat64 requires manual FFI bridge — not yet implemented")
+
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) {
+    throw UnsupportedOperationException("makecontext requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("open64 requires manual FFI bridge — not yet implemented")
+
+public actual fun stat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("stat64 requires manual FFI bridge — not yet implemented")

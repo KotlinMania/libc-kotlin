@@ -3270,7 +3270,7 @@ public expect fun swapoff(path: String?): CInt
 public expect fun vmsplice(fd: CInt, iov: Iovec?, nrSegs: ULong, flags: CUInt): SsizeT 
 public expect fun personality(persona: CULong): CInt 
 public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt 
-public fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt = -1
+public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt
 
 public expect fun schedGetscheduler(pid: PidT): CInt 
 public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt 
@@ -3312,7 +3312,7 @@ public expect fun gethostid(): CLong
 public expect fun klogctl(syslogType: CInt, bufp: String?, len: CInt): CInt 
 public expect fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt 
 public expect fun fgetpos64(stream: FILE?, ptr: Fpos64T?): CInt 
-public fun fopen64(filename: String?, mode: String?): FILE? = null
+public expect fun fopen64(filename: String?, mode: String?): FILE?
 public expect fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt 
 public expect fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: ULong): SsizeT 
 public expect fun tmpfile64(): FILE? 

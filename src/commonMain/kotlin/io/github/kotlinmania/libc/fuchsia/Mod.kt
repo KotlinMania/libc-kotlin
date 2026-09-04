@@ -2595,7 +2595,7 @@ public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
-public fun atexit(cb: (() -> Unit)?): CInt = -1
+public expect fun atexit(cb: (() -> Unit)?): CInt
 
 public expect fun system(s: String?): CInt 
 public expect fun getenv(s: String?): String? 
@@ -2775,7 +2775,7 @@ public expect fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stackSize: ULong)
 public expect fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, state: CInt): CInt 
 public expect fun pthreadDetach(thread: PthreadT): CInt 
 public expect fun schedYield(): CInt 
-public fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt = -1
+public expect fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt 
 public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? 
@@ -2975,7 +2975,7 @@ public expect fun ifFreenameindex(ptr: IfNameindex?)
 public expect fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUInt): CInt 
 public expect fun getifaddrs(ifap: COpaquePointer?): CInt 
 public expect fun freeifaddrs(ifa: Ifaddrs?)
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt 
@@ -3019,7 +3019,7 @@ public expect fun personality(persona: CULong): CInt
 public expect fun schedGetparam(pid: PidT, param: SchedParam?): CInt 
 public expect fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt 
 public expect fun pthreadMutexTimedlock(lock: PthreadMutexT?, abstime: Timespec?): CInt 
-public fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt = -1
+public expect fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt
 
 public expect fun schedGetscheduler(pid: PidT): CInt 
 public expect fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt 
@@ -3047,7 +3047,7 @@ public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun getgrgid(gid: GidT): Group? 
 public expect fun setgrent()
@@ -3056,6 +3056,6 @@ public expect fun getgrent(): Group?
 public expect fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroups: CInt?): CInt 
 public expect fun popen(command: String?, mode: String?): FILE? 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt

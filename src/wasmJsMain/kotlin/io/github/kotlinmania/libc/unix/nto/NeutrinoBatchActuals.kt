@@ -540,3 +540,42 @@ public actual fun interruptMask(intr: CInt, id: CInt): CInt =
 public actual fun interruptUnmask(intr: CInt, id: CInt): CInt =
     throw UnsupportedOperationException("interruptUnmask requires N-API addon")
 
+
+public actual fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
+    throw UnsupportedOperationException("signalAction requires N-API addon")
+
+public actual fun signalActionR(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
+    throw UnsupportedOperationException("signalActionR requires N-API addon")
+
+public actual fun threadCreate(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt =
+    throw UnsupportedOperationException("threadCreate requires N-API addon")
+
+public actual fun threadCreateR(pid: PidT, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): CInt =
+    throw UnsupportedOperationException("threadCreateR requires N-API addon")
+
+public actual fun threadCancel(tid: CInt, canstub: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("threadCancel requires N-API addon")
+
+public actual fun threadCancelR(tid: CInt, canstub: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("threadCancelR requires N-API addon")
+
+public actual fun interruptHookTrace(handler: ((CInt) -> Sigevent?)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookTrace requires N-API addon")
+
+public actual fun interruptHookIdle(handler: ((ULong?, QtimeEntry?) -> Unit)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookIdle requires N-API addon")
+
+public actual fun interruptHookIdle2(handler: (() -> Unit)?, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptHookIdle2 requires N-API addon")
+
+public actual fun interruptAttach(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttach requires N-API addon")
+
+public actual fun interruptAttachR(intr: CInt, handler: ((COpaquePointer?, CInt) -> Sigevent?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachR requires N-API addon")
+
+public actual fun interruptAttachArray(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachArray requires N-API addon")
+
+public actual fun interruptAttachArrayR(intr: CInt, handler: ((COpaquePointer?, CInt) -> COpaquePointer?)?, area: COpaquePointer?, size: CInt, flags: CUInt): CInt =
+    throw UnsupportedOperationException("interruptAttachArrayR requires N-API addon")

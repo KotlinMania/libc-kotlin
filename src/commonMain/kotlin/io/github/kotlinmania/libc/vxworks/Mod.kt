@@ -1160,7 +1160,7 @@ public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
 
-public fun atexit(cb: (() -> Unit)?): CInt = -1
+public expect fun atexit(cb: (() -> Unit)?): CInt
 
 public expect fun system(s: String?): CInt
 public expect fun getenv(s: String?): String?
@@ -1360,7 +1360,7 @@ public expect fun pthreadAttrSetinheritsched(attr: PthreadAttrT?, inheritsched: 
 public expect fun pthreadAttrSetschedpolicy(attr: PthreadAttrT?, policy: CInt): CInt
 public expect fun pthreadAttrDestroy(thread: PthreadAttrT?): CInt
 public expect fun pthreadDetach(thread: PthreadT): CInt
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun fstat(fildes: CInt, buf: Stat?): CInt
 public expect fun lstat(path: String?, buf: Stat?): CInt
@@ -1390,7 +1390,7 @@ public expect fun pthreadRwlockWrlock(attr: PthreadRwlockT?): CInt
 public expect fun pthreadRwlockTrywrlock(attr: PthreadRwlockT?): CInt
 public expect fun pthreadRwlockTimedwrlock(attr: PthreadRwlockT?, host: Timespec?): CInt
 public expect fun pthreadRwlockUnlock(attr: PthreadRwlockT?): CInt
-public fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt = -1
+public expect fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 public expect fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt
@@ -1480,8 +1480,8 @@ public expect fun sigdelset(set: SigsetT?, signum: CInt): CInt
 public expect fun sigismember(set: SigsetT?, signum: CInt): CInt
 public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oset: SigsetT?): CInt
 public expect fun kill(pid: PidT, signo: CInt): CInt
-public fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt = -1
-public fun sigqueue(rtpId: RTPID, signo: CInt, pValue: Sigval?, sigCode: CInt): CInt = -1
+public expect fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt
+public expect fun sigqueue(rtpId: RTPID, signo: CInt, pValue: Sigval?, sigCode: CInt): CInt
 public expect fun taskKill(taskId: TASKID, signo: CInt): CInt
 public expect fun raise(signo: CInt): CInt
 public fun taskIdSelf(): TASKID = throw UnsupportedOperationException("Not implemented on this platform")

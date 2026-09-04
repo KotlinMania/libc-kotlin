@@ -347,3 +347,12 @@ public actual fun fsetpos64(stream: FILE?, ptr: Fpos64T?): CInt =
 
 public actual fun ftello64(stream: FILE?): Off64T =
     throw UnsupportedOperationException("ftello64 requires manual FFI bridge — not yet implemented")
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob requires manual FFI bridge — not yet implemented")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr requires manual FFI bridge — not yet implemented")
+
+public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
+    throw UnsupportedOperationException("freopen64 requires manual FFI bridge — not yet implemented")

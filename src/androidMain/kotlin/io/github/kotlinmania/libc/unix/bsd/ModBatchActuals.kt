@@ -287,3 +287,12 @@ public actual fun devname(dev: DevT, modeT: ModeT): String? =
 public actual fun issetugid(): CInt =
     throw UnsupportedOperationException("issetugid not available on Android host — use androidNative target for FFI")
 
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob not available on Android host — use androidNative target for FFI")
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on Android host — use androidNative target for FFI")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on Android host — use androidNative target for FFI")

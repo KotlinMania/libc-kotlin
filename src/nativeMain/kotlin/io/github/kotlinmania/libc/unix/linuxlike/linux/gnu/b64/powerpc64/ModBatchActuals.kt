@@ -17,3 +17,7 @@ public actual fun setcontext(ucp: UcontextT?): CInt =
 
 public actual fun swapcontext(oucp: UcontextT?, ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("swapcontext requires manual FFI bridge — not yet implemented")
+
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) {
+    throw UnsupportedOperationException("makecontext requires manual FFI bridge — not yet implemented")
+}

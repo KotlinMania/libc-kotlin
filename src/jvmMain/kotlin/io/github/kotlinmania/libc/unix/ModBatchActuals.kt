@@ -1036,3 +1036,19 @@ public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("fnmatch not available on JVM — no C library access")
 
+
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort not available on JVM — no C library access")
+}
+
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("bsearch not available on JVM — no C library access")
+
+public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadKeyCreate not available on JVM — no C library access")
+
+public actual fun atexit(cb: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit not available on JVM — no C library access")
+
+public actual fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("sigqueue not available on JVM — no C library access")

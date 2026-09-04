@@ -27,3 +27,6 @@ public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
 
 public actual fun setgroups(ngroups: CInt, grouplist: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

@@ -482,3 +482,12 @@ public actual fun memfdCreate(name: String?, flags: CUInt): CInt =
 
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 requires manual FFI bridge — not yet implemented")
+
+public actual fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("clone requires manual FFI bridge — not yet implemented")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr requires manual FFI bridge — not yet implemented")
+
+public actual fun systemPropertyForeach(callback: ((PropInfo?, COpaquePointer?) -> Unit)?, cookie: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("systemPropertyForeach requires manual FFI bridge for ambiguous type")

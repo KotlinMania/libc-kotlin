@@ -167,3 +167,6 @@ public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: UL
 
 public actual fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrgidR requires manual FFI bridge — not yet implemented")
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob requires manual FFI bridge — not yet implemented")

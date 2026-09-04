@@ -474,14 +474,14 @@ public fun exit(arg1: CInt): Nothing = throw UnsupportedOperationException()
 public fun abort(): Nothing = throw UnsupportedOperationException()
 
 public expect fun abs(arg1: CInt): CInt 
-public fun atexit(arg1: (() -> Unit)?): CInt = -1
+public expect fun atexit(arg1: (() -> Unit)?): CInt
 
 public expect fun atoi(arg1: String?): CInt 
 public expect fun atol(arg1: String?): CLong 
 public expect fun itoa(arg1: CInt, arg2: String?, arg3: CInt): String? 
 public expect fun ltoa(arg1: CLong, arg2: String?, arg3: CInt): String? 
 public expect fun ultoa(arg1: CULong, arg2: String?, arg3: CInt): String? 
-public fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong, arg4: ULong, arg5: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? = null
+public expect fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong, arg4: ULong, arg5: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
 
 public expect fun calloc(arg1: ULong, arg2: ULong): COpaquePointer? 
 public fun div(arg1: CInt, arg2: CInt): DivT = throw UnsupportedOperationException("Not implemented on this platform")
@@ -492,7 +492,7 @@ public expect fun labs(arg1: CLong): CLong
 public fun ldiv(arg1: CLong, arg2: CLong): LdivT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public expect fun malloc(arg1: ULong): COpaquePointer? 
-public fun qsort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?) { }
+public expect fun qsort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?)
 
 public expect fun rand(): CInt 
 public expect fun realloc(arg1: COpaquePointer?, arg2: ULong): COpaquePointer? 
@@ -531,7 +531,7 @@ public fun lldiv(arg1: CLongLong, arg2: CLongLong): LldivT = throw UnsupportedOp
 public expect fun strtoll(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CLongLong 
 public expect fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CULongLong 
 public expect fun alignedAlloc(arg1: ULong, arg2: ULong): COpaquePointer? 
-public fun atQuickExit(arg1: (() -> Unit)?): CInt = -1
+public expect fun atQuickExit(arg1: (() -> Unit)?): CInt
 
 public expect fun quickExit(arg1: CInt)
 public expect fun setenv(arg1: String?, arg2: String?, arg3: CInt): CInt 
@@ -539,9 +539,9 @@ public expect fun unsetenv(arg1: String?): CInt
 public expect fun humanizeNumber(arg1: String?, arg2: ULong, arg3: Long, arg4: String?, arg5: CInt, arg6: CInt): CInt 
 public expect fun dehumanizeNumber(arg1: String?, arg2: Long?): CInt 
 public expect fun getenvR(arg1: String?, arg2: String?, arg3: ULong): CInt 
-public fun heapsort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?): CInt = -1
+public expect fun heapsort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?): CInt
 
-public fun mergesort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?): CInt = -1
+public expect fun mergesort(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: ((COpaquePointer?, COpaquePointer?) -> CInt)?): CInt
 
 public expect fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUInt): CInt 
 public expect fun sradixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUInt): CInt 

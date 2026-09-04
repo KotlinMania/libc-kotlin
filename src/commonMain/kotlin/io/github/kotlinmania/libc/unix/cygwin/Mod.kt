@@ -1624,7 +1624,7 @@ public expect fun mrand48(): CLong
 public expect fun nrand48(xseed: CUShort?): CLong 
 public expect fun seed48(xseed: CUShort?): CUShort? 
 public expect fun srand48(seed: CLong)
-public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) { }
+public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
 
 public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
 public expect fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt 
@@ -1661,7 +1661,7 @@ public expect fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt
 public expect fun gethostid(): CLong 
 public expect fun getpagesize(): CInt 
 public expect fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun pipe2(fds: CInt?, flags: CInt): CInt 
 public expect fun sbrk(increment: IntptrT): COpaquePointer? 
@@ -1697,7 +1697,7 @@ public expect fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT?): CInt
 public expect fun pthreadBarrierInit(barrier: PthreadBarrierT?, attr: PthreadBarrierattrT?, count: CUInt): CInt 
 public expect fun pthreadBarrierDestroy(barrier: PthreadBarrierT?): CInt 
 public expect fun pthreadBarrierWait(barrier: PthreadBarrierT?): CInt 
-public fun pthreadCreate(native: PthreadT, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun pthreadGetcpuclockid(thread: PthreadT, clkId: ClockidT?): CInt 
 public expect fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt 
@@ -1720,7 +1720,7 @@ public expect fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT): CInt
 public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt 
 public expect fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt 
 public expect fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt 
-public fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt = -1
+public expect fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt
 public expect fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt 
 public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT 
 public expect fun mount(src: String?, target: String?, flags: CUInt): CInt 

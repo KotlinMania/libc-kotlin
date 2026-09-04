@@ -40,3 +40,6 @@ public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
 }
 
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =
+    throw UnsupportedOperationException("pthreadCreate requires N-API addon")

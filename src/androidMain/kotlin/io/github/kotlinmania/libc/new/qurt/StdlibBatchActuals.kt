@@ -62,3 +62,13 @@ public actual fun labs(j: CLong): CLong =
 public actual fun llabs(j: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs not available on Android host — use androidNative target for FFI")
 
+
+public actual fun atexit(function: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit not available on Android host — use androidNative target for FFI")
+
+public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort not available on Android host — use androidNative target for FFI")
+}
+
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("bsearch not available on Android host — use androidNative target for FFI")

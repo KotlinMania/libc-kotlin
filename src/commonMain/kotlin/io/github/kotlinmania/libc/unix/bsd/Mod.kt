@@ -444,7 +444,7 @@ public expect fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt
 public expect fun ifNameindex(): IfNameindex? 
 public expect fun ifFreenameindex(ptr: IfNameindex?)
 public expect fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt 
-public fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt = -1
+public expect fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt
 
 public expect fun globfree(pglob: GlobT?)
 public expect fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt 
@@ -480,12 +480,12 @@ public expect fun semUnlink(name: String?): CInt
 public expect fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt 
 public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
-public fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt = -1
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
 
 public expect fun getgrgid(gid: GidT): Group? 
 public expect fun popen(command: String?, mode: String?): FILE? 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt 
-public fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt = -1
+public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
 
 public expect fun acct(filename: String?): CInt 
 public expect fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT 

@@ -480,3 +480,12 @@ public actual fun memfdCreate(name: String?, flags: CUInt): CInt =
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 not available on Android host — use androidNative target for FFI")
 
+
+public actual fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("clone not available on Android host — use androidNative target for FFI")
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr not available on Android host — use androidNative target for FFI")
+
+public actual fun systemPropertyForeach(callback: ((PropInfo?, COpaquePointer?) -> Unit)?, cookie: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("systemPropertyForeach not available on Android host — use androidNative target for FFI")

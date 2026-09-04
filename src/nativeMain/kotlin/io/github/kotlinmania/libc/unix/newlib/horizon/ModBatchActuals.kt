@@ -38,3 +38,6 @@ public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): 
 
 public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("gethostid requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

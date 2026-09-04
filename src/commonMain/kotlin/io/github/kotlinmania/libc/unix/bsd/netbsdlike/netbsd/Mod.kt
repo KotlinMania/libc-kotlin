@@ -1513,7 +1513,7 @@ public expect fun dup3(src: CInt, dst: CInt, flags: CInt): CInt
 public expect fun kqueue1(flags: CInt): CInt 
 public expect fun lwpSelf(): LwpidT 
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? 
-public fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt = -1
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
 
 public expect fun dlauxinfo(): COpaquePointer? 
 public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw UnsupportedOperationException("Not implemented on this platform")
@@ -1549,7 +1549,7 @@ public expect fun eventfdWrite(efd: CInt, `val`: EventfdT): CInt
 public expect fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt 
 public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt 
 public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt 
-public fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) { }
+public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?)
 
 public expect fun aioRead(aiocbp: Aiocb?): CInt 
 public expect fun aioWrite(aiocbp: Aiocb?): CInt 

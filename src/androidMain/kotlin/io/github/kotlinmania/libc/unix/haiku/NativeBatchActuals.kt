@@ -322,3 +322,6 @@ public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: B
 public actual fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): StatusT =
     throw UnsupportedOperationException("getCpuid not available on Android host — use androidNative target for FFI")
 
+
+public actual fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT =
+    throw UnsupportedOperationException("onExitThread not available on Android host — use androidNative target for FFI")

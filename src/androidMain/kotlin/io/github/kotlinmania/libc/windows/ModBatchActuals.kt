@@ -481,3 +481,14 @@ public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS not available on Android host — use androidNative target for FFI")
 
+
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsort not available on Android host — use androidNative target for FFI")
+}
+
+public actual fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortS not available on Android host — use androidNative target for FFI")
+}
+
+public actual fun atexit(cb: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("atexit not available on Android host — use androidNative target for FFI")

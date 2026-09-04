@@ -1003,3 +1003,46 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno not available on WASI — no C library access")
 
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork not available on WASI — no C library access")
+
+public actual fun pthreadCleanupPush(routine: ((COpaquePointer?) -> Unit)?, arg: COpaquePointer?): COpaquePointer? =
+    throw UnsupportedOperationException("pthreadCleanupPush not available on WASI — no C library access")
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate not available on WASI — no C library access")
+
+public actual fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadOnce not available on WASI — no C library access")
+
+public actual fun fopen64(filename: String?, mode: String?): FILE? =
+    throw UnsupportedOperationException("fopen64 not available on WASI — no C library access")
+
+public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
+    throw UnsupportedOperationException("freopen64 not available on WASI — no C library access")
+
+public actual fun fstat64(fildes: CInt, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("fstat64 not available on WASI — no C library access")
+
+public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+    throw UnsupportedOperationException("glob not available on WASI — no C library access")
+
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("lfind not available on WASI — no C library access")
+
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("lsearch not available on WASI — no C library access")
+
+public actual fun lstat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("lstat64 not available on WASI — no C library access")
+
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) {
+    throw UnsupportedOperationException("makecontext not available on WASI — no C library access")
+}
+
+public actual fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt =
+    throw UnsupportedOperationException("open64 not available on WASI — no C library access")
+
+public actual fun stat64(path: String?, buf: Stat64?): CInt =
+    throw UnsupportedOperationException("stat64 not available on WASI — no C library access")

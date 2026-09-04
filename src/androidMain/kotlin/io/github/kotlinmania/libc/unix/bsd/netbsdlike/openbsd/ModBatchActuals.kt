@@ -192,3 +192,12 @@ public actual fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: 
 public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbolsFmt not available on Android host — use androidNative target for FFI")
 
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr not available on Android host — use androidNative target for FFI")
+
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("lsearch not available on Android host — use androidNative target for FFI")
+
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: ULong?, width: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+    throw UnsupportedOperationException("lfind not available on Android host — use androidNative target for FFI")

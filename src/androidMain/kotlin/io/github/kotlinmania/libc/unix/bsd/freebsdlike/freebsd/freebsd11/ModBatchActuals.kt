@@ -21,3 +21,7 @@ public actual fun dirname(path: String?): String? =
 public actual fun basename(path: String?): String? =
     throw UnsupportedOperationException("basename not available on Android host — use androidNative target for FFI")
 
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsortR not available on Android host — use androidNative target for FFI")
+}

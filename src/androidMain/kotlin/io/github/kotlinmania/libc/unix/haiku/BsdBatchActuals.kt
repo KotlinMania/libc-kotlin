@@ -70,3 +70,6 @@ public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): Ss
 public actual fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT =
     throw UnsupportedOperationException("wait4 not available on Android host — use androidNative target for FFI")
 
+
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("dlIteratePhdr not available on Android host — use androidNative target for FFI")

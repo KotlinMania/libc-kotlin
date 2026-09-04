@@ -4,6 +4,7 @@
 package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Sigval
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun fDCLR(fd: CInt, set: FdSet?) {
@@ -765,3 +766,16 @@ public actual fun utmpxname(file: String?): CInt =
 public actual fun updwtmpx(file: String?, utmpx: Utmpx?) {
     throw UnsupportedOperationException("updwtmpx requires manual FFI bridge — not yet implemented")
 }
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
+    throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+    throw UnsupportedOperationException("pthreadAtfork requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
+    throw UnsupportedOperationException("pthreadSigqueue requires manual FFI bridge for ambiguous type")

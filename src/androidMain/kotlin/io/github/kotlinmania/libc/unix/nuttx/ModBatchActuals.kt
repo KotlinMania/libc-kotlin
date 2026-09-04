@@ -40,3 +40,6 @@ public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
     throw UnsupportedOperationException("arc4randomBuf not available on Android host — use androidNative target for FFI")
 }
 
+
+public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =
+    throw UnsupportedOperationException("pthreadCreate not available on Android host — use androidNative target for FFI")
