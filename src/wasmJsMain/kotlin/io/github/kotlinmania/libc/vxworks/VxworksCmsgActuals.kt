@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUInt
 
 public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("CMSG_DATA requires N-API addon with socket control message support")

@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUInt
 
 public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("CMSG_DATA not available on Android host — use androidNative target for FFI")
