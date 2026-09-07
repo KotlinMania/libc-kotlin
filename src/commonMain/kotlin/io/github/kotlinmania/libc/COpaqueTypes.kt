@@ -29,7 +29,7 @@ public class COpaquePointer(
  * On JS/WASM, [handle] holds the numeric FILE pointer from N-API.
  */
 public class FILE(
-    public val handle: Int = -1,
+    public val handle: Long = -1L,
 )
 
 /**

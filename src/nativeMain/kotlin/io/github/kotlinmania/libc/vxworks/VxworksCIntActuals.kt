@@ -10,54 +10,20 @@ public actual fun tolower(c: CInt): CInt = platform.posix.tolower(c)
 
 public actual fun toupper(c: CInt): CInt = platform.posix.toupper(c)
 
-public actual fun fflush(file: FILE?): CInt =
-    throw UnsupportedOperationException("fflush requires manual FFI bridge — not yet implemented")
 
-public actual fun fclose(file: FILE?): CInt =
-    throw UnsupportedOperationException("fclose requires manual FFI bridge — not yet implemented")
 
-public actual fun remove(filename: String?): CInt =
-    throw UnsupportedOperationException("remove requires manual FFI bridge — not yet implemented")
 
-public actual fun rename(oldname: String?, newname: String?): CInt =
-    throw UnsupportedOperationException("rename requires manual FFI bridge — not yet implemented")
 
-public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
-    throw UnsupportedOperationException("setvbuf requires manual FFI bridge — not yet implemented")
 
-public actual fun getchar(): CInt = platform.posix.getchar()
 
-public actual fun putchar(c: CInt): CInt = platform.posix.putchar(c)
 
-public actual fun fgetc(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fgetc requires manual FFI bridge — not yet implemented")
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputc requires manual FFI bridge — not yet implemented")
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputs requires manual FFI bridge — not yet implemented")
 
-public actual fun puts(s: String?): CInt =
-    throw UnsupportedOperationException("puts requires manual FFI bridge — not yet implemented")
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("ungetc requires manual FFI bridge — not yet implemented")
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    throw UnsupportedOperationException("fseek requires manual FFI bridge — not yet implemented")
 
-public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
-    throw UnsupportedOperationException("fgetpos requires manual FFI bridge — not yet implemented")
 
-public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
-    throw UnsupportedOperationException("fsetpos requires manual FFI bridge — not yet implemented")
-
-public actual fun feof(stream: FILE?): CInt =
-    throw UnsupportedOperationException("feof requires manual FFI bridge — not yet implemented")
-
-public actual fun ferror(stream: FILE?): CInt =
-    throw UnsupportedOperationException("ferror requires manual FFI bridge — not yet implemented")
 
 public actual fun atoi(s: String?): CInt =
     throw UnsupportedOperationException("atoi requires manual FFI bridge — not yet implemented")

@@ -6,35 +6,14 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen requires manual FFI bridge — not yet implemented")
 
-public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
-    throw UnsupportedOperationException("freopen requires manual FFI bridge — not yet implemented")
 
-public actual fun tmpfile(): FILE? =
-    throw UnsupportedOperationException("tmpfile requires manual FFI bridge — not yet implemented")
 
-public actual fun setbuf(stream: FILE?, buf: String?) {
-    throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
-}
 
-public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fread requires manual FFI bridge — not yet implemented")
 
-public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fwrite requires manual FFI bridge — not yet implemented")
 
-public actual fun ftell(stream: FILE?): CLong =
-    throw UnsupportedOperationException("ftell requires manual FFI bridge — not yet implemented")
 
-public actual fun rewind(stream: FILE?) {
-    throw UnsupportedOperationException("rewind requires manual FFI bridge — not yet implemented")
-}
 
-public actual fun perror(s: String?) {
-    throw UnsupportedOperationException("perror requires manual FFI bridge — not yet implemented")
-}
 
 public actual fun atol(s: String?): CLong = platform.posix.atol(s)
 
@@ -165,8 +144,6 @@ public actual fun confstr(name: CInt, buf: String?, len: ULong): ULong =
 public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
     throw UnsupportedOperationException("dlopen requires manual FFI bridge")
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    throw UnsupportedOperationException("fdopen requires manual FFI bridge for FILE type")
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     throw UnsupportedOperationException("fpathconf requires manual FFI bridge")
