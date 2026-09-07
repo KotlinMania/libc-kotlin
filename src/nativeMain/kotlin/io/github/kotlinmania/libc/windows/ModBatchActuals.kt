@@ -392,7 +392,7 @@ public actual fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt =
     throw UnsupportedOperationException("pipe requires manual FFI bridge — not yet implemented")
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt =
-    throw UnsupportedOperationException("read requires manual FFI bridge — type width mismatch (SsizeT/size_t)")
+    platform.posix.read(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count.toULong()).toInt()
 public actual fun rmdir(path: String?): CInt =
     throw UnsupportedOperationException("rmdir requires manual FFI bridge — not yet implemented")
 
@@ -400,7 +400,7 @@ public actual fun unlink(c: String?): CInt =
     throw UnsupportedOperationException("unlink requires manual FFI bridge — not yet implemented")
 
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt =
-    throw UnsupportedOperationException("write requires manual FFI bridge — type width mismatch (SsizeT/size_t)")
+    platform.posix.write(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count.toULong()).toInt()
 public actual fun commit(fd: CInt): CInt =
     throw UnsupportedOperationException("commit requires manual FFI bridge — not yet implemented")
 

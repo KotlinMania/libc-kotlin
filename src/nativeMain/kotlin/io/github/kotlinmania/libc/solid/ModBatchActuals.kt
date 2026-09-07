@@ -672,9 +672,9 @@ public actual fun creat(arg1: String?, arg2: CInt): CInt =
 
 public actual fun close(arg1: CInt): CInt = platform.posix.close(arg1)
 public actual fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    throw UnsupportedOperationException("read requires manual FFI bridge — type width mismatch (SsizeT/size_t)")
+    platform.posix.read(arg1, arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3.toULong()).toInt()
 public actual fun write(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    throw UnsupportedOperationException("write requires manual FFI bridge — type width mismatch (SsizeT/size_t)")
+    platform.posix.write(arg1, arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3.toULong()).toInt()
 public actual fun unlink(arg1: String?): CInt =
     throw UnsupportedOperationException("unlink requires manual FFI bridge — not yet implemented")
 
