@@ -449,14 +449,11 @@ public actual fun rmdir(path: String?): CInt =
     throw UnsupportedOperationException("rmdir requires manual FFI bridge — not yet implemented")
 
 public actual fun seteuid(uid: UidT): CInt =
-    throw UnsupportedOperationException("seteuid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_seteuid(uid.toInt())
 public actual fun setegid(gid: GidT): CInt =
-    throw UnsupportedOperationException("setegid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_setegid(gid.toInt())
 public actual fun setgid(gid: GidT): CInt =
-    throw UnsupportedOperationException("setgid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_setgid(gid.toInt())
 public actual fun setpgid(pid: PidT, pgid: PidT): CInt =
     throw UnsupportedOperationException("setpgid requires manual FFI bridge — not yet implemented")
 
@@ -464,8 +461,7 @@ public actual fun setsid(): PidT =
     throw UnsupportedOperationException("setsid requires manual FFI bridge — not yet implemented")
 
 public actual fun setuid(uid: UidT): CInt =
-    throw UnsupportedOperationException("setuid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_setuid(uid.toInt())
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
     throw UnsupportedOperationException("setreuid requires manual FFI bridge — not yet implemented")
 
@@ -753,8 +749,7 @@ public actual fun chroot(name: String?): CInt =
     throw UnsupportedOperationException("chroot requires manual FFI bridge — not yet implemented")
 
 public actual fun usleep(secs: UsecondsT): CInt =
-    throw UnsupportedOperationException("usleep requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_usleep(secs)
 public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
     throw UnsupportedOperationException("send requires manual FFI bridge — not yet implemented")
 

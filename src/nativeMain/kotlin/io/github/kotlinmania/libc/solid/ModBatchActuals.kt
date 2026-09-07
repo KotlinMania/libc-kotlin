@@ -696,8 +696,7 @@ public actual fun getpid(): PidT =
     throw UnsupportedOperationException("getpid requires manual FFI bridge — not yet implemented")
 
 public actual fun usleep(arg1: UsecondsT): CInt =
-    throw UnsupportedOperationException("usleep requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_usleep(arg1)
 public actual fun localeconv(): Lconv? =
     throw UnsupportedOperationException("localeconv requires manual FFI bridge — not yet implemented")
 

@@ -128,11 +128,9 @@ public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CI
 public actual fun pause(): CInt = libc.cinterop.libc_pause()
 
 public actual fun seteuid(uid: UidT): CInt =
-    throw UnsupportedOperationException("seteuid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_seteuid(uid.toInt())
 public actual fun setegid(gid: GidT): CInt =
-    throw UnsupportedOperationException("setegid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_setegid(gid.toInt())
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("mlock requires manual FFI bridge — not yet implemented")
 
@@ -198,8 +196,7 @@ public actual fun gethostname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("gethostname requires manual FFI bridge — not yet implemented")
 
 public actual fun usleep(secs: UsecondsT): CInt =
-    throw UnsupportedOperationException("usleep requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_usleep(secs.toUInt())
 public actual fun putenv(string: String?): CInt =
     throw UnsupportedOperationException("putenv requires manual FFI bridge — not yet implemented")
 
@@ -519,11 +516,9 @@ public actual fun errnoGet(): CInt =
     throw UnsupportedOperationException("errnoGet requires manual FFI bridge — not yet implemented")
 
 public actual fun setgid(gid: GidT): CInt =
-    throw UnsupportedOperationException("setgid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_setgid(gid.toInt())
 public actual fun setuid(uid: UidT): CInt =
-    throw UnsupportedOperationException("setuid requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_setuid(uid.toInt())
 public actual fun sigemptyset(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigemptyset requires manual FFI bridge — not yet implemented")
 
@@ -549,8 +544,7 @@ public actual fun taskKill(taskId: TASKID, signo: CInt): CInt =
     throw UnsupportedOperationException("taskKill requires manual FFI bridge — not yet implemented")
 
 public actual fun raise(signo: CInt): CInt =
-    throw UnsupportedOperationException("raise requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_raise(signo)
 public actual fun taskDelay(ticks: VxTicksT): CInt =
     throw UnsupportedOperationException("taskDelay requires manual FFI bridge — not yet implemented")
 
