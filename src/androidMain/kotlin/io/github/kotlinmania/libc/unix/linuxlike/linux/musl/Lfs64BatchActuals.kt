@@ -8,5 +8,4 @@ public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): Ssi
 
 public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
     throw UnsupportedOperationException("pwritev not available on Android host — use androidNative target for FFI")
-}
 

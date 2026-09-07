@@ -288,7 +288,6 @@ public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: T
 
 public actual fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUInt, statxbuf: Statx?): CInt =
     throw UnsupportedOperationException("statx not available on WASI — no C library access")
-}
 
 
 public actual fun fstat64(fildes: CInt, buf: Stat64?): CInt =

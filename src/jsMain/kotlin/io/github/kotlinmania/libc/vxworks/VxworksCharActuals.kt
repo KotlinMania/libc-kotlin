@@ -39,6 +39,6 @@ public actual fun isxdigit(c: CInt): CInt =
 public actual fun isblank(c: CInt): CInt =
     throw UnsupportedOperationException("isblank requires N-API addon with ctype support")
 
-public actual fun isatty(c: CInt): CInt =
+public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty requires N-API addon with ctype support")
 
