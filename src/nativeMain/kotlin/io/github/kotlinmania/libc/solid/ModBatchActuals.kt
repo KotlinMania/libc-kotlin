@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
 
 public actual fun isalnum(c: CInt): CInt = platform.posix.isalnum(c)
@@ -252,14 +253,11 @@ public actual fun ftello(stream: FILE?): OffT =
     throw UnsupportedOperationException("ftello requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(arg1: CInt): CInt =
-    throw UnsupportedOperationException("abs requires manual FFI bridge — not yet implemented")
-
+    platform.posix.abs(arg1)
 public actual fun atoi(arg1: String?): CInt =
-    throw UnsupportedOperationException("atoi requires manual FFI bridge — not yet implemented")
-
+    platform.posix.atoi(arg1)
 public actual fun atol(arg1: String?): CLong =
-    throw UnsupportedOperationException("atol requires manual FFI bridge — not yet implemented")
-
+    platform.posix.atol(arg1)
 public actual fun itoa(arg1: CInt, arg2: String?, arg3: CInt): String? =
     throw UnsupportedOperationException("itoa requires manual FFI bridge — not yet implemented")
 
@@ -277,8 +275,7 @@ public actual fun free(arg1: COpaquePointer?) {
 }
 
 public actual fun getenv(arg1: String?): String? =
-    throw UnsupportedOperationException("getenv requires manual FFI bridge — not yet implemented")
-
+    platform.posix.getenv(arg1)?.toKString()
 public actual fun labs(arg1: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 
@@ -286,8 +283,7 @@ public actual fun malloc(arg1: ULong): COpaquePointer? =
     throw UnsupportedOperationException("malloc requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    throw UnsupportedOperationException("rand requires manual FFI bridge — not yet implemented")
-
+    platform.posix.rand()
 public actual fun realloc(arg1: COpaquePointer?, arg2: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc requires manual FFI bridge — not yet implemented")
 
@@ -380,8 +376,7 @@ public actual fun mktemp(arg1: String?): String? =
     throw UnsupportedOperationException("mktemp requires manual FFI bridge — not yet implemented")
 
 public actual fun atoll(arg1: String?): CLongLong =
-    throw UnsupportedOperationException("atoll requires manual FFI bridge — not yet implemented")
-
+    platform.posix.atoll(arg1)
 public actual fun llabs(arg1: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs requires manual FFI bridge — not yet implemented")
 
@@ -483,8 +478,7 @@ public actual fun strcat(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcat requires manual FFI bridge — not yet implemented")
 
 public actual fun strchr(arg1: String?, arg2: CInt): String? =
-    throw UnsupportedOperationException("strchr requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strchr(arg1, arg2)?.toKString()
 public actual fun strcmp(arg1: String?, arg2: String?): CInt =
     throw UnsupportedOperationException("strcmp requires manual FFI bridge — not yet implemented")
 
@@ -495,14 +489,11 @@ public actual fun strcpy(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strcspn(arg1: String?, arg2: String?): ULong =
-    throw UnsupportedOperationException("strcspn requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strcspn(arg1, arg2)
 public actual fun strerror(arg1: CInt): String? =
-    throw UnsupportedOperationException("strerror requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strerror(arg1)?.toKString()
 public actual fun strlen(arg1: String?): ULong =
-    throw UnsupportedOperationException("strlen requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strlen(arg1)
 public actual fun strncat(arg1: String?, arg2: String?, arg3: ULong): String? =
     throw UnsupportedOperationException("strncat requires manual FFI bridge — not yet implemented")
 
@@ -513,17 +504,13 @@ public actual fun strncpy(arg1: String?, arg2: String?, arg3: ULong): String? =
     throw UnsupportedOperationException("strncpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strpbrk(arg1: String?, arg2: String?): String? =
-    throw UnsupportedOperationException("strpbrk requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strpbrk(arg1, arg2)?.toKString()
 public actual fun strrchr(arg1: String?, arg2: CInt): String? =
-    throw UnsupportedOperationException("strrchr requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strrchr(arg1, arg2)?.toKString()
 public actual fun strspn(arg1: String?, arg2: String?): ULong =
-    throw UnsupportedOperationException("strspn requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strspn(arg1, arg2)
 public actual fun strstr(arg1: String?, arg2: String?): String? =
-    throw UnsupportedOperationException("strstr requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strstr(arg1, arg2)?.toKString()
 public actual fun strtok(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 
@@ -540,8 +527,7 @@ public actual fun memccpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: CI
     throw UnsupportedOperationException("memccpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strdup(arg1: String?): String? =
-    throw UnsupportedOperationException("strdup requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strdup(arg1)?.toKString()
 public actual fun stpcpy(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("stpcpy requires manual FFI bridge — not yet implemented")
 
@@ -549,8 +535,7 @@ public actual fun stpncpy(arg1: String?, arg2: String?, arg3: ULong): String? =
     throw UnsupportedOperationException("stpncpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strnlen(arg1: String?, arg2: ULong): ULong =
-    throw UnsupportedOperationException("strnlen requires manual FFI bridge — not yet implemented")
-
+    platform.posix.strnlen(arg1, arg2)
 public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
 

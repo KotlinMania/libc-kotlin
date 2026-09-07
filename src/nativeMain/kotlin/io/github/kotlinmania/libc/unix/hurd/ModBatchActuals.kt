@@ -675,8 +675,7 @@ public actual fun popen(command: String?, mode: String?): FILE? =
     throw UnsupportedOperationException("popen requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    throw UnsupportedOperationException("getdtablesize requires manual FFI bridge — not yet implemented")
-
+    platform.posix.getdtablesize()
 public actual fun closeRange(first: CUInt, last: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("closeRange requires manual FFI bridge — not yet implemented")
 
@@ -909,14 +908,12 @@ public actual fun strchrnul(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchrnul requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("abs requires manual FFI bridge — not yet implemented")
-
+    platform.posix.abs(i)
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    throw UnsupportedOperationException("rand requires manual FFI bridge — not yet implemented")
-
+    platform.posix.rand()
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }

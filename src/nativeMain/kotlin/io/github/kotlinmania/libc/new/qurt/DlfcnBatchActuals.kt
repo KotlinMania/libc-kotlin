@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
 
 public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
@@ -16,4 +17,4 @@ public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointe
     throw UnsupportedOperationException("dlsym requires manual FFI bridge — not yet implemented")
 
 public actual fun dlerror(): String? =
-    throw UnsupportedOperationException("dlerror requires manual FFI bridge — not yet implemented")
+    platform.posix.dlerror()?.toKString()

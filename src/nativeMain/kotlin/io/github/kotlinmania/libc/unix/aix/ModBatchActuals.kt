@@ -376,8 +376,7 @@ public actual fun getdomainname(name: String?, len: CInt): CInt =
     throw UnsupportedOperationException("getdomainname requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    throw UnsupportedOperationException("getdtablesize requires manual FFI bridge — not yet implemented")
-
+    platform.posix.getdtablesize()
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent requires manual FFI bridge — not yet implemented")
 
@@ -406,8 +405,7 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: ULong, host: String?, hostle
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun getpagesize(): CInt =
-    throw UnsupportedOperationException("getpagesize requires manual FFI bridge — not yet implemented")
-
+    platform.posix.getpagesize()
 public actual fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt =
     throw UnsupportedOperationException("getpeereid requires manual FFI bridge — not yet implemented")
 
@@ -713,8 +711,7 @@ public actual fun quotactl(cmd: String?, special: CInt, id: CInt, data: CaddrT):
     throw UnsupportedOperationException("quotactl requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    throw UnsupportedOperationException("rand requires manual FFI bridge — not yet implemented")
-
+    platform.posix.rand()
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv requires manual FFI bridge — not yet implemented")
 

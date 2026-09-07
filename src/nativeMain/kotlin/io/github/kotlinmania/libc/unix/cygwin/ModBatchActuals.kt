@@ -272,8 +272,7 @@ public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("abs requires manual FFI bridge — not yet implemented")
-
+    platform.posix.abs(i)
 public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
 }
@@ -291,8 +290,7 @@ public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
     throw UnsupportedOperationException("mkstemps requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    throw UnsupportedOperationException("rand requires manual FFI bridge — not yet implemented")
-
+    platform.posix.rand()
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
 
@@ -424,8 +422,7 @@ public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("gethostid requires manual FFI bridge — not yet implemented")
 
 public actual fun getpagesize(): CInt =
-    throw UnsupportedOperationException("getpagesize requires manual FFI bridge — not yet implemented")
-
+    platform.posix.getpagesize()
 public actual fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt =
     throw UnsupportedOperationException("getpeereid requires manual FFI bridge — not yet implemented")
 
@@ -445,8 +442,7 @@ public actual fun vhangup(): CInt =
     throw UnsupportedOperationException("vhangup requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    throw UnsupportedOperationException("getdtablesize requires manual FFI bridge — not yet implemented")
-
+    platform.posix.getdtablesize()
 public actual fun sync() {
     throw UnsupportedOperationException("sync requires manual FFI bridge — not yet implemented")
 }
