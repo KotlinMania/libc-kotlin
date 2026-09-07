@@ -81,3 +81,4 @@ native/node-libc/package-lock.json
 
 # Session files
 2026*
+src/nativeInterop/cinterop/libc_wrapper.o

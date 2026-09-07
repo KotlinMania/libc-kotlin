@@ -11,3 +11,12 @@ public actual fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer? =
 
 public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("CMSG_NXTHDR requires N-API addon with socket control message support")
+
+public actual fun cMSGALIGN(len: ULong): ULong =
+    throw UnsupportedOperationException("CMSG_ALIGN requires N-API addon with socket support")
+
+public actual fun cMSGSPACE(length: CUInt): CUInt =
+    throw UnsupportedOperationException("CMSG_SPACE requires N-API addon with socket support")
+
+public actual fun cMSGLEN(length: CUInt): CUInt =
+    throw UnsupportedOperationException("CMSG_LEN requires N-API addon with socket support")

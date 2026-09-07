@@ -4,6 +4,7 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUInt
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toCPointer
@@ -11,6 +12,9 @@ import kotlinx.cinterop.toLong
 import libc.cinterop.libc_cmsg_data
 import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_cmsg_nxthdr
+import libc.cinterop.libc_cmsg_align
+import libc.cinterop.libc_cmsg_space
+import libc.cinterop.libc_cmsg_len
 
 public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
     if (cmsg == null) return null
@@ -40,3 +44,9 @@ public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpa
     if (result == null) return null
     return COpaquePointer(result.toLong())
 }
+
+public actual fun cMSGALIGN(len: ULong): ULong = libc_cmsg_align(len)
+
+public actual fun cMSGSPACE(length: CUInt): CUInt = libc_cmsg_space(length.toULong()).toUInt()
+
+public actual fun cMSGLEN(length: CUInt): CUInt = libc_cmsg_len(length.toULong()).toUInt()

@@ -11,3 +11,12 @@ public actual fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer? =
 
 public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer? =
     throw UnsupportedOperationException("CMSG_NXTHDR not available on Android host — use androidNative target for FFI")
+
+public actual fun cMSGALIGN(len: ULong): ULong =
+    throw UnsupportedOperationException("CMSG_ALIGN not available on Android host — use androidNative target for FFI")
+
+public actual fun cMSGSPACE(length: CUInt): CUInt =
+    throw UnsupportedOperationException("CMSG_SPACE not available on Android host — use androidNative target for FFI")
+
+public actual fun cMSGLEN(length: CUInt): CUInt =
+    throw UnsupportedOperationException("CMSG_LEN not available on Android host — use androidNative target for FFI")

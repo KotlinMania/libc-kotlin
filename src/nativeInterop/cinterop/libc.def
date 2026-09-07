@@ -1,3 +1,4 @@
 headers = stdlib.h stdio.h string.h sys/socket.h libc_wrapper.h
 headerFilter = *
 compilerOpts = -I/Volumes/stuff/Projects/kotlinmania/libc-kotlin/src/nativeInterop/cinterop
+linkerOpts = /Volumes/stuff/Projects/kotlinmania/libc-kotlin/src/nativeInterop/cinterop/libc_wrapper.o

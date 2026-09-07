@@ -1082,6 +1082,12 @@ public expect fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer?
 
 public expect fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer?
 
+public expect fun cMSGALIGN(len: ULong): ULong
+
+public expect fun cMSGSPACE(length: CUInt): CUInt
+
+public expect fun cMSGLEN(length: CUInt): CUInt
+
 public expect fun isalnum(c: CInt): CInt
 
 public expect fun isalpha(c: CInt): CInt
