@@ -48,10 +48,8 @@ import io.github.kotlinmania.libc.unix.tmpfile
 import io.github.kotlinmania.libc.unix.truncate
 
 // preadv and pwritev are standard POSIX functions available in musl.
-public fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
-
-public fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT = -1L
-
+public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT 
+public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT 
 /**
  * LFS64 entry points. Each is a thin alias for its non-`64` counterpart.
  *

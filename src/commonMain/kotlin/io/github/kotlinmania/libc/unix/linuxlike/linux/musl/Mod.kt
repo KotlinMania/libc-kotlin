@@ -535,74 +535,39 @@ public const val UT_NAMESIZE: ULong = 32uL
 public const val POSIX_FADV_DONTNEED: CInt = 6
 public const val POSIX_FADV_NOREUSE: CInt = 7
 
-public fun getrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
-
-public fun setrlimit(resource: CInt, rlim: Rlimit?): CInt = -1
-
-public fun prlimit(pid: PidT, resource: CInt, newLimit: Rlimit?, oldLimit: Rlimit?): CInt = -1
-
-public fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt = -1
-
-public fun ptrace(request: CInt, vararg args: Any?): CLong = -1L
-
-public fun getpriority(which: CInt, who: IdT): CInt = -1
-
-public fun setpriority(which: CInt, who: IdT, prio: CInt): CInt = -1
-
-public fun fanotifyMark(fd: CInt, flags: CUInt, mask: CULongLong, dirfd: CInt, path: String?): CInt = -1
-
-public fun preadv2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT = -1L
-
-public fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT = -1L
-
-public fun getauxval(type: CULong): CULong = 0uL
-
-public fun explicitBzero(s: COpaquePointer?, len: ULong) { }
-
-public fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? = null
-
-public fun adjtimex(buf: Timex?): CInt = -1
-
-public fun clockAdjtime(clkId: ClockidT, buf: Timex?): CInt = -1
-
-public fun ctermid(s: String?): String? = null
-
-public fun memfdCreate(name: String?, flags: CUInt): CInt = -1
-
-public fun mlock2(addr: COpaquePointer?, len: ULong, flags: CUInt): CInt = -1
-
-public fun mallocUsableSize(ptr: COpaquePointer?): ULong = 0uL
-
-public fun euidaccess(pathname: String?, mode: CInt): CInt = -1
-
-public fun eaccess(pathname: String?, mode: CInt): CInt = -1
-
-public fun asctimeR(tm: Tm?, buf: String?): String? = null
-
-public fun dirname(path: String?): String? = null
-
-public fun basename(path: String?): String? = null
-
-public fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT = -1L
-
-public fun posixSpawnFileActionsAddchdirNp(actions: PosixSpawnFileActionsT, path: String?): CInt = -1
-
-public fun posixSpawnFileActionsAddfchdirNp(actions: PosixSpawnFileActionsT, fd: CInt): CInt = -1
-
-public fun getutxent(): Utmpx? = null
-
-public fun getutxid(ut: Utmpx?): Utmpx? = null
-
-public fun getutxline(ut: Utmpx?): Utmpx? = null
-
-public fun pututxline(ut: Utmpx?): Utmpx? = null
-
-public fun setutxent() { }
-
-public fun endutxent() { }
-
-public fun utmpxname(file: String?): CInt = -1
-
-public fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt = -1
-
-public fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt = -1
+public expect fun getrlimit(resource: CInt, rlim: Rlimit?): CInt 
+public expect fun setrlimit(resource: CInt, rlim: Rlimit?): CInt 
+public expect fun prlimit(pid: PidT, resource: CInt, newLimit: Rlimit?, oldLimit: Rlimit?): CInt 
+public expect fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt 
+public expect fun ptrace(request: CInt, vararg args: Any?): CLong 
+public expect fun getpriority(which: CInt, who: IdT): CInt 
+public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt 
+public expect fun fanotifyMark(fd: CInt, flags: CUInt, mask: CULongLong, dirfd: CInt, path: String?): CInt 
+public expect fun preadv2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT 
+public expect fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT 
+public expect fun getauxval(type: CULong): CULong 
+public expect fun explicitBzero(s: COpaquePointer?, len: ULong)
+public expect fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? 
+public expect fun adjtimex(buf: Timex?): CInt 
+public expect fun clockAdjtime(clkId: ClockidT, buf: Timex?): CInt 
+public expect fun ctermid(s: String?): String? 
+public expect fun memfdCreate(name: String?, flags: CUInt): CInt 
+public expect fun mlock2(addr: COpaquePointer?, len: ULong, flags: CUInt): CInt 
+public expect fun mallocUsableSize(ptr: COpaquePointer?): ULong 
+public expect fun euidaccess(pathname: String?, mode: CInt): CInt 
+public expect fun eaccess(pathname: String?, mode: CInt): CInt 
+public expect fun asctimeR(tm: Tm?, buf: String?): String? 
+public expect fun dirname(path: String?): String? 
+public expect fun basename(path: String?): String? 
+public expect fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT 
+public expect fun posixSpawnFileActionsAddchdirNp(actions: PosixSpawnFileActionsT, path: String?): CInt 
+public expect fun posixSpawnFileActionsAddfchdirNp(actions: PosixSpawnFileActionsT, fd: CInt): CInt 
+public expect fun getutxent(): Utmpx? 
+public expect fun getutxid(ut: Utmpx?): Utmpx? 
+public expect fun getutxline(ut: Utmpx?): Utmpx? 
+public expect fun pututxline(ut: Utmpx?): Utmpx? 
+public expect fun setutxent()
+public expect fun endutxent()
+public expect fun utmpxname(file: String?): CInt 
+public expect fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt 
+public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt 

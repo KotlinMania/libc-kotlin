@@ -847,4 +847,4 @@ public const val SYS_process_mrelease: CLong = 448
 public const val SYS_futex_waitv: CLong = 449
 public const val SYS_set_mempolicy_home_node: CLong = 450
 
-public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 

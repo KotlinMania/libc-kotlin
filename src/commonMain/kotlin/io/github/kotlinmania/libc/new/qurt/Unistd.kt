@@ -211,26 +211,16 @@ public const val _SC_XOPEN_STREAMS: CInt = 246
 public const val _SC_THREAD_ROBUST_PRIO_INHERIT: CInt = 247
 public const val _SC_THREAD_ROBUST_PRIO_PROTECT: CInt = 248
 
-public fun access(pathname: String?, mode: CInt): CInt = -1
-
-public fun close(fd: CInt): CInt = -1
-
-public fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT = -1L
-
-public fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT = -1
-
-public fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT = -1
-
-public fun ftruncate(fd: CInt, length: OffT): CInt = -1
-
-public fun unlink(pathname: String?): CInt = -1
-
-public fun getcwd(buf: String?, size: ULong): String? = null
-
-public fun rmdir(pathname: String?): CInt = -1
-
-public fun getpid(): PidT = -1
-
+public expect fun access(pathname: String?, mode: CInt): CInt 
+public expect fun close(fd: CInt): CInt 
+public expect fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT 
+public expect fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT 
+public expect fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT 
+public expect fun ftruncate(fd: CInt, length: OffT): CInt 
+public expect fun unlink(pathname: String?): CInt 
+public expect fun getcwd(buf: String?, size: ULong): String? 
+public expect fun rmdir(pathname: String?): CInt 
+public expect fun getpid(): PidT 
 public fun sleep(seconds: CUInt): CUInt = 0u
 
-public fun sysconf(name: CInt): CLong = -1L
+public expect fun sysconf(name: CInt): CLong 

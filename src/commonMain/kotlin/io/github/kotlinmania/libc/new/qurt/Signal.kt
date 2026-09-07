@@ -85,32 +85,19 @@ public const val SA_SIGINFO: CInt = 1
 
 public fun signal(sig: CInt, handler: SighandlerT): SighandlerT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun kill(pid: PidT, sig: CInt): CInt = -1
-
-public fun raise(sig: CInt): CInt = -1
-
+public expect fun kill(pid: PidT, sig: CInt): CInt 
+public expect fun raise(sig: CInt): CInt 
 public fun alarm(seconds: CUInt): CUInt = 0u
 
-public fun pause(): CInt = -1
-
-public fun sigemptyset(set: SigsetT?): CInt = -1
-
-public fun sigfillset(set: SigsetT?): CInt = -1
-
-public fun sigaddset(set: SigsetT?, signum: CInt): CInt = -1
-
-public fun sigdelset(set: SigsetT?, signum: CInt): CInt = -1
-
-public fun sigismember(set: SigsetT?, signum: CInt): CInt = -1
-
-public fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt = -1
-
-public fun sigpending(set: SigsetT?): CInt = -1
-
-public fun sigsuspend(mask: SigsetT?): CInt = -1
-
-public fun sigwait(set: SigsetT?, sig: CInt?): CInt = -1
-
-public fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt = -1
-
-public fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt = -1
+public expect fun pause(): CInt 
+public expect fun sigemptyset(set: SigsetT?): CInt 
+public expect fun sigfillset(set: SigsetT?): CInt 
+public expect fun sigaddset(set: SigsetT?, signum: CInt): CInt 
+public expect fun sigdelset(set: SigsetT?, signum: CInt): CInt 
+public expect fun sigismember(set: SigsetT?, signum: CInt): CInt 
+public expect fun sigprocmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt 
+public expect fun sigpending(set: SigsetT?): CInt 
+public expect fun sigsuspend(mask: SigsetT?): CInt 
+public expect fun sigwait(set: SigsetT?, sig: CInt?): CInt 
+public expect fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt 
+public expect fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt 

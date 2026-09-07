@@ -1,5 +1,4 @@
-headers = stdlib.h unistd.h string.h stdio.h fcntl.h sys/socket.h sys/types.h sys/stat.h sys/uio.h sys/mman.h sys/time.h sys/wait.h sys/select.h sys/ioctl.h sys/utsname.h signal.h errno.h time.h dirent.h pthread.h netdb.h arpa/inet.h netinet/in.h netinet/tcp.h poll.h sched.h locale.h wchar.h wctype.h ctype.h math.h semaphore.h sys/ipc.h sys/shm.h sys/msg.h sys/sem.h sys/resource.h sys/param.h sys/un.h sys/statvfs.h sys/times.h termios.h grp.h pwd.h utime.h glob.h getopt.h dlfcn.h sys/random.h sys/xattr.h
+headers = stdlib.h stdio.h string.h sys/socket.h libc_wrapper.h
 headerFilter = *
-linkerOpts.linux = -lc
-linkerOpts.android = -lc
-linkerOpts.darwin = -lc
+compilerOpts = -I/Volumes/stuff/Projects/kotlinmania/libc-kotlin/src/nativeInterop/cinterop
+linkerOpts = /Volumes/stuff/Projects/kotlinmania/libc-kotlin/src/nativeInterop/cinterop/libc_wrapper.o

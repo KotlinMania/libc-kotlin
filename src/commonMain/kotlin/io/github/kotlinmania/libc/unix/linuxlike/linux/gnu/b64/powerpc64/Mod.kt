@@ -932,12 +932,8 @@ public const val SYS_process_mrelease: CLong = 448
 public const val SYS_futex_waitv: CLong = 449
 public const val SYS_set_mempolicy_home_node: CLong = 450
 
-public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
-
-public fun getcontext(ucp: UcontextT?): CInt = -1
-
-public fun setcontext(ucp: UcontextT?): CInt = -1
-
-public fun swapcontext(oucp: UcontextT?, ucp: UcontextT?): CInt = -1
-
-public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
+public expect fun getcontext(ucp: UcontextT?): CInt 
+public expect fun setcontext(ucp: UcontextT?): CInt 
+public expect fun swapcontext(oucp: UcontextT?, ucp: UcontextT?): CInt 
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
