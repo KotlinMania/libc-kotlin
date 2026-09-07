@@ -21,7 +21,7 @@ public actual fun free(ptr: COpaquePointer?) {
 }
 
 public actual fun getenv(name: String?): String? =
-    platform.posix.getenv(name)?.toKString()
+    libc.cinterop.libc_getenv(name)?.toKString()
 public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt =
     throw UnsupportedOperationException("setenv requires manual FFI bridge — not yet implemented")
 
@@ -29,11 +29,11 @@ public actual fun unsetenv(name: String?): CInt =
     throw UnsupportedOperationException("unsetenv requires manual FFI bridge — not yet implemented")
 
 public actual fun atoi(nptr: String?): CInt =
-    platform.posix.atoi(nptr)
+    libc.cinterop.libc_atoi(nptr)
 public actual fun atol(nptr: String?): CLong =
-    platform.posix.atol(nptr)
+    libc.cinterop.libc_atol(nptr)
 public actual fun atoll(nptr: String?): CLongLong =
-    platform.posix.atoll(nptr)
+    libc.cinterop.libc_atoll(nptr)
 public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong =
     throw UnsupportedOperationException("strtol requires manual FFI bridge — not yet implemented")
 
@@ -47,13 +47,13 @@ public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): 
     throw UnsupportedOperationException("strtoull requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    platform.posix.rand()
+    libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }
 
 public actual fun abs(j: CInt): CInt =
-    platform.posix.abs(j)
+    libc.cinterop.libc_abs(j)
 public actual fun labs(j: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 

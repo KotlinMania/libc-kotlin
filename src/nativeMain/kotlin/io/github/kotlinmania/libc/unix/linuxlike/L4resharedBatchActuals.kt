@@ -95,12 +95,12 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("strerrorR requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(i: CInt): CInt =
-    platform.posix.abs(i)
+    libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    platform.posix.rand()
+    libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }
@@ -167,7 +167,7 @@ public actual fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt =
     throw UnsupportedOperationException("shmctl requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
 
@@ -186,9 +186,9 @@ public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    platform.posix.madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    platform.posix.msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 

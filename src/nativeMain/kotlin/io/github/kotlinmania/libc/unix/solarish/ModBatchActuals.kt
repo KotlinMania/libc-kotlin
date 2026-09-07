@@ -53,7 +53,7 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
     throw UnsupportedOperationException("semInit requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(i: CInt): CInt =
-    platform.posix.abs(i)
+    libc.cinterop.libc_abs(i)
 public actual fun acct(filename: String?): CInt =
     throw UnsupportedOperationException("acct requires manual FFI bridge — not yet implemented")
 
@@ -64,7 +64,7 @@ public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    platform.posix.rand()
+    libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }
@@ -104,7 +104,7 @@ public actual fun ioctl(fildes: CInt, request: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
 
@@ -329,9 +329,9 @@ public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    platform.posix.madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    platform.posix.msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memalign requires manual FFI bridge — not yet implemented")
 
@@ -432,7 +432,7 @@ public actual fun semClose(sem: SemT?): CInt =
     throw UnsupportedOperationException("semClose requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    platform.posix.getdtablesize()
+    libc.cinterop.libc_getdtablesize()
 public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrnamR requires manual FFI bridge — not yet implemented")
 
@@ -664,7 +664,7 @@ public actual fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): C
     throw UnsupportedOperationException("faccessat requires manual FFI bridge — not yet implemented")
 
 public actual fun getpagesize(): CInt =
-    platform.posix.getpagesize()
+    libc.cinterop.libc_getpagesize()
 public actual fun getpagesizes(pagesize: ULong?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getpagesizes requires manual FFI bridge — not yet implemented")
 

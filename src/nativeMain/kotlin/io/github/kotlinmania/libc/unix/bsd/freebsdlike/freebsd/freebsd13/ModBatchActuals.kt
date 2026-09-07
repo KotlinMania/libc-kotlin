@@ -12,7 +12,7 @@ public actual fun setgrent() {
 }
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun freelocale(loc: LocaleT) {
     throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
 }

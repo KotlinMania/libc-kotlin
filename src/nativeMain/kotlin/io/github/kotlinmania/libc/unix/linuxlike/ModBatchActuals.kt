@@ -53,7 +53,7 @@ public actual fun fdatasync(fd: CInt): CInt =
     throw UnsupportedOperationException("fdatasync requires manual FFI bridge — not yet implemented")
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: COpaquePointer?): CInt =
-    platform.posix.mincore(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, vec?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+    libc.cinterop.libc_mincore(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, vec?.value?.toCPointer<kotlinx.cinterop.UByteVar>())
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGetres requires manual FFI bridge — not yet implemented")
 

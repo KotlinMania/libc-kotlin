@@ -42,7 +42,7 @@ public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires manual FFI bridge — not yet implemented")
 
 public actual fun strlen(s: String?): ULong =
-    platform.posix.strlen(s)
+    libc.cinterop.libc_strlen(s)
 public actual fun strcpy(dest: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires manual FFI bridge — not yet implemented")
 
@@ -68,27 +68,27 @@ public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires manual FFI bridge — not yet implemented")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    platform.posix.strchr(s, c)?.toKString()
+    libc.cinterop.libc_strchr(s, c)?.toKString()
 public actual fun strrchr(s: String?, c: CInt): String? =
-    platform.posix.strrchr(s, c)?.toKString()
+    libc.cinterop.libc_strrchr(s, c)?.toKString()
 public actual fun strspn(s: String?, accept: String?): ULong =
-    platform.posix.strspn(s, accept)
+    libc.cinterop.libc_strspn(s, accept)
 public actual fun strcspn(s: String?, reject: String?): ULong =
-    platform.posix.strcspn(s, reject)
+    libc.cinterop.libc_strcspn(s, reject)
 public actual fun strpbrk(s: String?, accept: String?): String? =
-    platform.posix.strpbrk(s, accept)?.toKString()
+    libc.cinterop.libc_strpbrk(s, accept)?.toKString()
 public actual fun strstr(haystack: String?, needle: String?): String? =
-    platform.posix.strstr(haystack, needle)?.toKString()
+    libc.cinterop.libc_strstr(haystack, needle)?.toKString()
 public actual fun strtok(s: String?, delim: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 
 public actual fun strerror(errnum: CInt): String? =
-    platform.posix.strerror(errnum)?.toKString()
+    libc.cinterop.libc_strerror(errnum)?.toKString()
 public actual fun memchr(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memchr requires manual FFI bridge — not yet implemented")
 
 public actual fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: ULong): CInt =
-    platform.posix.memcmp(s1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), s2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
+    libc.cinterop.libc_memcmp(s1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), s2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
 
@@ -104,16 +104,16 @@ public actual fun fork(): PidT =
 public actual fun execve(filename: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("execve requires manual FFI bridge — not yet implemented")
 
-public actual fun isalnum(c: CInt): CInt = platform.posix.isalnum(c)
-public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
-public actual fun iscntrl(c: CInt): CInt = platform.posix.iscntrl(c)
-public actual fun isdigit(c: CInt): CInt = platform.posix.isdigit(c)
-public actual fun isgraph(c: CInt): CInt = platform.posix.isgraph(c)
-public actual fun islower(c: CInt): CInt = platform.posix.islower(c)
-public actual fun isprint(c: CInt): CInt = platform.posix.isprint(c)
-public actual fun ispunct(c: CInt): CInt = platform.posix.ispunct(c)
-public actual fun isspace(c: CInt): CInt = platform.posix.isspace(c)
-public actual fun isupper(c: CInt): CInt = platform.posix.isupper(c)
-public actual fun isxdigit(c: CInt): CInt = platform.posix.isxdigit(c)
-public actual fun tolower(c: CInt): CInt = platform.posix.tolower(c)
-public actual fun toupper(c: CInt): CInt = platform.posix.toupper(c)
+public actual fun isalnum(c: CInt): CInt = libc.cinterop.libc_isalnum(c)
+public actual fun isalpha(c: CInt): CInt = libc.cinterop.libc_isalpha(c)
+public actual fun iscntrl(c: CInt): CInt = libc.cinterop.libc_iscntrl(c)
+public actual fun isdigit(c: CInt): CInt = libc.cinterop.libc_isdigit(c)
+public actual fun isgraph(c: CInt): CInt = libc.cinterop.libc_isgraph(c)
+public actual fun islower(c: CInt): CInt = libc.cinterop.libc_islower(c)
+public actual fun isprint(c: CInt): CInt = libc.cinterop.libc_isprint(c)
+public actual fun ispunct(c: CInt): CInt = libc.cinterop.libc_ispunct(c)
+public actual fun isspace(c: CInt): CInt = libc.cinterop.libc_isspace(c)
+public actual fun isupper(c: CInt): CInt = libc.cinterop.libc_isupper(c)
+public actual fun isxdigit(c: CInt): CInt = libc.cinterop.libc_isxdigit(c)
+public actual fun tolower(c: CInt): CInt = libc.cinterop.libc_tolower(c)
+public actual fun toupper(c: CInt): CInt = libc.cinterop.libc_toupper(c)

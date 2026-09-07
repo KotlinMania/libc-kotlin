@@ -162,3 +162,40 @@ int libc_listen(int sockfd, int backlog) { return listen(sockfd, backlog); }
 int libc_shutdown(int sockfd, int how) { return shutdown(sockfd, how); }
 int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct sockaddr*)addr, addrlen); }
 int libc_connect(int sockfd, void* addr, int addrlen) { return connect(sockfd, (struct sockaddr*)addr, addrlen); }
+
+/* Additional wrappers */
+#include <dlfcn.h>
+#include <netdb.h>
+#include <locale.h>
+#include <sys/mman.h>
+#include <termios.h>
+#include <signal.h>
+#include <sys/syslog.h>
+#include <sys/time.h>
+
+int libc_bcmp(const void* s1, const void* s2, size_t n) { return bcmp(s1, s2, n); }
+int libc_dlclose(void* handle) { return dlclose(handle); }
+char* libc_dlerror(void) { return dlerror(); }
+char* libc_gai_strerror(int errcode) { return gai_strerror(errcode); }
+int libc_getdtablesize(void) { return getdtablesize(); }
+char* libc_getlogin(void) { return getlogin(); }
+int libc_getpagesize(void) { return getpagesize(); }
+int libc_madvise(void* addr, size_t len, int advice) { return madvise(addr, len, advice); }
+int libc_mincore(void* addr, size_t len, unsigned char* vec) { return mincore(addr, len, vec); }
+int libc_mlock(const void* addr, size_t len) { return mlock(addr, len); }
+int libc_mlockall(int flags) { return mlockall(flags); }
+int libc_mprotect(void* addr, size_t len, int prot) { return mprotect(addr, len, prot); }
+int libc_msync(void* addr, size_t len, int flags) { return msync(addr, len, flags); }
+int libc_munlock(const void* addr, size_t len) { return munlock(addr, len); }
+int libc_munlockall(void) { return munlockall(); }
+int libc_munmap(void* addr, size_t len) { return munmap(addr, len); }
+int libc_nice(int inc) { return nice(inc); }
+int libc_raise(int sig) { return raise(sig); }
+long libc_read(int fd, void* buf, size_t count) { return (long)read(fd, buf, count); }
+char* libc_setlocale(int category, const char* locale) { return setlocale(category, locale); }
+int libc_setlogmask(int mask) { return setlogmask(mask); }
+int libc_tcflush(int fd, int queue_selector) { return tcflush(fd, queue_selector); }
+int libc_tcsendbreak(int fd, int duration) { return tcsendbreak(fd, duration); }
+char* libc_ttyname(int fd) { return ttyname(fd); }
+int libc_usleep(unsigned int useconds) { return usleep(useconds); }
+long libc_write(int fd, const void* buf, size_t count) { return (long)write(fd, buf, count); }

@@ -15,17 +15,17 @@ import kotlinx.cinterop.ExperimentalForeignApi
 
 
 
-public actual fun atol(s: String?): CLong = platform.posix.atol(s)
+public actual fun atol(s: String?): CLong = libc.cinterop.libc_atol(s)
 
-public actual fun atoll(s: String?): CLongLong = platform.posix.atoll(s)
+public actual fun atoll(s: String?): CLongLong = libc.cinterop.libc_atoll(s)
 
-public actual fun strspn(cs: String?, ct: String?): ULong = platform.posix.strspn(cs, ct)
+public actual fun strspn(cs: String?, ct: String?): ULong = libc.cinterop.libc_strspn(cs, ct)
 
-public actual fun strcspn(cs: String?, ct: String?): ULong = platform.posix.strcspn(cs, ct)
+public actual fun strcspn(cs: String?, ct: String?): ULong = libc.cinterop.libc_strcspn(cs, ct)
 
-public actual fun strlen(cs: String?): ULong = platform.posix.strlen(cs)
+public actual fun strlen(cs: String?): ULong = libc.cinterop.libc_strlen(cs)
 
-public actual fun strnlen(cs: String?, n: ULong): ULong = platform.posix.strnlen(cs, n)
+public actual fun strnlen(cs: String?, n: ULong): ULong = libc.cinterop.libc_strnlen(cs, n)
 
 public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires mutable buffer (COpaquePointer), not immutable String")

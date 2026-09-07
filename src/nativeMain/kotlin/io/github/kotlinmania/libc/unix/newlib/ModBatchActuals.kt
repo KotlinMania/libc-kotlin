@@ -37,12 +37,12 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
     throw UnsupportedOperationException("semInit requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(i: CInt): CInt =
-    platform.posix.abs(i)
+    libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    platform.posix.rand()
+    libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }
@@ -90,7 +90,7 @@ public actual fun semClose(sem: SemT?): CInt =
     throw UnsupportedOperationException("semClose requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    platform.posix.getdtablesize()
+    libc.cinterop.libc_getdtablesize()
 public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrnamR requires manual FFI bridge — not yet implemented")
 

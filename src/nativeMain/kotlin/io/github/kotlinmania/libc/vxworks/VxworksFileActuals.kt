@@ -7,101 +7,101 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.FILE
 import io.github.kotlinmania.libc.FposT
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
-import platform.posix.FILE as PlatformFile
 
 public actual fun fopen(filename: String?, mode: String?): FILE? {
-    val result = platform.posix.fopen(filename, mode)
+    val result = libc.cinterop.libc_fopen(filename, mode)
     return result?.let { FILE(it.toLong()) }
 }
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? {
-    val filePtr: CPointer<PlatformFile>? = file?.handle?.toCPointer()
-    val result = platform.posix.freopen(filename, mode, filePtr)
+    val filePtr: CPointer<ByteVar>? = file?.handle?.toCPointer()
+    val result = libc.cinterop.libc_freopen(filename, mode, filePtr)
     return result?.let { FILE(it.toLong()) }
 }
 
 public actual fun fflush(file: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = file?.handle?.toCPointer()
-    return platform.posix.fflush(filePtr)
+    val filePtr: CPointer<ByteVar>? = file?.handle?.toCPointer()
+    return libc.cinterop.libc_fflush(filePtr)
 }
 
 public actual fun fclose(file: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = file?.handle?.toCPointer()
-    return platform.posix.fclose(filePtr)
+    val filePtr: CPointer<ByteVar>? = file?.handle?.toCPointer()
+    return libc.cinterop.libc_fclose(filePtr)
 }
 
 public actual fun tmpfile(): FILE? {
-    val result = platform.posix.tmpfile()
+    val result = libc.cinterop.libc_tmpfile()
     return result?.let { FILE(it.toLong()) }
 }
 
 public actual fun fgetc(stream: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.fgetc(filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_fgetc(filePtr)
 }
 
 public actual fun fputc(c: CInt, stream: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.fputc(c, filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_fputc(c, filePtr)
 }
 
 public actual fun fputs(s: String?, stream: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.fputs(s, filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_fputs(s, filePtr)
 }
 
 public actual fun ungetc(c: CInt, stream: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.ungetc(c, filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_ungetc(c, filePtr)
 }
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.fseek(filePtr, offset, whence)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_fseek(filePtr, offset, whence)
 }
 
 public actual fun ftell(stream: FILE?): CLong {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.ftell(filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_ftell(filePtr)
 }
 
 public actual fun feof(stream: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.feof(filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_feof(filePtr)
 }
 
 public actual fun ferror(stream: FILE?): CInt {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    return platform.posix.ferror(filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    return libc.cinterop.libc_ferror(filePtr)
 }
 
 public actual fun rewind(stream: FILE?) {
-    val filePtr: CPointer<PlatformFile>? = stream?.handle?.toCPointer()
-    platform.posix.rewind(filePtr)
+    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
+    libc.cinterop.libc_rewind(filePtr)
 }
 
 public actual fun fdopen(fd: CInt, mode: String?): FILE? {
-    val result = platform.posix.fdopen(fd, mode)
+    val result = libc.cinterop.libc_fdopen(fd, mode)
     return result?.let { FILE(it.toLong()) }
 }
 
 public actual fun perror(s: String?) {
-    platform.posix.perror(s)
+    libc.cinterop.libc_perror(s)
 }
 
-public actual fun remove(filename: String?): CInt = platform.posix.remove(filename)
+public actual fun remove(filename: String?): CInt = libc.cinterop.libc_remove(filename)
 
-public actual fun rename(oldname: String?, newname: String?): CInt = platform.posix.rename(oldname, newname)
+public actual fun rename(oldname: String?, newname: String?): CInt = libc.cinterop.libc_rename(oldname, newname)
 
-public actual fun getchar(): CInt = platform.posix.getchar()
+public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
 
-public actual fun putchar(c: CInt): CInt = platform.posix.putchar(c)
+public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
 
-public actual fun puts(s: String?): CInt = platform.posix.puts(s)
+public actual fun puts(s: String?): CInt = libc.cinterop.libc_puts(s)
 
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     throw UnsupportedOperationException("setvbuf requires CValuesRef bridge for buffer param")

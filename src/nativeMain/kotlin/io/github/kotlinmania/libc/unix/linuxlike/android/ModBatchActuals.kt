@@ -82,11 +82,11 @@ public actual fun mlock2(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("mlock2 requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    platform.posix.madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    platform.posix.msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 

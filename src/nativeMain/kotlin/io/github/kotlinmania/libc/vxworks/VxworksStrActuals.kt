@@ -6,32 +6,32 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.CInt
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toKString
-import platform.posix.strchr
-import platform.posix.strpbrk
-import platform.posix.strrchr
-import platform.posix.strstr
+import libc.cinterop.libc_strchr
+import libc.cinterop.libc_strpbrk
+import libc.cinterop.libc_strrchr
+import libc.cinterop.libc_strstr
 
 public actual fun strchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    val result = platform.posix.strchr(cs, c)
+    val result = libc.cinterop.libc_strchr(cs, c)
     return result?.toKString()
 }
 
 public actual fun strrchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    val result = platform.posix.strrchr(cs, c)
+    val result = libc.cinterop.libc_strrchr(cs, c)
     return result?.toKString()
 }
 
 public actual fun strpbrk(cs: String?, ct: String?): String? {
     if (cs == null || ct == null) return null
-    val result = platform.posix.strpbrk(cs, ct)
+    val result = libc.cinterop.libc_strpbrk(cs, ct)
     return result?.toKString()
 }
 
 public actual fun strstr(cs: String?, ct: String?): String? {
     if (cs == null || ct == null) return null
-    val result = platform.posix.strstr(cs, ct)
+    val result = libc.cinterop.libc_strstr(cs, ct)
     return result?.toKString()
 }
 

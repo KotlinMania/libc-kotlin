@@ -8,20 +8,20 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
 
-public actual fun isalnum(c: CInt): CInt = platform.posix.isalnum(c)
-public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
-public actual fun iscntrl(c: CInt): CInt = platform.posix.iscntrl(c)
-public actual fun isdigit(c: CInt): CInt = platform.posix.isdigit(c)
-public actual fun isgraph(c: CInt): CInt = platform.posix.isgraph(c)
-public actual fun islower(c: CInt): CInt = platform.posix.islower(c)
-public actual fun isprint(c: CInt): CInt = platform.posix.isprint(c)
-public actual fun ispunct(c: CInt): CInt = platform.posix.ispunct(c)
-public actual fun isspace(c: CInt): CInt = platform.posix.isspace(c)
-public actual fun isupper(c: CInt): CInt = platform.posix.isupper(c)
-public actual fun isxdigit(c: CInt): CInt = platform.posix.isxdigit(c)
-public actual fun isblank(c: CInt): CInt = platform.posix.isblank(c)
-public actual fun tolower(c: CInt): CInt = platform.posix.tolower(c)
-public actual fun toupper(c: CInt): CInt = platform.posix.toupper(c)
+public actual fun isalnum(c: CInt): CInt = libc.cinterop.libc_isalnum(c)
+public actual fun isalpha(c: CInt): CInt = libc.cinterop.libc_isalpha(c)
+public actual fun iscntrl(c: CInt): CInt = libc.cinterop.libc_iscntrl(c)
+public actual fun isdigit(c: CInt): CInt = libc.cinterop.libc_isdigit(c)
+public actual fun isgraph(c: CInt): CInt = libc.cinterop.libc_isgraph(c)
+public actual fun islower(c: CInt): CInt = libc.cinterop.libc_islower(c)
+public actual fun isprint(c: CInt): CInt = libc.cinterop.libc_isprint(c)
+public actual fun ispunct(c: CInt): CInt = libc.cinterop.libc_ispunct(c)
+public actual fun isspace(c: CInt): CInt = libc.cinterop.libc_isspace(c)
+public actual fun isupper(c: CInt): CInt = libc.cinterop.libc_isupper(c)
+public actual fun isxdigit(c: CInt): CInt = libc.cinterop.libc_isxdigit(c)
+public actual fun isblank(c: CInt): CInt = libc.cinterop.libc_isblank(c)
+public actual fun tolower(c: CInt): CInt = libc.cinterop.libc_tolower(c)
+public actual fun toupper(c: CInt): CInt = libc.cinterop.libc_toupper(c)
 public actual fun getStdioFile(fileno: CInt): FILE? =
     throw UnsupportedOperationException("getStdioFile requires manual FFI bridge — not yet implemented")
 
@@ -80,7 +80,7 @@ public actual fun fwrite(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: 
 public actual fun getc(arg1: FILE?): CInt =
     throw UnsupportedOperationException("getc requires manual FFI bridge — not yet implemented")
 
-public actual fun getchar(): CInt = platform.posix.getchar()
+public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
 public actual fun perror(arg1: String?) {
     throw UnsupportedOperationException("perror requires manual FFI bridge — not yet implemented")
 }
@@ -91,7 +91,7 @@ public actual fun printf(arg1: String?, vararg args: Any?): CInt =
 public actual fun putc(arg1: CInt, arg2: FILE?): CInt =
     throw UnsupportedOperationException("putc requires manual FFI bridge — not yet implemented")
 
-public actual fun putchar(arg1: CInt): CInt = platform.posix.putchar(arg1)
+public actual fun putchar(arg1: CInt): CInt = libc.cinterop.libc_putchar(arg1)
 public actual fun puts(arg1: String?): CInt =
     throw UnsupportedOperationException("puts requires manual FFI bridge — not yet implemented")
 
@@ -253,11 +253,11 @@ public actual fun ftello(stream: FILE?): OffT =
     throw UnsupportedOperationException("ftello requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(arg1: CInt): CInt =
-    platform.posix.abs(arg1)
+    libc.cinterop.libc_abs(arg1)
 public actual fun atoi(arg1: String?): CInt =
-    platform.posix.atoi(arg1)
+    libc.cinterop.libc_atoi(arg1)
 public actual fun atol(arg1: String?): CLong =
-    platform.posix.atol(arg1)
+    libc.cinterop.libc_atol(arg1)
 public actual fun itoa(arg1: CInt, arg2: String?, arg3: CInt): String? =
     throw UnsupportedOperationException("itoa requires manual FFI bridge — not yet implemented")
 
@@ -275,7 +275,7 @@ public actual fun free(arg1: COpaquePointer?) {
 }
 
 public actual fun getenv(arg1: String?): String? =
-    platform.posix.getenv(arg1)?.toKString()
+    libc.cinterop.libc_getenv(arg1)?.toKString()
 public actual fun labs(arg1: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 
@@ -283,7 +283,7 @@ public actual fun malloc(arg1: ULong): COpaquePointer? =
     throw UnsupportedOperationException("malloc requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    platform.posix.rand()
+    libc.cinterop.libc_rand()
 public actual fun realloc(arg1: COpaquePointer?, arg2: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc requires manual FFI bridge — not yet implemented")
 
@@ -376,7 +376,7 @@ public actual fun mktemp(arg1: String?): String? =
     throw UnsupportedOperationException("mktemp requires manual FFI bridge — not yet implemented")
 
 public actual fun atoll(arg1: String?): CLongLong =
-    platform.posix.atoll(arg1)
+    libc.cinterop.libc_atoll(arg1)
 public actual fun llabs(arg1: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs requires manual FFI bridge — not yet implemented")
 
@@ -464,7 +464,7 @@ public actual fun memchr(arg1: COpaquePointer?, arg2: CInt, arg3: ULong): COpaqu
     throw UnsupportedOperationException("memchr requires manual FFI bridge — not yet implemented")
 
 public actual fun memcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong): CInt =
-    platform.posix.memcmp(arg1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3)
+    libc.cinterop.libc_memcmp(arg1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3)
 public actual fun memcpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
 
@@ -478,7 +478,7 @@ public actual fun strcat(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcat requires manual FFI bridge — not yet implemented")
 
 public actual fun strchr(arg1: String?, arg2: CInt): String? =
-    platform.posix.strchr(arg1, arg2)?.toKString()
+    libc.cinterop.libc_strchr(arg1, arg2)?.toKString()
 public actual fun strcmp(arg1: String?, arg2: String?): CInt =
     throw UnsupportedOperationException("strcmp requires manual FFI bridge — not yet implemented")
 
@@ -489,11 +489,11 @@ public actual fun strcpy(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strcspn(arg1: String?, arg2: String?): ULong =
-    platform.posix.strcspn(arg1, arg2)
+    libc.cinterop.libc_strcspn(arg1, arg2)
 public actual fun strerror(arg1: CInt): String? =
-    platform.posix.strerror(arg1)?.toKString()
+    libc.cinterop.libc_strerror(arg1)?.toKString()
 public actual fun strlen(arg1: String?): ULong =
-    platform.posix.strlen(arg1)
+    libc.cinterop.libc_strlen(arg1)
 public actual fun strncat(arg1: String?, arg2: String?, arg3: ULong): String? =
     throw UnsupportedOperationException("strncat requires manual FFI bridge — not yet implemented")
 
@@ -504,13 +504,13 @@ public actual fun strncpy(arg1: String?, arg2: String?, arg3: ULong): String? =
     throw UnsupportedOperationException("strncpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strpbrk(arg1: String?, arg2: String?): String? =
-    platform.posix.strpbrk(arg1, arg2)?.toKString()
+    libc.cinterop.libc_strpbrk(arg1, arg2)?.toKString()
 public actual fun strrchr(arg1: String?, arg2: CInt): String? =
-    platform.posix.strrchr(arg1, arg2)?.toKString()
+    libc.cinterop.libc_strrchr(arg1, arg2)?.toKString()
 public actual fun strspn(arg1: String?, arg2: String?): ULong =
-    platform.posix.strspn(arg1, arg2)
+    libc.cinterop.libc_strspn(arg1, arg2)
 public actual fun strstr(arg1: String?, arg2: String?): String? =
-    platform.posix.strstr(arg1, arg2)?.toKString()
+    libc.cinterop.libc_strstr(arg1, arg2)?.toKString()
 public actual fun strtok(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 
@@ -527,7 +527,7 @@ public actual fun memccpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: CI
     throw UnsupportedOperationException("memccpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strdup(arg1: String?): String? =
-    platform.posix.strdup(arg1)?.toKString()
+    libc.cinterop.libc_strdup(arg1)?.toKString()
 public actual fun stpcpy(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("stpcpy requires manual FFI bridge — not yet implemented")
 
@@ -535,7 +535,7 @@ public actual fun stpncpy(arg1: String?, arg2: String?, arg3: ULong): String? =
     throw UnsupportedOperationException("stpncpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strnlen(arg1: String?, arg2: ULong): ULong =
-    platform.posix.strnlen(arg1, arg2)
+    libc.cinterop.libc_strnlen(arg1, arg2)
 public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
 
@@ -576,7 +576,7 @@ public actual fun strerrorL(arg1: CInt, arg2: LocaleT): String? =
     throw UnsupportedOperationException("strerrorL requires manual FFI bridge — not yet implemented")
 
 public actual fun bcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong): CInt =
-    platform.posix.bcmp(arg1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3)
+    libc.cinterop.libc_bcmp(arg1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3)
 public actual fun bcopy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong) {
     throw UnsupportedOperationException("bcopy requires manual FFI bridge — not yet implemented")
 }
@@ -597,7 +597,7 @@ public actual fun strcasecmp(arg1: String?, arg2: String?): CInt =
 public actual fun strncasecmp(arg1: String?, arg2: String?, arg3: ULong): CInt =
     throw UnsupportedOperationException("strncasecmp requires manual FFI bridge — not yet implemented")
 
-public actual fun raise(arg1: CInt): CInt = platform.posix.raise(arg1)
+public actual fun raise(arg1: CInt): CInt = libc.cinterop.libc_raise(arg1)
 public actual fun asctime(arg1: Tm?): String? =
     throw UnsupportedOperationException("asctime requires manual FFI bridge — not yet implemented")
 
@@ -655,19 +655,19 @@ public actual fun open(arg1: String?, arg2: CInt, vararg args: Any?): CInt =
 public actual fun creat(arg1: String?, arg2: CInt): CInt =
     throw UnsupportedOperationException("creat requires manual FFI bridge — not yet implemented")
 
-public actual fun close(arg1: CInt): CInt = platform.posix.close(arg1)
+public actual fun close(arg1: CInt): CInt = libc.cinterop.libc_close(arg1)
 public actual fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    platform.posix.read(arg1, arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3.toULong()).toInt()
+    libc.cinterop.libc_read(arg1, arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3.toULong()).toInt()
 public actual fun write(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    platform.posix.write(arg1, arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3.toULong()).toInt()
+    libc.cinterop.libc_write(arg1, arg2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), arg3.toULong()).toInt()
 public actual fun unlink(arg1: String?): CInt =
     throw UnsupportedOperationException("unlink requires manual FFI bridge — not yet implemented")
 
 public actual fun tell(arg1: CInt): CLong =
     throw UnsupportedOperationException("tell requires manual FFI bridge — not yet implemented")
 
-public actual fun dup(arg1: CInt): CInt = platform.posix.dup(arg1)
-public actual fun dup2(arg1: CInt, arg2: CInt): CInt = platform.posix.dup2(arg1, arg2)
+public actual fun dup(arg1: CInt): CInt = libc.cinterop.libc_dup(arg1)
+public actual fun dup2(arg1: CInt, arg2: CInt): CInt = libc.cinterop.libc_dup2(arg1, arg2)
 public actual fun access(arg1: String?, arg2: CInt): CInt =
     throw UnsupportedOperationException("access requires manual FFI bridge — not yet implemented")
 

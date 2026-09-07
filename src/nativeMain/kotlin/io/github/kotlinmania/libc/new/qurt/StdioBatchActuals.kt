@@ -30,8 +30,8 @@ public actual fun fgetc(stream: FILE?): CInt =
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
     throw UnsupportedOperationException("fputc requires manual FFI bridge — not yet implemented")
 
-public actual fun getchar(): CInt = platform.posix.getchar()
-public actual fun putchar(c: CInt): CInt = platform.posix.putchar(c)
+public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
+public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
 public actual fun ungetc(c: CInt, stream: FILE?): CInt =
     throw UnsupportedOperationException("ungetc requires manual FFI bridge — not yet implemented")
 

@@ -456,7 +456,7 @@ public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePoin
     throw UnsupportedOperationException("procctl requires manual FFI bridge — not yet implemented")
 
 public actual fun getpagesize(): CInt =
-    platform.posix.getpagesize()
+    libc.cinterop.libc_getpagesize()
 public actual fun getpagesizes(pagesize: ULong?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getpagesizes requires manual FFI bridge — not yet implemented")
 

@@ -238,7 +238,7 @@ public actual fun sendfile(outFd: CInt, inFd: CInt, offset: OffT?, count: ULong)
 public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: ULong): SsizeT =
     throw UnsupportedOperationException("sendfile64 requires manual FFI bridge — not yet implemented")
 
-public actual fun shutdown(fd: CInt, how: CInt): CInt = platform.posix.shutdown(fd, how)
+public actual fun shutdown(fd: CInt, how: CInt): CInt = libc.cinterop.libc_shutdown(fd, how)
 public actual fun sethostname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("sethostname requires manual FFI bridge — not yet implemented")
 
@@ -675,7 +675,7 @@ public actual fun popen(command: String?, mode: String?): FILE? =
     throw UnsupportedOperationException("popen requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    platform.posix.getdtablesize()
+    libc.cinterop.libc_getdtablesize()
 public actual fun closeRange(first: CUInt, last: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("closeRange requires manual FFI bridge — not yet implemented")
 
@@ -841,9 +841,9 @@ public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags
     throw UnsupportedOperationException("mremap requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    platform.posix.msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
 public actual fun sync() {
     throw UnsupportedOperationException("sync requires manual FFI bridge — not yet implemented")
 }
@@ -870,7 +870,7 @@ public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: 
     throw UnsupportedOperationException("posixFadvise64 requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    platform.posix.madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
 public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
     throw UnsupportedOperationException("posixMadvise requires manual FFI bridge — not yet implemented")
 
@@ -908,12 +908,12 @@ public actual fun strchrnul(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchrnul requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(i: CInt): CInt =
-    platform.posix.abs(i)
+    libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    platform.posix.rand()
+    libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }

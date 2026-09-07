@@ -11,14 +11,14 @@ public actual fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CIn
     throw UnsupportedOperationException("mmap requires manual FFI bridge — not yet implemented")
 
 public actual fun munmap(addr: COpaquePointer?, len: ULong): CInt =
-    platform.posix.munmap(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
+    libc.cinterop.libc_munmap(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
-    platform.posix.mlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
+    libc.cinterop.libc_mlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
-    platform.posix.munlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
-public actual fun mlockall(flags: CInt): CInt = platform.posix.mlockall(flags)
-public actual fun munlockall(): CInt = platform.posix.munlockall()
+    libc.cinterop.libc_munlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
+public actual fun mlockall(flags: CInt): CInt = libc.cinterop.libc_mlockall(flags)
+public actual fun munlockall(): CInt = libc.cinterop.libc_munlockall()
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    platform.posix.msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)

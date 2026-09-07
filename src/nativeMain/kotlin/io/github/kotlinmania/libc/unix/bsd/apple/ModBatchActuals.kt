@@ -122,7 +122,7 @@ public actual fun sysctlnametomib(name: String?, mibp: CInt?, sizep: ULong?): CI
     throw UnsupportedOperationException("sysctlnametomib requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     throw UnsupportedOperationException("semget requires manual FFI bridge — not yet implemented")
 

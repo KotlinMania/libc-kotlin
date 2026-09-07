@@ -12,9 +12,9 @@ public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
     throw UnsupportedOperationException("dlopen requires manual FFI bridge — not yet implemented")
 
 public actual fun dlclose(handle: COpaquePointer?): CInt =
-    platform.posix.dlclose(handle?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+    libc.cinterop.libc_dlclose(handle?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =
     throw UnsupportedOperationException("dlsym requires manual FFI bridge — not yet implemented")
 
 public actual fun dlerror(): String? =
-    platform.posix.dlerror()?.toKString()
+    libc.cinterop.libc_dlerror()?.toKString()

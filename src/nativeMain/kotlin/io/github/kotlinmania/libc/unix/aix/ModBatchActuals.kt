@@ -376,7 +376,7 @@ public actual fun getdomainname(name: String?, len: CInt): CInt =
     throw UnsupportedOperationException("getdomainname requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    platform.posix.getdtablesize()
+    libc.cinterop.libc_getdtablesize()
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent requires manual FFI bridge — not yet implemented")
 
@@ -405,7 +405,7 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: ULong, host: String?, hostle
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun getpagesize(): CInt =
-    platform.posix.getpagesize()
+    libc.cinterop.libc_getpagesize()
 public actual fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt =
     throw UnsupportedOperationException("getpeereid requires manual FFI bridge — not yet implemented")
 
@@ -532,7 +532,7 @@ public actual fun mount(device: String?, path: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("mount requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    platform.posix.mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun mqClose(mqd: MqdT): CInt =
     throw UnsupportedOperationException("mqClose requires manual FFI bridge — not yet implemented")
 
@@ -579,7 +579,7 @@ public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgfl
     throw UnsupportedOperationException("msgsnd requires manual FFI bridge — not yet implemented")
 
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    platform.posix.msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires manual FFI bridge — not yet implemented")
 
@@ -711,7 +711,7 @@ public actual fun quotactl(cmd: String?, special: CInt, id: CInt, data: CaddrT):
     throw UnsupportedOperationException("quotactl requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    platform.posix.rand()
+    libc.cinterop.libc_rand()
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv requires manual FFI bridge — not yet implemented")
 

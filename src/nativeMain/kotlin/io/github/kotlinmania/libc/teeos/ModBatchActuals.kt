@@ -34,7 +34,7 @@ public actual fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT? =
     throw UnsupportedOperationException("wmemchr requires manual FFI bridge — not yet implemented")
 
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt =
-    platform.posix.memcmp(cx?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), ct?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
+    libc.cinterop.libc_memcmp(cx?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), ct?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
 
@@ -192,12 +192,12 @@ public actual fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CIn
     throw UnsupportedOperationException("mmap requires manual FFI bridge — not yet implemented")
 
 public actual fun munmap(addr: COpaquePointer?, len: ULong): CInt =
-    platform.posix.munmap(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
+    libc.cinterop.libc_munmap(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
 
 public actual fun strerror(e: CInt): String? =
-    platform.posix.strerror(e)?.toKString()
+    libc.cinterop.libc_strerror(e)?.toKString()
 public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGettime requires manual FFI bridge — not yet implemented")
 
@@ -269,9 +269,9 @@ public actual fun random(): CLong =
     throw UnsupportedOperationException("random requires manual FFI bridge — not yet implemented")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    platform.posix.strchr(s, c)?.toKString()
+    libc.cinterop.libc_strchr(s, c)?.toKString()
 public actual fun strlen(cs: String?): ULong =
-    platform.posix.strlen(cs)
+    libc.cinterop.libc_strlen(cs)
 public actual fun strcmp(l: String?, r: String?): CInt =
     throw UnsupportedOperationException("strcmp requires manual FFI bridge — not yet implemented")
 
@@ -285,25 +285,25 @@ public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncpy requires manual FFI bridge — not yet implemented")
 
 public actual fun strnlen(cs: String?, n: ULong): ULong =
-    platform.posix.strnlen(cs, n)
+    libc.cinterop.libc_strnlen(cs, n)
 public actual fun strrchr(s: String?, c: CInt): String? =
-    platform.posix.strrchr(s, c)?.toKString()
+    libc.cinterop.libc_strrchr(s, c)?.toKString()
 public actual fun strstr(h: String?, n: String?): String? =
-    platform.posix.strstr(h, n)?.toKString()
+    libc.cinterop.libc_strstr(h, n)?.toKString()
 public actual fun wcschr(s: WcharT?, c: WcharT): WcharT? =
     throw UnsupportedOperationException("wcschr requires manual FFI bridge — not yet implemented")
 
 public actual fun wcslen(s: WcharT?): ULong =
     throw UnsupportedOperationException("wcslen requires manual FFI bridge — not yet implemented")
 
-public actual fun isalpha(c: CInt): CInt = platform.posix.isalpha(c)
+public actual fun isalpha(c: CInt): CInt = libc.cinterop.libc_isalpha(c)
 public actual fun isascii(c: CInt): CInt =
     throw UnsupportedOperationException("isascii requires manual FFI bridge — not yet implemented")
 
-public actual fun isdigit(c: CInt): CInt = platform.posix.isdigit(c)
-public actual fun islower(c: CInt): CInt = platform.posix.islower(c)
-public actual fun isprint(c: CInt): CInt = platform.posix.isprint(c)
-public actual fun isspace(c: CInt): CInt = platform.posix.isspace(c)
+public actual fun isdigit(c: CInt): CInt = libc.cinterop.libc_isdigit(c)
+public actual fun islower(c: CInt): CInt = libc.cinterop.libc_islower(c)
+public actual fun isprint(c: CInt): CInt = libc.cinterop.libc_isprint(c)
+public actual fun isspace(c: CInt): CInt = libc.cinterop.libc_isspace(c)
 public actual fun iswctype(wc: WintT, ttype: WctypeT): CInt =
     throw UnsupportedOperationException("iswctype requires manual FFI bridge — not yet implemented")
 
@@ -320,13 +320,13 @@ public actual fun iswupper(wc: WintT): CInt =
     throw UnsupportedOperationException("iswupper requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(x: CInt): CInt =
-    platform.posix.abs(x)
+    libc.cinterop.libc_abs(x)
 public actual fun atoi(s: String?): CInt =
-    platform.posix.atoi(s)
+    libc.cinterop.libc_atoi(s)
 public actual fun atol(s: String?): CLong =
-    platform.posix.atol(s)
+    libc.cinterop.libc_atol(s)
 public actual fun atoll(s: String?): CLongLong =
-    platform.posix.atoll(s)
+    libc.cinterop.libc_atoll(s)
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc): COpaquePointer? =
     throw UnsupportedOperationException("bsearch requires manual FFI bridge — not yet implemented")
 
