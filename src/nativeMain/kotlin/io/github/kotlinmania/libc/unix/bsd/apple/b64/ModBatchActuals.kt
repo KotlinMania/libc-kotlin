@@ -7,4 +7,4 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun exchangedata(path1: String?, path2: String?, options: CUInt): CInt =
-    throw UnsupportedOperationException("exchangedata requires manual FFI bridge — type mismatch")
+    throw UnsupportedOperationException("exchangedata requires manual FFI bridge — type width mismatch")

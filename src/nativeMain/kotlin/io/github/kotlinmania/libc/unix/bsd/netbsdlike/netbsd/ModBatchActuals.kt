@@ -15,7 +15,7 @@ public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): CInt =
-    throw UnsupportedOperationException("dirfd requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE requires manual FFI bridge — not yet implemented")
 
@@ -32,11 +32,11 @@ public actual fun reallocarr(ptr: COpaquePointer?, number: ULong, size: ULong): 
     throw UnsupportedOperationException("reallocarr requires manual FFI bridge — not yet implemented")
 
 public actual fun chflags(path: String?, flags: CULong): CInt =
-    throw UnsupportedOperationException("chflags requires manual FFI bridge — type mismatch")
+    throw UnsupportedOperationException("chflags requires manual FFI bridge — type width mismatch")
 public actual fun fchflags(fd: CInt, flags: CULong): CInt =
-    throw UnsupportedOperationException("fchflags requires manual FFI bridge — type mismatch")
+    throw UnsupportedOperationException("fchflags requires manual FFI bridge — type width mismatch")
 public actual fun lchflags(path: String?, flags: CULong): CInt =
-    throw UnsupportedOperationException("lchflags requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_lchflags(path, flags)
 public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT =
     throw UnsupportedOperationException("extattrListFd requires manual FFI bridge — not yet implemented")
 
@@ -98,7 +98,7 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    throw UnsupportedOperationException("mprotect requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
 
@@ -297,7 +297,7 @@ public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): 
     throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun reboot(mode: CInt, bootstr: String?): CInt =
-    throw UnsupportedOperationException("reboot requires manual FFI bridge — type mismatch")
+    throw UnsupportedOperationException("reboot requires manual FFI bridge — type width mismatch")
 public actual fun lwpPark(clock: ClockidT, flags: CInt, ts: Timespec?, unpark: LwpidT, hint: COpaquePointer?, unparkhint: COpaquePointer?): CInt =
     throw UnsupportedOperationException("lwpPark requires manual FFI bridge — not yet implemented")
 

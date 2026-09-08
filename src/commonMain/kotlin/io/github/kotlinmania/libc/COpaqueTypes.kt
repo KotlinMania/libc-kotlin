@@ -35,7 +35,9 @@ public class FILE(
 /**
  * Opaque C directory stream handle (`DIR*` in C).
  */
-public class DIR
+public class DIR(
+    public val handle: Long = -1L,
+)
 
 /**
  * C file position type (`fpos_t` in C). Defined as a typealias where the

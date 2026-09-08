@@ -32,14 +32,14 @@ public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("dup3 requires manual FFI bridge — not yet implemented")
 
 public actual fun chflags(path: String?, flags: CUInt): CInt =
-    throw UnsupportedOperationException("chflags requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_chflags(path, flags)
 public actual fun fchflags(fd: CInt, flags: CUInt): CInt =
-    throw UnsupportedOperationException("fchflags requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_fchflags(fd, flags)
 public actual fun chflagsat(fd: CInt, path: String?, flags: CUInt, atflag: CInt): CInt =
     throw UnsupportedOperationException("chflagsat requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): CInt =
-    throw UnsupportedOperationException("dirfd requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
@@ -53,7 +53,7 @@ public actual fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlis
     throw UnsupportedOperationException("kevent requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    throw UnsupportedOperationException("mprotect requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun getthrid(): PidT =
     throw UnsupportedOperationException("getthrid requires manual FFI bridge — not yet implemented")
 
@@ -163,7 +163,7 @@ public actual fun mimmutable(addr: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("mimmutable requires manual FFI bridge — not yet implemented")
 
 public actual fun reboot(mode: CInt): CInt =
-    throw UnsupportedOperationException("reboot requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_reboot(mode)
 public actual fun statfs(path: String?, buf: Statfs?): CInt =
     throw UnsupportedOperationException("statfs requires manual FFI bridge — not yet implemented")
 
