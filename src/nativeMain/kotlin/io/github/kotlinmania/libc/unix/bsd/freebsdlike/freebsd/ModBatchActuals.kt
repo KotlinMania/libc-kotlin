@@ -4,7 +4,9 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
@@ -182,8 +184,7 @@ public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): CO
     throw UnsupportedOperationException("shmat requires manual FFI bridge — not yet implemented")
 
 public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("shmdt requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_shmdt(shmaddr?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt =
     throw UnsupportedOperationException("shmctl requires manual FFI bridge — not yet implemented")
 
@@ -403,23 +404,17 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
 
 public actual fun ffs(value: CInt): CInt =
-    throw UnsupportedOperationException("ffs requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_ffs(value)
 public actual fun ffsl(value: CLong): CInt =
-    throw UnsupportedOperationException("ffsl requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_ffsl(value)
 public actual fun ffsll(value: CLongLong): CInt =
-    throw UnsupportedOperationException("ffsll requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_ffsll(value)
 public actual fun fls(value: CInt): CInt =
-    throw UnsupportedOperationException("fls requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fls(value)
 public actual fun flsl(value: CLong): CInt =
-    throw UnsupportedOperationException("flsl requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_flsl(value)
 public actual fun flsll(value: CLongLong): CInt =
-    throw UnsupportedOperationException("flsll requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_flsll(value)
 public actual fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("mallctl requires manual FFI bridge — not yet implemented")
 
@@ -488,8 +483,7 @@ public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
     throw UnsupportedOperationException("eventfdWrite requires manual FFI bridge — not yet implemented")
 
 public actual fun fdatasync(fd: CInt): CInt =
-    throw UnsupportedOperationException("fdatasync requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fdatasync(fd)
 public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
     throw UnsupportedOperationException("elfAuxInfo requires manual FFI bridge — not yet implemented")
 

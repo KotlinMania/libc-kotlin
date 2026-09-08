@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 
@@ -55,8 +56,7 @@ public actual fun getusershell(): String? =
     throw UnsupportedOperationException("getusershell requires manual FFI bridge — not yet implemented")
 
 public actual fun issetugid(): CInt =
-    throw UnsupportedOperationException("issetugid requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("issetugid requires manual FFI bridge — type mismatch")
 public actual fun setusershell() {
     throw UnsupportedOperationException("setusershell requires manual FFI bridge — not yet implemented")
 }
@@ -74,12 +74,11 @@ public actual fun errnop(): CInt? =
     throw UnsupportedOperationException("errnop requires manual FFI bridge — not yet implemented")
 
 public actual fun abs(i: CInt): CInt =
-    libc.cinterop.libc_abs(i)
+    throw UnsupportedOperationException("abs requires manual FFI bridge — type mismatch")
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("labs requires manual FFI bridge — type mismatch")
 public actual fun rand(): CInt =
-    libc.cinterop.libc_rand()
+    throw UnsupportedOperationException("rand requires manual FFI bridge — type mismatch")
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }
@@ -127,8 +126,7 @@ public actual fun fgetspentR(file: FILE?, spwd: Spwd?, buffer: String?, bufferSi
     throw UnsupportedOperationException("fgetspentR requires manual FFI bridge — not yet implemented")
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("mkfifoat requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("mkfifoat requires manual FFI bridge — type mismatch")
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
@@ -178,16 +176,14 @@ public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
 
 public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    throw UnsupportedOperationException("initgroups requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("initgroups requires manual FFI bridge — type mismatch")
 public actual fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires manual FFI bridge — type mismatch")
 public actual fun dirfd(dirp: DIR?): CInt =
-    throw UnsupportedOperationException("dirfd requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("dirfd requires manual FFI bridge — type mismatch")
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
@@ -243,9 +239,9 @@ public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    throw UnsupportedOperationException("madvise requires manual FFI bridge — type mismatch")
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    throw UnsupportedOperationException("msync requires manual FFI bridge — type mismatch")
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
@@ -289,7 +285,7 @@ public actual fun semClose(sem: SemT?): CInt =
     throw UnsupportedOperationException("semClose requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    libc.cinterop.libc_getdtablesize()
+    throw UnsupportedOperationException("getdtablesize requires manual FFI bridge — type mismatch")
 public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrnamR requires manual FFI bridge — not yet implemented")
 
@@ -346,8 +342,7 @@ public actual fun popen(command: String?, mode: String?): FILE? =
     throw UnsupportedOperationException("popen requires manual FFI bridge — not yet implemented")
 
 public actual fun sethostname(name: String?, len: ULong): CInt =
-    throw UnsupportedOperationException("sethostname requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("sethostname requires manual FFI bridge — type mismatch")
 public actual fun uname(buf: Utsname?): CInt =
     throw UnsupportedOperationException("uname requires manual FFI bridge — not yet implemented")
 
@@ -372,8 +367,7 @@ public actual fun endutxent() {
 }
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    throw UnsupportedOperationException("faccessat requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("faccessat requires manual FFI bridge — type mismatch")
 public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("sigtimedwait requires manual FFI bridge — not yet implemented")
 
@@ -434,14 +428,12 @@ public actual fun hsearch(entry: ENTRY, action: ACTION): ENTRY? =
     throw UnsupportedOperationException("hsearch requires manual FFI bridge — not yet implemented")
 
 public actual fun lrand48(): CLong =
-    throw UnsupportedOperationException("lrand48 requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("lrand48 requires manual FFI bridge — type mismatch")
 public actual fun nrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("nrand48 requires manual FFI bridge — not yet implemented")
 
 public actual fun mrand48(): CLong =
-    throw UnsupportedOperationException("mrand48 requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("mrand48 requires manual FFI bridge — type mismatch")
 public actual fun jrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("jrand48 requires manual FFI bridge — not yet implemented")
 
@@ -467,7 +459,7 @@ public actual fun sync() {
 }
 
 public actual fun getpagesize(): CInt =
-    libc.cinterop.libc_getpagesize()
+    throw UnsupportedOperationException("getpagesize requires manual FFI bridge — type mismatch")
 public actual fun brk(addr: COpaquePointer?): CInt =
     throw UnsupportedOperationException("brk requires manual FFI bridge — not yet implemented")
 

@@ -41,17 +41,13 @@ public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok requires mutable buffer (COpaquePointer), not immutable String")
 
 public actual fun strcpy(dst: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcpy requires mutable buffer (COpaquePointer), not immutable String")
-
+    throw UnsupportedOperationException("strcpy requires manual FFI bridge — type mismatch")
 public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncpy requires mutable buffer (COpaquePointer), not immutable String")
-
+    throw UnsupportedOperationException("strncpy requires manual FFI bridge — type mismatch")
 public actual fun strcat(s: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strcat requires mutable buffer (COpaquePointer), not immutable String")
-
+    throw UnsupportedOperationException("strcat requires manual FFI bridge — type mismatch")
 public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncat requires mutable buffer (COpaquePointer), not immutable String")
-
+    throw UnsupportedOperationException("strncat requires manual FFI bridge — type mismatch")
 public actual fun getcwd(buf: String?, size: ULong): String? =
     throw UnsupportedOperationException("getcwd requires mutable buffer (COpaquePointer), not immutable String")
 

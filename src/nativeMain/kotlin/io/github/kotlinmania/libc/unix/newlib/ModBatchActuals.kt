@@ -39,8 +39,7 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
@@ -110,8 +109,7 @@ public actual fun semUnlink(name: String?): CInt =
     throw UnsupportedOperationException("semUnlink requires manual FFI bridge — not yet implemented")
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    throw UnsupportedOperationException("daemon requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_daemon(nochdir, noclose)
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpwnamR requires manual FFI bridge — not yet implemented")
 

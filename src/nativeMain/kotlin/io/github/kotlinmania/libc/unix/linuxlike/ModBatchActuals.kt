@@ -4,6 +4,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 
@@ -50,10 +51,9 @@ public actual fun semInit(sem: SemT, pshared: CInt, value: CUInt): CInt =
     throw UnsupportedOperationException("semInit requires manual FFI bridge — not yet implemented")
 
 public actual fun fdatasync(fd: CInt): CInt =
-    throw UnsupportedOperationException("fdatasync requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("fdatasync requires manual FFI bridge — type mismatch")
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: COpaquePointer?): CInt =
-    libc.cinterop.libc_mincore(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, vec?.value?.toCPointer<kotlinx.cinterop.UByteVar>())
+    throw UnsupportedOperationException("mincore requires manual FFI bridge — type mismatch")
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGetres requires manual FFI bridge — not yet implemented")
 
@@ -73,8 +73,7 @@ public actual fun setitimer(which: CInt, newValue: Itimerval?, oldValue: Itimerv
     throw UnsupportedOperationException("setitimer requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): CInt =
-    throw UnsupportedOperationException("dirfd requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("dirfd requires manual FFI bridge — type mismatch")
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memalign requires manual FFI bridge — not yet implemented")
 
@@ -134,8 +133,7 @@ public actual fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt =
     throw UnsupportedOperationException("getresgid requires manual FFI bridge — not yet implemented")
 
 public actual fun acct(filename: String?): CInt =
-    throw UnsupportedOperationException("acct requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("acct requires manual FFI bridge — type mismatch")
 public actual fun brk(addr: COpaquePointer?): CInt =
     throw UnsupportedOperationException("brk requires manual FFI bridge — not yet implemented")
 
@@ -143,8 +141,7 @@ public actual fun sbrk(increment: IntptrT): COpaquePointer? =
     throw UnsupportedOperationException("sbrk requires manual FFI bridge — not yet implemented")
 
 public actual fun vfork(): PidT =
-    throw UnsupportedOperationException("vfork requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("vfork requires manual FFI bridge — type mismatch")
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
     throw UnsupportedOperationException("setresgid requires manual FFI bridge — not yet implemented")
 
@@ -201,17 +198,13 @@ public actual fun strptime(s: String?, format: String?, tm: Tm?): String? =
     throw UnsupportedOperationException("strptime requires manual FFI bridge — not yet implemented")
 
 public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    throw UnsupportedOperationException("mkostemp requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("mkostemp requires manual FFI bridge — type mismatch")
 public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    throw UnsupportedOperationException("mkostemps requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("mkostemps requires manual FFI bridge — type mismatch")
 public actual fun getdomainname(name: String?, len: ULong): CInt =
-    throw UnsupportedOperationException("getdomainname requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("getdomainname requires manual FFI bridge — type mismatch")
 public actual fun setdomainname(name: String?, len: ULong): CInt =
-    throw UnsupportedOperationException("setdomainname requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("setdomainname requires manual FFI bridge — type mismatch")
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 

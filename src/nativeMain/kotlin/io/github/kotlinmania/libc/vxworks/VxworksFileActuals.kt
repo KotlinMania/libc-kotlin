@@ -104,8 +104,7 @@ public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
 public actual fun puts(s: String?): CInt = libc.cinterop.libc_puts(s)
 
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
-    throw UnsupportedOperationException("setvbuf requires CValuesRef bridge for buffer param")
-
+    libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
 public actual fun setbuf(stream: FILE?, buf: String?) {
     throw UnsupportedOperationException("setbuf requires CValuesRef bridge for buf param")
 }
@@ -114,8 +113,7 @@ public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: 
     throw UnsupportedOperationException("fread requires COpaquePointer + FILE bridge")
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fwrite requires COpaquePointer + FILE bridge")
-
+    libc.cinterop.libc_fwrite(ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size, nobj, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos requires FposT bridge")
 

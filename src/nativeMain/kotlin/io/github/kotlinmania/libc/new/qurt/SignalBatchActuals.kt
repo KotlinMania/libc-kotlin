@@ -7,8 +7,7 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    throw UnsupportedOperationException("kill requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_kill(pid, sig)
 public actual fun raise(sig: CInt): CInt = libc.cinterop.libc_raise(sig)
 public actual fun pause(): CInt = libc.cinterop.libc_pause()
 public actual fun sigemptyset(set: SigsetT?): CInt =

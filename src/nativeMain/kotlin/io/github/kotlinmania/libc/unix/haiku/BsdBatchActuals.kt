@@ -4,11 +4,12 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    throw UnsupportedOperationException("daemon requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_daemon(nochdir, noclose)
 public actual fun getprogname(): String? =
     throw UnsupportedOperationException("getprogname requires manual FFI bridge — not yet implemented")
 
@@ -21,11 +22,9 @@ public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong) {
 }
 
 public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    throw UnsupportedOperationException("mkstemps requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_mkstemps(template, suffixlen)
 public actual fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong =
-    throw UnsupportedOperationException("strtonum requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_strtonum(nptr, minval, maxval, errstr?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt =
     throw UnsupportedOperationException("openpty requires manual FFI bridge — not yet implemented")
 

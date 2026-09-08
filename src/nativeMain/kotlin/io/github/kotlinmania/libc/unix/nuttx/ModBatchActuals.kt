@@ -4,6 +4,7 @@
 package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun errno(): CInt? =
@@ -16,8 +17,7 @@ public actual fun ioctl(fd: Int, request: Int, vararg args: Any?): Int =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): Int =
-    throw UnsupportedOperationException("dirfd requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("dirfd requires manual FFI bridge — type mismatch")
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: Sockaddr?, addrlen: SocklenT?): Int =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 

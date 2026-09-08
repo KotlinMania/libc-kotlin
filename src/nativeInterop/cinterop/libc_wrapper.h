@@ -3,6 +3,51 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <sys/types.h>
+#include <time.h>
+#include <sys/stat.h>
+#include <sys/socket.h>
+#include <signal.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <poll.h>
+#include <sched.h>
+#include <netdb.h>
+#include <fcntl.h>
+#include <grp.h>
+#include <pwd.h>
+#include <dlfcn.h>
+#include <locale.h>
+#include <wchar.h>
+#include <wctype.h>
+#include <termios.h>
+#include <syslog.h>
+#include <sys/file.h>
+#include <sys/mman.h>
+#include <sys/wait.h>
+#include <sys/resource.h>
+#include <sys/times.h>
+#include <sys/uio.h>
+#include <sys/select.h>
+#include <sys/ioctl.h>
+#include <sys/utsname.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/msg.h>
+#include <sys/sem.h>
+#include <sys/xattr.h>
+#include <net/if.h>
+#include <utime.h>
+#include <glob.h>
+#include <ctype.h>
+#include <mach/mach_time.h>
+#include <mach-o/dyld.h>
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -129,7 +174,6 @@ int libc_socket(int domain, int type, int protocol);
 int libc_listen(int sockfd, int backlog);
 int libc_shutdown(int sockfd, int how);
 int libc_bind(int sockfd, void* addr, int addrlen);
-int libc_connect(int sockfd, void* addr, int addrlen);
 
 #ifdef __cplusplus
 }
@@ -162,6 +206,123 @@ int libc_tcflush(int fd, int queue_selector);
 int libc_tcsendbreak(int fd, int duration);
 char* libc_ttyname(int fd);
 int libc_usleep(unsigned int useconds);
-long libc_write(int fd, const void* buf, size_t count);
+
+
+/* Auto-generated wrappers */
+int libc_setvbuf(void* stream, const char* buffer, int mode, size_t size);
+size_t libc_fwrite(void* ptr, size_t size, size_t nobj, void* stream);
+int libc_fgetpos(void* stream, void* ptr);
+int libc_fsetpos(void* stream, void* ptr);
+size_t libc_strxfrm(const char* s, const char* ct, size_t n);
+off_t libc_ftello(void* stream);
+pid_t libc_setpgid(pid_t pid, pid_t pgid);
+ssize_t libc_readlink(const char* path, const char* buf, size_t bufsize);
+long libc_strtol(const char* s, void* endp, int base);
+size_t libc_confstr(int name, const char* buf, size_t len);
+long libc_fpathconf(int filedes, int name);
+off_t libc_lseek(int fd, off_t offset, int whence);
+long libc_pathconf(const char* path, int name);
+long libc_sysconf(int attr);
+int libc_strcoll(const char* cs, const char* ct);
+int libc_linkat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath, int flags);
+int libc_unlinkat(int dirfd, const char* pathname, int flags);
+int libc_fileno(void* stream);
+int libc_creat(const char* path, mode_t mode);
+int libc_fchown(int fd, uid_t owner, gid_t group);
+int libc_chown(const char* path, uid_t uid, gid_t gid);
+int libc_truncate(const char* path, off_t length);
+int libc_gethostname(const char* name, size_t len);
+int libc_mkfifo(const char* path, mode_t mode);
+int libc_fseeko(void* stream, off_t offset, int whence);
+int libc_mkstemp(const char* template);
+int libc_symlinkat(const char* target, int newdirfd, const char* linkpath);
+int libc_fchmodat(int dirfd, const char* pathname, mode_t mode, int flags);
+int libc_ftruncate(int fd, off_t length);
+int libc_setenv(const char* envVarName, const char* envVarValue, int overwrite);
+int libc_unsetenv(const char* envVarName);
+int libc_link(const char* src, const char* dst);
+int libc_symlink(const char* path1, const char* path2);
+int libc_chmod(const char* path, mode_t mode);
+int libc_fchmod(int attr1, mode_t attr2);
+int libc_closedir(void* ptr);
+int libc_kill(pid_t pid, int signo);
+long libc_random(void);
+int libc_isascii(int c);
+long long libc_llabs(long long a);
+long libc_labs(long i);
+int libc_mkdirat(int dirfd, const char* pathname, mode_t mode);
+ssize_t libc_readlinkat(int dirfd, const char* pathname, const char* buf, size_t bufsiz);
+int libc_renameat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath);
+int libc_lchown(const char* path, uid_t uid, gid_t gid);
+int libc_execv(const char* prog, void* argv);
+int libc_execve(const char* prog, void* argv, void* envp);
+int libc_execvp(const char* c, void* argv);
+pid_t libc_fork(void);
+pid_t libc_getpgid(pid_t pid);
+pid_t libc_getpgrp(void);
+pid_t libc_setsid(void);
+pid_t libc_tcgetpgrp(int fd);
+int libc_tcsetpgrp(int fd, pid_t pgrp);
+ssize_t libc_pread(int fd, void* buf, size_t count, off_t offset);
+ssize_t libc_pwrite(int fd, void* buf, size_t count, off_t offset);
+int libc_flock(int fd, int operation);
+pid_t libc_getsid(pid_t pid);
+int libc_tcdrain(int fd);
+int libc_tcflow(int fd, int action);
+pid_t libc_tcgetsid(int fd);
+int libc_grantpt(int fd);
+int libc_unlockpt(int fd);
+int libc_fdatasync(int fd);
+int libc_dirfd(void* dirp);
+int libc_setreuid(uid_t ruid, uid_t euid);
+int libc_setregid(gid_t rgid, gid_t egid);
+int libc_acct(const char* filename);
+int libc_shmdt(void* shmaddr);
+int libc_mkostemp(const char* template, int flags);
+int libc_mkostemps(const char* template, int suffixlen, int flags);
+int libc_reboot(int howTo);
+int libc_mkfifoat(int dirfd, const char* pathname, mode_t mode);
+int libc_mkstemps(const char* template, int suffixlen);
+int libc_getdomainname(const char* name, size_t len);
+int libc_setdomainname(const char* name, size_t len);
+int libc_sethostname(const char* name, size_t len);
+int libc_initgroups(const char* user, gid_t group);
+int libc_daemon(int nochdir, int noclose);
+int libc_faccessat(int dirfd, const char* pathname, int mode, int flags);
+int libc_getc(void* arg1);
+int libc_putc(int arg1, void* arg2);
+int libc_ftrylockfile(void* arg1);
+int libc_getw(void* arg1);
+int libc_putw(int arg1, void* arg2);
+int libc_mblen(const char* arg1, size_t arg2);
+long libc_lrand48(void);
+long libc_mrand48(void);
+long libc_a64l(const char* arg1);
+int libc_radixsort(void* arg1, int arg2, void* arg3, unsigned int arg4);
+int libc_sradixsort(void* arg1, int arg2, void* arg3, unsigned int arg4);
+size_t libc_strlcat(const char* arg1, const char* arg2, size_t arg3);
+size_t libc_strlcpy(const char* arg1, const char* arg2, size_t arg3);
+int libc_ffs(int arg1);
+int libc_getsubopt(void* arg1, void* arg2, void* arg3);
+int libc_killpg(pid_t pgrp, int sig);
+int libc_chroot(const char* name);
+int libc_lockf(int fd, int cmd, off_t len);
+pid_t libc_vfork(void);
+long libc_gethostid(void);
+int libc_setlogin(const char* name);
+int libc_issetugid(void);
+int libc_chflags(const char* path, unsigned int flags);
+int libc_fchflags(int fd, unsigned int flags);
+long long libc_strtonum(const char* numstr, long long minval, long long maxval, void* errstrp);
+int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, size_t attrBufSize, unsigned long options);
+int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, size_t attrBufSize, size_t options);
+int libc_execvP(const char* file, const char* searchPath, void* argv);
+int libc_exchangedata(const char* path1, const char* path2, unsigned long options);
+int libc_lchflags(const char* path, unsigned long flags);
+int libc_ffsl(long value);
+int libc_ffsll(long long value);
+int libc_fls(int value);
+int libc_flsl(long value);
+int libc_flsll(long long value);
 
 #endif /* LIBC_WRAPPER_H */

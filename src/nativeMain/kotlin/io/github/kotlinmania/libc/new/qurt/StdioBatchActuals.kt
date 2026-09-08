@@ -4,50 +4,42 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fopen(filename, mode)?.let { FILE(it.toLong()) }
 public actual fun freopen(filename: String?, mode: String?, stream: FILE?): FILE? =
-    throw UnsupportedOperationException("freopen requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_freopen(filename, mode, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())?.let { FILE(it.toLong()) }
 public actual fun fclose(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fclose requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fclose(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun fflush(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fflush requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fflush(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fread requires manual FFI bridge — not yet implemented")
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fwrite requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fwrite(ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size, nmemb, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun fgetc(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fgetc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fgetc(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fputc(c, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
 public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
 public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("ungetc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_ungetc(c, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun fgets(s: String?, size: CInt, stream: FILE?): String? =
     throw UnsupportedOperationException("fgets requires manual FFI bridge — not yet implemented")
 
 public actual fun fputs(s: String?, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputs requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fputs(s, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun gets(s: String?): String? =
     throw UnsupportedOperationException("gets requires manual FFI bridge — not yet implemented")
 
 public actual fun puts(s: String?): CInt =
-    throw UnsupportedOperationException("puts requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_puts(s)
 public actual fun printf(format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("printf requires manual FFI bridge — not yet implemented")
 
@@ -82,11 +74,9 @@ public actual fun sscanf(s: String?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("sscanf requires manual FFI bridge — not yet implemented")
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    throw UnsupportedOperationException("fseek requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
 public actual fun ftell(stream: FILE?): CLong =
-    throw UnsupportedOperationException("ftell requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun rewind(stream: FILE?) {
     throw UnsupportedOperationException("rewind requires manual FFI bridge — not yet implemented")
 }
@@ -102,29 +92,24 @@ public actual fun clearerr(stream: FILE?) {
 }
 
 public actual fun feof(stream: FILE?): CInt =
-    throw UnsupportedOperationException("feof requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_feof(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun ferror(stream: FILE?): CInt =
-    throw UnsupportedOperationException("ferror requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_ferror(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun perror(s: String?) {
     throw UnsupportedOperationException("perror requires manual FFI bridge — not yet implemented")
 }
 
 public actual fun remove(filename: String?): CInt =
-    throw UnsupportedOperationException("remove requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_remove(filename)
 public actual fun rename(old: String?, new: String?): CInt =
-    throw UnsupportedOperationException("rename requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_rename(old, new)
 public actual fun tmpfile(): FILE? =
     libc.cinterop.libc_tmpfile()?.let { FILE(it.toLong()) }
 public actual fun tmpnam(s: String?): String? =
     throw UnsupportedOperationException("tmpnam requires manual FFI bridge — not yet implemented")
 
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
-    throw UnsupportedOperationException("setvbuf requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
 public actual fun setbuf(stream: FILE?, buffer: String?) {
     throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
 }

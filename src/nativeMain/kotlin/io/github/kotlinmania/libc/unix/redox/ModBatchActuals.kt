@@ -4,6 +4,7 @@
 package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 
@@ -29,13 +30,12 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("strerrorR requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): CInt =
-    throw UnsupportedOperationException("dirfd requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("dirfd requires manual FFI bridge — type mismatch")
 public actual fun pipe2(fds: CInt?, flags: CInt): CInt =
     throw UnsupportedOperationException("pipe2 requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
-    libc.cinterop.libc_getdtablesize()
+    throw UnsupportedOperationException("getdtablesize requires manual FFI bridge — type mismatch")
 public actual fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt =
     throw UnsupportedOperationException("getresgid requires manual FFI bridge — not yet implemented")
 
@@ -119,14 +119,11 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
     throw UnsupportedOperationException("sigwait requires manual FFI bridge — not yet implemented")
 
 public actual fun getsubopt(optionp: COpaquePointer?, tokens: COpaquePointer?, valuep: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getsubopt requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("getsubopt requires manual FFI bridge — type mismatch")
 public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    throw UnsupportedOperationException("mkostemp requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("mkostemp requires manual FFI bridge — type mismatch")
 public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    throw UnsupportedOperationException("mkostemps requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("mkostemps requires manual FFI bridge — type mismatch")
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
 
@@ -138,11 +135,9 @@ public actual fun explicitBzero(p: COpaquePointer?, len: ULong) {
 }
 
 public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong =
-    throw UnsupportedOperationException("strlcat requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("strlcat requires manual FFI bridge — type mismatch")
 public actual fun strlcpy(dst: String?, src: String?, siz: ULong): ULong =
-    throw UnsupportedOperationException("strlcpy requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("strlcpy requires manual FFI bridge — type mismatch")
 public actual fun epollCreate(size: CInt): CInt =
     throw UnsupportedOperationException("epollCreate requires manual FFI bridge — not yet implemented")
 
@@ -159,11 +154,11 @@ public actual fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    throw UnsupportedOperationException("madvise requires manual FFI bridge — type mismatch")
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    throw UnsupportedOperationException("msync requires manual FFI bridge — type mismatch")
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires manual FFI bridge — type mismatch")
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
     throw UnsupportedOperationException("shmOpen requires manual FFI bridge — not yet implemented")
 
