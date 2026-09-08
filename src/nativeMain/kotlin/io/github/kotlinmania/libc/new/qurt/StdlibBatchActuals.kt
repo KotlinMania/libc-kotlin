@@ -4,24 +4,24 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toLong
+import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
 
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("malloc requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun calloc(nmemb: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("calloc requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("realloc requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("realloc requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun free(ptr: COpaquePointer?) {
     throw UnsupportedOperationException("free requires manual FFI bridge — not yet implemented")
 }
 
 public actual fun getenv(name: String?): String? =
-    libc.cinterop.libc_getenv(name)?.toKString()
+    throw UnsupportedOperationException("getenv requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt =
     throw UnsupportedOperationException("setenv requires manual FFI bridge — not yet implemented")
 
@@ -29,11 +29,11 @@ public actual fun unsetenv(name: String?): CInt =
     throw UnsupportedOperationException("unsetenv requires manual FFI bridge — not yet implemented")
 
 public actual fun atoi(nptr: String?): CInt =
-    libc.cinterop.libc_atoi(nptr)
+    throw UnsupportedOperationException("atoi requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun atol(nptr: String?): CLong =
-    libc.cinterop.libc_atol(nptr)
+    throw UnsupportedOperationException("atol requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun atoll(nptr: String?): CLongLong =
-    libc.cinterop.libc_atoll(nptr)
+    throw UnsupportedOperationException("atoll requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong =
     throw UnsupportedOperationException("strtol requires manual FFI bridge — not yet implemented")
 
@@ -47,13 +47,13 @@ public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): 
     throw UnsupportedOperationException("strtoull requires manual FFI bridge — not yet implemented")
 
 public actual fun rand(): CInt =
-    libc.cinterop.libc_rand()
+    throw UnsupportedOperationException("rand requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun srand(seed: CUInt) {
     throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
 }
 
 public actual fun abs(j: CInt): CInt =
-    libc.cinterop.libc_abs(j)
+    throw UnsupportedOperationException("abs requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun labs(j: CLong): CLong =
     throw UnsupportedOperationException("labs requires manual FFI bridge — not yet implemented")
 

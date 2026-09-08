@@ -4,7 +4,9 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
 
 
 
@@ -103,11 +105,9 @@ public actual fun freeaddrinfo(res: Addrinfo?) {
 }
 
 public actual fun getpid(): PidT =
-    throw UnsupportedOperationException("getpid requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("getpid requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun getppid(): PidT =
-    throw UnsupportedOperationException("getppid requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("getppid requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
     throw UnsupportedOperationException("setpgid requires manual FFI bridge — not yet implemented")
 
@@ -171,8 +171,7 @@ public actual fun pthreadCreate(pThread: PthreadT?, pAttr: PthreadAttrT?, startR
     throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge")
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    throw UnsupportedOperationException("read requires manual FFI bridge for COpaquePointer param")
-
+    throw UnsupportedOperationException("read requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv requires manual FFI bridge for Iovec type")
 
@@ -210,7 +209,6 @@ public actual fun waitpid(pid: PidT, status: CInt?, options: CInt): PidT =
     throw UnsupportedOperationException("waitpid requires manual FFI bridge for PidT type")
 
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    throw UnsupportedOperationException("write requires manual FFI bridge for COpaquePointer param")
-
+    throw UnsupportedOperationException("write requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("writev requires manual FFI bridge for Iovec type")

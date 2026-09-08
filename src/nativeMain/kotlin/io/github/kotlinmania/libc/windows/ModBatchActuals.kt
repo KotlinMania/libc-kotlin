@@ -4,7 +4,9 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
 
@@ -47,8 +49,7 @@ public actual fun rename(oldname: String?, newname: String?): CInt =
     throw UnsupportedOperationException("rename requires manual FFI bridge — not yet implemented")
 
 public actual fun tmpfile(): FILE? =
-    throw UnsupportedOperationException("tmpfile requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_tmpfile()?.let { FILE(it.toLong()) }
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     throw UnsupportedOperationException("setvbuf requires manual FFI bridge — not yet implemented")
 
@@ -127,17 +128,14 @@ public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULon
     throw UnsupportedOperationException("strtoull requires manual FFI bridge — not yet implemented")
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
 public actual fun msize(p: COpaquePointer?): ULong =
     throw UnsupportedOperationException("msize requires manual FFI bridge — not yet implemented")
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("realloc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_realloc(p?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
 public actual fun free(p: COpaquePointer?) {
     throw UnsupportedOperationException("free requires manual FFI bridge — not yet implemented")
 }
@@ -204,19 +202,15 @@ public actual fun wcstombs(dest: String?, src: WcharT?, n: ULong): ULong =
     throw UnsupportedOperationException("wcstombs requires manual FFI bridge — not yet implemented")
 
 public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memchr requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memchr(cx?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt =
     libc.cinterop.libc_memcmp(cx?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), ct?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memcpy(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), src?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memmove requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memmove(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), src?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memset(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =

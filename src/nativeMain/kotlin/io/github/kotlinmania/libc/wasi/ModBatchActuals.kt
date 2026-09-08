@@ -4,7 +4,9 @@
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
 
@@ -23,8 +25,7 @@ public actual fun alignedAlloc(a: ULong, b: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires manual FFI bridge — not yet implemented")
 
 public actual fun calloc(amt: ULong, amt2: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_calloc(amt, amt2)?.let { COpaquePointer(it.toLong()) }
 public actual fun free(ptr: COpaquePointer?) {
     throw UnsupportedOperationException("free requires manual FFI bridge — not yet implemented")
 }
@@ -32,8 +33,7 @@ public actual fun free(ptr: COpaquePointer?) {
 public actual fun getenv(s: String?): String? =
     libc.cinterop.libc_getenv(s)?.toKString()
 public actual fun malloc(amt: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_malloc(amt)?.let { COpaquePointer(it.toLong()) }
 public actual fun mallocUsableSize(ptr: COpaquePointer?): ULong =
     throw UnsupportedOperationException("mallocUsableSize requires manual FFI bridge — not yet implemented")
 
@@ -43,11 +43,9 @@ public actual fun sbrk(increment: IntptrT): COpaquePointer? =
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun read(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
-    throw UnsupportedOperationException("read requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_read(fd, ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size)
 public actual fun realloc(ptr: COpaquePointer?, amt: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("realloc requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_realloc(ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), amt)?.let { COpaquePointer(it.toLong()) }
 public actual fun setenv(k: String?, v: String?, a: CInt): CInt =
     throw UnsupportedOperationException("setenv requires manual FFI bridge — not yet implemented")
 
@@ -58,8 +56,7 @@ public actual fun clearenv(): CInt =
     throw UnsupportedOperationException("clearenv requires manual FFI bridge — not yet implemented")
 
 public actual fun write(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
-    throw UnsupportedOperationException("write requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_write(fd, ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size)
 public actual fun fopen(a: String?, b: String?): FILE? =
     throw UnsupportedOperationException("fopen requires manual FFI bridge — not yet implemented")
 
@@ -298,19 +295,15 @@ public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires manual FFI bridge — not yet implemented")
 
 public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memchr requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memchr(cx?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt =
     libc.cinterop.libc_memcmp(cx?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), ct?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memcpy(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), src?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memmove requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memmove(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), src?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_memset(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires manual FFI bridge — not yet implemented")
 

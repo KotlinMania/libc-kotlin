@@ -4,7 +4,9 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
 
@@ -42,7 +44,7 @@ public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires manual FFI bridge — not yet implemented")
 
 public actual fun strlen(s: String?): ULong =
-    libc.cinterop.libc_strlen(s)
+    throw UnsupportedOperationException("strlen requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strcpy(dest: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires manual FFI bridge — not yet implemented")
 
@@ -68,36 +70,32 @@ public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires manual FFI bridge — not yet implemented")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    libc.cinterop.libc_strchr(s, c)?.toKString()
+    throw UnsupportedOperationException("strchr requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strrchr(s: String?, c: CInt): String? =
-    libc.cinterop.libc_strrchr(s, c)?.toKString()
+    throw UnsupportedOperationException("strrchr requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strspn(s: String?, accept: String?): ULong =
-    libc.cinterop.libc_strspn(s, accept)
+    throw UnsupportedOperationException("strspn requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strcspn(s: String?, reject: String?): ULong =
-    libc.cinterop.libc_strcspn(s, reject)
+    throw UnsupportedOperationException("strcspn requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strpbrk(s: String?, accept: String?): String? =
-    libc.cinterop.libc_strpbrk(s, accept)?.toKString()
+    throw UnsupportedOperationException("strpbrk requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strstr(haystack: String?, needle: String?): String? =
-    libc.cinterop.libc_strstr(haystack, needle)?.toKString()
+    throw UnsupportedOperationException("strstr requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun strtok(s: String?, delim: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 
 public actual fun strerror(errnum: CInt): String? =
-    libc.cinterop.libc_strerror(errnum)?.toKString()
+    throw UnsupportedOperationException("strerror requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun memchr(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memchr requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("memchr requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: ULong): CInt =
-    libc.cinterop.libc_memcmp(s1?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), s2?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), n)
+    throw UnsupportedOperationException("memcmp requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memcpy requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("memcpy requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memmove requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("memmove requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun memset(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("memset requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun fork(): PidT =
     throw UnsupportedOperationException("fork requires manual FFI bridge — not yet implemented")
 

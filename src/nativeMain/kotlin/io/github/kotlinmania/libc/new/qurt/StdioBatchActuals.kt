@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toLong
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
     throw UnsupportedOperationException("fopen requires manual FFI bridge — not yet implemented")
@@ -117,8 +118,7 @@ public actual fun rename(old: String?, new: String?): CInt =
     throw UnsupportedOperationException("rename requires manual FFI bridge — not yet implemented")
 
 public actual fun tmpfile(): FILE? =
-    throw UnsupportedOperationException("tmpfile requires manual FFI bridge — not yet implemented")
-
+    libc.cinterop.libc_tmpfile()?.let { FILE(it.toLong()) }
 public actual fun tmpnam(s: String?): String? =
     throw UnsupportedOperationException("tmpnam requires manual FFI bridge — not yet implemented")
 
