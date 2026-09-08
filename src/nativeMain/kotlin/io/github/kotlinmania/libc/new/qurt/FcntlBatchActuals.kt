@@ -10,6 +10,6 @@ public actual fun open(pathname: String?, flags: CInt, vararg args: Any?): CInt 
     throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
 
 public actual fun creat(pathname: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("creat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("creat requires manual FFI bridge — type mismatch")
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fcntl requires manual FFI bridge — not yet implemented")

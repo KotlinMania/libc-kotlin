@@ -367,7 +367,7 @@ public actual fun getcontext(ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("getcontext requires manual FFI bridge — not yet implemented")
 
 public actual fun getdomainname(name: String?, len: CInt): CInt =
-    throw UnsupportedOperationException("getdomainname requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("getdomainname requires manual FFI bridge — type mismatch")
 public actual fun getdtablesize(): CInt =
     libc.cinterop.libc_getdtablesize()
 public actual fun getgrent(): Group? =
@@ -468,7 +468,7 @@ public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 
 public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    throw UnsupportedOperationException("initgroups requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("initgroups requires manual FFI bridge — type mismatch")
 public actual fun ioctl(fildes: CInt, request: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
@@ -513,7 +513,7 @@ public actual fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt =
     throw UnsupportedOperationException("mincore requires manual FFI bridge — not yet implemented")
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("mkfifoat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("mkfifoat requires manual FFI bridge — type mismatch")
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
@@ -805,7 +805,7 @@ public actual fun setcontext(ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("setcontext requires manual FFI bridge — not yet implemented")
 
 public actual fun setdomainname(name: String?, len: CInt): CInt =
-    throw UnsupportedOperationException("setdomainname requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("setdomainname requires manual FFI bridge — type mismatch")
 public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
 
@@ -817,7 +817,7 @@ public actual fun sethostid(hostid: CInt): CInt =
     throw UnsupportedOperationException("sethostid requires manual FFI bridge — not yet implemented")
 
 public actual fun sethostname(name: String?, len: CInt): CInt =
-    throw UnsupportedOperationException("sethostname requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("sethostname requires manual FFI bridge — type mismatch")
 public actual fun setmntent(filename: String?, ty: String?): FILE? =
     throw UnsupportedOperationException("setmntent requires manual FFI bridge — not yet implemented")
 

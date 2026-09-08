@@ -98,15 +98,15 @@ public actual fun stat(path: String?, buf: Stat?): CInt =
 public actual fun fileno(stream: FILE?): CInt =
     libc.cinterop.libc_fileno(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun creat(path: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("creat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("creat requires manual FFI bridge — type mismatch")
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    throw UnsupportedOperationException("fchown requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("fchown requires manual FFI bridge — type mismatch")
 public actual fun access(path: String?, amode: CInt): CInt =
     libc.cinterop.libc_access(path, amode)
 public actual fun fchdir(dirfd: CInt): CInt = libc.cinterop.libc_fchdir(dirfd)
 
 public actual fun chown(path: String?, uid: UidT, gid: GidT): CInt =
-    throw UnsupportedOperationException("chown requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("chown requires manual FFI bridge — type mismatch")
 public actual fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt =
     throw UnsupportedOperationException("getgroups requires manual FFI bridge — not yet implemented")
 
@@ -116,9 +116,9 @@ public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CI
 public actual fun pause(): CInt = libc.cinterop.libc_pause()
 
 public actual fun seteuid(uid: UidT): CInt =
-    throw UnsupportedOperationException("seteuid requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("seteuid requires manual FFI bridge — type mismatch")
 public actual fun setegid(gid: GidT): CInt =
-    throw UnsupportedOperationException("setegid requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("setegid requires manual FFI bridge — type mismatch")
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
     libc.cinterop.libc_mlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun mlockall(flags: CInt): CInt = libc.cinterop.libc_mlockall(flags)
@@ -176,7 +176,7 @@ public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
 public actual fun gethostname(name: String?, len: ULong): CInt =
     libc.cinterop.libc_gethostname(name, len)
 public actual fun usleep(secs: UsecondsT): CInt =
-    throw UnsupportedOperationException("usleep requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("usleep requires manual FFI bridge — type mismatch")
 public actual fun putenv(string: String?): CInt =
     throw UnsupportedOperationException("putenv requires manual FFI bridge — not yet implemented")
 
@@ -187,7 +187,7 @@ public actual fun sigpending(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigpending requires manual FFI bridge — not yet implemented")
 
 public actual fun mkfifo(path: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("mkfifo requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("mkfifo requires manual FFI bridge — type mismatch")
 public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
     libc.cinterop.libc_fseeko(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
 public actual fun mkstemp(template: String?): CInt =
@@ -208,7 +208,7 @@ public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
 public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
     libc.cinterop.libc_symlinkat(target, newdirfd, linkpath)
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
-    throw UnsupportedOperationException("fchmodat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("fchmodat requires manual FFI bridge — type mismatch")
 public actual fun utime(file: String?, buf: Utimbuf?): CInt =
     throw UnsupportedOperationException("utime requires manual FFI bridge — not yet implemented")
 
@@ -441,9 +441,9 @@ public actual fun rmdir(path: String?): CInt =
 public actual fun mkdir(dirName: String?, mode: ModeT): CInt =
     libc.cinterop.libc_mkdir(dirName, mode)
 public actual fun chmod(path: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("chmod requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("chmod requires manual FFI bridge — type mismatch")
 public actual fun fchmod(attr1: CInt, attr2: ModeT): CInt =
-    throw UnsupportedOperationException("fchmod requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("fchmod requires manual FFI bridge — type mismatch")
 public actual fun fsync(fd: CInt): CInt = libc.cinterop.libc_fsync(fd)
 
 public actual fun closedir(ptr: DIR?): CInt =
@@ -479,9 +479,9 @@ public actual fun errnoGet(): CInt =
     throw UnsupportedOperationException("errnoGet requires manual FFI bridge — not yet implemented")
 
 public actual fun setgid(gid: GidT): CInt =
-    throw UnsupportedOperationException("setgid requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("setgid requires manual FFI bridge — type mismatch")
 public actual fun setuid(uid: UidT): CInt =
-    throw UnsupportedOperationException("setuid requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("setuid requires manual FFI bridge — type mismatch")
 public actual fun sigemptyset(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigemptyset requires manual FFI bridge — not yet implemented")
 

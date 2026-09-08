@@ -53,7 +53,7 @@ public actual fun semInit(sem: SemT, pshared: CInt, value: CUInt): CInt =
 public actual fun fdatasync(fd: CInt): CInt =
     libc.cinterop.libc_fdatasync(fd)
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("mincore requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("mincore requires manual FFI bridge — type mismatch")
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGetres requires manual FFI bridge — not yet implemented")
 

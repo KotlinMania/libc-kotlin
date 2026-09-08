@@ -24,7 +24,7 @@ public actual fun accept4(s: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: C
     throw UnsupportedOperationException("accept4 requires manual FFI bridge — not yet implemented")
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt =
-    throw UnsupportedOperationException("mincore requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("mincore requires manual FFI bridge — type mismatch")
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGetres requires manual FFI bridge — not yet implemented")
 
@@ -74,7 +74,7 @@ public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT
     throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("mkfifoat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("mkfifoat requires manual FFI bridge — type mismatch")
 public actual fun semTimedwait(sem: SemT, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("semTimedwait requires manual FFI bridge — not yet implemented")
 
@@ -120,7 +120,7 @@ public actual fun getgrouplist(name: String?, basegid: GidT, groups: GidT?, ngro
     throw UnsupportedOperationException("getgrouplist requires manual FFI bridge — not yet implemented")
 
 public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    throw UnsupportedOperationException("initgroups requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("initgroups requires manual FFI bridge — type mismatch")
 public actual fun getdomainname(name: String?, len: ULong): CInt =
     libc.cinterop.libc_getdomainname(name, len)
 public actual fun setdomainname(name: String?, len: ULong): CInt =

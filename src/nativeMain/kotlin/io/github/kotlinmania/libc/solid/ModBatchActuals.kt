@@ -583,17 +583,17 @@ public actual fun fstat(arg1: CInt, arg2: Stat?): CInt =
     throw UnsupportedOperationException("fstat requires manual FFI bridge — not yet implemented")
 
 public actual fun chmod(arg1: String?, arg2: ModeT): CInt =
-    throw UnsupportedOperationException("chmod requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("chmod requires manual FFI bridge — type mismatch")
 public actual fun mkdir(arg1: String?, arg2: ModeT): CInt =
     libc.cinterop.libc_mkdir(arg1, arg2.toInt())
 public actual fun open(arg1: String?, arg2: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
 
 public actual fun creat(arg1: String?, arg2: CInt): CInt =
-    throw UnsupportedOperationException("creat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("creat requires manual FFI bridge — type mismatch")
 public actual fun close(arg1: CInt): CInt = libc.cinterop.libc_close(arg1)
 public actual fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    throw UnsupportedOperationException("read requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("read requires manual FFI bridge — type mismatch")
 public actual fun write(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
     throw UnsupportedOperationException("write requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun unlink(arg1: String?): CInt =

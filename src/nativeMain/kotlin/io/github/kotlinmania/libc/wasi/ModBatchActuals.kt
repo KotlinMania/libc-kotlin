@@ -303,7 +303,7 @@ public actual fun fstat(fildes: CInt, buf: Stat?): CInt =
     throw UnsupportedOperationException("fstat requires manual FFI bridge — not yet implemented")
 
 public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("mkdir requires manual FFI bridge — type mismatch")
+    libc.cinterop.libc_mkdir(path, mode.toInt())
 public actual fun stat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("stat requires manual FFI bridge — not yet implemented")
 
@@ -315,7 +315,7 @@ public actual fun open(path: String?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("creat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("creat requires manual FFI bridge — type mismatch")
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fcntl requires manual FFI bridge — not yet implemented")
 
@@ -352,9 +352,9 @@ public actual fun fstatat(dirfd: CInt, pathname: String?, buf: Stat?, flags: CIn
 public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
     libc.cinterop.libc_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
 public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("mkdirat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("mkdirat requires manual FFI bridge — type mismatch")
 public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): SsizeT =
-    throw UnsupportedOperationException("readlinkat requires manual FFI bridge — redundant conversion")
+    libc.cinterop.libc_readlinkat(dirfd, pathname, buf, bufsiz)
 public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
     libc.cinterop.libc_renameat(olddirfd, oldpath, newdirfd, newpath)
 public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
@@ -381,9 +381,9 @@ public actual fun rmdir(path: String?): CInt =
 public actual fun unlink(c: String?): CInt =
     libc.cinterop.libc_unlink(c)
 public actual fun pread(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): SsizeT =
-    throw UnsupportedOperationException("pread requires manual FFI bridge — redundant conversion")
+    libc.cinterop.libc_pread(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count, offset)
 public actual fun pwrite(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): SsizeT =
-    throw UnsupportedOperationException("pwrite requires manual FFI bridge — redundant conversion")
+    libc.cinterop.libc_pwrite(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count, offset)
 public actual fun lstat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("lstat requires manual FFI bridge — not yet implemented")
 
@@ -424,7 +424,7 @@ public actual fun localeconv(): Lconv? =
     throw UnsupportedOperationException("localeconv requires manual FFI bridge — not yet implemented")
 
 public actual fun readlink(path: String?, buf: String?, bufsz: ULong): SsizeT =
-    throw UnsupportedOperationException("readlink requires manual FFI bridge — redundant conversion")
+    libc.cinterop.libc_readlink(path, buf, bufsz)
 public actual fun timegm(tm: Tm?): TimeT =
     throw UnsupportedOperationException("timegm requires manual FFI bridge — not yet implemented")
 
@@ -595,9 +595,9 @@ public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
 
 public actual fun chmod(path: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("chmod requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("chmod requires manual FFI bridge — type mismatch")
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    throw UnsupportedOperationException("fchmod requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("fchmod requires manual FFI bridge — type mismatch")
 public actual fun realpath(pathname: String?, resolved: String?): String? =
     throw UnsupportedOperationException("realpath requires manual FFI bridge — not yet implemented")
 

@@ -14,7 +14,7 @@ public actual fun close(fd: CInt): CInt = libc.cinterop.libc_close(fd)
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     libc.cinterop.libc_lseek(fd, offset, whence)
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    throw UnsupportedOperationException("read requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("read requires manual FFI bridge — type mismatch")
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     throw UnsupportedOperationException("write requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =

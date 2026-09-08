@@ -227,7 +227,7 @@ public actual fun tzset() {
 }
 
 public actual fun chmod(path: String?, mode: CInt): CInt =
-    throw UnsupportedOperationException("chmod requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("chmod requires manual FFI bridge — type mismatch")
 public actual fun wchmod(path: WcharT?, mode: CInt): CInt =
     throw UnsupportedOperationException("wchmod requires manual FFI bridge — not yet implemented")
 
@@ -265,7 +265,7 @@ public actual fun wopen(path: WcharT?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("wopen requires manual FFI bridge — not yet implemented")
 
 public actual fun creat(path: String?, mode: CInt): CInt =
-    throw UnsupportedOperationException("creat requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("creat requires manual FFI bridge — type mismatch")
 public actual fun access(path: String?, amode: CInt): CInt =
     libc.cinterop.libc_access(path, amode)
 public actual fun chdir(dir: String?): CInt =
@@ -298,7 +298,7 @@ public actual fun wexeclpe(path: WcharT?, arg0: WcharT?, vararg args: Any?): Int
     throw UnsupportedOperationException("wexeclpe requires manual FFI bridge — not yet implemented")
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =
-    throw UnsupportedOperationException("execv requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("execv requires manual FFI bridge — type mismatch")
 public actual fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     libc.cinterop.libc_execve(prog, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), envp?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun execvp(c: String?, argv: COpaquePointer?): CInt =
@@ -332,7 +332,7 @@ public actual fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt =
     throw UnsupportedOperationException("pipe requires manual FFI bridge — not yet implemented")
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt =
-    throw UnsupportedOperationException("read requires manual FFI bridge — type width mismatch")
+    libc.cinterop.libc_read(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count.toULong()).toInt()
 public actual fun rmdir(path: String?): CInt =
     libc.cinterop.libc_rmdir(path)
 public actual fun unlink(c: String?): CInt =

@@ -17,7 +17,7 @@ public actual fun readdir(dirp: DIR?): Dirent? =
     throw UnsupportedOperationException("readdir requires manual FFI bridge — not yet implemented")
 
 public actual fun closedir(dirp: DIR?): CInt =
-    throw UnsupportedOperationException("closedir requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("closedir requires manual FFI bridge — type mismatch")
 public actual fun mkdir(path: String?, mode: ModeT): CInt =
     libc.cinterop.libc_mkdir(path, mode.toInt())
 public actual fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt =

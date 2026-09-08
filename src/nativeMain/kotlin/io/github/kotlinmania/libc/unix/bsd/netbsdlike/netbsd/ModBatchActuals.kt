@@ -32,9 +32,9 @@ public actual fun reallocarr(ptr: COpaquePointer?, number: ULong, size: ULong): 
     throw UnsupportedOperationException("reallocarr requires manual FFI bridge — not yet implemented")
 
 public actual fun chflags(path: String?, flags: CULong): CInt =
-    throw UnsupportedOperationException("chflags requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("chflags requires manual FFI bridge — type mismatch")
 public actual fun fchflags(fd: CInt, flags: CULong): CInt =
-    throw UnsupportedOperationException("fchflags requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("fchflags requires manual FFI bridge — type mismatch")
 public actual fun lchflags(path: String?, flags: CULong): CInt =
     libc.cinterop.libc_lchflags(path, flags)
 public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT =

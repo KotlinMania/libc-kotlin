@@ -241,7 +241,7 @@ public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: UL
     throw UnsupportedOperationException("getgrnamR requires manual FFI bridge — not yet implemented")
 
 public actual fun initgroups(user: String?, group: GidT): CInt =
-    throw UnsupportedOperationException("initgroups requires manual FFI bridge — type width mismatch")
+    throw UnsupportedOperationException("initgroups requires manual FFI bridge — type mismatch")
 public actual fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT =
     throw UnsupportedOperationException("semOpen requires manual FFI bridge — not yet implemented")
 
