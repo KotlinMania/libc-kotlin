@@ -5,14 +5,9 @@ package io.github.kotlinmania.libc.unix.newlib.espidf
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.toCPointer
-import libc.cinterop.libc_getrandom
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    val cPtr: CPointer<ByteVar>? = buf?.value?.toCPointer()
-    return libc.cinterop.libc_getrandom(cPtr, buflen, flags)
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun gethostname(name: String?, namelen: SsizeT) {
     throw UnsupportedOperationException("gethostname requires manual FFI bridge — not yet implemented")

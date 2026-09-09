@@ -5,8 +5,6 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.ByteVar
 
 public actual fun time(tloc: TimeT?): TimeT =
     throw UnsupportedOperationException("time requires manual FFI bridge — not yet implemented")
@@ -48,7 +46,7 @@ public actual fun strptime(s: String?, format: String?, tm: Tm?): String? =
     throw UnsupportedOperationException("strptime requires manual FFI bridge — not yet implemented")
 
 public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
-    libc.cinterop.libc_clock_gettime(clkId, tp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("clockGettime requires manual FFI bridge — not yet implemented")
 
 public actual fun nanosleep(req: Timespec?, rem: Timespec?): CInt =
     throw UnsupportedOperationException("nanosleep requires manual FFI bridge — not yet implemented")

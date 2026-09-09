@@ -5,9 +5,6 @@ package io.github.kotlinmania.libc.unix.newlib.horizon
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.toCPointer
-import libc.cinterop.libc_getrandom
 
 public actual fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt =
     throw UnsupportedOperationException("pthreadAttrGetschedparam requires manual FFI bridge — not yet implemented")
@@ -36,10 +33,8 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
 public actual fun pthreadGetprocessoridNp(): CInt =
     throw UnsupportedOperationException("pthreadGetprocessoridNp requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    val cPtr: CPointer<ByteVar>? = buf?.value?.toCPointer()
-    return libc.cinterop.libc_getrandom(cPtr, buflen, flags)
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun gethostid(): CLong =
     libc.cinterop.libc_gethostid()

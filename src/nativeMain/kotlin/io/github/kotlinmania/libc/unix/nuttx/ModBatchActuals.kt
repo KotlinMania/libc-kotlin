@@ -7,7 +7,6 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import libc.cinterop.libc_getrandom
 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
@@ -24,10 +23,10 @@ public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags:
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
 public actual fun clockGettime(clockid: ClockidT, tp: Timespec?): Int =
-    libc.cinterop.libc_clock_gettime(clockid, tp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("clockGettime requires manual FFI bridge — not yet implemented")
 
 public actual fun futimens(fd: Int, times: Timespec?): Int =
-    libc.cinterop.libc_futimens(fd, times?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("futimens requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): Int =
     throw UnsupportedOperationException("pthreadCondattrSetclock requires manual FFI bridge — not yet implemented")
@@ -38,10 +37,8 @@ public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): Int =
 public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): Int =
     throw UnsupportedOperationException("pthreadGetnameNp requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long {
-    val cPtr: CPointer<ByteVar>? = buf?.value?.toCPointer()
-    return libc.cinterop.libc_getrandom(cPtr, buflen, flags)
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long =
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")

@@ -198,10 +198,10 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePoint
 public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memccpy requires manual FFI bridge — type mismatch")
 public actual fun getpwnam(name: String?): Passwd? =
-    libc.cinterop.libc_getpwnam(name)?.let { COpaquePointer(it.toLong()) }
+    throw UnsupportedOperationException("getpwnam requires manual FFI bridge — not yet implemented")
 
 public actual fun getpwuid(uid: UidT): Passwd? =
-    libc.cinterop.libc_getpwuid(uid.toInt())?.let { COpaquePointer(it.toLong()) }
+    throw UnsupportedOperationException("getpwuid requires manual FFI bridge — not yet implemented")
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires manual FFI bridge — not yet implemented")
@@ -498,10 +498,10 @@ public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     throw UnsupportedOperationException("pthreadKeyDelete requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc.cinterop.libc_pthread_getspecific(key.toULong())?.let { COpaquePointer(it.toLong()) }
+    throw UnsupportedOperationException("pthreadGetspecific requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    libc.cinterop.libc_pthread_setspecific(key.toULong(), value?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("pthreadSetspecific requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadMutexInit(lock: PthreadMutexT, attr: PthreadMutexattrT): CInt =
     throw UnsupportedOperationException("pthreadMutexInit requires manual FFI bridge — not yet implemented")

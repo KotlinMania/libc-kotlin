@@ -5,8 +5,6 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.ByteVar
 
 public actual fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadJoin requires manual FFI bridge — not yet implemented")
@@ -93,10 +91,10 @@ public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     throw UnsupportedOperationException("pthreadKeyDelete requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc.cinterop.libc_pthread_getspecific(key.toULong())?.let { COpaquePointer(it.toLong()) }
+    throw UnsupportedOperationException("pthreadGetspecific requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    libc.cinterop.libc_pthread_setspecific(key.toULong(), value?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("pthreadSetspecific requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("pthreadGetnameNp requires manual FFI bridge — not yet implemented")

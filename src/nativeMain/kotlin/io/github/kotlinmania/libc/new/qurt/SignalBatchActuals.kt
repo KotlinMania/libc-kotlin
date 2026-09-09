@@ -5,8 +5,6 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.ByteVar
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
     libc.cinterop.libc_kill(pid, sig)
@@ -43,4 +41,4 @@ public actual fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt 
     throw UnsupportedOperationException("sigaction requires manual FFI bridge — not yet implemented")
 
 public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
-    libc.cinterop.libc_sigtimedwait(set?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>(), info?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), timeout?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("sigtimedwait requires manual FFI bridge — not yet implemented")

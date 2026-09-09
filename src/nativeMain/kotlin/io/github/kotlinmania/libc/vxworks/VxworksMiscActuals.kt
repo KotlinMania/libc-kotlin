@@ -7,13 +7,6 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.UIntVar
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.ptr
-import libc.cinterop.libc_recvfrom
-import libc.cinterop.libc_recvmsg
-import libc.cinterop.libc_sendmsg
 
 
 
@@ -97,13 +90,13 @@ public actual fun getline(lineptr: COpaquePointer?, n: ULong?, stream: FILE?): S
     throw UnsupportedOperationException("getline requires manual FFI bridge — not yet implemented")
 
 public actual fun memalign(blockSize: ULong, sizeArg: ULong): COpaquePointer? =
-    libc.cinterop.libc_memalign(blockSize, sizeArg)?.let { COpaquePointer(it.toLong()) }
+    throw UnsupportedOperationException("memalign requires manual FFI bridge — not yet implemented")
 
 public actual fun readdir(pDir: DIR?): Dirent? =
     throw UnsupportedOperationException("readdir requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc.cinterop.libc_pthread_getspecific(key)?.let { COpaquePointer(it.toLong()) }
+    throw UnsupportedOperationException("pthreadGetspecific requires manual FFI bridge — not yet implemented")
 
 public actual fun freeaddrinfo(res: Addrinfo?) {
     throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")
@@ -171,58 +164,22 @@ public actual fun pthreadCreate(pThread: PthreadT?, pAttr: PthreadAttrT?, startR
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     libc.cinterop.libc_read(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count)
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
-    libc.cinterop.libc_readv(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt)
+    throw UnsupportedOperationException("readv requires manual FFI bridge for Iovec type")
 
 public actual fun recv(s: CInt, buf: COpaquePointer?, bufLen: ULong, flags: CInt): SsizeT =
     throw UnsupportedOperationException("recv requires manual FFI bridge for COpaquePointer param")
 
 public actual fun recvfrom(s: CInt, buf: COpaquePointer?, bufLen: ULong, flags: CInt, from: Sockaddr?, pFromLen: SocklenT?): SsizeT =
-    memScoped {
-        val cBuf = buf?.value?.toCPointer<ByteVar>()
-        val cAddr = if (from != null) {
-            val ptr = alloc<platform.posix.sockaddr>()
-            ptr.sa_family = from.saFamily.toUShort()
-            for (i in from.saData.indices) {
-                ptr.sa_data[i] = from.saData[i]
-            }
-            ptr.ptr
-        } else null
-        val cAddrLen = if (pFromLen != null) alloc<UIntVar>().also { it.value = pFromLen.toUInt() }.ptr else null
-        libc_recvfrom(s, cBuf, bufLen, flags, cAddr, cAddrLen)
-    }
+    throw UnsupportedOperationException("recvfrom requires manual FFI bridge")
 
 public actual fun recvmsg(socket: CInt, mp: Msghdr?, flags: CInt): SsizeT =
-    memScoped {
-        val cMsg = if (mp != null) {
-            val ptr = alloc<platform.posix.msghdr>()
-            ptr.msg_name = mp.msgName?.value?.toCPointer<ByteVar>()
-            ptr.msg_namelen = mp.msgNamelen.toUInt()
-            ptr.msg_iovlen = mp.msgIovlen.toULong()
-            ptr.msg_control = mp.msgControl?.value?.toCPointer<ByteVar>()
-            ptr.msg_controllen = mp.msgControllen.toULong()
-            ptr.msg_flags = mp.msgFlags
-            ptr.ptr
-        } else null
-        libc_recvmsg(socket, cMsg, flags)
-    }
+    throw UnsupportedOperationException("recvmsg requires manual FFI bridge for Msghdr type")
 
 public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
     throw UnsupportedOperationException("send requires manual FFI bridge for COpaquePointer param")
 
 public actual fun sendmsg(socket: CInt, mp: Msghdr?, flags: CInt): SsizeT =
-    memScoped {
-        val cMsg = if (mp != null) {
-            val ptr = alloc<platform.posix.msghdr>()
-            ptr.msg_name = mp.msgName?.value?.toCPointer<ByteVar>()
-            ptr.msg_namelen = mp.msgNamelen.toUInt()
-            ptr.msg_iovlen = mp.msgIovlen.toULong()
-            ptr.msg_control = mp.msgControl?.value?.toCPointer<ByteVar>()
-            ptr.msg_controllen = mp.msgControllen.toULong()
-            ptr.msg_flags = mp.msgFlags
-            ptr.ptr
-        } else null
-        libc_sendmsg(socket, cMsg, flags)
-    }
+    throw UnsupportedOperationException("sendmsg requires manual FFI bridge for Msghdr type")
 
 public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT =
     throw UnsupportedOperationException("sendto requires manual FFI bridge")
@@ -244,4 +201,4 @@ public actual fun waitpid(pid: PidT, status: CInt?, options: CInt): PidT =
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     throw UnsupportedOperationException("write requires manual FFI bridge — UInt/ULong type mismatch")
 public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
-    libc.cinterop.libc_writev(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt)
+    throw UnsupportedOperationException("writev requires manual FFI bridge for Iovec type")
