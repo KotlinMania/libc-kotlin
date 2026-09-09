@@ -33,10 +33,10 @@ public actual fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT? 
     throw UnsupportedOperationException("semOpen requires manual FFI bridge — not yet implemented")
 
 public actual fun semClose(sem: SemT?): CInt =
-    throw UnsupportedOperationException("semClose requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_close(sem?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun semUnlink(name: String?): CInt =
-    throw UnsupportedOperationException("semUnlink requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_unlink(name)
 
 public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires manual FFI bridge — not yet implemented")

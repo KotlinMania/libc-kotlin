@@ -9,6 +9,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_memmem
 
 public actual fun isalnum(c: CInt): CInt = libc.cinterop.libc_isalnum(c)
 public actual fun isalpha(c: CInt): CInt = libc.cinterop.libc_isalpha(c)
@@ -480,8 +481,14 @@ public actual fun stpncpy(arg1: String?, arg2: String?, arg3: ULong): String? =
 
 public actual fun strnlen(arg1: String?, arg2: ULong): ULong =
     libc.cinterop.libc_strnlen(arg1, arg2)
-public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
+public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? {
+    val hPtr: CPointer<ByteVar>? = arg1?.value?.toCPointer()
+    val nPtr: CPointer<ByteVar>? = arg3?.value?.toCPointer()
+    if (hPtr == null || nPtr == null) return null
+    val result = libc.cinterop.libc_memmem(hPtr, arg2, nPtr, arg4)
+    if (result == null) return null
+    return COpaquePointer(result.toLong())
+}
 
 public actual fun strcasestr(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcasestr requires manual FFI bridge — not yet implemented")
@@ -633,7 +640,7 @@ public actual fun localeconv(): Lconv? =
 public actual fun setlocale(arg1: CInt, arg2: String?): String? =
     throw UnsupportedOperationException("setlocale requires manual FFI bridge — type mismatch")
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    throw UnsupportedOperationException("duplocale requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_duplocale(arg1?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())?.toLong()?.toULong()
 
 public actual fun freelocale(arg1: LocaleT) {
     throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
@@ -646,13 +653,13 @@ public actual fun newlocale(arg1: CInt, arg2: String?, arg3: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires manual FFI bridge — not yet implemented")
 
 public actual fun nlLanginfo(item: NlItem): String? =
-    throw UnsupportedOperationException("nlLanginfo requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_nl_langinfo(item.toInt())?.toKString()
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): String? =
     throw UnsupportedOperationException("nlLanginfoL requires manual FFI bridge — not yet implemented")
 
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memalign requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =
     libc.cinterop.libc_lseek(arg1, arg2, arg3)

@@ -5,12 +5,14 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.ByteVar
 
 public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
-    throw UnsupportedOperationException("semInit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_init(sem?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>(), pshared, value)
 
 public actual fun semDestroy(sem: SemT?): CInt =
-    throw UnsupportedOperationException("semDestroy requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_destroy(sem?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun semWait(sem: SemT?): CInt =
     throw UnsupportedOperationException("semWait requires manual FFI bridge — not yet implemented")

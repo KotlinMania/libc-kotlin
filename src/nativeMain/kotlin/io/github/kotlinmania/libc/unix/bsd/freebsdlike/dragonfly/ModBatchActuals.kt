@@ -7,12 +7,53 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.toLong
+import libc.cinterop.libc_memmem
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.useContents
+import libc.cinterop.libc_cmsg_data
+import libc.cinterop.libc_cmsg_firsthdr
+import libc.cinterop.libc_cmsg_nxthdr
+import kotlinx.cinterop.toKString
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
-    throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
+public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? {
+    if (cmsg == null) return null
+    return memScoped {
+        val cPtr = alloc<platform.posix.cmsghdr>()
+        cPtr.cmsg_len = cmsg.cmsgLen.toULong()
+        cPtr.cmsg_level = cmsg.cmsgLevel
+        cPtr.cmsg_type = cmsg.cmsgType
+        val result = libc_cmsg_data(cPtr.ptr)
+        if (result == null) null else COpaquePointer(result.toLong())
+    }
+}
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
-    throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
+public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
+    if (mhdr == null) return null
+    return memScoped {
+        val mhdrPtr = alloc<platform.posix.msghdr>()
+        mhdrPtr.msg_name = mhdr.msgName?.value?.toCPointer<ByteVar>()
+        mhdrPtr.msg_namelen = mhdr.msgNamelen.toUInt()
+        mhdrPtr.msg_iovlen = mhdr.msgIovlen.toULong()
+        mhdrPtr.msg_control = mhdr.msgControl?.value?.toCPointer<ByteVar>()
+        mhdrPtr.msg_controllen = mhdr.msgControllen.toULong()
+        mhdrPtr.msg_flags = mhdr.msgFlags
+        if (cmsg == null) {
+            val result = libc_cmsg_firsthdr(mhdrPtr.ptr)
+            if (result == null) null
+            else result.reinterpret<platform.posix.cmsghdr>().useContents { Cmsghdr(cmsg_len.toUInt(), cmsg_level, cmsg_type) }
+        } else {
+            val cmsgPtr = alloc<platform.posix.cmsghdr>()
+            cmsgPtr.cmsg_len = cmsg.cmsgLen.toULong()
+            cmsgPtr.cmsg_level = cmsg.cmsgLevel
+            cmsgPtr.cmsg_type = cmsg.cmsgType
+            val result = libc_cmsg_nxthdr(mhdrPtr.ptr, cmsgPtr.ptr)
+            if (result == null) null
+            else result.reinterpret<platform.posix.cmsghdr>().useContents { Cmsghdr(cmsg_len.toUInt(), cmsg_level, cmsg_type) }
+        }
+    }
+}
 
 public actual fun cPUZERO(cpuset: CpuSetT?) {
     throw UnsupportedOperationException("cPUZERO requires manual FFI bridge — not yet implemented")
@@ -33,7 +74,7 @@ public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
 
 public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_setgrent()
 }
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
@@ -64,25 +105,31 @@ public actual fun fstatfs(fd: CInt, buf: Statfs?): CInt =
     throw UnsupportedOperationException("fstatfs requires manual FFI bridge — not yet implemented")
 
 public actual fun uname(buf: Utsname?): CInt =
-    throw UnsupportedOperationException("uname requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_uname(buf?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? {
+    val hPtr: CPointer<ByteVar>? = haystack?.value?.toCPointer()
+    val nPtr: CPointer<ByteVar>? = needle?.value?.toCPointer()
+    if (hPtr == null || nPtr == null) return null
+    val result = libc.cinterop.libc_memmem(hPtr, haystacklen, nPtr, needlelen)
+    if (result == null) return null
+    return COpaquePointer(result.toLong())
+}
 
 public actual fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt =
-    throw UnsupportedOperationException("pthreadSpinInit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_init(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>(), pshared)
 
 public actual fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinDestroy requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_destroy(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinLock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_lock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinTrylock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_trylock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinUnlock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_unlock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt =
     throw UnsupportedOperationException("schedGetaffinity requires manual FFI bridge — not yet implemented")
@@ -133,10 +180,10 @@ public actual fun umtxWakeup(ptr: CInt?, count: CInt): CInt =
     throw UnsupportedOperationException("umtxWakeup requires manual FFI bridge — not yet implemented")
 
 public actual fun dirname(path: String?): String? =
-    throw UnsupportedOperationException("dirname requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_dirname(path)?.toKString()
 
 public actual fun basename(path: String?): String? =
-    throw UnsupportedOperationException("basename requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_basename(path)?.toKString()
 
 public actual fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt =
     throw UnsupportedOperationException("getmntinfo requires manual FFI bridge — not yet implemented")

@@ -5,6 +5,8 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.ByteVar
 
 public actual fun eventfd(initval: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("eventfd requires manual FFI bridge — not yet implemented")
@@ -49,10 +51,10 @@ public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt):
     throw UnsupportedOperationException("posixFadvise requires manual FFI bridge — not yet implemented")
 
 public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
-    throw UnsupportedOperationException("preadv requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_preadv(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
 
 public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
-    throw UnsupportedOperationException("pwritev requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pwritev(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
 
 public actual fun getpagesizes2(pagesize: ULong?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getpagesizes2 requires manual FFI bridge — not yet implemented")

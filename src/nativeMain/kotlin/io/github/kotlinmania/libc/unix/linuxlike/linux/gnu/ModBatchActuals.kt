@@ -5,6 +5,11 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_getentropy
+import libc.cinterop.libc_getrandom
+import kotlinx.cinterop.toKString
 
 public actual fun fgetspentR(fp: FILE?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("fgetspentR requires manual FFI bridge — not yet implemented")
@@ -28,10 +33,10 @@ public actual fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt 
     throw UnsupportedOperationException("setrlimit64 requires manual FFI bridge — not yet implemented")
 
 public actual fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("getrlimit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_getrlimit(resource, rlim?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("setrlimit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_setrlimit(resource, rlim?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: Rlimit?, oldLimit: Rlimit?): CInt =
     throw UnsupportedOperationException("prlimit requires manual FFI bridge — not yet implemented")
@@ -72,13 +77,17 @@ public actual fun mallopt(param: CInt, value: CInt): CInt =
     throw UnsupportedOperationException("mallopt requires manual FFI bridge — not yet implemented")
 
 public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt =
-    throw UnsupportedOperationException("gettimeofday requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_gettimeofday(tp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), tz?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
+    val cPtr: CPointer<ByteVar>? = buf?.value?.toCPointer()
+    return libc.cinterop.libc_getentropy(cPtr, buflen)
+}
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
+    val cPtr: CPointer<ByteVar>? = buf?.value?.toCPointer()
+    return libc.cinterop.libc_getrandom(cPtr, buflen, flags)
+}
 
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval requires manual FFI bridge — not yet implemented")
@@ -147,10 +156,10 @@ public actual fun pthreadAttrSetaffinityNp(attr: PthreadAttrT, cpusetsize: ULong
     throw UnsupportedOperationException("pthreadAttrSetaffinityNp requires manual FFI bridge — not yet implemented")
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    throw UnsupportedOperationException("getpriority requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_getpriority(which.toInt(), who.toInt())
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    throw UnsupportedOperationException("setpriority requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_setpriority(which.toInt(), who.toInt(), prio)
 
 public actual fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CInt?): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrGetkindNp requires manual FFI bridge — not yet implemented")
@@ -215,7 +224,7 @@ public actual fun ctimeR(timep: TimeT?, buf: String?): String? =
     throw UnsupportedOperationException("ctimeR requires manual FFI bridge — not yet implemented")
 
 public actual fun dirname(path: String?): String? =
-    throw UnsupportedOperationException("dirname requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_dirname(path)?.toKString()
 
 public actual fun posixBasename(path: String?): String? =
     throw UnsupportedOperationException("posixBasename requires manual FFI bridge — not yet implemented")

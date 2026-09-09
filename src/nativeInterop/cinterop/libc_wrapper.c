@@ -1,4 +1,5 @@
 #include "libc_wrapper.h"
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -7,6 +8,24 @@
 #include <sys/stat.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
+
+/* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+
+/* getentropy: <sys/random.h> on Linux, <unistd.h> on macOS/BSD */
+#if defined(__linux__)
+#include <sys/random.h>
+#endif
+
+/* sysctl: <sys/sysctl.h> on BSD/macOS */
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+#include <sys/sysctl.h>
+#endif
+
+/* dirname/basename: <libgen.h> */
+#include <libgen.h>
 
 /* CMSG macros */
 void* libc_cmsg_data(void* cmsg) {
@@ -276,7 +295,7 @@ int libc_mkstemps(const char* template, int suffixlen) { return mkstemps(templat
 int libc_getdomainname(const char* name, size_t len) { return getdomainname(name, len); }
 int libc_setdomainname(const char* name, size_t len) { return setdomainname(name, len); }
 int libc_sethostname(const char* name, size_t len) { return sethostname(name, len); }
-int libc_initgroups(const char* user, gid_t group) { return initgroups(user, group); }
+int libc_initgroups(const char* user, int group) { return initgroups(user, (gid_t)group); }
 int libc_daemon(int nochdir, int noclose) { return daemon(nochdir, noclose); }
 int libc_faccessat(int dirfd, const char* pathname, int mode, int flags) { return faccessat(dirfd, pathname, mode, flags); }
 int libc_getc(void* arg1) { return getc(arg1); }
@@ -314,3 +333,397 @@ int libc_ffsll(long long value) { return ffsll(value); }
 int libc_fls(int value) { return fls(value); }
 int libc_flsl(long value) { return flsl(value); }
 int libc_flsll(long long value) { return flsll(value); }
+
+/* Socket / signal / sched / pthread / pty wrappers — void* for struct params */
+int libc_getnameinfo(void* sa, unsigned int salen, char* host, unsigned int hostlen, char* serv, unsigned int servlen, int flags) {
+    return getnameinfo((const struct sockaddr*)sa, (socklen_t)salen, host, (socklen_t)hostlen, serv, (socklen_t)servlen, flags);
+}
+int libc_recvfrom(int socket, void* buf, size_t len, int flags, void* addr, void* addrlen) {
+    return (int)recvfrom(socket, buf, len, flags, (struct sockaddr*)addr, (socklen_t*)addrlen);
+}
+int libc_recvmsg(int fd, void* msg, int flags) {
+    return (int)recvmsg(fd, (struct msghdr*)msg, flags);
+}
+ssize_t libc_sendmsg(int fd, void* msg, int flags) {
+    return sendmsg(fd, (const struct msghdr*)msg, flags);
+}
+int libc_accept4(int fd, void* addr, void* len, int flg) {
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+    return accept4(fd, (struct sockaddr*)addr, (socklen_t*)len, flg);
+#else
+    (void)fd; (void)addr; (void)len; (void)flg;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_sigwait(void* set, int* sig) {
+    return sigwait((const sigset_t*)set, sig);
+}
+int libc_sigsuspend(void* mask) {
+    return sigsuspend((const sigset_t*)mask);
+}
+int libc_pthread_sigmask(int how, void* set, void* oldset) {
+    return pthread_sigmask(how, (const sigset_t*)set, (sigset_t*)oldset);
+}
+int libc_pthread_condattr_setclock(void* attr, int clockId) {
+#if defined(__linux__)
+    return pthread_condattr_setclock((pthread_condattr_t*)attr, (clockid_t)clockId);
+#else
+    (void)attr; (void)clockId;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_pthread_condattr_getclock(void* attr, int* clockId) {
+#if defined(__linux__)
+    return pthread_condattr_getclock((const pthread_condattr_t*)attr, (clockid_t*)clockId);
+#else
+    (void)attr; (void)clockId;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_pthread_setschedparam(void* thread, int policy, void* param) {
+    return pthread_setschedparam((pthread_t)thread, policy, (const struct sched_param*)param);
+}
+int libc_sched_setparam(pid_t pid, void* param) {
+#if defined(__linux__)
+    return sched_setparam(pid, (const struct sched_param*)param);
+#else
+    (void)pid; (void)param;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_sched_getparam(pid_t pid, void* param) {
+#if defined(__linux__)
+    return sched_getparam(pid, (struct sched_param*)param);
+#else
+    (void)pid; (void)param;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_sched_setscheduler(pid_t pid, int policy, void* param) {
+#if defined(__linux__)
+    return sched_setscheduler(pid, policy, (const struct sched_param*)param);
+#else
+    (void)pid; (void)policy; (void)param;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_waitid(int idtype, id_t id, void* infop, int options) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__sun)
+    return waitid((idtype_t)idtype, id, (siginfo_t*)infop, options);
+#else
+    (void)idtype; (void)id; (void)infop; (void)options;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_openpty(int* amaster, int* aslave, char* name, void* termp, void* winp) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__linux__)
+    return openpty(amaster, aslave, name, (const struct termios*)termp, (const struct winsize*)winp);
+#else
+    (void)amaster; (void)aslave; (void)name; (void)termp; (void)winp;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+pid_t libc_forkpty(int* amaster, char* name, void* termp, void* winp) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__linux__)
+    return forkpty(amaster, name, (const struct termios*)termp, (const struct winsize*)winp);
+#else
+    (void)amaster; (void)name; (void)termp; (void)winp;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+/* Struct-param function wrappers — void* for struct pointer params */
+int libc_gettimeofday(void* tp, void* tz) {
+    return gettimeofday((struct timeval*)tp, tz);
+}
+int libc_clock_gettime(clockid_t clk_id, void* tp) {
+    return clock_gettime(clk_id, (struct timespec*)tp);
+}
+int libc_futimens(int fd, void* times) {
+    return futimens(fd, (const struct timespec*)times);
+}
+ssize_t libc_pwritev(int fd, void* iov, int iovcnt, off_t offset) {
+    return pwritev(fd, (const struct iovec*)iov, iovcnt, offset);
+}
+ssize_t libc_preadv(int fd, void* iov, int iovcnt, off_t offset) {
+    return preadv(fd, (const struct iovec*)iov, iovcnt, offset);
+}
+int libc_uname(void* buf) {
+    return uname((struct utsname*)buf);
+}
+int libc_getrlimit(int resource, void* rlim) {
+    return getrlimit(resource, (struct rlimit*)rlim);
+}
+int libc_setrlimit(int resource, void* rlim) {
+    return setrlimit(resource, (const struct rlimit*)rlim);
+}
+ssize_t libc_readv(int fd, void* iov, int iovcnt) {
+    return readv(fd, (const struct iovec*)iov, iovcnt);
+}
+ssize_t libc_writev(int fd, void* iov, int iovcnt) {
+    return writev(fd, (const struct iovec*)iov, iovcnt);
+}
+int libc_clock_getres(clockid_t clk_id, void* res) {
+    return clock_getres(clk_id, (struct timespec*)res);
+}
+int libc_utimensat(int dirfd, const char* path, void* times, int flags) {
+    return utimensat(dirfd, path, (const struct timespec*)times, flags);
+}
+int libc_clock_settime(clockid_t clk_id, void* tp) {
+    return clock_settime(clk_id, (const struct timespec*)tp);
+}
+int libc_clock_nanosleep(clockid_t clock_id, int flags, void* rqtp, void* rmtp) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return clock_nanosleep(clock_id, flags, (const struct timespec*)rqtp, (struct timespec*)rmtp);
+#else
+    (void)clock_id; (void)flags; (void)rqtp; (void)rmtp;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_sigtimedwait(void* set, void* info, void* timeout) {
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
+    return sigtimedwait((const sigset_t*)set, (siginfo_t*)info, (const struct timespec*)timeout);
+#else
+    (void)set; (void)info; (void)timeout;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_settimeofday(void* tv, void* tz) {
+    return settimeofday((const struct timeval*)tv, tz);
+}
+int libc_pthread_mutex_timedlock(void* mutex, void* abstime) {
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__) || defined(__CYGWIN__)
+    return pthread_mutex_timedlock((pthread_mutex_t*)mutex, (const struct timespec*)abstime);
+#else
+    (void)mutex; (void)abstime;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_sem_timedwait(void* sem, void* abstime) {
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__) || defined(__CYGWIN__)
+    return sem_timedwait((sem_t*)sem, (const struct timespec*)abstime);
+#else
+    (void)sem; (void)abstime;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+/* COpaquePointer-param wrappers — void* for pointer params */
+int libc_pthread_attr_getstack(void* attr, void* stackaddr, void* stacksize) {
+    return pthread_attr_getstack((pthread_attr_t*)attr, stackaddr, (size_t*)stacksize);
+}
+int libc_getentropy(void* buf, size_t buflen) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return getentropy(buf, buflen);
+#else
+    (void)buf; (void)buflen;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+ssize_t libc_getrandom(void* buf, size_t buflen, unsigned int flags) {
+#if defined(__linux__)
+    return getrandom(buf, buflen, flags);
+#else
+    (void)buf; (void)buflen; (void)flags;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_posix_madvise(void* addr, size_t len, int advice) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return posix_madvise(addr, len, advice);
+#else
+    (void)addr; (void)len; (void)advice;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+void* libc_memmem(const void* haystack, size_t haystacklen, const void* needle, size_t needlelen) {
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__) || defined(__CYGWIN__)
+    return memmem(haystack, haystacklen, needle, needlelen);
+#else
+    (void)haystack; (void)haystacklen; (void)needle; (void)needlelen;
+    return NULL;
+#endif
+}
+int libc_sysctl(int* name, unsigned int namelen, void* oldp, void* oldlenp, void* newp, size_t newlen) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return sysctl(name, namelen, oldp, (size_t*)oldlenp, newp, newlen);
+#else
+    (void)name; (void)namelen; (void)oldp; (void)oldlenp; (void)newp; (void)newlen;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+/* String-param function wrappers */
+int libc_shm_open(const char* name, int oflag, int mode) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return shm_open(name, oflag, (mode_t)mode);
+#else
+    (void)name; (void)oflag; (void)mode;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_shm_unlink(const char* name) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return shm_unlink(name);
+#else
+    (void)name;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_sem_unlink(const char* name) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
+    return sem_unlink(name);
+#else
+    (void)name;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_mknodat(int dirfd, const char* pathname, int mode, unsigned long long dev) {
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__)
+    return mknodat(dirfd, pathname, (mode_t)mode, (dev_t)dev);
+#else
+    (void)dirfd; (void)pathname; (void)mode; (void)dev;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_mkfifoat_int(int dirfd, const char* pathname, int mode) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
+    return mkfifoat(dirfd, pathname, (mode_t)mode);
+#else
+    (void)dirfd; (void)pathname; (void)mode;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+char* libc_dirname(const char* path) {
+    /* dirname may modify its argument; copy to a mutable buffer */
+    static char buf[4096];
+    if (path == NULL) return NULL;
+    strncpy(buf, path, sizeof(buf) - 1);
+    buf[sizeof(buf) - 1] = '\0';
+    return dirname(buf);
+}
+char* libc_basename(const char* path) {
+    /* basename may modify its argument; copy to a mutable buffer */
+    static char buf[4096];
+    if (path == NULL) return NULL;
+    strncpy(buf, path, sizeof(buf) - 1);
+    buf[sizeof(buf) - 1] = '\0';
+    return basename(buf);
+}
+char* libc_strerror_r(int errnum, char* buf, size_t buflen) {
+#if defined(__linux__) && defined(__GNU_LIBRARY__)
+    /* GNU strerror_r returns char* */
+    return strerror_r(errnum, buf, buflen);
+#elif defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    /* XSI strerror_r returns int; convert to char* on success */
+    int rc = strerror_r(errnum, buf, buflen);
+    (void)rc;
+    return buf;
+#else
+    (void)errnum; (void)buflen;
+    if (buf) buf[0] = '\0';
+    return buf;
+#endif
+}
+size_t libc_strftime(char* s, size_t max, const char* format, void* tm) {
+    return strftime(s, max, format, (const struct tm*)tm);
+}
+void* libc_popen(const char* command, const char* mode) {
+    return popen(command, mode);
+}
+void* libc_newlocale(int mask, const char* locale, void* base) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return newlocale(mask, locale, (locale_t)base);
+#else
+    (void)mask; (void)locale; (void)base;
+    errno = ENOSYS;
+    return NULL;
+#endif
+}
+int libc_pthread_getname_np(void* thread, char* name, unsigned long len) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+    return pthread_getname_np((pthread_t)thread, name, len);
+#else
+    (void)thread; (void)name; (void)len;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_pthread_setname_np(void* thread, const char* name) {
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
+    return pthread_setname_np((pthread_t)thread, name);
+#elif defined(__APPLE__)
+    /* macOS pthread_setname_np takes only the name, not the thread */
+    (void)thread;
+    return pthread_setname_np(name);
+#else
+    (void)thread; (void)name;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+int libc_getgrouplist(const char* user, int group, void* groups, int* ngroups) {
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
+    return getgrouplist(user, (gid_t)group, (gid_t*)groups, ngroups);
+#else
+    (void)user; (void)group; (void)groups; (void)ngroups;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+/* Simple integer-param wrappers */
+int libc_getpriority(int which, int who) { return getpriority(which, who); }
+int libc_setpriority(int which, int who, int prio) { return setpriority(which, who, prio); }
+int libc_sem_destroy(void* sem) { return sem_destroy((sem_t*)sem); }
+int libc_sem_init(void* sem, int pshared, unsigned int value) { return sem_init((sem_t*)sem, pshared, value); }
+int libc_sem_close(void* sem) { return sem_close((sem_t*)sem); }
+int libc_sem_getvalue(void* sem, int* sval) { return sem_getvalue((sem_t*)sem, sval); }
+int libc_sched_getscheduler(pid_t pid) { return sched_getscheduler(pid); }
+int libc_sched_get_priority_max(int policy) { return sched_get_priority_max(policy); }
+int libc_sched_get_priority_min(int policy) { return sched_get_priority_min(policy); }
+int libc_pthread_kill(void* thread, int sig) { return pthread_kill((pthread_t)thread, sig); }
+int libc_pthread_spin_init(void* lock, int pshared) { return pthread_spin_init((pthread_spinlock_t*)lock, pshared); }
+int libc_pthread_spin_destroy(void* lock) { return pthread_spin_destroy((pthread_spinlock_t*)lock); }
+int libc_pthread_spin_lock(void* lock) { return pthread_spin_lock((pthread_spinlock_t*)lock); }
+int libc_pthread_spin_trylock(void* lock) { return pthread_spin_trylock((pthread_spinlock_t*)lock); }
+int libc_pthread_spin_unlock(void* lock) { return pthread_spin_unlock((pthread_spinlock_t*)lock); }
+int libc_posix_fallocate(int fd, long offset, long len) { return posix_fallocate(fd, (off_t)offset, (off_t)len); }
+void* libc_memalign(size_t alignment, size_t size) { return memalign(alignment, size); }
+long libc_telldir(void* dirp) { return (long)telldir((DIR*)dirp); }
+void* libc_duplocale(void* base) { return (void*)duplocale((locale_t)base); }
+char* libc_nl_langinfo(int item) { return nl_langinfo(item); }
+void* libc_getpwent(void) { return (void*)getpwent(); }
+void* libc_getgrent(void) { return (void*)getgrent(); }
+void libc_endpwent(void) { endpwent(); }
+void libc_endgrent(void) { endgrent(); }
+void libc_setpwent(void) { setpwent(); }
+void libc_setgrent(void) { setgrent(); }
+void* libc_getgrgid(int gid) { return (void*)getgrgid((gid_t)gid); }
+void* libc_getpwuid(int uid) { return (void*)getpwuid((uid_t)uid); }
+void* libc_getpwnam(const char* name) { return (void*)getpwnam(name); }
+void* libc_getgrnam(const char* name) { return (void*)getgrnam(name); }
+int libc_pthread_setspecific(unsigned long key, const void* value) { return pthread_setspecific((pthread_key_t)key, value); }
+void* libc_pthread_getspecific(unsigned long key) { return (void*)pthread_getspecific((pthread_key_t)key); }

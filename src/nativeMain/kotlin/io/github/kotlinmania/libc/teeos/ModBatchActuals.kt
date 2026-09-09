@@ -67,10 +67,10 @@ public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     throw UnsupportedOperationException("pthreadKeyDelete requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    throw UnsupportedOperationException("pthreadGetspecific requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_getspecific(key.toULong())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("pthreadSetspecific requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_setspecific(key.toULong(), value?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadMutexDestroy(lock: PthreadMutexT?): CInt =
     throw UnsupportedOperationException("pthreadMutexDestroy requires manual FFI bridge — not yet implemented")
@@ -121,19 +121,19 @@ public actual fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT?, robustness
     throw UnsupportedOperationException("pthreadMutexattrSetrobust requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt =
-    throw UnsupportedOperationException("pthreadSpinInit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_init(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>(), pshared)
 
 public actual fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinDestroy requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_destroy(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinLock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_lock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinTrylock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_trylock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinUnlock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_unlock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
     throw UnsupportedOperationException("pthreadSetschedprio requires manual FFI bridge — not yet implemented")
@@ -193,12 +193,12 @@ public actual fun errnoLocation(): CInt? =
 public actual fun strerror(e: CInt): String? =
     throw UnsupportedOperationException("strerror requires manual FFI bridge — type mismatch")
 public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt =
-    throw UnsupportedOperationException("clockGettime requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_clock_gettime(clockId, tp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun getpid(): PidT =
     libc.cinterop.libc_getpid()
 public actual fun gettimeofday(tv: Timeval?, tz: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("gettimeofday requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_gettimeofday(tv?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), tz?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun strftime(s: String?, sz: ULong, format: String?, tm: Tm?): ULong =
     throw UnsupportedOperationException("strftime requires manual FFI bridge — not yet implemented")
@@ -207,16 +207,16 @@ public actual fun time(t: TimeT?): TimeT =
     throw UnsupportedOperationException("time requires manual FFI bridge — not yet implemented")
 
 public actual fun semClose(sem: SemT?): CInt =
-    throw UnsupportedOperationException("semClose requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_close(sem?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun semDestroy(sem: SemT?): CInt =
-    throw UnsupportedOperationException("semDestroy requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_destroy(sem?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun semGetvalue(sem: SemT?, valp: CInt?): CInt =
     throw UnsupportedOperationException("semGetvalue requires manual FFI bridge — not yet implemented")
 
 public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
-    throw UnsupportedOperationException("semInit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_init(sem?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), pshared, value)
 
 public actual fun semOpen(name: String?, flags: CInt, vararg args: Any?): SemT? =
     throw UnsupportedOperationException("semOpen requires manual FFI bridge — not yet implemented")
@@ -225,7 +225,7 @@ public actual fun semPost(sem: SemT?): CInt =
     throw UnsupportedOperationException("semPost requires manual FFI bridge — not yet implemented")
 
 public actual fun semUnlink(name: String?): CInt =
-    throw UnsupportedOperationException("semUnlink requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_sem_unlink(name)
 
 public actual fun semWait(sem: SemT?): CInt =
     throw UnsupportedOperationException("semWait requires manual FFI bridge — not yet implemented")

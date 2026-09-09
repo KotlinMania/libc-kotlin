@@ -48,6 +48,12 @@
 #include <mach/mach_time.h>
 #include <mach-o/dyld.h>
 
+/* pty.h (Linux) / util.h (macOS/BSD) for openpty/forkpty */
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+#include <util.h>
+#elif defined(__linux__)
+#include <pty.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -286,7 +292,7 @@ int libc_mkstemps(const char* template, int suffixlen);
 int libc_getdomainname(const char* name, size_t len);
 int libc_setdomainname(const char* name, size_t len);
 int libc_sethostname(const char* name, size_t len);
-int libc_initgroups(const char* user, gid_t group);
+int libc_initgroups(const char* user, int group);
 int libc_daemon(int nochdir, int noclose);
 int libc_faccessat(int dirfd, const char* pathname, int mode, int flags);
 int libc_getc(void* arg1);
@@ -324,5 +330,103 @@ int libc_ffsll(long long value);
 int libc_fls(int value);
 int libc_flsl(long value);
 int libc_flsll(long long value);
+
+/* Socket / signal / sched / pthread / pty wrappers — void* for struct params */
+int libc_getnameinfo(void* sa, unsigned int salen, char* host, unsigned int hostlen, char* serv, unsigned int servlen, int flags);
+int libc_recvfrom(int socket, void* buf, size_t len, int flags, void* addr, void* addrlen);
+int libc_recvmsg(int fd, void* msg, int flags);
+ssize_t libc_sendmsg(int fd, void* msg, int flags);
+int libc_accept4(int fd, void* addr, void* len, int flg);
+int libc_sigwait(void* set, int* sig);
+int libc_sigsuspend(void* mask);
+int libc_pthread_sigmask(int how, void* set, void* oldset);
+int libc_pthread_condattr_setclock(void* attr, int clockId);
+int libc_pthread_condattr_getclock(void* attr, int* clockId);
+int libc_pthread_setschedparam(void* thread, int policy, void* param);
+int libc_sched_setparam(pid_t pid, void* param);
+int libc_sched_getparam(pid_t pid, void* param);
+int libc_sched_setscheduler(pid_t pid, int policy, void* param);
+int libc_waitid(int idtype, id_t id, void* infop, int options);
+int libc_openpty(int* amaster, int* aslave, char* name, void* termp, void* winp);
+pid_t libc_forkpty(int* amaster, char* name, void* termp, void* winp);
+
+/* Struct-param function wrappers — void* for struct pointer params */
+int libc_gettimeofday(void* tp, void* tz);
+int libc_clock_gettime(clockid_t clk_id, void* tp);
+int libc_futimens(int fd, void* times);
+ssize_t libc_pwritev(int fd, void* iov, int iovcnt, off_t offset);
+ssize_t libc_preadv(int fd, void* iov, int iovcnt, off_t offset);
+int libc_uname(void* buf);
+int libc_getrlimit(int resource, void* rlim);
+int libc_setrlimit(int resource, void* rlim);
+ssize_t libc_readv(int fd, void* iov, int iovcnt);
+ssize_t libc_writev(int fd, void* iov, int iovcnt);
+int libc_clock_getres(clockid_t clk_id, void* res);
+int libc_utimensat(int dirfd, const char* path, void* times, int flags);
+int libc_clock_settime(clockid_t clk_id, void* tp);
+int libc_clock_nanosleep(clockid_t clock_id, int flags, void* rqtp, void* rmtp);
+int libc_sigtimedwait(void* set, void* info, void* timeout);
+int libc_settimeofday(void* tv, void* tz);
+int libc_pthread_mutex_timedlock(void* mutex, void* abstime);
+int libc_sem_timedwait(void* sem, void* abstime);
+
+/* COpaquePointer-param wrappers — void* for pointer params */
+int libc_pthread_attr_getstack(void* attr, void* stackaddr, void* stacksize);
+int libc_getentropy(void* buf, size_t buflen);
+ssize_t libc_getrandom(void* buf, size_t buflen, unsigned int flags);
+int libc_posix_madvise(void* addr, size_t len, int advice);
+void* libc_memmem(const void* haystack, size_t haystacklen, const void* needle, size_t needlelen);
+int libc_sysctl(int* name, unsigned int namelen, void* oldp, void* oldlenp, void* newp, size_t newlen);
+
+
+/* Simple integer-param wrappers */
+void* libc_duplocale(void* base);
+void libc_endgrent(void);
+void libc_endpwent(void);
+void* libc_getgrent(void);
+void* libc_getgrgid(int gid);
+void* libc_getgrnam(const char* name);
+int libc_getpriority(int which, int who);
+void* libc_getpwent(void);
+void* libc_getpwnam(const char* name);
+void* libc_getpwuid(int uid);
+void* libc_memalign(size_t alignment, size_t size);
+char* libc_nl_langinfo(int item);
+int libc_posix_fallocate(int fd, long offset, long len);
+void* libc_pthread_getspecific(unsigned long key);
+int libc_pthread_kill(void* thread, int sig);
+int libc_pthread_setspecific(unsigned long key, const void* value);
+int libc_pthread_spin_destroy(void* lock);
+int libc_pthread_spin_init(void* lock, int pshared);
+int libc_pthread_spin_lock(void* lock);
+int libc_pthread_spin_trylock(void* lock);
+int libc_pthread_spin_unlock(void* lock);
+int libc_sched_get_priority_max(int policy);
+int libc_sched_get_priority_min(int policy);
+int libc_sched_getscheduler(pid_t pid);
+int libc_sem_close(void* sem);
+int libc_sem_destroy(void* sem);
+int libc_sem_getvalue(void* sem, int* sval);
+int libc_sem_init(void* sem, int pshared, unsigned int value);
+void libc_setgrent(void);
+int libc_setpriority(int which, int who, int prio);
+void libc_setpwent(void);
+long libc_telldir(void* dirp);
+
+/* String-param function wrappers — const char* auto-converts via cinterop */
+int libc_shm_open(const char* name, int oflag, int mode);
+int libc_shm_unlink(const char* name);
+int libc_sem_unlink(const char* name);
+int libc_mknodat(int dirfd, const char* pathname, int mode, unsigned long long dev);
+int libc_mkfifoat_int(int dirfd, const char* pathname, int mode);
+char* libc_dirname(const char* path);
+char* libc_basename(const char* path);
+char* libc_strerror_r(int errnum, char* buf, size_t buflen);
+size_t libc_strftime(char* s, size_t max, const char* format, void* tm);
+void* libc_popen(const char* command, const char* mode);
+void* libc_newlocale(int mask, const char* locale, void* base);
+int libc_pthread_getname_np(void* thread, char* name, unsigned long len);
+int libc_pthread_setname_np(void* thread, const char* name);
+int libc_getgrouplist(const char* user, int group, void* groups, int* ngroups);
 
 #endif /* LIBC_WRAPPER_H */

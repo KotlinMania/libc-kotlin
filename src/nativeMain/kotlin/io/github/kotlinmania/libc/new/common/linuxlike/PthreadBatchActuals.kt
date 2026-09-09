@@ -19,4 +19,4 @@ public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpus
     throw UnsupportedOperationException("pthreadSetaffinityNp requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    throw UnsupportedOperationException("pthreadSetnameNp requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("pthreadSetnameNp requires PthreadT bridge — not yet implemented"), name)

@@ -249,7 +249,7 @@ public actual fun wutime(file: WcharT?, buf: Utimbuf?): CInt =
     throw UnsupportedOperationException("wutime requires manual FFI bridge — not yet implemented")
 
 public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_popen(command, mode)?.let { FILE(it.toLong()) }
 
 public actual fun pclose(stream: FILE?): CInt =
     throw UnsupportedOperationException("pclose requires manual FFI bridge — not yet implemented")

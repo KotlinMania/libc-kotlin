@@ -5,15 +5,18 @@ package io.github.kotlinmania.libc.unix.newlib.vita
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_getentropy
 
 public actual fun futimens(fd: CInt, times: Timespec?): CInt =
-    throw UnsupportedOperationException("futimens requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_futimens(fd, times?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
-    throw UnsupportedOperationException("writev requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_writev(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt)
 
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
-    throw UnsupportedOperationException("readv requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_readv(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt)
 
 public actual fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT =
     throw UnsupportedOperationException("sendmsg requires manual FFI bridge — not yet implemented")
@@ -48,8 +51,10 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
 public actual fun pthreadGetprocessoridNp(): CInt =
     throw UnsupportedOperationException("pthreadGetprocessoridNp requires manual FFI bridge — not yet implemented")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
+    val cPtr: CPointer<ByteVar>? = buf?.value?.toCPointer()
+    return libc.cinterop.libc_getentropy(cPtr, buflen)
+}
 
 public actual fun pipe2(fds: CInt?, flags: CInt): CInt =
     throw UnsupportedOperationException("pipe2 requires manual FFI bridge — not yet implemented")

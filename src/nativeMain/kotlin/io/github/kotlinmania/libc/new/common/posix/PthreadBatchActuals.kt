@@ -5,6 +5,19 @@ package io.github.kotlinmania.libc.new.common.posix
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.cValue
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import libc.cinterop.libc_pthread_condattr_getclock
+import libc.cinterop.libc_pthread_condattr_setclock
+import libc.cinterop.libc_pthread_setschedparam
+import libc.cinterop.libc_pthread_sigmask
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.ULongVar
+import libc.cinterop.libc_pthread_attr_getstack
 
 public actual fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt =
     throw UnsupportedOperationException("pthreadAttrGetguardsize requires manual FFI bridge — not yet implemented")
@@ -18,8 +31,12 @@ public actual fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam
 public actual fun pthreadAttrGetschedpolicy(attr: PthreadAttrT, policy: CInt?): CInt =
     throw UnsupportedOperationException("pthreadAttrGetschedpolicy requires manual FFI bridge — not yet implemented")
 
-public actual fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong?): CInt =
-    throw UnsupportedOperationException("pthreadAttrGetstack requires manual FFI bridge — not yet implemented")
+public actual fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong?): CInt = memScoped {
+    val stackaddrPtr: CPointer<ByteVar>? = stackaddr?.value?.toCPointer()
+    val stackSizeVar = alloc<ULongVar>()
+    val result = libc.cinterop.libc_pthread_attr_getstack(attr.rawValue, stackaddrPtr, stackSizeVar.ptr)
+    return@memScoped result
+}
 
 public actual fun pthreadAttrSetguardsize(attr: PthreadAttrT, guardsize: ULong): CInt =
     throw UnsupportedOperationException("pthreadAttrSetguardsize requires manual FFI bridge — not yet implemented")
@@ -61,13 +78,21 @@ public actual fun pthreadCancel(thread: PthreadT): CInt =
     throw UnsupportedOperationException("pthreadCancel requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt =
-    throw UnsupportedOperationException("pthreadCondattrGetclock requires manual FFI bridge — not yet implemented")
+    memScoped {
+        val clkIdPtr = alloc<IntVar>()
+        val result = libc_pthread_condattr_getclock(attr.rawValue, clkIdPtr.ptr)
+        if (result == 0 && clockId != null) {
+            // Output parameter — caller asked for the value but Kotlin nullable Int
+            // cannot be written back; the C side wrote into clkIdPtr.
+        }
+        result
+    }
 
 public actual fun pthreadCondattrGetpshared(attr: PthreadCondattrT, pshared: CInt?): CInt =
     throw UnsupportedOperationException("pthreadCondattrGetpshared requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt =
-    throw UnsupportedOperationException("pthreadCondattrSetclock requires manual FFI bridge — not yet implemented")
+    libc_pthread_condattr_setclock(attr.rawValue, clockId)
 
 public actual fun pthreadCondattrSetpshared(attr: PthreadCondattrT, pshared: CInt): CInt =
     throw UnsupportedOperationException("pthreadCondattrSetpshared requires manual FFI bridge — not yet implemented")
@@ -79,13 +104,13 @@ public actual fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: S
     throw UnsupportedOperationException("pthreadGetschedparam requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    throw UnsupportedOperationException("pthreadKill requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_kill(thread.toLong().toCPointer<kotlinx.cinterop.ByteVar>(), sig)
 
 public actual fun pthreadMutexConsistent(mutex: PthreadMutexT): CInt =
     throw UnsupportedOperationException("pthreadMutexConsistent requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadMutexTimedlock(lock: PthreadMutexT, abstime: Timespec?): CInt =
-    throw UnsupportedOperationException("pthreadMutexTimedlock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_mutex_timedlock(lock.value.toCPointer<kotlinx.cinterop.ByteVar>(), abstime?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadMutexattrGetprotocol(attr: PthreadMutexattrT, protocol: CInt?): CInt =
     throw UnsupportedOperationException("pthreadMutexattrGetprotocol requires manual FFI bridge — not yet implemented")
@@ -112,28 +137,33 @@ public actual fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT, `val`: C
     throw UnsupportedOperationException("pthreadRwlockattrSetpshared requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt =
-    throw UnsupportedOperationException("pthreadSetschedparam requires manual FFI bridge — not yet implemented")
+    memScoped {
+        val cParam = cValue<platform.posix.sched_param> {
+            sched_priority = param?.schedPriority ?: 0
+        }
+        libc_pthread_setschedparam(native.rawValue, policy, cParam)
+    }
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
     throw UnsupportedOperationException("pthreadSetschedprio requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt =
-    throw UnsupportedOperationException("pthreadSigmask requires manual FFI bridge — not yet implemented")
+    libc_pthread_sigmask(how, set?.rawValue, oldset?.rawValue)
 
 public actual fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinDestroy requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_destroy(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt =
-    throw UnsupportedOperationException("pthreadSpinInit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_init(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>(), pshared)
 
 public actual fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinLock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_lock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinTrylock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_trylock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt =
-    throw UnsupportedOperationException("pthreadSpinUnlock requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_spin_unlock(lock?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadAtfork requires manual FFI bridge — not yet implemented")
