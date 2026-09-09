@@ -34,6 +34,7 @@ public class FILE(
 
 /**
  * Opaque C directory stream handle (`DIR*` in C).
+ * On JS/WASM, [handle] holds the numeric DIR pointer from N-API.
  */
 public class DIR(
     public val handle: Long = -1L,
