@@ -1,4 +1,11 @@
+#define _DARWIN_C_SOURCE
+#define _BSD_SOURCE
+#define _GNU_SOURCE
 #include "libc_wrapper.h"
+#ifdef __APPLE__
+int getentropy(void*, size_t);
+#endif
+
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,6 +18,7 @@
 
 /* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
 #ifndef _GNU_SOURCE
+#define _BSD_SOURCE
 #define _GNU_SOURCE
 #endif
 
@@ -190,6 +198,18 @@ int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct
 #include <signal.h>
 #include <sys/syslog.h>
 #include <sys/time.h>
+#include <time.h>
+#include <sched.h>
+#include <pthread.h>
+#include <sys/wait.h>
+#include <sys/uio.h>
+#include <sys/resource.h>
+#include <sys/utsname.h>
+#include <strings.h>
+#ifdef __linux__
+#include <malloc.h>
+#endif
+#include <langinfo.h>
 
 int libc_bcmp(const void* s1, const void* s2, size_t n) { return bcmp(s1, s2, n); }
 int libc_dlclose(void* handle) { return dlclose(handle); }
@@ -347,6 +367,7 @@ int libc_recvmsg(int fd, void* msg, int flags) {
 ssize_t libc_sendmsg(int fd, void* msg, int flags) {
     return sendmsg(fd, (const struct msghdr*)msg, flags);
 }
+#ifdef __linux__
 int libc_accept4(int fd, void* addr, void* len, int flg) {
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
     return accept4(fd, (struct sockaddr*)addr, (socklen_t*)len, flg);
@@ -356,6 +377,8 @@ int libc_accept4(int fd, void* addr, void* len, int flg) {
     return -1;
 #endif
 }
+#endif
+
 int libc_sigwait(void* set, int* sig) {
     return sigwait((const sigset_t*)set, sig);
 }
@@ -365,6 +388,7 @@ int libc_sigsuspend(void* mask) {
 int libc_pthread_sigmask(int how, void* set, void* oldset) {
     return pthread_sigmask(how, (const sigset_t*)set, (sigset_t*)oldset);
 }
+#ifdef __linux__
 int libc_pthread_condattr_setclock(void* attr, int clockId) {
 #if defined(__linux__)
     return pthread_condattr_setclock((pthread_condattr_t*)attr, (clockid_t)clockId);
@@ -374,6 +398,9 @@ int libc_pthread_condattr_setclock(void* attr, int clockId) {
     return -1;
 #endif
 }
+#endif
+
+#ifdef __linux__
 int libc_pthread_condattr_getclock(void* attr, int* clockId) {
 #if defined(__linux__)
     return pthread_condattr_getclock((const pthread_condattr_t*)attr, (clockid_t*)clockId);
@@ -383,9 +410,12 @@ int libc_pthread_condattr_getclock(void* attr, int* clockId) {
     return -1;
 #endif
 }
+#endif
+
 int libc_pthread_setschedparam(void* thread, int policy, void* param) {
     return pthread_setschedparam((pthread_t)thread, policy, (const struct sched_param*)param);
 }
+#ifdef __linux__
 int libc_sched_setparam(pid_t pid, void* param) {
 #if defined(__linux__)
     return sched_setparam(pid, (const struct sched_param*)param);
@@ -395,6 +425,9 @@ int libc_sched_setparam(pid_t pid, void* param) {
     return -1;
 #endif
 }
+#endif
+
+#ifdef __linux__
 int libc_sched_getparam(pid_t pid, void* param) {
 #if defined(__linux__)
     return sched_getparam(pid, (struct sched_param*)param);
@@ -404,6 +437,9 @@ int libc_sched_getparam(pid_t pid, void* param) {
     return -1;
 #endif
 }
+#endif
+
+#ifdef __linux__
 int libc_sched_setscheduler(pid_t pid, int policy, void* param) {
 #if defined(__linux__)
     return sched_setscheduler(pid, policy, (const struct sched_param*)param);
@@ -413,6 +449,8 @@ int libc_sched_setscheduler(pid_t pid, int policy, void* param) {
     return -1;
 #endif
 }
+#endif
+
 int libc_waitid(int idtype, id_t id, void* infop, int options) {
 #if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__sun)
     return waitid((idtype_t)idtype, id, (siginfo_t*)infop, options);
@@ -481,6 +519,7 @@ int libc_utimensat(int dirfd, const char* path, void* times, int flags) {
 int libc_clock_settime(clockid_t clk_id, void* tp) {
     return clock_settime(clk_id, (const struct timespec*)tp);
 }
+#ifdef __linux__
 int libc_clock_nanosleep(clockid_t clock_id, int flags, void* rqtp, void* rmtp) {
 #if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
     return clock_nanosleep(clock_id, flags, (const struct timespec*)rqtp, (struct timespec*)rmtp);
@@ -490,6 +529,9 @@ int libc_clock_nanosleep(clockid_t clock_id, int flags, void* rqtp, void* rmtp) 
     return -1;
 #endif
 }
+#endif
+
+#ifdef __linux__
 int libc_sigtimedwait(void* set, void* info, void* timeout) {
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
     return sigtimedwait((const sigset_t*)set, (siginfo_t*)info, (const struct timespec*)timeout);
@@ -499,9 +541,12 @@ int libc_sigtimedwait(void* set, void* info, void* timeout) {
     return -1;
 #endif
 }
+#endif
+
 int libc_settimeofday(void* tv, void* tz) {
     return settimeofday((const struct timeval*)tv, tz);
 }
+#ifdef __linux__
 int libc_pthread_mutex_timedlock(void* mutex, void* abstime) {
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__) || defined(__CYGWIN__)
     return pthread_mutex_timedlock((pthread_mutex_t*)mutex, (const struct timespec*)abstime);
@@ -511,6 +556,9 @@ int libc_pthread_mutex_timedlock(void* mutex, void* abstime) {
     return -1;
 #endif
 }
+#endif
+
+#ifdef __linux__
 int libc_sem_timedwait(void* sem, void* abstime) {
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__) || defined(__CYGWIN__)
     return sem_timedwait((sem_t*)sem, (const struct timespec*)abstime);
@@ -520,11 +568,14 @@ int libc_sem_timedwait(void* sem, void* abstime) {
     return -1;
 #endif
 }
+#endif
+
 
 /* COpaquePointer-param wrappers — void* for pointer params */
 int libc_pthread_attr_getstack(void* attr, void* stackaddr, void* stacksize) {
     return pthread_attr_getstack((pthread_attr_t*)attr, stackaddr, (size_t*)stacksize);
 }
+#if defined(__APPLE__) || defined(__linux__)
 int libc_getentropy(void* buf, size_t buflen) {
 #if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
     return getentropy(buf, buflen);
@@ -534,6 +585,9 @@ int libc_getentropy(void* buf, size_t buflen) {
     return -1;
 #endif
 }
+#else
+int libc_getentropy(void* buf, size_t buflen) { (void)buf; (void)buflen; return -1; }
+#endif
 ssize_t libc_getrandom(void* buf, size_t buflen, unsigned int flags) {
 #if defined(__linux__)
     return getrandom(buf, buflen, flags);
@@ -701,17 +755,31 @@ int libc_sem_destroy(void* sem) { return sem_destroy((sem_t*)sem); }
 int libc_sem_init(void* sem, int pshared, unsigned int value) { return sem_init((sem_t*)sem, pshared, value); }
 int libc_sem_close(void* sem) { return sem_close((sem_t*)sem); }
 int libc_sem_getvalue(void* sem, int* sval) { return sem_getvalue((sem_t*)sem, sval); }
+#ifdef __linux__
 int libc_sched_getscheduler(pid_t pid) { return sched_getscheduler(pid); }
 int libc_sched_get_priority_max(int policy) { return sched_get_priority_max(policy); }
+#endif
+
 int libc_sched_get_priority_min(int policy) { return sched_get_priority_min(policy); }
 int libc_pthread_kill(void* thread, int sig) { return pthread_kill((pthread_t)thread, sig); }
+#ifdef __linux__
 int libc_pthread_spin_init(void* lock, int pshared) { return pthread_spin_init((pthread_spinlock_t*)lock, pshared); }
 int libc_pthread_spin_destroy(void* lock) { return pthread_spin_destroy((pthread_spinlock_t*)lock); }
+#endif
+
+#ifdef __linux__
 int libc_pthread_spin_lock(void* lock) { return pthread_spin_lock((pthread_spinlock_t*)lock); }
 int libc_pthread_spin_trylock(void* lock) { return pthread_spin_trylock((pthread_spinlock_t*)lock); }
+#endif
+
+#ifdef __linux__
 int libc_pthread_spin_unlock(void* lock) { return pthread_spin_unlock((pthread_spinlock_t*)lock); }
 int libc_posix_fallocate(int fd, long offset, long len) { return posix_fallocate(fd, (off_t)offset, (off_t)len); }
+#endif
+
+#ifdef __linux__
 void* libc_memalign(size_t alignment, size_t size) { return memalign(alignment, size); }
+#endif
 long libc_telldir(void* dirp) { return (long)telldir((DIR*)dirp); }
 void* libc_duplocale(void* base) { return (void*)duplocale((locale_t)base); }
 char* libc_nl_langinfo(int item) { return nl_langinfo(item); }
