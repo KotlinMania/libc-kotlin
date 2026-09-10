@@ -10,10 +10,6 @@ import libc.cinterop.libc_strchr
 import libc.cinterop.libc_strpbrk
 import libc.cinterop.libc_strrchr
 import libc.cinterop.libc_strstr
-import libc.cinterop.libc_strcat
-import libc.cinterop.libc_strcpy
-import libc.cinterop.libc_strncat
-import libc.cinterop.libc_strncpy
 
 public actual fun strchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
@@ -44,22 +40,14 @@ public actual fun strstr(cs: String?, ct: String?): String? {
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok requires mutable buffer (COpaquePointer), not immutable String")
 
-public actual fun strcpy(dst: String?, src: String?): String? {
-    val result = libc_strcpy(dst, src)
-    return result?.toKString()
-}
-public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
-    val result = libc_strncpy(dst, src, n)
-    return result?.toKString()
-}
-public actual fun strcat(s: String?, ct: String?): String? {
-    val result = libc_strcat(s, ct)
-    return result?.toKString()
-}
-public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
-    val result = libc_strncat(s, ct, n)
-    return result?.toKString()
-}
+public actual fun strcpy(dst: String?, src: String?): String? =
+    throw UnsupportedOperationException("strcpy requires manual FFI bridge — type mismatch")
+public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncpy requires manual FFI bridge — type mismatch")
+public actual fun strcat(s: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strcat requires manual FFI bridge — type mismatch")
+public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncat requires manual FFI bridge — type mismatch")
 public actual fun getcwd(buf: String?, size: ULong): String? =
     throw UnsupportedOperationException("getcwd requires mutable buffer (COpaquePointer), not immutable String")
 
