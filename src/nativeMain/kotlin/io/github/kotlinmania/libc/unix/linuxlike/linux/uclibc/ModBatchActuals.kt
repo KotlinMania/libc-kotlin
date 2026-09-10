@@ -6,8 +6,14 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt =
-    throw UnsupportedOperationException("gettimeofday requires manual FFI bridge — not yet implemented")
+public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt {
+    if (tp == null) return -1
+    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    if (tz == null) return -1
+    val tzPtr: CPointer<ByteVar>? = tz.value.toCPointer()
+    val result = libc_gettimeofday(tpPtr, tzPtr)
+    return result
+}
 
 public actual fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CInt?): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrGetkindNp requires manual FFI bridge — not yet implemented")
@@ -33,11 +39,19 @@ public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
-public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT =
-    throw UnsupportedOperationException("pwritev requires manual FFI bridge — not yet implemented")
+public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
+    if (iov == null) return -1
+    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
+    val result = libc_pwritev(fd, iovPtr, iovcnt, offset)
+    return result
+}
 
-public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT =
-    throw UnsupportedOperationException("preadv requires manual FFI bridge — not yet implemented")
+public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
+    if (iov == null) return -1
+    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
+    val result = libc_preadv(fd, iovPtr, iovcnt, offset)
+    return result
+}
 
 public actual fun sethostid(hostid: CLong): CInt =
     throw UnsupportedOperationException("sethostid requires manual FFI bridge — not yet implemented")
@@ -51,17 +65,29 @@ public actual fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt 
 public actual fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt =
     throw UnsupportedOperationException("setrlimit64 requires manual FFI bridge — not yet implemented")
 
-public actual fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("getrlimit requires manual FFI bridge — not yet implemented")
+public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt {
+    if (rlim == null) return -1
+    val rlimPtr: CPointer<ByteVar>? = rlim.handle.toCPointer()
+    val result = libc_getrlimit(resource, rlimPtr)
+    return result
+}
 
-public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("setrlimit requires manual FFI bridge — not yet implemented")
+public actual fun setrlimit(resource: CInt, rlp: Rlimit?): CInt {
+    if (rlp == null) return -1
+    val rlpPtr: CPointer<ByteVar>? = rlp.handle.toCPointer()
+    val result = libc_setrlimit(resource, rlpPtr)
+    return result
+}
 
-public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    throw UnsupportedOperationException("getpriority requires manual FFI bridge — not yet implemented")
+public actual fun getpriority(which: CInt, who: IdT): CInt {
+    val result = libc_getpriority(which, who.toInt())
+    return result
+}
 
-public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    throw UnsupportedOperationException("setpriority requires manual FFI bridge — not yet implemented")
+public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
+    val result = libc_setpriority(which, who.toInt(), prio)
+    return result
+}
 
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval requires manual FFI bridge — not yet implemented")

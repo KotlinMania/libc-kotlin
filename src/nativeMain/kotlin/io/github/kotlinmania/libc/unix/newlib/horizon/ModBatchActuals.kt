@@ -33,8 +33,12 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
 public actual fun pthreadGetprocessoridNp(): CInt =
     throw UnsupportedOperationException("pthreadGetprocessoridNp requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
+    if (buf == null) return -1
+    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
+    val result = libc_getrandom(bufPtr, buflen, flags)
+    return result
+}
 
 public actual fun gethostid(): CLong =
     libc.cinterop.libc_gethostid()

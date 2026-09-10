@@ -192,13 +192,23 @@ public actual fun errnoLocation(): CInt? =
 
 public actual fun strerror(e: CInt): String? =
     throw UnsupportedOperationException("strerror requires manual FFI bridge — type mismatch")
-public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt =
-    throw UnsupportedOperationException("clockGettime requires manual FFI bridge — not yet implemented")
+public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt {
+    if (tp == null) return -1
+    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    val result = libc_clock_gettime(clockId, tpPtr)
+    return result
+}
 
 public actual fun getpid(): PidT =
     libc.cinterop.libc_getpid()
-public actual fun gettimeofday(tv: Timeval?, tz: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("gettimeofday requires manual FFI bridge — not yet implemented")
+public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt {
+    if (tp == null) return -1
+    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    if (tz == null) return -1
+    val tzPtr: CPointer<ByteVar>? = tz.value.toCPointer()
+    val result = libc_gettimeofday(tpPtr, tzPtr)
+    return result
+}
 
 public actual fun strftime(s: String?, sz: ULong, format: String?, tm: Tm?): ULong =
     throw UnsupportedOperationException("strftime requires manual FFI bridge — not yet implemented")
@@ -224,8 +234,10 @@ public actual fun semOpen(name: String?, flags: CInt, vararg args: Any?): SemT? 
 public actual fun semPost(sem: SemT?): CInt =
     throw UnsupportedOperationException("semPost requires manual FFI bridge — not yet implemented")
 
-public actual fun semUnlink(name: String?): CInt =
-    throw UnsupportedOperationException("semUnlink requires manual FFI bridge — not yet implemented")
+public actual fun semUnlink(name: String?): CInt {
+    val result = libc_sem_unlink(name)
+    return result
+}
 
 public actual fun semWait(sem: SemT?): CInt =
     throw UnsupportedOperationException("semWait requires manual FFI bridge — not yet implemented")

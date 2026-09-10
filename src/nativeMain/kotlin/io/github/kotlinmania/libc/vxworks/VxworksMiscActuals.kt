@@ -89,8 +89,10 @@ public actual fun closelog() {
 public actual fun getline(lineptr: COpaquePointer?, n: ULong?, stream: FILE?): SsizeT =
     throw UnsupportedOperationException("getline requires manual FFI bridge — not yet implemented")
 
-public actual fun memalign(blockSize: ULong, sizeArg: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memalign requires manual FFI bridge — not yet implemented")
+public actual fun memalign(blockSize: ULong, sizeArg: ULong): COpaquePointer? {
+    val result = libc_memalign(blockSize, sizeArg)
+    return if (result != null) COpaquePointer(result.toLong()) else null
+}
 
 public actual fun readdir(pDir: DIR?): Dirent? =
     throw UnsupportedOperationException("readdir requires manual FFI bridge — not yet implemented")
@@ -163,8 +165,12 @@ public actual fun pthreadCreate(pThread: PthreadT?, pAttr: PthreadAttrT?, startR
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     libc.cinterop.libc_read(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count)
-public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
-    throw UnsupportedOperationException("readv requires manual FFI bridge for Iovec type")
+public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
+    if (iov == null) return -1
+    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
+    val result = libc_readv(fd, iovPtr, iovcnt)
+    return result
+}
 
 public actual fun recv(s: CInt, buf: COpaquePointer?, bufLen: ULong, flags: CInt): SsizeT =
     throw UnsupportedOperationException("recv requires manual FFI bridge for COpaquePointer param")
@@ -200,5 +206,9 @@ public actual fun waitpid(pid: PidT, status: CInt?, options: CInt): PidT =
 
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     throw UnsupportedOperationException("write requires manual FFI bridge — UInt/ULong type mismatch")
-public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
-    throw UnsupportedOperationException("writev requires manual FFI bridge for Iovec type")
+public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
+    if (iov == null) return -1
+    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
+    val result = libc_writev(fd, iovPtr, iovcnt)
+    return result
+}

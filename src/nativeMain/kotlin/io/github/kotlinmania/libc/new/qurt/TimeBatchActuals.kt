@@ -45,8 +45,12 @@ public actual fun strftime(s: String?, maxsize: ULong, format: String?, timeptr:
 public actual fun strptime(s: String?, format: String?, tm: Tm?): String? =
     throw UnsupportedOperationException("strptime requires manual FFI bridge — not yet implemented")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
-    throw UnsupportedOperationException("clockGettime requires manual FFI bridge — not yet implemented")
+public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt {
+    if (tp == null) return -1
+    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    val result = libc_clock_gettime(clockId, tpPtr)
+    return result
+}
 
 public actual fun nanosleep(req: Timespec?, rem: Timespec?): CInt =
     throw UnsupportedOperationException("nanosleep requires manual FFI bridge — not yet implemented")

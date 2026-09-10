@@ -14,11 +14,23 @@ public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
 
-public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt =
-    throw UnsupportedOperationException("gettimeofday requires manual FFI bridge — not yet implemented")
+public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt {
+    if (tp == null) return -1
+    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    if (tz == null) return -1
+    val tzPtr: CPointer<ByteVar>? = tz.value.toCPointer()
+    val result = libc_gettimeofday(tpPtr, tzPtr)
+    return result
+}
 
-public actual fun settimeofday(tp: Timeval?, tz: Timezone?): CInt =
-    throw UnsupportedOperationException("settimeofday requires manual FFI bridge — not yet implemented")
+public actual fun settimeofday(tv: Timeval?, tz: Timezone?): CInt {
+    if (tv == null) return -1
+    val tvPtr: CPointer<ByteVar>? = tv.handle.toCPointer()
+    if (tz == null) return -1
+    val tzPtr: CPointer<ByteVar>? = tz.handle.toCPointer()
+    val result = libc_settimeofday(tvPtr, tzPtr)
+    return result
+}
 
 public actual fun pledge(promises: String?, execpromises: String?): CInt =
     throw UnsupportedOperationException("pledge requires manual FFI bridge — not yet implemented")
@@ -86,8 +98,14 @@ public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: T
 public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT =
     throw UnsupportedOperationException("forkpty requires manual FFI bridge — not yet implemented")
 
-public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
-    throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
+public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt {
+    if (oldp == null) return -1
+    val oldpPtr: CPointer<ByteVar>? = oldp.value.toCPointer()
+    if (newp == null) return -1
+    val newpPtr: CPointer<ByteVar>? = newp.value.toCPointer()
+    val result = libc_sysctl(name, namelen, oldpPtr, oldlenp, newpPtr, newlen)
+    return result
+}
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
     throw UnsupportedOperationException("setresgid requires manual FFI bridge — not yet implemented")
@@ -101,8 +119,14 @@ public actual fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CI
 public actual fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("utrace requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
+public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? {
+    if (arg1 == null) return null
+    val arg1Ptr: CPointer<ByteVar>? = arg1.value.toCPointer()
+    if (arg3 == null) return null
+    val arg3Ptr: CPointer<ByteVar>? = arg3.value.toCPointer()
+    val result = libc_memmem(arg1Ptr, arg2, arg3Ptr, arg4)
+    return if (result != null) COpaquePointer(result.toLong()) else null
+}
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("uselocale requires manual FFI bridge — not yet implemented")
