@@ -110,4 +110,4 @@ public val NLA_TYPE_MASK: CInt = (NLA_F_NESTED or NLA_F_NET_BYTEORDER).inv()
 public const val NLA_ALIGNTO: CInt = 4
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public fun nLAALIGN(len: CInt): CInt = -1
+public expect fun nLAALIGN(len: CInt): CInt 

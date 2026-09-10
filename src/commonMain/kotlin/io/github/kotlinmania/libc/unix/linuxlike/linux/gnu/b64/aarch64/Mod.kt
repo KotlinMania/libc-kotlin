@@ -164,6 +164,7 @@ public data class ShmidDs(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,
@@ -873,12 +874,9 @@ public const val SYS_mseal: CLong = 462
 public const val PROT_BTI: CInt = 0x10
 public const val PROT_MTE: CInt = 0x20
 
-public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
+public expect fun getcontext(ucp: UcontextT?): CInt 
+public expect fun setcontext(ucp: UcontextT?): CInt 
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 
-public fun getcontext(ucp: UcontextT?): CInt = -1
-
-public fun setcontext(ucp: UcontextT?): CInt = -1
-
-public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
-
-public fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt = -1
+public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt 

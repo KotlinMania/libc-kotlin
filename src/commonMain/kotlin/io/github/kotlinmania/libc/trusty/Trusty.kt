@@ -19,11 +19,13 @@ public typealias Time = Long
 public typealias ClockId = Int
 
 public data class Iovec(
+    val handle: Long = 0L,
     public val iovBase: Long,
     public val iovLen: Size,
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     public val tvSec: Time,
     public val tvNsec: Long,
 )

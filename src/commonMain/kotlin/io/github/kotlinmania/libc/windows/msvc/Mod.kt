@@ -5,8 +5,6 @@ import io.github.kotlinmania.libc.*
 
 public const val EOTHER: CInt = 131
 
-public fun stricmp(s1: String?, s2: String?): CInt = -1
-
-public fun strnicmp(s1: String?, s2: String?, n: ULong): CInt = -1
-
-public fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: ULong): COpaquePointer? = null
+public expect fun stricmp(s1: String?, s2: String?): CInt 
+public expect fun strnicmp(s1: String?, s2: String?, n: ULong): CInt 
+public expect fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: ULong): COpaquePointer? 

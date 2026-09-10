@@ -506,4 +506,4 @@ public const val AT_SYSINFO_EHDR: CULong = 33uL
 public const val AT_VECTOR_SIZE_ARCH: CULong = 3uL
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt = -1
+public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt 

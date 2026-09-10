@@ -3048,524 +3048,266 @@ public const val KCMP_SIGHAND: CInt = 103
 public const val KCMP_VM: CInt = 104
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? = null
-
-public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
-
-public fun mALLOCXALIGN(lg: CUInt): CInt = -1
-
-public fun sOCKCREDSIZE(ngrps: ULong): ULong = 0uL
-
-public fun uname(buf: Utsname?): CInt = -1
-
-public fun cPUZERO(cpuset: CpusetT?) { }
-
-public fun cPUFILL(cpuset: CpusetT?) { }
-
-public fun cPUSET(cpu: ULong, cpuset: CpusetT?) { }
-
-public fun cPUCLR(cpu: ULong, cpuset: CpusetT?) { }
-
-public fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean = false
-
-public fun cPUCOUNT(cpuset: CpusetT?): CInt = -1
-
-public fun sOCKCRED2SIZE(ngrps: ULong): ULong = 0uL
-
-public fun pROTMAX(x: CInt): CInt = -1
-
-public fun pROTMAXEXTRACT(x: CInt): CInt = -1
-
-public fun fhlink(fhp: FhandleT?, to: String?): CInt = -1
-
-public fun fhlinkat(fhp: FhandleT?, tofd: CInt, to: String?): CInt = -1
-
-public fun fhreadlink(fhp: FhandleT?, buf: String?, bufsize: ULong): CInt = -1
-
-public fun getfhat(fd: CInt, path: String?, fhp: Fhandle?, flag: CInt): CInt = -1
-
-public fun error(): CInt? = null
-
-public fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt = -1
-
-public fun aioError(aiocbp: Aiocb?): CInt = -1
-
-public fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt = -1
-
-public fun aioRead(aiocbp: Aiocb?): CInt = -1
-
-public fun aioReadv(aiocbp: Aiocb?): CInt = -1
-
-public fun aioReturn(aiocbp: Aiocb?): SsizeT = -1L
-
-public fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt = -1
-
-public fun aioWrite(aiocbp: Aiocb?): CInt = -1
-
-public fun aioWritev(aiocbp: Aiocb?): CInt = -1
-
-public fun copyFileRange(infd: CInt, inoffp: OffT?, outfd: CInt, outoffp: OffT?, len: ULong, flags: CUInt): SsizeT = -1L
-
-public fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: CInt): String? = null
-
-public fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: String?): CInt = -1
-
-public fun extattrDeleteFile(path: String?, attrnamespace: CInt, attrname: String?): CInt = -1
-
-public fun extattrDeleteLink(path: String?, attrnamespace: CInt, attrname: String?): CInt = -1
-
-public fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrGetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrGetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrListFile(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrListLink(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrSetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrSetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun fspacectl(fd: CInt, cmd: CInt, rqsr: SpacectlRange?, flags: CInt, rmsr: SpacectlRange?): CInt = -1
-
-public fun jail(jail: Jail?): CInt = -1
-
-public fun jailAttach(jid: CInt): CInt = -1
-
-public fun jailRemove(jid: CInt): CInt = -1
-
-public fun jailGet(iov: Iovec?, niov: CUInt, flags: CInt): CInt = -1
-
-public fun jailSet(iov: Iovec?, niov: CUInt, flags: CInt): CInt = -1
-
-public fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt = -1
-
-public fun getutxuser(user: String?): Utmpx? = null
-
-public fun setutxdb(type: CInt, file: String?): CInt = -1
-
-public fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): SsizeT = -1L
-
-public fun mqGetfdNp(mqd: MqdT): CInt = -1
-
-public fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt = -1
-
-public fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt = -1
-
+public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? 
+public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? 
+public expect fun mALLOCXALIGN(lg: CUInt): CInt 
+public expect fun sOCKCREDSIZE(ngrps: ULong): ULong 
+public expect fun uname(buf: Utsname?): CInt 
+public expect fun cPUZERO(cpuset: CpusetT?)
+public expect fun cPUFILL(cpuset: CpusetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpusetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpusetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean 
+public expect fun cPUCOUNT(cpuset: CpusetT?): CInt 
+public expect fun sOCKCRED2SIZE(ngrps: ULong): ULong 
+public expect fun pROTMAX(x: CInt): CInt 
+public expect fun pROTMAXEXTRACT(x: CInt): CInt 
+public expect fun fhlink(fhp: FhandleT?, to: String?): CInt 
+public expect fun fhlinkat(fhp: FhandleT?, tofd: CInt, to: String?): CInt 
+public expect fun fhreadlink(fhp: FhandleT?, buf: String?, bufsize: ULong): CInt 
+public expect fun getfhat(fd: CInt, path: String?, fhp: Fhandle?, flag: CInt): CInt 
+public expect fun error(): CInt? 
+public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt 
+public expect fun aioError(aiocbp: Aiocb?): CInt 
+public expect fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt 
+public expect fun aioRead(aiocbp: Aiocb?): CInt 
+public expect fun aioReadv(aiocbp: Aiocb?): CInt 
+public expect fun aioReturn(aiocbp: Aiocb?): SsizeT 
+public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt 
+public expect fun aioWrite(aiocbp: Aiocb?): CInt 
+public expect fun aioWritev(aiocbp: Aiocb?): CInt 
+public expect fun copyFileRange(infd: CInt, inoffp: OffT?, outfd: CInt, outoffp: OffT?, len: ULong, flags: CUInt): SsizeT 
+public expect fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: CInt): String? 
+public expect fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: String?): CInt 
+public expect fun extattrDeleteFile(path: String?, attrnamespace: CInt, attrname: String?): CInt 
+public expect fun extattrDeleteLink(path: String?, attrnamespace: CInt, attrname: String?): CInt 
+public expect fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrGetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrGetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrListFile(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrListLink(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrSetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrSetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun fspacectl(fd: CInt, cmd: CInt, rqsr: SpacectlRange?, flags: CInt, rmsr: SpacectlRange?): CInt 
+public expect fun jail(jail: Jail?): CInt 
+public expect fun jailAttach(jid: CInt): CInt 
+public expect fun jailRemove(jid: CInt): CInt 
+public expect fun jailGet(iov: Iovec?, niov: CUInt, flags: CInt): CInt 
+public expect fun jailSet(iov: Iovec?, niov: CUInt, flags: CInt): CInt 
+public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt 
+public expect fun getutxuser(user: String?): Utmpx? 
+public expect fun setutxdb(type: CInt, file: String?): CInt 
+public expect fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): SsizeT 
+public expect fun mqGetfdNp(mqd: MqdT): CInt 
+public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt 
+public expect fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt 
 public fun ftok(pathname: String?, projId: CInt): KeyT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt = -1
-
-public fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? = null
-
-public fun shmdt(shmaddr: COpaquePointer?): CInt = -1
-
-public fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt = -1
-
-public fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt = -1
-
-public fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt = -1
-
-public fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt = -1
-
-public fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt = -1
-
-public fun msgget(key: KeyT, msgflg: CInt): CInt = -1
-
-public fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgflg: CInt): CInt = -1
-
-public fun cfmakesane(termios: Termios?) { }
-
-public fun pdfork(fdp: CInt?, flags: CInt): PidT = -1
-
-public fun pdgetpid(fd: CInt, pidp: PidT?): CInt = -1
-
-public fun pdkill(fd: CInt, signum: CInt): CInt = -1
-
-public fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: Rtprio?): CInt = -1
-
-public fun uuidgen(store: Uuid?, count: CInt): CInt = -1
-
-public fun thrKill(id: CLong, sig: CInt): CInt = -1
-
-public fun thrKill2(pid: PidT, id: CLong, sig: CInt): CInt = -1
-
-public fun thrSelf(tid: CLong?): CInt = -1
-
-public fun pthreadGetthreadidNp(): CInt = -1
-
-public fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: ULong, cpusetp: CpusetT?): CInt = -1
-
-public fun pthreadSetaffinityNp(td: PthreadT, cpusetsize: ULong, cpusetp: CpusetT?): CInt = -1
-
-public fun schedGetaffinity(pid: PidT, cpusetsz: ULong, cpuset: CpusetT?): CInt = -1
-
-public fun schedSetaffinity(pid: PidT, cpusetsz: ULong, cpuset: CpusetT?): CInt = -1
-
-public fun schedGetcpu(): CInt = -1
-
-public fun pthreadMutexConsistent(mutex: PthreadMutexT): CInt = -1
-
-public fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT, robust: CInt?): CInt = -1
-
-public fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT, robust: CInt): CInt = -1
-
-public fun pthreadSpinInit(lock: PthreadSpinlockT, pshared: CInt): CInt = -1
-
-public fun pthreadSpinDestroy(lock: PthreadSpinlockT): CInt = -1
-
-public fun pthreadSpinLock(lock: PthreadSpinlockT): CInt = -1
-
-public fun pthreadSpinTrylock(lock: PthreadSpinlockT): CInt = -1
-
-public fun pthreadSpinUnlock(lock: PthreadSpinlockT): CInt = -1
-
-public fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt = -1
-
-public fun statfs(path: String?, buf: Statfs?): CInt = -1
-
-public fun fstatfs(fd: CInt, buf: Statfs?): CInt = -1
-
-public fun dup3(src: CInt, dst: CInt, flags: CInt): CInt = -1
-
-public fun xuname(nmln: CInt, buf: COpaquePointer?): CInt = -1
-
-public fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt): SsizeT = -1L
-
-public fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt, timeout: Timespec?): SsizeT = -1L
-
-public fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? = null
-
-public fun fhopen(fhp: FhandleT?, flags: CInt): CInt = -1
-
-public fun fhstat(fhp: Fhandle?, buf: Stat?): CInt = -1
-
-public fun fhstatfs(fhp: FhandleT?, buf: Statfs?): CInt = -1
-
-public fun getfh(path: String?, fhp: FhandleT?): CInt = -1
-
-public fun lgetfh(path: String?, fhp: FhandleT?): CInt = -1
-
-public fun getfsstat(buf: Statfs?, bufsize: CLong, mode: CInt): CInt = -1
-
-public fun getmntinfo(mntbufp: COpaquePointer?, mode: CInt): CInt = -1
-
-public fun mount(type: String?, dir: String?, flags: CInt, data: COpaquePointer?): CInt = -1
-
-public fun nmount(iov: Iovec?, niov: CUInt, flags: CInt): CInt = -1
-
-public fun setproctitle(fmt: String?, vararg args: Any?) { }
-
-public fun rfork(flags: CInt): CInt = -1
-
-public fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: CpusetT?): CInt = -1
-
-public fun cpusetSetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: CpusetT?): CInt = -1
-
-public fun cpuset(setid: CpusetidT?): CInt = -1
-
-public fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid: CpusetidT?): CInt = -1
-
-public fun cpusetSetid(which: CpuwhichT, id: IdT, setid: CpusetidT): CInt = -1
-
-public fun capEnter(): CInt = -1
-
-public fun capGetmode(modep: CUInt?): CInt = -1
-
-public fun capFcntlsGet(fd: CInt, fcntlrightsp: UInt?): CInt = -1
-
-public fun capFcntlsLimit(fd: CInt, fcntlrights: UInt): CInt = -1
-
-public fun capIoctlsGet(fd: CInt, cmds: ULong?, maxcmds: ULong): Long = -1L
-
-public fun capIoctlsLimit(fd: CInt, cmds: ULong?, ncmds: ULong): CInt = -1
-
-public fun capRightsInit(version: CInt, rights: CapRightsT?, vararg args: Any?): CapRightsT? = null
-
-public fun capRightsGet(version: CInt, fd: CInt, rightsp: CapRightsT?): CInt = -1
-
-public fun capRightsSet(rights: CapRightsT?, vararg args: Any?): CapRightsT? = null
-
-public fun capRightsClear(rights: CapRightsT?, vararg args: Any?): CapRightsT? = null
-
-public fun capRightsIsSet(rights: CapRightsT?, vararg args: Any?): Boolean = false
-
-public fun capRightsIsValid(rights: CapRightsT?): Boolean = false
-
-public fun capRightsLimit(fd: CInt, rights: CapRightsT?): CInt = -1
-
-public fun capRightsMerge(dst: CapRightsT?, src: CapRightsT?): CapRightsT? = null
-
-public fun capRightsRemove(dst: CapRightsT?, src: CapRightsT?): CapRightsT? = null
-
-public fun capRightsContains(big: CapRightsT?, little: CapRightsT?): Boolean = false
-
-public fun capSandboxed(): Boolean = false
-
-public fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? = null
-
-public fun ffs(value: CInt): CInt = -1
-
-public fun ffsl(value: CLong): CInt = -1
-
-public fun ffsll(value: CLongLong): CInt = -1
-
-public fun fls(value: CInt): CInt = -1
-
-public fun flsl(value: CLong): CInt = -1
-
-public fun flsll(value: CLongLong): CInt = -1
-
-public fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?) { }
-
-public fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
-
-public fun mallctlnametomib(name: String?, mibp: ULong?, miplen: ULong?): CInt = -1
-
-public fun mallctlbymib(mib: ULong?, mible: ULong, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
-
-public fun mallocx(size: ULong, flags: CInt): COpaquePointer? = null
-
-public fun rallocx(ptr: COpaquePointer?, size: ULong, flags: CInt): COpaquePointer? = null
-
-public fun xallocx(ptr: COpaquePointer?, size: ULong, extra: ULong, flags: CInt): ULong = 0uL
-
-public fun sallocx(ptr: COpaquePointer?, flags: CInt): ULong = 0uL
-
-public fun dallocx(ptr: COpaquePointer?, flags: CInt) { }
-
-public fun sdallocx(ptr: COpaquePointer?, size: ULong, flags: CInt) { }
-
-public fun nallocx(size: ULong, flags: CInt): ULong = 0uL
-
-public fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt = -1
-
-public fun getpagesize(): CInt = -1
-
-public fun getpagesizes(pagesize: ULong?, nelem: CInt): CInt = -1
-
-public fun clockGetcpuclockid2(arg1: IdT, arg2: CInt, arg3: ClockidT?): CInt = -1
-
-public fun strchrnul(s: String?, c: CInt): String? = null
-
-public fun shmCreateLargepage(path: String?, flags: CInt, psind: CInt, allocPolicy: CInt, mode: ModeT): CInt = -1
-
-public fun shmRename(pathFrom: String?, pathTo: String?, flags: CInt): CInt = -1
-
-public fun memfdCreate(name: String?, flags: CUInt): CInt = -1
-
-public fun setaudit(auditinfo: AuditinfoT?): CInt = -1
-
-public fun eventfd(initval: CUInt, flags: CInt): CInt = -1
-
-public fun eventfdRead(fd: CInt, value: EventfdT?): CInt = -1
-
-public fun eventfdWrite(fd: CInt, value: EventfdT): CInt = -1
-
-public fun fdatasync(fd: CInt): CInt = -1
-
-public fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt = -1
-
-public fun setproctitleFast(fmt: String?, vararg args: Any?) { }
-
-public fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt = -1
-
-public fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt = -1
-
-public fun umtxOp(obj: COpaquePointer?, op: CInt, `val`: CULong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt = -1
-
-public fun sctpPeeloff(s: CInt, id: SctpAssocT): CInt = -1
-
-public fun sctpBindx(s: CInt, addrs: Sockaddr?, num: CInt, tpe: CInt): CInt = -1
-
-public fun sctpConnectx(s: CInt, addrs: Sockaddr?, addrcnt: CInt, id: SctpAssocT?): CInt = -1
-
-public fun sctpGetaddrlen(family: SaFamilyT): CInt = -1
-
-public fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt = -1
-
-public fun sctpFreepaddrs(addrs: Sockaddr?) { }
-
-public fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt = -1
-
-public fun sctpFreeladdrs(addrs: Sockaddr?) { }
-
-public fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: SocklenT?): CInt = -1
-
-public fun sctpSendv(sd: CInt, iov: Iovec?, iovcnt: CInt, addrs: Sockaddr?, addrcnt: CInt, info: COpaquePointer?, infolen: SocklenT, infotype: CUInt, flags: CInt): SsizeT = -1L
-
-public fun sctpRecvv(sd: CInt, iov: Iovec?, iovcnt: CInt, from: Sockaddr?, fromlen: SocklenT?, info: COpaquePointer?, infolen: SocklenT?, infotype: CUInt?, flags: CInt?): SsizeT = -1L
-
-public fun timerfdCreate(clockid: CInt, flags: CInt): CInt = -1
-
-public fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt = -1
-
-public fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt = -1
-
-public fun closefrom(lowfd: CInt) { }
-
-public fun closeRange(lowfd: CUInt, highfd: CUInt, flags: CInt): CInt = -1
-
-public fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt = -1
-
-public fun kcmp(pid1: PidT, pid2: PidT, type: CInt, idx1: CULong, idx2: CULong): CInt = -1
-
-public fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? = null
-
-public fun memstatStrerror(error: CInt): String? = null
-
-public fun memstatMtlAlloc(): MemoryTypeList? = null
-
-public fun memstatMtlFirst(list: MemoryTypeList?): MemoryType? = null
-
-public fun memstatMtlNext(mtp: MemoryType?): MemoryType? = null
-
-public fun memstatMtlFind(list: MemoryTypeList?, allocator: CInt, name: String?): MemoryType? = null
-
-public fun memstatMtlFree(list: MemoryTypeList?) { }
-
-public fun memstatMtlGeterror(list: MemoryTypeList?): CInt = -1
-
-public fun memstatGetName(mtp: MemoryType?): String? = null
-
-public fun kvmDpcpuSetcpu(kd: KvmT, cpu: CUInt): CInt = -1
-
-public fun kvmGetargv(kd: KvmT, p: KinfoProc?, nchr: CInt): COpaquePointer? = null
-
-public fun kvmGetcptime(kd: KvmT, cpTime: CLong?): CInt = -1
-
-public fun kvmGetenvv(kd: KvmT, p: KinfoProc?, nchr: CInt): COpaquePointer? = null
-
-public fun kvmGeterr(kd: KvmT): String? = null
-
-public fun kvmGetmaxcpu(kd: KvmT): CInt = -1
-
-public fun kvmGetncpus(kd: KvmT): CInt = -1
-
-public fun kvmGetpcpu(kd: KvmT, cpu: CInt): COpaquePointer? = null
-
-public fun kvmCounterU64Fetch(kd: KvmT, base: CULong): ULong = 0uL
-
-public fun kvmGetswapinfo(kd: KvmT, info: KvmSwap?, maxswap: CInt, flags: CInt): CInt = -1
-
-public fun kvmNative(kd: KvmT): CInt = -1
-
-public fun kvmNlist(kd: KvmT, nl: Nlist?): CInt = -1
-
-public fun kvmNlist2(kd: KvmT, nl: KvmNlist?): CInt = -1
-
-public fun kvmReadZpcpu(kd: KvmT, base: CULong, buf: COpaquePointer?, size: ULong, cpu: CInt): SsizeT = -1L
-
-public fun kvmRead2(kd: KvmT, addr: KvaddrT, buf: COpaquePointer?, nbytes: ULong): SsizeT = -1L
-
-public fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt = -1
-
-public fun extattrStringToNamespace(string: String?, attrnamespace: CInt?): CInt = -1
-
-public fun realhostname(host: String?, hsize: ULong, ip: InAddr?): CInt = -1
-
-public fun realhostnameSa(host: String?, hsize: ULong, addr: Sockaddr?, addrlen: CInt): CInt = -1
-
-public fun kldIsloaded(name: String?): CInt = -1
-
-public fun kldLoad(name: String?): CInt = -1
-
-public fun kinfoGetvmmap(pid: PidT, cntp: CInt?): KinfoVmentry? = null
-
-public fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt) { }
-
-public fun humanizeNumber(buf: String?, len: ULong, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt = -1
-
-public fun flopen(path: String?, flags: CInt, vararg args: Any?): CInt = -1
-
-public fun flopenat(fd: CInt, path: String?, flags: CInt, vararg args: Any?): CInt = -1
-
-public fun getlocalbase(): String? = null
-
-public fun pidfileOpen(path: String?, mode: ModeT, pidptr: PidT?): Pidfh? = null
-
-public fun pidfileWrite(path: Pidfh?): CInt = -1
-
-public fun pidfileClose(path: Pidfh?): CInt = -1
-
-public fun pidfileRemove(path: Pidfh?): CInt = -1
-
-public fun pidfileFileno(path: Pidfh?): CInt = -1
-
-public fun procstatOpenSysctl(): Procstat? = null
-
-public fun procstatGetfiles(procstat: Procstat?, kp: KinfoProc?, mmapped: CInt): FilestatList? = null
-
-public fun procstatFreefiles(procstat: Procstat?, head: FilestatList?) { }
-
-public fun procstatGetprocs(procstat: Procstat?, what: CInt, arg: CInt, count: CUInt?): KinfoProc? = null
-
-public fun procstatFreeprocs(procstat: Procstat?, p: KinfoProc?) { }
-
-public fun procstatGetvmmap(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): KinfoVmentry? = null
-
-public fun procstatFreevmmap(procstat: Procstat?, vmmap: KinfoVmentry?) { }
-
-public fun procstatClose(procstat: Procstat?) { }
-
-public fun procstatFreeargv(procstat: Procstat?) { }
-
-public fun procstatFreeenvv(procstat: Procstat?) { }
-
-public fun procstatFreegroups(procstat: Procstat?, groups: GidT?) { }
-
-public fun procstatFreeptlwpinfo(procstat: Procstat?, pl: PtraceLwpinfo?) { }
-
-public fun procstatGetargv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer? = null
-
-public fun procstatGetenvv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer? = null
-
-public fun procstatGetgroups(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): GidT? = null
-
-public fun procstatGetosrel(procstat: Procstat?, kp: KinfoProc?, osrelp: CInt?): CInt = -1
-
-public fun procstatGetpathname(procstat: Procstat?, kp: KinfoProc?, pathname: String?, maxlen: ULong): CInt = -1
-
-public fun procstatGetrlimit(procstat: Procstat?, kp: KinfoProc?, which: CInt, rlimit: Rlimit?): CInt = -1
-
-public fun procstatGetumask(procstat: Procstat?, kp: KinfoProc?, maskp: CUShort?): CInt = -1
-
-public fun procstatOpenCore(filename: String?): Procstat? = null
-
-public fun procstatOpenKvm(nlistf: String?, memf: String?): Procstat? = null
-
-public fun procstatGetSocketInfo(proc: Procstat?, fst: Filestat?, sock: Sockstat?, errbuf: String?): CInt = -1
-
-public fun procstatGetVnodeInfo(proc: Procstat?, fst: Filestat?, vn: Vnstat?, errbuf: String?): CInt = -1
-
-public fun procstatGetPtsInfo(proc: Procstat?, fst: Filestat?, pts: Ptsstat?, errbuf: String?): CInt = -1
-
-public fun procstatGetShmInfo(proc: Procstat?, fst: Filestat?, shm: Shmstat?, errbuf: String?): CInt = -1
-
-public fun timerCreate(clockId: ClockidT, evp: Sigevent?, timerid: TimerT): CInt = -1
-
-public fun timerDelete(timerid: TimerT): CInt = -1
-
-public fun timerGetoverrun(timerid: TimerT): CInt = -1
-
-public fun timerGettime(timerid: TimerT, value: Itimerspec?): CInt = -1
-
-public fun timerSettime(timerid: TimerT, flags: CInt, value: Itimerspec?, ovalue: Itimerspec?): CInt = -1
-
-public fun devstatGetnumdevs(kd: KvmT): CInt = -1
-
-public fun devstatGetgeneration(kd: KvmT): CLong = -1L
-
-public fun devstatGetversion(kd: KvmT): CInt = -1
-
-public fun devstatCheckversion(kd: KvmT): CInt = -1
-
-public fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt = -1
-
-public fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt = -1
+public expect fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt 
+public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? 
+public expect fun shmdt(shmaddr: COpaquePointer?): CInt 
+public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt 
+public expect fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt 
+public expect fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg args: Any?): CInt 
+public expect fun semop(semid: CInt, sops: Sembuf?, nsops: ULong): CInt 
+public expect fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt 
+public expect fun msgget(key: KeyT, msgflg: CInt): CInt 
+public expect fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgflg: CInt): CInt 
+public expect fun cfmakesane(termios: Termios?)
+public expect fun pdfork(fdp: CInt?, flags: CInt): PidT 
+public expect fun pdgetpid(fd: CInt, pidp: PidT?): CInt 
+public expect fun pdkill(fd: CInt, signum: CInt): CInt 
+public expect fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: Rtprio?): CInt 
+public expect fun uuidgen(store: Uuid?, count: CInt): CInt 
+public expect fun thrKill(id: CLong, sig: CInt): CInt 
+public expect fun thrKill2(pid: PidT, id: CLong, sig: CInt): CInt 
+public expect fun thrSelf(tid: CLong?): CInt 
+public expect fun pthreadGetthreadidNp(): CInt 
+public expect fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: ULong, cpusetp: CpusetT?): CInt 
+public expect fun pthreadSetaffinityNp(td: PthreadT, cpusetsize: ULong, cpusetp: CpusetT?): CInt 
+public expect fun schedGetaffinity(pid: PidT, cpusetsz: ULong, cpuset: CpusetT?): CInt 
+public expect fun schedSetaffinity(pid: PidT, cpusetsz: ULong, cpuset: CpusetT?): CInt 
+public expect fun schedGetcpu(): CInt 
+public expect fun pthreadMutexConsistent(mutex: PthreadMutexT): CInt 
+public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT, robust: CInt?): CInt 
+public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT, robust: CInt): CInt 
+public expect fun pthreadSpinInit(lock: PthreadSpinlockT, pshared: CInt): CInt 
+public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT): CInt 
+public expect fun pthreadSpinLock(lock: PthreadSpinlockT): CInt 
+public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT): CInt 
+public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT): CInt 
+public expect fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt 
+public expect fun statfs(path: String?, buf: Statfs?): CInt 
+public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt 
+public expect fun dup3(src: CInt, dst: CInt, flags: CInt): CInt 
+public expect fun xuname(nmln: CInt, buf: COpaquePointer?): CInt 
+public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt): SsizeT 
+public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt, timeout: Timespec?): SsizeT 
+public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? 
+public expect fun fhopen(fhp: FhandleT?, flags: CInt): CInt 
+public expect fun fhstat(fhp: Fhandle?, buf: Stat?): CInt 
+public expect fun fhstatfs(fhp: FhandleT?, buf: Statfs?): CInt 
+public expect fun getfh(path: String?, fhp: FhandleT?): CInt 
+public expect fun lgetfh(path: String?, fhp: FhandleT?): CInt 
+public expect fun getfsstat(buf: Statfs?, bufsize: CLong, mode: CInt): CInt 
+public expect fun getmntinfo(mntbufp: COpaquePointer?, mode: CInt): CInt 
+public expect fun mount(type: String?, dir: String?, flags: CInt, data: COpaquePointer?): CInt 
+public expect fun nmount(iov: Iovec?, niov: CUInt, flags: CInt): CInt 
+public expect fun setproctitle(fmt: String?, vararg args: Any?)
+public expect fun rfork(flags: CInt): CInt 
+public expect fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: CpusetT?): CInt 
+public expect fun cpusetSetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: ULong, mask: CpusetT?): CInt 
+public expect fun cpuset(setid: CpusetidT?): CInt 
+public expect fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid: CpusetidT?): CInt 
+public expect fun cpusetSetid(which: CpuwhichT, id: IdT, setid: CpusetidT): CInt 
+public expect fun capEnter(): CInt 
+public expect fun capGetmode(modep: CUInt?): CInt 
+public expect fun capFcntlsGet(fd: CInt, fcntlrightsp: UInt?): CInt 
+public expect fun capFcntlsLimit(fd: CInt, fcntlrights: UInt): CInt 
+public expect fun capIoctlsGet(fd: CInt, cmds: ULong?, maxcmds: ULong): Long 
+public expect fun capIoctlsLimit(fd: CInt, cmds: ULong?, ncmds: ULong): CInt 
+public expect fun capRightsInit(version: CInt, rights: CapRightsT?, vararg args: Any?): CapRightsT? 
+public expect fun capRightsGet(version: CInt, fd: CInt, rightsp: CapRightsT?): CInt 
+public expect fun capRightsSet(rights: CapRightsT?, vararg args: Any?): CapRightsT? 
+public expect fun capRightsClear(rights: CapRightsT?, vararg args: Any?): CapRightsT? 
+public expect fun capRightsIsSet(rights: CapRightsT?, vararg args: Any?): Boolean 
+public expect fun capRightsIsValid(rights: CapRightsT?): Boolean 
+public expect fun capRightsLimit(fd: CInt, rights: CapRightsT?): CInt 
+public expect fun capRightsMerge(dst: CapRightsT?, src: CapRightsT?): CapRightsT? 
+public expect fun capRightsRemove(dst: CapRightsT?, src: CapRightsT?): CapRightsT? 
+public expect fun capRightsContains(big: CapRightsT?, little: CapRightsT?): Boolean 
+public expect fun capSandboxed(): Boolean 
+public expect fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? 
+public expect fun ffs(value: CInt): CInt 
+public expect fun ffsl(value: CLong): CInt 
+public expect fun ffsll(value: CLongLong): CInt 
+public expect fun fls(value: CInt): CInt 
+public expect fun flsl(value: CLong): CInt 
+public expect fun flsll(value: CLongLong): CInt 
+public expect fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?)
+
+public expect fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
+public expect fun mallctlnametomib(name: String?, mibp: ULong?, miplen: ULong?): CInt 
+public expect fun mallctlbymib(mib: ULong?, mible: ULong, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
+public expect fun mallocx(size: ULong, flags: CInt): COpaquePointer? 
+public expect fun rallocx(ptr: COpaquePointer?, size: ULong, flags: CInt): COpaquePointer? 
+public expect fun xallocx(ptr: COpaquePointer?, size: ULong, extra: ULong, flags: CInt): ULong 
+public expect fun sallocx(ptr: COpaquePointer?, flags: CInt): ULong 
+public expect fun dallocx(ptr: COpaquePointer?, flags: CInt)
+public expect fun sdallocx(ptr: COpaquePointer?, size: ULong, flags: CInt)
+public expect fun nallocx(size: ULong, flags: CInt): ULong 
+public expect fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt 
+public expect fun getpagesize(): CInt 
+public expect fun getpagesizes(pagesize: ULong?, nelem: CInt): CInt 
+public expect fun clockGetcpuclockid2(arg1: IdT, arg2: CInt, arg3: ClockidT?): CInt 
+public expect fun strchrnul(s: String?, c: CInt): String? 
+public expect fun shmCreateLargepage(path: String?, flags: CInt, psind: CInt, allocPolicy: CInt, mode: ModeT): CInt 
+public expect fun shmRename(pathFrom: String?, pathTo: String?, flags: CInt): CInt 
+public expect fun memfdCreate(name: String?, flags: CUInt): CInt 
+public expect fun setaudit(auditinfo: AuditinfoT?): CInt 
+public expect fun eventfd(initval: CUInt, flags: CInt): CInt 
+public expect fun eventfdRead(fd: CInt, value: EventfdT?): CInt 
+public expect fun eventfdWrite(fd: CInt, value: EventfdT): CInt 
+public expect fun fdatasync(fd: CInt): CInt 
+public expect fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt 
+public expect fun setproctitleFast(fmt: String?, vararg args: Any?)
+public expect fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt 
+public expect fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt 
+public expect fun umtxOp(obj: COpaquePointer?, op: CInt, `val`: CULong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt 
+public expect fun sctpPeeloff(s: CInt, id: SctpAssocT): CInt 
+public expect fun sctpBindx(s: CInt, addrs: Sockaddr?, num: CInt, tpe: CInt): CInt 
+public expect fun sctpConnectx(s: CInt, addrs: Sockaddr?, addrcnt: CInt, id: SctpAssocT?): CInt 
+public expect fun sctpGetaddrlen(family: SaFamilyT): CInt 
+public expect fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt 
+public expect fun sctpFreepaddrs(addrs: Sockaddr?)
+public expect fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt 
+public expect fun sctpFreeladdrs(addrs: Sockaddr?)
+public expect fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: SocklenT?): CInt 
+public expect fun sctpSendv(sd: CInt, iov: Iovec?, iovcnt: CInt, addrs: Sockaddr?, addrcnt: CInt, info: COpaquePointer?, infolen: SocklenT, infotype: CUInt, flags: CInt): SsizeT 
+public expect fun sctpRecvv(sd: CInt, iov: Iovec?, iovcnt: CInt, from: Sockaddr?, fromlen: SocklenT?, info: COpaquePointer?, infolen: SocklenT?, infotype: CUInt?, flags: CInt?): SsizeT 
+public expect fun timerfdCreate(clockid: CInt, flags: CInt): CInt 
+public expect fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt 
+public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt 
+public expect fun closefrom(lowfd: CInt)
+public expect fun closeRange(lowfd: CUInt, highfd: CUInt, flags: CInt): CInt 
+public expect fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt 
+public expect fun kcmp(pid1: PidT, pid2: PidT, type: CInt, idx1: CULong, idx2: CULong): CInt 
+public expect fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? 
+public expect fun memstatStrerror(error: CInt): String? 
+public expect fun memstatMtlAlloc(): MemoryTypeList? 
+public expect fun memstatMtlFirst(list: MemoryTypeList?): MemoryType? 
+public expect fun memstatMtlNext(mtp: MemoryType?): MemoryType? 
+public expect fun memstatMtlFind(list: MemoryTypeList?, allocator: CInt, name: String?): MemoryType? 
+public expect fun memstatMtlFree(list: MemoryTypeList?)
+public expect fun memstatMtlGeterror(list: MemoryTypeList?): CInt 
+public expect fun memstatGetName(mtp: MemoryType?): String? 
+public expect fun kvmDpcpuSetcpu(kd: KvmT, cpu: CUInt): CInt 
+public expect fun kvmGetargv(kd: KvmT, p: KinfoProc?, nchr: CInt): COpaquePointer? 
+public expect fun kvmGetcptime(kd: KvmT, cpTime: CLong?): CInt 
+public expect fun kvmGetenvv(kd: KvmT, p: KinfoProc?, nchr: CInt): COpaquePointer? 
+public expect fun kvmGeterr(kd: KvmT): String? 
+public expect fun kvmGetmaxcpu(kd: KvmT): CInt 
+public expect fun kvmGetncpus(kd: KvmT): CInt 
+public expect fun kvmGetpcpu(kd: KvmT, cpu: CInt): COpaquePointer? 
+public expect fun kvmCounterU64Fetch(kd: KvmT, base: CULong): ULong 
+public expect fun kvmGetswapinfo(kd: KvmT, info: KvmSwap?, maxswap: CInt, flags: CInt): CInt 
+public expect fun kvmNative(kd: KvmT): CInt 
+public expect fun kvmNlist(kd: KvmT, nl: Nlist?): CInt 
+public expect fun kvmNlist2(kd: KvmT, nl: KvmNlist?): CInt 
+public expect fun kvmReadZpcpu(kd: KvmT, base: CULong, buf: COpaquePointer?, size: ULong, cpu: CInt): SsizeT 
+public expect fun kvmRead2(kd: KvmT, addr: KvaddrT, buf: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt 
+public expect fun extattrStringToNamespace(string: String?, attrnamespace: CInt?): CInt 
+public expect fun realhostname(host: String?, hsize: ULong, ip: InAddr?): CInt 
+public expect fun realhostnameSa(host: String?, hsize: ULong, addr: Sockaddr?, addrlen: CInt): CInt 
+public expect fun kldIsloaded(name: String?): CInt 
+public expect fun kldLoad(name: String?): CInt 
+public expect fun kinfoGetvmmap(pid: PidT, cntp: CInt?): KinfoVmentry? 
+public expect fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt)
+public expect fun humanizeNumber(buf: String?, len: ULong, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt 
+public expect fun flopen(path: String?, flags: CInt, vararg args: Any?): CInt 
+public expect fun flopenat(fd: CInt, path: String?, flags: CInt, vararg args: Any?): CInt 
+public expect fun getlocalbase(): String? 
+public expect fun pidfileOpen(path: String?, mode: ModeT, pidptr: PidT?): Pidfh? 
+public expect fun pidfileWrite(path: Pidfh?): CInt 
+public expect fun pidfileClose(path: Pidfh?): CInt 
+public expect fun pidfileRemove(path: Pidfh?): CInt 
+public expect fun pidfileFileno(path: Pidfh?): CInt 
+public expect fun procstatOpenSysctl(): Procstat? 
+public expect fun procstatGetfiles(procstat: Procstat?, kp: KinfoProc?, mmapped: CInt): FilestatList? 
+public expect fun procstatFreefiles(procstat: Procstat?, head: FilestatList?)
+public expect fun procstatGetprocs(procstat: Procstat?, what: CInt, arg: CInt, count: CUInt?): KinfoProc? 
+public expect fun procstatFreeprocs(procstat: Procstat?, p: KinfoProc?)
+public expect fun procstatGetvmmap(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): KinfoVmentry? 
+public expect fun procstatFreevmmap(procstat: Procstat?, vmmap: KinfoVmentry?)
+public expect fun procstatClose(procstat: Procstat?)
+public expect fun procstatFreeargv(procstat: Procstat?)
+public expect fun procstatFreeenvv(procstat: Procstat?)
+public expect fun procstatFreegroups(procstat: Procstat?, groups: GidT?)
+public expect fun procstatFreeptlwpinfo(procstat: Procstat?, pl: PtraceLwpinfo?)
+public expect fun procstatGetargv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer? 
+public expect fun procstatGetenvv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer? 
+public expect fun procstatGetgroups(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): GidT? 
+public expect fun procstatGetosrel(procstat: Procstat?, kp: KinfoProc?, osrelp: CInt?): CInt 
+public expect fun procstatGetpathname(procstat: Procstat?, kp: KinfoProc?, pathname: String?, maxlen: ULong): CInt 
+public expect fun procstatGetrlimit(procstat: Procstat?, kp: KinfoProc?, which: CInt, rlimit: Rlimit?): CInt 
+public expect fun procstatGetumask(procstat: Procstat?, kp: KinfoProc?, maskp: CUShort?): CInt 
+public expect fun procstatOpenCore(filename: String?): Procstat? 
+public expect fun procstatOpenKvm(nlistf: String?, memf: String?): Procstat? 
+public expect fun procstatGetSocketInfo(proc: Procstat?, fst: Filestat?, sock: Sockstat?, errbuf: String?): CInt 
+public expect fun procstatGetVnodeInfo(proc: Procstat?, fst: Filestat?, vn: Vnstat?, errbuf: String?): CInt 
+public expect fun procstatGetPtsInfo(proc: Procstat?, fst: Filestat?, pts: Ptsstat?, errbuf: String?): CInt 
+public expect fun procstatGetShmInfo(proc: Procstat?, fst: Filestat?, shm: Shmstat?, errbuf: String?): CInt 
+public expect fun timerCreate(clockId: ClockidT, evp: Sigevent?, timerid: TimerT): CInt 
+public expect fun timerDelete(timerid: TimerT): CInt 
+public expect fun timerGetoverrun(timerid: TimerT): CInt 
+public expect fun timerGettime(timerid: TimerT, value: Itimerspec?): CInt 
+public expect fun timerSettime(timerid: TimerT, flags: CInt, value: Itimerspec?, ovalue: Itimerspec?): CInt 
+public expect fun devstatGetnumdevs(kd: KvmT): CInt 
+public expect fun devstatGetgeneration(kd: KvmT): CLong 
+public expect fun devstatGetversion(kd: KvmT): CInt 
+public expect fun devstatCheckversion(kd: KvmT): CInt 
+public expect fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt 
+public expect fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt 

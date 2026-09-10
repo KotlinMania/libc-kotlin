@@ -1,0 +1,34 @@
+// port-lint: source Mod.rs
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+
+package io.github.kotlinmania.libc.unix.newlib.espidf
+
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_getrandom
+
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
+    if (buf == null) return -1
+    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
+    val result = libc_getrandom(bufPtr, buflen, flags)
+    return result
+}
+
+public actual fun gethostname(name: String?, namelen: SsizeT) {
+    throw UnsupportedOperationException("gethostname requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT =
+    throw UnsupportedOperationException("sendmsg requires manual FFI bridge — not yet implemented")
+
+public actual fun recvmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT =
+    throw UnsupportedOperationException("recvmsg requires manual FFI bridge — not yet implemented")
+
+public actual fun eventfd(initval: CUInt, flags: CInt): CInt =
+    throw UnsupportedOperationException("eventfd requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

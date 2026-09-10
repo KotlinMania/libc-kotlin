@@ -20,6 +20,7 @@ public data class SchedParam(
 
 /** `timespec` — POSIX time specification. */
 public data class Timespec(
+    val handle: Long = 0L,
     public val tvSec: Long,
     public val tvNsec: Long,
 )

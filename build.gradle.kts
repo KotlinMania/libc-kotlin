@@ -443,6 +443,19 @@ kotlin {
     androidNativeArm64 { configureBenchmarkCompilation() }
     androidNativeX64 { configureBenchmarkCompilation() }
 
+    // cinterop: wire the libc .def file to all native targets so CMSG macros
+    // (and other C inline functions) are accessible via kotlinx.cinterop.
+    targets.withType<KotlinNativeTarget> {
+        compilations.getByName("main") {
+            cinterops {
+                val libc by creating {
+                    defFile(project.file("src/nativeInterop/cinterop/libc.def"))
+                    packageName("libc.cinterop")
+                }
+            }
+        }
+    }
+
     // Web
     js {
         configureBenchmarkCompilation()

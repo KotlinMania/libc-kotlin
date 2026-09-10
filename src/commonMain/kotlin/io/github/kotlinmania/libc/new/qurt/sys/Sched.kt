@@ -13,8 +13,6 @@ public const val SCHED_RR: CInt = 1
 public const val SCHED_SPORADIC: CInt = 2
 public const val SCHED_OTHER: CInt = 3
 
-public fun schedYield(): CInt = -1
-
-public fun schedGetPriorityMax(policy: CInt): CInt = -1
-
-public fun schedGetPriorityMin(policy: CInt): CInt = -1
+public expect fun schedYield(): CInt 
+public expect fun schedGetPriorityMax(policy: CInt): CInt 
+public expect fun schedGetPriorityMin(policy: CInt): CInt 

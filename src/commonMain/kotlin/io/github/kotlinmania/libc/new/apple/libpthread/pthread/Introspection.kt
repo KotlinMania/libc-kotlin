@@ -7,6 +7,5 @@ public typealias PthreadIntrospectionHookT = ((CUInt, PthreadT, COpaquePointer?,
 
 public fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: COpaquePointer?): CInt = -1
-
-public fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): COpaquePointer? = null
+public expect fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: COpaquePointer?): CInt 
+public expect fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): COpaquePointer? 

@@ -50,6 +50,7 @@ public data class Flock64(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,
@@ -654,10 +655,8 @@ public const val REG_TRAPNO: CInt = 20
 public const val REG_OLDMASK: CInt = 21
 public const val REG_CR2: CInt = 22
 
-public fun getcontext(ucp: UcontextT?): CInt = -1
+public expect fun getcontext(ucp: UcontextT?): CInt 
+public expect fun setcontext(ucp: UcontextT?): CInt 
+public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 
-public fun setcontext(ucp: UcontextT?): CInt = -1
-
-public fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) { }
-
-public fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt = -1
+public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt 
