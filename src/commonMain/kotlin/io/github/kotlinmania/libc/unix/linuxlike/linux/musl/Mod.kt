@@ -61,6 +61,7 @@ public data class Sigaction(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,

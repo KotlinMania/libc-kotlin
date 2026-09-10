@@ -83,6 +83,7 @@ public data class Fsid64T(
 )
 
 public data class Timezone(
+    val handle: Long = 0L,
     val tzMinuteswest: CInt,
     val tzDsttime: CInt,
 )
@@ -291,6 +292,7 @@ public data class Passwd(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,
@@ -425,6 +427,7 @@ public data class RegexT(
 )
 
 public data class Rlimit64(
+    val handle: Long = 0L,
     val rlimCur: Rlim64T,
     val rlimMax: Rlim64T,
 )

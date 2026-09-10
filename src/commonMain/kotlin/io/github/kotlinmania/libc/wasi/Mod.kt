@@ -58,11 +58,13 @@ public data class Tm(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
@@ -80,6 +82,7 @@ public data class Itimerspec(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     val iovBase: COpaquePointer?,
     val iovLen: ULong,
 )

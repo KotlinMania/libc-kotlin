@@ -144,11 +144,13 @@ public data class Lconv(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     val iovBase: COpaquePointer?,
     val iovLen: ULong,
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: CLong,
     val tvUsec: CLong,
 )

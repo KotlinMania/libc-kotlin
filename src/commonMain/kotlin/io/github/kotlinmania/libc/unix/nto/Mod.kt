@@ -233,6 +233,7 @@ public data class Mmsghdr(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siCode: CInt,
     val siErrno: CInt,
@@ -258,6 +259,7 @@ public data class Sync(
 )
 
 public data class Rlimit64(
+    val handle: Long = 0L,
     val rlimCur: Rlim64T,
     val rlimMax: Rlim64T,
 )
@@ -615,6 +617,7 @@ public data class SockaddrStorage(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,

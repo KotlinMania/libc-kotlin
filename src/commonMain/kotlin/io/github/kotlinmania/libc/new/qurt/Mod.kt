@@ -95,11 +95,13 @@ public data class Tm(
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
 )
@@ -130,6 +132,7 @@ public data class Termios(
 )
 
 public data class Rlimit(
+    val handle: Long = 0L,
     val rlimCur: RlimT,
     val rlimMax: RlimT,
 )

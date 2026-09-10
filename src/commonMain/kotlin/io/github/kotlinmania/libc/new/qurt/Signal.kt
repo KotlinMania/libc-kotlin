@@ -19,6 +19,7 @@ public data class Sigevent(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siCode: CInt,
     val siValue: Sigval,

@@ -143,6 +143,7 @@ public data class StackT(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siCode: CInt,
     val siErrno: CInt,

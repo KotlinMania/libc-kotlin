@@ -226,6 +226,7 @@ public data class SockaddrStorage(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,

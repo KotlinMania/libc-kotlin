@@ -108,6 +108,7 @@ public data class SockaddrUn(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val sysname2: ByteArray,
     val nodename: ByteArray,

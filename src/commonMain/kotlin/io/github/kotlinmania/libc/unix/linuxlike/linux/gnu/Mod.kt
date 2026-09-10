@@ -44,6 +44,7 @@ public data class ExitStatus(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: Int,
     val tvUsec: Int,
 )
@@ -277,6 +278,7 @@ public data class FposT(
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
     val tvNsec2: Long,

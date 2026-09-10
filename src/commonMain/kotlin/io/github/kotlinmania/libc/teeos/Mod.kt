@@ -54,11 +54,13 @@ public data class CpuSetT(
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
 )

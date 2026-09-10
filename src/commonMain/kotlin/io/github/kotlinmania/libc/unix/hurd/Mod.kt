@@ -327,6 +327,7 @@ public data class Sigevent(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,
@@ -341,11 +342,13 @@ public data class SiginfoT(
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: SyscallSlongT,
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: Int,
     val tvUsec: Int,
 )
@@ -615,6 +618,7 @@ public data class SchedParam(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     val iovBase: COpaquePointer?,
     val iovLen: ULong,
 )
@@ -755,6 +759,7 @@ public data class LocaleStruct(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,
@@ -764,6 +769,7 @@ public data class Utsname(
 )
 
 public data class Rlimit64(
+    val handle: Long = 0L,
     val rlimCur: Rlim64T,
     val rlimMax: Rlim64T,
 )

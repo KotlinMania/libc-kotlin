@@ -79,16 +79,19 @@ public data class Utimbuf(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
 
 public data class Rlimit(
+    val handle: Long = 0L,
     val rlimCur: RlimT,
     val rlimMax: RlimT,
 )
@@ -145,6 +148,7 @@ public data class Hostent(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     val iovBase: COpaquePointer?,
     val iovLen: ULong,
 )
@@ -360,6 +364,7 @@ public data class Lconv(
 )
 
 public data class Rlimit64(
+    val handle: Long = 0L,
     val rlimCur: Rlim64T,
     val rlimMax: Rlim64T,
 )
@@ -735,6 +740,7 @@ public data class SemT(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,
@@ -804,6 +810,7 @@ public data class SockaddrStorage(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,

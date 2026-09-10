@@ -52,6 +52,7 @@ public data class InAddr(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     public val iovBase: Long,
     public val iovLen: ULong,
 )
@@ -110,6 +111,7 @@ public data class Stat(
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     public val tvSec: Time,
     public val tvNsec: Int,
 )

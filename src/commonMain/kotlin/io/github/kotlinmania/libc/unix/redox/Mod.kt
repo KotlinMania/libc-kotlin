@@ -32,6 +32,7 @@ public typealias UidT = CInt
 public typealias GidT = CInt
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,
@@ -150,6 +151,7 @@ public data class Sigaction(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siErrno: CInt,
     val siCode: CInt,

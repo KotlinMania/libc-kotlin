@@ -56,11 +56,13 @@ public data class Tm(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: CLong,
     val tvUsec: CLong,
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
 )

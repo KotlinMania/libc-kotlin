@@ -250,6 +250,7 @@ public data class Option(
 )
 
 public data class Rlimit64(
+    val handle: Long = 0L,
     val rlimCur: Rlim64T,
     val rlimMax: Rlim64T,
 )

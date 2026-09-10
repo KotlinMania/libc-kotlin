@@ -1459,11 +1459,13 @@ public data class SceKernelLoadExecParam(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: Int,
     val tvUsec: Int,
 )
 
 public data class Timezone(
+    val handle: Long = 0L,
     val tzMinutesWest: Int,
     val tzDstTime: Int,
 )

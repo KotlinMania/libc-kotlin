@@ -98,6 +98,7 @@ public data class PthreadRwlockT(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
 )
@@ -114,6 +115,7 @@ public data class Sockaddr(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     val iovBase: COpaquePointer?,
     val iovLen: ULong,
 )
@@ -141,6 +143,7 @@ public data class Pollfd(
 )
 
 public data class Rlimit(
+    val handle: Long = 0L,
     val rlimCur: RlimT,
     val rlimMax: RlimT,
 )
@@ -166,6 +169,7 @@ public data class Stat(
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
@@ -206,6 +210,7 @@ public data class StackT(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siCode: CInt,
     val siValue: Sigval,
@@ -418,6 +423,7 @@ public data class Group(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,

@@ -32,18 +32,21 @@ public data class Utimbuf(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
     val tvUsec2: Suseconds64T,
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: Long,
     val tvNsec2: CLong,
 )
 
 public data class Rlimit(
+    val handle: Long = 0L,
     val rlimCur: RlimT,
     val rlimMax: RlimT,
 )
@@ -82,6 +85,7 @@ public data class Hostent(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     val iovBase: COpaquePointer?,
     val iovLen: ULong,
 )

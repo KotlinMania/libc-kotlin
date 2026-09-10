@@ -20,6 +20,7 @@ public data class Sigaction(
 )
 
 public data class Rlimit64(
+    val handle: Long = 0L,
     val rlimCur: CULongLong,
     val rlimMax: CULongLong,
 )
