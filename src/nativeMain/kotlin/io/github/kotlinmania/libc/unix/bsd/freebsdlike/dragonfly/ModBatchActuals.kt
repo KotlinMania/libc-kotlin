@@ -63,21 +63,11 @@ public actual fun statfs(path: String?, buf: Statfs?): CInt =
 public actual fun fstatfs(fd: CInt, buf: Statfs?): CInt =
     throw UnsupportedOperationException("fstatfs requires manual FFI bridge — not yet implemented")
 
-public actual fun uname(buf: Utsname?): CInt {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
-    val result = libc_uname(bufPtr)
-    return result
-}
+public actual fun uname(buf: Utsname?): CInt =
+    throw UnsupportedOperationException("uname requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? {
-    if (arg1 == null) return null
-    val arg1Ptr: CPointer<ByteVar>? = arg1.value.toCPointer()
-    if (arg3 == null) return null
-    val arg3Ptr: CPointer<ByteVar>? = arg3.value.toCPointer()
-    val result = libc_memmem(arg1Ptr, arg2, arg3Ptr, arg4)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt =
     throw UnsupportedOperationException("pthreadSpinInit requires manual FFI bridge — not yet implemented")

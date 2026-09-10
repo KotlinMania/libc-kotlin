@@ -25,14 +25,8 @@ public actual fun pROTMPROTECT(x: CInt): CInt =
 public actual fun pROTMPROTECTEXTRACT(x: CInt): CInt =
     throw UnsupportedOperationException("pROTMPROTECTEXTRACT requires manual FFI bridge — not yet implemented")
 
-public actual fun clockNanosleep(clockId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt {
-    if (rqtp == null) return -1
-    val rqtpPtr: CPointer<ByteVar>? = rqtp.handle.toCPointer()
-    if (rmtp == null) return -1
-    val rmtpPtr: CPointer<ByteVar>? = rmtp.handle.toCPointer()
-    val result = libc_clock_nanosleep(clockId, flags, rqtpPtr, rmtpPtr)
-    return result
-}
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockNanosleep requires manual FFI bridge — not yet implemented")
 
 public actual fun reallocarr(ptr: COpaquePointer?, number: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("reallocarr requires manual FFI bridge — not yet implemented")
@@ -97,28 +91,16 @@ public actual fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt =
 public actual fun lutimes(file: String?, times: Timeval?): CInt =
     throw UnsupportedOperationException("lutimes requires manual FFI bridge — not yet implemented")
 
-public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    if (tz == null) return -1
-    val tzPtr: CPointer<ByteVar>? = tz.value.toCPointer()
-    val result = libc_gettimeofday(tpPtr, tzPtr)
-    return result
-}
+public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("gettimeofday requires manual FFI bridge — not yet implemented")
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
-public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt {
-    if (oldp == null) return -1
-    val oldpPtr: CPointer<ByteVar>? = oldp.value.toCPointer()
-    if (newp == null) return -1
-    val newpPtr: CPointer<ByteVar>? = newp.value.toCPointer()
-    val result = libc_sysctl(name, namelen, oldpPtr, oldlenp, newpPtr, newlen)
-    return result
-}
+public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
+    throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctlbyname requires manual FFI bridge — not yet implemented")
@@ -237,14 +219,8 @@ public actual fun localeconvL(loc: LocaleT): Lconv? =
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires manual FFI bridge — not yet implemented")
 
-public actual fun settimeofday(tv: Timeval?, tz: Timezone?): CInt {
-    if (tv == null) return -1
-    val tvPtr: CPointer<ByteVar>? = tv.handle.toCPointer()
-    if (tz == null) return -1
-    val tzPtr: CPointer<ByteVar>? = tz.handle.toCPointer()
-    val result = libc_settimeofday(tvPtr, tzPtr)
-    return result
-}
+public actual fun settimeofday(tv: Timeval?, tz: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("settimeofday requires manual FFI bridge — not yet implemented")
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("dup3 requires manual FFI bridge — not yet implemented")
@@ -255,14 +231,8 @@ public actual fun kqueue1(flags: CInt): CInt =
 public actual fun lwpSelf(): LwpidT =
     throw UnsupportedOperationException("lwpSelf requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? {
-    if (arg1 == null) return null
-    val arg1Ptr: CPointer<ByteVar>? = arg1.value.toCPointer()
-    if (arg3 == null) return null
-    val arg3Ptr: CPointer<ByteVar>? = arg3.value.toCPointer()
-    val result = libc_memmem(arg1Ptr, arg2, arg3Ptr, arg4)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
 
 public actual fun dlauxinfo(): COpaquePointer? =
     throw UnsupportedOperationException("dlauxinfo requires manual FFI bridge — not yet implemented")
@@ -314,10 +284,8 @@ public actual fun schedSetparam(pid: PidT, param: SchedParam?): CInt =
 public actual fun schedGetparam(pid: PidT, param: SchedParam?): CInt =
     throw UnsupportedOperationException("schedGetparam requires manual FFI bridge — not yet implemented")
 
-public actual fun schedGetscheduler(pid: PidT): CInt {
-    val result = libc_sched_getscheduler(pid)
-    return result
-}
+public actual fun schedGetscheduler(pid: PidT): CInt =
+    throw UnsupportedOperationException("schedGetscheduler requires manual FFI bridge — not yet implemented")
 
 public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: SchedParam?): CInt =
     throw UnsupportedOperationException("schedSetscheduler requires manual FFI bridge — not yet implemented")
@@ -325,12 +293,8 @@ public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: SchedParam?)
 public actual fun pollts(fds: Pollfd?, nfds: NfdsT, ts: Timespec?, sigmask: SigsetT?): CInt =
     throw UnsupportedOperationException("pollts requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getrandom(bufPtr, buflen, flags)
-    return result
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun reboot(mode: CInt, bootstr: String?): CInt =
     throw UnsupportedOperationException("reboot requires manual FFI bridge — type width mismatch")

@@ -20,12 +20,8 @@ public actual fun mALLOCXALIGN(lg: CUInt): CInt =
 public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE requires manual FFI bridge — not yet implemented")
 
-public actual fun uname(buf: Utsname?): CInt {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
-    val result = libc_uname(bufPtr)
-    return result
-}
+public actual fun uname(buf: Utsname?): CInt =
+    throw UnsupportedOperationException("uname requires manual FFI bridge — not yet implemented")
 
 public actual fun cPUZERO(cpuset: CpusetT?) {
     throw UnsupportedOperationException("cPUZERO requires manual FFI bridge — not yet implemented")
@@ -301,14 +297,8 @@ public actual fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: C
 public actual fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt, timeout: Timespec?): SsizeT =
     throw UnsupportedOperationException("recvmmsg requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? {
-    if (arg1 == null) return null
-    val arg1Ptr: CPointer<ByteVar>? = arg1.value.toCPointer()
-    if (arg3 == null) return null
-    val arg3Ptr: CPointer<ByteVar>? = arg3.value.toCPointer()
-    val result = libc_memmem(arg1Ptr, arg2, arg3Ptr, arg4)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
 
 public actual fun fhopen(fhp: FhandleT?, flags: CInt): CInt =
     throw UnsupportedOperationException("fhopen requires manual FFI bridge — not yet implemented")

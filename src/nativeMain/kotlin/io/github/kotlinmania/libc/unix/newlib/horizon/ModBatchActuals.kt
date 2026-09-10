@@ -5,6 +5,11 @@ package io.github.kotlinmania.libc.unix.newlib.horizon
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_getrandom
+import libc.cinterop.libc_gethostid
 
 public actual fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt =
     throw UnsupportedOperationException("pthreadAttrGetschedparam requires manual FFI bridge — not yet implemented")

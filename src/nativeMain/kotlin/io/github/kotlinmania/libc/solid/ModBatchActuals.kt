@@ -463,10 +463,8 @@ public actual fun strtok(arg1: String?, arg2: String?): String? =
 public actual fun strtokR(arg1: String?, arg2: String?, arg3: COpaquePointer?): String? =
     throw UnsupportedOperationException("strtokR requires manual FFI bridge — not yet implemented")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
+public actual fun strerrorR(arg1: CInt, arg2: String?, arg3: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires manual FFI bridge — not yet implemented")
 
 public actual fun strxfrm(arg1: String?, arg2: String?, arg3: ULong): ULong =
     libc.cinterop.libc_strxfrm(arg1, arg2, arg3)
@@ -482,14 +480,8 @@ public actual fun stpncpy(arg1: String?, arg2: String?, arg3: ULong): String? =
 
 public actual fun strnlen(arg1: String?, arg2: ULong): ULong =
     libc.cinterop.libc_strnlen(arg1, arg2)
-public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? {
-    if (arg1 == null) return null
-    val arg1Ptr: CPointer<ByteVar>? = arg1.value.toCPointer()
-    if (arg3 == null) return null
-    val arg3Ptr: CPointer<ByteVar>? = arg3.value.toCPointer()
-    val result = libc_memmem(arg1Ptr, arg2, arg3Ptr, arg4)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires manual FFI bridge — not yet implemented")
 
 public actual fun strcasestr(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcasestr requires manual FFI bridge — not yet implemented")
@@ -659,10 +651,8 @@ public actual fun nlLanginfo(item: NlItem): String? =
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): String? =
     throw UnsupportedOperationException("nlLanginfoL requires manual FFI bridge — not yet implemented")
 
-public actual fun memalign(blockSize: ULong, sizeArg: ULong): COpaquePointer? {
-    val result = libc_memalign(blockSize, sizeArg)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memalign requires manual FFI bridge — not yet implemented")
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =
     libc.cinterop.libc_lseek(arg1, arg2, arg3)

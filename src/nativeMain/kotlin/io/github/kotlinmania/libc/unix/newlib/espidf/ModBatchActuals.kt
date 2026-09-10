@@ -5,6 +5,10 @@ package io.github.kotlinmania.libc.unix.newlib.espidf
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_getrandom
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
     if (buf == null) return -1

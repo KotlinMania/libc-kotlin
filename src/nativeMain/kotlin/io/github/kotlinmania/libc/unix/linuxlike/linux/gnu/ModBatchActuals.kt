@@ -27,19 +27,11 @@ public actual fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt 
 public actual fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt =
     throw UnsupportedOperationException("setrlimit64 requires manual FFI bridge — not yet implemented")
 
-public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt {
-    if (rlim == null) return -1
-    val rlimPtr: CPointer<ByteVar>? = rlim.handle.toCPointer()
-    val result = libc_getrlimit(resource, rlimPtr)
-    return result
-}
+public actual fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
+    throw UnsupportedOperationException("getrlimit requires manual FFI bridge — not yet implemented")
 
-public actual fun setrlimit(resource: CInt, rlp: Rlimit?): CInt {
-    if (rlp == null) return -1
-    val rlpPtr: CPointer<ByteVar>? = rlp.handle.toCPointer()
-    val result = libc_setrlimit(resource, rlpPtr)
-    return result
-}
+public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
+    throw UnsupportedOperationException("setrlimit requires manual FFI bridge — not yet implemented")
 
 public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: Rlimit?, oldLimit: Rlimit?): CInt =
     throw UnsupportedOperationException("prlimit requires manual FFI bridge — not yet implemented")
@@ -79,28 +71,14 @@ public actual fun getpt(): CInt =
 public actual fun mallopt(param: CInt, value: CInt): CInt =
     throw UnsupportedOperationException("mallopt requires manual FFI bridge — not yet implemented")
 
-public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    if (tz == null) return -1
-    val tzPtr: CPointer<ByteVar>? = tz.value.toCPointer()
-    val result = libc_gettimeofday(tpPtr, tzPtr)
-    return result
-}
+public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt =
+    throw UnsupportedOperationException("gettimeofday requires manual FFI bridge — not yet implemented")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getentropy(bufPtr, buflen)
-    return result
-}
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getrandom(bufPtr, buflen, flags)
-    return result
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval requires manual FFI bridge — not yet implemented")
@@ -168,15 +146,11 @@ public actual fun pthreadAttrGetaffinityNp(attr: PthreadAttrT, cpusetsize: ULong
 public actual fun pthreadAttrSetaffinityNp(attr: PthreadAttrT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
     throw UnsupportedOperationException("pthreadAttrSetaffinityNp requires manual FFI bridge — not yet implemented")
 
-public actual fun getpriority(which: CInt, who: IdT): CInt {
-    val result = libc_getpriority(which, who.toInt())
-    return result
-}
+public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
+    throw UnsupportedOperationException("getpriority requires manual FFI bridge — not yet implemented")
 
-public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
-    val result = libc_setpriority(which, who.toInt(), prio)
-    return result
-}
+public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
+    throw UnsupportedOperationException("setpriority requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CInt?): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrGetkindNp requires manual FFI bridge — not yet implemented")
