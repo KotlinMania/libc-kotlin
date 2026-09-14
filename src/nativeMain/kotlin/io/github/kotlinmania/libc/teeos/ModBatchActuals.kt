@@ -248,12 +248,8 @@ public actual fun strerror(e: CInt): String? {
     val result = libc_strerror(e)
     return result?.toKString()
 }
-public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_gettime(clockId, tpPtr)
-    return result
-}
+public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
 public actual fun getpid(): PidT =
     libc.cinterop.libc_getpid()
@@ -335,16 +331,12 @@ public actual fun strlen(cs: String?): ULong =
     libc.cinterop.libc_strlen(cs)
 public actual fun strcmp(l: String?, r: String?): CInt =
     libc.cinterop.libc_strcmp(l, r)
-public actual fun strcpy(dest: String?, src: String?): String? {
-    val result = libc_strcpy(dest, src)
-    return result?.toKString()
-}
+public actual fun strcpy(dest: String?, src: String?): String? =
+    throw UnsupportedOperationException("strcpy requires FFI bridge")
 public actual fun strncmp(l: String?, r: String?, n: ULong): CInt =
     libc.cinterop.libc_strncmp(l, r, n)
-public actual fun strncpy(dest: String?, src: String?, n: ULong): String? {
-    val result = libc_strncpy(dest, src, n)
-    return result?.toKString()
-}
+public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncpy requires FFI bridge")
 public actual fun strnlen(cs: String?, n: ULong): ULong =
     libc.cinterop.libc_strnlen(cs, n)
 public actual fun strrchr(s: String?, c: CInt): String? {

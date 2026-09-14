@@ -253,14 +253,10 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
     return result
 }
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc_mkfifoat(dirfd, pathname, mode.toInt())
-    return result
-}
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt {
-    val result = libc_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
-    return result
-}
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkfifoat requires FFI bridge")
+public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
+    throw UnsupportedOperationException("mknodat requires FFI bridge")
 
 public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: CInt): CInt {
     if (times == null) return -1
@@ -464,11 +460,8 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: 
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memrchr requires manual FFI bridge — not yet implemented")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun strsep(string: COpaquePointer?, delim: String?): String? =
     throw UnsupportedOperationException("strsep requires manual FFI bridge — not yet implemented")
 

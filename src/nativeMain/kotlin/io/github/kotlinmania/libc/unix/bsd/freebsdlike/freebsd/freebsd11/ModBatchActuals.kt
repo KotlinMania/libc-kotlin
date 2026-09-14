@@ -13,10 +13,8 @@ import libc.cinterop.libc_basename
 import libc.cinterop.libc_dirname
 import libc.cinterop.libc_setgrent
 
-public actual fun setgrent(): CInt {
-    val result = libc_setgrent()
-    return result
-}
+public actual fun setgrent(): CInt =
+    throw UnsupportedOperationException("setgrent requires FFI bridge")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)

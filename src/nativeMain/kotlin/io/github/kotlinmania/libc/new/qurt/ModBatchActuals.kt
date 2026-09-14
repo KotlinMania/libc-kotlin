@@ -87,22 +87,14 @@ public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? {
 
 public actual fun strlen(s: String?): ULong =
     libc.cinterop.libc_strlen(s)
-public actual fun strcpy(dest: String?, src: String?): String? {
-    val result = libc_strcpy(dest, src)
-    return result?.toKString()
-}
-public actual fun strncpy(dest: String?, src: String?, n: ULong): String? {
-    val result = libc_strncpy(dest, src, n)
-    return result?.toKString()
-}
-public actual fun strcat(dest: String?, src: String?): String? {
-    val result = libc_strcat(dest, src)
-    return result?.toKString()
-}
-public actual fun strncat(dest: String?, src: String?, n: ULong): String? {
-    val result = libc_strncat(dest, src, n)
-    return result?.toKString()
-}
+public actual fun strcpy(dest: String?, src: String?): String? =
+    throw UnsupportedOperationException("strcpy requires FFI bridge")
+public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncpy requires FFI bridge")
+public actual fun strcat(dest: String?, src: String?): String? =
+    throw UnsupportedOperationException("strcat requires FFI bridge")
+public actual fun strncat(dest: String?, src: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncat requires FFI bridge")
 public actual fun strcmp(s1: String?, s2: String?): CInt =
     libc.cinterop.libc_strcmp(s1, s2)
 public actual fun strncmp(s1: String?, s2: String?, n: ULong): CInt =

@@ -109,11 +109,8 @@ public actual fun prlimit(pid: PidT, resource: CInt, newLimit: Rlimit?, oldLimit
 public actual fun prlimit64(pid: PidT, resource: CInt, newLimit: Rlimit64?, oldLimit: Rlimit64?): CInt =
     throw UnsupportedOperationException("prlimit64 requires manual FFI bridge — not yet implemented")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt {
     if (tp == null) return -1
     val tvPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
@@ -367,14 +364,8 @@ public actual fun schedGetscheduler(pid: PidT): CInt {
     return result
 }
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt {
-    if (rqtp == null) return -1
-    val rqtpPtr: CPointer<ByteVar>? = rqtp.handle.toCPointer()
-    if (rmtp == null) return -1
-    val rmtpPtr: CPointer<ByteVar>? = rmtp.handle.toCPointer()
-    val result = libc_clock_nanosleep(clkId, flags, rqtpPtr, rmtpPtr)
-    return result
-}
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockNanosleep requires FFI bridge")
 
 public actual fun sethostname(name: String?, len: ULong): CInt =
     libc.cinterop.libc_sethostname(name, len)

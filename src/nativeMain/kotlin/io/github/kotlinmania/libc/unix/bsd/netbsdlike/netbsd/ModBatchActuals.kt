@@ -37,26 +37,16 @@ public actual fun pROTMPROTECT(x: CInt): CInt =
 public actual fun pROTMPROTECTEXTRACT(x: CInt): CInt =
     throw UnsupportedOperationException("pROTMPROTECTEXTRACT requires manual FFI bridge — not yet implemented")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt {
-    if (rqtp == null) return -1
-    val rqtpPtr: CPointer<ByteVar>? = rqtp.handle.toCPointer()
-    if (rmtp == null) return -1
-    val rmtpPtr: CPointer<ByteVar>? = rmtp.handle.toCPointer()
-    val result = libc_clock_nanosleep(clkId, flags, rqtpPtr, rmtpPtr)
-    return result
-}
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockNanosleep requires FFI bridge")
 
 public actual fun reallocarr(ptr: COpaquePointer?, number: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("reallocarr requires manual FFI bridge — not yet implemented")
 
-public actual fun chflags(path: String?, flags: CULong): CInt {
-    val result = libc_chflags(path, flags)
-    return result
-}
-public actual fun fchflags(fd: CInt, flags: CULong): CInt {
-    val result = libc_fchflags(fd, flags)
-    return result
-}
+public actual fun chflags(path: String?, flags: CULong): CInt =
+    throw UnsupportedOperationException("chflags requires FFI bridge")
+public actual fun fchflags(fd: CInt, flags: CULong): CInt =
+    throw UnsupportedOperationException("fchflags requires FFI bridge")
 public actual fun lchflags(path: String?, flags: CULong): CInt =
     libc.cinterop.libc_lchflags(path, flags)
 public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT =
@@ -127,14 +117,8 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
-public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt {
-    if (oldp == null) return -1
-    val oldpPtr: CPointer<ByteVar>? = oldp.value.toCPointer()
-    if (newp == null) return -1
-    val newpPtr: CPointer<ByteVar>? = newp.value.toCPointer()
-    val result = libc_sysctl(name, namelen, oldpPtr, oldlenp, newpPtr, newlen)
-    return result
-}
+public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
+    throw UnsupportedOperationException("sysctl requires FFI bridge")
 
 public actual fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctlbyname requires manual FFI bridge — not yet implemented")
@@ -348,10 +332,8 @@ public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): 
     return result
 }
 
-public actual fun reboot(mode: CInt, bootstr: String?): CInt {
-    val result = libc_reboot(mode, bootstr)
-    return result
-}
+public actual fun reboot(mode: CInt, bootstr: String?): CInt =
+    throw UnsupportedOperationException("reboot requires FFI bridge")
 public actual fun lwpPark(clock: ClockidT, flags: CInt, ts: Timespec?, unpark: LwpidT, hint: COpaquePointer?, unparkhint: COpaquePointer?): CInt =
     throw UnsupportedOperationException("lwpPark requires manual FFI bridge — not yet implemented")
 

@@ -118,11 +118,8 @@ public actual fun processVmWritev(pid: PidT, localIov: Iovec?, liovcnt: CULong, 
 public actual fun futimes(fd: CInt, times: Timeval?): CInt =
     throw UnsupportedOperationException("futimes requires manual FFI bridge — not yet implemented")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =

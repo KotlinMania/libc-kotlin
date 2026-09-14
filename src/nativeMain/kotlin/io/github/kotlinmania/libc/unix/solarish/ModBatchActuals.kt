@@ -54,11 +54,8 @@ public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt {
     return result
 }
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc.cinterop.libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun semDestroy(sem: SemT?): CInt =
     throw UnsupportedOperationException("semDestroy requires manual FFI bridge — not yet implemented")
 
@@ -139,35 +136,17 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
 
-public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val resPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc.cinterop.libc_clock_getres(clkId, resPtr)
-    return result
-}
+public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGetres requires FFI bridge")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc.cinterop.libc_clock_gettime(clkId, tpPtr)
-    return result
-}
+public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt {
-    if (rqtp == null) return -1
-    val rqtpPtr: CPointer<ByteVar>? = rqtp.handle.toCPointer()
-    if (rmtp == null) return -1
-    val rmtpPtr: CPointer<ByteVar>? = rmtp.handle.toCPointer()
-    val result = libc.cinterop.libc_clock_nanosleep(clkId, flags, rqtpPtr, rmtpPtr)
-    return result
-}
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockNanosleep requires FFI bridge")
 
-public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc.cinterop.libc_clock_settime(clkId, tpPtr)
-    return result
-}
+public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockSettime requires FFI bridge")
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
@@ -212,28 +191,22 @@ public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg requires manual FFI bridge — not yet implemented")
 
 public actual fun getpriority(which: CInt, who: CInt): CInt {
-    val result = libc.cinterop.libc_getpriority(which, who.toInt())
+    val result = libc.cinterop.libc_getpriority(which, who)
     return result
 }
 
 public actual fun setpriority(which: CInt, who: CInt, prio: CInt): CInt {
-    val result = libc.cinterop.libc_setpriority(which, who.toInt(), prio)
+    val result = libc.cinterop.libc_setpriority(which, who, prio)
     return result
 }
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt {
-    val result = libc.cinterop.libc_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
-    return result
-}
+public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
+    throw UnsupportedOperationException("mknodat requires FFI bridge")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc.cinterop.libc_mkfifoat(dirfd, pathname, mode.toInt())
-    return result
-}
-public actual fun sethostname(name: String?, len: CInt): CInt {
-    val result = libc.cinterop.libc_sethostname(name, len)
-    return result
-}
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkfifoat requires FFI bridge")
+public actual fun sethostname(name: String?, len: CInt): CInt =
+    throw UnsupportedOperationException("sethostname requires FFI bridge")
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 

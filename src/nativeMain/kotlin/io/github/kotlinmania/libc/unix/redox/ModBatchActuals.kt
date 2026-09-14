@@ -28,11 +28,8 @@ public actual fun fDZERO(set: FdSet?) {
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc.cinterop.libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun pipe2(fds: CInt?, flags: CInt): CInt =
@@ -166,7 +163,7 @@ public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
-    val result = libc.cinterop.libc_shm_open(name, oflag, mode.toInt())
+    val result = libc.cinterop.libc_shm_open(name, oflag, mode)
     return result
 }
 
@@ -271,12 +268,8 @@ public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt {
     return result
 }
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc.cinterop.libc_clock_gettime(clkId, tpPtr)
-    return result
-}
+public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
 public actual fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): ULong =
     throw UnsupportedOperationException("strftime requires manual FFI bridge — not yet implemented")

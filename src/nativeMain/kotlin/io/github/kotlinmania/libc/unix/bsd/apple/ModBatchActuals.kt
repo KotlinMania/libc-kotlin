@@ -155,12 +155,8 @@ public actual fun ctimeR(clock: TimeT?, result: String?): String? =
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
-public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt {
-    if (addr == null) return -1
-    val addrPtr: CPointer<ByteVar>? = addr.value.toCPointer()
-    val result = libc_mincore(addrPtr, len, vec)
-    return result
-}
+public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt =
+    throw UnsupportedOperationException("mincore requires FFI bridge")
 public actual fun sysctlnametomib(name: String?, mibp: CInt?, sizep: ULong?): CInt =
     throw UnsupportedOperationException("sysctlnametomib requires manual FFI bridge — not yet implemented")
 
@@ -189,14 +185,8 @@ public actual fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt =
 public actual fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt =
     throw UnsupportedOperationException("shmget requires manual FFI bridge — not yet implemented")
 
-public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt {
-    if (oldp == null) return -1
-    val oldpPtr: CPointer<ByteVar>? = oldp.value.toCPointer()
-    if (newp == null) return -1
-    val newpPtr: CPointer<ByteVar>? = newp.value.toCPointer()
-    val result = libc_sysctl(name, namelen, oldpPtr, oldlenp, newpPtr, newlen)
-    return result
-}
+public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
+    throw UnsupportedOperationException("sysctl requires FFI bridge")
 
 public actual fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctlbyname requires manual FFI bridge — not yet implemented")
@@ -225,10 +215,8 @@ public actual fun pthreadAttrSetscope(attr: PthreadAttrT, contentionscope: CInt)
 public actual fun pthreadAttrSetstackaddr(attr: PthreadAttrT, stackaddr: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadAttrSetstackaddr requires manual FFI bridge — not yet implemented")
 
-public actual fun pthreadSetnameNp(name: String?): CInt {
-    val result = libc_pthread_setname_np(name)
-    return result
-}
+public actual fun pthreadSetnameNp(name: String?): CInt =
+    throw UnsupportedOperationException("pthreadSetnameNp requires FFI bridge")
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("pthreadGetnameNp requires manual FFI bridge — not yet implemented")
@@ -358,10 +346,8 @@ public actual fun ptrace(request: CInt, pid: PidT, addr: String?, data: CInt): C
 public actual fun quotactl(special: String?, cmd: CInt, id: CInt, data: String?): CInt =
     throw UnsupportedOperationException("quotactl requires manual FFI bridge — not yet implemented")
 
-public actual fun sethostname(name: String?, len: CInt): CInt {
-    val result = libc_sethostname(name, len)
-    return result
-}
+public actual fun sethostname(name: String?, len: CInt): CInt =
+    throw UnsupportedOperationException("sethostname requires FFI bridge")
 public actual fun sendfile(fd: CInt, s: CInt, offset: OffT, len: OffT?, hdtr: SfHdtr?, flags: CInt): CInt =
     throw UnsupportedOperationException("sendfile requires manual FFI bridge — not yet implemented")
 
@@ -416,14 +402,10 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
     return result
 }
 
-public actual fun getdomainname(name: String?, len: CInt): CInt {
-    val result = libc_getdomainname(name, len)
-    return result
-}
-public actual fun setdomainname(name: String?, len: CInt): CInt {
-    val result = libc_setdomainname(name, len)
-    return result
-}
+public actual fun getdomainname(name: String?, len: CInt): CInt =
+    throw UnsupportedOperationException("getdomainname requires FFI bridge")
+public actual fun setdomainname(name: String?, len: CInt): CInt =
+    throw UnsupportedOperationException("setdomainname requires FFI bridge")
 public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
     if (iov == null) return -1
     val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
@@ -472,7 +454,7 @@ public actual fun getgrouplist(name: String?, basegid: CInt, groups: CInt?, ngro
     throw UnsupportedOperationException("getgrouplist requires manual FFI bridge — not yet implemented")
 
 public actual fun initgroups(user: String?, basegroup: CInt): CInt {
-    val result = libc_initgroups(user, basegroup.toInt())
+    val result = libc_initgroups(user, basegroup)
     return result
 }
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
@@ -835,10 +817,8 @@ public actual fun basename(path: String?): String? {
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     libc.cinterop.libc_mkfifoat(dirfd, pathname, mode)
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt {
-    val result = libc_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
-    return result
-}
+public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
+    throw UnsupportedOperationException("mknodat requires FFI bridge")
 
 public actual fun freadlink(fd: CInt, buf: String?, size: ULong): CInt =
     throw UnsupportedOperationException("freadlink requires manual FFI bridge — not yet implemented")

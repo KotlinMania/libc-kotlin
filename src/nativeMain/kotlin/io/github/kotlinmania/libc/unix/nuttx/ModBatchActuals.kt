@@ -23,12 +23,8 @@ public actual fun dirfd(dirp: DIR?): Int =
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: Sockaddr?, addrlen: SocklenT?): Int =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
-public actual fun clockGettime(clockid: ClockidT, tp: Timespec?): Int {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc.cinterop.libc_clock_gettime(clockid, tpPtr)
-    return result
-}
+public actual fun clockGettime(clockid: ClockidT, tp: Timespec?): Int =
+    throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
 public actual fun futimens(fd: Int, times: Timespec?): Int {
     if (times == null) return -1

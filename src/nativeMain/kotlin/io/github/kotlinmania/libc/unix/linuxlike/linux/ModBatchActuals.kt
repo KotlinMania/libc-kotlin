@@ -199,10 +199,8 @@ public actual fun setfsgid(gid: GidT): CInt =
 public actual fun setfsuid(uid: UidT): CInt =
     throw UnsupportedOperationException("setfsuid requires manual FFI bridge — not yet implemented")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc_mkfifoat(dirfd, pathname, mode.toInt())
-    return result
-}
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkfifoat requires FFI bridge")
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUInt): CInt =
     throw UnsupportedOperationException("syncFileRange requires manual FFI bridge — not yet implemented")
 
@@ -293,14 +291,8 @@ public actual fun schedGetscheduler(pid: PidT): CInt {
     return result
 }
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt {
-    if (rqtp == null) return -1
-    val rqtpPtr: CPointer<ByteVar>? = rqtp.handle.toCPointer()
-    if (rmtp == null) return -1
-    val rmtpPtr: CPointer<ByteVar>? = rmtp.handle.toCPointer()
-    val result = libc_clock_nanosleep(clkId, flags, rqtpPtr, rmtpPtr)
-    return result
-}
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockNanosleep requires FFI bridge")
 
 public actual fun umount2(target: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("umount2 requires manual FFI bridge — not yet implemented")

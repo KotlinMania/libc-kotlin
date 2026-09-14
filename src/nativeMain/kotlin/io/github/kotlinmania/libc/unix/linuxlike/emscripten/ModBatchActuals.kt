@@ -68,12 +68,10 @@ public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt {
     val result = libc_setrlimit(resource, rlpPtr)
     return result
 }
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun abs(i: CInt): CInt =
-    libc.cinterop.libc_abs(i)
+    throw UnsupportedOperationException("abs requires FFI bridge")
 public actual fun labs(i: CLong): CLong =
     libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
@@ -146,10 +144,8 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
 public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg requires manual FFI bridge — not yet implemented")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc_mkfifoat(dirfd, pathname, mode.toInt())
-    return result
-}
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkfifoat requires FFI bridge")
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap requires manual FFI bridge — not yet implemented")
 

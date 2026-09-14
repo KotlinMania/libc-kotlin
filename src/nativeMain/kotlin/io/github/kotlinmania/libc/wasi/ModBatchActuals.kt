@@ -242,22 +242,14 @@ public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong
 public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong =
     throw UnsupportedOperationException("strtoull requires manual FFI bridge — not yet implemented")
 
-public actual fun strcpy(dst: String?, src: String?): String? {
-    val result = libc.cinterop.libc_strcpy(dst, src)
-    return result?.toKString()
-}
-public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
-    val result = libc.cinterop.libc_strncpy(dst, src, n)
-    return result?.toKString()
-}
-public actual fun strcat(s: String?, ct: String?): String? {
-    val result = libc.cinterop.libc_strcat(s, ct)
-    return result?.toKString()
-}
-public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
-    val result = libc.cinterop.libc_strncat(s, ct, n)
-    return result?.toKString()
-}
+public actual fun strcpy(dst: String?, src: String?): String? =
+    throw UnsupportedOperationException("strcpy requires FFI bridge")
+public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncpy requires FFI bridge")
+public actual fun strcat(s: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strcat requires FFI bridge")
+public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncat requires FFI bridge")
 public actual fun strcmp(cs: String?, ct: String?): CInt =
     libc.cinterop.libc_strcmp(cs, ct)
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
@@ -383,10 +375,8 @@ public actual fun fileno(stream: FILE?): CInt =
 public actual fun open(path: String?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
 
-public actual fun creat(path: String?, mode: ModeT): CInt {
-    val result = libc.cinterop.libc_creat(path, mode.toInt())
-    return result
-}
+public actual fun creat(path: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("creat requires FFI bridge")
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fcntl requires manual FFI bridge — not yet implemented")
 
@@ -426,10 +416,8 @@ public actual fun fstatat(dirfd: CInt, pathname: String?, buf: Stat?, flags: CIn
 
 public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
     libc.cinterop.libc_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
-public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc.cinterop.libc_mkdirat(dirfd, pathname, mode.toInt())
-    return result
-}
+public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkdirat requires FFI bridge")
 public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): SsizeT =
     libc.cinterop.libc_readlinkat(dirfd, pathname, buf, bufsiz)
 public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
@@ -488,11 +476,8 @@ public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt {
 public actual fun times(buf: Tms?): ClockT =
     throw UnsupportedOperationException("times requires manual FFI bridge — not yet implemented")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc.cinterop.libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun usleep(secs: CUInt): CInt = libc.cinterop.libc_usleep(secs)
 public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
     throw UnsupportedOperationException("send requires manual FFI bridge — not yet implemented")
@@ -711,14 +696,10 @@ public actual fun arc4randomBuf(a: COpaquePointer?, b: ULong) {
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
 
-public actual fun chmod(path: String?, mode: ModeT): CInt {
-    val result = libc.cinterop.libc_chmod(path, mode.toInt())
-    return result
-}
-public actual fun fchmod(fd: CInt, mode: ModeT): CInt {
-    val result = libc.cinterop.libc_fchmod(fd, mode.toInt())
-    return result
-}
+public actual fun chmod(path: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("chmod requires FFI bridge")
+public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
+    throw UnsupportedOperationException("fchmod requires FFI bridge")
 public actual fun realpath(pathname: String?, resolved: String?): String? =
     throw UnsupportedOperationException("realpath requires manual FFI bridge — not yet implemented")
 

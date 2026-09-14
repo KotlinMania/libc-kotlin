@@ -310,35 +310,17 @@ public actual fun clearenv(): CInt =
 public actual fun clockGetcpuclockid(pid: PidT, clkId: ClockidT?): CInt =
     throw UnsupportedOperationException("clockGetcpuclockid requires manual FFI bridge — not yet implemented")
 
-public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_getres(clkId, tpPtr)
-    return result
-}
+public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGetres requires FFI bridge")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_gettime(clkId, tpPtr)
-    return result
-}
+public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt {
-    if (rqtp == null) return -1
-    val rqtpPtr: CPointer<ByteVar>? = rqtp.handle.toCPointer()
-    if (rmtp == null) return -1
-    val rmtpPtr: CPointer<ByteVar>? = rmtp.handle.toCPointer()
-    val result = libc_clock_nanosleep(clkId, flags, rqtpPtr, rmtpPtr)
-    return result
-}
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockNanosleep requires FFI bridge")
 
-public actual fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_settime(clockId, tpPtr)
-    return result
-}
+public actual fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockSettime requires FFI bridge")
 
 public actual fun creat64(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("creat64 requires manual FFI bridge — not yet implemented")
@@ -438,10 +420,8 @@ public actual fun futimens(fd: CInt, times: Timespec?): CInt {
 public actual fun getcontext(ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("getcontext requires manual FFI bridge — not yet implemented")
 
-public actual fun getdomainname(name: String?, len: CInt): CInt {
-    val result = libc_getdomainname(name, len)
-    return result
-}
+public actual fun getdomainname(name: String?, len: CInt): CInt =
+    throw UnsupportedOperationException("getdomainname requires FFI bridge")
 public actual fun getdtablesize(): CInt =
     libc.cinterop.libc_getdtablesize()
 public actual fun getgrent(): Group? =
@@ -603,19 +583,13 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: 
 public actual fun memsetS(s: COpaquePointer?, smax: ULong, c: CInt, n: ULong): CInt =
     throw UnsupportedOperationException("memsetS requires manual FFI bridge — not yet implemented")
 
-public actual fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt {
-    val result = libc_mincore(addr, len, vec)
-    return result
-}
+public actual fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt =
+    throw UnsupportedOperationException("mincore requires FFI bridge")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc_mkfifoat(dirfd, pathname, mode.toInt())
-    return result
-}
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt {
-    val result = libc_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
-    return result
-}
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkfifoat requires FFI bridge")
+public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
+    throw UnsupportedOperationException("mknodat requires FFI bridge")
 
 public actual fun mount(device: String?, path: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("mount requires manual FFI bridge — not yet implemented")
@@ -932,10 +906,8 @@ public actual fun sendmsg(sockfd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
 public actual fun setcontext(ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("setcontext requires manual FFI bridge — not yet implemented")
 
-public actual fun setdomainname(name: String?, len: CInt): CInt {
-    val result = libc_setdomainname(name, len)
-    return result
-}
+public actual fun setdomainname(name: String?, len: CInt): CInt =
+    throw UnsupportedOperationException("setdomainname requires FFI bridge")
 public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
 
@@ -946,10 +918,8 @@ public actual fun setgrent() {
 public actual fun sethostid(hostid: CInt): CInt =
     throw UnsupportedOperationException("sethostid requires manual FFI bridge — not yet implemented")
 
-public actual fun sethostname(name: String?, len: CInt): CInt {
-    val result = libc_sethostname(name, len)
-    return result
-}
+public actual fun sethostname(name: String?, len: CInt): CInt =
+    throw UnsupportedOperationException("sethostname requires FFI bridge")
 public actual fun setmntent(filename: String?, ty: String?): FILE? =
     throw UnsupportedOperationException("setmntent requires manual FFI bridge — not yet implemented")
 
@@ -1058,11 +1028,8 @@ public actual fun statx(path: String?, buf: Stat?, length: CInt, command: CInt):
 public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
     throw UnsupportedOperationException("strcasecmpL requires manual FFI bridge — not yet implemented")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun strftime(arg1: String?, arg2: ULong, arg3: String?, arg4: Tm?): ULong =
     throw UnsupportedOperationException("strftime requires manual FFI bridge — not yet implemented")
 

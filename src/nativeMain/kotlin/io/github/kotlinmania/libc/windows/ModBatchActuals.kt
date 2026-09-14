@@ -151,22 +151,14 @@ public actual fun getenv(s: String?): String? {
     val result = libc.cinterop.libc_getenv(s)
     return result?.toKString()
 }
-public actual fun strcpy(dst: String?, src: String?): String? {
-    val result = libc.cinterop.libc_strcpy(dst, src)
-    return result?.toKString()
-}
-public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
-    val result = libc.cinterop.libc_strncpy(dst, src, n)
-    return result?.toKString()
-}
-public actual fun strcat(s: String?, ct: String?): String? {
-    val result = libc.cinterop.libc_strcat(s, ct)
-    return result?.toKString()
-}
-public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
-    val result = libc.cinterop.libc_strncat(s, ct, n)
-    return result?.toKString()
-}
+public actual fun strcpy(dst: String?, src: String?): String? =
+    throw UnsupportedOperationException("strcpy requires FFI bridge")
+public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncpy requires FFI bridge")
+public actual fun strcat(s: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strcat requires FFI bridge")
+public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncat requires FFI bridge")
 public actual fun strcmp(cs: String?, ct: String?): CInt =
     libc.cinterop.libc_strcmp(cs, ct)
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
@@ -291,17 +283,13 @@ public actual fun tzset() {
     throw UnsupportedOperationException("tzset requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun chmod(path: String?, mode: CInt): CInt {
-    val result = libc.cinterop.libc_chmod(path, mode.toInt())
-    return result
-}
+public actual fun chmod(path: String?, mode: CInt): CInt =
+    throw UnsupportedOperationException("chmod requires FFI bridge")
 public actual fun wchmod(path: WcharT?, mode: CInt): CInt =
     throw UnsupportedOperationException("wchmod requires manual FFI bridge — not yet implemented")
 
-public actual fun mkdir(path: String?): CInt {
-    val result = libc.cinterop.libc_mkdir(path)
-    return result
-}
+public actual fun mkdir(path: String?): CInt =
+    throw UnsupportedOperationException("mkdir requires FFI bridge")
 public actual fun wrmdir(path: WcharT?): CInt =
     throw UnsupportedOperationException("wrmdir requires manual FFI bridge — not yet implemented")
 
@@ -335,10 +323,8 @@ public actual fun open(path: String?, oflag: CInt, vararg args: Any?): CInt =
 public actual fun wopen(path: WcharT?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("wopen requires manual FFI bridge — not yet implemented")
 
-public actual fun creat(path: String?, mode: CInt): CInt {
-    val result = libc.cinterop.libc_creat(path, mode.toInt())
-    return result
-}
+public actual fun creat(path: String?, mode: CInt): CInt =
+    throw UnsupportedOperationException("creat requires FFI bridge")
 public actual fun access(path: String?, amode: CInt): CInt =
     libc.cinterop.libc_access(path, amode)
 public actual fun chdir(dir: String?): CInt =

@@ -44,32 +44,16 @@ public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
 public actual fun accept4(s: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt =
     throw UnsupportedOperationException("accept4 requires manual FFI bridge — not yet implemented")
 
-public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt {
-    if (addr == null) return -1
-    val addrPtr: CPointer<ByteVar>? = addr.value.toCPointer()
-    val result = libc_mincore(addrPtr, len, vec)
-    return result
-}
-public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_getres(clkId, tpPtr)
-    return result
-}
+public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt =
+    throw UnsupportedOperationException("mincore requires FFI bridge")
+public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGetres requires FFI bridge")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_gettime(clkId, tpPtr)
-    return result
-}
+public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
-public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_settime(clkId, tpPtr)
-    return result
-}
+public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockSettime requires FFI bridge")
 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
@@ -129,15 +113,11 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
     return result
 }
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt {
-    val result = libc_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
-    return result
-}
+public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
+    throw UnsupportedOperationException("mknodat requires FFI bridge")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc_mkfifoat(dirfd, pathname, mode.toInt())
-    return result
-}
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkfifoat requires FFI bridge")
 public actual fun semTimedwait(sem: SemT, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("semTimedwait requires manual FFI bridge — not yet implemented")
 

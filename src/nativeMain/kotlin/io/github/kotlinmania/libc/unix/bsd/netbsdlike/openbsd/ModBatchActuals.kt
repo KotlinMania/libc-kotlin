@@ -114,14 +114,8 @@ public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: T
 public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT =
     throw UnsupportedOperationException("forkpty requires manual FFI bridge — not yet implemented")
 
-public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt {
-    if (oldp == null) return -1
-    val oldpPtr: CPointer<ByteVar>? = oldp.value.toCPointer()
-    if (newp == null) return -1
-    val newpPtr: CPointer<ByteVar>? = newp.value.toCPointer()
-    val result = libc_sysctl(name, namelen, oldpPtr, oldlenp, newpPtr, newlen)
-    return result
-}
+public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
+    throw UnsupportedOperationException("sysctl requires FFI bridge")
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
     throw UnsupportedOperationException("setresgid requires manual FFI bridge — not yet implemented")

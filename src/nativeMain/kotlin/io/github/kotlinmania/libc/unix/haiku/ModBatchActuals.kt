@@ -82,12 +82,12 @@ public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt {
 }
 
 public actual fun getpriority(which: CInt, who: IdT): CInt {
-    val result = libc_getpriority(which, who.toInt())
+    val result = libc_getpriority(which, who)
     return result
 }
 
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt {
-    val result = libc_setpriority(which, who.toInt(), priority)
+    val result = libc_setpriority(which, who, priority)
     return result
 }
 
@@ -121,11 +121,8 @@ public actual fun futimens(fd: CInt, times: Timespec?): CInt {
     return result
 }
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
-
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun errnop(): CInt? =
     throw UnsupportedOperationException("errnop requires manual FFI bridge — not yet implemented")
 
@@ -181,14 +178,10 @@ public actual fun fgetspent(file: FILE?): Spwd? =
 public actual fun fgetspentR(file: FILE?, spwd: Spwd?, buffer: String?, bufferSize: ULong, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("fgetspentR requires manual FFI bridge — not yet implemented")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
-    val result = libc_mkfifoat(dirfd, pathname, mode.toInt())
-    return result
-}
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt {
-    val result = libc_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
-    return result
-}
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+    throw UnsupportedOperationException("mkfifoat requires FFI bridge")
+public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
+    throw UnsupportedOperationException("mknodat requires FFI bridge")
 
 public actual fun semDestroy(sem: SemT?): CInt =
     throw UnsupportedOperationException("semDestroy requires manual FFI bridge — not yet implemented")
@@ -196,26 +189,14 @@ public actual fun semDestroy(sem: SemT?): CInt =
 public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
     throw UnsupportedOperationException("semInit requires manual FFI bridge — not yet implemented")
 
-public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val resPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_getres(clkId, resPtr)
-    return result
-}
+public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGetres requires FFI bridge")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_gettime(clkId, tpPtr)
-    return result
-}
+public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
-public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt {
-    if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_settime(clkId, tpPtr)
-    return result
-}
+public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt =
+    throw UnsupportedOperationException("clockSettime requires FFI bridge")
 
 public actual fun clockGetcpuclockid(pid: PidT, clkId: ClockidT?): CInt =
     throw UnsupportedOperationException("clockGetcpuclockid requires manual FFI bridge — not yet implemented")

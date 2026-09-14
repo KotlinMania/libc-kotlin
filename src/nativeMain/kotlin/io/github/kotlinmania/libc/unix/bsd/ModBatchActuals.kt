@@ -70,12 +70,10 @@ public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt {
     val result = libc_setrlimit(resource, rlimPtr)
     return result
 }
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
-    val result = libc_strerror_r(errnum, buf, buflen)
-    return result
-}
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun abs(i: CInt): CInt =
-    libc.cinterop.libc_abs(i)
+    throw UnsupportedOperationException("abs requires FFI bridge")
 public actual fun labs(i: CLong): CLong =
     libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
