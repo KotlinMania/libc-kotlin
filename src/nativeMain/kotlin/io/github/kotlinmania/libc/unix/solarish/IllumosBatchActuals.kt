@@ -9,6 +9,8 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.ByteVar
 import libc.cinterop.libc_pwritev
 import libc.cinterop.libc_preadv
+import kotlinx.cinterop.CPointer
+import libc.cinterop.libc_mincore
 
 public actual fun eventfd(initval: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("eventfd requires manual FFI bridge — not yet implemented")
@@ -29,11 +31,10 @@ public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: EpollEvent?): 
     throw UnsupportedOperationException("epollCtl requires manual FFI bridge — not yet implemented")
 
 public actual fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt =
-    throw UnsupportedOperationException("mincore requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("mincore requires FFI bridge")
 
 public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: PsetidT?): CInt =
-    throw UnsupportedOperationException("psetBindLwp requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("psetBindLwp requires FFI bridge")
 public actual fun psetGetloadavg(pset: PsetidT, load: CDouble?, num: CInt): CInt =
     throw UnsupportedOperationException("psetGetloadavg requires manual FFI bridge — not yet implemented")
 

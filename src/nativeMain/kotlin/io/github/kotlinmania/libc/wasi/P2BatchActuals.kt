@@ -5,6 +5,10 @@ package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toKString
+import libc.cinterop.libc_socket
+import libc.cinterop.libc_listen
+import libc.cinterop.libc_gai_strerror
 
 public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt = libc.cinterop.libc_socket(domain, type, protocol)
 public actual fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt =
@@ -46,4 +50,4 @@ public actual fun freeaddrinfo(p: Addrinfo?) {
 }
 
 public actual fun gaiStrerror(ecode: CInt): String? =
-    throw UnsupportedOperationException("gaiStrerror requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("gaiStrerror requires FFI bridge")

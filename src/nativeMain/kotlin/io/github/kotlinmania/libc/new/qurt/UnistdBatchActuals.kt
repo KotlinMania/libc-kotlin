@@ -15,6 +15,8 @@ import libc.cinterop.libc_ftruncate
 import libc.cinterop.libc_access
 import libc.cinterop.libc_getpid
 import libc.cinterop.libc_lseek
+import kotlinx.cinterop.CPointer
+import libc.cinterop.libc_read
 
 public actual fun access(pathname: String?, mode: CInt): CInt =
     libc.cinterop.libc_access(pathname, mode)
@@ -22,11 +24,9 @@ public actual fun close(fd: CInt): CInt = libc.cinterop.libc_close(fd)
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     libc.cinterop.libc_lseek(fd, offset, whence)
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    throw UnsupportedOperationException("read requires manual FFI bridge — type mismatch")
+    throw UnsupportedOperationException("read requires FFI bridge")
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    throw UnsupportedOperationException("write requires manual FFI bridge — UInt/ULong type mismatch")
-public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    libc.cinterop.libc_ftruncate(fd, length)
+    throw UnsupportedOperationException("write requires FFI bridge")
 public actual fun unlink(pathname: String?): CInt =
     libc.cinterop.libc_unlink(pathname)
 public actual fun getcwd(buf: String?, size: ULong): String? =

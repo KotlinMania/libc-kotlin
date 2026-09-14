@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.new.common.linuxlike
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import libc.cinterop.libc_pthread_setname_np
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
     throw UnsupportedOperationException("pthreadGetaffinityNp requires manual FFI bridge — not yet implemented")
@@ -19,4 +20,4 @@ public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpus
     throw UnsupportedOperationException("pthreadSetaffinityNp requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    throw UnsupportedOperationException("pthreadSetnameNp requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("pthreadSetnameNp requires FFI bridge")

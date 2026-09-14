@@ -13,6 +13,10 @@ import libc.cinterop.libc_dirname
 import libc.cinterop.libc_getentropy
 import libc.cinterop.libc_getrandom
 import libc.cinterop.libc_gettimeofday
+import libc.cinterop.libc_setrlimit
+import libc.cinterop.libc_getpriority
+import libc.cinterop.libc_setpriority
+import libc.cinterop.libc_getrlimit
 
 public actual fun fgetspentR(fp: FILE?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("fgetspentR requires manual FFI bridge — not yet implemented")
@@ -36,13 +40,12 @@ public actual fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt 
     throw UnsupportedOperationException("setrlimit64 requires manual FFI bridge — not yet implemented")
 
 public actual fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("getrlimit requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("getrlimit requires FFI bridge")
 
 public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("setrlimit requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("setrlimit requires FFI bridge")
 public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: Rlimit?, oldLimit: Rlimit?): CInt =
-    throw UnsupportedOperationException("prlimit requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("prlimit requires FFI bridge")
 
 public actual fun prlimit64(pid: PidT, resource: RlimitResourceT, newLimit: Rlimit64?, oldLimit: Rlimit64?): CInt =
     throw UnsupportedOperationException("prlimit64 requires manual FFI bridge — not yet implemented")
@@ -169,10 +172,10 @@ public actual fun pthreadAttrSetaffinityNp(attr: PthreadAttrT, cpusetsize: ULong
     throw UnsupportedOperationException("pthreadAttrSetaffinityNp requires manual FFI bridge — not yet implemented")
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    throw UnsupportedOperationException("getpriority requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("getpriority requires FFI bridge")
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    throw UnsupportedOperationException("setpriority requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("setpriority requires FFI bridge")
 
 public actual fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CInt?): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrGetkindNp requires manual FFI bridge — not yet implemented")

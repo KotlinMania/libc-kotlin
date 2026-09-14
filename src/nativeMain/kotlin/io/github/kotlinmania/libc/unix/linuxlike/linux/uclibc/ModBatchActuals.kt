@@ -11,6 +11,10 @@ import kotlinx.cinterop.toCPointer
 import libc.cinterop.libc_gettimeofday
 import libc.cinterop.libc_preadv
 import libc.cinterop.libc_pwritev
+import libc.cinterop.libc_setrlimit
+import libc.cinterop.libc_getpriority
+import libc.cinterop.libc_setpriority
+import libc.cinterop.libc_getrlimit
 
 public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt {
     if (tp == null) return -1
@@ -72,16 +76,14 @@ public actual fun setrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt 
     throw UnsupportedOperationException("setrlimit64 requires manual FFI bridge — not yet implemented")
 
 public actual fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("getrlimit requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("getrlimit requires FFI bridge")
 
 public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("setrlimit requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("setrlimit requires FFI bridge")
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    throw UnsupportedOperationException("getpriority requires manual FFI bridge — not yet implemented")
-
+    throw UnsupportedOperationException("getpriority requires FFI bridge")
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    throw UnsupportedOperationException("setpriority requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("setpriority requires FFI bridge")
 
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval requires manual FFI bridge — not yet implemented")
