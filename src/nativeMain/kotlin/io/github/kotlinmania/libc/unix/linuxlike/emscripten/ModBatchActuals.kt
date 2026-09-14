@@ -30,6 +30,9 @@ import libc.cinterop.libc_pwritev
 import libc.cinterop.libc_msync
 import libc.cinterop.libc_posix_fallocate
 import libc.cinterop.libc_setpwent
+import libc.cinterop.libc_mkfifoat
+import libc.cinterop.libc_shm_open
+import libc.cinterop.libc_telldir
 
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
@@ -59,10 +62,16 @@ public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt {
     return result
 }
 
-public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("setrlimit requires FFI bridge")
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("strerrorR requires FFI bridge")
+public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt {
+    if (rlim == null) return -1
+    val rlpPtr: CPointer<ByteVar>? = rlim.handle.toCPointer()
+    val result = libc_setrlimit(resource, rlpPtr)
+    return result
+}
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
+    val result = libc_strerror_r(errnum, buf, buflen)
+    return result
+}
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
@@ -93,8 +102,10 @@ public actual fun endpwent(): Unit {
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent requires manual FFI bridge — not yet implemented")
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    throw UnsupportedOperationException("shmOpen requires manual FFI bridge — not yet implemented")
+public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
+    val result = libc_shm_open(name, oflag, mode.toInt())
+    return result
+}
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
@@ -135,8 +146,10 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
 public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg requires manual FFI bridge — not yet implemented")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("mkfifoat requires manual FFI bridge — type mismatch")
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
+    val result = libc_mkfifoat(dirfd, pathname, mode.toInt())
+    return result
+}
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap requires manual FFI bridge — not yet implemented")
 
@@ -160,8 +173,12 @@ public actual fun seekdir(dirp: DIR?, loc: CLong) {
     throw UnsupportedOperationException("seekdir requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    throw UnsupportedOperationException("telldir requires manual FFI bridge — not yet implemented")
+public actual fun telldir(dirp: DIR?): CLong {
+    if (dirp == null) return -1L
+    val dirpPtr: CPointer<ByteVar>? = dirp.handle.toCPointer()
+    val result = libc_telldir(dirpPtr)
+    return result
+}
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
     libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
@@ -188,11 +205,15 @@ public actual fun sync() {
 public actual fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
-public actual fun getpriority(which: CInt, who: IdT): CInt =
-    throw UnsupportedOperationException("getpriority requires FFI bridge")
+public actual fun getpriority(which: CInt, who: IdT): CInt {
+    val result = libc_getpriority(which, who.toInt())
+    return result
+}
 
-public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    throw UnsupportedOperationException("setpriority requires FFI bridge")
+public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
+    val result = libc_setpriority(which, who.toInt(), prio)
+    return result
+}
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
     if (buf == null) return -1

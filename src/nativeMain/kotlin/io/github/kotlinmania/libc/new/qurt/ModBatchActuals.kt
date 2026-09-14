@@ -50,6 +50,7 @@ import libc.cinterop.libc_isxdigit
 import libc.cinterop.libc_memcmp
 import libc.cinterop.libc_strstr
 import libc.cinterop.libc_strrchr
+import libc.cinterop.libc_ftruncate
 
 public actual fun opendir(name: String?): DIR? =
     throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
@@ -79,19 +80,29 @@ public actual fun semClose(sem: SemT?): CInt =
 public actual fun semUnlink(name: String?): CInt =
     libc.cinterop.libc_sem_unlink(name)
 
-public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("alignedAlloc requires FFI bridge")
+public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? {
+    val result = libc_aligned_alloc(alignment, size)
+    return if (result != null) COpaquePointer(result.toLong()) else null
+}
 
 public actual fun strlen(s: String?): ULong =
     libc.cinterop.libc_strlen(s)
-public actual fun strcpy(dest: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcpy requires FFI bridge")
-public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncpy requires FFI bridge")
-public actual fun strcat(dest: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcat requires FFI bridge")
-public actual fun strncat(dest: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncat requires FFI bridge")
+public actual fun strcpy(dest: String?, src: String?): String? {
+    val result = libc_strcpy(dest, src)
+    return result?.toKString()
+}
+public actual fun strncpy(dest: String?, src: String?, n: ULong): String? {
+    val result = libc_strncpy(dest, src, n)
+    return result?.toKString()
+}
+public actual fun strcat(dest: String?, src: String?): String? {
+    val result = libc_strcat(dest, src)
+    return result?.toKString()
+}
+public actual fun strncat(dest: String?, src: String?, n: ULong): String? {
+    val result = libc_strncat(dest, src, n)
+    return result?.toKString()
+}
 public actual fun strcmp(s1: String?, s2: String?): CInt =
     libc.cinterop.libc_strcmp(s1, s2)
 public actual fun strncmp(s1: String?, s2: String?, n: ULong): CInt =
@@ -112,19 +123,35 @@ public actual fun strspn(s: String?, accept: String?): ULong =
     libc.cinterop.libc_strspn(s, accept)
 public actual fun strcspn(s: String?, reject: String?): ULong =
     libc.cinterop.libc_strcspn(s, reject)
-public actual fun strpbrk(s: String?, accept: String?): String? =
-    throw UnsupportedOperationException("strpbrk requires FFI bridge")
-public actual fun strstr(haystack: String?, needle: String?): String? =
-    throw UnsupportedOperationException("strstr requires FFI bridge")
+public actual fun strpbrk(s: String?, accept: String?): String? {
+    val result = libc_strpbrk(s, accept)
+    return result?.toKString()
+}
+public actual fun strstr(haystack: String?, needle: String?): String? {
+    val result = libc_strstr(haystack, needle)
+    return result?.toKString()
+}
 public actual fun strtok(s: String?, delim: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 
-public actual fun strerror(errnum: CInt): String? =
-    throw UnsupportedOperationException("strerror requires FFI bridge")
-public actual fun memchr(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memchr requires FFI bridge")
-public actual fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: ULong): CInt =
-    throw UnsupportedOperationException("memcmp requires FFI bridge")
+public actual fun strerror(errnum: CInt): String? {
+    val result = libc_strerror(errnum)
+    return result?.toKString()
+}
+public actual fun memchr(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
+    if (s == null) return null
+    val cxPtr: CPointer<ByteVar>? = s.value.toCPointer()
+    val result = libc_memchr(cxPtr, c, n)
+    return if (result != null) COpaquePointer(result.toLong()) else null
+}
+public actual fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: ULong): CInt {
+    if (s1 == null) return -1
+    val s1Ptr: CPointer<ByteVar>? = s1.value.toCPointer()
+    if (s2 == null) return -1
+    val s2Ptr: CPointer<ByteVar>? = s2.value.toCPointer()
+    val result = libc_memcmp(s1Ptr, s2Ptr, n)
+    return result
+}
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? {
     if (dest == null) return null
     val destPtr: CPointer<ByteVar>? = dest.value.toCPointer()
@@ -141,10 +168,16 @@ public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong)
     val result = libc_memmove(destPtr, srcPtr, n)
     return if (result != null) COpaquePointer(result.toLong()) else null
 }
-public actual fun memset(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset requires FFI bridge")
-public actual fun fork(): PidT =
-    throw UnsupportedOperationException("fork requires FFI bridge")
+public actual fun memset(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
+    if (s == null) return null
+    val destPtr: CPointer<ByteVar>? = s.value.toCPointer()
+    val result = libc_memset(destPtr, c, n)
+    return if (result != null) COpaquePointer(result.toLong()) else null
+}
+public actual fun fork(): PidT {
+    val result = libc_fork()
+    return result
+}
 public actual fun execve(filename: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     libc.cinterop.libc_execve(filename, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), envp?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun isalnum(c: CInt): CInt = libc.cinterop.libc_isalnum(c)
@@ -161,5 +194,7 @@ public actual fun isxdigit(c: CInt): CInt = libc.cinterop.libc_isxdigit(c)
 public actual fun tolower(c: CInt): CInt = libc.cinterop.libc_tolower(c)
 public actual fun toupper(c: CInt): CInt = libc.cinterop.libc_toupper(c)
 
-public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    throw UnsupportedOperationException("ftruncate requires FFI bridge")
+public actual fun ftruncate(fd: CInt, length: OffT): CInt {
+    val result = libc_ftruncate(fd, length)
+    return result
+}

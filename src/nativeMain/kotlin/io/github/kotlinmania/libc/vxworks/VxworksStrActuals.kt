@@ -44,14 +44,22 @@ public actual fun strstr(cs: String?, ct: String?): String? {
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok requires mutable buffer (COpaquePointer), not immutable String")
 
-public actual fun strcpy(dst: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcpy requires FFI bridge")
-public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncpy requires FFI bridge")
-public actual fun strcat(s: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strcat requires FFI bridge")
-public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncat requires FFI bridge")
+public actual fun strcpy(dst: String?, src: String?): String? {
+    val result = libc.cinterop.libc_strcpy(dst, src)
+    return result?.toKString()
+}
+public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
+    val result = libc.cinterop.libc_strncpy(dst, src, n)
+    return result?.toKString()
+}
+public actual fun strcat(s: String?, ct: String?): String? {
+    val result = libc.cinterop.libc_strcat(s, ct)
+    return result?.toKString()
+}
+public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
+    val result = libc.cinterop.libc_strncat(s, ct, n)
+    return result?.toKString()
+}
 public actual fun getcwd(buf: String?, size: ULong): String? =
     throw UnsupportedOperationException("getcwd requires mutable buffer (COpaquePointer), not immutable String")
 

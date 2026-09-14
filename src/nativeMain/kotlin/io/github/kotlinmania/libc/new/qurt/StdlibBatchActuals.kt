@@ -23,6 +23,8 @@ import libc.cinterop.libc_llabs
 import libc.cinterop.libc_atoi
 import libc.cinterop.libc_rand
 import libc.cinterop.libc_srand
+import kotlinx.cinterop.CPointer
+import libc.cinterop.libc_free
 
 public actual fun malloc(size: ULong): COpaquePointer? =
     libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
@@ -31,7 +33,9 @@ public actual fun calloc(nmemb: ULong, size: ULong): COpaquePointer? =
 public actual fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     libc.cinterop.libc_realloc(ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
 public actual fun free(ptr: COpaquePointer?) {
-    throw UnsupportedOperationException("free requires manual FFI bridge — not yet implemented")
+    if (ptr == null) return
+    val pPtr: CPointer<ByteVar>? = ptr.value.toCPointer()
+    libc_free(pPtr)
 }
 
 public actual fun getenv(name: String?): String? =

@@ -29,6 +29,9 @@ import libc.cinterop.libc_fputs
 import libc.cinterop.libc_perror
 import libc.cinterop.libc_getchar
 import libc.cinterop.libc_puts
+import kotlinx.cinterop.CPointer
+import libc.cinterop.libc_clearerr
+import libc.cinterop.libc_rewind
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
     libc.cinterop.libc_fopen(filename, mode)?.let { FILE(it.toLong()) }
@@ -99,7 +102,9 @@ public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
 public actual fun ftell(stream: FILE?): CLong =
     libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun rewind(stream: FILE?) {
-    throw UnsupportedOperationException("rewind requires manual FFI bridge — not yet implemented")
+    if (stream == null) return
+    val streamPtr: CPointer<ByteVar>? = stream.handle.toCPointer()
+    libc_rewind(streamPtr)
 }
 
 public actual fun fgetpos(stream: FILE?, pos: FposT?): CInt =
@@ -109,7 +114,9 @@ public actual fun fsetpos(stream: FILE?, pos: FposT?): CInt =
     throw UnsupportedOperationException("fsetpos requires manual FFI bridge — not yet implemented")
 
 public actual fun clearerr(stream: FILE?) {
-    throw UnsupportedOperationException("clearerr requires manual FFI bridge — not yet implemented")
+    if (stream == null) return
+    val arg1Ptr: CPointer<ByteVar>? = stream.handle.toCPointer()
+    libc_clearerr(arg1Ptr)
 }
 
 public actual fun feof(stream: FILE?): CInt =

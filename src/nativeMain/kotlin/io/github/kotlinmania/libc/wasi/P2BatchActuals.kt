@@ -49,5 +49,7 @@ public actual fun freeaddrinfo(p: Addrinfo?) {
     throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun gaiStrerror(ecode: CInt): String? =
-    throw UnsupportedOperationException("gaiStrerror requires FFI bridge")
+public actual fun gaiStrerror(ecode: CInt): String? {
+    val result = libc.cinterop.libc_gai_strerror(ecode)
+    return result?.toKString()
+}

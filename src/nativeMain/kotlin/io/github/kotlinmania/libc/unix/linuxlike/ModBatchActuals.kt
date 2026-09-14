@@ -27,6 +27,7 @@ import libc.cinterop.libc_uname
 import libc.cinterop.libc_clock_settime
 import libc.cinterop.libc_clock_getres
 import libc.cinterop.libc_memalign
+import libc.cinterop.libc_mknodat
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
@@ -72,14 +73,32 @@ public actual fun semInit(sem: SemT, pshared: CInt, value: CUInt): CInt =
 
 public actual fun fdatasync(fd: CInt): CInt =
     libc.cinterop.libc_fdatasync(fd)
-public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("mincore requires FFI bridge")
-public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
-    throw UnsupportedOperationException("clockGetres requires FFI bridge")
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
-    throw UnsupportedOperationException("clockGettime requires FFI bridge")
-public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt =
-    throw UnsupportedOperationException("clockSettime requires FFI bridge")
+public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: COpaquePointer?): CInt {
+    if (addr == null) return -1
+    val addrPtr: CPointer<ByteVar>? = addr.value.toCPointer()
+    if (vec == null) return -1
+    val vecPtr: CPointer<ByteVar>? = vec.value.toCPointer()
+    val result = libc_mincore(addrPtr, len, vecPtr)
+    return result
+}
+public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt {
+    if (tp == null) return -1
+    val resPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    val result = libc_clock_getres(clkId, resPtr)
+    return result
+}
+public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt {
+    if (tp == null) return -1
+    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    val result = libc_clock_gettime(clkId, tpPtr)
+    return result
+}
+public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt {
+    if (tp == null) return -1
+    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
+    val result = libc_clock_settime(clkId, tpPtr)
+    return result
+}
 
 public actual fun clockGetcpuclockid(pid: PidT, clkId: ClockidT?): CInt =
     throw UnsupportedOperationException("clockGetcpuclockid requires manual FFI bridge — not yet implemented")
@@ -142,8 +161,10 @@ public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("uselocale requires manual FFI bridge — not yet implemented")
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
+public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt {
+    val result = libc_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
+    return result
+}
 
 public actual fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("ptsnameR requires manual FFI bridge — not yet implemented")

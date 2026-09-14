@@ -8,6 +8,7 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.toLong
 import libc.cinterop.libc_strerror_r
 import libc.cinterop.libc_madvise
 import libc.cinterop.libc_endpwent
@@ -35,6 +36,8 @@ import libc.cinterop.libc_getdtablesize
 import libc.cinterop.libc_msync
 import libc.cinterop.libc_setpwent
 import libc.cinterop.libc_endgrent
+import libc.cinterop.libc_popen
+import libc.cinterop.libc_telldir
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
@@ -61,10 +64,16 @@ public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt {
     return result
 }
 
-public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt =
-    throw UnsupportedOperationException("setrlimit requires FFI bridge")
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("strerrorR requires FFI bridge")
+public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt {
+    if (rlim == null) return -1
+    val rlimPtr: CPointer<ByteVar>? = rlim.handle.toCPointer()
+    val result = libc_setrlimit(resource, rlimPtr)
+    return result
+}
+public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt {
+    val result = libc_strerror_r(errnum, buf, buflen)
+    return result
+}
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
@@ -157,8 +166,12 @@ public actual fun seekdir(dirp: DIR?, loc: CLong) {
     throw UnsupportedOperationException("seekdir requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    throw UnsupportedOperationException("telldir requires manual FFI bridge — not yet implemented")
+public actual fun telldir(dirp: DIR?): CLong {
+    if (dirp == null) return -1L
+    val dirpPtr: CPointer<ByteVar>? = dirp.handle.toCPointer()
+    val result = libc_telldir(dirpPtr)
+    return result
+}
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
     libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
@@ -261,8 +274,10 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires manual FFI bridge — not yet implemented")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen requires manual FFI bridge — not yet implemented")
+public actual fun popen(command: String?, mode: String?): FILE? {
+    val result = libc_popen(command, mode)
+    return if (result != null) FILE(result.toLong()) else null
+}
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
