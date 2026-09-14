@@ -7,6 +7,12 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.ByteVar
+import libc.cinterop.libc_munlockall
+import libc.cinterop.libc_msync
+import libc.cinterop.libc_munmap
+import libc.cinterop.libc_mlock
+import libc.cinterop.libc_mlockall
+import libc.cinterop.libc_mprotect
 
 public actual fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
     throw UnsupportedOperationException("mmap requires manual FFI bridge — not yet implemented")

@@ -8,6 +8,27 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
+import libc.cinterop.libc_tmpfile
+import libc.cinterop.libc_setvbuf
+import libc.cinterop.libc_fclose
+import libc.cinterop.libc_remove
+import libc.cinterop.libc_fflush
+import libc.cinterop.libc_fseek
+import libc.cinterop.libc_putchar
+import libc.cinterop.libc_ftell
+import libc.cinterop.libc_freopen
+import libc.cinterop.libc_ungetc
+import libc.cinterop.libc_fgetc
+import libc.cinterop.libc_feof
+import libc.cinterop.libc_ferror
+import libc.cinterop.libc_fputc
+import libc.cinterop.libc_fopen
+import libc.cinterop.libc_fwrite
+import libc.cinterop.libc_rename
+import libc.cinterop.libc_fputs
+import libc.cinterop.libc_perror
+import libc.cinterop.libc_getchar
+import libc.cinterop.libc_puts
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
     libc.cinterop.libc_fopen(filename, mode)?.let { FILE(it.toLong()) }
@@ -95,8 +116,8 @@ public actual fun feof(stream: FILE?): CInt =
     libc.cinterop.libc_feof(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun ferror(stream: FILE?): CInt =
     libc.cinterop.libc_ferror(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
-public actual fun perror(s: String?) {
-    throw UnsupportedOperationException("perror requires manual FFI bridge — not yet implemented")
+public actual fun perror(s: String?): Unit {
+    libc_perror(s)
 }
 
 public actual fun remove(filename: String?): CInt =

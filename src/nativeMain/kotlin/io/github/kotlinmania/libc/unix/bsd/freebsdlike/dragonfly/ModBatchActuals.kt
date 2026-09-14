@@ -15,6 +15,8 @@ import libc.cinterop.libc_dirname
 import libc.cinterop.libc_memmem
 import libc.cinterop.libc_setgrent
 import libc.cinterop.libc_uname
+import libc.cinterop.libc_shmdt
+import libc.cinterop.libc_mprotect
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")

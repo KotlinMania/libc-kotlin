@@ -42,7 +42,11 @@ class NativeFunctionsTest {
     fun callocReturnsZeroedMemory() {
         val ptr = calloc(10uL, 4uL)
         assertNotNull(ptr, "calloc(10, 4) should return non-null")
-                free(ptr)
+        val expected = calloc(40uL, 1uL)
+        assertNotNull(expected, "calloc(40, 1) should return non-null for expected buffer")
+        assertEquals(0, memcmp(ptr, expected, 40uL), "calloc memory should be zeroed")
+        free(expected)
+        free(ptr)
     }
 
     @Test
@@ -67,7 +71,13 @@ class NativeFunctionsTest {
         assertNotNull(ptr)
         val result = memset(ptr, 0x42, 16uL)
         assertNotNull(result, "memset should return the destination pointer")
-                free(ptr)
+        assertEquals(ptr.value, result.value, "memset should return the destination pointer")
+        val expected = malloc(16uL)
+        assertNotNull(expected, "malloc(16) should return non-null for expected buffer")
+        memset(expected, 0x42, 16uL)
+        assertEquals(0, memcmp(ptr, expected, 16uL), "memset bytes should match expected value")
+        free(expected)
+        free(ptr)
     }
 
     @Test
@@ -105,7 +115,8 @@ class NativeFunctionsTest {
         memset(src, 0x77, 16uL)
         memset(dst, 0, 16uL)
         memcpy(dst, src, 16uL)
-                free(src)
+        assertEquals(0, memcmp(src, dst, 16uL), "memcpy should produce identical buffers")
+        free(src)
         free(dst)
     }
 

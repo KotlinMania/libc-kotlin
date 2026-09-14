@@ -11,6 +11,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toLong
 import libc.cinterop.libc_memmem
 import libc.cinterop.libc_uname
+import libc.cinterop.libc_ffsll
+import libc.cinterop.libc_getpagesize
+import libc.cinterop.libc_flsl
+import libc.cinterop.libc_fdatasync
+import libc.cinterop.libc_flsll
+import libc.cinterop.libc_shmdt
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")

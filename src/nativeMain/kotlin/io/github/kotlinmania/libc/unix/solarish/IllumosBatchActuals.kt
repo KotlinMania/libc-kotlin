@@ -7,6 +7,8 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.ByteVar
+import libc.cinterop.libc_pwritev
+import libc.cinterop.libc_preadv
 
 public actual fun eventfd(initval: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("eventfd requires manual FFI bridge — not yet implemented")

@@ -7,6 +7,14 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_close
+import libc.cinterop.libc_unlink
+import libc.cinterop.libc_rmdir
+import libc.cinterop.libc_sysconf
+import libc.cinterop.libc_ftruncate
+import libc.cinterop.libc_access
+import libc.cinterop.libc_getpid
+import libc.cinterop.libc_lseek
 
 public actual fun access(pathname: String?, mode: CInt): CInt =
     libc.cinterop.libc_access(pathname, mode)

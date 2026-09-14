@@ -5,6 +5,8 @@ package io.github.kotlinmania.libc.windows.gnu
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import libc.cinterop.libc_strncasecmp
+import libc.cinterop.libc_strcasecmp
 
 public actual fun strcasecmp(s1: String?, s2: String?): CInt =
     libc.cinterop.libc_strcasecmp(s1, s2)

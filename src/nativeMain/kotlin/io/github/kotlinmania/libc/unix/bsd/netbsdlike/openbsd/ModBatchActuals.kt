@@ -7,6 +7,11 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_fchflags
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_chflags
+import libc.cinterop.libc_mprotect
+import libc.cinterop.libc_reboot
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")

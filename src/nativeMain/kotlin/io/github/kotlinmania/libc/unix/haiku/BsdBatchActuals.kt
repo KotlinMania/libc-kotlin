@@ -7,6 +7,11 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_strtonum
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_preadv
+import libc.cinterop.libc_pwritev
+import libc.cinterop.libc_mkstemps
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libc.cinterop.libc_daemon(nochdir, noclose)

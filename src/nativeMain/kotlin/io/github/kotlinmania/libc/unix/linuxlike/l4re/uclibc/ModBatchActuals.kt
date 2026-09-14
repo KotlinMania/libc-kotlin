@@ -7,6 +7,11 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.ByteVar
+import libc.cinterop.libc_preadv
+import libc.cinterop.libc_pwritev
+import libc.cinterop.libc_setrlimit
+import libc.cinterop.libc_gettimeofday
+import libc.cinterop.libc_getrlimit
 
 public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt =
     libc.cinterop.libc_gettimeofday(tp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), tz?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())

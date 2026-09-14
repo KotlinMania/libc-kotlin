@@ -8,6 +8,10 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.ByteVar
+import libc.cinterop.libc_setgrent
+import libc.cinterop.libc_mprotect
+import libc.cinterop.libc_basename
+import libc.cinterop.libc_dirname
 
 public actual fun setgrent() {
     libc.cinterop.libc_setgrent()

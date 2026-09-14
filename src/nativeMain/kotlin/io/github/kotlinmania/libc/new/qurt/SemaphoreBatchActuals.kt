@@ -7,6 +7,8 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.ByteVar
+import libc.cinterop.libc_sem_init
+import libc.cinterop.libc_sem_destroy
 
 public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
     libc.cinterop.libc_sem_init(sem?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>(), pshared, value)

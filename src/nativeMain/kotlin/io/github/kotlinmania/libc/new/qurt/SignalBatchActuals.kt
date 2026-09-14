@@ -5,6 +5,9 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import libc.cinterop.libc_raise
+import libc.cinterop.libc_kill
+import libc.cinterop.libc_pause
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
     libc.cinterop.libc_kill(pid, sig)

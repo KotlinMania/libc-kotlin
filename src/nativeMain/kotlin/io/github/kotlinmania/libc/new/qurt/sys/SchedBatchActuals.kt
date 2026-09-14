@@ -5,6 +5,8 @@ package io.github.kotlinmania.libc.new.qurt.sys
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import libc.cinterop.libc_sched_get_priority_max
+import libc.cinterop.libc_sched_get_priority_min
 
 public actual fun schedYield(): CInt =
     throw UnsupportedOperationException("schedYield requires manual FFI bridge — not yet implemented")

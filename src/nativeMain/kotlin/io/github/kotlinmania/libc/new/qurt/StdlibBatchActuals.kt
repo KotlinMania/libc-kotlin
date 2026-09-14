@@ -9,6 +9,20 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
+import libc.cinterop.libc_labs
+import libc.cinterop.libc_setenv
+import libc.cinterop.libc_calloc
+import libc.cinterop.libc_atoll
+import libc.cinterop.libc_unsetenv
+import libc.cinterop.libc_strtol
+import libc.cinterop.libc_malloc
+import libc.cinterop.libc_getenv
+import libc.cinterop.libc_realloc
+import libc.cinterop.libc_abs
+import libc.cinterop.libc_llabs
+import libc.cinterop.libc_atoi
+import libc.cinterop.libc_rand
+import libc.cinterop.libc_srand
 
 public actual fun malloc(size: ULong): COpaquePointer? =
     libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
@@ -45,8 +59,8 @@ public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): 
 
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand requires manual FFI bridge — not yet implemented")
+public actual fun srand(seed: CUInt): Unit {
+    libc_srand(seed)
 }
 
 public actual fun abs(j: CInt): CInt =

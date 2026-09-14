@@ -8,6 +8,7 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_memccpy
 
 public actual fun stricmp(s1: String?, s2: String?): CInt =
     throw UnsupportedOperationException("stricmp requires manual FFI bridge — not yet implemented")

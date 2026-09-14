@@ -3,9 +3,13 @@ package io.github.kotlinmania.libc
 import io.github.kotlinmania.libc.vxworks.SIGKILL
 import io.github.kotlinmania.libc.vxworks.SEEK_SET
 import io.github.kotlinmania.libc.vxworks.O_RDONLY
+import io.github.kotlinmania.libc.vxworks.SEEK_CUR
+import io.github.kotlinmania.libc.vxworks.SEEK_END
 import io.github.kotlinmania.libc.vxworks.PROT_READ
 import io.github.kotlinmania.libc.vxworks.PROT_WRITE
 import io.github.kotlinmania.libc.fuchsia.SEEK_SET as FuchsiaSEEK_SET
+import io.github.kotlinmania.libc.fuchsia.SEEK_CUR as FuchsiaSEEK_CUR
+import io.github.kotlinmania.libc.fuchsia.SEEK_END as FuchsiaSEEK_END
 import io.github.kotlinmania.libc.fuchsia.O_RDONLY as FuchsiaO_RDONLY
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -27,6 +31,8 @@ class MacrosTest {
         // Verify standard C constants have correct sequential values.
         assertEquals(0, SEEK_SET, "SEEK_SET should be 0")
         assertEquals(0, O_RDONLY, "O_RDONLY should be 0")
+        assertEquals(1, SEEK_CUR, "SEEK_CUR should be 1")
+        assertEquals(2, SEEK_END, "SEEK_END should be 2")
         assertEquals(0x0001, PROT_READ, "PROT_READ should be 0x0001")
         assertEquals(0x0002, PROT_WRITE, "PROT_WRITE should be 0x0002")
         assertEquals(9, SIGKILL, "SIGKILL should be 9")
@@ -52,6 +58,8 @@ class MacrosTest {
         // SEEK_SET=0 in both vxworks and fuchsia — same value, different platform.
         assertEquals(SEEK_SET, FuchsiaSEEK_SET, "SEEK_SET should be 0 on both platforms")
         assertEquals(O_RDONLY, FuchsiaO_RDONLY, "O_RDONLY should be 0 on both platforms")
+        assertEquals(SEEK_CUR, FuchsiaSEEK_CUR, "SEEK_CUR should be consistent across platforms")
+        assertEquals(SEEK_END, FuchsiaSEEK_END, "SEEK_END should be consistent across platforms")
     }
 
     @Test
