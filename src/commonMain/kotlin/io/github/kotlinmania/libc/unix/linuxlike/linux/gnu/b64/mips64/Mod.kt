@@ -143,6 +143,7 @@ public data class StackT(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siCode: CInt,
     val siErrno: CInt,
@@ -834,4 +835,4 @@ public const val B3500000: SpeedT = 4110u
 public const val B4000000: SpeedT = 4111u
 public const val EHWPOISON: CInt = 168
 
-public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 

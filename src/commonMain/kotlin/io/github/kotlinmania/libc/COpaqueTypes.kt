@@ -29,13 +29,16 @@ public class COpaquePointer(
  * On JS/WASM, [handle] holds the numeric FILE pointer from N-API.
  */
 public class FILE(
-    public val handle: Int = -1,
+    public val handle: Long = -1L,
 )
 
 /**
  * Opaque C directory stream handle (`DIR*` in C).
+ * On JS/WASM, [handle] holds the numeric DIR pointer from N-API.
  */
-public class DIR
+public class DIR(
+    public val handle: Long = -1L,
+)
 
 /**
  * C file position type (`fpos_t` in C). Defined as a typealias where the

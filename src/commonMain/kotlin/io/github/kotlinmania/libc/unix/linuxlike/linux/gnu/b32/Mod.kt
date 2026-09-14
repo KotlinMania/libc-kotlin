@@ -182,4 +182,4 @@ public const val PTRACE_SETFPREGS: CUInt = 15u
 public const val PTRACE_GETREGS: CUInt = 12u
 public const val PTRACE_SETREGS: CUInt = 13u
 
-public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 

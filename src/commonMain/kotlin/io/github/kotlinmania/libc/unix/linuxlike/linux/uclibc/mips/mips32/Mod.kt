@@ -96,6 +96,7 @@ public data class SigsetT(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siCode: CInt,
     val siErrno: CInt,
@@ -629,12 +630,9 @@ public const val SYS_process_mrelease: CLong = 4000 + 448
 public const val SYS_futex_waitv: CLong = 4000 + 449
 public const val SYS_set_mempolicy_home_node: CLong = 4000 + 450
 
-public fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt = -1
+public expect fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt 
+public expect fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt
 
-public fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt = -1
-
-public fun globfree64(pglob: Glob64T?) { }
-
-public fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
-
-public fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
+public expect fun globfree64(pglob: Glob64T?)
+public expect fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt 
+public expect fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt 

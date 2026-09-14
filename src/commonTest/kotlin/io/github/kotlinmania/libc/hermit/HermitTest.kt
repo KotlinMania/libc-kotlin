@@ -34,7 +34,7 @@ class HermitTest {
 
     @Test
     fun testHermitDataClasses() {
-        val timespec = Timespec(tvSec = 100L, tvNsec = 500)
+        val timespec = Timespec(0L, tvSec = 100L, tvNsec = 500)
         assertEquals(100L, timespec.tvSec)
         assertEquals(500, timespec.tvNsec)
 
