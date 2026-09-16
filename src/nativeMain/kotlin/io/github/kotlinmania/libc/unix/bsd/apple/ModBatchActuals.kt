@@ -76,8 +76,10 @@ public actual fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: 
 public actual fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt =
     throw UnsupportedOperationException("aioCancel requires manual FFI bridge — not yet implemented")
 
-public actual fun chflags(path: String?, flags: CUInt): CInt =
-    libc.cinterop.libc_chflags(path, flags)
+public actual fun chflags(path: String?, flags: CUInt): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_chflags(path, flags)
+}
 public actual fun fchflags(fd: CInt, flags: CUInt): CInt =
     libc.cinterop.libc_fchflags(fd, flags)
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt {
@@ -786,8 +788,10 @@ public actual fun getattrlist(path: String?, attrList: COpaquePointer?, attrBuf:
 public actual fun fgetattrlist(fd: CInt, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt =
     throw UnsupportedOperationException("fgetattrlist requires manual FFI bridge — not yet implemented")
 
-public actual fun getattrlistat(fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong): CInt =
-    libc.cinterop.libc_getattrlistat(fd, path, attrList?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBuf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBufSize, options)
+public actual fun getattrlistat(fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_getattrlistat(fd, path, attrList?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBuf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBufSize, options)
+}
 public actual fun setattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt =
     throw UnsupportedOperationException("setattrlist requires manual FFI bridge — not yet implemented")
 
@@ -815,16 +819,21 @@ public actual fun basename(path: String?): String? {
     return result?.toKString()
 }
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc.cinterop.libc_mkfifoat(dirfd, pathname, mode)
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_mkfifoat(dirfd, pathname, mode)
+}
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknodat requires FFI bridge")
 
 public actual fun freadlink(fd: CInt, buf: String?, size: ULong): CInt =
     throw UnsupportedOperationException("freadlink requires manual FFI bridge — not yet implemented")
 
-public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt =
-    libc.cinterop.libc_execvP(file, searchPath, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt {
+    if (file == null) return -1
+    if (searchPath == null) return -1
+    return libc.cinterop.libc_execvP(file, searchPath, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+}
 public actual fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt {
     if (tp == null) return -1
     val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()

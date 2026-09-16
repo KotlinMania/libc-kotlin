@@ -10,10 +10,10 @@ public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper requires N-API addon")
 
 public actual fun fflush(file: FILE?): CInt =
-    throw UnsupportedOperationException("fflush requires N-API addon")
+    LibcNative.fflush(file?.handle?.toInt() ?: -1)
 
 public actual fun fclose(file: FILE?): CInt =
-    throw UnsupportedOperationException("fclose requires N-API addon")
+    LibcNative.fclose(file?.handle?.toInt() ?: -1)
 
 public actual fun remove(filename: String?): CInt =
     throw UnsupportedOperationException("remove requires N-API addon")
@@ -46,7 +46,7 @@ public actual fun ungetc(c: CInt, stream: FILE?): CInt =
     throw UnsupportedOperationException("ungetc requires N-API addon")
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    throw UnsupportedOperationException("fseek requires N-API addon")
+    LibcNative.fseek(stream?.handle?.toInt() ?: -1, offset.toInt(), whence)
 
 public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos requires N-API addon")
@@ -61,10 +61,10 @@ public actual fun ferror(stream: FILE?): CInt =
     throw UnsupportedOperationException("ferror requires N-API addon")
 
 public actual fun atoi(s: String?): CInt =
-    throw UnsupportedOperationException("atoi requires N-API addon")
+    atoiNapi(s)
 
 public actual fun system(s: String?): CInt =
-    throw UnsupportedOperationException("system requires N-API addon")
+    systemNapi(s)
 
 public actual fun cfmakeraw(termios: Termios?): CInt =
     throw UnsupportedOperationException("cfmakeraw requires N-API addon")
@@ -76,10 +76,10 @@ public actual fun cfsetospeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetospeed requires N-API addon")
 
 public actual fun strcmp(cs: String?, ct: String?): CInt =
-    throw UnsupportedOperationException("strcmp requires N-API addon")
+    strcmpNapi(cs, ct)
 
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires N-API addon")
+    strncmpNapi(cs, ct, n)
 
 public actual fun strcoll(cs: String?, ct: String?): CInt =
     throw UnsupportedOperationException("strcoll requires N-API addon")
@@ -112,7 +112,7 @@ public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CI
     throw UnsupportedOperationException("fprintf requires N-API addon")
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("printf requires N-API addon")
+    if (format != null) LibcNative.printf(format!!) else -1
 
 public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("snprintf requires N-API addon")
@@ -148,7 +148,7 @@ public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
     throw UnsupportedOperationException("fchown requires N-API addon")
 
 public actual fun access(path: String?, amode: CInt): CInt =
-    throw UnsupportedOperationException("access requires N-API addon")
+    accessNapi(path, amode)
 
 public actual fun fchdir(dirfd: CInt): CInt =
     throw UnsupportedOperationException("fchdir requires N-API addon")
@@ -235,7 +235,7 @@ public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
     throw UnsupportedOperationException("dladdr requires N-API addon")
 
 public actual fun gethostname(name: String?, len: ULong): CInt =
-    throw UnsupportedOperationException("gethostname requires N-API addon")
+    run { LibcNative.gethostname(); 0 }
 
 public actual fun usleep(secs: UsecondsT): CInt =
     throw UnsupportedOperationException("usleep requires N-API addon")
@@ -490,7 +490,7 @@ public actual fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fcntl requires N-API addon")
 
 public actual fun close(fd: CInt): CInt =
-    throw UnsupportedOperationException("close requires N-API addon")
+    closeNapi(fd)
 
 public actual fun dup(src: CInt): CInt =
     throw UnsupportedOperationException("dup requires N-API addon")
@@ -502,7 +502,7 @@ public actual fun pipe(fds: CInt?): CInt =
     throw UnsupportedOperationException("pipe requires N-API addon")
 
 public actual fun unlink(pathname: String?): CInt =
-    throw UnsupportedOperationException("unlink requires N-API addon")
+    unlinkNapi(pathname)
 
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getaddrinfo requires N-API addon")

@@ -26,11 +26,15 @@ public actual fun freelocale(loc: LocaleT) {
 public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT =
     throw UnsupportedOperationException("msgrcv requires manual FFI bridge — not yet implemented")
 
-public actual fun dirname(path: String?): String? =
-    libc.cinterop.libc_dirname(path)?.toKString()
+public actual fun dirname(path: String?): String? {
+    if (path == null) return null
+    return libc.cinterop.libc_dirname(path)?.toKString()
+}
 
-public actual fun basename(path: String?): String? =
-    libc.cinterop.libc_basename(path)?.toKString()
+public actual fun basename(path: String?): String? {
+    if (path == null) return null
+    return libc.cinterop.libc_basename(path)?.toKString()
+}
 
 public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) {
     throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")

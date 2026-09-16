@@ -283,12 +283,18 @@ public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: UL
     throw UnsupportedOperationException("sendfile64 requires manual FFI bridge — not yet implemented")
 
 public actual fun shutdown(fd: CInt, how: CInt): CInt = libc.cinterop.libc_shutdown(fd, how)
-public actual fun sethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_sethostname(name, len)
-public actual fun getdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_getdomainname(name, len)
-public actual fun setdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_setdomainname(name, len)
+public actual fun sethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sethostname(name, len)
+}
+public actual fun getdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_getdomainname(name, len)
+}
+public actual fun setdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_setdomainname(name, len)
+}
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 
@@ -453,8 +459,10 @@ public actual fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroup
 public actual fun setgroups(ngroups: ULong, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
 
-public actual fun acct(filename: String?): CInt =
-    libc.cinterop.libc_acct(filename)
+public actual fun acct(filename: String?): CInt {
+    if (filename == null) return -1
+    return libc.cinterop.libc_acct(filename)
+}
 public actual fun setmntent(filename: String?, ty: String?): FILE? =
     throw UnsupportedOperationException("setmntent requires manual FFI bridge — not yet implemented")
 
@@ -716,12 +724,18 @@ public actual fun openat64(fd: CInt, file: String?, oflag: CInt, vararg args: An
 public actual fun creat64(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("creat64 requires manual FFI bridge — not yet implemented")
 
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemp(template, flags)
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemps(template, suffixlen, flags)
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
+public actual fun mkostemp(template: String?, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemp(template, flags)
+}
+public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+}
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
 public actual fun tmpfile64(): FILE? =
     throw UnsupportedOperationException("tmpfile64 requires manual FFI bridge — not yet implemented")
 
@@ -858,8 +872,10 @@ public actual fun euidaccess(pathname: String?, mode: CInt): CInt =
 public actual fun eaccess(pathname: String?, mode: CInt): CInt =
     throw UnsupportedOperationException("eaccess requires manual FFI bridge — not yet implemented")
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
 public actual fun stat(file: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("stat requires manual FFI bridge — not yet implemented")
 

@@ -26,10 +26,14 @@ public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
-public actual fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong =
-    libc.cinterop.libc_strtonum(nptr, minval, maxval, errstr?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
+public actual fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong {
+    if (nptr == null) return 0
+    return libc.cinterop.libc_strtonum(nptr, minval, maxval, errstr?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+}
 public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt =
     throw UnsupportedOperationException("openpty requires manual FFI bridge — not yet implemented")
 

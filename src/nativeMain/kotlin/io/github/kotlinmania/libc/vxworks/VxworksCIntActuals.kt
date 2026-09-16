@@ -65,7 +65,7 @@ import libc.cinterop.libc_fseeko
 import libc.cinterop.libc_tcsendbreak
 import libc.cinterop.libc_msync
 import libc.cinterop.libc_system
-import libc.cinterop.libc_dlclose
+
 import libc.cinterop.libc_gethostname
 import libc.cinterop.libc_dup2
 import libc.cinterop.libc_access
@@ -89,10 +89,14 @@ public actual fun toupper(c: CInt): CInt = libc.cinterop.libc_toupper(c)
 
 
 
-public actual fun atoi(s: String?): CInt =
-    libc.cinterop.libc_atoi(s)
-public actual fun system(s: String?): CInt =
-    libc.cinterop.libc_system(s)
+public actual fun atoi(s: String?): CInt {
+    if (s == null) return 0
+    return libc.cinterop.libc_atoi(s)
+}
+public actual fun system(s: String?): CInt {
+    if (s == null) return -1
+    return libc.cinterop.libc_system(s)
+}
 public actual fun cfmakeraw(termios: Termios?): CInt =
     throw UnsupportedOperationException("cfmakeraw requires manual FFI bridge — not yet implemented")
 
@@ -102,16 +106,31 @@ public actual fun cfsetispeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun cfsetospeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetospeed requires manual FFI bridge — not yet implemented")
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    libc.cinterop.libc_strcmp(cs, ct)
-public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
-    libc.cinterop.libc_strncmp(cs, ct, n)
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    libc.cinterop.libc_strcoll(cs, ct)
-public actual fun strcasecmp(s1: String?, s2: String?): CInt =
-    libc.cinterop.libc_strcasecmp(s1, s2)
-public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt =
-    libc.cinterop.libc_strncasecmp(s1, s2, n)
+public actual fun strcmp(cs: String?, ct: String?): CInt {
+    if (cs == null) return -1
+    if (ct == null) return -1
+    return libc.cinterop.libc_strcmp(cs, ct)
+}
+public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt {
+    if (cs == null) return -1
+    if (ct == null) return -1
+    return libc.cinterop.libc_strncmp(cs, ct, n)
+}
+public actual fun strcoll(cs: String?, ct: String?): CInt {
+    if (cs == null) return -1
+    if (ct == null) return -1
+    return libc.cinterop.libc_strcoll(cs, ct)
+}
+public actual fun strcasecmp(s1: String?, s2: String?): CInt {
+    if (s1 == null) return -1
+    if (s2 == null) return -1
+    return libc.cinterop.libc_strcasecmp(s1, s2)
+}
+public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt {
+    if (s1 == null) return -1
+    if (s2 == null) return -1
+    return libc.cinterop.libc_strncasecmp(s1, s2, n)
+}
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
@@ -124,10 +143,15 @@ public actual fun tcflush(fd: CInt, action: CInt): CInt = libc.cinterop.libc_tcf
 public actual fun pclose(stream: FILE?): CInt =
     throw UnsupportedOperationException("pclose requires manual FFI bridge — not yet implemented")
 
-public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    libc.cinterop.libc_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
-public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
-    libc.cinterop.libc_unlinkat(dirfd, pathname, flags)
+public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt {
+    if (oldpath == null) return -1
+    if (newpath == null) return -1
+    return libc.cinterop.libc_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
+}
+public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_unlinkat(dirfd, pathname, flags)
+}
 public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt =
     throw UnsupportedOperationException("fchownat requires manual FFI bridge — not yet implemented")
 
@@ -167,8 +191,10 @@ public actual fun creat(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("creat requires FFI bridge")
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
     throw UnsupportedOperationException("fchown requires FFI bridge")
-public actual fun access(path: String?, amode: CInt): CInt =
-    libc.cinterop.libc_access(path, amode)
+public actual fun access(path: String?, amode: CInt): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_access(path, amode)
+}
 public actual fun fchdir(dirfd: CInt): CInt = libc.cinterop.libc_fchdir(dirfd)
 
 public actual fun chown(path: String?, uid: UidT, gid: GidT): CInt =
@@ -203,8 +229,10 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
     libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
-public actual fun truncate(path: String?, length: OffT): CInt =
-    libc.cinterop.libc_truncate(path, length)
+public actual fun truncate(path: String?, length: OffT): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_truncate(path, length)
+}
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
     val result = libc.cinterop.libc_shm_open(name, oflag, mode)
     return result
@@ -255,13 +283,13 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: 
     return result
 }
 
-public actual fun dlclose(handle: COpaquePointer?): CInt =
-    libc.cinterop.libc_dlclose(handle?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
     throw UnsupportedOperationException("dladdr requires manual FFI bridge — not yet implemented")
 
-public actual fun gethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_gethostname(name, len)
+public actual fun gethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_gethostname(name, len)
+}
 public actual fun usleep(secs: UsecondsT): CInt =
     throw UnsupportedOperationException("usleep requires manual FFI bridge — type mismatch")
 public actual fun putenv(string: String?): CInt =
@@ -277,8 +305,10 @@ public actual fun mkfifo(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifo requires FFI bridge")
 public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
     libc.cinterop.libc_fseeko(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
-public actual fun mkstemp(template: String?): CInt =
-    libc.cinterop.libc_mkstemp(template)
+public actual fun mkstemp(template: String?): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemp(template)
+}
 public actual fun setlogmask(maskpri: CInt): CInt = libc.cinterop.libc_setlogmask(maskpri)
 
 public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt =
@@ -292,15 +322,20 @@ public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt = libc.cinterop.li
 public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("fnmatch requires manual FFI bridge — not yet implemented")
 
-public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
-    libc.cinterop.libc_symlinkat(target, newdirfd, linkpath)
+public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt {
+    if (target == null) return -1
+    if (linkpath == null) return -1
+    return libc.cinterop.libc_symlinkat(target, newdirfd, linkpath)
+}
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
     throw UnsupportedOperationException("fchmodat requires FFI bridge")
 public actual fun utime(file: String?, buf: Utimbuf?): CInt =
     throw UnsupportedOperationException("utime requires manual FFI bridge — not yet implemented")
 
-public actual fun chdir(attr: String?): CInt =
-    libc.cinterop.libc_chdir(attr)
+public actual fun chdir(attr: String?): CInt {
+    if (attr == null) return -1
+    return libc.cinterop.libc_chdir(attr)
+}
 public actual fun pthreadMutexattrInit(attr: PthreadMutexattrT?): CInt =
     throw UnsupportedOperationException("pthreadMutexattrInit requires manual FFI bridge — not yet implemented")
 
@@ -510,23 +545,40 @@ public actual fun dup2(src: CInt, dst: CInt): CInt = libc.cinterop.libc_dup2(src
 public actual fun pipe(fds: CInt?): CInt =
     throw UnsupportedOperationException("pipe requires manual FFI bridge — not yet implemented")
 
-public actual fun unlink(pathname: String?): CInt =
-    libc.cinterop.libc_unlink(pathname)
+public actual fun unlink(pathname: String?): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_unlink(pathname)
+}
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getaddrinfo requires manual FFI bridge — not yet implemented")
 
-public actual fun setenv(envVarName: String?, envVarValue: String?, overwrite: CInt): CInt =
-    libc.cinterop.libc_setenv(envVarName, envVarValue, overwrite)
-public actual fun unsetenv(envVarName: String?): CInt =
-    libc.cinterop.libc_unsetenv(envVarName)
-public actual fun link(src: String?, dst: String?): CInt =
-    libc.cinterop.libc_link(src, dst)
-public actual fun symlink(path1: String?, path2: String?): CInt =
-    libc.cinterop.libc_symlink(path1, path2)
-public actual fun rmdir(path: String?): CInt =
-    libc.cinterop.libc_rmdir(path)
-public actual fun mkdir(dirName: String?, mode: ModeT): CInt =
-    libc.cinterop.libc_mkdir(dirName, mode)
+public actual fun setenv(envVarName: String?, envVarValue: String?, overwrite: CInt): CInt {
+    if (envVarName == null) return -1
+    if (envVarValue == null) return -1
+    return libc.cinterop.libc_setenv(envVarName, envVarValue, overwrite)
+}
+public actual fun unsetenv(envVarName: String?): CInt {
+    if (envVarName == null) return -1
+    return libc.cinterop.libc_unsetenv(envVarName)
+}
+public actual fun link(src: String?, dst: String?): CInt {
+    if (src == null) return -1
+    if (dst == null) return -1
+    return libc.cinterop.libc_link(src, dst)
+}
+public actual fun symlink(path1: String?, path2: String?): CInt {
+    if (path1 == null) return -1
+    if (path2 == null) return -1
+    return libc.cinterop.libc_symlink(path1, path2)
+}
+public actual fun rmdir(path: String?): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_rmdir(path)
+}
+public actual fun mkdir(dirName: String?, mode: ModeT): CInt {
+    if (dirName == null) return -1
+    return libc.cinterop.libc_mkdir(dirName, mode)
+}
 public actual fun chmod(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("chmod requires FFI bridge")
 public actual fun fchmod(attr1: CInt, attr2: ModeT): CInt =

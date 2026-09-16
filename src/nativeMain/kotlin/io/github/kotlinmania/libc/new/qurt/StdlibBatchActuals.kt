@@ -38,20 +38,35 @@ public actual fun free(ptr: COpaquePointer?) {
     libc_free(pPtr)
 }
 
-public actual fun getenv(name: String?): String? =
-    libc.cinterop.libc_getenv(name)?.toKString()
-public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt =
-    libc.cinterop.libc_setenv(name, value, overwrite)
-public actual fun unsetenv(name: String?): CInt =
-    libc.cinterop.libc_unsetenv(name)
-public actual fun atoi(nptr: String?): CInt =
-    libc.cinterop.libc_atoi(nptr)
-public actual fun atol(nptr: String?): CLong =
-    libc.cinterop.libc_atol(nptr)
-public actual fun atoll(nptr: String?): CLongLong =
-    libc.cinterop.libc_atoll(nptr)
-public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong =
-    libc.cinterop.libc_strtol(nptr, endptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+public actual fun getenv(name: String?): String? {
+    if (name == null) return null
+    return libc.cinterop.libc_getenv(name)?.toKString()
+}
+public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt {
+    if (name == null) return -1
+    if (value == null) return -1
+    return libc.cinterop.libc_setenv(name, value, overwrite)
+}
+public actual fun unsetenv(name: String?): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_unsetenv(name)
+}
+public actual fun atoi(nptr: String?): CInt {
+    if (nptr == null) return 0
+    return libc.cinterop.libc_atoi(nptr)
+}
+public actual fun atol(nptr: String?): CLong {
+    if (nptr == null) return 0
+    return libc.cinterop.libc_atol(nptr)
+}
+public actual fun atoll(nptr: String?): CLongLong {
+    if (nptr == null) return 0
+    return libc.cinterop.libc_atoll(nptr)
+}
+public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong {
+    if (nptr == null) return 0
+    return libc.cinterop.libc_strtol(nptr, endptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+}
 public actual fun strtoul(nptr: String?, endptr: COpaquePointer?, base: CInt): CULong =
     throw UnsupportedOperationException("strtoul requires manual FFI bridge — not yet implemented")
 

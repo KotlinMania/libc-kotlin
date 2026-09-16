@@ -37,7 +37,7 @@ public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires N-API addon")
 
 public actual fun strlen(s: String?): ULong =
-    throw UnsupportedOperationException("strlen requires N-API addon")
+    strlenNapi(s)
 
 public actual fun strcpy(dest: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires N-API addon")
@@ -52,10 +52,10 @@ public actual fun strncat(dest: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncat requires N-API addon")
 
 public actual fun strcmp(s1: String?, s2: String?): CInt =
-    throw UnsupportedOperationException("strcmp requires N-API addon")
+    strcmpNapi(s1, s2)
 
 public actual fun strncmp(s1: String?, s2: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires N-API addon")
+    strncmpNapi(s1, s2, n)
 
 public actual fun strcoll(s1: String?, s2: String?): CInt =
     throw UnsupportedOperationException("strcoll requires N-API addon")
@@ -64,7 +64,7 @@ public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires N-API addon")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    throw UnsupportedOperationException("strchr requires N-API addon")
+    if (s == null) null else { val idx = s!!.indexOf(c.toChar()); if (idx >= 0) s!!.substring(idx) else null }
 
 public actual fun strrchr(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strrchr requires N-API addon")
@@ -91,16 +91,16 @@ public actual fun memchr(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer?
     throw UnsupportedOperationException("memchr requires N-API addon")
 
 public actual fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: ULong): CInt =
-    throw UnsupportedOperationException("memcmp requires N-API addon")
+    LibcNative.memcmp(s1?.value, s2?.value, n.toInt())
 
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memcpy requires N-API addon")
+    run { val r = LibcNative.memcpy(dest?.value, src?.value, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
 
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmove requires N-API addon")
 
 public actual fun memset(s: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset requires N-API addon")
+    run { val r = LibcNative.memset(s?.value, c, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
 
 public actual fun fork(): PidT =
     throw UnsupportedOperationException("fork requires N-API addon")

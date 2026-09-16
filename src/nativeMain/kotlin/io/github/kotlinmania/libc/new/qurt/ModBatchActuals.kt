@@ -10,6 +10,8 @@ import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.cstr
 import libc.cinterop.libc_fork
 import libc.cinterop.libc_iscntrl
 import libc.cinterop.libc_strchr
@@ -60,8 +62,10 @@ public actual fun readdir(dirp: DIR?): Dirent? =
 
 public actual fun closedir(dirp: DIR?): CInt =
     throw UnsupportedOperationException("closedir requires manual FFI bridge — type mismatch")
-public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    libc.cinterop.libc_mkdir(path, mode.toInt())
+public actual fun mkdir(path: String?, mode: ModeT): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_mkdir(path, mode.toInt())
+}
 public actual fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt =
     throw UnsupportedOperationException("pthreadAttrGetstack requires manual FFI bridge — not yet implemented")
 
@@ -77,16 +81,20 @@ public actual fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT? 
 public actual fun semClose(sem: SemT?): CInt =
     libc.cinterop.libc_sem_close(sem?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun semUnlink(name: String?): CInt =
-    libc.cinterop.libc_sem_unlink(name)
+public actual fun semUnlink(name: String?): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sem_unlink(name)
+}
 
 public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? {
     val result = libc_aligned_alloc(alignment, size)
     return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
-public actual fun strlen(s: String?): ULong =
-    libc.cinterop.libc_strlen(s)
+public actual fun strlen(s: String?): ULong {
+    if (s == null) return 0uL
+    return libc.cinterop.libc_strlen(s)
+}
 public actual fun strcpy(dest: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires FFI bridge")
 public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
@@ -95,33 +103,71 @@ public actual fun strcat(dest: String?, src: String?): String? =
     throw UnsupportedOperationException("strcat requires FFI bridge")
 public actual fun strncat(dest: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncat requires FFI bridge")
-public actual fun strcmp(s1: String?, s2: String?): CInt =
-    libc.cinterop.libc_strcmp(s1, s2)
-public actual fun strncmp(s1: String?, s2: String?, n: ULong): CInt =
-    libc.cinterop.libc_strncmp(s1, s2, n)
-public actual fun strcoll(s1: String?, s2: String?): CInt =
-    libc.cinterop.libc_strcoll(s1, s2)
-public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong =
-    libc.cinterop.libc_strxfrm(dest, src, n)
+public actual fun strcmp(s1: String?, s2: String?): CInt {
+    if (s1 == null) return -1
+    if (s2 == null) return -1
+    return libc.cinterop.libc_strcmp(s1, s2)
+}
+public actual fun strncmp(s1: String?, s2: String?, n: ULong): CInt {
+    if (s1 == null) return -1
+    if (s2 == null) return -1
+    return libc.cinterop.libc_strncmp(s1, s2, n)
+}
+public actual fun strcoll(s1: String?, s2: String?): CInt {
+    if (s1 == null) return -1
+    if (s2 == null) return -1
+    return libc.cinterop.libc_strcoll(s1, s2)
+}
+public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong {
+    if (dest == null) return 0uL
+    if (src == null) return 0uL
+    return libc.cinterop.libc_strxfrm(dest, src, n)
+}
 public actual fun strchr(s: String?, c: CInt): String? {
-    val result = libc_strchr(s, c)
-    return result?.toKString()
+    if (s == null) return null
+    return memScoped {
+        val cstr = s.cstr.ptr
+        val result = libc_strchr(cstr, c)
+        result?.toKString()
+    }
 }
 public actual fun strrchr(s: String?, c: CInt): String? {
-    val result = libc_strrchr(s, c)
-    return result?.toKString()
+    if (s == null) return null
+    return memScoped {
+        val cstr = s.cstr.ptr
+        val result = libc_strrchr(cstr, c)
+        result?.toKString()
+    }
 }
-public actual fun strspn(s: String?, accept: String?): ULong =
-    libc.cinterop.libc_strspn(s, accept)
-public actual fun strcspn(s: String?, reject: String?): ULong =
-    libc.cinterop.libc_strcspn(s, reject)
+public actual fun strspn(s: String?, accept: String?): ULong {
+    if (s == null) return 0uL
+    if (accept == null) return 0uL
+    return libc.cinterop.libc_strspn(s, accept)
+}
+public actual fun strcspn(s: String?, reject: String?): ULong {
+    if (s == null) return 0uL
+    if (reject == null) return 0uL
+    return libc.cinterop.libc_strcspn(s, reject)
+}
 public actual fun strpbrk(s: String?, accept: String?): String? {
-    val result = libc_strpbrk(s, accept)
-    return result?.toKString()
+    if (s == null) return null
+    if (accept == null) return null
+    return memScoped {
+        val sCstr = s.cstr.ptr
+        val acceptCstr = accept.cstr.ptr
+        val result = libc_strpbrk(sCstr, acceptCstr)
+        result?.toKString()
+    }
 }
 public actual fun strstr(haystack: String?, needle: String?): String? {
-    val result = libc_strstr(haystack, needle)
-    return result?.toKString()
+    if (haystack == null) return null
+    if (needle == null) return null
+    return memScoped {
+        val hCstr = haystack.cstr.ptr
+        val nCstr = needle.cstr.ptr
+        val result = libc_strstr(hCstr, nCstr)
+        result?.toKString()
+    }
 }
 public actual fun strtok(s: String?, delim: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
@@ -170,8 +216,10 @@ public actual fun fork(): PidT {
     val result = libc_fork()
     return result
 }
-public actual fun execve(filename: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc.cinterop.libc_execve(filename, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), envp?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+public actual fun execve(filename: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt {
+    if (filename == null) return -1
+    return libc.cinterop.libc_execve(filename, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), envp?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+}
 public actual fun isalnum(c: CInt): CInt = libc.cinterop.libc_isalnum(c)
 public actual fun isalpha(c: CInt): CInt = libc.cinterop.libc_isalpha(c)
 public actual fun iscntrl(c: CInt): CInt = libc.cinterop.libc_iscntrl(c)

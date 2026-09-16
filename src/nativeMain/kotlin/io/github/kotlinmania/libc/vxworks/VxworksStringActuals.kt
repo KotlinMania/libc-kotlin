@@ -5,7 +5,9 @@ package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.CInt
 import kotlinx.cinterop.toKString
-import libc.cinterop.libc_dlerror
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.cstr
+
 import libc.cinterop.libc_gai_strerror
 import libc.cinterop.libc_getenv
 import libc.cinterop.libc_getlogin
@@ -22,8 +24,10 @@ public actual fun getenv(s: String?): String? {
 
 public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
-    val result = libc.cinterop.libc_strdup(cs)
-    return result?.toKString()
+    val dup = libc.cinterop.libc_strdup(cs)
+    val result = dup?.toKString()
+    if (dup != null) platform.posix.free(dup)
+    return result
 }
 
 public actual fun strerror(n: CInt): String? {
@@ -41,10 +45,7 @@ public actual fun ttyname(fd: CInt): String? {
     return result?.toKString()
 }
 
-public actual fun dlerror(): String? {
-    val result = libc.cinterop.libc_dlerror()
-    return result?.toKString()
-}
+
 
 public actual fun setlocale(category: CInt, locale: String?): String? {
     val result = libc.cinterop.libc_setlocale(category, locale)

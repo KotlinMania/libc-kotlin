@@ -92,8 +92,10 @@ public actual fun freeifaddrs(ifa: Ifaddrs?) {
 public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
 
-public actual fun setlogin(name: String?): CInt =
-    libc.cinterop.libc_setlogin(name)
+public actual fun setlogin(name: String?): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_setlogin(name)
+}
 public actual fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
@@ -178,8 +180,10 @@ public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
 public actual fun futimes(fd: CInt, times: Timeval?): CInt =
     throw UnsupportedOperationException("futimes requires manual FFI bridge — not yet implemented")
 
@@ -277,10 +281,14 @@ public actual fun popen(command: String?, mode: String?): FILE? {
     return if (result != null) FILE(result.toLong()) else null
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
-public actual fun acct(filename: String?): CInt =
-    libc.cinterop.libc_acct(filename)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
+public actual fun acct(filename: String?): CInt {
+    if (filename == null) return -1
+    return libc.cinterop.libc_acct(filename)
+}
 public actual fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT =
     throw UnsupportedOperationException("wait4 requires manual FFI bridge — not yet implemented")
 

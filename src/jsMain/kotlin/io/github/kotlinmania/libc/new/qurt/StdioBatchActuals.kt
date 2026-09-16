@@ -4,22 +4,22 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen requires N-API addon")
+    if (filename != null && mode != null) { val h = LibcNative.fopen(filename!!, mode!!); if (h != 0) FILE(h.toLong()) else null } else null
 
 public actual fun freopen(filename: String?, mode: String?, stream: FILE?): FILE? =
     throw UnsupportedOperationException("freopen requires N-API addon")
 
 public actual fun fclose(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fclose requires N-API addon")
+    LibcNative.fclose(stream?.handle?.toInt() ?: -1)
 
 public actual fun fflush(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fflush requires N-API addon")
+    LibcNative.fflush(stream?.handle?.toInt() ?: -1)
 
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fread requires N-API addon")
+    LibcNative.fread(ptr?.value, size.toInt(), nmemb.toInt(), stream?.handle?.toInt() ?: -1).toULong()
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fwrite requires N-API addon")
+    LibcNative.fwrite(ptr?.value, size.toInt(), nmemb.toInt(), stream?.handle?.toInt() ?: -1).toULong()
 
 public actual fun fgetc(stream: FILE?): CInt =
     throw UnsupportedOperationException("fgetc requires N-API addon")
@@ -49,7 +49,7 @@ public actual fun puts(s: String?): CInt =
     throw UnsupportedOperationException("puts requires N-API addon")
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("printf requires N-API addon")
+    if (format != null) LibcNative.printf(format!!) else -1
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires N-API addon")
@@ -82,10 +82,10 @@ public actual fun sscanf(s: String?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("sscanf requires N-API addon")
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    throw UnsupportedOperationException("fseek requires N-API addon")
+    LibcNative.fseek(stream?.handle?.toInt() ?: -1, offset.toInt(), whence)
 
 public actual fun ftell(stream: FILE?): CLong =
-    throw UnsupportedOperationException("ftell requires N-API addon")
+    LibcNative.ftell(stream?.handle?.toInt() ?: -1).toLong()
 
 public actual fun rewind(stream: FILE?) {
     throw UnsupportedOperationException("rewind requires N-API addon")

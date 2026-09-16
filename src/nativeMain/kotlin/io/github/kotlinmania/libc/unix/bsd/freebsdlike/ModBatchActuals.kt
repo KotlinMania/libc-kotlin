@@ -140,16 +140,20 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt {
 public actual fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("kevent requires manual FFI bridge — not yet implemented")
 
-public actual fun lchflags(path: String?, flags: CULong): CInt =
-    libc.cinterop.libc_lchflags(path, flags)
+public actual fun lchflags(path: String?, flags: CULong): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_lchflags(path, flags)
+}
 public actual fun lutimes(file: String?, times: Timeval?): CInt =
     throw UnsupportedOperationException("lutimes requires manual FFI bridge — not yet implemented")
 
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memrchr requires manual FFI bridge — not yet implemented")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc.cinterop.libc_mkfifoat(dirfd, pathname, mode)
+public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_mkfifoat(dirfd, pathname, mode)
+}
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknodat requires FFI bridge")
 
@@ -422,12 +426,19 @@ public actual fun reboot(howto: CInt): CInt =
 public actual fun exect(path: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("exect requires manual FFI bridge — not yet implemented")
 
-public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt =
-    libc.cinterop.libc_execvP(file, searchPath, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemp(template, flags)
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt {
+    if (file == null) return -1
+    if (searchPath == null) return -1
+    return libc.cinterop.libc_execvP(file, searchPath, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+}
+public actual fun mkostemp(template: String?, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemp(template, flags)
+}
+public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+}
 public actual fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("posixSpawn requires manual FFI bridge — not yet implemented")
 

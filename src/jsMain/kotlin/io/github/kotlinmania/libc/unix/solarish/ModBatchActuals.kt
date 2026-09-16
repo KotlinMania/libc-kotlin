@@ -49,7 +49,7 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
     throw UnsupportedOperationException("semInit requires N-API addon")
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("abs requires N-API addon")
+    LibcNative.abs(i)
 
 public actual fun acct(filename: String?): CInt =
     throw UnsupportedOperationException("acct requires N-API addon")

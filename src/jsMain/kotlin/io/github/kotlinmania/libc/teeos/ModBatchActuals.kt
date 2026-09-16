@@ -4,19 +4,19 @@ package io.github.kotlinmania.libc.teeos
 import io.github.kotlinmania.libc.*
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires N-API addon")
+    callocNapi(nobj, size)
 
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires N-API addon")
+    mallocNapi(size)
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("realloc requires N-API addon")
+    reallocNapi(p, size)
 
 public actual fun alignedAlloc(align: ULong, len: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires N-API addon")
 
 public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free requires N-API addon")
+    freeNapi(p)
 }
 
 public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt =
@@ -29,16 +29,16 @@ public actual fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT? =
     throw UnsupportedOperationException("wmemchr requires N-API addon")
 
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt =
-    throw UnsupportedOperationException("memcmp requires N-API addon")
+    LibcNative.memcmp(cx?.value, ct?.value, n.toInt())
 
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memcpy requires N-API addon")
+    run { val r = LibcNative.memcpy(dest?.value, src?.value, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
 
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmove requires N-API addon")
 
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset requires N-API addon")
+    run { val r = LibcNative.memset(dest?.value, c, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadJoin requires N-API addon")
@@ -158,7 +158,7 @@ public actual fun pthreadGetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?)
     throw UnsupportedOperationException("pthreadGetaffinityNp requires N-API addon")
 
 public actual fun printf(fmt: String?, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("printf requires N-API addon")
+    if (fmt != null) LibcNative.printf(fmt!!) else -1
 
 public actual fun scanf(fmt: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("scanf requires N-API addon")
@@ -200,7 +200,7 @@ public actual fun clockGettime(clockId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGettime requires N-API addon")
 
 public actual fun getpid(): PidT =
-    throw UnsupportedOperationException("getpid requires N-API addon")
+    getpidNapi()
 
 public actual fun gettimeofday(tv: Timeval?, tz: COpaquePointer?): CInt =
     throw UnsupportedOperationException("gettimeofday requires N-API addon")
@@ -267,19 +267,19 @@ public actual fun random(): CLong =
     throw UnsupportedOperationException("random requires N-API addon")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    throw UnsupportedOperationException("strchr requires N-API addon")
+    if (s == null) null else { val idx = s!!.indexOf(c.toChar()); if (idx >= 0) s!!.substring(idx) else null }
 
 public actual fun strlen(cs: String?): ULong =
-    throw UnsupportedOperationException("strlen requires N-API addon")
+    strlenNapi(cs)
 
 public actual fun strcmp(l: String?, r: String?): CInt =
-    throw UnsupportedOperationException("strcmp requires N-API addon")
+    strcmpNapi(l, r)
 
 public actual fun strcpy(dest: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires N-API addon")
 
 public actual fun strncmp(l: String?, r: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires N-API addon")
+    strncmpNapi(l, r, n)
 
 public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncpy requires N-API addon")
@@ -333,10 +333,10 @@ public actual fun iswupper(wc: WintT): CInt =
     throw UnsupportedOperationException("iswupper requires N-API addon")
 
 public actual fun abs(x: CInt): CInt =
-    throw UnsupportedOperationException("abs requires N-API addon")
+    LibcNative.abs(x)
 
 public actual fun atoi(s: String?): CInt =
-    throw UnsupportedOperationException("atoi requires N-API addon")
+    atoiNapi(s)
 
 public actual fun atol(s: String?): CLong =
     throw UnsupportedOperationException("atol requires N-API addon")
@@ -361,7 +361,7 @@ public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong =
     throw UnsupportedOperationException("strtoul requires N-API addon")
 
 public actual fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong =
-    throw UnsupportedOperationException("strtol requires N-API addon")
+    strtolNapi(s, base)
 
 
 public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =

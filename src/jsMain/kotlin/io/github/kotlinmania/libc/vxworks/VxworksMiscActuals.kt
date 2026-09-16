@@ -4,7 +4,7 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen requires N-API addon")
+    if (filename != null && mode != null) { val h = LibcNative.fopen(filename!!, mode!!); if (h != 0) FILE(h.toLong()) else null } else null
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen requires N-API addon")
@@ -17,13 +17,13 @@ public actual fun setbuf(stream: FILE?, buf: String?) {
 }
 
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fread requires N-API addon")
+    LibcNative.fread(ptr?.value, size.toInt(), nobj.toInt(), stream?.handle?.toInt() ?: -1).toULong()
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fwrite requires N-API addon")
+    LibcNative.fwrite(ptr?.value, size.toInt(), nobj.toInt(), stream?.handle?.toInt() ?: -1).toULong()
 
 public actual fun ftell(stream: FILE?): CLong =
-    throw UnsupportedOperationException("ftell requires N-API addon")
+    LibcNative.ftell(stream?.handle?.toInt() ?: -1).toLong()
 
 public actual fun rewind(stream: FILE?) {
     throw UnsupportedOperationException("rewind requires N-API addon")
@@ -46,7 +46,7 @@ public actual fun strcspn(cs: String?, ct: String?): ULong =
     throw UnsupportedOperationException("strcspn requires N-API addon")
 
 public actual fun strlen(cs: String?): ULong =
-    throw UnsupportedOperationException("strlen requires N-API addon")
+    strlenNapi(cs)
 
 public actual fun strnlen(cs: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strnlen requires N-API addon")
@@ -127,10 +127,10 @@ public actual fun freeaddrinfo(res: Addrinfo?) {
 }
 
 public actual fun getpid(): PidT =
-    throw UnsupportedOperationException("getpid requires N-API addon")
+    getpidNapi()
 
 public actual fun getppid(): PidT =
-    throw UnsupportedOperationException("getppid requires N-API addon")
+    getppidNapi()
 
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
     throw UnsupportedOperationException("setpgid requires N-API addon")
@@ -152,7 +152,7 @@ public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
     throw UnsupportedOperationException("fgets requires N-API addon")
 
 public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    throw UnsupportedOperationException("strtol requires N-API addon")
+    strtolNapi(s, base)
 
 public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong =
     throw UnsupportedOperationException("strtoll requires N-API addon")

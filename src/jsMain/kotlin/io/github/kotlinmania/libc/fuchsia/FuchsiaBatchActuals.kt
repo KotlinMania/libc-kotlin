@@ -79,16 +79,16 @@ public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper requires N-API addon")
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen requires N-API addon")
+    if (filename != null && mode != null) { val h = LibcNative.fopen(filename!!, mode!!); if (h != 0) FILE(h.toLong()) else null } else null
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen requires N-API addon")
 
 public actual fun fflush(file: FILE?): CInt =
-    throw UnsupportedOperationException("fflush requires N-API addon")
+    LibcNative.fflush(file?.handle?.toInt() ?: -1)
 
 public actual fun fclose(file: FILE?): CInt =
-    throw UnsupportedOperationException("fclose requires N-API addon")
+    LibcNative.fclose(file?.handle?.toInt() ?: -1)
 
 public actual fun remove(filename: String?): CInt =
     throw UnsupportedOperationException("remove requires N-API addon")
@@ -131,16 +131,16 @@ public actual fun ungetc(c: CInt, stream: FILE?): CInt =
     throw UnsupportedOperationException("ungetc requires N-API addon")
 
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fread requires N-API addon")
+    LibcNative.fread(ptr?.value, size.toInt(), nobj.toInt(), stream?.handle?.toInt() ?: -1).toULong()
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fwrite requires N-API addon")
+    LibcNative.fwrite(ptr?.value, size.toInt(), nobj.toInt(), stream?.handle?.toInt() ?: -1).toULong()
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    throw UnsupportedOperationException("fseek requires N-API addon")
+    LibcNative.fseek(stream?.handle?.toInt() ?: -1, offset.toInt(), whence)
 
 public actual fun ftell(stream: FILE?): CLong =
-    throw UnsupportedOperationException("ftell requires N-API addon")
+    LibcNative.ftell(stream?.handle?.toInt() ?: -1).toLong()
 
 public actual fun rewind(stream: FILE?) {
     throw UnsupportedOperationException("rewind requires N-API addon")
@@ -163,7 +163,7 @@ public actual fun perror(s: String?) {
 }
 
 public actual fun atoi(s: String?): CInt =
-    throw UnsupportedOperationException("atoi requires N-API addon")
+    atoiNapi(s)
 
 public actual fun atol(s: String?): CLong =
     throw UnsupportedOperationException("atol requires N-API addon")
@@ -172,7 +172,7 @@ public actual fun atoll(s: String?): CLongLong =
     throw UnsupportedOperationException("atoll requires N-API addon")
 
 public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    throw UnsupportedOperationException("strtol requires N-API addon")
+    strtolNapi(s, base)
 
 public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong =
     throw UnsupportedOperationException("strtoll requires N-API addon")
@@ -184,23 +184,23 @@ public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULon
     throw UnsupportedOperationException("strtoull requires N-API addon")
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires N-API addon")
+    callocNapi(nobj, size)
 
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires N-API addon")
+    mallocNapi(size)
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("realloc requires N-API addon")
+    reallocNapi(p, size)
 
 public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free requires N-API addon")
+    freeNapi(p)
 }
 
 public actual fun system(s: String?): CInt =
-    throw UnsupportedOperationException("system requires N-API addon")
+    systemNapi(s)
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv requires N-API addon")
+    getenvNapi(s)
 
 public actual fun strcpy(dst: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires N-API addon")
@@ -215,16 +215,16 @@ public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncat requires N-API addon")
 
 public actual fun strcmp(cs: String?, ct: String?): CInt =
-    throw UnsupportedOperationException("strcmp requires N-API addon")
+    strcmpNapi(cs, ct)
 
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires N-API addon")
+    strncmpNapi(cs, ct, n)
 
 public actual fun strcoll(cs: String?, ct: String?): CInt =
     throw UnsupportedOperationException("strcoll requires N-API addon")
 
 public actual fun strchr(cs: String?, c: CInt): String? =
-    throw UnsupportedOperationException("strchr requires N-API addon")
+    if (cs == null) null else { val idx = cs!!.indexOf(c.toChar()); if (idx >= 0) cs!!.substring(idx) else null }
 
 public actual fun strrchr(cs: String?, c: CInt): String? =
     throw UnsupportedOperationException("strrchr requires N-API addon")
@@ -245,7 +245,7 @@ public actual fun strstr(cs: String?, ct: String?): String? =
     throw UnsupportedOperationException("strstr requires N-API addon")
 
 public actual fun strlen(cs: String?): ULong =
-    throw UnsupportedOperationException("strlen requires N-API addon")
+    strlenNapi(cs)
 
 public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
     throw UnsupportedOperationException("strnlen requires N-API addon")
@@ -272,19 +272,19 @@ public actual fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT? =
     throw UnsupportedOperationException("wmemchr requires N-API addon")
 
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt =
-    throw UnsupportedOperationException("memcmp requires N-API addon")
+    LibcNative.memcmp(cx?.value, ct?.value, n.toInt())
 
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memcpy requires N-API addon")
+    run { val r = LibcNative.memcpy(dest?.value, src?.value, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
 
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmove requires N-API addon")
 
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset requires N-API addon")
+    run { val r = LibcNative.memset(dest?.value, c, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("abs requires N-API addon")
+    LibcNative.abs(i)
 
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires N-API addon")
@@ -306,7 +306,7 @@ public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CI
     throw UnsupportedOperationException("fprintf requires N-API addon")
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("printf requires N-API addon")
+    if (format != null) LibcNative.printf(format!!) else -1
 
 public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("snprintf requires N-API addon")
@@ -442,7 +442,7 @@ public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("unlinkat requires N-API addon")
 
 public actual fun access(path: String?, amode: CInt): CInt =
-    throw UnsupportedOperationException("access requires N-API addon")
+    accessNapi(path, amode)
 
 public actual fun chdir(dir: String?): CInt =
     throw UnsupportedOperationException("chdir requires N-API addon")
@@ -454,7 +454,7 @@ public actual fun lchown(path: String?, uid: UidT, gid: GidT): CInt =
     throw UnsupportedOperationException("lchown requires N-API addon")
 
 public actual fun close(fd: CInt): CInt =
-    throw UnsupportedOperationException("close requires N-API addon")
+    closeNapi(fd)
 
 public actual fun dup(fd: CInt): CInt =
     throw UnsupportedOperationException("dup requires N-API addon")
@@ -505,10 +505,10 @@ public actual fun getpgrp(): PidT =
     throw UnsupportedOperationException("getpgrp requires N-API addon")
 
 public actual fun getpid(): PidT =
-    throw UnsupportedOperationException("getpid requires N-API addon")
+    getpidNapi()
 
 public actual fun getppid(): PidT =
-    throw UnsupportedOperationException("getppid requires N-API addon")
+    getppidNapi()
 
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty requires N-API addon")
@@ -517,7 +517,7 @@ public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link requires N-API addon")
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    throw UnsupportedOperationException("lseek requires N-API addon")
+    LibcNative.lseek(fd, offset.toInt(), whence).toLong()
 
 public actual fun pathconf(path: String?, name: CInt): CLong =
     throw UnsupportedOperationException("pathconf requires N-API addon")
@@ -532,7 +532,7 @@ public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULo
     throw UnsupportedOperationException("posixMemalign requires N-API addon")
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    throw UnsupportedOperationException("read requires N-API addon")
+    LibcNative.read(fd, buf?.value, count.toInt()).toLong()
 
 public actual fun rmdir(path: String?): CInt =
     throw UnsupportedOperationException("rmdir requires N-API addon")
@@ -568,7 +568,7 @@ public actual fun ttyname(fd: CInt): String? =
     throw UnsupportedOperationException("ttyname requires N-API addon")
 
 public actual fun unlink(c: String?): CInt =
-    throw UnsupportedOperationException("unlink requires N-API addon")
+    unlinkNapi(c)
 
 public actual fun wait(status: CInt?): PidT =
     throw UnsupportedOperationException("wait requires N-API addon")
@@ -577,7 +577,7 @@ public actual fun waitpid(pid: PidT, status: CInt?, options: CInt): PidT =
     throw UnsupportedOperationException("waitpid requires N-API addon")
 
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    throw UnsupportedOperationException("write requires N-API addon")
+    LibcNative.write(fd, buf?.value, count.toInt()).toLong()
 
 public actual fun pread(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): SsizeT =
     throw UnsupportedOperationException("pread requires N-API addon")
@@ -824,7 +824,7 @@ public actual fun uname(buf: Utsname?): CInt =
     throw UnsupportedOperationException("uname requires N-API addon")
 
 public actual fun gethostname(name: String?, len: ULong): CInt =
-    throw UnsupportedOperationException("gethostname requires N-API addon")
+    run { LibcNative.gethostname(); 0 }
 
 public actual fun getservbyname(name: String?, proto: String?): Servent? =
     throw UnsupportedOperationException("getservbyname requires N-API addon")

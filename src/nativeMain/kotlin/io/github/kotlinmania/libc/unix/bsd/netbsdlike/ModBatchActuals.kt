@@ -66,10 +66,14 @@ public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memrchr requires manual FFI bridge — not yet implemented")
 
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemp(template, flags)
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+public actual fun mkostemp(template: String?, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemp(template, flags)
+}
+public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+}
 public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
     if (iov == null) return -1
     val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
@@ -127,8 +131,10 @@ public actual fun semGetvalue(sem: SemT, sval: CInt?): CInt =
 public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt =
     throw UnsupportedOperationException("pthreadCondattrSetclock requires manual FFI bridge — not yet implemented")
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_sethostname(name, len)
+public actual fun sethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sethostname(name, len)
+}
 public actual fun pthreadMutexTimedlock(lock: PthreadMutexT, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadMutexTimedlock requires manual FFI bridge — not yet implemented")
 
@@ -166,10 +172,14 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt {
     val result = libc_initgroups(name, basegid.toInt())
     return result
 }
-public actual fun getdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_getdomainname(name, len)
-public actual fun setdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_setdomainname(name, len)
+public actual fun getdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_getdomainname(name, len)
+}
+public actual fun setdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_setdomainname(name, len)
+}
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()

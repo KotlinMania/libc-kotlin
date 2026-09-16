@@ -161,8 +161,10 @@ public actual fun getresuid(ruid: UidT?, euid: UidT?, suid: UidT?): CInt =
 public actual fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt =
     throw UnsupportedOperationException("getresgid requires manual FFI bridge — not yet implemented")
 
-public actual fun acct(filename: String?): CInt =
-    libc.cinterop.libc_acct(filename)
+public actual fun acct(filename: String?): CInt {
+    if (filename == null) return -1
+    return libc.cinterop.libc_acct(filename)
+}
 public actual fun brk(addr: COpaquePointer?): CInt =
     throw UnsupportedOperationException("brk requires manual FFI bridge — not yet implemented")
 
@@ -238,14 +240,22 @@ public actual fun strftimeL(s: String?, max: ULong, format: String?, tm: Tm?, lo
 public actual fun strptime(s: String?, format: String?, tm: Tm?): String? =
     throw UnsupportedOperationException("strptime requires manual FFI bridge — not yet implemented")
 
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemp(template, flags)
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemps(template, suffixlen, flags)
-public actual fun getdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_getdomainname(name, len)
-public actual fun setdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_setdomainname(name, len)
+public actual fun mkostemp(template: String?, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemp(template, flags)
+}
+public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+}
+public actual fun getdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_getdomainname(name, len)
+}
+public actual fun setdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_setdomainname(name, len)
+}
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 

@@ -59,8 +59,10 @@ public actual fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("dup3 requires manual FFI bridge — not yet implemented")
 
-public actual fun chflags(path: String?, flags: CUInt): CInt =
-    libc.cinterop.libc_chflags(path, flags)
+public actual fun chflags(path: String?, flags: CUInt): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_chflags(path, flags)
+}
 public actual fun fchflags(fd: CInt, flags: CUInt): CInt =
     libc.cinterop.libc_fchflags(fd, flags)
 public actual fun chflagsat(fd: CInt, path: String?, flags: CUInt, atflag: CInt): CInt =

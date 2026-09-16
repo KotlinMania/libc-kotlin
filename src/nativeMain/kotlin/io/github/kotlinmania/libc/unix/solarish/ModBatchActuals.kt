@@ -64,8 +64,10 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
 
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
-public actual fun acct(filename: String?): CInt =
-    libc.cinterop.libc_acct(filename)
+public actual fun acct(filename: String?): CInt {
+    if (filename == null) return -1
+    return libc.cinterop.libc_acct(filename)
+}
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun labs(i: CLong): CLong =
@@ -382,8 +384,10 @@ public actual fun memalign(align: ULong, size: ULong): COpaquePointer? {
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
 public actual fun futimesat(fd: CInt, path: String?, times: Timeval?): CInt =
     throw UnsupportedOperationException("futimesat requires manual FFI bridge — not yet implemented")
 
@@ -731,8 +735,10 @@ public actual fun setpflags(flags: CUInt, value: CUInt): CInt =
 public actual fun sysinfo(command: CInt, buf: String?, count: CLong): CInt =
     throw UnsupportedOperationException("sysinfo requires manual FFI bridge — not yet implemented")
 
-public actual fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt =
-    libc.cinterop.libc_faccessat(fd, path, amode, flag)
+public actual fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_faccessat(fd, path, amode, flag)
+}
 public actual fun getpagesize(): CInt =
     libc.cinterop.libc_getpagesize()
 public actual fun getpagesizes(pagesize: ULong?, nelem: CInt): CInt =

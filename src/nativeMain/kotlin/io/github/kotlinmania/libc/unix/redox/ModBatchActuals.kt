@@ -123,10 +123,14 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 
 public actual fun getsubopt(optionp: COpaquePointer?, tokens: COpaquePointer?, valuep: COpaquePointer?): CInt =
     libc.cinterop.libc_getsubopt(optionp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), tokens?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), valuep?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemp(template, flags)
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+public actual fun mkostemp(template: String?, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemp(template, flags)
+}
+public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+}
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
 
@@ -137,10 +141,16 @@ public actual fun explicitBzero(p: COpaquePointer?, len: ULong) {
     throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong =
-    libc.cinterop.libc_strlcat(dst, src, siz)
-public actual fun strlcpy(dst: String?, src: String?, siz: ULong): ULong =
-    libc.cinterop.libc_strlcpy(dst, src, siz)
+public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong {
+    if (dst == null) return 0uL
+    if (src == null) return 0uL
+    return libc.cinterop.libc_strlcat(dst, src, siz)
+}
+public actual fun strlcpy(dst: String?, src: String?, siz: ULong): ULong {
+    if (dst == null) return 0uL
+    if (src == null) return 0uL
+    return libc.cinterop.libc_strlcpy(dst, src, siz)
+}
 public actual fun epollCreate(size: CInt): CInt =
     throw UnsupportedOperationException("epollCreate requires manual FFI bridge — not yet implemented")
 

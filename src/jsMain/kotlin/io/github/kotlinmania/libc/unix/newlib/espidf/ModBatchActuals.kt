@@ -7,7 +7,7 @@ public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): 
     throw UnsupportedOperationException("getrandom requires N-API addon")
 
 public actual fun gethostname(name: String?, namelen: SsizeT) {
-    throw UnsupportedOperationException("gethostname requires N-API addon")
+    LibcNative.gethostname()
 }
 
 public actual fun sendmsg(s: CInt, msg: Msghdr?, flags: CInt): SsizeT =

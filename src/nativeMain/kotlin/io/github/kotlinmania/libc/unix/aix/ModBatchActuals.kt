@@ -270,8 +270,10 @@ public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?,
 public actual fun iconvClose(cd: IconvT): CInt =
     throw UnsupportedOperationException("iconvClose requires manual FFI bridge — not yet implemented")
 
-public actual fun acct(filename: String?): CInt =
-    libc.cinterop.libc_acct(filename)
+public actual fun acct(filename: String?): CInt {
+    if (filename == null) return -1
+    return libc.cinterop.libc_acct(filename)
+}
 public actual fun aioCancel(fildes: CInt, aiocbp: Aiocb?): CInt =
     throw UnsupportedOperationException("aioCancel requires manual FFI bridge — not yet implemented")
 
@@ -357,8 +359,10 @@ public actual fun endutxent() {
     throw UnsupportedOperationException("endutxent requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
 public actual fun fattach(fildes: CInt, path: String?): CInt =
     throw UnsupportedOperationException("fattach requires manual FFI bridge — not yet implemented")
 

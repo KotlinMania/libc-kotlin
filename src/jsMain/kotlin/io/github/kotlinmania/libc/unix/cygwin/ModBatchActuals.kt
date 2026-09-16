@@ -268,7 +268,7 @@ public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg requires N-API addon")
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("abs requires N-API addon")
+    LibcNative.abs(i)
 
 public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires N-API addon")

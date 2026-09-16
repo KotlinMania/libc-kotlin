@@ -196,7 +196,7 @@ public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
     throw UnsupportedOperationException("lseek64 requires N-API addon")
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    throw UnsupportedOperationException("lseek requires N-API addon")
+    LibcNative.lseek(fd, offset.toInt(), whence).toLong()
 
 public actual fun fgetpos64(stream: FILE?, ptr: Fpos64T?): CInt =
     throw UnsupportedOperationException("fgetpos64 requires N-API addon")
@@ -910,7 +910,7 @@ public actual fun strchrnul(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchrnul requires N-API addon")
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("abs requires N-API addon")
+    LibcNative.abs(i)
 
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires N-API addon")

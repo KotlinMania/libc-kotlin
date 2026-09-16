@@ -47,8 +47,10 @@ public actual fun chflags(path: String?, flags: CULong): CInt =
     throw UnsupportedOperationException("chflags requires FFI bridge")
 public actual fun fchflags(fd: CInt, flags: CULong): CInt =
     throw UnsupportedOperationException("fchflags requires FFI bridge")
-public actual fun lchflags(path: String?, flags: CULong): CInt =
-    libc.cinterop.libc_lchflags(path, flags)
+public actual fun lchflags(path: String?, flags: CULong): CInt {
+    if (path == null) return -1
+    return libc.cinterop.libc_lchflags(path, flags)
+}
 public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT =
     throw UnsupportedOperationException("extattrListFd requires manual FFI bridge — not yet implemented")
 

@@ -116,18 +116,30 @@ public actual fun perror(s: String?) {
     libc.cinterop.libc_perror(s)
 }
 
-public actual fun remove(filename: String?): CInt = libc.cinterop.libc_remove(filename)
+public actual fun remove(filename: String?): CInt {
+    if (filename == null) return -1
+    return libc.cinterop.libc_remove(filename)
+}
 
-public actual fun rename(oldname: String?, newname: String?): CInt = libc.cinterop.libc_rename(oldname, newname)
+public actual fun rename(oldname: String?, newname: String?): CInt {
+    if (oldname == null) return -1
+    if (newname == null) return -1
+    return libc.cinterop.libc_rename(oldname, newname)
+}
 
 public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
 
 public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
 
-public actual fun puts(s: String?): CInt = libc.cinterop.libc_puts(s)
+public actual fun puts(s: String?): CInt {
+    if (s == null) return -1
+    return libc.cinterop.libc_puts(s)
+}
 
-public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
-    libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
+public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt {
+    if (buffer == null) return -1
+    return libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
+}
 public actual fun setbuf(stream: FILE?, buf: String?) {
     throw UnsupportedOperationException("setbuf requires CValuesRef bridge for buf param")
 }

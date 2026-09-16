@@ -183,8 +183,10 @@ public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
 public actual fun nlLanginfo(item: NlItem): String? =
     throw UnsupportedOperationException("nlLanginfo requires manual FFI bridge — not yet implemented")
 

@@ -257,8 +257,10 @@ public actual fun prctl(option: CInt, vararg args: Any?): CInt =
 public actual fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt =
     throw UnsupportedOperationException("ppoll requires manual FFI bridge — not yet implemented")
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_sethostname(name, len)
+public actual fun sethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sethostname(name, len)
+}
 public actual fun schedGetPriorityMin(policy: CInt): CInt {
     val result = libc_sched_get_priority_min(policy)
     return result
@@ -307,8 +309,10 @@ public actual fun popen(command: String?, mode: String?): FILE? {
     return if (result != null) FILE(result.toLong()) else null
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
 public actual fun setmntent(filename: String?, ty: String?): FILE? =
     throw UnsupportedOperationException("setmntent requires manual FFI bridge — not yet implemented")
 

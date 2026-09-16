@@ -91,7 +91,7 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("strerrorR requires N-API addon")
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("abs requires N-API addon")
+    LibcNative.abs(i)
 
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs requires N-API addon")

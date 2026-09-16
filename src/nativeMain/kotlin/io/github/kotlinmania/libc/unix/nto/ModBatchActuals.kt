@@ -254,10 +254,14 @@ public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt {
     return result
 }
 
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemp(template, flags)
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+public actual fun mkostemp(template: String?, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemp(template, flags)
+}
+public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+}
 public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("sigtimedwait requires manual FFI bridge — not yet implemented")
 
@@ -306,12 +310,18 @@ public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
-public actual fun getdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_getdomainname(name, len)
-public actual fun setdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_setdomainname(name, len)
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
+public actual fun getdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_getdomainname(name, len)
+}
+public actual fun setdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_setdomainname(name, len)
+}
 public actual fun sync() {
     throw UnsupportedOperationException("sync requires manual FFI bridge — not yet implemented")
 }
@@ -410,8 +420,10 @@ public actual fun pthreadAttrGetguardsize(attr: PthreadAttrT?, guardsize: ULong?
 public actual fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong): CInt =
     throw UnsupportedOperationException("pthreadAttrSetguardsize requires manual FFI bridge — not yet implemented")
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_sethostname(name, len)
+public actual fun sethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sethostname(name, len)
+}
 public actual fun schedGetPriorityMin(policy: CInt): CInt {
     val result = libc.cinterop.libc_sched_get_priority_min(policy)
     return result
@@ -564,8 +576,10 @@ public actual fun popen(command: String?, mode: String?): FILE? {
     return if (result != null) FILE(result.toLong()) else null
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
     throw UnsupportedOperationException("inotifyRmWatch requires manual FFI bridge — not yet implemented")
 

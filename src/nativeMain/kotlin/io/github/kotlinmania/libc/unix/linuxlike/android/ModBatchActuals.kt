@@ -367,8 +367,10 @@ public actual fun schedGetscheduler(pid: PidT): CInt {
 public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
     throw UnsupportedOperationException("clockNanosleep requires FFI bridge")
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_sethostname(name, len)
+public actual fun sethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sethostname(name, len)
+}
 public actual fun schedGetPriorityMin(policy: CInt): CInt {
     val result = libc_sched_get_priority_min(policy)
     return result
@@ -447,8 +449,10 @@ public actual fun popen(command: String?, mode: String?): FILE? {
     return if (result != null) FILE(result.toLong()) else null
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
 

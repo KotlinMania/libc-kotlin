@@ -40,20 +40,43 @@ import libc.cinterop.libc_strcspn
 
 
 
-public actual fun atol(s: String?): CLong = libc.cinterop.libc_atol(s)
+public actual fun atol(s: String?): CLong {
+    if (s == null) return 0
+    return libc.cinterop.libc_atol(s)
+}
 
-public actual fun atoll(s: String?): CLongLong = libc.cinterop.libc_atoll(s)
+public actual fun atoll(s: String?): CLongLong {
+    if (s == null) return 0
+    return libc.cinterop.libc_atoll(s)
+}
 
-public actual fun strspn(cs: String?, ct: String?): ULong = libc.cinterop.libc_strspn(cs, ct)
+public actual fun strspn(cs: String?, ct: String?): ULong {
+    if (cs == null) return 0uL
+    if (ct == null) return 0uL
+    return libc.cinterop.libc_strspn(cs, ct)
+}
 
-public actual fun strcspn(cs: String?, ct: String?): ULong = libc.cinterop.libc_strcspn(cs, ct)
+public actual fun strcspn(cs: String?, ct: String?): ULong {
+    if (cs == null) return 0uL
+    if (ct == null) return 0uL
+    return libc.cinterop.libc_strcspn(cs, ct)
+}
 
-public actual fun strlen(cs: String?): ULong = libc.cinterop.libc_strlen(cs)
+public actual fun strlen(cs: String?): ULong {
+    if (cs == null) return 0uL
+    return libc.cinterop.libc_strlen(cs)
+}
 
-public actual fun strnlen(cs: String?, n: ULong): ULong = libc.cinterop.libc_strnlen(cs, n)
+public actual fun strnlen(cs: String?, n: ULong): ULong {
+    if (cs == null) return 0uL
+    return libc.cinterop.libc_strnlen(cs, n)
+}
 
-public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
-    libc.cinterop.libc_strxfrm(s, ct, n)
+public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong {
+    if (s == null) return 0uL
+    if (ct == null) return 0uL
+    return libc.cinterop.libc_strxfrm(s, ct, n)
+}
 public actual fun wcslen(buf: WcharT?): ULong =
     throw UnsupportedOperationException("wcslen requires WcharT pointer bridge — not yet implemented")
 
@@ -75,9 +98,6 @@ public actual fun getservbyname(name: String?, proto: String?): Servent? =
 public actual fun rewinddir(dirp: DIR?) {
     throw UnsupportedOperationException("rewinddir requires manual FFI bridge — not yet implemented")
 }
-
-public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =
-    throw UnsupportedOperationException("dlsym requires manual FFI bridge — not yet implemented")
 
 public actual fun gmtimeR(timeP: TimeT?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR requires manual FFI bridge — not yet implemented")
@@ -133,8 +153,11 @@ public actual fun getppid(): PidT =
     libc.cinterop.libc_getppid()
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
     libc.cinterop.libc_setpgid(pid, pgid)
-public actual fun readlink(path: String?, buf: String?, bufsize: ULong): SsizeT =
-    libc.cinterop.libc_readlink(path, buf, bufsize)
+public actual fun readlink(path: String?, buf: String?, bufsize: ULong): SsizeT {
+    if (path == null) return -1
+    if (buf == null) return -1
+    return libc.cinterop.libc_readlink(path, buf, bufsize)
+}
 public actual fun opendir(name: String?): DIR? =
     throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
 
@@ -147,8 +170,10 @@ public actual fun mqTimedreceive(mqd: MqdT, msgPtr: String?, msgLen: ULong, msgP
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
     throw UnsupportedOperationException("fgets requires mutable buffer (COpaquePointer), not immutable String")
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    libc.cinterop.libc_strtol(s, endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong {
+    if (s == null) return 0
+    return libc.cinterop.libc_strtol(s, endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+}
 public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong =
     throw UnsupportedOperationException("strtoll requires manual FFI bridge for pointer endp param")
 
@@ -158,12 +183,10 @@ public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong
 public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong =
     throw UnsupportedOperationException("strtoull requires manual FFI bridge for pointer endp param")
 
-public actual fun confstr(name: CInt, buf: String?, len: ULong): ULong =
-    libc.cinterop.libc_confstr(name, buf, len)
-public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
-    throw UnsupportedOperationException("dlopen requires manual FFI bridge")
-
-
+public actual fun confstr(name: CInt, buf: String?, len: ULong): ULong {
+    if (buf == null) return 0uL
+    return libc.cinterop.libc_confstr(name, buf, len)
+}
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     libc.cinterop.libc_fpathconf(filedes, name)
 public actual fun getprotobynumber(proto: CInt): Protoent? =
@@ -181,8 +204,10 @@ public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
     throw UnsupportedOperationException("openlog requires manual FFI bridge")
 }
 
-public actual fun pathconf(path: String?, name: CInt): CLong =
-    libc.cinterop.libc_pathconf(path, name)
+public actual fun pathconf(path: String?, name: CInt): CLong {
+    if (path == null) return 0
+    return libc.cinterop.libc_pathconf(path, name)
+}
 public actual fun pthreadCreate(pThread: PthreadT?, pAttr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge")
 

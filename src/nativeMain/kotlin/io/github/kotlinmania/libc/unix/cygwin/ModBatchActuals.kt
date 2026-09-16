@@ -358,12 +358,18 @@ public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong) {
 
 public actual fun labs(i: CLong): CLong =
     libc.cinterop.libc_labs(i)
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemp(template, flags)
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_mkostemps(template, suffixlen, flags)
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
+public actual fun mkostemp(template: String?, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemp(template, flags)
+}
+public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
+}
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
@@ -484,15 +490,19 @@ public actual fun euidaccess(pathname: String?, mode: CInt): CInt =
 public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("execvpe requires manual FFI bridge — not yet implemented")
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
 public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("fexecve requires manual FFI bridge — not yet implemented")
 
 public actual fun fdatasync(fd: CInt): CInt =
     libc.cinterop.libc_fdatasync(fd)
-public actual fun getdomainname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_getdomainname(name, len)
+public actual fun getdomainname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_getdomainname(name, len)
+}
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
@@ -516,8 +526,10 @@ public actual fun sbrk(increment: IntptrT): COpaquePointer? =
 public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_sethostname(name, len)
+public actual fun sethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sethostname(name, len)
+}
 public actual fun vhangup(): CInt =
     throw UnsupportedOperationException("vhangup requires manual FFI bridge — not yet implemented")
 

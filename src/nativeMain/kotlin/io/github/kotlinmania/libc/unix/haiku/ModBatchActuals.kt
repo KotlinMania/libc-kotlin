@@ -430,8 +430,10 @@ public actual fun popen(command: String?, mode: String?): FILE? {
     return if (result != null) FILE(result.toLong()) else null
 }
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_sethostname(name, len)
+public actual fun sethostname(name: String?, len: ULong): CInt {
+    if (name == null) return -1
+    return libc.cinterop.libc_sethostname(name, len)
+}
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
@@ -459,8 +461,10 @@ public actual fun endutxent() {
     throw UnsupportedOperationException("endutxent requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt {
+    if (pathname == null) return -1
+    return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
+}
 public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("sigtimedwait requires manual FFI bridge — not yet implemented")
 

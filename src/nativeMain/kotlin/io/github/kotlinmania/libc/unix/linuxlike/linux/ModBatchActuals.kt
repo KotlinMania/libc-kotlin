@@ -214,8 +214,10 @@ public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt):
 public actual fun remapFilePages(addr: COpaquePointer?, size: ULong, prot: CInt, pgoff: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("remapFilePages requires manual FFI bridge — not yet implemented")
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
-    libc.cinterop.libc_mkstemps(template, suffixlen)
+public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
+    if (template == null) return -1
+    return libc.cinterop.libc_mkstemps(template, suffixlen)
+}
 public actual fun vhangup(): CInt =
     throw UnsupportedOperationException("vhangup requires manual FFI bridge — not yet implemented")
 
