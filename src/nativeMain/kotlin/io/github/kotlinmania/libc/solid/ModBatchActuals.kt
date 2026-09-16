@@ -554,14 +554,8 @@ public actual fun memset(arg1: COpaquePointer?, arg2: CInt, arg3: ULong): COpaqu
 }
 public actual fun strcat(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcat requires FFI bridge")
-public actual fun strchr(arg1: String?, arg2: CInt): String? {
-    if (arg1 == null) return null
-    return memScoped {
-        val cstr = arg1.cstr.ptr
-        val result = libc_strchr(cstr, arg2)
-        result?.toKString()
-    }
-}
+public actual fun strchr(arg1: String?, arg2: CInt): String? =
+    throw UnsupportedOperationException("strchr requires FFI bridge")
 public actual fun strcmp(arg1: String?, arg2: String?): CInt {
     if (arg1 == null) return -1
     if (arg2 == null) return -1
@@ -596,39 +590,17 @@ public actual fun strncmp(arg1: String?, arg2: String?, arg3: ULong): CInt {
 }
 public actual fun strncpy(arg1: String?, arg2: String?, arg3: ULong): String? =
     throw UnsupportedOperationException("strncpy requires FFI bridge")
-public actual fun strpbrk(arg1: String?, arg2: String?): String? {
-    if (arg1 == null) return null
-    if (arg2 == null) return null
-    return memScoped {
-        val sCstr = arg1.cstr.ptr
-        val acceptCstr = arg2.cstr.ptr
-        val result = libc_strpbrk(sCstr, acceptCstr)
-        result?.toKString()
-    }
-}
-public actual fun strrchr(arg1: String?, arg2: CInt): String? {
-    if (arg1 == null) return null
-    return memScoped {
-        val cstr = arg1.cstr.ptr
-        val result = libc_strrchr(cstr, arg2)
-        result?.toKString()
-    }
-}
+public actual fun strpbrk(arg1: String?, arg2: String?): String? =
+    throw UnsupportedOperationException("strpbrk requires FFI bridge")
+public actual fun strrchr(arg1: String?, arg2: CInt): String? =
+    throw UnsupportedOperationException("strrchr requires FFI bridge")
 public actual fun strspn(arg1: String?, arg2: String?): ULong {
     if (arg1 == null) return 0uL
     if (arg2 == null) return 0uL
     return libc.cinterop.libc_strspn(arg1, arg2)
 }
-public actual fun strstr(arg1: String?, arg2: String?): String? {
-    if (arg1 == null) return null
-    if (arg2 == null) return null
-    return memScoped {
-        val hCstr = arg1.cstr.ptr
-        val nCstr = arg2.cstr.ptr
-        val result = libc_strstr(hCstr, nCstr)
-        result?.toKString()
-    }
-}
+public actual fun strstr(arg1: String?, arg2: String?): String? =
+    throw UnsupportedOperationException("strstr requires FFI bridge")
 public actual fun strtok(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 

@@ -1,5 +1,5 @@
 headers = stdlib.h stdio.h string.h sys/socket.h dirent.h libc_wrapper.h
 headerFilter = *
-compilerOpts = -I${projectDir}/src/nativeInterop/cinterop
+compilerOpts = -Isrc/nativeInterop/cinterop
 staticLibraries = libc_wrapper.a
-libraryPaths = ${projectDir}/src/nativeInterop/cinterop
+libraryPaths = src/nativeInterop/cinterop

@@ -123,22 +123,10 @@ public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong {
     if (src == null) return 0uL
     return libc.cinterop.libc_strxfrm(dest, src, n)
 }
-public actual fun strchr(s: String?, c: CInt): String? {
-    if (s == null) return null
-    return memScoped {
-        val cstr = s.cstr.ptr
-        val result = libc_strchr(cstr, c)
-        result?.toKString()
-    }
-}
-public actual fun strrchr(s: String?, c: CInt): String? {
-    if (s == null) return null
-    return memScoped {
-        val cstr = s.cstr.ptr
-        val result = libc_strrchr(cstr, c)
-        result?.toKString()
-    }
-}
+public actual fun strchr(s: String?, c: CInt): String? =
+    throw UnsupportedOperationException("strchr requires FFI bridge")
+public actual fun strrchr(s: String?, c: CInt): String? =
+    throw UnsupportedOperationException("strrchr requires FFI bridge")
 public actual fun strspn(s: String?, accept: String?): ULong {
     if (s == null) return 0uL
     if (accept == null) return 0uL
@@ -149,26 +137,10 @@ public actual fun strcspn(s: String?, reject: String?): ULong {
     if (reject == null) return 0uL
     return libc.cinterop.libc_strcspn(s, reject)
 }
-public actual fun strpbrk(s: String?, accept: String?): String? {
-    if (s == null) return null
-    if (accept == null) return null
-    return memScoped {
-        val sCstr = s.cstr.ptr
-        val acceptCstr = accept.cstr.ptr
-        val result = libc_strpbrk(sCstr, acceptCstr)
-        result?.toKString()
-    }
-}
-public actual fun strstr(haystack: String?, needle: String?): String? {
-    if (haystack == null) return null
-    if (needle == null) return null
-    return memScoped {
-        val hCstr = haystack.cstr.ptr
-        val nCstr = needle.cstr.ptr
-        val result = libc_strstr(hCstr, nCstr)
-        result?.toKString()
-    }
-}
+public actual fun strpbrk(s: String?, accept: String?): String? =
+    throw UnsupportedOperationException("strpbrk requires FFI bridge")
+public actual fun strstr(haystack: String?, needle: String?): String? =
+    throw UnsupportedOperationException("strstr requires FFI bridge")
 public actual fun strtok(s: String?, delim: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 

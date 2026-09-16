@@ -19,41 +19,19 @@ import libc.cinterop.libc_strcpy
 
 public actual fun strchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    return memScoped {
-        val cstr = cs.cstr.ptr
-        val result = libc.cinterop.libc_strchr(cstr, c)
-        result?.toKString()
-    }
+    return libc.cinterop.libc_strchr(cs, c)?.toKString()
 }
 
 public actual fun strrchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    return memScoped {
-        val cstr = cs.cstr.ptr
-        val result = libc.cinterop.libc_strrchr(cstr, c)
-        result?.toKString()
-    }
+    return libc.cinterop.libc_strrchr(cs, c)?.toKString()
 }
 
-public actual fun strpbrk(cs: String?, ct: String?): String? {
-    if (cs == null || ct == null) return null
-    return memScoped {
-        val csCstr = cs.cstr.ptr
-        val ctCstr = ct.cstr.ptr
-        val result = libc.cinterop.libc_strpbrk(csCstr, ctCstr)
-        result?.toKString()
-    }
-}
+public actual fun strpbrk(cs: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strpbrk requires FFI bridge")
 
-public actual fun strstr(cs: String?, ct: String?): String? {
-    if (cs == null || ct == null) return null
-    return memScoped {
-        val csCstr = cs.cstr.ptr
-        val ctCstr = ct.cstr.ptr
-        val result = libc.cinterop.libc_strstr(csCstr, ctCstr)
-        result?.toKString()
-    }
-}
+public actual fun strstr(cs: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strstr requires FFI bridge")
 
 // String mutation functions require mutable char* buffers. Kotlin String
 // is immutable. These need COpaquePointer params to work correctly.

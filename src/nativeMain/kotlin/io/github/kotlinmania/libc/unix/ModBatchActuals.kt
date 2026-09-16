@@ -359,22 +359,10 @@ public actual fun strcoll(cs: String?, ct: String?): CInt {
     if (ct == null) return -1
     return libc.cinterop.libc_strcoll(cs, ct)
 }
-public actual fun strchr(cs: String?, c: CInt): String? {
-    if (cs == null) return null
-    return memScoped {
-        val cstr = cs.cstr.ptr
-        val result = libc_strchr(cstr, c)
-        result?.toKString()
-    }
-}
-public actual fun strrchr(cs: String?, c: CInt): String? {
-    if (cs == null) return null
-    return memScoped {
-        val cstr = cs.cstr.ptr
-        val result = libc_strrchr(cstr, c)
-        result?.toKString()
-    }
-}
+public actual fun strchr(cs: String?, c: CInt): String? =
+    throw UnsupportedOperationException("strchr requires FFI bridge")
+public actual fun strrchr(cs: String?, c: CInt): String? =
+    throw UnsupportedOperationException("strrchr requires FFI bridge")
 public actual fun strspn(cs: String?, ct: String?): ULong {
     if (cs == null) return 0uL
     if (ct == null) return 0uL
@@ -395,26 +383,10 @@ public actual fun strdup(cs: String?): String? {
 public actual fun strndup(cs: String?, n: ULong): String? =
     throw UnsupportedOperationException("strndup requires manual FFI bridge — not yet implemented")
 
-public actual fun strpbrk(cs: String?, ct: String?): String? {
-    if (cs == null) return null
-    if (ct == null) return null
-    return memScoped {
-        val csCstr = cs.cstr.ptr
-        val ctCstr = ct.cstr.ptr
-        val result = libc_strpbrk(csCstr, ctCstr)
-        result?.toKString()
-    }
-}
-public actual fun strstr(cs: String?, ct: String?): String? {
-    if (cs == null) return null
-    if (ct == null) return null
-    return memScoped {
-        val csCstr = cs.cstr.ptr
-        val ctCstr = ct.cstr.ptr
-        val result = libc_strstr(csCstr, ctCstr)
-        result?.toKString()
-    }
-}
+public actual fun strpbrk(cs: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strpbrk requires FFI bridge")
+public actual fun strstr(cs: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strstr requires FFI bridge")
 public actual fun strcasecmp(s1: String?, s2: String?): CInt {
     if (s1 == null) return -1
     if (s2 == null) return -1
