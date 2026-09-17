@@ -1,4 +1,4 @@
-headers = stdlib.h stdio.h string.h sys/socket.h dirent.h libc_wrapper.h
+headers = stdlib.h stdio.h string.h libc_wrapper.h
 headerFilter = *
 compilerOpts = -Isrc/nativeInterop/cinterop
 staticLibraries = libc_wrapper.a

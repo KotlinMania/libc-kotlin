@@ -14,7 +14,9 @@ int getentropy(void*, size_t);
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/stat.h>
+#ifndef _WIN32
 #include <sys/socket.h>
+#endif
 
 /* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
 #ifndef _GNU_SOURCE
