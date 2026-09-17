@@ -35,8 +35,16 @@ public actual fun strrchr(cs: String?, c: CInt): String? {
     }
 }
 
-public actual fun strpbrk(cs: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strpbrk requires FFI bridge")
+public actual fun strpbrk(cs: String?, ct: String?): String? {
+    if (cs == null) return null
+    if (ct == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val caccept = ct.cstr.ptr
+        val result = libc.cinterop.libc_strpbrk(cstr, caccept)
+        result?.toKString()
+    }
+}
 
 public actual fun strstr(cs: String?, ct: String?): String? {
     if (cs == null) return null

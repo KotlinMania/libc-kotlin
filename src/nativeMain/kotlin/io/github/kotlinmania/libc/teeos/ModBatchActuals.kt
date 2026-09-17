@@ -331,8 +331,14 @@ public actual fun setstate(state: String?): String? =
 
 public actual fun random(): CLong =
     libc.cinterop.libc_random()
-public actual fun strchr(s: String?, c: CInt): String? =
-    throw UnsupportedOperationException("strchr requires FFI bridge")
+public actual fun strchr(s: String?, c: CInt): String? {
+    if (s == null) return null
+    return memScoped {
+        val cstr = s.cstr.ptr
+        val result = libc.cinterop.libc_strchr(cstr, c)
+        result?.toKString()
+    }
+}
 public actual fun strlen(cs: String?): ULong {
     if (cs == null) return 0uL
     return libc.cinterop.libc_strlen(cs)
@@ -355,8 +361,14 @@ public actual fun strnlen(cs: String?, n: ULong): ULong {
     if (cs == null) return 0uL
     return libc.cinterop.libc_strnlen(cs, n)
 }
-public actual fun strrchr(s: String?, c: CInt): String? =
-    throw UnsupportedOperationException("strrchr requires FFI bridge")
+public actual fun strrchr(s: String?, c: CInt): String? {
+    if (s == null) return null
+    return memScoped {
+        val cstr = s.cstr.ptr
+        val result = libc.cinterop.libc_strrchr(cstr, c)
+        result?.toKString()
+    }
+}
 public actual fun strstr(h: String?, n: String?): String? {
     if (h == null) return null
     if (n == null) return null

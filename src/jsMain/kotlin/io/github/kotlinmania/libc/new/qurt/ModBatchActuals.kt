@@ -64,7 +64,7 @@ public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires N-API addon")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    if (s == null) null else { val idx = s!!.indexOf(c.toChar()); if (idx >= 0) s!!.substring(idx) else null }
+    if (s == null) null else { val idx = s.indexOf(c.toChar()); if (idx >= 0) s.substring(idx) else null }
 
 public actual fun strrchr(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strrchr requires N-API addon")

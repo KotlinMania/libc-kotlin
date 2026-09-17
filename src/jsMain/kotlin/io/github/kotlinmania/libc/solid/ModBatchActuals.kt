@@ -706,10 +706,10 @@ public actual fun close(arg1: CInt): CInt =
     closeNapi(arg1)
 
 public actual fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    LibcNative.read(arg1, arg2?.value, arg3.toInt())
+    LibcNative.read(arg1, arg2?.value, arg3)
 
 public actual fun write(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    LibcNative.write(arg1, arg2?.value, arg3.toInt())
+    LibcNative.write(arg1, arg2?.value, arg3)
 
 public actual fun unlink(arg1: String?): CInt =
     unlinkNapi(arg1)

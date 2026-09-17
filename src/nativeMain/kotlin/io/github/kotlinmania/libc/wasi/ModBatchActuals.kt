@@ -321,16 +321,27 @@ public actual fun strcspn(cs: String?, ct: String?): ULong {
 }
 public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
-    val dup = libc.cinterop.libc_strdup(cs)
-    val result = dup?.toKString()
-    if (dup != null) libc.cinterop.libc_free(dup)
-    return result
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val dup = libc.cinterop.libc_strdup(cstr)
+        val result = dup?.toKString()
+        if (dup != null) libc.cinterop.libc_free(dup)
+        result
+    }
 }
 public actual fun strndup(cs: String?, n: ULong): String? =
     throw UnsupportedOperationException("strndup requires manual FFI bridge — not yet implemented")
 
-public actual fun strpbrk(cs: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strpbrk requires FFI bridge")
+public actual fun strpbrk(cs: String?, ct: String?): String? {
+    if (cs == null) return null
+    if (ct == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val caccept = ct.cstr.ptr
+        val result = libc.cinterop.libc_strpbrk(cstr, caccept)
+        result?.toKString()
+    }
+}
 public actual fun strstr(cs: String?, ct: String?): String? {
     if (cs == null) return null
     if (ct == null) return null

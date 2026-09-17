@@ -13,10 +13,10 @@ public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     LibcNative.lseek(fd, offset.toInt(), whence).toLong()
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    LibcNative.read(fd, buf?.value, count.toInt()).toInt()
+    LibcNative.read(fd, buf?.value, count.toInt())
 
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
-    LibcNative.write(fd, buf?.value, count.toInt()).toInt()
+    LibcNative.write(fd, buf?.value, count.toInt())
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
     throw UnsupportedOperationException("ftruncate requires N-API addon")

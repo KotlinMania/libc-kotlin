@@ -25,10 +25,13 @@ public actual fun getenv(s: String?): String? {
 
 public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
-    val dup = libc.cinterop.libc_strdup(cs)
-    val result = dup?.toKString()
-    if (dup != null) libc_free(dup)
-    return result
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val dup = libc.cinterop.libc_strdup(cstr)
+        val result = dup?.toKString()
+        if (dup != null) libc_free(dup)
+        result
+    }
 }
 
 public actual fun strerror(n: CInt): String? {

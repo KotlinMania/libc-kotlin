@@ -4,7 +4,7 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    if (filename != null && mode != null) { val h = LibcNative.fopen(filename!!, mode!!); if (h != 0) FILE(h.toLong()) else null } else null
+    if (filename != null && mode != null) { val h = LibcNative.fopen(filename, mode); if (h != 0) FILE(h.toLong()) else null } else null
 
 public actual fun freopen(filename: String?, mode: String?, stream: FILE?): FILE? =
     throw UnsupportedOperationException("freopen requires N-API addon")
@@ -49,7 +49,7 @@ public actual fun puts(s: String?): CInt =
     throw UnsupportedOperationException("puts requires N-API addon")
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
-    if (format != null) LibcNative.printf(format!!) else -1
+    if (format != null) LibcNative.printf(format) else -1
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires N-API addon")
