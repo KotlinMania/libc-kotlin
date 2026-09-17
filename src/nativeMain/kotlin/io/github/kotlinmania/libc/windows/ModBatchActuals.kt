@@ -206,7 +206,7 @@ public actual fun strcat(s: String?, ct: String?): String? {
     return memScoped {
         val totalLen = s.length + ct.length + 1
         val buf = allocArray<ByteVar>(totalLen)
-        s.cstr.write(buf)
+        s.cstr.place(buf)
         val ctBuf = ct.cstr.ptr
         libc.cinterop.libc_strcat(buf, ctBuf)
         buf.toKString()
@@ -219,7 +219,7 @@ public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
         val ctLen = minOf(ct.length, n.toInt())
         val totalLen = s.length + ctLen + 1
         val buf = allocArray<ByteVar>(totalLen)
-        s.cstr.write(buf)
+        s.cstr.place(buf)
         val ctBuf = ct.cstr.ptr
         libc.cinterop.libc_strncat(buf, ctBuf, n)
         buf.toKString()
@@ -300,7 +300,7 @@ public actual fun strerror(n: CInt): String? {
 public actual fun strtok(s: String?, t: String?): String? {
     if (t == null) return null
     val sBuf: CPointer<ByteVar>? = if (s != null) {
-        nativeHeap.allocArray<ByteVar>(s.length + 1).also { s.cstr.write(it) }
+        nativeHeap.allocArray<ByteVar>(s.length + 1).also { s.cstr.place(it) }
     } else null
     return memScoped {
         val tBuf = t.cstr.ptr
@@ -503,7 +503,7 @@ public actual fun getcwd(buf: String?, size: CInt): String? {
     val bufSize = if (size > 0) size else 4096
     return memScoped {
         allocArray<ByteVar>(bufSize).let {
-            libc.cinterop.libc_getcwd(it, bufSize)?.toKString()
+            libc.cinterop.libc_getcwd(it, bufSize.toULong())?.toKString()
         }
     }
 }

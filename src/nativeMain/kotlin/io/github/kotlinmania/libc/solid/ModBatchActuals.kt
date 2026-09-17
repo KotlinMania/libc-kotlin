@@ -434,7 +434,7 @@ public actual fun mkdtemp(arg1: String?): String? =
     if (arg1 == null) null
     else memScoped {
         val tmpl = allocArray<ByteVar>(arg1.length + 1)
-        arg1.cstr.placeTo(tmpl)
+        arg1.cstr.place(tmpl)
         val result = libc_mkdtemp(tmpl)
         result?.toKString()
     }
@@ -571,7 +571,7 @@ public actual fun strcat(arg1: String?, arg2: String?): String? =
     if (arg1 == null || arg2 == null) null
     else memScoped {
         val dest = allocArray<ByteVar>(arg1.length + arg2.length + 1)
-        arg1.cstr.placeTo(dest)
+        arg1.cstr.place(dest)
         val src = arg2.cstr.ptr
         val result = libc_strcat(dest, src)
         result?.toKString()
@@ -613,7 +613,7 @@ public actual fun strncat(arg1: String?, arg2: String?, arg3: ULong): String? =
     if (arg1 == null || arg2 == null) null
     else memScoped {
         val dest = allocArray<ByteVar>(arg1.length + arg3.toInt().coerceAtLeast(arg2.length) + 1)
-        arg1.cstr.placeTo(dest)
+        arg1.cstr.place(dest)
         val src = arg2.cstr.ptr
         val result = libc_strncat(dest, src, arg3)
         result?.toKString()
@@ -654,7 +654,7 @@ public actual fun strtok(arg1: String?, arg2: String?): String? =
     if (arg1 == null || arg2 == null) null
     else memScoped {
         val s = allocArray<ByteVar>(arg1.length + 1)
-        arg1.cstr.placeTo(s)
+        arg1.cstr.place(s)
         val delim = arg2.cstr.ptr
         val result = libc_strtok(s, delim)
         result?.toKString()

@@ -61,7 +61,7 @@ public actual fun strstr(cs: String?, ct: String?): String? {
 public actual fun strtok(s: String?, t: String?): String? {
     if (t == null) return null
     val sBuf: CPointer<ByteVar>? = if (s != null) {
-        nativeHeap.allocArray<ByteVar>(s.length + 1).also { s.cstr.write(it) }
+        nativeHeap.allocArray<ByteVar>(s.length + 1).also { s.cstr.place(it) }
     } else null
     return memScoped {
         val tBuf = t.cstr.ptr
@@ -95,7 +95,7 @@ public actual fun strcat(s: String?, ct: String?): String? {
     return memScoped {
         val totalLen = s.length + ct.length + 1
         val buf = allocArray<ByteVar>(totalLen)
-        s.cstr.write(buf)
+        s.cstr.place(buf)
         val ctBuf = ct.cstr.ptr
         libc_strcat(buf, ctBuf)
         buf.toKString()
@@ -108,7 +108,7 @@ public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
         val ctLen = minOf(ct.length, n.toInt())
         val totalLen = s.length + ctLen + 1
         val buf = allocArray<ByteVar>(totalLen)
-        s.cstr.write(buf)
+        s.cstr.place(buf)
         val ctBuf = ct.cstr.ptr
         libc_strncat(buf, ctBuf, n)
         buf.toKString()
@@ -145,7 +145,7 @@ public actual fun mkdtemp(template: String?): String? {
     return memScoped {
         val len = template.length + 1
         val buf = allocArray<ByteVar>(len)
-        template.cstr.write(buf)
+        template.cstr.place(buf)
         libc_mkdtemp(buf)?.toKString()
     }
 }
