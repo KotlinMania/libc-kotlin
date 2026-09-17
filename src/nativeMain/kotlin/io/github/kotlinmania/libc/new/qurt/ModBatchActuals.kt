@@ -12,6 +12,7 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
+import kotlinx.cinterop.allocArray
 import libc.cinterop.libc_fork
 import libc.cinterop.libc_iscntrl
 import libc.cinterop.libc_strchr
@@ -52,6 +53,7 @@ import libc.cinterop.libc_isxdigit
 import libc.cinterop.libc_memcmp
 import libc.cinterop.libc_strstr
 import libc.cinterop.libc_strrchr
+import libc.cinterop.libc_strtok
 import libc.cinterop.libc_ftruncate
 
 public actual fun opendir(name: String?): DIR? =
@@ -96,13 +98,39 @@ public actual fun strlen(s: String?): ULong {
     return libc.cinterop.libc_strlen(s)
 }
 public actual fun strcpy(dest: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcpy requires FFI bridge")
+    if (dest == null || src == null) null
+    else memScoped {
+        val d = allocArray<ByteVar>(dest.length + src.length + 1)
+        val s = src.cstr.ptr
+        val result = libc_strcpy(d, s)
+        result?.toKString()
+    }
 public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncpy requires FFI bridge")
+    if (dest == null || src == null) null
+    else memScoped {
+        val d = allocArray<ByteVar>(n.toInt().coerceAtLeast(src.length + 1))
+        val s = src.cstr.ptr
+        val result = libc_strncpy(d, s, n)
+        result?.toKString()
+    }
 public actual fun strcat(dest: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcat requires FFI bridge")
+    if (dest == null || src == null) null
+    else memScoped {
+        val d = allocArray<ByteVar>(dest.length + src.length + 1)
+        dest.cstr.place(d)
+        val s = src.cstr.ptr
+        val result = libc_strcat(d, s)
+        result?.toKString()
+    }
 public actual fun strncat(dest: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncat requires FFI bridge")
+    if (dest == null || src == null) null
+    else memScoped {
+        val d = allocArray<ByteVar>(dest.length + n.toInt().coerceAtLeast(src.length) + 1)
+        dest.cstr.place(d)
+        val s = src.cstr.ptr
+        val result = libc_strncat(d, s, n)
+        result?.toKString()
+    }
 public actual fun strcmp(s1: String?, s2: String?): CInt {
     if (s1 == null) return -1
     if (s2 == null) return -1
@@ -170,7 +198,14 @@ public actual fun strstr(haystack: String?, needle: String?): String? {
     }
 }
 public actual fun strtok(s: String?, delim: String?): String? =
-    throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
+    if (s == null || delim == null) null
+    else memScoped {
+        val buf = allocArray<ByteVar>(s.length + 1)
+        s.cstr.place(buf)
+        val d = delim.cstr.ptr
+        val result = libc_strtok(buf, d)
+        result?.toKString()
+    }
 
 public actual fun strerror(errnum: CInt): String? {
     val result = libc_strerror(errnum)

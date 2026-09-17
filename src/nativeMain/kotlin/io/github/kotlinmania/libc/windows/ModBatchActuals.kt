@@ -13,8 +13,13 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.write
 import kotlinx.cinterop.nativeHeap
+import libc.cinterop.libc_strcpy
+import libc.cinterop.libc_strncpy
+import libc.cinterop.libc_strcat
+import libc.cinterop.libc_strncat
+import libc.cinterop.libc_strtok
+import libc.cinterop.libc_getcwd
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("printf requires manual FFI bridge — not yet implemented")

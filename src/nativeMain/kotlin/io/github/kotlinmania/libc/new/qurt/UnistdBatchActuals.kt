@@ -9,8 +9,8 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.cstr
 import kotlinx.cinterop.allocArray
+import libc.cinterop.libc_getcwd
 import libc.cinterop.libc_close
 import libc.cinterop.libc_unlink
 import libc.cinterop.libc_rmdir

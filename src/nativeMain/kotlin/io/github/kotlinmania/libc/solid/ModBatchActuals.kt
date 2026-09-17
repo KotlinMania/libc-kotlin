@@ -43,6 +43,10 @@ import libc.cinterop.libc_strerror
 import libc.cinterop.libc_strerror_r
 import libc.cinterop.libc_strncat
 import libc.cinterop.libc_strncpy
+import libc.cinterop.libc_strtok
+import libc.cinterop.libc_getcwd
+import libc.cinterop.libc_tmpnam
+import libc.cinterop.libc_mkdtemp
 import libc.cinterop.libc_strpbrk
 import libc.cinterop.libc_strrchr
 import libc.cinterop.libc_strstr

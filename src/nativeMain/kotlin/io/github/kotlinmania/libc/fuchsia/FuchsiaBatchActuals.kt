@@ -13,8 +13,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.write
 import kotlinx.cinterop.nativeHeap
+import libc.cinterop.libc_strtok
+import libc.cinterop.libc_getcwd
+import libc.cinterop.libc_realpath
+import libc.cinterop.libc_tmpnam
+import libc.cinterop.libc_mkdtemp
 import libc.cinterop.libc_clock_nanosleep
 import libc.cinterop.libc_execv
 import libc.cinterop.libc_setlogmask

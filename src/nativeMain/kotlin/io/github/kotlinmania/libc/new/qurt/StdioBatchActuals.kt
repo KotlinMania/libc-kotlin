@@ -11,6 +11,7 @@ import kotlinx.cinterop.toLong
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.allocArray
+import libc.cinterop.libc_tmpnam
 import libc.cinterop.libc_tmpfile
 import libc.cinterop.libc_setvbuf
 import libc.cinterop.libc_fclose
