@@ -28,6 +28,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6.3.0
 
+      - name: Compile C wrapper
+        run: |
+          clang -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
+          ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
+        
       - name: Build and test Android targets
         run: >
           ./gradlew

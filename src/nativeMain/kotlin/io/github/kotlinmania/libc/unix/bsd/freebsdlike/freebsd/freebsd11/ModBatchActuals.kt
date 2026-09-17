@@ -1,0 +1,39 @@
+// port-lint: source Mod.rs
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+
+package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11
+
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.toKString
+import libc.cinterop.libc_basename
+import libc.cinterop.libc_dirname
+import libc.cinterop.libc_setgrent
+
+public actual fun setgrent(): CInt =
+    throw UnsupportedOperationException("setgrent requires FFI bridge")
+
+public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
+    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+public actual fun freelocale(loc: LocaleT): CInt =
+    throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
+
+public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): CInt =
+    throw UnsupportedOperationException("msgrcv requires manual FFI bridge — not yet implemented")
+
+public actual fun dirname(path: String?): String? {
+    val result = libc_dirname(path)
+    return result?.toKString()
+}
+
+public actual fun basename(path: String?): String? {
+    val result = libc_basename(path)
+    return result?.toKString()
+}
+
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) {
+    throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
+}

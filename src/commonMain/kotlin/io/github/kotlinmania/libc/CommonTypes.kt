@@ -194,11 +194,13 @@ public data class Linger(
 )
 
 public data class Timeval(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvUsec: SusecondsT,
 )
 
 public data class Timespec(
+    val handle: Long = 0L,
     val tvSec: TimeT,
     val tvNsec: CLong,
 )
@@ -218,6 +220,7 @@ public data class Tm(
 )
 
 public data class Timezone(
+    val handle: Long = 0L,
     val tzMinuteswest: CInt,
     val tzDsttime: CInt,
 )
@@ -233,11 +236,13 @@ public data class Itimerspec(
 )
 
 public data class Rlimit(
+    val handle: Long = 0L,
     val rlimCur: ULong,
     val rlimMax: ULong,
 )
 
 public data class Rlimit64(
+    val handle: Long = 0L,
     val rlimCur: ULong,
     val rlimMax: ULong,
 )
@@ -287,6 +292,7 @@ public data class Mmsghdr(
 )
 
 public data class Iovec(
+    val handle: Long = 0L,
     val iovBase: COpaquePointer?,
     val iovLen: ULong,
 )
@@ -371,6 +377,7 @@ public data class Sigaction(
 )
 
 public data class Utsname(
+    val handle: Long = 0L,
     val sysname: ByteArray,
     val nodename: ByteArray,
     val release: ByteArray,
@@ -664,6 +671,7 @@ public data class MqAttr(
 )
 
 public data class SiginfoT(
+    val handle: Long = 0L,
     val siSigno: CInt,
     val siCode: CInt,
     val siErrno: CInt,

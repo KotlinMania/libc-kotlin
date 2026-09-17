@@ -20,10 +20,7 @@ public const val UT_NAMESIZE: ULong = 8uL
 public const val UT_LINESIZE: ULong = 8uL
 public const val UT_HOSTSIZE: ULong = 16uL
 
-public fun utmpname(file: String?): CInt = -1
-
-public fun setutent() { }
-
-public fun getutent(): Utmp? = null
-
-public fun endutent() { }
+public expect fun utmpname(file: String?): CInt 
+public expect fun setutent()
+public expect fun getutent(): Utmp? 
+public expect fun endutent()

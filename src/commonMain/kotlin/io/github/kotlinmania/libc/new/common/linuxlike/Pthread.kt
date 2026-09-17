@@ -3,12 +3,8 @@ package io.github.kotlinmania.libc.new.common.linuxlike
 
 import io.github.kotlinmania.libc.*
 
-public fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
-
-public fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT): CInt = -1
-
-public fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt = -1
-
-public fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt = -1
-
-public fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt = -1
+public expect fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt 
+public expect fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT): CInt 
+public expect fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt 
+public expect fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt 
+public expect fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt 
