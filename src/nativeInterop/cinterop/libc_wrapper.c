@@ -203,7 +203,9 @@ int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct
 #include <sys/mman.h>
 #include <termios.h>
 #include <signal.h>
+#ifndef _WIN32
 #include <sys/syslog.h>
+#endif
 #include <sys/time.h>
 #include <time.h>
 #include <sched.h>
@@ -216,7 +218,9 @@ int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct
 #ifdef __linux__
 #include <malloc.h>
 #endif
+#ifndef _WIN32
 #include <langinfo.h>
+#endif
 
 int libc_bcmp(const void* s1, const void* s2, size_t n) { return bcmp(s1, s2, n); }
 int libc_dlclose(void* handle) { return dlclose(handle); }

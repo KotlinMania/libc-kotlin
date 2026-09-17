@@ -17,20 +17,36 @@
 #ifndef _WIN32
 #include <dirent.h>
 #endif
+#ifndef _WIN32
 #include <pthread.h>
+#endif
+#ifndef _WIN32
 #include <semaphore.h>
+#endif
+#ifndef _WIN32
 #include <poll.h>
+#endif
+#ifndef _WIN32
 #include <sched.h>
+#endif
+#ifndef _WIN32
 #include <netdb.h>
+#endif
 #include <fcntl.h>
 #include <grp.h>
 #include <pwd.h>
+#ifndef _WIN32
 #include <dlfcn.h>
+#endif
 #include <locale.h>
 #include <wchar.h>
 #include <wctype.h>
+#ifndef _WIN32
 #include <termios.h>
+#endif
+#ifndef _WIN32
 #include <syslog.h>
+#endif
 #include <sys/file.h>
 #include <sys/mman.h>
 #include <sys/wait.h>
@@ -40,23 +56,43 @@
 #include <sys/select.h>
 #include <sys/ioctl.h>
 #include <sys/utsname.h>
+#ifndef _WIN32
 #include <sys/ipc.h>
+#endif
+#ifndef _WIN32
 #include <sys/shm.h>
+#endif
+#ifndef _WIN32
 #include <sys/msg.h>
+#endif
+#ifndef _WIN32
 #include <sys/sem.h>
+#endif
+#ifndef _WIN32
 #include <sys/xattr.h>
+#endif
+#ifndef _WIN32
 #include <net/if.h>
+#endif
 #include <utime.h>
+#ifndef _WIN32
 #include <glob.h>
+#endif
 #include <ctype.h>
+#ifdef __APPLE__
 #include <mach/mach_time.h>
+#endif
+#ifdef __APPLE__
 #include <mach-o/dyld.h>
+#endif
 
 /* pty.h (Linux) / util.h (macOS/BSD) for openpty/forkpty */
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
 #include <util.h>
 #elif defined(__linux__)
+#if defined(__APPLE__) || defined(__linux__)
 #include <pty.h>
+#endif
 #endif
 
 #ifdef __cplusplus
