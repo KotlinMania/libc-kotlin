@@ -1,6 +1,7 @@
 // port-lint: source vxworks/mod.rs
 package io.github.kotlinmania.libc.vxworks
 
+import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =

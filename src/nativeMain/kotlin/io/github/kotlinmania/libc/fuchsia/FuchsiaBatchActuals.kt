@@ -12,6 +12,13 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.nativeHeap
+import libc.cinterop.libc_strtok
+import libc.cinterop.libc_getcwd
+import libc.cinterop.libc_realpath
+import libc.cinterop.libc_tmpnam
+import libc.cinterop.libc_mkdtemp
 import libc.cinterop.libc_clock_nanosleep
 import libc.cinterop.libc_execv
 import libc.cinterop.libc_setlogmask
@@ -400,14 +407,51 @@ public actual fun getenv(s: String?): String? {
     val result = libc_getenv(s)
     return result?.toKString()
 }
-public actual fun strcpy(dst: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcpy requires FFI bridge")
-public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncpy requires FFI bridge")
-public actual fun strcat(s: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strcat requires FFI bridge")
-public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncat requires FFI bridge")
+public actual fun strcpy(dst: String?, src: String?): String? {
+    if (src == null) return null
+    return memScoped {
+        val srcBuf = src.cstr.ptr
+        val len = src.length + 1
+        val dstBuf = allocArray<ByteVar>(len)
+        libc.cinterop.libc_strcpy(dstBuf, srcBuf)
+        dstBuf.toKString()
+    }
+}
+public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
+    if (src == null) return null
+    return memScoped {
+        val srcBuf = src.cstr.ptr
+        val len = maxOf(src.length + 1, n.toInt())
+        val dstBuf = allocArray<ByteVar>(len)
+        libc.cinterop.libc_strncpy(dstBuf, srcBuf, n)
+        dstBuf.toKString()
+    }
+}
+public actual fun strcat(s: String?, ct: String?): String? {
+    if (s == null) return null
+    if (ct == null) return s
+    return memScoped {
+        val totalLen = s.length + ct.length + 1
+        val buf = allocArray<ByteVar>(totalLen)
+        s.cstr.write(buf)
+        val ctBuf = ct.cstr.ptr
+        libc.cinterop.libc_strcat(buf, ctBuf)
+        buf.toKString()
+    }
+}
+public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
+    if (s == null) return null
+    if (ct == null) return s
+    return memScoped {
+        val ctLen = minOf(ct.length, n.toInt())
+        val totalLen = s.length + ctLen + 1
+        val buf = allocArray<ByteVar>(totalLen)
+        s.cstr.write(buf)
+        val ctBuf = ct.cstr.ptr
+        libc.cinterop.libc_strncat(buf, ctBuf, n)
+        buf.toKString()
+    }
+}
 public actual fun strcmp(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
@@ -480,8 +524,16 @@ public actual fun strerror(n: CInt): String? {
     val result = libc_strerror(n)
     return result?.toKString()
 }
-public actual fun strtok(s: String?, t: String?): String? =
-    throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
+public actual fun strtok(s: String?, t: String?): String? {
+    if (t == null) return null
+    val sBuf: CPointer<ByteVar>? = if (s != null) {
+        nativeHeap.allocArray<ByteVar>(s.length + 1).also { s.cstr.write(it) }
+    } else null
+    return memScoped {
+        val tBuf = t.cstr.ptr
+        libc.cinterop.libc_strtok(sBuf, tBuf)?.toKString()
+    }
+}
 
 public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong {
     if (s == null) return 0uL
@@ -719,8 +771,14 @@ public actual fun fork(): PidT =
     libc.cinterop.libc_fork()
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     libc.cinterop.libc_fpathconf(filedes, name)
-public actual fun getcwd(buf: String?, size: ULong): String? =
-    throw UnsupportedOperationException("getcwd requires manual FFI bridge — not yet implemented")
+public actual fun getcwd(buf: String?, size: ULong): String? {
+    val bufSize = if (size > 0uL) size.toInt() else 4096
+    return memScoped {
+        allocArray<ByteVar>(bufSize).let {
+            libc.cinterop.libc_getcwd(it, bufSize.toULong())?.toKString()
+        }
+    }
+}
 
 public actual fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt =
     throw UnsupportedOperationException("getgroups requires manual FFI bridge — not yet implemented")
@@ -850,8 +908,14 @@ public actual fun symlink(path1: String?, path2: String?): CInt {
 }
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
     libc.cinterop.libc_ftruncate(fd, length)
-public actual fun realpath(pathname: String?, resolved: String?): String? =
-    throw UnsupportedOperationException("realpath requires manual FFI bridge — not yet implemented")
+public actual fun realpath(pathname: String?, resolved: String?): String? {
+    if (pathname == null) return null
+    return memScoped {
+        val pathBuf = pathname.cstr.ptr
+        val resolvedBuf = allocArray<ByteVar>(4096)
+        libc.cinterop.libc_realpath(pathBuf, resolvedBuf)?.toKString()
+    }
+}
 
 public actual fun flock(fd: CInt, operation: CInt): CInt =
     libc.cinterop.libc_flock(fd, operation)
@@ -1169,11 +1233,23 @@ public actual fun mkstemp(template: String?): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkstemp(template)
 }
-public actual fun mkdtemp(template: String?): String? =
-    throw UnsupportedOperationException("mkdtemp requires manual FFI bridge — not yet implemented")
+public actual fun mkdtemp(template: String?): String? {
+    if (template == null) return null
+    return memScoped {
+        val len = template.length + 1
+        val buf = allocArray<ByteVar>(len)
+        template.cstr.write(buf)
+        libc.cinterop.libc_mkdtemp(buf)?.toKString()
+    }
+}
 
-public actual fun tmpnam(ptr: String?): String? =
-    throw UnsupportedOperationException("tmpnam requires manual FFI bridge — not yet implemented")
+public actual fun tmpnam(ptr: String?): String? {
+    return memScoped {
+        allocArray<ByteVar>(1024).let {
+            libc.cinterop.libc_tmpnam(it)?.toKString()
+        }
+    }
+}
 
 public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
     throw UnsupportedOperationException("openlog requires manual FFI bridge — not yet implemented")

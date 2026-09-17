@@ -8,6 +8,10 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
+import kotlinx.cinterop.toKString
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.allocArray
+import libc.cinterop.libc_tmpnam
 import libc.cinterop.libc_tmpfile
 import libc.cinterop.libc_setvbuf
 import libc.cinterop.libc_fclose
@@ -149,7 +153,11 @@ public actual fun rename(old: String?, new: String?): CInt {
 public actual fun tmpfile(): FILE? =
     libc.cinterop.libc_tmpfile()?.let { FILE(it.toLong()) }
 public actual fun tmpnam(s: String?): String? =
-    throw UnsupportedOperationException("tmpnam requires manual FFI bridge — not yet implemented")
+    memScoped {
+        val buf = allocArray<ByteVar>(if (s != null) s.length + 1 else 1024)
+        val result = libc_tmpnam(buf)
+        result?.toKString()
+    }
 
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt {
     if (buffer == null) return -1

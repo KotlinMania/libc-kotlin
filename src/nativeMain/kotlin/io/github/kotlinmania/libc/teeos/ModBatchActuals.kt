@@ -12,6 +12,7 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
+import kotlinx.cinterop.allocArray
 import libc.cinterop.libc_aligned_alloc
 import libc.cinterop.libc_atoll
 import libc.cinterop.libc_calloc
@@ -343,14 +344,26 @@ public actual fun strcmp(l: String?, r: String?): CInt {
     return libc.cinterop.libc_strcmp(l, r)
 }
 public actual fun strcpy(dest: String?, src: String?): String? =
-    throw UnsupportedOperationException("strcpy requires FFI bridge")
+    if (dest == null || src == null) null
+    else memScoped {
+        val d = allocArray<ByteVar>(dest.length + src.length + 1)
+        val s = src.cstr.ptr
+        val result = libc_strcpy(d, s)
+        result?.toKString()
+    }
 public actual fun strncmp(l: String?, r: String?, n: ULong): CInt {
     if (l == null) return -1
     if (r == null) return -1
     return libc.cinterop.libc_strncmp(l, r, n)
 }
 public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncpy requires FFI bridge")
+    if (dest == null || src == null) null
+    else memScoped {
+        val d = allocArray<ByteVar>(n.toInt().coerceAtLeast(src.length + 1))
+        val s = src.cstr.ptr
+        val result = libc_strncpy(d, s, n)
+        result?.toKString()
+    }
 public actual fun strnlen(cs: String?, n: ULong): ULong {
     if (cs == null) return 0uL
     return libc.cinterop.libc_strnlen(cs, n)
