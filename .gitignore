@@ -83,3 +83,5 @@ native/node-libc/package-lock.json
 2026*
 src/nativeInterop/cinterop/libc_wrapper.o
 *.o.tmp
+src/nativeInterop/cinterop/libc_wrapper.o
+src/nativeInterop/cinterop/libc_wrapper.a
