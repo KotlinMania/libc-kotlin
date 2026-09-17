@@ -344,6 +344,7 @@ public actual fun feof(stream: FILE?): CInt =
 public actual fun ferror(stream: FILE?): CInt =
     libc.cinterop.libc_ferror(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun perror(s: String?): Unit {
+    if (s == null) return
     libc_perror(s)
 }
 
@@ -453,7 +454,7 @@ public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
     val dup = libc_strdup(cs)
     val result = dup?.toKString()
-    if (dup != null) platform.posix.free(dup)
+    if (dup != null) libc_free(dup)
     return result
 }
 public actual fun strpbrk(cs: String?, ct: String?): String? =

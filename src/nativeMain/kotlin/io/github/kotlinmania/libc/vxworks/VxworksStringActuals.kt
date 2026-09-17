@@ -9,6 +9,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
 
 import libc.cinterop.libc_gai_strerror
+import libc.cinterop.libc_free
 import libc.cinterop.libc_getenv
 import libc.cinterop.libc_getlogin
 import libc.cinterop.libc_setlocale
@@ -26,7 +27,7 @@ public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
     val dup = libc.cinterop.libc_strdup(cs)
     val result = dup?.toKString()
-    if (dup != null) platform.posix.free(dup)
+    if (dup != null) libc_free(dup)
     return result
 }
 

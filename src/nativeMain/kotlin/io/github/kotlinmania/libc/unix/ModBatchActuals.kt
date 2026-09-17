@@ -277,6 +277,7 @@ public actual fun clearerr(stream: FILE?) {
 }
 
 public actual fun perror(s: String?): Unit {
+    if (s == null) return
     libc_perror(s)
 }
 
@@ -389,7 +390,7 @@ public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
     val dup = libc_strdup(cs)
     val result = dup?.toKString()
-    if (dup != null) platform.posix.free(dup)
+    if (dup != null) libc_free(dup)
     return result
 }
 public actual fun strndup(cs: String?, n: ULong): String? =

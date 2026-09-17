@@ -152,6 +152,7 @@ public actual fun puts(a: String?): CInt {
     return libc.cinterop.libc_puts(a)
 }
 public actual fun perror(a: String?) {
+    if (a == null) return
     libc.cinterop.libc_perror(a)
 }
 
@@ -319,7 +320,7 @@ public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
     val dup = libc.cinterop.libc_strdup(cs)
     val result = dup?.toKString()
-    if (dup != null) platform.posix.free(dup)
+    if (dup != null) libc.cinterop.libc_free(dup)
     return result
 }
 public actual fun strndup(cs: String?, n: ULong): String? =

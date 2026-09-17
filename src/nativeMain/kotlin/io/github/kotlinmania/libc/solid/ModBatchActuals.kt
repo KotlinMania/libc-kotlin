@@ -122,6 +122,7 @@ public actual fun getc(arg1: FILE?): CInt =
     libc.cinterop.libc_getc(arg1?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
 public actual fun perror(arg1: String?) {
+    if (arg1 == null) return
     libc_perror(arg1)
 }
 
@@ -634,7 +635,7 @@ public actual fun strdup(arg1: String?): String? {
     if (arg1 == null) return null
     val dup = libc_strdup(arg1)
     val result = dup?.toKString()
-    if (dup != null) platform.posix.free(dup)
+    if (dup != null) libc_free(dup)
     return result
 }
 public actual fun stpcpy(arg1: String?, arg2: String?): String? =
