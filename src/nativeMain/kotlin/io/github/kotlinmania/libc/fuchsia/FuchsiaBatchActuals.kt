@@ -265,10 +265,13 @@ public actual fun isblank(c: CInt): CInt = libc.cinterop.libc_isblank(c)
 public actual fun tolower(c: CInt): CInt = libc.cinterop.libc_tolower(c)
 public actual fun toupper(c: CInt): CInt = libc.cinterop.libc_toupper(c)
 public actual fun fopen(filename: String?, mode: String?): FILE? {
+    if (filename == null) return null
+    if (mode == null) return null
     val result = libc_fopen(filename, mode)
     return if (result != null) FILE(result.toLong()) else null
 }
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? {
+    if (mode == null) return null
     if (file == null) return null
     val filePtr: CPointer<ByteVar>? = file.handle.toCPointer()
     val result = libc_freopen(filename, mode, filePtr)

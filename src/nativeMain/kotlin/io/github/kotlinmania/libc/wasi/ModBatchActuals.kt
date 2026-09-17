@@ -78,10 +78,13 @@ public actual fun clearenv(): CInt =
 public actual fun write(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
     throw UnsupportedOperationException("write requires manual FFI bridge — type mismatch")
 public actual fun fopen(a: String?, b: String?): FILE? {
+    if (a == null) return null
+    if (b == null) return null
     val result = libc.cinterop.libc_fopen(a, b)
     return if (result != null) FILE(result.toLong()) else null
 }
 public actual fun freopen(a: String?, b: String?, f: FILE?): FILE? {
+    if (b == null) return null
     if (f == null) return null
     val filePtr: CPointer<ByteVar>? = f.handle.toCPointer()
     val result = libc.cinterop.libc_freopen(a, b, filePtr)

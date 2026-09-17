@@ -88,6 +88,8 @@ public actual fun fgets(arg1: String?, arg2: CInt, arg3: FILE?): String? =
     throw UnsupportedOperationException("fgets requires manual FFI bridge — not yet implemented")
 
 public actual fun fopen(arg1: String?, arg2: String?): FILE? {
+    if (arg1 == null) return null
+    if (arg2 == null) return null
     val result = libc_fopen(arg1, arg2)
     return if (result != null) FILE(result.toLong()) else null
 }
@@ -104,6 +106,7 @@ public actual fun fread(arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: F
     throw UnsupportedOperationException("fread requires manual FFI bridge — not yet implemented")
 
 public actual fun freopen(arg1: String?, arg2: String?, arg3: FILE?): FILE? {
+    if (arg2 == null) return null
     if (arg3 == null) return null
     val filePtr: CPointer<ByteVar>? = arg3.handle.toCPointer()
     val result = libc_freopen(arg1, arg2, filePtr)

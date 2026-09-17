@@ -34,10 +34,13 @@ public actual fun isblank(c: CInt): CInt = libc.cinterop.libc_isblank(c)
 public actual fun tolower(c: CInt): CInt = libc.cinterop.libc_tolower(c)
 public actual fun toupper(c: CInt): CInt = libc.cinterop.libc_toupper(c)
 public actual fun fopen(filename: String?, mode: String?): FILE? {
+    if (filename == null) return null
+    if (mode == null) return null
     val result = libc.cinterop.libc_fopen(filename, mode)
     return if (result != null) FILE(result.toLong()) else null
 }
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? {
+    if (mode == null) return null
     if (file == null) return null
     val filePtr: CPointer<ByteVar>? = file.handle.toCPointer()
     val result = libc.cinterop.libc_freopen(filename, mode, filePtr)
@@ -224,13 +227,24 @@ public actual fun strcspn(cs: String?, ct: String?): ULong {
 }
 public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
-    val dup = libc.cinterop.libc_strdup(cs)
-    val result = dup?.toKString()
-    if (dup != null) libc.cinterop.libc_free(dup)
-    return result
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val dup = libc.cinterop.libc_strdup(cstr)
+        val result = dup?.toKString()
+        if (dup != null) libc.cinterop.libc_free(dup)
+        result
+    }
 }
-public actual fun strpbrk(cs: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strpbrk requires FFI bridge")
+public actual fun strpbrk(cs: String?, ct: String?): String? {
+    if (cs == null) return null
+    if (ct == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val caccept = ct.cstr.ptr
+        val result = libc.cinterop.libc_strpbrk(cstr, caccept)
+        result?.toKString()
+    }
+}
 public actual fun strstr(cs: String?, ct: String?): String? {
     if (cs == null) return null
     if (ct == null) return null

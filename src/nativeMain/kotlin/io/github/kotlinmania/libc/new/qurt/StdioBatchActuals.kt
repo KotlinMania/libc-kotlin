@@ -134,6 +134,7 @@ public actual fun feof(stream: FILE?): CInt =
 public actual fun ferror(stream: FILE?): CInt =
     libc.cinterop.libc_ferror(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun perror(s: String?): Unit {
+    if (s == null) return
     libc_perror(s)
 }
 

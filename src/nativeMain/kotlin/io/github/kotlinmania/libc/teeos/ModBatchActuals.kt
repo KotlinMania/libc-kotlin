@@ -406,6 +406,7 @@ public actual fun atol(s: String?): CLong {
     return libc.cinterop.libc_atol(s)
 }
 public actual fun atoll(s: String?): CLongLong {
+    if (s == null) return 0
     val result = libc_atoll(s)
     return result
 }

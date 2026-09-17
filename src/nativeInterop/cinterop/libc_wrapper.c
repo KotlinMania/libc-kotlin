@@ -107,6 +107,11 @@ char* libc_strcpy(char* dst, const char* src) { return strcpy(dst, src); }
 char* libc_strncpy(char* dst, const char* src, size_t n) { return strncpy(dst, src, n); }
 char* libc_strcat(char* s, const char* ct) { return strcat(s, ct); }
 char* libc_strncat(char* s, const char* ct, size_t n) { return strncat(s, ct, n); }
+char* libc_strtok(char* s, const char* delim) { return strtok(s, delim); }
+char* libc_getcwd(char* buf, size_t size) { return getcwd(buf, size); }
+char* libc_realpath(const char* pathname, char* resolved) { return realpath(pathname, resolved); }
+char* libc_tmpnam(char* buf) { return tmpnam(buf); }
+char* libc_mkdtemp(char* tmpl) { return mkdtemp(tmpl); }
 int libc_strcmp(const char* s1, const char* s2) { return strcmp(s1, s2); }
 int libc_strncmp(const char* s1, const char* s2, size_t n) { return strncmp(s1, s2, n); }
 int libc_strcasecmp(const char* s1, const char* s2) { return strcasecmp(s1, s2); }

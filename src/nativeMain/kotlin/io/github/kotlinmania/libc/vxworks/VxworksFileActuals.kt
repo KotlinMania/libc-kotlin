@@ -37,11 +37,14 @@ import libc.cinterop.libc_getchar
 import libc.cinterop.libc_puts
 
 public actual fun fopen(filename: String?, mode: String?): FILE? {
+    if (filename == null) return null
+    if (mode == null) return null
     val result = libc.cinterop.libc_fopen(filename, mode)
     return result?.let { FILE(it.toLong()) }
 }
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? {
+    if (mode == null) return null
     val filePtr: CPointer<ByteVar>? = file?.handle?.toCPointer()
     val result = libc.cinterop.libc_freopen(filename, mode, filePtr)
     return result?.let { FILE(it.toLong()) }
@@ -73,6 +76,7 @@ public actual fun fputc(c: CInt, stream: FILE?): CInt {
 }
 
 public actual fun fputs(s: String?, stream: FILE?): CInt {
+    if (s == null) return -1
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
     return libc.cinterop.libc_fputs(s, filePtr)
 }
@@ -113,6 +117,7 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? {
 }
 
 public actual fun perror(s: String?) {
+    if (s == null) return
     libc.cinterop.libc_perror(s)
 }
 
