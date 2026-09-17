@@ -205,30 +205,10 @@ public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
         dstBuf.toKString()
     }
 }
-public actual fun strcat(s: String?, ct: String?): String? {
-    if (s == null) return null
-    if (ct == null) return s
-    return memScoped {
-        val totalLen = s.length + ct.length + 1
-        val buf = allocArray<ByteVar>(totalLen)
-        s.cstr.write(buf)
-        val ctBuf = ct.cstr.ptr
-        libc.cinterop.libc_strcat(buf, ctBuf)
-        buf.toKString()
-    }
-}
-public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
-    if (s == null) return null
-    if (ct == null) return s
-    return memScoped {
-        val totalLen = s.length + minOf(ct.length, n.toInt()) + 1
-        val buf = allocArray<ByteVar>(totalLen)
-        s.cstr.write(buf)
-        val ctBuf = ct.cstr.ptr
-        libc.cinterop.libc_strncat(buf, ctBuf, n)
-        buf.toKString()
-    }
-}
+public actual fun strcat(s: String?, ct: String?): String? =
+    throw UnsupportedOperationException("strcat requires FFI bridge")
+public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncat requires FFI bridge")
 public actual fun strcmp(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
@@ -312,22 +292,8 @@ public actual fun strerror(n: CInt): String? {
     val result = libc.cinterop.libc_strerror(n)
     return result?.toKString()
 }
-public actual fun strtok(s: String?, t: String?): String? {
-    if (t == null) return null
-    val sBuf: CPointer<ByteVar>? = if (s != null) {
-        val len = s.length + 1
-        val buf = nativeHeap.allocArray<ByteVar>(len)
-        s.cstr.placeTo(buf)
-        buf
-    } else {
-        null
-    }
-    return memScoped {
-        val tBuf = t.cstr.ptr
-        val result = libc.cinterop.libc_strtok(sBuf, tBuf)
-        result?.toKString()
-    }
-}
+public actual fun strtok(s: String?, t: String?): String? =
+    throw UnsupportedOperationException("strtok requires FFI bridge")
 
 public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong {
     if (s == null) return 0uL

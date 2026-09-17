@@ -437,16 +437,8 @@ public actual fun mkostemps(arg1: String?, arg2: CInt, arg3: CInt): CInt {
     if (arg1 == null) return -1
     return libc.cinterop.libc_mkostemps(arg1, arg2, arg3)
 }
-public actual fun mkdtemp(arg1: String?): String? {
-    if (arg1 == null) return null
-    return memScoped {
-        val len = arg1.length + 1
-        val buf = allocArray<ByteVar>(len)
-        arg1.cstr.write(buf)
-        val result = libc.cinterop.libc_mkdtemp(buf)
-        result?.toKString()
-    }
-}
+public actual fun mkdtemp(arg1: String?): String? =
+    throw UnsupportedOperationException("mkdtemp requires FFI bridge")
 
 public actual fun mkstemp(arg1: String?): CInt {
     if (arg1 == null) return -1
@@ -577,18 +569,8 @@ public actual fun memset(arg1: COpaquePointer?, arg2: CInt, arg3: ULong): COpaqu
     val result = libc_memset(destPtr, arg2, arg3)
     return if (result != null) COpaquePointer(result.toLong()) else null
 }
-public actual fun strcat(arg1: String?, arg2: String?): String? {
-    if (arg1 == null) return null
-    if (arg2 == null) return arg1
-    return memScoped {
-        val totalLen = arg1.length + arg2.length + 1
-        val buf = allocArray<ByteVar>(totalLen)
-        arg1.cstr.write(buf)
-        val ctBuf = arg2.cstr.ptr
-        libc.cinterop.libc_strcat(buf, ctBuf)
-        buf.toKString()
-    }
-}
+public actual fun strcat(arg1: String?, arg2: String?): String? =
+    throw UnsupportedOperationException("strcat requires FFI bridge")
 public actual fun strchr(arg1: String?, arg2: CInt): String? {
     if (arg1 == null) return null
     return memScoped {
@@ -630,18 +612,8 @@ public actual fun strlen(arg1: String?): ULong {
     if (arg1 == null) return 0uL
     return libc.cinterop.libc_strlen(arg1)
 }
-public actual fun strncat(arg1: String?, arg2: String?, arg3: ULong): String? {
-    if (arg1 == null) return null
-    if (arg2 == null) return arg1
-    return memScoped {
-        val totalLen = arg1.length + minOf(arg2.length, arg3.toInt()) + 1
-        val buf = allocArray<ByteVar>(totalLen)
-        arg1.cstr.write(buf)
-        val ctBuf = arg2.cstr.ptr
-        libc.cinterop.libc_strncat(buf, ctBuf, arg3)
-        buf.toKString()
-    }
-}
+public actual fun strncat(arg1: String?, arg2: String?, arg3: ULong): String? =
+    throw UnsupportedOperationException("strncat requires FFI bridge")
 public actual fun strncmp(arg1: String?, arg2: String?, arg3: ULong): CInt {
     if (arg1 == null) return -1
     if (arg2 == null) return -1
@@ -690,22 +662,8 @@ public actual fun strstr(arg1: String?, arg2: String?): String? {
         result?.toKString()
     }
 }
-public actual fun strtok(arg1: String?, arg2: String?): String? {
-    if (arg2 == null) return null
-    val sBuf: CPointer<ByteVar>? = if (arg1 != null) {
-        val len = arg1.length + 1
-        val buf = nativeHeap.allocArray<ByteVar>(len)
-        arg1.cstr.write(buf)
-        buf
-    } else {
-        null
-    }
-    return memScoped {
-        val tBuf = arg2.cstr.ptr
-        val result = libc.cinterop.libc_strtok(sBuf, tBuf)
-        result?.toKString()
-    }
-}
+public actual fun strtok(arg1: String?, arg2: String?): String? =
+    throw UnsupportedOperationException("strtok requires FFI bridge")
 
 public actual fun strtokR(arg1: String?, arg2: String?, arg3: COpaquePointer?): String? =
     throw UnsupportedOperationException("strtokR requires manual FFI bridge — not yet implemented")
