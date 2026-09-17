@@ -18,7 +18,6 @@ import kotlinx.cinterop.nativeHeap
 import libc.cinterop.libc_clock_nanosleep
 import libc.cinterop.libc_execv
 import libc.cinterop.libc_setlogmask
-import libc.cinterop.libc_tcflush
 import libc.cinterop.libc_puts
 import libc.cinterop.libc_madvise
 import libc.cinterop.libc_chmod
@@ -79,7 +78,6 @@ import libc.cinterop.libc_fflush
 import libc.cinterop.libc_tolower
 import libc.cinterop.libc_flock
 import libc.cinterop.libc_setgrent
-import libc.cinterop.libc_tcflow
 import libc.cinterop.libc_atol
 import libc.cinterop.libc_chdir
 import libc.cinterop.libc_isalnum
@@ -638,8 +636,6 @@ public actual fun getcharUnlocked(): CInt =
 
 public actual fun putcharUnlocked(c: CInt): CInt =
     throw UnsupportedOperationException("putcharUnlocked requires manual FFI bridge — not yet implemented")
-
-public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt = libc.cinterop.libc_socket(domain, ty, protocol)
 public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt =
     throw UnsupportedOperationException("connect requires manual FFI bridge — not yet implemented")
 
@@ -889,9 +885,6 @@ public actual fun pwrite(fd: CInt, buf: COpaquePointer?, count: ULong, offset: O
     libc.cinterop.libc_pwrite(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count, offset)
 public actual fun utime(file: String?, buf: Utimbuf?): CInt =
     throw UnsupportedOperationException("utime requires manual FFI bridge — not yet implemented")
-
-public actual fun kill(pid: PidT, sig: CInt): CInt =
-    libc.cinterop.libc_kill(pid, sig)
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
     libc.cinterop.libc_mlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
@@ -1067,8 +1060,6 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("strerrorR requires FFI bridge")
 public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt =
     throw UnsupportedOperationException("getsockopt requires FFI bridge")
-
-public actual fun raise(signum: CInt): CInt = libc.cinterop.libc_raise(signum)
 public actual fun sigaction(signum: CInt, act: Sigaction?, oldact: Sigaction?): CInt =
     throw UnsupportedOperationException("sigaction requires manual FFI bridge — not yet implemented")
 
@@ -1241,9 +1232,6 @@ public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt =
 public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt =
     throw UnsupportedOperationException("tcsetattr requires manual FFI bridge — not yet implemented")
 
-public actual fun tcflow(fd: CInt, action: CInt): CInt =
-    libc.cinterop.libc_tcflow(fd, action)
-public actual fun tcflush(fd: CInt, action: CInt): CInt = libc.cinterop.libc_tcflush(fd, action)
 public actual fun tcgetsid(fd: CInt): PidT =
     libc.cinterop.libc_tcgetsid(fd)
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt = libc.cinterop.libc_tcsendbreak(fd, duration)
@@ -1591,11 +1579,6 @@ public actual fun telldir(dirp: DIR?): CLong {
     val result = libc_telldir(dirpPtr)
     return result
 }
-
-public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 

@@ -17,7 +17,6 @@ import libc.cinterop.libc_utimensat
 import libc.cinterop.libc_setlogmask
 import libc.cinterop.libc_strerror_r
 import libc.cinterop.libc_atoi
-import libc.cinterop.libc_tcflush
 import libc.cinterop.libc_closedir
 import libc.cinterop.libc_socket
 import libc.cinterop.libc_munlock
@@ -137,9 +136,6 @@ public actual fun uname(buf: Utsname?): CInt {
     val result = libc_uname(bufPtr)
     return result
 }
-
-public actual fun tcflush(fd: CInt, action: CInt): CInt = libc.cinterop.libc_tcflush(fd, action)
-
 public actual fun pclose(stream: FILE?): CInt =
     throw UnsupportedOperationException("pclose requires manual FFI bridge — not yet implemented")
 
@@ -227,8 +223,7 @@ public actual fun munmap(addr: COpaquePointer?, len: ULong): CInt =
     libc.cinterop.libc_munmap(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+
 public actual fun truncate(path: String?, length: OffT): CInt {
     if (path == null) return -1
     return libc.cinterop.libc_truncate(path, length)
@@ -528,8 +523,6 @@ public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaq
 
 public actual fun shutdown(s: CInt, how: CInt): CInt = libc.cinterop.libc_shutdown(s, how)
 
-public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt = libc.cinterop.libc_socket(domain, type, protocol)
-
 public actual fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
@@ -646,15 +639,9 @@ public actual fun sigismember(set: SigsetT?, signum: CInt): CInt =
 public actual fun pthreadSigmask(how: CInt, set: SigsetT?, oset: SigsetT?): CInt =
     throw UnsupportedOperationException("pthreadSigmask requires manual FFI bridge — not yet implemented")
 
-public actual fun kill(pid: PidT, signo: CInt): CInt =
-    libc.cinterop.libc_kill(pid, signo)
-
 
 public actual fun taskKill(taskId: TASKID, signo: CInt): CInt =
     throw UnsupportedOperationException("taskKill requires manual FFI bridge — not yet implemented")
-
-public actual fun raise(signo: CInt): CInt =
-    libc.cinterop.libc_raise(signo)
 public actual fun taskDelay(ticks: VxTicksT): CInt =
     throw UnsupportedOperationException("taskDelay requires manual FFI bridge — not yet implemented")
 

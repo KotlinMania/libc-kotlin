@@ -10,7 +10,6 @@ import libc.cinterop.libc_socket
 import libc.cinterop.libc_listen
 import libc.cinterop.libc_gai_strerror
 
-public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt = libc.cinterop.libc_socket(domain, type, protocol)
 public actual fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt =
     throw UnsupportedOperationException("connect requires manual FFI bridge — not yet implemented")
 

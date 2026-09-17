@@ -312,7 +312,7 @@ public actual fun strtok(s: String?, t: String?): String? {
     val sBuf: CPointer<ByteVar>? = if (s != null) {
         val len = s.length + 1
         val buf = nativeHeap.allocArray<ByteVar>(len)
-        s.cstr.write(buf)
+        s.cstr.placeTo(buf)
         buf
     } else {
         null

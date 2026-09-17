@@ -440,7 +440,6 @@ public actual fun getcharUnlocked(): CInt =
 public actual fun putcharUnlocked(c: CInt): CInt =
     throw UnsupportedOperationException("putcharUnlocked requires manual FFI bridge — not yet implemented")
 
-public actual fun shutdown(socket: CInt, how: CInt): CInt = libc.cinterop.libc_shutdown(socket, how)
 public actual fun fstat(fildes: CInt, buf: Stat?): CInt =
     throw UnsupportedOperationException("fstat requires manual FFI bridge — not yet implemented")
 
