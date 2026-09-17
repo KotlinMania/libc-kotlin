@@ -3,3 +3,4 @@ headerFilter = *
 compilerOpts = -Isrc/nativeInterop/cinterop
 staticLibraries = libc_wrapper.a
 libraryPaths = src/nativeInterop/cinterop
+noStringConversion = libc_strchr libc_strrchr libc_strstr libc_strpbrk

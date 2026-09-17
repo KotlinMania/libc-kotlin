@@ -423,10 +423,22 @@ public actual fun strcoll(cs: String?, ct: String?): CInt {
     if (ct == null) return -1
     return libc.cinterop.libc_strcoll(cs, ct)
 }
-public actual fun strchr(cs: String?, c: CInt): String? =
-    throw UnsupportedOperationException("strchr requires FFI bridge")
-public actual fun strrchr(cs: String?, c: CInt): String? =
-    throw UnsupportedOperationException("strrchr requires FFI bridge")
+public actual fun strchr(cs: String?, c: CInt): String? {
+    if (cs == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val result = libc.cinterop.libc_strchr(cstr, c)
+        result?.toKString()
+    }
+}
+public actual fun strrchr(cs: String?, c: CInt): String? {
+    if (cs == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val result = libc.cinterop.libc_strrchr(cstr, c)
+        result?.toKString()
+    }
+}
 public actual fun strspn(cs: String?, ct: String?): ULong {
     if (cs == null) return 0uL
     if (ct == null) return 0uL

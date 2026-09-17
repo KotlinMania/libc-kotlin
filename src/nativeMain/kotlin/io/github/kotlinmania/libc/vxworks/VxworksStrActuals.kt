@@ -19,12 +19,20 @@ import libc.cinterop.libc_strcpy
 
 public actual fun strchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    return libc.cinterop.libc_strchr(cs, c)?.toKString()
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val result = libc.cinterop.libc_strchr(cstr, c)
+        result?.toKString()
+    }
 }
 
 public actual fun strrchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    return libc.cinterop.libc_strrchr(cs, c)?.toKString()
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val result = libc.cinterop.libc_strrchr(cstr, c)
+        result?.toKString()
+    }
 }
 
 public actual fun strpbrk(cs: String?, ct: String?): String? =

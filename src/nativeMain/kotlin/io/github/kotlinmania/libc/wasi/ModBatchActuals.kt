@@ -291,11 +291,19 @@ public actual fun strcoll(cs: String?, ct: String?): CInt {
 }
 public actual fun strchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    return libc.cinterop.libc_strchr(cs, c)?.toKString()
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val result = libc.cinterop.libc_strchr(cstr, c)
+        result?.toKString()
+    }
 }
 public actual fun strrchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
-    return libc.cinterop.libc_strrchr(cs, c)?.toKString()
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val result = libc.cinterop.libc_strrchr(cstr, c)
+        result?.toKString()
+    }
 }
 public actual fun strspn(cs: String?, ct: String?): ULong {
     if (cs == null) return 0uL
