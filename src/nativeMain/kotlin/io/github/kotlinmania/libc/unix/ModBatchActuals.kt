@@ -12,6 +12,7 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
+import kotlinx.cinterop.allocArray
 import libc.cinterop.libc_execv
 import libc.cinterop.libc_setlogmask
 import libc.cinterop.libc_tcflush
