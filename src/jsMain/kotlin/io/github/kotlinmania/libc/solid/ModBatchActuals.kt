@@ -71,7 +71,7 @@ public actual fun fgets(arg1: String?, arg2: CInt, arg3: FILE?): String? =
     throw UnsupportedOperationException("fgets requires N-API addon")
 
 public actual fun fopen(arg1: String?, arg2: String?): FILE? =
-    if (arg1 != null && arg2 != null) { val h = LibcNative.fopen(arg1!!, arg2!!); if (h != 0) FILE(h.toLong()) else null } else null
+    if (arg1 != null && arg2 != null) { val h = LibcNative.fopen(arg1, arg2); if (h != 0) FILE(h.toLong()) else null } else null
 
 public actual fun fprintf(arg1: FILE?, arg2: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires N-API addon")
@@ -111,7 +111,7 @@ public actual fun perror(arg1: String?) {
 }
 
 public actual fun printf(arg1: String?, vararg args: Any?): CInt =
-    if (arg1 != null) LibcNative.printf(arg1!!) else -1
+    if (arg1 != null) LibcNative.printf(arg1) else -1
 
 public actual fun putc(arg1: CInt, arg2: FILE?): CInt =
     throw UnsupportedOperationException("putc requires N-API addon")
@@ -512,7 +512,7 @@ public actual fun strcat(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strcat requires N-API addon")
 
 public actual fun strchr(arg1: String?, arg2: CInt): String? =
-    if (arg1 == null) null else { val idx = arg1!!.indexOf(arg2.toChar()); if (idx >= 0) arg1!!.substring(idx) else null }
+    if (arg1 == null) null else { val idx = arg1.indexOf(arg2.toChar()); if (idx >= 0) arg1.substring(idx) else null }
 
 public actual fun strcmp(arg1: String?, arg2: String?): CInt =
     strcmpNapi(arg1, arg2)

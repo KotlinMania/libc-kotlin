@@ -46,7 +46,7 @@ public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper requires N-API addon")
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    if (filename != null && mode != null) { val h = LibcNative.fopen(filename!!, mode!!); if (h != 0) FILE(h.toLong()) else null } else null
+    if (filename != null && mode != null) { val h = LibcNative.fopen(filename, mode); if (h != 0) FILE(h.toLong()) else null } else null
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen requires N-API addon")
@@ -198,7 +198,7 @@ public actual fun strcoll(cs: String?, ct: String?): CInt =
     throw UnsupportedOperationException("strcoll requires N-API addon")
 
 public actual fun strchr(cs: String?, c: CInt): String? =
-    if (cs == null) null else { val idx = cs!!.indexOf(c.toChar()); if (idx >= 0) cs!!.substring(idx) else null }
+    if (cs == null) null else { val idx = cs.indexOf(c.toChar()); if (idx >= 0) cs.substring(idx) else null }
 
 public actual fun strrchr(cs: String?, c: CInt): String? =
     throw UnsupportedOperationException("strrchr requires N-API addon")
@@ -285,7 +285,7 @@ public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CI
     throw UnsupportedOperationException("fprintf requires N-API addon")
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
-    if (format != null) LibcNative.printf(format!!) else -1
+    if (format != null) LibcNative.printf(format) else -1
 
 public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("snprintf requires N-API addon")

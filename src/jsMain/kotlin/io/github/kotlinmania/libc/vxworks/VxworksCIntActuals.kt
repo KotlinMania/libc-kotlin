@@ -112,7 +112,7 @@ public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CI
     throw UnsupportedOperationException("fprintf requires N-API addon")
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
-    if (format != null) LibcNative.printf(format!!) else -1
+    if (format != null) LibcNative.printf(format) else -1
 
 public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("snprintf requires N-API addon")

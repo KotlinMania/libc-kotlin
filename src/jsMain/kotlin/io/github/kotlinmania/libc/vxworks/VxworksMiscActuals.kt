@@ -4,7 +4,7 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    if (filename != null && mode != null) { val h = LibcNative.fopen(filename!!, mode!!); if (h != 0) FILE(h.toLong()) else null } else null
+    if (filename != null && mode != null) { val h = LibcNative.fopen(filename, mode); if (h != 0) FILE(h.toLong()) else null } else null
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen requires N-API addon")

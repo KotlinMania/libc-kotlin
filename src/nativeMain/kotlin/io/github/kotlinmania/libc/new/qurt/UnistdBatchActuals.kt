@@ -7,6 +7,9 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.allocArray
 import libc.cinterop.libc_close
 import libc.cinterop.libc_unlink
 import libc.cinterop.libc_rmdir
@@ -33,8 +36,14 @@ public actual fun unlink(pathname: String?): CInt {
     if (pathname == null) return -1
     return libc.cinterop.libc_unlink(pathname)
 }
-public actual fun getcwd(buf: String?, size: ULong): String? =
-    throw UnsupportedOperationException("getcwd requires manual FFI bridge — not yet implemented")
+public actual fun getcwd(buf: String?, size: ULong): String? {
+    val bufSize = if (size > 0uL) size.toInt() else 4096
+    return memScoped {
+        val bufPtr = allocArray<ByteVar>(bufSize)
+        val result = libc.cinterop.libc_getcwd(bufPtr, bufSize.toULong())
+        result?.toKString()
+    }
+}
 
 public actual fun rmdir(pathname: String?): CInt {
     if (pathname == null) return -1

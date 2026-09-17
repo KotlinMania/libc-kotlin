@@ -158,7 +158,7 @@ public actual fun pthreadGetaffinityNp(td: PthreadT, size: ULong, set: CpuSetT?)
     throw UnsupportedOperationException("pthreadGetaffinityNp requires N-API addon")
 
 public actual fun printf(fmt: String?, vararg args: Any?): CInt =
-    if (fmt != null) LibcNative.printf(fmt!!) else -1
+    if (fmt != null) LibcNative.printf(fmt) else -1
 
 public actual fun scanf(fmt: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("scanf requires N-API addon")
@@ -267,7 +267,7 @@ public actual fun random(): CLong =
     throw UnsupportedOperationException("random requires N-API addon")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    if (s == null) null else { val idx = s!!.indexOf(c.toChar()); if (idx >= 0) s!!.substring(idx) else null }
+    if (s == null) null else { val idx = s.indexOf(c.toChar()); if (idx >= 0) s.substring(idx) else null }
 
 public actual fun strlen(cs: String?): ULong =
     strlenNapi(cs)
