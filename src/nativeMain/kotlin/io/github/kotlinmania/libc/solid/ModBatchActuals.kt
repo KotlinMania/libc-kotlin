@@ -327,6 +327,7 @@ public actual fun free(arg1: COpaquePointer?) {
 }
 
 public actual fun getenv(arg1: String?): String? {
+    if (arg1 == null) return null
     val result = libc_getenv(arg1)
     return result?.toKString()
 }

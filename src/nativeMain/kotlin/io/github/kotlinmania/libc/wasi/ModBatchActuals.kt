@@ -40,6 +40,7 @@ public actual fun free(ptr: COpaquePointer?) {
 }
 
 public actual fun getenv(s: String?): String? {
+    if (s == null) return null
     val result = libc.cinterop.libc_getenv(s)
     return result?.toKString()
 }

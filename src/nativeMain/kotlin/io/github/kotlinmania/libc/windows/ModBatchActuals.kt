@@ -13,6 +13,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.write
 import kotlinx.cinterop.nativeHeap
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
@@ -175,6 +176,7 @@ public actual fun system(s: String?): CInt {
     return libc.cinterop.libc_system(s)
 }
 public actual fun getenv(s: String?): String? {
+    if (s == null) return null
     val result = libc.cinterop.libc_getenv(s)
     return result?.toKString()
 }
