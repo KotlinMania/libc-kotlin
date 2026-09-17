@@ -357,8 +357,16 @@ public actual fun strnlen(cs: String?, n: ULong): ULong {
 }
 public actual fun strrchr(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strrchr requires FFI bridge")
-public actual fun strstr(h: String?, n: String?): String? =
-    throw UnsupportedOperationException("strstr requires FFI bridge")
+public actual fun strstr(h: String?, n: String?): String? {
+    if (h == null) return null
+    if (n == null) return null
+    return memScoped {
+        val cstr = h.cstr.ptr
+        val nstr = n.cstr.ptr
+        val result = libc.cinterop.libc_strstr(cstr, nstr)
+        result?.toKString()
+    }
+}
 public actual fun wcschr(s: WcharT?, c: WcharT): WcharT? =
     throw UnsupportedOperationException("wcschr requires manual FFI bridge — not yet implemented")
 

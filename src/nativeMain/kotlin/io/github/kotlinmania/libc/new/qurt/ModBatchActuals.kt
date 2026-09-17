@@ -139,8 +139,16 @@ public actual fun strcspn(s: String?, reject: String?): ULong {
 }
 public actual fun strpbrk(s: String?, accept: String?): String? =
     throw UnsupportedOperationException("strpbrk requires FFI bridge")
-public actual fun strstr(haystack: String?, needle: String?): String? =
-    throw UnsupportedOperationException("strstr requires FFI bridge")
+public actual fun strstr(haystack: String?, needle: String?): String? {
+    if (haystack == null) return null
+    if (needle == null) return null
+    return memScoped {
+        val cstr = haystack.cstr.ptr
+        val nstr = needle.cstr.ptr
+        val result = libc.cinterop.libc_strstr(cstr, nstr)
+        result?.toKString()
+    }
+}
 public actual fun strtok(s: String?, delim: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 

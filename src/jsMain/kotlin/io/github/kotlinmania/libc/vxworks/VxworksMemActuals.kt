@@ -3,18 +3,22 @@ package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.callocNapi
+import io.github.kotlinmania.libc.freeNapi
+import io.github.kotlinmania.libc.mallocNapi
+import io.github.kotlinmania.libc.reallocNapi
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires N-API addon with stdlib support")
+    callocNapi(nobj, size)
 
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires N-API addon with stdlib support")
+    mallocNapi(size)
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("realloc requires N-API addon with stdlib support")
+    reallocNapi(p, size)
 
 public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free requires N-API addon with stdlib support")
+    freeNapi(p)
 }
 
 public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =

@@ -38,8 +38,16 @@ public actual fun strrchr(cs: String?, c: CInt): String? {
 public actual fun strpbrk(cs: String?, ct: String?): String? =
     throw UnsupportedOperationException("strpbrk requires FFI bridge")
 
-public actual fun strstr(cs: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strstr requires FFI bridge")
+public actual fun strstr(cs: String?, ct: String?): String? {
+    if (cs == null) return null
+    if (ct == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val nstr = ct.cstr.ptr
+        val result = libc.cinterop.libc_strstr(cstr, nstr)
+        result?.toKString()
+    }
+}
 
 // String mutation functions require mutable char* buffers. Kotlin String
 // is immutable. These need COpaquePointer params to work correctly.

@@ -397,8 +397,16 @@ public actual fun strndup(cs: String?, n: ULong): String? =
 
 public actual fun strpbrk(cs: String?, ct: String?): String? =
     throw UnsupportedOperationException("strpbrk requires FFI bridge")
-public actual fun strstr(cs: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strstr requires FFI bridge")
+public actual fun strstr(cs: String?, ct: String?): String? {
+    if (cs == null) return null
+    if (ct == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val nstr = ct.cstr.ptr
+        val result = libc.cinterop.libc_strstr(cstr, nstr)
+        result?.toKString()
+    }
+}
 public actual fun strcasecmp(s1: String?, s2: String?): CInt {
     if (s1 == null) return -1
     if (s2 == null) return -1

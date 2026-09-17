@@ -230,8 +230,16 @@ public actual fun strdup(cs: String?): String? {
 }
 public actual fun strpbrk(cs: String?, ct: String?): String? =
     throw UnsupportedOperationException("strpbrk requires FFI bridge")
-public actual fun strstr(cs: String?, ct: String?): String? =
-    throw UnsupportedOperationException("strstr requires FFI bridge")
+public actual fun strstr(cs: String?, ct: String?): String? {
+    if (cs == null) return null
+    if (ct == null) return null
+    return memScoped {
+        val cstr = cs.cstr.ptr
+        val nstr = ct.cstr.ptr
+        val result = libc.cinterop.libc_strstr(cstr, nstr)
+        result?.toKString()
+    }
+}
 public actual fun strlen(cs: String?): ULong {
     if (cs == null) return 0uL
     return libc.cinterop.libc_strlen(cs)

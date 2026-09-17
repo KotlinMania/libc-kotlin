@@ -599,8 +599,16 @@ public actual fun strspn(arg1: String?, arg2: String?): ULong {
     if (arg2 == null) return 0uL
     return libc.cinterop.libc_strspn(arg1, arg2)
 }
-public actual fun strstr(arg1: String?, arg2: String?): String? =
-    throw UnsupportedOperationException("strstr requires FFI bridge")
+public actual fun strstr(arg1: String?, arg2: String?): String? {
+    if (arg1 == null) return null
+    if (arg2 == null) return null
+    return memScoped {
+        val cstr = arg1.cstr.ptr
+        val nstr = arg2.cstr.ptr
+        val result = libc.cinterop.libc_strstr(cstr, nstr)
+        result?.toKString()
+    }
+}
 public actual fun strtok(arg1: String?, arg2: String?): String? =
     throw UnsupportedOperationException("strtok requires manual FFI bridge — not yet implemented")
 
