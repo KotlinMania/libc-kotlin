@@ -93,10 +93,8 @@ public actual fun setitimer(which: CInt, newValue: Itimerval?, oldValue: Itimerv
 
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
-public actual fun memalign(align: ULong, size: ULong): COpaquePointer? {
-    val result = libc_memalign(align, size)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memalign requires FFI bridge")
 
 public actual fun setgroups(ngroups: ULong, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
@@ -201,19 +199,11 @@ public actual fun freeifaddrs(ifa: Ifaddrs?) {
 public actual fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt =
     throw UnsupportedOperationException("bind requires manual FFI bridge — not yet implemented")
 
-public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_writev(fd, iovPtr, iovcnt)
-    return result
-}
+public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("writev requires FFI bridge")
 
-public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_readv(fd, iovPtr, iovcnt)
-    return result
-}
+public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("readv requires FFI bridge")
 
 public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
     throw UnsupportedOperationException("sendmsg requires manual FFI bridge — not yet implemented")
@@ -248,14 +238,10 @@ public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CI
     if (template == null) return -1
     return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
 }
-public actual fun getdomainname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_getdomainname(name, len)
-}
-public actual fun setdomainname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_setdomainname(name, len)
-}
+public actual fun getdomainname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("getdomainname requires FFI bridge")
+public actual fun setdomainname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("setdomainname requires FFI bridge")
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 

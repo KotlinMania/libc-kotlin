@@ -63,7 +63,7 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
-    libc.cinterop.libc_labs(i)
+    throw UnsupportedOperationException("labs requires FFI bridge")
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt): Unit {
@@ -94,10 +94,8 @@ public actual fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
-public actual fun memalign(align: ULong, size: ULong): COpaquePointer? {
-    val result = libc_memalign(align, size)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memalign requires FFI bridge")
 
 public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("fexecve requires manual FFI bridge — not yet implemented")

@@ -53,10 +53,10 @@ public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt):
     throw UnsupportedOperationException("posixFadvise requires manual FFI bridge — not yet implemented")
 
 public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc.cinterop.libc_preadv(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
+    throw UnsupportedOperationException("preadv requires FFI bridge")
 
 public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc.cinterop.libc_pwritev(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
+    throw UnsupportedOperationException("pwritev requires FFI bridge")
 
 public actual fun getpagesizes2(pagesize: ULong?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getpagesizes2 requires manual FFI bridge — not yet implemented")

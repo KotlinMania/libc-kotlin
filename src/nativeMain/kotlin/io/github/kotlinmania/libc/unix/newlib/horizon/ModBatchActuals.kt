@@ -38,14 +38,10 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
 public actual fun pthreadGetprocessoridNp(): CInt =
     throw UnsupportedOperationException("pthreadGetprocessoridNp requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getrandom(bufPtr, buflen, flags)
-    return result
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires FFI bridge")
 
 public actual fun gethostid(): CLong =
-    libc.cinterop.libc_gethostid()
+    throw UnsupportedOperationException("gethostid requires FFI bridge")
 public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("pthreadCreate requires FFI bridge")

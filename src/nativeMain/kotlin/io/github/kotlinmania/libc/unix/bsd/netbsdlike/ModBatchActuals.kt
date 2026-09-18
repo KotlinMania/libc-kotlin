@@ -74,19 +74,11 @@ public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CI
     if (template == null) return -1
     return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
 }
-public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_pwritev(fd, iovPtr, iovcnt, offset)
-    return result
-}
+public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("pwritev requires FFI bridge")
 
-public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_preadv(fd, iovPtr, iovcnt, offset)
-    return result
-}
+public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("preadv requires FFI bridge")
 
 public actual fun futimens(fd: CInt, times: Timespec?): CInt {
     if (times == null) return -1
@@ -131,10 +123,8 @@ public actual fun semGetvalue(sem: SemT, sval: CInt?): CInt =
 public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt =
     throw UnsupportedOperationException("pthreadCondattrSetclock requires manual FFI bridge — not yet implemented")
 
-public actual fun sethostname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_sethostname(name, len)
-}
+public actual fun sethostname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("sethostname requires FFI bridge")
 public actual fun pthreadMutexTimedlock(lock: PthreadMutexT, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadMutexTimedlock requires manual FFI bridge — not yet implemented")
 
@@ -172,14 +162,10 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt {
     val result = libc_initgroups(name, basegid.toInt())
     return result
 }
-public actual fun getdomainname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_getdomainname(name, len)
-}
-public actual fun setdomainname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_setdomainname(name, len)
-}
+public actual fun getdomainname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("getdomainname requires FFI bridge")
+public actual fun setdomainname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("setdomainname requires FFI bridge")
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
@@ -271,7 +257,7 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
 
 public actual fun gethostid(): CLong =
-    libc.cinterop.libc_gethostid()
+    throw UnsupportedOperationException("gethostid requires FFI bridge")
 public actual fun sethostid(hostid: CLong): CInt =
     throw UnsupportedOperationException("sethostid requires manual FFI bridge — not yet implemented")
 
@@ -285,12 +271,8 @@ public actual fun basename(path: String?): String? {
     return result?.toKString()
 }
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getentropy(bufPtr, buflen)
-    return result
-}
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("getentropy requires FFI bridge")
 
 public actual fun sendmmsg(sockfd: CInt, mmsg: Mmsghdr?, vlen: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("sendmmsg requires manual FFI bridge — not yet implemented")

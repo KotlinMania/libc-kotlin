@@ -37,14 +37,8 @@ public actual fun unlink(pathname: String?): CInt {
     if (pathname == null) return -1
     return libc.cinterop.libc_unlink(pathname)
 }
-public actual fun getcwd(buf: String?, size: ULong): String? {
-    val bufSize = if (size > 0uL) size.toInt() else 4096
-    return memScoped {
-        val bufPtr = allocArray<ByteVar>(bufSize)
-        val result = libc.cinterop.libc_getcwd(bufPtr, bufSize.toULong())
-        result?.toKString()
-    }
-}
+public actual fun getcwd(buf: String?, size: ULong): String? =
+    throw UnsupportedOperationException("getcwd requires FFI bridge")
 
 public actual fun rmdir(pathname: String?): CInt {
     if (pathname == null) return -1
@@ -53,4 +47,4 @@ public actual fun rmdir(pathname: String?): CInt {
 public actual fun getpid(): PidT =
     libc.cinterop.libc_getpid()
 public actual fun sysconf(name: CInt): CLong =
-    libc.cinterop.libc_sysconf(name)
+    throw UnsupportedOperationException("sysconf requires FFI bridge")

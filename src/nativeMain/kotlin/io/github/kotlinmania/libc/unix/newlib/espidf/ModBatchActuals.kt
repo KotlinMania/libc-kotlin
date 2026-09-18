@@ -11,12 +11,8 @@ import kotlinx.cinterop.toCPointer
 import libc.cinterop.libc_getrandom
 import libc.cinterop.libc_gethostname
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getrandom(bufPtr, buflen, flags)
-    return result
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires FFI bridge")
 
 public actual fun gethostname(name: String?, namelen: SsizeT) {
     throw UnsupportedOperationException("gethostname requires FFI bridge")

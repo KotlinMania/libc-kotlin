@@ -75,10 +75,8 @@ public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: UL
 public actual fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroups: CInt?): CInt =
     throw UnsupportedOperationException("getgrouplist requires manual FFI bridge — not yet implemented")
 
-public actual fun memalign(align: ULong, size: ULong): COpaquePointer? {
-    val result = libc.cinterop.libc_memalign(align, size)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memalign requires FFI bridge")
 
 public actual fun getnameinfo(addr: Sockaddr?, addrlen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
@@ -141,16 +139,10 @@ public actual fun explicitBzero(p: COpaquePointer?, len: ULong) {
     throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong {
-    if (dst == null) return 0uL
-    if (src == null) return 0uL
-    return libc.cinterop.libc_strlcat(dst, src, siz)
-}
-public actual fun strlcpy(dst: String?, src: String?, siz: ULong): ULong {
-    if (dst == null) return 0uL
-    if (src == null) return 0uL
-    return libc.cinterop.libc_strlcpy(dst, src, siz)
-}
+public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong =
+    throw UnsupportedOperationException("strlcat requires FFI bridge")
+public actual fun strlcpy(dst: String?, src: String?, siz: ULong): ULong =
+    throw UnsupportedOperationException("strlcpy requires FFI bridge")
 public actual fun epollCreate(size: CInt): CInt =
     throw UnsupportedOperationException("epollCreate requires manual FFI bridge — not yet implemented")
 
@@ -167,11 +159,11 @@ public actual fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    throw UnsupportedOperationException("madvise requires FFI bridge")
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    throw UnsupportedOperationException("msync requires FFI bridge")
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires FFI bridge")
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
     val result = libc.cinterop.libc_shm_open(name, oflag, mode)
     return result
@@ -234,33 +226,17 @@ public actual fun futimens(fd: CInt, times: Timespec?): CInt {
     return result
 }
 
-public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc.cinterop.libc_preadv(fd, iovPtr, iovcnt, offset)
-    return result
-}
+public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("preadv requires FFI bridge")
 
-public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc.cinterop.libc_pwritev(fd, iovPtr, iovcnt, offset)
-    return result
-}
+public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("pwritev requires FFI bridge")
 
-public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc.cinterop.libc_readv(fd, iovPtr, iovcnt)
-    return result
-}
+public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("readv requires FFI bridge")
 
-public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc.cinterop.libc_writev(fd, iovPtr, iovcnt)
-    return result
-}
+public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("writev requires FFI bridge")
 
 public actual fun uname(utsname: Utsname?): CInt {
     if (utsname == null) return -1

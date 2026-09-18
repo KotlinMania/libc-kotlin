@@ -46,7 +46,5 @@ public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpa
 }
 
 public actual fun cMSGALIGN(len: ULong): ULong = libc_cmsg_align(len)
-
 public actual fun cMSGSPACE(length: CUInt): CUInt = libc_cmsg_space(length.toULong()).toUInt()
-
 public actual fun cMSGLEN(length: CUInt): CUInt = libc_cmsg_len(length.toULong()).toUInt()

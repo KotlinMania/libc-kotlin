@@ -72,7 +72,7 @@ public actual fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt
     throw UnsupportedOperationException("mqSetattr requires manual FFI bridge — not yet implemented")
 
 public actual fun mrand48(): CLong =
-    libc.cinterop.libc_mrand48()
+    throw UnsupportedOperationException("mrand48 requires FFI bridge")
 public actual fun seed48(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48 requires manual FFI bridge — not yet implemented")
 
@@ -117,10 +117,8 @@ public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgfl
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
     throw UnsupportedOperationException("fallocate requires manual FFI bridge — not yet implemented")
 
-public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt {
-    val result = libc_posix_fallocate(fd, offset, len)
-    return result
-}
+public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
+    throw UnsupportedOperationException("posixFallocate requires FFI bridge")
 
 public actual fun readahead(fd: CInt, offset: Off64T, count: ULong): SsizeT =
     throw UnsupportedOperationException("readahead requires manual FFI bridge — not yet implemented")
@@ -204,12 +202,8 @@ public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUInt): CInt =
     throw UnsupportedOperationException("syncFileRange requires manual FFI bridge — not yet implemented")
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt {
-    if (addr == null) return -1
-    val addrPtr: CPointer<ByteVar>? = addr.value.toCPointer()
-    val result = libc_posix_madvise(addrPtr, len, advice)
-    return result
-}
+public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+    throw UnsupportedOperationException("posixMadvise requires FFI bridge")
 
 public actual fun remapFilePages(addr: COpaquePointer?, size: ULong, prot: CInt, pgoff: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("remapFilePages requires manual FFI bridge — not yet implemented")
@@ -398,7 +392,7 @@ public actual fun fanotifyInit(flags: CUInt, eventFFlags: CUInt): CInt =
     throw UnsupportedOperationException("fanotifyInit requires manual FFI bridge — not yet implemented")
 
 public actual fun gethostid(): CLong =
-    libc.cinterop.libc_gethostid()
+    throw UnsupportedOperationException("gethostid requires FFI bridge")
 public actual fun klogctl(syslogType: CInt, bufp: String?, len: CInt): CInt =
     throw UnsupportedOperationException("klogctl requires manual FFI bridge — not yet implemented")
 

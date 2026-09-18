@@ -75,7 +75,7 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
 public actual fun abs(i: CInt): CInt =
     throw UnsupportedOperationException("abs requires FFI bridge")
 public actual fun labs(i: CLong): CLong =
-    libc.cinterop.libc_labs(i)
+    throw UnsupportedOperationException("labs requires FFI bridge")
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt): Unit {
@@ -150,12 +150,8 @@ public actual fun globfree(pglob: GlobT?) {
     throw UnsupportedOperationException("globfree requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt {
-    if (addr == null) return -1
-    val addrPtr: CPointer<ByteVar>? = addr.value.toCPointer()
-    val result = libc_posix_madvise(addrPtr, len, advice)
-    return result
-}
+public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+    throw UnsupportedOperationException("posixMadvise requires FFI bridge")
 
 public actual fun shmUnlink(name: String?): CInt {
     val result = libc_shm_unlink(name)
@@ -166,17 +162,13 @@ public actual fun seekdir(dirp: DIR?, loc: CLong) {
     throw UnsupportedOperationException("seekdir requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun telldir(dirp: DIR?): CLong {
-    if (dirp == null) return -1L
-    val dirpPtr: CPointer<ByteVar>? = dirp.handle.toCPointer()
-    val result = libc_telldir(dirpPtr)
-    return result
-}
+public actual fun telldir(dirp: DIR?): CLong =
+    throw UnsupportedOperationException("telldir requires FFI bridge")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
+    throw UnsupportedOperationException("madvise requires FFI bridge")
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    throw UnsupportedOperationException("msync requires FFI bridge")
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
@@ -193,19 +185,11 @@ public actual fun nlLanginfo(item: NlItem): String? =
 public actual fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt =
     throw UnsupportedOperationException("bind requires manual FFI bridge — not yet implemented")
 
-public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_writev(fd, iovPtr, iovcnt)
-    return result
-}
+public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("writev requires FFI bridge")
 
-public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_readv(fd, iovPtr, iovcnt)
-    return result
-}
+public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("readv requires FFI bridge")
 
 public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
     throw UnsupportedOperationException("sendmsg requires manual FFI bridge — not yet implemented")
@@ -316,12 +300,12 @@ public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong) {
 }
 
 public actual fun lrand48(): CLong =
-    libc.cinterop.libc_lrand48()
+    throw UnsupportedOperationException("lrand48 requires FFI bridge")
 public actual fun nrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("nrand48 requires manual FFI bridge — not yet implemented")
 
 public actual fun mrand48(): CLong =
-    libc.cinterop.libc_mrand48()
+    throw UnsupportedOperationException("mrand48 requires FFI bridge")
 public actual fun jrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("jrand48 requires manual FFI bridge — not yet implemented")
 

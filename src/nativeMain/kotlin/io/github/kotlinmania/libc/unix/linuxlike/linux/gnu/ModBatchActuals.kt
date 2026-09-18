@@ -91,22 +91,14 @@ public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): CInt {
     return result
 }
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getentropy(bufPtr, buflen)
-    return result
-}
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("getentropy requires FFI bridge")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getrandom(bufPtr, buflen, flags)
-    return result
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires FFI bridge")
 
 public actual fun getauxval(type: CULong): CULong =
-    throw UnsupportedOperationException("getauxval requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("getauxval requires FFI bridge")
 
 public actual fun adjtimex(buf: Timex?): CInt =
     throw UnsupportedOperationException("adjtimex requires manual FFI bridge — not yet implemented")

@@ -22,83 +22,70 @@ import libc.cinterop.libc_realloc
 import libc.cinterop.libc_aligned_alloc
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? {
-    val result = libc.cinterop.libc_calloc(nobj, size)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    val result = libc_calloc(nobj, size)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
 public actual fun malloc(size: ULong): COpaquePointer? {
-    val result = libc.cinterop.libc_malloc(size)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    val result = libc_malloc(size)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? {
-    val cPtr: CPointer<ByteVar>? = p?.value?.toCPointer()
-    val result = libc.cinterop.libc_realloc(cPtr, size)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    if (p == null) return malloc(size)
+    val cPtr: CPointer<ByteVar>? = p.value.toCPointer()
+    val result = libc_realloc(cPtr, size)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
 public actual fun free(p: COpaquePointer?) {
     val cPtr: CPointer<ByteVar>? = p?.value?.toCPointer()
     if (cPtr != null) {
-        libc.cinterop.libc_free(cPtr)
+        libc_free(cPtr)
     }
 }
 
 public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
-    val cPtr: CPointer<ByteVar>? = cx?.value?.toCPointer()
-    if (cPtr == null) return null
-    val result = libc.cinterop.libc_memchr(cPtr, c, n)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    if (cx == null) return null
+    val cPtr: CPointer<ByteVar>? = cx.value.toCPointer()
+    val result = libc_memchr(cPtr, c, n)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt {
-    val cPtr1: CPointer<ByteVar>? = cx?.value?.toCPointer()
-    val cPtr2: CPointer<ByteVar>? = ct?.value?.toCPointer()
-    if (cPtr1 == null || cPtr2 == null) return -1
-    return libc.cinterop.libc_memcmp(cPtr1, cPtr2, n)
+    if (cx == null || ct == null) return -1
+    val cxPtr: CPointer<ByteVar>? = cx.value.toCPointer()
+    val ctPtr: CPointer<ByteVar>? = ct.value.toCPointer()
+    return libc_memcmp(cxPtr, ctPtr, n)
 }
 
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? {
-    val dPtr: CPointer<ByteVar>? = dest?.value?.toCPointer()
-    val sPtr: CPointer<ByteVar>? = src?.value?.toCPointer()
-    if (dPtr == null || sPtr == null) return null
-    val result = libc.cinterop.libc_memcpy(dPtr, sPtr, n)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    if (dest == null || src == null) return null
+    val destPtr: CPointer<ByteVar>? = dest.value.toCPointer()
+    val srcPtr: CPointer<ByteVar>? = src.value.toCPointer()
+    val result = libc_memcpy(destPtr, srcPtr, n)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
-public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
-    val dPtr: CPointer<ByteVar>? = dest?.value?.toCPointer()
-    val sPtr: CPointer<ByteVar>? = src?.value?.toCPointer()
-    if (dPtr == null || sPtr == null) return null
-    val result = libc.cinterop.libc_memccpy(dPtr, sPtr, c, n)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
-}
+public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memccpy requires FFI bridge")
 
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? {
-    val dPtr: CPointer<ByteVar>? = dest?.value?.toCPointer()
-    val sPtr: CPointer<ByteVar>? = src?.value?.toCPointer()
-    if (dPtr == null || sPtr == null) return null
-    val result = libc.cinterop.libc_memmove(dPtr, sPtr, n)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    if (dest == null || src == null) return null
+    val destPtr: CPointer<ByteVar>? = dest.value.toCPointer()
+    val srcPtr: CPointer<ByteVar>? = src.value.toCPointer()
+    val result = libc_memmove(destPtr, srcPtr, n)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
-    val dPtr: CPointer<ByteVar>? = dest?.value?.toCPointer()
-    if (dPtr == null) return null
-    val result = libc.cinterop.libc_memset(dPtr, c, n)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    if (dest == null) return null
+    val destPtr: CPointer<ByteVar>? = dest.value.toCPointer()
+    val result = libc_memset(destPtr, c, n)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }
 
 public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? {
-    val result = libc.cinterop.libc_aligned_alloc(alignment, size)
-    if (result == null) return null
-    return COpaquePointer(result.toLong())
+    val result = libc_aligned_alloc(alignment, size)
+    return if (result != null) COpaquePointer(result.toLong()) else null
 }

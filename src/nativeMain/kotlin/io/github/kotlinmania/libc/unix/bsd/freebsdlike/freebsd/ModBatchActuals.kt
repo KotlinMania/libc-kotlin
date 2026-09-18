@@ -311,14 +311,8 @@ public actual fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: C
 public actual fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: ULong, flags: CInt, timeout: Timespec?): SsizeT =
     throw UnsupportedOperationException("recvmmsg requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? {
-    if (haystack == null) return null
-    val arg1Ptr: CPointer<ByteVar>? = haystack.value.toCPointer()
-    if (needle == null) return null
-    val arg3Ptr: CPointer<ByteVar>? = needle.value.toCPointer()
-    val result = libc_memmem(arg1Ptr, haystacklen, arg3Ptr, needlelen)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires FFI bridge")
 
 public actual fun fhopen(fhp: FhandleT?, flags: CInt): CInt =
     throw UnsupportedOperationException("fhopen requires manual FFI bridge — not yet implemented")
@@ -426,13 +420,13 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
 public actual fun ffs(value: CInt): CInt =
     libc.cinterop.libc_ffs(value)
 public actual fun ffsl(value: CLong): CInt =
-    libc.cinterop.libc_ffsl(value)
+    throw UnsupportedOperationException("ffsl requires FFI bridge")
 public actual fun ffsll(value: CLongLong): CInt =
     libc.cinterop.libc_ffsll(value)
 public actual fun fls(value: CInt): CInt =
     libc.cinterop.libc_fls(value)
 public actual fun flsl(value: CLong): CInt =
-    libc.cinterop.libc_flsl(value)
+    throw UnsupportedOperationException("flsl requires FFI bridge")
 public actual fun flsll(value: CLongLong): CInt =
     libc.cinterop.libc_flsll(value)
 public actual fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =

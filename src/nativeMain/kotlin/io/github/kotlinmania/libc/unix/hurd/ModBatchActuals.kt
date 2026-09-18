@@ -283,18 +283,12 @@ public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: UL
     throw UnsupportedOperationException("sendfile64 requires manual FFI bridge — not yet implemented")
 
 public actual fun shutdown(fd: CInt, how: CInt): CInt = libc.cinterop.libc_shutdown(fd, how)
-public actual fun sethostname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_sethostname(name, len)
-}
-public actual fun getdomainname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_getdomainname(name, len)
-}
-public actual fun setdomainname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_setdomainname(name, len)
-}
+public actual fun sethostname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("sethostname requires FFI bridge")
+public actual fun getdomainname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("getdomainname requires FFI bridge")
+public actual fun setdomainname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("setdomainname requires FFI bridge")
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 
@@ -320,7 +314,7 @@ public actual fun uname(buf: Utsname?): CInt {
 }
 
 public actual fun gethostid(): CLong =
-    libc.cinterop.libc_gethostid()
+    throw UnsupportedOperationException("gethostid requires FFI bridge")
 public actual fun sethostid(hostid: CLong): CInt =
     throw UnsupportedOperationException("sethostid requires manual FFI bridge — not yet implemented")
 
@@ -896,12 +890,8 @@ public actual fun seekdir(dirp: DIR?, loc: CLong) {
     throw UnsupportedOperationException("seekdir requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun telldir(dirp: DIR?): CLong {
-    if (dirp == null) return -1L
-    val dirpPtr: CPointer<ByteVar>? = dirp.handle.toCPointer()
-    val result = libc_telldir(dirpPtr)
-    return result
-}
+public actual fun telldir(dirp: DIR?): CLong =
+    throw UnsupportedOperationException("telldir requires FFI bridge")
 
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
@@ -917,9 +907,9 @@ public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags
     throw UnsupportedOperationException("mremap requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires FFI bridge")
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, flags)
+    throw UnsupportedOperationException("msync requires FFI bridge")
 public actual fun sync() {
     throw UnsupportedOperationException("sync requires manual FFI bridge — not yet implemented")
 }
@@ -932,10 +922,8 @@ public actual fun fdatasync(fd: CInt): CInt =
 public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt =
     throw UnsupportedOperationException("fallocate64 requires manual FFI bridge — not yet implemented")
 
-public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt {
-    val result = libc_posix_fallocate(fd, offset, len)
-    return result
-}
+public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
+    throw UnsupportedOperationException("posixFallocate requires FFI bridge")
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
     throw UnsupportedOperationException("posixFallocate64 requires manual FFI bridge — not yet implemented")
@@ -947,13 +935,9 @@ public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: 
     throw UnsupportedOperationException("posixFadvise64 requires manual FFI bridge — not yet implemented")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    libc.cinterop.libc_madvise(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, advice)
-public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt {
-    if (addr == null) return -1
-    val addrPtr: CPointer<ByteVar>? = addr.value.toCPointer()
-    val result = libc_posix_madvise(addrPtr, len, advice)
-    return result
-}
+    throw UnsupportedOperationException("madvise requires FFI bridge")
+public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+    throw UnsupportedOperationException("posixMadvise requires FFI bridge")
 
 public actual fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
     throw UnsupportedOperationException("getrlimit requires manual FFI bridge — not yet implemented")
@@ -976,24 +960,14 @@ public actual fun setpriority(which: PriorityWhich, who: IdT, prio: CInt): CInt 
 public actual fun getrandom(buffer: COpaquePointer?, length: ULong, flags: CUInt): SsizeT =
     throw UnsupportedOperationException("getrandom requires FFI bridge")
 
-public actual fun getentropy(buffer: COpaquePointer?, length: ULong): CInt {
-    if (buffer == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buffer.value.toCPointer()
-    val result = libc_getentropy(bufPtr, length)
-    return result
-}
+public actual fun getentropy(buffer: COpaquePointer?, length: ULong): CInt =
+    throw UnsupportedOperationException("getentropy requires FFI bridge")
 
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memrchr requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? {
-    if (haystack == null) return null
-    val arg1Ptr: CPointer<ByteVar>? = haystack.value.toCPointer()
-    if (needle == null) return null
-    val arg3Ptr: CPointer<ByteVar>? = needle.value.toCPointer()
-    val result = libc_memmem(arg1Ptr, haystacklen, arg3Ptr, needlelen)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires FFI bridge")
 
 public actual fun strchrnul(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchrnul requires manual FFI bridge — not yet implemented")
@@ -1001,7 +975,7 @@ public actual fun strchrnul(s: String?, c: CInt): String? =
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
-    libc.cinterop.libc_labs(i)
+    throw UnsupportedOperationException("labs requires FFI bridge")
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
@@ -1009,12 +983,12 @@ public actual fun srand(seed: CUInt) {
 }
 
 public actual fun lrand48(): CLong =
-    libc.cinterop.libc_lrand48()
+    throw UnsupportedOperationException("lrand48 requires FFI bridge")
 public actual fun nrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("nrand48 requires manual FFI bridge — not yet implemented")
 
 public actual fun mrand48(): CLong =
-    libc.cinterop.libc_mrand48()
+    throw UnsupportedOperationException("mrand48 requires FFI bridge")
 public actual fun jrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("jrand48 requires manual FFI bridge — not yet implemented")
 
@@ -1035,10 +1009,8 @@ public actual fun brk(addr: COpaquePointer?): CInt =
 public actual fun sbrk(increment: IntptrT): COpaquePointer? =
     throw UnsupportedOperationException("sbrk requires manual FFI bridge — not yet implemented")
 
-public actual fun memalign(align: ULong, size: ULong): COpaquePointer? {
-    val result = libc_memalign(align, size)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memalign requires FFI bridge")
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
     throw UnsupportedOperationException("mallopt requires manual FFI bridge — not yet implemented")

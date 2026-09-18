@@ -110,11 +110,8 @@ public actual fun strcmp(cs: String?, ct: String?): CInt {
     if (ct == null) return -1
     return libc.cinterop.libc_strcmp(cs, ct)
 }
-public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt {
-    if (cs == null) return -1
-    if (ct == null) return -1
-    return libc.cinterop.libc_strncmp(cs, ct, n)
-}
+public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
+    throw UnsupportedOperationException("strncmp requires FFI bridge")
 public actual fun strcoll(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
@@ -125,11 +122,8 @@ public actual fun strcasecmp(s1: String?, s2: String?): CInt {
     if (s2 == null) return -1
     return libc.cinterop.libc_strcasecmp(s1, s2)
 }
-public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt {
-    if (s1 == null) return -1
-    if (s2 == null) return -1
-    return libc.cinterop.libc_strncasecmp(s1, s2, n)
-}
+public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt =
+    throw UnsupportedOperationException("strncasecmp requires FFI bridge")
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
@@ -212,17 +206,17 @@ public actual fun setegid(gid: GidT): CInt {
     return result
 }
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
-    libc.cinterop.libc_mlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
+    throw UnsupportedOperationException("mlock requires FFI bridge")
 public actual fun mlockall(flags: CInt): CInt = libc.cinterop.libc_mlockall(flags)
 
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
-    libc.cinterop.libc_munlock(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
+    throw UnsupportedOperationException("munlock requires FFI bridge")
 public actual fun munlockall(): CInt = libc.cinterop.libc_munlockall()
 
 public actual fun munmap(addr: COpaquePointer?, len: ULong): CInt =
-    libc.cinterop.libc_munmap(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len)
+    throw UnsupportedOperationException("munmap requires FFI bridge")
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires FFI bridge")
 
 public actual fun truncate(path: String?, length: OffT): CInt {
     if (path == null) return -1
@@ -281,10 +275,8 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: 
 public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
     throw UnsupportedOperationException("dladdr requires manual FFI bridge — not yet implemented")
 
-public actual fun gethostname(name: String?, len: ULong): CInt {
-    if (name == null) return -1
-    return libc.cinterop.libc_gethostname(name, len)
-}
+public actual fun gethostname(name: String?, len: ULong): CInt =
+    throw UnsupportedOperationException("gethostname requires FFI bridge")
 public actual fun usleep(secs: UsecondsT): CInt =
     throw UnsupportedOperationException("usleep requires manual FFI bridge — type mismatch")
 public actual fun putenv(string: String?): CInt =

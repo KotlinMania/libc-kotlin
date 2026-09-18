@@ -163,7 +163,7 @@ public actual fun sysctlnametomib(name: String?, mibp: CInt?, sizep: ULong?): CI
     throw UnsupportedOperationException("sysctlnametomib requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires FFI bridge")
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     throw UnsupportedOperationException("semget requires manual FFI bridge — not yet implemented")
 
@@ -408,19 +408,11 @@ public actual fun getdomainname(name: String?, len: CInt): CInt =
     throw UnsupportedOperationException("getdomainname requires FFI bridge")
 public actual fun setdomainname(name: String?, len: CInt): CInt =
     throw UnsupportedOperationException("setdomainname requires FFI bridge")
-public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_preadv(fd, iovPtr, iovcnt, offset)
-    return result
-}
+public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("preadv requires FFI bridge")
 
-public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT {
-    if (iov == null) return -1
-    val iovPtr: CPointer<ByteVar>? = iov.handle.toCPointer()
-    val result = libc_pwritev(fd, iovPtr, iovcnt, offset)
-    return result
-}
+public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("pwritev requires FFI bridge")
 
 public actual fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong, position: UInt, flags: CInt): SsizeT =
     throw UnsupportedOperationException("getxattr requires manual FFI bridge — not yet implemented")
@@ -722,17 +714,13 @@ public actual fun gethostuuid(id: COpaquePointer?, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("gethostuuid requires manual FFI bridge — not yet implemented")
 
 public actual fun gethostid(): CLong =
-    libc.cinterop.libc_gethostid()
+    throw UnsupportedOperationException("gethostid requires FFI bridge")
 public actual fun sethostid(hostid: CLong) {
     throw UnsupportedOperationException("sethostid requires manual FFI bridge — not yet implemented")
 }
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getentropy(bufPtr, buflen)
-    return result
-}
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("getentropy requires FFI bridge")
 
 public actual fun nSGetExecutablePath(buf: String?, bufsize: UInt?): CInt =
     throw UnsupportedOperationException("nSGetExecutablePath requires manual FFI bridge — not yet implemented")
@@ -788,10 +776,8 @@ public actual fun getattrlist(path: String?, attrList: COpaquePointer?, attrBuf:
 public actual fun fgetattrlist(fd: CInt, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt =
     throw UnsupportedOperationException("fgetattrlist requires manual FFI bridge — not yet implemented")
 
-public actual fun getattrlistat(fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong): CInt {
-    if (path == null) return -1
-    return libc.cinterop.libc_getattrlistat(fd, path, attrList?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBuf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBufSize, options)
-}
+public actual fun getattrlistat(fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong): CInt =
+    throw UnsupportedOperationException("getattrlistat requires FFI bridge")
 public actual fun setattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt =
     throw UnsupportedOperationException("setattrlist requires manual FFI bridge — not yet implemented")
 
@@ -802,7 +788,7 @@ public actual fun setattrlistat(dirFd: CInt, path: String?, attrList: COpaquePoi
     throw UnsupportedOperationException("setattrlistat requires manual FFI bridge — not yet implemented")
 
 public actual fun getattrlistbulk(dirfd: CInt, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: ULong): CInt =
-    libc.cinterop.libc_getattrlistbulk(dirfd, attrList?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBuf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), attrBufSize, options)
+    throw UnsupportedOperationException("getattrlistbulk requires FFI bridge")
 public actual fun mallocSize(ptr: COpaquePointer?): ULong =
     throw UnsupportedOperationException("mallocSize requires manual FFI bridge — not yet implemented")
 
@@ -841,14 +827,8 @@ public actual fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt {
     return result
 }
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? {
-    if (haystack == null) return null
-    val haystackPtr: CPointer<ByteVar>? = haystack.value.toCPointer()
-    if (needle == null) return null
-    val needlePtr: CPointer<ByteVar>? = needle.value.toCPointer()
-    val result = libc_memmem(haystackPtr, haystacklen, needlePtr, needlelen)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires FFI bridge")
 
 public actual fun taskSetInfo(targetTask: TaskT, flavor: TaskFlavorT, taskInfoIn: TaskInfoT, taskInfoInCnt: MachMsgTypeNumberT): KernReturnT =
     throw UnsupportedOperationException("taskSetInfo requires manual FFI bridge — not yet implemented")

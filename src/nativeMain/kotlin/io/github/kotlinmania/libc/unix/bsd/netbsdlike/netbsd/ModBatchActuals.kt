@@ -47,10 +47,8 @@ public actual fun chflags(path: String?, flags: CULong): CInt =
     throw UnsupportedOperationException("chflags requires FFI bridge")
 public actual fun fchflags(fd: CInt, flags: CULong): CInt =
     throw UnsupportedOperationException("fchflags requires FFI bridge")
-public actual fun lchflags(path: String?, flags: CULong): CInt {
-    if (path == null) return -1
-    return libc.cinterop.libc_lchflags(path, flags)
-}
+public actual fun lchflags(path: String?, flags: CULong): CInt =
+    throw UnsupportedOperationException("lchflags requires FFI bridge")
 public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT =
     throw UnsupportedOperationException("extattrListFd requires manual FFI bridge — not yet implemented")
 
@@ -118,7 +116,7 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires FFI bridge")
 public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctl requires FFI bridge")
 
@@ -257,14 +255,8 @@ public actual fun kqueue1(flags: CInt): CInt =
 public actual fun lwpSelf(): LwpidT =
     throw UnsupportedOperationException("lwpSelf requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? {
-    if (haystack == null) return null
-    val haystackPtr: CPointer<ByteVar>? = haystack.value.toCPointer()
-    if (needle == null) return null
-    val needlePtr: CPointer<ByteVar>? = needle.value.toCPointer()
-    val result = libc_memmem(haystackPtr, haystacklen, needlePtr, needlelen)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires FFI bridge")
 
 public actual fun dlauxinfo(): COpaquePointer? =
     throw UnsupportedOperationException("dlauxinfo requires manual FFI bridge — not yet implemented")
@@ -327,12 +319,8 @@ public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: SchedParam?)
 public actual fun pollts(fds: Pollfd?, nfds: NfdsT, ts: Timespec?, sigmask: SigsetT?): CInt =
     throw UnsupportedOperationException("pollts requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc_getrandom(bufPtr, buflen, flags)
-    return result
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+    throw UnsupportedOperationException("getrandom requires FFI bridge")
 
 public actual fun reboot(mode: CInt, bootstr: String?): CInt =
     throw UnsupportedOperationException("reboot requires FFI bridge")

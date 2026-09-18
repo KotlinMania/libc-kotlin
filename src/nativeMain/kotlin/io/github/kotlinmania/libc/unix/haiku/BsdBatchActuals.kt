@@ -73,10 +73,10 @@ public actual fun lutimes(file: String?, times: Timeval?): CInt =
     throw UnsupportedOperationException("lutimes requires manual FFI bridge — not yet implemented")
 
 public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc.cinterop.libc_preadv(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
+    throw UnsupportedOperationException("preadv requires FFI bridge")
 
 public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc.cinterop.libc_pwritev(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
+    throw UnsupportedOperationException("pwritev requires FFI bridge")
 
 public actual fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT =
     throw UnsupportedOperationException("wait4 requires manual FFI bridge — not yet implemented")

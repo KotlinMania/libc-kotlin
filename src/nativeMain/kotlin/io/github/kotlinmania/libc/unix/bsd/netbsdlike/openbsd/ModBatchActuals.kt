@@ -83,7 +83,7 @@ public actual fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlis
     throw UnsupportedOperationException("kevent requires manual FFI bridge — not yet implemented")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires FFI bridge")
 public actual fun getthrid(): PidT =
     throw UnsupportedOperationException("getthrid requires manual FFI bridge — not yet implemented")
 
@@ -131,14 +131,8 @@ public actual fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CI
 public actual fun utrace(label: String?, addr: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("utrace requires manual FFI bridge — not yet implemented")
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? {
-    if (haystack == null) return null
-    val haystackPtr: CPointer<ByteVar>? = haystack.value.toCPointer()
-    if (needle == null) return null
-    val needlePtr: CPointer<ByteVar>? = needle.value.toCPointer()
-    val result = libc_memmem(haystackPtr, haystacklen, needlePtr, needlelen)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires FFI bridge")
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("uselocale requires manual FFI bridge — not yet implemented")

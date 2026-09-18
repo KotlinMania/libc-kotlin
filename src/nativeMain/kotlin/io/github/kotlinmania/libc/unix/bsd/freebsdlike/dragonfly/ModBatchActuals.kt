@@ -47,7 +47,7 @@ public actual fun setgrent() {
 }
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
-    libc.cinterop.libc_mprotect(addr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), len, prot)
+    throw UnsupportedOperationException("mprotect requires FFI bridge")
 public actual fun setutxdb(type: CUInt, file: String?): CInt =
     throw UnsupportedOperationException("setutxdb requires manual FFI bridge — not yet implemented")
 
@@ -80,14 +80,8 @@ public actual fun uname(buf: Utsname?): CInt {
     return result
 }
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? {
-    if (haystack == null) return null
-    val arg1Ptr: CPointer<ByteVar>? = haystack.value.toCPointer()
-    if (needle == null) return null
-    val arg3Ptr: CPointer<ByteVar>? = needle.value.toCPointer()
-    val result = libc_memmem(arg1Ptr, haystacklen, arg3Ptr, needlelen)
-    return if (result != null) COpaquePointer(result.toLong()) else null
-}
+public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
+    throw UnsupportedOperationException("memmem requires FFI bridge")
 
 public actual fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt =
     throw UnsupportedOperationException("pthreadSpinInit requires manual FFI bridge — not yet implemented")

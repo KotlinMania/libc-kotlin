@@ -86,15 +86,11 @@ public actual fun ungetc(c: CInt, stream: FILE?): CInt {
     return libc.cinterop.libc_ungetc(c, filePtr)
 }
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt {
-    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
-    return libc.cinterop.libc_fseek(filePtr, offset, whence)
-}
+public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
+    throw UnsupportedOperationException("fseek requires FFI bridge")
 
-public actual fun ftell(stream: FILE?): CLong {
-    val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
-    return libc.cinterop.libc_ftell(filePtr)
-}
+public actual fun ftell(stream: FILE?): CLong =
+    throw UnsupportedOperationException("ftell requires FFI bridge")
 
 public actual fun feof(stream: FILE?): CInt {
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
@@ -141,10 +137,8 @@ public actual fun puts(s: String?): CInt {
     return libc.cinterop.libc_puts(s)
 }
 
-public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt {
-    if (buffer == null) return -1
-    return libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
-}
+public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
+    throw UnsupportedOperationException("setvbuf requires FFI bridge")
 public actual fun setbuf(stream: FILE?, buf: String?) {
     throw UnsupportedOperationException("setbuf requires CValuesRef bridge for buf param")
 }
@@ -153,7 +147,7 @@ public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: 
     throw UnsupportedOperationException("fread requires COpaquePointer + FILE bridge")
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    libc.cinterop.libc_fwrite(ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size, nobj, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("fwrite requires FFI bridge")
 public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos requires FposT bridge")
 

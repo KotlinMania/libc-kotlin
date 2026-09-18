@@ -29,10 +29,10 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT =
-    libc.cinterop.libc_pwritev(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
+    throw UnsupportedOperationException("pwritev requires FFI bridge")
 
 public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT =
-    libc.cinterop.libc_preadv(fd, iov?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), iovcnt, offset)
+    throw UnsupportedOperationException("preadv requires FFI bridge")
 
 public actual fun getrlimit64(resource: RlimitResourceT, rlim: Rlimit64?): CInt =
     throw UnsupportedOperationException("getrlimit64 requires manual FFI bridge — not yet implemented")

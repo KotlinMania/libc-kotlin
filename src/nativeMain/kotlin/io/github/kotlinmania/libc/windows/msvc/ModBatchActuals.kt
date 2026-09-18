@@ -17,4 +17,4 @@ public actual fun strnicmp(s1: String?, s2: String?, n: ULong): CInt =
     throw UnsupportedOperationException("strnicmp requires manual FFI bridge — not yet implemented")
 
 public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: ULong): COpaquePointer? =
-    libc.cinterop.libc_memccpy(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), src?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), c, count)?.let { COpaquePointer(it.toLong()) }
+    throw UnsupportedOperationException("memccpy requires FFI bridge")

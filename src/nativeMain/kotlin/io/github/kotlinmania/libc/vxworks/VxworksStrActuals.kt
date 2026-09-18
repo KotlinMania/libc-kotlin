@@ -83,28 +83,14 @@ public actual fun strcpy(dst: String?, src: String?): String? {
         dstBuf.toKString()
     }
 }
-public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
-    if (src == null) return null
-    return memScoped {
-        val srcBuf = src.cstr.ptr
-        val len = maxOf(src.length + 1, n.toInt())
-        val dstBuf = allocArray<ByteVar>(len)
-        libc_strncpy(dstBuf, srcBuf, n)
-        dstBuf.toKString()
-    }
-}
+public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
+    throw UnsupportedOperationException("strncpy requires FFI bridge")
 public actual fun strcat(s: String?, ct: String?): String? =
     throw UnsupportedOperationException("strcat requires FFI bridge")
 public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncat requires FFI bridge")
-public actual fun getcwd(buf: String?, size: ULong): String? {
-    val bufSize = if (size > 0uL) size.toInt() else 4096
-    return memScoped {
-        val bufPtr = allocArray<ByteVar>(bufSize)
-        val result = libc_getcwd(bufPtr, bufSize.toULong())
-        result?.toKString()
-    }
-}
+public actual fun getcwd(buf: String?, size: ULong): String? =
+    throw UnsupportedOperationException("getcwd requires FFI bridge")
 
 public actual fun realpath(fileName: String?, resolvedName: String?): String? {
     if (fileName == null) return null

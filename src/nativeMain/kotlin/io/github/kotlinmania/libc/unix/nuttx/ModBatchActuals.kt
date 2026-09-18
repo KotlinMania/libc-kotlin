@@ -42,15 +42,11 @@ public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): Int =
 public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): Int =
     throw UnsupportedOperationException("pthreadGetnameNp requires manual FFI bridge — not yet implemented")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long {
-    if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.value.toCPointer()
-    val result = libc.cinterop.libc_getrandom(bufPtr, buflen, flags)
-    return result
-}
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long =
+    throw UnsupportedOperationException("getrandom requires FFI bridge")
 
 public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
+    throw UnsupportedOperationException("arc4randomBuf requires FFI bridge")
 }
 
 public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =

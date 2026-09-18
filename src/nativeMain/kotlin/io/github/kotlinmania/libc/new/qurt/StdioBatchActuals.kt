@@ -55,7 +55,7 @@ public actual fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream:
     throw UnsupportedOperationException("fread requires manual FFI bridge — not yet implemented")
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
-    libc.cinterop.libc_fwrite(ptr?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size, nmemb, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("fwrite requires FFI bridge")
 public actual fun fgetc(stream: FILE?): CInt =
     libc.cinterop.libc_fgetc(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
@@ -112,9 +112,9 @@ public actual fun sscanf(s: String?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("sscanf requires manual FFI bridge — not yet implemented")
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
+    throw UnsupportedOperationException("fseek requires FFI bridge")
 public actual fun ftell(stream: FILE?): CLong =
-    libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+    throw UnsupportedOperationException("ftell requires FFI bridge")
 public actual fun rewind(stream: FILE?) {
     if (stream == null) return
     val streamPtr: CPointer<ByteVar>? = stream.handle.toCPointer()
@@ -161,10 +161,8 @@ public actual fun tmpnam(s: String?): String? {
     }
 }
 
-public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt {
-    if (buffer == null) return -1
-    return libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
-}
+public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
+    throw UnsupportedOperationException("setvbuf requires FFI bridge")
 public actual fun setbuf(stream: FILE?, buffer: String?) {
     throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
 }
