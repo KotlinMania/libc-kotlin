@@ -320,8 +320,10 @@ int libc_acct(const char* filename) { return acct(filename); }
 int libc_shmdt(void* shmaddr) { return shmdt(shmaddr); }
 int libc_mkostemp(const char* template, int flags) { return mkostemp(template, flags); }
 int libc_mkostemps(const char* template, int suffixlen, int flags) { return mkostemps(template, suffixlen, flags); }
+#ifdef __APPLE__
 int libc_reboot(int howTo) { return reboot(howTo); }
 int libc_mkfifoat(int dirfd, const char* pathname, mode_t mode) { return mkfifoat(dirfd, pathname, mode); }
+#endif
 int libc_mkstemps(const char* template, int suffixlen) { return mkstemps(template, suffixlen); }
 int libc_getdomainname(const char* name, size_t len) { return getdomainname(name, len); }
 int libc_setdomainname(const char* name, size_t len) { return setdomainname(name, len); }
@@ -338,8 +340,10 @@ int libc_mblen(const char* arg1, size_t arg2) { return mblen(arg1, arg2); }
 long libc_lrand48(void) { return lrand48(); }
 long libc_mrand48(void) { return mrand48(); }
 long libc_a64l(const char* arg1) { return a64l(arg1); }
+#ifdef __APPLE__
 int libc_radixsort(void* arg1, int arg2, void* arg3, unsigned int arg4) { return radixsort(arg1, arg2, arg3, arg4); }
 int libc_sradixsort(void* arg1, int arg2, void* arg3, unsigned int arg4) { return sradixsort(arg1, arg2, arg3, arg4); }
+#endif
 size_t libc_strlcat(const char* arg1, const char* arg2, size_t arg3) { return strlcat(arg1, arg2, arg3); }
 size_t libc_strlcpy(const char* arg1, const char* arg2, size_t arg3) { return strlcpy(arg1, arg2, arg3); }
 int libc_ffs(int arg1) { return ffs(arg1); }
@@ -350,21 +354,35 @@ int libc_lockf(int fd, int cmd, off_t len) { return lockf(fd, cmd, len); }
 pid_t libc_vfork(void) { return vfork(); }
 long libc_gethostid(void) { return gethostid(); }
 int libc_setlogin(const char* name) { return setlogin(name); }
+#ifdef __APPLE__
 int libc_issetugid(void) { return issetugid(); }
 int libc_chflags(const char* path, unsigned int flags) { return chflags(path, flags); }
+#endif
+#ifdef __APPLE__
 int libc_fchflags(int fd, unsigned int flags) { return fchflags(fd, flags); }
 long long libc_strtonum(const char* numstr, long long minval, long long maxval, void* errstrp) { return strtonum(numstr, minval, maxval, errstrp); }
+#endif
+#ifdef __APPLE__
 int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, size_t attrBufSize, unsigned long options) { return getattrlistat(fd, path, attrList, attrBuf, attrBufSize, options); }
 int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, size_t attrBufSize, size_t options) { return getattrlistbulk(dirfd, attrList, attrBuf, attrBufSize, options); }
+#endif
+#ifdef __APPLE__
 int libc_execvP(const char* file, const char* searchPath, void* argv) { return execvP(file, searchPath, argv); }
 int libc_exchangedata(const char* path1, const char* path2, unsigned long options) { return exchangedata(path1, path2, options); }
+#endif
+#ifdef __APPLE__
 int libc_lchflags(const char* path, unsigned long flags) { return lchflags(path, flags); }
 int libc_ffsl(long value) { return ffsl(value); }
+#endif
 int libc_ffsll(long long value) { return ffsll(value); }
+#ifdef __APPLE__
 int libc_fls(int value) { return fls(value); }
 int libc_flsl(long value) { return flsl(value); }
+#endif
+#ifdef __APPLE__
 int libc_flsll(long long value) { return flsll(value); }
 
+#endif
 /* Socket / signal / sched / pthread / pty wrappers — void* for struct params */
 int libc_getnameinfo(void* sa, unsigned int salen, char* host, unsigned int hostlen, char* serv, unsigned int servlen, int flags) {
     return getnameinfo((const struct sockaddr*)sa, (socklen_t)salen, host, (socklen_t)hostlen, serv, (socklen_t)servlen, flags);

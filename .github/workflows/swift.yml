@@ -75,6 +75,11 @@ jobs:
       #     repo's `project.frameworkName` (the Swift Export module name).
       #   * Four `.swiftmodule/` directories: <Module>,
       #     KotlinRuntimeSupport, ExportedKotlinPackages, KotlinRuntime.
+      - name: Compile C wrapper
+        run: |
+          clang -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
+          ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
+        
       - name: Build Swift Export package
         env:
           BUILT_PRODUCTS_DIR: ${{ github.workspace }}/build/swift-test
