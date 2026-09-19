@@ -25,11 +25,12 @@ import libc.cinterop.libc_rand
 import libc.cinterop.libc_srand
 import kotlinx.cinterop.CPointer
 import libc.cinterop.libc_free
+import libc.cinterop.libc_atol
 
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires FFI bridge")
+    libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
 public actual fun calloc(nmemb: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires FFI bridge")
+    libc.cinterop.libc_calloc(nmemb, size)?.let { COpaquePointer(it.toLong()) }
 public actual fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc requires FFI bridge")
 public actual fun free(ptr: COpaquePointer?) {
@@ -56,7 +57,7 @@ public actual fun atoi(nptr: String?): CInt {
     return libc.cinterop.libc_atoi(nptr)
 }
 public actual fun atol(nptr: String?): CLong =
-    throw UnsupportedOperationException("atol requires FFI bridge")
+    libc.cinterop.libc_atol(nptr)
 public actual fun atoll(nptr: String?): CLongLong {
     if (nptr == null) return 0
     return libc.cinterop.libc_atoll(nptr)
@@ -81,7 +82,7 @@ public actual fun srand(seed: CUInt): Unit {
 public actual fun abs(j: CInt): CInt =
     libc.cinterop.libc_abs(j)
 public actual fun labs(j: CLong): CLong =
-    throw UnsupportedOperationException("labs requires FFI bridge")
+    libc.cinterop.libc_labs(j)
 public actual fun llabs(j: CLongLong): CLongLong =
     libc.cinterop.libc_llabs(j)
 public actual fun atexit(function: (() -> Unit)?): CInt =

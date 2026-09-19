@@ -25,6 +25,13 @@ import libc.cinterop.libc_settimeofday
 import libc.cinterop.libc_srand
 import libc.cinterop.libc_strerror_r
 import libc.cinterop.libc_telldir
+import libc.cinterop.libc_abs
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_faccessat
+import libc.cinterop.libc_labs
+import libc.cinterop.libc_lrand48
+import libc.cinterop.libc_rand
+import libc.cinterop.libc_shmdt
 
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
@@ -115,7 +122,7 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("labs requires FFI bridge")
+    libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
@@ -123,7 +130,7 @@ public actual fun srand(seed: CUInt) {
 }
 
 public actual fun lrand48(): CLong =
-    throw UnsupportedOperationException("lrand48 requires FFI bridge")
+    libc.cinterop.libc_lrand48()
 public actual fun nrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("nrand48 requires manual FFI bridge — not yet implemented")
 

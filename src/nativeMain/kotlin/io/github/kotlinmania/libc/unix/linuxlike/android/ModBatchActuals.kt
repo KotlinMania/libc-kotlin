@@ -35,6 +35,8 @@ import libc.cinterop.libc_setrlimit
 import libc.cinterop.libc_settimeofday
 import libc.cinterop.libc_strerror_r
 import libc.cinterop.libc_telldir
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_faccessat
 
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
@@ -479,10 +481,10 @@ public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval requires manual FFI bridge — not yet implemented")
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 public actual fun systemPropertySet(name: String?, value: String?): CInt =
     throw UnsupportedOperationException("systemPropertySet requires manual FFI bridge — not yet implemented")
 

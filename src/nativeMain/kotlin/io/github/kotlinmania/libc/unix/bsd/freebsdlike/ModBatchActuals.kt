@@ -34,6 +34,13 @@ import libc.cinterop.libc_settimeofday
 import libc.cinterop.libc_shm_open
 import libc.cinterop.libc_sysctl
 import libc.cinterop.libc_utimensat
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_execvP
+import libc.cinterop.libc_lchflags
+import libc.cinterop.libc_mkostemp
+import libc.cinterop.libc_mkostemps
+import libc.cinterop.libc_reboot
 
 public actual fun semDestroy(sem: SemT): CInt =
     throw UnsupportedOperationException("semDestroy requires manual FFI bridge — not yet implemented")
@@ -141,7 +148,7 @@ public actual fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlis
     throw UnsupportedOperationException("kevent requires manual FFI bridge — not yet implemented")
 
 public actual fun lchflags(path: String?, flags: CULong): CInt =
-    throw UnsupportedOperationException("lchflags requires FFI bridge")
+    libc.cinterop.libc_lchflags(path, flags)
 public actual fun lutimes(file: String?, times: Timeval?): CInt =
     throw UnsupportedOperationException("lutimes requires manual FFI bridge — not yet implemented")
 
@@ -153,7 +160,7 @@ public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
     throw UnsupportedOperationException("mkfifoat requires per-platform actual — ModeT width differs across native targets")
 }
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires FFI bridge")
+    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun mallocUsableSize(ptr: COpaquePointer?): ULong =
     throw UnsupportedOperationException("mallocUsableSize requires manual FFI bridge — not yet implemented")
@@ -348,7 +355,7 @@ public actual fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt =
     throw UnsupportedOperationException("sigwaitinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
-    throw UnsupportedOperationException("sysctl requires FFI bridge")
+    throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctlbyname requires manual FFI bridge — not yet implemented")
@@ -521,10 +528,10 @@ public actual fun mqUnlink(name: String?): CInt =
     throw UnsupportedOperationException("mqUnlink requires manual FFI bridge — not yet implemented")
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt =
     throw UnsupportedOperationException("openpty requires manual FFI bridge — not yet implemented")
 

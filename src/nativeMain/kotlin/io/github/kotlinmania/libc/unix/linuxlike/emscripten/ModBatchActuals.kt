@@ -73,7 +73,7 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
 public actual fun abs(i: CInt): CInt =
     throw UnsupportedOperationException("abs requires FFI bridge")
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("labs requires FFI bridge")
+    libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt): Unit {
@@ -196,7 +196,7 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
 }
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires manual FFI bridge — not yet implemented")

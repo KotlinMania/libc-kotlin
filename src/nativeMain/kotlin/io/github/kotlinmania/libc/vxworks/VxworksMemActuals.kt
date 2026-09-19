@@ -21,13 +21,11 @@ import libc.cinterop.libc_memset
 import libc.cinterop.libc_realloc
 import libc.cinterop.libc_aligned_alloc
 
-public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? {
-    throw UnsupportedOperationException("calloc requires per-platform actual — size_t width differs across native targets")
-}
+public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
+    libc.cinterop.libc_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun malloc(size: ULong): COpaquePointer? {
-    throw UnsupportedOperationException("malloc requires per-platform actual — size_t width differs across native targets")
-}
+public actual fun malloc(size: ULong): COpaquePointer? =
+    libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? {
     throw UnsupportedOperationException("realloc requires per-platform actual — size_t width differs across native targets")

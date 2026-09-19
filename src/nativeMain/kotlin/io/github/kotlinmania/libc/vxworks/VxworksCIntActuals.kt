@@ -68,6 +68,15 @@ import libc.cinterop.libc_system
 import libc.cinterop.libc_gethostname
 import libc.cinterop.libc_dup2
 import libc.cinterop.libc_access
+import libc.cinterop.libc_close
+import libc.cinterop.libc_link
+import libc.cinterop.libc_setegid
+import libc.cinterop.libc_seteuid
+import libc.cinterop.libc_setgid
+import libc.cinterop.libc_setuid
+import libc.cinterop.libc_shm_open
+import libc.cinterop.libc_symlink
+import libc.cinterop.libc_unlink
 
 public actual fun tolower(c: CInt): CInt = libc.cinterop.libc_tolower(c)
 
@@ -111,7 +120,7 @@ public actual fun strcmp(cs: String?, ct: String?): CInt {
     return libc.cinterop.libc_strcmp(cs, ct)
 }
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires FFI bridge")
+    libc.cinterop.libc_strncmp(cs, ct, n)
 public actual fun strcoll(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
@@ -123,7 +132,7 @@ public actual fun strcasecmp(s1: String?, s2: String?): CInt {
     return libc.cinterop.libc_strcasecmp(s1, s2)
 }
 public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncasecmp requires FFI bridge")
+    libc.cinterop.libc_strncasecmp(s1, s2, n)
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()

@@ -39,7 +39,7 @@ public actual fun pthreadGetprocessoridNp(): CInt =
     throw UnsupportedOperationException("pthreadGetprocessoridNp requires manual FFI bridge — not yet implemented")
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("gethostid requires FFI bridge")

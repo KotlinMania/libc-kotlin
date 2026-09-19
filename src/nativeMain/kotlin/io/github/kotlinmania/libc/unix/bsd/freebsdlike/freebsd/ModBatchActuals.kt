@@ -17,6 +17,9 @@ import libc.cinterop.libc_flsl
 import libc.cinterop.libc_fdatasync
 import libc.cinterop.libc_flsll
 import libc.cinterop.libc_shmdt
+import libc.cinterop.libc_ffs
+import libc.cinterop.libc_ffsl
+import libc.cinterop.libc_fls
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
@@ -420,13 +423,13 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
 public actual fun ffs(value: CInt): CInt =
     libc.cinterop.libc_ffs(value)
 public actual fun ffsl(value: CLong): CInt =
-    throw UnsupportedOperationException("ffsl requires FFI bridge")
+    libc.cinterop.libc_ffsl(value)
 public actual fun ffsll(value: CLongLong): CInt =
     libc.cinterop.libc_ffsll(value)
 public actual fun fls(value: CInt): CInt =
     libc.cinterop.libc_fls(value)
 public actual fun flsl(value: CLong): CInt =
-    throw UnsupportedOperationException("flsl requires FFI bridge")
+    libc.cinterop.libc_flsl(value)
 public actual fun flsll(value: CLongLong): CInt =
     libc.cinterop.libc_flsll(value)
 public actual fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =

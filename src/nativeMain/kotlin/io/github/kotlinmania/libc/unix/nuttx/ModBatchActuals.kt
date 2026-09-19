@@ -8,6 +8,9 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_futimens
+import libc.cinterop.libc_getrandom
 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
@@ -43,7 +46,7 @@ public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong):
     throw UnsupportedOperationException("pthreadGetnameNp requires manual FFI bridge — not yet implemented")
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires FFI bridge")

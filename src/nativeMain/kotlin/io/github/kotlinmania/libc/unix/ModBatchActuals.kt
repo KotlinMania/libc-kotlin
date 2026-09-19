@@ -188,6 +188,11 @@ import libc.cinterop.libc_setregid
 import libc.cinterop.libc_setreuid
 import libc.cinterop.libc_setuid
 import libc.cinterop.libc_tmpfile
+import libc.cinterop.libc_close
+import libc.cinterop.libc_kill
+import libc.cinterop.libc_link
+import libc.cinterop.libc_symlink
+import libc.cinterop.libc_unlink
 
 public actual fun isalnum(c: CInt): CInt = libc.cinterop.libc_isalnum(c)
 public actual fun isalpha(c: CInt): CInt = libc.cinterop.libc_isalpha(c)
@@ -234,7 +239,7 @@ public actual fun tmpfile(): FILE? {
     return if (result != null) FILE(result.toLong()) else null
 }
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
-    throw UnsupportedOperationException("setvbuf requires FFI bridge")
+    libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
 public actual fun setbuf(stream: FILE?, buf: String?) {
     throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
 }
@@ -264,9 +269,9 @@ public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fwrite requires FFI bridge")
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    throw UnsupportedOperationException("fseek requires FFI bridge")
+    libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
 public actual fun ftell(stream: FILE?): CLong =
-    throw UnsupportedOperationException("ftell requires FFI bridge")
+    libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun rewind(stream: FILE?) {
     if (stream == null) return
     val streamPtr: CPointer<ByteVar>? = stream.handle.toCPointer()
@@ -299,7 +304,7 @@ public actual fun atoi(s: String?): CInt {
     return libc.cinterop.libc_atoi(s)
 }
 public actual fun atol(s: String?): CLong =
-    throw UnsupportedOperationException("atol requires FFI bridge")
+    libc.cinterop.libc_atol(s)
 public actual fun atoll(s: String?): CLongLong {
     val result = libc_atoll(s)
     return result
@@ -316,9 +321,9 @@ public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULon
     throw UnsupportedOperationException("strtoull requires manual FFI bridge — not yet implemented")
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires FFI bridge")
+    libc.cinterop.libc_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires FFI bridge")
+    libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc requires FFI bridge")
 public actual fun free(p: COpaquePointer?): Unit {
@@ -371,7 +376,7 @@ public actual fun strcmp(cs: String?, ct: String?): CInt {
     return libc.cinterop.libc_strcmp(cs, ct)
 }
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires FFI bridge")
+    libc.cinterop.libc_strncmp(cs, ct, n)
 public actual fun strcoll(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
@@ -394,9 +399,9 @@ public actual fun strrchr(cs: String?, c: CInt): String? {
     }
 }
 public actual fun strspn(cs: String?, ct: String?): ULong =
-    throw UnsupportedOperationException("strspn requires FFI bridge")
+    libc.cinterop.libc_strspn(cs, ct)
 public actual fun strcspn(cs: String?, ct: String?): ULong =
-    throw UnsupportedOperationException("strcspn requires FFI bridge")
+    libc.cinterop.libc_strcspn(cs, ct)
 public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
     return memScoped {
@@ -436,11 +441,11 @@ public actual fun strcasecmp(s1: String?, s2: String?): CInt {
     return libc.cinterop.libc_strcasecmp(s1, s2)
 }
 public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncasecmp requires FFI bridge")
+    libc.cinterop.libc_strncasecmp(s1, s2, n)
 public actual fun strlen(cs: String?): ULong =
-    throw UnsupportedOperationException("strlen requires FFI bridge")
+    libc.cinterop.libc_strlen(cs)
 public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
-    throw UnsupportedOperationException("strnlen requires FFI bridge")
+    libc.cinterop.libc_strnlen(cs, maxlen)
 public actual fun strerror(n: CInt): String? {
     val result = libc_strerror(n)
     return result?.toKString()
@@ -1175,9 +1180,9 @@ public actual fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?):
     throw UnsupportedOperationException("readdirR requires manual FFI bridge — not yet implemented")
 
 public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): CInt =
-    throw UnsupportedOperationException("readlinkat requires FFI bridge")
+    throw UnsupportedOperationException("readlinkat requires manual FFI bridge — not yet implemented")
 public actual fun readlink(path: String?, buf: String?, bufsz: ULong): CInt =
-    throw UnsupportedOperationException("readlink requires FFI bridge")
+    throw UnsupportedOperationException("readlink requires manual FFI bridge — not yet implemented")
 public actual fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timespec?, sigmask: SigsetT?): CInt =
     throw UnsupportedOperationException("pselect requires manual FFI bridge — not yet implemented")
 

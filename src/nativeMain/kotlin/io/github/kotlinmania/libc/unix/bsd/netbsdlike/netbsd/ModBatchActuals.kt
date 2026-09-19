@@ -19,6 +19,8 @@ import libc.cinterop.libc_reboot
 import libc.cinterop.libc_sched_getscheduler
 import libc.cinterop.libc_settimeofday
 import libc.cinterop.libc_sysctl
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_lchflags
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
@@ -48,7 +50,7 @@ public actual fun chflags(path: String?, flags: CULong): CInt =
 public actual fun fchflags(fd: CInt, flags: CULong): CInt =
     throw UnsupportedOperationException("fchflags requires FFI bridge")
 public actual fun lchflags(path: String?, flags: CULong): CInt =
-    throw UnsupportedOperationException("lchflags requires FFI bridge")
+    libc.cinterop.libc_lchflags(path, flags)
 public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: ULong): SsizeT =
     throw UnsupportedOperationException("extattrListFd requires manual FFI bridge — not yet implemented")
 
@@ -118,7 +120,7 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hos
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect requires FFI bridge")
 public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
-    throw UnsupportedOperationException("sysctl requires FFI bridge")
+    throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctlbyname requires manual FFI bridge — not yet implemented")
@@ -320,7 +322,7 @@ public actual fun pollts(fds: Pollfd?, nfds: NfdsT, ts: Timespec?, sigmask: Sigs
     throw UnsupportedOperationException("pollts requires manual FFI bridge — not yet implemented")
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun reboot(mode: CInt, bootstr: String?): CInt =
     throw UnsupportedOperationException("reboot requires FFI bridge")

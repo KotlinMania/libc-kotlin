@@ -9,6 +9,27 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toLong
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_endgrent
+import libc.cinterop.libc_endpwent
+import libc.cinterop.libc_futimens
+import libc.cinterop.libc_getdtablesize
+import libc.cinterop.libc_getpriority
+import libc.cinterop.libc_getrlimit
+import libc.cinterop.libc_getsubopt
+import libc.cinterop.libc_gettimeofday
+import libc.cinterop.libc_memalign
+import libc.cinterop.libc_mkostemp
+import libc.cinterop.libc_mkostemps
+import libc.cinterop.libc_setgrent
+import libc.cinterop.libc_setpriority
+import libc.cinterop.libc_setpwent
+import libc.cinterop.libc_setrlimit
+import libc.cinterop.libc_shm_open
+import libc.cinterop.libc_shm_unlink
+import libc.cinterop.libc_strlcat
+import libc.cinterop.libc_strlcpy
+import libc.cinterop.libc_uname
 
 public actual fun fDCLR(fd: CInt, set: FdSet?) {
     throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
@@ -76,7 +97,7 @@ public actual fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroup
     throw UnsupportedOperationException("getgrouplist requires manual FFI bridge — not yet implemented")
 
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memalign requires FFI bridge")
+    libc.cinterop.libc_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getnameinfo(addr: Sockaddr?, addrlen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
@@ -140,9 +161,9 @@ public actual fun explicitBzero(p: COpaquePointer?, len: ULong) {
 }
 
 public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong =
-    throw UnsupportedOperationException("strlcat requires FFI bridge")
+    libc.cinterop.libc_strlcat(dst, src, siz)
 public actual fun strlcpy(dst: String?, src: String?, siz: ULong): ULong =
-    throw UnsupportedOperationException("strlcpy requires FFI bridge")
+    libc.cinterop.libc_strlcpy(dst, src, siz)
 public actual fun epollCreate(size: CInt): CInt =
     throw UnsupportedOperationException("epollCreate requires manual FFI bridge — not yet implemented")
 

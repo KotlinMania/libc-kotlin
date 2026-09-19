@@ -12,7 +12,7 @@ import libc.cinterop.libc_getrandom
 import libc.cinterop.libc_gethostname
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun gethostname(name: String?, namelen: SsizeT) {
     throw UnsupportedOperationException("gethostname requires FFI bridge")

@@ -30,7 +30,7 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
     throw UnsupportedOperationException("pthreadCondattrSetclock requires manual FFI bridge — not yet implemented")
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
 public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
     throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")

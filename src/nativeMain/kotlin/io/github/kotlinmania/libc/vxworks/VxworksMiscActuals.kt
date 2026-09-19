@@ -41,7 +41,7 @@ import libc.cinterop.libc_strcspn
 
 
 public actual fun atol(s: String?): CLong =
-    throw UnsupportedOperationException("atol requires FFI bridge")
+    libc.cinterop.libc_atol(s)
 
 public actual fun atoll(s: String?): CLongLong {
     if (s == null) return 0
@@ -49,10 +49,10 @@ public actual fun atoll(s: String?): CLongLong {
 }
 
 public actual fun strspn(cs: String?, ct: String?): ULong =
-    throw UnsupportedOperationException("strspn requires FFI bridge")
+    libc.cinterop.libc_strspn(cs, ct)
 
 public actual fun strcspn(cs: String?, ct: String?): ULong =
-    throw UnsupportedOperationException("strcspn requires FFI bridge")
+    libc.cinterop.libc_strcspn(cs, ct)
 
 public actual fun strlen(cs: String?): ULong {
     if (cs == null) return 0uL
@@ -60,7 +60,7 @@ public actual fun strlen(cs: String?): ULong {
 }
 
 public actual fun strnlen(cs: String?, n: ULong): ULong =
-    throw UnsupportedOperationException("strnlen requires FFI bridge")
+    libc.cinterop.libc_strnlen(cs, n)
 
 public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires FFI bridge")
@@ -120,7 +120,7 @@ public actual fun getline(lineptr: COpaquePointer?, n: ULong?, stream: FILE?): S
     throw UnsupportedOperationException("getline requires manual FFI bridge — not yet implemented")
 
 public actual fun memalign(blockSize: ULong, sizeArg: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memalign requires FFI bridge")
+    libc.cinterop.libc_memalign(blockSize, sizeArg)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun readdir(pDir: DIR?): Dirent? =
     throw UnsupportedOperationException("readdir requires manual FFI bridge — not yet implemented")
@@ -139,7 +139,7 @@ public actual fun getppid(): PidT =
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
     libc.cinterop.libc_setpgid(pid, pgid)
 public actual fun readlink(path: String?, buf: String?, bufsize: ULong): SsizeT =
-    throw UnsupportedOperationException("readlink requires FFI bridge")
+    libc.cinterop.libc_readlink(path, buf, bufsize)
 public actual fun opendir(name: String?): DIR? =
     throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
 

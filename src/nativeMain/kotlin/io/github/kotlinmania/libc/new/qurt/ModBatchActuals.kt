@@ -92,7 +92,7 @@ public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires FFI bridge")
 
 public actual fun strlen(s: String?): ULong =
-    throw UnsupportedOperationException("strlen requires FFI bridge")
+    libc.cinterop.libc_strlen(s)
 public actual fun strcpy(dest: String?, src: String?): String? =
     if (dest == null || src == null) null
     else memScoped {
@@ -110,7 +110,7 @@ public actual fun strncat(dest: String?, src: String?, n: ULong): String? =
 public actual fun strcmp(s1: String?, s2: String?): CInt =
     throw UnsupportedOperationException("strcmp requires FFI bridge")
 public actual fun strncmp(s1: String?, s2: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires FFI bridge")
+    libc.cinterop.libc_strncmp(s1, s2, n)
 public actual fun strxfrm(dest: String?, src: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires FFI bridge")
 public actual fun strchr(s: String?, c: CInt): String? {
@@ -130,9 +130,9 @@ public actual fun strrchr(s: String?, c: CInt): String? {
     }
 }
 public actual fun strspn(s: String?, accept: String?): ULong =
-    throw UnsupportedOperationException("strspn requires FFI bridge")
+    libc.cinterop.libc_strspn(s, accept)
 public actual fun strcspn(s: String?, reject: String?): ULong =
-    throw UnsupportedOperationException("strcspn requires FFI bridge")
+    libc.cinterop.libc_strcspn(s, reject)
 public actual fun strpbrk(s: String?, accept: String?): String? {
     if (s == null) return null
     if (accept == null) return null

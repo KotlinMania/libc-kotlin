@@ -114,7 +114,7 @@ public actual fun basename(path: String?): String? {
 }
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun posixSpawnFileActionsAddchdirNp(actions: PosixSpawnFileActionsT, path: String?): CInt =
     throw UnsupportedOperationException("posixSpawnFileActionsAddchdirNp requires FFI bridge")

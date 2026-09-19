@@ -9,6 +9,43 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toLong
+import libc.cinterop.libc_abs
+import libc.cinterop.libc_acct
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_endgrent
+import libc.cinterop.libc_endpwent
+import libc.cinterop.libc_faccessat
+import libc.cinterop.libc_fdatasync
+import libc.cinterop.libc_futimens
+import libc.cinterop.libc_getdtablesize
+import libc.cinterop.libc_getentropy
+import libc.cinterop.libc_getpagesize
+import libc.cinterop.libc_getpriority
+import libc.cinterop.libc_getrandom
+import libc.cinterop.libc_getrlimit
+import libc.cinterop.libc_initgroups
+import libc.cinterop.libc_labs
+import libc.cinterop.libc_memalign
+import libc.cinterop.libc_mknodat
+import libc.cinterop.libc_mkstemps
+import libc.cinterop.libc_popen
+import libc.cinterop.libc_rand
+import libc.cinterop.libc_sched_get_priority_max
+import libc.cinterop.libc_sched_get_priority_min
+import libc.cinterop.libc_sched_getscheduler
+import libc.cinterop.libc_sem_unlink
+import libc.cinterop.libc_setgrent
+import libc.cinterop.libc_setpriority
+import libc.cinterop.libc_setpwent
+import libc.cinterop.libc_setrlimit
+import libc.cinterop.libc_settimeofday
+import libc.cinterop.libc_shm_open
+import libc.cinterop.libc_shm_unlink
+import libc.cinterop.libc_shmdt
+import libc.cinterop.libc_srand
+import libc.cinterop.libc_uname
+import libc.cinterop.libc_utimensat
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
@@ -71,7 +108,7 @@ public actual fun acct(filename: String?): CInt {
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("labs requires FFI bridge")
+    libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
@@ -79,10 +116,10 @@ public actual fun srand(seed: CUInt) {
 }
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
 public actual fun getrandom(bbuf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt =
     throw UnsupportedOperationException("gettimeofday requires FFI bridge")
@@ -189,7 +226,7 @@ public actual fun setpriority(which: CInt, who: CInt, prio: CInt): CInt {
 }
 
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires FFI bridge")
+    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifoat requires FFI bridge")
@@ -353,7 +390,7 @@ public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("msync requires FFI bridge")
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memalign requires FFI bridge")
+    libc.cinterop.libc_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")

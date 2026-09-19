@@ -87,10 +87,10 @@ public actual fun ungetc(c: CInt, stream: FILE?): CInt {
 }
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    throw UnsupportedOperationException("fseek requires FFI bridge")
+    libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
 
 public actual fun ftell(stream: FILE?): CLong =
-    throw UnsupportedOperationException("ftell requires FFI bridge")
+    libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun feof(stream: FILE?): CInt {
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
@@ -138,7 +138,7 @@ public actual fun puts(s: String?): CInt {
 }
 
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
-    throw UnsupportedOperationException("setvbuf requires FFI bridge")
+    libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
 public actual fun setbuf(stream: FILE?, buf: String?) {
     throw UnsupportedOperationException("setbuf requires CValuesRef bridge for buf param")
 }

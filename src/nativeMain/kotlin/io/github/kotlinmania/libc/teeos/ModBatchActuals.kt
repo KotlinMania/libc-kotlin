@@ -34,11 +34,27 @@ import libc.cinterop.libc_strncpy
 import libc.cinterop.libc_strrchr
 import libc.cinterop.libc_strstr
 import libc.cinterop.libc_free
+import libc.cinterop.libc_abs
+import libc.cinterop.libc_atoi
+import libc.cinterop.libc_atol
+import libc.cinterop.libc_getpid
+import libc.cinterop.libc_isalpha
+import libc.cinterop.libc_isascii
+import libc.cinterop.libc_isdigit
+import libc.cinterop.libc_islower
+import libc.cinterop.libc_isprint
+import libc.cinterop.libc_isspace
+import libc.cinterop.libc_random
+import libc.cinterop.libc_strcmp
+import libc.cinterop.libc_strcoll
+import libc.cinterop.libc_strlen
+import libc.cinterop.libc_strncmp
+import libc.cinterop.libc_strnlen
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc requires FFI bridge")
+    libc.cinterop.libc_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc requires FFI bridge")
+    libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc requires FFI bridge")
 public actual fun alignedAlloc(align: ULong, len: ULong): COpaquePointer? =
@@ -298,7 +314,7 @@ public actual fun setstate(state: String?): String? =
     throw UnsupportedOperationException("setstate requires manual FFI bridge — not yet implemented")
 
 public actual fun random(): CLong =
-    throw UnsupportedOperationException("random requires FFI bridge")
+    libc.cinterop.libc_random()
 public actual fun strchr(s: String?, c: CInt): String? {
     if (s == null) return null
     return memScoped {
@@ -308,7 +324,7 @@ public actual fun strchr(s: String?, c: CInt): String? {
     }
 }
 public actual fun strlen(cs: String?): ULong =
-    throw UnsupportedOperationException("strlen requires FFI bridge")
+    libc.cinterop.libc_strlen(cs)
 public actual fun strcmp(l: String?, r: String?): CInt {
     if (l == null) return -1
     if (r == null) return -1
@@ -325,11 +341,11 @@ public actual fun strcpy(dest: String?, src: String?): String? {
     }
 }
 public actual fun strncmp(l: String?, r: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires FFI bridge")
+    libc.cinterop.libc_strncmp(l, r, n)
 public actual fun strncpy(dest: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncpy requires FFI bridge")
 public actual fun strnlen(cs: String?, n: ULong): ULong =
-    throw UnsupportedOperationException("strnlen requires FFI bridge")
+    libc.cinterop.libc_strnlen(cs, n)
 public actual fun strrchr(s: String?, c: CInt): String? {
     if (s == null) return null
     return memScoped {
@@ -383,7 +399,7 @@ public actual fun atoi(s: String?): CInt {
     return libc.cinterop.libc_atoi(s)
 }
 public actual fun atol(s: String?): CLong =
-    throw UnsupportedOperationException("atol requires FFI bridge")
+    libc.cinterop.libc_atol(s)
 public actual fun atoll(s: String?): CLongLong {
     if (s == null) return 0
     val result = libc_atoll(s)

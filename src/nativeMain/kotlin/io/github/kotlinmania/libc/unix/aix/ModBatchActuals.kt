@@ -53,6 +53,19 @@ import libc.cinterop.libc_telldir
 import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
 import libc.cinterop.libc_writev
+import libc.cinterop.libc_acct
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_faccessat
+import libc.cinterop.libc_fdatasync
+import libc.cinterop.libc_ffs
+import libc.cinterop.libc_ffsl
+import libc.cinterop.libc_ffsll
+import libc.cinterop.libc_getdtablesize
+import libc.cinterop.libc_getpagesize
+import libc.cinterop.libc_lrand48
+import libc.cinterop.libc_mrand48
+import libc.cinterop.libc_rand
+import libc.cinterop.libc_shmdt
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
@@ -374,7 +387,7 @@ public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?
 public actual fun ffs(value: CInt): CInt =
     libc.cinterop.libc_ffs(value)
 public actual fun ffsl(value: CLong): CInt =
-    throw UnsupportedOperationException("ffsl requires FFI bridge")
+    libc.cinterop.libc_ffsl(value)
 public actual fun ffsll(value: CLongLong): CInt =
     libc.cinterop.libc_ffsll(value)
 public actual fun fgetgrent(file: FILE?): Group? =
@@ -564,7 +577,7 @@ public actual fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt =
     throw UnsupportedOperationException("lparSetResources requires manual FFI bridge — not yet implemented")
 
 public actual fun lrand48(): CLong =
-    throw UnsupportedOperationException("lrand48 requires FFI bridge")
+    libc.cinterop.libc_lrand48()
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
     throw UnsupportedOperationException("lseek64 requires manual FFI bridge — not yet implemented")
 
@@ -587,7 +600,7 @@ public actual fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt =
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifoat requires FFI bridge")
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires FFI bridge")
+    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun mount(device: String?, path: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("mount requires manual FFI bridge — not yet implemented")
@@ -625,7 +638,7 @@ public actual fun mqUnlink(name: String?): CInt =
     throw UnsupportedOperationException("mqUnlink requires manual FFI bridge — not yet implemented")
 
 public actual fun mrand48(): CLong =
-    throw UnsupportedOperationException("mrand48 requires FFI bridge")
+    libc.cinterop.libc_mrand48()
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MsqidDs?): CInt =
     throw UnsupportedOperationException("msgctl requires manual FFI bridge — not yet implemented")
 

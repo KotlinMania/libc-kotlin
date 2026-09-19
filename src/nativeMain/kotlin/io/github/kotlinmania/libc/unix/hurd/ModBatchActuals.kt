@@ -44,6 +44,24 @@ import libc.cinterop.libc_telldir
 import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
 import libc.cinterop.libc_writev
+import libc.cinterop.libc_abs
+import libc.cinterop.libc_acct
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_faccessat
+import libc.cinterop.libc_fdatasync
+import libc.cinterop.libc_ftruncate
+import libc.cinterop.libc_getdtablesize
+import libc.cinterop.libc_labs
+import libc.cinterop.libc_lrand48
+import libc.cinterop.libc_lseek
+import libc.cinterop.libc_mkostemp
+import libc.cinterop.libc_mkostemps
+import libc.cinterop.libc_mkstemps
+import libc.cinterop.libc_mrand48
+import libc.cinterop.libc_rand
+import libc.cinterop.libc_reboot
+import libc.cinterop.libc_shutdown
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
@@ -125,7 +143,7 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: 
 public actual fun mkfifoat(fd: CInt, path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifoat requires FFI bridge")
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires FFI bridge")
+    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun libcCurrentSigrtmin(): CInt =
     throw UnsupportedOperationException("libcCurrentSigrtmin requires manual FFI bridge — not yet implemented")
@@ -958,10 +976,10 @@ public actual fun setpriority(which: PriorityWhich, who: IdT, prio: CInt): CInt 
     throw UnsupportedOperationException("setpriority requires manual FFI bridge — not yet implemented")
 
 public actual fun getrandom(buffer: COpaquePointer?, length: ULong, flags: CUInt): SsizeT =
-    throw UnsupportedOperationException("getrandom requires FFI bridge")
+    throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
 public actual fun getentropy(buffer: COpaquePointer?, length: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memrchr requires manual FFI bridge — not yet implemented")
@@ -975,7 +993,7 @@ public actual fun strchrnul(s: String?, c: CInt): String? =
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("labs requires FFI bridge")
+    libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
@@ -983,12 +1001,12 @@ public actual fun srand(seed: CUInt) {
 }
 
 public actual fun lrand48(): CLong =
-    throw UnsupportedOperationException("lrand48 requires FFI bridge")
+    libc.cinterop.libc_lrand48()
 public actual fun nrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("nrand48 requires manual FFI bridge — not yet implemented")
 
 public actual fun mrand48(): CLong =
-    throw UnsupportedOperationException("mrand48 requires FFI bridge")
+    libc.cinterop.libc_mrand48()
 public actual fun jrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("jrand48 requires manual FFI bridge — not yet implemented")
 
@@ -1010,7 +1028,7 @@ public actual fun sbrk(increment: IntptrT): COpaquePointer? =
     throw UnsupportedOperationException("sbrk requires manual FFI bridge — not yet implemented")
 
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memalign requires FFI bridge")
+    libc.cinterop.libc_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
     throw UnsupportedOperationException("mallopt requires manual FFI bridge — not yet implemented")

@@ -8,4 +8,4 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import libc.cinterop.libc_exchangedata
 
 public actual fun exchangedata(path1: String?, path2: String?, options: CULong): CInt =
-    throw UnsupportedOperationException("exchangedata requires FFI bridge")
+    libc.cinterop.libc_exchangedata(path1, path2, options)

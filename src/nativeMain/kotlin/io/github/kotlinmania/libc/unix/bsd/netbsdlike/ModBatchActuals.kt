@@ -28,6 +28,11 @@ import libc.cinterop.libc_setpriority
 import libc.cinterop.libc_shm_open
 import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_fdatasync
+import libc.cinterop.libc_mkostemp
+import libc.cinterop.libc_mkostemps
+import libc.cinterop.libc_shmdt
 
 public actual fun setgrent() {
     libc_setgrent()
@@ -110,7 +115,7 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
 }
 
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires FFI bridge")
+    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifoat requires FFI bridge")
@@ -272,7 +277,7 @@ public actual fun basename(path: String?): String? {
 }
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
 public actual fun sendmmsg(sockfd: CInt, mmsg: Mmsghdr?, vlen: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("sendmmsg requires manual FFI bridge — not yet implemented")

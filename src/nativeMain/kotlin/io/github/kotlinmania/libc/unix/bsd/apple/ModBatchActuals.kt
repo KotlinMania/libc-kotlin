@@ -36,6 +36,14 @@ import libc.cinterop.libc_strtonum
 import libc.cinterop.libc_sysctl
 import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
+import libc.cinterop.libc_chflags
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_execvP
+import libc.cinterop.libc_fchflags
+import libc.cinterop.libc_getattrlistat
+import libc.cinterop.libc_getattrlistbulk
+import libc.cinterop.libc_shmdt
 
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
@@ -184,7 +192,7 @@ public actual fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt =
     throw UnsupportedOperationException("shmget requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
-    throw UnsupportedOperationException("sysctl requires FFI bridge")
+    throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctlbyname(name: String?, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctlbyname requires manual FFI bridge — not yet implemented")
@@ -716,7 +724,7 @@ public actual fun sethostid(hostid: CLong) {
 }
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
-    throw UnsupportedOperationException("getentropy requires FFI bridge")
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
 public actual fun nSGetExecutablePath(buf: String?, bufsize: UInt?): CInt =
     throw UnsupportedOperationException("nSGetExecutablePath requires manual FFI bridge — not yet implemented")
@@ -773,7 +781,7 @@ public actual fun fgetattrlist(fd: CInt, attrList: COpaquePointer?, attrBuf: COp
     throw UnsupportedOperationException("fgetattrlist requires manual FFI bridge — not yet implemented")
 
 public actual fun getattrlistat(fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong): CInt =
-    throw UnsupportedOperationException("getattrlistat requires FFI bridge")
+    throw UnsupportedOperationException("getattrlistat requires manual FFI bridge — not yet implemented")
 public actual fun setattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt =
     throw UnsupportedOperationException("setattrlist requires manual FFI bridge — not yet implemented")
 
@@ -784,7 +792,7 @@ public actual fun setattrlistat(dirFd: CInt, path: String?, attrList: COpaquePoi
     throw UnsupportedOperationException("setattrlistat requires manual FFI bridge — not yet implemented")
 
 public actual fun getattrlistbulk(dirfd: CInt, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: ULong): CInt =
-    throw UnsupportedOperationException("getattrlistbulk requires FFI bridge")
+    throw UnsupportedOperationException("getattrlistbulk requires manual FFI bridge — not yet implemented")
 public actual fun mallocSize(ptr: COpaquePointer?): ULong =
     throw UnsupportedOperationException("mallocSize requires manual FFI bridge — not yet implemented")
 
@@ -806,7 +814,7 @@ public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
     throw UnsupportedOperationException("mkfifoat requires per-platform actual — ModeT width differs across native targets")
 }
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires FFI bridge")
+    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun freadlink(fd: CInt, buf: String?, size: ULong): CInt =
     throw UnsupportedOperationException("freadlink requires manual FFI bridge — not yet implemented")

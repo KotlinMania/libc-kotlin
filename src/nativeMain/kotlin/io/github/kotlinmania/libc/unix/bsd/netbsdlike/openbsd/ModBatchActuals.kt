@@ -117,7 +117,7 @@ public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: 
     throw UnsupportedOperationException("forkpty requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
-    throw UnsupportedOperationException("sysctl requires FFI bridge")
+    throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
     throw UnsupportedOperationException("setresgid requires manual FFI bridge — not yet implemented")

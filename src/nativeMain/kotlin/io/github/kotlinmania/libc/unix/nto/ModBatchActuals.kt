@@ -9,6 +9,42 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toLong
+import libc.cinterop.libc_abs
+import libc.cinterop.libc_daemon
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_endgrent
+import libc.cinterop.libc_endpwent
+import libc.cinterop.libc_faccessat
+import libc.cinterop.libc_fdatasync
+import libc.cinterop.libc_futimens
+import libc.cinterop.libc_getdtablesize
+import libc.cinterop.libc_getpriority
+import libc.cinterop.libc_getrlimit
+import libc.cinterop.libc_gettimeofday
+import libc.cinterop.libc_initgroups
+import libc.cinterop.libc_labs
+import libc.cinterop.libc_memalign
+import libc.cinterop.libc_mknodat
+import libc.cinterop.libc_mkostemp
+import libc.cinterop.libc_mkostemps
+import libc.cinterop.libc_mkstemps
+import libc.cinterop.libc_popen
+import libc.cinterop.libc_rand
+import libc.cinterop.libc_sched_get_priority_max
+import libc.cinterop.libc_sched_get_priority_min
+import libc.cinterop.libc_sched_getscheduler
+import libc.cinterop.libc_sem_unlink
+import libc.cinterop.libc_setgrent
+import libc.cinterop.libc_setpriority
+import libc.cinterop.libc_setpwent
+import libc.cinterop.libc_setrlimit
+import libc.cinterop.libc_settimeofday
+import libc.cinterop.libc_shm_open
+import libc.cinterop.libc_shm_unlink
+import libc.cinterop.libc_srand
+import libc.cinterop.libc_sysctl
+import libc.cinterop.libc_uname
+import libc.cinterop.libc_utimensat
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
@@ -73,7 +109,7 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifoat requires FFI bridge")
 public actual fun mknodat(fd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("mknodat requires FFI bridge")
+    throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGetres requires FFI bridge")
@@ -91,7 +127,7 @@ public actual fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePoi
     throw UnsupportedOperationException("pthreadAttrGetstack requires manual FFI bridge — not yet implemented")
 
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memalign requires FFI bridge")
+    libc.cinterop.libc_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
@@ -195,7 +231,7 @@ public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("labs requires FFI bridge")
+    libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {
@@ -600,7 +636,7 @@ public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
     throw UnsupportedOperationException("pthreadSetnameNp requires manual FFI bridge — not yet implemented")
 
 public actual fun sysctl(name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
-    throw UnsupportedOperationException("sysctl requires FFI bridge")
+    throw UnsupportedOperationException("sysctl requires manual FFI bridge — not yet implemented")
 
 public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt {
     if (rlim == null) return -1
