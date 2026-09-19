@@ -274,14 +274,9 @@ int64_t libc_ftello(void* stream) { return (int64_t)ftello((FILE*)stream); }
 int32_t libc_setpgid(int32_t pid, int32_t pgid) { return setpgid(pid, pgid); }
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize) { return readlink(path, buf, bufsize); }
 long libc_strtol(const char* s, void* endp, int base) {
-#if defined(__GLIBC__) && !defined(__KERNEL__)
-    /* On glibc, call the underlying __strtol to avoid __isoc23_strtol
-     * redirect which isn't in the Kotlin/Native linker sysroot */
-    extern long __strtol(const char*, char**, int);
-    return __strtol(s, (char**)endp, base);
-#else
-    return strtol(s, endp, base);
-#endif
+    /* #undef strtol above removes the glibc __isoc23_strtol redirect,
+     * so strtol resolves to the actual strtol symbol in the sysroot. */
+    return strtol(s, (char**)endp, base);
 }
 uint64_t libc_confstr(int name, const char* buf, uint64_t len) { return (uint64_t)confstr(name, buf, len); }
 long libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
