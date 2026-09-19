@@ -803,7 +803,7 @@ public actual fun basename(path: String?): String? {
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt {
     if (pathname == null) return -1
-    return libc.cinterop.libc_mkfifoat(dirfd, pathname, mode)
+    throw UnsupportedOperationException("mkfifoat requires per-platform actual — ModeT width differs across native targets")
 }
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknodat requires FFI bridge")

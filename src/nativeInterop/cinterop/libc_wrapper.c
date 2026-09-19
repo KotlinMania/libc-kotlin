@@ -98,7 +98,10 @@ int libc_rand(void) { return rand(); }
 void libc_srand(unsigned int seed) { srand(seed); }
 void libc_abort(void) { abort(); }
 void libc_exit(int status) { exit(status); }
+/* system() is not available on iOS/tvOS/watchOS */
+#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int libc_system(const char* s) { return system(s); }
+#endif
 
 /* string.h */
 size_t libc_strlen(const char* s) { return strlen(s); }
@@ -298,10 +301,13 @@ int libc_mkdirat(int dirfd, const char* pathname, mode_t mode) { return mkdirat(
 ssize_t libc_readlinkat(int dirfd, const char* pathname, const char* buf, size_t bufsiz) { return readlinkat(dirfd, pathname, buf, bufsiz); }
 int libc_renameat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath) { return renameat(olddirfd, oldpath, newdirfd, newpath); }
 int libc_lchown(const char* path, uid_t uid, gid_t gid) { return lchown(path, uid, gid); }
+/* execv/execve/execvp/fork are not available on iOS/tvOS/watchOS */
+#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int libc_execv(const char* prog, void* argv) { return execv(prog, argv); }
 int libc_execve(const char* prog, void* argv, void* envp) { return execve(prog, argv, envp); }
 int libc_execvp(const char* c, void* argv) { return execvp(c, argv); }
 pid_t libc_fork(void) { return fork(); }
+#endif
 pid_t libc_getpgid(pid_t pid) { return getpgid(pid); }
 pid_t libc_getpgrp(void) { return getpgrp(); }
 pid_t libc_setsid(void) { return setsid(); }
@@ -316,7 +322,10 @@ int libc_tcflow(int fd, int action) { return tcflow(fd, action); }
 pid_t libc_tcgetsid(int fd) { return tcgetsid(fd); }
 int libc_grantpt(int fd) { return grantpt(fd); }
 int libc_unlockpt(int fd) { return unlockpt(fd); }
+/* fdatasync is not available on watchOS */
+#if !defined(TARGET_OS_WATCH) || !TARGET_OS_WATCH
 int libc_fdatasync(int fd) { return fdatasync(fd); }
+#endif
 int libc_dirfd(void* dirp) { return dirfd(dirp); }
 int libc_setreuid(uid_t ruid, uid_t euid) { return setreuid(ruid, euid); }
 int libc_setregid(gid_t rgid, gid_t egid) { return setregid(rgid, egid); }
@@ -355,7 +364,10 @@ int libc_getsubopt(void* arg1, void* arg2, void* arg3) { return getsubopt(arg1, 
 int libc_killpg(pid_t pgrp, int sig) { return killpg(pgrp, sig); }
 int libc_chroot(const char* name) { return chroot(name); }
 int libc_lockf(int fd, int cmd, off_t len) { return lockf(fd, cmd, len); }
+/* vfork is not available on iOS/tvOS/watchOS */
+#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 pid_t libc_vfork(void) { return vfork(); }
+#endif
 long libc_gethostid(void) { return gethostid(); }
 int libc_setlogin(const char* name) { return setlogin(name); }
 #ifdef __APPLE__
@@ -549,9 +561,12 @@ int libc_clock_getres(clockid_t clk_id, void* res) {
 int libc_utimensat(int dirfd, const char* path, void* times, int flags) {
     return utimensat(dirfd, path, (const struct timespec*)times, flags);
 }
+/* clock_settime is not available on iOS */
+#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int libc_clock_settime(clockid_t clk_id, void* tp) {
     return clock_settime(clk_id, (const struct timespec*)tp);
 }
+#endif
 #ifdef __linux__
 int libc_clock_nanosleep(clockid_t clock_id, int flags, void* rqtp, void* rmtp) {
 #if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)

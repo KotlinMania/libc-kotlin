@@ -35,8 +35,10 @@
 #include <netdb.h>
 #endif
 #include <fcntl.h>
+#ifndef _WIN32
 #include <grp.h>
 #include <pwd.h>
+#endif
 #ifndef _WIN32
 #include <dlfcn.h>
 #endif
@@ -49,9 +51,13 @@
 #ifndef _WIN32
 #include <syslog.h>
 #endif
+#ifndef _WIN32
 #include <sys/file.h>
+#endif
 #include <sys/mman.h>
+#ifndef _WIN32
 #include <sys/wait.h>
+#endif
 #include <sys/resource.h>
 #include <sys/times.h>
 #include <sys/uio.h>
