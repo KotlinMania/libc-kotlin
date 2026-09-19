@@ -274,6 +274,7 @@ public data class Cmsghdr(
     val cmsgLen: ULong,
     val cmsgLevel: CInt,
     val cmsgType: CInt,
+    val handle: Long = 0L,
 )
 
 public data class Msghdr(
@@ -284,6 +285,7 @@ public data class Msghdr(
     val msgControl: COpaquePointer?,
     val msgControllen: ULong,
     val msgFlags: CInt,
+    val handle: Long = 0L,
 )
 
 public data class Mmsghdr(
