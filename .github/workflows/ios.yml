@@ -27,14 +27,10 @@ jobs:
 
       - name: Compile C wrapper
         run: |
-          # Build static libraries for each Apple platform separately.
-          # lipo can't merge objects with the same architecture (arm64),
-          # so we build per-platform fat libraries instead.
-          
-          # iOS device arm64
-          xcrun --sdk iphoneos clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
-          xcrun --sdk iphoneos ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
-       
+          # Build for iOS simulator arm64 (test target)
+          xcrun --sdk iphonesimulator clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
+          xcrun --sdk iphonesimulator ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
+        
       - name: Build and test iOS targets + XCFramework
         # build.gradle.kts registers the XCFramework as XCFramework(frameworkName),
         # where frameworkName = project.frameworkName from gradle.properties. That

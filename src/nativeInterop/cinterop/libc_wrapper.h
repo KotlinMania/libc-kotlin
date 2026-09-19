@@ -90,7 +90,9 @@
 #ifndef _WIN32
 #include <net/if.h>
 #endif
+#ifndef _WIN32
 #include <utime.h>
+#endif
 #ifndef _WIN32
 #include <glob.h>
 #endif

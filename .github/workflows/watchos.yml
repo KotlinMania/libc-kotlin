@@ -27,9 +27,9 @@ jobs:
 
       - name: Compile C wrapper
         run: |
-          # Build for watchOS device arm64
-          xcrun --sdk watchos clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
-          xcrun --sdk watchos ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
+          # Build for watchOS simulator arm64 (test target)
+          xcrun --sdk watchsimulator clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
+          xcrun --sdk watchsimulator ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
         
       - name: Build and test watchOS targets
         run: >

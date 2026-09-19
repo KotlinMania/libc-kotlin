@@ -8,11 +8,15 @@ int getentropy(void*, size_t);
 
 #include <errno.h>
 #include <stdlib.h>
-/* Undef glibc redirect macros that redirect strtol to __isoc23_strtol */
+/* Undef glibc redirect macros that redirect strtol to __isoc23_strtol
+ * on newer glibc (Ubuntu 24.04+). This prevents the linker from
+ * looking for __isoc23_strtol which isn't in the Kotlin/Native sysroot. */
 #undef strtol
 #undef strtoul
 #undef strtoll
 #undef strtoull
+#undef strtoimax
+#undef strtoumax
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -269,7 +273,16 @@ size_t libc_strxfrm(const char* s, const char* ct, size_t n) { return strxfrm(s,
 off_t libc_ftello(void* stream) { return ftello(stream); }
 pid_t libc_setpgid(pid_t pid, pid_t pgid) { return setpgid(pid, pgid); }
 ssize_t libc_readlink(const char* path, const char* buf, size_t bufsize) { return readlink(path, buf, bufsize); }
-long libc_strtol(const char* s, void* endp, int base) { return strtol(s, endp, base); }
+long libc_strtol(const char* s, void* endp, int base) {
+#if defined(__GLIBC__) && !defined(__KERNEL__)
+    /* On glibc, call the underlying __strtol to avoid __isoc23_strtol
+     * redirect which isn't in the Kotlin/Native linker sysroot */
+    extern long __strtol(const char*, char**, int);
+    return __strtol(s, (char**)endp, base);
+#else
+    return strtol(s, endp, base);
+#endif
+}
 size_t libc_confstr(int name, const char* buf, size_t len) { return confstr(name, buf, len); }
 long libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
 off_t libc_lseek(int fd, off_t offset, int whence) { return lseek(fd, offset, whence); }
