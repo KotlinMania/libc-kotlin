@@ -11,7 +11,9 @@ int getentropy(void*, size_t);
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 #include <sys/stat.h>
 #include <sys/stat.h>
 #ifndef _WIN32
@@ -35,7 +37,9 @@ int getentropy(void*, size_t);
 #endif
 
 /* dirname/basename: <libgen.h> */
+#ifndef _WIN32
 #include <libgen.h>
+#endif
 
 /* CMSG macros */
 void* libc_cmsg_data(void* cmsg) {

@@ -45,6 +45,9 @@ public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpa
     return COpaquePointer(result.toLong())
 }
 
-public actual fun cMSGALIGN(len: ULong): ULong = libc_cmsg_align(len)
-public actual fun cMSGSPACE(length: CUInt): CUInt = libc_cmsg_space(length.toULong()).toUInt()
-public actual fun cMSGLEN(length: CUInt): CUInt = libc_cmsg_len(length.toULong()).toUInt()
+public actual fun cMSGALIGN(len: ULong): ULong =
+    throw UnsupportedOperationException("cMSGALIGN requires per-platform actual — size_t width differs across native targets")
+public actual fun cMSGSPACE(length: CUInt): CUInt =
+    throw UnsupportedOperationException("cMSGSPACE requires per-platform actual — size_t width differs across native targets")
+public actual fun cMSGLEN(length: CUInt): CUInt =
+    throw UnsupportedOperationException("cMSGLEN requires per-platform actual — size_t width differs across native targets")

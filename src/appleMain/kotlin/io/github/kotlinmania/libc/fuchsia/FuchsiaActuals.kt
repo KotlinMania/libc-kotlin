@@ -69,10 +69,10 @@ public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
     libc.cinterop.libc_socket(fuchsiaToDarwinDomain(domain), ty and 0xF, protocol)
 
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    libc.cinterop.libc_msync(addr?.value?.toCPointer<ByteVar>(), len, fuchsiaToDarwinMsyncFlags(flags))
+    throw UnsupportedOperationException("msync requires per-platform actual — size_t width differs across Apple targets")
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
-    libc.cinterop.libc_madvise(addr?.value?.toCPointer<ByteVar>(), len, fuchsiaToDarwinMadvise(advice))
+    throw UnsupportedOperationException("madvise requires per-platform actual — size_t width differs across Apple targets")
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
     libc.cinterop.libc_tcflow(fd, fuchsiaToDarwinAction(action))

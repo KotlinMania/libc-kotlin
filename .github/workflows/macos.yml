@@ -27,7 +27,10 @@ jobs:
 
       - name: Compile C wrapper
         run: |
-          clang -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
+          # Build a fat static library for macOS arm64 + x86_64
+          clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_arm64.o
+          clang -arch x86_64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_x64.o
+          lipo -create src/nativeInterop/cinterop/wrapper_arm64.o src/nativeInterop/cinterop/wrapper_x64.o -output src/nativeInterop/cinterop/libc_wrapper.o
           ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
         
       - name: Build and test macOS targets

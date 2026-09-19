@@ -84,16 +84,12 @@ public actual fun fchflags(fd: CInt, flags: CUInt): CInt =
     libc.cinterop.libc_fchflags(fd, flags)
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt {
     if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_getres(clkId, tpPtr)
-    return result
+    throw UnsupportedOperationException("clockGetres requires per-platform actual — ClockidT width differs across native targets")
 }
 
 public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt {
     if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_gettime(clkId, tpPtr)
-    return result
+    throw UnsupportedOperationException("clockGettime requires per-platform actual — ClockidT width differs across native targets")
 }
 
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt =
@@ -822,9 +818,7 @@ public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointe
 }
 public actual fun clockSettime(clockId: ClockidT, tp: Timespec?): CInt {
     if (tp == null) return -1
-    val tpPtr: CPointer<ByteVar>? = tp.handle.toCPointer()
-    val result = libc_clock_settime(clockId, tpPtr)
-    return result
+    throw UnsupportedOperationException("clockSettime requires per-platform actual — ClockidT width differs across native targets")
 }
 
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =

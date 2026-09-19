@@ -39,6 +39,6 @@ public actual fun isxdigit(c: CInt): CInt =
 public actual fun isblank(c: CInt): CInt =
     throw UnsupportedOperationException("isblank not available on WASI — no C library access")
 
-public actual fun isatty(c: CInt): CInt =
+public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty not available on WASI — no C library access")
 

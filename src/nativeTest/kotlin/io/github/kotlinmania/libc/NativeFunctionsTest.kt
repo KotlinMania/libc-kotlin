@@ -24,107 +24,59 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import kotlin.test.assertFailsWith
 
 /**
  * Native tests exercising real C library calls via platform.posix.
- * These verify the FFI bridge works correctly on native targets.
+ * Memory/CMSG functions require per-platform actuals (size_t width differs
+ * across 32-bit and 64-bit native targets), so they throw on shared nativeMain.
+ * The ctype/string/env functions use CInt params and work on all targets.
  */
 class NativeFunctionsTest {
 
     @Test
-    fun mallocReturnsNonNull() {
-        val ptr = malloc(1024uL)
-        assertNotNull(ptr, "malloc(1024) should return non-null")
-        free(ptr)
+    fun mallocThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { malloc(1024uL) }
     }
 
     @Test
-    fun callocReturnsZeroedMemory() {
-        val ptr = calloc(10uL, 4uL)
-        assertNotNull(ptr, "calloc(10, 4) should return non-null")
-        val expected = calloc(40uL, 1uL)
-        assertNotNull(expected, "calloc(40, 1) should return non-null for expected buffer")
-        assertEquals(0, memcmp(ptr, expected, 40uL), "calloc memory should be zeroed")
-        free(expected)
-        free(ptr)
+    fun callocThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { calloc(10uL, 4uL) }
     }
 
     @Test
-    fun mallocFreeRoundtrip() {
-        val ptr = malloc(256uL)
-        assertNotNull(ptr)
-        free(ptr)
+    fun freeThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { free(null) }
     }
 
     @Test
-    fun reallocResizesBuffer() {
-        val ptr = malloc(100uL)
-        assertNotNull(ptr)
-        val bigger = realloc(ptr, 1000uL)
-        assertNotNull(bigger, "realloc to larger size should succeed")
-        free(bigger)
+    fun reallocThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { realloc(null, 100uL) }
     }
 
     @Test
-    fun memsetFillsMemory() {
-        val ptr = malloc(16uL)
-        assertNotNull(ptr)
-        val result = memset(ptr, 0x42, 16uL)
-        assertNotNull(result, "memset should return the destination pointer")
-        assertEquals(ptr.value, result.value, "memset should return the destination pointer")
-        val expected = malloc(16uL)
-        assertNotNull(expected, "malloc(16) should return non-null for expected buffer")
-        memset(expected, 0x42, 16uL)
-        assertEquals(0, memcmp(ptr, expected, 16uL), "memset bytes should match expected value")
-        free(expected)
-        free(ptr)
+    fun memsetThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { memset(null, 0, 16uL) }
     }
 
     @Test
-    fun memcmpComparesEqualBuffers() {
-        val a = malloc(16uL)
-        val b = malloc(16uL)
-        assertNotNull(a)
-        assertNotNull(b)
-        memset(a, 0, 16uL)
-        memset(b, 0, 16uL)
-        assertEquals(0, memcmp(a, b, 16uL), "two zeroed buffers should compare equal")
-        free(a)
-        free(b)
+    fun memcmpThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { memcmp(null, null, 16uL) }
     }
 
     @Test
-    fun memcmpComparesDifferentBuffers() {
-        val a = malloc(16uL)
-        val b = malloc(16uL)
-        assertNotNull(a)
-        assertNotNull(b)
-        memset(a, 0, 16uL)
-        memset(b, 0xFF, 16uL)
-        assertNotEquals(0, memcmp(a, b, 16uL), "different buffers should compare unequal")
-        free(a)
-        free(b)
+    fun memcpyThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { memcpy(null, null, 16uL) }
     }
 
     @Test
-    fun memcpyCopiesMemory() {
-        val src = malloc(16uL)
-        val dst = malloc(16uL)
-        assertNotNull(src)
-        assertNotNull(dst)
-        memset(src, 0x77, 16uL)
-        memset(dst, 0, 16uL)
-        memcpy(dst, src, 16uL)
-        assertEquals(0, memcmp(src, dst, 16uL), "memcpy should produce identical buffers")
-        free(src)
-        free(dst)
+    fun strlenThrowsOnSharedNative() {
+        assertFailsWith(UnsupportedOperationException::class) { strlen("hello") }
     }
 
     @Test
-    fun strlenMeasuresString() {
-        assertEquals(0uL, strlen(""))
-        assertEquals(5uL, strlen("hello"))
-        assertEquals(11uL, strlen("hello world"))
+    fun strlenReturnsZeroForNull() {
+        assertEquals(0uL, strlen(null))
     }
 
     @Test

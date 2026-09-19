@@ -27,7 +27,29 @@ jobs:
 
       - name: Compile C wrapper
         run: |
-          clang -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
+          # Build a fat static library covering all Apple architectures that
+          # cinterop may link for: macOS (host), tvOS device, tvOS simulator.
+          
+          # macOS arm64 (host + macOS target)
+          clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_macos_arm64.o
+          
+          # macOS x86_64
+          clang -arch x86_64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_macos_x64.o
+          
+          # tvOS device arm64
+          xcrun --sdk appletvos clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_tvos_device_arm64.o
+          
+          # tvOS simulator arm64
+          xcrun --sdk appletvsimulator clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_tvos_sim_arm64.o
+          
+          # Create fat object covering all archs
+          lipo -create \
+            src/nativeInterop/cinterop/wrapper_macos_arm64.o \
+            src/nativeInterop/cinterop/wrapper_macos_x64.o \
+            src/nativeInterop/cinterop/wrapper_tvos_device_arm64.o \
+            src/nativeInterop/cinterop/wrapper_tvos_sim_arm64.o \
+            -output src/nativeInterop/cinterop/libc_wrapper.o
+          
           ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
         
       - name: Build and test tvOS targets

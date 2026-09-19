@@ -27,7 +27,35 @@ jobs:
 
       - name: Compile C wrapper
         run: |
-          clang -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
+          # Build a fat static library covering all Apple architectures that
+          # cinterop may link for: macOS (host), iOS device, iOS simulator.
+          # lipo merges per-arch .o files into a single fat .o; ar archives it.
+          # The linker picks the correct slice from the fat object at link time.
+          
+          # macOS arm64 (host + macOS target)
+          clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_macos_arm64.o
+          
+          # macOS x86_64 (for macosX64 if needed)
+          clang -arch x86_64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_macos_x64.o
+          
+          # iOS device arm64
+          xcrun --sdk iphoneos clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_ios_device_arm64.o
+          
+          # iOS simulator arm64
+          xcrun --sdk iphonesimulator clang -arch arm64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_ios_sim_arm64.o
+          
+          # iOS simulator x86_64
+          xcrun --sdk iphonesimulator clang -arch x86_64 -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/wrapper_ios_sim_x64.o
+          
+          # Create fat object covering all archs
+          lipo -create \
+            src/nativeInterop/cinterop/wrapper_macos_arm64.o \
+            src/nativeInterop/cinterop/wrapper_macos_x64.o \
+            src/nativeInterop/cinterop/wrapper_ios_device_arm64.o \
+            src/nativeInterop/cinterop/wrapper_ios_sim_arm64.o \
+            src/nativeInterop/cinterop/wrapper_ios_sim_x64.o \
+            -output src/nativeInterop/cinterop/libc_wrapper.o
+          
           ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
         
       - name: Build and test iOS targets + XCFramework
