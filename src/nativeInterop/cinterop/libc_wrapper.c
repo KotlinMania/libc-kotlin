@@ -185,26 +185,54 @@ void libc_perror(const char* s) { perror(s); }
 int libc_close(int fd) { return close(fd); }
 int libc_dup(int fd) { return dup(fd); }
 int libc_dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
+#ifndef _WIN32
 int libc_fsync(int fd) { return fsync(fd); }
+#endif
+#ifndef _WIN32
 int libc_fchdir(int fd) { return fchdir(fd); }
+#endif
 int libc_chdir(const char* path) { return chdir(path); }
 int libc_rmdir(const char* path) { return rmdir(path); }
+#ifdef _WIN32
+int libc_mkdir(const char* path, int mode) { return mkdir(path); }
+#else
 int libc_mkdir(const char* path, int mode) { return mkdir(path, mode); }
+#endif
 int libc_unlink(const char* path) { return unlink(path); }
 int libc_access(const char* path, int mode) { return access(path, mode); }
 int libc_isatty(int fd) { return isatty(fd); }
 int libc_getpid(void) { return getpid(); }
+#ifndef _WIN32
 int libc_getppid(void) { return getppid(); }
+#endif
+#ifndef _WIN32
 int libc_pause(void) { return pause(); }
+#endif
 int libc_sleep(unsigned int seconds) { return sleep(seconds); }
+#ifndef _WIN32
 int libc_getuid(void) { return getuid(); }
+#endif
+#ifndef _WIN32
 int libc_geteuid(void) { return geteuid(); }
+#endif
+#ifndef _WIN32
 int libc_getgid(void) { return getgid(); }
+#endif
+#ifndef _WIN32
 int libc_getegid(void) { return getegid(); }
+#endif
+#ifndef _WIN32
 int libc_setuid(int uid) { return setuid(uid); }
+#endif
+#ifndef _WIN32
 int libc_setgid(int gid) { return setgid(gid); }
+#endif
+#ifndef _WIN32
 int libc_seteuid(int uid) { return seteuid(uid); }
+#endif
+#ifndef _WIN32
 int libc_setegid(int gid) { return setegid(gid); }
+#endif
 
 /* socket.h */
 int libc_socket(int domain, int type, int protocol) { return socket(domain, type, protocol); }
@@ -212,25 +240,48 @@ int libc_listen(int sockfd, int backlog) { return listen(sockfd, backlog); }
 int libc_shutdown(int sockfd, int how) { return shutdown(sockfd, how); }
 int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct sockaddr*)addr, addrlen); }
 
+#ifndef _WIN32
 /* Additional wrappers */
+#ifndef _WIN32
 #include <dlfcn.h>
+#endif
+#ifndef _WIN32
 #include <netdb.h>
+#endif
 #include <locale.h>
+#ifndef _WIN32
 #include <sys/mman.h>
+#endif
+#ifndef _WIN32
 #include <termios.h>
+#endif
 #include <signal.h>
 #ifndef _WIN32
 #include <sys/syslog.h>
 #endif
 #include <sys/time.h>
 #include <time.h>
+#ifndef _WIN32
 #include <sched.h>
+#endif
+#ifndef _WIN32
 #include <pthread.h>
+#endif
+#ifndef _WIN32
 #include <sys/wait.h>
+#endif
+#ifndef _WIN32
 #include <sys/uio.h>
+#endif
+#ifndef _WIN32
 #include <sys/resource.h>
+#endif
+#ifndef _WIN32
 #include <sys/utsname.h>
+#endif
+#ifndef _WIN32
 #include <strings.h>
+#endif
 #ifdef __linux__
 #include <malloc.h>
 #endif
@@ -854,3 +905,5 @@ void* libc_getpwnam(const char* name) { return (void*)getpwnam(name); }
 void* libc_getgrnam(const char* name) { return (void*)getgrnam(name); }
 int libc_pthread_setspecific(unsigned long key, const void* value) { return pthread_setspecific((pthread_key_t)key, value); }
 void* libc_pthread_getspecific(unsigned long key) { return (void*)pthread_getspecific((pthread_key_t)key); }
+
+#endif /* _WIN32 */
