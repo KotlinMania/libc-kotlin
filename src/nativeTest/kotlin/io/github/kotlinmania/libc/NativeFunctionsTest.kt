@@ -35,18 +35,22 @@ import kotlin.test.assertFailsWith
 class NativeFunctionsTest {
 
     @Test
-    fun mallocThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { malloc(1024uL) }
+    fun mallocReturnsNonNull() {
+        val ptr = malloc(1024uL)
+        assertNotNull(ptr)
+        free(ptr)
     }
 
     @Test
-    fun callocThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { calloc(10uL, 4uL) }
+    fun callocReturnsNonNull() {
+        val ptr = calloc(10uL, 4uL)
+        assertNotNull(ptr)
+        free(ptr)
     }
 
     @Test
-    fun freeThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { free(null) }
+    fun freeNullIsNoop() {
+        free(null) // should not throw
     }
 
     @Test

@@ -32,7 +32,9 @@ public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? {
 }
 
 public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free requires per-platform actual — size_t width differs across native targets")
+    if (p == null) return
+    val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
+    libc_free(pPtr)
 }
 
 public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
