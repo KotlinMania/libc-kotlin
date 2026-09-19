@@ -91,11 +91,11 @@ uint64_t libc_cmsg_align(uint64_t len) {
 }
 
 /* stdlib.h */
-void* libc_calloc(uint64_t nobj, uint64_t size) { return calloc((size_t)nobj, (size_t)size); }
-void* libc_malloc(uint64_t size) { return malloc((size_t)size); }
-void* libc_realloc(void* p, uint64_t size) { return realloc(p, (size_t)size); }
+void* libc_calloc(uint64_t nobj, uint64_t size) { return calloc((uint64_t)nobj, (uint64_t)size); }
+void* libc_malloc(uint64_t size) { return malloc((uint64_t)size); }
+void* libc_realloc(void* p, uint64_t size) { return realloc(p, (uint64_t)size); }
 void libc_free(void* p) { free(p); }
-void* libc_aligned_alloc(uint64_t alignment, uint64_t size) { return aligned_alloc((size_t)alignment, (size_t)size); }
+void* libc_aligned_alloc(uint64_t alignment, uint64_t size) { return aligned_alloc((uint64_t)alignment, (uint64_t)size); }
 int libc_atoi(const char* s) { return atoi(s); }
 long libc_atol(const char* s) { return atol(s); }
 long long libc_atoll(const char* s) { return atoll(s); }
@@ -114,7 +114,7 @@ int libc_system(const char* s) { return system(s); }
 
 /* string.h */
 uint64_t libc_strlen(const char* s) { return (uint64_t)strlen(s); }
-uint64_t libc_strnlen(const char* s, uint64_t n) { return (uint64_t)strnlen(s, (size_t)n); }
+uint64_t libc_strnlen(const char* s, uint64_t n) { return (uint64_t)strnlen(s, (uint64_t)n); }
 uint64_t libc_strspn(const char* s, const char* accept) { return (uint64_t)strspn(s, accept); }
 uint64_t libc_strcspn(const char* s, const char* reject) { return (uint64_t)strcspn(s, reject); }
 char* libc_strchr(const char* s, int c) { return strchr(s, c); }
@@ -266,7 +266,7 @@ int libc_usleep(unsigned int useconds) { return usleep(useconds); }
 
 /* Auto-generated wrappers */
 int libc_setvbuf(void* stream, const char* buffer, int mode, uint64_t size) { return setvbuf(stream, buffer, mode, size); }
-uint64_t libc_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) { return (uint64_t)fwrite(ptr, (size_t)size, (size_t)nobj, stream); }
+uint64_t libc_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) { return (uint64_t)fwrite(ptr, (uint64_t)size, (uint64_t)nobj, stream); }
 int libc_fgetpos(void* stream, void* ptr) { return fgetpos(stream, ptr); }
 int libc_fsetpos(void* stream, void* ptr) { return fsetpos(stream, ptr); }
 uint64_t libc_strxfrm(const char* s, const char* ct, uint64_t n) { return (uint64_t)strxfrm(s, ct, n); }
@@ -298,17 +298,17 @@ int libc_chown(const char* path, uint32_t uid, uint32_t gid) { return chown(path
 int libc_truncate(const char* path, int64_t length) { return truncate(path, length); }
 int libc_gethostname(const char* name, uint64_t len) { return gethostname(name, len); }
 int libc_mkfifo(const char* path, uint32_t mode) { return mkfifo(path, mode); }
-int libc_fseeko(void* stream, int64_t offset, int whence) { return fseeko((FILE*)stream, (off_t)offset, whence); }
+int libc_fseeko(void* stream, int64_t offset, int whence) { return fseeko((FILE*)stream, (int64_t)offset, whence); }
 int libc_mkstemp(const char* template) { return mkstemp(template); }
 int libc_symlinkat(const char* target, int newdirfd, const char* linkpath) { return symlinkat(target, newdirfd, linkpath); }
-int libc_fchmodat(int dirfd, const char* pathname, uint32_t mode, int flags) { return fchmodat(dirfd, pathname, (mode_t)mode, flags); }
+int libc_fchmodat(int dirfd, const char* pathname, uint32_t mode, int flags) { return fchmodat(dirfd, pathname, (uint32_t)mode, flags); }
 int libc_ftruncate(int fd, int64_t length) { return ftruncate(fd, length); }
 int libc_setenv(const char* envVarName, const char* envVarValue, int overwrite) { return setenv(envVarName, envVarValue, overwrite); }
 int libc_unsetenv(const char* envVarName) { return unsetenv(envVarName); }
 int libc_link(const char* src, const char* dst) { return link(src, dst); }
 int libc_symlink(const char* path1, const char* path2) { return symlink(path1, path2); }
-int libc_chmod(const char* path, uint32_t mode) { return chmod(path, (mode_t)mode); }
-int libc_fchmod(int attr1, uint32_t attr2) { return fchmod(attr1, (mode_t)attr2); }
+int libc_chmod(const char* path, uint32_t mode) { return chmod(path, (uint32_t)mode); }
+int libc_fchmod(int attr1, uint32_t attr2) { return fchmod(attr1, (uint32_t)attr2); }
 int libc_closedir(void* ptr) { return closedir(ptr); }
 int libc_kill(int32_t pid, int signo) { return kill(pid, signo); }
 long libc_random(void) { return random(); }
@@ -555,7 +555,7 @@ int libc_gettimeofday(void* tp, void* tz) {
     return gettimeofday((struct timeval*)tp, tz);
 }
 int libc_clock_gettime(int32_t clk_id, void* tp) {
-    return clock_gettime((clockid_t)clk_id, (struct timespec*)tp);
+    return clock_gettime((int32_t)clk_id, (struct timespec*)tp);
 }
 int libc_futimens(int fd, void* times) {
     return futimens(fd, (const struct timespec*)times);
