@@ -54,7 +54,9 @@
 #ifndef _WIN32
 #include <sys/file.h>
 #endif
+#ifndef _WIN32
 #include <sys/mman.h>
+#endif
 #ifndef _WIN32
 #include <sys/wait.h>
 #endif

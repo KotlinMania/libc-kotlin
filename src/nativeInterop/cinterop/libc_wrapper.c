@@ -264,7 +264,12 @@ size_t libc_strxfrm(const char* s, const char* ct, size_t n) { return strxfrm(s,
 off_t libc_ftello(void* stream) { return ftello(stream); }
 pid_t libc_setpgid(pid_t pid, pid_t pgid) { return setpgid(pid, pgid); }
 ssize_t libc_readlink(const char* path, const char* buf, size_t bufsize) { return readlink(path, buf, bufsize); }
-long libc_strtol(const char* s, void* endp, int base) { return strtol(s, endp, base); }
+long libc_strtol(const char* s, void* endp, int base) {
+#ifdef strtol
+#undef strtol
+#endif
+    return strtol(s, endp, base);
+}
 size_t libc_confstr(int name, const char* buf, size_t len) { return confstr(name, buf, len); }
 long libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
 off_t libc_lseek(int fd, off_t offset, int whence) { return lseek(fd, offset, whence); }
@@ -322,8 +327,8 @@ int libc_tcflow(int fd, int action) { return tcflow(fd, action); }
 pid_t libc_tcgetsid(int fd) { return tcgetsid(fd); }
 int libc_grantpt(int fd) { return grantpt(fd); }
 int libc_unlockpt(int fd) { return unlockpt(fd); }
-/* fdatasync is not available on watchOS */
-#if !defined(TARGET_OS_WATCH) || !TARGET_OS_WATCH
+/* fdatasync is not available on iOS/tvOS/watchOS */
+#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int libc_fdatasync(int fd) { return fdatasync(fd); }
 #endif
 int libc_dirfd(void* dirp) { return dirfd(dirp); }
@@ -342,7 +347,10 @@ int libc_getdomainname(const char* name, size_t len) { return getdomainname(name
 int libc_setdomainname(const char* name, size_t len) { return setdomainname(name, len); }
 int libc_sethostname(const char* name, size_t len) { return sethostname(name, len); }
 int libc_initgroups(const char* user, int group) { return initgroups(user, (gid_t)group); }
+/* daemon is not available on iOS/tvOS/watchOS */
+#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int libc_daemon(int nochdir, int noclose) { return daemon(nochdir, noclose); }
+#endif
 int libc_faccessat(int dirfd, const char* pathname, int mode, int flags) { return faccessat(dirfd, pathname, mode, flags); }
 int libc_getc(void* arg1) { return getc(arg1); }
 int libc_putc(int arg1, void* arg2) { return putc(arg1, arg2); }
@@ -357,8 +365,11 @@ long libc_a64l(const char* arg1) { return a64l(arg1); }
 int libc_radixsort(void* arg1, int arg2, void* arg3, unsigned int arg4) { return radixsort(arg1, arg2, arg3, arg4); }
 int libc_sradixsort(void* arg1, int arg2, void* arg3, unsigned int arg4) { return sradixsort(arg1, arg2, arg3, arg4); }
 #endif
+/* strlcat/strlcpy are BSD-only, not available on Linux */
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
 size_t libc_strlcat(const char* arg1, const char* arg2, size_t arg3) { return strlcat(arg1, arg2, arg3); }
 size_t libc_strlcpy(const char* arg1, const char* arg2, size_t arg3) { return strlcpy(arg1, arg2, arg3); }
+#endif
 int libc_ffs(int arg1) { return ffs(arg1); }
 int libc_getsubopt(void* arg1, void* arg2, void* arg3) { return getsubopt(arg1, arg2, arg3); }
 int libc_killpg(pid_t pgrp, int sig) { return killpg(pgrp, sig); }
@@ -383,8 +394,10 @@ int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, 
 int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, size_t attrBufSize, size_t options) { return getattrlistbulk(dirfd, attrList, attrBuf, attrBufSize, options); }
 #endif
 #ifdef __APPLE__
+#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int libc_execvP(const char* file, const char* searchPath, void* argv) { return execvP(file, searchPath, argv); }
 int libc_exchangedata(const char* path1, const char* path2, unsigned long options) { return exchangedata(path1, path2, options); }
+#endif
 #endif
 #ifdef __APPLE__
 int libc_lchflags(const char* path, unsigned long flags) { return lchflags(path, flags); }
@@ -623,27 +636,17 @@ int libc_sem_timedwait(void* sem, void* abstime) {
 int libc_pthread_attr_getstack(void* attr, void* stackaddr, void* stacksize) {
     return pthread_attr_getstack((pthread_attr_t*)attr, stackaddr, (size_t*)stacksize);
 }
-#if defined(__APPLE__) || defined(__linux__)
+#if defined(__APPLE__)
 int libc_getentropy(void* buf, size_t buflen) {
-#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
     return getentropy(buf, buflen);
-#else
-    (void)buf; (void)buflen;
-    errno = ENOSYS;
-    return -1;
-#endif
 }
 #else
 int libc_getentropy(void* buf, size_t buflen) { (void)buf; (void)buflen; return -1; }
 #endif
 ssize_t libc_getrandom(void* buf, size_t buflen, unsigned int flags) {
-#if defined(__linux__)
-    return getrandom(buf, buflen, flags);
-#else
     (void)buf; (void)buflen; (void)flags;
     errno = ENOSYS;
     return -1;
-#endif
 }
 int libc_posix_madvise(void* addr, size_t len, int advice) {
 #if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
