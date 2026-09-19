@@ -1,0 +1,3936 @@
+[
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "setvbuf",
+    "params": "stream: FILE?, buffer: String?, mode: CInt, size: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fwrite",
+    "params": "ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fseek",
+    "params": "stream: FILE?, offset: CLong, whence: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "ftell",
+    "params": "stream: FILE?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fgetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fsetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "atol",
+    "params": "s: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strtol",
+    "params": "s: String?, endp: COpaquePointer?, base: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "calloc",
+    "params": "nobj: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "malloc",
+    "params": "size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "realloc",
+    "params": "p: COpaquePointer?, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strncpy",
+    "params": "dst: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strncat",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strncmp",
+    "params": "cs: String?, ct: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strcspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strlen",
+    "params": "cs: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strnlen",
+    "params": "cs: String?, maxlen: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "strxfrm",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "memchr",
+    "params": "cx: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "memcmp",
+    "params": "cx: COpaquePointer?, ct: COpaquePointer?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "memcpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "memmove",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "memset",
+    "params": "dest: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getpwnam",
+    "params": "name: String?",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getpwuid",
+    "params": "uid: UidT",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "chmod",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fchmod",
+    "params": "fd: CInt, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "creat",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fchmodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fchown",
+    "params": "fd: CInt, owner: UidT, group: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "mkdirat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "readlinkat",
+    "params": "dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "chown",
+    "params": "path: String?, uid: UidT, gid: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "lchown",
+    "params": "path: String?, uid: UidT, gid: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "fpathconf",
+    "params": "filedes: CInt, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getcwd",
+    "params": "buf: String?, size: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "pathconf",
+    "params": "path: String?, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "read",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "pread",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "pwrite",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "mlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "munlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "munmap",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "gethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "readlink",
+    "params": "path: String?, buf: String?, bufsz: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "sysconf",
+    "params": "name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "mkfifo",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "setreuid",
+    "params": "ruid: UidT, euid: UidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "setregid",
+    "params": "rgid: GidT, egid: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/fuchsia/FuchsiaBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, group: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/FcntlBatchActuals.kt",
+    "func": "creat",
+    "params": "pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "strlen",
+    "params": "s: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "strncpy",
+    "params": "dest: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "strncat",
+    "params": "dest: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "strncmp",
+    "params": "s1: String?, s2: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "strxfrm",
+    "params": "dest: String?, src: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "strspn",
+    "params": "s: String?, accept: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "strcspn",
+    "params": "s: String?, reject: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "memchr",
+    "params": "s: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "memcmp",
+    "params": "s1: COpaquePointer?, s2: COpaquePointer?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "memcpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "memmove",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/ModBatchActuals.kt",
+    "func": "memset",
+    "params": "s: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdioBatchActuals.kt",
+    "func": "fwrite",
+    "params": "ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdioBatchActuals.kt",
+    "func": "fseek",
+    "params": "stream: FILE?, offset: CLong, whence: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdioBatchActuals.kt",
+    "func": "ftell",
+    "params": "stream: FILE?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdioBatchActuals.kt",
+    "func": "fgetpos",
+    "params": "stream: FILE?, pos: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdioBatchActuals.kt",
+    "func": "fsetpos",
+    "params": "stream: FILE?, pos: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdioBatchActuals.kt",
+    "func": "setvbuf",
+    "params": "stream: FILE?, buffer: String?, mode: CInt, size: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdlibBatchActuals.kt",
+    "func": "malloc",
+    "params": "size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdlibBatchActuals.kt",
+    "func": "calloc",
+    "params": "nmemb: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdlibBatchActuals.kt",
+    "func": "realloc",
+    "params": "ptr: COpaquePointer?, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdlibBatchActuals.kt",
+    "func": "atol",
+    "params": "nptr: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdlibBatchActuals.kt",
+    "func": "strtol",
+    "params": "nptr: String?, endptr: COpaquePointer?, base: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/StdlibBatchActuals.kt",
+    "func": "labs",
+    "params": "j: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/UnistdBatchActuals.kt",
+    "func": "read",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/UnistdBatchActuals.kt",
+    "func": "getcwd",
+    "params": "buf: String?, size: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/UnistdBatchActuals.kt",
+    "func": "sysconf",
+    "params": "name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/sys/MmanBatchActuals.kt",
+    "func": "munmap",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/sys/MmanBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/sys/MmanBatchActuals.kt",
+    "func": "mlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/new/qurt/sys/MmanBatchActuals.kt",
+    "func": "munlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "fseek",
+    "params": "arg1: FILE?, arg2: CLong, arg3: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "ftell",
+    "params": "arg1: FILE?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "fwrite",
+    "params": "arg1: COpaquePointer?, arg2: ULong, arg3: ULong, arg4: FILE?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "setvbuf",
+    "params": "arg1: FILE?, arg2: String?, arg3: CInt, arg4: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "fgetpos",
+    "params": "arg1: FILE?, arg2: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "fsetpos",
+    "params": "arg1: FILE?, arg2: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "atol",
+    "params": "arg1: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "calloc",
+    "params": "arg1: ULong, arg2: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "arg1: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "malloc",
+    "params": "arg1: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "realloc",
+    "params": "arg1: COpaquePointer?, arg2: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strtol",
+    "params": "arg1: String?, arg2: COpaquePointer?, arg3: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "mblen",
+    "params": "arg1: String?, arg2: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "lrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "mrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "a64l",
+    "params": "arg1: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "random",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memchr",
+    "params": "arg1: COpaquePointer?, arg2: CInt, arg3: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memcmp",
+    "params": "arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memcpy",
+    "params": "arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memmove",
+    "params": "arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memset",
+    "params": "arg1: COpaquePointer?, arg2: CInt, arg3: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strcspn",
+    "params": "arg1: String?, arg2: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strlen",
+    "params": "arg1: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strncat",
+    "params": "arg1: String?, arg2: String?, arg3: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strncmp",
+    "params": "arg1: String?, arg2: String?, arg3: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strncpy",
+    "params": "arg1: String?, arg2: String?, arg3: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strspn",
+    "params": "arg1: String?, arg2: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strxfrm",
+    "params": "arg1: String?, arg2: String?, arg3: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memccpy",
+    "params": "arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: CInt, arg4: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strnlen",
+    "params": "arg1: String?, arg2: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "arg1: COpaquePointer?, arg2: ULong, arg3: COpaquePointer?, arg4: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strlcat",
+    "params": "arg1: String?, arg2: String?, arg3: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strlcpy",
+    "params": "arg1: String?, arg2: String?, arg3: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "bcmp",
+    "params": "arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "strncasecmp",
+    "params": "arg1: String?, arg2: String?, arg3: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "chmod",
+    "params": "arg1: String?, arg2: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "creat",
+    "params": "arg1: String?, arg2: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "read",
+    "params": "arg1: CInt, arg2: COpaquePointer?, arg3: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "getcwd",
+    "params": "arg1: String?, arg2: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/solid/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "calloc",
+    "params": "nobj: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "malloc",
+    "params": "size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "realloc",
+    "params": "p: COpaquePointer?, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "memchr",
+    "params": "cx: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "memcmp",
+    "params": "cx: COpaquePointer?, ct: COpaquePointer?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "memcpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "memmove",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "memset",
+    "params": "dest: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "sysconf",
+    "params": "name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "munmap",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "strxfrm",
+    "params": "dest: String?, src: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "random",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "strlen",
+    "params": "cs: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "strncmp",
+    "params": "l: String?, r: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "strncpy",
+    "params": "dest: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "strnlen",
+    "params": "cs: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "atol",
+    "params": "s: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/teeos/ModBatchActuals.kt",
+    "func": "strtol",
+    "params": "s: String?, p: COpaquePointer?, base: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "setvbuf",
+    "params": "stream: FILE?, buffer: String?, mode: CInt, size: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fwrite",
+    "params": "ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fseek",
+    "params": "stream: FILE?, offset: CLong, whence: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "ftell",
+    "params": "stream: FILE?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fgetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fsetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "atol",
+    "params": "s: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strtol",
+    "params": "s: String?, endp: COpaquePointer?, base: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "calloc",
+    "params": "nobj: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "malloc",
+    "params": "size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "realloc",
+    "params": "p: COpaquePointer?, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strncpy",
+    "params": "dst: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strncat",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strncmp",
+    "params": "cs: String?, ct: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strcspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strncasecmp",
+    "params": "s1: String?, s2: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strlen",
+    "params": "cs: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strnlen",
+    "params": "cs: String?, maxlen: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "strxfrm",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "memchr",
+    "params": "cx: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "memcmp",
+    "params": "cx: COpaquePointer?, ct: COpaquePointer?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "memcpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "memmove",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "memset",
+    "params": "dest: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "memccpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "getpwnam",
+    "params": "name: String?",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "chmod",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fchmod",
+    "params": "fd: CInt, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "creat",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fchmodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fchown",
+    "params": "fd: CInt, owner: UidT, group: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "chown",
+    "params": "path: String?, uid: UidT, gid: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "lchown",
+    "params": "path: String?, uid: UidT, gid: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "fpathconf",
+    "params": "filedes: CInt, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "getcwd",
+    "params": "buf: String?, size: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "pathconf",
+    "params": "path: String?, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "read",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "setreuid",
+    "params": "ruid: UidT, euid: UidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "setregid",
+    "params": "rgid: GidT, egid: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "pread",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "pwrite",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "mlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "munlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "munmap",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "gethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "sysconf",
+    "params": "name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "mkfifo",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "confstr",
+    "params": "name: CInt, buf: String?, len: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "mkdirat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "readlinkat",
+    "params": "dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "readlink",
+    "params": "path: String?, buf: String?, bufsz: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/ModBatchActuals.kt",
+    "func": "getpwuid",
+    "params": "uid: UidT",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "ffsl",
+    "params": "value: CLong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "lrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "mincore",
+    "params": "addr: CaddrT, len: ULong, vec: String?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "mrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/aix/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "lrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/ModBatchActuals.kt",
+    "func": "mrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "mincore",
+    "params": "addr: COpaquePointer?, len: ULong, vec: String?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "name: String?, basegid: CInt, groups: CInt?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "getattrlistat",
+    "params": "fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "getattrlistbulk",
+    "params": "dirfd: CInt, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/b32/ModBatchActuals.kt",
+    "func": "exchangedata",
+    "params": "path1: String?, path2: String?, options: CULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/apple/b64/ModBatchActuals.kt",
+    "func": "exchangedata",
+    "params": "path1: String?, path2: String?, options: CUInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "name: String?, basegid: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "lchflags",
+    "params": "path: String?, flags: CULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "mincore",
+    "params": "addr: COpaquePointer?, len: ULong, vec: String?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/dragonfly/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/dragonfly/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/ModBatchActuals.kt",
+    "func": "ffsl",
+    "params": "value: CLong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/ModBatchActuals.kt",
+    "func": "flsl",
+    "params": "value: CLong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/freebsd11/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/freebsd12/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/freebsd13/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/freebsd14/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/freebsdlike/freebsd/freebsd15/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "mincore",
+    "params": "addr: COpaquePointer?, len: ULong, vec: String?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "name: String?, basegid: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/netbsd/ModBatchActuals.kt",
+    "func": "lchflags",
+    "params": "path: String?, flags: CULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/netbsd/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/netbsd/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/netbsd/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/netbsd/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/openbsd/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/openbsd/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/bsd/netbsdlike/openbsd/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "lrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "mrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "ffsl",
+    "params": "value: CLong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "flsl",
+    "params": "value: CLong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, group: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/cygwin/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, basegroup: GidT, grouplist: GidT?, groupcount: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "lrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "mrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/haiku/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "source: COpaquePointer?, sourceLength: ULong, search: COpaquePointer?, searchLength: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "fd: CInt, path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, group: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buffer: COpaquePointer?, length: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buffer: COpaquePointer?, length: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "lrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "mrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/hurd/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "lrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/L4resharedBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/ModBatchActuals.kt",
+    "func": "mincore",
+    "params": "addr: COpaquePointer?, len: ULong, vec: COpaquePointer?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/ModBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, group: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/android/ModBatchActuals.kt",
+    "func": "memmem",
+    "params": "haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/emscripten/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/ModBatchActuals.kt",
+    "func": "mrand48",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, group: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/b32/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/b64/S390xBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/b64/aarch64/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/b64/mips64/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/b64/powerpc64/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/b64/sparc64/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/gnu/b64/x8664/Notx32BatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/musl/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/linuxlike/linux/uclibc/mips/mips32/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/espidf/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/espidf/ModBatchActuals.kt",
+    "func": "gethostname",
+    "params": "name: String?, namelen: SsizeT",
+    "ret": "",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/horizon/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/horizon/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/rtems/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/newlib/vita/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "fd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "getdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "setdomainname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, group: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nto/ModBatchActuals.kt",
+    "func": "sysctl",
+    "params": "name: CInt?, namelen: CUInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/nuttx/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "buf: COpaquePointer?, buflen: ULong, flags: UInt",
+    "ret": "Long",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "user: String?, group: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "strlcat",
+    "params": "dst: String?, src: String?, siz: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "strlcpy",
+    "params": "dst: String?, src: String?, siz: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/redox/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/IllumosBatchActuals.kt",
+    "func": "mincore",
+    "params": "addr: CaddrT, len: ULong, vec: String?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "getrandom",
+    "params": "bbuf: COpaquePointer?, buflen: ULong, flags: CUInt",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "getgrouplist",
+    "params": "name: String?, basegid: GidT, groups: GidT?, ngroups: CInt?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "getpwent",
+    "params": "",
+    "ret": "Passwd?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "mknodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "mkfifoat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "sethostname",
+    "params": "name: String?, len: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "memalign",
+    "params": "align: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "getgrnam",
+    "params": "name: String?",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "getgrgid",
+    "params": "gid: GidT",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "getgrent",
+    "params": "",
+    "ret": "Group?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/unix/solarish/ModBatchActuals.kt",
+    "func": "gethostid",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "strncmp",
+    "params": "cs: String?, ct: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "strncasecmp",
+    "params": "s1: String?, s2: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "creat",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "fchown",
+    "params": "fd: CInt, owner: UidT, group: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "chown",
+    "params": "path: String?, uid: UidT, gid: GidT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "mlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "munlock",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "munmap",
+    "params": "addr: COpaquePointer?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "mprotect",
+    "params": "addr: COpaquePointer?, len: ULong, prot: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "gethostname",
+    "params": "name: String?, len: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "mkfifo",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "fchmodat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "chmod",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksCIntActuals.kt",
+    "func": "fchmod",
+    "params": "attr1: CInt, attr2: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksFileActuals.kt",
+    "func": "fseek",
+    "params": "stream: FILE?, offset: CLong, whence: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksFileActuals.kt",
+    "func": "ftell",
+    "params": "stream: FILE?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksFileActuals.kt",
+    "func": "setvbuf",
+    "params": "stream: FILE?, buffer: String?, mode: CInt, size: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksFileActuals.kt",
+    "func": "fwrite",
+    "params": "ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksFileActuals.kt",
+    "func": "fgetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksFileActuals.kt",
+    "func": "fsetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "calloc",
+    "params": "nobj: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "malloc",
+    "params": "size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "realloc",
+    "params": "p: COpaquePointer?, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "memchr",
+    "params": "cx: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "memcmp",
+    "params": "cx: COpaquePointer?, ct: COpaquePointer?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "memcpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "memccpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "memmove",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMemActuals.kt",
+    "func": "memset",
+    "params": "dest: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "atol",
+    "params": "s: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "strspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "strcspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "strlen",
+    "params": "cs: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "strnlen",
+    "params": "cs: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "strxfrm",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "memalign",
+    "params": "blockSize: ULong, sizeArg: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "readlink",
+    "params": "path: String?, buf: String?, bufsize: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "strtol",
+    "params": "s: String?, endp: COpaquePointer?, base: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "confstr",
+    "params": "name: CInt, buf: String?, len: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "fpathconf",
+    "params": "filedes: CInt, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "pathconf",
+    "params": "path: String?, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "read",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksMiscActuals.kt",
+    "func": "sysconf",
+    "params": "attr: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksStrActuals.kt",
+    "func": "strncpy",
+    "params": "dst: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksStrActuals.kt",
+    "func": "strncat",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/vxworks/VxworksStrActuals.kt",
+    "func": "getcwd",
+    "params": "buf: String?, size: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "calloc",
+    "params": "amt: ULong, amt2: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "malloc",
+    "params": "amt: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "read",
+    "params": "fd: CInt, ptr: COpaquePointer?, size: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "realloc",
+    "params": "ptr: COpaquePointer?, amt: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "fseek",
+    "params": "f: FILE?, b: CLong, c: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "ftell",
+    "params": "f: FILE?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "fgetpos",
+    "params": "f: FILE?, pos: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "fsetpos",
+    "params": "f: FILE?, pos: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "fwrite",
+    "params": "buf: COpaquePointer?, a: ULong, b: ULong, f: FILE?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "random",
+    "params": "",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "setvbuf",
+    "params": "stream: FILE?, buffer: String?, mode: CInt, size: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "atol",
+    "params": "s: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strtol",
+    "params": "s: String?, endp: COpaquePointer?, base: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strncpy",
+    "params": "dst: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strncat",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strncmp",
+    "params": "cs: String?, ct: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strcspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strncasecmp",
+    "params": "s1: String?, s2: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strlen",
+    "params": "cs: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strnlen",
+    "params": "cs: String?, maxlen: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "strxfrm",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "memchr",
+    "params": "cx: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "memcmp",
+    "params": "cx: COpaquePointer?, ct: COpaquePointer?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "memcpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "memmove",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "memset",
+    "params": "dest: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "creat",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "telldir",
+    "params": "dirp: DIR?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "mkdirat",
+    "params": "dirfd: CInt, pathname: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "readlinkat",
+    "params": "dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "fpathconf",
+    "params": "filedes: CInt, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "pathconf",
+    "params": "path: String?, name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "pread",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "pwrite",
+    "params": "fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "readlink",
+    "params": "path: String?, buf: String?, bufsz: ULong",
+    "ret": "SsizeT",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "sysconf",
+    "params": "name: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "getentropy",
+    "params": "buf: COpaquePointer?, buflen: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "getcwd",
+    "params": "buf: String?, size: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "chmod",
+    "params": "path: String?, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/wasi/ModBatchActuals.kt",
+    "func": "fchmod",
+    "params": "fd: CInt, mode: ModeT",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "setvbuf",
+    "params": "stream: FILE?, buffer: String?, mode: CInt, size: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "fwrite",
+    "params": "ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "fseek",
+    "params": "stream: FILE?, offset: CLong, whence: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "ftell",
+    "params": "stream: FILE?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "fgetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "fsetpos",
+    "params": "stream: FILE?, ptr: FposT?",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "atol",
+    "params": "s: String?",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strtol",
+    "params": "s: String?, endp: COpaquePointer?, base: CInt",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "calloc",
+    "params": "nobj: ULong, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "malloc",
+    "params": "size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "realloc",
+    "params": "p: COpaquePointer?, size: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strncpy",
+    "params": "dst: String?, src: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strncat",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strncmp",
+    "params": "cs: String?, ct: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strcspn",
+    "params": "cs: String?, ct: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strlen",
+    "params": "cs: String?",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strnlen",
+    "params": "cs: String?, maxlen: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "strxfrm",
+    "params": "s: String?, ct: String?, n: ULong",
+    "ret": "ULong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "memchr",
+    "params": "cx: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "memcmp",
+    "params": "cx: COpaquePointer?, ct: COpaquePointer?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "memcpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "memmove",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "memset",
+    "params": "dest: COpaquePointer?, c: CInt, n: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "labs",
+    "params": "i: CLong",
+    "ret": "CLong",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "chmod",
+    "params": "path: String?, mode: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "creat",
+    "params": "path: String?, mode: CInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "getcwd",
+    "params": "buf: String?, size: CInt",
+    "ret": "String?",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/ModBatchActuals.kt",
+    "func": "read",
+    "params": "fd: CInt, buf: COpaquePointer?, count: CUInt",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/gnu/ModBatchActuals.kt",
+    "func": "strncasecmp",
+    "params": "s1: String?, s2: String?, n: ULong",
+    "ret": "CInt",
+    "has_struct": false
+  },
+  {
+    "file": "src/nativeMain/kotlin/io/github/kotlinmania/libc/windows/msvc/ModBatchActuals.kt",
+    "func": "memccpy",
+    "params": "dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: ULong",
+    "ret": "COpaquePointer?",
+    "has_struct": false
+  }
+]
