@@ -60,12 +60,18 @@
 #ifndef _WIN32
 #include <sys/wait.h>
 #endif
+#ifndef _WIN32
 #include <sys/resource.h>
+#endif
+#ifndef _WIN32
 #include <sys/times.h>
 #include <sys/uio.h>
 #include <sys/select.h>
+#endif
+#ifndef _WIN32
 #include <sys/ioctl.h>
 #include <sys/utsname.h>
+#endif
 #ifndef _WIN32
 #include <sys/ipc.h>
 #endif
