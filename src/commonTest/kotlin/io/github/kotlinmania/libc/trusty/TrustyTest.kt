@@ -18,11 +18,11 @@ class TrustyTest {
 
     @Test
     fun testTrustyDataClasses() {
-        val iov = Iovec(iovBase = 0x1234L, iovLen = 64uL)
+        val iov = Iovec(0L, iovBase = 0x1234L, iovLen = 64uL)
         assertEquals(0x1234L, iov.iovBase)
         assertEquals(64uL, iov.iovLen)
 
-        val ts = Timespec(tvSec = 12L, tvNsec = 345L)
+        val ts = Timespec(0L, tvSec = 12L, tvNsec = 345L)
         assertEquals(12L, ts.tvSec)
         assertEquals(345L, ts.tvNsec)
     }

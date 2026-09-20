@@ -1,0 +1,43 @@
+// port-lint: source Mod.rs
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+
+package io.github.kotlinmania.libc.unix.newlib.rtems
+
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
+import libc.cinterop.libc_getentropy
+import libc.cinterop.libc_readv
+import libc.cinterop.libc_writev
+import libc.cinterop.libc_futimens
+
+public actual fun futimens(fd: CInt, times: Timespec?): CInt {
+    if (times == null) return -1
+    val timesPtr: CPointer<ByteVar>? = times.handle.toCPointer()
+    val result = libc_futimens(fd, timesPtr)
+    return result
+}
+
+public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("writev requires FFI bridge")
+
+public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("readv requires FFI bridge")
+
+public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt =
+    throw UnsupportedOperationException("pthreadCondattrSetclock requires manual FFI bridge — not yet implemented")
+
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
+    throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
+
+public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
+    throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
+}
+
+public actual fun setgroups(ngroups: CInt, grouplist: GidT?): CInt =
+    throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+    throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

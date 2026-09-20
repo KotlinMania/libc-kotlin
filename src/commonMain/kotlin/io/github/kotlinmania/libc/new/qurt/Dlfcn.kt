@@ -9,10 +9,7 @@ public const val RTLD_GLOBAL: CInt = 0x100
 public const val RTLD_LOCAL: CInt = 0x200
 public const val DL_LAZY: CInt = RTLD_LAZY
 
-public fun dlopen(filename: String?, flag: CInt): COpaquePointer? = null
-
-public fun dlclose(handle: COpaquePointer?): CInt = -1
-
-public fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? = null
-
-public fun dlerror(): String? = null
+public expect fun dlopen(filename: String?, flag: CInt): COpaquePointer? 
+public expect fun dlclose(handle: COpaquePointer?): CInt 
+public expect fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? 
+public expect fun dlerror(): String? 

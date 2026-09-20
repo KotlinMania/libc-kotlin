@@ -75,7 +75,7 @@ public fun ftello64(stream: FILE?): Off64T = ftello(stream)
 public fun ftruncate64(fd: CInt, length: Off64T): CInt = ftruncate(fd, length)
 
 public fun getrlimit64(resource: CInt, rlim: Rlimit64?): CInt =
-    getrlimit(resource, rlim?.let { Rlimit(it.rlimCur, it.rlimMax) })
+    getrlimit(resource, rlim?.let { Rlimit(0L, it.rlimCur, it.rlimMax) })
 
 public fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T = lseek(fd, offset, whence)
 
@@ -113,7 +113,7 @@ public fun readdir64(dirp: DIR?): Dirent? = readdir(dirp)
 public fun readdir64R(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt = readdirR(dirp, entry, result)
 
 public fun setrlimit64(resource: CInt, rlim: Rlimit64?): CInt =
-    setrlimit(resource, rlim?.let { Rlimit(it.rlimCur, it.rlimMax) })
+    setrlimit(resource, rlim?.let { Rlimit(0L, it.rlimCur, it.rlimMax) })
 
 public fun stat64(pathname: String?, statbuf: Stat?): CInt = stat(pathname, statbuf)
 

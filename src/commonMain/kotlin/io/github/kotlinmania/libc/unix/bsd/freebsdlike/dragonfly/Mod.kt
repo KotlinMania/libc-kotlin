@@ -949,118 +949,63 @@ public const val RTAX_MPLS3: CInt = 10
 public const val RTAX_MAX: CInt = 11
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? = null
-
-public fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? = null
-
-public fun cPUZERO(cpuset: CpuSetT?) { }
-
-public fun cPUSET(cpu: ULong, cpuset: CpuSetT?) { }
-
-public fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) { }
-
-public fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean = false
-
-public fun errnoLocation(): CInt? = null
-
-public fun setgrent() { }
-
-public fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt = -1
-
-public fun setutxdb(type: CUInt, file: String?): CInt = -1
-
-public fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): CInt = -1
-
-public fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): String? = null
-
-public fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt = -1
-
-public fun freelocale(loc: LocaleT) { }
-
-public fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt = -1
-
-public fun statfs(path: String?, buf: Statfs?): CInt = -1
-
-public fun fstatfs(fd: CInt, buf: Statfs?): CInt = -1
-
-public fun uname(buf: Utsname?): CInt = -1
-
-public fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? = null
-
-public fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt = -1
-
-public fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt = -1
-
-public fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt = -1
-
-public fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt = -1
-
-public fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt = -1
-
-public fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt = -1
-
-public fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt = -1
-
-public fun schedGetcpu(): CInt = -1
-
-public fun setproctitle(fmt: String?, vararg args: Any?) { }
-
-public fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt = -1
-
-public fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? = null
-
-public fun shmdt(shmaddr: COpaquePointer?): CInt = -1
-
-public fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt = -1
-
-public fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt = -1
-
-public fun updwtmpx(file: String?, ut: Utmpx?): CInt = -1
-
-public fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx? = null
-
-public fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt = -1
-
+public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? 
+public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? 
+public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean 
+public expect fun errnoLocation(): CInt? 
+public expect fun setgrent()
+public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
+public expect fun setutxdb(type: CUInt, file: String?): CInt 
+public expect fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: Timespec?): CInt 
+public expect fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): String? 
+public expect fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt 
+public expect fun freelocale(loc: LocaleT)
+public expect fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt 
+public expect fun statfs(path: String?, buf: Statfs?): CInt 
+public expect fun fstatfs(fd: CInt, buf: Statfs?): CInt 
+public expect fun uname(buf: Utsname?): CInt 
+public expect fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? 
+public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt 
+public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt 
+public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt 
+public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt 
+public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt 
+public expect fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt 
+public expect fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt 
+public expect fun schedGetcpu(): CInt 
+public expect fun setproctitle(fmt: String?, vararg args: Any?)
+public expect fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt 
+public expect fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? 
+public expect fun shmdt(shmaddr: COpaquePointer?): CInt 
+public expect fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt 
+public expect fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt 
+public expect fun updwtmpx(file: String?, ut: Utmpx?): CInt 
+public expect fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx? 
+public expect fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt 
 public fun getutxuser(name: String?): Utmpx = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun utmpxname(file: String?): CInt = -1
-
-public fun sysCheckpoint(tpe: CInt, fd: CInt, pid: PidT, retval: CInt): CInt = -1
-
-public fun umtxSleep(ptr: CInt?, value: CInt, timeout: CInt): CInt = -1
-
-public fun umtxWakeup(ptr: CInt?, count: CInt): CInt = -1
-
-public fun dirname(path: String?): String? = null
-
-public fun basename(path: String?): String? = null
-
-public fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt = -1
-
-public fun getmntvinfo(mntbufp: COpaquePointer?, mntvbufp: COpaquePointer?, flags: CInt): CInt = -1
-
-public fun closefrom(lowfd: CInt): CInt = -1
-
-public fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt = -1
-
-public fun aioError(aiocbp: Aiocb?): CInt = -1
-
-public fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt = -1
-
-public fun aioRead(aiocbp: Aiocb?): CInt = -1
-
-public fun aioReturn(aiocbp: Aiocb?): SsizeT = -1L
-
-public fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt = -1
-
-public fun aioWrite(aiocbp: Aiocb?): CInt = -1
-
-public fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt = -1
-
-public fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? = null
-
-public fun freezero(ptr: COpaquePointer?, size: ULong) { }
-
+public expect fun utmpxname(file: String?): CInt 
+public expect fun sysCheckpoint(tpe: CInt, fd: CInt, pid: PidT, retval: CInt): CInt 
+public expect fun umtxSleep(ptr: CInt?, value: CInt, timeout: CInt): CInt 
+public expect fun umtxWakeup(ptr: CInt?, count: CInt): CInt 
+public expect fun dirname(path: String?): String? 
+public expect fun basename(path: String?): String? 
+public expect fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt 
+public expect fun getmntvinfo(mntbufp: COpaquePointer?, mntvbufp: COpaquePointer?, flags: CInt): CInt 
+public expect fun closefrom(lowfd: CInt): CInt 
+public expect fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt 
+public expect fun aioError(aiocbp: Aiocb?): CInt 
+public expect fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt 
+public expect fun aioRead(aiocbp: Aiocb?): CInt 
+public expect fun aioReturn(aiocbp: Aiocb?): SsizeT 
+public expect fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt 
+public expect fun aioWrite(aiocbp: Aiocb?): CInt 
+public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt 
+public expect fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? 
+public expect fun freezero(ptr: COpaquePointer?, size: ULong)
 public fun kvmVmMapEntryFirst(kvm: KvmT, map: VmMapT, entry: VmMapEntryT): VmMapEntryT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun kvmVmMapEntryNext(kvm: KvmT, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT = throw UnsupportedOperationException("Not implemented on this platform")
