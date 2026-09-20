@@ -8,15 +8,6 @@ int getentropy(void*, uint64_t);
 
 #include <errno.h>
 #include <stdlib.h>
-/* Undef glibc redirect macros that redirect strtol to __isoc23_strtol
- * on newer glibc (Ubuntu 24.04+). This prevents the linker from
- * looking for __isoc23_strtol which isn't in the Kotlin/Native sysroot. */
-#undef strtol
-#undef strtoul
-#undef strtoll
-#undef strtoull
-#undef strtoimax
-#undef strtoumax
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -95,13 +86,25 @@ void* libc_calloc(uint64_t nobj, uint64_t size) { return calloc((uint64_t)nobj, 
 void* libc_malloc(uint64_t size) { return malloc((uint64_t)size); }
 void* libc_realloc(void* p, uint64_t size) { return realloc(p, (uint64_t)size); }
 void libc_free(void* p) { free(p); }
-void* libc_aligned_alloc(uint64_t alignment, uint64_t size) { return aligned_alloc((uint64_t)alignment, (uint64_t)size); }
+void* libc_aligned_alloc(uint64_t alignment, uint64_t size) {
+#ifdef _WIN32
+    return _aligned_malloc((uint64_t)size, (uint64_t)alignment);
+#else
+    return aligned_alloc((uint64_t)alignment, (uint64_t)size);
+#endif
+}
 int libc_atoi(const char* s) { return atoi(s); }
 long libc_atol(const char* s) { return atol(s); }
 long long libc_atoll(const char* s) { return atoll(s); }
 char* libc_getenv(const char* s) { return getenv(s); }
 char* libc_strerror(int n) { return strerror(n); }
-char* libc_strdup(const char* s) { return strdup(s); }
+char* libc_strdup(const char* s) {
+#ifdef _WIN32
+    return _strdup(s);
+#else
+    return strdup(s);
+#endif
+}
 int libc_abs(int n) { return abs(n); }
 int libc_rand(void) { return rand(); }
 void libc_srand(unsigned int seed) { srand(seed); }
@@ -125,15 +128,53 @@ char* libc_strcpy(char* dst, const char* src) { return strcpy(dst, src); }
 char* libc_strncpy(char* dst, const char* src, uint64_t n) { return strncpy(dst, src, n); }
 char* libc_strcat(char* s, const char* ct) { return strcat(s, ct); }
 char* libc_strncat(char* s, const char* ct, uint64_t n) { return strncat(s, ct, n); }
-char* libc_strtok(char* s, const char* delim) { return strtok(s, delim); }
-char* libc_getcwd(char* buf, uint64_t size) { return getcwd(buf, size); }
-char* libc_realpath(const char* pathname, char* resolved) { return realpath(pathname, resolved); }
-char* libc_tmpnam(char* buf) { return tmpnam(buf); }
-char* libc_mkdtemp(char* tmpl) { return mkdtemp(tmpl); }
+char* libc_strtok(char* s, const char* delim) {
+    return strtok(s, delim);
+}
+char* libc_getcwd(char* buf, uint64_t size) {
+#ifdef _WIN32
+    return _getcwd(buf, (int)size);
+#else
+    return getcwd(buf, size);
+#endif
+}
+char* libc_realpath(const char* pathname, char* resolved) {
+#ifdef _WIN32
+    return _fullpath(resolved, pathname, _MAX_PATH);
+#else
+    return realpath(pathname, resolved);
+#endif
+}
+char* libc_tmpnam(char* buf) {
+#ifdef _WIN32
+    return _tmpnam(buf);
+#else
+    return tmpnam(buf);
+#endif
+}
+char* libc_mkdtemp(char* tmpl) {
+#ifdef _WIN32
+    return _mktemp(tmpl);
+#else
+    return mkdtemp(tmpl);
+#endif
+}
 int libc_strcmp(const char* s1, const char* s2) { return strcmp(s1, s2); }
 int libc_strncmp(const char* s1, const char* s2, uint64_t n) { return strncmp(s1, s2, n); }
-int libc_strcasecmp(const char* s1, const char* s2) { return strcasecmp(s1, s2); }
-int libc_strncasecmp(const char* s1, const char* s2, uint64_t n) { return strncasecmp(s1, s2, n); }
+int libc_strcasecmp(const char* s1, const char* s2) {
+#ifdef _WIN32
+    return _stricmp(s1, s2);
+#else
+    return strcasecmp(s1, s2);
+#endif
+}
+int libc_strncasecmp(const char* s1, const char* s2, uint64_t n) {
+#ifdef _WIN32
+    return _strnicmp(s1, s2, n);
+#else
+    return strncasecmp(s1, s2, n);
+#endif
+}
 void* libc_memchr(const void* s, int c, uint64_t n) { return memchr(s, c, n); }
 int libc_memcmp(const void* s1, const void* s2, uint64_t n) { return memcmp(s1, s2, n); }
 void* libc_memcpy(void* dest, const void* src, uint64_t n) { return memcpy(dest, src, n); }
@@ -325,8 +366,9 @@ int64_t libc_ftello(void* stream) { return (int64_t)ftello((FILE*)stream); }
 int32_t libc_setpgid(int32_t pid, int32_t pgid) { return setpgid(pid, pgid); }
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize) { return readlink(path, buf, bufsize); }
 long libc_strtol(const char* s, void* endp, int base) {
-    /* #undef strtol above removes the glibc __isoc23_strtol redirect,
-     * so strtol resolves to the actual strtol symbol in the sysroot. */
+    /* __USE_ISOC2X is undef'd in libc_wrapper.h before <stdlib.h>,
+     * preventing the glibc __isoc23_strtol redirect. strtol resolves
+     * to the actual strtol symbol in the sysroot. */
     return strtol(s, (char**)endp, base);
 }
 uint64_t libc_confstr(int name, const char* buf, uint64_t len) { return (uint64_t)confstr(name, buf, len); }
@@ -484,7 +526,6 @@ int libc_recvmsg(int fd, void* msg, int flags) {
 int64_t libc_sendmsg(int fd, void* msg, int flags) {
     return sendmsg(fd, (const struct msghdr*)msg, flags);
 }
-#ifdef __linux__
 int libc_accept4(int fd, void* addr, void* len, int flg) {
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
     return accept4(fd, (struct sockaddr*)addr, (socklen_t*)len, flg);
@@ -494,7 +535,6 @@ int libc_accept4(int fd, void* addr, void* len, int flg) {
     return -1;
 #endif
 }
-#endif
 
 int libc_sigwait(void* set, int* sig) {
     return sigwait((const sigset_t*)set, sig);
@@ -505,7 +545,6 @@ int libc_sigsuspend(void* mask) {
 int libc_pthread_sigmask(int how, void* set, void* oldset) {
     return pthread_sigmask(how, (const sigset_t*)set, (sigset_t*)oldset);
 }
-#ifdef __linux__
 int libc_pthread_condattr_setclock(void* attr, int clockId) {
 #if defined(__linux__)
     return pthread_condattr_setclock((pthread_condattr_t*)attr, (int32_t)clockId);
@@ -515,9 +554,7 @@ int libc_pthread_condattr_setclock(void* attr, int clockId) {
     return -1;
 #endif
 }
-#endif
 
-#ifdef __linux__
 int libc_pthread_condattr_getclock(void* attr, int* clockId) {
 #if defined(__linux__)
     return pthread_condattr_getclock((const pthread_condattr_t*)attr, (int32_t*)clockId);
@@ -527,12 +564,10 @@ int libc_pthread_condattr_getclock(void* attr, int* clockId) {
     return -1;
 #endif
 }
-#endif
 
 int libc_pthread_setschedparam(void* thread, int policy, void* param) {
     return pthread_setschedparam((pthread_t)thread, policy, (const struct sched_param*)param);
 }
-#ifdef __linux__
 int libc_sched_setparam(int32_t pid, void* param) {
 #if defined(__linux__)
     return sched_setparam(pid, (const struct sched_param*)param);
@@ -542,9 +577,7 @@ int libc_sched_setparam(int32_t pid, void* param) {
     return -1;
 #endif
 }
-#endif
 
-#ifdef __linux__
 int libc_sched_getparam(int32_t pid, void* param) {
 #if defined(__linux__)
     return sched_getparam(pid, (struct sched_param*)param);
@@ -554,9 +587,7 @@ int libc_sched_getparam(int32_t pid, void* param) {
     return -1;
 #endif
 }
-#endif
 
-#ifdef __linux__
 int libc_sched_setscheduler(int32_t pid, int policy, void* param) {
 #if defined(__linux__)
     return sched_setscheduler(pid, policy, (const struct sched_param*)param);
@@ -566,17 +597,18 @@ int libc_sched_setscheduler(int32_t pid, int policy, void* param) {
     return -1;
 #endif
 }
-#endif
 
-int libc_waitid(int idtype, id_t id, void* infop, int options) {
+#ifndef _WIN32
+int libc_waitid(int idtype, int32_t id, void* infop, int options) {
 #if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__sun)
-    return waitid((idtype_t)idtype, id, (siginfo_t*)infop, options);
+    return waitid((idtype_t)idtype, (id_t)id, (siginfo_t*)infop, options);
 #else
     (void)idtype; (void)id; (void)infop; (void)options;
     errno = ENOSYS;
     return -1;
 #endif
 }
+#endif
 int libc_openpty(int* amaster, int* aslave, char* name, void* termp, void* winp) {
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__linux__)
     return openpty(amaster, aslave, name, (const struct termios*)termp, (const struct winsize*)winp);
@@ -639,9 +671,8 @@ int libc_clock_settime(int32_t clk_id, void* tp) {
     return clock_settime(clk_id, (const struct timespec*)tp);
 }
 #endif
-#ifdef __linux__
 int libc_clock_nanosleep(int32_t clock_id, int flags, void* rqtp, void* rmtp) {
-#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
     return clock_nanosleep(clock_id, flags, (const struct timespec*)rqtp, (struct timespec*)rmtp);
 #else
     (void)clock_id; (void)flags; (void)rqtp; (void)rmtp;
@@ -649,11 +680,9 @@ int libc_clock_nanosleep(int32_t clock_id, int flags, void* rqtp, void* rmtp) {
     return -1;
 #endif
 }
-#endif
 
-#ifdef __linux__
 int libc_sigtimedwait(void* set, void* info, void* timeout) {
-#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
     return sigtimedwait((const sigset_t*)set, (siginfo_t*)info, (const struct timespec*)timeout);
 #else
     (void)set; (void)info; (void)timeout;
@@ -661,14 +690,12 @@ int libc_sigtimedwait(void* set, void* info, void* timeout) {
     return -1;
 #endif
 }
-#endif
 
 int libc_settimeofday(void* tv, void* tz) {
     return settimeofday((const struct timeval*)tv, tz);
 }
-#ifdef __linux__
 int libc_pthread_mutex_timedlock(void* mutex, void* abstime) {
-#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__) || defined(__CYGWIN__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__CYGWIN__)
     return pthread_mutex_timedlock((pthread_mutex_t*)mutex, (const struct timespec*)abstime);
 #else
     (void)mutex; (void)abstime;
@@ -676,11 +703,9 @@ int libc_pthread_mutex_timedlock(void* mutex, void* abstime) {
     return -1;
 #endif
 }
-#endif
 
-#ifdef __linux__
 int libc_sem_timedwait(void* sem, void* abstime) {
-#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__) || defined(__CYGWIN__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__CYGWIN__)
     return sem_timedwait((sem_t*)sem, (const struct timespec*)abstime);
 #else
     (void)sem; (void)abstime;
@@ -688,7 +713,6 @@ int libc_sem_timedwait(void* sem, void* abstime) {
     return -1;
 #endif
 }
-#endif
 
 
 /* COpaquePointer-param wrappers — void* for pointer params */
@@ -865,31 +889,86 @@ int libc_sem_destroy(void* sem) { return sem_destroy((sem_t*)sem); }
 int libc_sem_init(void* sem, int pshared, unsigned int value) { return sem_init((sem_t*)sem, pshared, value); }
 int libc_sem_close(void* sem) { return sem_close((sem_t*)sem); }
 int libc_sem_getvalue(void* sem, int* sval) { return sem_getvalue((sem_t*)sem, sval); }
+/* sched_getscheduler is Linux-only; provide stub for other platforms. */
+int libc_sched_getscheduler(int32_t pid) {
 #ifdef __linux__
-int libc_sched_getscheduler(int32_t pid) { return sched_getscheduler(pid); }
-int libc_sched_get_priority_max(int policy) { return sched_get_priority_max(policy); }
+    return sched_getscheduler(pid);
+#else
+    (void)pid;
+    errno = ENOSYS;
+    return -1;
 #endif
+}
+int libc_sched_get_priority_max(int policy) { return sched_get_priority_max(policy); }
 
 int libc_sched_get_priority_min(int policy) { return sched_get_priority_min(policy); }
 int libc_pthread_kill(void* thread, int sig) { return pthread_kill((pthread_t)thread, sig); }
+int libc_pthread_spin_init(void* lock, int pshared) {
 #ifdef __linux__
-int libc_pthread_spin_init(void* lock, int pshared) { return pthread_spin_init((pthread_spinlock_t*)lock, pshared); }
-int libc_pthread_spin_destroy(void* lock) { return pthread_spin_destroy((pthread_spinlock_t*)lock); }
+    return pthread_spin_init((pthread_spinlock_t*)lock, pshared);
+#else
+    (void)lock; (void)pshared;
+    errno = ENOSYS;
+    return -1;
 #endif
+}
+int libc_pthread_spin_destroy(void* lock) {
+#ifdef __linux__
+    return pthread_spin_destroy((pthread_spinlock_t*)lock);
+#else
+    (void)lock;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
 
+int libc_pthread_spin_lock(void* lock) {
 #ifdef __linux__
-int libc_pthread_spin_lock(void* lock) { return pthread_spin_lock((pthread_spinlock_t*)lock); }
-int libc_pthread_spin_trylock(void* lock) { return pthread_spin_trylock((pthread_spinlock_t*)lock); }
+    return pthread_spin_lock((pthread_spinlock_t*)lock);
+#else
+    (void)lock;
+    errno = ENOSYS;
+    return -1;
 #endif
+}
+int libc_pthread_spin_trylock(void* lock) {
+#ifdef __linux__
+    return pthread_spin_trylock((pthread_spinlock_t*)lock);
+#else
+    (void)lock;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
 
+int libc_pthread_spin_unlock(void* lock) {
 #ifdef __linux__
-int libc_pthread_spin_unlock(void* lock) { return pthread_spin_unlock((pthread_spinlock_t*)lock); }
-int libc_posix_fallocate(int fd, long offset, long len) { return posix_fallocate(fd, (int64_t)offset, (int64_t)len); }
+    return pthread_spin_unlock((pthread_spinlock_t*)lock);
+#else
+    (void)lock;
+    errno = ENOSYS;
+    return -1;
 #endif
+}
+int libc_posix_fallocate(int fd, long offset, long len) {
+#ifdef __linux__
+    return posix_fallocate(fd, (int64_t)offset, (int64_t)len);
+#else
+    (void)fd; (void)offset; (void)len;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
 
+void* libc_memalign(uint64_t alignment, uint64_t size) {
 #ifdef __linux__
-void* libc_memalign(uint64_t alignment, uint64_t size) { return memalign(alignment, size); }
+    return memalign((size_t)alignment, (size_t)size);
+#else
+    (void)alignment; (void)size;
+    errno = ENOSYS;
+    return NULL;
 #endif
+}
 long libc_telldir(void* dirp) { return (long)telldir((DIR*)dirp); }
 void* libc_duplocale(void* base) { return (void*)duplocale((locale_t)base); }
 char* libc_nl_langinfo(int item) { return nl_langinfo(item); }

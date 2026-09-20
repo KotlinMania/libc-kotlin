@@ -3,19 +3,35 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#ifndef _WIN32
 #include <sys/types.h>
 #include <time.h>
 #include <sys/stat.h>
-#ifndef _WIN32
 #include <sys/socket.h>
-#endif
 #include <signal.h>
-#ifndef _WIN32
 #include <unistd.h>
+#include <stdio.h>
+/* Prevent glibc __isoc23_* redirects (strtol → __isoc23_strtol etc.) on
+ * newer glibc (Ubuntu 24.04+). The redirected symbols aren't in the
+ * Kotlin/Native sysroot. Undef AFTER features.h is pulled in by the
+ * includes above (which sets __USE_ISOC2X via _GNU_SOURCE), but BEFORE
+ * <stdlib.h> declares the redirect. */
+#ifdef __linux__
+#undef __USE_ISOC2X
 #endif
+#include <stdlib.h>
+#include <string.h>
+#else
+#include <time.h>
+#include <sys/stat.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+/* Windows: winsock2 for CMSG macros (WSA_CMSG_DATA, WSAMSG, etc.) */
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#endif
 #ifndef _WIN32
 #include <dirent.h>
 #endif
@@ -409,7 +425,10 @@ int libc_pthread_setschedparam(void* thread, int policy, void* param);
 int libc_sched_setparam(int32_t pid, void* param);
 int libc_sched_getparam(int32_t pid, void* param);
 int libc_sched_setscheduler(int32_t pid, int policy, void* param);
-int libc_waitid(int idtype, id_t id, void* infop, int options);
+/* Linux-specific: waitid uses id_t which is not available on Windows */
+#ifndef _WIN32
+int libc_waitid(int idtype, int32_t id, void* infop, int options);
+#endif
 int libc_openpty(int* amaster, int* aslave, char* name, void* termp, void* winp);
 int32_t libc_forkpty(int* amaster, char* name, void* termp, void* winp);
 
