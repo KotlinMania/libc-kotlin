@@ -360,8 +360,9 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePoint
     throw UnsupportedOperationException("memset requires FFI bridge")
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
-public actual fun labs(i: CLong): CLong =
-    libc.cinterop.libc_labs(i)
+public actual fun labs(i: CLong): CLong {
+    return libc.cinterop.libc_labs(i.toLong()).convert()
+}
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {

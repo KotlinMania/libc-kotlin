@@ -18,6 +18,9 @@
  * <stdlib.h> declares the redirect. */
 #ifdef __linux__
 #undef __USE_ISOC2X
+/* Also undef __GLIBC_USE_ISOC2X which is the actual guard glibc uses */
+#undef __GLIBC_USE_ISOC2X
+#define __GLIBC_USE_ISOC2X 0
 #endif
 #include <stdlib.h>
 #include <string.h>
@@ -31,6 +34,11 @@
 /* Windows: winsock2 for CMSG macros (WSA_CMSG_DATA, WSAMSG, etc.) */
 #include <winsock2.h>
 #include <ws2tcpip.h>
+/* Windows POSIX replacements: _getcwd, _mktemp, _fullpath, _strdup,
+ * _stricmp, _strnicmp, close, dup, dup2, chdir, etc. */
+#include <direct.h>
+#include <io.h>
+#include <malloc.h>
 #endif
 #ifndef _WIN32
 #include <dirent.h>
@@ -148,8 +156,8 @@ void* libc_realloc(void* p, uint64_t size);
 void libc_free(void* p);
 void* libc_aligned_alloc(uint64_t alignment, uint64_t size);
 int libc_atoi(const char* s);
-long libc_atol(const char* s);
-long long libc_atoll(const char* s);
+int64_t libc_atol(const char* s);
+int64_t libc_atoll(const char* s);
 char* libc_getenv(const char* s);
 char* libc_strerror(int n);
 char* libc_strdup(const char* s);
@@ -215,8 +223,8 @@ int libc_fgetc(void* stream);
 int libc_fputc(int c, void* stream);
 int libc_fputs(const char* s, void* stream);
 int libc_ungetc(int c, void* stream);
-int libc_fseek(void* stream, long offset, int whence);
-long libc_ftell(void* stream);
+int libc_fseek(void* stream, int64_t offset, int whence);
+int64_t libc_ftell(void* stream);
 void libc_rewind(void* stream);
 int libc_feof(void* stream);
 int libc_ferror(void* stream);
@@ -284,7 +292,7 @@ int libc_munlockall(void);
 int libc_munmap(void* addr, uint64_t len);
 int libc_nice(int inc);
 int libc_raise(int sig);
-long libc_read(int fd, void* buf, uint64_t count);
+int64_t libc_read(int fd, void* buf, uint64_t count);
 char* libc_setlocale(int category, const char* locale);
 int libc_setlogmask(int mask);
 int libc_tcflush(int fd, int queue_selector);
@@ -302,12 +310,12 @@ uint64_t libc_strxfrm(const char* s, const char* ct, uint64_t n);
 int64_t libc_ftello(void* stream);
 int32_t libc_setpgid(int32_t pid, int32_t pgid);
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize);
-long libc_strtol(const char* s, void* endp, int base);
+int64_t libc_strtol(const char* s, void* endp, int base);
 uint64_t libc_confstr(int name, const char* buf, uint64_t len);
-long libc_fpathconf(int filedes, int name);
+int64_t libc_fpathconf(int filedes, int name);
 int64_t libc_lseek(int fd, int64_t offset, int whence);
-long libc_pathconf(const char* path, int name);
-long libc_sysconf(int attr);
+int64_t libc_pathconf(const char* path, int name);
+int64_t libc_sysconf(int attr);
 int libc_strcoll(const char* cs, const char* ct);
 int libc_linkat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath, int flags);
 int libc_unlinkat(int dirfd, const char* pathname, int flags);
@@ -331,10 +339,10 @@ int libc_chmod(const char* path, uint32_t mode);
 int libc_fchmod(int attr1, uint32_t attr2);
 int libc_closedir(void* ptr);
 int libc_kill(int32_t pid, int signo);
-long libc_random(void);
+int64_t libc_random(void);
 int libc_isascii(int c);
-long long libc_llabs(long long a);
-long libc_labs(long i);
+int64_t libc_llabs(int64_t a);
+int64_t libc_labs(int64_t i);
 int libc_mkdirat(int dirfd, const char* pathname, uint32_t mode);
 int64_t libc_readlinkat(int dirfd, const char* pathname, const char* buf, uint64_t bufsiz);
 int libc_renameat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath);
@@ -380,9 +388,9 @@ int libc_ftrylockfile(void* arg1);
 int libc_getw(void* arg1);
 int libc_putw(int arg1, void* arg2);
 int libc_mblen(const char* arg1, uint64_t arg2);
-long libc_lrand48(void);
-long libc_mrand48(void);
-long libc_a64l(const char* arg1);
+int64_t libc_lrand48(void);
+int64_t libc_mrand48(void);
+int64_t libc_a64l(const char* arg1);
 int libc_radixsort(void* arg1, int arg2, void* arg3, unsigned int arg4);
 int libc_sradixsort(void* arg1, int arg2, void* arg3, unsigned int arg4);
 uint64_t libc_strlcat(const char* arg1, const char* arg2, uint64_t arg3);
@@ -393,22 +401,22 @@ int libc_killpg(int32_t pgrp, int sig);
 int libc_chroot(const char* name);
 int libc_lockf(int fd, int cmd, int64_t len);
 int32_t libc_vfork(void);
-long libc_gethostid(void);
+int64_t libc_gethostid(void);
 int libc_setlogin(const char* name);
 int libc_issetugid(void);
 int libc_chflags(const char* path, unsigned int flags);
 int libc_fchflags(int fd, unsigned int flags);
-long long libc_strtonum(const char* numstr, long long minval, long long maxval, void* errstrp);
+int64_t libc_strtonum(const char* numstr, int64_t minval, int64_t maxval, void* errstrp);
 int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, unsigned long options);
 int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options);
 int libc_execvP(const char* file, const char* searchPath, void* argv);
 int libc_exchangedata(const char* path1, const char* path2, unsigned long options);
 int libc_lchflags(const char* path, unsigned long flags);
-int libc_ffsl(long value);
-int libc_ffsll(long long value);
+int libc_ffsl(int64_t value);
+int libc_ffsll(int64_t value);
 int libc_fls(int value);
-int libc_flsl(long value);
-int libc_flsll(long long value);
+int libc_flsl(int64_t value);
+int libc_flsll(int64_t value);
 
 /* Socket / signal / sched / pthread / pty wrappers — void* for struct params */
 int libc_getnameinfo(void* sa, unsigned int salen, char* host, unsigned int hostlen, char* serv, unsigned int servlen, int flags);
@@ -474,7 +482,7 @@ void* libc_getpwnam(const char* name);
 void* libc_getpwuid(int uid);
 void* libc_memalign(uint64_t alignment, uint64_t size);
 char* libc_nl_langinfo(int item);
-int libc_posix_fallocate(int fd, long offset, long len);
+int libc_posix_fallocate(int fd, int64_t offset, int64_t len);
 void* libc_pthread_getspecific(unsigned long key);
 int libc_pthread_kill(void* thread, int sig);
 int libc_pthread_setspecific(unsigned long key, const void* value);
@@ -493,7 +501,7 @@ int libc_sem_init(void* sem, int pshared, unsigned int value);
 void libc_setgrent(void);
 int libc_setpriority(int which, int who, int prio);
 void libc_setpwent(void);
-long libc_telldir(void* dirp);
+int64_t libc_telldir(void* dirp);
 
 /* String-param function wrappers — const char* auto-converts via cinterop */
 int libc_shm_open(const char* name, int oflag, int mode);

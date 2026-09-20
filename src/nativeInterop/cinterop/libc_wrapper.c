@@ -94,8 +94,8 @@ void* libc_aligned_alloc(uint64_t alignment, uint64_t size) {
 #endif
 }
 int libc_atoi(const char* s) { return atoi(s); }
-long libc_atol(const char* s) { return atol(s); }
-long long libc_atoll(const char* s) { return atoll(s); }
+int64_t libc_atol(const char* s) { return (int64_t)atol(s); }
+int64_t libc_atoll(const char* s) { return (int64_t)atoll(s); }
 char* libc_getenv(const char* s) { return getenv(s); }
 char* libc_strerror(int n) { return strerror(n); }
 char* libc_strdup(const char* s) {
@@ -208,8 +208,8 @@ int libc_fgetc(void* stream) { return fgetc((FILE*)stream); }
 int libc_fputc(int c, void* stream) { return fputc(c, (FILE*)stream); }
 int libc_fputs(const char* s, void* stream) { return fputs(s, (FILE*)stream); }
 int libc_ungetc(int c, void* stream) { return ungetc(c, (FILE*)stream); }
-int libc_fseek(void* stream, long offset, int whence) { return fseek((FILE*)stream, offset, whence); }
-long libc_ftell(void* stream) { return ftell((FILE*)stream); }
+int libc_fseek(void* stream, int64_t offset, int whence) { return fseek((FILE*)stream, (long)offset, whence); }
+int64_t libc_ftell(void* stream) { return ftell((FILE*)stream); }
 void libc_rewind(void* stream) { rewind((FILE*)stream); }
 int libc_feof(void* stream) { return feof((FILE*)stream); }
 int libc_ferror(void* stream) { return ferror((FILE*)stream); }
@@ -222,27 +222,81 @@ int libc_putchar(int c) { return putchar(c); }
 int libc_puts(const char* s) { return puts(s); }
 void libc_perror(const char* s) { perror(s); }
 
-/* unistd.h */
-int libc_close(int fd) { return close(fd); }
-int libc_dup(int fd) { return dup(fd); }
-int libc_dup2(int fd1, int fd2) { return dup2(fd1, fd2); }
+/* unistd.h — Windows uses _-prefixed names from <io.h>/<direct.h> */
+int libc_close(int fd) {
+#ifdef _WIN32
+    return _close(fd);
+#else
+    return close(fd);
+#endif
+}
+int libc_dup(int fd) {
+#ifdef _WIN32
+    return _dup(fd);
+#else
+    return dup(fd);
+#endif
+}
+int libc_dup2(int fd1, int fd2) {
+#ifdef _WIN32
+    return _dup2(fd1, fd2);
+#else
+    return dup2(fd1, fd2);
+#endif
+}
 #ifndef _WIN32
 int libc_fsync(int fd) { return fsync(fd); }
 #endif
 #ifndef _WIN32
 int libc_fchdir(int fd) { return fchdir(fd); }
 #endif
-int libc_chdir(const char* path) { return chdir(path); }
-int libc_rmdir(const char* path) { return rmdir(path); }
+int libc_chdir(const char* path) {
 #ifdef _WIN32
-int libc_mkdir(const char* path, int mode) { return mkdir(path); }
+    return _chdir(path);
+#else
+    return chdir(path);
+#endif
+}
+int libc_rmdir(const char* path) {
+#ifdef _WIN32
+    return _rmdir(path);
+#else
+    return rmdir(path);
+#endif
+}
+#ifdef _WIN32
+int libc_mkdir(const char* path, int mode) { (void)mode; return _mkdir(path); }
 #else
 int libc_mkdir(const char* path, int mode) { return mkdir(path, mode); }
 #endif
-int libc_unlink(const char* path) { return unlink(path); }
-int libc_access(const char* path, int mode) { return access(path, mode); }
-int libc_isatty(int fd) { return isatty(fd); }
-int libc_getpid(void) { return getpid(); }
+int libc_unlink(const char* path) {
+#ifdef _WIN32
+    return _unlink(path);
+#else
+    return unlink(path);
+#endif
+}
+int libc_access(const char* path, int mode) {
+#ifdef _WIN32
+    return _access(path, mode);
+#else
+    return access(path, mode);
+#endif
+}
+int libc_isatty(int fd) {
+#ifdef _WIN32
+    return _isatty(fd);
+#else
+    return isatty(fd);
+#endif
+}
+int libc_getpid(void) {
+#ifdef _WIN32
+    return _getpid();
+#else
+    return getpid();
+#endif
+}
 #ifndef _WIN32
 int libc_getppid(void) { return getppid(); }
 #endif
@@ -348,7 +402,7 @@ int libc_munlockall(void) { return munlockall(); }
 int libc_munmap(void* addr, uint64_t len) { return munmap(addr, len); }
 int libc_nice(int inc) { return nice(inc); }
 int libc_raise(int sig) { return raise(sig); }
-long libc_read(int fd, void* buf, uint64_t count) { return (long)read(fd, buf, count); }
+int64_t libc_read(int fd, void* buf, uint64_t count) { return (long)read(fd, buf, count); }
 char* libc_setlocale(int category, const char* locale) { return setlocale(category, locale); }
 int libc_setlogmask(int mask) { return setlogmask(mask); }
 int libc_tcflush(int fd, int queue_selector) { return tcflush(fd, queue_selector); }
@@ -365,17 +419,17 @@ uint64_t libc_strxfrm(const char* s, const char* ct, uint64_t n) { return (uint6
 int64_t libc_ftello(void* stream) { return (int64_t)ftello((FILE*)stream); }
 int32_t libc_setpgid(int32_t pid, int32_t pgid) { return setpgid(pid, pgid); }
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize) { return readlink(path, buf, bufsize); }
-long libc_strtol(const char* s, void* endp, int base) {
+int64_t libc_strtol(const char* s, void* endp, int base) {
     /* __USE_ISOC2X is undef'd in libc_wrapper.h before <stdlib.h>,
      * preventing the glibc __isoc23_strtol redirect. strtol resolves
      * to the actual strtol symbol in the sysroot. */
     return strtol(s, (char**)endp, base);
 }
 uint64_t libc_confstr(int name, const char* buf, uint64_t len) { return (uint64_t)confstr(name, buf, len); }
-long libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
+int64_t libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
 int64_t libc_lseek(int fd, int64_t offset, int whence) { return lseek(fd, offset, whence); }
-long libc_pathconf(const char* path, int name) { return pathconf(path, name); }
-long libc_sysconf(int attr) { return sysconf(attr); }
+int64_t libc_pathconf(const char* path, int name) { return pathconf(path, name); }
+int64_t libc_sysconf(int attr) { return sysconf(attr); }
 int libc_strcoll(const char* cs, const char* ct) { return strcoll(cs, ct); }
 int libc_linkat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath, int flags) { return linkat(olddirfd, oldpath, newdirfd, newpath, flags); }
 int libc_unlinkat(int dirfd, const char* pathname, int flags) { return unlinkat(dirfd, pathname, flags); }
@@ -399,10 +453,10 @@ int libc_chmod(const char* path, uint32_t mode) { return chmod(path, (uint32_t)m
 int libc_fchmod(int attr1, uint32_t attr2) { return fchmod(attr1, (uint32_t)attr2); }
 int libc_closedir(void* ptr) { return closedir(ptr); }
 int libc_kill(int32_t pid, int signo) { return kill(pid, signo); }
-long libc_random(void) { return random(); }
+int64_t libc_random(void) { return random(); }
 int libc_isascii(int c) { return isascii(c); }
-long long libc_llabs(long long a) { return llabs(a); }
-long libc_labs(long i) { return labs(i); }
+int64_t libc_llabs(int64_t a) { return llabs(a); }
+int64_t libc_labs(int64_t i) { return labs(i); }
 int libc_mkdirat(int dirfd, const char* pathname, uint32_t mode) { return mkdirat(dirfd, pathname, mode); }
 int64_t libc_readlinkat(int dirfd, const char* pathname, const char* buf, uint64_t bufsiz) { return readlinkat(dirfd, pathname, buf, bufsiz); }
 int libc_renameat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath) { return renameat(olddirfd, oldpath, newdirfd, newpath); }
@@ -459,9 +513,9 @@ int libc_ftrylockfile(void* arg1) { return ftrylockfile(arg1); }
 int libc_getw(void* arg1) { return getw(arg1); }
 int libc_putw(int arg1, void* arg2) { return putw(arg1, arg2); }
 int libc_mblen(const char* arg1, uint64_t arg2) { return mblen(arg1, arg2); }
-long libc_lrand48(void) { return lrand48(); }
-long libc_mrand48(void) { return mrand48(); }
-long libc_a64l(const char* arg1) { return a64l(arg1); }
+int64_t libc_lrand48(void) { return lrand48(); }
+int64_t libc_mrand48(void) { return mrand48(); }
+int64_t libc_a64l(const char* arg1) { return a64l(arg1); }
 #ifdef __APPLE__
 int libc_radixsort(void* arg1, int arg2, void* arg3, unsigned int arg4) { return radixsort(arg1, arg2, arg3, arg4); }
 int libc_sradixsort(void* arg1, int arg2, void* arg3, unsigned int arg4) { return sradixsort(arg1, arg2, arg3, arg4); }
@@ -480,7 +534,7 @@ int libc_lockf(int fd, int cmd, int64_t len) { return lockf(fd, cmd, len); }
 #if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int32_t libc_vfork(void) { return vfork(); }
 #endif
-long libc_gethostid(void) { return gethostid(); }
+int64_t libc_gethostid(void) { return gethostid(); }
 int libc_setlogin(const char* name) { return setlogin(name); }
 #ifdef __APPLE__
 int libc_issetugid(void) { return issetugid(); }
@@ -488,7 +542,7 @@ int libc_chflags(const char* path, unsigned int flags) { return chflags(path, fl
 #endif
 #ifdef __APPLE__
 int libc_fchflags(int fd, unsigned int flags) { return fchflags(fd, flags); }
-long long libc_strtonum(const char* numstr, long long minval, long long maxval, void* errstrp) { return strtonum(numstr, minval, maxval, errstrp); }
+int64_t libc_strtonum(const char* numstr, int64_t minval, int64_t maxval, void* errstrp) { return (int64_t)strtonum(numstr, minval, maxval, errstrp); }
 #endif
 #ifdef __APPLE__
 int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, unsigned long options) { return getattrlistat(fd, path, attrList, attrBuf, attrBufSize, options); }
@@ -502,15 +556,15 @@ int libc_exchangedata(const char* path1, const char* path2, unsigned long option
 #endif
 #ifdef __APPLE__
 int libc_lchflags(const char* path, unsigned long flags) { return lchflags(path, flags); }
-int libc_ffsl(long value) { return ffsl(value); }
+int libc_ffsl(int64_t value) { return ffsl((long)value); }
 #endif
-int libc_ffsll(long long value) { return ffsll(value); }
+int libc_ffsll(int64_t value) { return ffsll((long long)value); }
 #ifdef __APPLE__
 int libc_fls(int value) { return fls(value); }
-int libc_flsl(long value) { return flsl(value); }
+int libc_flsl(int64_t value) { return flsl((long)value); }
 #endif
 #ifdef __APPLE__
-int libc_flsll(long long value) { return flsll(value); }
+int libc_flsll(int64_t value) { return flsll((long long)value); }
 
 #endif
 /* Socket / signal / sched / pthread / pty wrappers — void* for struct params */
@@ -950,9 +1004,9 @@ int libc_pthread_spin_unlock(void* lock) {
     return -1;
 #endif
 }
-int libc_posix_fallocate(int fd, long offset, long len) {
+int libc_posix_fallocate(int fd, int64_t offset, int64_t len) {
 #ifdef __linux__
-    return posix_fallocate(fd, (int64_t)offset, (int64_t)len);
+    return posix_fallocate(fd, offset, len);
 #else
     (void)fd; (void)offset; (void)len;
     errno = ENOSYS;
@@ -969,7 +1023,7 @@ void* libc_memalign(uint64_t alignment, uint64_t size) {
     return NULL;
 #endif
 }
-long libc_telldir(void* dirp) { return (long)telldir((DIR*)dirp); }
+int64_t libc_telldir(void* dirp) { return (long)telldir((DIR*)dirp); }
 void* libc_duplocale(void* base) { return (void*)duplocale((locale_t)base); }
 char* libc_nl_langinfo(int item) { return nl_langinfo(item); }
 void* libc_getpwent(void) { return (void*)getpwent(); }
