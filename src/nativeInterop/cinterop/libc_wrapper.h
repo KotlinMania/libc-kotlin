@@ -519,4 +519,18 @@ int libc_pthread_getname_np(void* thread, char* name, unsigned long len);
 int libc_pthread_setname_np(void* thread, const char* name);
 int libc_getgrouplist(const char* user, int group, void* groups, int* ngroups);
 
+int libc_sched_yield(void);
+int64_t libc_write(int fd, const void* buf, uint64_t count);
+int libc_putenv(char* string);
+int libc_fnmatch(const char* pattern, const char* name, int flags);
+char* libc_strndup(const char* s, uint64_t n);
+int64_t libc_strtoll(const char* s, void* endp, int base);
+uint64_t libc_strtoul(const char* s, void* endp, int base);
+uint64_t libc_strtoull(const char* s, void* endp, int base);
+int libc_mknod(const char* pathname, uint32_t mode, uint64_t dev);
+const char* libc_strsignal(int sig);
+int libc_pipe(int* fds);
+int libc_poll(void* fds, uint32_t nfds, int timeout);
+const char* libc_hstrerror(int errcode);
+
 #endif /* LIBC_WRAPPER_H */

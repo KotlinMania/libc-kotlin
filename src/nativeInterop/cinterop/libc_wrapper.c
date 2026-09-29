@@ -9,6 +9,7 @@ int getentropy(void*, uint64_t);
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fnmatch.h>
 #include <ctype.h>
 #include <stdio.h>
 #ifndef _WIN32
@@ -1040,3 +1041,17 @@ int libc_pthread_setspecific(unsigned long key, const void* value) { return pthr
 void* libc_pthread_getspecific(unsigned long key) { return (void*)pthread_getspecific((pthread_key_t)key); }
 
 #endif /* _WIN32 */
+
+int libc_sched_yield(void) { sched_yield(); return 0; }
+int64_t libc_write(int fd, const void* buf, uint64_t count) { return write(fd, buf, count); }
+int libc_putenv(char* string) { return putenv(string); }
+int libc_fnmatch(const char* pattern, const char* name, int flags) { return fnmatch(pattern, name, flags); }
+char* libc_strndup(const char* s, uint64_t n) { return strndup(s, n); }
+int64_t libc_strtoll(const char* s, void* endp, int base) { return strtoll(s, (char**)endp, base); }
+uint64_t libc_strtoul(const char* s, void* endp, int base) { return strtoul(s, (char**)endp, base); }
+uint64_t libc_strtoull(const char* s, void* endp, int base) { return strtoull(s, (char**)endp, base); }
+int libc_mknod(const char* pathname, uint32_t mode, uint64_t dev) { return mknod(pathname, mode, dev); }
+const char* libc_strsignal(int sig) { return strsignal(sig); }
+int libc_pipe(int* fds) { return pipe(fds); }
+int libc_poll(void* fds, uint32_t nfds, int timeout) { return poll((struct pollfd*)fds, nfds, timeout); }
+const char* libc_hstrerror(int errcode) { return hstrerror(errcode); }
