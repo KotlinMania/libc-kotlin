@@ -352,6 +352,10 @@ int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct
 #include <termios.h>
 #endif
 #include <signal.h>
+#include <sys/shm.h>
+#include <execinfo.h>
+#include <util.h>
+#include <mach/mach_time.h>
 #ifndef _WIN32
 #include <sys/syslog.h>
 #endif
@@ -1055,3 +1059,12 @@ const char* libc_strsignal(int sig) { return strsignal(sig); }
 int libc_pipe(int* fds) { return pipe(fds); }
 int libc_poll(void* fds, uint32_t nfds, int timeout) { return poll((struct pollfd*)fds, nfds, timeout); }
 const char* libc_hstrerror(int errcode) { return hstrerror(errcode); }
+
+/* Apple-specific implementations */
+uint64_t libc_mach_absolute_time(void) { return mach_absolute_time(); }
+int libc_pthread_setname_np_apple(const char* name) { return pthread_setname_np(name); }
+int libc_pthread_main_np(void) { return pthread_main_np(); }
+int libc_login_tty(int fd) { return login_tty(fd); }
+int libc_backtrace(void** buf, int sz) { return backtrace(buf, sz); }
+void* libc_brk(const void* addr) { return brk(addr); }
+void* libc_shmat(int shmid, const void* shmaddr, int shmflg) { return shmat(shmid, (void*)shmaddr, shmflg); }

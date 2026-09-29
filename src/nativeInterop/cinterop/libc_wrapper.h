@@ -533,4 +533,14 @@ int libc_pipe(int* fds);
 int libc_poll(void* fds, uint32_t nfds, int timeout);
 const char* libc_hstrerror(int errcode);
 
+
+/* Apple-specific wrappers */
+uint64_t libc_mach_absolute_time(void);
+int libc_pthread_setname_np_apple(const char* name);
+int libc_pthread_main_np(void);
+int libc_login_tty(int fd);
+int libc_backtrace(void** buf, int sz);
+void* libc_brk(const void* addr);
+void* libc_shmat(int shmid, const void* shmaddr, int shmflg);
+
 #endif /* LIBC_WRAPPER_H */
