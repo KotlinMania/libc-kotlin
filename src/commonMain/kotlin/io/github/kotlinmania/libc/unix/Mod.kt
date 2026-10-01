@@ -278,10 +278,10 @@ public fun strtod(s: String?, endp: COpaquePointer?): CDouble = 0.0
 
 public fun strtof(s: String?, endp: COpaquePointer?): CFloat = 0.0f
 
-public expect fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong 
-public expect fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong 
-public expect fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong 
-public expect fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong 
+public expect fun strtol(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLong
+public expect fun strtoll(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLongLong
+public expect fun strtoul(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CULong
+public expect fun strtoull(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CULongLong
 public expect fun calloc(nobj: ULong, size: ULong): COpaquePointer? 
 public expect fun malloc(size: ULong): COpaquePointer? 
 public expect fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? 
@@ -315,7 +315,7 @@ public expect fun strnlen(cs: String?, maxlen: ULong): ULong
 public expect fun strerror(n: CInt): String? 
 public expect fun strtok(s: String?, t: String?): String? 
 public expect fun strtokR(s: String?, t: String?, p: COpaquePointer?): String? 
-public expect fun strxfrm(s: String?, ct: String?, n: ULong): ULong 
+public expect fun strxfrm(s: COpaquePointer?, ct: String?, n: ULong): ULong
 public expect fun strsignal(sig: CInt): String? 
 public expect fun wcslen(buf: WcharT?): ULong 
 public expect fun wcstombs(dest: String?, src: WcharT?, n: ULong): ULong 
@@ -410,6 +410,9 @@ public expect fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT
 public expect fun pathconf(path: String?, name: CInt): CLong 
 public expect fun pipe(fds: CInt?): CInt 
 public expect fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt 
+/** Releases an aligned allocation, including an address reconstructed after an FFI round trip. */
+public expect fun alignedFree(p: COpaquePointer?): Unit
+
 public expect fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? 
 public expect fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT 
 public expect fun rmdir(path: String?): CInt 

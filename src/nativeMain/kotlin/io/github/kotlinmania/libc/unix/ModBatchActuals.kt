@@ -322,27 +322,32 @@ public actual fun atoll(s: String?): CLongLong {
     val result = libc_atoll(s)
     return result
 }
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    libc.cinterop.libc_strtol(s, endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong =
-    libc.cinterop.libc_strtoll(s, endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+public actual fun strtol(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLong =
+    libc.cinterop.libc_strtol(s?.value?.toCPointer<ByteVar>(), endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+public actual fun strtoll(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLongLong =
+    libc.cinterop.libc_strtoll(s?.value?.toCPointer<ByteVar>(), endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong =
-    libc.cinterop.libc_strtoul(s, endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+public actual fun strtoul(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CULong =
+    libc.cinterop.libc_strtoul(s?.value?.toCPointer<ByteVar>(), endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong =
-    libc.cinterop.libc_strtoull(s, endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
+public actual fun strtoull(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CULongLong =
+    libc.cinterop.libc_strtoull(s?.value?.toCPointer<ByteVar>(), endp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), base)
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
     libc.cinterop.libc_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
 public actual fun malloc(size: ULong): COpaquePointer? =
     libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
-public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
-    libc.cinterop.libc_realloc(p?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? {
+    val pointer = p?.value?.toCPointer<ByteVar>()
+    val alignment = p?.allocationAlignment ?: 0uL
+    val result = if (alignment != 0uL) libc.cinterop.libc_aligned_realloc(pointer, size, alignment)
+        else libc.cinterop.libc_realloc(pointer, size)
+    return result?.let { COpaquePointer(it.toLong(), alignment) }
+}
 public actual fun free(p: COpaquePointer?): Unit {
     if (p == null) return 
     val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
-    libc_free(pPtr)
+    if (p.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
 
 public actual fun system(s: String?): CInt {
@@ -425,8 +430,13 @@ public actual fun strdup(cs: String?): String? {
         result
     }
 }
-public actual fun strndup(cs: String?, n: ULong): String? =
-    libc.cinterop.libc_strndup(cs, n)?.toKString()
+public actual fun strndup(cs: String?, n: ULong): String? {
+    if (cs == null) return null
+    return memScoped {
+        val duplicate = libc.cinterop.libc_strndup(cs.cstr.getPointer(this), n) ?: return@memScoped null
+        try { duplicate.toKString() } finally { libc_free(duplicate) }
+    }
+}
 
 public actual fun strpbrk(cs: String?, ct: String?): String? {
     if (cs == null) return null
@@ -477,8 +487,9 @@ public actual fun strtok(s: String?, t: String?): String? {
 public actual fun strtokR(s: String?, t: String?, p: COpaquePointer?): String? =
     throw UnsupportedOperationException("strtokR requires manual FFI bridge — not yet implemented")
 
-public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
-    libc.cinterop.libc_strxfrm(s, ct, n)
+public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: ULong): ULong = memScoped {
+    libc.cinterop.libc_strxfrm(s?.value?.toCPointer<ByteVar>(), ct?.cstr?.getPointer(this), n)
+}
 public actual fun strsignal(sig: CInt): String? =
     libc.cinterop.libc_strsignal(sig)?.toKString()
 
@@ -707,8 +718,12 @@ public actual fun pipe(fds: CInt?): CInt =
 public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("posixMemalign requires manual FFI bridge — not yet implemented")
 
+public actual fun alignedFree(p: COpaquePointer?): Unit {
+    libc.cinterop.libc_aligned_free(p?.value?.toCPointer<ByteVar>())
+}
+
 public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
-    libc.cinterop.libc_aligned_alloc(alignment, size)?.let { COpaquePointer(it.toLong()) }
+    libc.cinterop.libc_aligned_alloc(alignment, size)?.let { COpaquePointer(it.toLong(), alignment) }
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     libc.cinterop.libc_read(fd, buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), count)

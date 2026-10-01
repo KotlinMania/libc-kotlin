@@ -34,6 +34,8 @@
 /* Windows: winsock2 for CMSG macros (WSA_CMSG_DATA, WSAMSG, etc.) */
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <mswsock.h>
+#include <process.h>
 /* Windows POSIX replacements: _getcwd, _mktemp, _fullpath, _strdup,
  * _stricmp, _strnicmp, close, dup, dup2, chdir, etc. */
 #include <direct.h>
@@ -122,6 +124,7 @@
 #endif
 #include <ctype.h>
 #ifdef __APPLE__
+#include <TargetConditionals.h>
 #include <mach/mach_time.h>
 #endif
 #ifdef __APPLE__
@@ -154,6 +157,8 @@ void* libc_calloc(uint64_t nobj, uint64_t size);
 void* libc_malloc(uint64_t size);
 void* libc_realloc(void* p, uint64_t size);
 void libc_free(void* p);
+void libc_aligned_free(void* p);
+void* libc_aligned_realloc(void* p, uint64_t size, uint64_t alignment);
 void* libc_aligned_alloc(uint64_t alignment, uint64_t size);
 int libc_atoi(const char* s);
 int64_t libc_atol(const char* s);
@@ -306,7 +311,7 @@ int libc_setvbuf(void* stream, const char* buffer, int mode, uint64_t size);
 uint64_t libc_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream);
 int libc_fgetpos(void* stream, void* ptr);
 int libc_fsetpos(void* stream, void* ptr);
-uint64_t libc_strxfrm(const char* s, const char* ct, uint64_t n);
+uint64_t libc_strxfrm(char* s, const char* ct, uint64_t n);
 int64_t libc_ftello(void* stream);
 int32_t libc_setpgid(int32_t pid, int32_t pgid);
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize);
@@ -410,8 +415,8 @@ int64_t libc_strtonum(const char* numstr, int64_t minval, int64_t maxval, void* 
 int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, unsigned long options);
 int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options);
 int libc_execvP(const char* file, const char* searchPath, void* argv);
-int libc_exchangedata(const char* path1, const char* path2, unsigned long options);
-int libc_lchflags(const char* path, unsigned long flags);
+int libc_exchangedata(const char* path1, const char* path2, uint64_t options);
+int libc_lchflags(const char* path, uint64_t flags);
 int libc_ffsl(int64_t value);
 int libc_ffsll(int64_t value);
 int libc_fls(int value);

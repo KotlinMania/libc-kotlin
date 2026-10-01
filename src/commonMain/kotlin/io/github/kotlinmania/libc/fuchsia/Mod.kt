@@ -2624,7 +2624,7 @@ public expect fun strlen(cs: String?): ULong
 public expect fun strnlen(cs: String?, maxlen: ULong): ULong 
 public expect fun strerror(n: CInt): String? 
 public expect fun strtok(s: String?, t: String?): String? 
-public expect fun strxfrm(s: String?, ct: String?, n: ULong): ULong 
+public expect fun strxfrm(s: COpaquePointer?, ct: String?, n: ULong): ULong
 public expect fun wcslen(buf: WcharT?): ULong 
 public expect fun wcstombs(dest: String?, src: WcharT?, n: ULong): ULong 
 public expect fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? 

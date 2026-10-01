@@ -249,3 +249,28 @@ public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
 - **`android-system-properties-kotlin`** — C header wrapper + cinterop
   for Android NDK (`src/nativeInterop/cinterop/androidsystemproperties_wrapper.h`)
 - **`windows-sys-kotlin`** — C header wrapper for Win32 FFI + JNA on JVM
+
+## Pointer ownership for numeric parsing and string transformation
+
+The Unix `strtol`, `strtoll`, `strtoul`, and `strtoull` input is a
+`COpaquePointer` to caller-owned, NUL-terminated native storage. The caller
+keeps that storage alive while reading the returned end pointer. `endp` is
+an optional address of a native pointer slot. Automatic temporary String
+conversion is disabled for these C wrappers.
+
+Unix and Fuchsia `strxfrm` receive a `COpaquePointer` destination with at
+least `n` writable bytes. A null destination with `n = 0` queries the
+required length. If the return value is at least `n`, the caller must not
+read the destination as a completed NUL-terminated string.
+
+`strndup` copies the native result into a Kotlin string and releases the
+native allocation in a `finally` block.
+
+Aligned allocation results retain allocator provenance in the returned
+pointer object. `free` and Unix `realloc` use `_aligned_free` and
+`_aligned_realloc` on Windows for those objects, and ordinary C release
+functions on POSIX hosts. Keep the returned object for that lifecycle.
+When an aligned address crosses FFI and is reconstructed as a new
+`COpaquePointer`, release it explicitly with `unix.alignedFree`; an address
+alone does not carry Windows CRT allocator provenance. Ordinary
+`malloc`/`calloc` results continue to use ordinary `free`.

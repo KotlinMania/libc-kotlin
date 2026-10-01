@@ -256,7 +256,7 @@ public actual fun strerror(n: CInt): String? =
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok not available on JVM — no C library access")
 
-public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
+public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm not available on JVM — no C library access")
 
 public actual fun wcslen(buf: WcharT?): ULong =

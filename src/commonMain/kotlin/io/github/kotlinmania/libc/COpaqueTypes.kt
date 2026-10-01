@@ -17,11 +17,15 @@ package io.github.kotlinmania.libc
  * on all Kotlin targets.
  *
  * On JS/WASM, the [value] field holds the numeric pointer returned by the
- * N-API addon. On native targets using cinterop, this class is not used
- * (kotlinx.cinterop.COpaquePointer is used instead).
+ * N-API addon. Native implementations translate [value] into a cinterop pointer.
+ * Allocation results also retain their native allocator provenance. Keep that
+ * returned object when passing it to free or realloc. A reconstructed aligned
+ * allocation address must be released with unix.alignedFree, since a numeric
+ * address alone cannot identify the Windows aligned CRT allocator.
  */
 public class COpaquePointer(
     public val value: Long = 0L,
+    internal val allocationAlignment: ULong = 0uL,
 )
 
 /**

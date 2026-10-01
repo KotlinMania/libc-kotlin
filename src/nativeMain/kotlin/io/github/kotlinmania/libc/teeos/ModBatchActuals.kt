@@ -63,7 +63,7 @@ public actual fun alignedAlloc(align: ULong, len: ULong): COpaquePointer? =
 public actual fun free(p: COpaquePointer?) {
     if (p == null) return
     val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
-    libc_free(pPtr)
+    if (p.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
 
 public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt =

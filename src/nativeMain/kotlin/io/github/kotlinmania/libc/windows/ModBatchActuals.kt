@@ -236,7 +236,7 @@ public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
 public actual fun free(p: COpaquePointer?) {
     if (p == null) return 
     val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
-    libc.cinterop.libc_free(pPtr)
+    if (p.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
 
 public actual fun system(s: String?): CInt {

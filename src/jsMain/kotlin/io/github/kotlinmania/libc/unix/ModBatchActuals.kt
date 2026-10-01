@@ -142,16 +142,16 @@ public actual fun atol(s: String?): CLong =
 public actual fun atoll(s: String?): CLongLong =
     throw UnsupportedOperationException("atoll requires N-API addon")
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
+public actual fun strtol(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLong =
     strtolNapi(s, base)
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong =
+public actual fun strtoll(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLongLong =
     throw UnsupportedOperationException("strtoll requires N-API addon")
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong =
+public actual fun strtoul(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CULong =
     throw UnsupportedOperationException("strtoul requires N-API addon")
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong =
+public actual fun strtoull(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CULongLong =
     throw UnsupportedOperationException("strtoull requires N-API addon")
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
@@ -242,7 +242,7 @@ public actual fun strtok(s: String?, t: String?): String? =
 public actual fun strtokR(s: String?, t: String?, p: COpaquePointer?): String? =
     throw UnsupportedOperationException("strtokR requires N-API addon")
 
-public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
+public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires N-API addon")
 
 public actual fun strsignal(sig: CInt): String? =
@@ -497,6 +497,8 @@ public actual fun pipe(fds: CInt?): CInt =
 
 public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("posixMemalign requires N-API addon")
+
+public actual fun alignedFree(p: COpaquePointer?): Unit = free(p)
 
 public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires N-API addon")
