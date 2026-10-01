@@ -676,8 +676,9 @@ public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpa
 public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkdirat requires manual FFI bridge — not yet implemented")
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): SsizeT =
-    libc.cinterop.libc_readlinkat(dirfd, pathname, buf, bufsiz)
+public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): SsizeT = memScoped {
+    libc.cinterop.libc_readlinkat(dirfd, pathname, buf?.cstr?.getPointer(this), bufsiz)
+}
 public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt {
     if (oldpath == null) return -1
     if (newpath == null) return -1
@@ -1061,8 +1062,9 @@ public actual fun uname(buf: Utsname?): CInt {
     return result
 }
 
-public actual fun gethostname(name: String?, len: ULong): CInt =
-    libc.cinterop.libc_gethostname(name, len)
+public actual fun gethostname(name: String?, len: ULong): CInt = memScoped {
+    libc.cinterop.libc_gethostname(name?.cstr?.getPointer(this), len)
+}
 public actual fun getservbyname(name: String?, proto: String?): Servent? =
     throw UnsupportedOperationException("getservbyname requires manual FFI bridge — not yet implemented")
 
@@ -1116,8 +1118,9 @@ public actual fun statvfs(path: String?, buf: Statvfs?): CInt =
 public actual fun fstatvfs(fd: CInt, buf: Statvfs?): CInt =
     throw UnsupportedOperationException("fstatvfs requires manual FFI bridge — not yet implemented")
 
-public actual fun readlink(path: String?, buf: String?, bufsz: ULong): SsizeT =
-    libc.cinterop.libc_readlink(path, buf, bufsz)
+public actual fun readlink(path: String?, buf: String?, bufsz: ULong): SsizeT = memScoped {
+    libc.cinterop.libc_readlink(path, buf?.cstr?.getPointer(this), bufsz)
+}
 public actual fun sigemptyset(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigemptyset requires manual FFI bridge — not yet implemented")
 

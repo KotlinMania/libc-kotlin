@@ -124,4 +124,36 @@ class NativePointerRegressionTest {
         val result = io.github.kotlinmania.libc.unix.poll(null, 0u, 0)
         assertTrue(result >= 0)
     }
+
+    @Test
+    fun gethostnameWritesIntoCallerOwnedDestination() = memScoped {
+        val size = 256uL
+        val buffer = allocArray<ByteVar>(size.toInt())
+        val destination = COpaquePointer(buffer.toLong())
+        val result = io.github.kotlinmania.libc.unix.gethostname(destination, size)
+        assertEquals(0, result)
+        val hostStr = assertNotNull(buffer.toKString())
+        assertTrue(hostStr.isNotEmpty())
+    }
+
+    @Test
+    fun readlinkReadsSymlinkTarget() = memScoped {
+        val target = "/usr/bin"
+        val linkPath = "build/test_symlink_${io.github.kotlinmania.libc.unix.getpid()}"
+        io.github.kotlinmania.libc.unix.unlink(linkPath)
+        val symlinkRes = io.github.kotlinmania.libc.unix.symlink(target, linkPath)
+        if (symlinkRes == 0) {
+            try {
+                val size = 256uL
+                val buffer = allocArray<ByteVar>(size.toInt())
+                val destination = COpaquePointer(buffer.toLong())
+                val bytesRead = io.github.kotlinmania.libc.unix.readlink(linkPath, destination, size)
+                assertTrue(bytesRead > 0)
+                buffer[bytesRead] = 0.toByte()
+                assertEquals(target, buffer.toKString())
+            } finally {
+                io.github.kotlinmania.libc.unix.unlink(linkPath)
+            }
+        }
+    }
 }

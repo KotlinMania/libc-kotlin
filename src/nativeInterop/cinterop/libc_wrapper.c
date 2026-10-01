@@ -465,11 +465,23 @@ int libc_fsetpos(void* stream, void* ptr) { return fsetpos(stream, ptr); }
 uint64_t libc_strxfrm(char* s, const char* ct, uint64_t n) { return (uint64_t)strxfrm(s, ct, n); }
 int64_t libc_ftello(void* stream) { return (int64_t)ftello((FILE*)stream); }
 int32_t libc_setpgid(int32_t pid, int32_t pgid) { return setpgid(pid, pgid); }
-int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize) { return readlink(path, buf, bufsize); }
+int64_t libc_readlink(const char* path, void* buf, uint64_t bufsize) {
+#ifndef _WIN32
+    return readlink(path, (char*)buf, (size_t)bufsize);
+#else
+    (void)path; (void)buf; (void)bufsize; errno = ENOSYS; return -1;
+#endif
+}
 int64_t libc_strtol(const char* s, void* endp, int base) {
     return libc_legacy_strtol(s, (char**)endp, base);
 }
-uint64_t libc_confstr(int name, const char* buf, uint64_t len) { return (uint64_t)confstr(name, buf, len); }
+uint64_t libc_confstr(int name, void* buf, uint64_t len) {
+#ifndef _WIN32
+    return (uint64_t)confstr(name, (char*)buf, (size_t)len);
+#else
+    (void)name; (void)buf; (void)len; errno = ENOSYS; return 0;
+#endif
+}
 int64_t libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
 int64_t libc_lseek(int fd, int64_t offset, int whence) { return lseek(fd, offset, whence); }
 int64_t libc_pathconf(const char* path, int name) { return pathconf(path, name); }
@@ -482,7 +494,7 @@ int libc_creat(const char* path, uint32_t mode) { return creat(path, mode); }
 int libc_fchown(int fd, uint32_t owner, uint32_t group) { return fchown(fd, owner, group); }
 int libc_chown(const char* path, uint32_t uid, uint32_t gid) { return chown(path, uid, gid); }
 int libc_truncate(const char* path, int64_t length) { return truncate(path, length); }
-int libc_gethostname(const char* name, uint64_t len) { return gethostname(name, len); }
+int libc_gethostname(void* name, uint64_t len) { return gethostname((char*)name, (size_t)len); }
 int libc_mkfifo(const char* path, uint32_t mode) { return mkfifo(path, mode); }
 int libc_fseeko(void* stream, int64_t offset, int whence) { return fseeko((FILE*)stream, (int64_t)offset, whence); }
 int libc_mkstemp(const char* template) { return mkstemp(template); }
@@ -502,7 +514,13 @@ int libc_isascii(int c) { return isascii(c); }
 int64_t libc_llabs(int64_t a) { return llabs(a); }
 int64_t libc_labs(int64_t i) { return labs(i); }
 int libc_mkdirat(int dirfd, const char* pathname, uint32_t mode) { return mkdirat(dirfd, pathname, mode); }
-int64_t libc_readlinkat(int dirfd, const char* pathname, const char* buf, uint64_t bufsiz) { return readlinkat(dirfd, pathname, buf, bufsiz); }
+int64_t libc_readlinkat(int dirfd, const char* pathname, void* buf, uint64_t bufsiz) {
+#ifndef _WIN32
+    return readlinkat(dirfd, pathname, (char*)buf, (size_t)bufsiz);
+#else
+    (void)dirfd; (void)pathname; (void)buf; (void)bufsiz; errno = ENOSYS; return -1;
+#endif
+}
 int libc_renameat(int olddirfd, const char* oldpath, int newdirfd, const char* newpath) { return renameat(olddirfd, oldpath, newdirfd, newpath); }
 int libc_lchown(const char* path, uint32_t uid, uint32_t gid) { return lchown(path, uid, gid); }
 /* execv/execve/execvp/fork are not available on iOS/tvOS/watchOS */

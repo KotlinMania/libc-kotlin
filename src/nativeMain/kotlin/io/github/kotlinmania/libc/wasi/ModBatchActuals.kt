@@ -580,8 +580,9 @@ public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpa
 }
 public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkdirat requires FFI bridge")
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): SsizeT =
-    libc.cinterop.libc_readlinkat(dirfd, pathname, buf, bufsiz)
+public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): SsizeT = memScoped {
+    libc.cinterop.libc_readlinkat(dirfd, pathname, buf?.cstr?.getPointer(this), bufsiz)
+}
 public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt {
     if (oldpath == null) return -1
     if (newpath == null) return -1
@@ -679,8 +680,9 @@ public actual fun setlocale(category: CInt, locale: String?): String? {
 public actual fun localeconv(): Lconv? =
     throw UnsupportedOperationException("localeconv requires manual FFI bridge — not yet implemented")
 
-public actual fun readlink(path: String?, buf: String?, bufsz: ULong): SsizeT =
-    libc.cinterop.libc_readlink(path, buf, bufsz)
+public actual fun readlink(path: String?, buf: String?, bufsz: ULong): SsizeT = memScoped {
+    libc.cinterop.libc_readlink(path, buf?.cstr?.getPointer(this), bufsz)
+}
 public actual fun timegm(tm: Tm?): TimeT =
     throw UnsupportedOperationException("timegm requires manual FFI bridge — not yet implemented")
 

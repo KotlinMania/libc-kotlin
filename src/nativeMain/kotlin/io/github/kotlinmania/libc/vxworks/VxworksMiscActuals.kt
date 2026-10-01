@@ -9,6 +9,8 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toLong
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.cstr
 import libc.cinterop.libc_getppid
 import libc.cinterop.libc_strxfrm
 import libc.cinterop.libc_strspn
@@ -138,8 +140,9 @@ public actual fun getppid(): PidT =
     libc.cinterop.libc_getppid()
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
     libc.cinterop.libc_setpgid(pid, pgid)
-public actual fun readlink(path: String?, buf: String?, bufsize: ULong): SsizeT =
-    libc.cinterop.libc_readlink(path, buf, bufsize)
+public actual fun readlink(path: String?, buf: String?, bufsize: ULong): SsizeT = memScoped {
+    libc.cinterop.libc_readlink(path, buf?.cstr?.getPointer(this), bufsize)
+}
 public actual fun opendir(name: String?): DIR? =
     throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
 

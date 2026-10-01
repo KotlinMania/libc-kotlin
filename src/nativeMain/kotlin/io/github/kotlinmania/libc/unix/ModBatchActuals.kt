@@ -1009,8 +1009,10 @@ public actual fun timegm(tm: Tm?): TimeT =
 public actual fun mknod(pathname: String?, mode: ModeT, dev: DevT): CInt =
     libc.cinterop.libc_mknod(pathname, mode, dev)
 
-public actual fun gethostname(name: String?, len: ULong): CInt =
-    throw UnsupportedOperationException("gethostname requires mutable buffer bridge — String? cannot represent char* output")
+public actual fun gethostname(name: COpaquePointer?, len: ULong): CInt {
+    val rawPtr = name?.value?.toCPointer<ByteVar>()
+    return libc.cinterop.libc_gethostname(rawPtr, len)
+}
 public actual fun endservent() {
     throw UnsupportedOperationException("endservent requires manual FFI bridge — not yet implemented")
 }
@@ -1195,8 +1197,10 @@ public actual fun stpncpy(dst: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("stpncpy requires manual FFI bridge — not yet implemented")
 
 
-public actual fun confstr(name: CInt, buf: String?, len: ULong): ULong =
-    throw UnsupportedOperationException("confstr requires mutable buffer bridge — String? cannot represent char* output")
+public actual fun confstr(name: CInt, buf: COpaquePointer?, len: ULong): ULong {
+    val rawPtr = buf?.value?.toCPointer<ByteVar>()
+    return libc.cinterop.libc_confstr(name, rawPtr, len)
+}
 public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
     throw UnsupportedOperationException("dladdr requires manual FFI bridge — not yet implemented")
 
@@ -1219,10 +1223,14 @@ public actual fun fdopendir(fd: CInt): DIR? =
 public actual fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("readdirR requires manual FFI bridge — not yet implemented")
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): CInt =
-    throw UnsupportedOperationException("readlinkat requires mutable buffer bridge — String? cannot represent char* output")
-public actual fun readlink(path: String?, buf: String?, bufsz: ULong): CInt =
-    throw UnsupportedOperationException("readlink requires mutable buffer bridge — String? cannot represent char* output")
+public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: ULong): CInt {
+    val rawBuf = buf?.value?.toCPointer<ByteVar>()
+    return libc.cinterop.libc_readlinkat(dirfd, pathname, rawBuf, bufsiz).toInt()
+}
+public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: ULong): CInt {
+    val rawBuf = buf?.value?.toCPointer<ByteVar>()
+    return libc.cinterop.libc_readlink(path, rawBuf, bufsz).toInt()
+}
 public actual fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timespec?, sigmask: SigsetT?): CInt =
     throw UnsupportedOperationException("pselect requires manual FFI bridge — not yet implemented")
 

@@ -528,7 +528,7 @@ public fun difftime(time1: TimeT, time0: TimeT): CDouble = 0.0
 
 public expect fun timegm(tm: Tm?): TimeT 
 public expect fun mknod(pathname: String?, mode: ModeT, dev: DevT): CInt 
-public expect fun gethostname(name: String?, len: ULong): CInt 
+public expect fun gethostname(name: COpaquePointer?, len: ULong): CInt 
 public expect fun endservent()
 public expect fun getservbyname(name: String?, proto: String?): Servent? 
 public expect fun getservbyport(port: CInt, proto: String?): Servent? 
@@ -592,7 +592,7 @@ public expect fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt
 public expect fun adjtime(delta: Timeval?, olddelta: Timeval?): CInt 
 public expect fun stpncpy(dst: String?, src: String?, n: ULong): String? 
 public expect fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt
-public expect fun confstr(name: CInt, buf: String?, len: ULong): ULong 
+public expect fun confstr(name: CInt, buf: COpaquePointer?, len: ULong): ULong 
 public expect fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt 
 public expect fun flock(fd: CInt, operation: CInt): CInt 
 public expect fun openWmemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE? 
@@ -602,8 +602,8 @@ public expect fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
 public expect fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg args: Any?): CInt 
 public expect fun fdopendir(fd: CInt): DIR? 
 public expect fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt 
-public expect fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): CInt 
-public expect fun readlink(path: String?, buf: String?, bufsz: ULong): CInt 
+public expect fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: ULong): CInt 
+public expect fun readlink(path: String?, buf: COpaquePointer?, bufsz: ULong): CInt 
 public expect fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timespec?, sigmask: SigsetT?): CInt 
 public expect fun sigaction(signum: CInt, act: Sigaction?, oldact: Sigaction?): CInt 
 public expect fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FILE? 

@@ -798,7 +798,7 @@ public actual fun timegm(tm: Tm?): TimeT =
 public actual fun mknod(pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknod requires N-API addon")
 
-public actual fun gethostname(name: String?, len: ULong): CInt =
+public actual fun gethostname(name: COpaquePointer?, len: ULong): CInt =
     run { LibcNative.gethostname(); 0 }
 
 public actual fun endservent() {
@@ -981,7 +981,7 @@ public actual fun stpncpy(dst: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("stpncpy requires N-API addon")
 
 
-public actual fun confstr(name: CInt, buf: String?, len: ULong): ULong =
+public actual fun confstr(name: CInt, buf: COpaquePointer?, len: ULong): ULong =
     throw UnsupportedOperationException("confstr requires N-API addon")
 
 public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
@@ -1011,10 +1011,10 @@ public actual fun fdopendir(fd: CInt): DIR? =
 public actual fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("readdirR requires N-API addon")
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): CInt =
+public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: ULong): CInt =
     throw UnsupportedOperationException("readlinkat requires N-API addon")
 
-public actual fun readlink(path: String?, buf: String?, bufsz: ULong): CInt =
+public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: ULong): CInt =
     throw UnsupportedOperationException("readlink requires N-API addon")
 
 public actual fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timespec?, sigmask: SigsetT?): CInt =
