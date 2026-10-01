@@ -58,7 +58,7 @@ public actual fun strcspn(cs: String?, ct: String?): ULong =
 
 public actual fun strlen(cs: String?): ULong {
     if (cs == null) return 0uL
-    throw UnsupportedOperationException("strlen requires per-platform actual — size_t width differs across native targets")
+    return libc.cinterop.libc_strlen(cs)
 }
 
 public actual fun strnlen(cs: String?, n: ULong): ULong =
