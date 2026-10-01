@@ -39,7 +39,7 @@ jobs:
           Expand-Archive -Path $archive -DestinationPath $toolchainRoot -Force
           $sysroot = Join-Path $toolchainRoot "msys2-mingw-w64-x86_64-2"
           $bin = Join-Path $sysroot "bin"
-          if (!(Test-Path "$sysroot/include/stdio.h") -or !(Test-Path "$bin/ar.exe")) { throw "Missing Kotlin/Native MinGW sysroot" }
+          if (!(Test-Path "$sysroot/x86_64-w64-mingw32/include/stdio.h") -or !(Test-Path "$bin/ar.exe")) { throw "Missing Kotlin/Native MinGW sysroot" }
           Write-Host "MinGW sysroot: $sysroot"
           clang --version
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
