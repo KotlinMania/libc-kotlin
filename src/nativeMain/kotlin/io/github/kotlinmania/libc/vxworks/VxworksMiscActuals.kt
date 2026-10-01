@@ -13,6 +13,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
 import libc.cinterop.libc_getppid
 import libc.cinterop.libc_strxfrm
+import libc.cinterop.libc_pthread_getspecific
 import libc.cinterop.libc_strspn
 import libc.cinterop.libc_atol
 import libc.cinterop.libc_readlink
@@ -128,7 +129,7 @@ public actual fun readdir(pDir: DIR?): Dirent? =
     throw UnsupportedOperationException("readdir requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    throw UnsupportedOperationException("pthreadGetspecific requires manual FFI bridge — not yet implemented")
+    libc_pthread_getspecific(key)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freeaddrinfo(res: Addrinfo?) {
     throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")

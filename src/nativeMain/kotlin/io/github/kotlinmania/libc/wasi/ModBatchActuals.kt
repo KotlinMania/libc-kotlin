@@ -12,8 +12,15 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
+import kotlinx.cinterop.alloc
 import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.ShortVar
+import kotlinx.cinterop.ptr
+import libc.cinterop.libc_pthread_getspecific
+import libc.cinterop.libc_pthread_setspecific
+import libc.cinterop.libc_poll
+import libc.cinterop.libc_poll_single
 import libc.cinterop.libc_strcpy
 import libc.cinterop.libc_strncpy
 import libc.cinterop.libc_strcat
@@ -670,8 +677,15 @@ public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CI
 public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
     throw UnsupportedOperationException("recv requires manual FFI bridge — not yet implemented")
 
-public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
-    throw UnsupportedOperationException("poll requires manual FFI bridge — not yet implemented")
+public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
+    if (fds == null || nfds == 0uL) {
+        return libc_poll(null, 0u, timeout)
+    }
+    return memScoped {
+        val revents = alloc<ShortVar>()
+        libc_poll_single(fds.fd, fds.events, revents.ptr, timeout)
+    }
+}
 
 public actual fun setlocale(category: CInt, locale: String?): String? {
     val result = libc.cinterop.libc_setlocale(category, locale)
@@ -905,10 +919,10 @@ public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     throw UnsupportedOperationException("pthreadKeyDelete requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    throw UnsupportedOperationException("pthreadGetspecific requires manual FFI bridge — not yet implemented")
+    libc_pthread_getspecific(key.toULong())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("pthreadSetspecific requires manual FFI bridge — not yet implemented")
+    libc_pthread_setspecific(key.toULong(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadMutexInit(lock: PthreadMutexT?, attr: PthreadMutexattrT?): CInt =
     throw UnsupportedOperationException("pthreadMutexInit requires manual FFI bridge — not yet implemented")

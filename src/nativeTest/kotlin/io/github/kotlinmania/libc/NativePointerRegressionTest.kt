@@ -233,4 +233,31 @@ class NativePointerRegressionTest {
         assertNotNull(cwd)
         assertTrue(cwd.isNotEmpty())
     }
+
+    @Test
+    fun fuchsiaAndWasiAndVxworksPollExecute() {
+        val fuchsiaPoll = io.github.kotlinmania.libc.fuchsia.poll(null, 0u, 0)
+        assertTrue(fuchsiaPoll >= 0)
+        val wasiPoll = io.github.kotlinmania.libc.wasi.poll(null, 0u, 0)
+        assertTrue(wasiPoll >= 0)
+        val vxworksPoll = io.github.kotlinmania.libc.vxworks.poll(null, 0u, 0)
+        assertTrue(vxworksPoll >= 0)
+    }
+
+    @Test
+    fun fuchsiaAndWasiAndVxworksPthreadSpecificExecute() {
+        val key = 0u
+        val fVal = io.github.kotlinmania.libc.fuchsia.pthreadGetspecific(key)
+        io.github.kotlinmania.libc.fuchsia.pthreadSetspecific(key, fVal)
+        val wVal = io.github.kotlinmania.libc.wasi.pthreadGetspecific(key)
+        io.github.kotlinmania.libc.wasi.pthreadSetspecific(key, wVal)
+        val vKey = 0uL
+        val vVal = io.github.kotlinmania.libc.vxworks.pthreadGetspecific(vKey)
+        io.github.kotlinmania.libc.vxworks.pthreadSetspecific(vKey, vVal)
+    }
+
+    @Test
+    fun fuchsiaPutenvSetsEnvironmentVariable() {
+        assertEquals(0, io.github.kotlinmania.libc.fuchsia.putenv("FUCHSIA_TEST_ENV=fuchsia_val_456"))
+    }
 }

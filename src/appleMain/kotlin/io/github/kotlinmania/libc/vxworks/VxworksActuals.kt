@@ -56,7 +56,7 @@ public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
     libc.cinterop.libc_socket(vxworksToDarwinDomain(domain), type and 0xF, protocol)
 
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
-    throw UnsupportedOperationException("msync requires per-platform actual — size_t width differs across Apple targets")
+    libc.cinterop.libc_msync(addr?.value?.toCPointer<ByteVar>(), len, vxworksToDarwinMsyncFlags(flags))
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
     libc.cinterop.libc_tcflush(fd, vxworksToDarwinAction(action))

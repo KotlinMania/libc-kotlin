@@ -8,6 +8,13 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.ShortVar
+import kotlinx.cinterop.ptr
+import libc.cinterop.libc_poll
+import libc.cinterop.libc_poll_single
+import libc.cinterop.libc_pthread_setspecific
 import libc.cinterop.libc_mprotect
 import libc.cinterop.libc_strncasecmp
 import libc.cinterop.libc_ftruncate
@@ -403,8 +410,15 @@ public actual fun readdirR(pDir: DIR?, entry: Dirent?, result: COpaquePointer?):
 public actual fun open(path: String?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
 
-public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
-    throw UnsupportedOperationException("poll requires manual FFI bridge — not yet implemented")
+public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
+    if (fds == null || nfds == 0u) {
+        return libc_poll(null, 0u, timeout)
+    }
+    return memScoped {
+        val revents = alloc<ShortVar>()
+        libc_poll_single(fds.fd, fds.events, revents.ptr, timeout)
+    }
+}
 
 public actual fun pthreadCondattrInit(attr: PthreadCondattrT?): CInt =
     throw UnsupportedOperationException("pthreadCondattrInit requires manual FFI bridge — not yet implemented")
@@ -473,7 +487,7 @@ public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     throw UnsupportedOperationException("pthreadKeyDelete requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("pthreadSetspecific requires manual FFI bridge — not yet implemented")
+    libc_pthread_setspecific(key, value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadCondTimedwait(cond: PthreadCondT?, mutex: PthreadMutexT?, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadCondTimedwait requires manual FFI bridge — not yet implemented")
