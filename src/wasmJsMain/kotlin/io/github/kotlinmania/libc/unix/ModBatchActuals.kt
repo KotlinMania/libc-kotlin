@@ -456,7 +456,7 @@ public actual fun fork(): PidT =
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     throw UnsupportedOperationException("fpathconf requires N-API addon")
 
-public actual fun getcwd(buf: String?, size: ULong): String? =
+public actual fun getcwd(buf: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("getcwd requires N-API addon")
 
 public actual fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt =

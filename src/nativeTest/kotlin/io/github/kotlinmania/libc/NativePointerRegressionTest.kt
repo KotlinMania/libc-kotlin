@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc
 import io.github.kotlinmania.libc.unix.alignedFree
 import io.github.kotlinmania.libc.unix.alignedAlloc
 import io.github.kotlinmania.libc.unix.free
+import io.github.kotlinmania.libc.unix.getcwd
 import io.github.kotlinmania.libc.unix.malloc
 import io.github.kotlinmania.libc.unix.realloc
 import io.github.kotlinmania.libc.unix.strndup
@@ -99,5 +100,16 @@ class NativePointerRegressionTest {
         val pointer = assertNotNull(malloc(32uL))
         assertEquals(0uL, pointer.allocationAlignment)
         free(pointer)
+    }
+
+    @Test
+    fun getcwdWritesIntoCallerOwnedDestination() = memScoped {
+        val size = 1024uL
+        val buffer = allocArray<ByteVar>(size.toInt())
+        val destination = COpaquePointer(buffer.toLong())
+        val result = assertNotNull(getcwd(destination, size))
+        assertEquals(destination.value, result.value)
+        val cwdStr = assertNotNull(result.value.toCPointer<ByteVar>()?.toKString())
+        assertTrue(cwdStr.isNotEmpty())
     }
 }

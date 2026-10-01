@@ -456,7 +456,7 @@ public actual fun fork(): PidT =
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     throw UnsupportedOperationException("fpathconf not available on JVM — no C library access")
 
-public actual fun getcwd(buf: String?, size: ULong): String? =
+public actual fun getcwd(buf: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("getcwd not available on JVM — no C library access")
 
 public actual fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt =

@@ -143,7 +143,7 @@ public actual fun atoll(s: String?): CLongLong =
     throw UnsupportedOperationException("atoll requires N-API addon")
 
 public actual fun strtol(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLong =
-    strtolNapi(s, base)
+    throw UnsupportedOperationException("strtol requires N-API addon")
 
 public actual fun strtoll(s: COpaquePointer?, endp: COpaquePointer?, base: CInt): CLongLong =
     throw UnsupportedOperationException("strtoll requires N-API addon")
@@ -456,7 +456,7 @@ public actual fun fork(): PidT =
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     throw UnsupportedOperationException("fpathconf requires N-API addon")
 
-public actual fun getcwd(buf: String?, size: ULong): String? =
+public actual fun getcwd(buf: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("getcwd requires N-API addon")
 
 public actual fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt =

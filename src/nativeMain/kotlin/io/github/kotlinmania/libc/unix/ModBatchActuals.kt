@@ -681,8 +681,10 @@ public actual fun fork(): PidT =
     libc.cinterop.libc_fork()
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     libc.cinterop.libc_fpathconf(filedes, name)
-public actual fun getcwd(buf: String?, size: ULong): String? =
-    throw UnsupportedOperationException("getcwd requires mutable buffer bridge — String? cannot represent char* output")
+public actual fun getcwd(buf: COpaquePointer?, size: ULong): COpaquePointer? {
+    val result = libc.cinterop.libc_getcwd(buf?.value?.toCPointer<ByteVar>(), size)
+    return result?.let { COpaquePointer(it.toLong()) }
+}
 
 public actual fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt =
     throw UnsupportedOperationException("getgroups requires manual FFI bridge — not yet implemented")

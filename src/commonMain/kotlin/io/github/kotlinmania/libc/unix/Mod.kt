@@ -388,7 +388,7 @@ public expect fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePoin
 public expect fun execvp(c: String?, argv: COpaquePointer?): CInt 
 public expect fun fork(): PidT 
 public expect fun fpathconf(filedes: CInt, name: CInt): CLong 
-public expect fun getcwd(buf: String?, size: ULong): String? 
+public expect fun getcwd(buf: COpaquePointer?, size: ULong): COpaquePointer? 
 public fun getegid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
 
 public fun geteuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
