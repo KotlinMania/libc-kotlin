@@ -1106,11 +1106,26 @@ int64_t libc_write(int fd, const void* buf, uint64_t count) {
     return write(fd, buf, (size_t)count);
 #endif
 }
-int libc_putenv(char* string) {
+int libc_putenv(const char* string) {
+    if (!string) return -1;
 #ifdef _WIN32
-    return _putenv(string);
+    return _putenv(_strdup(string));
 #else
-    return putenv(string);
+    return putenv(strdup(string));
+#endif
+}
+int libc_poll_single(int fd, short events, short* revents, int timeout) {
+#ifndef _WIN32
+    struct pollfd pfd;
+    pfd.fd = fd;
+    pfd.events = events;
+    pfd.revents = 0;
+    int res = poll(&pfd, 1, timeout);
+    if (revents) *revents = pfd.revents;
+    return res;
+#else
+    (void)fd; (void)events; (void)revents; (void)timeout;
+    errno = ENOSYS; return -1;
 #endif
 }
 int libc_fnmatch(const char* pattern, const char* name, int flags) {

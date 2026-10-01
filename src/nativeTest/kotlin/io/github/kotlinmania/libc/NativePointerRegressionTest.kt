@@ -112,4 +112,16 @@ class NativePointerRegressionTest {
         val cwdStr = assertNotNull(result.value.toCPointer<ByteVar>()?.toKString())
         assertTrue(cwdStr.isNotEmpty())
     }
+
+    @Test
+    fun putenvSetsEnvironmentVariable() {
+        assertEquals(0, io.github.kotlinmania.libc.unix.putenv("KOTLINMANIA_TEST_ENV=test_val_123"))
+        assertEquals("test_val_123", io.github.kotlinmania.libc.unix.getenv("KOTLINMANIA_TEST_ENV"))
+    }
+
+    @Test
+    fun pollHandlesNullFdsWithZeroTimeout() {
+        val result = io.github.kotlinmania.libc.unix.poll(null, 0u, 0)
+        assertTrue(result >= 0)
+    }
 }

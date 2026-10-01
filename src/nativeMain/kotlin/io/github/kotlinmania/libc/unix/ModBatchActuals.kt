@@ -13,6 +13,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.ShortVar
 import kotlinx.cinterop.nativeHeap
 import libc.cinterop.libc_strtok
 import libc.cinterop.libc_getcwd
@@ -877,10 +880,10 @@ public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
     throw UnsupportedOperationException("pthreadKeyDelete requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    throw UnsupportedOperationException("pthreadGetspecific requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_getspecific(key.toULong())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("pthreadSetspecific requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pthread_setspecific(key.toULong(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadMutexInit(lock: PthreadMutexT, attr: PthreadMutexattrT): CInt =
     throw UnsupportedOperationException("pthreadMutexInit requires manual FFI bridge — not yet implemented")
@@ -1044,10 +1047,17 @@ public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CI
     throw UnsupportedOperationException("recv requires manual FFI bridge — not yet implemented")
 
 public actual fun putenv(string: String?): CInt =
-    throw UnsupportedOperationException("putenv requires mutable char* bridge — String? is immutable")
+    libc.cinterop.libc_putenv(string)
 
-public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
-    throw UnsupportedOperationException("poll requires Pollfd struct pointer bridge")
+public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
+    if (fds == null || nfds == 0u) {
+        return libc.cinterop.libc_poll(null, 0u, timeout)
+    }
+    return memScoped {
+        val revents = alloc<ShortVar>()
+        libc.cinterop.libc_poll_single(fds.fd, fds.events, revents.ptr, timeout)
+    }
+}
 
 public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt =
     throw UnsupportedOperationException("select requires manual FFI bridge — not yet implemented")

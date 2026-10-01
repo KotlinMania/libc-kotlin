@@ -928,6 +928,14 @@ tasks.register("hostTests") {
     )
 }
 
+val copyNodeLibc = tasks.register<Copy>("copyNodeLibc") {
+    from("native/node-libc")
+    into(layout.buildDirectory.dir("js/node_modules/@kotlinmania/libc-native-bindings"))
+}
+tasks.matching { it.name.startsWith("jsNodeTest") || it.name.startsWith("wasmJsNodeTest") }.configureEach {
+    dependsOn(copyNodeLibc)
+}
+
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
 tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     doLast {
