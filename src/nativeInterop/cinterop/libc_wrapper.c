@@ -45,6 +45,21 @@ int getentropy(void*, uint64_t);
 #include <libgen.h>
 #endif
 
+/* The runner's glibc headers can redirect parsers to C23 entry points that
+ * are absent from the Kotlin/Native link sysroot. Bind the existing ABI
+ * symbols explicitly instead of depending on glibc feature-macro internals. */
+#if defined(__linux__) && defined(__GLIBC__)
+extern long libc_legacy_strtol(const char*, char**, int) __asm__("strtol");
+extern long long libc_legacy_strtoll(const char*, char**, int) __asm__("strtoll");
+extern unsigned long libc_legacy_strtoul(const char*, char**, int) __asm__("strtoul");
+extern unsigned long long libc_legacy_strtoull(const char*, char**, int) __asm__("strtoull");
+#else
+#define libc_legacy_strtol strtol
+#define libc_legacy_strtoll strtoll
+#define libc_legacy_strtoul strtoul
+#define libc_legacy_strtoull strtoull
+#endif
+
 /* CMSG macros */
 void* libc_cmsg_data(void* cmsg) {
 #if defined(_WIN32) || defined(__CYGWIN__)
@@ -452,10 +467,7 @@ int64_t libc_ftello(void* stream) { return (int64_t)ftello((FILE*)stream); }
 int32_t libc_setpgid(int32_t pid, int32_t pgid) { return setpgid(pid, pgid); }
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize) { return readlink(path, buf, bufsize); }
 int64_t libc_strtol(const char* s, void* endp, int base) {
-    /* __USE_ISOC2X is undef'd in libc_wrapper.h before <stdlib.h>,
-     * preventing the glibc __isoc23_strtol redirect. strtol resolves
-     * to the actual strtol symbol in the sysroot. */
-    return strtol(s, (char**)endp, base);
+    return libc_legacy_strtol(s, (char**)endp, base);
 }
 uint64_t libc_confstr(int name, const char* buf, uint64_t len) { return (uint64_t)confstr(name, buf, len); }
 int64_t libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
@@ -1074,7 +1086,7 @@ void* libc_pthread_getspecific(unsigned long key) { return (void*)pthread_getspe
 #endif /* _WIN32 */
 
 #ifdef _WIN32
-int64_t libc_strtol(const char* s, void* endp, int base) { return (int64_t)strtol(s, (char**)endp, base); }
+int64_t libc_strtol(const char* s, void* endp, int base) { return (int64_t)libc_legacy_strtol(s, (char**)endp, base); }
 uint64_t libc_strxfrm(char* s, const char* ct, uint64_t n) { return (uint64_t)strxfrm(s, ct, (size_t)n); }
 #endif
 
@@ -1119,9 +1131,9 @@ char* libc_strndup(const char* s, uint64_t n) {
     return strndup(s, (size_t)n);
 #endif
 }
-int64_t libc_strtoll(const char* s, void* endp, int base) { return strtoll(s, (char**)endp, base); }
-uint64_t libc_strtoul(const char* s, void* endp, int base) { return strtoul(s, (char**)endp, base); }
-uint64_t libc_strtoull(const char* s, void* endp, int base) { return strtoull(s, (char**)endp, base); }
+int64_t libc_strtoll(const char* s, void* endp, int base) { return libc_legacy_strtoll(s, (char**)endp, base); }
+uint64_t libc_strtoul(const char* s, void* endp, int base) { return libc_legacy_strtoul(s, (char**)endp, base); }
+uint64_t libc_strtoull(const char* s, void* endp, int base) { return libc_legacy_strtoull(s, (char**)endp, base); }
 int libc_mknod(const char* pathname, uint32_t mode, uint64_t dev) {
 #ifndef _WIN32
     return mknod(pathname, (mode_t)mode, (dev_t)dev);

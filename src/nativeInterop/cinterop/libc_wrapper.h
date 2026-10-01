@@ -11,17 +11,6 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
-/* Prevent glibc __isoc23_* redirects (strtol → __isoc23_strtol etc.) on
- * newer glibc (Ubuntu 24.04+). The redirected symbols aren't in the
- * Kotlin/Native sysroot. Undef AFTER features.h is pulled in by the
- * includes above (which sets __USE_ISOC2X via _GNU_SOURCE), but BEFORE
- * <stdlib.h> declares the redirect. */
-#ifdef __linux__
-#undef __USE_ISOC2X
-/* Also undef __GLIBC_USE_ISOC2X which is the actual guard glibc uses */
-#undef __GLIBC_USE_ISOC2X
-#define __GLIBC_USE_ISOC2X 0
-#endif
 #include <stdlib.h>
 #include <string.h>
 #else
