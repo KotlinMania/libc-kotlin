@@ -168,4 +168,41 @@ class NativePointerRegressionTest {
         val result = io.github.kotlinmania.libc.unix.strncat("hello ", "world beyond", 5uL)
         assertEquals("hello world", result)
     }
+
+    @Test
+    fun windowsAlignedAllocationRoundTrip() {
+        val ptr = assertNotNull(io.github.kotlinmania.libc.windows.alignedMalloc(128uL, 64uL))
+        assertEquals(0L, ptr.value % 64)
+        val bytes = assertNotNull(ptr.value.toCPointer<ByteVar>())
+        bytes[0] = 42
+        val grown = assertNotNull(io.github.kotlinmania.libc.windows.alignedRealloc(ptr, 256uL, 64uL))
+        assertEquals(42.toByte(), grown.value.toCPointer<ByteVar>()!![0])
+        io.github.kotlinmania.libc.windows.alignedFree(grown)
+    }
+
+    @Test
+    fun windowsStringAndMemoryOperations() = memScoped {
+        val str = io.github.kotlinmania.libc.windows.strncpy(null, "windows test", 7uL)
+        assertEquals("windows", str)
+        val cat = io.github.kotlinmania.libc.windows.strncat("win", "dows 11", 4uL)
+        assertEquals("windows", cat)
+
+        val src = "memory test".cstr.getPointer(this)
+        val dst = allocArray<ByteVar>(32)
+        val srcPtr = COpaquePointer(src.toLong())
+        val dstPtr = COpaquePointer(dst.toLong())
+        assertNotNull(io.github.kotlinmania.libc.windows.memcpy(dstPtr, srcPtr, 11uL))
+        assertEquals(0, io.github.kotlinmania.libc.windows.memcmp(dstPtr, srcPtr, 11uL))
+    }
+
+    @Test
+    fun windowsNumericAndEnvironmentOperations() {
+        assertEquals(456L, io.github.kotlinmania.libc.windows.strtol("456abc", null, 10))
+        assertEquals(789L, io.github.kotlinmania.libc.windows.strtoll("789xyz", null, 10))
+        assertEquals(123uL, io.github.kotlinmania.libc.windows.strtoul("123", null, 10))
+        assertEquals(456uL, io.github.kotlinmania.libc.windows.strtoull("456", null, 10))
+
+        assertEquals(0, io.github.kotlinmania.libc.windows.putenv("WIN_TEST_ENV=windows_val_999"))
+        assertEquals("windows_val_999", io.github.kotlinmania.libc.windows.getenv("WIN_TEST_ENV"))
+    }
 }
