@@ -4,121 +4,9 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toLong
-import kotlinx.cinterop.toKString
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.cstr
-import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.set
-import kotlinx.cinterop.get
-import kotlinx.cinterop.nativeHeap
-import libc.cinterop.libc_aligned_alloc
-import libc.cinterop.libc_aligned_free
-import libc.cinterop.libc_aligned_realloc
-import libc.cinterop.libc_putenv
-import libc.cinterop.libc_memchr
-import libc.cinterop.libc_memcmp
-import libc.cinterop.libc_memcpy
-import libc.cinterop.libc_memmove
-import libc.cinterop.libc_memset
-import libc.cinterop.libc_strtol
-import libc.cinterop.libc_strtoll
-import libc.cinterop.libc_strtoul
-import libc.cinterop.libc_strtoull
-import libc.cinterop.libc_realloc
-import libc.cinterop.libc_strxfrm
-import libc.cinterop.libc_chmod
-import libc.cinterop.libc_mkdir
-import libc.cinterop.libc_creat
-import libc.cinterop.libc_read
-import libc.cinterop.libc_write
-import libc.cinterop.libc_strcpy
-import libc.cinterop.libc_strncpy
-import libc.cinterop.libc_strcat
-import libc.cinterop.libc_strncat
-import libc.cinterop.libc_strtok
-import libc.cinterop.libc_getcwd
-import libc.cinterop.libc_abs
-import libc.cinterop.libc_access
-import libc.cinterop.libc_atoi
-import libc.cinterop.libc_atol
-import libc.cinterop.libc_atoll
-import libc.cinterop.libc_calloc
-import libc.cinterop.libc_chdir
-import libc.cinterop.libc_close
-import libc.cinterop.libc_dup
-import libc.cinterop.libc_dup2
-import libc.cinterop.libc_execve
-import libc.cinterop.libc_execvp
-import libc.cinterop.libc_fclose
-import libc.cinterop.libc_fdopen
-import libc.cinterop.libc_feof
-import libc.cinterop.libc_ferror
-import libc.cinterop.libc_fflush
-import libc.cinterop.libc_fgetc
-import libc.cinterop.libc_fileno
-import libc.cinterop.libc_fopen
-import libc.cinterop.libc_fputc
-import libc.cinterop.libc_fputs
-import libc.cinterop.libc_free
-import libc.cinterop.libc_freopen
-import libc.cinterop.libc_fseek
-import libc.cinterop.libc_ftell
-import libc.cinterop.libc_getchar
-import libc.cinterop.libc_getenv
-import libc.cinterop.libc_getpid
-import libc.cinterop.libc_isalnum
-import libc.cinterop.libc_isalpha
-import libc.cinterop.libc_isatty
-import libc.cinterop.libc_isblank
-import libc.cinterop.libc_iscntrl
-import libc.cinterop.libc_isdigit
-import libc.cinterop.libc_isgraph
-import libc.cinterop.libc_islower
-import libc.cinterop.libc_isprint
-import libc.cinterop.libc_ispunct
-import libc.cinterop.libc_isspace
-import libc.cinterop.libc_isupper
-import libc.cinterop.libc_isxdigit
-import libc.cinterop.libc_labs
-import libc.cinterop.libc_lseek
-import libc.cinterop.libc_malloc
-import libc.cinterop.libc_perror
-import libc.cinterop.libc_popen
-import libc.cinterop.libc_putchar
-import libc.cinterop.libc_puts
-import libc.cinterop.libc_raise
-import libc.cinterop.libc_rand
-import libc.cinterop.libc_remove
-import libc.cinterop.libc_rename
-import libc.cinterop.libc_rewind
-import libc.cinterop.libc_rmdir
-import libc.cinterop.libc_setlocale
-import libc.cinterop.libc_setvbuf
-import libc.cinterop.libc_srand
-import libc.cinterop.libc_strchr
-import libc.cinterop.libc_strcmp
-import libc.cinterop.libc_strcoll
-import libc.cinterop.libc_strcspn
-import libc.cinterop.libc_strdup
-import libc.cinterop.libc_strerror
-import libc.cinterop.libc_strlen
-import libc.cinterop.libc_strncmp
-import libc.cinterop.libc_strnlen
-import libc.cinterop.libc_strpbrk
-import libc.cinterop.libc_strrchr
-import libc.cinterop.libc_strspn
-import libc.cinterop.libc_strstr
-import libc.cinterop.libc_system
-import libc.cinterop.libc_tmpfile
-import libc.cinterop.libc_tolower
-import libc.cinterop.libc_toupper
-import libc.cinterop.libc_ungetc
-import libc.cinterop.libc_unlink
+import io.github.kotlinmania.libc.COpaquePointer
+import kotlinx.cinterop.*
+import libc.cinterop.*
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("printf requires manual FFI bridge — not yet implemented")
@@ -198,8 +86,10 @@ public actual fun ungetc(c: CInt, stream: FILE?): CInt =
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fread requires manual FFI bridge — not yet implemented")
 
-public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
-    throw UnsupportedOperationException("fwrite requires FFI bridge")
+public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong {
+    if (stream == null) return 0uL
+    return libc.cinterop.libc_fwrite(ptr?.value?.toCPointer<ByteVar>(), size, nobj, stream.handle.toCPointer<ByteVar>())
+}
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
     libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
 public actual fun ftell(stream: FILE?): CLong =
@@ -210,11 +100,23 @@ public actual fun rewind(stream: FILE?) {
     libc.cinterop.libc_rewind(streamPtr)
 }
 
-public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
-    throw UnsupportedOperationException("fgetpos requires manual FFI bridge — not yet implemented")
+public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt {
+    if (stream == null) return -1
+    return memScoped {
+        val posVar = alloc<LongVar>()
+        if (ptr != null) posVar.value = ptr
+        libc.cinterop.libc_fgetpos(stream.handle.toCPointer<ByteVar>(), posVar.ptr)
+    }
+}
 
-public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
-    throw UnsupportedOperationException("fsetpos requires manual FFI bridge — not yet implemented")
+public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt {
+    if (stream == null || ptr == null) return -1
+    return memScoped {
+        val posVar = alloc<LongVar>()
+        posVar.value = ptr
+        libc.cinterop.libc_fsetpos(stream.handle.toCPointer<ByteVar>(), posVar.ptr)
+    }
+}
 
 public actual fun feof(stream: FILE?): CInt =
     libc.cinterop.libc_feof(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
@@ -574,8 +476,11 @@ public actual fun wexecvp(c: WcharT?, argv: COpaquePointer?): IntptrT =
 public actual fun wexecvpe(c: WcharT?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT =
     throw UnsupportedOperationException("wexecvpe requires manual FFI bridge — not yet implemented")
 
-public actual fun getcwd(buf: String?, size: CInt): String? =
-    throw UnsupportedOperationException("getcwd requires FFI bridge")
+public actual fun getcwd(buf: String?, size: CInt): String? = memScoped {
+    val dest = if (size > 0) allocArray<ByteVar>(size) else null
+    val result = libc.cinterop.libc_getcwd(dest, size.toULong())
+    result?.toKString()
+}
 
 public actual fun getpid(): CInt = libc.cinterop.libc_getpid()
 public actual fun isatty(fd: CInt): CInt = libc.cinterop.libc_isatty(fd)
@@ -584,8 +489,15 @@ public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
 public actual fun lseek64(fd: CInt, offset: CLongLong, origin: CInt): CLongLong =
     throw UnsupportedOperationException("lseek64 requires manual FFI bridge — not yet implemented")
 
-public actual fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt =
-    throw UnsupportedOperationException("pipe requires manual FFI bridge — not yet implemented")
+public actual fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt = memScoped {
+    if (fds == null) {
+        val fdsArray = allocArray<IntVar>(2)
+        libc.cinterop.libc_pipe(fdsArray)
+    } else {
+        val ptr = fds.toLong().toCPointer<IntVar>()
+        libc.cinterop.libc_pipe(ptr)
+    }
+}
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt =
     libc.cinterop.libc_read(fd, buf?.value?.toCPointer<ByteVar>(), count.toULong()).toInt()

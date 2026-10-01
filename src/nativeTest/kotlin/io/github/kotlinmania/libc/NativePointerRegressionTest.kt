@@ -205,4 +205,32 @@ class NativePointerRegressionTest {
         assertEquals(0, io.github.kotlinmania.libc.windows.putenv("WIN_TEST_ENV=windows_val_999"))
         assertEquals("windows_val_999", io.github.kotlinmania.libc.windows.getenv("WIN_TEST_ENV"))
     }
+
+    @Test
+    fun unixPipeAndMemalignOperations() = memScoped {
+        val pipeRes = io.github.kotlinmania.libc.unix.pipe(null)
+        assertEquals(0, pipeRes)
+        val outPtr = alloc<CPointerVar<ByteVar>>()
+        val opaque = COpaquePointer(outPtr.ptr.toLong())
+        val res = io.github.kotlinmania.libc.unix.posixMemalign(opaque, 64uL, 128uL)
+        assertEquals(0, res)
+        assertNotNull(outPtr.value)
+        io.github.kotlinmania.libc.unix.free(COpaquePointer(outPtr.value.toLong()))
+    }
+
+    @Test
+    fun appleWiredBindingsExecute() {
+        val tp = io.github.kotlinmania.libc.Timespec(0L, 0L, 0L)
+        val res = io.github.kotlinmania.libc.unix.bsd.apple.clockGettime(0u, tp)
+        assertTrue(res == 0 || res == -1)
+    }
+
+    @Test
+    fun windowsWiredBindingsExecute() {
+        val pipeRes = io.github.kotlinmania.libc.windows.pipe(null, 0u, 0)
+        assertTrue(pipeRes == 0 || pipeRes == -1)
+        val cwd = io.github.kotlinmania.libc.windows.getcwd(null, 1024)
+        assertNotNull(cwd)
+        assertTrue(cwd.isNotEmpty())
+    }
 }

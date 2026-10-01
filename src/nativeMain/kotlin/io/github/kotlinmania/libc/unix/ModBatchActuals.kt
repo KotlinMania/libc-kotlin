@@ -4,21 +4,8 @@
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toLong
-import kotlinx.cinterop.toKString
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.cstr
-import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.set
-import kotlinx.cinterop.get
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.ptr
-import kotlinx.cinterop.ShortVar
-import kotlinx.cinterop.nativeHeap
+import io.github.kotlinmania.libc.COpaquePointer
+import kotlinx.cinterop.*
 import libc.cinterop.libc_strtok
 import libc.cinterop.libc_getcwd
 import libc.cinterop.libc_realpath
@@ -296,11 +283,23 @@ public actual fun rewind(stream: FILE?) {
     libc_rewind(streamPtr)
 }
 
-public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
-    throw UnsupportedOperationException("fgetpos requires manual FFI bridge — not yet implemented")
+public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt {
+    if (stream == null) return -1
+    return memScoped {
+        val posVar = alloc<LongVar>()
+        if (ptr != null) posVar.value = ptr
+        libc.cinterop.libc_fgetpos(stream.handle.toCPointer<ByteVar>(), posVar.ptr)
+    }
+}
 
-public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
-    throw UnsupportedOperationException("fsetpos requires manual FFI bridge — not yet implemented")
+public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt {
+    if (stream == null || ptr == null) return -1
+    return memScoped {
+        val posVar = alloc<LongVar>()
+        posVar.value = ptr
+        libc.cinterop.libc_fsetpos(stream.handle.toCPointer<ByteVar>(), posVar.ptr)
+    }
+}
 
 public actual fun feof(stream: FILE?): CInt =
     libc.cinterop.libc_feof(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
@@ -738,11 +737,25 @@ public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     libc.cinterop.libc_lseek(fd, offset, whence)
 public actual fun pathconf(path: String?, name: CInt): CLong =
     libc.cinterop.libc_pathconf(path, name)
-public actual fun pipe(fds: CInt?): CInt =
-    throw UnsupportedOperationException("pipe requires mutable int array bridge — CInt? cannot represent int[2] output")
+public actual fun pipe(fds: CInt?): CInt = memScoped {
+    if (fds == null) {
+        val fdsArray = allocArray<IntVar>(2)
+        libc.cinterop.libc_pipe(fdsArray)
+    } else {
+        val ptr = fds.toLong().toCPointer<IntVar>()
+        libc.cinterop.libc_pipe(ptr)
+    }
+}
 
-public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt =
-    throw UnsupportedOperationException("posixMemalign requires manual FFI bridge — not yet implemented")
+public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt {
+    if (memptr == null) return 22 // EINVAL
+    val allocPtr = libc.cinterop.libc_aligned_alloc(align, size) ?: return 12 // ENOMEM
+    val outVar = memptr.value.toCPointer<CPointerVar<ByteVar>>()
+    if (outVar != null) {
+        outVar.pointed.value = allocPtr.reinterpret<ByteVar>()
+    }
+    return 0
+}
 
 public actual fun alignedFree(p: COpaquePointer?): Unit {
     libc.cinterop.libc_aligned_free(p?.value?.toCPointer<ByteVar>())
