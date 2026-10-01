@@ -156,4 +156,16 @@ class NativePointerRegressionTest {
             }
         }
     }
+
+    @Test
+    fun strncpyCopiesUpToSpecifiedCount() {
+        val result = io.github.kotlinmania.libc.unix.strncpy(null, "hello world", 5uL)
+        assertEquals("hello", result)
+    }
+
+    @Test
+    fun strncatAppendsUpToSpecifiedCount() {
+        val result = io.github.kotlinmania.libc.unix.strncat("hello ", "world beyond", 5uL)
+        assertEquals("hello world", result)
+    }
 }

@@ -13,6 +13,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.set
+import kotlinx.cinterop.get
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.ShortVar
@@ -372,8 +374,17 @@ public actual fun strcpy(dst: String?, src: String?): String? {
         dstBuf.toKString()
     }
 }
-public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncpy requires mutable buffer bridge — String? cannot represent char* output")
+public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
+    if (src == null) return null
+    return memScoped {
+        val count = n.toInt()
+        val dstBuf = allocArray<ByteVar>(count + 1)
+        val srcBuf = src.cstr.ptr
+        libc.cinterop.libc_strncpy(dstBuf, srcBuf, n)
+        dstBuf[count] = 0.toByte()
+        dstBuf.toKString()
+    }
+}
 public actual fun stpcpy(dst: String?, src: String?): String? =
     throw UnsupportedOperationException("stpcpy requires manual FFI bridge — not yet implemented")
 
@@ -389,8 +400,18 @@ public actual fun strcat(s: String?, ct: String?): String? {
         buf.toKString()
     }
 }
-public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
-    throw UnsupportedOperationException("strncat requires mutable buffer bridge — String? cannot represent char* output")
+public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
+    if (s == null) return null
+    if (ct == null) return s
+    return memScoped {
+        val totalLen = s.length + minOf(ct.length, n.toInt()) + 1
+        val buf = allocArray<ByteVar>(totalLen)
+        s.cstr.place(buf)
+        val ctBuf = ct.cstr.ptr
+        libc.cinterop.libc_strncat(buf, ctBuf, n)
+        buf.toKString()
+    }
+}
 public actual fun strcmp(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
