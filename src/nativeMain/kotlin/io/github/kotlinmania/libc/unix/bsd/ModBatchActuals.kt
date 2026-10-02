@@ -8,9 +8,16 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.UIntVar
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.value
 import kotlinx.cinterop.toLong
-import libc.cinterop.libc_acct
-import libc.cinterop.libc_endgrent
+import libc.cinterop.libc_strerror_r
+import libc.cinterop.libc_cmsg_firsthdr
+import libc.cinterop.libc_madvise
 import libc.cinterop.libc_endpwent
 import libc.cinterop.libc_faccessat
 import libc.cinterop.libc_getdtablesize
@@ -31,8 +38,23 @@ import libc.cinterop.libc_setrlimit
 import libc.cinterop.libc_shm_unlink
 import libc.cinterop.libc_srand
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
-    throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
+public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? {
+    if (mhdr == null) return null
+    val mhdrPtr: CPointer<ByteVar>? = mhdr.handle.toCPointer() ?: return null
+    val result = libc_cmsg_firsthdr(mhdrPtr) ?: return null
+    val resultLong = result.toLong()
+    val resultPtr: CPointer<ByteVar> = resultLong.toCPointer<ByteVar>() ?: return null
+    val uintPtr: CPointer<UIntVar> = resultPtr.reinterpret()
+    val uintVar: UIntVar = uintPtr.pointed
+    val cmsgLen: SocklenT = uintVar.value
+    val levelPtr: CPointer<IntVar> = (resultLong + 4).toCPointer<ByteVar>()!!.reinterpret()
+    val levelVar: IntVar = levelPtr.pointed
+    val cmsgLevel: CInt = levelVar.value
+    val typePtr: CPointer<IntVar> = (resultLong + 8).toCPointer<ByteVar>()!!.reinterpret()
+    val typeVar: IntVar = typePtr.pointed
+    val cmsgType: CInt = typeVar.value
+    return Cmsghdr(cmsgLen, cmsgLevel, cmsgType, resultLong)
+}
 
 public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
 

@@ -65,12 +65,14 @@ public data class Msghdr(
     val msgControl: COpaquePointer?,
     val msgControllen: SocklenT,
     val msgFlags: CInt,
+    val handle: Long = 0L,
 )
 
 public data class Cmsghdr(
     val cmsgLen: SocklenT,
     val cmsgLevel: CInt,
     val cmsgType: CInt,
+    val handle: Long = 0L,
 )
 
 public data class FsidT(

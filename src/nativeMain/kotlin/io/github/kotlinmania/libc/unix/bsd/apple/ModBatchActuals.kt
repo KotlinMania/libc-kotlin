@@ -4,15 +4,82 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
-import kotlinx.cinterop.*
-import libc.cinterop.*
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.UIntVar
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.value
+import kotlinx.cinterop.toKString
+import kotlinx.cinterop.toLong
+import io.github.kotlinmania.libc.unix.bsd.cMSGFIRSTHDR
+import libc.cinterop.libc_basename
+import libc.cinterop.libc_clock_getres
+import libc.cinterop.libc_clock_gettime
+import libc.cinterop.libc_clock_settime
+import libc.cinterop.libc_cmsg_data
+import libc.cinterop.libc_cmsg_firsthdr
+import libc.cinterop.libc_cmsg_nxthdr
+import libc.cinterop.libc_dirname
+import libc.cinterop.libc_futimens
+import libc.cinterop.libc_getdomainname
+import libc.cinterop.libc_getentropy
+import libc.cinterop.libc_getpriority
+import libc.cinterop.libc_gettimeofday
+import libc.cinterop.libc_initgroups
+import libc.cinterop.libc_memmem
+import libc.cinterop.libc_mincore
+import libc.cinterop.libc_mknodat
+import libc.cinterop.libc_preadv
+import libc.cinterop.libc_pthread_setname_np
+import libc.cinterop.libc_pwritev
+import libc.cinterop.libc_setdomainname
+import libc.cinterop.libc_setgrent
+import libc.cinterop.libc_sethostname
+import libc.cinterop.libc_setpriority
+import libc.cinterop.libc_settimeofday
+import libc.cinterop.libc_strtonum
+import libc.cinterop.libc_sysctl
+import libc.cinterop.libc_uname
+import libc.cinterop.libc_utimensat
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
-    throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
+public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
+    if (mhdr == null) return null
+    if (cmsg == null) {
+        val bsdMsghdr = io.github.kotlinmania.libc.unix.bsd.Msghdr(
+            mhdr.msgName, mhdr.msgNamelen, null, mhdr.msgIovlen.toInt(),
+            mhdr.msgControl, mhdr.msgControllen.toUInt(), mhdr.msgFlags, mhdr.handle
+        )
+        val bsdResult = cMSGFIRSTHDR(bsdMsghdr) ?: return null
+        return Cmsghdr(bsdResult.cmsgLen.toULong(), bsdResult.cmsgLevel, bsdResult.cmsgType, bsdResult.handle)
+    }
+    val mhdrPtr: CPointer<ByteVar>? = mhdr.handle.toCPointer()
+    val cmsgPtr: CPointer<ByteVar>? = cmsg.handle.toCPointer()
+    if (mhdrPtr == null || cmsgPtr == null) return null
+    val result = libc_cmsg_nxthdr(mhdrPtr, cmsgPtr) ?: return null
+    val resultLong = result.toLong()
+    val resultPtr: CPointer<ByteVar> = resultLong.toCPointer<ByteVar>() ?: return null
+    val uintPtr: CPointer<UIntVar> = resultPtr.reinterpret()
+    val uintVar: UIntVar = uintPtr.pointed
+    val cmsgLen: ULong = uintVar.value.toULong()
+    val levelPtr: CPointer<IntVar> = (resultLong + 4).toCPointer<ByteVar>()!!.reinterpret()
+    val levelVar: IntVar = levelPtr.pointed
+    val cmsgLevel: CInt = levelVar.value
+    val typePtr: CPointer<IntVar> = (resultLong + 8).toCPointer<ByteVar>()!!.reinterpret()
+    val typeVar: IntVar = typePtr.pointed
+    val cmsgType: CInt = typeVar.value
+    return Cmsghdr(cmsgLen, cmsgLevel, cmsgType, resultLong)
+}
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
-    throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
+public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? {
+    if (cmsg == null) return null
+    val cmsgPtr: CPointer<ByteVar>? = cmsg.handle.toCPointer() ?: return null
+    val result = libc_cmsg_data(cmsgPtr) ?: return null
+    return COpaquePointer(result.toLong())
+}
 
 public actual fun setgrent() {
     libc_setgrent()
