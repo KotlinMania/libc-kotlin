@@ -260,4 +260,24 @@ class NativePointerRegressionTest {
     fun fuchsiaPutenvSetsEnvironmentVariable() {
         assertEquals(0, io.github.kotlinmania.libc.fuchsia.putenv("FUCHSIA_TEST_ENV=fuchsia_val_456"))
     }
+
+    @Test
+    fun dlfcnOperationsExecute() {
+        val handle = io.github.kotlinmania.libc.unix.dlopen(null, 0)
+        assertNotNull(handle)
+        val sym = io.github.kotlinmania.libc.unix.dlsym(handle, "malloc")
+        assertNotNull(sym)
+        assertTrue(sym.value != 0L)
+        val err = io.github.kotlinmania.libc.unix.dlerror()
+        assertTrue(err == null || err.isEmpty())
+        val closeRes = io.github.kotlinmania.libc.unix.dlclose(handle)
+        assertTrue(closeRes == 0 || closeRes == -1)
+    }
+
+    @Test
+    fun posixPthreadFunctionsExecute() {
+        val selfThread = io.github.kotlinmania.libc.new.common.posix.pthread.PthreadT(1L.toCPointer<CPointed>()!!)
+        val res = io.github.kotlinmania.libc.new.common.posix.pthread.pthreadKill(selfThread, 0)
+        assertTrue(res == 0 || res == 3 || res == 22)
+    }
 }

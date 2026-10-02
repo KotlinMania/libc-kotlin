@@ -414,10 +414,7 @@ kotlin {
         configureBenchmarkCompilation()
         addToXcf()
     }
-    watchosArm64 {
-        configureBenchmarkCompilation()
-        addToXcf()
-    }
+    // watchosArm64 (WatchOS 32 / arm64_32): retired by user directive. WatchOS 32 is not supported.
     watchosDeviceArm64 {
         configureBenchmarkCompilation()
         addToXcf()
@@ -445,21 +442,164 @@ kotlin {
 
     // cinterop: wire the libc .def file to all native targets so CMSG macros
     // (and other C inline functions) are accessible via kotlinx.cinterop.
+    // Automated build action: compiles libc_wrapper.c into a static library for each
+    // target architecture/OS using the appropriate host or cross toolchain.
     targets.withType<KotlinNativeTarget> {
+        val konanTargetName = konanTarget.name
+        val targetCapitalized = name.replaceFirstChar { it.uppercase() }
+        val wrapperTaskName = "compileLibcWrapperFor$targetCapitalized"
+        val wrapperTask = tasks.register(wrapperTaskName) {
+            group = "build"
+            description = "Compiles libc_wrapper.c into a static library for $konanTargetName"
+            val cSource = file("src/nativeInterop/cinterop/libc_wrapper.c")
+            val hSource = file("src/nativeInterop/cinterop/libc_wrapper.h")
+            val outDir = layout.buildDirectory.dir("cinterop-targets/$konanTargetName").get().asFile
+            val outFile = File(outDir, "libc_wrapper.a")
+            inputs.file(cSource)
+            inputs.file(hSource)
+            outputs.file(outFile)
+
+            doLast {
+                outDir.mkdirs()
+                if (outFile.exists()) outFile.delete()
+                val tempObj = File(outDir, "libc_wrapper.o")
+                val konanDeps = File(System.getProperty("user.home"), ".konan/dependencies")
+                val isMac = org.gradle.internal.os.OperatingSystem.current().isMacOsX
+                val isLinux = org.gradle.internal.os.OperatingSystem.current().isLinux
+                val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
+                val execOps = project.serviceOf<ExecOperations>()
+
+                when {
+                    isMac && (konanTargetName.startsWith("macos") || konanTargetName.startsWith("ios") ||
+                              konanTargetName.startsWith("tvos") || konanTargetName.startsWith("watchos")) -> {
+                        val appleTriple = when (konanTargetName) {
+                            "macos_arm64" -> "arm64-apple-macos14.0"
+                            "macos_x64" -> "x86_64-apple-macos14.0"
+                            "ios_arm64" -> "arm64-apple-ios14.0"
+                            "ios_simulator_arm64" -> "arm64-apple-ios14.0-simulator"
+                            "ios_x64" -> "x86_64-apple-ios14.0-simulator"
+                            "watchos_device_arm64" -> "arm64-apple-watchos7.0"
+                            "watchos_simulator_arm64" -> "arm64-apple-watchos7.0-simulator"
+                            "tvos_arm64" -> "arm64-apple-tvos14.0"
+                            "tvos_simulator_arm64" -> "arm64-apple-tvos14.0-simulator"
+                            else -> "arm64-apple-macos14.0"
+                        }
+                        execOps.exec {
+                            commandLine("clang", "-target", appleTriple, "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                        }.assertNormalExitValue()
+                        execOps.exec {
+                            commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
+                        }.assertNormalExitValue()
+                    }
+                    konanTargetName.startsWith("android") -> {
+                        val ndkDir = File(konanDeps, "target-toolchain-2-osx-android_ndk")
+                        val sysroot = File(ndkDir, "sysroot")
+                        val clangBin = if (konanTargetName.contains("arm64")) {
+                            File(ndkDir, "bin/aarch64-linux-android21-clang")
+                        } else {
+                            File(ndkDir, "bin/x86_64-linux-android21-clang")
+                        }
+                        val arBin = if (konanTargetName.contains("arm64")) {
+                            File(ndkDir, "bin/aarch64-linux-android-ar")
+                        } else {
+                            File(ndkDir, "bin/x86_64-linux-android-ar")
+                        }
+                        if (clangBin.exists() && sysroot.exists()) {
+                            execOps.exec {
+                                commandLine(clangBin.absolutePath, "--sysroot=${sysroot.absolutePath}", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                            execOps.exec {
+                                commandLine(arBin.absolutePath, "rcs", outFile.absolutePath, tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                        } else {
+                            val prebuilt = file("src/nativeInterop/cinterop/targets/$konanTargetName/libc_wrapper.a")
+                            if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                        }
+                    }
+                    konanTargetName.startsWith("linux") -> {
+                        val (targetTriple, gccDirName) = if (konanTargetName.contains("arm64")) {
+                            "aarch64-unknown-linux-gnu" to "aarch64-unknown-linux-gnu-gcc-8.3.0-glibc-2.25-kernel-4.9-2"
+                        } else {
+                            "x86_64-unknown-linux-gnu" to "x86_64-unknown-linux-gnu-gcc-8.3.0-glibc-2.19-kernel-4.9-2"
+                        }
+                        val sysroot = File(konanDeps, "$gccDirName/$targetTriple/sysroot")
+                        val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                        if (isLinux) {
+                            execOps.exec {
+                                commandLine("clang", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                            execOps.exec {
+                                commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                        } else if (isMac && sysroot.exists() && llvmAr.exists()) {
+                            execOps.exec {
+                                commandLine("clang", "--target=$targetTriple", "--sysroot=${sysroot.absolutePath}", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                            execOps.exec {
+                                commandLine(llvmAr.absolutePath, "rcs", outFile.absolutePath, tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                        } else {
+                            val prebuilt = file("src/nativeInterop/cinterop/targets/$konanTargetName/libc_wrapper.a")
+                            if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                        }
+                    }
+                    konanTargetName.startsWith("mingw") -> {
+                        val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
+                        val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                        if (isWindows) {
+                            execOps.exec {
+                                commandLine("clang", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                            execOps.exec {
+                                commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                        } else if (isMac && mingwSysroot.exists() && llvmAr.exists()) {
+                            execOps.exec {
+                                commandLine("clang", "--target=x86_64-w64-mingw32", "--sysroot=${mingwSysroot.absolutePath}", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                            execOps.exec {
+                                commandLine(llvmAr.absolutePath, "rcs", outFile.absolutePath, tempObj.absolutePath)
+                            }.assertNormalExitValue()
+                        } else {
+                            val prebuilt = file("src/nativeInterop/cinterop/targets/mingw_x64/libc_wrapper.a")
+                            if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                        }
+                    }
+                    else -> {
+                        val prebuilt = file("src/nativeInterop/cinterop/targets/$konanTargetName/libc_wrapper.a")
+                        if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                    }
+                }
+                tempObj.delete()
+            }
+        }
+
         compilations.getByName("main") {
             cinterops {
                 val libc by creating {
                     defFile(project.file("src/nativeInterop/cinterop/libc.def"))
                     packageName("libc.cinterop")
+                    extraOpts(
+                        "-libraryPath",
+                        layout.buildDirectory.dir("cinterop-targets/$konanTargetName").get().asFile.absolutePath,
+                    )
                 }
             }
+        }
+        tasks.matching { it.name == "cinteropLibc$targetCapitalized" }.configureEach {
+            dependsOn(wrapperTask)
+            inputs.files(wrapperTask)
         }
     }
 
     // Web
     js {
         configureBenchmarkCompilation()
-        browser()
+        browser {
+            testTask {
+                enabled = false
+            }
+        }
         nodejs()
     }
 
@@ -467,7 +607,11 @@ kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         configureBenchmarkCompilation()
-        browser()
+        browser {
+            testTask {
+                enabled = false
+            }
+        }
         nodejs()
     }
 
@@ -573,20 +717,19 @@ tasks.withType<AbstractTestTask>().configureEach {
 // Static analysis: Detekt + Ktlint
 // ============================================================================
 detekt {
-    buildUponDefaultConfig = true
-    allRules = false
-    autoCorrect = false
+    buildUponDefaultConfig.set(true)
+    allRules.set(false)
+    autoCorrect.set(false)
     source.setFrom(files("src"))
     config.setFrom(files("detekt.yml"))
-    parallel = true
+    parallel.set(true)
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
     reports {
         html.required.set(true)
         sarif.required.set(true)
-        txt.required.set(false)
-        xml.required.set(false)
+        checkstyle.required.set(false)
     }
 }
 
@@ -608,7 +751,7 @@ ktlint {
 
 if (benchmarkEnabled) {
     tasks
-        .withType<io.gitlab.arturbosch.detekt.Detekt>()
+        .withType<dev.detekt.gradle.Detekt>()
         .matching {
             it.name.contains("BenchmarkBenchmark")
         }.configureEach {
@@ -624,7 +767,7 @@ if (benchmarkEnabled) {
 }
 
 tasks.named("check") {
-    dependsOn(tasks.withType<io.gitlab.arturbosch.detekt.Detekt>())
+    dependsOn(tasks.withType<dev.detekt.gradle.Detekt>())
     dependsOn(tasks.named("ktlintCheck"))
     dependsOn("test")
 }
@@ -685,6 +828,46 @@ rootProject.extensions.configure<NodeJsRootExtension>("kotlinNodeJs") {
     versions.mocha.version = providers.gradleProperty("node.mocha.version").getOrElse("12.0.0-beta-10")
     versions.kotlinWebHelpers.version = providers.gradleProperty("node.kotlinWebHelpers.version").getOrElse("3.1.0")
 }
+
+// Make kotlinUpgradeYarnLock and kotlinWasmUpgradeYarnLock dependencies in the build process
+// for KotlinJS and other JavaScript/WASM targets so that yarn.lock is always upgraded automatically.
+val jsTasksNeedingYarnLock =
+    setOf(
+        "compileKotlinJs",
+        "compileTestKotlinJs",
+        "jsProcessResources",
+        "jsTestProcessResources",
+        "jsNodeTest",
+        "jsBrowserTest",
+    )
+
+tasks
+    .matching { it.name in jsTasksNeedingYarnLock }
+    .configureEach {
+        dependsOn("kotlinUpgradeYarnLock")
+    }
+
+val wasmTasksNeedingYarnLock =
+    setOf(
+        "compileKotlinWasmJs",
+        "compileTestKotlinWasmJs",
+        "wasmJsProcessResources",
+        "wasmJsTestProcessResources",
+        "wasmJsNodeTest",
+        "wasmJsBrowserTest",
+        "compileKotlinWasmWasi",
+        "compileTestKotlinWasmWasi",
+        "wasmWasiProcessResources",
+        "wasmWasiTestProcessResources",
+        "wasmWasiNodeTest",
+    )
+
+tasks
+    .matching { it.name in wasmTasksNeedingYarnLock }
+    .configureEach {
+        dependsOn("kotlinWasmUpgradeYarnLock")
+    }
+
 
 // ============================================================================
 // Maven Central publishing — Central Portal, first-party + bespoke upload
@@ -1089,7 +1272,6 @@ val nativeTargetNames =
         "mingwX64",
         "tvosArm64",
         "tvosSimulatorArm64",
-        "watchosArm64",
         "watchosDeviceArm64",
         "watchosSimulatorArm64",
     )

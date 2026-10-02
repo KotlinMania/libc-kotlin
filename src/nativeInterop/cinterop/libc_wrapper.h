@@ -271,6 +271,8 @@ int libc_bind(int sockfd, void* addr, int addrlen);
 int libc_bcmp(const void* s1, const void* s2, uint64_t n);
 int libc_dlclose(void* handle);
 char* libc_dlerror(void);
+void* libc_dlopen(const char* filename, int flag);
+void* libc_dlsym(void* handle, const char* symbol);
 char* libc_gai_strerror(int errcode);
 int libc_getdtablesize(void);
 char* libc_getlogin(void);
@@ -401,7 +403,7 @@ int libc_issetugid(void);
 int libc_chflags(const char* path, unsigned int flags);
 int libc_fchflags(int fd, unsigned int flags);
 int64_t libc_strtonum(const char* numstr, int64_t minval, int64_t maxval, void* errstrp);
-int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, unsigned long options);
+int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options);
 int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options);
 int libc_execvP(const char* file, const char* searchPath, void* argv);
 int libc_exchangedata(const char* path1, const char* path2, uint64_t options);
@@ -427,10 +429,7 @@ int libc_pthread_setschedparam(void* thread, int policy, void* param);
 int libc_sched_setparam(int32_t pid, void* param);
 int libc_sched_getparam(int32_t pid, void* param);
 int libc_sched_setscheduler(int32_t pid, int policy, void* param);
-/* Linux-specific: waitid uses id_t which is not available on Windows */
-#ifndef _WIN32
 int libc_waitid(int idtype, int32_t id, void* infop, int options);
-#endif
 int libc_openpty(int* amaster, int* aslave, char* name, void* termp, void* winp);
 int32_t libc_forkpty(int* amaster, char* name, void* termp, void* winp);
 
@@ -477,9 +476,17 @@ void* libc_getpwuid(int uid);
 void* libc_memalign(uint64_t alignment, uint64_t size);
 char* libc_nl_langinfo(int item);
 int libc_posix_fallocate(int fd, int64_t offset, int64_t len);
-void* libc_pthread_getspecific(unsigned long key);
+void* libc_pthread_getspecific(uint64_t key);
+int libc_pthread_cancel(void* thread);
 int libc_pthread_kill(void* thread, int sig);
-int libc_pthread_setspecific(unsigned long key, const void* value);
+int libc_pthread_setschedprio(void* thread, int priority);
+int libc_pthread_barrier_init(void* barrier, void* attr, unsigned int count);
+int libc_pthread_barrier_destroy(void* barrier);
+int libc_pthread_barrier_wait(void* barrier);
+int libc_pthread_barrierattr_init(void* attr);
+int libc_pthread_barrierattr_destroy(void* attr);
+int libc_pthread_mutex_consistent(void* mutex);
+int libc_pthread_setspecific(uint64_t key, const void* value);
 int libc_pthread_spin_destroy(void* lock);
 int libc_pthread_spin_init(void* lock, int pshared);
 int libc_pthread_spin_lock(void* lock);
@@ -509,7 +516,7 @@ char* libc_strerror_r(int errnum, char* buf, uint64_t buflen);
 uint64_t libc_strftime(char* s, uint64_t max, const char* format, void* tm);
 void* libc_popen(const char* command, const char* mode);
 void* libc_newlocale(int mask, const char* locale, void* base);
-int libc_pthread_getname_np(void* thread, char* name, unsigned long len);
+int libc_pthread_getname_np(void* thread, char* name, uint64_t len);
 int libc_pthread_setname_np(void* thread, const char* name);
 int libc_getgrouplist(const char* user, int group, void* groups, int* ngroups);
 
