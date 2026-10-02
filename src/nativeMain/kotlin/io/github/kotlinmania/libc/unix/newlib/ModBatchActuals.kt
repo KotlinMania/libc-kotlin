@@ -4,43 +4,31 @@
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 import libc.cinterop.libc_abs
-import libc.cinterop.libc_clock_getres
-import libc.cinterop.libc_clock_gettime
-import libc.cinterop.libc_clock_settime
 import libc.cinterop.libc_daemon
 import libc.cinterop.libc_getdtablesize
 import libc.cinterop.libc_getrlimit
-import libc.cinterop.libc_gettimeofday
 import libc.cinterop.libc_labs
 import libc.cinterop.libc_memalign
 import libc.cinterop.libc_popen
 import libc.cinterop.libc_rand
 import libc.cinterop.libc_sem_unlink
-import libc.cinterop.libc_setrlimit
 import libc.cinterop.libc_srand
-import libc.cinterop.libc_strerror_r
 import libc.cinterop.libc_uname
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
 
 public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt {
     if (rlim == null) return -1
@@ -54,6 +42,7 @@ public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt =
 
 public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("strerrorR requires FFI bridge")
+
 public actual fun semDestroy(sem: SemT?): CInt =
     throw UnsupportedOperationException("semDestroy requires manual FFI bridge — not yet implemented")
 
@@ -62,11 +51,14 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
 
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
+
 public actual fun labs(i: CLong): CLong =
     libc.cinterop.libc_labs(i)
+
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
-public actual fun srand(seed: CUInt): Unit {
+
+public actual fun srand(seed: CUInt) {
     libc_srand(seed)
 }
 
@@ -114,6 +106,7 @@ public actual fun semClose(sem: SemT?): CInt =
 
 public actual fun getdtablesize(): CInt =
     libc.cinterop.libc_getdtablesize()
+
 public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrnamR requires manual FFI bridge — not yet implemented")
 
@@ -136,6 +129,7 @@ public actual fun semUnlink(name: String?): CInt {
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libc.cinterop.libc_daemon(nochdir, noclose)
+
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpwnamR requires manual FFI bridge — not yet implemented")
 

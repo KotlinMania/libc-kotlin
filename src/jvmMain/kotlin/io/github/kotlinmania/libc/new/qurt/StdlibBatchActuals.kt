@@ -12,9 +12,7 @@ public actual fun calloc(nmemb: ULong, size: ULong): COpaquePointer? =
 public actual fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc not available on JVM — no C library access")
 
-public actual fun free(ptr: COpaquePointer?) {
-    throw UnsupportedOperationException("free not available on JVM — no C library access")
-}
+public actual fun free(ptr: COpaquePointer?): Unit = throw UnsupportedOperationException("free not available on JVM — no C library access")
 
 public actual fun getenv(name: String?): String? =
     throw UnsupportedOperationException("getenv not available on JVM — no C library access")
@@ -49,9 +47,7 @@ public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): 
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("rand not available on JVM — no C library access")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand not available on JVM — no C library access")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand not available on JVM — no C library access")
 
 public actual fun abs(j: CInt): CInt =
     throw UnsupportedOperationException("abs not available on JVM — no C library access")
@@ -62,13 +58,10 @@ public actual fun labs(j: CLong): CLong =
 public actual fun llabs(j: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs not available on JVM — no C library access")
 
-
 public actual fun atexit(function: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("atexit not available on JVM — no C library access")
 
-public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
-    throw UnsupportedOperationException("qsort not available on JVM — no C library access")
-}
+public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsort not available on JVM — no C library access")
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
     throw UnsupportedOperationException("bsearch not available on JVM — no C library access")

@@ -36,9 +36,7 @@ public actual fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, fl
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval requires N-API addon")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires N-API addon")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires N-API addon")
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires N-API addon")
@@ -97,13 +95,9 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline requires N-API addon")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent requires N-API addon")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent requires N-API addon")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent requires N-API addon")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent requires N-API addon")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname requires N-API addon")
@@ -113,4 +107,3 @@ public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): C
 
 public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadTimedjoinNp requires N-API addon")
-

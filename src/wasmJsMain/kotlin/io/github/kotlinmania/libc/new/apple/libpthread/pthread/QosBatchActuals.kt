@@ -4,11 +4,6 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
 
-
-
-
-
-
 public actual fun pthreadAttrSetQosClassNp(attr: PthreadAttrT, `class`: QosClassT, priority: CInt): CInt =
     throw UnsupportedOperationException("pthreadAttrSetQosClassNp requires N-API addon")
 

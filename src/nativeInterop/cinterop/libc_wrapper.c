@@ -1,6 +1,15 @@
 #define _DARWIN_C_SOURCE
-#define _BSD_SOURCE
+#define _DEFAULT_SOURCE
 #define _GNU_SOURCE
+
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#elif defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include "libc_wrapper.h"
 #ifdef __APPLE__
 int getentropy(void*, uint64_t);
@@ -26,7 +35,7 @@ int getentropy(void*, uint64_t);
 
 /* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
 #ifndef _GNU_SOURCE
-#define _BSD_SOURCE
+#define _DEFAULT_SOURCE
 #define _GNU_SOURCE
 #endif
 
@@ -482,7 +491,7 @@ void* libc_dlsym(void* handle, const char* symbol) {
     return NULL;
 #endif
 }
-char* libc_gai_strerror(int errcode) { return gai_strerror(errcode); }
+const char* libc_gai_strerror(int errcode) { return gai_strerror(errcode); }
 int libc_getdtablesize(void) {
 #if defined(__ANDROID__)
     return (int)sysconf(_SC_OPEN_MAX);
@@ -495,7 +504,13 @@ int libc_getdtablesize(void) {
 char* libc_getlogin(void) { return getlogin(); }
 int libc_getpagesize(void) { return getpagesize(); }
 int libc_madvise(void* addr, uint64_t len, int advice) { return madvise(addr, len, advice); }
-int libc_mincore(void* addr, uint64_t len, unsigned char* vec) { return mincore(addr, len, vec); }
+int libc_mincore(void* addr, uint64_t len, unsigned char* vec) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    return mincore(addr, len, (char*)vec);
+#else
+    return mincore(addr, len, vec);
+#endif
+}
 int libc_mlock(const void* addr, uint64_t len) { return mlock(addr, len); }
 int libc_mlockall(int flags) { return mlockall(flags); }
 int libc_mprotect(void* addr, uint64_t len, int prot) { return mprotect(addr, len, prot); }
@@ -514,7 +529,7 @@ char* libc_ttyname(int fd) { return ttyname(fd); }
 int libc_usleep(unsigned int useconds) { return usleep(useconds); }
 
 /* Auto-generated wrappers */
-int libc_setvbuf(void* stream, const char* buffer, int mode, uint64_t size) { return setvbuf(stream, buffer, mode, size); }
+int libc_setvbuf(void* stream, const char* buffer, int mode, uint64_t size) { return setvbuf((FILE*)stream, (char*)buffer, mode, (size_t)size); }
 uint64_t libc_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) { return (uint64_t)fwrite(ptr, (uint64_t)size, (uint64_t)nobj, stream); }
 int libc_fgetpos(void* stream, void* ptr) { return fgetpos(stream, ptr); }
 int libc_fsetpos(void* stream, void* ptr) { return fsetpos(stream, ptr); }
@@ -553,7 +568,7 @@ int libc_truncate(const char* path, int64_t length) { return truncate(path, leng
 int libc_gethostname(void* name, uint64_t len) { return gethostname((char*)name, (size_t)len); }
 int libc_mkfifo(const char* path, uint32_t mode) { return mkfifo(path, mode); }
 int libc_fseeko(void* stream, int64_t offset, int whence) { return fseeko((FILE*)stream, (int64_t)offset, whence); }
-int libc_mkstemp(const char* template) { return mkstemp(template); }
+int libc_mkstemp(const char* template) { return mkstemp((char*)template); }
 int libc_symlinkat(const char* target, int newdirfd, const char* linkpath) { return symlinkat(target, newdirfd, linkpath); }
 int libc_fchmodat(int dirfd, const char* pathname, uint32_t mode, int flags) { return fchmodat(dirfd, pathname, (uint32_t)mode, flags); }
 int libc_ftruncate(int fd, int64_t length) { return ftruncate(fd, length); }
@@ -670,9 +685,15 @@ int libc_mkostemps(const char* template, int suffixlen, int flags) {
 }
 #ifdef __APPLE__
 int libc_reboot(int howTo) { return reboot(howTo); }
-int libc_mkfifoat(int dirfd, const char* pathname, uint32_t mode) { return mkfifoat(dirfd, pathname, mode); }
+int libc_mkfifoat(int dirfd, const char* pathname, uint32_t mode) {
+    if (__builtin_available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *)) {
+        return mkfifoat(dirfd, pathname, mode);
+    }
+    errno = ENOSYS;
+    return -1;
+}
 #endif
-int libc_mkstemps(const char* template, int suffixlen) { return mkstemps(template, suffixlen); }
+int libc_mkstemps(const char* template, int suffixlen) { return mkstemps((char*)template, suffixlen); }
 int libc_getdomainname(const char* name, uint64_t len) {
 #if !defined(__ANDROID__) && !defined(_WIN32)
     return getdomainname((char*)name, (size_t)len);
@@ -756,8 +777,8 @@ int libc_sradixsort(void* arg1, int arg2, void* arg3, unsigned int arg4) { retur
 #endif
 /* strlcat/strlcpy are BSD-only, not available on Linux */
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
-uint64_t libc_strlcat(const char* arg1, const char* arg2, uint64_t arg3) { return (uint64_t)strlcat(arg1, arg2, arg3); }
-uint64_t libc_strlcpy(const char* arg1, const char* arg2, uint64_t arg3) { return (uint64_t)strlcpy(arg1, arg2, arg3); }
+uint64_t libc_strlcat(const char* arg1, const char* arg2, uint64_t arg3) { return (uint64_t)strlcat((char*)arg1, arg2, (size_t)arg3); }
+uint64_t libc_strlcpy(const char* arg1, const char* arg2, uint64_t arg3) { return (uint64_t)strlcpy((char*)arg1, arg2, (size_t)arg3); }
 #endif
 int libc_ffs(int arg1) { return ffs(arg1); }
 int libc_getsubopt(void* arg1, void* arg2, void* arg3) {
@@ -956,7 +977,7 @@ int libc_waitid(int idtype, int32_t id, void* infop, int options) {
 #endif
 int libc_openpty(int* amaster, int* aslave, char* name, void* termp, void* winp) {
 #if !defined(__ANDROID__) && (defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__linux__))
-    return openpty(amaster, aslave, name, (const struct termios*)termp, (const struct winsize*)winp);
+    return openpty(amaster, aslave, name, (struct termios*)termp, (struct winsize*)winp);
 #else
     (void)amaster; (void)aslave; (void)name; (void)termp; (void)winp;
     errno = ENOSYS;
@@ -965,7 +986,7 @@ int libc_openpty(int* amaster, int* aslave, char* name, void* termp, void* winp)
 }
 int32_t libc_forkpty(int* amaster, char* name, void* termp, void* winp) {
 #if !defined(__ANDROID__) && (defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__linux__))
-    return forkpty(amaster, name, (const struct termios*)termp, (const struct winsize*)winp);
+    return forkpty(amaster, name, (struct termios*)termp, (struct winsize*)winp);
 #else
     (void)amaster; (void)name; (void)termp; (void)winp;
     errno = ENOSYS;
@@ -1077,7 +1098,7 @@ int libc_sem_timedwait(void* sem, void* abstime) {
 
 /* COpaquePointer-param wrappers — void* for pointer params */
 int libc_pthread_attr_getstack(void* attr, void* stackaddr, void* stacksize) {
-    return pthread_attr_getstack((pthread_attr_t*)attr, stackaddr, (uint64_t*)stacksize);
+    return pthread_attr_getstack((pthread_attr_t*)attr, (void**)stackaddr, (size_t*)stacksize);
 }
 #if defined(__APPLE__)
 int libc_getentropy(void* buf, uint64_t buflen) {
@@ -1112,7 +1133,7 @@ void* libc_memmem(const void* haystack, uint64_t haystacklen, const void* needle
 }
 int libc_sysctl(int* name, unsigned int namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
-    return sysctl(name, namelen, oldp, (uint64_t*)oldlenp, newp, newlen);
+    return sysctl(name, namelen, oldp, (size_t*)oldlenp, newp, (size_t)newlen);
 #else
     (void)name; (void)namelen; (void)oldp; (void)oldlenp; (void)newp; (void)newlen;
     errno = ENOSYS;
@@ -1158,7 +1179,13 @@ int libc_mknodat(int dirfd, const char* pathname, int mode, unsigned long long d
 #endif
 }
 int libc_mkfifoat_int(int dirfd, const char* pathname, int mode) {
-#if (!defined(__ANDROID__) && defined(__linux__)) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
+#if defined(__APPLE__)
+    if (__builtin_available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *)) {
+        return mkfifoat(dirfd, pathname, (uint32_t)mode);
+    }
+    errno = ENOSYS;
+    return -1;
+#elif (!defined(__ANDROID__) && defined(__linux__)) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
     return mkfifoat(dirfd, pathname, (uint32_t)mode);
 #else
     (void)dirfd; (void)pathname; (void)mode;
@@ -1235,8 +1262,10 @@ int libc_pthread_setname_np(void* thread, const char* name) {
 #endif
 }
 int libc_getgrouplist(const char* user, int group, void* groups, int* ngroups) {
-#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
-    return getgrouplist(user, (uint32_t)group, (uint32_t*)groups, ngroups);
+#if defined(__APPLE__)
+    return getgrouplist(user, group, (int*)groups, ngroups);
+#elif defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
+    return getgrouplist(user, (gid_t)group, (gid_t*)groups, ngroups);
 #else
     (void)user; (void)group; (void)groups; (void)ngroups;
     errno = ENOSYS;
@@ -1644,7 +1673,7 @@ int libc_backtrace(void** buf, int sz) {
 }
 void* libc_brk(const void* addr) {
 #if defined(__APPLE__) && TARGET_OS_OSX
-    return brk(addr);
+    return (void*)(intptr_t)brk((void*)addr);
 #else
     (void)addr; errno = ENOSYS; return (void*)-1;
 #endif
@@ -1656,3 +1685,9 @@ void* libc_shmat(int shmid, const void* shmaddr, int shmflg) {
     (void)shmid; (void)shmaddr; (void)shmflg; errno = ENOSYS; return (void*)-1;
 #endif
 }
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#elif defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif

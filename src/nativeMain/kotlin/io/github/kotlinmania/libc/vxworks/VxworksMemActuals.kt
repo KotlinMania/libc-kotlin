@@ -9,6 +9,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
+import libc.cinterop.libc_aligned_alloc
+import libc.cinterop.libc_aligned_free
+import libc.cinterop.libc_aligned_realloc
 import libc.cinterop.libc_calloc
 import libc.cinterop.libc_free
 import libc.cinterop.libc_malloc
@@ -19,10 +22,6 @@ import libc.cinterop.libc_memcpy
 import libc.cinterop.libc_memmove
 import libc.cinterop.libc_memset
 import libc.cinterop.libc_realloc
-import libc.cinterop.libc_aligned_alloc
-
-import libc.cinterop.libc_aligned_free
-import libc.cinterop.libc_aligned_realloc
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
     libc.cinterop.libc_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
@@ -33,11 +32,12 @@ public actual fun malloc(size: ULong): COpaquePointer? =
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? {
     if (p == null) return malloc(size)
     val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
-    val res = if (p.allocationAlignment != 0uL) {
-        libc.cinterop.libc_aligned_realloc(pPtr, size, p.allocationAlignment)
-    } else {
-        libc.cinterop.libc_realloc(pPtr, size)
-    }
+    val res =
+        if (p.allocationAlignment != 0uL) {
+            libc.cinterop.libc_aligned_realloc(pPtr, size, p.allocationAlignment)
+        } else {
+            libc.cinterop.libc_realloc(pPtr, size)
+        }
     return res?.let { COpaquePointer(it.toLong(), p.allocationAlignment) }
 }
 
@@ -81,6 +81,4 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePoint
     return libc.cinterop.libc_memset(d, c, n)?.let { COpaquePointer(it.toLong()) }
 }
 
-public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? {
-    return libc.cinterop.libc_aligned_alloc(alignment, size)?.let { COpaquePointer(it.toLong(), alignment) }
-}
+public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? = libc.cinterop.libc_aligned_alloc(alignment, size)?.let { COpaquePointer(it.toLong(), alignment) }

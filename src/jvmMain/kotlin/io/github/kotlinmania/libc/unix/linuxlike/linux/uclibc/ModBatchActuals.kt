@@ -62,4 +62,3 @@ public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt
 
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval not available on JVM — no C library access")
-

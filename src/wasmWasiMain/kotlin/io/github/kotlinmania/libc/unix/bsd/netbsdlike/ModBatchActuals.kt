@@ -3,9 +3,7 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike
 
 import io.github.kotlinmania.libc.*
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent not available on WASI — no C library access")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent not available on WASI — no C library access")
 
 public actual fun semDestroy(sem: SemT): CInt =
     throw UnsupportedOperationException("semDestroy not available on WASI — no C library access")
@@ -240,4 +238,3 @@ public actual fun recvmmsg(sockfd: CInt, mmsg: Mmsghdr?, vlen: CUInt, flags: CIn
 
 public actual fun closefrom(lowfd: CInt): CInt =
     throw UnsupportedOperationException("closefrom not available on WASI — no C library access")
-

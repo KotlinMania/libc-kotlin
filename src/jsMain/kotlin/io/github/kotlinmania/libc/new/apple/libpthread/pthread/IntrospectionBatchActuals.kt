@@ -8,4 +8,3 @@ public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: Pthre
 
 public actual fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): COpaquePointer? =
     throw UnsupportedOperationException("pthreadIntrospectionGetspecificNp requires N-API addon")
-

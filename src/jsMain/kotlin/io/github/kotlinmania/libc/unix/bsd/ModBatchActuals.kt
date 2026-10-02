@@ -6,20 +6,14 @@ import io.github.kotlinmania.libc.*
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires N-API addon")
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR requires N-API addon")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires N-API addon")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires N-API addon")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
 
 public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt =
     throw UnsupportedOperationException("getrlimit requires N-API addon")
@@ -39,16 +33,12 @@ public actual fun labs(i: CLong): CLong =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("rand requires N-API addon")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand requires N-API addon")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand requires N-API addon")
 
 public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getifaddrs requires N-API addon")
 
-public actual fun freeifaddrs(ifa: Ifaddrs?) {
-    throw UnsupportedOperationException("freeifaddrs requires N-API addon")
-}
+public actual fun freeifaddrs(ifa: Ifaddrs?): Unit = throw UnsupportedOperationException("freeifaddrs requires N-API addon")
 
 public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires N-API addon")
@@ -71,17 +61,11 @@ public actual fun syscall(num: CInt, vararg args: Any?): CInt =
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent requires N-API addon")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent requires N-API addon")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent requires N-API addon")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent requires N-API addon")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent requires N-API addon")
 
-public actual fun endgrent() {
-    throw UnsupportedOperationException("endgrent requires N-API addon")
-}
+public actual fun endgrent(): Unit = throw UnsupportedOperationException("endgrent requires N-API addon")
 
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent requires N-API addon")
@@ -89,9 +73,7 @@ public actual fun getgrent(): Group? =
 public actual fun getprogname(): String? =
     throw UnsupportedOperationException("getprogname requires N-API addon")
 
-public actual fun setprogname(name: String?) {
-    throw UnsupportedOperationException("setprogname requires N-API addon")
-}
+public actual fun setprogname(name: String?): Unit = throw UnsupportedOperationException("setprogname requires N-API addon")
 
 public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg requires N-API addon")
@@ -99,16 +81,12 @@ public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires N-API addon")
 
-public actual fun ifFreenameindex(ptr: IfNameindex?) {
-    throw UnsupportedOperationException("ifFreenameindex requires N-API addon")
-}
+public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex requires N-API addon")
 
 public actual fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt =
     throw UnsupportedOperationException("getpeereid requires N-API addon")
 
-public actual fun globfree(pglob: GlobT?) {
-    throw UnsupportedOperationException("globfree requires N-API addon")
-}
+public actual fun globfree(pglob: GlobT?): Unit = throw UnsupportedOperationException("globfree requires N-API addon")
 
 public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
     throw UnsupportedOperationException("posixMadvise requires N-API addon")
@@ -116,9 +94,7 @@ public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt):
 public actual fun shmUnlink(name: String?): CInt =
     throw UnsupportedOperationException("shmUnlink requires N-API addon")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir requires N-API addon")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir requires N-API addon")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires N-API addon")
@@ -156,9 +132,7 @@ public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
 public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
     throw UnsupportedOperationException("recvmsg requires N-API addon")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync requires N-API addon")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync requires N-API addon")
 
 public actual fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrgidR requires N-API addon")
@@ -241,13 +215,9 @@ public actual fun regexec(preg: RegexT?, input: String?, nmatch: ULong, pmatch: 
 public actual fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong =
     throw UnsupportedOperationException("regerror requires N-API addon")
 
-public actual fun regfree(preg: RegexT?) {
-    throw UnsupportedOperationException("regfree requires N-API addon")
-}
+public actual fun regfree(preg: RegexT?): Unit = throw UnsupportedOperationException("regfree requires N-API addon")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
 
 public actual fun lrand48(): CLong =
     throw UnsupportedOperationException("lrand48 requires N-API addon")
@@ -261,16 +231,12 @@ public actual fun mrand48(): CLong =
 public actual fun jrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("jrand48 requires N-API addon")
 
-public actual fun srand48(seed: CLong) {
-    throw UnsupportedOperationException("srand48 requires N-API addon")
-}
+public actual fun srand48(seed: CLong): Unit = throw UnsupportedOperationException("srand48 requires N-API addon")
 
 public actual fun seed48(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48 requires N-API addon")
 
-public actual fun lcong48(p: CUShort?) {
-    throw UnsupportedOperationException("lcong48 requires N-API addon")
-}
+public actual fun lcong48(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48 requires N-API addon")
 
 public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt =
     throw UnsupportedOperationException("getoptLong requires N-API addon")
@@ -286,7 +252,6 @@ public actual fun devname(dev: DevT, modeT: ModeT): String? =
 
 public actual fun issetugid(): CInt =
     throw UnsupportedOperationException("issetugid requires N-API addon")
-
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
     throw UnsupportedOperationException("glob requires N-API addon")

@@ -36,9 +36,7 @@ public actual fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, fl
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval not available on Android host — use androidNative target for FFI")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero not available on Android host — use androidNative target for FFI")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero not available on Android host — use androidNative target for FFI")
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray not available on Android host — use androidNative target for FFI")
@@ -97,13 +95,9 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline not available on Android host — use androidNative target for FFI")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent not available on Android host — use androidNative target for FFI")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent not available on Android host — use androidNative target for FFI")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent not available on Android host — use androidNative target for FFI")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent not available on Android host — use androidNative target for FFI")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname not available on Android host — use androidNative target for FFI")
@@ -113,4 +107,3 @@ public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): C
 
 public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadTimedjoinNp not available on Android host — use androidNative target for FFI")
-

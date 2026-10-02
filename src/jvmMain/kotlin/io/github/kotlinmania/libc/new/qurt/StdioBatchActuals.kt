@@ -87,9 +87,7 @@ public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
 public actual fun ftell(stream: FILE?): CLong =
     throw UnsupportedOperationException("ftell not available on JVM — no C library access")
 
-public actual fun rewind(stream: FILE?) {
-    throw UnsupportedOperationException("rewind not available on JVM — no C library access")
-}
+public actual fun rewind(stream: FILE?): Unit = throw UnsupportedOperationException("rewind not available on JVM — no C library access")
 
 public actual fun fgetpos(stream: FILE?, pos: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos not available on JVM — no C library access")
@@ -97,9 +95,7 @@ public actual fun fgetpos(stream: FILE?, pos: FposT?): CInt =
 public actual fun fsetpos(stream: FILE?, pos: FposT?): CInt =
     throw UnsupportedOperationException("fsetpos not available on JVM — no C library access")
 
-public actual fun clearerr(stream: FILE?) {
-    throw UnsupportedOperationException("clearerr not available on JVM — no C library access")
-}
+public actual fun clearerr(stream: FILE?): Unit = throw UnsupportedOperationException("clearerr not available on JVM — no C library access")
 
 public actual fun feof(stream: FILE?): CInt =
     throw UnsupportedOperationException("feof not available on JVM — no C library access")
@@ -107,9 +103,7 @@ public actual fun feof(stream: FILE?): CInt =
 public actual fun ferror(stream: FILE?): CInt =
     throw UnsupportedOperationException("ferror not available on JVM — no C library access")
 
-public actual fun perror(s: String?) {
-    throw UnsupportedOperationException("perror not available on JVM — no C library access")
-}
+public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror not available on JVM — no C library access")
 
 public actual fun remove(filename: String?): CInt =
     throw UnsupportedOperationException("remove not available on JVM — no C library access")
@@ -126,7 +120,4 @@ public actual fun tmpnam(s: String?): String? =
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     throw UnsupportedOperationException("setvbuf not available on JVM — no C library access")
 
-public actual fun setbuf(stream: FILE?, buffer: String?) {
-    throw UnsupportedOperationException("setbuf not available on JVM — no C library access")
-}
-
+public actual fun setbuf(stream: FILE?, buffer: String?): Unit = throw UnsupportedOperationException("setbuf not available on JVM — no C library access")

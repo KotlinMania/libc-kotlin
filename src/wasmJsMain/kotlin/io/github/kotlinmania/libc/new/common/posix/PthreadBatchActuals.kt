@@ -132,7 +132,6 @@ public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt =
 public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt =
     throw UnsupportedOperationException("pthreadSpinUnlock requires N-API addon")
 
-
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadAtfork requires N-API addon")
 

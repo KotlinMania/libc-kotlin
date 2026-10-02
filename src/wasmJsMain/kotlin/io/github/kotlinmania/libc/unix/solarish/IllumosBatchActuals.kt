@@ -77,4 +77,3 @@ public actual fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt =
 
 public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt =
     throw UnsupportedOperationException("timerfdSettime requires N-API addon")
-

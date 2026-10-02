@@ -9,17 +9,11 @@ public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires N-API addon")
 
-public actual fun cPUZERO(cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUZERO requires N-API addon")
-}
+public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO requires N-API addon")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUSET requires N-API addon")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET requires N-API addon")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUCLR requires N-API addon")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR requires N-API addon")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET requires N-API addon")
@@ -27,9 +21,7 @@ public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires N-API addon")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent requires N-API addon")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent requires N-API addon")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect requires N-API addon")
@@ -46,9 +38,7 @@ public actual fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): St
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid requires N-API addon")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires N-API addon")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires N-API addon")
 
 public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt =
     throw UnsupportedOperationException("lwpRtprio requires N-API addon")
@@ -89,9 +79,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?)
 public actual fun schedGetcpu(): CInt =
     throw UnsupportedOperationException("schedGetcpu requires N-API addon")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle requires N-API addon")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle requires N-API addon")
 
 public actual fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt =
     throw UnsupportedOperationException("shmget requires N-API addon")
@@ -171,7 +159,4 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt
 public actual fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocf requires N-API addon")
 
-public actual fun freezero(ptr: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("freezero requires N-API addon")
-}
-
+public actual fun freezero(ptr: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("freezero requires N-API addon")

@@ -6,42 +6,24 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.toLong
-import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
-import libc.cinterop.libc_getppid
-import libc.cinterop.libc_strxfrm
-import libc.cinterop.libc_pthread_getspecific
-import libc.cinterop.libc_strspn
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.toLong
 import libc.cinterop.libc_atol
-import libc.cinterop.libc_readlink
-import libc.cinterop.libc_lseek
-import libc.cinterop.libc_strtol
-import libc.cinterop.libc_confstr
-import libc.cinterop.libc_memalign
-import libc.cinterop.libc_strlen
-import libc.cinterop.libc_writev
-import libc.cinterop.libc_getpid
-import libc.cinterop.libc_strnlen
 import libc.cinterop.libc_atoll
-import libc.cinterop.libc_sysconf
-import libc.cinterop.libc_fpathconf
-import libc.cinterop.libc_setpgid
-import libc.cinterop.libc_pathconf
-import libc.cinterop.libc_readv
 import libc.cinterop.libc_ftello
+import libc.cinterop.libc_getpid
+import libc.cinterop.libc_getppid
+import libc.cinterop.libc_lseek
+import libc.cinterop.libc_memalign
+import libc.cinterop.libc_pthread_getspecific
+import libc.cinterop.libc_readlink
+import libc.cinterop.libc_setpgid
 import libc.cinterop.libc_strcspn
-
-
-
-
-
-
-
-
-
+import libc.cinterop.libc_strlen
+import libc.cinterop.libc_strnlen
+import libc.cinterop.libc_strspn
 
 public actual fun atol(s: String?): CLong =
     libc.cinterop.libc_atol(s)
@@ -67,6 +49,7 @@ public actual fun strnlen(cs: String?, n: ULong): ULong =
 
 public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
     throw UnsupportedOperationException("strxfrm requires FFI bridge")
+
 public actual fun wcslen(buf: WcharT?): ULong =
     throw UnsupportedOperationException("wcslen requires WcharT pointer bridge — not yet implemented")
 
@@ -85,9 +68,7 @@ public actual fun getprotobyname(name: String?): Protoent? =
 public actual fun getservbyname(name: String?, proto: String?): Servent? =
     throw UnsupportedOperationException("getservbyname requires manual FFI bridge — not yet implemented")
 
-public actual fun rewinddir(dirp: DIR?) {
-    throw UnsupportedOperationException("rewinddir requires manual FFI bridge — not yet implemented")
-}
+public actual fun rewinddir(dirp: DIR?): Unit = throw UnsupportedOperationException("rewinddir requires manual FFI bridge — not yet implemented")
 
 public actual fun gmtimeR(timeP: TimeT?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR requires manual FFI bridge — not yet implemented")
@@ -115,9 +96,8 @@ public actual fun localeconv(): Lconv? =
 
 public actual fun ftello(stream: FILE?): OffT =
     libc.cinterop.libc_ftello(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
-public actual fun closelog() {
-    throw UnsupportedOperationException("closelog requires manual FFI bridge — not yet implemented")
-}
+
+public actual fun closelog(): Unit = throw UnsupportedOperationException("closelog requires manual FFI bridge — not yet implemented")
 
 public actual fun getline(lineptr: COpaquePointer?, n: ULong?, stream: FILE?): SsizeT =
     throw UnsupportedOperationException("getline requires manual FFI bridge — not yet implemented")
@@ -131,19 +111,22 @@ public actual fun readdir(pDir: DIR?): Dirent? =
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
     libc_pthread_getspecific(key)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun freeaddrinfo(res: Addrinfo?) {
-    throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")
-}
+public actual fun freeaddrinfo(res: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun getpid(): PidT =
     libc.cinterop.libc_getpid()
+
 public actual fun getppid(): PidT =
     libc.cinterop.libc_getppid()
+
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
     libc.cinterop.libc_setpgid(pid, pgid)
-public actual fun readlink(path: String?, buf: String?, bufsize: ULong): SsizeT = memScoped {
-    libc.cinterop.libc_readlink(path, buf?.cstr?.getPointer(this), bufsize)
-}
+
+public actual fun readlink(path: String?, buf: String?, bufsize: ULong): SsizeT =
+    memScoped {
+        libc.cinterop.libc_readlink(path, buf?.cstr?.getPointer(this), bufsize)
+    }
+
 public actual fun opendir(name: String?): DIR? =
     throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
 
@@ -158,6 +141,7 @@ public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
 
 public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
     throw UnsupportedOperationException("strtol requires FFI bridge")
+
 public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong =
     throw UnsupportedOperationException("strtoll requires manual FFI bridge for pointer endp param")
 
@@ -169,30 +153,33 @@ public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULon
 
 public actual fun confstr(name: CInt, buf: String?, len: ULong): ULong =
     throw UnsupportedOperationException("confstr requires FFI bridge")
+
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     throw UnsupportedOperationException("fpathconf requires FFI bridge")
+
 public actual fun getprotobynumber(proto: CInt): Protoent? =
     throw UnsupportedOperationException("getprotobynumber requires manual FFI bridge for Protoent type")
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
     libc.cinterop.libc_lseek(fd, offset, whence)
+
 public actual fun mmap(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
     throw UnsupportedOperationException("mmap requires manual FFI bridge")
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg args: Any?): MqdT =
     throw UnsupportedOperationException("mqOpen requires manual FFI bridge for MqdT type")
 
-public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
-    throw UnsupportedOperationException("openlog requires manual FFI bridge")
-}
+public actual fun openlog(ident: String?, logopt: CInt, facility: CInt): Unit = throw UnsupportedOperationException("openlog requires manual FFI bridge")
 
 public actual fun pathconf(path: String?, name: CInt): CLong =
     throw UnsupportedOperationException("pathconf requires FFI bridge")
+
 public actual fun pthreadCreate(pThread: PthreadT?, pAttr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge")
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     throw UnsupportedOperationException("read requires FFI bridge")
+
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv requires FFI bridge")
 
@@ -214,13 +201,10 @@ public actual fun sendmsg(socket: CInt, mp: Msghdr?, flags: CInt): SsizeT =
 public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT =
     throw UnsupportedOperationException("sendto requires manual FFI bridge")
 
-
-
 public actual fun sysconf(attr: CInt): CLong =
     throw UnsupportedOperationException("sysconf requires FFI bridge")
-public actual fun syslog(priority: CInt, message: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("syslog requires manual FFI bridge")
-}
+
+public actual fun syslog(priority: CInt, message: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("syslog requires manual FFI bridge")
 
 public actual fun wait(status: CInt?): PidT =
     throw UnsupportedOperationException("wait requires manual FFI bridge for PidT type")
@@ -230,5 +214,6 @@ public actual fun waitpid(pid: PidT, status: CInt?, options: CInt): PidT =
 
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: ULong): SsizeT =
     throw UnsupportedOperationException("write requires manual FFI bridge — UInt/ULong type mismatch")
+
 public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("writev requires FFI bridge")

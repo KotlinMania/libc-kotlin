@@ -4,15 +4,14 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
 import libc.cinterop.libc_basename
 import libc.cinterop.libc_dirname
 import libc.cinterop.libc_getpriority
-import libc.cinterop.libc_getrandom
 import libc.cinterop.libc_getrlimit
 import libc.cinterop.libc_gettimeofday
 import libc.cinterop.libc_setpriority
@@ -69,9 +68,7 @@ public actual fun pwritev2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT, fl
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval requires manual FFI bridge — not yet implemented")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
@@ -134,13 +131,9 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline requires manual FFI bridge — not yet implemented")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent requires manual FFI bridge — not yet implemented")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent requires manual FFI bridge — not yet implemented")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent requires manual FFI bridge — not yet implemented")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent requires manual FFI bridge — not yet implemented")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname requires manual FFI bridge — not yet implemented")

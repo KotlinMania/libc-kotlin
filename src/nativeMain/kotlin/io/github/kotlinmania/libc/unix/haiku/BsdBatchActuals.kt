@@ -7,33 +7,30 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import libc.cinterop.libc_strtonum
 import libc.cinterop.libc_daemon
-import libc.cinterop.libc_preadv
-import libc.cinterop.libc_pwritev
 import libc.cinterop.libc_mkstemps
+import libc.cinterop.libc_strtonum
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libc.cinterop.libc_daemon(nochdir, noclose)
+
 public actual fun getprogname(): String? =
     throw UnsupportedOperationException("getprogname requires manual FFI bridge — not yet implemented")
 
-public actual fun setprogname(progname: String?) {
-    throw UnsupportedOperationException("setprogname requires manual FFI bridge — not yet implemented")
-}
+public actual fun setprogname(progname: String?): Unit = throw UnsupportedOperationException("setprogname requires manual FFI bridge — not yet implemented")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
 
 public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkstemps(template, suffixlen)
 }
+
 public actual fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong {
     if (nptr == null) return 0
     return libc.cinterop.libc_strtonum(nptr, minval, maxval, errstr?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 }
+
 public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt =
     throw UnsupportedOperationException("openpty requires manual FFI bridge — not yet implemented")
 
@@ -46,9 +43,7 @@ public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: 
 public actual fun strsep(string: COpaquePointer?, delimiters: String?): String? =
     throw UnsupportedOperationException("strsep requires manual FFI bridge — not yet implemented")
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
-}
+public actual fun explicitBzero(buf: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
 
 public actual fun slInit(): StringList? =
     throw UnsupportedOperationException("slInit requires manual FFI bridge — not yet implemented")
@@ -56,9 +51,7 @@ public actual fun slInit(): StringList? =
 public actual fun slAdd(sl: StringList?, n: String?): CInt =
     throw UnsupportedOperationException("slAdd requires manual FFI bridge — not yet implemented")
 
-public actual fun slFree(sl: StringList?, i: CInt) {
-    throw UnsupportedOperationException("slFree requires manual FFI bridge — not yet implemented")
-}
+public actual fun slFree(sl: StringList?, i: CInt): Unit = throw UnsupportedOperationException("slFree requires manual FFI bridge — not yet implemented")
 
 public actual fun slFind(sl: StringList?, n: String?): String? =
     throw UnsupportedOperationException("slFind requires manual FFI bridge — not yet implemented")

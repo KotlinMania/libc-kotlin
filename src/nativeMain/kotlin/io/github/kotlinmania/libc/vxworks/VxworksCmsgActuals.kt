@@ -12,9 +12,6 @@ import kotlinx.cinterop.toLong
 import libc.cinterop.libc_cmsg_data
 import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_cmsg_nxthdr
-import libc.cinterop.libc_cmsg_align
-import libc.cinterop.libc_cmsg_space
-import libc.cinterop.libc_cmsg_len
 
 public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
     if (cmsg == null) return null
@@ -47,7 +44,9 @@ public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpa
 
 public actual fun cMSGALIGN(len: ULong): ULong =
     throw UnsupportedOperationException("cMSGALIGN requires per-platform actual — size_t width differs across native targets")
+
 public actual fun cMSGSPACE(length: CUInt): CUInt =
     throw UnsupportedOperationException("cMSGSPACE requires per-platform actual — size_t width differs across native targets")
+
 public actual fun cMSGLEN(length: CUInt): CUInt =
     throw UnsupportedOperationException("cMSGLEN requires per-platform actual — size_t width differs across native targets")

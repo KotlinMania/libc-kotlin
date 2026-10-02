@@ -48,9 +48,7 @@ public actual fun dirfd(dirp: DIR?): CInt =
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale requires N-API addon")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent requires N-API addon")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent requires N-API addon")
 
 public actual fun fchflags(fd: CInt, flags: CULong): CInt =
     throw UnsupportedOperationException("fchflags requires N-API addon")
@@ -205,13 +203,9 @@ public actual fun pthreadBarrierDestroy(barrier: PthreadBarrierT): CInt =
 public actual fun pthreadBarrierWait(barrier: PthreadBarrierT): CInt =
     throw UnsupportedOperationException("pthreadBarrierWait requires N-API addon")
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong) {
-    throw UnsupportedOperationException("pthreadGetNameNp requires N-API addon")
-}
+public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong): Unit = throw UnsupportedOperationException("pthreadGetNameNp requires N-API addon")
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
-    throw UnsupportedOperationException("pthreadSetNameNp requires N-API addon")
-}
+public actual fun pthreadSetNameNp(tid: PthreadT, name: String?): Unit = throw UnsupportedOperationException("pthreadSetNameNp requires N-API addon")
 
 public actual fun pthreadGetnameNp(thread: PthreadT, buffer: String?, length: ULong): CInt =
     throw UnsupportedOperationException("pthreadGetnameNp requires N-API addon")
@@ -285,9 +279,7 @@ public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
 public actual fun settimeofday(tv: Timeval?, tz: Timezone?): CInt =
     throw UnsupportedOperationException("settimeofday requires N-API addon")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent requires N-API addon")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent requires N-API addon")
 
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
     throw UnsupportedOperationException("shmOpen requires N-API addon")
@@ -325,9 +317,7 @@ public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?,
 public actual fun iconvClose(cd: IconvT): CInt =
     throw UnsupportedOperationException("iconvClose requires N-API addon")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires N-API addon")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires N-API addon")
 
 public actual fun memsetS(s: COpaquePointer?, smax: ULong, c: CInt, n: ULong): CInt =
     throw UnsupportedOperationException("memsetS requires N-API addon")
@@ -335,9 +325,7 @@ public actual fun memsetS(s: COpaquePointer?, smax: ULong, c: CInt, n: ULong): C
 public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("gethostid requires N-API addon")
 
-public actual fun sethostid(hostid: CLong) {
-    throw UnsupportedOperationException("sethostid requires N-API addon")
-}
+public actual fun sethostid(hostid: CLong): Unit = throw UnsupportedOperationException("sethostid requires N-API addon")
 
 public actual fun eui64Aton(a: String?, e: Eui64?): CInt =
     throw UnsupportedOperationException("eui64Aton requires N-API addon")
@@ -512,7 +500,6 @@ public actual fun kvmRead(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: 
 
 public actual fun kvmWrite(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT =
     throw UnsupportedOperationException("kvmWrite requires N-API addon")
-
 
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlIteratePhdr requires N-API addon")

@@ -1,15 +1,15 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 // port-lint: source vxworks/mod.rs
+
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.CInt
-import kotlinx.cinterop.toKString
-import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.cstr
-
-import libc.cinterop.libc_gai_strerror
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.toKString
 import libc.cinterop.libc_free
+import libc.cinterop.libc_gai_strerror
 import libc.cinterop.libc_getenv
 import libc.cinterop.libc_getlogin
 import libc.cinterop.libc_setlocale
@@ -48,8 +48,6 @@ public actual fun ttyname(fd: CInt): String? {
     val result = libc.cinterop.libc_ttyname(fd)
     return result?.toKString()
 }
-
-
 
 public actual fun setlocale(category: CInt, locale: String?): String? {
     val result = libc.cinterop.libc_setlocale(category, locale)

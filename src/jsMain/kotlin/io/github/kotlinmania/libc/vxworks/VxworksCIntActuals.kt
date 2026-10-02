@@ -235,7 +235,10 @@ public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
     throw UnsupportedOperationException("dladdr requires N-API addon")
 
 public actual fun gethostname(name: String?, len: ULong): CInt =
-    run { LibcNative.gethostname(); 0 }
+    run {
+        LibcNative.gethostname()
+        0
+    }
 
 public actual fun usleep(secs: UsecondsT): CInt =
     throw UnsupportedOperationException("usleep requires N-API addon")
@@ -591,9 +594,6 @@ public actual fun pthreadSigmask(how: CInt, set: SigsetT?, oset: SigsetT?): CInt
 public actual fun kill(pid: PidT, signo: CInt): CInt =
     throw UnsupportedOperationException("kill requires N-API addon")
 
-
-
-
 public actual fun taskKill(taskId: TASKID, signo: CInt): CInt =
     throw UnsupportedOperationException("taskKill requires N-API addon")
 
@@ -641,6 +641,3 @@ public actual fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt =
 
 public actual fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt =
     throw UnsupportedOperationException("mqSetattr requires N-API addon")
-
-
-

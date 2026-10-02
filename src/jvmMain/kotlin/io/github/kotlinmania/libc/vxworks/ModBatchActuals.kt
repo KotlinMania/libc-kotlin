@@ -4,8 +4,6 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval
 
-
-
 public actual fun atexit(cb: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("atexit not available on JVM — no C library access")
 

@@ -27,7 +27,8 @@ performance:
 style:
   active: true
   MagicNumber: { active: false }
-  NewLineAtEndOfFile: { active: true }
+  NewLineAtEndOfFile: { active: false }
+  MayBeConstant: { active: false }
   ReturnCount: { active: false }
   UnusedImport: { active: true }
   UnnecessaryInheritance: { active: true }

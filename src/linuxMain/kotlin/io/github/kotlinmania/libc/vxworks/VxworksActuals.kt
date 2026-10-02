@@ -13,31 +13,33 @@ import libc.cinterop.libc_socket
 import libc.cinterop.libc_tcflush
 
 // VxWorks signals -> Linux host signals.
-private fun vxworksToLinuxSignal(sig: CInt): CInt = when (sig) {
-    10 -> 7   // SIGBUS: VxWorks=10, Linux=7
-    17 -> 19  // SIGSTOP: VxWorks=17, Linux=19
-    18 -> 20  // SIGTSTP: VxWorks=18, Linux=20
-    19 -> 18  // SIGCONT: VxWorks=19, Linux=18
-    20 -> 17  // SIGCHLD: VxWorks=20, Linux=17
-    30 -> 10  // SIGUSR1: VxWorks=30, Linux=10
-    31 -> 12  // SIGUSR2: VxWorks=31, Linux=12
-    32 -> 29  // SIGPOLL: VxWorks=32, Linux=29
-    33 -> 27  // SIGPROF: VxWorks=33, Linux=27
-    34 -> 31  // SIGSYS: VxWorks=34, Linux=31
-    35 -> 23  // SIGURG: VxWorks=35, Linux=23
-    36 -> 26  // SIGVTALRM: VxWorks=36, Linux=26
-    37 -> 24  // SIGXCPU: VxWorks=37, Linux=24
-    38 -> 25  // SIGXFSZ: VxWorks=38, Linux=25
-    48 -> 29  // SIGIO: VxWorks=48, Linux=29
-    53 -> 28  // SIGWINCH: VxWorks=53, Linux=28
-    else -> sig
-}
+private fun vxworksToLinuxSignal(sig: CInt): CInt =
+    when (sig) {
+        10 -> 7 // SIGBUS: VxWorks=10, Linux=7
+        17 -> 19 // SIGSTOP: VxWorks=17, Linux=19
+        18 -> 20 // SIGTSTP: VxWorks=18, Linux=20
+        19 -> 18 // SIGCONT: VxWorks=19, Linux=18
+        20 -> 17 // SIGCHLD: VxWorks=20, Linux=17
+        30 -> 10 // SIGUSR1: VxWorks=30, Linux=10
+        31 -> 12 // SIGUSR2: VxWorks=31, Linux=12
+        32 -> 29 // SIGPOLL: VxWorks=32, Linux=29
+        33 -> 27 // SIGPROF: VxWorks=33, Linux=27
+        34 -> 31 // SIGSYS: VxWorks=34, Linux=31
+        35 -> 23 // SIGURG: VxWorks=35, Linux=23
+        36 -> 26 // SIGVTALRM: VxWorks=36, Linux=26
+        37 -> 24 // SIGXCPU: VxWorks=37, Linux=24
+        38 -> 25 // SIGXFSZ: VxWorks=38, Linux=25
+        48 -> 29 // SIGIO: VxWorks=48, Linux=29
+        53 -> 28 // SIGWINCH: VxWorks=53, Linux=28
+        else -> sig
+    }
 
-private fun vxworksToLinuxDomain(domain: CInt): CInt = when (domain) {
-    28 -> 10 // AF_INET6: VxWorks=28, Linux=10
-    19 -> 17 // AF_PACKET: VxWorks=19, Linux=17
-    else -> domain
-}
+private fun vxworksToLinuxDomain(domain: CInt): CInt =
+    when (domain) {
+        28 -> 10 // AF_INET6: VxWorks=28, Linux=10
+        19 -> 17 // AF_PACKET: VxWorks=19, Linux=17
+        else -> domain
+    }
 
 private fun vxworksToLinuxMsyncFlags(flags: CInt): CInt {
     var hostFlags = 0

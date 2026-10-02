@@ -540,7 +540,6 @@ public actual fun interruptMask(intr: CInt, id: CInt): CInt =
 public actual fun interruptUnmask(intr: CInt, id: CInt): CInt =
     throw UnsupportedOperationException("interruptUnmask not available on Android host — use androidNative target for FFI")
 
-
 public actual fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
     throw UnsupportedOperationException("signalAction not available on Android host — use androidNative target for FFI")
 

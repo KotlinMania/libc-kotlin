@@ -5,9 +5,9 @@ package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toLong
 import libc.cinterop.libc_dirfd
 import libc.cinterop.libc_endgrent
@@ -31,33 +31,30 @@ import libc.cinterop.libc_strlcat
 import libc.cinterop.libc_strlcpy
 import libc.cinterop.libc_uname
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
 
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
 
 public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("strerrorR requires FFI bridge")
+
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun pipe2(fds: CInt?, flags: CInt): CInt =
     throw UnsupportedOperationException("pipe2 requires manual FFI bridge — not yet implemented")
 
 public actual fun getdtablesize(): CInt =
     libc.cinterop.libc_getdtablesize()
+
 public actual fun getresgid(rgid: GidT?, egid: GidT?, sgid: GidT?): CInt =
     throw UnsupportedOperationException("getresgid requires manual FFI bridge — not yet implemented")
 
@@ -142,28 +139,31 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 
 public actual fun getsubopt(optionp: COpaquePointer?, tokens: COpaquePointer?, valuep: COpaquePointer?): CInt =
     libc.cinterop.libc_getsubopt(optionp?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), tokens?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), valuep?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun mkostemp(template: String?, flags: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkostemp(template, flags)
 }
+
 public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
 }
+
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
 
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 requires manual FFI bridge — not yet implemented")
 
-public actual fun explicitBzero(p: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
-}
+public actual fun explicitBzero(p: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
 
 public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong =
     libc.cinterop.libc_strlcat(dst, src, siz)
+
 public actual fun strlcpy(dst: String?, src: String?, siz: ULong): ULong =
     libc.cinterop.libc_strlcpy(dst, src, siz)
+
 public actual fun epollCreate(size: CInt): CInt =
     throw UnsupportedOperationException("epollCreate requires manual FFI bridge — not yet implemented")
 
@@ -181,10 +181,13 @@ public actual fun ioctl(fd: CInt, request: CULong, vararg args: Any?): CInt =
 
 public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
     throw UnsupportedOperationException("madvise requires FFI bridge")
+
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("msync requires FFI bridge")
+
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect requires FFI bridge")
+
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
     val result = libc.cinterop.libc_shm_open(name, oflag, mode)
     return result

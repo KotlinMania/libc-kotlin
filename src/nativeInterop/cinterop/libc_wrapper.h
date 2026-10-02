@@ -273,7 +273,7 @@ int libc_dlclose(void* handle);
 char* libc_dlerror(void);
 void* libc_dlopen(const char* filename, int flag);
 void* libc_dlsym(void* handle, const char* symbol);
-char* libc_gai_strerror(int errcode);
+const char* libc_gai_strerror(int errcode);
 int libc_getdtablesize(void);
 char* libc_getlogin(void);
 int libc_getpagesize(void);

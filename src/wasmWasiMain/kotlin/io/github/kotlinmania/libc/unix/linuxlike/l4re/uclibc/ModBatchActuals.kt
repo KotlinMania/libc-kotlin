@@ -38,4 +38,3 @@ public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
 
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval not available on WASI — no C library access")
-

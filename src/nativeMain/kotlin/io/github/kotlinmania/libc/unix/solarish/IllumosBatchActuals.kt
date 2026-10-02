@@ -5,11 +5,6 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.ByteVar
-import libc.cinterop.libc_pwritev
-import libc.cinterop.libc_preadv
-import kotlinx.cinterop.CPointer
 
 public actual fun eventfd(initval: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("eventfd requires manual FFI bridge — not yet implemented")
@@ -34,6 +29,7 @@ public actual fun mincore(addr: CaddrT, len: ULong, vec: String?): CInt =
 
 public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: PsetidT?): CInt =
     throw UnsupportedOperationException("psetBindLwp requires FFI bridge")
+
 public actual fun psetGetloadavg(pset: PsetidT, load: CDouble?, num: CInt): CInt =
     throw UnsupportedOperationException("psetGetloadavg requires manual FFI bridge — not yet implemented")
 

@@ -7,7 +7,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval
 import kotlinx.cinterop.ExperimentalForeignApi
 
-
 public actual fun atexit(cb: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("atexit requires manual FFI bridge — not yet implemented")
 

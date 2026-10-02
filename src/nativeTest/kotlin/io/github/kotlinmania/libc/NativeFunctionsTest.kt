@@ -4,27 +4,26 @@ package io.github.kotlinmania.libc
 
 import io.github.kotlinmania.libc.vxworks.calloc
 import io.github.kotlinmania.libc.vxworks.free
-import io.github.kotlinmania.libc.vxworks.malloc
-import io.github.kotlinmania.libc.vxworks.realloc
-import io.github.kotlinmania.libc.vxworks.memcmp
-import io.github.kotlinmania.libc.vxworks.memcpy
-import io.github.kotlinmania.libc.vxworks.memset
-import io.github.kotlinmania.libc.vxworks.strlen
+import io.github.kotlinmania.libc.vxworks.getenv
 import io.github.kotlinmania.libc.vxworks.isalpha
 import io.github.kotlinmania.libc.vxworks.isdigit
 import io.github.kotlinmania.libc.vxworks.islower
 import io.github.kotlinmania.libc.vxworks.isupper
+import io.github.kotlinmania.libc.vxworks.malloc
+import io.github.kotlinmania.libc.vxworks.memcmp
+import io.github.kotlinmania.libc.vxworks.memcpy
+import io.github.kotlinmania.libc.vxworks.memset
+import io.github.kotlinmania.libc.vxworks.realloc
+import io.github.kotlinmania.libc.vxworks.strerror
+import io.github.kotlinmania.libc.vxworks.strlen
 import io.github.kotlinmania.libc.vxworks.tolower
 import io.github.kotlinmania.libc.vxworks.toupper
-import io.github.kotlinmania.libc.vxworks.strerror
-import io.github.kotlinmania.libc.vxworks.getenv
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import kotlin.test.assertFailsWith
 
 /**
  * Native tests exercising real C library calls via platform.posix.
@@ -33,7 +32,6 @@ import kotlin.test.assertFailsWith
  * The ctype/string/env functions use CInt params and work on all targets.
  */
 class NativeFunctionsTest {
-
     @Test
     fun mallocReturnsNonNull() {
         val ptr = malloc(1024uL)

@@ -17,4 +17,3 @@ public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpus
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
     throw UnsupportedOperationException("pthreadSetnameNp not available on Android host — use androidNative target for FFI")
-

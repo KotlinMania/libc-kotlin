@@ -12,7 +12,4 @@ public actual fun setcontext(ucp: UcontextT?): CInt =
 public actual fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt =
     throw UnsupportedOperationException("swapcontext not available on JVM — no C library access")
 
-
-public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) {
-    throw UnsupportedOperationException("makecontext not available on JVM — no C library access")
-}
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?): Unit = throw UnsupportedOperationException("makecontext not available on JVM — no C library access")

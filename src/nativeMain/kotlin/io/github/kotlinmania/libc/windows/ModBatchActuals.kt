@@ -15,25 +15,40 @@ public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CI
     throw UnsupportedOperationException("fprintf requires manual FFI bridge — not yet implemented")
 
 public actual fun isalnum(c: CInt): CInt = libc.cinterop.libc_isalnum(c)
+
 public actual fun isalpha(c: CInt): CInt = libc.cinterop.libc_isalpha(c)
+
 public actual fun iscntrl(c: CInt): CInt = libc.cinterop.libc_iscntrl(c)
+
 public actual fun isdigit(c: CInt): CInt = libc.cinterop.libc_isdigit(c)
+
 public actual fun isgraph(c: CInt): CInt = libc.cinterop.libc_isgraph(c)
+
 public actual fun islower(c: CInt): CInt = libc.cinterop.libc_islower(c)
+
 public actual fun isprint(c: CInt): CInt = libc.cinterop.libc_isprint(c)
+
 public actual fun ispunct(c: CInt): CInt = libc.cinterop.libc_ispunct(c)
+
 public actual fun isspace(c: CInt): CInt = libc.cinterop.libc_isspace(c)
+
 public actual fun isupper(c: CInt): CInt = libc.cinterop.libc_isupper(c)
+
 public actual fun isxdigit(c: CInt): CInt = libc.cinterop.libc_isxdigit(c)
+
 public actual fun isblank(c: CInt): CInt = libc.cinterop.libc_isblank(c)
+
 public actual fun tolower(c: CInt): CInt = libc.cinterop.libc_tolower(c)
+
 public actual fun toupper(c: CInt): CInt = libc.cinterop.libc_toupper(c)
+
 public actual fun fopen(filename: String?, mode: String?): FILE? {
     if (filename == null) return null
     if (mode == null) return null
     val result = libc.cinterop.libc_fopen(filename, mode)
     return if (result != null) FILE(result.toLong()) else null
 }
+
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? {
     if (mode == null) return null
     if (file == null) return null
@@ -41,48 +56,60 @@ public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? 
     val result = libc.cinterop.libc_freopen(filename, mode, filePtr)
     return if (result != null) FILE(result.toLong()) else null
 }
+
 public actual fun fflush(file: FILE?): CInt =
     libc.cinterop.libc_fflush(file?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun fclose(file: FILE?): CInt =
     libc.cinterop.libc_fclose(file?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun remove(filename: String?): CInt {
     if (filename == null) return -1
     return libc.cinterop.libc_remove(filename)
 }
+
 public actual fun rename(oldname: String?, newname: String?): CInt {
     if (oldname == null) return -1
     if (newname == null) return -1
     return libc.cinterop.libc_rename(oldname, newname)
 }
+
 public actual fun tmpfile(): FILE? {
     val result = libc.cinterop.libc_tmpfile()
     return if (result != null) FILE(result.toLong()) else null
 }
+
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
-public actual fun setbuf(stream: FILE?, buf: String?) {
-    throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
-}
+
+public actual fun setbuf(stream: FILE?, buf: String?): Unit = throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")
 
 public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
+
 public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
+
 public actual fun fgetc(stream: FILE?): CInt =
     libc.cinterop.libc_fgetc(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
     throw UnsupportedOperationException("fgets requires manual FFI bridge — not yet implemented")
 
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
     libc.cinterop.libc_fputc(c, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun fputs(s: String?, stream: FILE?): CInt {
     if (s == null) return -1
     return libc.cinterop.libc_fputs(s, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 }
+
 public actual fun puts(s: String?): CInt {
     if (s == null) return -1
     return libc.cinterop.libc_puts(s)
 }
+
 public actual fun ungetc(c: CInt, stream: FILE?): CInt =
     libc.cinterop.libc_ungetc(c, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fread requires manual FFI bridge — not yet implemented")
 
@@ -90,12 +117,15 @@ public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream:
     if (stream == null) return 0uL
     return libc.cinterop.libc_fwrite(ptr?.value?.toCPointer<ByteVar>(), size, nobj, stream.handle.toCPointer<ByteVar>())
 }
+
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
     libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
+
 public actual fun ftell(stream: FILE?): CLong =
     libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun rewind(stream: FILE?) {
-    if (stream == null) return 
+    if (stream == null) return
     val streamPtr: CPointer<ByteVar>? = stream.handle.toCPointer()
     libc.cinterop.libc_rewind(streamPtr)
 }
@@ -120,8 +150,10 @@ public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt {
 
 public actual fun feof(stream: FILE?): CInt =
     libc.cinterop.libc_feof(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun ferror(stream: FILE?): CInt =
     libc.cinterop.libc_ferror(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun perror(s: String?) {
     if (s == null) return
     libc.cinterop.libc_perror(s)
@@ -131,43 +163,58 @@ public actual fun atoi(s: String?): CInt {
     if (s == null) return 0
     return libc.cinterop.libc_atoi(s)
 }
+
 public actual fun atol(s: String?): CLong =
     libc.cinterop.libc_atol(s)
+
 public actual fun atoll(s: String?): CLongLong {
     val result = libc.cinterop.libc_atoll(s)
     return result
 }
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong = memScoped {
-    libc.cinterop.libc_strtol(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
-}
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong = memScoped {
-    libc.cinterop.libc_strtoll(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
-}
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong = memScoped {
-    libc.cinterop.libc_strtoul(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
-}
+public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
+    memScoped {
+        libc.cinterop.libc_strtol(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
+    }
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong = memScoped {
-    libc.cinterop.libc_strtoull(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
-}
+public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLongLong =
+    memScoped {
+        libc.cinterop.libc_strtoll(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
+    }
+
+public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CULong =
+    memScoped {
+        libc.cinterop.libc_strtoul(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
+    }
+
+public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CULongLong =
+    memScoped {
+        libc.cinterop.libc_strtoull(s?.cstr?.getPointer(this), endp?.value?.toCPointer<ByteVar>(), base)
+    }
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
     libc.cinterop.libc_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
+
 public actual fun malloc(size: ULong): COpaquePointer? =
     libc.cinterop.libc_malloc(size)?.let { COpaquePointer(it.toLong()) }
+
 public actual fun msize(p: COpaquePointer?): ULong =
     throw UnsupportedOperationException("msize requires manual FFI bridge — not yet implemented")
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? {
     val pointer = p?.value?.toCPointer<ByteVar>()
     val alignment = p?.allocationAlignment ?: 0uL
-    val result = if (alignment != 0uL) libc.cinterop.libc_aligned_realloc(pointer, size, alignment)
-        else libc.cinterop.libc_realloc(pointer, size)
+    val result =
+        if (alignment != 0uL) {
+            libc.cinterop.libc_aligned_realloc(pointer, size, alignment)
+        } else {
+            libc.cinterop.libc_realloc(pointer, size)
+        }
     return result?.let { COpaquePointer(it.toLong(), alignment) }
 }
+
 public actual fun free(p: COpaquePointer?) {
-    if (p == null) return 
+    if (p == null) return
     val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
     if (p.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
@@ -176,11 +223,13 @@ public actual fun system(s: String?): CInt {
     if (s == null) return -1
     return libc.cinterop.libc_system(s)
 }
+
 public actual fun getenv(s: String?): String? {
     if (s == null) return null
     val result = libc.cinterop.libc_getenv(s)
     return result?.toKString()
 }
+
 public actual fun strcpy(dst: String?, src: String?): String? {
     if (src == null) return null
     return memScoped {
@@ -191,6 +240,7 @@ public actual fun strcpy(dst: String?, src: String?): String? {
         dstBuf.toKString()
     }
 }
+
 public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
     if (src == null) return null
     return memScoped {
@@ -202,6 +252,7 @@ public actual fun strncpy(dst: String?, src: String?, n: ULong): String? {
         dstBuf.toKString()
     }
 }
+
 public actual fun strcat(s: String?, ct: String?): String? {
     if (s == null) return null
     if (ct == null) return s
@@ -214,6 +265,7 @@ public actual fun strcat(s: String?, ct: String?): String? {
         buf.toKString()
     }
 }
+
 public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
     if (s == null) return null
     if (ct == null) return s
@@ -226,18 +278,22 @@ public actual fun strncat(s: String?, ct: String?, n: ULong): String? {
         buf.toKString()
     }
 }
+
 public actual fun strcmp(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
     return libc.cinterop.libc_strcmp(cs, ct)
 }
+
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
     libc.cinterop.libc_strncmp(cs, ct, n)
+
 public actual fun strcoll(cs: String?, ct: String?): CInt {
     if (cs == null) return -1
     if (ct == null) return -1
     return libc.cinterop.libc_strcoll(cs, ct)
 }
+
 public actual fun strchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
     return memScoped {
@@ -246,6 +302,7 @@ public actual fun strchr(cs: String?, c: CInt): String? {
         result?.toKString()
     }
 }
+
 public actual fun strrchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
     return memScoped {
@@ -254,10 +311,13 @@ public actual fun strrchr(cs: String?, c: CInt): String? {
         result?.toKString()
     }
 }
+
 public actual fun strspn(cs: String?, ct: String?): ULong =
     libc.cinterop.libc_strspn(cs, ct)
+
 public actual fun strcspn(cs: String?, ct: String?): ULong =
     libc.cinterop.libc_strcspn(cs, ct)
+
 public actual fun strdup(cs: String?): String? {
     if (cs == null) return null
     return memScoped {
@@ -268,6 +328,7 @@ public actual fun strdup(cs: String?): String? {
         result
     }
 }
+
 public actual fun strpbrk(cs: String?, ct: String?): String? {
     if (cs == null) return null
     if (ct == null) return null
@@ -278,6 +339,7 @@ public actual fun strpbrk(cs: String?, ct: String?): String? {
         result?.toKString()
     }
 }
+
 public actual fun strstr(cs: String?, ct: String?): String? {
     if (cs == null) return null
     if (ct == null) return null
@@ -288,28 +350,37 @@ public actual fun strstr(cs: String?, ct: String?): String? {
         result?.toKString()
     }
 }
+
 public actual fun strlen(cs: String?): ULong =
     libc.cinterop.libc_strlen(cs)
+
 public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
     libc.cinterop.libc_strnlen(cs, maxlen)
+
 public actual fun strerror(n: CInt): String? {
     val result = libc.cinterop.libc_strerror(n)
     return result?.toKString()
 }
+
 public actual fun strtok(s: String?, t: String?): String? {
     if (t == null) return null
-    val sBuf: CPointer<ByteVar>? = if (s != null) {
-        nativeHeap.allocArray<ByteVar>(s.length + 1).also { s.cstr.place(it) }
-    } else null
+    val sBuf: CPointer<ByteVar>? =
+        if (s != null) {
+            nativeHeap.allocArray<ByteVar>(s.length + 1).also { s.cstr.place(it) }
+        } else {
+            null
+        }
     return memScoped {
         val tBuf = t.cstr.ptr
         libc.cinterop.libc_strtok(sBuf, tBuf)?.toKString()
     }
 }
 
-public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong = memScoped {
-    libc.cinterop.libc_strxfrm(s?.cstr?.getPointer(this), ct?.cstr?.getPointer(this), n)
-}
+public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
+    memScoped {
+        libc.cinterop.libc_strxfrm(s?.cstr?.getPointer(this), ct?.cstr?.getPointer(this), n)
+    }
+
 public actual fun wcslen(buf: WcharT?): ULong =
     throw UnsupportedOperationException("wcslen requires manual FFI bridge — not yet implemented")
 
@@ -321,25 +392,34 @@ public actual fun wcstombs(dest: String?, src: WcharT?, n: ULong): ULong =
 
 public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     libc.cinterop.libc_memchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt =
     libc.cinterop.libc_memcmp(cx?.value?.toCPointer<ByteVar>(), ct?.value?.toCPointer<ByteVar>(), n)
+
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     libc.cinterop.libc_memcpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     libc.cinterop.libc_memmove(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     libc.cinterop.libc_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
+
 public actual fun labs(i: CLong): CLong =
     libc.cinterop.libc_labs(i)
+
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
+
 public actual fun srand(seed: CUInt) {
     libc.cinterop.libc_srand(seed)
 }
 
 public actual fun raise(signum: CInt): CInt = libc.cinterop.libc_raise(signum)
+
 public actual fun clock(): ClockT =
     throw UnsupportedOperationException("clock requires manual FFI bridge — not yet implemented")
 
@@ -367,17 +447,17 @@ public actual fun localtimeS(tmDest: Tm?, sourceTime: TimeT?): ErrnoT =
 public actual fun time(destTime: TimeT?): TimeT =
     throw UnsupportedOperationException("time requires manual FFI bridge — not yet implemented")
 
-public actual fun tzset() {
-    throw UnsupportedOperationException("tzset requires manual FFI bridge — not yet implemented")
-}
+public actual fun tzset(): Unit = throw UnsupportedOperationException("tzset requires manual FFI bridge — not yet implemented")
 
 public actual fun chmod(path: String?, mode: CInt): CInt =
     libc.cinterop.libc_chmod(path, mode.toUInt())
+
 public actual fun wchmod(path: WcharT?, mode: CInt): CInt =
     throw UnsupportedOperationException("wchmod requires manual FFI bridge — not yet implemented")
 
 public actual fun mkdir(path: String?): CInt =
     libc.cinterop.libc_mkdir(path, 0)
+
 public actual fun wrmdir(path: WcharT?): CInt =
     throw UnsupportedOperationException("wrmdir requires manual FFI bridge — not yet implemented")
 
@@ -406,8 +486,10 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? {
     val result = libc.cinterop.libc_fdopen(fd, mode)
     return if (result != null) FILE(result.toLong()) else null
 }
+
 public actual fun fileno(stream: FILE?): CInt =
     libc.cinterop.libc_fileno(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun open(path: String?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
 
@@ -416,17 +498,23 @@ public actual fun wopen(path: WcharT?, oflag: CInt, vararg args: Any?): CInt =
 
 public actual fun creat(path: String?, mode: CInt): CInt =
     libc.cinterop.libc_creat(path, mode.toUInt())
+
 public actual fun access(path: String?, amode: CInt): CInt {
     if (path == null) return -1
     return libc.cinterop.libc_access(path, amode)
 }
+
 public actual fun chdir(dir: String?): CInt {
     if (dir == null) return -1
     return libc.cinterop.libc_chdir(dir)
 }
+
 public actual fun close(fd: CInt): CInt = libc.cinterop.libc_close(fd)
+
 public actual fun dup(fd: CInt): CInt = libc.cinterop.libc_dup(fd)
+
 public actual fun dup2(src: CInt, dst: CInt): CInt = libc.cinterop.libc_dup2(src, dst)
+
 public actual fun execl(path: String?, arg0: String?, vararg args: Any?): IntptrT =
     throw UnsupportedOperationException("execl requires manual FFI bridge — not yet implemented")
 
@@ -453,14 +541,17 @@ public actual fun wexeclpe(path: WcharT?, arg0: WcharT?, vararg args: Any?): Int
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =
     throw UnsupportedOperationException("execv requires manual FFI bridge — type mismatch")
+
 public actual fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt {
     if (prog == null) return -1
     return libc.cinterop.libc_execve(prog, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), envp?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 }
+
 public actual fun execvp(c: String?, argv: COpaquePointer?): CInt {
     if (c == null) return -1
     return libc.cinterop.libc_execvp(c, argv?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
 }
+
 public actual fun execvpe(c: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("execvpe requires manual FFI bridge — not yet implemented")
 
@@ -476,41 +567,50 @@ public actual fun wexecvp(c: WcharT?, argv: COpaquePointer?): IntptrT =
 public actual fun wexecvpe(c: WcharT?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT =
     throw UnsupportedOperationException("wexecvpe requires manual FFI bridge — not yet implemented")
 
-public actual fun getcwd(buf: String?, size: CInt): String? = memScoped {
-    val dest = if (size > 0) allocArray<ByteVar>(size) else null
-    val result = libc.cinterop.libc_getcwd(dest, size.toULong())
-    result?.toKString()
-}
+public actual fun getcwd(buf: String?, size: CInt): String? =
+    memScoped {
+        val dest = if (size > 0) allocArray<ByteVar>(size) else null
+        val result = libc.cinterop.libc_getcwd(dest, size.toULong())
+        result?.toKString()
+    }
 
 public actual fun getpid(): CInt = libc.cinterop.libc_getpid()
+
 public actual fun isatty(fd: CInt): CInt = libc.cinterop.libc_isatty(fd)
+
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
     libc.cinterop.libc_lseek(fd, offset, origin)
+
 public actual fun lseek64(fd: CInt, offset: CLongLong, origin: CInt): CLongLong =
     throw UnsupportedOperationException("lseek64 requires manual FFI bridge — not yet implemented")
 
-public actual fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt = memScoped {
-    if (fds == null) {
-        val fdsArray = allocArray<IntVar>(2)
-        libc.cinterop.libc_pipe(fdsArray)
-    } else {
-        val ptr = fds.toLong().toCPointer<IntVar>()
-        libc.cinterop.libc_pipe(ptr)
+public actual fun pipe(fds: CInt?, psize: CUInt, textmode: CInt): CInt =
+    memScoped {
+        if (fds == null) {
+            val fdsArray = allocArray<IntVar>(2)
+            libc.cinterop.libc_pipe(fdsArray)
+        } else {
+            val ptr = fds.toLong().toCPointer<IntVar>()
+            libc.cinterop.libc_pipe(ptr)
+        }
     }
-}
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt =
     libc.cinterop.libc_read(fd, buf?.value?.toCPointer<ByteVar>(), count.toULong()).toInt()
+
 public actual fun rmdir(path: String?): CInt {
     if (path == null) return -1
     return libc.cinterop.libc_rmdir(path)
 }
+
 public actual fun unlink(c: String?): CInt {
     if (c == null) return -1
     return libc.cinterop.libc_unlink(c)
 }
+
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: CUInt): CInt =
     libc.cinterop.libc_write(fd, buf?.value?.toCPointer<ByteVar>(), count.toULong()).toInt()
+
 public actual fun commit(fd: CInt): CInt =
     throw UnsupportedOperationException("commit requires manual FFI bridge — not yet implemented")
 
@@ -524,6 +624,7 @@ public actual fun setlocale(category: CInt, locale: String?): String? {
     val result = libc.cinterop.libc_setlocale(category, locale)
     return result?.toKString()
 }
+
 public actual fun wsetlocale(category: CInt, locale: WcharT?): WcharT? =
     throw UnsupportedOperationException("wsetlocale requires manual FFI bridge — not yet implemented")
 
@@ -551,13 +652,9 @@ public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS requires manual FFI bridge — not yet implemented")
 
-public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
-    throw UnsupportedOperationException("qsort requires manual FFI bridge — not yet implemented")
-}
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsort requires manual FFI bridge — not yet implemented")
 
-public actual fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
-    throw UnsupportedOperationException("qsortS requires manual FFI bridge — not yet implemented")
-}
+public actual fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortS requires manual FFI bridge — not yet implemented")
 
 public actual fun atexit(cb: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("atexit requires manual FFI bridge — not yet implemented")

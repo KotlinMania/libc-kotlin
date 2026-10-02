@@ -5,19 +5,16 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import libc.cinterop.libc_basename
 import libc.cinterop.libc_dirname
-import libc.cinterop.libc_setgrent
 
 public actual fun setgrent(): CInt =
     throw UnsupportedOperationException("setgrent requires FFI bridge")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect requires FFI bridge")
+
 public actual fun freelocale(loc: LocaleT): CInt =
     throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
 
@@ -34,6 +31,4 @@ public actual fun basename(path: String?): String? {
     return result?.toKString()
 }
 
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) {
-    throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
-}
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")

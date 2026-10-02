@@ -9,20 +9,14 @@ public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires N-API addon")
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR requires N-API addon")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires N-API addon")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires N-API addon")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
 
 public actual fun sIGRTMAX(): CInt =
     throw UnsupportedOperationException("sIGRTMAX requires N-API addon")
@@ -102,9 +96,7 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: 
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale requires N-API addon")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires N-API addon")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires N-API addon")
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires N-API addon")
@@ -163,9 +155,7 @@ public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?
 public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getifaddrs requires N-API addon")
 
-public actual fun freeifaddrs(ifa: Ifaddrs?) {
-    throw UnsupportedOperationException("freeifaddrs requires N-API addon")
-}
+public actual fun freeifaddrs(ifa: Ifaddrs?): Unit = throw UnsupportedOperationException("freeifaddrs requires N-API addon")
 
 public actual fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt =
     throw UnsupportedOperationException("bind requires N-API addon")
@@ -212,9 +202,7 @@ public actual fun setdomainname(name: String?, len: ULong): CInt =
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires N-API addon")
 
-public actual fun ifFreenameindex(ptr: IfNameindex?) {
-    throw UnsupportedOperationException("ifFreenameindex requires N-API addon")
-}
+public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex requires N-API addon")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpwnamR requires N-API addon")
@@ -237,7 +225,6 @@ public actual fun statfs64(path: String?, buf: Statfs64?): CInt =
 public actual fun creat64(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("creat64 requires N-API addon")
 
-
 public actual fun fstatat64(dirfd: CInt, pathname: String?, buf: Stat64?, flags: CInt): CInt =
     throw UnsupportedOperationException("fstatat64 requires N-API addon")
 
@@ -247,10 +234,8 @@ public actual fun ftruncate64(fd: CInt, length: Off64T): CInt =
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
     throw UnsupportedOperationException("lseek64 requires N-API addon")
 
-
 public actual fun mmap64(addr: COpaquePointer?, len: ULong, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     throw UnsupportedOperationException("mmap64 requires N-API addon")
-
 
 public actual fun openat64(fd: CInt, path: String?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("openat64 requires N-API addon")
@@ -270,7 +255,6 @@ public actual fun readdir64(dirp: DIR?): Dirent64? =
 public actual fun readdir64R(dirp: DIR?, entry: Dirent64?, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("readdir64R requires N-API addon")
 
-
 public actual fun truncate64(path: String?, length: Off64T): CInt =
     throw UnsupportedOperationException("truncate64 requires N-API addon")
 
@@ -288,7 +272,6 @@ public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: T
 
 public actual fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUInt, statxbuf: Statx?): CInt =
     throw UnsupportedOperationException("statx requires N-API addon")
-
 
 public actual fun fstat64(fildes: CInt, buf: Stat64?): CInt =
     throw UnsupportedOperationException("fstat64 requires N-API addon")

@@ -6,9 +6,8 @@ package io.github.kotlinmania.libc.wasi
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toKString
-import libc.cinterop.libc_socket
-import libc.cinterop.libc_listen
 import libc.cinterop.libc_gai_strerror
+import libc.cinterop.libc_listen
 
 public actual fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt =
     throw UnsupportedOperationException("connect requires manual FFI bridge — not yet implemented")
@@ -17,6 +16,7 @@ public actual fun bind(socket: CInt, addr: Sockaddr?, addrlen: SocklenT): CInt =
     throw UnsupportedOperationException("bind requires manual FFI bridge — not yet implemented")
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt = libc.cinterop.libc_listen(socket, backlog)
+
 public actual fun accept(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt =
     throw UnsupportedOperationException("accept requires manual FFI bridge — not yet implemented")
 
@@ -44,9 +44,7 @@ public actual fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: C
 public actual fun getaddrinfo(host: String?, serv: String?, hint: Addrinfo?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getaddrinfo requires manual FFI bridge — not yet implemented")
 
-public actual fun freeaddrinfo(p: Addrinfo?) {
-    throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")
-}
+public actual fun freeaddrinfo(p: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")
 
 public actual fun gaiStrerror(ecode: CInt): String? {
     val result = libc.cinterop.libc_gai_strerror(ecode)

@@ -13,9 +13,7 @@ public actual fun malloc(size: ULong): COpaquePointer? =
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc not available on Android host — use androidNative target for FFI")
 
-public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free not available on Android host — use androidNative target for FFI")
-}
+public actual fun free(p: COpaquePointer?): Unit = throw UnsupportedOperationException("free not available on Android host — use androidNative target for FFI")
 
 public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memchr not available on Android host — use androidNative target for FFI")

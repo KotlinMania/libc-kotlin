@@ -74,5 +74,6 @@ public const val TIME_OOP: CInt = 3
 public const val TIME_WAIT: CInt = 4
 public const val TIME_ERROR: CInt = 5
 
-public expect fun ntpGettime(buf: Ntptimeval?): CInt 
+public expect fun ntpGettime(buf: Ntptimeval?): CInt
+
 public expect fun ntpAdjtime(buf: Timex?): CInt 

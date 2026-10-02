@@ -9,17 +9,11 @@ public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
 public actual fun cPUALLOCSIZE(count: CInt): ULong =
     throw UnsupportedOperationException("cPUALLOCSIZE requires N-API addon")
 
-public actual fun cPUZERO(cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUZERO requires N-API addon")
-}
+public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO requires N-API addon")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUSET requires N-API addon")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET requires N-API addon")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUCLR requires N-API addon")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR requires N-API addon")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET requires N-API addon")
@@ -39,13 +33,9 @@ public actual fun nLAALIGN(len: CInt): CInt =
 public actual fun sOEEOFFENDER(ee: SockExtendedErr?): Sockaddr? =
     throw UnsupportedOperationException("sOEEOFFENDER requires N-API addon")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent requires N-API addon")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent requires N-API addon")
 
-public actual fun endgrent() {
-    throw UnsupportedOperationException("endgrent requires N-API addon")
-}
+public actual fun endgrent(): Unit = throw UnsupportedOperationException("endgrent requires N-API addon")
 
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent requires N-API addon")
@@ -113,9 +103,7 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
 public actual fun schedCpualloc(count: ULong): CpuSetT? =
     throw UnsupportedOperationException("schedCpualloc requires N-API addon")
 
-public actual fun schedCpufree(set: CpuSetT?) {
-    throw UnsupportedOperationException("schedCpufree requires N-API addon")
-}
+public actual fun schedCpufree(set: CpuSetT?): Unit = throw UnsupportedOperationException("schedCpufree requires N-API addon")
 
 public actual fun schedCpucount(setsize: ULong, set: CpuSetT?): CInt =
     throw UnsupportedOperationException("schedCpucount requires N-API addon")
@@ -132,16 +120,12 @@ public actual fun mallocUsableSize(ptr: COpaquePointer?): ULong =
 public actual fun utmpname(name: String?): CInt =
     throw UnsupportedOperationException("utmpname requires N-API addon")
 
-public actual fun setutent() {
-    throw UnsupportedOperationException("setutent requires N-API addon")
-}
+public actual fun setutent(): Unit = throw UnsupportedOperationException("setutent requires N-API addon")
 
 public actual fun getutent(): Utmp? =
     throw UnsupportedOperationException("getutent requires N-API addon")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir requires N-API addon")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir requires N-API addon")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires N-API addon")
@@ -398,13 +382,9 @@ public actual fun regexec(preg: RegexT?, input: String?, nmatch: ULong, pmatch: 
 public actual fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong =
     throw UnsupportedOperationException("regerror requires N-API addon")
 
-public actual fun regfree(preg: RegexT?) {
-    throw UnsupportedOperationException("regfree requires N-API addon")
-}
+public actual fun regfree(preg: RegexT?): Unit = throw UnsupportedOperationException("regfree requires N-API addon")
 
-public actual fun androidSetAbortMessage(msg: String?) {
-    throw UnsupportedOperationException("androidSetAbortMessage requires N-API addon")
-}
+public actual fun androidSetAbortMessage(msg: String?): Unit = throw UnsupportedOperationException("androidSetAbortMessage requires N-API addon")
 
 public actual fun gettid(): PidT =
     throw UnsupportedOperationException("gettid requires N-API addon")
@@ -433,9 +413,7 @@ public actual fun systemPropertyFind(name: String?): PropInfo? =
 public actual fun systemPropertyFindNth(n: CUInt): PropInfo? =
     throw UnsupportedOperationException("systemPropertyFindNth requires N-API addon")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires N-API addon")
@@ -449,9 +427,7 @@ public actual fun basename(path: String?): String? =
 public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt =
     throw UnsupportedOperationException("getoptLong requires N-API addon")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync requires N-API addon")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync requires N-API addon")
 
 public actual fun syncfs(fd: CInt): CInt =
     throw UnsupportedOperationException("syncfs requires N-API addon")
@@ -479,7 +455,6 @@ public actual fun memfdCreate(name: String?, flags: CUInt): CInt =
 
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 requires N-API addon")
-
 
 public actual fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("clone requires N-API addon")

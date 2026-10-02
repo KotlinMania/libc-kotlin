@@ -26,4 +26,3 @@ public actual fun munlockall(): CInt =
 
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("msync requires N-API addon")
-

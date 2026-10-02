@@ -5,20 +5,16 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.toLong
-import libc.cinterop.libc_fchflags
-import libc.cinterop.libc_dirfd
 import libc.cinterop.libc_chflags
-import libc.cinterop.libc_mprotect
-import libc.cinterop.libc_reboot
+import libc.cinterop.libc_dirfd
+import libc.cinterop.libc_fchflags
 import libc.cinterop.libc_gettimeofday
-import libc.cinterop.libc_memmem
+import libc.cinterop.libc_reboot
 import libc.cinterop.libc_settimeofday
 import libc.cinterop.libc_strtonum
-import libc.cinterop.libc_sysctl
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
@@ -56,6 +52,7 @@ public actual fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, 
     val result = libc_strtonum(nptr, minval, maxval, errstrPtr)
     return result
 }
+
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("dup3 requires manual FFI bridge — not yet implemented")
 
@@ -63,13 +60,16 @@ public actual fun chflags(path: String?, flags: CUInt): CInt {
     if (path == null) return -1
     return libc.cinterop.libc_chflags(path, flags)
 }
+
 public actual fun fchflags(fd: CInt, flags: CUInt): CInt =
     libc.cinterop.libc_fchflags(fd, flags)
+
 public actual fun chflagsat(fd: CInt, path: String?, flags: CUInt, atflag: CInt): CInt =
     throw UnsupportedOperationException("chflagsat requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires manual FFI bridge — not yet implemented")
 
@@ -84,6 +84,7 @@ public actual fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlis
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect requires FFI bridge")
+
 public actual fun getthrid(): PidT =
     throw UnsupportedOperationException("getthrid requires manual FFI bridge — not yet implemented")
 
@@ -99,13 +100,9 @@ public actual fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePoin
 public actual fun pthreadMainNp(): CInt =
     throw UnsupportedOperationException("pthreadMainNp requires manual FFI bridge — not yet implemented")
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong) {
-    throw UnsupportedOperationException("pthreadGetNameNp requires manual FFI bridge — not yet implemented")
-}
+public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong): Unit = throw UnsupportedOperationException("pthreadGetNameNp requires manual FFI bridge — not yet implemented")
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
-    throw UnsupportedOperationException("pthreadSetNameNp requires manual FFI bridge — not yet implemented")
-}
+public actual fun pthreadSetNameNp(tid: PthreadT, name: String?): Unit = throw UnsupportedOperationException("pthreadSetNameNp requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: StackT?): CInt =
     throw UnsupportedOperationException("pthreadStacksegNp requires manual FFI bridge — not yet implemented")
@@ -137,9 +134,7 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("uselocale requires manual FFI bridge — not yet implemented")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires manual FFI bridge — not yet implemented")
@@ -147,17 +142,11 @@ public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale requires manual FFI bridge — not yet implemented")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle requires manual FFI bridge — not yet implemented")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle requires manual FFI bridge — not yet implemented")
 
-public actual fun freezero(ptr: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("freezero requires manual FFI bridge — not yet implemented")
-}
+public actual fun freezero(ptr: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("freezero requires manual FFI bridge — not yet implemented")
 
 public actual fun mallocConceal(size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("mallocConceal requires manual FFI bridge — not yet implemented")
@@ -165,23 +154,17 @@ public actual fun mallocConceal(size: ULong): COpaquePointer? =
 public actual fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("callocConceal requires manual FFI bridge — not yet implemented")
 
-public actual fun srand48Deterministic(seed: CLong) {
-    throw UnsupportedOperationException("srand48Deterministic requires manual FFI bridge — not yet implemented")
-}
+public actual fun srand48Deterministic(seed: CLong): Unit = throw UnsupportedOperationException("srand48Deterministic requires manual FFI bridge — not yet implemented")
 
 public actual fun seed48Deterministic(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48Deterministic requires manual FFI bridge — not yet implemented")
 
-public actual fun lcong48Deterministic(p: CUShort?) {
-    throw UnsupportedOperationException("lcong48Deterministic requires manual FFI bridge — not yet implemented")
-}
+public actual fun lcong48Deterministic(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48Deterministic requires manual FFI bridge — not yet implemented")
 
 public actual fun hcreate(nelt: ULong): CInt =
     throw UnsupportedOperationException("hcreate requires manual FFI bridge — not yet implemented")
 
-public actual fun hdestroy() {
-    throw UnsupportedOperationException("hdestroy requires manual FFI bridge — not yet implemented")
-}
+public actual fun hdestroy(): Unit = throw UnsupportedOperationException("hdestroy requires manual FFI bridge — not yet implemented")
 
 public actual fun hsearch(entry: ENTRY, action: ACTION): ENTRY? =
     throw UnsupportedOperationException("hsearch requires manual FFI bridge — not yet implemented")
@@ -194,6 +177,7 @@ public actual fun mimmutable(addr: COpaquePointer?, len: ULong): CInt =
 
 public actual fun reboot(mode: CInt): CInt =
     libc.cinterop.libc_reboot(mode)
+
 public actual fun statfs(path: String?, buf: Statfs?): CInt =
     throw UnsupportedOperationException("statfs requires manual FFI bridge — not yet implemented")
 

@@ -5,4 +5,3 @@ import io.github.kotlinmania.libc.*
 
 public actual fun getsystemcfg(label: CInt): CULong =
     throw UnsupportedOperationException("getsystemcfg not available on JVM — no C library access")
-

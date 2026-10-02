@@ -5,10 +5,6 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.toCPointer
-import libc.cinterop.libc_clock_gettime
 
 public actual fun time(tloc: TimeT?): TimeT =
     throw UnsupportedOperationException("time requires manual FFI bridge — not yet implemented")

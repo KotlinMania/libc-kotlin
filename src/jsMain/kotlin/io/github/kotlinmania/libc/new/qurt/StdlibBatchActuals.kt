@@ -49,9 +49,7 @@ public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): 
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("rand requires N-API addon")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand requires N-API addon")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand requires N-API addon")
 
 public actual fun abs(j: CInt): CInt =
     LibcNative.abs(j)
@@ -62,13 +60,10 @@ public actual fun labs(j: CLong): CLong =
 public actual fun llabs(j: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs requires N-API addon")
 
-
 public actual fun atexit(function: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("atexit requires N-API addon")
 
-public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
-    throw UnsupportedOperationException("qsort requires N-API addon")
-}
+public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsort requires N-API addon")
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
     throw UnsupportedOperationException("bsearch requires N-API addon")

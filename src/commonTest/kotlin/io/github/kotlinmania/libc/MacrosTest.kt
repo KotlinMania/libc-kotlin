@@ -1,18 +1,18 @@
 package io.github.kotlinmania.libc
 
-import io.github.kotlinmania.libc.vxworks.SIGKILL
-import io.github.kotlinmania.libc.vxworks.SEEK_SET
 import io.github.kotlinmania.libc.vxworks.O_RDONLY
-import io.github.kotlinmania.libc.vxworks.SEEK_CUR
-import io.github.kotlinmania.libc.vxworks.SEEK_END
 import io.github.kotlinmania.libc.vxworks.PROT_READ
 import io.github.kotlinmania.libc.vxworks.PROT_WRITE
-import io.github.kotlinmania.libc.fuchsia.SEEK_SET as FuchsiaSEEK_SET
-import io.github.kotlinmania.libc.fuchsia.SEEK_CUR as FuchsiaSEEK_CUR
-import io.github.kotlinmania.libc.fuchsia.SEEK_END as FuchsiaSEEK_END
-import io.github.kotlinmania.libc.fuchsia.O_RDONLY as FuchsiaO_RDONLY
+import io.github.kotlinmania.libc.vxworks.SEEK_CUR
+import io.github.kotlinmania.libc.vxworks.SEEK_END
+import io.github.kotlinmania.libc.vxworks.SEEK_SET
+import io.github.kotlinmania.libc.vxworks.SIGKILL
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import io.github.kotlinmania.libc.fuchsia.O_RDONLY as FuchsiaO_RDONLY
+import io.github.kotlinmania.libc.fuchsia.SEEK_CUR as FuchsiaSEEK_CUR
+import io.github.kotlinmania.libc.fuchsia.SEEK_END as FuchsiaSEEK_END
+import io.github.kotlinmania.libc.fuchsia.SEEK_SET as FuchsiaSEEK_SET
 
 /**
  * Tests verifying C enum constant values match the upstream definitions.
@@ -24,7 +24,6 @@ import kotlin.test.assertEquals
  * correct C-standard values across platform directories.
  */
 class MacrosTest {
-
     @Test
     fun cEnumBasic() {
         // C enums get sequential values starting from 0.

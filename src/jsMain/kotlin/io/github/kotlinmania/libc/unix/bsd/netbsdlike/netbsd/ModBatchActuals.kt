@@ -180,9 +180,7 @@ public actual fun pthreadSetaffinityNp(thread: PthreadT, size: ULong, set: Cpuse
 public actual fun cpusetCreate(): CpusetT? =
     throw UnsupportedOperationException("cpusetCreate requires N-API addon")
 
-public actual fun cpusetDestroy(set: CpusetT?) {
-    throw UnsupportedOperationException("cpusetDestroy requires N-API addon")
-}
+public actual fun cpusetDestroy(set: CpusetT?): Unit = throw UnsupportedOperationException("cpusetDestroy requires N-API addon")
 
 public actual fun cpusetClr(cpu: CpuidT, set: CpusetT?): CInt =
     throw UnsupportedOperationException("cpusetClr requires N-API addon")
@@ -196,9 +194,7 @@ public actual fun cpusetIsset(cpu: CpuidT, set: CpusetT?): CInt =
 public actual fun cpusetSize(set: CpusetT?): ULong =
     throw UnsupportedOperationException("cpusetSize requires N-API addon")
 
-public actual fun cpusetZero(set: CpusetT?) {
-    throw UnsupportedOperationException("cpusetZero requires N-API addon")
-}
+public actual fun cpusetZero(set: CpusetT?): Unit = throw UnsupportedOperationException("cpusetZero requires N-API addon")
 
 public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("sigtimedwait requires N-API addon")
@@ -209,9 +205,7 @@ public actual fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt =
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale requires N-API addon")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires N-API addon")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires N-API addon")
 
 public actual fun localeconvL(loc: LocaleT): Lconv? =
     throw UnsupportedOperationException("localeconvL requires N-API addon")
@@ -261,16 +255,12 @@ public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspe
 public actual fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? =
     throw UnsupportedOperationException("dlvsym requires N-API addon")
 
-public actual fun explicitMemset(b: COpaquePointer?, c: CInt, len: ULong) {
-    throw UnsupportedOperationException("explicitMemset requires N-API addon")
-}
+public actual fun explicitMemset(b: COpaquePointer?, c: CInt, len: ULong): Unit = throw UnsupportedOperationException("explicitMemset requires N-API addon")
 
 public actual fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("consttimeMemequal requires N-API addon")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle requires N-API addon")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle requires N-API addon")
 
 public actual fun mremap(oldp: COpaquePointer?, oldsize: ULong, newp: COpaquePointer?, newsize: ULong, flags: CInt): COpaquePointer? =
     throw UnsupportedOperationException("mremap requires N-API addon")
@@ -371,9 +361,7 @@ public actual fun ecalloc(n: ULong, c: ULong): COpaquePointer? =
 public actual fun erealloc(p: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("erealloc requires N-API addon")
 
-public actual fun ereallocarr(p: COpaquePointer?, n: ULong, s: ULong) {
-    throw UnsupportedOperationException("ereallocarr requires N-API addon")
-}
+public actual fun ereallocarr(p: COpaquePointer?, n: ULong, s: ULong): Unit = throw UnsupportedOperationException("ereallocarr requires N-API addon")
 
 public actual fun estrdup(s: String?): String? =
     throw UnsupportedOperationException("estrdup requires N-API addon")
@@ -423,29 +411,17 @@ public actual fun strpct(buf: String?, bufsiz: ULong, numerator: UintmaxT, denom
 public actual fun strspct(buf: String?, bufsiz: ULong, numerator: IntmaxT, denominator: IntmaxT, precision: ULong): String? =
     throw UnsupportedOperationException("strspct requires N-API addon")
 
-public actual fun login(ut: Utmp?) {
-    throw UnsupportedOperationException("login requires N-API addon")
-}
+public actual fun login(ut: Utmp?): Unit = throw UnsupportedOperationException("login requires N-API addon")
 
-public actual fun loginx(ut: Utmpx?) {
-    throw UnsupportedOperationException("loginx requires N-API addon")
-}
+public actual fun loginx(ut: Utmpx?): Unit = throw UnsupportedOperationException("loginx requires N-API addon")
 
-public actual fun logout(line: String?) {
-    throw UnsupportedOperationException("logout requires N-API addon")
-}
+public actual fun logout(line: String?): Unit = throw UnsupportedOperationException("logout requires N-API addon")
 
-public actual fun logoutx(line: String?, status: CInt, tpe: CInt) {
-    throw UnsupportedOperationException("logoutx requires N-API addon")
-}
+public actual fun logoutx(line: String?, status: CInt, tpe: CInt): Unit = throw UnsupportedOperationException("logoutx requires N-API addon")
 
-public actual fun logwtmp(line: String?, name: String?, host: String?) {
-    throw UnsupportedOperationException("logwtmp requires N-API addon")
-}
+public actual fun logwtmp(line: String?, name: String?, host: String?): Unit = throw UnsupportedOperationException("logwtmp requires N-API addon")
 
-public actual fun logwtmpx(line: String?, name: String?, host: String?, status: CInt, tpe: CInt) {
-    throw UnsupportedOperationException("logwtmpx requires N-API addon")
-}
+public actual fun logwtmpx(line: String?, name: String?, host: String?, status: CInt, tpe: CInt): Unit = throw UnsupportedOperationException("logwtmpx requires N-API addon")
 
 public actual fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: ULong): SsizeT =
     throw UnsupportedOperationException("getxattr requires N-API addon")
@@ -507,10 +483,7 @@ public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt
 public actual fun backtraceSymbolsFdFmt(addrlist: COpaquePointer?, len: ULong, fd: CInt, fmt: String?): CInt =
     throw UnsupportedOperationException("backtraceSymbolsFdFmt requires N-API addon")
 
-
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlIteratePhdr requires N-API addon")
 
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
-    throw UnsupportedOperationException("qsortR requires N-API addon")
-}
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortR requires N-API addon")

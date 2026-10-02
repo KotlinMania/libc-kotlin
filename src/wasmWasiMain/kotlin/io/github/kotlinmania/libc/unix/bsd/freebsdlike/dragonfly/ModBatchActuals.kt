@@ -9,17 +9,11 @@ public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on WASI — no C library access")
 
-public actual fun cPUZERO(cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUZERO not available on WASI — no C library access")
-}
+public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on WASI — no C library access")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUSET not available on WASI — no C library access")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET not available on WASI — no C library access")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUCLR not available on WASI — no C library access")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on WASI — no C library access")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on WASI — no C library access")
@@ -27,9 +21,7 @@ public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation not available on WASI — no C library access")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent not available on WASI — no C library access")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent not available on WASI — no C library access")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect not available on WASI — no C library access")
@@ -46,9 +38,7 @@ public actual fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): St
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid not available on WASI — no C library access")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale not available on WASI — no C library access")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale not available on WASI — no C library access")
 
 public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt =
     throw UnsupportedOperationException("lwpRtprio not available on WASI — no C library access")
@@ -89,9 +79,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?)
 public actual fun schedGetcpu(): CInt =
     throw UnsupportedOperationException("schedGetcpu not available on WASI — no C library access")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle not available on WASI — no C library access")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle not available on WASI — no C library access")
 
 public actual fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt =
     throw UnsupportedOperationException("shmget not available on WASI — no C library access")
@@ -171,7 +159,4 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt
 public actual fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocf not available on WASI — no C library access")
 
-public actual fun freezero(ptr: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("freezero not available on WASI — no C library access")
-}
-
+public actual fun freezero(ptr: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("freezero not available on WASI — no C library access")

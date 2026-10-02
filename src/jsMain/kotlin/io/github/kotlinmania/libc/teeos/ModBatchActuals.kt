@@ -32,13 +32,19 @@ public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CI
     LibcNative.memcmp(cx?.value, ct?.value, n.toInt())
 
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    run { val r = LibcNative.memcpy(dest?.value, src?.value, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
+    run {
+        val r = LibcNative.memcpy(dest?.value, src?.value, n.toInt())
+        if (r != null && r != 0) COpaquePointer(r.toLong()) else null
+    }
 
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmove requires N-API addon")
 
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
-    run { val r = LibcNative.memset(dest?.value, c, n.toInt()); if (r != null && r != 0) COpaquePointer(r.toLong()) else null }
+    run {
+        val r = LibcNative.memset(dest?.value, c, n.toInt())
+        if (r != null && r != 0) COpaquePointer(r.toLong()) else null
+    }
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadJoin requires N-API addon")
@@ -253,9 +259,7 @@ public actual fun wcrtomb(s: String?, wc: WcharT, st: MbstateT?): ULong =
 public actual fun wctob(c: WintT): CInt =
     throw UnsupportedOperationException("wctob requires N-API addon")
 
-public actual fun srandom(seed: CUInt) {
-    throw UnsupportedOperationException("srandom requires N-API addon")
-}
+public actual fun srandom(seed: CUInt): Unit = throw UnsupportedOperationException("srandom requires N-API addon")
 
 public actual fun initstate(seed: CUInt, state: String?, size: ULong): String? =
     throw UnsupportedOperationException("initstate requires N-API addon")
@@ -267,7 +271,12 @@ public actual fun random(): CLong =
     throw UnsupportedOperationException("random requires N-API addon")
 
 public actual fun strchr(s: String?, c: CInt): String? =
-    if (s == null) null else { val idx = s.indexOf(c.toChar()); if (idx >= 0) s.substring(idx) else null }
+    if (s == null) {
+        null
+    } else {
+        val idx = s.indexOf(c.toChar())
+        if (idx >= 0) s.substring(idx) else null
+    }
 
 public actual fun strlen(cs: String?): ULong =
     strlenNapi(cs)
@@ -353,16 +362,13 @@ public actual fun ecvt(x: CDouble, n: CInt, dp: CInt?, sign: CInt?): String? =
 public actual fun llabs(a: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs requires N-API addon")
 
-public actual fun qsort(base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc) {
-    throw UnsupportedOperationException("qsort requires N-API addon")
-}
+public actual fun qsort(base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc): Unit = throw UnsupportedOperationException("qsort requires N-API addon")
 
 public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong =
     throw UnsupportedOperationException("strtoul requires N-API addon")
 
 public actual fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong =
     strtolNapi(s, base)
-
 
 public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadKeyCreate requires N-API addon")

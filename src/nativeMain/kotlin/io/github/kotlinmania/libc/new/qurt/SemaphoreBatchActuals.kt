@@ -4,11 +4,11 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.ByteVar
-import libc.cinterop.libc_sem_init
 import libc.cinterop.libc_sem_destroy
+import libc.cinterop.libc_sem_init
 
 public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
     libc.cinterop.libc_sem_init(sem?.toLong()?.toCPointer<kotlinx.cinterop.ByteVar>(), pshared, value)

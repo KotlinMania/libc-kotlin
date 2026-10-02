@@ -9,13 +9,9 @@ public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
 public actual fun getprogname(): String? =
     throw UnsupportedOperationException("getprogname requires N-API addon")
 
-public actual fun setprogname(progname: String?) {
-    throw UnsupportedOperationException("setprogname requires N-API addon")
-}
+public actual fun setprogname(progname: String?): Unit = throw UnsupportedOperationException("setprogname requires N-API addon")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
 
 public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
     throw UnsupportedOperationException("mkstemps requires N-API addon")
@@ -35,9 +31,7 @@ public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: 
 public actual fun strsep(string: COpaquePointer?, delimiters: String?): String? =
     throw UnsupportedOperationException("strsep requires N-API addon")
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires N-API addon")
-}
+public actual fun explicitBzero(buf: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires N-API addon")
 
 public actual fun slInit(): StringList? =
     throw UnsupportedOperationException("slInit requires N-API addon")
@@ -45,9 +39,7 @@ public actual fun slInit(): StringList? =
 public actual fun slAdd(sl: StringList?, n: String?): CInt =
     throw UnsupportedOperationException("slAdd requires N-API addon")
 
-public actual fun slFree(sl: StringList?, i: CInt) {
-    throw UnsupportedOperationException("slFree requires N-API addon")
-}
+public actual fun slFree(sl: StringList?, i: CInt): Unit = throw UnsupportedOperationException("slFree requires N-API addon")
 
 public actual fun slFind(sl: StringList?, n: String?): String? =
     throw UnsupportedOperationException("slFind requires N-API addon")
@@ -69,7 +61,6 @@ public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): Ss
 
 public actual fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT =
     throw UnsupportedOperationException("wait4 requires N-API addon")
-
 
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlIteratePhdr requires N-API addon")

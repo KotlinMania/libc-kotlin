@@ -591,9 +591,6 @@ public actual fun pthreadSigmask(how: CInt, set: SigsetT?, oset: SigsetT?): CInt
 public actual fun kill(pid: PidT, signo: CInt): CInt =
     throw UnsupportedOperationException("kill not available on WASI — no C library access")
 
-
-
-
 public actual fun taskKill(taskId: TASKID, signo: CInt): CInt =
     throw UnsupportedOperationException("taskKill not available on WASI — no C library access")
 
@@ -641,6 +638,3 @@ public actual fun mqGetattr(mqd: MqdT, attr: MqAttr?): CInt =
 
 public actual fun mqSetattr(mqd: MqdT, newattr: MqAttr?, oldattr: MqAttr?): CInt =
     throw UnsupportedOperationException("mqSetattr not available on WASI — no C library access")
-
-
-

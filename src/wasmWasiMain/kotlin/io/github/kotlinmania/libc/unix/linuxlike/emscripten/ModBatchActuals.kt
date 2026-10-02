@@ -6,17 +6,11 @@ import io.github.kotlinmania.libc.*
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on WASI — no C library access")
 
-public actual fun cPUZERO(cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUZERO not available on WASI — no C library access")
-}
+public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on WASI — no C library access")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUSET not available on WASI — no C library access")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET not available on WASI — no C library access")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUCLR not available on WASI — no C library access")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on WASI — no C library access")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on WASI — no C library access")
@@ -42,20 +36,14 @@ public actual fun labs(i: CLong): CLong =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("rand not available on WASI — no C library access")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand not available on WASI — no C library access")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand not available on WASI — no C library access")
 
 public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt =
     throw UnsupportedOperationException("gettimeofday not available on WASI — no C library access")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent not available on WASI — no C library access")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent not available on WASI — no C library access")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent not available on WASI — no C library access")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent not available on WASI — no C library access")
 
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent not available on WASI — no C library access")
@@ -99,9 +87,7 @@ public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap not available on WASI — no C library access")
 
-public actual fun globfree(pglob: GlobT?) {
-    throw UnsupportedOperationException("globfree not available on WASI — no C library access")
-}
+public actual fun globfree(pglob: GlobT?): Unit = throw UnsupportedOperationException("globfree not available on WASI — no C library access")
 
 public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
     throw UnsupportedOperationException("posixMadvise not available on WASI — no C library access")
@@ -109,9 +95,7 @@ public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt):
 public actual fun shmUnlink(name: String?): CInt =
     throw UnsupportedOperationException("shmUnlink not available on WASI — no C library access")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir not available on WASI — no C library access")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir not available on WASI — no C library access")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir not available on WASI — no C library access")
@@ -137,9 +121,7 @@ public actual fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: C
 public actual fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CUInt, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("recvmmsg not available on WASI — no C library access")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync not available on WASI — no C library access")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync not available on WASI — no C library access")
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl not available on WASI — no C library access")
@@ -164,7 +146,6 @@ public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: UL
 
 public actual fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrgidR not available on WASI — no C library access")
-
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
     throw UnsupportedOperationException("glob not available on WASI — no C library access")

@@ -12,29 +12,28 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
-import libc.cinterop.libc_tmpfile
-import libc.cinterop.libc_rewind
-import libc.cinterop.libc_setvbuf
 import libc.cinterop.libc_fclose
-import libc.cinterop.libc_remove
-import libc.cinterop.libc_fflush
-import libc.cinterop.libc_fseek
-import libc.cinterop.libc_ftell
-import libc.cinterop.libc_putchar
 import libc.cinterop.libc_fdopen
-import libc.cinterop.libc_freopen
-import libc.cinterop.libc_ungetc
-import libc.cinterop.libc_fgetc
 import libc.cinterop.libc_feof
 import libc.cinterop.libc_ferror
-import libc.cinterop.libc_fputc
+import libc.cinterop.libc_fflush
+import libc.cinterop.libc_fgetc
 import libc.cinterop.libc_fopen
-import libc.cinterop.libc_fwrite
-import libc.cinterop.libc_rename
+import libc.cinterop.libc_fputc
 import libc.cinterop.libc_fputs
-import libc.cinterop.libc_perror
+import libc.cinterop.libc_freopen
+import libc.cinterop.libc_fseek
+import libc.cinterop.libc_ftell
 import libc.cinterop.libc_getchar
+import libc.cinterop.libc_perror
+import libc.cinterop.libc_putchar
 import libc.cinterop.libc_puts
+import libc.cinterop.libc_remove
+import libc.cinterop.libc_rename
+import libc.cinterop.libc_rewind
+import libc.cinterop.libc_setvbuf
+import libc.cinterop.libc_tmpfile
+import libc.cinterop.libc_ungetc
 
 public actual fun fopen(filename: String?, mode: String?): FILE? {
     if (filename == null) return null
@@ -139,15 +138,15 @@ public actual fun puts(s: String?): CInt {
 
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
-public actual fun setbuf(stream: FILE?, buf: String?) {
-    throw UnsupportedOperationException("setbuf requires CValuesRef bridge for buf param")
-}
+
+public actual fun setbuf(stream: FILE?, buf: String?): Unit = throw UnsupportedOperationException("setbuf requires CValuesRef bridge for buf param")
 
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fread requires COpaquePointer + FILE bridge")
 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fwrite requires FFI bridge")
+
 public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos requires FposT bridge")
 

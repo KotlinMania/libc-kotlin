@@ -11,4 +11,3 @@ public actual fun creat(pathname: String?, mode: ModeT): CInt =
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fcntl requires N-API addon")
-

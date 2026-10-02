@@ -5,9 +5,9 @@ package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toLong
 import libc.cinterop.libc_abs
 import libc.cinterop.libc_daemon
@@ -24,7 +24,6 @@ import libc.cinterop.libc_gettimeofday
 import libc.cinterop.libc_initgroups
 import libc.cinterop.libc_labs
 import libc.cinterop.libc_memalign
-import libc.cinterop.libc_mknodat
 import libc.cinterop.libc_mkostemp
 import libc.cinterop.libc_mkostemps
 import libc.cinterop.libc_mkstemps
@@ -42,7 +41,6 @@ import libc.cinterop.libc_settimeofday
 import libc.cinterop.libc_shm_open
 import libc.cinterop.libc_shm_unlink
 import libc.cinterop.libc_srand
-import libc.cinterop.libc_sysctl
 import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
 
@@ -55,20 +53,14 @@ public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
 
 public actual fun dEXTRAFIRST(d: Dirent?): DirentExtra? =
     throw UnsupportedOperationException("dEXTRAFIRST requires manual FFI bridge — not yet implemented")
@@ -96,6 +88,7 @@ public actual fun semInit(sem: SemT?, pshared: CInt, value: CUInt): CInt =
 
 public actual fun fdatasync(fd: CInt): CInt =
     libc.cinterop.libc_fdatasync(fd)
+
 public actual fun getpriority(which: CInt, who: IdT): CInt {
     val result = libc.cinterop.libc_getpriority(which, who)
     return result
@@ -108,6 +101,7 @@ public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt {
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifoat requires FFI bridge")
+
 public actual fun mknodat(fd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknodat requires manual FFI bridge — not yet implemented")
 
@@ -188,9 +182,7 @@ public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePoi
 public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getifaddrs requires manual FFI bridge — not yet implemented")
 
-public actual fun freeifaddrs(ifa: Ifaddrs?) {
-    throw UnsupportedOperationException("freeifaddrs requires manual FFI bridge — not yet implemented")
-}
+public actual fun freeifaddrs(ifa: Ifaddrs?): Unit = throw UnsupportedOperationException("freeifaddrs requires manual FFI bridge — not yet implemented")
 
 public actual fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt =
     throw UnsupportedOperationException("bind requires manual FFI bridge — not yet implemented")
@@ -228,12 +220,16 @@ public actual fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt =
 
 public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("strerrorR requires FFI bridge")
+
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
+
 public actual fun labs(i: CLong): CLong =
     libc.cinterop.libc_labs(i)
+
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
+
 public actual fun srand(seed: CUInt) {
     libc.cinterop.libc_srand(seed)
 }
@@ -260,13 +256,9 @@ public actual fun endgrent() {
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent requires manual FFI bridge — not yet implemented")
 
-public actual fun setspent() {
-    throw UnsupportedOperationException("setspent requires manual FFI bridge — not yet implemented")
-}
+public actual fun setspent(): Unit = throw UnsupportedOperationException("setspent requires manual FFI bridge — not yet implemented")
 
-public actual fun endspent() {
-    throw UnsupportedOperationException("endspent requires manual FFI bridge — not yet implemented")
-}
+public actual fun endspent(): Unit = throw UnsupportedOperationException("endspent requires manual FFI bridge — not yet implemented")
 
 public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
     val result = libc.cinterop.libc_shm_open(name, oflag, mode.toInt())
@@ -275,6 +267,7 @@ public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt {
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect requires FFI bridge")
+
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
     throw UnsupportedOperationException("posixFallocate requires FFI bridge")
 
@@ -282,10 +275,12 @@ public actual fun mkostemp(template: String?, flags: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkostemp(template, flags)
 }
+
 public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
 }
+
 public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("sigtimedwait requires manual FFI bridge — not yet implemented")
 
@@ -298,13 +293,9 @@ public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires manual FFI bridge — not yet implemented")
 
-public actual fun ifFreenameindex(ptr: IfNameindex?) {
-    throw UnsupportedOperationException("ifFreenameindex requires manual FFI bridge — not yet implemented")
-}
+public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex requires manual FFI bridge — not yet implemented")
 
-public actual fun globfree(pglob: GlobT?) {
-    throw UnsupportedOperationException("globfree requires manual FFI bridge — not yet implemented")
-}
+public actual fun globfree(pglob: GlobT?): Unit = throw UnsupportedOperationException("globfree requires manual FFI bridge — not yet implemented")
 
 public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
     throw UnsupportedOperationException("posixMadvise requires FFI bridge")
@@ -314,15 +305,14 @@ public actual fun shmUnlink(name: String?): CInt {
     return result
 }
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir requires manual FFI bridge — not yet implemented")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir requires manual FFI bridge — not yet implemented")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires FFI bridge")
 
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("msync requires FFI bridge")
+
 public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
@@ -330,13 +320,14 @@ public actual fun mkstemps(template: String?, suffixlen: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkstemps(template, suffixlen)
 }
+
 public actual fun getdomainname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("getdomainname requires FFI bridge")
+
 public actual fun setdomainname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("setdomainname requires FFI bridge")
-public actual fun sync() {
-    throw UnsupportedOperationException("sync requires manual FFI bridge — not yet implemented")
-}
+
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt =
     throw UnsupportedOperationException("pthreadGetschedparam requires manual FFI bridge — not yet implemented")
@@ -434,6 +425,7 @@ public actual fun pthreadAttrSetguardsize(attr: PthreadAttrT?, guardsize: ULong)
 
 public actual fun sethostname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("sethostname requires FFI bridge")
+
 public actual fun schedGetPriorityMin(policy: CInt): CInt {
     val result = libc.cinterop.libc_sched_get_priority_min(policy)
     return result
@@ -459,6 +451,7 @@ public actual fun semClose(sem: SemT?): CInt =
 
 public actual fun getdtablesize(): CInt =
     libc.cinterop.libc_getdtablesize()
+
 public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getgrnamR requires manual FFI bridge — not yet implemented")
 
@@ -466,6 +459,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt {
     val result = libc.cinterop.libc_initgroups(user, group.toInt())
     return result
 }
+
 public actual fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt =
     throw UnsupportedOperationException("pthreadSigmask requires manual FFI bridge — not yet implemented")
 
@@ -488,6 +482,7 @@ public actual fun semUnlink(name: String?): CInt {
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libc.cinterop.libc_daemon(nochdir, noclose)
+
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpwnamR requires manual FFI bridge — not yet implemented")
 
@@ -590,6 +585,7 @@ public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: C
     if (pathname == null) return -1
     return libc.cinterop.libc_faccessat(dirfd, pathname, mode, flags)
 }
+
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
     throw UnsupportedOperationException("inotifyRmWatch requires manual FFI bridge — not yet implemented")
 
@@ -667,12 +663,11 @@ public actual fun regexec(preg: RegexT?, str: String?, nmatch: ULong, pmatch: Re
 public actual fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbufSize: ULong): ULong =
     throw UnsupportedOperationException("regerror requires manual FFI bridge — not yet implemented")
 
-public actual fun regfree(preg: RegexT?) {
-    throw UnsupportedOperationException("regfree requires manual FFI bridge — not yet implemented")
-}
+public actual fun regfree(preg: RegexT?): Unit = throw UnsupportedOperationException("regfree requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): CInt =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun dircntl(dir: DIR?, cmd: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("dircntl requires manual FFI bridge — not yet implemented")
 
@@ -730,9 +725,7 @@ public actual fun mqUnlink(name: String?): CInt =
 public actual fun getErrnoPtr(): CInt? =
     throw UnsupportedOperationException("getErrnoPtr requires manual FFI bridge — not yet implemented")
 
-public actual fun myThreadExit(valuePtr: COpaquePointer?) {
-    throw UnsupportedOperationException("myThreadExit requires manual FFI bridge — not yet implemented")
-}
+public actual fun myThreadExit(valuePtr: COpaquePointer?): Unit = throw UnsupportedOperationException("myThreadExit requires manual FFI bridge — not yet implemented")
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
     throw UnsupportedOperationException("glob requires manual FFI bridge — not yet implemented")

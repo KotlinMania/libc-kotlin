@@ -3,20 +3,14 @@ package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR requires N-API addon")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires N-API addon")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires N-API addon")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
 
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires N-API addon")
@@ -48,13 +42,9 @@ public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent requires N-API addon")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent requires N-API addon")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent requires N-API addon")
 
-public actual fun endgrent() {
-    throw UnsupportedOperationException("endgrent requires N-API addon")
-}
+public actual fun endgrent(): Unit = throw UnsupportedOperationException("endgrent requires N-API addon")
 
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires N-API addon")
@@ -86,13 +76,9 @@ public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: T
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent requires N-API addon")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent requires N-API addon")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent requires N-API addon")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent requires N-API addon")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent requires N-API addon")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpwnamR requires N-API addon")
@@ -130,9 +116,7 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 requires N-API addon")
 
-public actual fun explicitBzero(p: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires N-API addon")
-}
+public actual fun explicitBzero(p: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires N-API addon")
 
 public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong =
     throw UnsupportedOperationException("strlcat requires N-API addon")
@@ -232,7 +216,6 @@ public actual fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): UL
 
 public actual fun loginTty(fd: CInt): CInt =
     throw UnsupportedOperationException("loginTty requires N-API addon")
-
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadAtfork requires N-API addon")

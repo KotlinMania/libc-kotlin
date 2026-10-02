@@ -5,4 +5,3 @@ import io.github.kotlinmania.libc.*
 
 public actual fun exchangedata(path1: String?, path2: String?, options: CULong): CInt =
     throw UnsupportedOperationException("exchangedata requires N-API addon")
-

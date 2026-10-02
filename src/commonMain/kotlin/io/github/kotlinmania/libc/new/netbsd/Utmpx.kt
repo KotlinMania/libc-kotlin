@@ -49,14 +49,25 @@ public val DOWN_TIME: UShort = (11).toUShort()
 public const val _UTX_PADSIZE: ULong = 36uL
 
 public expect fun setutxent()
+
 public expect fun endutxent()
-public expect fun getutxent(): Utmpx? 
-public expect fun getutxid(ut: Utmpx?): Utmpx? 
-public expect fun getutxline(ut: Utmpx?): Utmpx? 
-public expect fun pututxline(ut: Utmpx?): Utmpx? 
-public expect fun updwtmpx(file: String?, ut: Utmpx?): CInt 
-public expect fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx? 
-public expect fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt 
+
+public expect fun getutxent(): Utmpx?
+
+public expect fun getutxid(ut: Utmpx?): Utmpx?
+
+public expect fun getutxline(ut: Utmpx?): Utmpx?
+
+public expect fun pututxline(ut: Utmpx?): Utmpx?
+
+public expect fun updwtmpx(file: String?, ut: Utmpx?): CInt
+
+public expect fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx?
+
+public expect fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt
+
 public expect fun getutmp(ux: Utmpx?, u: Utmp?)
+
 public expect fun getutmpx(u: Utmp?, ux: Utmpx?)
+
 public expect fun utmpxname(file: String?): CInt 

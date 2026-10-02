@@ -12,20 +12,14 @@ public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires N-API addon")
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR requires N-API addon")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires N-API addon")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires N-API addon")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
 
 public actual fun sIGRTMAX(): CInt =
     throw UnsupportedOperationException("sIGRTMAX requires N-API addon")
@@ -63,9 +57,7 @@ public actual fun labs(i: CLong): CLong =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("rand requires N-API addon")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand requires N-API addon")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand requires N-API addon")
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
     throw UnsupportedOperationException("getentropy requires N-API addon")
@@ -82,9 +74,7 @@ public actual fun settimeofday(tp: Timeval?, tz: COpaquePointer?): CInt =
 public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getifaddrs requires N-API addon")
 
-public actual fun freeifaddrs(ifa: Ifaddrs?) {
-    throw UnsupportedOperationException("freeifaddrs requires N-API addon")
-}
+public actual fun freeifaddrs(ifa: Ifaddrs?): Unit = throw UnsupportedOperationException("freeifaddrs requires N-API addon")
 
 public actual fun stackGetbounds(sp: StackT?): CInt =
     throw UnsupportedOperationException("stackGetbounds requires N-API addon")
@@ -122,13 +112,9 @@ public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt =
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo requires N-API addon")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent requires N-API addon")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent requires N-API addon")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent requires N-API addon")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent requires N-API addon")
 
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent requires N-API addon")
@@ -142,9 +128,7 @@ public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): String? =
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale requires N-API addon")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires N-API addon")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires N-API addon")
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires N-API addon")
@@ -155,9 +139,7 @@ public actual fun uselocale(loc: LocaleT): LocaleT =
 public actual fun getprogname(): String? =
     throw UnsupportedOperationException("getprogname requires N-API addon")
 
-public actual fun setprogname(name: String?) {
-    throw UnsupportedOperationException("setprogname requires N-API addon")
-}
+public actual fun setprogname(name: String?): Unit = throw UnsupportedOperationException("setprogname requires N-API addon")
 
 public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg requires N-API addon")
@@ -180,9 +162,7 @@ public actual fun sethostname(name: String?, len: CInt): CInt =
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex requires N-API addon")
 
-public actual fun ifFreenameindex(ptr: IfNameindex?) {
-    throw UnsupportedOperationException("ifFreenameindex requires N-API addon")
-}
+public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex requires N-API addon")
 
 public actual fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt =
     throw UnsupportedOperationException("pthreadAttrGetstack requires N-API addon")
@@ -211,9 +191,7 @@ public actual fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid requires N-API addon")
 
-public actual fun globfree(pglob: GlobT?) {
-    throw UnsupportedOperationException("globfree requires N-API addon")
-}
+public actual fun globfree(pglob: GlobT?): Unit = throw UnsupportedOperationException("globfree requires N-API addon")
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
     throw UnsupportedOperationException("posixFallocate requires N-API addon")
@@ -320,9 +298,7 @@ public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
 public actual fun shmUnlink(name: String?): CInt =
     throw UnsupportedOperationException("shmUnlink requires N-API addon")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir requires N-API addon")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir requires N-API addon")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires N-API addon")
@@ -486,13 +462,9 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires N-API addon")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent requires N-API addon")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent requires N-API addon")
 
-public actual fun endgrent() {
-    throw UnsupportedOperationException("endgrent requires N-API addon")
-}
+public actual fun endgrent(): Unit = throw UnsupportedOperationException("endgrent requires N-API addon")
 
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent requires N-API addon")
@@ -515,9 +487,7 @@ public actual fun makeutx(ux: Utmpx?): Utmpx? =
 public actual fun modutx(ux: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("modutx requires N-API addon")
 
-public actual fun updwtmpx(file: String?, ut: Utmpx?) {
-    throw UnsupportedOperationException("updwtmpx requires N-API addon")
-}
+public actual fun updwtmpx(file: String?, ut: Utmpx?): Unit = throw UnsupportedOperationException("updwtmpx requires N-API addon")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname requires N-API addon")
@@ -534,17 +504,11 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline requires N-API addon")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent requires N-API addon")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent requires N-API addon")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent requires N-API addon")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent requires N-API addon")
 
-public actual fun endutent() {
-    throw UnsupportedOperationException("endutent requires N-API addon")
-}
+public actual fun endutent(): Unit = throw UnsupportedOperationException("endutent requires N-API addon")
 
 public actual fun getutent(): Utmp? =
     throw UnsupportedOperationException("getutent requires N-API addon")
@@ -558,24 +522,16 @@ public actual fun getutline(u: Utmp?): Utmp? =
 public actual fun pututline(u: Utmp?): Utmp? =
     throw UnsupportedOperationException("pututline requires N-API addon")
 
-public actual fun setutent() {
-    throw UnsupportedOperationException("setutent requires N-API addon")
-}
+public actual fun setutent(): Unit = throw UnsupportedOperationException("setutent requires N-API addon")
 
 public actual fun utmpname(file: String?): CInt =
     throw UnsupportedOperationException("utmpname requires N-API addon")
 
-public actual fun getutmp(ux: Utmpx?, u: Utmp?) {
-    throw UnsupportedOperationException("getutmp requires N-API addon")
-}
+public actual fun getutmp(ux: Utmpx?, u: Utmp?): Unit = throw UnsupportedOperationException("getutmp requires N-API addon")
 
-public actual fun getutmpx(u: Utmp?, ux: Utmpx?) {
-    throw UnsupportedOperationException("getutmpx requires N-API addon")
-}
+public actual fun getutmpx(u: Utmp?, ux: Utmpx?): Unit = throw UnsupportedOperationException("getutmpx requires N-API addon")
 
-public actual fun updwtmp(file: String?, u: Utmp?) {
-    throw UnsupportedOperationException("updwtmp requires N-API addon")
-}
+public actual fun updwtmp(file: String?, u: Utmp?): Unit = throw UnsupportedOperationException("updwtmp requires N-API addon")
 
 public actual fun ntpAdjtime(buf: Timex?): CInt =
     throw UnsupportedOperationException("ntpAdjtime requires N-API addon")
@@ -604,9 +560,7 @@ public actual fun ucredGet(pid: PidT): UcredT =
 public actual fun getpeerucred(fd: CInt, ucred: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpeerucred requires N-API addon")
 
-public actual fun ucredFree(ucred: UcredT) {
-    throw UnsupportedOperationException("ucredFree requires N-API addon")
-}
+public actual fun ucredFree(ucred: UcredT): Unit = throw UnsupportedOperationException("ucredFree requires N-API addon")
 
 public actual fun ucredGetgroups(ucred: UcredT, groups: COpaquePointer?): CInt =
     throw UnsupportedOperationException("ucredGetgroups requires N-API addon")
@@ -686,16 +640,12 @@ public actual fun backtrace(buffer: COpaquePointer?, size: CInt): CInt =
 public actual fun backtraceSymbols(buffer: COpaquePointer?, size: CInt): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbols requires N-API addon")
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, size: CInt, fd: CInt) {
-    throw UnsupportedOperationException("backtraceSymbolsFd requires N-API addon")
-}
+public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, size: CInt, fd: CInt): Unit = throw UnsupportedOperationException("backtraceSymbolsFd requires N-API addon")
 
 public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt =
     throw UnsupportedOperationException("getoptLong requires N-API addon")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync requires N-API addon")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync requires N-API addon")
 
 public actual fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt =
     throw UnsupportedOperationException("aioCancel requires N-API addon")
@@ -724,9 +674,7 @@ public actual fun aioWrite(aiocbp: Aiocb?): CInt =
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt =
     throw UnsupportedOperationException("lioListio requires N-API addon")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
 
 public actual fun secureGetenv(name: String?): String? =
     throw UnsupportedOperationException("secureGetenv requires N-API addon")
@@ -760,7 +708,6 @@ public actual fun lgrpVersion(version: CInt): CInt =
 
 public actual fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: LgrpIdT?, count: CUInt, tpe: LgrpRsrcT): CInt =
     throw UnsupportedOperationException("lgrpResources requires N-API addon")
-
 
 public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadCreate requires N-API addon")

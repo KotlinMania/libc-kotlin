@@ -11,4 +11,3 @@ public actual fun schedGetPriorityMax(policy: CInt): CInt =
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     throw UnsupportedOperationException("schedGetPriorityMin not available on WASI — no C library access")
-

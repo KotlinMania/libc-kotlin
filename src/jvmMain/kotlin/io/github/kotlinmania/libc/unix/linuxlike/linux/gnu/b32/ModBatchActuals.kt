@@ -5,4 +5,3 @@ import io.github.kotlinmania.libc.*
 
 public actual fun sysctl(name: CInt?, namelen: CInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): CInt =
     throw UnsupportedOperationException("sysctl not available on JVM — no C library access")
-

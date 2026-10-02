@@ -2,8 +2,8 @@
 
 package io.github.kotlinmania.libc
 
-import io.github.kotlinmania.libc.unix.alignedFree
 import io.github.kotlinmania.libc.unix.alignedAlloc
+import io.github.kotlinmania.libc.unix.alignedFree
 import io.github.kotlinmania.libc.unix.free
 import io.github.kotlinmania.libc.unix.getcwd
 import io.github.kotlinmania.libc.unix.malloc
@@ -19,52 +19,56 @@ import kotlin.test.*
 
 class NativePointerRegressionTest {
     @Test
-    fun numericEndPointersRemainInsideCallerStorage() = memScoped {
-        val input = "123tail".cstr.getPointer(this)
-        val end = alloc<CPointerVar<ByteVar>>()
-        val source = COpaquePointer(input.toLong())
-        val destination = COpaquePointer(end.ptr.toLong())
-        assertEquals(123L, strtol(source, destination, 10))
-        assertEquals("tail", end.value?.toKString())
-        assertEquals(input.toLong() + 3, end.value?.toLong())
-        assertEquals(123L, strtoll(source, destination, 10))
-        assertEquals(input.toLong() + 3, end.value?.toLong())
-        assertEquals(123uL, strtoul(source, destination, 10))
-        assertEquals(input.toLong() + 3, end.value?.toLong())
-        assertEquals(123uL, strtoull(source, destination, 10))
-        assertEquals("tail", end.value?.toKString())
-    }
+    fun numericEndPointersRemainInsideCallerStorage() =
+        memScoped {
+            val input = "123tail".cstr.getPointer(this)
+            val end = alloc<CPointerVar<ByteVar>>()
+            val source = COpaquePointer(input.toLong())
+            val destination = COpaquePointer(end.ptr.toLong())
+            assertEquals(123L, strtol(source, destination, 10))
+            assertEquals("tail", end.value?.toKString())
+            assertEquals(input.toLong() + 3, end.value?.toLong())
+            assertEquals(123L, strtoll(source, destination, 10))
+            assertEquals(input.toLong() + 3, end.value?.toLong())
+            assertEquals(123uL, strtoul(source, destination, 10))
+            assertEquals(input.toLong() + 3, end.value?.toLong())
+            assertEquals(123uL, strtoull(source, destination, 10))
+            assertEquals("tail", end.value?.toKString())
+        }
 
     @Test
-    fun numericConversionPreservesNoConversionAndFullConsumption() = memScoped {
-        val end = alloc<CPointerVar<ByteVar>>()
-        val destination = COpaquePointer(end.ptr.toLong())
-        val invalid = "tail".cstr.getPointer(this)
-        assertEquals(0L, strtol(COpaquePointer(invalid.toLong()), destination, 10))
-        assertEquals(invalid.toLong(), end.value?.toLong())
-        val hexadecimal = "-7f".cstr.getPointer(this)
-        assertEquals(-127L, strtoll(COpaquePointer(hexadecimal.toLong()), destination, 16))
-        assertEquals("", end.value?.toKString())
-        assertEquals(-127L, strtoll(COpaquePointer(hexadecimal.toLong()), null, 16))
-    }
+    fun numericConversionPreservesNoConversionAndFullConsumption() =
+        memScoped {
+            val end = alloc<CPointerVar<ByteVar>>()
+            val destination = COpaquePointer(end.ptr.toLong())
+            val invalid = "tail".cstr.getPointer(this)
+            assertEquals(0L, strtol(COpaquePointer(invalid.toLong()), destination, 10))
+            assertEquals(invalid.toLong(), end.value?.toLong())
+            val hexadecimal = "-7f".cstr.getPointer(this)
+            assertEquals(-127L, strtoll(COpaquePointer(hexadecimal.toLong()), destination, 16))
+            assertEquals("", end.value?.toKString())
+            assertEquals(-127L, strtoll(COpaquePointer(hexadecimal.toLong()), null, 16))
+        }
 
     @Test
-    fun transformWritesCallerBufferAndSupportsSizeQuery() = memScoped {
-        val required = strxfrm(null, "abc", 0uL)
-        val destination = allocArray<ByteVar>((required + 2uL).toInt())
-        destination[required.toInt() + 1] = 90
-        assertEquals(required, strxfrm(COpaquePointer(destination.toLong()), "abc", required + 1uL))
-        assertEquals("abc", destination.toKString())
-        assertEquals(90.toByte(), destination[required.toInt() + 1])
-    }
+    fun transformWritesCallerBufferAndSupportsSizeQuery() =
+        memScoped {
+            val required = strxfrm(null, "abc", 0uL)
+            val destination = allocArray<ByteVar>((required + 2uL).toInt())
+            destination[required.toInt() + 1] = 90
+            assertEquals(required, strxfrm(COpaquePointer(destination.toLong()), "abc", required + 1uL))
+            assertEquals("abc", destination.toKString())
+            assertEquals(90.toByte(), destination[required.toInt() + 1])
+        }
 
     @Test
-    fun transformDoesNotWriteBeyondCapacity() = memScoped {
-        val destination = allocArray<ByteVar>(2)
-        destination[1] = 90
-        assertTrue(strxfrm(COpaquePointer(destination.toLong()), "abcdef", 1uL) >= 1uL)
-        assertEquals(90.toByte(), destination[1])
-    }
+    fun transformDoesNotWriteBeyondCapacity() =
+        memScoped {
+            val destination = allocArray<ByteVar>(2)
+            destination[1] = 90
+            assertTrue(strxfrm(COpaquePointer(destination.toLong()), "abcdef", 1uL) >= 1uL)
+            assertEquals(90.toByte(), destination[1])
+        }
 
     @Test
     fun boundedDuplicationCopiesAndReleasesItsAllocation() {
@@ -103,181 +107,296 @@ class NativePointerRegressionTest {
     }
 
     @Test
-    fun getcwdWritesIntoCallerOwnedDestination() = memScoped {
-        val size = 1024uL
-        val buffer = allocArray<ByteVar>(size.toInt())
-        val destination = COpaquePointer(buffer.toLong())
-        val result = assertNotNull(getcwd(destination, size))
-        assertEquals(destination.value, result.value)
-        val cwdStr = assertNotNull(result.value.toCPointer<ByteVar>()?.toKString())
-        assertTrue(cwdStr.isNotEmpty())
-    }
+    fun getcwdWritesIntoCallerOwnedDestination() =
+        memScoped {
+            val size = 1024uL
+            val buffer = allocArray<ByteVar>(size.toInt())
+            val destination = COpaquePointer(buffer.toLong())
+            val result = assertNotNull(getcwd(destination, size))
+            assertEquals(destination.value, result.value)
+            val cwdStr = assertNotNull(result.value.toCPointer<ByteVar>()?.toKString())
+            assertTrue(cwdStr.isNotEmpty())
+        }
 
     @Test
     fun putenvSetsEnvironmentVariable() {
-        assertEquals(0, io.github.kotlinmania.libc.unix.putenv("KOTLINMANIA_TEST_ENV=test_val_123"))
-        assertEquals("test_val_123", io.github.kotlinmania.libc.unix.getenv("KOTLINMANIA_TEST_ENV"))
+        assertEquals(
+            0,
+            io.github.kotlinmania.libc.unix
+                .putenv("KOTLINMANIA_TEST_ENV=test_val_123"),
+        )
+        assertEquals(
+            "test_val_123",
+            io.github.kotlinmania.libc.unix
+                .getenv("KOTLINMANIA_TEST_ENV"),
+        )
     }
 
     @Test
     fun pollHandlesNullFdsWithZeroTimeout() {
-        val result = io.github.kotlinmania.libc.unix.poll(null, 0u, 0)
+        val result =
+            io.github.kotlinmania.libc.unix
+                .poll(null, 0u, 0)
         assertTrue(result >= 0)
     }
 
     @Test
-    fun gethostnameWritesIntoCallerOwnedDestination() = memScoped {
-        val size = 256uL
-        val buffer = allocArray<ByteVar>(size.toInt())
-        val destination = COpaquePointer(buffer.toLong())
-        val result = io.github.kotlinmania.libc.unix.gethostname(destination, size)
-        assertEquals(0, result)
-        val hostStr = assertNotNull(buffer.toKString())
-        assertTrue(hostStr.isNotEmpty())
-    }
+    fun gethostnameWritesIntoCallerOwnedDestination() =
+        memScoped {
+            val size = 256uL
+            val buffer = allocArray<ByteVar>(size.toInt())
+            val destination = COpaquePointer(buffer.toLong())
+            val result =
+                io.github.kotlinmania.libc.unix
+                    .gethostname(destination, size)
+            assertEquals(0, result)
+            val hostStr = assertNotNull(buffer.toKString())
+            assertTrue(hostStr.isNotEmpty())
+        }
 
     @Test
-    fun readlinkReadsSymlinkTarget() = memScoped {
-        val target = "/usr/bin"
-        val linkPath = "build/test_symlink_${io.github.kotlinmania.libc.unix.getpid()}"
-        io.github.kotlinmania.libc.unix.unlink(linkPath)
-        val symlinkRes = io.github.kotlinmania.libc.unix.symlink(target, linkPath)
-        if (symlinkRes == 0) {
-            try {
-                val size = 256uL
-                val buffer = allocArray<ByteVar>(size.toInt())
-                val destination = COpaquePointer(buffer.toLong())
-                val bytesRead = io.github.kotlinmania.libc.unix.readlink(linkPath, destination, size)
-                assertTrue(bytesRead > 0)
-                buffer[bytesRead] = 0.toByte()
-                assertEquals(target, buffer.toKString())
-            } finally {
-                io.github.kotlinmania.libc.unix.unlink(linkPath)
+    fun readlinkReadsSymlinkTarget() =
+        memScoped {
+            val target = "/usr/bin"
+            val linkPath = "build/test_symlink_${io.github.kotlinmania.libc.unix.getpid()}"
+            io.github.kotlinmania.libc.unix
+                .unlink(linkPath)
+            val symlinkRes =
+                io.github.kotlinmania.libc.unix
+                    .symlink(target, linkPath)
+            if (symlinkRes == 0) {
+                try {
+                    val size = 256uL
+                    val buffer = allocArray<ByteVar>(size.toInt())
+                    val destination = COpaquePointer(buffer.toLong())
+                    val bytesRead =
+                        io.github.kotlinmania.libc.unix
+                            .readlink(linkPath, destination, size)
+                    assertTrue(bytesRead > 0)
+                    buffer[bytesRead] = 0.toByte()
+                    assertEquals(target, buffer.toKString())
+                } finally {
+                    io.github.kotlinmania.libc.unix
+                        .unlink(linkPath)
+                }
             }
         }
-    }
 
     @Test
     fun strncpyCopiesUpToSpecifiedCount() {
-        val result = io.github.kotlinmania.libc.unix.strncpy(null, "hello world", 5uL)
+        val result =
+            io.github.kotlinmania.libc.unix
+                .strncpy(null, "hello world", 5uL)
         assertEquals("hello", result)
     }
 
     @Test
     fun strncatAppendsUpToSpecifiedCount() {
-        val result = io.github.kotlinmania.libc.unix.strncat("hello ", "world beyond", 5uL)
+        val result =
+            io.github.kotlinmania.libc.unix
+                .strncat("hello ", "world beyond", 5uL)
         assertEquals("hello world", result)
     }
 
     @Test
     fun windowsAlignedAllocationRoundTrip() {
-        val ptr = assertNotNull(io.github.kotlinmania.libc.windows.alignedMalloc(128uL, 64uL))
+        val ptr =
+            assertNotNull(
+                io.github.kotlinmania.libc.windows
+                    .alignedMalloc(128uL, 64uL),
+            )
         assertEquals(0L, ptr.value % 64)
         val bytes = assertNotNull(ptr.value.toCPointer<ByteVar>())
         bytes[0] = 42
-        val grown = assertNotNull(io.github.kotlinmania.libc.windows.alignedRealloc(ptr, 256uL, 64uL))
+        val grown =
+            assertNotNull(
+                io.github.kotlinmania.libc.windows
+                    .alignedRealloc(ptr, 256uL, 64uL),
+            )
         assertEquals(42.toByte(), grown.value.toCPointer<ByteVar>()!![0])
-        io.github.kotlinmania.libc.windows.alignedFree(grown)
+        io.github.kotlinmania.libc.windows
+            .alignedFree(grown)
     }
 
     @Test
-    fun windowsStringAndMemoryOperations() = memScoped {
-        val str = io.github.kotlinmania.libc.windows.strncpy(null, "windows test", 7uL)
-        assertEquals("windows", str)
-        val cat = io.github.kotlinmania.libc.windows.strncat("win", "dows 11", 4uL)
-        assertEquals("windows", cat)
+    fun windowsStringAndMemoryOperations() =
+        memScoped {
+            val str =
+                io.github.kotlinmania.libc.windows
+                    .strncpy(null, "windows test", 7uL)
+            assertEquals("windows", str)
+            val cat =
+                io.github.kotlinmania.libc.windows
+                    .strncat("win", "dows 11", 4uL)
+            assertEquals("windows", cat)
 
-        val src = "memory test".cstr.getPointer(this)
-        val dst = allocArray<ByteVar>(32)
-        val srcPtr = COpaquePointer(src.toLong())
-        val dstPtr = COpaquePointer(dst.toLong())
-        assertNotNull(io.github.kotlinmania.libc.windows.memcpy(dstPtr, srcPtr, 11uL))
-        assertEquals(0, io.github.kotlinmania.libc.windows.memcmp(dstPtr, srcPtr, 11uL))
-    }
+            val src = "memory test".cstr.getPointer(this)
+            val dst = allocArray<ByteVar>(32)
+            val srcPtr = COpaquePointer(src.toLong())
+            val dstPtr = COpaquePointer(dst.toLong())
+            assertNotNull(
+                io.github.kotlinmania.libc.windows
+                    .memcpy(dstPtr, srcPtr, 11uL),
+            )
+            assertEquals(
+                0,
+                io.github.kotlinmania.libc.windows
+                    .memcmp(dstPtr, srcPtr, 11uL),
+            )
+        }
 
     @Test
     fun windowsNumericAndEnvironmentOperations() {
-        assertEquals(456L, io.github.kotlinmania.libc.windows.strtol("456abc", null, 10))
-        assertEquals(789L, io.github.kotlinmania.libc.windows.strtoll("789xyz", null, 10))
-        assertEquals(123uL, io.github.kotlinmania.libc.windows.strtoul("123", null, 10))
-        assertEquals(456uL, io.github.kotlinmania.libc.windows.strtoull("456", null, 10))
+        assertEquals(
+            456L,
+            io.github.kotlinmania.libc.windows
+                .strtol("456abc", null, 10),
+        )
+        assertEquals(
+            789L,
+            io.github.kotlinmania.libc.windows
+                .strtoll("789xyz", null, 10),
+        )
+        assertEquals(
+            123uL,
+            io.github.kotlinmania.libc.windows
+                .strtoul("123", null, 10),
+        )
+        assertEquals(
+            456uL,
+            io.github.kotlinmania.libc.windows
+                .strtoull("456", null, 10),
+        )
 
-        assertEquals(0, io.github.kotlinmania.libc.windows.putenv("WIN_TEST_ENV=windows_val_999"))
-        assertEquals("windows_val_999", io.github.kotlinmania.libc.windows.getenv("WIN_TEST_ENV"))
+        assertEquals(
+            0,
+            io.github.kotlinmania.libc.windows
+                .putenv("WIN_TEST_ENV=windows_val_999"),
+        )
+        assertEquals(
+            "windows_val_999",
+            io.github.kotlinmania.libc.windows
+                .getenv("WIN_TEST_ENV"),
+        )
     }
 
     @Test
-    fun unixPipeAndMemalignOperations() = memScoped {
-        val pipeRes = io.github.kotlinmania.libc.unix.pipe(null)
-        assertEquals(0, pipeRes)
-        val outPtr = alloc<CPointerVar<ByteVar>>()
-        val opaque = COpaquePointer(outPtr.ptr.toLong())
-        val res = io.github.kotlinmania.libc.unix.posixMemalign(opaque, 64uL, 128uL)
-        assertEquals(0, res)
-        assertNotNull(outPtr.value)
-        io.github.kotlinmania.libc.unix.free(COpaquePointer(outPtr.value.toLong()))
-    }
+    fun unixPipeAndMemalignOperations() =
+        memScoped {
+            val pipeRes =
+                io.github.kotlinmania.libc.unix
+                    .pipe(null)
+            assertEquals(0, pipeRes)
+            val outPtr = alloc<CPointerVar<ByteVar>>()
+            val opaque = COpaquePointer(outPtr.ptr.toLong())
+            val res =
+                io.github.kotlinmania.libc.unix
+                    .posixMemalign(opaque, 64uL, 128uL)
+            assertEquals(0, res)
+            assertNotNull(outPtr.value)
+            io.github.kotlinmania.libc.unix
+                .free(COpaquePointer(outPtr.value.toLong()))
+        }
 
     @Test
     fun appleWiredBindingsExecute() {
-        val tp = io.github.kotlinmania.libc.Timespec(0L, 0L, 0L)
-        val res = io.github.kotlinmania.libc.unix.bsd.apple.clockGettime(0u, tp)
+        val tp =
+            io.github.kotlinmania.libc
+                .Timespec(0L, 0L, 0L)
+        val res =
+            io.github.kotlinmania.libc.unix.bsd.apple
+                .clockGettime(0u, tp)
         assertTrue(res == 0 || res == -1)
     }
 
     @Test
     fun windowsWiredBindingsExecute() {
-        val pipeRes = io.github.kotlinmania.libc.windows.pipe(null, 0u, 0)
+        val pipeRes =
+            io.github.kotlinmania.libc.windows
+                .pipe(null, 0u, 0)
         assertTrue(pipeRes == 0 || pipeRes == -1)
-        val cwd = io.github.kotlinmania.libc.windows.getcwd(null, 1024)
+        val cwd =
+            io.github.kotlinmania.libc.windows
+                .getcwd(null, 1024)
         assertNotNull(cwd)
         assertTrue(cwd.isNotEmpty())
     }
 
     @Test
     fun fuchsiaAndWasiAndVxworksPollExecute() {
-        val fuchsiaPoll = io.github.kotlinmania.libc.fuchsia.poll(null, 0u, 0)
+        val fuchsiaPoll =
+            io.github.kotlinmania.libc.fuchsia
+                .poll(null, 0u, 0)
         assertTrue(fuchsiaPoll >= 0)
-        val wasiPoll = io.github.kotlinmania.libc.wasi.poll(null, 0u, 0)
+        val wasiPoll =
+            io.github.kotlinmania.libc.wasi
+                .poll(null, 0u, 0)
         assertTrue(wasiPoll >= 0)
-        val vxworksPoll = io.github.kotlinmania.libc.vxworks.poll(null, 0u, 0)
+        val vxworksPoll =
+            io.github.kotlinmania.libc.vxworks
+                .poll(null, 0u, 0)
         assertTrue(vxworksPoll >= 0)
     }
 
     @Test
     fun fuchsiaAndWasiAndVxworksPthreadSpecificExecute() {
         val key = 0u
-        val fVal = io.github.kotlinmania.libc.fuchsia.pthreadGetspecific(key)
-        io.github.kotlinmania.libc.fuchsia.pthreadSetspecific(key, fVal)
-        val wVal = io.github.kotlinmania.libc.wasi.pthreadGetspecific(key)
-        io.github.kotlinmania.libc.wasi.pthreadSetspecific(key, wVal)
+        val fVal =
+            io.github.kotlinmania.libc.fuchsia
+                .pthreadGetspecific(key)
+        io.github.kotlinmania.libc.fuchsia
+            .pthreadSetspecific(key, fVal)
+        val wVal =
+            io.github.kotlinmania.libc.wasi
+                .pthreadGetspecific(key)
+        io.github.kotlinmania.libc.wasi
+            .pthreadSetspecific(key, wVal)
         val vKey = 0uL
-        val vVal = io.github.kotlinmania.libc.vxworks.pthreadGetspecific(vKey)
-        io.github.kotlinmania.libc.vxworks.pthreadSetspecific(vKey, vVal)
+        val vVal =
+            io.github.kotlinmania.libc.vxworks
+                .pthreadGetspecific(vKey)
+        io.github.kotlinmania.libc.vxworks
+            .pthreadSetspecific(vKey, vVal)
     }
 
     @Test
     fun fuchsiaPutenvSetsEnvironmentVariable() {
-        assertEquals(0, io.github.kotlinmania.libc.fuchsia.putenv("FUCHSIA_TEST_ENV=fuchsia_val_456"))
+        assertEquals(
+            0,
+            io.github.kotlinmania.libc.fuchsia
+                .putenv("FUCHSIA_TEST_ENV=fuchsia_val_456"),
+        )
     }
 
     @Test
     fun dlfcnOperationsExecute() {
-        val handle = io.github.kotlinmania.libc.unix.dlopen(null, 0)
+        val handle =
+            io.github.kotlinmania.libc.unix
+                .dlopen(null, 0)
         assertNotNull(handle)
-        val sym = io.github.kotlinmania.libc.unix.dlsym(handle, "malloc")
+        val sym =
+            io.github.kotlinmania.libc.unix
+                .dlsym(handle, "malloc")
         assertNotNull(sym)
         assertTrue(sym.value != 0L)
-        val err = io.github.kotlinmania.libc.unix.dlerror()
+        val err =
+            io.github.kotlinmania.libc.unix
+                .dlerror()
         assertTrue(err == null || err.isEmpty())
-        val closeRes = io.github.kotlinmania.libc.unix.dlclose(handle)
+        val closeRes =
+            io.github.kotlinmania.libc.unix
+                .dlclose(handle)
         assertTrue(closeRes == 0 || closeRes == -1)
     }
 
     @Test
     fun posixPthreadFunctionsExecute() {
-        val selfThread = io.github.kotlinmania.libc.new.common.posix.pthread.PthreadT(1L.toCPointer<CPointed>()!!)
-        val res = io.github.kotlinmania.libc.new.common.posix.pthread.pthreadKill(selfThread, 0)
+        val selfThread =
+            io.github.kotlinmania.libc.new.common.posix.pthread
+                .PthreadT(1L.toCPointer<CPointed>()!!)
+        val res =
+            io.github.kotlinmania.libc.new.common.posix.pthread
+                .pthreadKill(selfThread, 0)
         assertTrue(res == 0 || res == 3 || res == 22)
     }
 }

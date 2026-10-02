@@ -5,12 +5,11 @@ package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
 import libc.cinterop.libc_dirfd
 import libc.cinterop.libc_futimens
-import libc.cinterop.libc_getrandom
 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
@@ -23,6 +22,7 @@ public actual fun ioctl(fd: Int, request: Int, vararg args: Any?): Int =
 
 public actual fun dirfd(dirp: DIR?): Int =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: Sockaddr?, addrlen: SocklenT?): Int =
     throw UnsupportedOperationException("recvfrom requires manual FFI bridge — not yet implemented")
 
@@ -48,9 +48,7 @@ public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong):
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long =
     throw UnsupportedOperationException("getrandom requires manual FFI bridge — not yet implemented")
 
-public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires FFI bridge")
-}
+public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires FFI bridge")
 
 public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

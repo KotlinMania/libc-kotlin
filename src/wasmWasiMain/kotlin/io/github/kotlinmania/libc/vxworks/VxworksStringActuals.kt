@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun getenv(s: String?): String? =
     throw UnsupportedOperationException("getenv not available on WASI — no C library access")

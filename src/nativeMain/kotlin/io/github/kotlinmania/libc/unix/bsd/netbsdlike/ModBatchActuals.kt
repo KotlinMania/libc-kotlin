@@ -5,34 +5,25 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import libc.cinterop.libc_basename
-import libc.cinterop.libc_clock_getres
-import libc.cinterop.libc_clock_gettime
-import libc.cinterop.libc_clock_settime
+import libc.cinterop.libc_daemon
 import libc.cinterop.libc_dirname
+import libc.cinterop.libc_fdatasync
 import libc.cinterop.libc_futimens
-import libc.cinterop.libc_getentropy
 import libc.cinterop.libc_getpriority
 import libc.cinterop.libc_initgroups
-import libc.cinterop.libc_mincore
-import libc.cinterop.libc_mkfifoat
-import libc.cinterop.libc_mknodat
-import libc.cinterop.libc_preadv
-import libc.cinterop.libc_pwritev
+import libc.cinterop.libc_mkostemp
+import libc.cinterop.libc_mkostemps
 import libc.cinterop.libc_setgrent
 import libc.cinterop.libc_setpriority
 import libc.cinterop.libc_shm_open
+import libc.cinterop.libc_shmdt
 import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
-import libc.cinterop.libc_daemon
-import libc.cinterop.libc_fdatasync
-import libc.cinterop.libc_mkostemp
-import libc.cinterop.libc_mkostemps
-import libc.cinterop.libc_shmdt
 
 public actual fun setgrent() {
     libc_setgrent()
@@ -46,11 +37,13 @@ public actual fun semInit(sem: SemT, pshared: CInt, value: CUInt): CInt =
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     libc.cinterop.libc_daemon(nochdir, noclose)
+
 public actual fun accept4(s: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt =
     throw UnsupportedOperationException("accept4 requires manual FFI bridge — not yet implemented")
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt =
     throw UnsupportedOperationException("mincore requires FFI bridge")
+
 public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
     throw UnsupportedOperationException("clockGetres requires FFI bridge")
 
@@ -75,10 +68,12 @@ public actual fun mkostemp(template: String?, flags: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkostemp(template, flags)
 }
+
 public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt {
     if (template == null) return -1
     return libc.cinterop.libc_mkostemps(template, suffixlen, flags)
 }
+
 public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
     throw UnsupportedOperationException("pwritev requires FFI bridge")
 
@@ -101,6 +96,7 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: 
 
 public actual fun fdatasync(fd: CInt): CInt =
     libc.cinterop.libc_fdatasync(fd)
+
 public actual fun loginTty(fd: CInt): CInt =
     throw UnsupportedOperationException("loginTty requires manual FFI bridge — not yet implemented")
 
@@ -119,6 +115,7 @@ public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifoat requires FFI bridge")
+
 public actual fun semTimedwait(sem: SemT, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("semTimedwait requires manual FFI bridge — not yet implemented")
 
@@ -130,6 +127,7 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
 
 public actual fun sethostname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("sethostname requires FFI bridge")
+
 public actual fun pthreadMutexTimedlock(lock: PthreadMutexT, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadMutexTimedlock requires manual FFI bridge — not yet implemented")
 
@@ -167,10 +165,13 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt {
     val result = libc_initgroups(name, basegid.toInt())
     return result
 }
+
 public actual fun getdomainname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("getdomainname requires FFI bridge")
+
 public actual fun setdomainname(name: String?, len: ULong): CInt =
     throw UnsupportedOperationException("setdomainname requires FFI bridge")
+
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
     val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
@@ -186,6 +187,7 @@ public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): CO
 
 public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
     libc.cinterop.libc_shmdt(shmaddr?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt =
     throw UnsupportedOperationException("shmctl requires manual FFI bridge — not yet implemented")
 
@@ -263,6 +265,7 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
 
 public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("gethostid requires FFI bridge")
+
 public actual fun sethostid(hostid: CLong): CInt =
     throw UnsupportedOperationException("sethostid requires manual FFI bridge — not yet implemented")
 

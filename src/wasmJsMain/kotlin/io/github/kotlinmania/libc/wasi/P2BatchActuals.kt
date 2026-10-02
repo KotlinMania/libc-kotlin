@@ -42,10 +42,7 @@ public actual fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: C
 public actual fun getaddrinfo(host: String?, serv: String?, hint: Addrinfo?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getaddrinfo requires N-API addon")
 
-public actual fun freeaddrinfo(p: Addrinfo?) {
-    throw UnsupportedOperationException("freeaddrinfo requires N-API addon")
-}
+public actual fun freeaddrinfo(p: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo requires N-API addon")
 
 public actual fun gaiStrerror(ecode: CInt): String? =
     throw UnsupportedOperationException("gaiStrerror requires N-API addon")
-
