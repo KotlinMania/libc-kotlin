@@ -36,10 +36,7 @@ public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong):
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long =
     throw UnsupportedOperationException("getrandom requires N-API addon")
 
-public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
-}
-
+public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
 
 public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadCreate requires N-API addon")

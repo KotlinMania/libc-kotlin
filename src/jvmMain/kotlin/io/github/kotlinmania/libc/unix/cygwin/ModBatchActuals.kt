@@ -4,20 +4,14 @@ package io.github.kotlinmania.libc.unix.cygwin
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR not available on JVM — no C library access")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on JVM — no C library access")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on JVM — no C library access")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET not available on JVM — no C library access")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on JVM — no C library access")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO not available on JVM — no C library access")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on JVM — no C library access")
 
 public actual fun cPUALLOCSIZE(count: CInt): ULong =
     throw UnsupportedOperationException("cPUALLOCSIZE not available on JVM — no C library access")
@@ -25,17 +19,11 @@ public actual fun cPUALLOCSIZE(count: CInt): ULong =
 public actual fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): CInt =
     throw UnsupportedOperationException("cPUCOUNTS not available on JVM — no C library access")
 
-public actual fun cPUZERO(cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
-}
+public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on JVM — no C library access")
@@ -160,20 +148,14 @@ public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent not available on JVM — no C library access")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent not available on JVM — no C library access")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent not available on JVM — no C library access")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent not available on JVM — no C library access")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent not available on JVM — no C library access")
 
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex not available on JVM — no C library access")
 
-public actual fun ifFreenameindex(ptr: IfNameindex?) {
-    throw UnsupportedOperationException("ifFreenameindex not available on JVM — no C library access")
-}
+public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex not available on JVM — no C library access")
 
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv not available on JVM — no C library access")
@@ -193,9 +175,7 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: 
 public actual fun futimens(fd: CInt, times: Timespec?): CInt =
     throw UnsupportedOperationException("futimens not available on JVM — no C library access")
 
-public actual fun dlfork(`val`: CInt) {
-    throw UnsupportedOperationException("dlfork not available on JVM — no C library access")
-}
+public actual fun dlfork(`val`: CInt): Unit = throw UnsupportedOperationException("dlfork not available on JVM — no C library access")
 
 public actual fun accept4(s: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt =
     throw UnsupportedOperationException("accept4 not available on JVM — no C library access")
@@ -221,9 +201,7 @@ public actual fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale not available on JVM — no C library access")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale not available on JVM — no C library access")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale not available on JVM — no C library access")
 
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale not available on JVM — no C library access")
@@ -270,9 +248,7 @@ public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
 public actual fun abs(i: CInt): CInt =
     throw UnsupportedOperationException("abs not available on JVM — no C library access")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf not available on JVM — no C library access")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf not available on JVM — no C library access")
 
 public actual fun labs(i: CLong): CLong =
     throw UnsupportedOperationException("labs not available on JVM — no C library access")
@@ -295,16 +271,12 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
 public actual fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocf not available on JVM — no C library access")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand not available on JVM — no C library access")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand not available on JVM — no C library access")
 
 public actual fun jrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("jrand48 not available on JVM — no C library access")
 
-public actual fun lcong48(p: CUShort?) {
-    throw UnsupportedOperationException("lcong48 not available on JVM — no C library access")
-}
+public actual fun lcong48(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48 not available on JVM — no C library access")
 
 public actual fun lrand48(): CLong =
     throw UnsupportedOperationException("lrand48 not available on JVM — no C library access")
@@ -318,9 +290,7 @@ public actual fun nrand48(xseed: CUShort?): CLong =
 public actual fun seed48(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48 not available on JVM — no C library access")
 
-public actual fun srand48(seed: CLong) {
-    throw UnsupportedOperationException("srand48 not available on JVM — no C library access")
-}
+public actual fun srand48(seed: CLong): Unit = throw UnsupportedOperationException("srand48 not available on JVM — no C library access")
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect not available on JVM — no C library access")
@@ -340,9 +310,7 @@ public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
 public actual fun shmUnlink(name: String?): CInt =
     throw UnsupportedOperationException("shmUnlink not available on JVM — no C library access")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero not available on JVM — no C library access")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero not available on JVM — no C library access")
 
 public actual fun ffs(value: CInt): CInt =
     throw UnsupportedOperationException("ffs not available on JVM — no C library access")
@@ -446,9 +414,7 @@ public actual fun vhangup(): CInt =
 public actual fun getdtablesize(): CInt =
     throw UnsupportedOperationException("getdtablesize not available on JVM — no C library access")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync not available on JVM — no C library access")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync not available on JVM — no C library access")
 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno not available on JVM — no C library access")
@@ -594,7 +560,6 @@ public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpus
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
     throw UnsupportedOperationException("pthreadSetnameNp not available on JVM — no C library access")
 
-
 public actual fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("ioctl not available on JVM — no C library access")
 
@@ -613,9 +578,7 @@ public actual fun cygwinUmount(target: String?, flags: CUInt): CInt =
 public actual fun dirfd(dirp: DIR?): CInt =
     throw UnsupportedOperationException("dirfd not available on JVM — no C library access")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir not available on JVM — no C library access")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir not available on JVM — no C library access")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir not available on JVM — no C library access")
@@ -737,9 +700,7 @@ public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
     throw UnsupportedOperationException("fallocate not available on JVM — no C library access")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
 
 public actual fun getutxent(): Utmpx? =
     throw UnsupportedOperationException("getutxent not available on JVM — no C library access")
@@ -753,21 +714,14 @@ public actual fun getutxline(line: Utmpx?): Utmpx? =
 public actual fun pututxline(utmpx: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline not available on JVM — no C library access")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname not available on JVM — no C library access")
 
-public actual fun updwtmpx(file: String?, utmpx: Utmpx?) {
-    throw UnsupportedOperationException("updwtmpx not available on JVM — no C library access")
-}
+public actual fun updwtmpx(file: String?, utmpx: Utmpx?): Unit = throw UnsupportedOperationException("updwtmpx not available on JVM — no C library access")
 
-
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
-    throw UnsupportedOperationException("qsortR not available on JVM — no C library access")
-}
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortR not available on JVM — no C library access")
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadAtfork not available on JVM — no C library access")

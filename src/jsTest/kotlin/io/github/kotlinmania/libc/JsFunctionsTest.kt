@@ -1,47 +1,43 @@
 package io.github.kotlinmania.libc
 
+import io.github.kotlinmania.libc.vxworks.calloc
+import io.github.kotlinmania.libc.vxworks.free
 import io.github.kotlinmania.libc.vxworks.isalpha
 import io.github.kotlinmania.libc.vxworks.isdigit
-import io.github.kotlinmania.libc.vxworks.strlen
-import io.github.kotlinmania.libc.vxworks.calloc
 import io.github.kotlinmania.libc.vxworks.malloc
-import io.github.kotlinmania.libc.vxworks.free
+import io.github.kotlinmania.libc.vxworks.strlen
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
 
 /**
- * JS tests verifying that the FFI bridge throws honestly when no
- * N-API addon is available. These will be replaced with real tests
- * when the N-API addon is implemented per FFI_DESIGN.md.
+ * JS tests verifying that the FFI bridge functions succeed when
+ * N-API addon is available, or fail honestly where not yet implemented.
  */
 class JsFunctionsTest {
-
     @Test
-    fun mallocThrowsOnJs() {
-        assertFailsWith<UnsupportedOperationException> {
-            malloc(1024uL)
-        }
+    fun mallocWorksOnJs() {
+        val ptr = malloc(1024uL)
+        assertNotNull(ptr)
+        free(ptr)
     }
 
     @Test
-    fun callocThrowsOnJs() {
-        assertFailsWith<UnsupportedOperationException> {
-            calloc(10uL, 4uL)
-        }
+    fun callocWorksOnJs() {
+        val ptr = calloc(10uL, 4uL)
+        assertNotNull(ptr)
+        free(ptr)
     }
 
     @Test
-    fun freeThrowsOnJs() {
-        assertFailsWith<UnsupportedOperationException> {
-            free(null)
-        }
+    fun freeWorksOnJs() {
+        free(null)
     }
 
     @Test
-    fun strlenThrowsOnJs() {
-        assertFailsWith<UnsupportedOperationException> {
-            strlen("hello")
-        }
+    fun strlenWorksOnJs() {
+        assertEquals(5uL, strlen("hello"))
     }
 
     @Test

@@ -3,13 +3,11 @@
 
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
-import kotlinx.cinterop.reinterpret
-
 public actual fun pthreadCancel(thread: PthreadT): Int =
-    platform.posix.pthread_cancel(thread.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_cancel(thread.rawValue)
 
 public actual fun pthreadKill(thread: PthreadT, sig: Int): Int =
-    platform.posix.pthread_kill(thread.rawValue.reinterpret(), sig)
+    libc.cinterop.libc_pthread_kill(thread.rawValue, sig)
 
 // Apple libc lacks pthread_setschedprio, pthread_mutex_consistent,
 // pthread_spin_* and pthread_barrier_* — these are Linux/glibc-only POSIX

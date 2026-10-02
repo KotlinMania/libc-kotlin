@@ -3,14 +3,14 @@
 package io.github.kotlinmania.libc
 
 import io.github.kotlinmania.libc.vxworks.cMSGALIGN
-import io.github.kotlinmania.libc.vxworks.cMSGSPACE
-import io.github.kotlinmania.libc.vxworks.cMSGLEN
 import io.github.kotlinmania.libc.vxworks.cMSGDATA
 import io.github.kotlinmania.libc.vxworks.cMSGFIRSTHDR
+import io.github.kotlinmania.libc.vxworks.cMSGLEN
+import io.github.kotlinmania.libc.vxworks.cMSGSPACE
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.test.Test
-import kotlin.test.assertNull
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 
 /**
  * Tests exercising the C wrapper (libc_wrapper.c) via cinterop.
@@ -21,7 +21,6 @@ import kotlin.test.assertFailsWith
  * size_t) and work on all native targets.
  */
 class CmsgWrapperTest {
-
     @Test
     fun cmsgAlignThrowsOnSharedNative() {
         assertFailsWith(UnsupportedOperationException::class) { cMSGALIGN(1uL) }

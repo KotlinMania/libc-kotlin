@@ -3,44 +3,41 @@
 
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
-import kotlinx.cinterop.reinterpret
-import kotlinx.cinterop.toLong
-
 public actual fun pthreadCancel(thread: PthreadT): Int =
-    platform.posix.pthread_cancel(thread.rawValue.toLong().toULong())
+    libc.cinterop.libc_pthread_cancel(thread.rawValue)
 
 public actual fun pthreadKill(thread: PthreadT, sig: Int): Int =
-    platform.posix.pthread_kill(thread.rawValue.toLong().toULong(), sig)
+    libc.cinterop.libc_pthread_kill(thread.rawValue, sig)
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: Int): Int =
-    platform.posix.pthread_setschedprio(native.rawValue.toLong().toULong(), priority)
+    libc.cinterop.libc_pthread_setschedprio(native.rawValue, priority)
 
 public actual fun pthreadSpinDestroy(lock: PthreadSpinlockT): Int =
-    platform.posix.pthread_spin_destroy(lock.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_spin_destroy(lock.rawValue)
 
 public actual fun pthreadSpinInit(lock: PthreadSpinlockT, pshared: Int): Int =
-    platform.posix.pthread_spin_init(lock.rawValue.reinterpret(), pshared)
+    libc.cinterop.libc_pthread_spin_init(lock.rawValue, pshared)
 
 public actual fun pthreadSpinLock(lock: PthreadSpinlockT): Int =
-    platform.posix.pthread_spin_lock(lock.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_spin_lock(lock.rawValue)
 
 public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT): Int =
-    platform.posix.pthread_spin_trylock(lock.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_spin_trylock(lock.rawValue)
 
 public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT): Int =
-    platform.posix.pthread_spin_unlock(lock.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_spin_unlock(lock.rawValue)
 
 public actual fun pthreadBarrierDestroy(barrier: PthreadBarrierT): Int =
-    platform.posix.pthread_barrier_destroy(barrier.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_barrier_destroy(barrier.rawValue)
 
 public actual fun pthreadBarrierWait(barrier: PthreadBarrierT): Int =
-    platform.posix.pthread_barrier_wait(barrier.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_barrier_wait(barrier.rawValue)
 
 public actual fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT): Int =
-    platform.posix.pthread_barrierattr_destroy(attr.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_barrierattr_destroy(attr.rawValue)
 
 public actual fun pthreadBarrierattrInit(attr: PthreadBarrierattrT): Int =
-    platform.posix.pthread_barrierattr_init(attr.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_barrierattr_init(attr.rawValue)
 
 public actual fun pthreadMutexConsistent(mutex: PthreadMutexT): Int =
-    platform.posix.pthread_mutex_consistent(mutex.rawValue.reinterpret())
+    libc.cinterop.libc_pthread_mutex_consistent(mutex.rawValue)

@@ -35,4 +35,3 @@ public actual fun getpid(): PidT =
 
 public actual fun sysconf(name: CInt): CLong =
     throw UnsupportedOperationException("sysconf not available on Android host — use androidNative target for FFI")
-

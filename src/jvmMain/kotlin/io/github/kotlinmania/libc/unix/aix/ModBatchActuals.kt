@@ -12,17 +12,11 @@ public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on JVM — no C library access")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO not available on JVM — no C library access")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on JVM — no C library access")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET not available on JVM — no C library access")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on JVM — no C library access")
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR not available on JVM — no C library access")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on JVM — no C library access")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on JVM — no C library access")
@@ -285,24 +279,16 @@ public actual fun dirname(path: String?): String? =
 public actual fun duplocale(arg1: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale not available on JVM — no C library access")
 
-public actual fun endgrent() {
-    throw UnsupportedOperationException("endgrent not available on JVM — no C library access")
-}
+public actual fun endgrent(): Unit = throw UnsupportedOperationException("endgrent not available on JVM — no C library access")
 
 public actual fun endmntent(streamp: FILE?): CInt =
     throw UnsupportedOperationException("endmntent not available on JVM — no C library access")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent not available on JVM — no C library access")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent not available on JVM — no C library access")
 
-public actual fun endutent() {
-    throw UnsupportedOperationException("endutent not available on JVM — no C library access")
-}
+public actual fun endutent(): Unit = throw UnsupportedOperationException("endutent not available on JVM — no C library access")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat not available on JVM — no C library access")
@@ -334,18 +320,13 @@ public actual fun fgetpos64(stream: FILE?, ptr: Fpos64T?): CInt =
 public actual fun fgetpwent(file: FILE?): Passwd? =
     throw UnsupportedOperationException("fgetpwent not available on JVM — no C library access")
 
-
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale not available on JVM — no C library access")
-}
-
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale not available on JVM — no C library access")
 
 public actual fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt =
     throw UnsupportedOperationException("fseeko64 not available on JVM — no C library access")
 
 public actual fun fsetpos64(stream: FILE?, ptr: Fpos64T?): CInt =
     throw UnsupportedOperationException("fsetpos64 not available on JVM — no C library access")
-
 
 public actual fun fstatfs(fd: CInt, buf: Statfs?): CInt =
     throw UnsupportedOperationException("fstatfs not available on JVM — no C library access")
@@ -449,9 +430,7 @@ public actual fun getutxid(ut: Utmpx?): Utmpx? =
 public actual fun getutxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("getutxline not available on JVM — no C library access")
 
-public actual fun globfree(pglob: GlobT?) {
-    throw UnsupportedOperationException("globfree not available on JVM — no C library access")
-}
+public actual fun globfree(pglob: GlobT?): Unit = throw UnsupportedOperationException("globfree not available on JVM — no C library access")
 
 public actual fun hasmntopt(mnt: Mntent?, opt: String?): String? =
     throw UnsupportedOperationException("hasmntopt not available on JVM — no C library access")
@@ -459,16 +438,12 @@ public actual fun hasmntopt(mnt: Mntent?, opt: String?): String? =
 public actual fun hcreate(nelt: ULong): CInt =
     throw UnsupportedOperationException("hcreate not available on JVM — no C library access")
 
-public actual fun hdestroy() {
-    throw UnsupportedOperationException("hdestroy not available on JVM — no C library access")
-}
+public actual fun hdestroy(): Unit = throw UnsupportedOperationException("hdestroy not available on JVM — no C library access")
 
 public actual fun hsearch(entry: Entry, action: ACTION): Entry? =
     throw UnsupportedOperationException("hsearch not available on JVM — no C library access")
 
-public actual fun ifFreenameindex(ptr: IfNameindex?) {
-    throw UnsupportedOperationException("ifFreenameindex not available on JVM — no C library access")
-}
+public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex not available on JVM — no C library access")
 
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex not available on JVM — no C library access")
@@ -482,9 +457,7 @@ public actual fun ioctl(fildes: CInt, request: CInt, vararg args: Any?): CInt =
 public actual fun jrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("jrand48 not available on JVM — no C library access")
 
-public actual fun lcong48(p: CUShort?) {
-    throw UnsupportedOperationException("lcong48 not available on JVM — no C library access")
-}
+public actual fun lcong48(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48 not available on JVM — no C library access")
 
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: Sigevent?): CInt =
     throw UnsupportedOperationException("lioListio not available on JVM — no C library access")
@@ -503,7 +476,6 @@ public actual fun lrand48(): CLong =
 
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
     throw UnsupportedOperationException("lseek64 not available on JVM — no C library access")
-
 
 public actual fun madvise(addr: CaddrT, len: ULong, advice: CInt): CInt =
     throw UnsupportedOperationException("madvise not available on JVM — no C library access")
@@ -591,7 +563,6 @@ public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): String? =
 
 public actual fun nrand48(xseed: CUShort?): CLong =
     throw UnsupportedOperationException("nrand48 not available on JVM — no C library access")
-
 
 public actual fun pollsetCtl(ps: PollsetT, pollctlArray: PollCtl?, arrayLength: CInt): CInt =
     throw UnsupportedOperationException("pollsetCtl not available on JVM — no C library access")
@@ -734,9 +705,7 @@ public actual fun regerror(errcode: CInt, preg: RegexT?, errbuf: String?, errbuf
 public actual fun regexec(preg: RegexT?, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: CInt): CInt =
     throw UnsupportedOperationException("regexec not available on JVM — no C library access")
 
-public actual fun regfree(preg: RegexT?) {
-    throw UnsupportedOperationException("regfree not available on JVM — no C library access")
-}
+public actual fun regfree(preg: RegexT?): Unit = throw UnsupportedOperationException("regfree not available on JVM — no C library access")
 
 public actual fun sbrk(increment: IntptrT): COpaquePointer? =
     throw UnsupportedOperationException("sbrk not available on JVM — no C library access")
@@ -771,9 +740,7 @@ public actual fun sctpPeeloff(s: CInt, id: CUInt?): CInt =
 public actual fun seed48(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48 not available on JVM — no C library access")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir not available on JVM — no C library access")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir not available on JVM — no C library access")
 
 public actual fun semClose(sem: SemT?): CInt =
     throw UnsupportedOperationException("semClose not available on JVM — no C library access")
@@ -823,9 +790,7 @@ public actual fun setdomainname(name: String?, len: CInt): CInt =
 public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
     throw UnsupportedOperationException("setgroups not available on JVM — no C library access")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent not available on JVM — no C library access")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent not available on JVM — no C library access")
 
 public actual fun sethostid(hostid: CInt): CInt =
     throw UnsupportedOperationException("sethostid not available on JVM — no C library access")
@@ -839,9 +804,7 @@ public actual fun setmntent(filename: String?, ty: String?): FILE? =
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt =
     throw UnsupportedOperationException("setpriority not available on JVM — no C library access")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent not available on JVM — no C library access")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent not available on JVM — no C library access")
 
 public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt =
     throw UnsupportedOperationException("setrlimit not available on JVM — no C library access")
@@ -855,13 +818,9 @@ public actual fun settimeofday(tv: Timeval?, tz: Timezone?): CInt =
 public actual fun setitimer(which: CInt, newValue: Itimerval?, oldValue: Itimerval?): CInt =
     throw UnsupportedOperationException("setitimer not available on JVM — no C library access")
 
-public actual fun setutent() {
-    throw UnsupportedOperationException("setutent not available on JVM — no C library access")
-}
+public actual fun setutent(): Unit = throw UnsupportedOperationException("setutent not available on JVM — no C library access")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
 
 public actual fun sigaltstack(ss: StackT?, oss: StackT?): CInt =
     throw UnsupportedOperationException("sigaltstack not available on JVM — no C library access")
@@ -899,14 +858,9 @@ public actual fun shmUnlink(name: String?): CInt =
 public actual fun splice(socket1: CInt, socket2: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("splice not available on JVM — no C library access")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand not available on JVM — no C library access")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand not available on JVM — no C library access")
 
-public actual fun srand48(seed: CLong) {
-    throw UnsupportedOperationException("srand48 not available on JVM — no C library access")
-}
-
+public actual fun srand48(seed: CLong): Unit = throw UnsupportedOperationException("srand48 not available on JVM — no C library access")
 
 public actual fun stat64at(dirfd: CInt, path: String?, buf: Stat64?, flags: CInt): CInt =
     throw UnsupportedOperationException("stat64at not available on JVM — no C library access")
@@ -950,9 +904,7 @@ public actual fun swapoff(path: String?): CInt =
 public actual fun swapon(path: String?): CInt =
     throw UnsupportedOperationException("swapon not available on JVM — no C library access")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync not available on JVM — no C library access")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync not available on JVM — no C library access")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir not available on JVM — no C library access")
@@ -978,9 +930,7 @@ public actual fun truncate64(path: String?, length: Off64T): CInt =
 public actual fun uname(buf: Utsname?): CInt =
     throw UnsupportedOperationException("uname not available on JVM — no C library access")
 
-public actual fun updwtmp(file: String?, u: Utmp?) {
-    throw UnsupportedOperationException("updwtmp not available on JVM — no C library access")
-}
+public actual fun updwtmp(file: String?, u: Utmp?): Unit = throw UnsupportedOperationException("updwtmp not available on JVM — no C library access")
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("uselocale not available on JVM — no C library access")
@@ -1002,7 +952,6 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 
 public actual fun errno(): CInt? =
     throw UnsupportedOperationException("errno not available on JVM — no C library access")
-
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadAtfork not available on JVM — no C library access")
@@ -1037,9 +986,7 @@ public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: ULo
 public actual fun lstat64(path: String?, buf: Stat64?): CInt =
     throw UnsupportedOperationException("lstat64 not available on JVM — no C library access")
 
-public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?) {
-    throw UnsupportedOperationException("makecontext not available on JVM — no C library access")
-}
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?): Unit = throw UnsupportedOperationException("makecontext not available on JVM — no C library access")
 
 public actual fun open64(path: String?, oflag: CInt, vararg args: Any?): CInt =
     throw UnsupportedOperationException("open64 not available on JVM — no C library access")

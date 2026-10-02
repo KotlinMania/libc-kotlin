@@ -26,4 +26,3 @@ public actual fun munlockall(): CInt =
 
 public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
     throw UnsupportedOperationException("msync not available on Android host — use androidNative target for FFI")
-

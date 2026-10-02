@@ -41,4 +41,3 @@ public actual fun isblank(c: CInt): CInt =
 
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty not available on WASI — no C library access")
-

@@ -27,5 +27,6 @@ public const val S_IROTH: ModeT = 4u
 public const val S_IWOTH: ModeT = 2u
 public const val S_IXOTH: ModeT = 1u
 
-public expect fun stat(pathname: String?, statbuf: Stat?): CInt 
+public expect fun stat(pathname: String?, statbuf: Stat?): CInt
+
 public expect fun fstat(fd: CInt, statbuf: Stat?): CInt 

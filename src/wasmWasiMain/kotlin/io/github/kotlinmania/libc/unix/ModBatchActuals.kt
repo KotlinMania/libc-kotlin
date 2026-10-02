@@ -69,9 +69,7 @@ public actual fun tmpfile(): FILE? =
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     throw UnsupportedOperationException("setvbuf not available on WASI — no C library access")
 
-public actual fun setbuf(stream: FILE?, buf: String?) {
-    throw UnsupportedOperationException("setbuf not available on WASI — no C library access")
-}
+public actual fun setbuf(stream: FILE?, buf: String?): Unit = throw UnsupportedOperationException("setbuf not available on WASI — no C library access")
 
 public actual fun getchar(): CInt =
     throw UnsupportedOperationException("getchar not available on WASI — no C library access")
@@ -109,9 +107,7 @@ public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
 public actual fun ftell(stream: FILE?): CLong =
     throw UnsupportedOperationException("ftell not available on WASI — no C library access")
 
-public actual fun rewind(stream: FILE?) {
-    throw UnsupportedOperationException("rewind not available on WASI — no C library access")
-}
+public actual fun rewind(stream: FILE?): Unit = throw UnsupportedOperationException("rewind not available on WASI — no C library access")
 
 public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos not available on WASI — no C library access")
@@ -125,13 +121,9 @@ public actual fun feof(stream: FILE?): CInt =
 public actual fun ferror(stream: FILE?): CInt =
     throw UnsupportedOperationException("ferror not available on WASI — no C library access")
 
-public actual fun clearerr(stream: FILE?) {
-    throw UnsupportedOperationException("clearerr not available on WASI — no C library access")
-}
+public actual fun clearerr(stream: FILE?): Unit = throw UnsupportedOperationException("clearerr not available on WASI — no C library access")
 
-public actual fun perror(s: String?) {
-    throw UnsupportedOperationException("perror not available on WASI — no C library access")
-}
+public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror not available on WASI — no C library access")
 
 public actual fun atoi(s: String?): CInt =
     throw UnsupportedOperationException("atoi not available on WASI — no C library access")
@@ -163,9 +155,7 @@ public actual fun malloc(size: ULong): COpaquePointer? =
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc not available on WASI — no C library access")
 
-public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free not available on WASI — no C library access")
-}
+public actual fun free(p: COpaquePointer?): Unit = throw UnsupportedOperationException("free not available on WASI — no C library access")
 
 public actual fun system(s: String?): CInt =
     throw UnsupportedOperationException("system not available on WASI — no C library access")
@@ -380,9 +370,7 @@ public actual fun readdir(dirp: DIR?): Dirent? =
 public actual fun closedir(dirp: DIR?): CInt =
     throw UnsupportedOperationException("closedir not available on WASI — no C library access")
 
-public actual fun rewinddir(dirp: DIR?) {
-    throw UnsupportedOperationException("rewinddir not available on WASI — no C library access")
-}
+public actual fun rewinddir(dirp: DIR?): Unit = throw UnsupportedOperationException("rewinddir not available on WASI — no C library access")
 
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
     throw UnsupportedOperationException("fchmodat not available on WASI — no C library access")
@@ -456,7 +444,7 @@ public actual fun fork(): PidT =
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     throw UnsupportedOperationException("fpathconf not available on WASI — no C library access")
 
-public actual fun getcwd(buf: String?, size: ULong): String? =
+public actual fun getcwd(buf: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("getcwd not available on WASI — no C library access")
 
 public actual fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt =
@@ -761,9 +749,7 @@ public actual fun dlclose(handle: COpaquePointer?): CInt =
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getaddrinfo not available on WASI — no C library access")
 
-public actual fun freeaddrinfo(res: Addrinfo?) {
-    throw UnsupportedOperationException("freeaddrinfo not available on WASI — no C library access")
-}
+public actual fun freeaddrinfo(res: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo not available on WASI — no C library access")
 
 public actual fun hstrerror(errcode: CInt): String? =
     throw UnsupportedOperationException("hstrerror not available on WASI — no C library access")
@@ -798,12 +784,10 @@ public actual fun timegm(tm: Tm?): TimeT =
 public actual fun mknod(pathname: String?, mode: ModeT, dev: DevT): CInt =
     throw UnsupportedOperationException("mknod not available on WASI — no C library access")
 
-public actual fun gethostname(name: String?, len: ULong): CInt =
+public actual fun gethostname(name: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("gethostname not available on WASI — no C library access")
 
-public actual fun endservent() {
-    throw UnsupportedOperationException("endservent not available on WASI — no C library access")
-}
+public actual fun endservent(): Unit = throw UnsupportedOperationException("endservent not available on WASI — no C library access")
 
 public actual fun getservbyname(name: String?, proto: String?): Servent? =
     throw UnsupportedOperationException("getservbyname not available on WASI — no C library access")
@@ -814,9 +798,7 @@ public actual fun getservbyport(port: CInt, proto: String?): Servent? =
 public actual fun getservent(): Servent? =
     throw UnsupportedOperationException("getservent not available on WASI — no C library access")
 
-public actual fun setservent(stayopen: CInt) {
-    throw UnsupportedOperationException("setservent not available on WASI — no C library access")
-}
+public actual fun setservent(stayopen: CInt): Unit = throw UnsupportedOperationException("setservent not available on WASI — no C library access")
 
 public actual fun getprotobyname(name: String?): Protoent? =
     throw UnsupportedOperationException("getprotobyname not available on WASI — no C library access")
@@ -935,20 +917,14 @@ public actual fun mkdtemp(template: String?): String? =
 public actual fun tmpnam(ptr: String?): String? =
     throw UnsupportedOperationException("tmpnam not available on WASI — no C library access")
 
-public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
-    throw UnsupportedOperationException("openlog not available on WASI — no C library access")
-}
+public actual fun openlog(ident: String?, logopt: CInt, facility: CInt): Unit = throw UnsupportedOperationException("openlog not available on WASI — no C library access")
 
-public actual fun closelog() {
-    throw UnsupportedOperationException("closelog not available on WASI — no C library access")
-}
+public actual fun closelog(): Unit = throw UnsupportedOperationException("closelog not available on WASI — no C library access")
 
 public actual fun setlogmask(maskpri: CInt): CInt =
     throw UnsupportedOperationException("setlogmask not available on WASI — no C library access")
 
-public actual fun syslog(priority: CInt, message: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("syslog not available on WASI — no C library access")
-}
+public actual fun syslog(priority: CInt, message: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("syslog not available on WASI — no C library access")
 
 public actual fun nice(incr: CInt): CInt =
     throw UnsupportedOperationException("nice not available on WASI — no C library access")
@@ -980,8 +956,7 @@ public actual fun adjtime(delta: Timeval?, olddelta: Timeval?): CInt =
 public actual fun stpncpy(dst: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("stpncpy not available on WASI — no C library access")
 
-
-public actual fun confstr(name: CInt, buf: String?, len: ULong): ULong =
+public actual fun confstr(name: CInt, buf: COpaquePointer?, len: ULong): ULong =
     throw UnsupportedOperationException("confstr not available on WASI — no C library access")
 
 public actual fun dladdr(addr: COpaquePointer?, info: DlInfo?): CInt =
@@ -1011,10 +986,10 @@ public actual fun fdopendir(fd: CInt): DIR? =
 public actual fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("readdirR not available on WASI — no C library access")
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: String?, bufsiz: ULong): CInt =
+public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: ULong): CInt =
     throw UnsupportedOperationException("readlinkat not available on WASI — no C library access")
 
-public actual fun readlink(path: String?, buf: String?, bufsz: ULong): CInt =
+public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: ULong): CInt =
     throw UnsupportedOperationException("readlink not available on WASI — no C library access")
 
 public actual fun pselect(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timespec?, sigmask: SigsetT?): CInt =
@@ -1038,10 +1013,7 @@ public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("fnmatch not available on WASI — no C library access")
 
-
-public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
-    throw UnsupportedOperationException("qsort not available on WASI — no C library access")
-}
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsort not available on WASI — no C library access")
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
     throw UnsupportedOperationException("bsearch not available on WASI — no C library access")

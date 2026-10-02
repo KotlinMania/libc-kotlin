@@ -2,7 +2,6 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun strchr(cs: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchr not available on WASI — no C library access")

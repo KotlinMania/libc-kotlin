@@ -9,13 +9,9 @@ public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
 public actual fun getprogname(): String? =
     throw UnsupportedOperationException("getprogname not available on JVM — no C library access")
 
-public actual fun setprogname(progname: String?) {
-    throw UnsupportedOperationException("setprogname not available on JVM — no C library access")
-}
+public actual fun setprogname(progname: String?): Unit = throw UnsupportedOperationException("setprogname not available on JVM — no C library access")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf not available on JVM — no C library access")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf not available on JVM — no C library access")
 
 public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
     throw UnsupportedOperationException("mkstemps not available on JVM — no C library access")
@@ -35,9 +31,7 @@ public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: 
 public actual fun strsep(string: COpaquePointer?, delimiters: String?): String? =
     throw UnsupportedOperationException("strsep not available on JVM — no C library access")
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero not available on JVM — no C library access")
-}
+public actual fun explicitBzero(buf: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero not available on JVM — no C library access")
 
 public actual fun slInit(): StringList? =
     throw UnsupportedOperationException("slInit not available on JVM — no C library access")
@@ -45,9 +39,7 @@ public actual fun slInit(): StringList? =
 public actual fun slAdd(sl: StringList?, n: String?): CInt =
     throw UnsupportedOperationException("slAdd not available on JVM — no C library access")
 
-public actual fun slFree(sl: StringList?, i: CInt) {
-    throw UnsupportedOperationException("slFree not available on JVM — no C library access")
-}
+public actual fun slFree(sl: StringList?, i: CInt): Unit = throw UnsupportedOperationException("slFree not available on JVM — no C library access")
 
 public actual fun slFind(sl: StringList?, n: String?): String? =
     throw UnsupportedOperationException("slFind not available on JVM — no C library access")
@@ -69,7 +61,6 @@ public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): Ss
 
 public actual fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT =
     throw UnsupportedOperationException("wait4 not available on JVM — no C library access")
-
 
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlIteratePhdr not available on JVM — no C library access")

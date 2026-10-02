@@ -38,4 +38,3 @@ public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
 
 public actual fun getauxval(type: CULong): CULong =
     throw UnsupportedOperationException("getauxval not available on Android host — use androidNative target for FFI")
-

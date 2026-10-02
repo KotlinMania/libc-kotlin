@@ -54,13 +54,9 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline requires N-API addon")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent requires N-API addon")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent requires N-API addon")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent requires N-API addon")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent requires N-API addon")
 
 public actual fun getpt(): CInt =
     throw UnsupportedOperationException("getpt requires N-API addon")
@@ -110,9 +106,7 @@ public actual fun pwritev64v2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 requires N-API addon")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires N-API addon")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires N-API addon")
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires N-API addon")
@@ -126,13 +120,9 @@ public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
 public actual fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbols requires N-API addon")
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt) {
-    throw UnsupportedOperationException("backtraceSymbolsFd requires N-API addon")
-}
+public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt): Unit = throw UnsupportedOperationException("backtraceSymbolsFd requires N-API addon")
 
-public actual fun globfree64(pglob: Glob64T?) {
-    throw UnsupportedOperationException("globfree64 requires N-API addon")
-}
+public actual fun globfree64(pglob: Glob64T?): Unit = throw UnsupportedOperationException("globfree64 requires N-API addon")
 
 public actual fun ptrace(request: CUInt, vararg args: Any?): CLong =
     throw UnsupportedOperationException("ptrace requires N-API addon")
@@ -155,16 +145,13 @@ public actual fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CI
 public actual fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT, `val`: CInt): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrSetkindNp requires N-API addon")
 
-
 public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadTryjoinNp requires N-API addon")
 
 public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadTimedjoinNp requires N-API addon")
 
-public actual fun mallocStats() {
-    throw UnsupportedOperationException("mallocStats requires N-API addon")
-}
+public actual fun mallocStats(): Unit = throw UnsupportedOperationException("mallocStats requires N-API addon")
 
 public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
     throw UnsupportedOperationException("mallocInfo requires N-API addon")
@@ -274,10 +261,7 @@ public actual fun mempcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong)
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("tgkill requires N-API addon")
 
-
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
-    throw UnsupportedOperationException("qsortR requires N-API addon")
-}
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortR requires N-API addon")
 
 public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
     throw UnsupportedOperationException("glob64 requires N-API addon")

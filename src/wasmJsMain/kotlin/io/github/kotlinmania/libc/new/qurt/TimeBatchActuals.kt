@@ -47,4 +47,3 @@ public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
 
 public actual fun nanosleep(req: Timespec?, rem: Timespec?): CInt =
     throw UnsupportedOperationException("nanosleep requires N-API addon")
-

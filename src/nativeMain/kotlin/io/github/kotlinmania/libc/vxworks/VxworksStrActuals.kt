@@ -4,28 +4,19 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.CInt
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toKString
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.cstr
 import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.write
-import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.toKString
+import libc.cinterop.libc_realpath
 import libc.cinterop.libc_strchr
+import libc.cinterop.libc_strcpy
 import libc.cinterop.libc_strpbrk
 import libc.cinterop.libc_strrchr
 import libc.cinterop.libc_strstr
-import libc.cinterop.libc_strcat
-import libc.cinterop.libc_strncat
-import libc.cinterop.libc_strncpy
-import libc.cinterop.libc_strcpy
-import libc.cinterop.libc_strtok
-import libc.cinterop.libc_getcwd
-import libc.cinterop.libc_realpath
 import libc.cinterop.libc_tmpnam
-import libc.cinterop.libc_mkdtemp
 
 public actual fun strchr(cs: String?, c: CInt): String? {
     if (cs == null) return null
@@ -83,12 +74,16 @@ public actual fun strcpy(dst: String?, src: String?): String? {
         dstBuf.toKString()
     }
 }
+
 public actual fun strncpy(dst: String?, src: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncpy requires FFI bridge")
+
 public actual fun strcat(s: String?, ct: String?): String? =
     throw UnsupportedOperationException("strcat requires FFI bridge")
+
 public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncat requires FFI bridge")
+
 public actual fun getcwd(buf: String?, size: ULong): String? =
     throw UnsupportedOperationException("getcwd requires FFI bridge")
 
@@ -102,13 +97,12 @@ public actual fun realpath(fileName: String?, resolvedName: String?): String? {
     }
 }
 
-public actual fun tmpnam(ptr: String?): String? {
-    return memScoped {
+public actual fun tmpnam(ptr: String?): String? =
+    memScoped {
         val buf = allocArray<ByteVar>(1024)
         val result = libc_tmpnam(buf)
         result?.toKString()
     }
-}
 
 public actual fun mkdtemp(template: String?): String? =
     throw UnsupportedOperationException("mkdtemp requires FFI bridge")

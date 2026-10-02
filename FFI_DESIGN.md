@@ -263,6 +263,11 @@ least `n` writable bytes. A null destination with `n = 0` queries the
 required length. If the return value is at least `n`, the caller must not
 read the destination as a completed NUL-terminated string.
 
+Unix `getcwd` receives a `COpaquePointer` destination buffer with at least
+`size` writable bytes. On success, it returns a `COpaquePointer` pointing to
+the destination buffer with the NUL-terminated working directory string; on
+failure, it returns null.
+
 `strndup` copies the native result into a Kotlin string and releases the
 native allocation in a `finally` block.
 

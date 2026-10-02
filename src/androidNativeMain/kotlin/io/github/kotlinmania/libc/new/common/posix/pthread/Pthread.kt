@@ -6,7 +6,6 @@ package io.github.kotlinmania.libc.new.common.posix.pthread
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.convert
 import kotlinx.cinterop.invoke
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toLong
@@ -59,7 +58,7 @@ private val pthreadBarrierattrInitP: CPointer<CFunction<(COpaquePointer) -> Int>
 public actual fun pthreadCancel(thread: PthreadT): Int = 38
 
 public actual fun pthreadKill(thread: PthreadT, sig: Int): Int =
-    platform.posix.pthread_kill(thread.rawValue.toLong().convert(), sig)
+    libc.cinterop.libc_pthread_kill(thread.rawValue, sig)
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: Int): Int =
     pthreadSetschedprioP?.invoke(native.rawValue.toLong(), priority) ?: 38

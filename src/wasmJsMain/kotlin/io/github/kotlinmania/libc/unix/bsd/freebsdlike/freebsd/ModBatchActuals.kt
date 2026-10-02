@@ -18,21 +18,13 @@ public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
 public actual fun uname(buf: Utsname?): CInt =
     throw UnsupportedOperationException("uname requires N-API addon")
 
-public actual fun cPUZERO(cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUZERO requires N-API addon")
-}
+public actual fun cPUZERO(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUZERO requires N-API addon")
 
-public actual fun cPUFILL(cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUFILL requires N-API addon")
-}
+public actual fun cPUFILL(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUFILL requires N-API addon")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUSET requires N-API addon")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUSET requires N-API addon")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUCLR requires N-API addon")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUCLR requires N-API addon")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET requires N-API addon")
@@ -202,9 +194,7 @@ public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
 public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgflg: CInt): CInt =
     throw UnsupportedOperationException("msgsnd requires N-API addon")
 
-public actual fun cfmakesane(termios: Termios?) {
-    throw UnsupportedOperationException("cfmakesane requires N-API addon")
-}
+public actual fun cfmakesane(termios: Termios?): Unit = throw UnsupportedOperationException("cfmakesane requires N-API addon")
 
 public actual fun pdfork(fdp: CInt?, flags: CInt): PidT =
     throw UnsupportedOperationException("pdfork requires N-API addon")
@@ -323,9 +313,7 @@ public actual fun mount(type: String?, dir: String?, flags: CInt, data: COpaqueP
 public actual fun nmount(iov: Iovec?, niov: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("nmount requires N-API addon")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle requires N-API addon")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle requires N-API addon")
 
 public actual fun rfork(flags: CInt): CInt =
     throw UnsupportedOperationException("rfork requires N-API addon")
@@ -438,13 +426,9 @@ public actual fun xallocx(ptr: COpaquePointer?, size: ULong, extra: ULong, flags
 public actual fun sallocx(ptr: COpaquePointer?, flags: CInt): ULong =
     throw UnsupportedOperationException("sallocx requires N-API addon")
 
-public actual fun dallocx(ptr: COpaquePointer?, flags: CInt) {
-    throw UnsupportedOperationException("dallocx requires N-API addon")
-}
+public actual fun dallocx(ptr: COpaquePointer?, flags: CInt): Unit = throw UnsupportedOperationException("dallocx requires N-API addon")
 
-public actual fun sdallocx(ptr: COpaquePointer?, size: ULong, flags: CInt) {
-    throw UnsupportedOperationException("sdallocx requires N-API addon")
-}
+public actual fun sdallocx(ptr: COpaquePointer?, size: ULong, flags: CInt): Unit = throw UnsupportedOperationException("sdallocx requires N-API addon")
 
 public actual fun nallocx(size: ULong, flags: CInt): ULong =
     throw UnsupportedOperationException("nallocx requires N-API addon")
@@ -491,9 +475,7 @@ public actual fun fdatasync(fd: CInt): CInt =
 public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
     throw UnsupportedOperationException("elfAuxInfo requires N-API addon")
 
-public actual fun setproctitleFast(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitleFast requires N-API addon")
-}
+public actual fun setproctitleFast(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitleFast requires N-API addon")
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("timingsafeBcmp requires N-API addon")
@@ -519,16 +501,12 @@ public actual fun sctpGetaddrlen(family: SaFamilyT): CInt =
 public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
     throw UnsupportedOperationException("sctpGetpaddrs requires N-API addon")
 
-public actual fun sctpFreepaddrs(addrs: Sockaddr?) {
-    throw UnsupportedOperationException("sctpFreepaddrs requires N-API addon")
-}
+public actual fun sctpFreepaddrs(addrs: Sockaddr?): Unit = throw UnsupportedOperationException("sctpFreepaddrs requires N-API addon")
 
 public actual fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
     throw UnsupportedOperationException("sctpGetladdrs requires N-API addon")
 
-public actual fun sctpFreeladdrs(addrs: Sockaddr?) {
-    throw UnsupportedOperationException("sctpFreeladdrs requires N-API addon")
-}
+public actual fun sctpFreeladdrs(addrs: Sockaddr?): Unit = throw UnsupportedOperationException("sctpFreeladdrs requires N-API addon")
 
 public actual fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: SocklenT?): CInt =
     throw UnsupportedOperationException("sctpOptInfo requires N-API addon")
@@ -548,9 +526,7 @@ public actual fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt =
 public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt =
     throw UnsupportedOperationException("timerfdSettime requires N-API addon")
 
-public actual fun closefrom(lowfd: CInt) {
-    throw UnsupportedOperationException("closefrom requires N-API addon")
-}
+public actual fun closefrom(lowfd: CInt): Unit = throw UnsupportedOperationException("closefrom requires N-API addon")
 
 public actual fun closeRange(lowfd: CUInt, highfd: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("closeRange requires N-API addon")
@@ -579,9 +555,7 @@ public actual fun memstatMtlNext(mtp: MemoryType?): MemoryType? =
 public actual fun memstatMtlFind(list: MemoryTypeList?, allocator: CInt, name: String?): MemoryType? =
     throw UnsupportedOperationException("memstatMtlFind requires N-API addon")
 
-public actual fun memstatMtlFree(list: MemoryTypeList?) {
-    throw UnsupportedOperationException("memstatMtlFree requires N-API addon")
-}
+public actual fun memstatMtlFree(list: MemoryTypeList?): Unit = throw UnsupportedOperationException("memstatMtlFree requires N-API addon")
 
 public actual fun memstatMtlGeterror(list: MemoryTypeList?): CInt =
     throw UnsupportedOperationException("memstatMtlGeterror requires N-API addon")
@@ -655,9 +629,7 @@ public actual fun kldLoad(name: String?): CInt =
 public actual fun kinfoGetvmmap(pid: PidT, cntp: CInt?): KinfoVmentry? =
     throw UnsupportedOperationException("kinfoGetvmmap requires N-API addon")
 
-public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt) {
-    throw UnsupportedOperationException("hexdump requires N-API addon")
-}
+public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt): Unit = throw UnsupportedOperationException("hexdump requires N-API addon")
 
 public actual fun humanizeNumber(buf: String?, len: ULong, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("humanizeNumber requires N-API addon")
@@ -692,43 +664,27 @@ public actual fun procstatOpenSysctl(): Procstat? =
 public actual fun procstatGetfiles(procstat: Procstat?, kp: KinfoProc?, mmapped: CInt): FilestatList? =
     throw UnsupportedOperationException("procstatGetfiles requires N-API addon")
 
-public actual fun procstatFreefiles(procstat: Procstat?, head: FilestatList?) {
-    throw UnsupportedOperationException("procstatFreefiles requires N-API addon")
-}
+public actual fun procstatFreefiles(procstat: Procstat?, head: FilestatList?): Unit = throw UnsupportedOperationException("procstatFreefiles requires N-API addon")
 
 public actual fun procstatGetprocs(procstat: Procstat?, what: CInt, arg: CInt, count: CUInt?): KinfoProc? =
     throw UnsupportedOperationException("procstatGetprocs requires N-API addon")
 
-public actual fun procstatFreeprocs(procstat: Procstat?, p: KinfoProc?) {
-    throw UnsupportedOperationException("procstatFreeprocs requires N-API addon")
-}
+public actual fun procstatFreeprocs(procstat: Procstat?, p: KinfoProc?): Unit = throw UnsupportedOperationException("procstatFreeprocs requires N-API addon")
 
 public actual fun procstatGetvmmap(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): KinfoVmentry? =
     throw UnsupportedOperationException("procstatGetvmmap requires N-API addon")
 
-public actual fun procstatFreevmmap(procstat: Procstat?, vmmap: KinfoVmentry?) {
-    throw UnsupportedOperationException("procstatFreevmmap requires N-API addon")
-}
+public actual fun procstatFreevmmap(procstat: Procstat?, vmmap: KinfoVmentry?): Unit = throw UnsupportedOperationException("procstatFreevmmap requires N-API addon")
 
-public actual fun procstatClose(procstat: Procstat?) {
-    throw UnsupportedOperationException("procstatClose requires N-API addon")
-}
+public actual fun procstatClose(procstat: Procstat?): Unit = throw UnsupportedOperationException("procstatClose requires N-API addon")
 
-public actual fun procstatFreeargv(procstat: Procstat?) {
-    throw UnsupportedOperationException("procstatFreeargv requires N-API addon")
-}
+public actual fun procstatFreeargv(procstat: Procstat?): Unit = throw UnsupportedOperationException("procstatFreeargv requires N-API addon")
 
-public actual fun procstatFreeenvv(procstat: Procstat?) {
-    throw UnsupportedOperationException("procstatFreeenvv requires N-API addon")
-}
+public actual fun procstatFreeenvv(procstat: Procstat?): Unit = throw UnsupportedOperationException("procstatFreeenvv requires N-API addon")
 
-public actual fun procstatFreegroups(procstat: Procstat?, groups: GidT?) {
-    throw UnsupportedOperationException("procstatFreegroups requires N-API addon")
-}
+public actual fun procstatFreegroups(procstat: Procstat?, groups: GidT?): Unit = throw UnsupportedOperationException("procstatFreegroups requires N-API addon")
 
-public actual fun procstatFreeptlwpinfo(procstat: Procstat?, pl: PtraceLwpinfo?) {
-    throw UnsupportedOperationException("procstatFreeptlwpinfo requires N-API addon")
-}
+public actual fun procstatFreeptlwpinfo(procstat: Procstat?, pl: PtraceLwpinfo?): Unit = throw UnsupportedOperationException("procstatFreeptlwpinfo requires N-API addon")
 
 public actual fun procstatGetargv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer? =
     throw UnsupportedOperationException("procstatGetargv requires N-API addon")
@@ -802,7 +758,4 @@ public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CIn
 public actual fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt =
     throw UnsupportedOperationException("devstatBuildmatch requires N-API addon")
 
-
-public actual fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?) {
-    throw UnsupportedOperationException("mallocStatsPrint requires N-API addon")
-}
+public actual fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?): Unit = throw UnsupportedOperationException("mallocStatsPrint requires N-API addon")

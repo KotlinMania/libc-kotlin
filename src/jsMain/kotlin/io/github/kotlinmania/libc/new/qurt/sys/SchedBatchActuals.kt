@@ -11,4 +11,3 @@ public actual fun schedGetPriorityMax(policy: CInt): CInt =
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
     throw UnsupportedOperationException("schedGetPriorityMin requires N-API addon")
-

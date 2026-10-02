@@ -9,13 +9,9 @@ import kotlinx.cinterop.ExperimentalForeignApi
 public actual fun utmpname(file: String?): CInt =
     throw UnsupportedOperationException("utmpname requires manual FFI bridge — not yet implemented")
 
-public actual fun setutent() {
-    throw UnsupportedOperationException("setutent requires manual FFI bridge — not yet implemented")
-}
+public actual fun setutent(): Unit = throw UnsupportedOperationException("setutent requires manual FFI bridge — not yet implemented")
 
 public actual fun getutent(): Utmp? =
     throw UnsupportedOperationException("getutent requires manual FFI bridge — not yet implemented")
 
-public actual fun endutent() {
-    throw UnsupportedOperationException("endutent requires manual FFI bridge — not yet implemented")
-}
+public actual fun endutent(): Unit = throw UnsupportedOperationException("endutent requires manual FFI bridge — not yet implemented")

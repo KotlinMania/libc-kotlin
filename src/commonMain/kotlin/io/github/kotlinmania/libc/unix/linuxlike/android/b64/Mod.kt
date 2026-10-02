@@ -154,5 +154,6 @@ public const val UT_NAMESIZE: ULong = 32uL
 public const val UT_HOSTSIZE: ULong = 256uL
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt 
+public expect fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt
+
 public fun systemPropertyWait(pi: PropInfo?, oldSerial: UInt, newSerialPtr: UInt?, relativeTimeout: Timespec?): Boolean = throw UnsupportedOperationException()

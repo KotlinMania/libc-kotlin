@@ -18,13 +18,10 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
     throw UnsupportedOperationException("getentropy not available on WASI — no C library access")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf not available on WASI — no C library access")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf not available on WASI — no C library access")
 
 public actual fun setgroups(ngroups: CInt, grouplist: GidT?): CInt =
     throw UnsupportedOperationException("setgroups not available on WASI — no C library access")
-
 
 public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadCreate not available on WASI — no C library access")

@@ -18,21 +18,13 @@ public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
 public actual fun uname(buf: Utsname?): CInt =
     throw UnsupportedOperationException("uname not available on JVM — no C library access")
 
-public actual fun cPUZERO(cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
-}
+public actual fun cPUZERO(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
 
-public actual fun cPUFILL(cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUFILL not available on JVM — no C library access")
-}
+public actual fun cPUFILL(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUFILL not available on JVM — no C library access")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpusetT?) {
-    throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on JVM — no C library access")
@@ -202,9 +194,7 @@ public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
 public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgflg: CInt): CInt =
     throw UnsupportedOperationException("msgsnd not available on JVM — no C library access")
 
-public actual fun cfmakesane(termios: Termios?) {
-    throw UnsupportedOperationException("cfmakesane not available on JVM — no C library access")
-}
+public actual fun cfmakesane(termios: Termios?): Unit = throw UnsupportedOperationException("cfmakesane not available on JVM — no C library access")
 
 public actual fun pdfork(fdp: CInt?, flags: CInt): PidT =
     throw UnsupportedOperationException("pdfork not available on JVM — no C library access")
@@ -323,9 +313,7 @@ public actual fun mount(type: String?, dir: String?, flags: CInt, data: COpaqueP
 public actual fun nmount(iov: Iovec?, niov: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("nmount not available on JVM — no C library access")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle not available on JVM — no C library access")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle not available on JVM — no C library access")
 
 public actual fun rfork(flags: CInt): CInt =
     throw UnsupportedOperationException("rfork not available on JVM — no C library access")
@@ -438,13 +426,9 @@ public actual fun xallocx(ptr: COpaquePointer?, size: ULong, extra: ULong, flags
 public actual fun sallocx(ptr: COpaquePointer?, flags: CInt): ULong =
     throw UnsupportedOperationException("sallocx not available on JVM — no C library access")
 
-public actual fun dallocx(ptr: COpaquePointer?, flags: CInt) {
-    throw UnsupportedOperationException("dallocx not available on JVM — no C library access")
-}
+public actual fun dallocx(ptr: COpaquePointer?, flags: CInt): Unit = throw UnsupportedOperationException("dallocx not available on JVM — no C library access")
 
-public actual fun sdallocx(ptr: COpaquePointer?, size: ULong, flags: CInt) {
-    throw UnsupportedOperationException("sdallocx not available on JVM — no C library access")
-}
+public actual fun sdallocx(ptr: COpaquePointer?, size: ULong, flags: CInt): Unit = throw UnsupportedOperationException("sdallocx not available on JVM — no C library access")
 
 public actual fun nallocx(size: ULong, flags: CInt): ULong =
     throw UnsupportedOperationException("nallocx not available on JVM — no C library access")
@@ -491,9 +475,7 @@ public actual fun fdatasync(fd: CInt): CInt =
 public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
     throw UnsupportedOperationException("elfAuxInfo not available on JVM — no C library access")
 
-public actual fun setproctitleFast(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitleFast not available on JVM — no C library access")
-}
+public actual fun setproctitleFast(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitleFast not available on JVM — no C library access")
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt =
     throw UnsupportedOperationException("timingsafeBcmp not available on JVM — no C library access")
@@ -519,16 +501,12 @@ public actual fun sctpGetaddrlen(family: SaFamilyT): CInt =
 public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
     throw UnsupportedOperationException("sctpGetpaddrs not available on JVM — no C library access")
 
-public actual fun sctpFreepaddrs(addrs: Sockaddr?) {
-    throw UnsupportedOperationException("sctpFreepaddrs not available on JVM — no C library access")
-}
+public actual fun sctpFreepaddrs(addrs: Sockaddr?): Unit = throw UnsupportedOperationException("sctpFreepaddrs not available on JVM — no C library access")
 
 public actual fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
     throw UnsupportedOperationException("sctpGetladdrs not available on JVM — no C library access")
 
-public actual fun sctpFreeladdrs(addrs: Sockaddr?) {
-    throw UnsupportedOperationException("sctpFreeladdrs not available on JVM — no C library access")
-}
+public actual fun sctpFreeladdrs(addrs: Sockaddr?): Unit = throw UnsupportedOperationException("sctpFreeladdrs not available on JVM — no C library access")
 
 public actual fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: SocklenT?): CInt =
     throw UnsupportedOperationException("sctpOptInfo not available on JVM — no C library access")
@@ -548,9 +526,7 @@ public actual fun timerfdGettime(fd: CInt, currValue: Itimerspec?): CInt =
 public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt =
     throw UnsupportedOperationException("timerfdSettime not available on JVM — no C library access")
 
-public actual fun closefrom(lowfd: CInt) {
-    throw UnsupportedOperationException("closefrom not available on JVM — no C library access")
-}
+public actual fun closefrom(lowfd: CInt): Unit = throw UnsupportedOperationException("closefrom not available on JVM — no C library access")
 
 public actual fun closeRange(lowfd: CUInt, highfd: CUInt, flags: CInt): CInt =
     throw UnsupportedOperationException("closeRange not available on JVM — no C library access")
@@ -579,9 +555,7 @@ public actual fun memstatMtlNext(mtp: MemoryType?): MemoryType? =
 public actual fun memstatMtlFind(list: MemoryTypeList?, allocator: CInt, name: String?): MemoryType? =
     throw UnsupportedOperationException("memstatMtlFind not available on JVM — no C library access")
 
-public actual fun memstatMtlFree(list: MemoryTypeList?) {
-    throw UnsupportedOperationException("memstatMtlFree not available on JVM — no C library access")
-}
+public actual fun memstatMtlFree(list: MemoryTypeList?): Unit = throw UnsupportedOperationException("memstatMtlFree not available on JVM — no C library access")
 
 public actual fun memstatMtlGeterror(list: MemoryTypeList?): CInt =
     throw UnsupportedOperationException("memstatMtlGeterror not available on JVM — no C library access")
@@ -655,9 +629,7 @@ public actual fun kldLoad(name: String?): CInt =
 public actual fun kinfoGetvmmap(pid: PidT, cntp: CInt?): KinfoVmentry? =
     throw UnsupportedOperationException("kinfoGetvmmap not available on JVM — no C library access")
 
-public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt) {
-    throw UnsupportedOperationException("hexdump not available on JVM — no C library access")
-}
+public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt): Unit = throw UnsupportedOperationException("hexdump not available on JVM — no C library access")
 
 public actual fun humanizeNumber(buf: String?, len: ULong, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("humanizeNumber not available on JVM — no C library access")
@@ -692,43 +664,27 @@ public actual fun procstatOpenSysctl(): Procstat? =
 public actual fun procstatGetfiles(procstat: Procstat?, kp: KinfoProc?, mmapped: CInt): FilestatList? =
     throw UnsupportedOperationException("procstatGetfiles not available on JVM — no C library access")
 
-public actual fun procstatFreefiles(procstat: Procstat?, head: FilestatList?) {
-    throw UnsupportedOperationException("procstatFreefiles not available on JVM — no C library access")
-}
+public actual fun procstatFreefiles(procstat: Procstat?, head: FilestatList?): Unit = throw UnsupportedOperationException("procstatFreefiles not available on JVM — no C library access")
 
 public actual fun procstatGetprocs(procstat: Procstat?, what: CInt, arg: CInt, count: CUInt?): KinfoProc? =
     throw UnsupportedOperationException("procstatGetprocs not available on JVM — no C library access")
 
-public actual fun procstatFreeprocs(procstat: Procstat?, p: KinfoProc?) {
-    throw UnsupportedOperationException("procstatFreeprocs not available on JVM — no C library access")
-}
+public actual fun procstatFreeprocs(procstat: Procstat?, p: KinfoProc?): Unit = throw UnsupportedOperationException("procstatFreeprocs not available on JVM — no C library access")
 
 public actual fun procstatGetvmmap(procstat: Procstat?, kp: KinfoProc?, count: CUInt?): KinfoVmentry? =
     throw UnsupportedOperationException("procstatGetvmmap not available on JVM — no C library access")
 
-public actual fun procstatFreevmmap(procstat: Procstat?, vmmap: KinfoVmentry?) {
-    throw UnsupportedOperationException("procstatFreevmmap not available on JVM — no C library access")
-}
+public actual fun procstatFreevmmap(procstat: Procstat?, vmmap: KinfoVmentry?): Unit = throw UnsupportedOperationException("procstatFreevmmap not available on JVM — no C library access")
 
-public actual fun procstatClose(procstat: Procstat?) {
-    throw UnsupportedOperationException("procstatClose not available on JVM — no C library access")
-}
+public actual fun procstatClose(procstat: Procstat?): Unit = throw UnsupportedOperationException("procstatClose not available on JVM — no C library access")
 
-public actual fun procstatFreeargv(procstat: Procstat?) {
-    throw UnsupportedOperationException("procstatFreeargv not available on JVM — no C library access")
-}
+public actual fun procstatFreeargv(procstat: Procstat?): Unit = throw UnsupportedOperationException("procstatFreeargv not available on JVM — no C library access")
 
-public actual fun procstatFreeenvv(procstat: Procstat?) {
-    throw UnsupportedOperationException("procstatFreeenvv not available on JVM — no C library access")
-}
+public actual fun procstatFreeenvv(procstat: Procstat?): Unit = throw UnsupportedOperationException("procstatFreeenvv not available on JVM — no C library access")
 
-public actual fun procstatFreegroups(procstat: Procstat?, groups: GidT?) {
-    throw UnsupportedOperationException("procstatFreegroups not available on JVM — no C library access")
-}
+public actual fun procstatFreegroups(procstat: Procstat?, groups: GidT?): Unit = throw UnsupportedOperationException("procstatFreegroups not available on JVM — no C library access")
 
-public actual fun procstatFreeptlwpinfo(procstat: Procstat?, pl: PtraceLwpinfo?) {
-    throw UnsupportedOperationException("procstatFreeptlwpinfo not available on JVM — no C library access")
-}
+public actual fun procstatFreeptlwpinfo(procstat: Procstat?, pl: PtraceLwpinfo?): Unit = throw UnsupportedOperationException("procstatFreeptlwpinfo not available on JVM — no C library access")
 
 public actual fun procstatGetargv(procstat: Procstat?, kp: KinfoProc?, nchr: ULong): COpaquePointer? =
     throw UnsupportedOperationException("procstatGetargv not available on JVM — no C library access")
@@ -802,7 +758,4 @@ public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CIn
 public actual fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt =
     throw UnsupportedOperationException("devstatBuildmatch not available on JVM — no C library access")
 
-
-public actual fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?) {
-    throw UnsupportedOperationException("mallocStatsPrint not available on JVM — no C library access")
-}
+public actual fun mallocStatsPrint(writeCb: ((COpaquePointer?, String?) -> Unit)?, cbopaque: COpaquePointer?, opt: String?): Unit = throw UnsupportedOperationException("mallocStatsPrint not available on JVM — no C library access")

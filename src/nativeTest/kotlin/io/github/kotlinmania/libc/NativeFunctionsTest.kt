@@ -4,27 +4,26 @@ package io.github.kotlinmania.libc
 
 import io.github.kotlinmania.libc.vxworks.calloc
 import io.github.kotlinmania.libc.vxworks.free
-import io.github.kotlinmania.libc.vxworks.malloc
-import io.github.kotlinmania.libc.vxworks.realloc
-import io.github.kotlinmania.libc.vxworks.memcmp
-import io.github.kotlinmania.libc.vxworks.memcpy
-import io.github.kotlinmania.libc.vxworks.memset
-import io.github.kotlinmania.libc.vxworks.strlen
+import io.github.kotlinmania.libc.vxworks.getenv
 import io.github.kotlinmania.libc.vxworks.isalpha
 import io.github.kotlinmania.libc.vxworks.isdigit
 import io.github.kotlinmania.libc.vxworks.islower
 import io.github.kotlinmania.libc.vxworks.isupper
+import io.github.kotlinmania.libc.vxworks.malloc
+import io.github.kotlinmania.libc.vxworks.memcmp
+import io.github.kotlinmania.libc.vxworks.memcpy
+import io.github.kotlinmania.libc.vxworks.memset
+import io.github.kotlinmania.libc.vxworks.realloc
+import io.github.kotlinmania.libc.vxworks.strerror
+import io.github.kotlinmania.libc.vxworks.strlen
 import io.github.kotlinmania.libc.vxworks.tolower
 import io.github.kotlinmania.libc.vxworks.toupper
-import io.github.kotlinmania.libc.vxworks.strerror
-import io.github.kotlinmania.libc.vxworks.getenv
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import kotlin.test.assertFailsWith
 
 /**
  * Native tests exercising real C library calls via platform.posix.
@@ -33,7 +32,6 @@ import kotlin.test.assertFailsWith
  * The ctype/string/env functions use CInt params and work on all targets.
  */
 class NativeFunctionsTest {
-
     @Test
     fun mallocReturnsNonNull() {
         val ptr = malloc(1024uL)
@@ -54,32 +52,48 @@ class NativeFunctionsTest {
     }
 
     @Test
-    fun reallocThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { realloc(null, 100uL) }
+    fun reallocResizesAllocation() {
+        val ptr = malloc(16uL)
+        assertNotNull(ptr)
+        val resized = realloc(ptr, 64uL)
+        assertNotNull(resized)
+        free(resized)
     }
 
     @Test
-    fun memsetThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { memset(null, 0, 16uL) }
+    fun memsetAndMemcmpWork() {
+        val p1 = malloc(16uL)
+        val p2 = malloc(16uL)
+        assertNotNull(p1)
+        assertNotNull(p2)
+        memset(p1, 0x41, 16uL)
+        memset(p2, 0x41, 16uL)
+        assertEquals(0, memcmp(p1, p2, 16uL))
+        memset(p2, 0x42, 16uL)
+        assertNotEquals(0, memcmp(p1, p2, 16uL))
+        free(p1)
+        free(p2)
     }
 
     @Test
-    fun memcmpThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { memcmp(null, null, 16uL) }
+    fun memcpyCopiesData() {
+        val src = malloc(16uL)
+        val dst = malloc(16uL)
+        assertNotNull(src)
+        assertNotNull(dst)
+        memset(src, 0x7A, 16uL)
+        memset(dst, 0, 16uL)
+        assertNotEquals(0, memcmp(src, dst, 16uL))
+        memcpy(dst, src, 16uL)
+        assertEquals(0, memcmp(src, dst, 16uL))
+        free(src)
+        free(dst)
     }
 
     @Test
-    fun memcpyThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { memcpy(null, null, 16uL) }
-    }
-
-    @Test
-    fun strlenThrowsOnSharedNative() {
-        assertFailsWith(UnsupportedOperationException::class) { strlen("hello") }
-    }
-
-    @Test
-    fun strlenReturnsZeroForNull() {
+    fun strlenReturnsCorrectLength() {
+        assertEquals(5uL, strlen("hello"))
+        assertEquals(0uL, strlen(""))
         assertEquals(0uL, strlen(null))
     }
 

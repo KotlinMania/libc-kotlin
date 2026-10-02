@@ -146,4 +146,3 @@ public actual fun tolower(c: CInt): CInt =
 
 public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper not available on Android host — use androidNative target for FFI")
-

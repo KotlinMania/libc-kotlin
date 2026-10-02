@@ -15,9 +15,7 @@ public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
 public actual fun alignedAlloc(align: ULong, len: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc not available on WASI — no C library access")
 
-public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free not available on WASI — no C library access")
-}
+public actual fun free(p: COpaquePointer?): Unit = throw UnsupportedOperationException("free not available on WASI — no C library access")
 
 public actual fun posixMemalign(memptr: COpaquePointer?, align: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("posixMemalign not available on WASI — no C library access")
@@ -253,9 +251,7 @@ public actual fun wcrtomb(s: String?, wc: WcharT, st: MbstateT?): ULong =
 public actual fun wctob(c: WintT): CInt =
     throw UnsupportedOperationException("wctob not available on WASI — no C library access")
 
-public actual fun srandom(seed: CUInt) {
-    throw UnsupportedOperationException("srandom not available on WASI — no C library access")
-}
+public actual fun srandom(seed: CUInt): Unit = throw UnsupportedOperationException("srandom not available on WASI — no C library access")
 
 public actual fun initstate(seed: CUInt, state: String?, size: ULong): String? =
     throw UnsupportedOperationException("initstate not available on WASI — no C library access")
@@ -353,16 +349,13 @@ public actual fun ecvt(x: CDouble, n: CInt, dp: CInt?, sign: CInt?): String? =
 public actual fun llabs(a: CLongLong): CLongLong =
     throw UnsupportedOperationException("llabs not available on WASI — no C library access")
 
-public actual fun qsort(base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc) {
-    throw UnsupportedOperationException("qsort not available on WASI — no C library access")
-}
+public actual fun qsort(base: COpaquePointer?, nel: ULong, width: ULong, cmp: Cmpfunc): Unit = throw UnsupportedOperationException("qsort not available on WASI — no C library access")
 
 public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong =
     throw UnsupportedOperationException("strtoul not available on WASI — no C library access")
 
 public actual fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong =
     throw UnsupportedOperationException("strtol not available on WASI — no C library access")
-
 
 public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadKeyCreate not available on WASI — no C library access")

@@ -3,13 +3,9 @@ package io.github.kotlinmania.libc.new.netbsd
 
 import io.github.kotlinmania.libc.*
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
 
 public actual fun getutxent(): Utmpx? =
     throw UnsupportedOperationException("getutxent not available on JVM — no C library access")
@@ -32,14 +28,9 @@ public actual fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlog
 public actual fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt =
     throw UnsupportedOperationException("updlastlogx not available on JVM — no C library access")
 
-public actual fun getutmp(ux: Utmpx?, u: Utmp?) {
-    throw UnsupportedOperationException("getutmp not available on JVM — no C library access")
-}
+public actual fun getutmp(ux: Utmpx?, u: Utmp?): Unit = throw UnsupportedOperationException("getutmp not available on JVM — no C library access")
 
-public actual fun getutmpx(u: Utmp?, ux: Utmpx?) {
-    throw UnsupportedOperationException("getutmpx not available on JVM — no C library access")
-}
+public actual fun getutmpx(u: Utmp?, ux: Utmpx?): Unit = throw UnsupportedOperationException("getutmpx not available on JVM — no C library access")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname not available on JVM — no C library access")
-

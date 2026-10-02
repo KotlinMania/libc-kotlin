@@ -7,8 +7,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
 import kotlinx.cinterop.ExperimentalForeignApi
 
-
-
 public actual fun posixSpawnattrSetQosClassNp(attr: PosixSpawnattrT, qosClass: QosClassT): CInt =
     throw UnsupportedOperationException("posixSpawnattrSetQosClassNp requires manual FFI bridge for ambiguous type")
 

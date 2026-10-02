@@ -11,4 +11,3 @@ public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt =
 
 public actual fun wmemchr(cx: WcharT?, c: WcharT, n: ULong): WcharT? =
     throw UnsupportedOperationException("wmemchr not available on WASI — no C library access")
-

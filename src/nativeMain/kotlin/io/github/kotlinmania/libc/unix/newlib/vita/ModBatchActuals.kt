@@ -4,13 +4,10 @@
 package io.github.kotlinmania.libc.unix.newlib.vita
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import libc.cinterop.libc_getentropy
-import libc.cinterop.libc_readv
-import libc.cinterop.libc_writev
 import libc.cinterop.libc_futimens
 
 public actual fun futimens(fd: CInt, times: Timespec?): CInt {

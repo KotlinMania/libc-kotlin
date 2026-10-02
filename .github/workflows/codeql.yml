@@ -17,14 +17,6 @@ jobs:
       packages: read
       security-events: write
 
-  java-kotlin:
-    uses: ./.github/workflows/codeql-java-kotlin.yml
-    permissions:
-      actions: read
-      contents: read
-      packages: read
-      security-events: write
-
   android:
     uses: ./.github/workflows/codeql-android.yml
     permissions:

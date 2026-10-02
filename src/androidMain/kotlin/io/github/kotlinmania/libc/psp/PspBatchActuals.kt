@@ -66,13 +66,9 @@ public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): In
 public actual fun sceAudioInputInitEx(params: AudioInputParams?): Int =
     throw UnsupportedOperationException("sceAudioInputInitEx not available on Android host — use androidNative target for FFI")
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
-    throw UnsupportedOperationException("sceAudioInputBlocking not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?): Unit = throw UnsupportedOperationException("sceAudioInputBlocking not available on Android host — use androidNative target for FFI")
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
-    throw UnsupportedOperationException("sceAudioInput not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?): Unit = throw UnsupportedOperationException("sceAudioInput not available on Android host — use androidNative target for FFI")
 
 public actual fun sceAudioGetInputLength(): Int =
     throw UnsupportedOperationException("sceAudioGetInputLength not available on Android host — use androidNative target for FFI")
@@ -260,9 +256,7 @@ public actual fun sceGeSetCallback(cb: GeCallbackData?): Int =
 public actual fun sceGeUnsetCallback(cbid: Int): Int =
     throw UnsupportedOperationException("sceGeUnsetCallback not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelExitGame() {
-    throw UnsupportedOperationException("sceKernelExitGame not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelExitGame(): Unit = throw UnsupportedOperationException("sceKernelExitGame not available on Android host — use androidNative target for FFI")
 
 public actual fun sceKernelRegisterExitCallback(id: SceUid): Int =
     throw UnsupportedOperationException("sceKernelRegisterExitCallback not available on Android host — use androidNative target for FFI")
@@ -291,33 +285,19 @@ public actual fun sceKernelLibcTime(t: Int?): Int =
 public actual fun sceKernelLibcGettimeofday(tp: Timeval?, tzp: Timezone?): Int =
     throw UnsupportedOperationException("sceKernelLibcGettimeofday not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelDcacheWritebackAll() {
-    throw UnsupportedOperationException("sceKernelDcacheWritebackAll not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelDcacheWritebackAll(): Unit = throw UnsupportedOperationException("sceKernelDcacheWritebackAll not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelDcacheWritebackInvalidateAll() {
-    throw UnsupportedOperationException("sceKernelDcacheWritebackInvalidateAll not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelDcacheWritebackInvalidateAll(): Unit = throw UnsupportedOperationException("sceKernelDcacheWritebackInvalidateAll not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt) {
-    throw UnsupportedOperationException("sceKernelDcacheWritebackRange not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt): Unit = throw UnsupportedOperationException("sceKernelDcacheWritebackRange not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt) {
-    throw UnsupportedOperationException("sceKernelDcacheWritebackInvalidateRange not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt): Unit = throw UnsupportedOperationException("sceKernelDcacheWritebackInvalidateRange not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
-    throw UnsupportedOperationException("sceKernelDcacheInvalidateRange not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt): Unit = throw UnsupportedOperationException("sceKernelDcacheInvalidateRange not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelIcacheInvalidateAll() {
-    throw UnsupportedOperationException("sceKernelIcacheInvalidateAll not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelIcacheInvalidateAll(): Unit = throw UnsupportedOperationException("sceKernelIcacheInvalidateAll not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
-    throw UnsupportedOperationException("sceKernelIcacheInvalidateRange not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt): Unit = throw UnsupportedOperationException("sceKernelIcacheInvalidateRange not available on Android host — use androidNative target for FFI")
 
 public actual fun sceKernelUtilsMt19937Init(ctx: SceKernelUtilsMt19937Context?, seed: UInt): Int =
     throw UnsupportedOperationException("sceKernelUtilsMt19937Init not available on Android host — use androidNative target for FFI")
@@ -361,13 +341,9 @@ public actual fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int =
 public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: IntrHandlerOptionParam?): Int =
     throw UnsupportedOperationException("queryIntrHandlerInfo not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelCpuResumeIntr(flags: UInt) {
-    throw UnsupportedOperationException("sceKernelCpuResumeIntr not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelCpuResumeIntr(flags: UInt): Unit = throw UnsupportedOperationException("sceKernelCpuResumeIntr not available on Android host — use androidNative target for FFI")
 
-public actual fun sceKernelCpuResumeIntrWithSync(flags: UInt) {
-    throw UnsupportedOperationException("sceKernelCpuResumeIntrWithSync not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceKernelCpuResumeIntrWithSync(flags: UInt): Unit = throw UnsupportedOperationException("sceKernelCpuResumeIntrWithSync not available on Android host — use androidNative target for FFI")
 
 public actual fun sceKernelIsCpuIntrSuspended(flags: UInt): Int =
     throw UnsupportedOperationException("sceKernelIsCpuIntrSuspended not available on Android host — use androidNative target for FFI")
@@ -1224,9 +1200,7 @@ public actual fun sceUmdReplaceProhibit(): Int =
 public actual fun sceMpegInit(): Int =
     throw UnsupportedOperationException("sceMpegInit not available on Android host — use androidNative target for FFI")
 
-public actual fun sceMpegFinish() {
-    throw UnsupportedOperationException("sceMpegFinish not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceMpegFinish(): Unit = throw UnsupportedOperationException("sceMpegFinish not available on Android host — use androidNative target for FFI")
 
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
     throw UnsupportedOperationException("sceMpegRingbufferQueryMemSize not available on Android host — use androidNative target for FFI")
@@ -1234,9 +1208,7 @@ public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
 public actual fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceMpegRingbufferConstruct not available on Android host — use androidNative target for FFI")
 
-public actual fun sceMpegRingbufferDestruct(ringbuffer: SceMpegRingbuffer?) {
-    throw UnsupportedOperationException("sceMpegRingbufferDestruct not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceMpegRingbufferDestruct(ringbuffer: SceMpegRingbuffer?): Unit = throw UnsupportedOperationException("sceMpegRingbufferDestruct not available on Android host — use androidNative target for FFI")
 
 public actual fun sceMpegRingbufferAvailableSize(ringbuffer: SceMpegRingbuffer?): Int =
     throw UnsupportedOperationException("sceMpegRingbufferAvailableSize not available on Android host — use androidNative target for FFI")
@@ -1250,9 +1222,7 @@ public actual fun sceMpegQueryMemSize(unk: Int): Int =
 public actual fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: SceMpegRingbuffer?, frameWidth: Int, unk1: Int, unk2: Int): Int =
     throw UnsupportedOperationException("sceMpegCreate not available on Android host — use androidNative target for FFI")
 
-public actual fun sceMpegDelete(handle: SceMpeg) {
-    throw UnsupportedOperationException("sceMpegDelete not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceMpegDelete(handle: SceMpeg): Unit = throw UnsupportedOperationException("sceMpegDelete not available on Android host — use androidNative target for FFI")
 
 public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: Int?): Int =
     throw UnsupportedOperationException("sceMpegQueryStreamOffset not available on Android host — use androidNative target for FFI")
@@ -1260,9 +1230,7 @@ public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePoint
 public actual fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: Int?): Int =
     throw UnsupportedOperationException("sceMpegQueryStreamSize not available on Android host — use androidNative target for FFI")
 
-public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) {
-    throw UnsupportedOperationException("sceMpegUnRegistStream not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream): Unit = throw UnsupportedOperationException("sceMpegUnRegistStream not available on Android host — use androidNative target for FFI")
 
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     throw UnsupportedOperationException("sceMpegFlushAllStream not available on Android host — use androidNative target for FFI")
@@ -1270,9 +1238,7 @@ public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
 public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer? =
     throw UnsupportedOperationException("sceMpegMallocAvcEsBuf not available on Android host — use androidNative target for FFI")
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?) {
-    throw UnsupportedOperationException("sceMpegFreeAvcEsBuf not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?): Unit = throw UnsupportedOperationException("sceMpegFreeAvcEsBuf not available on Android host — use androidNative target for FFI")
 
 public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: Int?, outSize: Int?): Int =
     throw UnsupportedOperationException("sceMpegQueryAtracEsSize not available on Android host — use androidNative target for FFI")
@@ -1328,79 +1294,45 @@ public actual fun sceHprmIsRemoteExist(): Int =
 public actual fun sceHprmIsMicrophoneExist(): Int =
     throw UnsupportedOperationException("sceHprmIsMicrophoneExist not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int) {
-    throw UnsupportedOperationException("sceGuDepthBuffer not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int): Unit = throw UnsupportedOperationException("sceGuDepthBuffer not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int) {
-    throw UnsupportedOperationException("sceGuDispBuffer not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int): Unit = throw UnsupportedOperationException("sceGuDispBuffer not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
-    throw UnsupportedOperationException("sceGuDrawBuffer not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int): Unit = throw UnsupportedOperationException("sceGuDrawBuffer not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
-    throw UnsupportedOperationException("sceGuDrawBufferList not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int): Unit = throw UnsupportedOperationException("sceGuDrawBufferList not available on Android host — use androidNative target for FFI")
 
 public actual fun sceGuDisplay(state: Boolean): Boolean =
     throw UnsupportedOperationException("sceGuDisplay not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDepthFunc(function: DepthFunc) {
-    throw UnsupportedOperationException("sceGuDepthFunc not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDepthFunc(function: DepthFunc): Unit = throw UnsupportedOperationException("sceGuDepthFunc not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDepthMask(mask: Int) {
-    throw UnsupportedOperationException("sceGuDepthMask not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDepthMask(mask: Int): Unit = throw UnsupportedOperationException("sceGuDepthMask not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDepthOffset(offset: Int) {
-    throw UnsupportedOperationException("sceGuDepthOffset not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDepthOffset(offset: Int): Unit = throw UnsupportedOperationException("sceGuDepthOffset not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDepthRange(near: Int, far: Int) {
-    throw UnsupportedOperationException("sceGuDepthRange not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDepthRange(near: Int, far: Int): Unit = throw UnsupportedOperationException("sceGuDepthRange not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuFog(near: Float, far: Float, color: UInt) {
-    throw UnsupportedOperationException("sceGuFog not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuFog(near: Float, far: Float, color: UInt): Unit = throw UnsupportedOperationException("sceGuFog not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuInit() {
-    throw UnsupportedOperationException("sceGuInit not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuInit(): Unit = throw UnsupportedOperationException("sceGuInit not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuTerm() {
-    throw UnsupportedOperationException("sceGuTerm not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuTerm(): Unit = throw UnsupportedOperationException("sceGuTerm not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuBreak(mode: Int) {
-    throw UnsupportedOperationException("sceGuBreak not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuBreak(mode: Int): Unit = throw UnsupportedOperationException("sceGuBreak not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuContinue() {
-    throw UnsupportedOperationException("sceGuContinue not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuContinue(): Unit = throw UnsupportedOperationException("sceGuContinue not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuSignal(behavior: SignalBehavior, signal: Int) {
-    throw UnsupportedOperationException("sceGuSignal not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuSignal(behavior: SignalBehavior, signal: Int): Unit = throw UnsupportedOperationException("sceGuSignal not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float) {
-    throw UnsupportedOperationException("sceGuSendCommandf not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float): Unit = throw UnsupportedOperationException("sceGuSendCommandf not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int) {
-    throw UnsupportedOperationException("sceGuSendCommandi not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int): Unit = throw UnsupportedOperationException("sceGuSendCommandi not available on Android host — use androidNative target for FFI")
 
 public actual fun sceGuGetMemory(size: Int): COpaquePointer? =
     throw UnsupportedOperationException("sceGuGetMemory not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuStart not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuStart not available on Android host — use androidNative target for FFI")
 
 public actual fun sceGuFinish(): Int =
     throw UnsupportedOperationException("sceGuFinish not available on Android host — use androidNative target for FFI")
@@ -1408,373 +1340,195 @@ public actual fun sceGuFinish(): Int =
 public actual fun sceGuFinishId(id: UInt): Int =
     throw UnsupportedOperationException("sceGuFinishId not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuCallList(list: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuCallList not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuCallList(list: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuCallList not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuCallMode(mode: Int) {
-    throw UnsupportedOperationException("sceGuCallMode not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuCallMode(mode: Int): Unit = throw UnsupportedOperationException("sceGuCallMode not available on Android host — use androidNative target for FFI")
 
 public actual fun sceGuCheckList(): Int =
     throw UnsupportedOperationException("sceGuCheckList not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: GeContext?) {
-    throw UnsupportedOperationException("sceGuSendList not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: GeContext?): Unit = throw UnsupportedOperationException("sceGuSendList not available on Android host — use androidNative target for FFI")
 
 public actual fun sceGuSwapBuffers(): COpaquePointer? =
     throw UnsupportedOperationException("sceGuSwapBuffers not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuDrawArray not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuDrawArray not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuBeginObject not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuBeginObject not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuEndObject() {
-    throw UnsupportedOperationException("sceGuEndObject not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuEndObject(): Unit = throw UnsupportedOperationException("sceGuEndObject not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuSetStatus(state: GuState, status: Int) {
-    throw UnsupportedOperationException("sceGuSetStatus not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuSetStatus(state: GuState, status: Int): Unit = throw UnsupportedOperationException("sceGuSetStatus not available on Android host — use androidNative target for FFI")
 
 public actual fun sceGuGetStatus(state: GuState): Boolean =
     throw UnsupportedOperationException("sceGuGetStatus not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuSetAllStatus(status: Int) {
-    throw UnsupportedOperationException("sceGuSetAllStatus not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuSetAllStatus(status: Int): Unit = throw UnsupportedOperationException("sceGuSetAllStatus not available on Android host — use androidNative target for FFI")
 
 public actual fun sceGuGetAllStatus(): Int =
     throw UnsupportedOperationException("sceGuGetAllStatus not available on Android host — use androidNative target for FFI")
 
-public actual fun sceGuEnable(state: GuState) {
-    throw UnsupportedOperationException("sceGuEnable not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuDisable(state: GuState) {
-    throw UnsupportedOperationException("sceGuDisable not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3?) {
-    throw UnsupportedOperationException("sceGuLight not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float) {
-    throw UnsupportedOperationException("sceGuLightAtt not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuLightColor(light: Int, component: Int, color: UInt) {
-    throw UnsupportedOperationException("sceGuLightColor not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuLightMode(mode: LightMode) {
-    throw UnsupportedOperationException("sceGuLightMode not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3?, exponent: Float, cutoff: Float) {
-    throw UnsupportedOperationException("sceGuLightSpot not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuClear(flags: Int) {
-    throw UnsupportedOperationException("sceGuClear not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuClearColor(color: UInt) {
-    throw UnsupportedOperationException("sceGuClearColor not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuClearDepth(depth: UInt) {
-    throw UnsupportedOperationException("sceGuClearDepth not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuClearStencil(stencil: UInt) {
-    throw UnsupportedOperationException("sceGuClearStencil not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuPixelMask(mask: UInt) {
-    throw UnsupportedOperationException("sceGuPixelMask not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuColor(color: UInt) {
-    throw UnsupportedOperationException("sceGuColor not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt) {
-    throw UnsupportedOperationException("sceGuColorFunc not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuColorMaterial(components: Int) {
-    throw UnsupportedOperationException("sceGuColorMaterial not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int) {
-    throw UnsupportedOperationException("sceGuAlphaFunc not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuAmbient(color: UInt) {
-    throw UnsupportedOperationException("sceGuAmbient not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuAmbientColor(color: UInt) {
-    throw UnsupportedOperationException("sceGuAmbientColor not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt) {
-    throw UnsupportedOperationException("sceGuBlendFunc not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuMaterial(components: Int, color: UInt) {
-    throw UnsupportedOperationException("sceGuMaterial not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt) {
-    throw UnsupportedOperationException("sceGuModelColor not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int) {
-    throw UnsupportedOperationException("sceGuStencilFunc not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation) {
-    throw UnsupportedOperationException("sceGuStencilOp not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuSpecular(power: Float) {
-    throw UnsupportedOperationException("sceGuSpecular not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuFrontFace(order: FrontFaceDirection) {
-    throw UnsupportedOperationException("sceGuFrontFace not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuLogicalOp(op: LogicalOperation) {
-    throw UnsupportedOperationException("sceGuLogicalOp not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuSetDither(matrix: ScePspIMatrix4?) {
-    throw UnsupportedOperationException("sceGuSetDither not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuShadeModel(mode: ShadingModel) {
-    throw UnsupportedOperationException("sceGuShadeModel not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuCopyImage not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexEnvColor(color: UInt) {
-    throw UnsupportedOperationException("sceGuTexEnvColor not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter) {
-    throw UnsupportedOperationException("sceGuTexFilter not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexFlush() {
-    throw UnsupportedOperationException("sceGuTexFlush not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent) {
-    throw UnsupportedOperationException("sceGuTexFunc not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuTexImage not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float) {
-    throw UnsupportedOperationException("sceGuTexLevelMode not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt) {
-    throw UnsupportedOperationException("sceGuTexMapMode not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int) {
-    throw UnsupportedOperationException("sceGuTexMode not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexOffset(u: Float, v: Float) {
-    throw UnsupportedOperationException("sceGuTexOffset not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode) {
-    throw UnsupportedOperationException("sceGuTexProjMapMode not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexScale(u: Float, v: Float) {
-    throw UnsupportedOperationException("sceGuTexScale not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexSlope(slope: Float) {
-    throw UnsupportedOperationException("sceGuTexSlope not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexSync() {
-    throw UnsupportedOperationException("sceGuTexSync not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode) {
-    throw UnsupportedOperationException("sceGuTexWrap not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuClutLoad not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt) {
-    throw UnsupportedOperationException("sceGuClutMode not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuOffset(x: UInt, y: UInt) {
-    throw UnsupportedOperationException("sceGuOffset not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuScissor(x: Int, y: Int, w: Int, h: Int) {
-    throw UnsupportedOperationException("sceGuScissor not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int) {
-    throw UnsupportedOperationException("sceGuViewport not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuDrawBezier not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt) {
-    throw UnsupportedOperationException("sceGuPatchDivide not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuPatchFrontFace(a0: UInt) {
-    throw UnsupportedOperationException("sceGuPatchFrontFace not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuPatchPrim(prim: PatchPrimitive) {
-    throw UnsupportedOperationException("sceGuPatchPrim not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuDrawSpline not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4?) {
-    throw UnsupportedOperationException("sceGuSetMatrix not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4?) {
-    throw UnsupportedOperationException("sceGuBoneMatrix not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuMorphWeight(index: Int, weight: Float) {
-    throw UnsupportedOperationException("sceGuMorphWeight not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGuDrawArrayN not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGumDrawArray not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGumDrawArrayN not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGumDrawBezier not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    throw UnsupportedOperationException("sceGumDrawSpline not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumFastInverse() {
-    throw UnsupportedOperationException("sceGumFastInverse not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumFullInverse() {
-    throw UnsupportedOperationException("sceGumFullInverse not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumLoadIdentity() {
-    throw UnsupportedOperationException("sceGumLoadIdentity not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumLoadMatrix(m: ScePspFMatrix4?) {
-    throw UnsupportedOperationException("sceGumLoadMatrix not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumLookAt(eye: ScePspFVector3?, center: ScePspFVector3?, up: ScePspFVector3?) {
-    throw UnsupportedOperationException("sceGumLookAt not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumMatrixMode(mode: MatrixMode) {
-    throw UnsupportedOperationException("sceGumMatrixMode not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumMultMatrix(m: ScePspFMatrix4?) {
-    throw UnsupportedOperationException("sceGumMultMatrix not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) {
-    throw UnsupportedOperationException("sceGumOrtho not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float) {
-    throw UnsupportedOperationException("sceGumPerspective not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumPopMatrix() {
-    throw UnsupportedOperationException("sceGumPopMatrix not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumPushMatrix() {
-    throw UnsupportedOperationException("sceGumPushMatrix not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumRotateX(angle: Float) {
-    throw UnsupportedOperationException("sceGumRotateX not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumRotateY(angle: Float) {
-    throw UnsupportedOperationException("sceGumRotateY not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumRotateZ(angle: Float) {
-    throw UnsupportedOperationException("sceGumRotateZ not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumRotateXYZ(v: ScePspFVector3?) {
-    throw UnsupportedOperationException("sceGumRotateXYZ not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumRotateZYX(v: ScePspFVector3?) {
-    throw UnsupportedOperationException("sceGumRotateZYX not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumScale(v: ScePspFVector3?) {
-    throw UnsupportedOperationException("sceGumScale not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumStoreMatrix(m: ScePspFMatrix4?) {
-    throw UnsupportedOperationException("sceGumStoreMatrix not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumTranslate(v: ScePspFVector3?) {
-    throw UnsupportedOperationException("sceGumTranslate not available on Android host — use androidNative target for FFI")
-}
-
-public actual fun sceGumUpdateMatrix() {
-    throw UnsupportedOperationException("sceGumUpdateMatrix not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceGuEnable(state: GuState): Unit = throw UnsupportedOperationException("sceGuEnable not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuDisable(state: GuState): Unit = throw UnsupportedOperationException("sceGuDisable not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuLight(light: Int, type: LightType, components: Int, position: ScePspFVector3?): Unit = throw UnsupportedOperationException("sceGuLight not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float): Unit = throw UnsupportedOperationException("sceGuLightAtt not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuLightColor(light: Int, component: Int, color: UInt): Unit = throw UnsupportedOperationException("sceGuLightColor not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuLightMode(mode: LightMode): Unit = throw UnsupportedOperationException("sceGuLightMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3?, exponent: Float, cutoff: Float): Unit = throw UnsupportedOperationException("sceGuLightSpot not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuClear(flags: Int): Unit = throw UnsupportedOperationException("sceGuClear not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuClearColor(color: UInt): Unit = throw UnsupportedOperationException("sceGuClearColor not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuClearDepth(depth: UInt): Unit = throw UnsupportedOperationException("sceGuClearDepth not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuClearStencil(stencil: UInt): Unit = throw UnsupportedOperationException("sceGuClearStencil not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuPixelMask(mask: UInt): Unit = throw UnsupportedOperationException("sceGuPixelMask not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuColor(color: UInt): Unit = throw UnsupportedOperationException("sceGuColor not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt): Unit = throw UnsupportedOperationException("sceGuColorFunc not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuColorMaterial(components: Int): Unit = throw UnsupportedOperationException("sceGuColorMaterial not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int): Unit = throw UnsupportedOperationException("sceGuAlphaFunc not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuAmbient(color: UInt): Unit = throw UnsupportedOperationException("sceGuAmbient not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuAmbientColor(color: UInt): Unit = throw UnsupportedOperationException("sceGuAmbientColor not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt): Unit = throw UnsupportedOperationException("sceGuBlendFunc not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuMaterial(components: Int, color: UInt): Unit = throw UnsupportedOperationException("sceGuMaterial not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt): Unit = throw UnsupportedOperationException("sceGuModelColor not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int): Unit = throw UnsupportedOperationException("sceGuStencilFunc not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation, zpass: StencilOperation): Unit = throw UnsupportedOperationException("sceGuStencilOp not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuSpecular(power: Float): Unit = throw UnsupportedOperationException("sceGuSpecular not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuFrontFace(order: FrontFaceDirection): Unit = throw UnsupportedOperationException("sceGuFrontFace not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuLogicalOp(op: LogicalOperation): Unit = throw UnsupportedOperationException("sceGuLogicalOp not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuSetDither(matrix: ScePspIMatrix4?): Unit = throw UnsupportedOperationException("sceGuSetDither not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuShadeModel(mode: ShadingModel): Unit = throw UnsupportedOperationException("sceGuShadeModel not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuCopyImage not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexEnvColor(color: UInt): Unit = throw UnsupportedOperationException("sceGuTexEnvColor not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter): Unit = throw UnsupportedOperationException("sceGuTexFilter not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexFlush(): Unit = throw UnsupportedOperationException("sceGuTexFlush not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent): Unit = throw UnsupportedOperationException("sceGuTexFunc not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuTexImage not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float): Unit = throw UnsupportedOperationException("sceGuTexLevelMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexMapMode(mode: TextureMapMode, a1: UInt, a2: UInt): Unit = throw UnsupportedOperationException("sceGuTexMapMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, swizzle: Int): Unit = throw UnsupportedOperationException("sceGuTexMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexOffset(u: Float, v: Float): Unit = throw UnsupportedOperationException("sceGuTexOffset not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode): Unit = throw UnsupportedOperationException("sceGuTexProjMapMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexScale(u: Float, v: Float): Unit = throw UnsupportedOperationException("sceGuTexScale not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexSlope(slope: Float): Unit = throw UnsupportedOperationException("sceGuTexSlope not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexSync(): Unit = throw UnsupportedOperationException("sceGuTexSync not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode): Unit = throw UnsupportedOperationException("sceGuTexWrap not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuClutLoad not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt): Unit = throw UnsupportedOperationException("sceGuClutMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuOffset(x: UInt, y: UInt): Unit = throw UnsupportedOperationException("sceGuOffset not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuScissor(x: Int, y: Int, w: Int, h: Int): Unit = throw UnsupportedOperationException("sceGuScissor not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int): Unit = throw UnsupportedOperationException("sceGuViewport not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuDrawBezier not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt): Unit = throw UnsupportedOperationException("sceGuPatchDivide not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuPatchFrontFace(a0: UInt): Unit = throw UnsupportedOperationException("sceGuPatchFrontFace not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuPatchPrim(prim: PatchPrimitive): Unit = throw UnsupportedOperationException("sceGuPatchPrim not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuDrawSpline not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4?): Unit = throw UnsupportedOperationException("sceGuSetMatrix not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4?): Unit = throw UnsupportedOperationException("sceGuBoneMatrix not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuMorphWeight(index: Int, weight: Float): Unit = throw UnsupportedOperationException("sceGuMorphWeight not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGuDrawArrayN not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGumDrawArray not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGumDrawArrayN not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGumDrawBezier not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?): Unit = throw UnsupportedOperationException("sceGumDrawSpline not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumFastInverse(): Unit = throw UnsupportedOperationException("sceGumFastInverse not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumFullInverse(): Unit = throw UnsupportedOperationException("sceGumFullInverse not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumLoadIdentity(): Unit = throw UnsupportedOperationException("sceGumLoadIdentity not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumLoadMatrix(m: ScePspFMatrix4?): Unit = throw UnsupportedOperationException("sceGumLoadMatrix not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumLookAt(eye: ScePspFVector3?, center: ScePspFVector3?, up: ScePspFVector3?): Unit = throw UnsupportedOperationException("sceGumLookAt not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumMatrixMode(mode: MatrixMode): Unit = throw UnsupportedOperationException("sceGumMatrixMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumMultMatrix(m: ScePspFMatrix4?): Unit = throw UnsupportedOperationException("sceGumMultMatrix not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float): Unit = throw UnsupportedOperationException("sceGumOrtho not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float): Unit = throw UnsupportedOperationException("sceGumPerspective not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumPopMatrix(): Unit = throw UnsupportedOperationException("sceGumPopMatrix not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumPushMatrix(): Unit = throw UnsupportedOperationException("sceGumPushMatrix not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumRotateX(angle: Float): Unit = throw UnsupportedOperationException("sceGumRotateX not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumRotateY(angle: Float): Unit = throw UnsupportedOperationException("sceGumRotateY not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumRotateZ(angle: Float): Unit = throw UnsupportedOperationException("sceGumRotateZ not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumRotateXYZ(v: ScePspFVector3?): Unit = throw UnsupportedOperationException("sceGumRotateXYZ not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumRotateZYX(v: ScePspFVector3?): Unit = throw UnsupportedOperationException("sceGumRotateZYX not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumScale(v: ScePspFVector3?): Unit = throw UnsupportedOperationException("sceGumScale not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumStoreMatrix(m: ScePspFMatrix4?): Unit = throw UnsupportedOperationException("sceGumStoreMatrix not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumTranslate(v: ScePspFVector3?): Unit = throw UnsupportedOperationException("sceGumTranslate not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGumUpdateMatrix(): Unit = throw UnsupportedOperationException("sceGumUpdateMatrix not available on Android host — use androidNative target for FFI")
 
 public actual fun sceMp3ReserveMp3Handle(args: SceMp3InitArg?): Int =
     throw UnsupportedOperationException("sceMp3ReserveMp3Handle not available on Android host — use androidNative target for FFI")
@@ -1881,16 +1635,12 @@ public actual fun sceOpenPSIDGetOpenPSID(openpsid: OpenPSID?): Int =
 public actual fun sceUtilityMsgDialogInitStart(params: UtilityMsgDialogParams?): Int =
     throw UnsupportedOperationException("sceUtilityMsgDialogInitStart not available on Android host — use androidNative target for FFI")
 
-public actual fun sceUtilityMsgDialogShutdownStart() {
-    throw UnsupportedOperationException("sceUtilityMsgDialogShutdownStart not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceUtilityMsgDialogShutdownStart(): Unit = throw UnsupportedOperationException("sceUtilityMsgDialogShutdownStart not available on Android host — use androidNative target for FFI")
 
 public actual fun sceUtilityMsgDialogGetStatus(): Int =
     throw UnsupportedOperationException("sceUtilityMsgDialogGetStatus not available on Android host — use androidNative target for FFI")
 
-public actual fun sceUtilityMsgDialogUpdate(n: Int) {
-    throw UnsupportedOperationException("sceUtilityMsgDialogUpdate not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceUtilityMsgDialogUpdate(n: Int): Unit = throw UnsupportedOperationException("sceUtilityMsgDialogUpdate not available on Android host — use androidNative target for FFI")
 
 public actual fun sceUtilityMsgDialogAbort(): Int =
     throw UnsupportedOperationException("sceUtilityMsgDialogAbort not available on Android host — use androidNative target for FFI")
@@ -1922,23 +1672,17 @@ public actual fun sceUtilitySavedataGetStatus(): Int =
 public actual fun sceUtilitySavedataShutdownStart(): Int =
     throw UnsupportedOperationException("sceUtilitySavedataShutdownStart not available on Android host — use androidNative target for FFI")
 
-public actual fun sceUtilitySavedataUpdate(unknown: Int) {
-    throw UnsupportedOperationException("sceUtilitySavedataUpdate not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceUtilitySavedataUpdate(unknown: Int): Unit = throw UnsupportedOperationException("sceUtilitySavedataUpdate not available on Android host — use androidNative target for FFI")
 
 public actual fun sceUtilityGameSharingInitStart(params: UtilityGameSharingParams?): Int =
     throw UnsupportedOperationException("sceUtilityGameSharingInitStart not available on Android host — use androidNative target for FFI")
 
-public actual fun sceUtilityGameSharingShutdownStart() {
-    throw UnsupportedOperationException("sceUtilityGameSharingShutdownStart not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceUtilityGameSharingShutdownStart(): Unit = throw UnsupportedOperationException("sceUtilityGameSharingShutdownStart not available on Android host — use androidNative target for FFI")
 
 public actual fun sceUtilityGameSharingGetStatus(): Int =
     throw UnsupportedOperationException("sceUtilityGameSharingGetStatus not available on Android host — use androidNative target for FFI")
 
-public actual fun sceUtilityGameSharingUpdate(n: Int) {
-    throw UnsupportedOperationException("sceUtilityGameSharingUpdate not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceUtilityGameSharingUpdate(n: Int): Unit = throw UnsupportedOperationException("sceUtilityGameSharingUpdate not available on Android host — use androidNative target for FFI")
 
 public actual fun sceUtilityHtmlViewerInitStart(params: UtilityHtmlViewerParam?): Int =
     throw UnsupportedOperationException("sceUtilityHtmlViewerInitStart not available on Android host — use androidNative target for FFI")
@@ -2024,13 +1768,9 @@ public actual fun sceNetFreeThreadinfo(thid: Int): Int =
 public actual fun sceNetThreadAbort(thid: Int): Int =
     throw UnsupportedOperationException("sceNetThreadAbort not available on Android host — use androidNative target for FFI")
 
-public actual fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?) {
-    throw UnsupportedOperationException("sceNetEtherStrton not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?): Unit = throw UnsupportedOperationException("sceNetEtherStrton not available on Android host — use androidNative target for FFI")
 
-public actual fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?) {
-    throw UnsupportedOperationException("sceNetEtherNtostr not available on Android host — use androidNative target for FFI")
-}
+public actual fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?): Unit = throw UnsupportedOperationException("sceNetEtherNtostr not available on Android host — use androidNative target for FFI")
 
 public actual fun sceNetGetLocalEtherAddr(mac: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceNetGetLocalEtherAddr not available on Android host — use androidNative target for FFI")
@@ -2457,4 +2197,3 @@ public actual fun sceNetResolverStop(rid: Int): Int =
 
 public actual fun sceNetResolverTerm(): Int =
     throw UnsupportedOperationException("sceNetResolverTerm not available on Android host — use androidNative target for FFI")
-

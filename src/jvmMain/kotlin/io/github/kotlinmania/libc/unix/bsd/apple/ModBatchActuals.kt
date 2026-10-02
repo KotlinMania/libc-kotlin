@@ -9,9 +9,7 @@ public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on JVM — no C library access")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent not available on JVM — no C library access")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent not available on JVM — no C library access")
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
     throw UnsupportedOperationException("daemon not available on JVM — no C library access")
@@ -79,13 +77,9 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline not available on JVM — no C library access")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent not available on JVM — no C library access")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent not available on JVM — no C library access")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname not available on JVM — no C library access")
@@ -192,9 +186,7 @@ public actual fun pthreadMainNp(): CInt =
 public actual fun pthreadThreadidNp(thread: PthreadT, threadId: ULong?): CInt =
     throw UnsupportedOperationException("pthreadThreadidNp not available on JVM — no C library access")
 
-public actual fun pthreadJitWriteProtectNp(enabled: CInt) {
-    throw UnsupportedOperationException("pthreadJitWriteProtectNp not available on JVM — no C library access")
-}
+public actual fun pthreadJitWriteProtectNp(enabled: CInt): Unit = throw UnsupportedOperationException("pthreadJitWriteProtectNp not available on JVM — no C library access")
 
 public actual fun pthreadJitWriteProtectSupportedNp(): CInt =
     throw UnsupportedOperationException("pthreadJitWriteProtectSupportedNp not available on JVM — no C library access")
@@ -202,9 +194,7 @@ public actual fun pthreadJitWriteProtectSupportedNp(): CInt =
 public actual fun pthreadJitWriteWithCallbackNp(callback: PthreadJitWriteCallbackT, ctx: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadJitWriteWithCallbackNp not available on JVM — no C library access")
 
-public actual fun pthreadJitWriteFreezeCallbacksNp() {
-    throw UnsupportedOperationException("pthreadJitWriteFreezeCallbacksNp not available on JVM — no C library access")
-}
+public actual fun pthreadJitWriteFreezeCallbacksNp(): Unit = throw UnsupportedOperationException("pthreadJitWriteFreezeCallbacksNp not available on JVM — no C library access")
 
 public actual fun pthreadCpuNumberNp(cpuNumberOut: ULong?): CInt =
     throw UnsupportedOperationException("pthreadCpuNumberNp not available on JVM — no C library access")
@@ -224,24 +214,16 @@ public actual fun osSyncWakeByAddressAny(addr: COpaquePointer?, size: ULong, fla
 public actual fun osSyncWakeByAddressAll(addr: COpaquePointer?, size: ULong, flags: OsSyncWakeByAddressFlagsT): CInt =
     throw UnsupportedOperationException("osSyncWakeByAddressAll not available on JVM — no C library access")
 
-public actual fun osUnfairLockLock(lock: OsUnfairLockT) {
-    throw UnsupportedOperationException("osUnfairLockLock not available on JVM — no C library access")
-}
+public actual fun osUnfairLockLock(lock: OsUnfairLockT): Unit = throw UnsupportedOperationException("osUnfairLockLock not available on JVM — no C library access")
 
 public actual fun osUnfairLockTrylock(lock: OsUnfairLockT): Boolean =
     throw UnsupportedOperationException("osUnfairLockTrylock not available on JVM — no C library access")
 
-public actual fun osUnfairLockUnlock(lock: OsUnfairLockT) {
-    throw UnsupportedOperationException("osUnfairLockUnlock not available on JVM — no C library access")
-}
+public actual fun osUnfairLockUnlock(lock: OsUnfairLockT): Unit = throw UnsupportedOperationException("osUnfairLockUnlock not available on JVM — no C library access")
 
-public actual fun osUnfairLockAssertOwner(lock: OsUnfairLockT) {
-    throw UnsupportedOperationException("osUnfairLockAssertOwner not available on JVM — no C library access")
-}
+public actual fun osUnfairLockAssertOwner(lock: OsUnfairLockT): Unit = throw UnsupportedOperationException("osUnfairLockAssertOwner not available on JVM — no C library access")
 
-public actual fun osUnfairLockAssertNotOwner(lock: OsUnfairLockT) {
-    throw UnsupportedOperationException("osUnfairLockAssertNotOwner not available on JVM — no C library access")
-}
+public actual fun osUnfairLockAssertNotOwner(lock: OsUnfairLockT): Unit = throw UnsupportedOperationException("osUnfairLockAssertNotOwner not available on JVM — no C library access")
 
 public actual fun osLogTypeEnabled(oslog: OsLogT, tpe: OsLogTypeT): Boolean =
     throw UnsupportedOperationException("osLogTypeEnabled not available on JVM — no C library access")
@@ -267,16 +249,12 @@ public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
 public actual fun backtraceSymbols(addrs: COpaquePointer?, sz: CInt): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbols not available on JVM — no C library access")
 
-public actual fun backtraceSymbolsFd(addrs: COpaquePointer?, sz: CInt, fd: CInt) {
-    throw UnsupportedOperationException("backtraceSymbolsFd not available on JVM — no C library access")
-}
+public actual fun backtraceSymbolsFd(addrs: COpaquePointer?, sz: CInt, fd: CInt): Unit = throw UnsupportedOperationException("backtraceSymbolsFd not available on JVM — no C library access")
 
 public actual fun backtraceFromFp(startfp: COpaquePointer?, array: COpaquePointer?, size: CInt): CInt =
     throw UnsupportedOperationException("backtraceFromFp not available on JVM — no C library access")
 
-public actual fun backtraceImageOffsets(array: COpaquePointer?, imageOffsets: ImageOffset?, size: CInt) {
-    throw UnsupportedOperationException("backtraceImageOffsets not available on JVM — no C library access")
-}
+public actual fun backtraceImageOffsets(array: COpaquePointer?, imageOffsets: ImageOffset?, size: CInt): Unit = throw UnsupportedOperationException("backtraceImageOffsets not available on JVM — no C library access")
 
 public actual fun backtraceAsync(array: COpaquePointer?, length: ULong, taskId: UInt?): ULong =
     throw UnsupportedOperationException("backtraceAsync not available on JVM — no C library access")
@@ -533,43 +511,27 @@ public actual fun machErrorString(errorValue: MachErrorT): String? =
 public actual fun memsetS(s: COpaquePointer?, smax: ULong, c: CInt, n: ULong): CInt =
     throw UnsupportedOperationException("memsetS not available on JVM — no C library access")
 
-public actual fun memsetPattern4(b: COpaquePointer?, pattern4: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("memsetPattern4 not available on JVM — no C library access")
-}
+public actual fun memsetPattern4(b: COpaquePointer?, pattern4: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("memsetPattern4 not available on JVM — no C library access")
 
-public actual fun memsetPattern8(b: COpaquePointer?, pattern8: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("memsetPattern8 not available on JVM — no C library access")
-}
+public actual fun memsetPattern8(b: COpaquePointer?, pattern8: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("memsetPattern8 not available on JVM — no C library access")
 
-public actual fun memsetPattern16(b: COpaquePointer?, pattern16: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("memsetPattern16 not available on JVM — no C library access")
-}
+public actual fun memsetPattern16(b: COpaquePointer?, pattern16: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("memsetPattern16 not available on JVM — no C library access")
 
 public actual fun strtonum(numstr: String?, minval: CLongLong, maxval: CLongLong, errstrp: COpaquePointer?): CLongLong =
     throw UnsupportedOperationException("strtonum not available on JVM — no C library access")
 
-public actual fun mallocPrintf(format: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("mallocPrintf not available on JVM — no C library access")
-}
+public actual fun mallocPrintf(format: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("mallocPrintf not available on JVM — no C library access")
 
 public actual fun mallocZoneCheck(zone: MallocZoneT): BooleanT =
     throw UnsupportedOperationException("mallocZoneCheck not available on JVM — no C library access")
 
-public actual fun mallocZonePrint(zone: MallocZoneT, verbose: BooleanT) {
-    throw UnsupportedOperationException("mallocZonePrint not available on JVM — no C library access")
-}
+public actual fun mallocZonePrint(zone: MallocZoneT, verbose: BooleanT): Unit = throw UnsupportedOperationException("mallocZonePrint not available on JVM — no C library access")
 
-public actual fun mallocZoneStatistics(zone: MallocZoneT, stats: MallocStatisticsT?) {
-    throw UnsupportedOperationException("mallocZoneStatistics not available on JVM — no C library access")
-}
+public actual fun mallocZoneStatistics(zone: MallocZoneT, stats: MallocStatisticsT?): Unit = throw UnsupportedOperationException("mallocZoneStatistics not available on JVM — no C library access")
 
-public actual fun mallocZoneLog(zone: MallocZoneT, address: COpaquePointer?) {
-    throw UnsupportedOperationException("mallocZoneLog not available on JVM — no C library access")
-}
+public actual fun mallocZoneLog(zone: MallocZoneT, address: COpaquePointer?): Unit = throw UnsupportedOperationException("mallocZoneLog not available on JVM — no C library access")
 
-public actual fun mallocZonePrintPtrInfo(ptr: COpaquePointer?) {
-    throw UnsupportedOperationException("mallocZonePrintPtrInfo not available on JVM — no C library access")
-}
+public actual fun mallocZonePrintPtrInfo(ptr: COpaquePointer?): Unit = throw UnsupportedOperationException("mallocZonePrintPtrInfo not available on JVM — no C library access")
 
 public actual fun mallocDefaultZone(): MallocZoneT =
     throw UnsupportedOperationException("mallocDefaultZone not available on JVM — no C library access")
@@ -589,9 +551,7 @@ public actual fun mallocZoneCalloc(zone: MallocZoneT, numItems: ULong, size: ULo
 public actual fun mallocZoneRealloc(zone: MallocZoneT, ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("mallocZoneRealloc not available on JVM — no C library access")
 
-public actual fun mallocZoneFree(zone: MallocZoneT, ptr: COpaquePointer?) {
-    throw UnsupportedOperationException("mallocZoneFree not available on JVM — no C library access")
-}
+public actual fun mallocZoneFree(zone: MallocZoneT, ptr: COpaquePointer?): Unit = throw UnsupportedOperationException("mallocZoneFree not available on JVM — no C library access")
 
 public actual fun procListpids(t: UInt, typeinfo: UInt, buffer: COpaquePointer?, buffersize: CInt): CInt =
     throw UnsupportedOperationException("procListpids not available on JVM — no C library access")
@@ -650,9 +610,7 @@ public actual fun gethostuuid(id: COpaquePointer?, timeout: Timespec?): CInt =
 public actual fun gethostid(): CLong =
     throw UnsupportedOperationException("gethostid not available on JVM — no C library access")
 
-public actual fun sethostid(hostid: CLong) {
-    throw UnsupportedOperationException("sethostid not available on JVM — no C library access")
-}
+public actual fun sethostid(hostid: CLong): Unit = throw UnsupportedOperationException("sethostid not available on JVM — no C library access")
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
     throw UnsupportedOperationException("getentropy not available on JVM — no C library access")
@@ -765,7 +723,4 @@ public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?,
 public actual fun iconvClose(cd: IconvT): CInt =
     throw UnsupportedOperationException("iconvClose not available on JVM — no C library access")
 
-
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?) {
-    throw UnsupportedOperationException("qsortR not available on JVM — no C library access")
-}
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsortR not available on JVM — no C library access")

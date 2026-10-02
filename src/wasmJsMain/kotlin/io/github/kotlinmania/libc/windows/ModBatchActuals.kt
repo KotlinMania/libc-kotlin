@@ -75,9 +75,7 @@ public actual fun tmpfile(): FILE? =
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     throw UnsupportedOperationException("setvbuf requires N-API addon")
 
-public actual fun setbuf(stream: FILE?, buf: String?) {
-    throw UnsupportedOperationException("setbuf requires N-API addon")
-}
+public actual fun setbuf(stream: FILE?, buf: String?): Unit = throw UnsupportedOperationException("setbuf requires N-API addon")
 
 public actual fun getchar(): CInt =
     throw UnsupportedOperationException("getchar requires N-API addon")
@@ -115,9 +113,7 @@ public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
 public actual fun ftell(stream: FILE?): CLong =
     throw UnsupportedOperationException("ftell requires N-API addon")
 
-public actual fun rewind(stream: FILE?) {
-    throw UnsupportedOperationException("rewind requires N-API addon")
-}
+public actual fun rewind(stream: FILE?): Unit = throw UnsupportedOperationException("rewind requires N-API addon")
 
 public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos requires N-API addon")
@@ -131,9 +127,7 @@ public actual fun feof(stream: FILE?): CInt =
 public actual fun ferror(stream: FILE?): CInt =
     throw UnsupportedOperationException("ferror requires N-API addon")
 
-public actual fun perror(s: String?) {
-    throw UnsupportedOperationException("perror requires N-API addon")
-}
+public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror requires N-API addon")
 
 public actual fun atoi(s: String?): CInt =
     throw UnsupportedOperationException("atoi requires N-API addon")
@@ -168,9 +162,7 @@ public actual fun msize(p: COpaquePointer?): ULong =
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc requires N-API addon")
 
-public actual fun free(p: COpaquePointer?) {
-    throw UnsupportedOperationException("free requires N-API addon")
-}
+public actual fun free(p: COpaquePointer?): Unit = throw UnsupportedOperationException("free requires N-API addon")
 
 public actual fun system(s: String?): CInt =
     throw UnsupportedOperationException("system requires N-API addon")
@@ -268,9 +260,7 @@ public actual fun labs(i: CLong): CLong =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("rand requires N-API addon")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand requires N-API addon")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand requires N-API addon")
 
 public actual fun raise(signum: CInt): CInt =
     throw UnsupportedOperationException("raise requires N-API addon")
@@ -302,9 +292,7 @@ public actual fun localtimeS(tmDest: Tm?, sourceTime: TimeT?): ErrnoT =
 public actual fun time(destTime: TimeT?): TimeT =
     throw UnsupportedOperationException("time requires N-API addon")
 
-public actual fun tzset() {
-    throw UnsupportedOperationException("tzset requires N-API addon")
-}
+public actual fun tzset(): Unit = throw UnsupportedOperationException("tzset requires N-API addon")
 
 public actual fun chmod(path: String?, mode: CInt): CInt =
     throw UnsupportedOperationException("chmod requires N-API addon")
@@ -462,9 +450,7 @@ public actual fun wsetlocale(category: CInt, locale: WcharT?): WcharT? =
 public actual fun alignedMalloc(size: ULong, alignment: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedMalloc requires N-API addon")
 
-public actual fun alignedFree(ptr: COpaquePointer?) {
-    throw UnsupportedOperationException("alignedFree requires N-API addon")
-}
+public actual fun alignedFree(ptr: COpaquePointer?): Unit = throw UnsupportedOperationException("alignedFree requires N-API addon")
 
 public actual fun alignedRealloc(memblock: COpaquePointer?, size: ULong, alignment: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedRealloc requires N-API addon")
@@ -481,14 +467,9 @@ public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS requires N-API addon")
 
+public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsort requires N-API addon")
 
-public actual fun qsort(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?) {
-    throw UnsupportedOperationException("qsort requires N-API addon")
-}
-
-public actual fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
-    throw UnsupportedOperationException("qsortS requires N-API addon")
-}
+public actual fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortS requires N-API addon")
 
 public actual fun atexit(cb: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("atexit requires N-API addon")

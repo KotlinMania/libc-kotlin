@@ -11,4 +11,3 @@ public actual fun strnicmp(s1: String?, s2: String?, n: ULong): CInt =
 
 public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memccpy not available on Android host — use androidNative target for FFI")
-

@@ -4,13 +4,10 @@
 package io.github.kotlinmania.libc.unix.newlib.rtems
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import libc.cinterop.libc_getentropy
-import libc.cinterop.libc_readv
-import libc.cinterop.libc_writev
 import libc.cinterop.libc_futimens
 
 public actual fun futimens(fd: CInt, times: Timespec?): CInt {
@@ -32,9 +29,7 @@ public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: Clock
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
     throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
 
 public actual fun setgroups(ngroups: CInt, grouplist: GidT?): CInt =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")

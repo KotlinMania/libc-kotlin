@@ -9,9 +9,7 @@ public actual fun sCTPPRINDEX(policy: CInt): CInt =
 public actual fun sCTPPRPOLICY(policy: CInt): CInt =
     throw UnsupportedOperationException("sCTPPRPOLICY requires N-API addon")
 
-public actual fun sCTPPRSETPOLICY(flags: CInt?, policy: CInt) {
-    throw UnsupportedOperationException("sCTPPRSETPOLICY requires N-API addon")
-}
+public actual fun sCTPPRSETPOLICY(flags: CInt?, policy: CInt): Unit = throw UnsupportedOperationException("sCTPPRSETPOLICY requires N-API addon")
 
 public actual fun sOEEOFFENDER(ee: SockExtendedErr?): Sockaddr? =
     throw UnsupportedOperationException("sOEEOFFENDER requires N-API addon")
@@ -58,9 +56,7 @@ public actual fun mrand48(): CLong =
 public actual fun seed48(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48 requires N-API addon")
 
-public actual fun lcong48(p: CUShort?) {
-    throw UnsupportedOperationException("lcong48 requires N-API addon")
-}
+public actual fun lcong48(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48 requires N-API addon")
 
 public actual fun lutimes(file: String?, times: Timeval?): CInt =
     throw UnsupportedOperationException("lutimes requires N-API addon")
@@ -194,9 +190,7 @@ public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
 public actual fun vhangup(): CInt =
     throw UnsupportedOperationException("vhangup requires N-API addon")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync requires N-API addon")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync requires N-API addon")
 
 public actual fun syncfs(fd: CInt): CInt =
     throw UnsupportedOperationException("syncfs requires N-API addon")
@@ -381,7 +375,6 @@ public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T)
 public actual fun fgetpos64(stream: FILE?, ptr: Fpos64T?): CInt =
     throw UnsupportedOperationException("fgetpos64 requires N-API addon")
 
-
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
     throw UnsupportedOperationException("posixFallocate64 requires N-API addon")
 
@@ -390,7 +383,6 @@ public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: Off64T?, count: UL
 
 public actual fun tmpfile64(): FILE? =
     throw UnsupportedOperationException("tmpfile64 requires N-API addon")
-
 
 public actual fun clone(cb: ((COpaquePointer?) -> CInt)?, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("clone requires N-API addon")

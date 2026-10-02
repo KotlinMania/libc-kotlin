@@ -69,13 +69,9 @@ public actual fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePoin
 public actual fun pthreadMainNp(): CInt =
     throw UnsupportedOperationException("pthreadMainNp not available on WASI — no C library access")
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong) {
-    throw UnsupportedOperationException("pthreadGetNameNp not available on WASI — no C library access")
-}
+public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong): Unit = throw UnsupportedOperationException("pthreadGetNameNp not available on WASI — no C library access")
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
-    throw UnsupportedOperationException("pthreadSetNameNp not available on WASI — no C library access")
-}
+public actual fun pthreadSetNameNp(tid: PthreadT, name: String?): Unit = throw UnsupportedOperationException("pthreadSetNameNp not available on WASI — no C library access")
 
 public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: StackT?): CInt =
     throw UnsupportedOperationException("pthreadStacksegNp not available on WASI — no C library access")
@@ -107,9 +103,7 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("uselocale not available on WASI — no C library access")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale not available on WASI — no C library access")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale not available on WASI — no C library access")
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale not available on WASI — no C library access")
@@ -117,17 +111,11 @@ public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale not available on WASI — no C library access")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero not available on WASI — no C library access")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero not available on WASI — no C library access")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle not available on WASI — no C library access")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle not available on WASI — no C library access")
 
-public actual fun freezero(ptr: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("freezero not available on WASI — no C library access")
-}
+public actual fun freezero(ptr: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("freezero not available on WASI — no C library access")
 
 public actual fun mallocConceal(size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("mallocConceal not available on WASI — no C library access")
@@ -135,23 +123,17 @@ public actual fun mallocConceal(size: ULong): COpaquePointer? =
 public actual fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("callocConceal not available on WASI — no C library access")
 
-public actual fun srand48Deterministic(seed: CLong) {
-    throw UnsupportedOperationException("srand48Deterministic not available on WASI — no C library access")
-}
+public actual fun srand48Deterministic(seed: CLong): Unit = throw UnsupportedOperationException("srand48Deterministic not available on WASI — no C library access")
 
 public actual fun seed48Deterministic(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48Deterministic not available on WASI — no C library access")
 
-public actual fun lcong48Deterministic(p: CUShort?) {
-    throw UnsupportedOperationException("lcong48Deterministic not available on WASI — no C library access")
-}
+public actual fun lcong48Deterministic(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48Deterministic not available on WASI — no C library access")
 
 public actual fun hcreate(nelt: ULong): CInt =
     throw UnsupportedOperationException("hcreate not available on WASI — no C library access")
 
-public actual fun hdestroy() {
-    throw UnsupportedOperationException("hdestroy not available on WASI — no C library access")
-}
+public actual fun hdestroy(): Unit = throw UnsupportedOperationException("hdestroy not available on WASI — no C library access")
 
 public actual fun hsearch(entry: ENTRY, action: ACTION): ENTRY? =
     throw UnsupportedOperationException("hsearch not available on WASI — no C library access")
@@ -191,7 +173,6 @@ public actual fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: 
 
 public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbolsFmt not available on WASI — no C library access")
-
 
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlIteratePhdr not available on WASI — no C library access")

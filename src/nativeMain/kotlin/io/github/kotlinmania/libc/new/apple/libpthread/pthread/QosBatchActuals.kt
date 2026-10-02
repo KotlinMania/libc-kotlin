@@ -7,10 +7,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
 import kotlinx.cinterop.ExperimentalForeignApi
 
-
-
-
-
 public actual fun pthreadAttrSetQosClassNp(attr: PthreadAttrT, `class`: QosClassT, priority: CInt): CInt =
     throw UnsupportedOperationException("pthreadAttrSetQosClassNp requires manual FFI bridge for ambiguous type")
 

@@ -5,18 +5,15 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
-import kotlinx.cinterop.toLong
 import libc.cinterop.libc_basename
 import libc.cinterop.libc_dirname
-import libc.cinterop.libc_memmem
 import libc.cinterop.libc_setgrent
-import libc.cinterop.libc_uname
 import libc.cinterop.libc_shmdt
-import libc.cinterop.libc_mprotect
+import libc.cinterop.libc_uname
 
 public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
@@ -24,17 +21,11 @@ public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUZERO(cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUZERO requires manual FFI bridge — not yet implemented")
-}
+public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUSET requires manual FFI bridge — not yet implemented")
-}
+public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?) {
-    throw UnsupportedOperationException("cPUCLR requires manual FFI bridge — not yet implemented")
-}
+public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR requires manual FFI bridge — not yet implemented")
 
 public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET requires manual FFI bridge — not yet implemented")
@@ -48,6 +39,7 @@ public actual fun setgrent() {
 
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect requires FFI bridge")
+
 public actual fun setutxdb(type: CUInt, file: String?): CInt =
     throw UnsupportedOperationException("setutxdb requires manual FFI bridge — not yet implemented")
 
@@ -60,9 +52,7 @@ public actual fun devnameR(dev: DevT, mode: ModeT, buf: String?, len: ULong): St
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid requires manual FFI bridge — not yet implemented")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
 
 public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: Rtprio?): CInt =
     throw UnsupportedOperationException("lwpRtprio requires manual FFI bridge — not yet implemented")
@@ -107,9 +97,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?)
 public actual fun schedGetcpu(): CInt =
     throw UnsupportedOperationException("schedGetcpu requires manual FFI bridge — not yet implemented")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle requires manual FFI bridge — not yet implemented")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle requires manual FFI bridge — not yet implemented")
 
 public actual fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt =
     throw UnsupportedOperationException("shmget requires manual FFI bridge — not yet implemented")
@@ -119,6 +107,7 @@ public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): CO
 
 public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
     libc.cinterop.libc_shmdt(shmaddr?.value?.toCPointer<kotlinx.cinterop.ByteVar>())
+
 public actual fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt =
     throw UnsupportedOperationException("shmctl requires manual FFI bridge — not yet implemented")
 
@@ -192,6 +181,4 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt
 public actual fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocf requires manual FFI bridge — not yet implemented")
 
-public actual fun freezero(ptr: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("freezero requires manual FFI bridge — not yet implemented")
-}
+public actual fun freezero(ptr: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("freezero requires manual FFI bridge — not yet implemented")

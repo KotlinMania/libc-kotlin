@@ -12,20 +12,14 @@ public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on Android host — use androidNative target for FFI")
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR not available on Android host — use androidNative target for FFI")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on Android host — use androidNative target for FFI")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on Android host — use androidNative target for FFI")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET not available on Android host — use androidNative target for FFI")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on Android host — use androidNative target for FFI")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO not available on Android host — use androidNative target for FFI")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on Android host — use androidNative target for FFI")
 
 public actual fun sIGRTMAX(): CInt =
     throw UnsupportedOperationException("sIGRTMAX not available on Android host — use androidNative target for FFI")
@@ -63,9 +57,7 @@ public actual fun labs(i: CLong): CLong =
 public actual fun rand(): CInt =
     throw UnsupportedOperationException("rand not available on Android host — use androidNative target for FFI")
 
-public actual fun srand(seed: CUInt) {
-    throw UnsupportedOperationException("srand not available on Android host — use androidNative target for FFI")
-}
+public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand not available on Android host — use androidNative target for FFI")
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
     throw UnsupportedOperationException("getentropy not available on Android host — use androidNative target for FFI")
@@ -82,9 +74,7 @@ public actual fun settimeofday(tp: Timeval?, tz: COpaquePointer?): CInt =
 public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getifaddrs not available on Android host — use androidNative target for FFI")
 
-public actual fun freeifaddrs(ifa: Ifaddrs?) {
-    throw UnsupportedOperationException("freeifaddrs not available on Android host — use androidNative target for FFI")
-}
+public actual fun freeifaddrs(ifa: Ifaddrs?): Unit = throw UnsupportedOperationException("freeifaddrs not available on Android host — use androidNative target for FFI")
 
 public actual fun stackGetbounds(sp: StackT?): CInt =
     throw UnsupportedOperationException("stackGetbounds not available on Android host — use androidNative target for FFI")
@@ -122,13 +112,9 @@ public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt =
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
     throw UnsupportedOperationException("getnameinfo not available on Android host — use androidNative target for FFI")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent not available on Android host — use androidNative target for FFI")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent not available on Android host — use androidNative target for FFI")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent not available on Android host — use androidNative target for FFI")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent not available on Android host — use androidNative target for FFI")
 
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent not available on Android host — use androidNative target for FFI")
@@ -142,9 +128,7 @@ public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): String? =
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale not available on Android host — use androidNative target for FFI")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale not available on Android host — use androidNative target for FFI")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale not available on Android host — use androidNative target for FFI")
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale not available on Android host — use androidNative target for FFI")
@@ -155,9 +139,7 @@ public actual fun uselocale(loc: LocaleT): LocaleT =
 public actual fun getprogname(): String? =
     throw UnsupportedOperationException("getprogname not available on Android host — use androidNative target for FFI")
 
-public actual fun setprogname(name: String?) {
-    throw UnsupportedOperationException("setprogname not available on Android host — use androidNative target for FFI")
-}
+public actual fun setprogname(name: String?): Unit = throw UnsupportedOperationException("setprogname not available on Android host — use androidNative target for FFI")
 
 public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg not available on Android host — use androidNative target for FFI")
@@ -180,9 +162,7 @@ public actual fun sethostname(name: String?, len: CInt): CInt =
 public actual fun ifNameindex(): IfNameindex? =
     throw UnsupportedOperationException("ifNameindex not available on Android host — use androidNative target for FFI")
 
-public actual fun ifFreenameindex(ptr: IfNameindex?) {
-    throw UnsupportedOperationException("ifFreenameindex not available on Android host — use androidNative target for FFI")
-}
+public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex not available on Android host — use androidNative target for FFI")
 
 public actual fun pthreadAttrGetstack(attr: PthreadAttrT?, stackaddr: COpaquePointer?, stacksize: ULong?): CInt =
     throw UnsupportedOperationException("pthreadAttrGetstack not available on Android host — use androidNative target for FFI")
@@ -211,9 +191,7 @@ public actual fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid not available on Android host — use androidNative target for FFI")
 
-public actual fun globfree(pglob: GlobT?) {
-    throw UnsupportedOperationException("globfree not available on Android host — use androidNative target for FFI")
-}
+public actual fun globfree(pglob: GlobT?): Unit = throw UnsupportedOperationException("globfree not available on Android host — use androidNative target for FFI")
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
     throw UnsupportedOperationException("posixFallocate not available on Android host — use androidNative target for FFI")
@@ -320,9 +298,7 @@ public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
 public actual fun shmUnlink(name: String?): CInt =
     throw UnsupportedOperationException("shmUnlink not available on Android host — use androidNative target for FFI")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir not available on Android host — use androidNative target for FFI")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir not available on Android host — use androidNative target for FFI")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir not available on Android host — use androidNative target for FFI")
@@ -486,13 +462,9 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid not available on Android host — use androidNative target for FFI")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent not available on Android host — use androidNative target for FFI")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent not available on Android host — use androidNative target for FFI")
 
-public actual fun endgrent() {
-    throw UnsupportedOperationException("endgrent not available on Android host — use androidNative target for FFI")
-}
+public actual fun endgrent(): Unit = throw UnsupportedOperationException("endgrent not available on Android host — use androidNative target for FFI")
 
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent not available on Android host — use androidNative target for FFI")
@@ -515,9 +487,7 @@ public actual fun makeutx(ux: Utmpx?): Utmpx? =
 public actual fun modutx(ux: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("modutx not available on Android host — use androidNative target for FFI")
 
-public actual fun updwtmpx(file: String?, ut: Utmpx?) {
-    throw UnsupportedOperationException("updwtmpx not available on Android host — use androidNative target for FFI")
-}
+public actual fun updwtmpx(file: String?, ut: Utmpx?): Unit = throw UnsupportedOperationException("updwtmpx not available on Android host — use androidNative target for FFI")
 
 public actual fun utmpxname(file: String?): CInt =
     throw UnsupportedOperationException("utmpxname not available on Android host — use androidNative target for FFI")
@@ -534,17 +504,11 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline not available on Android host — use androidNative target for FFI")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent not available on Android host — use androidNative target for FFI")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent not available on Android host — use androidNative target for FFI")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent not available on Android host — use androidNative target for FFI")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent not available on Android host — use androidNative target for FFI")
 
-public actual fun endutent() {
-    throw UnsupportedOperationException("endutent not available on Android host — use androidNative target for FFI")
-}
+public actual fun endutent(): Unit = throw UnsupportedOperationException("endutent not available on Android host — use androidNative target for FFI")
 
 public actual fun getutent(): Utmp? =
     throw UnsupportedOperationException("getutent not available on Android host — use androidNative target for FFI")
@@ -558,24 +522,16 @@ public actual fun getutline(u: Utmp?): Utmp? =
 public actual fun pututline(u: Utmp?): Utmp? =
     throw UnsupportedOperationException("pututline not available on Android host — use androidNative target for FFI")
 
-public actual fun setutent() {
-    throw UnsupportedOperationException("setutent not available on Android host — use androidNative target for FFI")
-}
+public actual fun setutent(): Unit = throw UnsupportedOperationException("setutent not available on Android host — use androidNative target for FFI")
 
 public actual fun utmpname(file: String?): CInt =
     throw UnsupportedOperationException("utmpname not available on Android host — use androidNative target for FFI")
 
-public actual fun getutmp(ux: Utmpx?, u: Utmp?) {
-    throw UnsupportedOperationException("getutmp not available on Android host — use androidNative target for FFI")
-}
+public actual fun getutmp(ux: Utmpx?, u: Utmp?): Unit = throw UnsupportedOperationException("getutmp not available on Android host — use androidNative target for FFI")
 
-public actual fun getutmpx(u: Utmp?, ux: Utmpx?) {
-    throw UnsupportedOperationException("getutmpx not available on Android host — use androidNative target for FFI")
-}
+public actual fun getutmpx(u: Utmp?, ux: Utmpx?): Unit = throw UnsupportedOperationException("getutmpx not available on Android host — use androidNative target for FFI")
 
-public actual fun updwtmp(file: String?, u: Utmp?) {
-    throw UnsupportedOperationException("updwtmp not available on Android host — use androidNative target for FFI")
-}
+public actual fun updwtmp(file: String?, u: Utmp?): Unit = throw UnsupportedOperationException("updwtmp not available on Android host — use androidNative target for FFI")
 
 public actual fun ntpAdjtime(buf: Timex?): CInt =
     throw UnsupportedOperationException("ntpAdjtime not available on Android host — use androidNative target for FFI")
@@ -604,9 +560,7 @@ public actual fun ucredGet(pid: PidT): UcredT =
 public actual fun getpeerucred(fd: CInt, ucred: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpeerucred not available on Android host — use androidNative target for FFI")
 
-public actual fun ucredFree(ucred: UcredT) {
-    throw UnsupportedOperationException("ucredFree not available on Android host — use androidNative target for FFI")
-}
+public actual fun ucredFree(ucred: UcredT): Unit = throw UnsupportedOperationException("ucredFree not available on Android host — use androidNative target for FFI")
 
 public actual fun ucredGetgroups(ucred: UcredT, groups: COpaquePointer?): CInt =
     throw UnsupportedOperationException("ucredGetgroups not available on Android host — use androidNative target for FFI")
@@ -686,16 +640,12 @@ public actual fun backtrace(buffer: COpaquePointer?, size: CInt): CInt =
 public actual fun backtraceSymbols(buffer: COpaquePointer?, size: CInt): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbols not available on Android host — use androidNative target for FFI")
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, size: CInt, fd: CInt) {
-    throw UnsupportedOperationException("backtraceSymbolsFd not available on Android host — use androidNative target for FFI")
-}
+public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, size: CInt, fd: CInt): Unit = throw UnsupportedOperationException("backtraceSymbolsFd not available on Android host — use androidNative target for FFI")
 
 public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt =
     throw UnsupportedOperationException("getoptLong not available on Android host — use androidNative target for FFI")
 
-public actual fun sync() {
-    throw UnsupportedOperationException("sync not available on Android host — use androidNative target for FFI")
-}
+public actual fun sync(): Unit = throw UnsupportedOperationException("sync not available on Android host — use androidNative target for FFI")
 
 public actual fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt =
     throw UnsupportedOperationException("aioCancel not available on Android host — use androidNative target for FFI")
@@ -724,9 +674,7 @@ public actual fun aioWrite(aiocbp: Aiocb?): CInt =
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt =
     throw UnsupportedOperationException("lioListio not available on Android host — use androidNative target for FFI")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf not available on Android host — use androidNative target for FFI")
-}
+public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf not available on Android host — use androidNative target for FFI")
 
 public actual fun secureGetenv(name: String?): String? =
     throw UnsupportedOperationException("secureGetenv not available on Android host — use androidNative target for FFI")
@@ -760,7 +708,6 @@ public actual fun lgrpVersion(version: CInt): CInt =
 
 public actual fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: LgrpIdT?, count: CUInt, tpe: LgrpRsrcT): CInt =
     throw UnsupportedOperationException("lgrpResources not available on Android host — use androidNative target for FFI")
-
 
 public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadCreate not available on Android host — use androidNative target for FFI")

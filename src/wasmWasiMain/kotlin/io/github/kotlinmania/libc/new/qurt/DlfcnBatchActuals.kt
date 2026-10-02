@@ -14,4 +14,3 @@ public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointe
 
 public actual fun dlerror(): String? =
     throw UnsupportedOperationException("dlerror not available on WASI — no C library access")
-

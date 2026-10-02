@@ -44,4 +44,3 @@ public actual fun sigaction(sig: CInt, act: Sigaction?, oact: Sigaction?): CInt 
 
 public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
     throw UnsupportedOperationException("sigtimedwait requires N-API addon")
-

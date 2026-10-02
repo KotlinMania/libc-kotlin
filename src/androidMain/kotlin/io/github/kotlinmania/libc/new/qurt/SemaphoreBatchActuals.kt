@@ -20,4 +20,3 @@ public actual fun semPost(sem: SemT?): CInt =
 
 public actual fun semGetvalue(sem: SemT?, sval: CInt?): CInt =
     throw UnsupportedOperationException("semGetvalue not available on Android host — use androidNative target for FFI")
-

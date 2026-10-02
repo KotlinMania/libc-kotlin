@@ -3,20 +3,14 @@ package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
 
-public actual fun fDCLR(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDCLR not available on WASI — no C library access")
-}
+public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on WASI — no C library access")
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on WASI — no C library access")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET not available on WASI — no C library access")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on WASI — no C library access")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO not available on WASI — no C library access")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on WASI — no C library access")
 
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation not available on WASI — no C library access")
@@ -48,13 +42,9 @@ public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
 public actual fun getgrent(): Group? =
     throw UnsupportedOperationException("getgrent not available on WASI — no C library access")
 
-public actual fun setgrent() {
-    throw UnsupportedOperationException("setgrent not available on WASI — no C library access")
-}
+public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent not available on WASI — no C library access")
 
-public actual fun endgrent() {
-    throw UnsupportedOperationException("endgrent not available on WASI — no C library access")
-}
+public actual fun endgrent(): Unit = throw UnsupportedOperationException("endgrent not available on WASI — no C library access")
 
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid not available on WASI — no C library access")
@@ -86,13 +76,9 @@ public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: T
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent not available on WASI — no C library access")
 
-public actual fun setpwent() {
-    throw UnsupportedOperationException("setpwent not available on WASI — no C library access")
-}
+public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent not available on WASI — no C library access")
 
-public actual fun endpwent() {
-    throw UnsupportedOperationException("endpwent not available on WASI — no C library access")
-}
+public actual fun endpwent(): Unit = throw UnsupportedOperationException("endpwent not available on WASI — no C library access")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
     throw UnsupportedOperationException("getpwnamR not available on WASI — no C library access")
@@ -130,9 +116,7 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 not available on WASI — no C library access")
 
-public actual fun explicitBzero(p: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero not available on WASI — no C library access")
-}
+public actual fun explicitBzero(p: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero not available on WASI — no C library access")
 
 public actual fun strlcat(dst: String?, src: String?, siz: ULong): ULong =
     throw UnsupportedOperationException("strlcat not available on WASI — no C library access")
@@ -232,7 +216,6 @@ public actual fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): UL
 
 public actual fun loginTty(fd: CInt): CInt =
     throw UnsupportedOperationException("loginTty not available on WASI — no C library access")
-
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("pthreadAtfork not available on WASI — no C library access")

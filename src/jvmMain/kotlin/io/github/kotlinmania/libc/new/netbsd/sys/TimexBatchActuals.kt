@@ -8,4 +8,3 @@ public actual fun ntpGettime(buf: Ntptimeval?): CInt =
 
 public actual fun ntpAdjtime(buf: Timex?): CInt =
     throw UnsupportedOperationException("ntpAdjtime not available on JVM — no C library access")
-

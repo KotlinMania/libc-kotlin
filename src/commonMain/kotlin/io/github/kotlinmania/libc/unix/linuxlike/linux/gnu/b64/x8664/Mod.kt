@@ -655,8 +655,10 @@ public const val REG_TRAPNO: CInt = 20
 public const val REG_OLDMASK: CInt = 21
 public const val REG_CR2: CInt = 22
 
-public expect fun getcontext(ucp: UcontextT?): CInt 
-public expect fun setcontext(ucp: UcontextT?): CInt 
+public expect fun getcontext(ucp: UcontextT?): CInt
+
+public expect fun setcontext(ucp: UcontextT?): CInt
+
 public expect fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?)
 
 public expect fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt 

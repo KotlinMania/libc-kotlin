@@ -428,4 +428,3 @@ public actual fun syscallSYSStatx(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): 
 
 public actual fun syscallSYSFaccessat2(a1: Int, a2: Int, a3: Int, a4: Int): CLong =
     throw UnsupportedOperationException("syscallSYSFaccessat2 not available on WASI — no C library access")
-

@@ -540,7 +540,6 @@ public actual fun interruptMask(intr: CInt, id: CInt): CInt =
 public actual fun interruptUnmask(intr: CInt, id: CInt): CInt =
     throw UnsupportedOperationException("interruptUnmask requires N-API addon")
 
-
 public actual fun signalAction(pid: PidT, sigstub: (() -> Unit)?, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt =
     throw UnsupportedOperationException("signalAction requires N-API addon")
 

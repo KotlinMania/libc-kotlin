@@ -146,4 +146,3 @@ public actual fun tolower(c: CInt): CInt =
 
 public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper not available on JVM — no C library access")
-

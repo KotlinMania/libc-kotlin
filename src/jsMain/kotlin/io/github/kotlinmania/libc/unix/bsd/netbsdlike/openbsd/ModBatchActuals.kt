@@ -69,13 +69,9 @@ public actual fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePoin
 public actual fun pthreadMainNp(): CInt =
     throw UnsupportedOperationException("pthreadMainNp requires N-API addon")
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong) {
-    throw UnsupportedOperationException("pthreadGetNameNp requires N-API addon")
-}
+public actual fun pthreadGetNameNp(tid: PthreadT, name: String?, len: ULong): Unit = throw UnsupportedOperationException("pthreadGetNameNp requires N-API addon")
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
-    throw UnsupportedOperationException("pthreadSetNameNp requires N-API addon")
-}
+public actual fun pthreadSetNameNp(tid: PthreadT, name: String?): Unit = throw UnsupportedOperationException("pthreadSetNameNp requires N-API addon")
 
 public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: StackT?): CInt =
     throw UnsupportedOperationException("pthreadStacksegNp requires N-API addon")
@@ -107,9 +103,7 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: 
 public actual fun uselocale(loc: LocaleT): LocaleT =
     throw UnsupportedOperationException("uselocale requires N-API addon")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires N-API addon")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires N-API addon")
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires N-API addon")
@@ -117,17 +111,11 @@ public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale requires N-API addon")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires N-API addon")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires N-API addon")
 
-public actual fun setproctitle(fmt: String?, vararg args: Any?) {
-    throw UnsupportedOperationException("setproctitle requires N-API addon")
-}
+public actual fun setproctitle(fmt: String?, vararg args: Any?): Unit = throw UnsupportedOperationException("setproctitle requires N-API addon")
 
-public actual fun freezero(ptr: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("freezero requires N-API addon")
-}
+public actual fun freezero(ptr: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("freezero requires N-API addon")
 
 public actual fun mallocConceal(size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("mallocConceal requires N-API addon")
@@ -135,23 +123,17 @@ public actual fun mallocConceal(size: ULong): COpaquePointer? =
 public actual fun callocConceal(nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("callocConceal requires N-API addon")
 
-public actual fun srand48Deterministic(seed: CLong) {
-    throw UnsupportedOperationException("srand48Deterministic requires N-API addon")
-}
+public actual fun srand48Deterministic(seed: CLong): Unit = throw UnsupportedOperationException("srand48Deterministic requires N-API addon")
 
 public actual fun seed48Deterministic(xseed: CUShort?): CUShort? =
     throw UnsupportedOperationException("seed48Deterministic requires N-API addon")
 
-public actual fun lcong48Deterministic(p: CUShort?) {
-    throw UnsupportedOperationException("lcong48Deterministic requires N-API addon")
-}
+public actual fun lcong48Deterministic(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48Deterministic requires N-API addon")
 
 public actual fun hcreate(nelt: ULong): CInt =
     throw UnsupportedOperationException("hcreate requires N-API addon")
 
-public actual fun hdestroy() {
-    throw UnsupportedOperationException("hdestroy requires N-API addon")
-}
+public actual fun hdestroy(): Unit = throw UnsupportedOperationException("hdestroy requires N-API addon")
 
 public actual fun hsearch(entry: ENTRY, action: ACTION): ENTRY? =
     throw UnsupportedOperationException("hsearch requires N-API addon")
@@ -191,7 +173,6 @@ public actual fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: ULong, fd: 
 
 public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: ULong, fmt: String?): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbolsFmt requires N-API addon")
-
 
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlIteratePhdr requires N-API addon")

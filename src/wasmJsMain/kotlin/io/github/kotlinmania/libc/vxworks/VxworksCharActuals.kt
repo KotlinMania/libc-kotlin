@@ -41,4 +41,3 @@ public actual fun isblank(c: CInt): CInt =
 
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty requires N-API addon with ctype support")
-

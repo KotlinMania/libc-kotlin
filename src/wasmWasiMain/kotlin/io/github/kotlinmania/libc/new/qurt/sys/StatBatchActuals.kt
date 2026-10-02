@@ -8,4 +8,3 @@ public actual fun stat(pathname: String?, statbuf: Stat?): CInt =
 
 public actual fun fstat(fd: CInt, statbuf: Stat?): CInt =
     throw UnsupportedOperationException("fstat not available on WASI — no C library access")
-

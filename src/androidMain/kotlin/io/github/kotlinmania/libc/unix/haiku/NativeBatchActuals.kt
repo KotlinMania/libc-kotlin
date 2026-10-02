@@ -117,9 +117,7 @@ public actual fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT
 public actual fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int =
     throw UnsupportedOperationException("suggestThreadPriority not available on Android host — use androidNative target for FFI")
 
-public actual fun exitThread(status: StatusT) {
-    throw UnsupportedOperationException("exitThread not available on Android host — use androidNative target for FFI")
-}
+public actual fun exitThread(status: StatusT): Unit = throw UnsupportedOperationException("exitThread not available on Android host — use androidNative target for FFI")
 
 public actual fun waitForThread(thread: ThreadId, returnValue: StatusT?): StatusT =
     throw UnsupportedOperationException("waitForThread not available on Android host — use androidNative target for FFI")
@@ -160,13 +158,9 @@ public actual fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?,
 public actual fun realTimeClock(): CULong =
     throw UnsupportedOperationException("realTimeClock not available on Android host — use androidNative target for FFI")
 
-public actual fun setRealTimeClock(secsSinceJan1st1970: CULong) {
-    throw UnsupportedOperationException("setRealTimeClock not available on Android host — use androidNative target for FFI")
-}
+public actual fun setRealTimeClock(secsSinceJan1st1970: CULong): Unit = throw UnsupportedOperationException("setRealTimeClock not available on Android host — use androidNative target for FFI")
 
-public actual fun debugger(message: String?) {
-    throw UnsupportedOperationException("debugger not available on Android host — use androidNative target for FFI")
-}
+public actual fun debugger(message: String?): Unit = throw UnsupportedOperationException("debugger not available on Android host — use androidNative target for FFI")
 
 public actual fun disableDebugger(state: CInt): CInt =
     throw UnsupportedOperationException("disableDebugger not available on Android host — use androidNative target for FFI")
@@ -186,9 +180,7 @@ public actual fun isComputerOn(): Int =
 public actual fun sendSignal(threadID: ThreadId, signal: CUInt): CInt =
     throw UnsupportedOperationException("sendSignal not available on Android host — use androidNative target for FFI")
 
-public actual fun setSignalStack(base: COpaquePointer?, size: ULong) {
-    throw UnsupportedOperationException("setSignalStack not available on Android host — use androidNative target for FFI")
-}
+public actual fun setSignalStack(base: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("setSignalStack not available on Android host — use androidNative target for FFI")
 
 public actual fun waitForObjects(infos: ObjectWaitInfo?, numInfos: CInt): SsizeT =
     throw UnsupportedOperationException("waitForObjects not available on Android host — use androidNative target for FFI")
@@ -232,9 +224,7 @@ public actual fun fsCloseAttrDir(dir: DIR?): CInt =
 public actual fun fsReadAttrDir(dir: DIR?): Dirent? =
     throw UnsupportedOperationException("fsReadAttrDir not available on Android host — use androidNative target for FFI")
 
-public actual fun fsRewindAttrDir(dir: DIR?) {
-    throw UnsupportedOperationException("fsRewindAttrDir not available on Android host — use androidNative target for FFI")
-}
+public actual fun fsRewindAttrDir(dir: DIR?): Unit = throw UnsupportedOperationException("fsRewindAttrDir not available on Android host — use androidNative target for FFI")
 
 public actual fun fsCreateIndex(device: DevT, name: String?, type: UInt, flags: UInt): CInt =
     throw UnsupportedOperationException("fsCreateIndex not available on Android host — use androidNative target for FFI")
@@ -254,9 +244,7 @@ public actual fun fsCloseIndexDir(indexDirectory: DIR?): CInt =
 public actual fun fsReadIndexDir(indexDirectory: DIR?): Dirent? =
     throw UnsupportedOperationException("fsReadIndexDir not available on Android host — use androidNative target for FFI")
 
-public actual fun fsRewindIndexDir(indexDirectory: DIR?) {
-    throw UnsupportedOperationException("fsRewindIndexDir not available on Android host — use androidNative target for FFI")
-}
+public actual fun fsRewindIndexDir(indexDirectory: DIR?): Unit = throw UnsupportedOperationException("fsRewindIndexDir not available on Android host — use androidNative target for FFI")
 
 public actual fun fsStatDev(dev: DevT, info: FsInfo?): CInt =
     throw UnsupportedOperationException("fsStatDev not available on Android host — use androidNative target for FFI")
@@ -288,9 +276,7 @@ public actual fun getImageSymbol(image: ImageId, name: String?, symbolType: Int,
 public actual fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: String?, nameLength: Int?, symbolType: Int?, symbolLocation: COpaquePointer?): StatusT =
     throw UnsupportedOperationException("getNthImageSymbol not available on Android host — use androidNative target for FFI")
 
-public actual fun clearCaches(address: COpaquePointer?, length: ULong, flags: UInt) {
-    throw UnsupportedOperationException("clearCaches not available on Android host — use androidNative target for FFI")
-}
+public actual fun clearCaches(address: COpaquePointer?, length: ULong, flags: UInt): Unit = throw UnsupportedOperationException("clearCaches not available on Android host — use androidNative target for FFI")
 
 public actual fun getImageInfo(image: ImageId, info: ImageInfo?, size: ULong): StatusT =
     throw UnsupportedOperationException("getImageInfo not available on Android host — use androidNative target for FFI")
@@ -321,7 +307,6 @@ public actual fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: B
 
 public actual fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): StatusT =
     throw UnsupportedOperationException("getCpuid not available on Android host — use androidNative target for FFI")
-
 
 public actual fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): StatusT =
     throw UnsupportedOperationException("onExitThread not available on Android host — use androidNative target for FFI")

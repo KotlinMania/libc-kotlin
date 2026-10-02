@@ -57,7 +57,7 @@ public data class UcontextT(
     val ucSigmask: SigsetT,
     val ucStack: StackT,
     val ucMcontext: McontextT,
-    val ucBrandData: List<COpaquePointer?>,
+    val ucBrandData: LongArray,
     val ucXsave: CLong,
     val ucFiller: CLong,
     val ucXrs: XrsT,

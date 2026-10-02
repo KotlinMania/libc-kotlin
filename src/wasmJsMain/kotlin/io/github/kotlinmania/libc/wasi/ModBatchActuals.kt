@@ -6,13 +6,9 @@ import io.github.kotlinmania.libc.*
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
 
-public actual fun fDSET(fd: CInt, set: FdSet?) {
-    throw UnsupportedOperationException("fDSET requires N-API addon")
-}
+public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
 
-public actual fun fDZERO(set: FdSet?) {
-    throw UnsupportedOperationException("fDZERO requires N-API addon")
-}
+public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
 
 public actual fun alignedAlloc(a: ULong, b: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires N-API addon")
@@ -20,9 +16,7 @@ public actual fun alignedAlloc(a: ULong, b: ULong): COpaquePointer? =
 public actual fun calloc(amt: ULong, amt2: ULong): COpaquePointer? =
     throw UnsupportedOperationException("calloc requires N-API addon")
 
-public actual fun free(ptr: COpaquePointer?) {
-    throw UnsupportedOperationException("free requires N-API addon")
-}
+public actual fun free(ptr: COpaquePointer?): Unit = throw UnsupportedOperationException("free requires N-API addon")
 
 public actual fun getenv(s: String?): String? =
     throw UnsupportedOperationException("getenv requires N-API addon")
@@ -81,9 +75,7 @@ public actual fun ferror(f: FILE?): CInt =
 public actual fun fflush(f: FILE?): CInt =
     throw UnsupportedOperationException("fflush requires N-API addon")
 
-public actual fun clearerr(f: FILE?) {
-    throw UnsupportedOperationException("clearerr requires N-API addon")
-}
+public actual fun clearerr(f: FILE?): Unit = throw UnsupportedOperationException("clearerr requires N-API addon")
 
 public actual fun fseek(f: FILE?, b: CLong, c: CInt): CInt =
     throw UnsupportedOperationException("fseek requires N-API addon")
@@ -91,9 +83,7 @@ public actual fun fseek(f: FILE?, b: CLong, c: CInt): CInt =
 public actual fun ftell(f: FILE?): CLong =
     throw UnsupportedOperationException("ftell requires N-API addon")
 
-public actual fun rewind(f: FILE?) {
-    throw UnsupportedOperationException("rewind requires N-API addon")
-}
+public actual fun rewind(f: FILE?): Unit = throw UnsupportedOperationException("rewind requires N-API addon")
 
 public actual fun fgetpos(f: FILE?, pos: FposT?): CInt =
     throw UnsupportedOperationException("fgetpos requires N-API addon")
@@ -134,13 +124,9 @@ public actual fun fputs(a: String?, f: FILE?): CInt =
 public actual fun puts(a: String?): CInt =
     throw UnsupportedOperationException("puts requires N-API addon")
 
-public actual fun perror(a: String?) {
-    throw UnsupportedOperationException("perror requires N-API addon")
-}
+public actual fun perror(a: String?): Unit = throw UnsupportedOperationException("perror requires N-API addon")
 
-public actual fun srand(a: CUInt) {
-    throw UnsupportedOperationException("srand requires N-API addon")
-}
+public actual fun srand(a: CUInt): Unit = throw UnsupportedOperationException("srand requires N-API addon")
 
 public actual fun posixMemalign(a: COpaquePointer?, b: ULong, c: ULong): CInt =
     throw UnsupportedOperationException("posixMemalign requires N-API addon")
@@ -151,9 +137,7 @@ public actual fun randR(a: CUInt?): CInt =
 public actual fun random(): CLong =
     throw UnsupportedOperationException("random requires N-API addon")
 
-public actual fun srandom(a: CUInt) {
-    throw UnsupportedOperationException("srandom requires N-API addon")
-}
+public actual fun srandom(a: CUInt): Unit = throw UnsupportedOperationException("srandom requires N-API addon")
 
 public actual fun putenv(a: String?): CInt =
     throw UnsupportedOperationException("putenv requires N-API addon")
@@ -245,9 +229,7 @@ public actual fun toupper(c: CInt): CInt =
 public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
     throw UnsupportedOperationException("setvbuf requires N-API addon")
 
-public actual fun setbuf(stream: FILE?, buf: String?) {
-    throw UnsupportedOperationException("setbuf requires N-API addon")
-}
+public actual fun setbuf(stream: FILE?, buf: String?): Unit = throw UnsupportedOperationException("setbuf requires N-API addon")
 
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
     throw UnsupportedOperationException("fgets requires N-API addon")
@@ -420,16 +402,12 @@ public actual fun readdir(dirp: DIR?): Dirent? =
 public actual fun closedir(dirp: DIR?): CInt =
     throw UnsupportedOperationException("closedir requires N-API addon")
 
-public actual fun rewinddir(dirp: DIR?) {
-    throw UnsupportedOperationException("rewinddir requires N-API addon")
-}
+public actual fun rewinddir(dirp: DIR?): Unit = throw UnsupportedOperationException("rewinddir requires N-API addon")
 
 public actual fun dirfd(dirp: DIR?): CInt =
     throw UnsupportedOperationException("dirfd requires N-API addon")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    throw UnsupportedOperationException("seekdir requires N-API addon")
-}
+public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir requires N-API addon")
 
 public actual fun telldir(dirp: DIR?): CLong =
     throw UnsupportedOperationException("telldir requires N-API addon")
@@ -608,9 +586,7 @@ public actual fun labs(i: CLong): CLong =
 public actual fun duplocale(base: LocaleT): LocaleT =
     throw UnsupportedOperationException("duplocale requires N-API addon")
 
-public actual fun freelocale(loc: LocaleT) {
-    throw UnsupportedOperationException("freelocale requires N-API addon")
-}
+public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires N-API addon")
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     throw UnsupportedOperationException("newlocale requires N-API addon")
@@ -714,9 +690,7 @@ public actual fun wasilibcRenameOldat(olddirfd: CInt, oldpath: String?, newpath:
 public actual fun wasilibcRenameNewat(oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
     throw UnsupportedOperationException("wasilibcRenameNewat requires N-API addon")
 
-public actual fun arc4randomBuf(a: COpaquePointer?, b: ULong) {
-    throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
-}
+public actual fun arc4randomBuf(a: COpaquePointer?, b: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires N-API addon")
 
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation requires N-API addon")
@@ -837,7 +811,6 @@ public actual fun pthreadRwlockattrInit(attr: PthreadRwlockattrT?): CInt =
 
 public actual fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrDestroy requires N-API addon")
-
 
 public actual fun atexit(a: (() -> Unit)?): CInt =
     throw UnsupportedOperationException("atexit requires N-API addon")

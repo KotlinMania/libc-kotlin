@@ -4,19 +4,13 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
 import libc.cinterop.libc_dirname
-import libc.cinterop.libc_getentropy
-import libc.cinterop.libc_getrandom
 import libc.cinterop.libc_gettimeofday
-import libc.cinterop.libc_setrlimit
-import libc.cinterop.libc_getpriority
-import libc.cinterop.libc_setpriority
-import libc.cinterop.libc_getrlimit
 
 public actual fun fgetspentR(fp: FILE?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): CInt =
     throw UnsupportedOperationException("fgetspentR requires manual FFI bridge — not yet implemented")
@@ -44,6 +38,7 @@ public actual fun getrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
 
 public actual fun setrlimit(resource: RlimitResourceT, rlim: Rlimit?): CInt =
     throw UnsupportedOperationException("setrlimit requires FFI bridge")
+
 public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: Rlimit?, oldLimit: Rlimit?): CInt =
     throw UnsupportedOperationException("prlimit requires FFI bridge")
 
@@ -68,13 +63,9 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline requires manual FFI bridge — not yet implemented")
 
-public actual fun setutxent() {
-    throw UnsupportedOperationException("setutxent requires manual FFI bridge — not yet implemented")
-}
+public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent requires manual FFI bridge — not yet implemented")
 
-public actual fun endutxent() {
-    throw UnsupportedOperationException("endutxent requires manual FFI bridge — not yet implemented")
-}
+public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent requires manual FFI bridge — not yet implemented")
 
 public actual fun getpt(): CInt =
     throw UnsupportedOperationException("getpt requires manual FFI bridge — not yet implemented")
@@ -130,9 +121,7 @@ public actual fun pwritev64v2(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64
 public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUInt): CInt =
     throw UnsupportedOperationException("renameat2 requires manual FFI bridge — not yet implemented")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: ULong) {
-    throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
-}
+public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero requires manual FFI bridge — not yet implemented")
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocarray requires manual FFI bridge — not yet implemented")
@@ -146,13 +135,9 @@ public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
 public actual fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaquePointer? =
     throw UnsupportedOperationException("backtraceSymbols requires manual FFI bridge — not yet implemented")
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt) {
-    throw UnsupportedOperationException("backtraceSymbolsFd requires manual FFI bridge — not yet implemented")
-}
+public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt): Unit = throw UnsupportedOperationException("backtraceSymbolsFd requires manual FFI bridge — not yet implemented")
 
-public actual fun globfree64(pglob: Glob64T?) {
-    throw UnsupportedOperationException("globfree64 requires manual FFI bridge — not yet implemented")
-}
+public actual fun globfree64(pglob: Glob64T?): Unit = throw UnsupportedOperationException("globfree64 requires manual FFI bridge — not yet implemented")
 
 public actual fun ptrace(request: CUInt, vararg args: Any?): CLong =
     throw UnsupportedOperationException("ptrace requires manual FFI bridge — not yet implemented")
@@ -175,16 +160,13 @@ public actual fun pthreadRwlockattrGetkindNp(attr: PthreadRwlockattrT, `val`: CI
 public actual fun pthreadRwlockattrSetkindNp(attr: PthreadRwlockattrT, `val`: CInt): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrSetkindNp requires manual FFI bridge — not yet implemented")
 
-
 public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadTryjoinNp requires manual FFI bridge — not yet implemented")
 
 public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: Timespec?): CInt =
     throw UnsupportedOperationException("pthreadTimedjoinNp requires manual FFI bridge — not yet implemented")
 
-public actual fun mallocStats() {
-    throw UnsupportedOperationException("mallocStats requires manual FFI bridge — not yet implemented")
-}
+public actual fun mallocStats(): Unit = throw UnsupportedOperationException("mallocStats requires manual FFI bridge — not yet implemented")
 
 public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
     throw UnsupportedOperationException("mallocInfo requires manual FFI bridge — not yet implemented")
@@ -296,9 +278,7 @@ public actual fun mempcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong)
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("tgkill requires manual FFI bridge — not yet implemented")
 
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?) {
-    throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
-}
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
 
 public actual fun glob64(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: Glob64T?): CInt =
     throw UnsupportedOperationException("glob64 requires manual FFI bridge — not yet implemented")

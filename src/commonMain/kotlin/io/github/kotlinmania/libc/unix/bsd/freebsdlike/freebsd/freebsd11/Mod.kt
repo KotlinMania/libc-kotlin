@@ -110,7 +110,7 @@ public data class KinfoProc(
     val kiKstack: COpaquePointer?,
     val kiUdata: COpaquePointer?,
     val kiTdaddr: COpaquePointer?,
-    val kiSpareptrs: List<COpaquePointer?>,
+    val kiSpareptrs: LongArray,
     val kiSparelongs: LongArray,
     val kiSflag: CLong,
     val kiTdflags: CLong,
@@ -166,10 +166,16 @@ public const val KI_NSPARE_PTR: ULong = 6uL
 public const val MINCORE_SUPER: CInt = 0x20
 public const val SPECNAMELEN: CInt = 63
 
-public expect fun setgrent(): CInt 
-public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
-public expect fun freelocale(loc: LocaleT): CInt 
-public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): CInt 
-public expect fun dirname(path: String?): String? 
-public expect fun basename(path: String?): String? 
+public expect fun setgrent(): CInt
+
+public expect fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt
+
+public expect fun freelocale(loc: LocaleT): CInt
+
+public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): CInt
+
+public expect fun dirname(path: String?): String?
+
+public expect fun basename(path: String?): String?
+
 public expect fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?)

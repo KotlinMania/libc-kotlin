@@ -105,7 +105,6 @@ public actual fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULon
 public actual fun posixMemalign(memptr: COpaquePointer?, alignment: ULong, size: ULong): CInt =
     throw UnsupportedOperationException("posixMemalign requires N-API addon")
 
-
 public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt =
     throw UnsupportedOperationException("pthreadCreate requires N-API addon")
 
