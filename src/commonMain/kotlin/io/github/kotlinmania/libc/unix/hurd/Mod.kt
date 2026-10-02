@@ -751,11 +751,11 @@ public data class Ifreq(
 )
 
 public data class LocaleStruct(
-    val locales: List<COpaquePointer?>,
+    val locales: LongArray,
     val ctypeB: CUShort?,
     val ctypeTolower: CInt?,
     val ctypeToupper: CInt?,
-    val names: List<String?>,
+    val names: List<String>,
 )
 
 public data class Utsname(

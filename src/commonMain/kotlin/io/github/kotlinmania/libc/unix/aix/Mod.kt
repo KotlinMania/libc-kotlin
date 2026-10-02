@@ -420,8 +420,8 @@ public data class RegexT(
     val reErroff: ULong,
     val reLen: ULong,
     val reUcoll: List<WcharT>,
-    val reLsub: List<COpaquePointer?>,
-    val reEsub: List<COpaquePointer?>,
+    val reLsub: LongArray,
+    val reEsub: LongArray,
     val reMap: COpaquePointer?,
     val maxsub: CInt,
 )

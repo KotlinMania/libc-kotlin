@@ -1042,7 +1042,7 @@ public data class Filedesc(
 
 public data class Fdescenttbl(
     val fdtNfiles: CInt,
-    val fdtOfiles: List<COpaquePointer?>,
+    val fdtOfiles: LongArray,
 )
 
 public data class Sx(

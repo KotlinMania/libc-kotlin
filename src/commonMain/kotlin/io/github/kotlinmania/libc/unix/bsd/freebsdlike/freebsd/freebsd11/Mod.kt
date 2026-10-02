@@ -110,7 +110,7 @@ public data class KinfoProc(
     val kiKstack: COpaquePointer?,
     val kiUdata: COpaquePointer?,
     val kiTdaddr: COpaquePointer?,
-    val kiSpareptrs: List<COpaquePointer?>,
+    val kiSpareptrs: LongArray,
     val kiSparelongs: LongArray,
     val kiSflag: CLong,
     val kiTdflags: CLong,

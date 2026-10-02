@@ -167,19 +167,19 @@ public data class PthreadRwlockattrT(
 )
 
 public data class PthreadCondT(
-    val size: List<COpaquePointer?>,
+    val size: LongArray,
 )
 
 public data class PthreadMutexT(
-    val size: List<COpaquePointer?>,
+    val size: LongArray,
 )
 
 public data class PthreadRwlockT(
-    val size: List<COpaquePointer?>,
+    val size: LongArray,
 )
 
 public data class PthreadBarrierT(
-    val size: List<COpaquePointer?>,
+    val size: LongArray,
 )
 
 public data class Dirent(

@@ -8,14 +8,14 @@ package io.github.kotlinmania.libc
 /**
  * A transparent wrapper that represents uninitialized padding while providing a default.
  */
-public data class Padding<T>(
-    public val value: T,
+internal data class Padding<T>(
+    val value: T,
 ) {
-    public companion object {
+    companion object {
         /**
          * Const constructor for uninitialized padding in const contexts.
          */
-        public fun <T> uninit(value: T): Padding<T> = Padding(value)
+        fun <T> uninit(value: T): Padding<T> = Padding(value)
     }
 }
 
