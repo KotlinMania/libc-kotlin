@@ -407,7 +407,7 @@ public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
 public actual fun free(p: COpaquePointer?): Unit {
     if (p == null) return 
     val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
-    libc_free(pPtr)
+    if (p.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
 
 public actual fun system(s: String?): CInt {
@@ -510,8 +510,9 @@ public actual fun strerror(n: CInt): String? {
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok requires FFI bridge")
 
-public actual fun strxfrm(s: String?, ct: String?, n: ULong): ULong =
-    libc.cinterop.libc_strxfrm(s, ct, n)
+public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: ULong): ULong = memScoped {
+    libc.cinterop.libc_strxfrm(s?.value?.toCPointer<ByteVar>(), ct?.cstr?.getPointer(this), n)
+}
 public actual fun wcslen(buf: WcharT?): ULong =
     throw UnsupportedOperationException("wcslen requires manual FFI bridge — not yet implemented")
 

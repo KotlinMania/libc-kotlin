@@ -11,17 +11,6 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
-/* Prevent glibc __isoc23_* redirects (strtol → __isoc23_strtol etc.) on
- * newer glibc (Ubuntu 24.04+). The redirected symbols aren't in the
- * Kotlin/Native sysroot. Undef AFTER features.h is pulled in by the
- * includes above (which sets __USE_ISOC2X via _GNU_SOURCE), but BEFORE
- * <stdlib.h> declares the redirect. */
-#ifdef __linux__
-#undef __USE_ISOC2X
-/* Also undef __GLIBC_USE_ISOC2X which is the actual guard glibc uses */
-#undef __GLIBC_USE_ISOC2X
-#define __GLIBC_USE_ISOC2X 0
-#endif
 #include <stdlib.h>
 #include <string.h>
 #else
@@ -34,6 +23,8 @@
 /* Windows: winsock2 for CMSG macros (WSA_CMSG_DATA, WSAMSG, etc.) */
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <mswsock.h>
+#include <process.h>
 /* Windows POSIX replacements: _getcwd, _mktemp, _fullpath, _strdup,
  * _stricmp, _strnicmp, close, dup, dup2, chdir, etc. */
 #include <direct.h>
@@ -122,6 +113,7 @@
 #endif
 #include <ctype.h>
 #ifdef __APPLE__
+#include <TargetConditionals.h>
 #include <mach/mach_time.h>
 #endif
 #ifdef __APPLE__
@@ -154,6 +146,8 @@ void* libc_calloc(uint64_t nobj, uint64_t size);
 void* libc_malloc(uint64_t size);
 void* libc_realloc(void* p, uint64_t size);
 void libc_free(void* p);
+void libc_aligned_free(void* p);
+void* libc_aligned_realloc(void* p, uint64_t size, uint64_t alignment);
 void* libc_aligned_alloc(uint64_t alignment, uint64_t size);
 int libc_atoi(const char* s);
 int64_t libc_atol(const char* s);
@@ -306,7 +300,7 @@ int libc_setvbuf(void* stream, const char* buffer, int mode, uint64_t size);
 uint64_t libc_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream);
 int libc_fgetpos(void* stream, void* ptr);
 int libc_fsetpos(void* stream, void* ptr);
-uint64_t libc_strxfrm(const char* s, const char* ct, uint64_t n);
+uint64_t libc_strxfrm(char* s, const char* ct, uint64_t n);
 int64_t libc_ftello(void* stream);
 int32_t libc_setpgid(int32_t pid, int32_t pgid);
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize);
@@ -410,8 +404,8 @@ int64_t libc_strtonum(const char* numstr, int64_t minval, int64_t maxval, void* 
 int libc_getattrlistat(int fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, unsigned long options);
 int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options);
 int libc_execvP(const char* file, const char* searchPath, void* argv);
-int libc_exchangedata(const char* path1, const char* path2, unsigned long options);
-int libc_lchflags(const char* path, unsigned long flags);
+int libc_exchangedata(const char* path1, const char* path2, uint64_t options);
+int libc_lchflags(const char* path, uint64_t flags);
 int libc_ffsl(int64_t value);
 int libc_ffsll(int64_t value);
 int libc_fls(int value);
@@ -518,5 +512,29 @@ void* libc_newlocale(int mask, const char* locale, void* base);
 int libc_pthread_getname_np(void* thread, char* name, unsigned long len);
 int libc_pthread_setname_np(void* thread, const char* name);
 int libc_getgrouplist(const char* user, int group, void* groups, int* ngroups);
+
+int libc_sched_yield(void);
+int64_t libc_write(int fd, const void* buf, uint64_t count);
+int libc_putenv(char* string);
+int libc_fnmatch(const char* pattern, const char* name, int flags);
+char* libc_strndup(const char* s, uint64_t n);
+int64_t libc_strtoll(const char* s, void* endp, int base);
+uint64_t libc_strtoul(const char* s, void* endp, int base);
+uint64_t libc_strtoull(const char* s, void* endp, int base);
+int libc_mknod(const char* pathname, uint32_t mode, uint64_t dev);
+const char* libc_strsignal(int sig);
+int libc_pipe(int* fds);
+int libc_poll(void* fds, uint32_t nfds, int timeout);
+const char* libc_hstrerror(int errcode);
+
+
+/* Apple-specific wrappers */
+uint64_t libc_mach_absolute_time(void);
+int libc_pthread_setname_np_apple(const char* name);
+int libc_pthread_main_np(void);
+int libc_login_tty(int fd);
+int libc_backtrace(void** buf, int sz);
+void* libc_brk(const void* addr);
+void* libc_shmat(int shmid, const void* shmaddr, int shmflg);
 
 #endif /* LIBC_WRAPPER_H */

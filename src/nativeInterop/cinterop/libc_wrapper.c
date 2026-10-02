@@ -7,8 +7,12 @@ int getentropy(void*, uint64_t);
 #endif
 
 #include <errno.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef _WIN32
+#include <fnmatch.h>
+#endif
 #include <ctype.h>
 #include <stdio.h>
 #ifndef _WIN32
@@ -39,6 +43,21 @@ int getentropy(void*, uint64_t);
 /* dirname/basename: <libgen.h> */
 #ifndef _WIN32
 #include <libgen.h>
+#endif
+
+/* The runner's glibc headers can redirect parsers to C23 entry points that
+ * are absent from the Kotlin/Native link sysroot. Bind the existing ABI
+ * symbols explicitly instead of depending on glibc feature-macro internals. */
+#if defined(__linux__) && defined(__GLIBC__)
+extern long libc_legacy_strtol(const char*, char**, int) __asm__("strtol");
+extern long long libc_legacy_strtoll(const char*, char**, int) __asm__("strtoll");
+extern unsigned long libc_legacy_strtoul(const char*, char**, int) __asm__("strtoul");
+extern unsigned long long libc_legacy_strtoull(const char*, char**, int) __asm__("strtoull");
+#else
+#define libc_legacy_strtol strtol
+#define libc_legacy_strtoll strtoll
+#define libc_legacy_strtoul strtoul
+#define libc_legacy_strtoull strtoull
 #endif
 
 /* CMSG macros */
@@ -86,6 +105,21 @@ void* libc_calloc(uint64_t nobj, uint64_t size) { return calloc((uint64_t)nobj, 
 void* libc_malloc(uint64_t size) { return malloc((uint64_t)size); }
 void* libc_realloc(void* p, uint64_t size) { return realloc(p, (uint64_t)size); }
 void libc_free(void* p) { free(p); }
+void libc_aligned_free(void* p) {
+#ifdef _WIN32
+    _aligned_free(p);
+#else
+    free(p);
+#endif
+}
+void* libc_aligned_realloc(void* p, uint64_t size, uint64_t alignment) {
+#ifdef _WIN32
+    return _aligned_realloc(p, (size_t)size, (size_t)alignment);
+#else
+    (void)alignment;
+    return realloc(p, (size_t)size);
+#endif
+}
 void* libc_aligned_alloc(uint64_t alignment, uint64_t size) {
 #ifdef _WIN32
     return _aligned_malloc((uint64_t)size, (uint64_t)alignment);
@@ -147,7 +181,7 @@ char* libc_realpath(const char* pathname, char* resolved) {
 }
 char* libc_tmpnam(char* buf) {
 #ifdef _WIN32
-    return _tmpnam(buf);
+    return tmpnam(buf);
 #else
     return tmpnam(buf);
 #endif
@@ -303,7 +337,14 @@ int libc_getppid(void) { return getppid(); }
 #ifndef _WIN32
 int libc_pause(void) { return pause(); }
 #endif
-int libc_sleep(unsigned int seconds) { return sleep(seconds); }
+int libc_sleep(unsigned int seconds) {
+#ifdef _WIN32
+    while (seconds > 4294967u) { Sleep(4294967000u); seconds -= 4294967u; }
+    Sleep(seconds * 1000u); return 0;
+#else
+    return sleep(seconds);
+#endif
+}
 #ifndef _WIN32
 int libc_getuid(void) { return getuid(); }
 #endif
@@ -351,6 +392,12 @@ int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct
 #include <termios.h>
 #endif
 #include <signal.h>
+#include <sys/shm.h>
+#ifdef __APPLE__
+#include <execinfo.h>
+#include <util.h>
+#include <mach/mach_time.h>
+#endif
 #ifndef _WIN32
 #include <sys/syslog.h>
 #endif
@@ -415,15 +462,12 @@ int libc_setvbuf(void* stream, const char* buffer, int mode, uint64_t size) { re
 uint64_t libc_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) { return (uint64_t)fwrite(ptr, (uint64_t)size, (uint64_t)nobj, stream); }
 int libc_fgetpos(void* stream, void* ptr) { return fgetpos(stream, ptr); }
 int libc_fsetpos(void* stream, void* ptr) { return fsetpos(stream, ptr); }
-uint64_t libc_strxfrm(const char* s, const char* ct, uint64_t n) { return (uint64_t)strxfrm(s, ct, n); }
+uint64_t libc_strxfrm(char* s, const char* ct, uint64_t n) { return (uint64_t)strxfrm(s, ct, n); }
 int64_t libc_ftello(void* stream) { return (int64_t)ftello((FILE*)stream); }
 int32_t libc_setpgid(int32_t pid, int32_t pgid) { return setpgid(pid, pgid); }
 int64_t libc_readlink(const char* path, const char* buf, uint64_t bufsize) { return readlink(path, buf, bufsize); }
 int64_t libc_strtol(const char* s, void* endp, int base) {
-    /* __USE_ISOC2X is undef'd in libc_wrapper.h before <stdlib.h>,
-     * preventing the glibc __isoc23_strtol redirect. strtol resolves
-     * to the actual strtol symbol in the sysroot. */
-    return strtol(s, (char**)endp, base);
+    return libc_legacy_strtol(s, (char**)endp, base);
 }
 uint64_t libc_confstr(int name, const char* buf, uint64_t len) { return (uint64_t)confstr(name, buf, len); }
 int64_t libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
@@ -551,11 +595,11 @@ int libc_getattrlistbulk(int dirfd, void* attrList, void* attrBuf, uint64_t attr
 #ifdef __APPLE__
 #if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 int libc_execvP(const char* file, const char* searchPath, void* argv) { return execvP(file, searchPath, argv); }
-int libc_exchangedata(const char* path1, const char* path2, unsigned long options) { return exchangedata(path1, path2, options); }
+int libc_exchangedata(const char* path1, const char* path2, uint64_t options) { return exchangedata(path1, path2, options); }
 #endif
 #endif
 #ifdef __APPLE__
-int libc_lchflags(const char* path, unsigned long flags) { return lchflags(path, flags); }
+int libc_lchflags(const char* path, uint64_t flags) { return lchflags(path, flags); }
 int libc_ffsl(int64_t value) { return ffsl((long)value); }
 #endif
 int libc_ffsll(int64_t value) { return ffsll((long long)value); }
@@ -1040,3 +1084,138 @@ int libc_pthread_setspecific(unsigned long key, const void* value) { return pthr
 void* libc_pthread_getspecific(unsigned long key) { return (void*)pthread_getspecific((pthread_key_t)key); }
 
 #endif /* _WIN32 */
+
+#ifdef _WIN32
+int64_t libc_strtol(const char* s, void* endp, int base) { return (int64_t)libc_legacy_strtol(s, (char**)endp, base); }
+uint64_t libc_strxfrm(char* s, const char* ct, uint64_t n) { return (uint64_t)strxfrm(s, ct, (size_t)n); }
+#endif
+
+int libc_sched_yield(void) {
+#ifdef _WIN32
+    SwitchToThread();
+    return 0;
+#else
+    return sched_yield();
+#endif
+}
+int64_t libc_write(int fd, const void* buf, uint64_t count) {
+#ifdef _WIN32
+    if (count > UINT_MAX) { errno = EINVAL; return -1; }
+    return _write(fd, buf, (unsigned int)count);
+#else
+    return write(fd, buf, (size_t)count);
+#endif
+}
+int libc_putenv(char* string) {
+#ifdef _WIN32
+    return _putenv(string);
+#else
+    return putenv(string);
+#endif
+}
+int libc_fnmatch(const char* pattern, const char* name, int flags) {
+#ifndef _WIN32
+    return fnmatch(pattern, name, flags);
+#else
+    (void)pattern; (void)name; (void)flags;
+    errno = ENOSYS; return -1;
+#endif
+}
+char* libc_strndup(const char* s, uint64_t n) {
+#ifdef _WIN32
+    size_t len = strnlen(s, (size_t)n);
+    char* result = malloc(len + 1);
+    if (result != NULL) { memcpy(result, s, len); result[len] = '\0'; }
+    return result;
+#else
+    return strndup(s, (size_t)n);
+#endif
+}
+int64_t libc_strtoll(const char* s, void* endp, int base) { return libc_legacy_strtoll(s, (char**)endp, base); }
+uint64_t libc_strtoul(const char* s, void* endp, int base) { return libc_legacy_strtoul(s, (char**)endp, base); }
+uint64_t libc_strtoull(const char* s, void* endp, int base) { return libc_legacy_strtoull(s, (char**)endp, base); }
+int libc_mknod(const char* pathname, uint32_t mode, uint64_t dev) {
+#ifndef _WIN32
+    return mknod(pathname, (mode_t)mode, (dev_t)dev);
+#else
+    (void)pathname; (void)mode; (void)dev; errno = ENOSYS; return -1;
+#endif
+}
+const char* libc_strsignal(int sig) {
+#ifndef _WIN32
+    return strsignal(sig);
+#else
+    (void)sig; errno = ENOSYS; return NULL;
+#endif
+}
+int libc_pipe(int* fds) {
+#ifndef _WIN32
+    return pipe(fds);
+#else
+    (void)fds; errno = ENOSYS; return -1;
+#endif
+}
+int libc_poll(void* fds, uint32_t nfds, int timeout) {
+#ifndef _WIN32
+    return poll((struct pollfd*)fds, nfds, timeout);
+#else
+    (void)fds; (void)nfds; (void)timeout; errno = ENOSYS; return -1;
+#endif
+}
+const char* libc_hstrerror(int errcode) {
+#ifndef _WIN32
+    return hstrerror(errcode);
+#else
+    (void)errcode; errno = ENOSYS; return NULL;
+#endif
+}
+
+uint64_t libc_mach_absolute_time(void) {
+#ifdef __APPLE__
+    return mach_absolute_time();
+#else
+    errno = ENOSYS; return 0;
+#endif
+}
+int libc_pthread_setname_np_apple(const char* name) {
+#ifdef __APPLE__
+    return pthread_setname_np(name);
+#else
+    (void)name; return ENOSYS;
+#endif
+}
+int libc_pthread_main_np(void) {
+#ifdef __APPLE__
+    return pthread_main_np();
+#else
+    errno = ENOSYS; return -1;
+#endif
+}
+int libc_login_tty(int fd) {
+#ifdef __APPLE__
+    return login_tty(fd);
+#else
+    (void)fd; errno = ENOSYS; return -1;
+#endif
+}
+int libc_backtrace(void** buf, int sz) {
+#ifdef __APPLE__
+    return backtrace(buf, sz);
+#else
+    (void)buf; (void)sz; errno = ENOSYS; return -1;
+#endif
+}
+void* libc_brk(const void* addr) {
+#if defined(__APPLE__) && TARGET_OS_OSX
+    return brk(addr);
+#else
+    (void)addr; errno = ENOSYS; return (void*)-1;
+#endif
+}
+void* libc_shmat(int shmid, const void* shmaddr, int shmflg) {
+#if defined(__APPLE__) && TARGET_OS_OSX
+    return shmat(shmid, (void*)shmaddr, shmflg);
+#else
+    (void)shmid; (void)shmaddr; (void)shmflg; errno = ENOSYS; return (void*)-1;
+#endif
+}

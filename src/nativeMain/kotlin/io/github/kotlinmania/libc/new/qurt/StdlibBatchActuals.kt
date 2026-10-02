@@ -36,7 +36,7 @@ public actual fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
 public actual fun free(ptr: COpaquePointer?) {
     if (ptr == null) return
     val pPtr: CPointer<ByteVar>? = ptr.value.toCPointer()
-    libc_free(pPtr)
+    if (ptr.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
 
 public actual fun getenv(name: String?): String? {

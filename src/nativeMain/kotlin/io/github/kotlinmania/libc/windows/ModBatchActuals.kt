@@ -236,7 +236,7 @@ public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
 public actual fun free(p: COpaquePointer?) {
     if (p == null) return 
     val pPtr: CPointer<ByteVar>? = p.value.toCPointer()
-    libc.cinterop.libc_free(pPtr)
+    if (p.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
 
 public actual fun system(s: String?): CInt {
@@ -360,9 +360,8 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePoint
     throw UnsupportedOperationException("memset requires FFI bridge")
 public actual fun abs(i: CInt): CInt =
     libc.cinterop.libc_abs(i)
-public actual fun labs(i: CLong): CLong {
-    return libc.cinterop.libc_labs(i.toLong()).convert()
-}
+public actual fun labs(i: CLong): CLong =
+    libc.cinterop.libc_labs(i)
 public actual fun rand(): CInt =
     libc.cinterop.libc_rand()
 public actual fun srand(seed: CUInt) {

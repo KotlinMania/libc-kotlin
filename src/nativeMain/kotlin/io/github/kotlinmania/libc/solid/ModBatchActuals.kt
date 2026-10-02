@@ -408,7 +408,7 @@ public actual fun calloc(arg1: ULong, arg2: ULong): COpaquePointer? =
 public actual fun free(arg1: COpaquePointer?) {
     if (arg1 == null) return
     val pPtr: CPointer<ByteVar>? = arg1.value.toCPointer()
-    libc_free(pPtr)
+    if (arg1.allocationAlignment != 0uL) libc.cinterop.libc_aligned_free(pPtr) else libc.cinterop.libc_free(pPtr)
 }
 
 public actual fun getenv(arg1: String?): String? {
