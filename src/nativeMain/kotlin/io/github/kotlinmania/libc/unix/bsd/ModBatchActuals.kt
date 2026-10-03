@@ -8,7 +8,6 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.IntVar
 import kotlinx.cinterop.UIntVar
@@ -18,6 +17,7 @@ import kotlinx.cinterop.toLong
 import libc.cinterop.libc_strerror_r
 import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_madvise
+import libc.cinterop.libc_endgrent
 import libc.cinterop.libc_endpwent
 import libc.cinterop.libc_faccessat
 import libc.cinterop.libc_getdtablesize

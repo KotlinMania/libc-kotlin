@@ -4,6 +4,17 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.UByteVar
+import kotlinx.cinterop.ULongVar
+import kotlinx.cinterop.CPointerVar
+import kotlinx.cinterop.LongVar
+import kotlinx.cinterop.get
+import kotlinx.cinterop.set
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
@@ -460,8 +471,7 @@ public actual fun localeconvL(loc: LocaleT): Lconv? =
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     memScoped {
-        val localePtr = locale?.cstr?.getPointer(this)
-        val result = libc.cinterop.libc_newlocale(mask, localePtr, base?.value?.toCPointer<ByteVar>())
+        val result = libc.cinterop.libc_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())
         result?.let { COpaquePointer(it.toLong()) }
     }
 
@@ -551,10 +561,9 @@ public actual fun fremovexattr(filedes: CInt, name: String?, flags: CInt): CInt 
 
 public actual fun getgrouplist(name: String?, basegid: CInt, groups: CInt?, ngroups: CInt?): CInt =
     memScoped {
-        val namePtr = name?.cstr?.getPointer(this)
         val groupsVar = if (groups != null) alloc<IntVar>().also { it.value = groups } else null
         val ngroupsVar = if (ngroups != null) alloc<IntVar>().also { it.value = ngroups } else null
-        libc.cinterop.libc_getgrouplist(namePtr, basegid, groupsVar?.ptr, ngroupsVar?.ptr)
+        libc.cinterop.libc_getgrouplist(name, basegid, groupsVar?.ptr, ngroupsVar?.ptr)
     }
 
 public actual fun initgroups(user: String?, basegroup: CInt): CInt {
@@ -873,10 +882,9 @@ public actual fun fgetattrlist(fd: CInt, attrList: COpaquePointer?, attrBuf: COp
 
 public actual fun getattrlistat(fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong): CInt =
     memScoped {
-        val pathPtr = path?.cstr?.getPointer(this)
         val attrListPtr = attrList?.value?.toCPointer<ByteVar>()
         val attrBufPtr = attrBuf?.value?.toCPointer<ByteVar>()
-        libc.cinterop.libc_getattrlistat(fd, pathPtr, attrListPtr, attrBufPtr, attrBufSize, options)
+        libc.cinterop.libc_getattrlistat(fd, path, attrListPtr, attrBufPtr, attrBufSize, options)
     }
 
 public actual fun setattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt =
@@ -912,14 +920,12 @@ public actual fun basename(path: String?): String? {
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     memScoped {
-        val pathPtr = pathname?.cstr?.getPointer(this)
-        libc.cinterop.libc_mkfifoat(dirfd, pathPtr, mode.toUInt())
+        libc.cinterop.libc_mkfifoat(dirfd, pathname, mode.toUInt())
     }
 
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     memScoped {
-        val pathPtr = pathname?.cstr?.getPointer(this)
-        libc.cinterop.libc_mknodat(dirfd, pathPtr, mode.toInt(), dev.toULong())
+        libc.cinterop.libc_mknodat(dirfd, pathname, mode.toInt(), dev.toULong())
     }
 
 public actual fun freadlink(fd: CInt, buf: String?, size: ULong): CInt =
