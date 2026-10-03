@@ -12,6 +12,7 @@
 
 #include "libc_wrapper.h"
 #ifdef __APPLE__
+#include <mach/mach.h>
 int getentropy(void*, uint64_t);
 #endif
 
@@ -1691,3 +1692,11 @@ void* libc_shmat(int shmid, const void* shmaddr, int shmflg) {
 #elif defined(__GNUC__)
 #pragma GCC diagnostic pop
 #endif
+
+uint32_t libc_mach_task_self(void) {
+#ifdef __APPLE__
+    return mach_task_self_;
+#else
+    return 0;
+#endif
+}

@@ -793,3 +793,15 @@ public expect fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CULong
 public expect fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong
 
 public fun wcstod(s: WcharT?, p: COpaquePointer?): CDouble = 0.0
+
+public fun cpuCountS(size: ULong, cpuset: CpuSetT): CInt {
+    val words = size / 8uL
+    require(words <= cpuset.bits.size.toULong())
+    var count = 0
+    for (index in 0 until words.toInt()) {
+        count += cpuset.bits[index].countOneBits()
+    }
+    return count
+}
+
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(128uL, cpuset)

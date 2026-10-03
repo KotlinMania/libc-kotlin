@@ -129,8 +129,6 @@ public typealias VmStatistics64DataT = VmStatistics64
 public typealias TaskT = MachPortT
 public typealias TaskInspectT = MachPortT
 public typealias SysdirSearchPathEnumerationState = CUInt
-public typealias SysdirSearchPathDirectoryT = CUInt
-public typealias SysdirSearchPathDomainMaskT = CUInt
 public typealias CCStatus = Int
 public typealias CCCryptorStatus = Int
 public typealias CCRNGStatus = CCCryptorStatus
@@ -140,6 +138,41 @@ public typealias CopyfileCallbackT = ((CInt, CInt, CopyfileStateT, String?, Stri
 public typealias AttrgroupT = UInt
 public typealias VolCapabilitiesSetT = UIntArray
 public typealias MachTimebaseInfoDataT = MachTimebaseInfo
+
+public enum class SysdirSearchPathDirectoryT(public val value: UInt) {
+    SYSDIR_DIRECTORY_APPLICATION(1u),
+    SYSDIR_DIRECTORY_DEMO_APPLICATION(2u),
+    SYSDIR_DIRECTORY_DEVELOPER_APPLICATION(3u),
+    SYSDIR_DIRECTORY_ADMIN_APPLICATION(4u),
+    SYSDIR_DIRECTORY_LIBRARY(5u),
+    SYSDIR_DIRECTORY_DEVELOPER(6u),
+    SYSDIR_DIRECTORY_USER(7u),
+    SYSDIR_DIRECTORY_DOCUMENTATION(8u),
+    SYSDIR_DIRECTORY_DOCUMENT(9u),
+    SYSDIR_DIRECTORY_CORESERVICE(10u),
+    SYSDIR_DIRECTORY_AUTOSAVED_INFORMATION(11u),
+    SYSDIR_DIRECTORY_DESKTOP(12u),
+    SYSDIR_DIRECTORY_CACHES(13u),
+    SYSDIR_DIRECTORY_APPLICATION_SUPPORT(14u),
+    SYSDIR_DIRECTORY_DOWNLOADS(15u),
+    SYSDIR_DIRECTORY_INPUT_METHODS(16u),
+    SYSDIR_DIRECTORY_MOVIES(17u),
+    SYSDIR_DIRECTORY_MUSIC(18u),
+    SYSDIR_DIRECTORY_PICTURES(19u),
+    SYSDIR_DIRECTORY_PRINTER_DESCRIPTION(20u),
+    SYSDIR_DIRECTORY_SHARED_PUBLIC(21u),
+    SYSDIR_DIRECTORY_PREFERENCE_PANES(22u),
+    SYSDIR_DIRECTORY_ALL_APPLICATIONS(100u),
+    SYSDIR_DIRECTORY_ALL_LIBRARIES(101u),
+}
+
+public enum class SysdirSearchPathDomainMaskT(public val value: UInt) {
+    SYSDIR_DOMAIN_MASK_USER(1u),
+    SYSDIR_DOMAIN_MASK_LOCAL(2u),
+    SYSDIR_DOMAIN_MASK_NETWORK(4u),
+    SYSDIR_DOMAIN_MASK_SYSTEM(8u),
+    SYSDIR_DOMAIN_MASK_ALL(65535u),
+}
 
 public data class IpMreq(
     val imrMultiaddr: InAddr,
