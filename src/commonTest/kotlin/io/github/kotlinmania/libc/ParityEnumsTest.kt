@@ -72,6 +72,7 @@ class ParityEnumsTest {
     @Test
     fun dot3VendorsMatchesCValues() {
         assertEquals(listOf(1u, 2u, 4u, 5u, 6u, 7u), Dot3Vendors.entries.map { it.value })
+        assertEquals(1u, Dot3Vendors.DOT3_VENDOR_AMD.value)
     }
 
     @Test

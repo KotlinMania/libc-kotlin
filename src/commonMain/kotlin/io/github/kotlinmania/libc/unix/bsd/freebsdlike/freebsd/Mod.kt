@@ -171,12 +171,12 @@ public enum class DevstatSelectMode(public val value: UInt) {
 }
 
 public enum class Dot3Vendors(public val value: UInt) {
-    dot3VendorAMD(1u),
-    dot3VendorIntel(2u),
-    dot3VendorNational(4u),
-    dot3VendorFujitsu(5u),
-    dot3VendorDigital(6u),
-    dot3VendorWesternDigital(7u),
+    DOT3_VENDOR_AMD(1u),
+    DOT3_VENDOR_INTEL(2u),
+    DOT3_VENDOR_NATIONAL(4u),
+    DOT3_VENDOR_FUJITSU(5u),
+    DOT3_VENDOR_DIGITAL(6u),
+    DOT3_VENDOR_WESTERN_DIGITAL(7u),
 }
 
 public data class Aiocb(
