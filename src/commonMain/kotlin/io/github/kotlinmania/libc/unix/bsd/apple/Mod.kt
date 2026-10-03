@@ -139,7 +139,9 @@ public typealias AttrgroupT = UInt
 public typealias VolCapabilitiesSetT = UIntArray
 public typealias MachTimebaseInfoDataT = MachTimebaseInfo
 
-public enum class SysdirSearchPathDirectoryT(public val value: UInt) {
+public enum class SysdirSearchPathDirectoryT(
+    public val value: UInt,
+) {
     SYSDIR_DIRECTORY_APPLICATION(1u),
     SYSDIR_DIRECTORY_DEMO_APPLICATION(2u),
     SYSDIR_DIRECTORY_DEVELOPER_APPLICATION(3u),
@@ -166,7 +168,9 @@ public enum class SysdirSearchPathDirectoryT(public val value: UInt) {
     SYSDIR_DIRECTORY_ALL_LIBRARIES(101u),
 }
 
-public enum class SysdirSearchPathDomainMaskT(public val value: UInt) {
+public enum class SysdirSearchPathDomainMaskT(
+    public val value: UInt,
+) {
     SYSDIR_DOMAIN_MASK_USER(1u),
     SYSDIR_DOMAIN_MASK_LOCAL(2u),
     SYSDIR_DOMAIN_MASK_NETWORK(4u),

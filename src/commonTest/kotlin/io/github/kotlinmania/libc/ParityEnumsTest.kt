@@ -1,17 +1,17 @@
 package io.github.kotlinmania.libc
 
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatSupportFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTransFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTagType
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatMatchFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatPriority
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTypeFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatMetric
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatSelectMode
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Dot3Vendors
+import io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
 import io.github.kotlinmania.libc.unix.bsd.apple.SysdirSearchPathDirectoryT
 import io.github.kotlinmania.libc.unix.bsd.apple.SysdirSearchPathDomainMaskT
-import io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatMatchFlags
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatMetric
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatPriority
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatSelectMode
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatSupportFlags
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTagType
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTransFlags
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTypeFlags
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Dot3Vendors
 import io.github.kotlinmania.libc.vxworks.*
 import kotlin.test.Test
 import kotlin.test.assertEquals

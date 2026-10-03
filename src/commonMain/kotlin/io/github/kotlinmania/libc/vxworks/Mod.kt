@@ -610,7 +610,9 @@ public const val EOWNERDEAD: CInt = 89
 public const val ENOTRECOVERABLE: CInt = 90
 
 // NFS errnos: Refer to pkgs_v2/storage/fs/nfs/h/nfs/nfsCommon.h
-private enum class Nfsstat(val value: CInt) {
+private enum class Nfsstat(
+    val value: CInt,
+) {
     NFSERR_REMOTE(71),
     NFSERR_WFLUSH(99),
     NFSERR_BADHANDLE(10001),

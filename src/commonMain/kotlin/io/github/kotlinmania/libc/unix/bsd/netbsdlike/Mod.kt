@@ -365,6 +365,7 @@ public const val IOC_OUT: CULong = 0x40000000uL
 public const val IOC_IN: CULong = 0x80000000uL
 public val IOC_INOUT: CULong = IOC_IN or IOC_OUT
 public const val IOC_DIRMASK: CULong = 0xe0000000uL
+
 /** Builds an ioctl number with no parameter. */
 public fun io(group: CULong, number: CULong): CULong = ioctlNumber(IOC_VOID, group, number, 0uL)
 

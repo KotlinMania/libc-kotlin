@@ -4,35 +4,34 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.ptr
-import kotlinx.cinterop.cstr
-import kotlinx.cinterop.UByteVar
-import kotlinx.cinterop.ULongVar
-import kotlinx.cinterop.CPointerVar
-import kotlinx.cinterop.LongVar
-import kotlinx.cinterop.get
-import kotlinx.cinterop.set
+import io.github.kotlinmania.libc.unix.bsd.cMSGFIRSTHDR
 import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.CPointerVar
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.LongVar
+import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.UIntVar
+import kotlinx.cinterop.ULongVar
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.get
+import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.value
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toLong
-import io.github.kotlinmania.libc.unix.bsd.cMSGFIRSTHDR
+import kotlinx.cinterop.value
 import libc.cinterop.libc_basename
 import libc.cinterop.libc_clock_getres
 import libc.cinterop.libc_clock_gettime
 import libc.cinterop.libc_clock_settime
 import libc.cinterop.libc_cmsg_data
-import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_cmsg_nxthdr
 import libc.cinterop.libc_dirname
 import libc.cinterop.libc_futimens
@@ -45,7 +44,6 @@ import libc.cinterop.libc_memmem
 import libc.cinterop.libc_mincore
 import libc.cinterop.libc_mknodat
 import libc.cinterop.libc_preadv
-import libc.cinterop.libc_pthread_setname_np
 import libc.cinterop.libc_pwritev
 import libc.cinterop.libc_setdomainname
 import libc.cinterop.libc_setgrent
@@ -60,10 +58,17 @@ import libc.cinterop.libc_utimensat
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (mhdr == null) return null
     if (cmsg == null) {
-        val bsdMsghdr = io.github.kotlinmania.libc.unix.bsd.Msghdr(
-            mhdr.msgName, mhdr.msgNamelen, null, mhdr.msgIovlen.toInt(),
-            mhdr.msgControl, mhdr.msgControllen.toUInt(), mhdr.msgFlags, mhdr.handle
-        )
+        val bsdMsghdr =
+            io.github.kotlinmania.libc.unix.bsd.Msghdr(
+                mhdr.msgName,
+                mhdr.msgNamelen,
+                null,
+                mhdr.msgIovlen.toInt(),
+                mhdr.msgControl,
+                mhdr.msgControllen.toUInt(),
+                mhdr.msgFlags,
+                mhdr.handle,
+            )
         val bsdResult = cMSGFIRSTHDR(bsdMsghdr) ?: return null
         return Cmsghdr(bsdResult.cmsgLen.toULong(), bsdResult.cmsgLevel, bsdResult.cmsgType, bsdResult.handle)
     }
