@@ -442,6 +442,25 @@ kotlin {
     androidNativeArm64 { configureBenchmarkCompilation() }
     androidNativeX64 { configureBenchmarkCompilation() }
 
+    fun ensureKonanDependency(name: String, konanDeps: File, execOps: ExecOperations) {
+        val targetDir = File(konanDeps, name)
+        if (targetDir.exists()) return
+        konanDeps.mkdirs()
+        val cacheDir = File(konanDeps, "cache").apply { mkdirs() }
+        val archive = File(cacheDir, "$name.tar.gz")
+        val url = "https://download.jetbrains.com/kotlin/native/$name.tar.gz"
+        if (!archive.exists() || archive.length() == 0L) {
+            println("Downloading Kotlin/Native dependency $name from $url ...")
+            execOps.exec {
+                commandLine("curl", "-sSL", url, "-o", archive.absolutePath)
+            }.assertNormalExitValue()
+        }
+        println("Extracting $archive into $konanDeps ...")
+        execOps.exec {
+            commandLine("tar", "-xzf", archive.absolutePath, "-C", konanDeps.absolutePath)
+        }.assertNormalExitValue()
+    }
+
     // cinterop: wire the libc .def file to all native targets so CMSG macros
     // (and other C inline functions) are accessible via kotlinx.cinterop.
     // Automated build action: compiles libc_wrapper.c into a static library for each
@@ -516,6 +535,10 @@ kotlin {
                                 }.assertNormalExitValue()
                         }
                         konanTargetName.startsWith("android") -> {
+                            if (isMac) {
+                                ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
+                                ensureKonanDependency("target-sysroot-1-android_ndk", konanDeps, execOps)
+                            }
                             val ndkDir = File(konanDeps, "target-toolchain-2-osx-android_ndk")
                             val sysroot = File(ndkDir, "sysroot")
                             val clangBin =
@@ -551,8 +574,6 @@ kotlin {
                                 } else {
                                     "x86_64-unknown-linux-gnu" to "x86_64-unknown-linux-gnu-gcc-8.3.0-glibc-2.19-kernel-4.9-2"
                                 }
-                            val sysroot = File(konanDeps, "$gccDirName/$targetTriple/sysroot")
-                            val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
                             if (isLinux) {
                                 execOps
                                     .exec {
@@ -562,23 +583,30 @@ kotlin {
                                     .exec {
                                         commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
                                     }.assertNormalExitValue()
-                            } else if (isMac && sysroot.exists() && llvmAr.exists()) {
-                                execOps
-                                    .exec {
-                                        commandLine("clang", "--target=$targetTriple", "--sysroot=${sysroot.absolutePath}", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
-                                    }.assertNormalExitValue()
-                                execOps
-                                    .exec {
-                                        commandLine(llvmAr.absolutePath, "rcs", outFile.absolutePath, tempObj.absolutePath)
-                                    }.assertNormalExitValue()
+                            } else if (isMac) {
+                                ensureKonanDependency(gccDirName, konanDeps, execOps)
+                                ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
+                                val sysroot = File(konanDeps, "$gccDirName/$targetTriple/sysroot")
+                                val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                                if (sysroot.exists() && llvmAr.exists()) {
+                                    execOps
+                                        .exec {
+                                            commandLine("clang", "--target=$targetTriple", "--sysroot=${sysroot.absolutePath}", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                                        }.assertNormalExitValue()
+                                    execOps
+                                        .exec {
+                                            commandLine(llvmAr.absolutePath, "rcs", outFile.absolutePath, tempObj.absolutePath)
+                                        }.assertNormalExitValue()
+                                } else {
+                                    val prebuilt = file("src/nativeInterop/cinterop/targets/$konanTargetName/libc_wrapper.a")
+                                    if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                                }
                             } else {
                                 val prebuilt = file("src/nativeInterop/cinterop/targets/$konanTargetName/libc_wrapper.a")
                                 if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
                             }
                         }
                         konanTargetName.startsWith("mingw") -> {
-                            val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
-                            val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
                             if (isWindows) {
                                 execOps
                                     .exec {
@@ -588,15 +616,24 @@ kotlin {
                                     .exec {
                                         commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
                                     }.assertNormalExitValue()
-                            } else if (isMac && mingwSysroot.exists() && llvmAr.exists()) {
-                                execOps
-                                    .exec {
-                                        commandLine("clang", "--target=x86_64-w64-mingw32", "--sysroot=${mingwSysroot.absolutePath}", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
-                                    }.assertNormalExitValue()
-                                execOps
-                                    .exec {
-                                        commandLine(llvmAr.absolutePath, "rcs", outFile.absolutePath, tempObj.absolutePath)
-                                    }.assertNormalExitValue()
+                            } else if (isMac) {
+                                ensureKonanDependency("msys2-mingw-w64-x86_64-2", konanDeps, execOps)
+                                ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
+                                val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
+                                val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                                if (mingwSysroot.exists() && llvmAr.exists()) {
+                                    execOps
+                                        .exec {
+                                            commandLine("clang", "--target=x86_64-w64-mingw32", "--sysroot=${mingwSysroot.absolutePath}", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                                        }.assertNormalExitValue()
+                                    execOps
+                                        .exec {
+                                            commandLine(llvmAr.absolutePath, "rcs", outFile.absolutePath, tempObj.absolutePath)
+                                        }.assertNormalExitValue()
+                                } else {
+                                    val prebuilt = file("src/nativeInterop/cinterop/targets/mingw_x64/libc_wrapper.a")
+                                    if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                                }
                             } else {
                                 val prebuilt = file("src/nativeInterop/cinterop/targets/mingw_x64/libc_wrapper.a")
                                 if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
@@ -608,6 +645,9 @@ kotlin {
                         }
                     }
                     tempObj.delete()
+                    if (!outFile.exists() || outFile.length() == 0L) {
+                        throw GradleException("compileLibcWrapper failed: output library does not exist for $konanTargetName at ${outFile.absolutePath}")
+                    }
                 }
             }
 
