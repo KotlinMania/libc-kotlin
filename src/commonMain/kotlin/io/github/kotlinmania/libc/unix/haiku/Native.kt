@@ -911,6 +911,9 @@ public expect fun getSystemInfo(info: SystemInfo?): StatusT
 
 public expect fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?, size: ULong): StatusT
 
+public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?): StatusT =
+    getCpuInfoEtc(firstCPU, cpuCount, info, 24uL)
+
 public expect fun getCpuTopologyInfo(topologyInfos: CpuTopologyNodeInfo?, topologyInfoCount: UInt?): StatusT
 
 public expect fun isComputerOn(): Int

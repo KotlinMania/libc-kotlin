@@ -4,24 +4,34 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.cMSGFIRSTHDR
 import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.CPointerVar
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.LongVar
+import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.UIntVar
+import kotlinx.cinterop.ULongVar
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.get
+import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.value
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.toLong
-import io.github.kotlinmania.libc.unix.bsd.cMSGFIRSTHDR
+import kotlinx.cinterop.value
 import libc.cinterop.libc_basename
 import libc.cinterop.libc_clock_getres
 import libc.cinterop.libc_clock_gettime
 import libc.cinterop.libc_clock_settime
 import libc.cinterop.libc_cmsg_data
-import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_cmsg_nxthdr
 import libc.cinterop.libc_dirname
 import libc.cinterop.libc_futimens
@@ -34,7 +44,6 @@ import libc.cinterop.libc_memmem
 import libc.cinterop.libc_mincore
 import libc.cinterop.libc_mknodat
 import libc.cinterop.libc_preadv
-import libc.cinterop.libc_pthread_setname_np
 import libc.cinterop.libc_pwritev
 import libc.cinterop.libc_setdomainname
 import libc.cinterop.libc_setgrent
@@ -49,10 +58,17 @@ import libc.cinterop.libc_utimensat
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (mhdr == null) return null
     if (cmsg == null) {
-        val bsdMsghdr = io.github.kotlinmania.libc.unix.bsd.Msghdr(
-            mhdr.msgName, mhdr.msgNamelen, null, mhdr.msgIovlen.toInt(),
-            mhdr.msgControl, mhdr.msgControllen.toUInt(), mhdr.msgFlags, mhdr.handle
-        )
+        val bsdMsghdr =
+            io.github.kotlinmania.libc.unix.bsd.Msghdr(
+                mhdr.msgName,
+                mhdr.msgNamelen,
+                null,
+                mhdr.msgIovlen.toInt(),
+                mhdr.msgControl,
+                mhdr.msgControllen.toUInt(),
+                mhdr.msgFlags,
+                mhdr.handle,
+            )
         val bsdResult = cMSGFIRSTHDR(bsdMsghdr) ?: return null
         return Cmsghdr(bsdResult.cmsgLen.toULong(), bsdResult.cmsgLevel, bsdResult.cmsgType, bsdResult.handle)
     }
@@ -460,8 +476,7 @@ public actual fun localeconvL(loc: LocaleT): Lconv? =
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
     memScoped {
-        val localePtr = locale?.cstr?.getPointer(this)
-        val result = libc.cinterop.libc_newlocale(mask, localePtr, base?.value?.toCPointer<ByteVar>())
+        val result = libc.cinterop.libc_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())
         result?.let { COpaquePointer(it.toLong()) }
     }
 
@@ -551,10 +566,9 @@ public actual fun fremovexattr(filedes: CInt, name: String?, flags: CInt): CInt 
 
 public actual fun getgrouplist(name: String?, basegid: CInt, groups: CInt?, ngroups: CInt?): CInt =
     memScoped {
-        val namePtr = name?.cstr?.getPointer(this)
         val groupsVar = if (groups != null) alloc<IntVar>().also { it.value = groups } else null
         val ngroupsVar = if (ngroups != null) alloc<IntVar>().also { it.value = ngroups } else null
-        libc.cinterop.libc_getgrouplist(namePtr, basegid, groupsVar?.ptr, ngroupsVar?.ptr)
+        libc.cinterop.libc_getgrouplist(name, basegid, groupsVar?.ptr, ngroupsVar?.ptr)
     }
 
 public actual fun initgroups(user: String?, basegroup: CInt): CInt {
@@ -873,10 +887,9 @@ public actual fun fgetattrlist(fd: CInt, attrList: COpaquePointer?, attrBuf: COp
 
 public actual fun getattrlistat(fd: CInt, path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: CULong): CInt =
     memScoped {
-        val pathPtr = path?.cstr?.getPointer(this)
         val attrListPtr = attrList?.value?.toCPointer<ByteVar>()
         val attrBufPtr = attrBuf?.value?.toCPointer<ByteVar>()
-        libc.cinterop.libc_getattrlistat(fd, pathPtr, attrListPtr, attrBufPtr, attrBufSize, options)
+        libc.cinterop.libc_getattrlistat(fd, path, attrListPtr, attrBufPtr, attrBufSize, options)
     }
 
 public actual fun setattrlist(path: String?, attrList: COpaquePointer?, attrBuf: COpaquePointer?, attrBufSize: ULong, options: UInt): CInt =
@@ -912,14 +925,12 @@ public actual fun basename(path: String?): String? {
 
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     memScoped {
-        val pathPtr = pathname?.cstr?.getPointer(this)
-        libc.cinterop.libc_mkfifoat(dirfd, pathPtr, mode.toUInt())
+        libc.cinterop.libc_mkfifoat(dirfd, pathname, mode.toUInt())
     }
 
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     memScoped {
-        val pathPtr = pathname?.cstr?.getPointer(this)
-        libc.cinterop.libc_mknodat(dirfd, pathPtr, mode.toInt(), dev.toULong())
+        libc.cinterop.libc_mknodat(dirfd, pathname, mode.toInt(), dev.toULong())
     }
 
 public actual fun freadlink(fd: CInt, buf: String?, size: ULong): CInt =

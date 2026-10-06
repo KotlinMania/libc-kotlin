@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.close
 
 /**
  * Functions missing on illumos / Solaris but often needed by other crates.
@@ -22,6 +23,16 @@ public expect fun openpty(
     termp: Termios?,
     winp: Winsize?,
 ): CInt
+
+internal fun bail(fdm: CInt, fds: CInt): CInt {
+    if (fds >= 0) {
+        close(fds)
+    }
+    if (fdm >= 0) {
+        close(fdm)
+    }
+    return -1
+}
 
 public expect fun forkpty(
     amain: CInt?,

@@ -1812,6 +1812,16 @@ public const val PI_FPUTYPE: CInt = 32
 public const val AT_SUN_HWCAP: CUInt = 2009u
 public const val SFV_FD_SELF: CInt = -2
 
+internal fun _CMSG_HDR_ALIGN(p: ULong): ULong =
+    (p + 8uL - 1uL) and (8uL - 1uL).inv()
+
+internal fun _CMSG_DATA_ALIGN(p: ULong): ULong =
+    (p + 4uL - 1uL) and (4uL - 1uL).inv()
+
+internal fun cmsgHdrAlign(p: ULong): ULong = _CMSG_HDR_ALIGN(p)
+
+internal fun cmsgDataAlign(p: ULong): ULong = _CMSG_DATA_ALIGN(p)
+
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer?
 

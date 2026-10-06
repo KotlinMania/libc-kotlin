@@ -49,6 +49,154 @@ public typealias CpusetidT = CInt
 public typealias SctpAssocT = UInt
 public typealias EventfdT = ULong
 
+public enum class DevstatSupportFlags(
+    public val value: UInt,
+) {
+    DEVSTAT_ALL_SUPPORTED(0u),
+    DEVSTAT_NO_BLOCKSIZE(1u),
+    DEVSTAT_NO_ORDERED_TAGS(2u),
+    DEVSTAT_BS_UNAVAILABLE(4u),
+}
+
+public enum class DevstatTransFlags(
+    public val value: UInt,
+) {
+    DEVSTAT_NO_DATA(0u),
+    DEVSTAT_READ(1u),
+    DEVSTAT_WRITE(2u),
+    DEVSTAT_FREE(3u),
+}
+
+public enum class DevstatTagType(
+    public val value: UInt,
+) {
+    DEVSTAT_TAG_SIMPLE(0u),
+    DEVSTAT_TAG_HEAD(1u),
+    DEVSTAT_TAG_ORDERED(2u),
+    DEVSTAT_TAG_NONE(3u),
+}
+
+public enum class DevstatMatchFlags(
+    public val value: UInt,
+) {
+    DEVSTAT_MATCH_NONE(0u),
+    DEVSTAT_MATCH_TYPE(1u),
+    DEVSTAT_MATCH_IF(2u),
+    DEVSTAT_MATCH_PASS(4u),
+}
+
+public enum class DevstatPriority(
+    public val value: UInt,
+) {
+    DEVSTAT_PRIORITY_MIN(0u),
+    DEVSTAT_PRIORITY_OTHER(32u),
+    DEVSTAT_PRIORITY_PASS(48u),
+    DEVSTAT_PRIORITY_FD(64u),
+    DEVSTAT_PRIORITY_WFD(80u),
+    DEVSTAT_PRIORITY_TAPE(96u),
+    DEVSTAT_PRIORITY_CD(144u),
+    DEVSTAT_PRIORITY_DISK(272u),
+    DEVSTAT_PRIORITY_ARRAY(288u),
+    DEVSTAT_PRIORITY_MAX(4095u),
+}
+
+public enum class DevstatTypeFlags(
+    public val value: UInt,
+) {
+    DEVSTAT_TYPE_DIRECT(0u),
+    DEVSTAT_TYPE_SEQUENTIAL(1u),
+    DEVSTAT_TYPE_PRINTER(2u),
+    DEVSTAT_TYPE_PROCESSOR(3u),
+    DEVSTAT_TYPE_WORM(4u),
+    DEVSTAT_TYPE_CDROM(5u),
+    DEVSTAT_TYPE_SCANNER(6u),
+    DEVSTAT_TYPE_OPTICAL(7u),
+    DEVSTAT_TYPE_CHANGER(8u),
+    DEVSTAT_TYPE_COMM(9u),
+    DEVSTAT_TYPE_ASC0(10u),
+    DEVSTAT_TYPE_ASC1(11u),
+    DEVSTAT_TYPE_STORARRAY(12u),
+    DEVSTAT_TYPE_ENCLOSURE(13u),
+    DEVSTAT_TYPE_FLOPPY(14u),
+    DEVSTAT_TYPE_MASK(15u),
+    DEVSTAT_TYPE_IF_SCSI(16u),
+    DEVSTAT_TYPE_IF_IDE(32u),
+    DEVSTAT_TYPE_IF_OTHER(48u),
+    DEVSTAT_TYPE_IF_MASK(240u),
+    DEVSTAT_TYPE_PASS(256u),
+}
+
+public enum class DevstatMetric(
+    public val value: UInt,
+) {
+    DSM_NONE(0u),
+    DSM_TOTAL_BYTES(1u),
+    DSM_TOTAL_BYTES_READ(2u),
+    DSM_TOTAL_BYTES_WRITE(3u),
+    DSM_TOTAL_TRANSFERS(4u),
+    DSM_TOTAL_TRANSFERS_READ(5u),
+    DSM_TOTAL_TRANSFERS_WRITE(6u),
+    DSM_TOTAL_TRANSFERS_OTHER(7u),
+    DSM_TOTAL_BLOCKS(8u),
+    DSM_TOTAL_BLOCKS_READ(9u),
+    DSM_TOTAL_BLOCKS_WRITE(10u),
+    DSM_KB_PER_TRANSFER(11u),
+    DSM_KB_PER_TRANSFER_READ(12u),
+    DSM_KB_PER_TRANSFER_WRITE(13u),
+    DSM_TRANSFERS_PER_SECOND(14u),
+    DSM_TRANSFERS_PER_SECOND_READ(15u),
+    DSM_TRANSFERS_PER_SECOND_WRITE(16u),
+    DSM_TRANSFERS_PER_SECOND_OTHER(17u),
+    DSM_MB_PER_SECOND(18u),
+    DSM_MB_PER_SECOND_READ(19u),
+    DSM_MB_PER_SECOND_WRITE(20u),
+    DSM_BLOCKS_PER_SECOND(21u),
+    DSM_BLOCKS_PER_SECOND_READ(22u),
+    DSM_BLOCKS_PER_SECOND_WRITE(23u),
+    DSM_MS_PER_TRANSACTION(24u),
+    DSM_MS_PER_TRANSACTION_READ(25u),
+    DSM_MS_PER_TRANSACTION_WRITE(26u),
+    DSM_SKIP(27u),
+    DSM_TOTAL_BYTES_FREE(28u),
+    DSM_TOTAL_TRANSFERS_FREE(29u),
+    DSM_TOTAL_BLOCKS_FREE(30u),
+    DSM_KB_PER_TRANSFER_FREE(31u),
+    DSM_MB_PER_SECOND_FREE(32u),
+    DSM_TRANSFERS_PER_SECOND_FREE(33u),
+    DSM_BLOCKS_PER_SECOND_FREE(34u),
+    DSM_MS_PER_TRANSACTION_OTHER(35u),
+    DSM_MS_PER_TRANSACTION_FREE(36u),
+    DSM_BUSY_PCT(37u),
+    DSM_QUEUE_LENGTH(38u),
+    DSM_TOTAL_DURATION(39u),
+    DSM_TOTAL_DURATION_READ(40u),
+    DSM_TOTAL_DURATION_WRITE(41u),
+    DSM_TOTAL_DURATION_FREE(42u),
+    DSM_TOTAL_DURATION_OTHER(43u),
+    DSM_TOTAL_BUSY_TIME(44u),
+    DSM_MAX(45u),
+}
+
+public enum class DevstatSelectMode(
+    public val value: UInt,
+) {
+    DS_SELECT_ADD(0u),
+    DS_SELECT_ONLY(1u),
+    DS_SELECT_REMOVE(2u),
+    DS_SELECT_ADDONLY(3u),
+}
+
+public enum class Dot3Vendors(
+    public val value: UInt,
+) {
+    DOT3_VENDOR_AMD(1u),
+    DOT3_VENDOR_INTEL(2u),
+    DOT3_VENDOR_NATIONAL(4u),
+    DOT3_VENDOR_FUJITSU(5u),
+    DOT3_VENDOR_DIGITAL(6u),
+    DOT3_VENDOR_WESTERN_DIGITAL(7u),
+}
+
 public data class Aiocb(
     val aioFildes: CInt,
     val aioOffset: OffT,
@@ -601,12 +749,6 @@ public data class Clockinfo(
     val stathz: CInt,
     val profhz: CInt,
 )
-
-public typealias DevstatSupportFlags = UInt
-public typealias DevstatTypeFlags = UInt
-public typealias DevstatPriority = UInt
-public typealias DevstatMatchFlags = UInt
-public typealias DevstatSelectMode = UInt
 
 public data class CAnonymousStailqEntryDevstat(
     val stqeNext: Devstat?,

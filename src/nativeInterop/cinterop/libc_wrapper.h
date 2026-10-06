@@ -537,6 +537,7 @@ const char* libc_hstrerror(int errcode);
 
 
 /* Apple-specific wrappers */
+uint32_t libc_mach_task_self(void);
 uint64_t libc_mach_absolute_time(void);
 int libc_pthread_setname_np_apple(const char* name);
 int libc_pthread_main_np(void);

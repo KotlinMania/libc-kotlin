@@ -610,15 +610,20 @@ public const val EOWNERDEAD: CInt = 89
 public const val ENOTRECOVERABLE: CInt = 90
 
 // NFS errnos: Refer to pkgs_v2/storage/fs/nfs/h/nfs/nfsCommon.h
+private enum class Nfsstat(
+    val value: CInt,
+) {
+    NFSERR_REMOTE(71),
+    NFSERR_WFLUSH(99),
+    NFSERR_BADHANDLE(10001),
+    NFSERR_NOT_SYNC(10002),
+    NFSERR_BAD_COOKIE(10003),
+    NFSERR_TOOSMALL(10005),
+    NFSERR_BADTYPE(10007),
+    NFSERR_JUKEBOX(10008),
+}
+
 private const val M_nfsStat: CInt = 48 shl 16
-private const val NFSERR_REMOTE: CInt = 71
-private const val NFSERR_WFLUSH: CInt = 99
-private const val NFSERR_BADHANDLE: CInt = 10001
-private const val NFSERR_NOT_SYNC: CInt = 10002
-private const val NFSERR_BAD_COOKIE: CInt = 10003
-private const val NFSERR_TOOSMALL: CInt = 10005
-private const val NFSERR_BADTYPE: CInt = 10007
-private const val NFSERR_JUKEBOX: CInt = 10008
 
 // internal offset values for below constants
 private const val taskErrorBase: CInt = 0x00030000
@@ -641,16 +646,16 @@ public const val S_nfsLib_NFSERR_NAMETOOLONG: CInt = ENAMETOOLONG
 public const val S_nfsLib_NFSERR_NOTEMPTY: CInt = ENOTEMPTY
 public const val S_nfsLib_NFSERR_DQUOT: CInt = EDQUOT
 public const val S_nfsLib_NFSERR_STALE: CInt = ESTALE
-public val S_nfsLib_NFSERR_WFLUSH: CInt = M_nfsStat or NFSERR_WFLUSH
-public val S_nfsLib_NFSERR_REMOTE: CInt = M_nfsStat or NFSERR_REMOTE
-public val S_nfsLib_NFSERR_BADHANDLE: CInt = M_nfsStat or NFSERR_BADHANDLE
-public val S_nfsLib_NFSERR_NOT_SYNC: CInt = M_nfsStat or NFSERR_NOT_SYNC
-public val S_nfsLib_NFSERR_BAD_COOKIE: CInt = M_nfsStat or NFSERR_BAD_COOKIE
+public val S_nfsLib_NFSERR_WFLUSH: CInt = M_nfsStat or Nfsstat.NFSERR_WFLUSH.value
+public val S_nfsLib_NFSERR_REMOTE: CInt = M_nfsStat or Nfsstat.NFSERR_REMOTE.value
+public val S_nfsLib_NFSERR_BADHANDLE: CInt = M_nfsStat or Nfsstat.NFSERR_BADHANDLE.value
+public val S_nfsLib_NFSERR_NOT_SYNC: CInt = M_nfsStat or Nfsstat.NFSERR_NOT_SYNC.value
+public val S_nfsLib_NFSERR_BAD_COOKIE: CInt = M_nfsStat or Nfsstat.NFSERR_BAD_COOKIE.value
 public const val S_nfsLib_NFSERR_NOTSUPP: CInt = EOPNOTSUPP
-public val S_nfsLib_NFSERR_TOOSMALL: CInt = M_nfsStat or NFSERR_TOOSMALL
+public val S_nfsLib_NFSERR_TOOSMALL: CInt = M_nfsStat or Nfsstat.NFSERR_TOOSMALL.value
 public const val S_nfsLib_NFSERR_SERVERFAULT: CInt = EIO
-public val S_nfsLib_NFSERR_BADTYPE: CInt = M_nfsStat or NFSERR_BADTYPE
-public val S_nfsLib_NFSERR_JUKEBOX: CInt = M_nfsStat or NFSERR_JUKEBOX
+public val S_nfsLib_NFSERR_BADTYPE: CInt = M_nfsStat or Nfsstat.NFSERR_BADTYPE.value
+public val S_nfsLib_NFSERR_JUKEBOX: CInt = M_nfsStat or Nfsstat.NFSERR_JUKEBOX.value
 public val S_taskLib_NAME_NOT_FOUND: CInt = taskErrorBase + 0x0065
 public val S_taskLib_TASK_HOOK_TABLE_FULL: CInt = taskErrorBase + 0x0066
 public val S_taskLib_TASK_HOOK_NOT_FOUND: CInt = taskErrorBase + 0x0067
