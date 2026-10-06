@@ -70,8 +70,11 @@ class MacrosTest {
         assertEquals(0, FuchsiaSEEK_SET, "SEEK_SET accessible from fuchsia package")
     }
 
+    internal fun <T : Any> typeIdOfVal(value: T): String = value::class.simpleName.orEmpty()
+
     @Test
     fun testOffsetOf() {
+        assertEquals("Int", typeIdOfVal(0))
         // Struct field offsets follow C layout rules.
         // In a repr(C) struct { a: u8, b: u32 }: a at offset 0, b at offset 4.
         // The Kotlin data classes don't have C layout, but the constants
