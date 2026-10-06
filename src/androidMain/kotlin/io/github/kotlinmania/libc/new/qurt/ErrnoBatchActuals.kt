@@ -5,3 +5,9 @@ import io.github.kotlinmania.libc.*
 
 public actual fun errnoLocation(): CInt? =
     throw UnsupportedOperationException("errnoLocation not available on Android host — use androidNative target for FFI")
+
+public actual fun errno(): CInt? =
+    throw UnsupportedOperationException("errno not available on Android host — use androidNative target for FFI")
+
+public actual fun setErrno(value: CInt): Unit =
+    throw UnsupportedOperationException("setErrno not available on Android host — use androidNative target for FFI")

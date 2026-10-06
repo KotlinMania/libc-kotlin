@@ -2540,6 +2540,27 @@ public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
 
 public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
 
+internal fun __CMSG_LEN(cmsg: Cmsghdr): SsizeT {
+    val longSize = 8uL
+    return (((cmsg.cmsgLen.toULong() + longSize - 1uL) and (longSize - 1uL).inv())).toLong()
+}
+
+internal fun cmsgLen(cmsg: Cmsghdr): SsizeT = __CMSG_LEN(cmsg)
+
+internal fun __CMSG_NEXT(cmsg: COpaquePointer?, len: SsizeT): COpaquePointer? {
+    if (cmsg == null) return null
+    return COpaquePointer(cmsg.value + len)
+}
+
+internal fun cmsgNext(cmsg: COpaquePointer?, len: SsizeT): COpaquePointer? = __CMSG_NEXT(cmsg, len)
+
+internal fun __MHDR_END(mhdr: Msghdr?): COpaquePointer? {
+    val ctrl = mhdr?.msgControl ?: return null
+    return COpaquePointer(ctrl.value + mhdr.msgControllen.toLong())
+}
+
+internal fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? = __MHDR_END(mhdr)
+
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 // These take raw pointers (COpaquePointer) to C structs in a message buffer,
 // matching the Rust signatures which use *const msghdr / *const cmsghdr.

@@ -369,14 +369,22 @@ public const val IOC_DIRMASK: CULong = 0xe0000000uL
 /** Builds an ioctl number with no parameter. */
 public fun io(group: CULong, number: CULong): CULong = ioctlNumber(IOC_VOID, group, number, 0uL)
 
+public fun _IO(group: CULong, number: CULong): CULong = io(group, number)
+
 /** Builds a read-only ioctl number using the parameter's C ABI size in bytes. */
 public fun ioR(group: CULong, number: CULong, size: CULong): CULong = ioctlNumber(IOC_OUT, group, number, size)
+
+public fun _IOR(group: CULong, number: CULong, size: CULong): CULong = ioR(group, number, size)
 
 /** Builds a write-only ioctl number using the parameter's C ABI size in bytes. */
 public fun ioW(group: CULong, number: CULong, size: CULong): CULong = ioctlNumber(IOC_IN, group, number, size)
 
+public fun _IOW(group: CULong, number: CULong, size: CULong): CULong = ioW(group, number, size)
+
 /** Builds a read-write ioctl number using the parameter's C ABI size in bytes. */
 public fun ioWR(group: CULong, number: CULong, size: CULong): CULong = ioctlNumber(IOC_INOUT, group, number, size)
+
+public fun _IOWR(group: CULong, number: CULong, size: CULong): CULong = ioWR(group, number, size)
 
 private fun ioctlNumber(direction: CULong, group: CULong, number: CULong, size: CULong): CULong =
     direction or ((size and IOCPARM_MASK.toULong()) shl 16) or (group shl 8) or number
