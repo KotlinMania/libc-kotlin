@@ -1136,6 +1136,12 @@ tasks.register("setupAndroidSdk") {
     dependsOn("ensureAndroidSdk")
 }
 
+tasks.register("publishAndReleaseToMavenCentral") {
+    group = "publishing"
+    description = "Alias for publishToCentralPortal to maintain compatibility with legacy publish workflows."
+    dependsOn(publishToCentralPortal)
+}
+
 // Explicit test runner. Named hostTests to avoid shadowing the KMP allTests
 // lifecycle task. Do not use findByName/mapNotNull here: missing test tasks
 // mean the target surface drifted and must fail loudly.
