@@ -122,12 +122,77 @@ uint64_t libc_cmsg_align(uint64_t len) {
 }
 
 /* stdlib.h */
+#ifdef _WIN32
+static CRITICAL_SECTION g_aligned_lock;
+static volatile long g_aligned_lock_init = 0;
+static void** g_aligned_ptrs = NULL;
+static size_t g_aligned_count = 0;
+static size_t g_aligned_cap = 0;
+
+static void ensure_aligned_lock(void) {
+    if (InterlockedCompareExchange(&g_aligned_lock_init, 1, 0) == 0) {
+        InitializeCriticalSection(&g_aligned_lock);
+        InterlockedExchange(&g_aligned_lock_init, 2);
+    } else {
+        while (g_aligned_lock_init != 2) {
+            Sleep(0);
+        }
+    }
+}
+
+static void register_aligned_ptr(void* p) {
+    if (!p) return;
+    ensure_aligned_lock();
+    EnterCriticalSection(&g_aligned_lock);
+    if (g_aligned_count >= g_aligned_cap) {
+        size_t new_cap = g_aligned_cap == 0 ? 64 : g_aligned_cap * 2;
+        void** new_ptrs = (void**)realloc(g_aligned_ptrs, new_cap * sizeof(void*));
+        if (new_ptrs) {
+            g_aligned_ptrs = new_ptrs;
+            g_aligned_cap = new_cap;
+        }
+    }
+    if (g_aligned_count < g_aligned_cap) {
+        g_aligned_ptrs[g_aligned_count++] = p;
+    }
+    LeaveCriticalSection(&g_aligned_lock);
+}
+
+static int unregister_aligned_ptr(void* p) {
+    if (!p || g_aligned_lock_init != 2) return 0;
+    int found = 0;
+    EnterCriticalSection(&g_aligned_lock);
+    for (size_t i = 0; i < g_aligned_count; i++) {
+        if (g_aligned_ptrs[i] == p) {
+            g_aligned_ptrs[i] = g_aligned_ptrs[--g_aligned_count];
+            found = 1;
+            break;
+        }
+    }
+    LeaveCriticalSection(&g_aligned_lock);
+    return found;
+}
+#endif
+
 void* libc_calloc(uint64_t nobj, uint64_t size) { return calloc((uint64_t)nobj, (uint64_t)size); }
 void* libc_malloc(uint64_t size) { return malloc((uint64_t)size); }
 void* libc_realloc(void* p, uint64_t size) { return realloc(p, (uint64_t)size); }
-void libc_free(void* p) { free(p); }
+void libc_free(void* p) {
+#ifdef _WIN32
+    if (!p) return;
+    if (unregister_aligned_ptr(p)) {
+        _aligned_free(p);
+    } else {
+        free(p);
+    }
+#else
+    free(p);
+#endif
+}
 void libc_aligned_free(void* p) {
 #ifdef _WIN32
+    if (!p) return;
+    unregister_aligned_ptr(p);
     _aligned_free(p);
 #else
     free(p);
@@ -135,7 +200,10 @@ void libc_aligned_free(void* p) {
 }
 void* libc_aligned_realloc(void* p, uint64_t size, uint64_t alignment) {
 #ifdef _WIN32
-    return _aligned_realloc(p, (size_t)size, (size_t)alignment);
+    if (p) unregister_aligned_ptr(p);
+    void* res = _aligned_realloc(p, (size_t)size, (size_t)alignment);
+    if (res) register_aligned_ptr(res);
+    return res;
 #else
     (void)alignment;
     return realloc(p, (size_t)size);
@@ -143,7 +211,9 @@ void* libc_aligned_realloc(void* p, uint64_t size, uint64_t alignment) {
 }
 void* libc_aligned_alloc(uint64_t alignment, uint64_t size) {
 #ifdef _WIN32
-    return _aligned_malloc((uint64_t)size, (uint64_t)alignment);
+    void* p = _aligned_malloc((size_t)size, (size_t)alignment);
+    if (p) register_aligned_ptr(p);
+    return p;
 #elif defined(__ANDROID__)
     return memalign((size_t)alignment, (size_t)size);
 #else
