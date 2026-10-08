@@ -3,15 +3,15 @@ package io.github.kotlinmania.libc
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
 import io.github.kotlinmania.libc.unix.bsd.apple.SysdirSearchPathDirectoryT
 import io.github.kotlinmania.libc.unix.bsd.apple.SysdirSearchPathDomainMaskT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatMatchFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatMetric
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatPriority
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatSelectMode
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatSupportFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTagType
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTransFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.DevstatTypeFlags
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Dot3Vendors
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_match_flags`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_metric`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_priority`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_select_mode`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_support_flags`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_tag_type`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_trans_flags`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.`devstat_type_flags`
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.dot3Vendors
 import io.github.kotlinmania.libc.vxworks.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -30,58 +30,58 @@ class ParityEnumsTest {
     }
 
     @Test
-    fun devstatSupportFlagsMatchesCValues() {
-        assertEquals(listOf(0u, 1u, 2u, 4u), DevstatSupportFlags.entries.map { it.value })
+    fun `devstat_support_flags`MatchesCValues() {
+        assertEquals(listOf(0u, 1u, 2u, 4u), `devstat_support_flags`.entries.map { it.value })
     }
 
     @Test
-    fun devstatTransFlagsMatchesCValues() {
-        assertEquals(listOf(0u, 1u, 2u, 3u), DevstatTransFlags.entries.map { it.value })
+    fun `devstat_trans_flags`MatchesCValues() {
+        assertEquals(listOf(0u, 1u, 2u, 3u), `devstat_trans_flags`.entries.map { it.value })
     }
 
     @Test
-    fun devstatTagTypeMatchesCValues() {
-        assertEquals(listOf(0u, 1u, 2u, 3u), DevstatTagType.entries.map { it.value })
+    fun `devstat_tag_type`MatchesCValues() {
+        assertEquals(listOf(0u, 1u, 2u, 3u), `devstat_tag_type`.entries.map { it.value })
     }
 
     @Test
-    fun devstatMatchFlagsMatchesCValues() {
-        assertEquals(listOf(0u, 1u, 2u, 4u), DevstatMatchFlags.entries.map { it.value })
+    fun `devstat_match_flags`MatchesCValues() {
+        assertEquals(listOf(0u, 1u, 2u, 4u), `devstat_match_flags`.entries.map { it.value })
     }
 
     @Test
-    fun devstatPriorityMatchesCValues() {
-        assertEquals(listOf(0u, 32u, 48u, 64u, 80u, 96u, 144u, 272u, 288u, 4095u), DevstatPriority.entries.map { it.value })
+    fun `devstat_priority`MatchesCValues() {
+        assertEquals(listOf(0u, 32u, 48u, 64u, 80u, 96u, 144u, 272u, 288u, 4095u), `devstat_priority`.entries.map { it.value })
     }
 
     @Test
-    fun devstatTypeFlagsMatchesCValues() {
-        assertEquals(listOf(0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u, 10u, 11u, 12u, 13u, 14u, 15u, 16u, 32u, 48u, 240u, 256u), DevstatTypeFlags.entries.map { it.value })
+    fun `devstat_type_flags`MatchesCValues() {
+        assertEquals(listOf(0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u, 10u, 11u, 12u, 13u, 14u, 15u, 16u, 32u, 48u, 240u, 256u), `devstat_type_flags`.entries.map { it.value })
     }
 
     @Test
-    fun devstatMetricMatchesCValues() {
-        assertEquals(listOf(0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u, 10u, 11u, 12u, 13u, 14u, 15u, 16u, 17u, 18u, 19u, 20u, 21u, 22u, 23u, 24u, 25u, 26u, 27u, 28u, 29u, 30u, 31u, 32u, 33u, 34u, 35u, 36u, 37u, 38u, 39u, 40u, 41u, 42u, 43u, 44u, 45u), DevstatMetric.entries.map { it.value })
+    fun `devstat_metric`MatchesCValues() {
+        assertEquals(listOf(0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u, 10u, 11u, 12u, 13u, 14u, 15u, 16u, 17u, 18u, 19u, 20u, 21u, 22u, 23u, 24u, 25u, 26u, 27u, 28u, 29u, 30u, 31u, 32u, 33u, 34u, 35u, 36u, 37u, 38u, 39u, 40u, 41u, 42u, 43u, 44u, 45u), `devstat_metric`.entries.map { it.value })
     }
 
     @Test
-    fun devstatSelectModeMatchesCValues() {
-        assertEquals(listOf(0u, 1u, 2u, 3u), DevstatSelectMode.entries.map { it.value })
+    fun `devstat_select_mode`MatchesCValues() {
+        assertEquals(listOf(0u, 1u, 2u, 3u), `devstat_select_mode`.entries.map { it.value })
     }
 
     @Test
     fun dot3VendorsMatchesCValues() {
-        assertEquals(listOf(1u, 2u, 4u, 5u, 6u, 7u), Dot3Vendors.entries.map { it.value })
-        assertEquals(1u, Dot3Vendors.DOT3_VENDOR_AMD.value)
+        assertEquals(listOf(1u, 2u, 4u, 5u, 6u, 7u), dot3Vendors.entries.map { it.value })
+        assertEquals(1u, dot3Vendors.DOT3_VENDOR_AMD.value)
     }
 
     @Test
-    fun sysdirSearchPathDirectoryTMatchesCValues() {
+    fun `sysdir_search_path_directory_t`MatchesCValues() {
         assertEquals(listOf(1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u, 10u, 11u, 12u, 13u, 14u, 15u, 16u, 17u, 18u, 19u, 20u, 21u, 22u, 100u, 101u), SysdirSearchPathDirectoryT.entries.map { it.value })
     }
 
     @Test
-    fun sysdirSearchPathDomainMaskTMatchesCValues() {
+    fun `sysdir_search_path_domain_mask_t`MatchesCValues() {
         assertEquals(listOf(1u, 2u, 4u, 8u, 65535u), SysdirSearchPathDomainMaskT.entries.map { it.value })
     }
 

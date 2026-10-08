@@ -1625,4 +1625,4 @@ public expect fun kvmOpenfiles(execfile: String?, corefile: String?, swapfile: S
 
 public expect fun kvmRead(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT
 
-public expect fun kvmWrite(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun kvmWrite(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT

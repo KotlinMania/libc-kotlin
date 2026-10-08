@@ -1005,4 +1005,6 @@ public expect fun pthreadRwlockUnlock(lock: PthreadRwlockT?): CInt
 
 public expect fun pthreadRwlockattrInit(attr: PthreadRwlockattrT?): CInt
 
-public expect fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt 
+public expect fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt
+
+public enum class `__locale_struct`
