@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcJni
 
 public actual fun isalnum(c: CInt): CInt =
     throw UnsupportedOperationException("isalnum not available on JVM — no C library access")
@@ -299,34 +300,98 @@ public actual fun putcharUnlocked(c: CInt): CInt =
     throw UnsupportedOperationException("putcharUnlocked not available on JVM — no C library access")
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    throw UnsupportedOperationException("socket not available on JVM — no C library access")
+    LibcJni.socket(domain, ty, protocol)
 
-public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt =
-    throw UnsupportedOperationException("connect not available on JVM — no C library access")
+public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt {
+    val bytes = ByteArray(len.toInt().coerceAtLeast(16))
+    if (address != null) {
+        bytes[0] = (address.saFamily.toInt() and 0xFF).toByte()
+        bytes[1] = ((address.saFamily.toInt() shr 8) and 0xFF).toByte()
+        val copyLen = minOf(address.saData.size, len.toInt() - 2)
+        for (i in 0 until copyLen) {
+            bytes[i + 2] = address.saData[i]
+        }
+    }
+    return LibcJni.connect(socket, bytes, len.toInt())
+}
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    throw UnsupportedOperationException("listen not available on JVM — no C library access")
+    LibcJni.listen(socket, backlog)
 
-public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("accept not available on JVM — no C library access")
+public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
+    if (address == null) {
+        return LibcJni.accept(socket, null, null)
+    }
+    val lenVal = addressLen?.toInt() ?: 128
+    val addrBytes = ByteArray(lenVal)
+    val lenArr = intArrayOf(lenVal)
+    val res = LibcJni.accept(socket, addrBytes, lenArr)
+    if (res >= 0) {
+        val copyLen = minOf(address.saData.size, lenArr[0] - 2)
+        for (i in 0 until copyLen) {
+            address.saData[i] = addrBytes[i + 2]
+        }
+    }
+    return res
+}
 
-public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getpeername not available on JVM — no C library access")
+public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
+    if (address == null) return -1
+    val lenVal = addressLen?.toInt() ?: 128
+    val addrBytes = ByteArray(lenVal)
+    val lenArr = intArrayOf(lenVal)
+    val res = LibcJni.getpeername(socket, addrBytes, lenArr)
+    if (res == 0) {
+        val copyLen = minOf(address.saData.size, lenArr[0] - 2)
+        for (i in 0 until copyLen) {
+            address.saData[i] = addrBytes[i + 2]
+        }
+    }
+    return res
+}
 
-public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getsockname not available on JVM — no C library access")
+public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
+    if (address == null) return -1
+    val lenVal = addressLen?.toInt() ?: 128
+    val addrBytes = ByteArray(lenVal)
+    val lenArr = intArrayOf(lenVal)
+    val res = LibcJni.getsockname(socket, addrBytes, lenArr)
+    if (res == 0) {
+        val copyLen = minOf(address.saData.size, lenArr[0] - 2)
+        for (i in 0 until copyLen) {
+            address.saData[i] = addrBytes[i + 2]
+        }
+    }
+    return res
+}
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt =
-    throw UnsupportedOperationException("setsockopt not available on JVM — no C library access")
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt {
+    val bytes = ByteArray(optionLen.toInt())
+    return LibcJni.setsockopt(socket, level, name, bytes, optionLen.toInt())
+}
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt =
-    throw UnsupportedOperationException("socketpair not available on JVM — no C library access")
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt {
+    val sv = IntArray(2)
+    return LibcJni.socketpair(domain, type, protocol, sv)
+}
 
-public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT =
-    throw UnsupportedOperationException("sendto not available on JVM — no C library access")
+public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT {
+    val bufBytes = ByteArray(len.toInt())
+    val addrBytes = if (addr != null) {
+        val b = ByteArray(addrlen.toInt().coerceAtLeast(16))
+        b[0] = (addr.saFamily.toInt() and 0xFF).toByte()
+        b[1] = ((addr.saFamily.toInt() shr 8) and 0xFF).toByte()
+        val copyLen = minOf(addr.saData.size, addrlen.toInt() - 2)
+        for (i in 0 until copyLen) {
+            b[i + 2] = addr.saData[i]
+        }
+        b
+    } else null
+    return LibcJni.sendto(socket, bufBytes, 0, len.toInt(), flags, addrBytes, addrlen.toInt())
+}
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    throw UnsupportedOperationException("shutdown not available on JVM — no C library access")
+    LibcJni.shutdown(socket, how)
 
 public actual fun chmod(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("chmod not available on JVM — no C library access")
@@ -463,10 +528,22 @@ public actual fun getpgrp(): PidT =
     throw UnsupportedOperationException("getpgrp not available on JVM — no C library access")
 
 public actual fun getpid(): PidT =
-    throw UnsupportedOperationException("getpid not available on JVM — no C library access")
+    LibcJni.getpid()
 
 public actual fun getppid(): PidT =
-    throw UnsupportedOperationException("getppid not available on JVM — no C library access")
+    LibcJni.getppid()
+
+public actual fun geteuid(): UidT =
+    LibcJni.geteuid().toUShort()
+
+public actual fun getegid(): GidT =
+    LibcJni.getegid().toUShort()
+
+public actual fun getuid(): UidT =
+    LibcJni.getuid().toUShort()
+
+public actual fun getgid(): GidT =
+    LibcJni.getgid().toUShort()
 
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty not available on JVM — no C library access")
@@ -558,16 +635,16 @@ public actual fun utime(file: String?, buf: Utimbuf?): CInt =
     throw UnsupportedOperationException("utime not available on JVM — no C library access")
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    throw UnsupportedOperationException("kill not available on JVM — no C library access")
+    LibcJni.kill(pid, sig)
 
 public actual fun killpg(pgrp: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("killpg not available on JVM — no C library access")
 
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("mlock not available on JVM — no C library access")
+    LibcJni.mlock(addr?.value ?: 0L, len.toLong())
 
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("munlock not available on JVM — no C library access")
+    LibcJni.munlock(addr?.value ?: 0L, len.toLong())
 
 public actual fun mlockall(flags: CInt): CInt =
     throw UnsupportedOperationException("mlockall not available on JVM — no C library access")
@@ -725,8 +802,12 @@ public actual fun pthreadRwlockattrInit(attr: PthreadRwlockattrT): CInt =
 public actual fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrDestroy not available on JVM — no C library access")
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getsockopt not available on JVM — no C library access")
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt {
+    val len = optlen?.toInt() ?: 0
+    val bytes = ByteArray(len)
+    val lenArr = intArrayOf(len)
+    return LibcJni.getsockopt(sockfd, level, optname, bytes, lenArr)
+}
 
 public actual fun raise(signum: CInt): CInt =
     throw UnsupportedOperationException("raise not available on JVM — no C library access")
@@ -812,20 +893,35 @@ public actual fun chroot(name: String?): CInt =
 public actual fun usleep(secs: UsecondsT): CInt =
     throw UnsupportedOperationException("usleep not available on JVM — no C library access")
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("send not available on JVM — no C library access")
+public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT {
+    val bytes = ByteArray(len.toInt())
+    return LibcJni.send(socket, bytes, 0, len.toInt(), flags)
+}
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recv not available on JVM — no C library access")
+public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT {
+    val bytes = ByteArray(len.toInt())
+    return LibcJni.recv(socket, bytes, 0, len.toInt(), flags)
+}
 
 public actual fun putenv(string: String?): CInt =
     throw UnsupportedOperationException("putenv not available on JVM — no C library access")
 
-public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
-    throw UnsupportedOperationException("poll not available on JVM — no C library access")
+public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
+    if (fds == null || nfds == 0u) return 0
+    val fdArr = intArrayOf(fds.fd)
+    val evArr = shortArrayOf(fds.events)
+    val revArr = shortArrayOf(0)
+    return LibcJni.poll(fdArr, evArr, revArr, 1, timeout)
+}
 
-public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt =
-    throw UnsupportedOperationException("select not available on JVM — no C library access")
+public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt {
+    val rArr = readfds?.let { IntArray(it.fdsBits.size * 2) }
+    val wArr = writefds?.let { IntArray(it.fdsBits.size * 2) }
+    val eArr = errorfds?.let { IntArray(it.fdsBits.size * 2) }
+    val sec = timeout?.tvSec ?: -1L
+    val usec = timeout?.tvUsec ?: 0L
+    return LibcJni.select(nfds, rArr, wArr, eArr, sec, usec)
+}
 
 public actual fun setlocale(category: CInt, locale: String?): String? =
     throw UnsupportedOperationException("setlocale not available on JVM — no C library access")
@@ -870,7 +966,7 @@ public actual fun sigpending(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigpending not available on JVM — no C library access")
 
 public actual fun sysconf(name: CInt): CLong =
-    throw UnsupportedOperationException("sysconf not available on JVM — no C library access")
+    LibcJni.sysconf(name)
 
 public actual fun mkfifo(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifo not available on JVM — no C library access")
@@ -890,11 +986,15 @@ public actual fun cfsetispeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun cfsetospeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetospeed not available on JVM — no C library access")
 
-public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt =
-    throw UnsupportedOperationException("tcgetattr not available on JVM — no C library access")
+public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt {
+    val buf = ByteArray(128)
+    return LibcJni.tcgetattr(fd, buf)
+}
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt =
-    throw UnsupportedOperationException("tcsetattr not available on JVM — no C library access")
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt {
+    val buf = ByteArray(128)
+    return LibcJni.tcsetattr(fd, optionalActions, buf)
+}
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
     throw UnsupportedOperationException("tcflow not available on JVM — no C library access")
@@ -1004,8 +1104,11 @@ public actual fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE? =
     throw UnsupportedOperationException("openMemstream not available on JVM — no C library access")
 
-public actual fun cfmakeraw(termios: Termios?): CInt =
-    throw UnsupportedOperationException("cfmakeraw not available on JVM — no C library access")
+public actual fun cfmakeraw(termios: Termios?): CInt {
+    val buf = ByteArray(128)
+    LibcJni.cfmakeraw(buf)
+    return 0
+}
 
 public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetspeed not available on JVM — no C library access")

@@ -539,11 +539,11 @@ public expect fun fpathconf(filedes: CInt, name: CInt): CLong
 
 public expect fun getcwd(buf: COpaquePointer?, size: ULong): COpaquePointer?
 
-public fun getegid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun getegid(): GidT
 
-public fun geteuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun geteuid(): UidT
 
-public fun getgid(): GidT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun getgid(): GidT
 
 public expect fun getgroups(ngroupsMax: CInt, groups: GidT?): CInt
 
@@ -559,7 +559,7 @@ public expect fun getpid(): PidT
 
 public expect fun getppid(): PidT
 
-public fun getuid(): UidT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun getuid(): UidT
 
 public expect fun isatty(fd: CInt): CInt
 

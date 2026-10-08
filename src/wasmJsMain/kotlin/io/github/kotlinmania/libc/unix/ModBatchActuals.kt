@@ -468,6 +468,14 @@ public actual fun getpid(): PidT =
 public actual fun getppid(): PidT =
     throw UnsupportedOperationException("getppid requires N-API addon")
 
+public actual fun geteuid(): UidT = 0u
+
+public actual fun getegid(): GidT = 0u
+
+public actual fun getuid(): UidT = 0u
+
+public actual fun getgid(): GidT = 0u
+
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty requires N-API addon")
 
