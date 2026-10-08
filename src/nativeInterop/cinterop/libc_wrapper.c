@@ -482,6 +482,9 @@ char* libc_dlerror(void) {
 }
 void* libc_dlopen(const char* filename, int flag) {
 #ifndef _WIN32
+    if ((flag & (RTLD_LAZY | RTLD_NOW)) == 0) {
+        flag |= RTLD_LAZY;
+    }
     return dlopen(filename, flag);
 #else
     (void)filename; (void)flag;
@@ -1315,6 +1318,9 @@ int libc_pthread_cancel(void* thread) {
 
 int libc_pthread_kill(void* thread, int sig) {
 #ifndef _WIN32
+    if (!thread || (uintptr_t)thread < 4096) {
+        return 3; /* ESRCH */
+    }
     return pthread_kill((pthread_t)thread, sig);
 #else
     (void)thread; (void)sig;

@@ -537,11 +537,10 @@ kotlin {
                                 }.assertNormalExitValue()
                         }
                         konanTargetName.startsWith("android") -> {
-                            if (isMac) {
-                                ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
-                                ensureKonanDependency("target-sysroot-1-android_ndk", konanDeps, execOps)
-                            }
-                            val ndkDir = File(konanDeps, "target-toolchain-2-osx-android_ndk")
+                            val hostToolchain = if (isMac) "osx" else "linux"
+                            ensureKonanDependency("target-toolchain-2-$hostToolchain-android_ndk", konanDeps, execOps)
+                            ensureKonanDependency("target-sysroot-1-android_ndk", konanDeps, execOps)
+                            val ndkDir = File(konanDeps, "target-toolchain-2-$hostToolchain-android_ndk")
                             val sysroot = File(ndkDir, "sysroot")
                             val clangBin =
                                 if (konanTargetName.contains("arm64")) {
@@ -566,7 +565,12 @@ kotlin {
                                     }.assertNormalExitValue()
                             } else {
                                 val prebuilt = file("src/nativeInterop/cinterop/targets/$konanTargetName/libc_wrapper.a")
-                                if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                                val fallbackPrebuilt = file("src/nativeInterop/cinterop/libc_wrapper.a")
+                                if (prebuilt.exists()) {
+                                    prebuilt.copyTo(outFile, overwrite = true)
+                                } else if (fallbackPrebuilt.exists()) {
+                                    fallbackPrebuilt.copyTo(outFile, overwrite = true)
+                                }
                             }
                         }
                         konanTargetName.startsWith("linux") -> {
@@ -609,19 +613,20 @@ kotlin {
                             }
                         }
                         konanTargetName.startsWith("mingw") -> {
-                            if (isWindows) {
+                            ensureKonanDependency("msys2-mingw-w64-x86_64-2", konanDeps, execOps)
+                            val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
+                            val arExe = File(mingwSysroot, "bin/ar.exe")
+                            if (isWindows && mingwSysroot.exists()) {
                                 execOps
                                     .exec {
-                                        commandLine("clang", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                                        commandLine("clang", "--target=x86_64-w64-mingw32", "--sysroot=${mingwSysroot.absolutePath}", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
                                     }.assertNormalExitValue()
                                 execOps
                                     .exec {
-                                        commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
+                                        commandLine(if (arExe.exists()) arExe.absolutePath else "ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
                                     }.assertNormalExitValue()
                             } else if (isMac) {
-                                ensureKonanDependency("msys2-mingw-w64-x86_64-2", konanDeps, execOps)
                                 ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
-                                val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
                                 val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
                                 if (mingwSysroot.exists() && llvmAr.exists()) {
                                     execOps
