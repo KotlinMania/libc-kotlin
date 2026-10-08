@@ -6,17 +6,35 @@ package io.github.kotlinmania.libc.trusty
  * of the upstream `libc` crate.
  */
 
-public typealias Size = ULong
-public typealias Ssize = Long
+public typealias SizeT = ULong
+public typealias SsizeT = Long
 
-public typealias Off = Long
+public typealias OffT = Long
 
-public typealias Intptr = Long
-public typealias Uintptr = ULong
+public typealias CUint8T = UByte
+public typealias CUint16T = UShort
+public typealias CUint32T = UInt
+public typealias CUint64T = ULong
 
-public typealias Time = Long
+public typealias CInt8T = Byte
+public typealias CInt16T = Short
+public typealias CInt32T = Int
+public typealias CInt64T = Long
 
-public typealias ClockId = Int
+public typealias IntptrT = Long
+public typealias UintptrT = ULong
+
+public typealias TimeT = Long
+
+public typealias ClockidT = Int
+
+public typealias Size = SizeT
+public typealias Ssize = SsizeT
+public typealias Off = OffT
+public typealias Intptr = IntptrT
+public typealias Uintptr = UintptrT
+public typealias Time = TimeT
+public typealias ClockId = ClockidT
 
 public data class Iovec(
     val handle: Long = 0L,
