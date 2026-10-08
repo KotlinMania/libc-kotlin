@@ -643,15 +643,15 @@ public data class SiginfoT(
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
 ) {
-    public fun siAddr(): String? = siAddr
-    public fun siValue(): Sigval? = siValue
-    public fun siCode(): CInt = siCode
-    public fun siErrno(): CInt = siErrno
-    public fun siPid(): PidT = siPid ?: 0
-    public fun siUid(): UidT = siUid ?: 0u
-    public fun siStatus(): CInt = siStatus ?: 0
-    public fun siUtime(): CLong = siUtime ?: 0L
-    public fun siStime(): CLong = siStime ?: 0L
+    internal fun siAddr(): String? = siAddr
+    internal fun siValue(): Sigval? = siValue
+    internal fun siCode(): CInt = siCode
+    internal fun siErrno(): CInt = siErrno
+    internal fun siPid(): PidT = siPid ?: 0
+    internal fun siUid(): UidT = siUid ?: 0u
+    internal fun siStatus(): CInt = siStatus ?: 0
+    internal fun siUtime(): CLong = siUtime ?: 0L
+    internal fun siStime(): CLong = siStime ?: 0L
 }
 
 public data class Lastlog(

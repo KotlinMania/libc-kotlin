@@ -49,7 +49,9 @@ public typealias CpusetidT = CInt
 public typealias SctpAssocT = UInt
 public typealias EventfdT = ULong
 
-public enum class `devstat_support_flags`(
+internal typealias devstat_support_flags = DevstatSupportFlags
+
+public enum class DevstatSupportFlags(
     public val value: UInt,
 ) {
     DEVSTAT_ALL_SUPPORTED(0u),
@@ -58,7 +60,9 @@ public enum class `devstat_support_flags`(
     DEVSTAT_BS_UNAVAILABLE(4u),
 }
 
-public enum class `devstat_trans_flags`(
+internal typealias devstat_trans_flags = DevstatTransFlags
+
+public enum class DevstatTransFlags(
     public val value: UInt,
 ) {
     DEVSTAT_NO_DATA(0u),
@@ -67,7 +71,9 @@ public enum class `devstat_trans_flags`(
     DEVSTAT_FREE(3u),
 }
 
-public enum class `devstat_tag_type`(
+internal typealias devstat_tag_type = DevstatTagType
+
+public enum class DevstatTagType(
     public val value: UInt,
 ) {
     DEVSTAT_TAG_SIMPLE(0u),
@@ -76,7 +82,9 @@ public enum class `devstat_tag_type`(
     DEVSTAT_TAG_NONE(3u),
 }
 
-public enum class `devstat_match_flags`(
+internal typealias devstat_match_flags = DevstatMatchFlags
+
+public enum class DevstatMatchFlags(
     public val value: UInt,
 ) {
     DEVSTAT_MATCH_NONE(0u),
@@ -85,7 +93,9 @@ public enum class `devstat_match_flags`(
     DEVSTAT_MATCH_PASS(4u),
 }
 
-public enum class `devstat_priority`(
+internal typealias devstat_priority = DevstatPriority
+
+public enum class DevstatPriority(
     public val value: UInt,
 ) {
     DEVSTAT_PRIORITY_MIN(0u),
@@ -100,7 +110,9 @@ public enum class `devstat_priority`(
     DEVSTAT_PRIORITY_MAX(4095u),
 }
 
-public enum class `devstat_type_flags`(
+internal typealias devstat_type_flags = DevstatTypeFlags
+
+public enum class DevstatTypeFlags(
     public val value: UInt,
 ) {
     DEVSTAT_TYPE_DIRECT(0u),
@@ -126,7 +138,9 @@ public enum class `devstat_type_flags`(
     DEVSTAT_TYPE_PASS(256u),
 }
 
-public enum class `devstat_metric`(
+internal typealias devstat_metric = DevstatMetric
+
+public enum class DevstatMetric(
     public val value: UInt,
 ) {
     DSM_NONE(0u),
@@ -177,7 +191,9 @@ public enum class `devstat_metric`(
     DSM_MAX(45u),
 }
 
-public enum class `devstat_select_mode`(
+internal typealias devstat_select_mode = DevstatSelectMode
+
+public enum class DevstatSelectMode(
     public val value: UInt,
 ) {
     DS_SELECT_ADD(0u),
@@ -186,7 +202,9 @@ public enum class `devstat_select_mode`(
     DS_SELECT_ADDONLY(3u),
 }
 
-public enum class dot3Vendors(
+internal typealias dot3Vendors = Dot3Vendors
+
+public enum class Dot3Vendors(
     public val value: UInt,
 ) {
     DOT3_VENDOR_AMD(1u),
@@ -771,23 +789,23 @@ public data class Devstat(
     val creationTime: Bintime,
     val blockSize: UInt,
     val tagTypes: ULongArray,
-    val flags: `devstat_support_flags`,
-    val deviceType: `devstat_type_flags`,
-    val priority: `devstat_priority`,
+    val flags: DevstatSupportFlags,
+    val deviceType: DevstatTypeFlags,
+    val priority: DevstatPriority,
     val id: COpaquePointer?,
     val sequence1: UInt,
 )
 
 public data class DevstatMatch(
-    val matchFields: `devstat_match_flags`,
-    val deviceType: `devstat_type_flags`,
+    val matchFields: DevstatMatchFlags,
+    val deviceType: DevstatTypeFlags,
     val numMatchCategories: CInt,
 )
 
 public data class DevstatMatchTable(
     val matchStr: String?,
-    val type: `devstat_type_flags`,
-    val matchField: `devstat_match_flags`,
+    val type: DevstatTypeFlags,
+    val matchField: DevstatMatchFlags,
 )
 
 public data class DeviceSelection(
@@ -3708,6 +3726,6 @@ public expect fun devstatGetversion(kd: KvmT): CInt
 
 public expect fun devstatCheckversion(kd: KvmT): CInt
 
-public expect fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: `devstat_select_mode`, maxshowdevs: CInt, perfSelect: CInt): CInt
+public expect fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt
 
 public expect fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt 

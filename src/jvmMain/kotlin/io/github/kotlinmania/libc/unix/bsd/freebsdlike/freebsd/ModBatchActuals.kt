@@ -752,7 +752,7 @@ public actual fun devstatGetversion(kd: KvmT): CInt =
 public actual fun devstatCheckversion(kd: KvmT): CInt =
     throw UnsupportedOperationException("devstatCheckversion not available on JVM — no C library access")
 
-public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: `devstat_select_mode`, maxshowdevs: CInt, perfSelect: CInt): CInt =
+public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: CInt?, numSelections: CInt?, selectGeneration: CLong?, currentGeneration: CLong, devices: Devstat?, numdevs: CInt, matches: DevstatMatch?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt =
     throw UnsupportedOperationException("devstatSelectdevs not available on JVM — no C library access")
 
 public actual fun devstatBuildmatch(matchStr: String?, matches: COpaquePointer?, numMatches: CInt?): CInt =

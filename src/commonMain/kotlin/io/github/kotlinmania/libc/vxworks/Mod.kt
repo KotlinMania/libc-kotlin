@@ -222,11 +222,11 @@ public data class SiginfoT(
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
 ) {
-    public fun siAddr(): COpaquePointer? = siAddr
-    public fun siValue(): Sigval = siValue
-    public fun siPid(): PidT = siPid
-    public fun siUid(): UidT = siUid
-    public fun siStatus(): CInt = siStatus
+    internal fun siAddr(): COpaquePointer? = siAddr
+    internal fun siValue(): Sigval = siValue
+    internal fun siPid(): PidT = siPid
+    internal fun siUid(): UidT = siUid
+    internal fun siStatus(): CInt = siStatus
 }
 
 public data class PthreadMutexattrT(
@@ -616,7 +616,9 @@ public const val EOWNERDEAD: CInt = 89
 public const val ENOTRECOVERABLE: CInt = 90
 
 // NFS errnos: Refer to pkgs_v2/storage/fs/nfs/h/nfs/nfsCommon.h
-private enum class nfsstat(
+internal typealias nfsstat = Nfsstat
+
+internal enum class Nfsstat(
     val value: CInt,
 ) {
     NFSERR_REMOTE(71),
@@ -652,16 +654,16 @@ public const val S_nfsLib_NFSERR_NAMETOOLONG: CInt = ENAMETOOLONG
 public const val S_nfsLib_NFSERR_NOTEMPTY: CInt = ENOTEMPTY
 public const val S_nfsLib_NFSERR_DQUOT: CInt = EDQUOT
 public const val S_nfsLib_NFSERR_STALE: CInt = ESTALE
-public val S_nfsLib_NFSERR_WFLUSH: CInt = M_nfsStat or nfsstat.NFSERR_WFLUSH.value
-public val S_nfsLib_NFSERR_REMOTE: CInt = M_nfsStat or nfsstat.NFSERR_REMOTE.value
-public val S_nfsLib_NFSERR_BADHANDLE: CInt = M_nfsStat or nfsstat.NFSERR_BADHANDLE.value
-public val S_nfsLib_NFSERR_NOT_SYNC: CInt = M_nfsStat or nfsstat.NFSERR_NOT_SYNC.value
-public val S_nfsLib_NFSERR_BAD_COOKIE: CInt = M_nfsStat or nfsstat.NFSERR_BAD_COOKIE.value
+public val S_nfsLib_NFSERR_WFLUSH: CInt = M_nfsStat or Nfsstat.NFSERR_WFLUSH.value
+public val S_nfsLib_NFSERR_REMOTE: CInt = M_nfsStat or Nfsstat.NFSERR_REMOTE.value
+public val S_nfsLib_NFSERR_BADHANDLE: CInt = M_nfsStat or Nfsstat.NFSERR_BADHANDLE.value
+public val S_nfsLib_NFSERR_NOT_SYNC: CInt = M_nfsStat or Nfsstat.NFSERR_NOT_SYNC.value
+public val S_nfsLib_NFSERR_BAD_COOKIE: CInt = M_nfsStat or Nfsstat.NFSERR_BAD_COOKIE.value
 public const val S_nfsLib_NFSERR_NOTSUPP: CInt = EOPNOTSUPP
-public val S_nfsLib_NFSERR_TOOSMALL: CInt = M_nfsStat or nfsstat.NFSERR_TOOSMALL.value
+public val S_nfsLib_NFSERR_TOOSMALL: CInt = M_nfsStat or Nfsstat.NFSERR_TOOSMALL.value
 public const val S_nfsLib_NFSERR_SERVERFAULT: CInt = EIO
-public val S_nfsLib_NFSERR_BADTYPE: CInt = M_nfsStat or nfsstat.NFSERR_BADTYPE.value
-public val S_nfsLib_NFSERR_JUKEBOX: CInt = M_nfsStat or nfsstat.NFSERR_JUKEBOX.value
+public val S_nfsLib_NFSERR_BADTYPE: CInt = M_nfsStat or Nfsstat.NFSERR_BADTYPE.value
+public val S_nfsLib_NFSERR_JUKEBOX: CInt = M_nfsStat or Nfsstat.NFSERR_JUKEBOX.value
 public val S_taskLib_NAME_NOT_FOUND: CInt = taskErrorBase + 0x0065
 public val S_taskLib_TASK_HOOK_TABLE_FULL: CInt = taskErrorBase + 0x0066
 public val S_taskLib_TASK_HOOK_NOT_FOUND: CInt = taskErrorBase + 0x0067
