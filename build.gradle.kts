@@ -1198,14 +1198,105 @@ tasks.register("hostTests") {
     )
 }
 
+val buildNodeLibc =
+    tasks.register<Exec>("buildNodeLibc") {
+        group = "build"
+        description = "Builds the native node-libc N-API addon via node-gyp"
+        workingDir = file("native/node-libc")
+        val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
+        if (isWindows) {
+            commandLine("cmd", "/c", "npm install && npx node-gyp rebuild")
+        } else {
+            commandLine("sh", "-c", "npm install && npx node-gyp rebuild")
+        }
+    }
+
 val copyNodeLibc =
     tasks.register<Copy>("copyNodeLibc") {
+        dependsOn(buildNodeLibc)
         from("native/node-libc")
         into(layout.buildDirectory.dir("js/node_modules/@kotlinmania/libc-native-bindings"))
     }
 tasks.matching { it.name.startsWith("jsNodeTest") || it.name.startsWith("wasmJsNodeTest") }.configureEach {
     dependsOn(copyNodeLibc)
 }
+
+val compileLibcJni =
+    tasks.register("compileLibcJni") {
+        group = "build"
+        description = "Compiles libc_jni.c into a shared library for JVM JNI binding"
+        val cSource = file("src/jvmMain/c/libc_jni.c")
+        val outDir =
+            layout.buildDirectory
+                .dir("natives")
+                .get()
+                .asFile
+        inputs.file(cSource)
+        outputs.dir(outDir)
+
+        doLast {
+            outDir.mkdirs()
+            val javaHome = System.getProperty("java.home") ?: System.getenv("JAVA_HOME") ?: ""
+            val isWindows =
+                org.gradle.internal.os.OperatingSystem
+                    .current()
+                    .isWindows
+            val isMac =
+                org.gradle.internal.os.OperatingSystem
+                    .current()
+                    .isMacOsX
+
+            val (libName, osInclude) =
+                when {
+                    isWindows -> "libc_jni.dll" to "win32"
+                    isMac -> "liblibc_jni.dylib" to "darwin"
+                    else -> "liblibc_jni.so" to "linux"
+                }
+            val outFile = File(outDir, libName)
+            val javaInclude = File(javaHome, "include")
+            val javaOsInclude = File(javaInclude, osInclude)
+
+            if (javaInclude.exists()) {
+                val execOps = project.serviceOf<ExecOperations>()
+                try {
+                    val cmd =
+                        mutableListOf(
+                            "clang",
+                            "-shared",
+                            "-O2",
+                            "-I${javaInclude.absolutePath}",
+                            "-I${javaOsInclude.absolutePath}",
+                            cSource.absolutePath,
+                            "-o",
+                            outFile.absolutePath,
+                        )
+                    if (!isWindows) {
+                        cmd.add(2, "-fPIC")
+                    } else {
+                        cmd.addAll(listOf("-lws2_32"))
+                    }
+                    execOps
+                        .exec {
+                            commandLine(cmd)
+                        }.assertNormalExitValue()
+                } catch (e: Exception) {
+                    logger.warn("Could not compile libc_jni with host clang: ${e.message}")
+                }
+            }
+        }
+    }
+
+tasks.named<Test>("jvmTest") {
+    dependsOn(compileLibcJni)
+    systemProperty(
+        "java.library.path",
+        layout.buildDirectory
+            .dir("natives")
+            .get()
+            .asFile.absolutePath,
+    )
+}
+
 
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
 tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
@@ -1383,6 +1474,8 @@ val fullTargetBuildTaskNames =
                 "wasmJsTestClasses",
                 "wasmWasiMainClasses",
                 "wasmWasiTestClasses",
+                "compileLibcJni",
+                "buildNodeLibc",
                 "swiftExportSmokeTest",
                 "assemble${frameworkName}XCFramework",
             ),

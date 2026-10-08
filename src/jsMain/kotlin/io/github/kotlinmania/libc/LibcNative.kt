@@ -118,4 +118,63 @@ public external object LibcNative {
 
     // errno
     public val errno: Int
+
+    // sockets
+    public fun socket(domain: Int, type: Int, protocol: Int): Int
+
+    public fun bind(fd: Int, addr: dynamic): Int
+
+    public fun connect(fd: Int, addr: dynamic): Int
+
+    public fun listen(fd: Int, backlog: Int): Int
+
+    public fun accept(fd: Int): dynamic
+
+    public fun getsockopt(fd: Int, level: Int, optname: Int, maxLen: Int = definedExternally): dynamic
+
+    public fun setsockopt(fd: Int, level: Int, optname: Int, optval: dynamic): Int
+
+    public fun shutdown(fd: Int, how: Int): Int
+
+    public fun send(fd: Int, buffer: dynamic, flags: Int = definedExternally): Double
+
+    public fun recv(fd: Int, len: Double, flags: Int = definedExternally): dynamic
+
+    public fun socketpair(domain: Int, type: Int, protocol: Int): dynamic
+
+    // poll & select
+    public fun poll(fdsArray: dynamic, timeout: Int): Int
+
+    public fun select(readFds: dynamic, writeFds: dynamic, exceptFds: dynamic, timeoutMs: Double): Int
+
+    // terminal & ioctl
+    public fun ioctl(fd: Int, request: Double, argBuffer: dynamic = definedExternally): Int
+
+    public fun ioctlTiocgwinsz(fd: Int): dynamic
+
+    public fun tcgetattr(fd: Int): dynamic
+
+    public fun tcsetattr(fd: Int, optionalActions: Int, termiosBuffer: dynamic): Int
+
+    public fun cfmakeraw(termiosBuffer: dynamic): dynamic
+
+    // sys, memory locking & process
+    public fun getpeereid(sockfd: Int): dynamic
+
+    public fun mlock(addr: Double, len: Double): Int
+
+    public fun munlock(addr: Double, len: Double): Int
+
+    public fun sysconf(name: Int): Double
+
+    public fun geteuid(): Int
+
+    public fun getegid(): Int
+
+    public fun getuid(): Int
+
+    public fun getgid(): Int
+
+    public fun kill(pid: Int, sig: Int): Int
 }
+
