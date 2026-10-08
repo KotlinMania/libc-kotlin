@@ -434,7 +434,15 @@ public data class SiginfoT(
     val siStatus: CInt? = null,
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
-)
+) {
+    internal fun siAddr(): COpaquePointer? = siAddr
+    internal fun siValue(): Sigval? = siValue
+    internal fun siPid(): PidT = siPid
+    internal fun siUid(): UidT = siUid
+    internal fun siStatus(): CInt = siStatus ?: 0
+    internal fun siUtime(): CLong = siUtime ?: 0L
+    internal fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Dirent(
     val dVersion: UInt,

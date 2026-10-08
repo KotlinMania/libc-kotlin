@@ -684,7 +684,15 @@ public data class SiginfoT(
     val siValue: Sigval? = null,
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
-)
+) {
+    internal fun siAddr(): COpaquePointer? = siAddr
+    internal fun siValue(): Sigval? = siValue
+    internal fun siPid(): PidT = siPid
+    internal fun siUid(): UidT = siUid
+    internal fun siStatus(): CInt = siStatus
+    internal fun siUtime(): CLong = siUtime ?: 0L
+    internal fun siStime(): CLong = siStime ?: 0L
+}
 
 public data class Sigevent(
     val sigevValue: Sigval,

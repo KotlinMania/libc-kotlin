@@ -221,7 +221,13 @@ public data class SiginfoT(
     val siPid: PidT,
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
-)
+) {
+    internal fun siAddr(): COpaquePointer? = siAddr
+    internal fun siValue(): Sigval = siValue
+    internal fun siPid(): PidT = siPid
+    internal fun siUid(): UidT = siUid
+    internal fun siStatus(): CInt = siStatus
+}
 
 public data class PthreadMutexattrT(
     val mutexAttrStatus: CInt,
@@ -610,7 +616,9 @@ public const val EOWNERDEAD: CInt = 89
 public const val ENOTRECOVERABLE: CInt = 90
 
 // NFS errnos: Refer to pkgs_v2/storage/fs/nfs/h/nfs/nfsCommon.h
-private enum class Nfsstat(
+internal typealias nfsstat = Nfsstat
+
+internal enum class Nfsstat(
     val value: CInt,
 ) {
     NFSERR_REMOTE(71),

@@ -120,7 +120,13 @@ public data class SiginfoT(
     val siValue: Sigval,
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
-)
+) {
+    internal fun siAddr(): COpaquePointer? = siAddr
+    internal fun siValue(): Sigval = siValue
+    internal fun siPid(): PidT = siPid
+    internal fun siUid(): UidT = siUid
+    internal fun siStatus(): CInt = siStatus
+}
 
 public data class Sigaction(
     val saSigaction: SighandlerT,
@@ -1619,4 +1625,4 @@ public expect fun kvmOpenfiles(execfile: String?, corefile: String?, swapfile: S
 
 public expect fun kvmRead(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT
 
-public expect fun kvmWrite(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT 
+public expect fun kvmWrite(kd: KvmT, addr: CULong, buf: COpaquePointer?, nbytes: ULong): SsizeT

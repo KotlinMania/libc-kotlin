@@ -49,6 +49,8 @@ public typealias CpusetidT = CInt
 public typealias SctpAssocT = UInt
 public typealias EventfdT = ULong
 
+internal typealias devstat_support_flags = DevstatSupportFlags
+
 public enum class DevstatSupportFlags(
     public val value: UInt,
 ) {
@@ -57,6 +59,8 @@ public enum class DevstatSupportFlags(
     DEVSTAT_NO_ORDERED_TAGS(2u),
     DEVSTAT_BS_UNAVAILABLE(4u),
 }
+
+internal typealias devstat_trans_flags = DevstatTransFlags
 
 public enum class DevstatTransFlags(
     public val value: UInt,
@@ -67,6 +71,8 @@ public enum class DevstatTransFlags(
     DEVSTAT_FREE(3u),
 }
 
+internal typealias devstat_tag_type = DevstatTagType
+
 public enum class DevstatTagType(
     public val value: UInt,
 ) {
@@ -76,6 +82,8 @@ public enum class DevstatTagType(
     DEVSTAT_TAG_NONE(3u),
 }
 
+internal typealias devstat_match_flags = DevstatMatchFlags
+
 public enum class DevstatMatchFlags(
     public val value: UInt,
 ) {
@@ -84,6 +92,8 @@ public enum class DevstatMatchFlags(
     DEVSTAT_MATCH_IF(2u),
     DEVSTAT_MATCH_PASS(4u),
 }
+
+internal typealias devstat_priority = DevstatPriority
 
 public enum class DevstatPriority(
     public val value: UInt,
@@ -99,6 +109,8 @@ public enum class DevstatPriority(
     DEVSTAT_PRIORITY_ARRAY(288u),
     DEVSTAT_PRIORITY_MAX(4095u),
 }
+
+internal typealias devstat_type_flags = DevstatTypeFlags
 
 public enum class DevstatTypeFlags(
     public val value: UInt,
@@ -125,6 +137,8 @@ public enum class DevstatTypeFlags(
     DEVSTAT_TYPE_IF_MASK(240u),
     DEVSTAT_TYPE_PASS(256u),
 }
+
+internal typealias devstat_metric = DevstatMetric
 
 public enum class DevstatMetric(
     public val value: UInt,
@@ -177,6 +191,8 @@ public enum class DevstatMetric(
     DSM_MAX(45u),
 }
 
+internal typealias devstat_select_mode = DevstatSelectMode
+
 public enum class DevstatSelectMode(
     public val value: UInt,
 ) {
@@ -185,6 +201,8 @@ public enum class DevstatSelectMode(
     DS_SELECT_REMOVE(2u),
     DS_SELECT_ADDONLY(3u),
 }
+
+internal typealias dot3Vendors = Dot3Vendors
 
 public enum class Dot3Vendors(
     public val value: UInt,

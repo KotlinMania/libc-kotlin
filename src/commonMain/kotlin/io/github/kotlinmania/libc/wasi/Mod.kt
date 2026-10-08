@@ -3,6 +3,8 @@ package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
 
+internal typealias __locale_struct = LocaleStruct
+
 public class LocaleStruct private constructor()
 
 public typealias IntmaxT = Long
@@ -1005,4 +1007,4 @@ public expect fun pthreadRwlockUnlock(lock: PthreadRwlockT?): CInt
 
 public expect fun pthreadRwlockattrInit(attr: PthreadRwlockattrT?): CInt
 
-public expect fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt 
+public expect fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT?): CInt

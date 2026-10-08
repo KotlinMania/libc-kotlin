@@ -256,7 +256,13 @@ public data class SiginfoT(
     val pad: IntArray,
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
-)
+) {
+    internal fun siAddr(): COpaquePointer? = siAddr
+    internal fun siValue(): Sigval = siValue
+    internal fun siPid(): PidT = siPid
+    internal fun siUid(): UidT = siUid
+    internal fun siStatus(): CInt = siStatus
+}
 
 public data class PollfdExt(
     val fd: CInt,

@@ -139,6 +139,7 @@ public typealias AttrgroupT = UInt
 public typealias VolCapabilitiesSetT = UIntArray
 public typealias MachTimebaseInfoDataT = MachTimebaseInfo
 
+internal typealias sysdir_search_path_directory_t = SysdirSearchPathDirectoryT
 public enum class SysdirSearchPathDirectoryT(
     public val value: UInt,
 ) {
@@ -168,6 +169,7 @@ public enum class SysdirSearchPathDirectoryT(
     SYSDIR_DIRECTORY_ALL_LIBRARIES(101u),
 }
 
+internal typealias sysdir_search_path_domain_mask_t = SysdirSearchPathDomainMaskT
 public enum class SysdirSearchPathDomainMaskT(
     public val value: UInt,
 ) {
@@ -278,7 +280,13 @@ public data class SiginfoT(
     val siValue: Sigval? = null,
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
-)
+) {
+    internal fun siAddr(): COpaquePointer? = siAddr
+    internal fun siValue(): Sigval? = siValue
+    internal fun siPid(): PidT = siPid
+    internal fun siUid(): UidT = siUid
+    internal fun siStatus(): CInt = siStatus
+}
 
 public data class Sigaction(
     val saSigaction: SighandlerT,
@@ -4033,4 +4041,4 @@ public fun iconvOpen(tocode: String?, fromcode: String?): IconvT = throw Unsuppo
 
 public expect fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong
 
-public expect fun iconvClose(cd: IconvT): CInt 
+public expect fun iconvClose(cd: IconvT): CInt
