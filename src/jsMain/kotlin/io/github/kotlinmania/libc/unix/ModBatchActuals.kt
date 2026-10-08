@@ -327,9 +327,13 @@ public actual fun listen(socket: CInt, backlog: CInt): CInt =
 
 public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
     val res = LibcNative.accept(socket)
-    return if (res != null && jsTypeOf(res) == "number") (res as Number).toInt()
-    else if (res != null) ((res.fd as? Number)?.toInt() ?: -1)
-    else -1
+    return if (res != null && jsTypeOf(res) == "number") {
+        (res as Number).toInt()
+    } else if (res != null) {
+        ((res.fd as? Number)?.toInt() ?: -1)
+    } else {
+        -1
+    }
 }
 
 public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt = 0
@@ -491,16 +495,32 @@ public actual fun getppid(): PidT =
     getppidNapi()
 
 public actual fun geteuid(): UidT =
-    try { LibcNative.geteuid().toUShort() } catch (_: Throwable) { 0u }
+    try {
+        LibcNative.geteuid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
 
 public actual fun getegid(): GidT =
-    try { LibcNative.getegid().toUShort() } catch (_: Throwable) { 0u }
+    try {
+        LibcNative.getegid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
 
 public actual fun getuid(): UidT =
-    try { LibcNative.getuid().toUShort() } catch (_: Throwable) { 0u }
+    try {
+        LibcNative.getuid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
 
 public actual fun getgid(): GidT =
-    try { LibcNative.getgid().toUShort() } catch (_: Throwable) { 0u }
+    try {
+        LibcNative.getgid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
 
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty requires N-API addon")

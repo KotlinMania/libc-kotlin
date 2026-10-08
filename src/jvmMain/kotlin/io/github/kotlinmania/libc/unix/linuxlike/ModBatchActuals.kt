@@ -170,7 +170,8 @@ public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
     val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
     val iovBytes = msg?.msgIov?.let { ByteArray(msg.msgIovlen.toInt()) }
     val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
-    return io.github.kotlinmania.libc.internal.LibcJni.sendmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
+    return io.github.kotlinmania.libc.internal.LibcJni
+        .sendmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
 }
 
 public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
@@ -180,7 +181,8 @@ public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
     val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
     val ctlLenOut = msg?.msgControl?.let { intArrayOf(msg.msgControllen.toInt()) }
     val flagsOut = intArrayOf(0)
-    return io.github.kotlinmania.libc.internal.LibcJni.recvmsg(fd, nameBytes, nameLenOut, iovBytes, ctlBytes, ctlLenOut, flagsOut, flags)
+    return io.github.kotlinmania.libc.internal.LibcJni
+        .recvmsg(fd, nameBytes, nameLenOut, iovBytes, ctlBytes, ctlLenOut, flagsOut, flags)
 }
 
 public actual fun uname(buf: Utsname?): CInt =

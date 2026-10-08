@@ -202,7 +202,8 @@ public actual fun syscall(num: CLong, vararg args: Any?): CLong {
     val a4 = if (args.size > 3 && args[3] is Number) (args[3] as Number).toLong() else 0L
     val a5 = if (args.size > 4 && args[4] is Number) (args[4] as Number).toLong() else 0L
     val a6 = if (args.size > 5 && args[5] is Number) (args[5] as Number).toLong() else 0L
-    return io.github.kotlinmania.libc.internal.LibcJni.syscall(num, a1, a2, a3, a4, a5, a6)
+    return io.github.kotlinmania.libc.internal.LibcJni
+        .syscall(num, a1, a2, a3, a4, a5, a6)
 }
 
 public actual fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =

@@ -377,16 +377,19 @@ public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVec
 
 public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT {
     val bufBytes = ByteArray(len.toInt())
-    val addrBytes = if (addr != null) {
-        val b = ByteArray(addrlen.toInt().coerceAtLeast(16))
-        b[0] = (addr.saFamily.toInt() and 0xFF).toByte()
-        b[1] = ((addr.saFamily.toInt() shr 8) and 0xFF).toByte()
-        val copyLen = minOf(addr.saData.size, addrlen.toInt() - 2)
-        for (i in 0 until copyLen) {
-            b[i + 2] = addr.saData[i]
+    val addrBytes =
+        if (addr != null) {
+            val b = ByteArray(addrlen.toInt().coerceAtLeast(16))
+            b[0] = (addr.saFamily.toInt() and 0xFF).toByte()
+            b[1] = ((addr.saFamily.toInt() shr 8) and 0xFF).toByte()
+            val copyLen = minOf(addr.saData.size, addrlen.toInt() - 2)
+            for (i in 0 until copyLen) {
+                b[i + 2] = addr.saData[i]
+            }
+            b
+        } else {
+            null
         }
-        b
-    } else null
     return LibcJni.sendto(socket, bufBytes, 0, len.toInt(), flags, addrBytes, addrlen.toInt())
 }
 

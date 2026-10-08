@@ -451,14 +451,16 @@ kotlin {
         val url = "https://download.jetbrains.com/kotlin/native/$name.tar.gz"
         if (!archive.exists() || archive.length() == 0L) {
             println("Downloading Kotlin/Native dependency $name from $url ...")
-            execOps.exec {
-                commandLine("curl", "-sSL", url, "-o", archive.absolutePath)
-            }.assertNormalExitValue()
+            execOps
+                .exec {
+                    commandLine("curl", "-sSL", url, "-o", archive.absolutePath)
+                }.assertNormalExitValue()
         }
         println("Extracting $archive into $konanDeps ...")
-        execOps.exec {
-            commandLine("tar", "-xzf", archive.absolutePath, "-C", konanDeps.absolutePath)
-        }.assertNormalExitValue()
+        execOps
+            .exec {
+                commandLine("tar", "-xzf", archive.absolutePath, "-C", konanDeps.absolutePath)
+            }.assertNormalExitValue()
     }
 
     // cinterop: wire the libc .def file to all native targets so CMSG macros
@@ -1203,7 +1205,10 @@ val buildNodeLibc =
         group = "build"
         description = "Builds the native node-libc N-API addon via node-gyp"
         workingDir = file("native/node-libc")
-        val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
+        val isWindows =
+            org.gradle.internal.os.OperatingSystem
+                .current()
+                .isWindows
         if (isWindows) {
             commandLine("cmd", "/c", "npm install && npx node-gyp rebuild")
         } else {
@@ -1296,7 +1301,6 @@ tasks.named<Test>("jvmTest") {
             .asFile.absolutePath,
     )
 }
-
 
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
 tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {

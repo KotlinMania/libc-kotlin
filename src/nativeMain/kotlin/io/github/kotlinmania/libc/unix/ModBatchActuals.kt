@@ -641,101 +641,110 @@ public actual fun putcharUnlocked(c: CInt): CInt =
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt = libc.cinterop.libc_socket(domain, ty, protocol)
 
-public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt = memScoped {
-    if (address == null) {
-        libc.cinterop.libc_connect(socket, null, len.toInt())
-    } else {
-        val buf = allocArray<ByteVar>(len.toInt().coerceAtLeast(16))
-        buf[0] = (address.saFamily.toInt() and 0xFF).toByte()
-        buf[1] = ((address.saFamily.toInt() shr 8) and 0xFF).toByte()
-        val copyLen = minOf(address.saData.size, len.toInt() - 2)
-        for (i in 0 until copyLen) {
-            buf[i + 2] = address.saData[i]
+public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt =
+    memScoped {
+        if (address == null) {
+            libc.cinterop.libc_connect(socket, null, len.toInt())
+        } else {
+            val buf = allocArray<ByteVar>(len.toInt().coerceAtLeast(16))
+            buf[0] = (address.saFamily.toInt() and 0xFF).toByte()
+            buf[1] = ((address.saFamily.toInt() shr 8) and 0xFF).toByte()
+            val copyLen = minOf(address.saData.size, len.toInt() - 2)
+            for (i in 0 until copyLen) {
+                buf[i + 2] = address.saData[i]
+            }
+            libc.cinterop.libc_connect(socket, buf, len.toInt())
         }
-        libc.cinterop.libc_connect(socket, buf, len.toInt())
     }
-}
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt = libc.cinterop.libc_listen(socket, backlog)
 
-public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt = memScoped {
-    if (address == null) {
-        libc.cinterop.libc_accept(socket, null, null)
-    } else {
-        val lenVal = addressLen?.toInt() ?: 128
-        val lenVar = alloc<IntVar>()
-        lenVar.value = lenVal
-        val buf = allocArray<ByteVar>(lenVal)
-        val res = libc.cinterop.libc_accept(socket, buf, lenVar.ptr)
-        if (res >= 0) {
-            val copyLen = minOf(address.saData.size, lenVar.value - 2)
-            for (i in 0 until copyLen) {
-                address.saData[i] = buf[i + 2]
+public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
+    memScoped {
+        if (address == null) {
+            libc.cinterop.libc_accept(socket, null, null)
+        } else {
+            val lenVal = addressLen?.toInt() ?: 128
+            val lenVar = alloc<IntVar>()
+            lenVar.value = lenVal
+            val buf = allocArray<ByteVar>(lenVal)
+            val res = libc.cinterop.libc_accept(socket, buf, lenVar.ptr)
+            if (res >= 0) {
+                val copyLen = minOf(address.saData.size, lenVar.value - 2)
+                for (i in 0 until copyLen) {
+                    address.saData[i] = buf[i + 2]
+                }
             }
+            res
         }
-        res
     }
-}
 
-public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt = memScoped {
-    if (address == null) {
-        libc.cinterop.libc_getpeername(socket, null, null)
-    } else {
-        val lenVal = addressLen?.toInt() ?: 128
-        val lenVar = alloc<IntVar>()
-        lenVar.value = lenVal
-        val buf = allocArray<ByteVar>(lenVal)
-        val res = libc.cinterop.libc_getpeername(socket, buf, lenVar.ptr)
-        if (res == 0) {
-            val copyLen = minOf(address.saData.size, lenVar.value - 2)
-            for (i in 0 until copyLen) {
-                address.saData[i] = buf[i + 2]
+public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
+    memScoped {
+        if (address == null) {
+            libc.cinterop.libc_getpeername(socket, null, null)
+        } else {
+            val lenVal = addressLen?.toInt() ?: 128
+            val lenVar = alloc<IntVar>()
+            lenVar.value = lenVal
+            val buf = allocArray<ByteVar>(lenVal)
+            val res = libc.cinterop.libc_getpeername(socket, buf, lenVar.ptr)
+            if (res == 0) {
+                val copyLen = minOf(address.saData.size, lenVar.value - 2)
+                for (i in 0 until copyLen) {
+                    address.saData[i] = buf[i + 2]
+                }
             }
+            res
         }
-        res
     }
-}
 
-public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt = memScoped {
-    if (address == null) {
-        libc.cinterop.libc_getsockname(socket, null, null)
-    } else {
-        val lenVal = addressLen?.toInt() ?: 128
-        val lenVar = alloc<IntVar>()
-        lenVar.value = lenVal
-        val buf = allocArray<ByteVar>(lenVal)
-        val res = libc.cinterop.libc_getsockname(socket, buf, lenVar.ptr)
-        if (res == 0) {
-            val copyLen = minOf(address.saData.size, lenVar.value - 2)
-            for (i in 0 until copyLen) {
-                address.saData[i] = buf[i + 2]
+public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
+    memScoped {
+        if (address == null) {
+            libc.cinterop.libc_getsockname(socket, null, null)
+        } else {
+            val lenVal = addressLen?.toInt() ?: 128
+            val lenVar = alloc<IntVar>()
+            lenVar.value = lenVal
+            val buf = allocArray<ByteVar>(lenVal)
+            val res = libc.cinterop.libc_getsockname(socket, buf, lenVar.ptr)
+            if (res == 0) {
+                val copyLen = minOf(address.saData.size, lenVar.value - 2)
+                for (i in 0 until copyLen) {
+                    address.saData[i] = buf[i + 2]
+                }
             }
+            res
         }
-        res
     }
-}
 
 public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt =
     libc.cinterop.libc_setsockopt(socket, level, name, value?.value?.toCPointer<ByteVar>(), optionLen.toInt())
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt = memScoped {
-    val sv = allocArray<IntVar>(2)
-    libc.cinterop.libc_socketpair(domain, type, protocol, sv)
-}
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt =
+    memScoped {
+        val sv = allocArray<IntVar>(2)
+        libc.cinterop.libc_socketpair(domain, type, protocol, sv)
+    }
 
-public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT = memScoped {
-    val dest = if (addr != null) {
-        val destBuf = allocArray<ByteVar>(addrlen.toInt().coerceAtLeast(16))
-        destBuf[0] = (addr.saFamily.toInt() and 0xFF).toByte()
-        destBuf[1] = ((addr.saFamily.toInt() shr 8) and 0xFF).toByte()
-        val copyLen = minOf(addr.saData.size, addrlen.toInt() - 2)
-        for (i in 0 until copyLen) {
-            destBuf[i + 2] = addr.saData[i]
-        }
-        destBuf
-    } else null
-    libc.cinterop.libc_sendto(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, dest, addrlen.toInt())
-}
+public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT =
+    memScoped {
+        val dest =
+            if (addr != null) {
+                val destBuf = allocArray<ByteVar>(addrlen.toInt().coerceAtLeast(16))
+                destBuf[0] = (addr.saFamily.toInt() and 0xFF).toByte()
+                destBuf[1] = ((addr.saFamily.toInt() shr 8) and 0xFF).toByte()
+                val copyLen = minOf(addr.saData.size, addrlen.toInt() - 2)
+                for (i in 0 until copyLen) {
+                    destBuf[i + 2] = addr.saData[i]
+                }
+                destBuf
+            } else {
+                null
+            }
+        libc.cinterop.libc_sendto(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, dest, addrlen.toInt())
+    }
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt = libc.cinterop.libc_shutdown(socket, how)
 
@@ -1214,17 +1223,18 @@ public actual fun pthreadRwlockattrInit(attr: PthreadRwlockattrT): CInt =
 public actual fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrDestroy requires manual FFI bridge — not yet implemented")
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt = memScoped {
-    val lenVar = alloc<IntVar>()
-    lenVar.value = optlen?.toInt() ?: 0
-    libc.cinterop.libc_getsockopt(
-        sockfd,
-        level,
-        optname,
-        optval?.value?.toCPointer<ByteVar>(),
-        if (optlen != null) lenVar.ptr else null
-    )
-}
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt =
+    memScoped {
+        val lenVar = alloc<IntVar>()
+        lenVar.value = optlen?.toInt() ?: 0
+        libc.cinterop.libc_getsockopt(
+            sockfd,
+            level,
+            optname,
+            optval?.value?.toCPointer<ByteVar>(),
+            if (optlen != null) lenVar.ptr else null,
+        )
+    }
 
 public actual fun raise(signum: CInt): CInt = libc.cinterop.libc_raise(signum)
 
@@ -1322,96 +1332,100 @@ public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
     }
 }
 
-public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt = memScoped {
-    val rset = if (readfds != null) libc.cinterop.libc_fd_set_alloc() else null
-    val wset = if (writefds != null) libc.cinterop.libc_fd_set_alloc() else null
-    val eset = if (errorfds != null) libc.cinterop.libc_fd_set_alloc() else null
-    try {
-        if (readfds != null && rset != null) {
-            libc.cinterop.libc_fd_zero(rset)
-            for (fd in 0 until nfds) {
-                val idx = fd / 64
-                val bit = fd % 64
-                if (idx < readfds.fdsBits.size && (readfds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
-                    libc.cinterop.libc_fd_set(fd, rset)
-                }
-            }
-        }
-        if (writefds != null && wset != null) {
-            libc.cinterop.libc_fd_zero(wset)
-            for (fd in 0 until nfds) {
-                val idx = fd / 64
-                val bit = fd % 64
-                if (idx < writefds.fdsBits.size && (writefds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
-                    libc.cinterop.libc_fd_set(fd, wset)
-                }
-            }
-        }
-        if (errorfds != null && eset != null) {
-            libc.cinterop.libc_fd_zero(eset)
-            for (fd in 0 until nfds) {
-                val idx = fd / 64
-                val bit = fd % 64
-                if (idx < errorfds.fdsBits.size && (errorfds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
-                    libc.cinterop.libc_fd_set(fd, eset)
-                }
-            }
-        }
-        val tv = if (timeout != null) {
-            val t = allocArray<LongVar>(2)
-            t[0] = timeout.tvSec
-            t[1] = timeout.tvUsec
-            t
-        } else null
-        val ret = libc.cinterop.libc_select(nfds, rset, wset, eset, tv)
-        if (ret > 0) {
+public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt =
+    memScoped {
+        val rset = if (readfds != null) libc.cinterop.libc_fd_set_alloc() else null
+        val wset = if (writefds != null) libc.cinterop.libc_fd_set_alloc() else null
+        val eset = if (errorfds != null) libc.cinterop.libc_fd_set_alloc() else null
+        try {
             if (readfds != null && rset != null) {
+                libc.cinterop.libc_fd_zero(rset)
                 for (fd in 0 until nfds) {
                     val idx = fd / 64
                     val bit = fd % 64
-                    if (idx < readfds.fdsBits.size) {
-                        if (libc.cinterop.libc_fd_isset(fd, rset) != 0) {
-                            readfds.fdsBits[idx] = readfds.fdsBits[idx] or (1uL shl bit)
-                        } else {
-                            readfds.fdsBits[idx] = readfds.fdsBits[idx] and (1uL shl bit).inv()
-                        }
+                    if (idx < readfds.fdsBits.size && (readfds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
+                        libc.cinterop.libc_fd_set(fd, rset)
                     }
                 }
             }
             if (writefds != null && wset != null) {
+                libc.cinterop.libc_fd_zero(wset)
                 for (fd in 0 until nfds) {
                     val idx = fd / 64
                     val bit = fd % 64
-                    if (idx < writefds.fdsBits.size) {
-                        if (libc.cinterop.libc_fd_isset(fd, wset) != 0) {
-                            writefds.fdsBits[idx] = writefds.fdsBits[idx] or (1uL shl bit)
-                        } else {
-                            writefds.fdsBits[idx] = writefds.fdsBits[idx] and (1uL shl bit).inv()
-                        }
+                    if (idx < writefds.fdsBits.size && (writefds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
+                        libc.cinterop.libc_fd_set(fd, wset)
                     }
                 }
             }
             if (errorfds != null && eset != null) {
+                libc.cinterop.libc_fd_zero(eset)
                 for (fd in 0 until nfds) {
                     val idx = fd / 64
                     val bit = fd % 64
-                    if (idx < errorfds.fdsBits.size) {
-                        if (libc.cinterop.libc_fd_isset(fd, eset) != 0) {
-                            errorfds.fdsBits[idx] = errorfds.fdsBits[idx] or (1uL shl bit)
-                        } else {
-                            errorfds.fdsBits[idx] = errorfds.fdsBits[idx] and (1uL shl bit).inv()
+                    if (idx < errorfds.fdsBits.size && (errorfds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
+                        libc.cinterop.libc_fd_set(fd, eset)
+                    }
+                }
+            }
+            val tv =
+                if (timeout != null) {
+                    val t = allocArray<LongVar>(2)
+                    t[0] = timeout.tvSec
+                    t[1] = timeout.tvUsec
+                    t
+                } else {
+                    null
+                }
+            val ret = libc.cinterop.libc_select(nfds, rset, wset, eset, tv)
+            if (ret > 0) {
+                if (readfds != null && rset != null) {
+                    for (fd in 0 until nfds) {
+                        val idx = fd / 64
+                        val bit = fd % 64
+                        if (idx < readfds.fdsBits.size) {
+                            if (libc.cinterop.libc_fd_isset(fd, rset) != 0) {
+                                readfds.fdsBits[idx] = readfds.fdsBits[idx] or (1uL shl bit)
+                            } else {
+                                readfds.fdsBits[idx] = readfds.fdsBits[idx] and (1uL shl bit).inv()
+                            }
+                        }
+                    }
+                }
+                if (writefds != null && wset != null) {
+                    for (fd in 0 until nfds) {
+                        val idx = fd / 64
+                        val bit = fd % 64
+                        if (idx < writefds.fdsBits.size) {
+                            if (libc.cinterop.libc_fd_isset(fd, wset) != 0) {
+                                writefds.fdsBits[idx] = writefds.fdsBits[idx] or (1uL shl bit)
+                            } else {
+                                writefds.fdsBits[idx] = writefds.fdsBits[idx] and (1uL shl bit).inv()
+                            }
+                        }
+                    }
+                }
+                if (errorfds != null && eset != null) {
+                    for (fd in 0 until nfds) {
+                        val idx = fd / 64
+                        val bit = fd % 64
+                        if (idx < errorfds.fdsBits.size) {
+                            if (libc.cinterop.libc_fd_isset(fd, eset) != 0) {
+                                errorfds.fdsBits[idx] = errorfds.fdsBits[idx] or (1uL shl bit)
+                            } else {
+                                errorfds.fdsBits[idx] = errorfds.fdsBits[idx] and (1uL shl bit).inv()
+                            }
                         }
                     }
                 }
             }
+            ret
+        } finally {
+            if (rset != null) libc.cinterop.libc_fd_set_free(rset)
+            if (wset != null) libc.cinterop.libc_fd_set_free(wset)
+            if (eset != null) libc.cinterop.libc_fd_set_free(eset)
         }
-        ret
-    } finally {
-        if (rset != null) libc.cinterop.libc_fd_set_free(rset)
-        if (wset != null) libc.cinterop.libc_fd_set_free(wset)
-        if (eset != null) libc.cinterop.libc_fd_set_free(eset)
     }
-}
 
 public actual fun setlocale(category: CInt, locale: String?): String? {
     val result = libc_setlocale(category, locale)
@@ -1478,16 +1492,18 @@ public actual fun cfsetispeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun cfsetospeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetospeed requires manual FFI bridge — not yet implemented")
 
-public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt = memScoped {
-    val buf = allocArray<ByteVar>(128)
-    libc.cinterop.libc_tcgetattr(fd, buf)
-}
+public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt =
+    memScoped {
+        val buf = allocArray<ByteVar>(128)
+        libc.cinterop.libc_tcgetattr(fd, buf)
+    }
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt = memScoped {
-    val buf = allocArray<ByteVar>(128)
-    libc.cinterop.libc_tcgetattr(fd, buf)
-    libc.cinterop.libc_tcsetattr(fd, optionalActions, buf)
-}
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt =
+    memScoped {
+        val buf = allocArray<ByteVar>(128)
+        libc.cinterop.libc_tcgetattr(fd, buf)
+        libc.cinterop.libc_tcsetattr(fd, optionalActions, buf)
+    }
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
     libc.cinterop.libc_tcflow(fd, action)
@@ -1612,11 +1628,12 @@ public actual fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE? =
     throw UnsupportedOperationException("openMemstream requires manual FFI bridge — not yet implemented")
 
-public actual fun cfmakeraw(termios: Termios?): CInt = memScoped {
-    val buf = allocArray<ByteVar>(128)
-    libc.cinterop.libc_cfmakeraw(buf)
-    0
-}
+public actual fun cfmakeraw(termios: Termios?): CInt =
+    memScoped {
+        val buf = allocArray<ByteVar>(128)
+        libc.cinterop.libc_cfmakeraw(buf)
+        0
+    }
 
 public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetspeed requires manual FFI bridge — not yet implemented")

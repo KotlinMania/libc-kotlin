@@ -170,14 +170,18 @@ public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
     val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
     val iovBytes = msg?.msgIov?.let { ByteArray(msg.msgIovlen.toInt()) }
     val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
-    return io.github.kotlinmania.libc.LibcNative.sendmsg(fd, nameBytes, iovBytes, ctlBytes, flags).toLong()
+    return io.github.kotlinmania.libc.LibcNative
+        .sendmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
+        .toLong()
 }
 
 public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
     val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
     val iovBytes = msg?.msgIov?.let { ByteArray(msg.msgIovlen.toInt()) }
     val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
-    val res = io.github.kotlinmania.libc.LibcNative.recvmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
+    val res =
+        io.github.kotlinmania.libc.LibcNative
+            .recvmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
     return (res?.bytes as? Number)?.toLong() ?: -1L
 }
 

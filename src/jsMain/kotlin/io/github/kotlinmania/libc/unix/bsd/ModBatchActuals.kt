@@ -21,7 +21,9 @@ public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean {
     val bit = fd % 64
     return if (idx < set.fdsBits.size) {
         (set.fdsBits[idx] and (1L shl bit)) != 0L
-    } else false
+    } else {
+        false
+    }
 }
 
 public actual fun fDSET(fd: CInt, set: FdSet?) {
