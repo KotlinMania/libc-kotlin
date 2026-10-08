@@ -443,6 +443,8 @@ int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct
 #endif
 #ifndef _WIN32
 #include <sys/utsname.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
 #endif
 #ifndef _WIN32
 #include <strings.h>
@@ -1684,6 +1686,196 @@ void* libc_shmat(int shmid, const void* shmaddr, int shmflg) {
     return shmat(shmid, (void*)shmaddr, shmflg);
 #else
     (void)shmid; (void)shmaddr; (void)shmflg; errno = ENOSYS; return (void*)-1;
+#endif
+}
+
+int libc_connect(int sockfd, const void* addr, int addrlen) {
+#ifndef _WIN32
+    return connect(sockfd, (const struct sockaddr*)addr, (socklen_t)addrlen);
+#else
+    return connect(sockfd, (const struct sockaddr*)addr, addrlen);
+#endif
+}
+
+int libc_accept(int sockfd, void* addr, void* addrlen) {
+#ifndef _WIN32
+    return accept(sockfd, (struct sockaddr*)addr, (socklen_t*)addrlen);
+#else
+    return accept(sockfd, (struct sockaddr*)addr, (int*)addrlen);
+#endif
+}
+
+int libc_getsockopt(int sockfd, int level, int optname, void* optval, void* optlen) {
+#ifndef _WIN32
+    return getsockopt(sockfd, level, optname, optval, (socklen_t*)optlen);
+#else
+    return getsockopt(sockfd, level, optname, (char*)optval, (int*)optlen);
+#endif
+}
+
+int libc_setsockopt(int sockfd, int level, int optname, const void* optval, int optlen) {
+#ifndef _WIN32
+    return setsockopt(sockfd, level, optname, optval, (socklen_t)optlen);
+#else
+    return setsockopt(sockfd, level, optname, (const char*)optval, optlen);
+#endif
+}
+
+int libc_getsockname(int sockfd, void* addr, void* addrlen) {
+#ifndef _WIN32
+    return getsockname(sockfd, (struct sockaddr*)addr, (socklen_t*)addrlen);
+#else
+    return getsockname(sockfd, (struct sockaddr*)addr, (int*)addrlen);
+#endif
+}
+
+int libc_getpeername(int sockfd, void* addr, void* addrlen) {
+#ifndef _WIN32
+    return getpeername(sockfd, (struct sockaddr*)addr, (socklen_t*)addrlen);
+#else
+    return getpeername(sockfd, (struct sockaddr*)addr, (int*)addrlen);
+#endif
+}
+
+int64_t libc_send(int sockfd, const void* buf, uint64_t len, int flags) {
+#ifndef _WIN32
+    return send(sockfd, buf, (size_t)len, flags);
+#else
+    return send(sockfd, (const char*)buf, (int)len, flags);
+#endif
+}
+
+int64_t libc_recv(int sockfd, void* buf, uint64_t len, int flags) {
+#ifndef _WIN32
+    return recv(sockfd, buf, (size_t)len, flags);
+#else
+    return recv(sockfd, (char*)buf, (int)len, flags);
+#endif
+}
+
+int64_t libc_sendto(int sockfd, const void* buf, uint64_t len, int flags, const void* dest_addr, int addrlen) {
+#ifndef _WIN32
+    return sendto(sockfd, buf, (size_t)len, flags, (const struct sockaddr*)dest_addr, (socklen_t)addrlen);
+#else
+    return sendto(sockfd, (const char*)buf, (int)len, flags, (const struct sockaddr*)dest_addr, addrlen);
+#endif
+}
+
+int libc_socketpair(int domain, int type, int protocol, int* sv) {
+#ifndef _WIN32
+    return socketpair(domain, type, protocol, sv);
+#else
+    (void)domain; (void)type; (void)protocol; (void)sv; errno = ENOSYS; return -1;
+#endif
+}
+
+int libc_select(int nfds, void* readfds, void* writefds, void* exceptfds, void* timeout) {
+#ifndef _WIN32
+    return select(nfds, (fd_set*)readfds, (fd_set*)writefds, (fd_set*)exceptfds, (struct timeval*)timeout);
+#else
+    return select(nfds, (fd_set*)readfds, (fd_set*)writefds, (fd_set*)exceptfds, (const struct timeval*)timeout);
+#endif
+}
+
+void* libc_fd_set_alloc(void) {
+    return calloc(1, sizeof(fd_set));
+}
+
+void libc_fd_set_free(void* set) {
+    if (set) free(set);
+}
+
+void libc_fd_zero(void* set) {
+    if (set) FD_ZERO((fd_set*)set);
+}
+
+void libc_fd_set(int fd, void* set) {
+    if (set) FD_SET(fd, (fd_set*)set);
+}
+
+void libc_fd_clr(int fd, void* set) {
+    if (set) FD_CLR(fd, (fd_set*)set);
+}
+
+int libc_fd_isset(int fd, void* set) {
+    return set ? FD_ISSET(fd, (fd_set*)set) : 0;
+}
+
+int libc_ioctl(int fd, unsigned long request, void* argp) {
+#ifndef _WIN32
+    return ioctl(fd, request, argp);
+#else
+    (void)fd; (void)request; (void)argp; errno = ENOSYS; return -1;
+#endif
+}
+
+int libc_ioctl_tiocgwinsz(int fd, unsigned short* rows, unsigned short* cols, unsigned short* xpixel, unsigned short* ypixel) {
+#if !defined(_WIN32) && defined(TIOCGWINSZ)
+    struct winsize ws;
+    memset(&ws, 0, sizeof(ws));
+    int res = ioctl(fd, TIOCGWINSZ, &ws);
+    if (res == 0) {
+        if (rows) *rows = ws.ws_row;
+        if (cols) *cols = ws.ws_col;
+        if (xpixel) *xpixel = ws.ws_xpixel;
+        if (ypixel) *ypixel = ws.ws_ypixel;
+    }
+    return res;
+#else
+    (void)fd; (void)rows; (void)cols; (void)xpixel; (void)ypixel;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int libc_tcgetattr(int fd, void* termios_p) {
+#ifndef _WIN32
+    return tcgetattr(fd, (struct termios*)termios_p);
+#else
+    (void)fd; (void)termios_p; errno = ENOSYS; return -1;
+#endif
+}
+
+int libc_tcsetattr(int fd, int optional_actions, const void* termios_p) {
+#ifndef _WIN32
+    return tcsetattr(fd, optional_actions, (const struct termios*)termios_p);
+#else
+    (void)fd; (void)optional_actions; (void)termios_p; errno = ENOSYS; return -1;
+#endif
+}
+
+void libc_cfmakeraw(void* termios_p) {
+#ifndef _WIN32
+    cfmakeraw((struct termios*)termios_p);
+#else
+    (void)termios_p;
+#endif
+}
+
+int libc_getpeereid(int sockfd, unsigned int* euid, unsigned int* egid) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    uid_t u = 0;
+    gid_t g = 0;
+    int res = getpeereid(sockfd, &u, &g);
+    if (res == 0) {
+        if (euid) *euid = (unsigned int)u;
+        if (egid) *egid = (unsigned int)g;
+    }
+    return res;
+#elif defined(__linux__) && defined(SO_PEERCRED)
+    struct ucred cr;
+    memset(&cr, 0, sizeof(cr));
+    socklen_t len = sizeof(cr);
+    int res = getsockopt(sockfd, SOL_SOCKET, SO_PEERCRED, &cr, &len);
+    if (res == 0) {
+        if (euid) *euid = (unsigned int)cr.uid;
+        if (egid) *egid = (unsigned int)cr.gid;
+    }
+    return res;
+#else
+    (void)sockfd; (void)euid; (void)egid;
+    errno = ENOSYS;
+    return -1;
 #endif
 }
 
