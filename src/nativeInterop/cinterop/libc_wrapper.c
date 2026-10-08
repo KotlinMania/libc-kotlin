@@ -1811,9 +1811,9 @@ int libc_fd_isset(int fd, void* set) {
 #endif
 }
 
-int libc_ioctl(int fd, unsigned long request, void* argp) {
+int libc_ioctl(int fd, unsigned long long request, void* argp) {
 #ifndef _WIN32
-    return ioctl(fd, request, argp);
+    return ioctl(fd, (unsigned long)request, argp);
 #else
     (void)fd; (void)request; (void)argp; errno = ENOSYS; return -1;
 #endif

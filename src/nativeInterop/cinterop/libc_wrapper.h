@@ -568,7 +568,7 @@ void libc_fd_clr(int fd, void* set);
 int libc_fd_isset(int fd, void* set);
 
 /* Terminal & ioctl wrappers */
-int libc_ioctl(int fd, unsigned long request, void* argp);
+int libc_ioctl(int fd, unsigned long long request, void* argp);
 int libc_ioctl_tiocgwinsz(int fd, unsigned short* rows, unsigned short* cols, unsigned short* xpixel, unsigned short* ypixel);
 int libc_tcgetattr(int fd, void* termios_p);
 int libc_tcsetattr(int fd, int optional_actions, const void* termios_p);
