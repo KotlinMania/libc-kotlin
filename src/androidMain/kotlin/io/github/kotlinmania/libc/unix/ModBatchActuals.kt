@@ -468,6 +468,26 @@ public actual fun getpid(): PidT =
 public actual fun getppid(): PidT =
     throw UnsupportedOperationException("getppid not available on Android host — use androidNative target for FFI")
 
+public actual fun geteuid(): UidT =
+    android.os.Process
+        .myUid()
+        .toUShort()
+
+public actual fun getegid(): GidT =
+    android.os.Process
+        .myUid()
+        .toUShort()
+
+public actual fun getuid(): UidT =
+    android.os.Process
+        .myUid()
+        .toUShort()
+
+public actual fun getgid(): GidT =
+    android.os.Process
+        .myUid()
+        .toUShort()
+
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty not available on Android host — use androidNative target for FFI")
 

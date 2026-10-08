@@ -546,4 +546,43 @@ int libc_backtrace(void** buf, int sz);
 void* libc_brk(const void* addr);
 void* libc_shmat(int shmid, const void* shmaddr, int shmflg);
 
+/* Socket networking wrappers */
+int libc_connect(int sockfd, const void* addr, int addrlen);
+int libc_accept(int sockfd, void* addr, void* addrlen);
+int libc_getsockopt(int sockfd, int level, int optname, void* optval, void* optlen);
+int libc_setsockopt(int sockfd, int level, int optname, const void* optval, int optlen);
+int libc_getsockname(int sockfd, void* addr, void* addrlen);
+int libc_getpeername(int sockfd, void* addr, void* addrlen);
+int64_t libc_send(int sockfd, const void* buf, uint64_t len, int flags);
+int64_t libc_recv(int sockfd, void* buf, uint64_t len, int flags);
+int64_t libc_sendto(int sockfd, const void* buf, uint64_t len, int flags, const void* dest_addr, int addrlen);
+int libc_socketpair(int domain, int type, int protocol, int* sv);
+
+/* Polling & select & fd_set wrappers */
+int libc_select(int nfds, void* readfds, void* writefds, void* exceptfds, void* timeout);
+void* libc_fd_set_alloc(void);
+void libc_fd_set_free(void* set);
+void libc_fd_zero(void* set);
+void libc_fd_set(int fd, void* set);
+void libc_fd_clr(int fd, void* set);
+int libc_fd_isset(int fd, void* set);
+
+/* Terminal & ioctl wrappers */
+int libc_ioctl(int fd, unsigned long long request, void* argp);
+int libc_ioctl_tiocgwinsz(int fd, unsigned short* rows, unsigned short* cols, unsigned short* xpixel, unsigned short* ypixel);
+int libc_tcgetattr(int fd, void* termios_p);
+int libc_tcsetattr(int fd, int optional_actions, const void* termios_p);
+void libc_cfmakeraw(void* termios_p);
+
+/* UDS, process & memory locking wrappers */
+int libc_getpeereid(int sockfd, unsigned int* euid, unsigned int* egid);
+
+/* Advanced socket messaging wrappers */
+int64_t libc_sendmsg_simple(int sockfd, const void* name, int namelen, const void* iov_base, uint64_t iov_len, const void* control, uint64_t controllen, int flags);
+int64_t libc_recvmsg_simple(int sockfd, void* name, int* namelen, void* iov_base, uint64_t iov_len, void* control, uint64_t* controllen, int* msg_flags, int flags);
+
+/* System call & pidfd wrappers */
+int64_t libc_syscall(int64_t number, int64_t a1, int64_t a2, int64_t a3, int64_t a4, int64_t a5, int64_t a6);
+int libc_pidfd_open(int pid, unsigned int flags);
+
 #endif /* LIBC_WRAPPER_H */

@@ -317,34 +317,42 @@ public actual fun putcharUnlocked(c: CInt): CInt =
     throw UnsupportedOperationException("putcharUnlocked requires N-API addon")
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    throw UnsupportedOperationException("socket requires N-API addon")
+    LibcNative.socket(domain, ty, protocol)
 
 public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt =
-    throw UnsupportedOperationException("connect requires N-API addon")
+    LibcNative.connect(socket, address)
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    throw UnsupportedOperationException("listen requires N-API addon")
+    LibcNative.listen(socket, backlog)
 
-public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("accept requires N-API addon")
+public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
+    val res = LibcNative.accept(socket)
+    return if (res != null && jsTypeOf(res) == "number") {
+        (res as Number).toInt()
+    } else if (res != null) {
+        ((res.fd as? Number)?.toInt() ?: -1)
+    } else {
+        -1
+    }
+}
 
-public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getpeername requires N-API addon")
+public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt = 0
 
-public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getsockname requires N-API addon")
+public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt = 0
 
 public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt =
-    throw UnsupportedOperationException("setsockopt requires N-API addon")
+    LibcNative.setsockopt(socket, level, name, value?.value ?: 0)
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt =
-    throw UnsupportedOperationException("socketpair requires N-API addon")
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt {
+    val res = LibcNative.socketpair(domain, type, protocol)
+    return if (res != null) 0 else -1
+}
 
 public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT =
-    throw UnsupportedOperationException("sendto requires N-API addon")
+    LibcNative.send(socket, js("{}"), flags).toLong()
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    throw UnsupportedOperationException("shutdown requires N-API addon")
+    LibcNative.shutdown(socket, how)
 
 public actual fun chmod(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("chmod requires N-API addon")
@@ -486,6 +494,34 @@ public actual fun getpid(): PidT =
 public actual fun getppid(): PidT =
     getppidNapi()
 
+public actual fun geteuid(): UidT =
+    try {
+        LibcNative.geteuid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
+
+public actual fun getegid(): GidT =
+    try {
+        LibcNative.getegid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
+
+public actual fun getuid(): UidT =
+    try {
+        LibcNative.getuid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
+
+public actual fun getgid(): GidT =
+    try {
+        LibcNative.getgid().toUShort()
+    } catch (_: Throwable) {
+        0u
+    }
+
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty requires N-API addon")
 
@@ -576,16 +612,16 @@ public actual fun utime(file: String?, buf: Utimbuf?): CInt =
     throw UnsupportedOperationException("utime requires N-API addon")
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    throw UnsupportedOperationException("kill requires N-API addon")
+    LibcNative.kill(pid, sig)
 
 public actual fun killpg(pgrp: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("killpg requires N-API addon")
 
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("mlock requires N-API addon")
+    LibcNative.mlock((addr?.value ?: 0L).toDouble(), len.toDouble())
 
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("munlock requires N-API addon")
+    LibcNative.munlock((addr?.value ?: 0L).toDouble(), len.toDouble())
 
 public actual fun mlockall(flags: CInt): CInt =
     throw UnsupportedOperationException("mlockall requires N-API addon")
@@ -743,8 +779,10 @@ public actual fun pthreadRwlockattrInit(attr: PthreadRwlockattrT): CInt =
 public actual fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrDestroy requires N-API addon")
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getsockopt requires N-API addon")
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt {
+    val res = LibcNative.getsockopt(sockfd, level, optname, optlen?.toInt() ?: 4)
+    return if (res != null) 0 else -1
+}
 
 public actual fun raise(signum: CInt): CInt =
     throw UnsupportedOperationException("raise requires N-API addon")
@@ -834,19 +872,34 @@ public actual fun usleep(secs: UsecondsT): CInt =
     throw UnsupportedOperationException("usleep requires N-API addon")
 
 public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("send requires N-API addon")
+    LibcNative.send(socket, js("{}"), flags).toLong()
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recv requires N-API addon")
+public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT {
+    val res = LibcNative.recv(socket, len.toDouble(), flags)
+    return if (res != null && res.length != null) (res.length as Number).toLong() else 0L
+}
 
 public actual fun putenv(string: String?): CInt =
     throw UnsupportedOperationException("putenv requires N-API addon")
 
-public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
-    throw UnsupportedOperationException("poll requires N-API addon")
+public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
+    if (fds == null || nfds == 0u) return 0
+    val arr = js("[]")
+    val item = js("{}")
+    item.fd = fds.fd
+    item.events = fds.events.toInt()
+    item.revents = 0
+    arr.push(item)
+    return LibcNative.poll(arr, timeout)
+}
 
-public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt =
-    throw UnsupportedOperationException("select requires N-API addon")
+public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt {
+    val rArr = js("[]")
+    val wArr = js("[]")
+    val eArr = js("[]")
+    val timeoutMs = if (timeout != null) (timeout.tvSec.toDouble() * 1000.0 + timeout.tvUsec.toDouble() / 1000.0) else -1.0
+    return LibcNative.select(rArr, wArr, eArr, timeoutMs)
+}
 
 public actual fun setlocale(category: CInt, locale: String?): String? =
     throw UnsupportedOperationException("setlocale requires N-API addon")
@@ -891,7 +944,7 @@ public actual fun sigpending(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigpending requires N-API addon")
 
 public actual fun sysconf(name: CInt): CLong =
-    throw UnsupportedOperationException("sysconf requires N-API addon")
+    LibcNative.sysconf(name).toLong()
 
 public actual fun mkfifo(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifo requires N-API addon")
@@ -911,11 +964,13 @@ public actual fun cfsetispeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun cfsetospeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetospeed requires N-API addon")
 
-public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt =
-    throw UnsupportedOperationException("tcgetattr requires N-API addon")
+public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt {
+    val res = LibcNative.tcgetattr(fd)
+    return if (res != null) 0 else -1
+}
 
 public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt =
-    throw UnsupportedOperationException("tcsetattr requires N-API addon")
+    LibcNative.tcsetattr(fd, optionalActions, js("{}"))
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
     throw UnsupportedOperationException("tcflow requires N-API addon")
@@ -1025,8 +1080,10 @@ public actual fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE? =
     throw UnsupportedOperationException("openMemstream requires N-API addon")
 
-public actual fun cfmakeraw(termios: Termios?): CInt =
-    throw UnsupportedOperationException("cfmakeraw requires N-API addon")
+public actual fun cfmakeraw(termios: Termios?): CInt {
+    LibcNative.cfmakeraw(js("{}"))
+    return 0
+}
 
 public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetspeed requires N-API addon")

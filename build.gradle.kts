@@ -451,14 +451,16 @@ kotlin {
         val url = "https://download.jetbrains.com/kotlin/native/$name.tar.gz"
         if (!archive.exists() || archive.length() == 0L) {
             println("Downloading Kotlin/Native dependency $name from $url ...")
-            execOps.exec {
-                commandLine("curl", "-sSL", url, "-o", archive.absolutePath)
-            }.assertNormalExitValue()
+            execOps
+                .exec {
+                    commandLine("curl", "-sSL", url, "-o", archive.absolutePath)
+                }.assertNormalExitValue()
         }
         println("Extracting $archive into $konanDeps ...")
-        execOps.exec {
-            commandLine("tar", "-xzf", archive.absolutePath, "-C", konanDeps.absolutePath)
-        }.assertNormalExitValue()
+        execOps
+            .exec {
+                commandLine("tar", "-xzf", archive.absolutePath, "-C", konanDeps.absolutePath)
+            }.assertNormalExitValue()
     }
 
     // cinterop: wire the libc .def file to all native targets so CMSG macros
@@ -535,11 +537,10 @@ kotlin {
                                 }.assertNormalExitValue()
                         }
                         konanTargetName.startsWith("android") -> {
-                            if (isMac) {
-                                ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
-                                ensureKonanDependency("target-sysroot-1-android_ndk", konanDeps, execOps)
-                            }
-                            val ndkDir = File(konanDeps, "target-toolchain-2-osx-android_ndk")
+                            val hostToolchain = if (isMac) "osx" else "linux"
+                            ensureKonanDependency("target-toolchain-2-$hostToolchain-android_ndk", konanDeps, execOps)
+                            ensureKonanDependency("target-sysroot-1-android_ndk", konanDeps, execOps)
+                            val ndkDir = File(konanDeps, "target-toolchain-2-$hostToolchain-android_ndk")
                             val sysroot = File(ndkDir, "sysroot")
                             val clangBin =
                                 if (konanTargetName.contains("arm64")) {
@@ -564,7 +565,12 @@ kotlin {
                                     }.assertNormalExitValue()
                             } else {
                                 val prebuilt = file("src/nativeInterop/cinterop/targets/$konanTargetName/libc_wrapper.a")
-                                if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
+                                val fallbackPrebuilt = file("src/nativeInterop/cinterop/libc_wrapper.a")
+                                if (prebuilt.exists()) {
+                                    prebuilt.copyTo(outFile, overwrite = true)
+                                } else if (fallbackPrebuilt.exists()) {
+                                    fallbackPrebuilt.copyTo(outFile, overwrite = true)
+                                }
                             }
                         }
                         konanTargetName.startsWith("linux") -> {
@@ -607,19 +613,20 @@ kotlin {
                             }
                         }
                         konanTargetName.startsWith("mingw") -> {
-                            if (isWindows) {
+                            ensureKonanDependency("msys2-mingw-w64-x86_64-2", konanDeps, execOps)
+                            val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
+                            val arExe = File(mingwSysroot, "bin/ar.exe")
+                            if (isWindows && mingwSysroot.exists()) {
                                 execOps
                                     .exec {
-                                        commandLine("clang", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                                        commandLine("clang", "--target=x86_64-w64-mingw32", "--sysroot=${mingwSysroot.absolutePath}", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
                                     }.assertNormalExitValue()
                                 execOps
                                     .exec {
-                                        commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
+                                        commandLine(if (arExe.exists()) arExe.absolutePath else "ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
                                     }.assertNormalExitValue()
                             } else if (isMac) {
-                                ensureKonanDependency("msys2-mingw-w64-x86_64-2", konanDeps, execOps)
                                 ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
-                                val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
                                 val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
                                 if (mingwSysroot.exists() && llvmAr.exists()) {
                                     execOps
@@ -1198,13 +1205,106 @@ tasks.register("hostTests") {
     )
 }
 
+val buildNodeLibc =
+    tasks.register<Exec>("buildNodeLibc") {
+        group = "build"
+        description = "Builds the native node-libc N-API addon via node-gyp"
+        workingDir = file("native/node-libc")
+        val isWindows =
+            org.gradle.internal.os.OperatingSystem
+                .current()
+                .isWindows
+        if (isWindows) {
+            commandLine("cmd", "/c", "npm install && npx node-gyp rebuild")
+        } else {
+            commandLine("sh", "-c", "npm install && npx node-gyp rebuild")
+        }
+    }
+
 val copyNodeLibc =
     tasks.register<Copy>("copyNodeLibc") {
+        dependsOn(buildNodeLibc)
         from("native/node-libc")
         into(layout.buildDirectory.dir("js/node_modules/@kotlinmania/libc-native-bindings"))
     }
 tasks.matching { it.name.startsWith("jsNodeTest") || it.name.startsWith("wasmJsNodeTest") }.configureEach {
     dependsOn(copyNodeLibc)
+}
+
+val compileLibcJni =
+    tasks.register("compileLibcJni") {
+        group = "build"
+        description = "Compiles libc_jni.c into a shared library for JVM JNI binding"
+        val cSource = file("src/jvmMain/c/libc_jni.c")
+        val outDir =
+            layout.buildDirectory
+                .dir("natives")
+                .get()
+                .asFile
+        inputs.file(cSource)
+        outputs.dir(outDir)
+
+        doLast {
+            outDir.mkdirs()
+            val javaHome = System.getProperty("java.home") ?: System.getenv("JAVA_HOME") ?: ""
+            val isWindows =
+                org.gradle.internal.os.OperatingSystem
+                    .current()
+                    .isWindows
+            val isMac =
+                org.gradle.internal.os.OperatingSystem
+                    .current()
+                    .isMacOsX
+
+            val (libName, osInclude) =
+                when {
+                    isWindows -> "libc_jni.dll" to "win32"
+                    isMac -> "liblibc_jni.dylib" to "darwin"
+                    else -> "liblibc_jni.so" to "linux"
+                }
+            val outFile = File(outDir, libName)
+            val javaInclude = File(javaHome, "include")
+            val javaOsInclude = File(javaInclude, osInclude)
+
+            if (javaInclude.exists()) {
+                val execOps = project.serviceOf<ExecOperations>()
+                try {
+                    val cmd =
+                        mutableListOf(
+                            "clang",
+                            "-shared",
+                            "-O2",
+                            "-I${javaInclude.absolutePath}",
+                            "-I${javaOsInclude.absolutePath}",
+                            cSource.absolutePath,
+                            "-o",
+                            outFile.absolutePath,
+                        )
+                    if (!isWindows) {
+                        cmd.add(2, "-fPIC")
+                    } else {
+                        cmd.addAll(listOf("-lws2_32"))
+                    }
+                    execOps
+                        .exec {
+                            commandLine(cmd)
+                        }.assertNormalExitValue()
+                } catch (e: Exception) {
+                    logger.warn("Could not compile libc_jni with host clang: ${e.message}")
+                }
+            }
+        }
+    }
+
+tasks.named<Test>("jvmTest") {
+    dependsOn(compileLibcJni)
+    systemProperty(
+        "java.library.path",
+        layout.buildDirectory
+            .dir("natives")
+            .get()
+            .asFile.absolutePath,
+    )
 }
 
 // Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
@@ -1383,6 +1483,8 @@ val fullTargetBuildTaskNames =
                 "wasmJsTestClasses",
                 "wasmWasiMainClasses",
                 "wasmWasiTestClasses",
+                "compileLibcJni",
+                "buildNodeLibc",
                 "swiftExportSmokeTest",
                 "assemble${frameworkName}XCFramework",
             ),

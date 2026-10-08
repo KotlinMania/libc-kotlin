@@ -47,6 +47,10 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           & "$bin/ar.exe" rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          New-Item -ItemType Directory -Force -Path build/cinterop-targets/mingw_x64 | Out-Null
+          Copy-Item src/nativeInterop/cinterop/libc_wrapper.a build/cinterop-targets/mingw_x64/libc_wrapper.a -Force
+          New-Item -ItemType Directory -Force -Path src/nativeInterop/cinterop/targets/mingw_x64 | Out-Null
+          Copy-Item src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/targets/mingw_x64/libc_wrapper.a -Force
         
       - name: Build and test Windows target
         run: >

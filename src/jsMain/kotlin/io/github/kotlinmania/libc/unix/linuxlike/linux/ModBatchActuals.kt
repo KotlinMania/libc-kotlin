@@ -195,8 +195,17 @@ public actual fun sync(): Unit = throw UnsupportedOperationException("sync requi
 public actual fun syncfs(fd: CInt): CInt =
     throw UnsupportedOperationException("syncfs requires N-API addon")
 
-public actual fun syscall(num: CLong, vararg args: Any?): CLong =
-    throw UnsupportedOperationException("syscall requires N-API addon")
+public actual fun syscall(num: CLong, vararg args: Any?): CLong {
+    val a1 = if (args.isNotEmpty() && args[0] is Number) (args[0] as Number).toDouble() else 0.0
+    val a2 = if (args.size > 1 && args[1] is Number) (args[1] as Number).toDouble() else 0.0
+    val a3 = if (args.size > 2 && args[2] is Number) (args[2] as Number).toDouble() else 0.0
+    val a4 = if (args.size > 3 && args[3] is Number) (args[3] as Number).toDouble() else 0.0
+    val a5 = if (args.size > 4 && args[4] is Number) (args[4] as Number).toDouble() else 0.0
+    val a6 = if (args.size > 5 && args[5] is Number) (args[5] as Number).toDouble() else 0.0
+    return io.github.kotlinmania.libc.LibcNative
+        .syscall(num.toDouble(), a1, a2, a3, a4, a5, a6)
+        .toLong()
+}
 
 public actual fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
     throw UnsupportedOperationException("schedSetaffinity requires N-API addon")

@@ -13,6 +13,10 @@ void RegisterUnistdBindings(Napi::Env env, Napi::Object exports);
 void RegisterStringBindings(Napi::Env env, Napi::Object exports);
 void RegisterStdlibBindings(Napi::Env env, Napi::Object exports);
 void RegisterMathBindings(Napi::Env env, Napi::Object exports);
+void RegisterSocketBindings(Napi::Env env, Napi::Object exports);
+void RegisterPollBindings(Napi::Env env, Napi::Object exports);
+void RegisterTermBindings(Napi::Env env, Napi::Object exports);
+void RegisterSysBindings(Napi::Env env, Napi::Object exports);
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
     RegisterStdioBindings(env, exports);
@@ -20,6 +24,10 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     RegisterStringBindings(env, exports);
     RegisterStdlibBindings(env, exports);
     RegisterMathBindings(env, exports);
+    RegisterSocketBindings(env, exports);
+    RegisterPollBindings(env, exports);
+    RegisterTermBindings(env, exports);
+    RegisterSysBindings(env, exports);
 
     // Export errno as a getter (it changes after each call)
     exports.DefineProperty(Napi::PropertyDescriptor::Accessor(

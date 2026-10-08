@@ -12,6 +12,7 @@
 
 #include "libc_wrapper.h"
 #ifdef __APPLE__
+#include <TargetConditionals.h>
 #include <mach/mach.h>
 int getentropy(void*, uint64_t);
 #endif
@@ -32,6 +33,12 @@ int getentropy(void*, uint64_t);
 #include <sys/stat.h>
 #ifndef _WIN32
 #include <sys/socket.h>
+#include <sys/syscall.h>
+#else
+#include <winsock2.h>
+#include <windows.h>
+#include <io.h>
+#include <fcntl.h>
 #endif
 
 /* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
@@ -115,12 +122,77 @@ uint64_t libc_cmsg_align(uint64_t len) {
 }
 
 /* stdlib.h */
+#ifdef _WIN32
+static CRITICAL_SECTION g_aligned_lock;
+static volatile long g_aligned_lock_init = 0;
+static void** g_aligned_ptrs = NULL;
+static size_t g_aligned_count = 0;
+static size_t g_aligned_cap = 0;
+
+static void ensure_aligned_lock(void) {
+    if (InterlockedCompareExchange(&g_aligned_lock_init, 1, 0) == 0) {
+        InitializeCriticalSection(&g_aligned_lock);
+        InterlockedExchange(&g_aligned_lock_init, 2);
+    } else {
+        while (g_aligned_lock_init != 2) {
+            Sleep(0);
+        }
+    }
+}
+
+static void register_aligned_ptr(void* p) {
+    if (!p) return;
+    ensure_aligned_lock();
+    EnterCriticalSection(&g_aligned_lock);
+    if (g_aligned_count >= g_aligned_cap) {
+        size_t new_cap = g_aligned_cap == 0 ? 64 : g_aligned_cap * 2;
+        void** new_ptrs = (void**)realloc(g_aligned_ptrs, new_cap * sizeof(void*));
+        if (new_ptrs) {
+            g_aligned_ptrs = new_ptrs;
+            g_aligned_cap = new_cap;
+        }
+    }
+    if (g_aligned_count < g_aligned_cap) {
+        g_aligned_ptrs[g_aligned_count++] = p;
+    }
+    LeaveCriticalSection(&g_aligned_lock);
+}
+
+static int unregister_aligned_ptr(void* p) {
+    if (!p || g_aligned_lock_init != 2) return 0;
+    int found = 0;
+    EnterCriticalSection(&g_aligned_lock);
+    for (size_t i = 0; i < g_aligned_count; i++) {
+        if (g_aligned_ptrs[i] == p) {
+            g_aligned_ptrs[i] = g_aligned_ptrs[--g_aligned_count];
+            found = 1;
+            break;
+        }
+    }
+    LeaveCriticalSection(&g_aligned_lock);
+    return found;
+}
+#endif
+
 void* libc_calloc(uint64_t nobj, uint64_t size) { return calloc((uint64_t)nobj, (uint64_t)size); }
 void* libc_malloc(uint64_t size) { return malloc((uint64_t)size); }
 void* libc_realloc(void* p, uint64_t size) { return realloc(p, (uint64_t)size); }
-void libc_free(void* p) { free(p); }
+void libc_free(void* p) {
+#ifdef _WIN32
+    if (!p) return;
+    if (unregister_aligned_ptr(p)) {
+        _aligned_free(p);
+    } else {
+        free(p);
+    }
+#else
+    free(p);
+#endif
+}
 void libc_aligned_free(void* p) {
 #ifdef _WIN32
+    if (!p) return;
+    unregister_aligned_ptr(p);
     _aligned_free(p);
 #else
     free(p);
@@ -128,7 +200,10 @@ void libc_aligned_free(void* p) {
 }
 void* libc_aligned_realloc(void* p, uint64_t size, uint64_t alignment) {
 #ifdef _WIN32
-    return _aligned_realloc(p, (size_t)size, (size_t)alignment);
+    if (p) unregister_aligned_ptr(p);
+    void* res = _aligned_realloc(p, (size_t)size, (size_t)alignment);
+    if (res) register_aligned_ptr(res);
+    return res;
 #else
     (void)alignment;
     return realloc(p, (size_t)size);
@@ -136,7 +211,9 @@ void* libc_aligned_realloc(void* p, uint64_t size, uint64_t alignment) {
 }
 void* libc_aligned_alloc(uint64_t alignment, uint64_t size) {
 #ifdef _WIN32
-    return _aligned_malloc((uint64_t)size, (uint64_t)alignment);
+    void* p = _aligned_malloc((size_t)size, (size_t)alignment);
+    if (p) register_aligned_ptr(p);
+    return p;
 #elif defined(__ANDROID__)
     return memalign((size_t)alignment, (size_t)size);
 #else
@@ -397,6 +474,69 @@ int libc_listen(int sockfd, int backlog) { return listen(sockfd, backlog); }
 int libc_shutdown(int sockfd, int how) { return shutdown(sockfd, how); }
 int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct sockaddr*)addr, addrlen); }
 
+/* dlfcn */
+int libc_dlclose(void* handle) {
+#ifndef _WIN32
+    return dlclose(handle);
+#else
+    if (!handle) return -1;
+    if (handle == (void*)GetModuleHandleA(NULL)) return 0;
+    return FreeLibrary((HMODULE)handle) ? 0 : -1;
+#endif
+}
+
+char* libc_dlerror(void) {
+#ifndef _WIN32
+    return dlerror();
+#else
+    return NULL;
+#endif
+}
+
+void* libc_dlopen(const char* filename, int flag) {
+#ifndef _WIN32
+    if ((flag & (RTLD_LAZY | RTLD_NOW)) == 0) {
+        flag |= RTLD_LAZY;
+    }
+    return dlopen(filename, flag);
+#else
+    (void)flag;
+    if (!filename) {
+        return (void*)GetModuleHandleA(NULL);
+    }
+    return (void*)LoadLibraryA(filename);
+#endif
+}
+
+void* libc_dlsym(void* handle, const char* symbol) {
+#ifndef _WIN32
+    return dlsym(handle, symbol);
+#else
+    if (!handle || !symbol) return NULL;
+    void* addr = (void*)GetProcAddress((HMODULE)handle, symbol);
+    if (!addr && handle == (void*)GetModuleHandleA(NULL)) {
+        static const char* const fallback_mods[] = {
+            "msvcrt.dll",
+            "ucrtbase.dll",
+            "kernel32.dll",
+            "ntdll.dll",
+            NULL
+        };
+        for (int i = 0; fallback_mods[i] != NULL; i++) {
+            HMODULE mod = GetModuleHandleA(fallback_mods[i]);
+            if (!mod) {
+                mod = LoadLibraryA(fallback_mods[i]);
+            }
+            if (mod) {
+                addr = (void*)GetProcAddress(mod, symbol);
+                if (addr) break;
+            }
+        }
+    }
+    return addr;
+#endif
+}
+
 #ifndef _WIN32
 /* Additional wrappers */
 #ifndef _WIN32
@@ -443,6 +583,8 @@ int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct
 #endif
 #ifndef _WIN32
 #include <sys/utsname.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
 #endif
 #ifndef _WIN32
 #include <strings.h>
@@ -459,37 +601,6 @@ int libc_bcmp(const void* s1, const void* s2, uint64_t n) {
     return memcmp(s1, s2, (size_t)n);
 #else
     return bcmp(s1, s2, (size_t)n);
-#endif
-}
-int libc_dlclose(void* handle) {
-#ifndef _WIN32
-    return dlclose(handle);
-#else
-    (void)handle;
-    return -1;
-#endif
-}
-char* libc_dlerror(void) {
-#ifndef _WIN32
-    return dlerror();
-#else
-    return NULL;
-#endif
-}
-void* libc_dlopen(const char* filename, int flag) {
-#ifndef _WIN32
-    return dlopen(filename, flag);
-#else
-    (void)filename; (void)flag;
-    return NULL;
-#endif
-}
-void* libc_dlsym(void* handle, const char* symbol) {
-#ifndef _WIN32
-    return dlsym(handle, symbol);
-#else
-    (void)handle; (void)symbol;
-    return NULL;
 #endif
 }
 const char* libc_gai_strerror(int errcode) { return gai_strerror(errcode); }
@@ -1311,6 +1422,9 @@ int libc_pthread_cancel(void* thread) {
 
 int libc_pthread_kill(void* thread, int sig) {
 #ifndef _WIN32
+    if (!thread || (uintptr_t)thread < 4096) {
+        return 3; /* ESRCH */
+    }
     return pthread_kill((pthread_t)thread, sig);
 #else
     (void)thread; (void)sig;
@@ -1619,14 +1733,22 @@ int libc_pipe(int* fds) {
 #ifndef _WIN32
     return pipe(fds);
 #else
-    (void)fds; errno = ENOSYS; return -1;
+    int local_fds[2];
+    int* target = fds ? fds : local_fds;
+    return _pipe(target, 512, _O_BINARY);
 #endif
 }
 int libc_poll(void* fds, uint32_t nfds, int timeout) {
 #ifndef _WIN32
     return poll((struct pollfd*)fds, nfds, timeout);
 #else
-    (void)fds; (void)nfds; (void)timeout; errno = ENOSYS; return -1;
+    if (!fds || nfds == 0) {
+        if (timeout > 0) {
+            Sleep((DWORD)timeout);
+        }
+        return 0;
+    }
+    return WSAPoll((WSAPOLLFD*)fds, (ULONG)nfds, timeout);
 #endif
 }
 const char* libc_hstrerror(int errcode) {
@@ -1684,6 +1806,284 @@ void* libc_shmat(int shmid, const void* shmaddr, int shmflg) {
     return shmat(shmid, (void*)shmaddr, shmflg);
 #else
     (void)shmid; (void)shmaddr; (void)shmflg; errno = ENOSYS; return (void*)-1;
+#endif
+}
+
+int libc_connect(int sockfd, const void* addr, int addrlen) {
+#ifndef _WIN32
+    return connect(sockfd, (const struct sockaddr*)addr, (socklen_t)addrlen);
+#else
+    return connect(sockfd, (const struct sockaddr*)addr, addrlen);
+#endif
+}
+
+int libc_accept(int sockfd, void* addr, void* addrlen) {
+#ifndef _WIN32
+    return accept(sockfd, (struct sockaddr*)addr, (socklen_t*)addrlen);
+#else
+    return accept(sockfd, (struct sockaddr*)addr, (int*)addrlen);
+#endif
+}
+
+int libc_getsockopt(int sockfd, int level, int optname, void* optval, void* optlen) {
+#ifndef _WIN32
+    return getsockopt(sockfd, level, optname, optval, (socklen_t*)optlen);
+#else
+    return getsockopt(sockfd, level, optname, (char*)optval, (int*)optlen);
+#endif
+}
+
+int libc_setsockopt(int sockfd, int level, int optname, const void* optval, int optlen) {
+#ifndef _WIN32
+    return setsockopt(sockfd, level, optname, optval, (socklen_t)optlen);
+#else
+    return setsockopt(sockfd, level, optname, (const char*)optval, optlen);
+#endif
+}
+
+int libc_getsockname(int sockfd, void* addr, void* addrlen) {
+#ifndef _WIN32
+    return getsockname(sockfd, (struct sockaddr*)addr, (socklen_t*)addrlen);
+#else
+    return getsockname(sockfd, (struct sockaddr*)addr, (int*)addrlen);
+#endif
+}
+
+int libc_getpeername(int sockfd, void* addr, void* addrlen) {
+#ifndef _WIN32
+    return getpeername(sockfd, (struct sockaddr*)addr, (socklen_t*)addrlen);
+#else
+    return getpeername(sockfd, (struct sockaddr*)addr, (int*)addrlen);
+#endif
+}
+
+int64_t libc_send(int sockfd, const void* buf, uint64_t len, int flags) {
+#ifndef _WIN32
+    return send(sockfd, buf, (size_t)len, flags);
+#else
+    return send(sockfd, (const char*)buf, (int)len, flags);
+#endif
+}
+
+int64_t libc_recv(int sockfd, void* buf, uint64_t len, int flags) {
+#ifndef _WIN32
+    return recv(sockfd, buf, (size_t)len, flags);
+#else
+    return recv(sockfd, (char*)buf, (int)len, flags);
+#endif
+}
+
+int64_t libc_sendto(int sockfd, const void* buf, uint64_t len, int flags, const void* dest_addr, int addrlen) {
+#ifndef _WIN32
+    return sendto(sockfd, buf, (size_t)len, flags, (const struct sockaddr*)dest_addr, (socklen_t)addrlen);
+#else
+    return sendto(sockfd, (const char*)buf, (int)len, flags, (const struct sockaddr*)dest_addr, addrlen);
+#endif
+}
+
+int libc_socketpair(int domain, int type, int protocol, int* sv) {
+#ifndef _WIN32
+    return socketpair(domain, type, protocol, sv);
+#else
+    (void)domain; (void)type; (void)protocol; (void)sv; errno = ENOSYS; return -1;
+#endif
+}
+
+int libc_select(int nfds, void* readfds, void* writefds, void* exceptfds, void* timeout) {
+    return select(nfds, (fd_set*)readfds, (fd_set*)writefds, (fd_set*)exceptfds, (struct timeval*)timeout);
+}
+
+void* libc_fd_set_alloc(void) {
+    return calloc(1, sizeof(fd_set));
+}
+
+void libc_fd_set_free(void* set) {
+    if (set) free(set);
+}
+
+void libc_fd_zero(void* set) {
+    if (set) FD_ZERO((fd_set*)set);
+}
+
+void libc_fd_set(int fd, void* set) {
+#ifndef _WIN32
+    if (set) FD_SET(fd, (fd_set*)set);
+#else
+    if (set) FD_SET((SOCKET)fd, (fd_set*)set);
+#endif
+}
+
+void libc_fd_clr(int fd, void* set) {
+#ifndef _WIN32
+    if (set) FD_CLR(fd, (fd_set*)set);
+#else
+    if (set) FD_CLR((SOCKET)fd, (fd_set*)set);
+#endif
+}
+
+int libc_fd_isset(int fd, void* set) {
+#ifndef _WIN32
+    return set ? FD_ISSET(fd, (fd_set*)set) : 0;
+#else
+    return set ? FD_ISSET((SOCKET)fd, (fd_set*)set) : 0;
+#endif
+}
+
+int libc_ioctl(int fd, unsigned long long request, void* argp) {
+#ifndef _WIN32
+    return ioctl(fd, (unsigned long)request, argp);
+#else
+    (void)fd; (void)request; (void)argp; errno = ENOSYS; return -1;
+#endif
+}
+
+int libc_ioctl_tiocgwinsz(int fd, unsigned short* rows, unsigned short* cols, unsigned short* xpixel, unsigned short* ypixel) {
+#if !defined(_WIN32) && defined(TIOCGWINSZ)
+    struct winsize ws;
+    memset(&ws, 0, sizeof(ws));
+    int res = ioctl(fd, TIOCGWINSZ, &ws);
+    if (res == 0) {
+        if (rows) *rows = ws.ws_row;
+        if (cols) *cols = ws.ws_col;
+        if (xpixel) *xpixel = ws.ws_xpixel;
+        if (ypixel) *ypixel = ws.ws_ypixel;
+    }
+    return res;
+#else
+    (void)fd; (void)rows; (void)cols; (void)xpixel; (void)ypixel;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int libc_tcgetattr(int fd, void* termios_p) {
+#ifndef _WIN32
+    return tcgetattr(fd, (struct termios*)termios_p);
+#else
+    (void)fd; (void)termios_p; errno = ENOSYS; return -1;
+#endif
+}
+
+int libc_tcsetattr(int fd, int optional_actions, const void* termios_p) {
+#ifndef _WIN32
+    return tcsetattr(fd, optional_actions, (const struct termios*)termios_p);
+#else
+    (void)fd; (void)optional_actions; (void)termios_p; errno = ENOSYS; return -1;
+#endif
+}
+
+void libc_cfmakeraw(void* termios_p) {
+#ifndef _WIN32
+    cfmakeraw((struct termios*)termios_p);
+#else
+    (void)termios_p;
+#endif
+}
+
+int libc_getpeereid(int sockfd, unsigned int* euid, unsigned int* egid) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    uid_t u = 0;
+    gid_t g = 0;
+    int res = getpeereid(sockfd, &u, &g);
+    if (res == 0) {
+        if (euid) *euid = (unsigned int)u;
+        if (egid) *egid = (unsigned int)g;
+    }
+    return res;
+#elif defined(__linux__) && defined(SO_PEERCRED)
+    struct ucred cr;
+    memset(&cr, 0, sizeof(cr));
+    socklen_t len = sizeof(cr);
+    int res = getsockopt(sockfd, SOL_SOCKET, SO_PEERCRED, &cr, &len);
+    if (res == 0) {
+        if (euid) *euid = (unsigned int)cr.uid;
+        if (egid) *egid = (unsigned int)cr.gid;
+    }
+    return res;
+#else
+    (void)sockfd; (void)euid; (void)egid;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int64_t libc_sendmsg_simple(int sockfd, const void* name, int namelen, const void* iov_base, uint64_t iov_len, const void* control, uint64_t controllen, int flags) {
+#ifndef _WIN32
+    struct msghdr msg;
+    memset(&msg, 0, sizeof(msg));
+    struct iovec io;
+    if (iov_base) {
+        io.iov_base = (void*)iov_base;
+        io.iov_len = (size_t)iov_len;
+        msg.msg_iov = &io;
+        msg.msg_iovlen = 1;
+    }
+    if (name) {
+        msg.msg_name = (void*)name;
+        msg.msg_namelen = (socklen_t)namelen;
+    }
+    if (control) {
+        msg.msg_control = (void*)control;
+        msg.msg_controllen = (socklen_t)controllen;
+    }
+    return (int64_t)sendmsg(sockfd, &msg, flags);
+#else
+    (void)sockfd; (void)name; (void)namelen; (void)iov_base; (void)iov_len; (void)control; (void)controllen; (void)flags;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int64_t libc_recvmsg_simple(int sockfd, void* name, int* namelen, void* iov_base, uint64_t iov_len, void* control, uint64_t* controllen, int* msg_flags, int flags) {
+#ifndef _WIN32
+    struct msghdr msg;
+    memset(&msg, 0, sizeof(msg));
+    struct iovec io;
+    if (iov_base) {
+        io.iov_base = iov_base;
+        io.iov_len = (size_t)iov_len;
+        msg.msg_iov = &io;
+        msg.msg_iovlen = 1;
+    }
+    if (name && namelen) {
+        msg.msg_name = name;
+        msg.msg_namelen = (socklen_t)*namelen;
+    }
+    if (control && controllen) {
+        msg.msg_control = control;
+        msg.msg_controllen = (socklen_t)*controllen;
+    }
+    ssize_t res = recvmsg(sockfd, &msg, flags);
+    if (res >= 0) {
+        if (namelen) *namelen = (int)msg.msg_namelen;
+        if (controllen) *controllen = (uint64_t)msg.msg_controllen;
+        if (msg_flags) *msg_flags = msg.msg_flags;
+    }
+    return (int64_t)res;
+#else
+    (void)sockfd; (void)name; (void)namelen; (void)iov_base; (void)iov_len; (void)control; (void)controllen; (void)msg_flags; (void)flags;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int64_t libc_syscall(int64_t number, int64_t a1, int64_t a2, int64_t a3, int64_t a4, int64_t a5, int64_t a6) {
+#if !defined(_WIN32) && (!defined(__APPLE__) || (defined(TARGET_OS_OSX) && TARGET_OS_OSX))
+    return (int64_t)syscall((long)number, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
+#else
+    (void)number; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int libc_pidfd_open(int pid, unsigned int flags) {
+#if defined(__linux__) && defined(SYS_pidfd_open)
+    return (int)syscall(SYS_pidfd_open, pid, flags);
+#else
+    (void)pid; (void)flags;
+    errno = ENOSYS;
+    return -1;
 #endif
 }
 
