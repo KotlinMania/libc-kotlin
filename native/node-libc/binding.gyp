@@ -8,7 +8,11 @@
         "src/unistd_bindings.cpp",
         "src/string_bindings.cpp",
         "src/stdlib_bindings.cpp",
-        "src/math_bindings.cpp"
+        "src/math_bindings.cpp",
+        "src/socket_bindings.cpp",
+        "src/poll_bindings.cpp",
+        "src/term_bindings.cpp",
+        "src/sys_bindings.cpp"
       ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
