@@ -1771,11 +1771,7 @@ int libc_socketpair(int domain, int type, int protocol, int* sv) {
 }
 
 int libc_select(int nfds, void* readfds, void* writefds, void* exceptfds, void* timeout) {
-#ifndef _WIN32
     return select(nfds, (fd_set*)readfds, (fd_set*)writefds, (fd_set*)exceptfds, (struct timeval*)timeout);
-#else
-    return select(nfds, (fd_set*)readfds, (fd_set*)writefds, (fd_set*)exceptfds, (const struct timeval*)timeout);
-#endif
 }
 
 void* libc_fd_set_alloc(void) {
@@ -1791,15 +1787,27 @@ void libc_fd_zero(void* set) {
 }
 
 void libc_fd_set(int fd, void* set) {
+#ifndef _WIN32
     if (set) FD_SET(fd, (fd_set*)set);
+#else
+    if (set) FD_SET((SOCKET)fd, (fd_set*)set);
+#endif
 }
 
 void libc_fd_clr(int fd, void* set) {
+#ifndef _WIN32
     if (set) FD_CLR(fd, (fd_set*)set);
+#else
+    if (set) FD_CLR((SOCKET)fd, (fd_set*)set);
+#endif
 }
 
 int libc_fd_isset(int fd, void* set) {
+#ifndef _WIN32
     return set ? FD_ISSET(fd, (fd_set*)set) : 0;
+#else
+    return set ? FD_ISSET((SOCKET)fd, (fd_set*)set) : 0;
+#endif
 }
 
 int libc_ioctl(int fd, unsigned long request, void* argp) {
