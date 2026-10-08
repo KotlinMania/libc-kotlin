@@ -404,6 +404,48 @@ int libc_listen(int sockfd, int backlog) { return listen(sockfd, backlog); }
 int libc_shutdown(int sockfd, int how) { return shutdown(sockfd, how); }
 int libc_bind(int sockfd, void* addr, int addrlen) { return bind(sockfd, (struct sockaddr*)addr, addrlen); }
 
+/* dlfcn */
+int libc_dlclose(void* handle) {
+#ifndef _WIN32
+    return dlclose(handle);
+#else
+    if (!handle) return -1;
+    return FreeLibrary((HMODULE)handle) ? 0 : -1;
+#endif
+}
+
+char* libc_dlerror(void) {
+#ifndef _WIN32
+    return dlerror();
+#else
+    return NULL;
+#endif
+}
+
+void* libc_dlopen(const char* filename, int flag) {
+#ifndef _WIN32
+    if ((flag & (RTLD_LAZY | RTLD_NOW)) == 0) {
+        flag |= RTLD_LAZY;
+    }
+    return dlopen(filename, flag);
+#else
+    (void)flag;
+    if (!filename) {
+        return (void*)GetModuleHandleA(NULL);
+    }
+    return (void*)LoadLibraryA(filename);
+#endif
+}
+
+void* libc_dlsym(void* handle, const char* symbol) {
+#ifndef _WIN32
+    return dlsym(handle, symbol);
+#else
+    if (!handle || !symbol) return NULL;
+    return (void*)GetProcAddress((HMODULE)handle, symbol);
+#endif
+}
+
 #ifndef _WIN32
 /* Additional wrappers */
 #ifndef _WIN32
@@ -468,43 +510,6 @@ int libc_bcmp(const void* s1, const void* s2, uint64_t n) {
     return memcmp(s1, s2, (size_t)n);
 #else
     return bcmp(s1, s2, (size_t)n);
-#endif
-}
-int libc_dlclose(void* handle) {
-#ifndef _WIN32
-    return dlclose(handle);
-#else
-    if (!handle) return -1;
-    return FreeLibrary((HMODULE)handle) ? 0 : -1;
-#endif
-}
-char* libc_dlerror(void) {
-#ifndef _WIN32
-    return dlerror();
-#else
-    return NULL;
-#endif
-}
-void* libc_dlopen(const char* filename, int flag) {
-#ifndef _WIN32
-    if ((flag & (RTLD_LAZY | RTLD_NOW)) == 0) {
-        flag |= RTLD_LAZY;
-    }
-    return dlopen(filename, flag);
-#else
-    (void)flag;
-    if (!filename) {
-        return (void*)GetModuleHandleA(NULL);
-    }
-    return (void*)LoadLibraryA(filename);
-#endif
-}
-void* libc_dlsym(void* handle, const char* symbol) {
-#ifndef _WIN32
-    return dlsym(handle, symbol);
-#else
-    if (!handle || !symbol) return NULL;
-    return (void*)GetProcAddress((HMODULE)handle, symbol);
 #endif
 }
 const char* libc_gai_strerror(int errcode) { return gai_strerror(errcode); }
