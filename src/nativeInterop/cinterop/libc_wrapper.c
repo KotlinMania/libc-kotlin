@@ -480,6 +480,7 @@ int libc_dlclose(void* handle) {
     return dlclose(handle);
 #else
     if (!handle) return -1;
+    if (handle == (void*)GetModuleHandleA(NULL)) return 0;
     return FreeLibrary((HMODULE)handle) ? 0 : -1;
 #endif
 }
@@ -512,7 +513,27 @@ void* libc_dlsym(void* handle, const char* symbol) {
     return dlsym(handle, symbol);
 #else
     if (!handle || !symbol) return NULL;
-    return (void*)GetProcAddress((HMODULE)handle, symbol);
+    void* addr = (void*)GetProcAddress((HMODULE)handle, symbol);
+    if (!addr && handle == (void*)GetModuleHandleA(NULL)) {
+        static const char* const fallback_mods[] = {
+            "msvcrt.dll",
+            "ucrtbase.dll",
+            "kernel32.dll",
+            "ntdll.dll",
+            NULL
+        };
+        for (int i = 0; fallback_mods[i] != NULL; i++) {
+            HMODULE mod = GetModuleHandleA(fallback_mods[i]);
+            if (!mod) {
+                mod = LoadLibraryA(fallback_mods[i]);
+            }
+            if (mod) {
+                addr = (void*)GetProcAddress(mod, symbol);
+                if (addr) break;
+            }
+        }
+    }
+    return addr;
 #endif
 }
 
