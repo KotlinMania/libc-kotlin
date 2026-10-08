@@ -195,8 +195,15 @@ public actual fun sync(): Unit = throw UnsupportedOperationException("sync not a
 public actual fun syncfs(fd: CInt): CInt =
     throw UnsupportedOperationException("syncfs not available on JVM — no C library access")
 
-public actual fun syscall(num: CLong, vararg args: Any?): CLong =
-    throw UnsupportedOperationException("syscall not available on JVM — no C library access")
+public actual fun syscall(num: CLong, vararg args: Any?): CLong {
+    val a1 = if (args.isNotEmpty() && args[0] is Number) (args[0] as Number).toLong() else 0L
+    val a2 = if (args.size > 1 && args[1] is Number) (args[1] as Number).toLong() else 0L
+    val a3 = if (args.size > 2 && args[2] is Number) (args[2] as Number).toLong() else 0L
+    val a4 = if (args.size > 3 && args[3] is Number) (args[3] as Number).toLong() else 0L
+    val a5 = if (args.size > 4 && args[4] is Number) (args[4] as Number).toLong() else 0L
+    val a6 = if (args.size > 5 && args[5] is Number) (args[5] as Number).toLong() else 0L
+    return io.github.kotlinmania.libc.internal.LibcJni.syscall(num, a1, a2, a3, a4, a5, a6)
+}
 
 public actual fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
     throw UnsupportedOperationException("schedSetaffinity not available on JVM — no C library access")

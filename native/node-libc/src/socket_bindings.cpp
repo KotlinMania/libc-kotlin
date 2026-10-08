@@ -243,4 +243,81 @@ void RegisterSocketBindings(Napi::Env env, Napi::Object exports) {
         return env.Null();
 #endif
     }));
+
+    // sendmsg(fd, nameBuffer, iovBuffer, controlBuffer, flags)
+    exports.Set("sendmsg", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+        if (info.Length() < 5) return Napi::Number::New(env, -1);
+        int fd = info[0].As<Napi::Number>().Int32Value();
+        int flags = info[4].As<Napi::Number>().Int32Value();
+#ifndef _WIN32
+        struct msghdr msg;
+        memset(&msg, 0, sizeof(msg));
+        struct iovec io;
+        if (!info[2].IsNull() && !info[2].IsUndefined()) {
+            auto iov = info[2].As<Napi::Uint8Array>();
+            io.iov_base = iov.Data();
+            io.iov_len = iov.ByteLength();
+            msg.msg_iov = &io;
+            msg.msg_iovlen = 1;
+        }
+        if (!info[1].IsNull() && !info[1].IsUndefined()) {
+            auto name = info[1].As<Napi::Uint8Array>();
+            msg.msg_name = name.Data();
+            msg.msg_namelen = name.ByteLength();
+        }
+        if (!info[3].IsNull() && !info[3].IsUndefined()) {
+            auto ctl = info[3].As<Napi::Uint8Array>();
+            msg.msg_control = ctl.Data();
+            msg.msg_controllen = ctl.ByteLength();
+        }
+        ssize_t res = ::sendmsg(fd, &msg, flags);
+        return Napi::Number::New(env, res);
+#else
+        (void)fd; (void)flags;
+        return Napi::Number::New(env, -1);
+#endif
+    }));
+
+    // recvmsg(fd, nameBuffer, iovBuffer, controlBuffer, flags) -> { bytes, namelen, controllen, flags }
+    exports.Set("recvmsg", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+        if (info.Length() < 5) return Napi::Number::New(env, -1);
+        int fd = info[0].As<Napi::Number>().Int32Value();
+        int flags = info[4].As<Napi::Number>().Int32Value();
+#ifndef _WIN32
+        struct msghdr msg;
+        memset(&msg, 0, sizeof(msg));
+        struct iovec io;
+        if (!info[2].IsNull() && !info[2].IsUndefined()) {
+            auto iov = info[2].As<Napi::Uint8Array>();
+            io.iov_base = iov.Data();
+            io.iov_len = iov.ByteLength();
+            msg.msg_iov = &io;
+            msg.msg_iovlen = 1;
+        }
+        if (!info[1].IsNull() && !info[1].IsUndefined()) {
+            auto name = info[1].As<Napi::Uint8Array>();
+            msg.msg_name = name.Data();
+            msg.msg_namelen = name.ByteLength();
+        }
+        if (!info[3].IsNull() && !info[3].IsUndefined()) {
+            auto ctl = info[3].As<Napi::Uint8Array>();
+            msg.msg_control = ctl.Data();
+            msg.msg_controllen = ctl.ByteLength();
+        }
+        ssize_t res = ::recvmsg(fd, &msg, flags);
+        Napi::Object out = Napi::Object::New(env);
+        out.Set("bytes", Napi::Number::New(env, res));
+        out.Set("namelen", Napi::Number::New(env, (double)msg.msg_namelen));
+        out.Set("controllen", Napi::Number::New(env, (double)msg.msg_controllen));
+        out.Set("flags", Napi::Number::New(env, msg.msg_flags));
+        return out;
+#else
+        (void)fd; (void)flags;
+        Napi::Object out = Napi::Object::New(env);
+        out.Set("bytes", Napi::Number::New(env, -1));
+        return out;
+#endif
+    }));
 }

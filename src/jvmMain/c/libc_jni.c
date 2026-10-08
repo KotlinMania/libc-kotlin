@@ -17,6 +17,7 @@
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
 #include <sys/ucred.h>
 #endif
+#include <sys/syscall.h>
 #else
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -688,5 +689,132 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_kill(
     return kill((pid_t)pid, (int)sig);
 #else
     (void)pid; (void)sig; errno = ENOSYS; return -1;
+#endif
+}
+
+JNIEXPORT jlong JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_sendmsg(
+    JNIEnv* env, jclass clazz, jint fd, jbyteArray name, jbyteArray iov, jbyteArray control, jint flags) {
+    (void)clazz;
+#ifndef _WIN32
+    struct msghdr msg;
+    memset(&msg, 0, sizeof(msg));
+    jbyte* nameBytes = name ? (*env)->GetByteArrayElements(env, name, NULL) : NULL;
+    jsize nameLen = name ? (*env)->GetArrayLength(env, name) : 0;
+    jbyte* iovBytes = iov ? (*env)->GetByteArrayElements(env, iov, NULL) : NULL;
+    jsize iovLen = iov ? (*env)->GetArrayLength(env, iov) : 0;
+    jbyte* ctlBytes = control ? (*env)->GetByteArrayElements(env, control, NULL) : NULL;
+    jsize ctlLen = control ? (*env)->GetArrayLength(env, control) : 0;
+
+    struct iovec io;
+    if (iovBytes) {
+        io.iov_base = iovBytes;
+        io.iov_len = (size_t)iovLen;
+        msg.msg_iov = &io;
+        msg.msg_iovlen = 1;
+    }
+    if (nameBytes) {
+        msg.msg_name = nameBytes;
+        msg.msg_namelen = (socklen_t)nameLen;
+    }
+    if (ctlBytes) {
+        msg.msg_control = ctlBytes;
+        msg.msg_controllen = (socklen_t)ctlLen;
+    }
+
+    ssize_t res = sendmsg((int)fd, &msg, (int)flags);
+
+    if (nameBytes) (*env)->ReleaseByteArrayElements(env, name, nameBytes, JNI_ABORT);
+    if (iovBytes) (*env)->ReleaseByteArrayElements(env, iov, iovBytes, JNI_ABORT);
+    if (ctlBytes) (*env)->ReleaseByteArrayElements(env, control, ctlBytes, JNI_ABORT);
+    return (jlong)res;
+#else
+    (void)env; (void)fd; (void)name; (void)iov; (void)control; (void)flags;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+JNIEXPORT jlong JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_recvmsg(
+    JNIEnv* env, jclass clazz, jint fd, jbyteArray name, jintArray nameLenOut, jbyteArray iov, jbyteArray control, jintArray controlLenOut, jintArray flagsOut, jint flags) {
+    (void)clazz;
+#ifndef _WIN32
+    struct msghdr msg;
+    memset(&msg, 0, sizeof(msg));
+    jbyte* nameBytes = name ? (*env)->GetByteArrayElements(env, name, NULL) : NULL;
+    jsize nameCap = name ? (*env)->GetArrayLength(env, name) : 0;
+    jbyte* iovBytes = iov ? (*env)->GetByteArrayElements(env, iov, NULL) : NULL;
+    jsize iovLen = iov ? (*env)->GetArrayLength(env, iov) : 0;
+    jbyte* ctlBytes = control ? (*env)->GetByteArrayElements(env, control, NULL) : NULL;
+    jsize ctlCap = control ? (*env)->GetArrayLength(env, control) : 0;
+
+    struct iovec io;
+    if (iovBytes) {
+        io.iov_base = iovBytes;
+        io.iov_len = (size_t)iovLen;
+        msg.msg_iov = &io;
+        msg.msg_iovlen = 1;
+    }
+    if (nameBytes) {
+        msg.msg_name = nameBytes;
+        msg.msg_namelen = (socklen_t)nameCap;
+    }
+    if (ctlBytes) {
+        msg.msg_control = ctlBytes;
+        msg.msg_controllen = (socklen_t)ctlCap;
+    }
+
+    ssize_t res = recvmsg((int)fd, &msg, (int)flags);
+
+    if (nameBytes) {
+        (*env)->ReleaseByteArrayElements(env, name, nameBytes, 0);
+        if (nameLenOut) {
+            jint nl = (jint)msg.msg_namelen;
+            (*env)->SetIntArrayRegion(env, nameLenOut, 0, 1, &nl);
+        }
+    }
+    if (iovBytes) (*env)->ReleaseByteArrayElements(env, iov, iovBytes, 0);
+    if (ctlBytes) {
+        (*env)->ReleaseByteArrayElements(env, control, ctlBytes, 0);
+        if (controlLenOut) {
+            jint cl = (jint)msg.msg_controllen;
+            (*env)->SetIntArrayRegion(env, controlLenOut, 0, 1, &cl);
+        }
+    }
+    if (flagsOut) {
+        jint fl = (jint)msg.msg_flags;
+        (*env)->SetIntArrayRegion(env, flagsOut, 0, 1, &fl);
+    }
+    return (jlong)res;
+#else
+    (void)env; (void)fd; (void)name; (void)nameLenOut; (void)iov; (void)control; (void)controlLenOut; (void)flagsOut; (void)flags;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+JNIEXPORT jlong JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_syscall(
+    JNIEnv* env, jclass clazz, jlong num, jlong a1, jlong a2, jlong a3, jlong a4, jlong a5, jlong a6) {
+    (void)env; (void)clazz;
+#ifndef _WIN32
+    return (jlong)syscall((long)num, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
+#else
+    (void)num; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+    return -1;
+#endif
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_pidfdOpen(
+    JNIEnv* env, jclass clazz, jint pid, jint flags) {
+    (void)env; (void)clazz;
+#if defined(__linux__) && defined(SYS_pidfd_open)
+    return (jint)syscall(SYS_pidfd_open, (int)pid, (unsigned int)flags);
+#else
+    (void)pid; (void)flags;
+    errno = ENOSYS;
+    return -1;
 #endif
 }

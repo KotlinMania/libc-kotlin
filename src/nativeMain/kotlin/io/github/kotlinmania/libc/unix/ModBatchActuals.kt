@@ -1332,7 +1332,7 @@ public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds
             for (fd in 0 until nfds) {
                 val idx = fd / 64
                 val bit = fd % 64
-                if (idx < readfds.fdsBits.size && (readfds.fdsBits[idx] and (1L shl bit)) != 0L) {
+                if (idx < readfds.fdsBits.size && (readfds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
                     libc.cinterop.libc_fd_set(fd, rset)
                 }
             }
@@ -1342,7 +1342,7 @@ public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds
             for (fd in 0 until nfds) {
                 val idx = fd / 64
                 val bit = fd % 64
-                if (idx < writefds.fdsBits.size && (writefds.fdsBits[idx] and (1L shl bit)) != 0L) {
+                if (idx < writefds.fdsBits.size && (writefds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
                     libc.cinterop.libc_fd_set(fd, wset)
                 }
             }
@@ -1352,7 +1352,7 @@ public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds
             for (fd in 0 until nfds) {
                 val idx = fd / 64
                 val bit = fd % 64
-                if (idx < errorfds.fdsBits.size && (errorfds.fdsBits[idx] and (1L shl bit)) != 0L) {
+                if (idx < errorfds.fdsBits.size && (errorfds.fdsBits[idx] and (1uL shl bit)) != 0uL) {
                     libc.cinterop.libc_fd_set(fd, eset)
                 }
             }
@@ -1371,9 +1371,9 @@ public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds
                     val bit = fd % 64
                     if (idx < readfds.fdsBits.size) {
                         if (libc.cinterop.libc_fd_isset(fd, rset) != 0) {
-                            readfds.fdsBits[idx] = readfds.fdsBits[idx] or (1L shl bit)
+                            readfds.fdsBits[idx] = readfds.fdsBits[idx] or (1uL shl bit)
                         } else {
-                            readfds.fdsBits[idx] = readfds.fdsBits[idx] and (1L shl bit).inv()
+                            readfds.fdsBits[idx] = readfds.fdsBits[idx] and (1uL shl bit).inv()
                         }
                     }
                 }
@@ -1384,9 +1384,9 @@ public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds
                     val bit = fd % 64
                     if (idx < writefds.fdsBits.size) {
                         if (libc.cinterop.libc_fd_isset(fd, wset) != 0) {
-                            writefds.fdsBits[idx] = writefds.fdsBits[idx] or (1L shl bit)
+                            writefds.fdsBits[idx] = writefds.fdsBits[idx] or (1uL shl bit)
                         } else {
-                            writefds.fdsBits[idx] = writefds.fdsBits[idx] and (1L shl bit).inv()
+                            writefds.fdsBits[idx] = writefds.fdsBits[idx] and (1uL shl bit).inv()
                         }
                     }
                 }
@@ -1397,9 +1397,9 @@ public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds
                     val bit = fd % 64
                     if (idx < errorfds.fdsBits.size) {
                         if (libc.cinterop.libc_fd_isset(fd, eset) != 0) {
-                            errorfds.fdsBits[idx] = errorfds.fdsBits[idx] or (1L shl bit)
+                            errorfds.fdsBits[idx] = errorfds.fdsBits[idx] or (1uL shl bit)
                         } else {
-                            errorfds.fdsBits[idx] = errorfds.fdsBits[idx] and (1L shl bit).inv()
+                            errorfds.fdsBits[idx] = errorfds.fdsBits[idx] and (1uL shl bit).inv()
                         }
                     }
                 }

@@ -12,6 +12,7 @@
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
 #include <sys/ucred.h>
 #endif
+#include <sys/syscall.h>
 #else
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -162,5 +163,40 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
         int res = -1;
 #endif
         return Napi::Number::New(env, res);
+    }));
+
+    // syscall(num, a1, a2, a3, a4, a5, a6)
+    exports.Set("syscall", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+        if (info.Length() < 1) return Napi::Number::New(env, -1);
+        int64_t num = info[0].As<Napi::Number>().Int64Value();
+        int64_t a1 = info.Length() > 1 ? info[1].As<Napi::Number>().Int64Value() : 0;
+        int64_t a2 = info.Length() > 2 ? info[2].As<Napi::Number>().Int64Value() : 0;
+        int64_t a3 = info.Length() > 3 ? info[3].As<Napi::Number>().Int64Value() : 0;
+        int64_t a4 = info.Length() > 4 ? info[4].As<Napi::Number>().Int64Value() : 0;
+        int64_t a5 = info.Length() > 5 ? info[5].As<Napi::Number>().Int64Value() : 0;
+        int64_t a6 = info.Length() > 6 ? info[6].As<Napi::Number>().Int64Value() : 0;
+#ifndef _WIN32
+        long res = ::syscall((long)num, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
+        return Napi::Number::New(env, (double)res);
+#else
+        (void)num; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+        return Napi::Number::New(env, -1);
+#endif
+    }));
+
+    // pidfd_open(pid, flags)
+    exports.Set("pidfd_open", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+        if (info.Length() < 2) return Napi::Number::New(env, -1);
+        int pid = info[0].As<Napi::Number>().Int32Value();
+        int flags = info[1].As<Napi::Number>().Int32Value();
+#if defined(__linux__) && defined(SYS_pidfd_open)
+        int res = (int)::syscall(SYS_pidfd_open, pid, (unsigned int)flags);
+        return Napi::Number::New(env, res);
+#else
+        (void)pid; (void)flags;
+        return Napi::Number::New(env, -1);
+#endif
     }));
 }

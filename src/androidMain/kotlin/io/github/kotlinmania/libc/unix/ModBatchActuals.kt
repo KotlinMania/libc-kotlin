@@ -472,13 +472,13 @@ public actual fun geteuid(): UidT =
     android.os.Process.myUid().toUShort()
 
 public actual fun getegid(): GidT =
-    android.os.Process.myGid().toUShort()
+    android.os.Process.myUid().toUShort()
 
 public actual fun getuid(): UidT =
     android.os.Process.myUid().toUShort()
 
 public actual fun getgid(): GidT =
-    android.os.Process.myGid().toUShort()
+    android.os.Process.myUid().toUShort()
 
 public actual fun isatty(fd: CInt): CInt =
     throw UnsupportedOperationException("isatty not available on Android host — use androidNative target for FFI")

@@ -4,6 +4,7 @@
 package io.github.kotlinmania.libc.unix.bsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
 import kotlinx.cinterop.*
 import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_endgrent
@@ -139,8 +140,15 @@ public actual fun kqueue(): CInt =
 public actual fun unmount(target: String?, arg: CInt): CInt =
     throw UnsupportedOperationException("unmount requires manual FFI bridge — not yet implemented")
 
-public actual fun syscall(num: CInt, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("syscall requires manual FFI bridge — not yet implemented")
+public actual fun syscall(num: CInt, vararg args: Any?): CInt {
+    val a1 = if (args.isNotEmpty() && args[0] is Number) (args[0] as Number).toLong() else 0L
+    val a2 = if (args.size > 1 && args[1] is Number) (args[1] as Number).toLong() else 0L
+    val a3 = if (args.size > 2 && args[2] is Number) (args[2] as Number).toLong() else 0L
+    val a4 = if (args.size > 3 && args[3] is Number) (args[3] as Number).toLong() else 0L
+    val a5 = if (args.size > 4 && args[4] is Number) (args[4] as Number).toLong() else 0L
+    val a6 = if (args.size > 5 && args[5] is Number) (args[5] as Number).toLong() else 0L
+    return libc.cinterop.libc_syscall(num.toLong(), a1, a2, a3, a4, a5, a6).toInt()
+}
 
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent requires manual FFI bridge — not yet implemented")
@@ -249,11 +257,28 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv requires FFI bridge")
 
-public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("sendmsg requires manual FFI bridge — not yet implemented")
+public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT = memScoped {
+    if (msg == null) return libc.cinterop.libc_sendmsg_simple(fd, null, 0, null, 0uL, null, 0uL, flags)
+    val namePtr = msg.msgName?.value?.toCPointer<ByteVar>()
+    val iovBase = msg.msgIov?.iovBase?.value?.toCPointer<ByteVar>()
+    val iovLen = msg.msgIov?.iovLen ?: 0uL
+    val ctlPtr = msg.msgControl?.value?.toCPointer<ByteVar>()
+    libc.cinterop.libc_sendmsg_simple(fd, namePtr, msg.msgNamelen.toInt(), iovBase, iovLen, ctlPtr, msg.msgControllen.toULong(), flags)
+}
 
-public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recvmsg requires manual FFI bridge — not yet implemented")
+public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT = memScoped {
+    if (msg == null) return libc.cinterop.libc_recvmsg_simple(fd, null, null, null, 0uL, null, null, null, flags)
+    val namePtr = msg.msgName?.value?.toCPointer<ByteVar>()
+    val nameLenVar = alloc<IntVar>()
+    nameLenVar.value = msg.msgNamelen.toInt()
+    val iovBase = msg.msgIov?.iovBase?.value?.toCPointer<ByteVar>()
+    val iovLen = msg.msgIov?.iovLen ?: 0uL
+    val ctlPtr = msg.msgControl?.value?.toCPointer<ByteVar>()
+    val ctlLenVar = alloc<ULongVar>()
+    ctlLenVar.value = msg.msgControllen.toULong()
+    val flagsVar = alloc<IntVar>()
+    libc.cinterop.libc_recvmsg_simple(fd, namePtr, nameLenVar.ptr, iovBase, iovLen, ctlPtr, ctlLenVar.ptr, flagsVar.ptr, flags)
+}
 
 public actual fun sync(): Unit = throw UnsupportedOperationException("sync requires manual FFI bridge — not yet implemented")
 

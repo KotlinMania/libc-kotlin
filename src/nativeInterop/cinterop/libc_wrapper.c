@@ -32,6 +32,7 @@ int getentropy(void*, uint64_t);
 #include <sys/stat.h>
 #ifndef _WIN32
 #include <sys/socket.h>
+#include <sys/syscall.h>
 #endif
 
 /* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
@@ -1874,6 +1875,86 @@ int libc_getpeereid(int sockfd, unsigned int* euid, unsigned int* egid) {
     return res;
 #else
     (void)sockfd; (void)euid; (void)egid;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int64_t libc_sendmsg_simple(int sockfd, const void* name, int namelen, const void* iov_base, uint64_t iov_len, const void* control, uint64_t controllen, int flags) {
+#ifndef _WIN32
+    struct msghdr msg;
+    memset(&msg, 0, sizeof(msg));
+    struct iovec io;
+    if (iov_base) {
+        io.iov_base = (void*)iov_base;
+        io.iov_len = (size_t)iov_len;
+        msg.msg_iov = &io;
+        msg.msg_iovlen = 1;
+    }
+    if (name) {
+        msg.msg_name = (void*)name;
+        msg.msg_namelen = (socklen_t)namelen;
+    }
+    if (control) {
+        msg.msg_control = (void*)control;
+        msg.msg_controllen = (socklen_t)controllen;
+    }
+    return (int64_t)sendmsg(sockfd, &msg, flags);
+#else
+    (void)sockfd; (void)name; (void)namelen; (void)iov_base; (void)iov_len; (void)control; (void)controllen; (void)flags;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int64_t libc_recvmsg_simple(int sockfd, void* name, int* namelen, void* iov_base, uint64_t iov_len, void* control, uint64_t* controllen, int* msg_flags, int flags) {
+#ifndef _WIN32
+    struct msghdr msg;
+    memset(&msg, 0, sizeof(msg));
+    struct iovec io;
+    if (iov_base) {
+        io.iov_base = iov_base;
+        io.iov_len = (size_t)iov_len;
+        msg.msg_iov = &io;
+        msg.msg_iovlen = 1;
+    }
+    if (name && namelen) {
+        msg.msg_name = name;
+        msg.msg_namelen = (socklen_t)*namelen;
+    }
+    if (control && controllen) {
+        msg.msg_control = control;
+        msg.msg_controllen = (socklen_t)*controllen;
+    }
+    ssize_t res = recvmsg(sockfd, &msg, flags);
+    if (res >= 0) {
+        if (namelen) *namelen = (int)msg.msg_namelen;
+        if (controllen) *controllen = (uint64_t)msg.msg_controllen;
+        if (msg_flags) *msg_flags = msg.msg_flags;
+    }
+    return (int64_t)res;
+#else
+    (void)sockfd; (void)name; (void)namelen; (void)iov_base; (void)iov_len; (void)control; (void)controllen; (void)msg_flags; (void)flags;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int64_t libc_syscall(int64_t number, int64_t a1, int64_t a2, int64_t a3, int64_t a4, int64_t a5, int64_t a6) {
+#ifndef _WIN32
+    return (int64_t)syscall((long)number, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
+#else
+    (void)number; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int libc_pidfd_open(int pid, unsigned int flags) {
+#if defined(__linux__) && defined(SYS_pidfd_open)
+    return (int)syscall(SYS_pidfd_open, pid, flags);
+#else
+    (void)pid; (void)flags;
     errno = ENOSYS;
     return -1;
 #endif

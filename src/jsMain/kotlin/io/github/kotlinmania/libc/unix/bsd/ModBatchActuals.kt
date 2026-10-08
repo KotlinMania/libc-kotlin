@@ -85,8 +85,15 @@ public actual fun kqueue(): CInt =
 public actual fun unmount(target: String?, arg: CInt): CInt =
     throw UnsupportedOperationException("unmount requires N-API addon")
 
-public actual fun syscall(num: CInt, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("syscall requires N-API addon")
+public actual fun syscall(num: CInt, vararg args: Any?): CInt {
+    val a1 = if (args.isNotEmpty() && args[0] is Number) (args[0] as Number).toDouble() else 0.0
+    val a2 = if (args.size > 1 && args[1] is Number) (args[1] as Number).toDouble() else 0.0
+    val a3 = if (args.size > 2 && args[2] is Number) (args[2] as Number).toDouble() else 0.0
+    val a4 = if (args.size > 3 && args[3] is Number) (args[3] as Number).toDouble() else 0.0
+    val a5 = if (args.size > 4 && args[4] is Number) (args[4] as Number).toDouble() else 0.0
+    val a6 = if (args.size > 5 && args[5] is Number) (args[5] as Number).toDouble() else 0.0
+    return LibcNative.syscall(num.toDouble(), a1, a2, a3, a4, a5, a6).toInt()
+}
 
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent requires N-API addon")
@@ -160,11 +167,20 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv requires N-API addon")
 
-public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("sendmsg requires N-API addon")
+public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
+    val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
+    val iovBytes = msg?.msgIov?.let { ByteArray(it.iovLen.toInt()) }
+    val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
+    return LibcNative.sendmsg(fd, nameBytes, iovBytes, ctlBytes, flags).toLong()
+}
 
-public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recvmsg requires N-API addon")
+public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
+    val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
+    val iovBytes = msg?.msgIov?.let { ByteArray(it.iovLen.toInt()) }
+    val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
+    val res = LibcNative.recvmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
+    return (res?.bytes as? Number)?.toLong() ?: -1L
+}
 
 public actual fun sync(): Unit = throw UnsupportedOperationException("sync requires N-API addon")
 

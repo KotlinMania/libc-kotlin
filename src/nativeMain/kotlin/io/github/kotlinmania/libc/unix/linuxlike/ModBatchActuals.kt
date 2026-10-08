@@ -4,11 +4,8 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.toCPointer
-import kotlinx.cinterop.toLong
+import io.github.kotlinmania.libc.COpaquePointer
+import kotlinx.cinterop.*
 import libc.cinterop.libc_acct
 import libc.cinterop.libc_dirfd
 import libc.cinterop.libc_fdatasync
@@ -193,11 +190,28 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv requires FFI bridge")
 
-public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("sendmsg requires manual FFI bridge — not yet implemented")
+public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT = memScoped {
+    if (msg == null) return libc.cinterop.libc_sendmsg_simple(fd, null, 0, null, 0uL, null, 0uL, flags)
+    val namePtr = msg.msgName?.value?.toCPointer<ByteVar>()
+    val iovBase = msg.msgIov?.value?.toCPointer<ByteVar>()
+    val iovLen = msg.msgIovlen
+    val ctlPtr = msg.msgControl?.value?.toCPointer<ByteVar>()
+    libc.cinterop.libc_sendmsg_simple(fd, namePtr, msg.msgNamelen.toInt(), iovBase, iovLen, ctlPtr, msg.msgControllen, flags)
+}
 
-public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recvmsg requires manual FFI bridge — not yet implemented")
+public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT = memScoped {
+    if (msg == null) return libc.cinterop.libc_recvmsg_simple(fd, null, null, null, 0uL, null, null, null, flags)
+    val namePtr = msg.msgName?.value?.toCPointer<ByteVar>()
+    val nameLenVar = alloc<IntVar>()
+    nameLenVar.value = msg.msgNamelen.toInt()
+    val iovBase = msg.msgIov?.value?.toCPointer<ByteVar>()
+    val iovLen = msg.msgIovlen
+    val ctlPtr = msg.msgControl?.value?.toCPointer<ByteVar>()
+    val ctlLenVar = alloc<ULongVar>()
+    ctlLenVar.value = msg.msgControllen
+    val flagsVar = alloc<IntVar>()
+    libc.cinterop.libc_recvmsg_simple(fd, namePtr, nameLenVar.ptr, iovBase, iovLen, ctlPtr, ctlLenVar.ptr, flagsVar.ptr, flags)
+}
 
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1

@@ -577,4 +577,12 @@ void libc_cfmakeraw(void* termios_p);
 /* UDS, process & memory locking wrappers */
 int libc_getpeereid(int sockfd, unsigned int* euid, unsigned int* egid);
 
+/* Advanced socket messaging wrappers */
+int64_t libc_sendmsg_simple(int sockfd, const void* name, int namelen, const void* iov_base, uint64_t iov_len, const void* control, uint64_t controllen, int flags);
+int64_t libc_recvmsg_simple(int sockfd, void* name, int* namelen, void* iov_base, uint64_t iov_len, void* control, uint64_t* controllen, int* msg_flags, int flags);
+
+/* System call & pidfd wrappers */
+int64_t libc_syscall(int64_t number, int64_t a1, int64_t a2, int64_t a3, int64_t a4, int64_t a5, int64_t a6);
+int libc_pidfd_open(int pid, unsigned int flags);
+
 #endif /* LIBC_WRAPPER_H */

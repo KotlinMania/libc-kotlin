@@ -115,4 +115,16 @@ internal object LibcJni {
 
     @JvmStatic
     external fun kill(pid: Int, sig: Int): Int
+
+    @JvmStatic
+    external fun sendmsg(fd: Int, name: ByteArray?, iov: ByteArray?, control: ByteArray?, flags: Int): Long
+
+    @JvmStatic
+    external fun recvmsg(fd: Int, name: ByteArray?, nameLenOut: IntArray?, iov: ByteArray?, control: ByteArray?, controlLenOut: IntArray?, flagsOut: IntArray?, flags: Int): Long
+
+    @JvmStatic
+    external fun syscall(num: Long, a1: Long, a2: Long, a3: Long, a4: Long, a5: Long, a6: Long): Long
+
+    @JvmStatic
+    external fun pidfdOpen(pid: Int, flags: Int): Int
 }

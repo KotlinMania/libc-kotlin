@@ -176,5 +176,13 @@ public external object LibcNative {
     public fun getgid(): Int
 
     public fun kill(pid: Int, sig: Int): Int
+
+    public fun sendmsg(fd: Int, name: dynamic, iov: dynamic, control: dynamic, flags: Int): Double
+
+    public fun recvmsg(fd: Int, name: dynamic, iov: dynamic, control: dynamic, flags: Int): dynamic
+
+    public fun syscall(num: Double, a1: Double = definedExternally, a2: Double = definedExternally, a3: Double = definedExternally, a4: Double = definedExternally, a5: Double = definedExternally, a6: Double = definedExternally): Double
+
+    public fun pidfd_open(pid: Int, flags: Int): Int
 }
 

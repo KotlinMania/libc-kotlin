@@ -86,8 +86,15 @@ public actual fun kqueue(): CInt =
 public actual fun unmount(target: String?, arg: CInt): CInt =
     throw UnsupportedOperationException("unmount not available on JVM — no C library access")
 
-public actual fun syscall(num: CInt, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("syscall not available on JVM — no C library access")
+public actual fun syscall(num: CInt, vararg args: Any?): CInt {
+    val a1 = if (args.isNotEmpty() && args[0] is Number) (args[0] as Number).toLong() else 0L
+    val a2 = if (args.size > 1 && args[1] is Number) (args[1] as Number).toLong() else 0L
+    val a3 = if (args.size > 2 && args[2] is Number) (args[2] as Number).toLong() else 0L
+    val a4 = if (args.size > 3 && args[3] is Number) (args[3] as Number).toLong() else 0L
+    val a5 = if (args.size > 4 && args[4] is Number) (args[4] as Number).toLong() else 0L
+    val a6 = if (args.size > 5 && args[5] is Number) (args[5] as Number).toLong() else 0L
+    return LibcJni.syscall(num.toLong(), a1, a2, a3, a4, a5, a6).toInt()
+}
 
 public actual fun getpwent(): Passwd? =
     throw UnsupportedOperationException("getpwent not available on JVM — no C library access")
@@ -181,11 +188,22 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv not available on JVM — no C library access")
 
-public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("sendmsg not available on JVM — no C library access")
+public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
+    val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
+    val iovBytes = msg?.msgIov?.let { ByteArray(it.iovLen.toInt()) }
+    val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
+    return LibcJni.sendmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
+}
 
-public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recvmsg not available on JVM — no C library access")
+public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
+    val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
+    val nameLenOut = msg?.msgName?.let { intArrayOf(msg.msgNamelen.toInt()) }
+    val iovBytes = msg?.msgIov?.let { ByteArray(it.iovLen.toInt()) }
+    val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
+    val ctlLenOut = msg?.msgControl?.let { intArrayOf(msg.msgControllen.toInt()) }
+    val flagsOut = intArrayOf(0)
+    return LibcJni.recvmsg(fd, nameBytes, nameLenOut, iovBytes, ctlBytes, ctlLenOut, flagsOut, flags)
+}
 
 public actual fun sync(): Unit = throw UnsupportedOperationException("sync not available on JVM — no C library access")
 
