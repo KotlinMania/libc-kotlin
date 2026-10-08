@@ -34,6 +34,11 @@ int getentropy(void*, uint64_t);
 #ifndef _WIN32
 #include <sys/socket.h>
 #include <sys/syscall.h>
+#else
+#include <winsock2.h>
+#include <windows.h>
+#include <io.h>
+#include <fcntl.h>
 #endif
 
 /* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
@@ -469,8 +474,8 @@ int libc_dlclose(void* handle) {
 #ifndef _WIN32
     return dlclose(handle);
 #else
-    (void)handle;
-    return -1;
+    if (!handle) return -1;
+    return FreeLibrary((HMODULE)handle) ? 0 : -1;
 #endif
 }
 char* libc_dlerror(void) {
@@ -487,16 +492,19 @@ void* libc_dlopen(const char* filename, int flag) {
     }
     return dlopen(filename, flag);
 #else
-    (void)filename; (void)flag;
-    return NULL;
+    (void)flag;
+    if (!filename) {
+        return (void*)GetModuleHandleA(NULL);
+    }
+    return (void*)LoadLibraryA(filename);
 #endif
 }
 void* libc_dlsym(void* handle, const char* symbol) {
 #ifndef _WIN32
     return dlsym(handle, symbol);
 #else
-    (void)handle; (void)symbol;
-    return NULL;
+    if (!handle || !symbol) return NULL;
+    return (void*)GetProcAddress((HMODULE)handle, symbol);
 #endif
 }
 const char* libc_gai_strerror(int errcode) { return gai_strerror(errcode); }
@@ -1629,14 +1637,22 @@ int libc_pipe(int* fds) {
 #ifndef _WIN32
     return pipe(fds);
 #else
-    (void)fds; errno = ENOSYS; return -1;
+    int local_fds[2];
+    int* target = fds ? fds : local_fds;
+    return _pipe(target, 512, _O_BINARY);
 #endif
 }
 int libc_poll(void* fds, uint32_t nfds, int timeout) {
 #ifndef _WIN32
     return poll((struct pollfd*)fds, nfds, timeout);
 #else
-    (void)fds; (void)nfds; (void)timeout; errno = ENOSYS; return -1;
+    if (!fds || nfds == 0) {
+        if (timeout > 0) {
+            Sleep((DWORD)timeout);
+        }
+        return 0;
+    }
+    return WSAPoll((WSAPOLLFD*)fds, (ULONG)nfds, timeout);
 #endif
 }
 const char* libc_hstrerror(int errcode) {
