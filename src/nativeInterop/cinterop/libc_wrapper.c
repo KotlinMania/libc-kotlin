@@ -12,6 +12,7 @@
 
 #include "libc_wrapper.h"
 #ifdef __APPLE__
+#include <TargetConditionals.h>
 #include <mach/mach.h>
 int getentropy(void*, uint64_t);
 #endif
@@ -1949,7 +1950,7 @@ int64_t libc_recvmsg_simple(int sockfd, void* name, int* namelen, void* iov_base
 }
 
 int64_t libc_syscall(int64_t number, int64_t a1, int64_t a2, int64_t a3, int64_t a4, int64_t a5, int64_t a6) {
-#ifndef _WIN32
+#if !defined(_WIN32) && (!defined(__APPLE__) || (defined(TARGET_OS_OSX) && TARGET_OS_OSX))
     return (int64_t)syscall((long)number, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
 #else
     (void)number; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
