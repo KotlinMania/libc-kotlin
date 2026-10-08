@@ -339,7 +339,13 @@ public data class SiginfoT(
     val siValue: Sigval,
     val siUtime: CLong? = null,
     val siStime: CLong? = null,
-)
+) {
+    public fun siAddr(): COpaquePointer? = siAddr
+    public fun siValue(): Sigval = siValue
+    public fun siPid(): PidT = siPid
+    public fun siUid(): UidT = siUid
+    public fun siStatus(): CInt = siStatus
+}
 
 public data class Timespec(
     val handle: Long = 0L,
