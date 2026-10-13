@@ -27,3 +27,6 @@ ktlint_standard_no-empty-file = disabled
 ktlint_standard_no-trailing-spaces = disabled
 ktlint_standard_no-wildcard-imports = disabled
 ktlint_standard_property-naming = disabled
+ktlint_standard_blank-line-between-when-conditions = disabled
+ktlint_standard_when-entry-bracing = disabled
+ktlint_standard_blank-line-before-declaration = disabled
