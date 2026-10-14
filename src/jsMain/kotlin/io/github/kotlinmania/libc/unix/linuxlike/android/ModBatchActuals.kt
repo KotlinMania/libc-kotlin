@@ -77,7 +77,15 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
     throw UnsupportedOperationException("mprotect requires N-API addon")
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt =
-    throw UnsupportedOperationException("getnameinfo requires N-API addon")
+    getnameinfoNapi(
+        sa,
+        salen,
+        if (host != null && hostlen > 0uL) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null,
+        hostlen.toUInt(),
+        if (serv != null && servlen > 0uL) ByteArray(servlen.toInt().coerceAtMost(4096)) else null,
+        servlen.toUInt(),
+        flags,
+    )
 
 public actual fun preadv(fd: CInt, iov: Iovec?, count: CInt, offset: OffT): SsizeT =
     throw UnsupportedOperationException("preadv requires N-API addon")

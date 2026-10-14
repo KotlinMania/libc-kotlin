@@ -72,7 +72,15 @@ public actual fun getgrouplist(name: String?, basegid: GidT, groups: GidT?, ngro
     throw UnsupportedOperationException("getgrouplist requires N-API addon")
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt =
-    throw UnsupportedOperationException("getnameinfo requires N-API addon")
+    getnameinfoNapi(
+        sa,
+        salen,
+        if (host != null && hostlen > 0uL) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null,
+        hostlen.toUInt(),
+        if (serv != null && servlen > 0uL) ByteArray(servlen.toInt().coerceAtMost(4096)) else null,
+        servlen.toUInt(),
+        flags,
+    )
 
 public actual fun getpriority(which: CInt, who: CInt): CInt =
     throw UnsupportedOperationException("getpriority requires N-API addon")

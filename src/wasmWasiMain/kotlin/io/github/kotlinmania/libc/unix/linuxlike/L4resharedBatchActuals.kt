@@ -67,7 +67,15 @@ public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): Ssi
     throw UnsupportedOperationException("preadv not available on WASI — no C library access")
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
-    throw UnsupportedOperationException("getnameinfo not available on WASI — no C library access")
+    io.github.kotlinmania.libc.internal.WasiLibcEnv.getnameinfo(
+        sa,
+        salen,
+        if (host != null && hostlen > 0u) ByteArray(hostlen.toInt()) else null,
+        hostlen,
+        if (serv != null && servlen > 0u) ByteArray(servlen.toInt()) else null,
+        servlen,
+        flags,
+    )
 
 public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
     throw UnsupportedOperationException("getloadavg not available on WASI — no C library access")

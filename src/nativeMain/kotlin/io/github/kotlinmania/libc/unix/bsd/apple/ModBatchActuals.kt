@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.bsd.cMSGFIRSTHDR
+import io.github.kotlinmania.libc.unix.getnameinfo
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.CPointerVar
@@ -214,23 +215,11 @@ public actual fun asctimeR(tm: Tm?, result: String?): String? =
 public actual fun ctimeR(clock: TimeT?, result: String?): String? =
     throw UnsupportedOperationException("ctimeR requires manual FFI bridge — not yet implemented")
 
-public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
-    memScoped {
-        val saPtr =
-            if (sa != null) {
-                val buf = allocArray<ByteVar>(16)
-                buf[0] = sa.saFamily.toByte()
-                for (i in 0 until minOf(14, sa.saData.size)) {
-                    buf[1 + i] = sa.saData[i]
-                }
-                buf
-            } else {
-                null
-            }
-        val hostBuf = if (hostlen > 0u) allocArray<ByteVar>(hostlen.toInt()) else null
-        val servBuf = if (servlen > 0u) allocArray<ByteVar>(servlen.toInt()) else null
-        libc.cinterop.libc_getnameinfo(saPtr, salen, hostBuf, hostlen, servBuf, servlen, flags)
-    }
+public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt {
+    val hBuf = if (hostlen > 0u) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null
+    val sBuf = if (servlen > 0u) ByteArray(servlen.toInt().coerceAtMost(256)) else null
+    return getnameinfo(sa, salen, hBuf, hostlen, sBuf, servlen, flags)
+}
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt =
     memScoped {

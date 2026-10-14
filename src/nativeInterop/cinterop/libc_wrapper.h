@@ -652,6 +652,29 @@ int libc_getpwnam_r_fields(
     int64_t* pw_expire,
     int* found
 );
+int libc_res_init(void);
+int libc_getaddrinfo_packed(
+    const char* node,
+    const char* service,
+    int has_hints,
+    int ai_flags,
+    int ai_family,
+    int ai_socktype,
+    int ai_protocol,
+    char* out_buf,
+    uint64_t out_buf_len
+);
+int libc_getnameinfo_packed(
+    int sa_family,
+    const void* sa_data,
+    uint32_t sa_data_len,
+    uint32_t salen,
+    char* host,
+    uint32_t hostlen,
+    char* serv,
+    uint32_t servlen,
+    int flags
+);
 
 #endif /* LIBC_WRAPPER_H */
 

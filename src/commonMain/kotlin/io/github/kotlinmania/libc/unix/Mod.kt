@@ -766,6 +766,16 @@ public expect fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?,
 
 public expect fun freeaddrinfo(res: Addrinfo?)
 
+public expect fun getnameinfo(
+    sa: Sockaddr?,
+    salen: SocklenT,
+    host: ByteArray?,
+    hostlen: SocklenT,
+    serv: ByteArray?,
+    servlen: SocklenT,
+    flags: CInt,
+): CInt
+
 public expect fun hstrerror(errcode: CInt): String?
 
 public expect fun gaiStrerror(errcode: CInt): String?
