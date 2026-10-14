@@ -269,8 +269,14 @@ public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
 public actual fun fgetc(stream: FILE?): CInt =
     libc.cinterop.libc_fgetc(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
-    throw UnsupportedOperationException("fgets requires manual FFI bridge — not yet implemented")
+public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? {
+    if (stream == null || n <= 0) return null
+    return memScoped {
+        val rawBuf = allocArray<ByteVar>(n)
+        val res = libc.cinterop.libc_fgets(rawBuf, n, stream.handle.toCPointer<ByteVar>())
+        res?.reinterpret<ByteVar>()?.toKString()
+    }
+}
 
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
     libc.cinterop.libc_fputc(c, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
@@ -609,8 +615,54 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePoint
 public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
     libc.cinterop.libc_memccpy(dest?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), src?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun getpwnam(name: String?): Passwd? =
-    throw UnsupportedOperationException("getpwnam requires FFI bridge")
+public actual fun getpwnam(name: String?): Passwd? {
+    if (name == null) return null
+    return memScoped {
+        val nameBuf = allocArray<ByteVar>(1024)
+        val passwdBuf = allocArray<ByteVar>(1024)
+        val uidVar = alloc<UIntVar>()
+        val gidVar = alloc<UIntVar>()
+        val changeVar = alloc<LongVar>()
+        val classBuf = allocArray<ByteVar>(1024)
+        val gecosBuf = allocArray<ByteVar>(1024)
+        val dirBuf = allocArray<ByteVar>(1024)
+        val shellBuf = allocArray<ByteVar>(1024)
+        val expireVar = alloc<LongVar>()
+        val found =
+            libc.cinterop.libc_getpwnam_fields(
+                name,
+                nameBuf,
+                1024uL,
+                passwdBuf,
+                1024uL,
+                uidVar.ptr,
+                gidVar.ptr,
+                changeVar.ptr,
+                classBuf,
+                1024uL,
+                gecosBuf,
+                1024uL,
+                dirBuf,
+                1024uL,
+                shellBuf,
+                1024uL,
+                expireVar.ptr,
+            )
+        if (found == 0) {
+            null
+        } else {
+            Passwd(
+                pwName = nameBuf.toKString(),
+                pwPasswd = passwdBuf.toKString(),
+                pwUid = uidVar.value,
+                pwGid = gidVar.value,
+                pwGecos = gecosBuf.toKString(),
+                pwDir = dirBuf.toKString(),
+                pwShell = shellBuf.toKString(),
+            )
+        }
+    }
+}
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires manual FFI bridge — not yet implemented")
@@ -766,7 +818,7 @@ public actual fun stat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("stat requires manual FFI bridge — not yet implemented")
 
 public actual fun pclose(stream: FILE?): CInt =
-    throw UnsupportedOperationException("pclose requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_pclose(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun fdopen(fd: CInt, mode: String?): FILE? {
     val result = libc_fdopen(fd, mode)
@@ -800,7 +852,7 @@ public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: C
     libc.cinterop.libc_fchmodat(dirfd, pathname, mode, flags)
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    libc.cinterop.libc_fchown(fd, owner.toUInt(), group.toUInt())
+    libc.cinterop.libc_fchown(fd, owner, group)
 
 public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt =
     throw UnsupportedOperationException("fchownat requires manual FFI bridge — not yet implemented")
@@ -844,10 +896,10 @@ public actual fun chdir(dir: String?): CInt {
 public actual fun fchdir(dirfd: CInt): CInt = libc.cinterop.libc_fchdir(dirfd)
 
 public actual fun chown(path: String?, uid: UidT, gid: GidT): CInt =
-    libc.cinterop.libc_chown(path, uid.toUInt(), gid.toUInt())
+    libc.cinterop.libc_chown(path, uid, gid)
 
 public actual fun lchown(path: String?, uid: UidT, gid: GidT): CInt =
-    libc.cinterop.libc_lchown(path, uid.toUInt(), gid.toUInt())
+    libc.cinterop.libc_lchown(path, uid, gid)
 
 public actual fun close(fd: CInt): CInt = libc.cinterop.libc_close(fd)
 
@@ -913,13 +965,13 @@ public actual fun getpid(): PidT =
 public actual fun getppid(): PidT =
     libc.cinterop.libc_getppid()
 
-public actual fun geteuid(): UidT = libc.cinterop.libc_geteuid().toUShort()
+public actual fun geteuid(): UidT = libc.cinterop.libc_geteuid().toUInt()
 
-public actual fun getegid(): GidT = libc.cinterop.libc_getegid().toUShort()
+public actual fun getegid(): GidT = libc.cinterop.libc_getegid().toUInt()
 
-public actual fun getuid(): UidT = libc.cinterop.libc_getuid().toUShort()
+public actual fun getuid(): UidT = libc.cinterop.libc_getuid().toUInt()
 
-public actual fun getgid(): GidT = libc.cinterop.libc_getgid().toUShort()
+public actual fun getgid(): GidT = libc.cinterop.libc_getgid().toUInt()
 
 public actual fun isatty(fd: CInt): CInt = libc.cinterop.libc_isatty(fd)
 
@@ -998,10 +1050,10 @@ public actual fun setuid(uid: UidT): CInt {
 }
 
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
-    libc.cinterop.libc_setreuid(ruid.toUInt(), euid.toUInt())
+    libc.cinterop.libc_setreuid(ruid, euid)
 
 public actual fun setregid(rgid: GidT, egid: GidT): CInt =
-    libc.cinterop.libc_setregid(rgid.toUInt(), egid.toUInt())
+    libc.cinterop.libc_setregid(rgid, egid)
 
 public actual fun nanosleep(rqtp: Timespec?, rmtp: Timespec?): CInt =
     throw UnsupportedOperationException("nanosleep requires manual FFI bridge — not yet implemented")
@@ -1656,4 +1708,48 @@ public actual fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt =
     throw UnsupportedOperationException("sigqueue requires manual FFI bridge for ambiguous type")
 
 public actual fun getpwuid(uid: UidT): Passwd? =
-    throw UnsupportedOperationException("getpwuid requires Passwd struct bridge")
+    memScoped {
+        val nameBuf = allocArray<ByteVar>(1024)
+        val passwdBuf = allocArray<ByteVar>(1024)
+        val uidVar = alloc<UIntVar>()
+        val gidVar = alloc<UIntVar>()
+        val changeVar = alloc<LongVar>()
+        val classBuf = allocArray<ByteVar>(1024)
+        val gecosBuf = allocArray<ByteVar>(1024)
+        val dirBuf = allocArray<ByteVar>(1024)
+        val shellBuf = allocArray<ByteVar>(1024)
+        val expireVar = alloc<LongVar>()
+        val found =
+            libc.cinterop.libc_getpwuid_fields(
+                uid,
+                nameBuf,
+                1024uL,
+                passwdBuf,
+                1024uL,
+                uidVar.ptr,
+                gidVar.ptr,
+                changeVar.ptr,
+                classBuf,
+                1024uL,
+                gecosBuf,
+                1024uL,
+                dirBuf,
+                1024uL,
+                shellBuf,
+                1024uL,
+                expireVar.ptr,
+            )
+        if (found == 0) {
+            null
+        } else {
+            Passwd(
+                pwName = nameBuf.toKString(),
+                pwPasswd = passwdBuf.toKString(),
+                pwUid = uidVar.value,
+                pwGid = gidVar.value,
+                pwGecos = gecosBuf.toKString(),
+                pwDir = dirBuf.toKString(),
+                pwShell = shellBuf.toKString(),
+            )
+        }
+    }

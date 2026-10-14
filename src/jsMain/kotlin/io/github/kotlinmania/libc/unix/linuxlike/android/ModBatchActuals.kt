@@ -353,13 +353,13 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
     throw UnsupportedOperationException("initgroups requires N-API addon")
 
 public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen requires N-API addon")
+    popenNapi(command, mode)
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat requires N-API addon")
 
 public actual fun errno(): CInt? =
-    throw UnsupportedOperationException("errno requires N-API addon")
+    getErrnoNapi()
 
 public actual fun inotifyRmWatch(fd: CInt, wd: UInt): CInt =
     throw UnsupportedOperationException("inotifyRmWatch requires N-API addon")

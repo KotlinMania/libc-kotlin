@@ -36,13 +36,13 @@ public data class GlobT(
 )
 
 public data class Passwd(
-    val pwName: String?,
-    val pwPasswd: String?,
-    val pwUid: UidT,
-    val pwGid: GidT,
-    val pwGecos: String?,
-    val pwDir: String?,
-    val pwShell: String?,
+    var pwName: String? = null,
+    var pwPasswd: String? = null,
+    var pwUid: UidT = 0u,
+    var pwGid: GidT = 0u,
+    var pwGecos: String? = null,
+    var pwDir: String? = null,
+    var pwShell: String? = null,
 )
 
 public data class Spwd(

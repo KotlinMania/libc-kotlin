@@ -220,4 +220,20 @@ void RegisterStdlibBindings(Napi::Env env, Napi::Object exports) {
         std::string cmd = info[0].As<Napi::String>().Utf8Value();
         return Napi::Number::New(env, ::system(cmd.c_str()));
     }));
+
+    // realpath
+    exports.Set("realpath", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+        if (info.Length() < 1) return env.Null();
+        std::string path = info[0].As<Napi::String>().Utf8Value();
+#ifdef _WIN32
+        char* resolved = ::_fullpath(nullptr, path.c_str(), 4096);
+#else
+        char* resolved = ::realpath(path.c_str(), nullptr);
+#endif
+        if (!resolved) return env.Null();
+        Napi::String out = Napi::String::New(env, resolved);
+        ::free(resolved);
+        return out;
+    }));
 }

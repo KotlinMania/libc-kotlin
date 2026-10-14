@@ -24,9 +24,11 @@ package io.github.kotlinmania.libc
  * address alone cannot identify the Windows aligned CRT allocator.
  */
 public class COpaquePointer(
-    public val value: Long = 0L,
+    public var value: Long = 0L,
     internal val allocationAlignment: ULong = 0uL,
-)
+) {
+    public val ptr: Long get() = value
+}
 
 /**
  * Opaque C stdio file handle (`FILE*` in C).
@@ -34,7 +36,9 @@ public class COpaquePointer(
  */
 public class FILE(
     public val handle: Long = -1L,
-)
+) {
+    public val ptr: Long get() = handle
+}
 
 /**
  * Opaque C directory stream handle (`DIR*` in C).
@@ -42,7 +46,9 @@ public class FILE(
  */
 public class DIR(
     public val handle: Long = -1L,
-)
+) {
+    public val ptr: Long get() = handle
+}
 
 /**
  * C file position type (`fpos_t` in C). Defined as a typealias where the

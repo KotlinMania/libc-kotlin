@@ -124,6 +124,215 @@ public fun floorfNapi(x: Float): Float = LibcNative.floorf(x)
 
 public fun roundfNapi(x: Float): Float = LibcNative.roundf(x)
 
-// ─── errno ────────────────────────────────────────────────────────
+// ─── errno & helpers ──────────────────────────────────────────────
 
-public val errnoNapi: Int get() = LibcNative.errno
+public val errnoNapi: Int get() = LibcNative.get_errno()
+
+public fun getErrnoNapi(): Int = LibcNative.get_errno()
+
+public fun strerrorNapi(errnum: Int): String? = LibcNative.strerror(errnum)
+
+public fun realpathNapi(pathname: String?): String? =
+    if (pathname != null) LibcNative.realpath(pathname) else null
+
+public fun removeNapi(filename: String?): Int =
+    if (filename != null) LibcNative.remove(filename) else -1
+
+public fun renameNapi(oldname: String?, newname: String?): Int =
+    if (oldname != null && newname != null) LibcNative.rename(oldname, newname) else -1
+
+public fun fgetcNapi(stream: FILE?): Int =
+    if (stream != null && stream.handle > 0L) LibcNative.fgetc(stream.handle.toInt()) else -1
+
+public fun fputcNapi(c: Int, stream: FILE?): Int =
+    if (stream != null && stream.handle > 0L) LibcNative.fputc(c, stream.handle.toInt()) else -1
+
+public fun fgetsNapi(n: Int, stream: FILE?): String? =
+    if (stream != null && stream.handle > 0L && n > 0) LibcNative.fgets(n, stream.handle.toInt()) else null
+
+public fun fputsNapi(s: String?, stream: FILE?): Int =
+    if (s != null && stream != null && stream.handle > 0L) LibcNative.fputs(s, stream.handle.toInt()) else -1
+
+public fun feofNapi(stream: FILE?): Int =
+    if (stream != null && stream.handle > 0L) LibcNative.feof(stream.handle.toInt()) else 0
+
+public fun ferrorNapi(stream: FILE?): Int =
+    if (stream != null && stream.handle > 0L) LibcNative.ferror(stream.handle.toInt()) else 0
+
+public fun clearerrNapi(stream: FILE?) {
+    if (stream != null && stream.handle > 0L) {
+        LibcNative.clearerr(stream.handle.toInt())
+    }
+}
+
+public fun popenNapi(command: String?, mode: String?): FILE? {
+    if (command == null || mode == null) return null
+    val h = LibcNative.popen(command, mode)
+    return if (h > 0) FILE(h.toLong()) else null
+}
+
+public fun pcloseNapi(stream: FILE?): Int =
+    if (stream != null && stream.handle > 0L) LibcNative.pclose(stream.handle.toInt()) else -1
+
+private fun copyCStringIntoJs(src: String, dst: ByteArray) {
+    dst.fill(0)
+    val bytes = src.encodeToByteArray()
+    val copyLen = minOf(bytes.size, (dst.size - 1).coerceAtLeast(0))
+    for (i in 0 until copyLen) {
+        dst[i] = bytes[i]
+    }
+}
+
+public fun unameNapi(buf: Utsname?): Int {
+    if (buf == null) return -1
+    val raw = LibcNative.uname_fields() ?: return -1
+    val parts = raw.split('\n')
+    if (parts.size < 5) return -1
+    copyCStringIntoJs(parts[0], buf.sysname)
+    copyCStringIntoJs(parts[1], buf.nodename)
+    copyCStringIntoJs(parts[2], buf.release)
+    copyCStringIntoJs(parts[3], buf.version)
+    copyCStringIntoJs(parts[4], buf.machine)
+    return 0
+}
+
+public fun unameNapi(buf: io.github.kotlinmania.libc.unix.linuxlike.Utsname?): Int {
+    if (buf == null) return -1
+    val raw = LibcNative.uname_fields() ?: return -1
+    val parts = raw.split('\n')
+    if (parts.size < 5) return -1
+    copyCStringIntoJs(parts[0], buf.sysname)
+    copyCStringIntoJs(parts[1], buf.nodename)
+    copyCStringIntoJs(parts[2], buf.release)
+    copyCStringIntoJs(parts[3], buf.version)
+    copyCStringIntoJs(parts[4], buf.machine)
+    return 0
+}
+
+private fun applyPasswdRResultJs(raw: String, pwd: Passwd?, result: COpaquePointer?): Int {
+    val lines = raw.split('\n')
+    val rc = lines.getOrNull(0)?.toIntOrNull() ?: -1
+    val found = lines.getOrNull(1)?.toIntOrNull() ?: 0
+    if (rc == 0 && found != 0 && pwd != null && lines.size >= 9) {
+        pwd.pwName = lines[2]
+        pwd.pwPasswd = lines[3]
+        pwd.pwUid = lines[4].toUIntOrNull() ?: 0u
+        pwd.pwGid = lines[5].toUIntOrNull() ?: 0u
+        pwd.pwGecos = lines[6]
+        pwd.pwDir = lines[7]
+        pwd.pwShell = lines[8]
+        result?.value = 1L
+    } else {
+        result?.value = 0L
+    }
+    return rc
+}
+
+public fun getpwuidRNapi(uid: UInt, pwd: Passwd?, buflen: ULong, result: COpaquePointer?): Int {
+    val len = buflen.toLong().coerceIn(1L, 1048576L).toInt()
+    return applyPasswdRResultJs(LibcNative.getpwuid_r_str(uid.toInt(), len), pwd, result)
+}
+
+public fun getpwnamRNapi(name: String?, pwd: Passwd?, buflen: ULong, result: COpaquePointer?): Int {
+    if (name == null) {
+        result?.value = 0L
+        return 22
+    }
+    val len = buflen.toLong().coerceIn(1L, 1048576L).toInt()
+    return applyPasswdRResultJs(LibcNative.getpwnam_r_str(name, len), pwd, result)
+}
+
+public fun getpwuidRNapi(
+    uid: UInt,
+    pwd: io.github.kotlinmania.libc.unix.bsd.Passwd?,
+    buflen: ULong,
+    result: COpaquePointer?,
+): Int {
+    val tmp = Passwd()
+    val rc = getpwuidRNapi(uid, tmp, buflen, result)
+    if (rc == 0 && result?.value != 0L && pwd != null) {
+        pwd.pwName = tmp.pwName
+        pwd.pwPasswd = tmp.pwPasswd
+        pwd.pwUid = tmp.pwUid
+        pwd.pwGid = tmp.pwGid
+        pwd.pwGecos = tmp.pwGecos
+        pwd.pwDir = tmp.pwDir
+        pwd.pwShell = tmp.pwShell
+    }
+    return rc
+}
+
+public fun getpwnamRNapi(
+    name: String?,
+    pwd: io.github.kotlinmania.libc.unix.bsd.Passwd?,
+    buflen: ULong,
+    result: COpaquePointer?,
+): Int {
+    val tmp = Passwd()
+    val rc = getpwnamRNapi(name, tmp, buflen, result)
+    if (rc == 0 && result?.value != 0L && pwd != null) {
+        pwd.pwName = tmp.pwName
+        pwd.pwPasswd = tmp.pwPasswd
+        pwd.pwUid = tmp.pwUid
+        pwd.pwGid = tmp.pwGid
+        pwd.pwGecos = tmp.pwGecos
+        pwd.pwDir = tmp.pwDir
+        pwd.pwShell = tmp.pwShell
+    }
+    return rc
+}
+
+public fun getpwuidRNapi(
+    uid: UInt,
+    pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
+    buflen: ULong,
+    result: COpaquePointer?,
+): Int {
+    val tmp = Passwd()
+    val rc = getpwuidRNapi(uid, tmp, buflen, result)
+    if (rc == 0 && result?.value != 0L && pwd != null) {
+        pwd.pwName = tmp.pwName
+        pwd.pwPasswd = tmp.pwPasswd
+        pwd.pwUid = tmp.pwUid
+        pwd.pwGid = tmp.pwGid
+        pwd.pwGecos = tmp.pwGecos
+        pwd.pwDir = tmp.pwDir
+        pwd.pwShell = tmp.pwShell
+    }
+    return rc
+}
+
+public fun getpwnamRNapi(
+    name: String?,
+    pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
+    buflen: ULong,
+    result: COpaquePointer?,
+): Int {
+    val tmp = Passwd()
+    val rc = getpwnamRNapi(name, tmp, buflen, result)
+    if (rc == 0 && result?.value != 0L && pwd != null) {
+        pwd.pwName = tmp.pwName
+        pwd.pwPasswd = tmp.pwPasswd
+        pwd.pwUid = tmp.pwUid
+        pwd.pwGid = tmp.pwGid
+        pwd.pwGecos = tmp.pwGecos
+        pwd.pwDir = tmp.pwDir
+        pwd.pwShell = tmp.pwShell
+    }
+    return rc
+}
+
+public fun getpwuidNapi(uid: UInt): Passwd? {
+    val pwd = Passwd()
+    val res = COpaquePointer(0L)
+    val rc = getpwuidRNapi(uid, pwd, 4096uL, res)
+    return if (rc == 0 && res.value != 0L) pwd else null
+}
+
+public fun getpwnamNapi(name: String?): Passwd? {
+    if (name == null) return null
+    val pwd = Passwd()
+    val res = COpaquePointer(0L)
+    val rc = getpwnamRNapi(name, pwd, 4096uL, res)
+    return if (rc == 0 && res.value != 0L) pwd else null
+}

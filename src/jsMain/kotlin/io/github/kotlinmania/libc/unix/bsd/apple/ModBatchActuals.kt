@@ -241,7 +241,7 @@ public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, t
     throw UnsupportedOperationException("threadInfo requires N-API addon")
 
 public actual fun error(): CInt? =
-    throw UnsupportedOperationException("error requires N-API addon")
+    getErrnoNapi()
 
 public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
     throw UnsupportedOperationException("backtrace requires N-API addon")
@@ -461,7 +461,7 @@ public actual fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT, 
     throw UnsupportedOperationException("posixSpawnFileActionsAdddup2 requires N-API addon")
 
 public actual fun uname(buf: Utsname?): CInt =
-    throw UnsupportedOperationException("uname requires N-API addon")
+    unameNapi(buf)
 
 public actual fun connectx(socket: CInt, endpoints: SaEndpointsT?, associd: SaeAssocidT, flags: CUInt, iov: Iovec?, iovcnt: CUInt, len: ULong?, connid: SaeConnidT?): CInt =
     throw UnsupportedOperationException("connectx requires N-API addon")

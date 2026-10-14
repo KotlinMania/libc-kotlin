@@ -146,7 +146,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
     throw UnsupportedOperationException("mprotect requires N-API addon")
 
 public actual fun errnoLocation(): CInt? =
-    throw UnsupportedOperationException("errnoLocation requires N-API addon")
+    getErrnoNapi()
 
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap requires N-API addon")
@@ -240,7 +240,7 @@ public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires N-API addon")
 
 public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen requires N-API addon")
+    popenNapi(command, mode)
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat requires N-API addon")

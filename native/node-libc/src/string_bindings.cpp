@@ -93,4 +93,14 @@ void RegisterStringBindings(Napi::Env env, Napi::Object exports) {
         if (!result) return Napi::Number::New(env, -1);
         return Napi::Number::New(env, result - str.c_str());
     }));
+
+    // strerror
+    exports.Set("strerror", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+        if (info.Length() < 1) return env.Null();
+        int errnum = info[0].As<Napi::Number>().Int32Value();
+        const char* msg = ::strerror(errnum);
+        if (!msg) return env.Null();
+        return Napi::String::New(env, msg);
+    }));
 }

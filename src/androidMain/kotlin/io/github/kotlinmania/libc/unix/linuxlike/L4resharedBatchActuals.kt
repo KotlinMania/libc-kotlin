@@ -146,7 +146,8 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
     throw UnsupportedOperationException("mprotect not available on Android host — use androidNative target for FFI")
 
 public actual fun errnoLocation(): CInt? =
-    throw UnsupportedOperationException("errnoLocation not available on Android host — use androidNative target for FFI")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getErrno()
 
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap not available on Android host — use androidNative target for FFI")
@@ -239,8 +240,13 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid not available on Android host — use androidNative target for FFI")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen not available on Android host — use androidNative target for FFI")
+public actual fun popen(command: String?, mode: String?): FILE? {
+    if (command == null || mode == null) return null
+    val ptr =
+        io.github.kotlinmania.libc.internal.LibcJni
+            .popen(command, mode)
+    return if (ptr == 0L) null else FILE(ptr)
+}
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat not available on Android host — use androidNative target for FFI")

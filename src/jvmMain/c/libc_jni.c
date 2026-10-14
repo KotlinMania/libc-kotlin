@@ -1,12 +1,16 @@
 #include <jni.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
 #ifndef _WIN32
 #include <unistd.h>
+#include <limits.h>
+#include <pwd.h>
 #include <sys/types.h>
+#include <sys/utsname.h>
 #include <sys/socket.h>
 #include <sys/select.h>
 #include <sys/ioctl.h>
@@ -1001,3 +1005,361 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_isatty(
     return (jint)_isatty((int)fd);
 #endif
 }
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_getErrno(
+    JNIEnv* env, jclass clazz) {
+    (void)env; (void)clazz;
+    return (jint)errno;
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_strerror(
+    JNIEnv* env, jclass clazz, jint errnum) {
+    (void)clazz;
+    const char* s = strerror((int)errnum);
+    return s ? (*env)->NewStringUTF(env, s) : NULL;
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_realpath(
+    JNIEnv* env, jclass clazz, jstring pathname) {
+    (void)clazz;
+    if (!pathname) {
+        errno = EINVAL;
+        return NULL;
+    }
+    const char* cpath = (*env)->GetStringUTFChars(env, pathname, NULL);
+    if (!cpath) return NULL;
+#ifndef _WIN32
+    char buf[4096];
+    char* res = realpath(cpath, buf);
+#else
+    char buf[4096];
+    char* res = _fullpath(buf, cpath, sizeof(buf));
+#endif
+    jstring out = res ? (*env)->NewStringUTF(env, res) : NULL;
+    (*env)->ReleaseStringUTFChars(env, pathname, cpath);
+    return out;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_access(
+    JNIEnv* env, jclass clazz, jstring path, jint mode) {
+    (void)clazz;
+    if (!path) {
+        errno = EINVAL;
+        return -1;
+    }
+    const char* cpath = (*env)->GetStringUTFChars(env, path, NULL);
+    if (!cpath) return -1;
+#ifndef _WIN32
+    int res = access(cpath, (int)mode);
+#else
+    int res = _access(cpath, (int)mode);
+#endif
+    (*env)->ReleaseStringUTFChars(env, path, cpath);
+    return (jint)res;
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_unameFields(
+    JNIEnv* env, jclass clazz) {
+    (void)clazz;
+    char out[2048];
+#ifndef _WIN32
+    struct utsname u;
+    memset(&u, 0, sizeof(u));
+    if (uname(&u) != 0) return NULL;
+    snprintf(out, sizeof(out), "%s\n%s\n%s\n%s\n%s",
+             u.sysname, u.nodename, u.release, u.version, u.machine);
+#else
+    char nodename[256] = "localhost";
+    DWORD sz = (DWORD)sizeof(nodename);
+    GetComputerNameA(nodename, &sz);
+    snprintf(out, sizeof(out), "Windows_NT\n%s\n10.0\nWindows\nx86_64", nodename);
+#endif
+    return (*env)->NewStringUTF(env, out);
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_getpwuidRStr(
+    JNIEnv* env, jclass clazz, jint uid, jlong buflen) {
+    (void)clazz;
+    char out[4096];
+    if (buflen < 64) {
+        snprintf(out, sizeof(out), "%d\n0", ERANGE);
+        return (*env)->NewStringUTF(env, out);
+    }
+#if !defined(_WIN32)
+    struct passwd pwd;
+    struct passwd* result = NULL;
+    size_t blen = (size_t)buflen;
+    if (blen > 16384) blen = 16384;
+    char* buf = (char*)malloc(blen);
+    if (!buf) {
+        snprintf(out, sizeof(out), "%d\n0", ENOMEM);
+        return (*env)->NewStringUTF(env, out);
+    }
+    int rc = getpwuid_r((uid_t)uid, &pwd, buf, blen, &result);
+    if (rc == 0 && result != NULL) {
+        snprintf(out, sizeof(out), "0\n1\n%s\n%s\n%u\n%u\n%s\n%s\n%s",
+                 result->pw_name ? result->pw_name : "",
+                 result->pw_passwd ? result->pw_passwd : "",
+                 (unsigned int)result->pw_uid,
+                 (unsigned int)result->pw_gid,
+                 result->pw_gecos ? result->pw_gecos : "",
+                 result->pw_dir ? result->pw_dir : "",
+                 result->pw_shell ? result->pw_shell : "");
+    } else {
+        snprintf(out, sizeof(out), "%d\n0", rc);
+    }
+    free(buf);
+#else
+    (void)uid;
+    const char* user = getenv("USERNAME");
+    const char* home = getenv("USERPROFILE");
+    snprintf(out, sizeof(out), "0\n1\n%s\n\n0\n0\n\n%s\n",
+             user ? user : "user", home ? home : "C:\\Users\\Default");
+#endif
+    return (*env)->NewStringUTF(env, out);
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_getpwnamRStr(
+    JNIEnv* env, jclass clazz, jstring name, jlong buflen) {
+    (void)clazz;
+    char out[4096];
+    if (!name) {
+        snprintf(out, sizeof(out), "%d\n0", EINVAL);
+        return (*env)->NewStringUTF(env, out);
+    }
+    if (buflen < 64) {
+        snprintf(out, sizeof(out), "%d\n0", ERANGE);
+        return (*env)->NewStringUTF(env, out);
+    }
+    const char* cname = (*env)->GetStringUTFChars(env, name, NULL);
+    if (!cname) {
+        snprintf(out, sizeof(out), "%d\n0", ENOMEM);
+        return (*env)->NewStringUTF(env, out);
+    }
+#if !defined(_WIN32)
+    struct passwd pwd;
+    struct passwd* result = NULL;
+    size_t blen = (size_t)buflen;
+    if (blen > 16384) blen = 16384;
+    char* buf = (char*)malloc(blen);
+    if (!buf) {
+        (*env)->ReleaseStringUTFChars(env, name, cname);
+        snprintf(out, sizeof(out), "%d\n0", ENOMEM);
+        return (*env)->NewStringUTF(env, out);
+    }
+    int rc = getpwnam_r(cname, &pwd, buf, blen, &result);
+    if (rc == 0 && result != NULL) {
+        snprintf(out, sizeof(out), "0\n1\n%s\n%s\n%u\n%u\n%s\n%s\n%s",
+                 result->pw_name ? result->pw_name : "",
+                 result->pw_passwd ? result->pw_passwd : "",
+                 (unsigned int)result->pw_uid,
+                 (unsigned int)result->pw_gid,
+                 result->pw_gecos ? result->pw_gecos : "",
+                 result->pw_dir ? result->pw_dir : "",
+                 result->pw_shell ? result->pw_shell : "");
+    } else {
+        snprintf(out, sizeof(out), "%d\n0", rc);
+    }
+    free(buf);
+#else
+    const char* user = getenv("USERNAME");
+    const char* home = getenv("USERPROFILE");
+    if (user && strcmp(cname, user) == 0) {
+        snprintf(out, sizeof(out), "0\n1\n%s\n\n0\n0\n\n%s\n",
+                 user, home ? home : "C:\\Users\\Default");
+    } else {
+        snprintf(out, sizeof(out), "0\n0");
+    }
+#endif
+    (*env)->ReleaseStringUTFChars(env, name, cname);
+    return (*env)->NewStringUTF(env, out);
+}
+
+JNIEXPORT jlong JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_fopen(
+    JNIEnv* env, jclass clazz, jstring path, jstring mode) {
+    (void)clazz;
+    if (!path || !mode) return 0;
+    const char* cpath = (*env)->GetStringUTFChars(env, path, NULL);
+    if (!cpath) return 0;
+    const char* cmode = (*env)->GetStringUTFChars(env, mode, NULL);
+    if (!cmode) {
+        (*env)->ReleaseStringUTFChars(env, path, cpath);
+        return 0;
+    }
+    FILE* fp = fopen(cpath, cmode);
+    (*env)->ReleaseStringUTFChars(env, mode, cmode);
+    (*env)->ReleaseStringUTFChars(env, path, cpath);
+    return (jlong)(uintptr_t)fp;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_fclose(
+    JNIEnv* env, jclass clazz, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == 0 || fp == -1) return EOF;
+    return (jint)fclose((FILE*)(uintptr_t)fp);
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_fflush(
+    JNIEnv* env, jclass clazz, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == -1) return EOF;
+    return (jint)fflush((FILE*)(uintptr_t)fp);
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_fgetc(
+    JNIEnv* env, jclass clazz, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == 0 || fp == -1) return EOF;
+    return (jint)fgetc((FILE*)(uintptr_t)fp);
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_fputc(
+    JNIEnv* env, jclass clazz, jint c, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == 0 || fp == -1) return EOF;
+    return (jint)fputc((int)c, (FILE*)(uintptr_t)fp);
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_fgets(
+    JNIEnv* env, jclass clazz, jint n, jlong fp) {
+    (void)clazz;
+    if (fp == 0 || fp == -1 || n <= 0) return NULL;
+    size_t cap = (size_t)n;
+    if (cap > 65536) cap = 65536;
+    char* buf = (char*)malloc(cap);
+    if (!buf) return NULL;
+    char* res = fgets(buf, (int)cap, (FILE*)(uintptr_t)fp);
+    jstring out = res ? (*env)->NewStringUTF(env, res) : NULL;
+    free(buf);
+    return out;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_fputs(
+    JNIEnv* env, jclass clazz, jstring s, jlong fp) {
+    (void)clazz;
+    if (!s || fp == 0 || fp == -1) return EOF;
+    const char* cs = (*env)->GetStringUTFChars(env, s, NULL);
+    if (!cs) return EOF;
+    int res = fputs(cs, (FILE*)(uintptr_t)fp);
+    (*env)->ReleaseStringUTFChars(env, s, cs);
+    return (jint)res;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_feof(
+    JNIEnv* env, jclass clazz, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == 0 || fp == -1) return 1;
+    return (jint)feof((FILE*)(uintptr_t)fp);
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_ferror(
+    JNIEnv* env, jclass clazz, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == 0 || fp == -1) return 1;
+    return (jint)ferror((FILE*)(uintptr_t)fp);
+}
+
+JNIEXPORT void JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_clearerr(
+    JNIEnv* env, jclass clazz, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == 0 || fp == -1) return;
+    clearerr((FILE*)(uintptr_t)fp);
+}
+
+JNIEXPORT jlong JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_popen(
+    JNIEnv* env, jclass clazz, jstring command, jstring mode) {
+    (void)clazz;
+    if (!command || !mode) return 0;
+    const char* ccmd = (*env)->GetStringUTFChars(env, command, NULL);
+    if (!ccmd) return 0;
+    const char* cmode = (*env)->GetStringUTFChars(env, mode, NULL);
+    if (!cmode) {
+        (*env)->ReleaseStringUTFChars(env, command, ccmd);
+        return 0;
+    }
+#ifndef _WIN32
+    FILE* fp = popen(ccmd, cmode);
+#else
+    FILE* fp = _popen(ccmd, cmode);
+#endif
+    (*env)->ReleaseStringUTFChars(env, mode, cmode);
+    (*env)->ReleaseStringUTFChars(env, command, ccmd);
+    return (jlong)(uintptr_t)fp;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_pclose(
+    JNIEnv* env, jclass clazz, jlong fp) {
+    (void)env; (void)clazz;
+    if (fp == 0 || fp == -1) return -1;
+#ifndef _WIN32
+    return (jint)pclose((FILE*)(uintptr_t)fp);
+#else
+    return (jint)_pclose((FILE*)(uintptr_t)fp);
+#endif
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_remove(
+    JNIEnv* env, jclass clazz, jstring filename) {
+    (void)clazz;
+    if (!filename) return -1;
+    const char* cfile = (*env)->GetStringUTFChars(env, filename, NULL);
+    if (!cfile) return -1;
+    int res = remove(cfile);
+    (*env)->ReleaseStringUTFChars(env, filename, cfile);
+    return (jint)res;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_rename(
+    JNIEnv* env, jclass clazz, jstring oldname, jstring newname) {
+    (void)clazz;
+    if (!oldname || !newname) return -1;
+    const char* cold = (*env)->GetStringUTFChars(env, oldname, NULL);
+    if (!cold) return -1;
+    const char* cnew = (*env)->GetStringUTFChars(env, newname, NULL);
+    if (!cnew) {
+        (*env)->ReleaseStringUTFChars(env, oldname, cold);
+        return -1;
+    }
+    int res = rename(cold, cnew);
+    (*env)->ReleaseStringUTFChars(env, newname, cnew);
+    (*env)->ReleaseStringUTFChars(env, oldname, cold);
+    return (jint)res;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_unlink(
+    JNIEnv* env, jclass clazz, jstring path) {
+    (void)clazz;
+    if (!path) return -1;
+    const char* cpath = (*env)->GetStringUTFChars(env, path, NULL);
+    if (!cpath) return -1;
+#ifndef _WIN32
+    int res = unlink(cpath);
+#else
+    int res = _unlink(cpath);
+#endif
+    (*env)->ReleaseStringUTFChars(env, path, cpath);
+    return (jint)res;
+}
+

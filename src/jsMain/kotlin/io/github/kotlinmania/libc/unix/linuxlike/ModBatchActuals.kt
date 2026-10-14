@@ -186,7 +186,7 @@ public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
 }
 
 public actual fun uname(buf: Utsname?): CInt =
-    throw UnsupportedOperationException("uname requires N-API addon")
+    unameNapi(buf)
 
 public actual fun strchrnul(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchrnul requires N-API addon")
@@ -218,10 +218,10 @@ public actual fun ifNameindex(): IfNameindex? =
 public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex requires N-API addon")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwnamR requires N-API addon")
+    getpwnamRNapi(name, pwd, buflen, result)
 
 public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwuidR requires N-API addon")
+    getpwuidRNapi(uid, pwd, buflen, result)
 
 public actual fun fstatfs64(fd: CInt, buf: Statfs64?): CInt =
     throw UnsupportedOperationException("fstatfs64 requires N-API addon")

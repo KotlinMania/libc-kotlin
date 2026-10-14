@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcNapiWasm
 
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires N-API addon")
@@ -146,7 +147,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
     throw UnsupportedOperationException("mprotect requires N-API addon")
 
 public actual fun errnoLocation(): CInt? =
-    throw UnsupportedOperationException("errnoLocation requires N-API addon")
+    LibcNapiWasm.getErrno()
 
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap requires N-API addon")
@@ -240,7 +241,7 @@ public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires N-API addon")
 
 public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen requires N-API addon")
+    LibcNapiWasm.popen(command, mode)
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat requires N-API addon")

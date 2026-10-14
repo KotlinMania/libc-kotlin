@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.bsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcNapiWasm
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires N-API addon")
@@ -177,10 +178,10 @@ public actual fun semUnlink(name: String?): CInt =
     throw UnsupportedOperationException("semUnlink requires N-API addon")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwnamR requires N-API addon")
+    LibcNapiWasm.getpwnamR(name, pwd, buflen, result)
 
 public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwuidR requires N-API addon")
+    LibcNapiWasm.getpwuidR(uid, pwd, buflen, result)
 
 public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
     throw UnsupportedOperationException("sigwait requires N-API addon")
@@ -189,7 +190,7 @@ public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires N-API addon")
 
 public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen requires N-API addon")
+    LibcNapiWasm.popen(command, mode)
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat requires N-API addon")

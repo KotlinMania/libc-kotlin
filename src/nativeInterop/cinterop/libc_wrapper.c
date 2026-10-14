@@ -429,9 +429,13 @@ int libc_getpid(void) {
     return getpid();
 #endif
 }
-#ifndef _WIN32
-int libc_getppid(void) { return getppid(); }
+int libc_getppid(void) {
+#ifdef _WIN32
+    return 0;
+#else
+    return getppid();
 #endif
+}
 #ifndef _WIN32
 int libc_pause(void) { return pause(); }
 #endif
@@ -443,18 +447,34 @@ int libc_sleep(unsigned int seconds) {
     return sleep(seconds);
 #endif
 }
-#ifndef _WIN32
-int libc_getuid(void) { return getuid(); }
+int libc_getuid(void) {
+#ifdef _WIN32
+    return 0;
+#else
+    return getuid();
 #endif
-#ifndef _WIN32
-int libc_geteuid(void) { return geteuid(); }
+}
+int libc_geteuid(void) {
+#ifdef _WIN32
+    return 0;
+#else
+    return geteuid();
 #endif
-#ifndef _WIN32
-int libc_getgid(void) { return getgid(); }
+}
+int libc_getgid(void) {
+#ifdef _WIN32
+    return 0;
+#else
+    return getgid();
 #endif
-#ifndef _WIN32
-int libc_getegid(void) { return getegid(); }
+}
+int libc_getegid(void) {
+#ifdef _WIN32
+    return 0;
+#else
+    return getegid();
 #endif
+}
 #ifndef _WIN32
 int libc_setuid(int uid) { return setuid(uid); }
 #endif
@@ -2168,6 +2188,378 @@ int libc_pidfd_open(int pid, unsigned int flags) {
 #endif
 }
 
+#ifdef _WIN32
+void* libc_popen(const char* command, const char* mode) {
+    return _popen(command, mode);
+}
+#endif
+
+void* libc_fgets(void* s, int size, void* stream) {
+    if (!s || !stream || size <= 0) return NULL;
+    return (void*)fgets((char*)s, size, (FILE*)stream);
+}
+
+int libc_pclose(void* stream) {
+    if (!stream) return -1;
+#ifdef _WIN32
+    return _pclose((FILE*)stream);
+#else
+    return pclose((FILE*)stream);
+#endif
+}
+
+int libc_get_errno(void) {
+    return errno;
+}
+
+void libc_set_errno(int err) {
+    errno = err;
+}
+
+#ifdef _WIN32
+int libc_uname(void* buf) {
+    if (!buf) {
+        errno = EFAULT;
+        return -1;
+    }
+    return 0;
+}
+#endif
+
+static void copy_cstr_field(void* dst, uint64_t dst_len, const char* src) {
+    if (!dst || dst_len == 0) return;
+    char* out = (char*)dst;
+    if (!src) {
+        out[0] = '\0';
+        return;
+    }
+    strncpy(out, src, (size_t)(dst_len - 1));
+    out[dst_len - 1] = '\0';
+}
+
+int libc_uname_fields(
+    void* sysname, uint64_t sysname_len,
+    void* nodename, uint64_t nodename_len,
+    void* release, uint64_t release_len,
+    void* version, uint64_t version_len,
+    void* machine, uint64_t machine_len,
+    void* domainname, uint64_t domainname_len
+) {
+#ifndef _WIN32
+    struct utsname u;
+    memset(&u, 0, sizeof(u));
+    int rc = uname(&u);
+    if (rc < 0) return rc;
+    copy_cstr_field(sysname, sysname_len, u.sysname);
+    copy_cstr_field(nodename, nodename_len, u.nodename);
+    copy_cstr_field(release, release_len, u.release);
+    copy_cstr_field(version, version_len, u.version);
+    copy_cstr_field(machine, machine_len, u.machine);
+#if defined(__linux__) && defined(_GNU_SOURCE)
+    copy_cstr_field(domainname, domainname_len, u.domainname);
+#else
+    copy_cstr_field(domainname, domainname_len, "");
+#endif
+    return rc;
+#else
+    const char* comp = getenv("COMPUTERNAME");
+    copy_cstr_field(sysname, sysname_len, "Windows_NT");
+    copy_cstr_field(nodename, nodename_len, comp ? comp : "windows");
+    copy_cstr_field(release, release_len, "10.0");
+    copy_cstr_field(version, version_len, "10.0");
+    copy_cstr_field(machine, machine_len, "x86_64");
+    copy_cstr_field(domainname, domainname_len, "");
+    return 0;
+#endif
+}
+
+#ifndef _WIN32
+static void populate_passwd_fields(
+    const struct passwd* p,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire
+) {
+    copy_cstr_field(pw_name, name_len, p->pw_name);
+    copy_cstr_field(pw_passwd, passwd_len, p->pw_passwd);
+    if (pw_uid) *pw_uid = (uint32_t)p->pw_uid;
+    if (pw_gid) *pw_gid = (uint32_t)p->pw_gid;
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    if (pw_change) *pw_change = (int64_t)p->pw_change;
+    copy_cstr_field(pw_class, class_len, p->pw_class);
+    if (pw_expire) *pw_expire = (int64_t)p->pw_expire;
+#else
+    if (pw_change) *pw_change = 0;
+    copy_cstr_field(pw_class, class_len, "");
+    if (pw_expire) *pw_expire = 0;
+#endif
+#if !defined(__ANDROID__) || (__ANDROID_API__ >= 21)
+    copy_cstr_field(pw_gecos, gecos_len, p->pw_gecos);
+#else
+    copy_cstr_field(pw_gecos, gecos_len, "");
+#endif
+    copy_cstr_field(pw_dir, dir_len, p->pw_dir);
+    copy_cstr_field(pw_shell, shell_len, p->pw_shell);
+}
+#else
+static void populate_win_passwd_fields(
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire
+) {
+    const char* user = getenv("USERNAME");
+    if (!user || !user[0]) user = "root";
+    const char* dir = getenv("USERPROFILE");
+    if (!dir || !dir[0]) dir = "C:\\Users\\Default";
+    const char* shell = getenv("COMSPEC");
+    if (!shell || !shell[0]) shell = "C:\\Windows\\System32\\cmd.exe";
+    copy_cstr_field(pw_name, name_len, user);
+    copy_cstr_field(pw_passwd, passwd_len, "x");
+    if (pw_uid) *pw_uid = 0;
+    if (pw_gid) *pw_gid = 0;
+    if (pw_change) *pw_change = 0;
+    copy_cstr_field(pw_class, class_len, "");
+    copy_cstr_field(pw_gecos, gecos_len, user);
+    copy_cstr_field(pw_dir, dir_len, dir);
+    copy_cstr_field(pw_shell, shell_len, shell);
+    if (pw_expire) *pw_expire = 0;
+}
+#endif
+
+int libc_getpwuid_fields(
+    uint32_t uid,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire
+) {
+#ifndef _WIN32
+    struct passwd* res = getpwuid((uid_t)uid);
+    if (!res) return 0;
+    populate_passwd_fields(
+        res,
+        pw_name, name_len,
+        pw_passwd, passwd_len,
+        pw_uid, pw_gid,
+        pw_change,
+        pw_class, class_len,
+        pw_gecos, gecos_len,
+        pw_dir, dir_len,
+        pw_shell, shell_len,
+        pw_expire
+    );
+    return 1;
+#else
+    if (uid != 0) return 0;
+    populate_win_passwd_fields(
+        pw_name, name_len,
+        pw_passwd, passwd_len,
+        pw_uid, pw_gid,
+        pw_change,
+        pw_class, class_len,
+        pw_gecos, gecos_len,
+        pw_dir, dir_len,
+        pw_shell, shell_len,
+        pw_expire
+    );
+    return 1;
+#endif
+}
+
+int libc_getpwnam_fields(
+    const char* name,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire
+) {
+#ifndef _WIN32
+    if (!name) return 0;
+    struct passwd* res = getpwnam(name);
+    if (!res) return 0;
+    populate_passwd_fields(
+        res,
+        pw_name, name_len,
+        pw_passwd, passwd_len,
+        pw_uid, pw_gid,
+        pw_change,
+        pw_class, class_len,
+        pw_gecos, gecos_len,
+        pw_dir, dir_len,
+        pw_shell, shell_len,
+        pw_expire
+    );
+    return 1;
+#else
+    if (!name) return 0;
+    const char* user = getenv("USERNAME");
+    if (!user || !user[0]) user = "root";
+    if (strcmp(name, user) != 0 && strcmp(name, "root") != 0) return 0;
+    populate_win_passwd_fields(
+        pw_name, name_len,
+        pw_passwd, passwd_len,
+        pw_uid, pw_gid,
+        pw_change,
+        pw_class, class_len,
+        pw_gecos, gecos_len,
+        pw_dir, dir_len,
+        pw_shell, shell_len,
+        pw_expire
+    );
+    return 1;
+#endif
+}
+
+int libc_getpwuid_r_fields(
+    uint32_t uid,
+    uint64_t buflen,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire,
+    int* found
+) {
+    if (found) *found = 0;
+#ifndef _WIN32
+    struct passwd pwd;
+    memset(&pwd, 0, sizeof(pwd));
+    struct passwd* res = NULL;
+    size_t alloc_len = (size_t)buflen;
+    char* tmp_buf = alloc_len > 0 ? (char*)malloc(alloc_len) : NULL;
+    if (alloc_len > 0 && !tmp_buf) {
+        return ENOMEM;
+    }
+    int rc = getpwuid_r((uid_t)uid, &pwd, tmp_buf ? tmp_buf : (char*)&pwd, alloc_len, &res);
+    if (rc == 0 && res != NULL) {
+        if (found) *found = 1;
+        populate_passwd_fields(
+            res,
+            pw_name, name_len,
+            pw_passwd, passwd_len,
+            pw_uid, pw_gid,
+            pw_change,
+            pw_class, class_len,
+            pw_gecos, gecos_len,
+            pw_dir, dir_len,
+            pw_shell, shell_len,
+            pw_expire
+        );
+    }
+    if (tmp_buf) free(tmp_buf);
+    return rc;
+#else
+    if (buflen == 0) return ERANGE;
+    if (uid == 0) {
+        if (found) *found = 1;
+        populate_win_passwd_fields(
+            pw_name, name_len,
+            pw_passwd, passwd_len,
+            pw_uid, pw_gid,
+            pw_change,
+            pw_class, class_len,
+            pw_gecos, gecos_len,
+            pw_dir, dir_len,
+            pw_shell, shell_len,
+            pw_expire
+        );
+    }
+    return 0;
+#endif
+}
+
+int libc_getpwnam_r_fields(
+    const char* name,
+    uint64_t buflen,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire,
+    int* found
+) {
+    if (found) *found = 0;
+#ifndef _WIN32
+    if (!name) return EINVAL;
+    struct passwd pwd;
+    memset(&pwd, 0, sizeof(pwd));
+    struct passwd* res = NULL;
+    size_t alloc_len = (size_t)buflen;
+    char* tmp_buf = alloc_len > 0 ? (char*)malloc(alloc_len) : NULL;
+    if (alloc_len > 0 && !tmp_buf) {
+        return ENOMEM;
+    }
+    int rc = getpwnam_r(name, &pwd, tmp_buf ? tmp_buf : (char*)&pwd, alloc_len, &res);
+    if (rc == 0 && res != NULL) {
+        if (found) *found = 1;
+        populate_passwd_fields(
+            res,
+            pw_name, name_len,
+            pw_passwd, passwd_len,
+            pw_uid, pw_gid,
+            pw_change,
+            pw_class, class_len,
+            pw_gecos, gecos_len,
+            pw_dir, dir_len,
+            pw_shell, shell_len,
+            pw_expire
+        );
+    }
+    if (tmp_buf) free(tmp_buf);
+    return rc;
+#else
+    if (!name) return EINVAL;
+    if (buflen == 0) return ERANGE;
+    const char* user = getenv("USERNAME");
+    if (!user || !user[0]) user = "root";
+    if (strcmp(name, user) == 0 || strcmp(name, "root") == 0) {
+        if (found) *found = 1;
+        populate_win_passwd_fields(
+            pw_name, name_len,
+            pw_passwd, passwd_len,
+            pw_uid, pw_gid,
+            pw_change,
+            pw_class, class_len,
+            pw_gecos, gecos_len,
+            pw_dir, dir_len,
+            pw_shell, shell_len,
+            pw_expire
+        );
+    }
+    return 0;
+#endif
+}
+
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #elif defined(__GNUC__)
@@ -2181,3 +2573,4 @@ uint32_t libc_mach_task_self(void) {
     return 0;
 #endif
 }
+

@@ -15,8 +15,8 @@ public typealias InAddrT = UInt
 public typealias InPortT = UShort
 public typealias SighandlerT = ULong
 public typealias CcT = CUChar
-public typealias UidT = CUShort
-public typealias GidT = CUShort
+public typealias UidT = UInt
+public typealias GidT = UInt
 public typealias LocaleT = COpaquePointer?
 
 public data class Group(
