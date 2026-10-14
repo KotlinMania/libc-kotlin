@@ -229,10 +229,10 @@ public actual fun semUnlink(name: String?): CInt =
     throw UnsupportedOperationException("semUnlink requires N-API addon")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwnamR requires N-API addon")
+    getpwnamRNapi(name, pwd, buflen, result)
 
 public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwuidR requires N-API addon")
+    getpwuidRNapi(uid, pwd, buflen, result)
 
 public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
     throw UnsupportedOperationException("sigwait requires N-API addon")
@@ -241,7 +241,7 @@ public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid requires N-API addon")
 
 public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen requires N-API addon")
+    popenNapi(command, mode)
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat requires N-API addon")

@@ -241,7 +241,8 @@ public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, t
     throw UnsupportedOperationException("threadInfo not available on JVM — no C library access")
 
 public actual fun error(): CInt? =
-    throw UnsupportedOperationException("error not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getErrno()
 
 public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
     throw UnsupportedOperationException("backtrace not available on JVM — no C library access")
@@ -461,7 +462,8 @@ public actual fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT, 
     throw UnsupportedOperationException("posixSpawnFileActionsAdddup2 not available on JVM — no C library access")
 
 public actual fun uname(buf: Utsname?): CInt =
-    throw UnsupportedOperationException("uname not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .uname(buf)
 
 public actual fun connectx(socket: CInt, endpoints: SaEndpointsT?, associd: SaeAssocidT, flags: CUInt, iov: Iovec?, iovcnt: CUInt, len: ULong?, connid: SaeConnidT?): CInt =
     throw UnsupportedOperationException("connectx not available on JVM — no C library access")

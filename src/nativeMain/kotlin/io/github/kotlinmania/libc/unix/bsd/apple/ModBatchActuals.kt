@@ -384,7 +384,7 @@ public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, t
     throw UnsupportedOperationException("threadInfo requires manual FFI bridge — not yet implemented")
 
 public actual fun error(): CInt? =
-    throw UnsupportedOperationException("error requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_get_errno()
 
 public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt = libc.cinterop.libc_backtrace(buf?.value?.toCPointer<CPointerVar<ByteVar>>()?.reinterpret(), sz)
 
@@ -670,9 +670,42 @@ public actual fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT, 
 
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
-    val result = libc_uname(bufPtr)
-    return result
+    if (buf.handle != 0L) {
+        val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
+        libc_uname(bufPtr)
+    }
+    return memScoped {
+        val sys = allocArray<ByteVar>(256)
+        val node = allocArray<ByteVar>(256)
+        val rel = allocArray<ByteVar>(256)
+        val ver = allocArray<ByteVar>(256)
+        val mach = allocArray<ByteVar>(256)
+        val dom = allocArray<ByteVar>(256)
+        val rc =
+            libc.cinterop.libc_uname_fields(
+                sys,
+                256uL,
+                node,
+                256uL,
+                rel,
+                256uL,
+                ver,
+                256uL,
+                mach,
+                256uL,
+                dom,
+                256uL,
+            )
+        if (rc >= 0) {
+            for (i in 0 until minOf(256, buf.sysname.size)) buf.sysname[i] = sys[i]
+            for (i in 0 until minOf(256, buf.nodename.size)) buf.nodename[i] = node[i]
+            for (i in 0 until minOf(256, buf.release.size)) buf.release[i] = rel[i]
+            for (i in 0 until minOf(256, buf.version.size)) buf.version[i] = ver[i]
+            for (i in 0 until minOf(256, buf.machine.size)) buf.machine[i] = mach[i]
+            for (i in 0 until minOf(256, buf.domainname.size)) buf.domainname[i] = dom[i]
+        }
+        rc
+    }
 }
 
 public actual fun connectx(socket: CInt, endpoints: SaEndpointsT?, associd: SaeAssocidT, flags: CUInt, iov: Iovec?, iovcnt: CUInt, len: ULong?, connid: SaeConnidT?): CInt =

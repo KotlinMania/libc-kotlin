@@ -587,4 +587,71 @@ int64_t libc_recvmsg_simple(int sockfd, void* name, int* namelen, void* iov_base
 int64_t libc_syscall(int64_t number, int64_t a1, int64_t a2, int64_t a3, int64_t a4, int64_t a5, int64_t a6);
 int libc_pidfd_open(int pid, unsigned int flags);
 
+/* Additional stdio, errno, uname, and passwd field bridges */
+void* libc_fgets(void* s, int size, void* stream);
+int libc_pclose(void* stream);
+int libc_get_errno(void);
+void libc_set_errno(int err);
+int libc_uname_fields(
+    void* sysname, uint64_t sysname_len,
+    void* nodename, uint64_t nodename_len,
+    void* release, uint64_t release_len,
+    void* version, uint64_t version_len,
+    void* machine, uint64_t machine_len,
+    void* domainname, uint64_t domainname_len
+);
+int libc_getpwuid_fields(
+    uint32_t uid,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire
+);
+int libc_getpwnam_fields(
+    const char* name,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire
+);
+int libc_getpwuid_r_fields(
+    uint32_t uid,
+    uint64_t buflen,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire,
+    int* found
+);
+int libc_getpwnam_r_fields(
+    const char* name,
+    uint64_t buflen,
+    void* pw_name, uint64_t name_len,
+    void* pw_passwd, uint64_t passwd_len,
+    uint32_t* pw_uid, uint32_t* pw_gid,
+    int64_t* pw_change,
+    void* pw_class, uint64_t class_len,
+    void* pw_gecos, uint64_t gecos_len,
+    void* pw_dir, uint64_t dir_len,
+    void* pw_shell, uint64_t shell_len,
+    int64_t* pw_expire,
+    int* found
+);
+
 #endif /* LIBC_WRAPPER_H */
+

@@ -146,7 +146,8 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
     throw UnsupportedOperationException("mprotect not available on JVM — no C library access")
 
 public actual fun errnoLocation(): CInt? =
-    throw UnsupportedOperationException("errnoLocation not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getErrno()
 
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap not available on JVM — no C library access")
@@ -239,8 +240,13 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid not available on JVM — no C library access")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen not available on JVM — no C library access")
+public actual fun popen(command: String?, mode: String?): FILE? {
+    if (command == null || mode == null) return null
+    val ptr =
+        io.github.kotlinmania.libc.internal.LibcJni
+            .popen(command, mode)
+    return if (ptr == 0L) null else FILE(ptr)
+}
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat not available on JVM — no C library access")

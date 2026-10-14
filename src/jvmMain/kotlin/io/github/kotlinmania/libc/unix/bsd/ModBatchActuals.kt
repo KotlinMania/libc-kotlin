@@ -252,10 +252,12 @@ public actual fun semUnlink(name: String?): CInt =
     throw UnsupportedOperationException("semUnlink not available on JVM — no C library access")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwnamR not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getpwnamR(name, pwd, buflen, result)
 
 public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwuidR not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getpwuidR(uid, pwd, buflen, result)
 
 public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
     throw UnsupportedOperationException("sigwait not available on JVM — no C library access")
@@ -263,8 +265,13 @@ public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
 public actual fun getgrgid(gid: GidT): Group? =
     throw UnsupportedOperationException("getgrgid not available on JVM — no C library access")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen not available on JVM — no C library access")
+public actual fun popen(command: String?, mode: String?): FILE? {
+    if (command == null || mode == null) return null
+    val ptr =
+        io.github.kotlinmania.libc.internal.LibcJni
+            .popen(command, mode)
+    return if (ptr == 0L) null else FILE(ptr)
+}
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat not available on JVM — no C library access")

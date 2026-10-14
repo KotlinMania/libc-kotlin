@@ -187,7 +187,8 @@ public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
 }
 
 public actual fun uname(buf: Utsname?): CInt =
-    throw UnsupportedOperationException("uname not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .uname(buf)
 
 public actual fun strchrnul(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchrnul not available on JVM — no C library access")
@@ -219,10 +220,12 @@ public actual fun ifNameindex(): IfNameindex? =
 public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex not available on JVM — no C library access")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwnamR not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getpwnamR(name, pwd, buflen, result)
 
 public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwuidR not available on JVM — no C library access")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getpwuidR(uid, pwd, buflen, result)
 
 public actual fun fstatfs64(fd: CInt, buf: Statfs64?): CInt =
     throw UnsupportedOperationException("fstatfs64 not available on JVM — no C library access")

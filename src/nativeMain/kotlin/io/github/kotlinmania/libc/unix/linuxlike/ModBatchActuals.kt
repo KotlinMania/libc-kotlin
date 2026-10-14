@@ -217,9 +217,42 @@ public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
 
 public actual fun uname(buf: Utsname?): CInt {
     if (buf == null) return -1
-    val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
-    val result = libc_uname(bufPtr)
-    return result
+    if (buf.handle != 0L) {
+        val bufPtr: CPointer<ByteVar>? = buf.handle.toCPointer()
+        libc_uname(bufPtr)
+    }
+    return memScoped {
+        val sys = allocArray<ByteVar>(256)
+        val node = allocArray<ByteVar>(256)
+        val rel = allocArray<ByteVar>(256)
+        val ver = allocArray<ByteVar>(256)
+        val mach = allocArray<ByteVar>(256)
+        val dom = allocArray<ByteVar>(256)
+        val rc =
+            libc.cinterop.libc_uname_fields(
+                sys,
+                256uL,
+                node,
+                256uL,
+                rel,
+                256uL,
+                ver,
+                256uL,
+                mach,
+                256uL,
+                dom,
+                256uL,
+            )
+        if (rc >= 0) {
+            for (i in 0 until minOf(256, buf.sysname.size)) buf.sysname[i] = sys[i]
+            for (i in 0 until minOf(256, buf.nodename.size)) buf.nodename[i] = node[i]
+            for (i in 0 until minOf(256, buf.release.size)) buf.release[i] = rel[i]
+            for (i in 0 until minOf(256, buf.version.size)) buf.version[i] = ver[i]
+            for (i in 0 until minOf(256, buf.machine.size)) buf.machine[i] = mach[i]
+            for (i in 0 until minOf(256, buf.domainname.size)) buf.domainname[i] = dom[i]
+        }
+        rc
+    }
 }
 
 public actual fun strchrnul(s: String?, c: CInt): String? =
@@ -256,10 +289,112 @@ public actual fun ifNameindex(): IfNameindex? =
 public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex requires manual FFI bridge — not yet implemented")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwnamR requires manual FFI bridge — not yet implemented")
+    memScoped {
+        val nameBuf = allocArray<ByteVar>(1024)
+        val passwdBuf = allocArray<ByteVar>(1024)
+        val uidVar = alloc<UIntVar>()
+        val gidVar = alloc<UIntVar>()
+        val changeVar = alloc<LongVar>()
+        val classBuf = allocArray<ByteVar>(1024)
+        val gecosBuf = allocArray<ByteVar>(1024)
+        val dirBuf = allocArray<ByteVar>(1024)
+        val shellBuf = allocArray<ByteVar>(1024)
+        val expireVar = alloc<LongVar>()
+        val foundVar = alloc<IntVar>()
+        val rc =
+            libc.cinterop.libc_getpwnam_r_fields(
+                name,
+                buflen,
+                nameBuf,
+                1024uL,
+                passwdBuf,
+                1024uL,
+                uidVar.ptr,
+                gidVar.ptr,
+                changeVar.ptr,
+                classBuf,
+                1024uL,
+                gecosBuf,
+                1024uL,
+                dirBuf,
+                1024uL,
+                shellBuf,
+                1024uL,
+                expireVar.ptr,
+                foundVar.ptr,
+            )
+        if (foundVar.value != 0 && pwd != null) {
+            pwd.pwName = nameBuf.toKString()
+            pwd.pwPasswd = passwdBuf.toKString()
+            pwd.pwUid = uidVar.value
+            pwd.pwGid = gidVar.value
+            pwd.pwGecos = gecosBuf.toKString()
+            pwd.pwDir = dirBuf.toKString()
+            pwd.pwShell = shellBuf.toKString()
+        }
+        if (result != null) {
+            val orig = result.value
+            if (orig >= 4096L) {
+                orig.toCPointer<LongVar>()?.pointed?.value = if (foundVar.value != 0) 1L else 0L
+            }
+            result.value = if (foundVar.value != 0) (if (orig >= 4096L) orig else 1L) else 0L
+        }
+        rc
+    }
 
 public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwuidR requires manual FFI bridge — not yet implemented")
+    memScoped {
+        val nameBuf = allocArray<ByteVar>(1024)
+        val passwdBuf = allocArray<ByteVar>(1024)
+        val uidVar = alloc<UIntVar>()
+        val gidVar = alloc<UIntVar>()
+        val changeVar = alloc<LongVar>()
+        val classBuf = allocArray<ByteVar>(1024)
+        val gecosBuf = allocArray<ByteVar>(1024)
+        val dirBuf = allocArray<ByteVar>(1024)
+        val shellBuf = allocArray<ByteVar>(1024)
+        val expireVar = alloc<LongVar>()
+        val foundVar = alloc<IntVar>()
+        val rc =
+            libc.cinterop.libc_getpwuid_r_fields(
+                uid,
+                buflen,
+                nameBuf,
+                1024uL,
+                passwdBuf,
+                1024uL,
+                uidVar.ptr,
+                gidVar.ptr,
+                changeVar.ptr,
+                classBuf,
+                1024uL,
+                gecosBuf,
+                1024uL,
+                dirBuf,
+                1024uL,
+                shellBuf,
+                1024uL,
+                expireVar.ptr,
+                foundVar.ptr,
+            )
+        if (foundVar.value != 0 && pwd != null) {
+            pwd.pwName = nameBuf.toKString()
+            pwd.pwPasswd = passwdBuf.toKString()
+            pwd.pwUid = uidVar.value
+            pwd.pwGid = gidVar.value
+            pwd.pwGecos = gecosBuf.toKString()
+            pwd.pwDir = dirBuf.toKString()
+            pwd.pwShell = shellBuf.toKString()
+        }
+        if (result != null) {
+            val orig = result.value
+            if (orig >= 4096L) {
+                orig.toCPointer<LongVar>()?.pointed?.value = if (foundVar.value != 0) 1L else 0L
+            }
+            result.value = if (foundVar.value != 0) (if (orig >= 4096L) orig else 1L) else 0L
+        }
+        rc
+    }
 
 public actual fun fstatfs64(fd: CInt, buf: Statfs64?): CInt =
     throw UnsupportedOperationException("fstatfs64 requires manual FFI bridge — not yet implemented")

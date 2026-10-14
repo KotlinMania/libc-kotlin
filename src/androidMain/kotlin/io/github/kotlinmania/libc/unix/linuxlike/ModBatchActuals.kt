@@ -167,14 +167,28 @@ public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
     throw UnsupportedOperationException("readv not available on Android host — use androidNative target for FFI")
 
-public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("sendmsg not available on Android host — use androidNative target for FFI")
+public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
+    val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
+    val iovBytes = msg?.msgIov?.let { ByteArray(msg.msgIovlen.toInt()) }
+    val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
+    return io.github.kotlinmania.libc.internal.LibcJni
+        .sendmsg(fd, nameBytes, iovBytes, ctlBytes, flags)
+}
 
-public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recvmsg not available on Android host — use androidNative target for FFI")
+public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT {
+    val nameBytes = msg?.msgName?.let { ByteArray(msg.msgNamelen.toInt()) }
+    val nameLenOut = msg?.msgName?.let { intArrayOf(msg.msgNamelen.toInt()) }
+    val iovBytes = msg?.msgIov?.let { ByteArray(msg.msgIovlen.toInt()) }
+    val ctlBytes = msg?.msgControl?.let { ByteArray(msg.msgControllen.toInt()) }
+    val ctlLenOut = msg?.msgControl?.let { intArrayOf(msg.msgControllen.toInt()) }
+    val flagsOut = intArrayOf(0)
+    return io.github.kotlinmania.libc.internal.LibcJni
+        .recvmsg(fd, nameBytes, nameLenOut, iovBytes, ctlBytes, ctlLenOut, flagsOut, flags)
+}
 
 public actual fun uname(buf: Utsname?): CInt =
-    throw UnsupportedOperationException("uname not available on Android host — use androidNative target for FFI")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .uname(buf)
 
 public actual fun strchrnul(s: String?, c: CInt): String? =
     throw UnsupportedOperationException("strchrnul not available on Android host — use androidNative target for FFI")
@@ -206,10 +220,12 @@ public actual fun ifNameindex(): IfNameindex? =
 public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex not available on Android host — use androidNative target for FFI")
 
 public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwnamR not available on Android host — use androidNative target for FFI")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getpwnamR(name, pwd, buflen, result)
 
 public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getpwuidR not available on Android host — use androidNative target for FFI")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getpwuidR(uid, pwd, buflen, result)
 
 public actual fun fstatfs64(fd: CInt, buf: Statfs64?): CInt =
     throw UnsupportedOperationException("fstatfs64 not available on Android host — use androidNative target for FFI")

@@ -57,16 +57,16 @@ public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? 
     throw UnsupportedOperationException("freopen requires N-API addon")
 
 public actual fun fflush(file: FILE?): CInt =
-    LibcNative.fflush(file?.handle?.toInt() ?: -1)
+    LibcNative.fflush(file?.handle?.toInt() ?: 0)
 
 public actual fun fclose(file: FILE?): CInt =
     LibcNative.fclose(file?.handle?.toInt() ?: -1)
 
 public actual fun remove(filename: String?): CInt =
-    throw UnsupportedOperationException("remove requires N-API addon")
+    removeNapi(filename)
 
 public actual fun rename(oldname: String?, newname: String?): CInt =
-    throw UnsupportedOperationException("rename requires N-API addon")
+    renameNapi(oldname, newname)
 
 public actual fun tmpfile(): FILE? =
     throw UnsupportedOperationException("tmpfile requires N-API addon")
@@ -83,16 +83,16 @@ public actual fun putchar(c: CInt): CInt =
     throw UnsupportedOperationException("putchar requires N-API addon")
 
 public actual fun fgetc(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fgetc requires N-API addon")
+    fgetcNapi(stream)
 
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
-    throw UnsupportedOperationException("fgets requires N-API addon")
+    fgetsNapi(n, stream)
 
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputc requires N-API addon")
+    fputcNapi(c, stream)
 
 public actual fun fputs(s: String?, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputs requires N-API addon")
+    fputsNapi(s, stream)
 
 public actual fun puts(s: String?): CInt =
     throw UnsupportedOperationException("puts requires N-API addon")
@@ -121,12 +121,14 @@ public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fsetpos requires N-API addon")
 
 public actual fun feof(stream: FILE?): CInt =
-    throw UnsupportedOperationException("feof requires N-API addon")
+    feofNapi(stream)
 
 public actual fun ferror(stream: FILE?): CInt =
-    throw UnsupportedOperationException("ferror requires N-API addon")
+    ferrorNapi(stream)
 
-public actual fun clearerr(stream: FILE?): Unit = throw UnsupportedOperationException("clearerr requires N-API addon")
+public actual fun clearerr(stream: FILE?) {
+    clearerrNapi(stream)
+}
 
 public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror requires N-API addon")
 
@@ -236,7 +238,7 @@ public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
     throw UnsupportedOperationException("strnlen requires N-API addon")
 
 public actual fun strerror(n: CInt): String? =
-    throw UnsupportedOperationException("strerror requires N-API addon")
+    strerrorNapi(n)
 
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok requires N-API addon")
@@ -284,10 +286,10 @@ public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, 
     throw UnsupportedOperationException("memccpy requires N-API addon")
 
 public actual fun getpwnam(name: String?): Passwd? =
-    throw UnsupportedOperationException("getpwnam requires N-API addon")
+    getpwnamNapi(name)
 
 public actual fun getpwuid(uid: UidT): Passwd? =
-    throw UnsupportedOperationException("getpwuid requires N-API addon")
+    getpwuidNapi(uid)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires N-API addon")
@@ -370,7 +372,7 @@ public actual fun stat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("stat requires N-API addon")
 
 public actual fun pclose(stream: FILE?): CInt =
-    throw UnsupportedOperationException("pclose requires N-API addon")
+    pcloseNapi(stream)
 
 public actual fun fdopen(fd: CInt, mode: String?): FILE? =
     throw UnsupportedOperationException("fdopen requires N-API addon")
@@ -495,32 +497,16 @@ public actual fun getppid(): PidT =
     getppidNapi()
 
 public actual fun geteuid(): UidT =
-    try {
-        LibcNative.geteuid().toUShort()
-    } catch (_: Throwable) {
-        0u
-    }
+    LibcNative.geteuid().toUInt()
 
 public actual fun getegid(): GidT =
-    try {
-        LibcNative.getegid().toUShort()
-    } catch (_: Throwable) {
-        0u
-    }
+    LibcNative.getegid().toUInt()
 
 public actual fun getuid(): UidT =
-    try {
-        LibcNative.getuid().toUShort()
-    } catch (_: Throwable) {
-        0u
-    }
+    LibcNative.getuid().toUInt()
 
 public actual fun getgid(): GidT =
-    try {
-        LibcNative.getgid().toUShort()
-    } catch (_: Throwable) {
-        0u
-    }
+    LibcNative.getgid().toUInt()
 
 public actual fun isatty(fd: CInt): CInt =
     isattyNapi(fd)
@@ -663,7 +649,7 @@ public actual fun getrusage(resource: CInt, usage: Rusage?): CInt =
     throw UnsupportedOperationException("getrusage requires N-API addon")
 
 public actual fun realpath(pathname: String?, resolved: String?): String? =
-    throw UnsupportedOperationException("realpath requires N-API addon")
+    realpathNapi(pathname)
 
 public actual fun times(buf: Tms?): ClockT =
     throw UnsupportedOperationException("times requires N-API addon")

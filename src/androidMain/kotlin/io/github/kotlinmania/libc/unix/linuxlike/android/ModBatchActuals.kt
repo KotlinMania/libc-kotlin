@@ -352,14 +352,20 @@ public actual fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroup
 public actual fun initgroups(user: String?, group: GidT): CInt =
     throw UnsupportedOperationException("initgroups not available on Android host — use androidNative target for FFI")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("popen not available on Android host — use androidNative target for FFI")
+public actual fun popen(command: String?, mode: String?): FILE? {
+    if (command == null || mode == null) return null
+    val ptr =
+        io.github.kotlinmania.libc.internal.LibcJni
+            .popen(command, mode)
+    return if (ptr == 0L) null else FILE(ptr)
+}
 
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     throw UnsupportedOperationException("faccessat not available on Android host — use androidNative target for FFI")
 
 public actual fun errno(): CInt? =
-    throw UnsupportedOperationException("errno not available on Android host — use androidNative target for FFI")
+    io.github.kotlinmania.libc.internal.LibcJni
+        .getErrno()
 
 public actual fun inotifyRmWatch(fd: CInt, wd: UInt): CInt =
     throw UnsupportedOperationException("inotifyRmWatch not available on Android host — use androidNative target for FFI")

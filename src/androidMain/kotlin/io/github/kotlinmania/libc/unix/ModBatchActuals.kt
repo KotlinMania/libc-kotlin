@@ -46,23 +46,26 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper not available on Android host — use androidNative target for FFI")
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen not available on Android host — use androidNative target for FFI")
+public actual fun fopen(filename: String?, mode: String?): FILE? {
+    if (filename == null || mode == null) return null
+    val ptr = LibcJni.fopen(filename, mode)
+    return if (ptr == 0L) null else FILE(ptr)
+}
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen not available on Android host — use androidNative target for FFI")
 
 public actual fun fflush(file: FILE?): CInt =
-    throw UnsupportedOperationException("fflush not available on Android host — use androidNative target for FFI")
+    LibcJni.fflush(file?.handle ?: 0L)
 
 public actual fun fclose(file: FILE?): CInt =
-    throw UnsupportedOperationException("fclose not available on Android host — use androidNative target for FFI")
+    if (file == null || file.handle == 0L) -1 else LibcJni.fclose(file.handle)
 
 public actual fun remove(filename: String?): CInt =
-    throw UnsupportedOperationException("remove not available on Android host — use androidNative target for FFI")
+    if (filename == null) -1 else LibcJni.remove(filename)
 
 public actual fun rename(oldname: String?, newname: String?): CInt =
-    throw UnsupportedOperationException("rename not available on Android host — use androidNative target for FFI")
+    if (oldname == null || newname == null) -1 else LibcJni.rename(oldname, newname)
 
 public actual fun tmpfile(): FILE? =
     throw UnsupportedOperationException("tmpfile not available on Android host — use androidNative target for FFI")
@@ -79,16 +82,16 @@ public actual fun putchar(c: CInt): CInt =
     throw UnsupportedOperationException("putchar not available on Android host — use androidNative target for FFI")
 
 public actual fun fgetc(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fgetc not available on Android host — use androidNative target for FFI")
+    if (stream == null || stream.handle == 0L) -1 else LibcJni.fgetc(stream.handle)
 
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
-    throw UnsupportedOperationException("fgets not available on Android host — use androidNative target for FFI")
+    if (stream == null || stream.handle == 0L || n <= 0) null else LibcJni.fgets(n, stream.handle)
 
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputc not available on Android host — use androidNative target for FFI")
+    if (stream == null || stream.handle == 0L) -1 else LibcJni.fputc(c, stream.handle)
 
 public actual fun fputs(s: String?, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputs not available on Android host — use androidNative target for FFI")
+    if (s == null || stream == null || stream.handle == 0L) -1 else LibcJni.fputs(s, stream.handle)
 
 public actual fun puts(s: String?): CInt =
     throw UnsupportedOperationException("puts not available on Android host — use androidNative target for FFI")
@@ -117,12 +120,16 @@ public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fsetpos not available on Android host — use androidNative target for FFI")
 
 public actual fun feof(stream: FILE?): CInt =
-    throw UnsupportedOperationException("feof not available on Android host — use androidNative target for FFI")
+    if (stream == null || stream.handle == 0L) 0 else LibcJni.feof(stream.handle)
 
 public actual fun ferror(stream: FILE?): CInt =
-    throw UnsupportedOperationException("ferror not available on Android host — use androidNative target for FFI")
+    if (stream == null || stream.handle == 0L) 0 else LibcJni.ferror(stream.handle)
 
-public actual fun clearerr(stream: FILE?): Unit = throw UnsupportedOperationException("clearerr not available on Android host — use androidNative target for FFI")
+public actual fun clearerr(stream: FILE?) {
+    if (stream != null && stream.handle != 0L) {
+        LibcJni.clearerr(stream.handle)
+    }
+}
 
 public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror not available on Android host — use androidNative target for FFI")
 
@@ -225,7 +232,7 @@ public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
     throw UnsupportedOperationException("strnlen not available on Android host — use androidNative target for FFI")
 
 public actual fun strerror(n: CInt): String? =
-    throw UnsupportedOperationException("strerror not available on Android host — use androidNative target for FFI")
+    LibcJni.strerror(n)
 
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok not available on Android host — use androidNative target for FFI")
@@ -267,10 +274,10 @@ public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, 
     throw UnsupportedOperationException("memccpy not available on Android host — use androidNative target for FFI")
 
 public actual fun getpwnam(name: String?): Passwd? =
-    throw UnsupportedOperationException("getpwnam not available on Android host — use androidNative target for FFI")
+    LibcJni.getpwnam(name)
 
 public actual fun getpwuid(uid: UidT): Passwd? =
-    throw UnsupportedOperationException("getpwuid not available on Android host — use androidNative target for FFI")
+    LibcJni.getpwuid(uid)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf not available on Android host — use androidNative target for FFI")
@@ -300,34 +307,101 @@ public actual fun putcharUnlocked(c: CInt): CInt =
     throw UnsupportedOperationException("putcharUnlocked not available on Android host — use androidNative target for FFI")
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    throw UnsupportedOperationException("socket not available on Android host — use androidNative target for FFI")
+    LibcJni.socket(domain, ty, protocol)
 
-public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt =
-    throw UnsupportedOperationException("connect not available on Android host — use androidNative target for FFI")
+public actual fun connect(socket: CInt, address: Sockaddr?, len: SocklenT): CInt {
+    val bytes = ByteArray(len.toInt().coerceAtLeast(16))
+    if (address != null) {
+        bytes[0] = (address.saFamily.toInt() and 0xFF).toByte()
+        bytes[1] = ((address.saFamily.toInt() shr 8) and 0xFF).toByte()
+        val copyLen = minOf(address.saData.size, len.toInt() - 2)
+        for (i in 0 until copyLen) {
+            bytes[i + 2] = address.saData[i]
+        }
+    }
+    return LibcJni.connect(socket, bytes, len.toInt())
+}
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    throw UnsupportedOperationException("listen not available on Android host — use androidNative target for FFI")
+    LibcJni.listen(socket, backlog)
 
-public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("accept not available on Android host — use androidNative target for FFI")
+public actual fun accept(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
+    if (address == null) {
+        return LibcJni.accept(socket, null, null)
+    }
+    val lenVal = addressLen?.toInt() ?: 128
+    val addrBytes = ByteArray(lenVal)
+    val lenArr = intArrayOf(lenVal)
+    val res = LibcJni.accept(socket, addrBytes, lenArr)
+    if (res >= 0) {
+        val copyLen = minOf(address.saData.size, lenArr[0] - 2)
+        for (i in 0 until copyLen) {
+            address.saData[i] = addrBytes[i + 2]
+        }
+    }
+    return res
+}
 
-public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getpeername not available on Android host — use androidNative target for FFI")
+public actual fun getpeername(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
+    if (address == null) return -1
+    val lenVal = addressLen?.toInt() ?: 128
+    val addrBytes = ByteArray(lenVal)
+    val lenArr = intArrayOf(lenVal)
+    val res = LibcJni.getpeername(socket, addrBytes, lenArr)
+    if (res == 0) {
+        val copyLen = minOf(address.saData.size, lenArr[0] - 2)
+        for (i in 0 until copyLen) {
+            address.saData[i] = addrBytes[i + 2]
+        }
+    }
+    return res
+}
 
-public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getsockname not available on Android host — use androidNative target for FFI")
+public actual fun getsockname(socket: CInt, address: Sockaddr?, addressLen: SocklenT?): CInt {
+    if (address == null) return -1
+    val lenVal = addressLen?.toInt() ?: 128
+    val addrBytes = ByteArray(lenVal)
+    val lenArr = intArrayOf(lenVal)
+    val res = LibcJni.getsockname(socket, addrBytes, lenArr)
+    if (res == 0) {
+        val copyLen = minOf(address.saData.size, lenArr[0] - 2)
+        for (i in 0 until copyLen) {
+            address.saData[i] = addrBytes[i + 2]
+        }
+    }
+    return res
+}
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt =
-    throw UnsupportedOperationException("setsockopt not available on Android host — use androidNative target for FFI")
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt {
+    val bytes = ByteArray(optionLen.toInt())
+    return LibcJni.setsockopt(socket, level, name, bytes, optionLen.toInt())
+}
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt =
-    throw UnsupportedOperationException("socketpair not available on Android host — use androidNative target for FFI")
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: CInt?): CInt {
+    val sv = IntArray(2)
+    return LibcJni.socketpair(domain, type, protocol, sv)
+}
 
-public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT =
-    throw UnsupportedOperationException("sendto not available on Android host — use androidNative target for FFI")
+public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT {
+    val bufBytes = ByteArray(len.toInt())
+    val addrBytes =
+        if (addr != null) {
+            val b = ByteArray(addrlen.toInt().coerceAtLeast(16))
+            b[0] = (addr.saFamily.toInt() and 0xFF).toByte()
+            b[1] = ((addr.saFamily.toInt() shr 8) and 0xFF).toByte()
+            val copyLen = minOf(addr.saData.size, addrlen.toInt() - 2)
+            for (i in 0 until copyLen) {
+                b[i + 2] = addr.saData[i]
+            }
+            b
+        } else {
+            null
+        }
+    return LibcJni.sendto(socket, bufBytes, 0, len.toInt(), flags, addrBytes, addrlen.toInt())
+}
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    throw UnsupportedOperationException("shutdown not available on Android host — use androidNative target for FFI")
+    LibcJni.shutdown(socket, how)
 
 public actual fun chmod(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("chmod not available on Android host — use androidNative target for FFI")
@@ -345,7 +419,7 @@ public actual fun stat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("stat not available on Android host — use androidNative target for FFI")
 
 public actual fun pclose(stream: FILE?): CInt =
-    throw UnsupportedOperationException("pclose not available on Android host — use androidNative target for FFI")
+    if (stream == null || stream.handle == 0L) -1 else LibcJni.pclose(stream.handle)
 
 public actual fun fdopen(fd: CInt, mode: String?): FILE? =
     throw UnsupportedOperationException("fdopen not available on Android host — use androidNative target for FFI")
@@ -398,7 +472,7 @@ public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("unlinkat not available on Android host — use androidNative target for FFI")
 
 public actual fun access(path: String?, amode: CInt): CInt =
-    throw UnsupportedOperationException("access not available on Android host — use androidNative target for FFI")
+    if (path == null) -1 else LibcJni.access(path, amode)
 
 public actual fun chdir(dir: String?): CInt =
     throw UnsupportedOperationException("chdir not available on Android host — use androidNative target for FFI")
@@ -464,30 +538,22 @@ public actual fun getpgrp(): PidT =
     throw UnsupportedOperationException("getpgrp not available on Android host — use androidNative target for FFI")
 
 public actual fun getpid(): PidT =
-    throw UnsupportedOperationException("getpid not available on Android host — use androidNative target for FFI")
+    LibcJni.getpid()
 
 public actual fun getppid(): PidT =
-    throw UnsupportedOperationException("getppid not available on Android host — use androidNative target for FFI")
+    LibcJni.getppid()
 
 public actual fun geteuid(): UidT =
-    android.os.Process
-        .myUid()
-        .toUShort()
+    LibcJni.geteuid().toUInt()
 
 public actual fun getegid(): GidT =
-    android.os.Process
-        .myUid()
-        .toUShort()
+    LibcJni.getegid().toUInt()
 
 public actual fun getuid(): UidT =
-    android.os.Process
-        .myUid()
-        .toUShort()
+    LibcJni.getuid().toUInt()
 
 public actual fun getgid(): GidT =
-    android.os.Process
-        .myUid()
-        .toUShort()
+    LibcJni.getgid().toUInt()
 
 public actual fun isatty(fd: CInt): CInt =
     LibcJni.isatty(fd)
@@ -558,7 +624,7 @@ public actual fun ttynameR(fd: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("ttynameR not available on Android host — use androidNative target for FFI")
 
 public actual fun unlink(c: String?): CInt =
-    throw UnsupportedOperationException("unlink not available on Android host — use androidNative target for FFI")
+    if (c == null) -1 else LibcJni.unlink(c)
 
 public actual fun wait(status: CInt?): PidT =
     throw UnsupportedOperationException("wait not available on Android host — use androidNative target for FFI")
@@ -579,16 +645,16 @@ public actual fun utime(file: String?, buf: Utimbuf?): CInt =
     throw UnsupportedOperationException("utime not available on Android host — use androidNative target for FFI")
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    throw UnsupportedOperationException("kill not available on Android host — use androidNative target for FFI")
+    LibcJni.kill(pid, sig)
 
 public actual fun killpg(pgrp: PidT, sig: CInt): CInt =
     throw UnsupportedOperationException("killpg not available on Android host — use androidNative target for FFI")
 
 public actual fun mlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("mlock not available on Android host — use androidNative target for FFI")
+    LibcJni.mlock(addr?.value ?: 0L, len.toLong())
 
 public actual fun munlock(addr: COpaquePointer?, len: ULong): CInt =
-    throw UnsupportedOperationException("munlock not available on Android host — use androidNative target for FFI")
+    LibcJni.munlock(addr?.value ?: 0L, len.toLong())
 
 public actual fun mlockall(flags: CInt): CInt =
     throw UnsupportedOperationException("mlockall not available on Android host — use androidNative target for FFI")
@@ -630,7 +696,7 @@ public actual fun getrusage(resource: CInt, usage: Rusage?): CInt =
     throw UnsupportedOperationException("getrusage not available on Android host — use androidNative target for FFI")
 
 public actual fun realpath(pathname: String?, resolved: String?): String? =
-    throw UnsupportedOperationException("realpath not available on Android host — use androidNative target for FFI")
+    if (pathname == null) null else LibcJni.realpath(pathname)
 
 public actual fun times(buf: Tms?): ClockT =
     throw UnsupportedOperationException("times not available on Android host — use androidNative target for FFI")
@@ -746,8 +812,12 @@ public actual fun pthreadRwlockattrInit(attr: PthreadRwlockattrT): CInt =
 public actual fun pthreadRwlockattrDestroy(attr: PthreadRwlockattrT): CInt =
     throw UnsupportedOperationException("pthreadRwlockattrDestroy not available on Android host — use androidNative target for FFI")
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt =
-    throw UnsupportedOperationException("getsockopt not available on Android host — use androidNative target for FFI")
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt {
+    val len = optlen?.toInt() ?: 0
+    val bytes = ByteArray(len)
+    val lenArr = intArrayOf(len)
+    return LibcJni.getsockopt(sockfd, level, optname, bytes, lenArr)
+}
 
 public actual fun raise(signum: CInt): CInt =
     throw UnsupportedOperationException("raise not available on Android host — use androidNative target for FFI")
@@ -833,20 +903,35 @@ public actual fun chroot(name: String?): CInt =
 public actual fun usleep(secs: UsecondsT): CInt =
     throw UnsupportedOperationException("usleep not available on Android host — use androidNative target for FFI")
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("send not available on Android host — use androidNative target for FFI")
+public actual fun send(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT {
+    val bytes = ByteArray(len.toInt())
+    return LibcJni.send(socket, bytes, 0, len.toInt(), flags)
+}
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("recv not available on Android host — use androidNative target for FFI")
+public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt): SsizeT {
+    val bytes = ByteArray(len.toInt())
+    return LibcJni.recv(socket, bytes, 0, len.toInt(), flags)
+}
 
 public actual fun putenv(string: String?): CInt =
     if (string == null) -1 else LibcJni.putenv(string)
 
-public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
-    throw UnsupportedOperationException("poll not available on Android host — use androidNative target for FFI")
+public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
+    if (fds == null || nfds == 0u) return 0
+    val fdArr = intArrayOf(fds.fd)
+    val evArr = shortArrayOf(fds.events)
+    val revArr = shortArrayOf(0)
+    return LibcJni.poll(fdArr, evArr, revArr, 1, timeout)
+}
 
-public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt =
-    throw UnsupportedOperationException("select not available on Android host — use androidNative target for FFI")
+public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt {
+    val rArr = readfds?.let { IntArray(it.fdsBits.size * 2) }
+    val wArr = writefds?.let { IntArray(it.fdsBits.size * 2) }
+    val eArr = errorfds?.let { IntArray(it.fdsBits.size * 2) }
+    val sec = timeout?.tvSec ?: -1L
+    val usec = timeout?.tvUsec ?: 0L
+    return LibcJni.select(nfds, rArr, wArr, eArr, sec, usec)
+}
 
 public actual fun setlocale(category: CInt, locale: String?): String? =
     throw UnsupportedOperationException("setlocale not available on Android host — use androidNative target for FFI")
@@ -891,7 +976,7 @@ public actual fun sigpending(set: SigsetT?): CInt =
     throw UnsupportedOperationException("sigpending not available on Android host — use androidNative target for FFI")
 
 public actual fun sysconf(name: CInt): CLong =
-    throw UnsupportedOperationException("sysconf not available on Android host — use androidNative target for FFI")
+    LibcJni.sysconf(name)
 
 public actual fun mkfifo(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("mkfifo not available on Android host — use androidNative target for FFI")
@@ -911,11 +996,15 @@ public actual fun cfsetispeed(termios: Termios?, speed: SpeedT): CInt =
 public actual fun cfsetospeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetospeed not available on Android host — use androidNative target for FFI")
 
-public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt =
-    throw UnsupportedOperationException("tcgetattr not available on Android host — use androidNative target for FFI")
+public actual fun tcgetattr(fd: CInt, termios: Termios?): CInt {
+    val buf = ByteArray(128)
+    return LibcJni.tcgetattr(fd, buf)
+}
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt =
-    throw UnsupportedOperationException("tcsetattr not available on Android host — use androidNative target for FFI")
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: Termios?): CInt {
+    val buf = ByteArray(128)
+    return LibcJni.tcsetattr(fd, optionalActions, buf)
+}
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
     throw UnsupportedOperationException("tcflow not available on Android host — use androidNative target for FFI")
@@ -1025,8 +1114,11 @@ public actual fun fmemopen(buf: COpaquePointer?, size: ULong, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: ULong?): FILE? =
     throw UnsupportedOperationException("openMemstream not available on Android host — use androidNative target for FFI")
 
-public actual fun cfmakeraw(termios: Termios?): CInt =
-    throw UnsupportedOperationException("cfmakeraw not available on Android host — use androidNative target for FFI")
+public actual fun cfmakeraw(termios: Termios?): CInt {
+    val buf = ByteArray(128)
+    LibcJni.cfmakeraw(buf)
+    return 0
+}
 
 public actual fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt =
     throw UnsupportedOperationException("cfsetspeed not available on Android host — use androidNative target for FFI")

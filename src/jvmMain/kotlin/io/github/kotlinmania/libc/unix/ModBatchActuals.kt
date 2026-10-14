@@ -46,23 +46,26 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper not available on JVM — no C library access")
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen not available on JVM — no C library access")
+public actual fun fopen(filename: String?, mode: String?): FILE? {
+    if (filename == null || mode == null) return null
+    val ptr = LibcJni.fopen(filename, mode)
+    return if (ptr == 0L) null else FILE(ptr)
+}
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen not available on JVM — no C library access")
 
 public actual fun fflush(file: FILE?): CInt =
-    throw UnsupportedOperationException("fflush not available on JVM — no C library access")
+    LibcJni.fflush(file?.handle ?: 0L)
 
 public actual fun fclose(file: FILE?): CInt =
-    throw UnsupportedOperationException("fclose not available on JVM — no C library access")
+    if (file == null || file.handle == 0L) -1 else LibcJni.fclose(file.handle)
 
 public actual fun remove(filename: String?): CInt =
-    throw UnsupportedOperationException("remove not available on JVM — no C library access")
+    if (filename == null) -1 else LibcJni.remove(filename)
 
 public actual fun rename(oldname: String?, newname: String?): CInt =
-    throw UnsupportedOperationException("rename not available on JVM — no C library access")
+    if (oldname == null || newname == null) -1 else LibcJni.rename(oldname, newname)
 
 public actual fun tmpfile(): FILE? =
     throw UnsupportedOperationException("tmpfile not available on JVM — no C library access")
@@ -79,16 +82,16 @@ public actual fun putchar(c: CInt): CInt =
     throw UnsupportedOperationException("putchar not available on JVM — no C library access")
 
 public actual fun fgetc(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fgetc not available on JVM — no C library access")
+    if (stream == null || stream.handle == 0L) -1 else LibcJni.fgetc(stream.handle)
 
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
-    throw UnsupportedOperationException("fgets not available on JVM — no C library access")
+    if (stream == null || stream.handle == 0L || n <= 0) null else LibcJni.fgets(n, stream.handle)
 
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputc not available on JVM — no C library access")
+    if (stream == null || stream.handle == 0L) -1 else LibcJni.fputc(c, stream.handle)
 
 public actual fun fputs(s: String?, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputs not available on JVM — no C library access")
+    if (s == null || stream == null || stream.handle == 0L) -1 else LibcJni.fputs(s, stream.handle)
 
 public actual fun puts(s: String?): CInt =
     throw UnsupportedOperationException("puts not available on JVM — no C library access")
@@ -117,12 +120,16 @@ public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fsetpos not available on JVM — no C library access")
 
 public actual fun feof(stream: FILE?): CInt =
-    throw UnsupportedOperationException("feof not available on JVM — no C library access")
+    if (stream == null || stream.handle == 0L) 0 else LibcJni.feof(stream.handle)
 
 public actual fun ferror(stream: FILE?): CInt =
-    throw UnsupportedOperationException("ferror not available on JVM — no C library access")
+    if (stream == null || stream.handle == 0L) 0 else LibcJni.ferror(stream.handle)
 
-public actual fun clearerr(stream: FILE?): Unit = throw UnsupportedOperationException("clearerr not available on JVM — no C library access")
+public actual fun clearerr(stream: FILE?) {
+    if (stream != null && stream.handle != 0L) {
+        LibcJni.clearerr(stream.handle)
+    }
+}
 
 public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror not available on JVM — no C library access")
 
@@ -225,7 +232,7 @@ public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
     throw UnsupportedOperationException("strnlen not available on JVM — no C library access")
 
 public actual fun strerror(n: CInt): String? =
-    throw UnsupportedOperationException("strerror not available on JVM — no C library access")
+    LibcJni.strerror(n)
 
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok not available on JVM — no C library access")
@@ -267,10 +274,10 @@ public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, 
     throw UnsupportedOperationException("memccpy not available on JVM — no C library access")
 
 public actual fun getpwnam(name: String?): Passwd? =
-    throw UnsupportedOperationException("getpwnam not available on JVM — no C library access")
+    LibcJni.getpwnam(name)
 
 public actual fun getpwuid(uid: UidT): Passwd? =
-    throw UnsupportedOperationException("getpwuid not available on JVM — no C library access")
+    LibcJni.getpwuid(uid)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf not available on JVM — no C library access")
@@ -412,7 +419,7 @@ public actual fun stat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("stat not available on JVM — no C library access")
 
 public actual fun pclose(stream: FILE?): CInt =
-    throw UnsupportedOperationException("pclose not available on JVM — no C library access")
+    if (stream == null || stream.handle == 0L) -1 else LibcJni.pclose(stream.handle)
 
 public actual fun fdopen(fd: CInt, mode: String?): FILE? =
     throw UnsupportedOperationException("fdopen not available on JVM — no C library access")
@@ -465,7 +472,7 @@ public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("unlinkat not available on JVM — no C library access")
 
 public actual fun access(path: String?, amode: CInt): CInt =
-    throw UnsupportedOperationException("access not available on JVM — no C library access")
+    if (path == null) -1 else LibcJni.access(path, amode)
 
 public actual fun chdir(dir: String?): CInt =
     throw UnsupportedOperationException("chdir not available on JVM — no C library access")
@@ -537,16 +544,16 @@ public actual fun getppid(): PidT =
     LibcJni.getppid()
 
 public actual fun geteuid(): UidT =
-    LibcJni.geteuid().toUShort()
+    LibcJni.geteuid().toUInt()
 
 public actual fun getegid(): GidT =
-    LibcJni.getegid().toUShort()
+    LibcJni.getegid().toUInt()
 
 public actual fun getuid(): UidT =
-    LibcJni.getuid().toUShort()
+    LibcJni.getuid().toUInt()
 
 public actual fun getgid(): GidT =
-    LibcJni.getgid().toUShort()
+    LibcJni.getgid().toUInt()
 
 public actual fun isatty(fd: CInt): CInt =
     LibcJni.isatty(fd)
@@ -617,7 +624,7 @@ public actual fun ttynameR(fd: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("ttynameR not available on JVM — no C library access")
 
 public actual fun unlink(c: String?): CInt =
-    throw UnsupportedOperationException("unlink not available on JVM — no C library access")
+    if (c == null) -1 else LibcJni.unlink(c)
 
 public actual fun wait(status: CInt?): PidT =
     throw UnsupportedOperationException("wait not available on JVM — no C library access")
@@ -689,7 +696,7 @@ public actual fun getrusage(resource: CInt, usage: Rusage?): CInt =
     throw UnsupportedOperationException("getrusage not available on JVM — no C library access")
 
 public actual fun realpath(pathname: String?, resolved: String?): String? =
-    throw UnsupportedOperationException("realpath not available on JVM — no C library access")
+    if (pathname == null) null else LibcJni.realpath(pathname)
 
 public actual fun times(buf: Tms?): ClockT =
     throw UnsupportedOperationException("times not available on JVM — no C library access")

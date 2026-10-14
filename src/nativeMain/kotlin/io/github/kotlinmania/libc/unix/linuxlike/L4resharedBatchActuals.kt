@@ -181,7 +181,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt 
     throw UnsupportedOperationException("mprotect requires FFI bridge")
 
 public actual fun errnoLocation(): CInt? =
-    throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_get_errno()
 
 public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap requires manual FFI bridge — not yet implemented")

@@ -1,10 +1,14 @@
 // sys_bindings.cpp — N-API wrappers for UDS credentials, memory locking, and process syscalls
 #include <napi.h>
 #include <cerrno>
+#include <cstdio>
+#include <cstdlib>
 #include <cstring>
 
 #ifndef _WIN32
 #include <unistd.h>
+#include <pwd.h>
+#include <sys/utsname.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/mman.h>
@@ -18,7 +22,95 @@
 #include <windows.h>
 #endif
 
+#ifndef _WIN32
+static std::string format_passwd_result(int rc, const struct passwd* res, const struct passwd& pwd) {
+    char buf[4096];
+    if (rc == 0 && res != nullptr) {
+        std::snprintf(
+            buf,
+            sizeof(buf),
+            "0\n1\n%s\n%s\n%u\n%u\n%s\n%s\n%s",
+            pwd.pw_name ? pwd.pw_name : "",
+            pwd.pw_passwd ? pwd.pw_passwd : "",
+            static_cast<unsigned int>(pwd.pw_uid),
+            static_cast<unsigned int>(pwd.pw_gid),
+            pwd.pw_gecos ? pwd.pw_gecos : "",
+            pwd.pw_dir ? pwd.pw_dir : "",
+            pwd.pw_shell ? pwd.pw_shell : ""
+        );
+    } else {
+        std::snprintf(buf, sizeof(buf), "%d\n0\n\n\n0\n0\n\n\n", rc);
+    }
+    return std::string(buf);
+}
+#endif
+
 void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
+    // get_errno()
+    exports.Set("get_errno", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        return Napi::Number::New(info.Env(), errno);
+    }));
+
+    // uname_fields()
+    exports.Set("uname_fields", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+#ifndef _WIN32
+        struct utsname u;
+        std::memset(&u, 0, sizeof(u));
+        if (::uname(&u) != 0) return env.Null();
+        char out[2048];
+        std::snprintf(out, sizeof(out), "%s\n%s\n%s\n%s\n%s", u.sysname, u.nodename, u.release, u.version, u.machine);
+        return Napi::String::New(env, out);
+#else
+        return env.Null();
+#endif
+    }));
+
+    // getpwuid_r_str(uid, buflen)
+    exports.Set("getpwuid_r_str", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+#ifndef _WIN32
+        unsigned int uid = info.Length() > 0 ? static_cast<unsigned int>(info[0].As<Napi::Number>().Int32Value()) : 0;
+        size_t len = info.Length() > 1 && info[1].As<Napi::Number>().Int64Value() > 0
+            ? static_cast<size_t>(info[1].As<Napi::Number>().Int64Value())
+            : 4096;
+        char* buf = static_cast<char*>(::malloc(len));
+        if (!buf) return Napi::String::New(env, "12\n0\n\n\n0\n0\n\n\n");
+        struct passwd pwd;
+        std::memset(&pwd, 0, sizeof(pwd));
+        struct passwd* res = nullptr;
+        int rc = ::getpwuid_r(static_cast<uid_t>(uid), &pwd, buf, len, &res);
+        std::string formatted = format_passwd_result(rc, res, pwd);
+        ::free(buf);
+        return Napi::String::New(env, formatted);
+#else
+        return Napi::String::New(env, "38\n0\n\n\n0\n0\n\n\n");
+#endif
+    }));
+
+    // getpwnam_r_str(name, buflen)
+    exports.Set("getpwnam_r_str", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+#ifndef _WIN32
+        if (info.Length() < 1) return Napi::String::New(env, "22\n0\n\n\n0\n0\n\n\n");
+        std::string name = info[0].As<Napi::String>().Utf8Value();
+        size_t len = info.Length() > 1 && info[1].As<Napi::Number>().Int64Value() > 0
+            ? static_cast<size_t>(info[1].As<Napi::Number>().Int64Value())
+            : 4096;
+        char* buf = static_cast<char*>(::malloc(len));
+        if (!buf) return Napi::String::New(env, "12\n0\n\n\n0\n0\n\n\n");
+        struct passwd pwd;
+        std::memset(&pwd, 0, sizeof(pwd));
+        struct passwd* res = nullptr;
+        int rc = ::getpwnam_r(name.c_str(), &pwd, buf, len, &res);
+        std::string formatted = format_passwd_result(rc, res, pwd);
+        ::free(buf);
+        return Napi::String::New(env, formatted);
+#else
+        return Napi::String::New(env, "38\n0\n\n\n0\n0\n\n\n");
+#endif
+    }));
+
     // getpeereid(sockfd) -> { uid: number, gid: number }
     exports.Set("getpeereid", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
         Napi::Env env = info.Env();

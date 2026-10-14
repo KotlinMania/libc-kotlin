@@ -227,12 +227,12 @@ public data class SockaddrStorage(
 
 public data class Utsname(
     val handle: Long = 0L,
-    val sysname: ByteArray,
-    val nodename: ByteArray,
-    val release: ByteArray,
-    val version: ByteArray,
-    val machine: ByteArray,
-    val domainname: ByteArray,
+    val sysname: ByteArray = ByteArray(65),
+    val nodename: ByteArray = ByteArray(65),
+    val release: ByteArray = ByteArray(65),
+    val version: ByteArray = ByteArray(65),
+    val machine: ByteArray = ByteArray(65),
+    val domainname: ByteArray = ByteArray(65),
 )
 
 public data class IfNameindex(

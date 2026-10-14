@@ -427,7 +427,7 @@ public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: C
 }
 
 public actual fun errno(): CInt? =
-    throw UnsupportedOperationException("errno requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_get_errno()
 
 public actual fun inotifyRmWatch(fd: CInt, wd: UInt): CInt =
     throw UnsupportedOperationException("inotifyRmWatch requires manual FFI bridge — not yet implemented")

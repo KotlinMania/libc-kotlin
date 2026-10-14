@@ -53,30 +53,32 @@ public actual fun write(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
     throw UnsupportedOperationException("write not available on WASI — no C library access")
 
 public actual fun fopen(a: String?, b: String?): FILE? =
-    throw UnsupportedOperationException("fopen not available on WASI — no C library access")
+    WasiLibcEnv.fopen(a, b)
 
 public actual fun freopen(a: String?, b: String?, f: FILE?): FILE? =
     throw UnsupportedOperationException("freopen not available on WASI — no C library access")
 
 public actual fun fclose(f: FILE?): CInt =
-    throw UnsupportedOperationException("fclose not available on WASI — no C library access")
+    WasiLibcEnv.fclose(f)
 
 public actual fun remove(a: String?): CInt =
-    throw UnsupportedOperationException("remove not available on WASI — no C library access")
+    WasiLibcEnv.remove(a)
 
 public actual fun rename(a: String?, b: String?): CInt =
-    throw UnsupportedOperationException("rename not available on WASI — no C library access")
+    WasiLibcEnv.rename(a, b)
 
 public actual fun feof(f: FILE?): CInt =
-    throw UnsupportedOperationException("feof not available on WASI — no C library access")
+    WasiLibcEnv.feof(f)
 
 public actual fun ferror(f: FILE?): CInt =
-    throw UnsupportedOperationException("ferror not available on WASI — no C library access")
+    WasiLibcEnv.ferror(f)
 
 public actual fun fflush(f: FILE?): CInt =
-    throw UnsupportedOperationException("fflush not available on WASI — no C library access")
+    WasiLibcEnv.fflush(f)
 
-public actual fun clearerr(f: FILE?): Unit = throw UnsupportedOperationException("clearerr not available on WASI — no C library access")
+public actual fun clearerr(f: FILE?) {
+    WasiLibcEnv.clearerr(f)
+}
 
 public actual fun fseek(f: FILE?, b: CLong, c: CInt): CInt =
     throw UnsupportedOperationException("fseek not available on WASI — no C library access")
@@ -99,10 +101,10 @@ public actual fun fwrite(buf: COpaquePointer?, a: ULong, b: ULong, f: FILE?): UL
     throw UnsupportedOperationException("fwrite not available on WASI — no C library access")
 
 public actual fun fgetc(f: FILE?): CInt =
-    throw UnsupportedOperationException("fgetc not available on WASI — no C library access")
+    WasiLibcEnv.fgetc(f)
 
 public actual fun getc(f: FILE?): CInt =
-    throw UnsupportedOperationException("getc not available on WASI — no C library access")
+    WasiLibcEnv.fgetc(f)
 
 public actual fun getchar(): CInt =
     throw UnsupportedOperationException("getchar not available on WASI — no C library access")
@@ -111,16 +113,16 @@ public actual fun ungetc(a: CInt, f: FILE?): CInt =
     throw UnsupportedOperationException("ungetc not available on WASI — no C library access")
 
 public actual fun fputc(a: CInt, f: FILE?): CInt =
-    throw UnsupportedOperationException("fputc not available on WASI — no C library access")
+    WasiLibcEnv.fputc(a, f)
 
 public actual fun putc(a: CInt, f: FILE?): CInt =
-    throw UnsupportedOperationException("putc not available on WASI — no C library access")
+    WasiLibcEnv.fputc(a, f)
 
 public actual fun putchar(a: CInt): CInt =
     throw UnsupportedOperationException("putchar not available on WASI — no C library access")
 
 public actual fun fputs(a: String?, f: FILE?): CInt =
-    throw UnsupportedOperationException("fputs not available on WASI — no C library access")
+    WasiLibcEnv.fputs(a, f)
 
 public actual fun puts(a: String?): CInt =
     throw UnsupportedOperationException("puts not available on WASI — no C library access")
@@ -233,7 +235,7 @@ public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULon
 public actual fun setbuf(stream: FILE?, buf: String?): Unit = throw UnsupportedOperationException("setbuf not available on WASI — no C library access")
 
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
-    throw UnsupportedOperationException("fgets not available on WASI — no C library access")
+    WasiLibcEnv.fgets(n, stream)
 
 public actual fun atoi(s: String?): CInt =
     throw UnsupportedOperationException("atoi not available on WASI — no C library access")
@@ -314,7 +316,7 @@ public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
     throw UnsupportedOperationException("strnlen not available on WASI — no C library access")
 
 public actual fun strerror(n: CInt): String? =
-    throw UnsupportedOperationException("strerror not available on WASI — no C library access")
+    WasiLibcEnv.strerror(n)
 
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok not available on WASI — no C library access")
@@ -438,10 +440,10 @@ public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("unlinkat not available on WASI — no C library access")
 
 public actual fun access(path: String?, amode: CInt): CInt =
-    throw UnsupportedOperationException("access not available on WASI — no C library access")
+    WasiLibcEnv.access(path, amode)
 
 public actual fun close(fd: CInt): CInt =
-    throw UnsupportedOperationException("close not available on WASI — no C library access")
+    WasiLibcEnv.close(fd)
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
     throw UnsupportedOperationException("fpathconf not available on WASI — no C library access")
@@ -465,7 +467,7 @@ public actual fun rmdir(path: String?): CInt =
     throw UnsupportedOperationException("rmdir not available on WASI — no C library access")
 
 public actual fun unlink(c: String?): CInt =
-    throw UnsupportedOperationException("unlink not available on WASI — no C library access")
+    WasiLibcEnv.unlink(c)
 
 public actual fun pread(fd: CInt, buf: COpaquePointer?, count: ULong, offset: OffT): SsizeT =
     throw UnsupportedOperationException("pread not available on WASI — no C library access")
@@ -694,7 +696,7 @@ public actual fun wasilibcRenameNewat(oldpath: String?, newdirfd: CInt, newpath:
 public actual fun arc4randomBuf(a: COpaquePointer?, b: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf not available on WASI — no C library access")
 
 public actual fun errnoLocation(): CInt? =
-    throw UnsupportedOperationException("errnoLocation not available on WASI — no C library access")
+    WasiLibcEnv.getErrno()
 
 public actual fun chmod(path: String?, mode: ModeT): CInt =
     throw UnsupportedOperationException("chmod not available on WASI — no C library access")
@@ -703,7 +705,7 @@ public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
     throw UnsupportedOperationException("fchmod not available on WASI — no C library access")
 
 public actual fun realpath(pathname: String?, resolved: String?): String? =
-    throw UnsupportedOperationException("realpath not available on WASI — no C library access")
+    WasiLibcEnv.realpath(pathname)
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     throw UnsupportedOperationException("pthreadEqual not available on WASI — no C library access")

@@ -3,6 +3,11 @@
 
 package io.github.kotlinmania.libc.internal
 
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.Passwd
+import io.github.kotlinmania.libc.Utsname
+
 @JsFun(
     """() => {
         if (globalThis.__kotlinmania_libc_native) return 1;
@@ -15,150 +20,406 @@ package io.github.kotlinmania.libc.internal
         try {
             const req = modMod.createRequire(path.join(proc.cwd(), "package.json"));
             const loaded = req("@kotlinmania/libc-native-bindings");
-            if (loaded && typeof loaded.isatty === "function") {
+            if (loaded && typeof loaded.isatty === "function" && typeof loaded.uname_fields === "function") {
                 globalThis.__kotlinmania_libc_native = loaded;
                 return 1;
             }
         } catch (_) {}
-        const dir = path.join(os.tmpdir(), "kotlinmania-libc-napi-0.1.4-" + proc.platform + "-" + proc.arch);
+        const dir = path.join(os.tmpdir(), "kotlinmania-libc-napi-0.1.5-r2-" + proc.platform + "-" + proc.arch);
         const nodeFile = path.join(dir, "libc_native.node");
         if (!fs.existsSync(nodeFile)) {
             fs.mkdirSync(dir, { recursive: true });
             const cFile = path.join(dir, "libc_native.c");
             const cCode = [
-                "#include <stdlib.h>",
-                "#include <string.h>",
-                "#include <errno.h>",
-                "#ifdef _WIN32",
-                "#include <windows.h>",
-                "#include <io.h>",
-                "#define EXPORT __declspec(dllexport)",
-                "#else",
-                "#include <unistd.h>",
-                "#include <dlfcn.h>",
-                "#define EXPORT",
-                "extern char **environ;",
-                "#endif",
-                "typedef struct napi_env__* napi_env;",
-                "typedef struct napi_value__* napi_value;",
-                "typedef struct napi_callback_info__* napi_callback_info;",
-                "typedef napi_value (*napi_callback)(napi_env, napi_callback_info);",
-                "typedef enum { napi_default = 0 } napi_property_attributes;",
-                "typedef struct { const char* utf8name; napi_value name; napi_callback method; napi_callback getter; napi_callback setter; napi_value value; napi_property_attributes attributes; void* data; } napi_property_descriptor;",
-                "static int (*p_cb)(napi_env, napi_callback_info, size_t*, napi_value*, napi_value*, void**);",
-                "static int (*p_get_str)(napi_env, napi_value, char*, size_t, size_t*);",
-                "static int (*p_mk_str)(napi_env, const char*, size_t, napi_value*);",
-                "static int (*p_get_i32)(napi_env, napi_value, int*);",
-                "static int (*p_mk_i32)(napi_env, int, napi_value*);",
-                "static int (*p_get_null)(napi_env, napi_value*);",
-                "static int (*p_def_props)(napi_env, napi_value, size_t, const napi_property_descriptor*);",
-                "static void* sym(const char* n) {",
-                "#ifdef _WIN32",
-                "  return (void*)GetProcAddress(GetModuleHandleA(NULL), n);",
-                "#else",
-                "  return dlsym(RTLD_DEFAULT, n);",
-                "#endif",
-                "}",
-                "static char* arg_str(napi_env env, napi_value v) {",
-                "  size_t len = 0;",
-                "  p_get_str(env, v, NULL, 0, &len);",
-                "  char* b = (char*)malloc(len + 1);",
-                "  p_get_str(env, v, b, len + 1, &len);",
-                "  return b;",
-                "}",
-                "static napi_value fn_getenv(napi_env env, napi_callback_info info) {",
-                "  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL);",
-                "  char* k = arg_str(env, a[0]); const char* v = getenv(k); free(k);",
-                "  napi_value r; if (!v) p_get_null(env, &r); else p_mk_str(env, v, strlen(v), &r); return r;",
-                "}",
-                "static napi_value fn_setenv(napi_env env, napi_callback_info info) {",
-                "  size_t c = 3; napi_value a[3]; p_cb(env, info, &c, a, NULL, NULL);",
-                "  char* k = arg_str(env, a[0]); char* v = arg_str(env, a[1]); int ov = 1; p_get_i32(env, a[2], &ov);",
-                "#ifdef _WIN32",
-                "  int rc = (!ov && getenv(k) != NULL) ? 0 : (_putenv_s(k, v) == 0 ? 0 : -1);",
-                "#else",
-                "  int rc = setenv(k, v, ov);",
-                "#endif",
-                "  free(k); free(v); napi_value r; p_mk_i32(env, rc, &r); return r;",
-                "}",
-                "static napi_value fn_unsetenv(napi_env env, napi_callback_info info) {",
-                "  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL);",
-                "  char* k = arg_str(env, a[0]);",
-                "#ifdef _WIN32",
-                "  const char empty[1] = {0}; int rc = _putenv_s(k, empty) == 0 ? 0 : -1;",
-                "#else",
-                "  int rc = unsetenv(k);",
-                "#endif",
-                "  free(k); napi_value r; p_mk_i32(env, rc, &r); return r;",
-                "}",
-                "static napi_value fn_putenv(napi_env env, napi_callback_info info) {",
-                "  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL);",
-                "  char* s = arg_str(env, a[0]);",
-                "#ifdef _WIN32",
-                "  int rc = _putenv(s);",
-                "#else",
-                "  int rc = putenv(s);",
-                "#endif",
-                "  napi_value r; p_mk_i32(env, rc, &r); return r;",
-                "}",
-                "static napi_value fn_putenv_s(napi_env env, napi_callback_info info) {",
-                "  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL);",
-                "  char* k = arg_str(env, a[0]); char* v = arg_str(env, a[1]);",
-                "#ifdef _WIN32",
-                "  int rc = _putenv_s(k, v);",
-                "#else",
-                "  int rc = (strchr(k, 61) != NULL) ? EINVAL : (v[0] == 0 ? (unsetenv(k) == 0 ? 0 : errno) : (setenv(k, v, 1) == 0 ? 0 : errno));",
-                "#endif",
-                "  free(k); free(v); napi_value r; p_mk_i32(env, rc, &r); return r;",
-                "}",
-                "static napi_value fn_clearenv(napi_env env, napi_callback_info info) {",
-                "  int rc = 0;",
-                "#if defined(__linux__) || defined(__ANDROID__)",
-                "  rc = clearenv();",
-                "#elif !defined(_WIN32)",
-                "  if (environ != NULL) { while (environ[0] != NULL) { const char* e = environ[0]; const char* eq = strchr(e, 61); size_t n = eq ? (size_t)(eq - e) : strlen(e); char* k = (char*)malloc(n + 1); memcpy(k, e, n); k[n] = 0; int u = unsetenv(k); free(k); if (u != 0) { rc = -1; break; } } }",
-                "#else",
-                "  rc = -1;",
-                "#endif",
-                "  napi_value r; p_mk_i32(env, rc, &r); return r;",
-                "}",
-                "static napi_value fn_isatty(napi_env env, napi_callback_info info) {",
-                "  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int fd = 0; p_get_i32(env, a[0], &fd);",
-                "#ifdef _WIN32",
-                "  int rc = _isatty(fd);",
-                "#else",
-                "  int rc = isatty(fd);",
-                "#endif",
-                "  napi_value r; p_mk_i32(env, rc, &r); return r;",
-                "}",
-                "static const char N_CB[] = {110,97,112,105,95,103,101,116,95,99,98,95,105,110,102,111,0};",
-                "static const char N_GS[] = {110,97,112,105,95,103,101,116,95,118,97,108,117,101,95,115,116,114,105,110,103,95,117,116,102,56,0};",
-                "static const char N_MS[] = {110,97,112,105,95,99,114,101,97,116,101,95,115,116,114,105,110,103,95,117,116,102,56,0};",
-                "static const char N_GI[] = {110,97,112,105,95,103,101,116,95,118,97,108,117,101,95,105,110,116,51,50,0};",
-                "static const char N_MI[] = {110,97,112,105,95,99,114,101,97,116,101,95,105,110,116,51,50,0};",
-                "static const char N_GN[] = {110,97,112,105,95,103,101,116,95,110,117,108,108,0};",
-                "static const char N_DP[] = {110,97,112,105,95,100,101,102,105,110,101,95,112,114,111,112,101,114,116,105,101,115,0};",
-                "static const char K_GE[] = {103,101,116,101,110,118,0};",
-                "static const char K_SE[] = {115,101,116,101,110,118,0};",
-                "static const char K_UE[] = {117,110,115,101,116,101,110,118,0};",
-                "static const char K_PE[] = {112,117,116,101,110,118,0};",
-                "static const char K_PS[] = {112,117,116,101,110,118,95,115,0};",
-                "static const char K_CE[] = {99,108,101,97,114,101,110,118,0};",
-                "static const char K_IA[] = {105,115,97,116,116,121,0};",
-                "EXPORT napi_value napi_register_module_v1(napi_env env, napi_value exports) {",
-                "  p_cb = sym(N_CB); p_get_str = sym(N_GS); p_mk_str = sym(N_MS); p_get_i32 = sym(N_GI); p_mk_i32 = sym(N_MI); p_get_null = sym(N_GN); p_def_props = sym(N_DP);",
-                "  napi_property_descriptor d[] = {",
-                "    { K_GE, NULL, fn_getenv, NULL, NULL, NULL, napi_default, NULL },",
-                "    { K_SE, NULL, fn_setenv, NULL, NULL, NULL, napi_default, NULL },",
-                "    { K_UE, NULL, fn_unsetenv, NULL, NULL, NULL, napi_default, NULL },",
-                "    { K_PE, NULL, fn_putenv, NULL, NULL, NULL, napi_default, NULL },",
-                "    { K_PS, NULL, fn_putenv_s, NULL, NULL, NULL, napi_default, NULL },",
-                "    { K_CE, NULL, fn_clearenv, NULL, NULL, NULL, napi_default, NULL },",
-                "    { K_IA, NULL, fn_isatty, NULL, NULL, NULL, napi_default, NULL }",
-                "  };",
-                "  p_def_props(env, exports, 7, d); return exports;",
-                "}"
-            ].join("\n");
+                '#include <stdio.h>',
+                '#include <stdlib.h>',
+                '#include <string.h>',
+                '#include <errno.h>',
+                '#ifdef _WIN32',
+                '#include <windows.h>',
+                '#include <io.h>',
+                '#include <process.h>',
+                '#define EXPORT __declspec(dllexport)',
+                '#else',
+                '#include <unistd.h>',
+                '#include <dlfcn.h>',
+                '#include <pwd.h>',
+                '#include <sys/utsname.h>',
+                '#define EXPORT',
+                'extern char **environ;',
+                '#endif',
+                'typedef struct napi_env__* napi_env;',
+                'typedef struct napi_value__* napi_value;',
+                'typedef struct napi_callback_info__* napi_callback_info;',
+                'typedef napi_value (*napi_callback)(napi_env, napi_callback_info);',
+                'typedef enum { napi_default = 0 } napi_property_attributes;',
+                'typedef struct { const char* utf8name; napi_value name; napi_callback method; napi_callback getter; napi_callback setter; napi_value value; napi_property_attributes attributes; void* data; } napi_property_descriptor;',
+                'static int (*p_cb)(napi_env, napi_callback_info, size_t*, napi_value*, napi_value*, void**);',
+                'static int (*p_get_str)(napi_env, napi_value, char*, size_t, size_t*);',
+                'static int (*p_mk_str)(napi_env, const char*, size_t, napi_value*);',
+                'static int (*p_get_i32)(napi_env, napi_value, int*);',
+                'static int (*p_mk_i32)(napi_env, int, napi_value*);',
+                'static int (*p_get_null)(napi_env, napi_value*);',
+                'static int (*p_def_props)(napi_env, napi_value, size_t, const napi_property_descriptor*);',
+                'static FILE* g_files[256];',
+                'static int alloc_file_slot(FILE* fp) {',
+                '  if (!fp) return 0;',
+                '  for (int i = 1; i < 256; i++) { if (!g_files[i]) { g_files[i] = fp; return i; } }',
+                '  fclose(fp); errno = EMFILE; return 0;',
+                '}',
+                'static FILE* get_file_slot(int slot) {',
+                '  if (slot <= 0 || slot >= 256) return NULL;',
+                '  return g_files[slot];',
+                '}',
+                'static void* sym(const char* n) {',
+                '#ifdef _WIN32',
+                '  return (void*)GetProcAddress(GetModuleHandleA(NULL), n);',
+                '#else',
+                '  return dlsym(RTLD_DEFAULT, n);',
+                '#endif',
+                '}',
+                'static char* arg_str(napi_env env, napi_value v) {',
+                '  size_t len = 0;',
+                '  p_get_str(env, v, NULL, 0, &len);',
+                '  char* b = (char*)malloc(len + 1);',
+                '  p_get_str(env, v, b, len + 1, &len);',
+                '  return b;',
+                '}',
+                'static napi_value mk_str_or_null(napi_env env, const char* s) {',
+                '  napi_value r; if (!s) p_get_null(env, &r); else p_mk_str(env, s, strlen(s), &r); return r;',
+                '}',
+                'static napi_value mk_i32(napi_env env, int v) {',
+                '  napi_value r; p_mk_i32(env, v, &r); return r;',
+                '}',
+                'static napi_value fn_getenv(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL);',
+                '  char* k = arg_str(env, a[0]); const char* v = getenv(k); free(k);',
+                '  return mk_str_or_null(env, v);',
+                '}',
+                'static napi_value fn_setenv(napi_env env, napi_callback_info info) {',
+                '  size_t c = 3; napi_value a[3]; p_cb(env, info, &c, a, NULL, NULL);',
+                '  char* k = arg_str(env, a[0]); char* v = arg_str(env, a[1]); int ov = 1; p_get_i32(env, a[2], &ov);',
+                '#ifdef _WIN32',
+                '  int rc = (!ov && getenv(k) != NULL) ? 0 : (_putenv_s(k, v) == 0 ? 0 : -1);',
+                '#else',
+                '  int rc = setenv(k, v, ov);',
+                '#endif',
+                '  free(k); free(v); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_unsetenv(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL);',
+                '  char* k = arg_str(env, a[0]);',
+                '#ifdef _WIN32',
+                '  const char empty[1] = {0}; int rc = _putenv_s(k, empty) == 0 ? 0 : -1;',
+                '#else',
+                '  int rc = unsetenv(k);',
+                '#endif',
+                '  free(k); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_putenv(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL);',
+                '  char* s = arg_str(env, a[0]);',
+                '#ifdef _WIN32',
+                '  int rc = _putenv(s);',
+                '#else',
+                '  int rc = putenv(s);',
+                '#endif',
+                '  return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_putenv_s(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL);',
+                '  char* k = arg_str(env, a[0]); char* v = arg_str(env, a[1]);',
+                '#ifdef _WIN32',
+                '  int rc = _putenv_s(k, v);',
+                '#else',
+                '  int rc = (strchr(k, 61) != NULL) ? EINVAL : (v[0] == 0 ? (unsetenv(k) == 0 ? 0 : errno) : (setenv(k, v, 1) == 0 ? 0 : errno));',
+                '#endif',
+                '  free(k); free(v); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_clearenv(napi_env env, napi_callback_info info) {',
+                '  int rc = 0;',
+                '#if defined(__linux__) || defined(__ANDROID__)',
+                '  rc = clearenv();',
+                '#elif !defined(_WIN32)',
+                '  if (environ != NULL) { while (environ[0] != NULL) { const char* e = environ[0]; const char* eq = strchr(e, 61); size_t n = eq ? (size_t)(eq - e) : strlen(e); char* k = (char*)malloc(n + 1); memcpy(k, e, n); k[n] = 0; int u = unsetenv(k); free(k); if (u != 0) { rc = -1; break; } } }',
+                '#else',
+                '  rc = -1;',
+                '#endif',
+                '  return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_isatty(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int fd = 0; p_get_i32(env, a[0], &fd);',
+                '#ifdef _WIN32',
+                '  int rc = _isatty(fd);',
+                '#else',
+                '  int rc = isatty(fd);',
+                '#endif',
+                '  return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_get_errno(napi_env env, napi_callback_info info) {',
+                '  return mk_i32(env, errno);',
+                '}',
+                'static napi_value fn_strerror(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int e = 0; p_get_i32(env, a[0], &e);',
+                '  return mk_str_or_null(env, strerror(e));',
+                '}',
+                'static napi_value fn_realpath(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); char* p = arg_str(env, a[0]);',
+                '#ifdef _WIN32',
+                '  char* res = _fullpath(NULL, p, 4096);',
+                '#else',
+                '  char* res = realpath(p, NULL);',
+                '#endif',
+                '  free(p); napi_value r = mk_str_or_null(env, res); if (res) free(res); return r;',
+                '}',
+                'static napi_value fn_access(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); char* p = arg_str(env, a[0]); int m = 0; p_get_i32(env, a[1], &m);',
+                '#ifdef _WIN32',
+                '  int rc = _access(p, m);',
+                '#else',
+                '  int rc = access(p, m);',
+                '#endif',
+                '  free(p); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_unlink(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); char* p = arg_str(env, a[0]);',
+                '#ifdef _WIN32',
+                '  int rc = _unlink(p);',
+                '#else',
+                '  int rc = unlink(p);',
+                '#endif',
+                '  free(p); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_remove(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); char* p = arg_str(env, a[0]);',
+                '  int rc = remove(p); free(p); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_rename(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); char* o = arg_str(env, a[0]); char* n = arg_str(env, a[1]);',
+                '  int rc = rename(o, n); free(o); free(n); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_getpid(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, _getpid());',
+                '#else',
+                '  return mk_i32(env, (int)getpid());',
+                '#endif',
+                '}',
+                'static napi_value fn_getppid(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, 0);',
+                '#else',
+                '  return mk_i32(env, (int)getppid());',
+                '#endif',
+                '}',
+                'static napi_value fn_geteuid(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, 0);',
+                '#else',
+                '  return mk_i32(env, (int)geteuid());',
+                '#endif',
+                '}',
+                'static napi_value fn_getegid(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, 0);',
+                '#else',
+                '  return mk_i32(env, (int)getegid());',
+                '#endif',
+                '}',
+                'static napi_value fn_getuid(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, 0);',
+                '#else',
+                '  return mk_i32(env, (int)getuid());',
+                '#endif',
+                '}',
+                'static napi_value fn_getgid(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, 0);',
+                '#else',
+                '  return mk_i32(env, (int)getgid());',
+                '#endif',
+                '}',
+                'static napi_value fn_uname_fields(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  return mk_str_or_null(env, NULL);',
+                '#else',
+                '  struct utsname u; memset(&u, 0, sizeof(u)); if (uname(&u) != 0) return mk_str_or_null(env, NULL);',
+                '  char out[2048]; snprintf(out, sizeof(out), "%s%c%s%c%s%c%s%c%s", u.sysname, 10, u.nodename, 10, u.release, 10, u.version, 10, u.machine);',
+                '  return mk_str_or_null(env, out);',
+                '#endif',
+                '}',
+                '#ifndef _WIN32',
+                'static napi_value format_passwd_napi(napi_env env, int rc, struct passwd* res, struct passwd* pwd) {',
+                '  char out[4096];',
+                '  if (rc == 0 && res != NULL) {',
+                '    snprintf(out, sizeof(out), "0%c1%c%s%c%s%c%u%c%u%c%s%c%s%c%s", 10, 10, pwd->pw_name ? pwd->pw_name : "", 10, pwd->pw_passwd ? pwd->pw_passwd : "", 10, (unsigned int)pwd->pw_uid, 10, (unsigned int)pwd->pw_gid, 10, pwd->pw_gecos ? pwd->pw_gecos : "", 10, pwd->pw_dir ? pwd->pw_dir : "", 10, pwd->pw_shell ? pwd->pw_shell : "");',
+                '  } else {',
+                '    snprintf(out, sizeof(out), "%d%c0%c%c%c0%c0%c%c%c", rc, 10, 10, 10, 10, 10, 10, 10, 10);',
+                '  }',
+                '  return mk_str_or_null(env, out);',
+                '}',
+                '#endif',
+                'static napi_value fn_getpwuid_r_str(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  char out[64]; snprintf(out, sizeof(out), "38%c0%c%c%c0%c0%c%c%c", 10, 10, 10, 10, 10, 10, 10, 10); return mk_str_or_null(env, out);',
+                '#else',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); int uid = 0; int blen = 4096; p_get_i32(env, a[0], &uid); p_get_i32(env, a[1], &blen);',
+                '  size_t len = blen > 0 ? (size_t)blen : 4096; char* buf = (char*)malloc(len);',
+                '  if (!buf) { char out[64]; snprintf(out, sizeof(out), "12%c0%c%c%c0%c0%c%c%c", 10, 10, 10, 10, 10, 10, 10, 10); return mk_str_or_null(env, out); }',
+                '  struct passwd pwd; memset(&pwd, 0, sizeof(pwd)); struct passwd* res = NULL;',
+                '  int rc = getpwuid_r((uid_t)uid, &pwd, buf, len, &res);',
+                '  napi_value r = format_passwd_napi(env, rc, res, &pwd); free(buf); return r;',
+                '#endif',
+                '}',
+                'static napi_value fn_getpwnam_r_str(napi_env env, napi_callback_info info) {',
+                '#ifdef _WIN32',
+                '  char out[64]; snprintf(out, sizeof(out), "38%c0%c%c%c0%c0%c%c%c", 10, 10, 10, 10, 10, 10, 10, 10); return mk_str_or_null(env, out);',
+                '#else',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); char* name = arg_str(env, a[0]); int blen = 4096; p_get_i32(env, a[1], &blen);',
+                '  size_t len = blen > 0 ? (size_t)blen : 4096; char* buf = (char*)malloc(len);',
+                '  if (!buf) { free(name); char out[64]; snprintf(out, sizeof(out), "12%c0%c%c%c0%c0%c%c%c", 10, 10, 10, 10, 10, 10, 10, 10); return mk_str_or_null(env, out); }',
+                '  struct passwd pwd; memset(&pwd, 0, sizeof(pwd)); struct passwd* res = NULL;',
+                '  int rc = getpwnam_r(name, &pwd, buf, len, &res);',
+                '  napi_value r = format_passwd_napi(env, rc, res, &pwd); free(buf); free(name); return r;',
+                '#endif',
+                '}',
+                'static napi_value fn_fopen(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); char* p = arg_str(env, a[0]); char* m = arg_str(env, a[1]);',
+                '  FILE* fp = fopen(p, m); free(p); free(m); return mk_i32(env, alloc_file_slot(fp));',
+                '}',
+                'static napi_value fn_fclose(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int s = 0; p_get_i32(env, a[0], &s);',
+                '  FILE* fp = get_file_slot(s); if (!fp) { errno = EBADF; return mk_i32(env, -1); } g_files[s] = NULL; return mk_i32(env, fclose(fp));',
+                '}',
+                'static napi_value fn_fflush(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int s = 0; p_get_i32(env, a[0], &s);',
+                '  if (s == 0) return mk_i32(env, fflush(NULL)); FILE* fp = get_file_slot(s); if (!fp) return mk_i32(env, -1); return mk_i32(env, fflush(fp));',
+                '}',
+                'static napi_value fn_fgetc(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int s = 0; p_get_i32(env, a[0], &s);',
+                '  FILE* fp = get_file_slot(s); if (!fp) return mk_i32(env, -1); return mk_i32(env, fgetc(fp));',
+                '}',
+                'static napi_value fn_fputc(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); int ch = 0; int s = 0; p_get_i32(env, a[0], &ch); p_get_i32(env, a[1], &s);',
+                '  FILE* fp = get_file_slot(s); if (!fp) return mk_i32(env, -1); return mk_i32(env, fputc(ch, fp));',
+                '}',
+                'static napi_value fn_fgets(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); int n = 0; int s = 0; p_get_i32(env, a[0], &n); p_get_i32(env, a[1], &s);',
+                '  FILE* fp = get_file_slot(s); if (!fp || n <= 0) return mk_str_or_null(env, NULL);',
+                '  char* buf = (char*)malloc((size_t)n + 1); if (!buf) return mk_str_or_null(env, NULL);',
+                '  char* res = fgets(buf, n, fp); napi_value r = mk_str_or_null(env, res); free(buf); return r;',
+                '}',
+                'static napi_value fn_fputs(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); char* str = arg_str(env, a[0]); int s = 0; p_get_i32(env, a[1], &s);',
+                '  FILE* fp = get_file_slot(s); int rc = fp ? fputs(str, fp) : -1; free(str); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_feof(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int s = 0; p_get_i32(env, a[0], &s);',
+                '  FILE* fp = get_file_slot(s); return mk_i32(env, fp ? feof(fp) : 0);',
+                '}',
+                'static napi_value fn_ferror(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int s = 0; p_get_i32(env, a[0], &s);',
+                '  FILE* fp = get_file_slot(s); return mk_i32(env, fp ? ferror(fp) : 0);',
+                '}',
+                'static napi_value fn_clearerr(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int s = 0; p_get_i32(env, a[0], &s);',
+                '  FILE* fp = get_file_slot(s); if (fp) clearerr(fp); return mk_i32(env, 0);',
+                '}',
+                'static napi_value fn_popen(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); char* cmd = arg_str(env, a[0]); char* m = arg_str(env, a[1]);',
+                '#ifdef _WIN32',
+                '  FILE* fp = _popen(cmd, m);',
+                '#else',
+                '  FILE* fp = popen(cmd, m);',
+                '#endif',
+                '  free(cmd); free(m); return mk_i32(env, alloc_file_slot(fp));',
+                '}',
+                'static napi_value fn_pclose(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int s = 0; p_get_i32(env, a[0], &s);',
+                '  FILE* fp = get_file_slot(s); if (!fp) { errno = EBADF; return mk_i32(env, -1); } g_files[s] = NULL;',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, _pclose(fp));',
+                '#else',
+                '  return mk_i32(env, pclose(fp));',
+                '#endif',
+                '}',
+                'static napi_value fn_close(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int fd = -1; p_get_i32(env, a[0], &fd);',
+                '#ifdef _WIN32',
+                '  return mk_i32(env, _close(fd));',
+                '#else',
+                '  return mk_i32(env, close(fd));',
+                '#endif',
+                '}',
+                'static napi_value fn_atoi(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); char* s = arg_str(env, a[0]);',
+                '  int rc = atoi(s); free(s); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_system(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); char* s = arg_str(env, a[0]);',
+                '  int rc = system(s); free(s); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_strcmp(napi_env env, napi_callback_info info) {',
+                '  size_t c = 2; napi_value a[2]; p_cb(env, info, &c, a, NULL, NULL); char* s1 = arg_str(env, a[0]); char* s2 = arg_str(env, a[1]);',
+                '  int rc = strcmp(s1, s2); free(s1); free(s2); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_strncmp(napi_env env, napi_callback_info info) {',
+                '  size_t c = 3; napi_value a[3]; p_cb(env, info, &c, a, NULL, NULL); char* s1 = arg_str(env, a[0]); char* s2 = arg_str(env, a[1]); int n = 0; p_get_i32(env, a[2], &n);',
+                '  int rc = strncmp(s1, s2, (size_t)(n < 0 ? 0 : n)); free(s1); free(s2); return mk_i32(env, rc);',
+                '}',
+                'static napi_value fn_strlen(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); char* s = arg_str(env, a[0]);',
+                '  int rc = (int)strlen(s); free(s); return mk_i32(env, rc);',
+                '}',
+                'EXPORT napi_value napi_register_module_v1(napi_env env, napi_value exports) {',
+                '  p_cb = sym("napi_get_cb_info"); p_get_str = sym("napi_get_value_string_utf8"); p_mk_str = sym("napi_create_string_utf8"); p_get_i32 = sym("napi_get_value_int32"); p_mk_i32 = sym("napi_create_int32"); p_get_null = sym("napi_get_null"); p_def_props = sym("napi_define_properties");',
+                '  napi_property_descriptor d[] = {',
+                '    { "getenv", NULL, fn_getenv, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "setenv", NULL, fn_setenv, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "unsetenv", NULL, fn_unsetenv, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "putenv", NULL, fn_putenv, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "putenv_s", NULL, fn_putenv_s, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "clearenv", NULL, fn_clearenv, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "isatty", NULL, fn_isatty, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "get_errno", NULL, fn_get_errno, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "strerror", NULL, fn_strerror, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "realpath", NULL, fn_realpath, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "access", NULL, fn_access, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "unlink", NULL, fn_unlink, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "remove", NULL, fn_remove, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "rename", NULL, fn_rename, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getpid", NULL, fn_getpid, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getppid", NULL, fn_getppid, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "geteuid", NULL, fn_geteuid, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getegid", NULL, fn_getegid, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getuid", NULL, fn_getuid, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getgid", NULL, fn_getgid, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "uname_fields", NULL, fn_uname_fields, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getpwuid_r_str", NULL, fn_getpwuid_r_str, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getpwnam_r_str", NULL, fn_getpwnam_r_str, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "fopen", NULL, fn_fopen, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "fclose", NULL, fn_fclose, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "fflush", NULL, fn_fflush, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "fgetc", NULL, fn_fgetc, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "fputc", NULL, fn_fputc, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "fgets", NULL, fn_fgets, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "fputs", NULL, fn_fputs, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "feof", NULL, fn_feof, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "ferror", NULL, fn_ferror, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "clearerr", NULL, fn_clearerr, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "popen", NULL, fn_popen, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "pclose", NULL, fn_pclose, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "close", NULL, fn_close, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "atoi", NULL, fn_atoi, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "system", NULL, fn_system, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "strcmp", NULL, fn_strcmp, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "strncmp", NULL, fn_strncmp, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "strlen", NULL, fn_strlen, NULL, NULL, NULL, napi_default, NULL }',
+                '  };',
+                '  p_def_props(env, exports, sizeof(d) / sizeof(d[0]), d); return exports;',
+                '}'
+            ].join(String.fromCharCode(10));
             fs.writeFileSync(cFile, cCode);
             const args = proc.platform === "win32" ? ["-shared", "-O2", cFile, "-o", nodeFile] : ["-shared", "-fPIC", "-O2", cFile, "-o", nodeFile];
             cp.execFileSync("clang", args);
@@ -192,6 +453,108 @@ private external fun wasmClearenv(): Int
 @JsFun("(fd) => globalThis.__kotlinmania_libc_native.isatty(fd)")
 private external fun wasmIsatty(fd: Int): Int
 
+@JsFun("() => globalThis.__kotlinmania_libc_native.get_errno()")
+private external fun wasmGetErrno(): Int
+
+@JsFun("(errnum) => globalThis.__kotlinmania_libc_native.strerror(errnum)")
+private external fun wasmStrerror(errnum: Int): String?
+
+@JsFun("(path) => globalThis.__kotlinmania_libc_native.realpath(path)")
+private external fun wasmRealpath(path: String): String?
+
+@JsFun("(path, mode) => globalThis.__kotlinmania_libc_native.access(path, mode)")
+private external fun wasmAccess(path: String, mode: Int): Int
+
+@JsFun("(path) => globalThis.__kotlinmania_libc_native.unlink(path)")
+private external fun wasmUnlink(path: String): Int
+
+@JsFun("(path) => globalThis.__kotlinmania_libc_native.remove(path)")
+private external fun wasmRemove(path: String): Int
+
+@JsFun("(oldname, newname) => globalThis.__kotlinmania_libc_native.rename(oldname, newname)")
+private external fun wasmRename(oldname: String, newname: String): Int
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.getpid()")
+private external fun wasmGetpid(): Int
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.getppid()")
+private external fun wasmGetppid(): Int
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.geteuid()")
+private external fun wasmGeteuid(): Int
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.getegid()")
+private external fun wasmGetegid(): Int
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.getuid()")
+private external fun wasmGetuid(): Int
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.getgid()")
+private external fun wasmGetgid(): Int
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.uname_fields()")
+private external fun wasmUnameFields(): String?
+
+@JsFun("(uid, buflen) => globalThis.__kotlinmania_libc_native.getpwuid_r_str(uid, buflen)")
+private external fun wasmGetpwuidRStr(uid: Int, buflen: Int): String
+
+@JsFun("(name, buflen) => globalThis.__kotlinmania_libc_native.getpwnam_r_str(name, buflen)")
+private external fun wasmGetpwnamRStr(name: String, buflen: Int): String
+
+@JsFun("(path, mode) => globalThis.__kotlinmania_libc_native.fopen(path, mode)")
+private external fun wasmFopen(path: String, mode: String): Int
+
+@JsFun("(fp) => globalThis.__kotlinmania_libc_native.fclose(fp)")
+private external fun wasmFclose(fp: Int): Int
+
+@JsFun("(fp) => globalThis.__kotlinmania_libc_native.fflush(fp)")
+private external fun wasmFflush(fp: Int): Int
+
+@JsFun("(fp) => globalThis.__kotlinmania_libc_native.fgetc(fp)")
+private external fun wasmFgetc(fp: Int): Int
+
+@JsFun("(c, fp) => globalThis.__kotlinmania_libc_native.fputc(c, fp)")
+private external fun wasmFputc(c: Int, fp: Int): Int
+
+@JsFun("(n, fp) => globalThis.__kotlinmania_libc_native.fgets(n, fp)")
+private external fun wasmFgets(n: Int, fp: Int): String?
+
+@JsFun("(s, fp) => globalThis.__kotlinmania_libc_native.fputs(s, fp)")
+private external fun wasmFputs(s: String, fp: Int): Int
+
+@JsFun("(fp) => globalThis.__kotlinmania_libc_native.feof(fp)")
+private external fun wasmFeof(fp: Int): Int
+
+@JsFun("(fp) => globalThis.__kotlinmania_libc_native.ferror(fp)")
+private external fun wasmFerror(fp: Int): Int
+
+@JsFun("(fp) => globalThis.__kotlinmania_libc_native.clearerr(fp)")
+private external fun wasmClearerr(fp: Int): Int
+
+@JsFun("(command, mode) => globalThis.__kotlinmania_libc_native.popen(command, mode)")
+private external fun wasmPopen(command: String, mode: String): Int
+
+@JsFun("(fp) => globalThis.__kotlinmania_libc_native.pclose(fp)")
+private external fun wasmPclose(fp: Int): Int
+
+@JsFun("(fd) => globalThis.__kotlinmania_libc_native.close(fd)")
+private external fun wasmClose(fd: Int): Int
+
+@JsFun("(s) => globalThis.__kotlinmania_libc_native.atoi(s)")
+private external fun wasmAtoi(s: String): Int
+
+@JsFun("(s) => globalThis.__kotlinmania_libc_native.system(s)")
+private external fun wasmSystem(s: String): Int
+
+@JsFun("(cs, ct) => globalThis.__kotlinmania_libc_native.strcmp(cs, ct)")
+private external fun wasmStrcmp(cs: String, ct: String): Int
+
+@JsFun("(cs, ct, n) => globalThis.__kotlinmania_libc_native.strncmp(cs, ct, n)")
+private external fun wasmStrncmp(cs: String, ct: String, n: Int): Int
+
+@JsFun("(cs) => globalThis.__kotlinmania_libc_native.strlen(cs)")
+private external fun wasmStrlen(cs: String): Int
+
 internal object LibcNapiWasm {
     init {
         ensureLibcNapiLoaded()
@@ -212,4 +575,260 @@ internal object LibcNapiWasm {
     fun clearenv(): Int = wasmClearenv()
 
     fun isatty(fd: Int): Int = wasmIsatty(fd)
+
+    fun getErrno(): Int = wasmGetErrno()
+
+    fun strerror(errnum: Int): String? = wasmStrerror(errnum)
+
+    fun realpath(pathname: String?): String? = if (pathname == null) null else wasmRealpath(pathname)
+
+    fun access(path: String?, mode: Int): Int = if (path == null) -1 else wasmAccess(path, mode)
+
+    fun unlink(path: String?): Int = if (path == null) -1 else wasmUnlink(path)
+
+    fun remove(filename: String?): Int = if (filename == null) -1 else wasmRemove(filename)
+
+    fun rename(oldname: String?, newname: String?): Int =
+        if (oldname == null || newname == null) -1 else wasmRename(oldname, newname)
+
+    fun close(fd: Int): Int = wasmClose(fd)
+
+    fun atoi(s: String?): Int = if (s == null) 0 else wasmAtoi(s)
+
+    fun system(s: String?): Int = if (s == null) 1 else wasmSystem(s)
+
+    fun strcmp(cs: String?, ct: String?): Int =
+        if (cs == null || ct == null) 0 else wasmStrcmp(cs, ct)
+
+    fun strncmp(cs: String?, ct: String?, n: ULong): Int =
+        if (cs == null || ct == null) 0 else wasmStrncmp(cs, ct, n.toLong().coerceIn(0L, Int.MAX_VALUE.toLong()).toInt())
+
+    fun strlen(cs: String?): ULong =
+        if (cs == null) 0uL else wasmStrlen(cs).toULong()
+
+    fun getpid(): Int = wasmGetpid()
+
+    fun getppid(): Int = wasmGetppid()
+
+    fun geteuid(): UInt = wasmGeteuid().toUInt()
+
+    fun getegid(): UInt = wasmGetegid().toUInt()
+
+    fun getuid(): UInt = wasmGetuid().toUInt()
+
+    fun getgid(): UInt = wasmGetgid().toUInt()
+
+    fun fopen(filename: String?, mode: String?): FILE? {
+        if (filename == null || mode == null) return null
+        val h = wasmFopen(filename, mode)
+        return if (h > 0) FILE(h.toLong()) else null
+    }
+
+    fun fclose(file: FILE?): Int =
+        if (file == null || file.handle <= 0L) -1 else wasmFclose(file.handle.toInt())
+
+    fun fflush(file: FILE?): Int =
+        if (file == null) {
+            wasmFflush(0)
+        } else if (file.handle <= 0L) {
+            -1
+        } else {
+            wasmFflush(file.handle.toInt())
+        }
+
+    fun fgetc(stream: FILE?): Int =
+        if (stream == null || stream.handle <= 0L) -1 else wasmFgetc(stream.handle.toInt())
+
+    fun fputc(c: Int, stream: FILE?): Int =
+        if (stream == null || stream.handle <= 0L) -1 else wasmFputc(c, stream.handle.toInt())
+
+    fun fgets(n: Int, stream: FILE?): String? =
+        if (stream == null || stream.handle <= 0L || n <= 0) null else wasmFgets(n, stream.handle.toInt())
+
+    fun fputs(s: String?, stream: FILE?): Int =
+        if (s == null || stream == null || stream.handle <= 0L) -1 else wasmFputs(s, stream.handle.toInt())
+
+    fun feof(stream: FILE?): Int =
+        if (stream == null || stream.handle <= 0L) 0 else wasmFeof(stream.handle.toInt())
+
+    fun ferror(stream: FILE?): Int =
+        if (stream == null || stream.handle <= 0L) 0 else wasmFerror(stream.handle.toInt())
+
+    fun clearerr(stream: FILE?) {
+        if (stream != null && stream.handle > 0L) {
+            wasmClearerr(stream.handle.toInt())
+        }
+    }
+
+    fun popen(command: String?, mode: String?): FILE? {
+        if (command == null || mode == null) return null
+        val h = wasmPopen(command, mode)
+        return if (h > 0) FILE(h.toLong()) else null
+    }
+
+    fun pclose(stream: FILE?): Int =
+        if (stream == null || stream.handle <= 0L) -1 else wasmPclose(stream.handle.toInt())
+
+    private fun copyCStringInto(src: String, dst: ByteArray) {
+        dst.fill(0)
+        val bytes = src.encodeToByteArray()
+        val copyLen = minOf(bytes.size, (dst.size - 1).coerceAtLeast(0))
+        for (i in 0 until copyLen) {
+            dst[i] = bytes[i]
+        }
+    }
+
+    fun uname(buf: Utsname?): Int {
+        if (buf == null) return -1
+        val raw = wasmUnameFields() ?: return -1
+        val parts = raw.split('\n')
+        if (parts.size < 5) return -1
+        copyCStringInto(parts[0], buf.sysname)
+        copyCStringInto(parts[1], buf.nodename)
+        copyCStringInto(parts[2], buf.release)
+        copyCStringInto(parts[3], buf.version)
+        copyCStringInto(parts[4], buf.machine)
+        return 0
+    }
+
+    fun uname(buf: io.github.kotlinmania.libc.unix.linuxlike.Utsname?): Int {
+        if (buf == null) return -1
+        val raw = wasmUnameFields() ?: return -1
+        val parts = raw.split('\n')
+        if (parts.size < 5) return -1
+        copyCStringInto(parts[0], buf.sysname)
+        copyCStringInto(parts[1], buf.nodename)
+        copyCStringInto(parts[2], buf.release)
+        copyCStringInto(parts[3], buf.version)
+        copyCStringInto(parts[4], buf.machine)
+        return 0
+    }
+
+    private fun applyPasswdRResult(raw: String, pwd: Passwd?, result: COpaquePointer?): Int {
+        val lines = raw.split('\n')
+        val rc = lines.getOrNull(0)?.toIntOrNull() ?: -1
+        val found = lines.getOrNull(1)?.toIntOrNull() ?: 0
+        if (rc == 0 && found != 0 && pwd != null && lines.size >= 9) {
+            pwd.pwName = lines[2]
+            pwd.pwPasswd = lines[3]
+            pwd.pwUid = lines[4].toUIntOrNull() ?: 0u
+            pwd.pwGid = lines[5].toUIntOrNull() ?: 0u
+            pwd.pwGecos = lines[6]
+            pwd.pwDir = lines[7]
+            pwd.pwShell = lines[8]
+            result?.value = 1L
+        } else {
+            result?.value = 0L
+        }
+        return rc
+    }
+
+    fun getpwuidR(uid: UInt, pwd: Passwd?, buflen: ULong, result: COpaquePointer?): Int {
+        val len = buflen.toLong().coerceIn(1L, 1048576L).toInt()
+        return applyPasswdRResult(wasmGetpwuidRStr(uid.toInt(), len), pwd, result)
+    }
+
+    fun getpwnamR(name: String?, pwd: Passwd?, buflen: ULong, result: COpaquePointer?): Int {
+        if (name == null) {
+            result?.value = 0L
+            return 22
+        }
+        val len = buflen.toLong().coerceIn(1L, 1048576L).toInt()
+        return applyPasswdRResult(wasmGetpwnamRStr(name, len), pwd, result)
+    }
+
+    fun getpwuidR(
+        uid: UInt,
+        pwd: io.github.kotlinmania.libc.unix.bsd.Passwd?,
+        buflen: ULong,
+        result: COpaquePointer?,
+    ): Int {
+        val tmp = Passwd()
+        val rc = getpwuidR(uid, tmp, buflen, result)
+        if (rc == 0 && result?.value != 0L && pwd != null) {
+            pwd.pwName = tmp.pwName
+            pwd.pwPasswd = tmp.pwPasswd
+            pwd.pwUid = tmp.pwUid
+            pwd.pwGid = tmp.pwGid
+            pwd.pwGecos = tmp.pwGecos
+            pwd.pwDir = tmp.pwDir
+            pwd.pwShell = tmp.pwShell
+        }
+        return rc
+    }
+
+    fun getpwnamR(
+        name: String?,
+        pwd: io.github.kotlinmania.libc.unix.bsd.Passwd?,
+        buflen: ULong,
+        result: COpaquePointer?,
+    ): Int {
+        val tmp = Passwd()
+        val rc = getpwnamR(name, tmp, buflen, result)
+        if (rc == 0 && result?.value != 0L && pwd != null) {
+            pwd.pwName = tmp.pwName
+            pwd.pwPasswd = tmp.pwPasswd
+            pwd.pwUid = tmp.pwUid
+            pwd.pwGid = tmp.pwGid
+            pwd.pwGecos = tmp.pwGecos
+            pwd.pwDir = tmp.pwDir
+            pwd.pwShell = tmp.pwShell
+        }
+        return rc
+    }
+
+    fun getpwuidR(
+        uid: UInt,
+        pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
+        buflen: ULong,
+        result: COpaquePointer?,
+    ): Int {
+        val tmp = Passwd()
+        val rc = getpwuidR(uid, tmp, buflen, result)
+        if (rc == 0 && result?.value != 0L && pwd != null) {
+            pwd.pwName = tmp.pwName
+            pwd.pwPasswd = tmp.pwPasswd
+            pwd.pwUid = tmp.pwUid
+            pwd.pwGid = tmp.pwGid
+            pwd.pwGecos = tmp.pwGecos
+            pwd.pwDir = tmp.pwDir
+            pwd.pwShell = tmp.pwShell
+        }
+        return rc
+    }
+
+    fun getpwnamR(
+        name: String?,
+        pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
+        buflen: ULong,
+        result: COpaquePointer?,
+    ): Int {
+        val tmp = Passwd()
+        val rc = getpwnamR(name, tmp, buflen, result)
+        if (rc == 0 && result?.value != 0L && pwd != null) {
+            pwd.pwName = tmp.pwName
+            pwd.pwPasswd = tmp.pwPasswd
+            pwd.pwUid = tmp.pwUid
+            pwd.pwGid = tmp.pwGid
+            pwd.pwGecos = tmp.pwGecos
+            pwd.pwDir = tmp.pwDir
+            pwd.pwShell = tmp.pwShell
+        }
+        return rc
+    }
+
+    fun getpwuid(uid: UInt): Passwd? {
+        val pwd = Passwd()
+        val res = COpaquePointer(0L)
+        val rc = getpwuidR(uid, pwd, 4096uL, res)
+        return if (rc == 0 && res.value != 0L) pwd else null
+    }
+
+    fun getpwnam(name: String?): Passwd? {
+        if (name == null) return null
+        val pwd = Passwd()
+        val res = COpaquePointer(0L)
+        val rc = getpwnamR(name, pwd, 4096uL, res)
+        return if (rc == 0 && res.value != 0L) pwd else null
+    }
 }

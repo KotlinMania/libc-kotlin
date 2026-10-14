@@ -1598,6 +1598,10 @@ val fullTargetBuildTaskNames =
         // pull in — no separate add() needed here.
     }
 
+tasks.matching { it.name.contains("XCFramework") }.configureEach {
+    doNotTrackState("XCFramework bundle contains dynamic symlinks managed by xcodebuild")
+}
+
 tasks.named("build") {
     dependsOn(fullTargetBuildTaskNames)
 }

@@ -47,22 +47,22 @@ public actual fun toupper(c: CInt): CInt =
     throw UnsupportedOperationException("toupper requires N-API addon")
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("fopen requires N-API addon")
+    LibcNapiWasm.fopen(filename, mode)
 
 public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen requires N-API addon")
 
 public actual fun fflush(file: FILE?): CInt =
-    throw UnsupportedOperationException("fflush requires N-API addon")
+    LibcNapiWasm.fflush(file)
 
 public actual fun fclose(file: FILE?): CInt =
-    throw UnsupportedOperationException("fclose requires N-API addon")
+    LibcNapiWasm.fclose(file)
 
 public actual fun remove(filename: String?): CInt =
-    throw UnsupportedOperationException("remove requires N-API addon")
+    LibcNapiWasm.remove(filename)
 
 public actual fun rename(oldname: String?, newname: String?): CInt =
-    throw UnsupportedOperationException("rename requires N-API addon")
+    LibcNapiWasm.rename(oldname, newname)
 
 public actual fun tmpfile(): FILE? =
     throw UnsupportedOperationException("tmpfile requires N-API addon")
@@ -79,16 +79,16 @@ public actual fun putchar(c: CInt): CInt =
     throw UnsupportedOperationException("putchar requires N-API addon")
 
 public actual fun fgetc(stream: FILE?): CInt =
-    throw UnsupportedOperationException("fgetc requires N-API addon")
+    LibcNapiWasm.fgetc(stream)
 
 public actual fun fgets(buf: String?, n: CInt, stream: FILE?): String? =
-    throw UnsupportedOperationException("fgets requires N-API addon")
+    LibcNapiWasm.fgets(n, stream)
 
 public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputc requires N-API addon")
+    LibcNapiWasm.fputc(c, stream)
 
 public actual fun fputs(s: String?, stream: FILE?): CInt =
-    throw UnsupportedOperationException("fputs requires N-API addon")
+    LibcNapiWasm.fputs(s, stream)
 
 public actual fun puts(s: String?): CInt =
     throw UnsupportedOperationException("puts requires N-API addon")
@@ -117,17 +117,19 @@ public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
     throw UnsupportedOperationException("fsetpos requires N-API addon")
 
 public actual fun feof(stream: FILE?): CInt =
-    throw UnsupportedOperationException("feof requires N-API addon")
+    LibcNapiWasm.feof(stream)
 
 public actual fun ferror(stream: FILE?): CInt =
-    throw UnsupportedOperationException("ferror requires N-API addon")
+    LibcNapiWasm.ferror(stream)
 
-public actual fun clearerr(stream: FILE?): Unit = throw UnsupportedOperationException("clearerr requires N-API addon")
+public actual fun clearerr(stream: FILE?) {
+    LibcNapiWasm.clearerr(stream)
+}
 
 public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror requires N-API addon")
 
 public actual fun atoi(s: String?): CInt =
-    throw UnsupportedOperationException("atoi requires N-API addon")
+    LibcNapiWasm.atoi(s)
 
 public actual fun atol(s: String?): CLong =
     throw UnsupportedOperationException("atol requires N-API addon")
@@ -159,7 +161,7 @@ public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
 public actual fun free(p: COpaquePointer?): Unit = throw UnsupportedOperationException("free requires N-API addon")
 
 public actual fun system(s: String?): CInt =
-    throw UnsupportedOperationException("system requires N-API addon")
+    LibcNapiWasm.system(s)
 
 public actual fun getenv(s: String?): String? =
     LibcNapiWasm.getenv(s)
@@ -180,10 +182,10 @@ public actual fun strncat(s: String?, ct: String?, n: ULong): String? =
     throw UnsupportedOperationException("strncat requires N-API addon")
 
 public actual fun strcmp(cs: String?, ct: String?): CInt =
-    throw UnsupportedOperationException("strcmp requires N-API addon")
+    LibcNapiWasm.strcmp(cs, ct)
 
 public actual fun strncmp(cs: String?, ct: String?, n: ULong): CInt =
-    throw UnsupportedOperationException("strncmp requires N-API addon")
+    LibcNapiWasm.strncmp(cs, ct, n)
 
 public actual fun strcoll(cs: String?, ct: String?): CInt =
     throw UnsupportedOperationException("strcoll requires N-API addon")
@@ -219,13 +221,13 @@ public actual fun strncasecmp(s1: String?, s2: String?, n: ULong): CInt =
     throw UnsupportedOperationException("strncasecmp requires N-API addon")
 
 public actual fun strlen(cs: String?): ULong =
-    throw UnsupportedOperationException("strlen requires N-API addon")
+    LibcNapiWasm.strlen(cs)
 
 public actual fun strnlen(cs: String?, maxlen: ULong): ULong =
     throw UnsupportedOperationException("strnlen requires N-API addon")
 
 public actual fun strerror(n: CInt): String? =
-    throw UnsupportedOperationException("strerror requires N-API addon")
+    LibcNapiWasm.strerror(n)
 
 public actual fun strtok(s: String?, t: String?): String? =
     throw UnsupportedOperationException("strtok requires N-API addon")
@@ -267,10 +269,10 @@ public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, 
     throw UnsupportedOperationException("memccpy requires N-API addon")
 
 public actual fun getpwnam(name: String?): Passwd? =
-    throw UnsupportedOperationException("getpwnam requires N-API addon")
+    LibcNapiWasm.getpwnam(name)
 
 public actual fun getpwuid(uid: UidT): Passwd? =
-    throw UnsupportedOperationException("getpwuid requires N-API addon")
+    LibcNapiWasm.getpwuid(uid)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("fprintf requires N-API addon")
@@ -345,7 +347,7 @@ public actual fun stat(path: String?, buf: Stat?): CInt =
     throw UnsupportedOperationException("stat requires N-API addon")
 
 public actual fun pclose(stream: FILE?): CInt =
-    throw UnsupportedOperationException("pclose requires N-API addon")
+    LibcNapiWasm.pclose(stream)
 
 public actual fun fdopen(fd: CInt, mode: String?): FILE? =
     throw UnsupportedOperationException("fdopen requires N-API addon")
@@ -398,7 +400,7 @@ public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
     throw UnsupportedOperationException("unlinkat requires N-API addon")
 
 public actual fun access(path: String?, amode: CInt): CInt =
-    throw UnsupportedOperationException("access requires N-API addon")
+    LibcNapiWasm.access(path, amode)
 
 public actual fun chdir(dir: String?): CInt =
     throw UnsupportedOperationException("chdir requires N-API addon")
@@ -413,7 +415,7 @@ public actual fun lchown(path: String?, uid: UidT, gid: GidT): CInt =
     throw UnsupportedOperationException("lchown requires N-API addon")
 
 public actual fun close(fd: CInt): CInt =
-    throw UnsupportedOperationException("close requires N-API addon")
+    LibcNapiWasm.close(fd)
 
 public actual fun dup(fd: CInt): CInt =
     throw UnsupportedOperationException("dup requires N-API addon")
@@ -464,18 +466,22 @@ public actual fun getpgrp(): PidT =
     throw UnsupportedOperationException("getpgrp requires N-API addon")
 
 public actual fun getpid(): PidT =
-    throw UnsupportedOperationException("getpid requires N-API addon")
+    LibcNapiWasm.getpid()
 
 public actual fun getppid(): PidT =
-    throw UnsupportedOperationException("getppid requires N-API addon")
+    LibcNapiWasm.getppid()
 
-public actual fun geteuid(): UidT = 0u
+public actual fun geteuid(): UidT =
+    LibcNapiWasm.geteuid()
 
-public actual fun getegid(): GidT = 0u
+public actual fun getegid(): GidT =
+    LibcNapiWasm.getegid()
 
-public actual fun getuid(): UidT = 0u
+public actual fun getuid(): UidT =
+    LibcNapiWasm.getuid()
 
-public actual fun getgid(): GidT = 0u
+public actual fun getgid(): GidT =
+    LibcNapiWasm.getgid()
 
 public actual fun isatty(fd: CInt): CInt =
     LibcNapiWasm.isatty(fd)
@@ -546,7 +552,7 @@ public actual fun ttynameR(fd: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("ttynameR requires N-API addon")
 
 public actual fun unlink(c: String?): CInt =
-    throw UnsupportedOperationException("unlink requires N-API addon")
+    LibcNapiWasm.unlink(c)
 
 public actual fun wait(status: CInt?): PidT =
     throw UnsupportedOperationException("wait requires N-API addon")
@@ -618,7 +624,7 @@ public actual fun getrusage(resource: CInt, usage: Rusage?): CInt =
     throw UnsupportedOperationException("getrusage requires N-API addon")
 
 public actual fun realpath(pathname: String?, resolved: String?): String? =
-    throw UnsupportedOperationException("realpath requires N-API addon")
+    LibcNapiWasm.realpath(pathname)
 
 public actual fun times(buf: Tms?): ClockT =
     throw UnsupportedOperationException("times requires N-API addon")

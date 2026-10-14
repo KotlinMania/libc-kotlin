@@ -28,17 +28,17 @@ public data class SockaddrIn6(
 )
 
 public data class Passwd(
-    val pwName: String?,
-    val pwPasswd: String?,
-    val pwUid: UidT,
-    val pwGid: GidT,
-    val pwChange: TimeT,
-    val pwClass: String?,
-    val pwGecos: String?,
-    val pwDir: String?,
-    val pwShell: String?,
-    val pwExpire: TimeT,
-    val pwFields: CInt,
+    var pwName: String? = null,
+    var pwPasswd: String? = null,
+    var pwUid: UidT = 0u,
+    var pwGid: GidT = 0u,
+    var pwChange: TimeT = 0L,
+    var pwClass: String? = null,
+    var pwGecos: String? = null,
+    var pwDir: String? = null,
+    var pwShell: String? = null,
+    var pwExpire: TimeT = 0L,
+    var pwFields: CInt = 0,
 )
 
 public data class Ifaddrs(
@@ -111,16 +111,16 @@ public data class SockaddrUn(
 
 public data class Utsname(
     val handle: Long = 0L,
-    val sysname: ByteArray,
-    val sysname2: ByteArray,
-    val nodename: ByteArray,
-    val nodename2: ByteArray,
-    val release: ByteArray,
-    val release2: ByteArray,
-    val version: ByteArray,
-    val version2: ByteArray,
-    val machine: ByteArray,
-    val machine2: ByteArray,
+    val sysname: ByteArray = ByteArray(256),
+    val sysname2: ByteArray = ByteArray(256),
+    val nodename: ByteArray = ByteArray(256),
+    val nodename2: ByteArray = ByteArray(256),
+    val release: ByteArray = ByteArray(256),
+    val release2: ByteArray = ByteArray(256),
+    val version: ByteArray = ByteArray(256),
+    val version2: ByteArray = ByteArray(256),
+    val machine: ByteArray = ByteArray(256),
+    val machine2: ByteArray = ByteArray(256),
 )
 
 public const val LC_ALL: CInt = 0
