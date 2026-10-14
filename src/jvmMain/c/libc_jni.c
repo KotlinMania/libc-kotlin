@@ -18,6 +18,9 @@
 #include <termios.h>
 #include <poll.h>
 #include <signal.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <dlfcn.h>
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
 #include <sys/ucred.h>
 #endif
@@ -1362,4 +1365,205 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_unlink(
     (*env)->ReleaseStringUTFChars(env, path, cpath);
     return (jint)res;
 }
+
+static unsigned int jni_hex_nibble(char c) {
+    if (c >= '0' && c <= '9') return (unsigned int)(c - '0');
+    if (c >= 'a' && c <= 'f') return (unsigned int)(c - 'a' + 10);
+    if (c >= 'A' && c <= 'F') return (unsigned int)(c - 'A' + 10);
+    return 0;
+}
+
+static void jni_ensure_wsa(void) {
+#ifdef _WIN32
+    static int inited = 0;
+    if (!inited) {
+        WSADATA wsa;
+        if (WSAStartup(MAKEWORD(2, 2), &wsa) == 0) {
+            inited = 1;
+        }
+    }
+#endif
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_getaddrinfoStr(
+    JNIEnv* env, jclass clazz,
+    jstring node, jstring service,
+    jint hasHints, jint aiFlags, jint aiFamily, jint aiSocktype, jint aiProtocol) {
+    (void)clazz;
+    jni_ensure_wsa();
+    const char* cnode = node ? (*env)->GetStringUTFChars(env, node, NULL) : NULL;
+    const char* cserv = service ? (*env)->GetStringUTFChars(env, service, NULL) : NULL;
+    struct addrinfo hints;
+    memset(&hints, 0, sizeof(hints));
+    if (hasHints) {
+        hints.ai_flags = (int)aiFlags;
+        int fam = (int)aiFamily;
+        if (fam == 10 || fam == 23 || fam == 24 || fam == 28 || fam == 30) {
+            fam = AF_INET6;
+        }
+        hints.ai_family = fam;
+        hints.ai_socktype = (int)aiSocktype;
+        hints.ai_protocol = (int)aiProtocol;
+    }
+    struct addrinfo* res = NULL;
+    int rc = getaddrinfo(cnode, cserv, hasHints ? &hints : NULL, &res);
+    if (cnode) (*env)->ReleaseStringUTFChars(env, node, cnode);
+    if (cserv) (*env)->ReleaseStringUTFChars(env, service, cserv);
+    char out[16384];
+    if (rc != 0) {
+        snprintf(out, sizeof(out), "%d\n0", rc);
+        return (*env)->NewStringUTF(env, out);
+    }
+    int count = 0;
+    for (struct addrinfo* p = res; p != NULL && count < 64; p = p->ai_next) {
+        count++;
+    }
+    size_t pos = (size_t)snprintf(out, sizeof(out), "0\n%d\n", count);
+    static const char hex_digits[] = "0123456789abcdef";
+    int idx = 0;
+    for (struct addrinfo* p = res; p != NULL && idx < count; p = p->ai_next, idx++) {
+        char hex[256];
+        size_t hex_pos = 0;
+        unsigned int sa_fam = (unsigned int)p->ai_family;
+        if (p->ai_addr && p->ai_addrlen >= 2) {
+            sa_fam = (unsigned int)p->ai_addr->sa_family;
+            const unsigned char* raw = ((const unsigned char*)p->ai_addr) + 2;
+            size_t raw_len = (size_t)p->ai_addrlen - 2;
+            if (raw_len > 120) raw_len = 120;
+            for (size_t b = 0; b < raw_len; b++) {
+                hex[hex_pos++] = hex_digits[(raw[b] >> 4) & 0x0F];
+                hex[hex_pos++] = hex_digits[raw[b] & 0x0F];
+            }
+        }
+        hex[hex_pos] = '\0';
+        const char* canon = p->ai_canonname ? p->ai_canonname : "";
+        if (pos < sizeof(out)) {
+            int n = snprintf(
+                out + pos,
+                sizeof(out) - pos,
+                "%d\t%d\t%d\t%d\t%u\t%u\t%s\t%s\n",
+                p->ai_flags,
+                p->ai_family,
+                p->ai_socktype,
+                p->ai_protocol,
+                (unsigned int)p->ai_addrlen,
+                sa_fam,
+                hex,
+                canon
+            );
+            if (n > 0) pos += (size_t)n;
+        }
+    }
+    freeaddrinfo(res);
+    return (*env)->NewStringUTF(env, out);
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_getnameinfoStr(
+    JNIEnv* env, jclass clazz,
+    jint saFamily, jstring saDataHex, jint salen, jint hostlen, jint servlen, jint flags) {
+    (void)clazz;
+    char out[2048];
+    if (saFamily < 0) {
+        snprintf(out, sizeof(out), "%d\n\n", EAI_FAIL);
+        return (*env)->NewStringUTF(env, out);
+    }
+    jni_ensure_wsa();
+    const char* chex = saDataHex ? (*env)->GetStringUTFChars(env, saDataHex, NULL) : "";
+    struct sockaddr_storage ss;
+    memset(&ss, 0, sizeof(ss));
+    size_t hex_len = chex ? strlen(chex) : 0;
+    size_t data_len = hex_len / 2;
+    if (data_len > sizeof(ss) - 2) data_len = sizeof(ss) - 2;
+    unsigned char* dst = ((unsigned char*)&ss) + 2;
+    for (size_t i = 0; i < data_len; i++) {
+        unsigned int hi = jni_hex_nibble(chex[i * 2]);
+        unsigned int lo = jni_hex_nibble(chex[i * 2 + 1]);
+        dst[i] = (unsigned char)((hi << 4) | lo);
+    }
+    if (saDataHex && chex) (*env)->ReleaseStringUTFChars(env, saDataHex, chex);
+    int fam = (int)saFamily;
+    if (fam == 10 || fam == 23 || fam == 24 || fam == 28 || fam == 30) {
+        fam = AF_INET6;
+    }
+    socklen_t total_len = (socklen_t)(2 + data_len);
+    if ((socklen_t)salen > total_len && (size_t)salen <= sizeof(ss)) {
+        total_len = (socklen_t)salen;
+    }
+    if (fam == AF_INET && total_len < (socklen_t)sizeof(struct sockaddr_in)) {
+        total_len = (socklen_t)sizeof(struct sockaddr_in);
+    } else if (fam == AF_INET6 && total_len < (socklen_t)sizeof(struct sockaddr_in6)) {
+        total_len = (socklen_t)sizeof(struct sockaddr_in6);
+    }
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    ss.ss_len = (uint8_t)total_len;
+    ss.ss_family = (sa_family_t)fam;
+#else
+    ss.ss_family = (unsigned short)fam;
+#endif
+    char hbuf[1025];
+    char sbuf[64];
+    memset(hbuf, 0, sizeof(hbuf));
+    memset(sbuf, 0, sizeof(sbuf));
+    socklen_t hlen = hostlen > 0 ? ((size_t)hostlen < sizeof(hbuf) ? (socklen_t)hostlen : (socklen_t)(sizeof(hbuf) - 1)) : 0;
+    socklen_t slen = servlen > 0 ? ((size_t)servlen < sizeof(sbuf) ? (socklen_t)servlen : (socklen_t)(sizeof(sbuf) - 1)) : 0;
+    int rc = getnameinfo(
+        (const struct sockaddr*)&ss,
+        total_len,
+        hlen > 0 ? hbuf : NULL,
+        hlen,
+        slen > 0 ? sbuf : NULL,
+        slen,
+        (int)flags
+    );
+    snprintf(out, sizeof(out), "%d\n%s\n%s", rc, rc == 0 ? hbuf : "", rc == 0 ? sbuf : "");
+    return (*env)->NewStringUTF(env, out);
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_gaiStrerror(
+    JNIEnv* env, jclass clazz, jint errcode) {
+    (void)clazz;
+#ifndef _WIN32
+    const char* s = gai_strerror((int)errcode);
+#else
+    const char* s = gai_strerrorA((int)errcode);
+#endif
+    return s ? (*env)->NewStringUTF(env, s) : NULL;
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_hstrerror(
+    JNIEnv* env, jclass clazz, jint errcode) {
+    (void)clazz;
+#if !defined(_WIN32) && !defined(__ANDROID__)
+    const char* s = hstrerror((int)errcode);
+#else
+    const char* s;
+    switch ((int)errcode) {
+        case 0: s = "Resolver Error 0 (no error)"; break;
+        case 1: s = "Unknown host"; break;
+        case 2: s = "Host name lookup failure"; break;
+        case 3: s = "Unknown server error"; break;
+        case 4: s = "No address associated with name"; break;
+        default: s = "Unknown resolver error"; break;
+    }
+#endif
+    return s ? (*env)->NewStringUTF(env, s) : NULL;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_resInit(
+    JNIEnv* env, jclass clazz) {
+    (void)env; (void)clazz;
+#ifndef _WIN32
+    typedef int (*res_init_fn)(void);
+    res_init_fn fn = (res_init_fn)dlsym(RTLD_DEFAULT, "res_init");
+    if (!fn) fn = (res_init_fn)dlsym(RTLD_DEFAULT, "__res_init");
+    if (fn) return (jint)fn();
+#endif
+    return 0;
+}
+
 

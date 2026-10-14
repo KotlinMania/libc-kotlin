@@ -3,9 +3,12 @@
 
 package io.github.kotlinmania.libc.internal
 
+import io.github.kotlinmania.libc.Addrinfo
+import io.github.kotlinmania.libc.AddrinfoRegistry
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.FILE
 import io.github.kotlinmania.libc.Passwd
+import io.github.kotlinmania.libc.Sockaddr
 import io.github.kotlinmania.libc.Utsname
 
 @JsFun(
@@ -20,12 +23,12 @@ import io.github.kotlinmania.libc.Utsname
         try {
             const req = modMod.createRequire(path.join(proc.cwd(), "package.json"));
             const loaded = req("@kotlinmania/libc-native-bindings");
-            if (loaded && typeof loaded.isatty === "function" && typeof loaded.uname_fields === "function") {
+            if (loaded && typeof loaded.isatty === "function" && typeof loaded.uname_fields === "function" && typeof loaded.getaddrinfo_str === "function") {
                 globalThis.__kotlinmania_libc_native = loaded;
                 return 1;
             }
         } catch (_) {}
-        const dir = path.join(os.tmpdir(), "kotlinmania-libc-napi-0.1.5-r2-" + proc.platform + "-" + proc.arch);
+        const dir = path.join(os.tmpdir(), "kotlinmania-libc-napi-0.1.6-" + proc.platform + "-" + proc.arch);
         const nodeFile = path.join(dir, "libc_native.node");
         if (!fs.existsSync(nodeFile)) {
             fs.mkdirSync(dir, { recursive: true });
@@ -36,6 +39,8 @@ import io.github.kotlinmania.libc.Utsname
                 '#include <string.h>',
                 '#include <errno.h>',
                 '#ifdef _WIN32',
+                '#include <winsock2.h>',
+                '#include <ws2tcpip.h>',
                 '#include <windows.h>',
                 '#include <io.h>',
                 '#include <process.h>',
@@ -44,6 +49,10 @@ import io.github.kotlinmania.libc.Utsname
                 '#include <unistd.h>',
                 '#include <dlfcn.h>',
                 '#include <pwd.h>',
+                '#include <sys/types.h>',
+                '#include <sys/socket.h>',
+                '#include <netdb.h>',
+                '#include <netinet/in.h>',
                 '#include <sys/utsname.h>',
                 '#define EXPORT',
                 'extern char **environ;',
@@ -372,6 +381,114 @@ import io.github.kotlinmania.libc.Utsname
                 '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); char* s = arg_str(env, a[0]);',
                 '  int rc = (int)strlen(s); free(s); return mk_i32(env, rc);',
                 '}',
+                'static unsigned int napi_hex_nibble(char c) {',
+                '  if (c >= 48 && c <= 57) return (unsigned int)(c - 48);',
+                '  if (c >= 97 && c <= 102) return (unsigned int)(c - 97 + 10);',
+                '  if (c >= 65 && c <= 70) return (unsigned int)(c - 65 + 10);',
+                '  return 0;',
+                '}',
+                'static void napi_ensure_wsa(void) {',
+                '#ifdef _WIN32',
+                '  static int inited = 0;',
+                '  if (!inited) { WSADATA wsa; if (WSAStartup(MAKEWORD(2, 2), &wsa) == 0) inited = 1; }',
+                '#endif',
+                '}',
+                'static napi_value fn_getaddrinfo_str(napi_env env, napi_callback_info info) {',
+                '  size_t c = 9; napi_value a[9]; p_cb(env, info, &c, a, NULL, NULL);',
+                '  int has_node = 0, has_serv = 0, has_hints = 0, ai_flags = 0, ai_family = 0, ai_socktype = 0, ai_protocol = 0;',
+                '  p_get_i32(env, a[0], &has_node); char* node = arg_str(env, a[1]);',
+                '  p_get_i32(env, a[2], &has_serv); char* serv = arg_str(env, a[3]);',
+                '  p_get_i32(env, a[4], &has_hints); p_get_i32(env, a[5], &ai_flags);',
+                '  p_get_i32(env, a[6], &ai_family); p_get_i32(env, a[7], &ai_socktype); p_get_i32(env, a[8], &ai_protocol);',
+                '  napi_ensure_wsa();',
+                '  struct addrinfo hints; memset(&hints, 0, sizeof(hints));',
+                '  if (has_hints) {',
+                '    hints.ai_flags = ai_flags;',
+                '    int fam = ai_family; if (fam == 10 || fam == 23 || fam == 24 || fam == 28 || fam == 30) fam = AF_INET6;',
+                '    hints.ai_family = fam; hints.ai_socktype = ai_socktype; hints.ai_protocol = ai_protocol;',
+                '  }',
+                '  struct addrinfo* res = NULL;',
+                '  int rc = getaddrinfo(has_node ? node : NULL, has_serv ? serv : NULL, has_hints ? &hints : NULL, &res);',
+                '  free(node); free(serv);',
+                '  char out[16384];',
+                '  if (rc != 0) { snprintf(out, sizeof(out), "%d%c0", rc, 10); return mk_str_or_null(env, out); }',
+                '  int count = 0; for (struct addrinfo* p = res; p != NULL && count < 64; p = p->ai_next) count++;',
+                '  size_t pos = (size_t)snprintf(out, sizeof(out), "0%c%d%c", 10, count, 10);',
+                '  static const char hex_digits[] = "0123456789abcdef";',
+                '  int idx = 0;',
+                '  for (struct addrinfo* p = res; p != NULL && idx < count; p = p->ai_next, idx++) {',
+                '    char hex[256]; size_t hex_pos = 0; unsigned int sa_fam = (unsigned int)p->ai_family;',
+                '    if (p->ai_addr && p->ai_addrlen >= 2) {',
+                '      sa_fam = (unsigned int)p->ai_addr->sa_family;',
+                '      const unsigned char* raw = ((const unsigned char*)p->ai_addr) + 2;',
+                '      size_t raw_len = (size_t)p->ai_addrlen - 2; if (raw_len > 120) raw_len = 120;',
+                '      for (size_t b = 0; b < raw_len; b++) { hex[hex_pos++] = hex_digits[(raw[b] >> 4) & 0x0F]; hex[hex_pos++] = hex_digits[raw[b] & 0x0F]; }',
+                '    }',
+                '    hex[hex_pos] = 0; const char* canon = p->ai_canonname ? p->ai_canonname : "";',
+                '    if (pos < sizeof(out)) {',
+                '      int n = snprintf(out + pos, sizeof(out) - pos, "%d%c%d%c%d%c%d%c%u%c%u%c%s%c%s%c", p->ai_flags, 9, p->ai_family, 9, p->ai_socktype, 9, p->ai_protocol, 9, (unsigned int)p->ai_addrlen, 9, sa_fam, 9, hex, 9, canon, 10);',
+                '      if (n > 0) pos += (size_t)n;',
+                '    }',
+                '  }',
+                '  freeaddrinfo(res);',
+                '  return mk_str_or_null(env, out);',
+                '}',
+                'static napi_value fn_getnameinfo_str(napi_env env, napi_callback_info info) {',
+                '  size_t c = 6; napi_value a[6]; p_cb(env, info, &c, a, NULL, NULL);',
+                '  int sa_family = -1, salen = 0, hostlen = 0, servlen = 0, flags = 0;',
+                '  p_get_i32(env, a[0], &sa_family); char* chex = arg_str(env, a[1]);',
+                '  p_get_i32(env, a[2], &salen); p_get_i32(env, a[3], &hostlen); p_get_i32(env, a[4], &servlen); p_get_i32(env, a[5], &flags);',
+                '  char out[2048];',
+                '  if (sa_family < 0) { free(chex); snprintf(out, sizeof(out), "%d%c%c", EAI_FAIL, 10, 10); return mk_str_or_null(env, out); }',
+                '  napi_ensure_wsa();',
+                '  struct sockaddr_storage ss; memset(&ss, 0, sizeof(ss));',
+                '  size_t hex_len = chex ? strlen(chex) : 0; size_t data_len = hex_len / 2; if (data_len > sizeof(ss) - 2) data_len = sizeof(ss) - 2;',
+                '  unsigned char* dst = ((unsigned char*)&ss) + 2;',
+                '  for (size_t i = 0; i < data_len; i++) { dst[i] = (unsigned char)((napi_hex_nibble(chex[i * 2]) << 4) | napi_hex_nibble(chex[i * 2 + 1])); }',
+                '  free(chex);',
+                '  int fam = sa_family; if (fam == 10 || fam == 23 || fam == 24 || fam == 28 || fam == 30) fam = AF_INET6;',
+                '  socklen_t total_len = (socklen_t)(2 + data_len);',
+                '  if ((socklen_t)salen > total_len && (size_t)salen <= sizeof(ss)) total_len = (socklen_t)salen;',
+                '  if (fam == AF_INET && total_len < (socklen_t)sizeof(struct sockaddr_in)) total_len = (socklen_t)sizeof(struct sockaddr_in);',
+                '  else if (fam == AF_INET6 && total_len < (socklen_t)sizeof(struct sockaddr_in6)) total_len = (socklen_t)sizeof(struct sockaddr_in6);',
+                '#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)',
+                '  ss.ss_len = (uint8_t)total_len; ss.ss_family = (sa_family_t)fam;',
+                '#else',
+                '  ss.ss_family = (unsigned short)fam;',
+                '#endif',
+                '  char hbuf[1025]; char sbuf[64]; memset(hbuf, 0, sizeof(hbuf)); memset(sbuf, 0, sizeof(sbuf));',
+                '  socklen_t hlen = hostlen > 0 ? ((size_t)hostlen < sizeof(hbuf) ? (socklen_t)hostlen : (socklen_t)(sizeof(hbuf) - 1)) : 0;',
+                '  socklen_t slen = servlen > 0 ? ((size_t)servlen < sizeof(sbuf) ? (socklen_t)servlen : (socklen_t)(sizeof(sbuf) - 1)) : 0;',
+                '  int rc = getnameinfo((const struct sockaddr*)&ss, total_len, hlen > 0 ? hbuf : NULL, hlen, slen > 0 ? sbuf : NULL, slen, flags);',
+                '  snprintf(out, sizeof(out), "%d%c%s%c%s", rc, 10, rc == 0 ? hbuf : "", 10, rc == 0 ? sbuf : "");',
+                '  return mk_str_or_null(env, out);',
+                '}',
+                'static napi_value fn_gai_strerror(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int e = 0; p_get_i32(env, a[0], &e);',
+                '#ifdef _WIN32',
+                '  return mk_str_or_null(env, gai_strerrorA(e));',
+                '#else',
+                '  return mk_str_or_null(env, gai_strerror(e));',
+                '#endif',
+                '}',
+                'static napi_value fn_hstrerror(napi_env env, napi_callback_info info) {',
+                '  size_t c = 1; napi_value a[1]; p_cb(env, info, &c, a, NULL, NULL); int e = 0; p_get_i32(env, a[0], &e);',
+                '#if !defined(_WIN32) && !defined(__ANDROID__)',
+                '  return mk_str_or_null(env, hstrerror(e));',
+                '#else',
+                '  const char* s = (e == 0) ? "Resolver Error 0 (no error)" : (e == 1 ? "Unknown host" : "Unknown resolver error");',
+                '  return mk_str_or_null(env, s);',
+                '#endif',
+                '}',
+                'static napi_value fn_res_init(napi_env env, napi_callback_info info) {',
+                '#ifndef _WIN32',
+                '  typedef int (*res_init_fn)(void);',
+                '  res_init_fn fn = (res_init_fn)dlsym(RTLD_DEFAULT, "res_init");',
+                '  if (!fn) fn = (res_init_fn)dlsym(RTLD_DEFAULT, "__res_init");',
+                '  if (fn) return mk_i32(env, fn());',
+                '#endif',
+                '  return mk_i32(env, 0);',
+                '}',
                 'EXPORT napi_value napi_register_module_v1(napi_env env, napi_value exports) {',
                 '  p_cb = sym("napi_get_cb_info"); p_get_str = sym("napi_get_value_string_utf8"); p_mk_str = sym("napi_create_string_utf8"); p_get_i32 = sym("napi_get_value_int32"); p_mk_i32 = sym("napi_create_int32"); p_get_null = sym("napi_get_null"); p_def_props = sym("napi_define_properties");',
                 '  napi_property_descriptor d[] = {',
@@ -415,13 +532,18 @@ import io.github.kotlinmania.libc.Utsname
                 '    { "system", NULL, fn_system, NULL, NULL, NULL, napi_default, NULL },',
                 '    { "strcmp", NULL, fn_strcmp, NULL, NULL, NULL, napi_default, NULL },',
                 '    { "strncmp", NULL, fn_strncmp, NULL, NULL, NULL, napi_default, NULL },',
-                '    { "strlen", NULL, fn_strlen, NULL, NULL, NULL, napi_default, NULL }',
+                '    { "strlen", NULL, fn_strlen, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getaddrinfo_str", NULL, fn_getaddrinfo_str, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "getnameinfo_str", NULL, fn_getnameinfo_str, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "gai_strerror", NULL, fn_gai_strerror, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "hstrerror", NULL, fn_hstrerror, NULL, NULL, NULL, napi_default, NULL },',
+                '    { "res_init", NULL, fn_res_init, NULL, NULL, NULL, napi_default, NULL }',
                 '  };',
                 '  p_def_props(env, exports, sizeof(d) / sizeof(d[0]), d); return exports;',
                 '}'
             ].join(String.fromCharCode(10));
             fs.writeFileSync(cFile, cCode);
-            const args = proc.platform === "win32" ? ["-shared", "-O2", cFile, "-o", nodeFile] : ["-shared", "-fPIC", "-O2", cFile, "-o", nodeFile];
+            const args = proc.platform === "win32" ? ["-shared", "-O2", cFile, "-lws2_32", "-o", nodeFile] : ["-shared", "-fPIC", "-O2", cFile, "-o", nodeFile];
             cp.execFileSync("clang", args);
         }
         const m = { exports: {} };
@@ -554,6 +676,38 @@ private external fun wasmStrncmp(cs: String, ct: String, n: Int): Int
 
 @JsFun("(cs) => globalThis.__kotlinmania_libc_native.strlen(cs)")
 private external fun wasmStrlen(cs: String): Int
+
+@JsFun("(hasNode, node, hasServ, serv, hasHints, aiFlags, aiFamily, aiSocktype, aiProtocol) => globalThis.__kotlinmania_libc_native.getaddrinfo_str(hasNode, node, hasServ, serv, hasHints, aiFlags, aiFamily, aiSocktype, aiProtocol)")
+private external fun wasmGetaddrinfoStr(
+    hasNode: Int,
+    node: String,
+    hasServ: Int,
+    serv: String,
+    hasHints: Int,
+    aiFlags: Int,
+    aiFamily: Int,
+    aiSocktype: Int,
+    aiProtocol: Int,
+): String
+
+@JsFun("(saFamily, saDataHex, salen, hostlen, servlen, flags) => globalThis.__kotlinmania_libc_native.getnameinfo_str(saFamily, saDataHex, salen, hostlen, servlen, flags)")
+private external fun wasmGetnameinfoStr(
+    saFamily: Int,
+    saDataHex: String,
+    salen: Int,
+    hostlen: Int,
+    servlen: Int,
+    flags: Int,
+): String
+
+@JsFun("(errcode) => globalThis.__kotlinmania_libc_native.gai_strerror(errcode)")
+private external fun wasmGaiStrerror(errcode: Int): String?
+
+@JsFun("(errcode) => globalThis.__kotlinmania_libc_native.hstrerror(errcode)")
+private external fun wasmHstrerror(errcode: Int): String?
+
+@JsFun("() => globalThis.__kotlinmania_libc_native.res_init()")
+private external fun wasmResInit(): Int
 
 internal object LibcNapiWasm {
     init {
@@ -831,4 +985,58 @@ internal object LibcNapiWasm {
         val rc = getpwnamR(name, pwd, 4096uL, res)
         return if (rc == 0 && res.value != 0L) pwd else null
     }
+
+    fun getaddrinfo(
+        node: String?,
+        service: String?,
+        hints: Addrinfo?,
+        res: COpaquePointer?,
+    ): Int {
+        val raw =
+            wasmGetaddrinfoStr(
+                if (node != null) 1 else 0,
+                node.orEmpty(),
+                if (service != null) 1 else 0,
+                service.orEmpty(),
+                if (hints != null) 1 else 0,
+                hints?.aiFlags ?: 0,
+                hints?.aiFamily ?: 0,
+                hints?.aiSocktype ?: 0,
+                hints?.aiProtocol ?: 0,
+            )
+        return AddrinfoRegistry.parsePackedResult(raw, hints, res)
+    }
+
+    fun freeaddrinfo(res: Addrinfo?) {
+        AddrinfoRegistry.freeChain(res)
+    }
+
+    fun getnameinfo(
+        sa: Sockaddr?,
+        salen: UInt,
+        host: ByteArray?,
+        hostlen: UInt,
+        serv: ByteArray?,
+        servlen: UInt,
+        flags: Int,
+    ): Int {
+        if (sa == null) return -1
+        val hex = AddrinfoRegistry.encodeHex(sa.saData)
+        val raw =
+            wasmGetnameinfoStr(
+                sa.saFamily.toInt(),
+                hex,
+                salen.toInt(),
+                if (host != null) hostlen.toInt() else 0,
+                if (serv != null) servlen.toInt() else 0,
+                flags,
+            )
+        return AddrinfoRegistry.applyGetnameinfoResult(raw, host, hostlen, serv, servlen)
+    }
+
+    fun gaiStrerror(errcode: Int): String? = wasmGaiStrerror(errcode)
+
+    fun hstrerror(errcode: Int): String? = wasmHstrerror(errcode)
+
+    fun resInit(): Int = wasmResInit()
 }

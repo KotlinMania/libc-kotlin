@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.getnameinfo
 
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on Android host — use androidNative target for FFI")
@@ -102,8 +103,11 @@ public actual fun asctimeR(tm: Tm?, result: String?): String? =
 public actual fun ctimeR(clock: TimeT?, result: String?): String? =
     throw UnsupportedOperationException("ctimeR not available on Android host — use androidNative target for FFI")
 
-public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
-    throw UnsupportedOperationException("getnameinfo not available on Android host — use androidNative target for FFI")
+public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt {
+    val hBuf = if (hostlen > 0u) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null
+    val sBuf = if (servlen > 0u) ByteArray(servlen.toInt().coerceAtMost(256)) else null
+    return getnameinfo(sa, salen, hBuf, hostlen, sBuf, servlen, flags)
+}
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt =
     throw UnsupportedOperationException("mincore not available on Android host — use androidNative target for FFI")

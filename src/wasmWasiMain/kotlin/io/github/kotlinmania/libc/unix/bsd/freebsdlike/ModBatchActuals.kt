@@ -72,7 +72,15 @@ public actual fun getgrouplist(name: String?, basegid: GidT, groups: GidT?, ngro
     throw UnsupportedOperationException("getgrouplist not available on WASI — no C library access")
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt =
-    throw UnsupportedOperationException("getnameinfo not available on WASI — no C library access")
+    io.github.kotlinmania.libc.internal.WasiLibcEnv.getnameinfo(
+        sa,
+        salen,
+        if (host != null && hostlen > 0uL) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null,
+        hostlen.toUInt(),
+        if (serv != null && servlen > 0uL) ByteArray(servlen.toInt().coerceAtMost(4096)) else null,
+        servlen.toUInt(),
+        flags,
+    )
 
 public actual fun getpriority(which: CInt, who: CInt): CInt =
     throw UnsupportedOperationException("getpriority not available on WASI — no C library access")

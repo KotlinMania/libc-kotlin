@@ -104,7 +104,15 @@ public actual fun ctimeR(clock: TimeT?, result: String?): String? =
     throw UnsupportedOperationException("ctimeR not available on WASI — no C library access")
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt =
-    throw UnsupportedOperationException("getnameinfo not available on WASI — no C library access")
+    WasiLibcEnv.getnameinfo(
+        sa,
+        salen,
+        if (host != null && hostlen > 0u) ByteArray(hostlen.toInt()) else null,
+        hostlen,
+        if (serv != null && servlen > 0u) ByteArray(servlen.toInt()) else null,
+        servlen,
+        flags,
+    )
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): CInt =
     throw UnsupportedOperationException("mincore not available on WASI — no C library access")

@@ -758,18 +758,20 @@ public actual fun dlclose(handle: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlclose not available on WASI — no C library access")
 
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getaddrinfo not available on WASI — no C library access")
+    WasiLibcEnv.getaddrinfo(node, service, hints, res)
 
-public actual fun freeaddrinfo(res: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo not available on WASI — no C library access")
+public actual fun freeaddrinfo(res: Addrinfo?) {
+    WasiLibcEnv.freeaddrinfo(res)
+}
 
 public actual fun hstrerror(errcode: CInt): String? =
-    throw UnsupportedOperationException("hstrerror not available on WASI — no C library access")
+    WasiLibcEnv.hstrerror(errcode)
 
 public actual fun gaiStrerror(errcode: CInt): String? =
-    throw UnsupportedOperationException("gaiStrerror not available on WASI — no C library access")
+    WasiLibcEnv.gaiStrerror(errcode)
 
 public actual fun resInit(): CInt =
-    throw UnsupportedOperationException("resInit not available on WASI — no C library access")
+    WasiLibcEnv.resInit()
 
 public actual fun gmtimeR(timeP: TimeT?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR not available on WASI — no C library access")
@@ -1037,3 +1039,14 @@ public actual fun atexit(cb: (() -> Unit)?): CInt =
 
 public actual fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt =
     throw UnsupportedOperationException("sigqueue not available on WASI — no C library access")
+
+public actual fun getnameinfo(
+    sa: Sockaddr?,
+    salen: SocklenT,
+    host: ByteArray?,
+    hostlen: SocklenT,
+    serv: ByteArray?,
+    servlen: SocklenT,
+    flags: CInt,
+): CInt =
+    WasiLibcEnv.getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)

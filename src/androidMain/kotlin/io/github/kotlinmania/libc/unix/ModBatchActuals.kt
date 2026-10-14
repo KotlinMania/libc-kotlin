@@ -838,18 +838,30 @@ public actual fun dlclose(handle: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlclose not available on Android host — use androidNative target for FFI")
 
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getaddrinfo not available on Android host — use androidNative target for FFI")
+    LibcJni.getaddrinfo(node, service, hints, res)
 
-public actual fun freeaddrinfo(res: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo not available on Android host — use androidNative target for FFI")
+public actual fun freeaddrinfo(res: Addrinfo?): Unit =
+    LibcJni.freeaddrinfo(res)
+
+public actual fun getnameinfo(
+    sa: Sockaddr?,
+    salen: SocklenT,
+    host: ByteArray?,
+    hostlen: SocklenT,
+    serv: ByteArray?,
+    servlen: SocklenT,
+    flags: CInt,
+): CInt =
+    LibcJni.getnameinfo(sa, salen, host, hostlen, serv, servlen, flags)
 
 public actual fun hstrerror(errcode: CInt): String? =
-    throw UnsupportedOperationException("hstrerror not available on Android host — use androidNative target for FFI")
+    LibcJni.hstrerror(errcode)
 
 public actual fun gaiStrerror(errcode: CInt): String? =
-    throw UnsupportedOperationException("gaiStrerror not available on Android host — use androidNative target for FFI")
+    LibcJni.gaiStrerror(errcode)
 
 public actual fun resInit(): CInt =
-    throw UnsupportedOperationException("resInit not available on Android host — use androidNative target for FFI")
+    LibcJni.resInit()
 
 public actual fun gmtimeR(timeP: TimeT?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR not available on Android host — use androidNative target for FFI")

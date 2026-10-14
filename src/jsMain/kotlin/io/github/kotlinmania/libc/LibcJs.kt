@@ -336,3 +336,57 @@ public fun getpwnamNapi(name: String?): Passwd? {
     val rc = getpwnamRNapi(name, pwd, 4096uL, res)
     return if (rc == 0 && res.value != 0L) pwd else null
 }
+
+public fun getaddrinfoNapi(
+    node: String?,
+    service: String?,
+    hints: Addrinfo?,
+    res: COpaquePointer?,
+): Int {
+    val raw =
+        LibcNative.getaddrinfo_str(
+            if (node != null) 1 else 0,
+            node.orEmpty(),
+            if (service != null) 1 else 0,
+            service.orEmpty(),
+            if (hints != null) 1 else 0,
+            hints?.aiFlags ?: 0,
+            hints?.aiFamily ?: 0,
+            hints?.aiSocktype ?: 0,
+            hints?.aiProtocol ?: 0,
+        )
+    return AddrinfoRegistry.parsePackedResult(raw, hints, res)
+}
+
+public fun freeaddrinfoNapi(res: Addrinfo?) {
+    AddrinfoRegistry.freeChain(res)
+}
+
+public fun getnameinfoNapi(
+    sa: Sockaddr?,
+    salen: UInt,
+    host: ByteArray?,
+    hostlen: UInt,
+    serv: ByteArray?,
+    servlen: UInt,
+    flags: Int,
+): Int {
+    if (sa == null) return -1
+    val hex = AddrinfoRegistry.encodeHex(sa.saData)
+    val raw =
+        LibcNative.getnameinfo_str(
+            sa.saFamily.toInt(),
+            hex,
+            salen.toInt(),
+            if (host != null) hostlen.toInt() else 0,
+            if (serv != null) servlen.toInt() else 0,
+            flags,
+        )
+    return AddrinfoRegistry.applyGetnameinfoResult(raw, host, hostlen, serv, servlen)
+}
+
+public fun gaiStrerrorNapi(errcode: Int): String? = LibcNative.gai_strerror(errcode)
+
+public fun hstrerrorNapi(errcode: Int): String? = LibcNative.hstrerror(errcode)
+
+public fun resInitNapi(): Int = LibcNative.res_init()

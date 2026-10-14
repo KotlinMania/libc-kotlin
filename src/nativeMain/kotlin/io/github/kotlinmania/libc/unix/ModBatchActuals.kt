@@ -1294,9 +1294,84 @@ public actual fun utimes(filename: String?, times: Timeval?): CInt =
     throw UnsupportedOperationException("utimes requires manual FFI bridge — not yet implemented")
 
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getaddrinfo requires manual FFI bridge — not yet implemented")
+    memScoped {
+        val outLen = 16384
+        val outBuf = allocArray<ByteVar>(outLen)
+        val rc =
+            libc.cinterop.libc_getaddrinfo_packed(
+                node,
+                service,
+                if (hints != null) 1 else 0,
+                hints?.aiFlags ?: 0,
+                hints?.aiFamily ?: 0,
+                hints?.aiSocktype ?: 0,
+                hints?.aiProtocol ?: 0,
+                outBuf,
+                outLen.toULong(),
+            )
+        if (rc != 0) {
+            res?.value = 0L
+            return rc
+        }
+        AddrinfoRegistry.parsePackedResult(outBuf.toKString(), hints, res)
+    }
 
-public actual fun freeaddrinfo(res: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo requires manual FFI bridge — not yet implemented")
+public actual fun freeaddrinfo(res: Addrinfo?) {
+    AddrinfoRegistry.freeChain(res)
+}
+
+public actual fun getnameinfo(
+    sa: Sockaddr?,
+    salen: SocklenT,
+    host: ByteArray?,
+    hostlen: SocklenT,
+    serv: ByteArray?,
+    servlen: SocklenT,
+    flags: CInt,
+): CInt =
+    memScoped {
+        if (sa == null) return -1
+        val dataLen = sa.saData.size
+        val dataBuf =
+            if (dataLen > 0) {
+                val b = allocArray<ByteVar>(dataLen)
+                for (i in 0 until dataLen) {
+                    b[i] = sa.saData[i]
+                }
+                b
+            } else {
+                null
+            }
+        val hLen = if (host != null && hostlen > 0u) minOf(host.size.toUInt(), hostlen) else 0u
+        val sLen = if (serv != null && servlen > 0u) minOf(serv.size.toUInt(), servlen) else 0u
+        val hBuf = if (hLen > 0u) allocArray<ByteVar>(hLen.toInt()) else null
+        val sBuf = if (sLen > 0u) allocArray<ByteVar>(sLen.toInt()) else null
+        val rc =
+            libc.cinterop.libc_getnameinfo_packed(
+                sa.saFamily.toInt(),
+                dataBuf,
+                dataLen.toUInt(),
+                salen,
+                hBuf,
+                hLen,
+                sBuf,
+                sLen,
+                flags,
+            )
+        if (rc == 0) {
+            if (host != null && hBuf != null && hLen > 0u) {
+                for (i in 0 until hLen.toInt()) {
+                    host[i] = hBuf[i]
+                }
+            }
+            if (serv != null && sBuf != null && sLen > 0u) {
+                for (i in 0 until sLen.toInt()) {
+                    serv[i] = sBuf[i]
+                }
+            }
+        }
+        rc
+    }
 
 public actual fun hstrerror(errcode: CInt): String? =
     libc.cinterop.libc_hstrerror(errcode)?.toKString()
@@ -1307,7 +1382,7 @@ public actual fun gaiStrerror(errcode: CInt): String? {
 }
 
 public actual fun resInit(): CInt =
-    throw UnsupportedOperationException("resInit requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_res_init()
 
 public actual fun gmtimeR(timeP: TimeT?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR requires manual FFI bridge — not yet implemented")

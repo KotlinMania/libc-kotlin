@@ -789,18 +789,20 @@ public actual fun dlclose(handle: COpaquePointer?): CInt =
     throw UnsupportedOperationException("dlclose requires N-API addon")
 
 public actual fun getaddrinfo(node: String?, service: String?, hints: Addrinfo?, res: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("getaddrinfo requires N-API addon")
+    getaddrinfoNapi(node, service, hints, res)
 
-public actual fun freeaddrinfo(res: Addrinfo?): Unit = throw UnsupportedOperationException("freeaddrinfo requires N-API addon")
+public actual fun freeaddrinfo(res: Addrinfo?) {
+    freeaddrinfoNapi(res)
+}
 
 public actual fun hstrerror(errcode: CInt): String? =
-    throw UnsupportedOperationException("hstrerror requires N-API addon")
+    hstrerrorNapi(errcode)
 
 public actual fun gaiStrerror(errcode: CInt): String? =
-    throw UnsupportedOperationException("gaiStrerror requires N-API addon")
+    gaiStrerrorNapi(errcode)
 
 public actual fun resInit(): CInt =
-    throw UnsupportedOperationException("resInit requires N-API addon")
+    resInitNapi()
 
 public actual fun gmtimeR(timeP: TimeT?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR requires N-API addon")
@@ -1090,3 +1092,14 @@ public actual fun atexit(cb: (() -> Unit)?): CInt =
 
 public actual fun sigqueue(pid: PidT, sig: CInt, value: Sigval): CInt =
     throw UnsupportedOperationException("sigqueue requires N-API addon")
+
+public actual fun getnameinfo(
+    sa: Sockaddr?,
+    salen: SocklenT,
+    host: ByteArray?,
+    hostlen: SocklenT,
+    serv: ByteArray?,
+    servlen: SocklenT,
+    flags: CInt,
+): CInt =
+    getnameinfoNapi(sa, salen, host, hostlen, serv, servlen, flags)

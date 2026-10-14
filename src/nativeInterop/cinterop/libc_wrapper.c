@@ -33,9 +33,11 @@ int getentropy(void*, uint64_t);
 #include <sys/stat.h>
 #ifndef _WIN32
 #include <sys/socket.h>
+#include <netinet/in.h>
 #include <sys/syscall.h>
 #else
 #include <winsock2.h>
+#include <ws2tcpip.h>
 #include <windows.h>
 #include <io.h>
 #include <fcntl.h>
@@ -1691,6 +1693,14 @@ int libc_unsetenv(const char* envVarName) {
     }
     return _putenv_s(envVarName, "") == 0 ? 0 : -1;
 }
+
+const char* libc_gai_strerror(int errcode) {
+    return gai_strerrorA(errcode);
+}
+
+int libc_getnameinfo(void* sa, unsigned int salen, char* host, unsigned int hostlen, char* serv, unsigned int servlen, int flags) {
+    return getnameinfo((const struct sockaddr*)sa, (socklen_t)salen, host, (DWORD)hostlen, serv, (DWORD)servlen, flags);
+}
 #endif
 
 
@@ -1853,10 +1863,17 @@ int libc_poll(void* fds, uint32_t nfds, int timeout) {
 #endif
 }
 const char* libc_hstrerror(int errcode) {
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__ANDROID__)
     return hstrerror(errcode);
 #else
-    (void)errcode; errno = ENOSYS; return NULL;
+    switch (errcode) {
+        case 0: return "Resolver Error 0 (no error)";
+        case 1: return "Unknown host";
+        case 2: return "Host name lookup failure";
+        case 3: return "Unknown server error";
+        case 4: return "No address associated with name";
+        default: return "Unknown resolver error";
+    }
 #endif
 }
 
@@ -2573,4 +2590,153 @@ uint32_t libc_mach_task_self(void) {
     return 0;
 #endif
 }
+
+static void libc_ensure_wsa(void) {
+#ifdef _WIN32
+    static int inited = 0;
+    if (!inited) {
+        WSADATA wsa;
+        if (WSAStartup(MAKEWORD(2, 2), &wsa) == 0) {
+            inited = 1;
+        }
+    }
+#endif
+}
+
+int libc_res_init(void) {
+#ifndef _WIN32
+    typedef int (*res_init_fn)(void);
+    res_init_fn fn = (res_init_fn)dlsym(RTLD_DEFAULT, "res_init");
+    if (!fn) fn = (res_init_fn)dlsym(RTLD_DEFAULT, "__res_init");
+    if (fn) return fn();
+#endif
+    return 0;
+}
+
+int libc_getaddrinfo_packed(
+    const char* node,
+    const char* service,
+    int has_hints,
+    int ai_flags,
+    int ai_family,
+    int ai_socktype,
+    int ai_protocol,
+    char* out_buf,
+    uint64_t out_buf_len
+) {
+    if (!out_buf || out_buf_len < 16) return -1;
+    out_buf[0] = '\0';
+    libc_ensure_wsa();
+    struct addrinfo hints;
+    memset(&hints, 0, sizeof(hints));
+    if (has_hints) {
+        hints.ai_flags = ai_flags;
+        int fam = ai_family;
+        if (fam == 10 || fam == 23 || fam == 24 || fam == 28 || fam == 30) {
+            fam = AF_INET6;
+        }
+        hints.ai_family = fam;
+        hints.ai_socktype = ai_socktype;
+        hints.ai_protocol = ai_protocol;
+    }
+    struct addrinfo* res = NULL;
+    int rc = getaddrinfo(node, service, has_hints ? &hints : NULL, &res);
+    if (rc != 0) {
+        snprintf(out_buf, (size_t)out_buf_len, "%d\n0", rc);
+        return rc;
+    }
+    int count = 0;
+    for (struct addrinfo* p = res; p != NULL && count < 64; p = p->ai_next) {
+        count++;
+    }
+    size_t pos = (size_t)snprintf(out_buf, (size_t)out_buf_len, "0\n%d\n", count);
+    static const char hex_digits[] = "0123456789abcdef";
+    int idx = 0;
+    for (struct addrinfo* p = res; p != NULL && idx < count; p = p->ai_next, idx++) {
+        char hex[256];
+        size_t hex_pos = 0;
+        unsigned int sa_fam = (unsigned int)p->ai_family;
+        if (p->ai_addr && p->ai_addrlen >= 2) {
+            sa_fam = (unsigned int)p->ai_addr->sa_family;
+            const unsigned char* raw = ((const unsigned char*)p->ai_addr) + 2;
+            size_t raw_len = (size_t)p->ai_addrlen - 2;
+            if (raw_len > 120) raw_len = 120;
+            for (size_t b = 0; b < raw_len; b++) {
+                hex[hex_pos++] = hex_digits[(raw[b] >> 4) & 0x0F];
+                hex[hex_pos++] = hex_digits[raw[b] & 0x0F];
+            }
+        }
+        hex[hex_pos] = '\0';
+        const char* canon = p->ai_canonname ? p->ai_canonname : "";
+        if (pos < (size_t)out_buf_len) {
+            int n = snprintf(
+                out_buf + pos,
+                (size_t)out_buf_len - pos,
+                "%d\t%d\t%d\t%d\t%u\t%u\t%s\t%s\n",
+                p->ai_flags,
+                p->ai_family,
+                p->ai_socktype,
+                p->ai_protocol,
+                (unsigned int)p->ai_addrlen,
+                sa_fam,
+                hex,
+                canon
+            );
+            if (n > 0) pos += (size_t)n;
+        }
+    }
+    freeaddrinfo(res);
+    return 0;
+}
+
+int libc_getnameinfo_packed(
+    int sa_family,
+    const void* sa_data,
+    uint32_t sa_data_len,
+    uint32_t salen,
+    char* host,
+    uint32_t hostlen,
+    char* serv,
+    uint32_t servlen,
+    int flags
+) {
+    if (sa_family < 0) return EAI_FAIL;
+    libc_ensure_wsa();
+    struct sockaddr_storage ss;
+    memset(&ss, 0, sizeof(ss));
+    int fam = sa_family;
+    if (fam == 10 || fam == 23 || fam == 24 || fam == 28 || fam == 30) {
+        fam = AF_INET6;
+    }
+    size_t copy_len = (size_t)sa_data_len;
+    if (copy_len > sizeof(ss) - 2) copy_len = sizeof(ss) - 2;
+    if (sa_data && copy_len > 0) {
+        memcpy(((unsigned char*)&ss) + 2, sa_data, copy_len);
+    }
+    socklen_t total_len = (socklen_t)(2 + copy_len);
+    if ((socklen_t)salen > total_len && (size_t)salen <= sizeof(ss)) {
+        total_len = (socklen_t)salen;
+    }
+    if (fam == AF_INET && total_len < (socklen_t)sizeof(struct sockaddr_in)) {
+        total_len = (socklen_t)sizeof(struct sockaddr_in);
+    } else if (fam == AF_INET6 && total_len < (socklen_t)sizeof(struct sockaddr_in6)) {
+        total_len = (socklen_t)sizeof(struct sockaddr_in6);
+    }
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
+    ss.ss_len = (uint8_t)total_len;
+    ss.ss_family = (sa_family_t)fam;
+#else
+    ss.ss_family = (unsigned short)fam;
+#endif
+    return getnameinfo(
+        (const struct sockaddr*)&ss,
+        total_len,
+        hostlen > 0 ? host : NULL,
+        (socklen_t)hostlen,
+        servlen > 0 ? serv : NULL,
+        (socklen_t)servlen,
+        flags
+    );
+}
+
 

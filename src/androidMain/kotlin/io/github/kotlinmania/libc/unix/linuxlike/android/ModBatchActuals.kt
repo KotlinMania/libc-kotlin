@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.getnameinfo
 
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on Android host — use androidNative target for FFI")
@@ -76,8 +77,13 @@ public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
 public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
     throw UnsupportedOperationException("mprotect not available on Android host — use androidNative target for FFI")
 
-public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt =
-    throw UnsupportedOperationException("getnameinfo not available on Android host — use androidNative target for FFI")
+public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: CInt): CInt {
+    val hLen = hostlen.toUInt()
+    val sLen = servlen.toUInt()
+    val hBuf = if (hLen > 0u) ByteArray(hLen.toInt().coerceAtMost(4096)) else null
+    val sBuf = if (sLen > 0u) ByteArray(sLen.toInt().coerceAtMost(256)) else null
+    return getnameinfo(sa, salen, hBuf, hLen, sBuf, sLen, flags)
+}
 
 public actual fun preadv(fd: CInt, iov: Iovec?, count: CInt, offset: OffT): SsizeT =
     throw UnsupportedOperationException("preadv not available on Android host — use androidNative target for FFI")

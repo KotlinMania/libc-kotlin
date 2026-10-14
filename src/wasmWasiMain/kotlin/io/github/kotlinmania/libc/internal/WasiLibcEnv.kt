@@ -6,9 +6,12 @@
 
 package io.github.kotlinmania.libc.internal
 
+import io.github.kotlinmania.libc.Addrinfo
+import io.github.kotlinmania.libc.AddrinfoRegistry
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.FILE
 import io.github.kotlinmania.libc.Passwd
+import io.github.kotlinmania.libc.Sockaddr
 import io.github.kotlinmania.libc.Utsname
 import kotlin.wasm.WasmImport
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
@@ -721,4 +724,196 @@ internal object WasiLibcEnv {
         }
         return s
     }
+
+    private fun parseIpv4Octets(host: String): ByteArray? {
+        val parts = host.split('.')
+        if (parts.size != 4) return null
+        val out = ByteArray(4)
+        for (i in 0 until 4) {
+            val v = parts[i].toIntOrNull() ?: return null
+            if (v !in 0..255) return null
+            out[i] = v.toByte()
+        }
+        return out
+    }
+
+    fun getaddrinfo(
+        node: String?,
+        service: String?,
+        hints: Addrinfo?,
+        res: COpaquePointer?,
+    ): Int {
+        if (node == null && service == null) {
+            res?.value = 0L
+            return -2
+        }
+        val port =
+            when {
+                service == null || service.isEmpty() -> 0
+                service == "ssh" -> 22
+                service == "http" -> 80
+                service == "https" -> 443
+                service == "domain" -> 53
+                else ->
+                    service.toIntOrNull()?.takeIf { it in 0..65535 } ?: run {
+                        res?.value = 0L
+                        return -8
+                    }
+            }
+        val reqFamily = hints?.aiFamily ?: 0
+        val reqSocktype = if ((hints?.aiSocktype ?: 0) != 0) hints!!.aiSocktype else 1
+        val reqProto = if ((hints?.aiProtocol ?: 0) != 0) hints!!.aiProtocol else 6
+        val reqFlags = hints?.aiFlags ?: 0
+
+        val ipv4Octets =
+            when (node) {
+                null -> if ((reqFlags and 1) != 0) byteArrayOf(0, 0, 0, 0) else byteArrayOf(127, 0, 0, 1)
+                "localhost", "ip6-localhost" -> byteArrayOf(127, 0, 0, 1)
+                else -> parseIpv4Octets(node)
+            }
+        val isIpv6Loopback = node == "::1" || node == "0:0:0:0:0:0:0:1" || node == "localhost" || node == "ip6-localhost"
+        val isIpv6Unspec = node == "::" || node == "0:0:0:0:0:0:0:0" || (node == null && (reqFlags and 1) != 0)
+
+        val entries = mutableListOf<String>()
+        val portHi = ((port shr 8) and 0xFF).toByte()
+        val portLo = (port and 0xFF).toByte()
+        val canon = if ((reqFlags and 2) != 0) (node ?: "localhost") else ""
+
+        if ((reqFamily == 0 || reqFamily == 2) && ipv4Octets != null) {
+            val saData = ByteArray(14)
+            saData[0] = portHi
+            saData[1] = portLo
+            saData[2] = ipv4Octets[0]
+            saData[3] = ipv4Octets[1]
+            saData[4] = ipv4Octets[2]
+            saData[5] = ipv4Octets[3]
+            val hex = AddrinfoRegistry.encodeHex(saData)
+            entries.add("$reqFlags\t2\t$reqSocktype\t$reqProto\t16\t2\t$hex\t$canon")
+        }
+        val isReqIpv6 = reqFamily == 10 || reqFamily == 23 || reqFamily == 24 || reqFamily == 28 || reqFamily == 30
+        if ((reqFamily == 0 || isReqIpv6) && (isIpv6Loopback || isIpv6Unspec)) {
+            val fam6 = if (isReqIpv6) reqFamily else 10
+            val saData = ByteArray(26)
+            saData[0] = portHi
+            saData[1] = portLo
+            if (isIpv6Loopback && !isIpv6Unspec) {
+                saData[21] = 1
+            }
+            val hex = AddrinfoRegistry.encodeHex(saData)
+            entries.add("$reqFlags\t$fam6\t$reqSocktype\t$reqProto\t28\t$fam6\t$hex\t$canon")
+        }
+
+        if (entries.isEmpty()) {
+            res?.value = 0L
+            return -2
+        }
+        val packed =
+            buildString {
+                append("0\n")
+                append(entries.size).append('\n')
+                for (e in entries) {
+                    append(e).append('\n')
+                }
+            }
+        return AddrinfoRegistry.parsePackedResult(packed, hints, res)
+    }
+
+    fun freeaddrinfo(res: Addrinfo?) {
+        AddrinfoRegistry.freeChain(res)
+    }
+
+    fun getnameinfo(
+        sa: Sockaddr?,
+        salen: UInt,
+        host: ByteArray?,
+        hostlen: UInt,
+        serv: ByteArray?,
+        servlen: UInt,
+        flags: Int,
+    ): Int {
+        if (sa == null || salen < 2u) return -6
+        val fam = sa.saFamily.toInt()
+        val data = sa.saData
+        val port =
+            if (data.size >= 2) {
+                ((data[0].toInt() and 0xFF) shl 8) or (data[1].toInt() and 0xFF)
+            } else {
+                0
+            }
+        val numericHost = (flags and 1) != 0 || (flags and 2) != 0
+        val numericServ = (flags and 8) != 0 || flags == 3
+        val hostStr =
+            when {
+                fam == 2 && data.size >= 6 -> {
+                    val b0 = data[2].toInt() and 0xFF
+                    val b1 = data[3].toInt() and 0xFF
+                    val b2 = data[4].toInt() and 0xFF
+                    val b3 = data[5].toInt() and 0xFF
+                    if (!numericHost && b0 == 127 && b1 == 0 && b2 == 0 && b3 == 1) {
+                        "localhost"
+                    } else {
+                        "$b0.$b1.$b2.$b3"
+                    }
+                }
+                (fam == 10 || fam == 23 || fam == 24 || fam == 28 || fam == 30) && data.size >= 22 -> {
+                    var allZeroPrefix = true
+                    for (i in 6 until 21) {
+                        if (data[i].toInt() != 0) {
+                            allZeroPrefix = false
+                            break
+                        }
+                    }
+                    val lastByte = data[21].toInt() and 0xFF
+                    if (allZeroPrefix && lastByte == 1) {
+                        if (numericHost) "::1" else "localhost"
+                    } else if (allZeroPrefix && lastByte == 0) {
+                        "::"
+                    } else {
+                        "::1"
+                    }
+                }
+                else -> return -6
+            }
+        val servStr =
+            if (!numericServ) {
+                when (port) {
+                    22 -> "ssh"
+                    80 -> "http"
+                    443 -> "https"
+                    53 -> "domain"
+                    else -> port.toString()
+                }
+            } else {
+                port.toString()
+            }
+        return AddrinfoRegistry.applyGetnameinfoResult("0\n$hostStr\n$servStr", host, hostlen, serv, servlen)
+    }
+
+    fun gaiStrerror(errcode: Int): String =
+        when (errcode) {
+            0 -> "Success"
+            -1 -> "Bad value for ai_flags"
+            -2, 8 -> "Name or service not known"
+            -3 -> "Temporary failure in name resolution"
+            -4 -> "Non-recoverable failure in name resolution"
+            -6 -> "ai_family not supported"
+            -7 -> "ai_socktype not supported"
+            -8 -> "Servname not supported for ai_socktype"
+            -10 -> "Memory allocation failure"
+            -11 -> "System error"
+            -12 -> "Buffer overflow"
+            else -> "Unknown error $errcode"
+        }
+
+    fun hstrerror(errcode: Int): String =
+        when (errcode) {
+            0 -> "Resolver Error 0 (no error)"
+            1 -> "Unknown host"
+            2 -> "Host name lookup failure"
+            3 -> "Unknown server error"
+            4 -> "No address associated with name"
+            else -> "Unknown resolver error"
+        }
+
+    fun resInit(): Int = 0
 }

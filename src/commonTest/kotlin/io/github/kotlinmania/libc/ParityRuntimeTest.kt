@@ -6,6 +6,8 @@ import io.github.kotlinmania.libc.teeos.CpuSetT
 import io.github.kotlinmania.libc.teeos.cpuCount
 import io.github.kotlinmania.libc.teeos.cpuCountS
 import io.github.kotlinmania.libc.unix.*
+import io.github.kotlinmania.libc.unix.bsd.apple.AF_INET
+import io.github.kotlinmania.libc.unix.bsd.apple.uname
 import io.github.kotlinmania.libc.unix.bsd.getpwnamR
 import io.github.kotlinmania.libc.unix.bsd.getpwuidR
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.io
@@ -153,5 +155,53 @@ class ParityRuntimeTest {
         assertNotNull(pOut)
         assertEquals("libc_popen_ok", pOut.trim())
         assertEquals(0, pclose(pf))
+    }
+
+    @Test
+    fun addrinfoAndNameinfoBindingsWork() {
+        assertEquals(0, resInit())
+        val gaiMsg = gaiStrerror(0)
+        assertNotNull(gaiMsg)
+        assertTrue(gaiMsg.isNotEmpty())
+
+        val hMsg = hstrerror(0)
+        assertNotNull(hMsg)
+        assertTrue(hMsg.isNotEmpty())
+
+        val hints = Addrinfo(aiFamily = AF_INET, aiSocktype = 1)
+        val resPtr = COpaquePointer(0L)
+        val rc = getaddrinfo("127.0.0.1", "80", hints, resPtr)
+        assertEquals(0, rc)
+        assertTrue(resPtr.value != 0L)
+
+        val info = resPtr.toAddrinfo()
+        assertNotNull(info)
+        assertEquals(AF_INET, info.aiFamily)
+
+        val sa = info.aiSockaddr ?: info.aiAddr.toSockaddr()
+        assertNotNull(sa)
+
+        val uts = Utsname()
+        uname(uts)
+        val sysname = uts.sysname.decodeToString().substringBefore('\u0000')
+        val numericFlags = if (sysname.equals("Linux", ignoreCase = true)) (1 or 2) else (2 or 8)
+
+        val hostBuf = ByteArray(128)
+        val servBuf = ByteArray(32)
+        val niRc =
+            getnameinfo(
+                sa,
+                info.aiAddrlen,
+                hostBuf,
+                hostBuf.size.toUInt(),
+                servBuf,
+                servBuf.size.toUInt(),
+                numericFlags,
+            )
+        assertEquals(0, niRc)
+        assertEquals("127.0.0.1", hostBuf.decodeToString().substringBefore('\u0000'))
+        assertEquals("80", servBuf.decodeToString().substringBefore('\u0000'))
+
+        freeaddrinfo(info)
     }
 }
