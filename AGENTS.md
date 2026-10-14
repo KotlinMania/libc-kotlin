@@ -146,11 +146,12 @@ as the default next action when infra is clean.
   explicitly).
 - **All current KotlinMania targets build** (§0 condition 3 + §5
   `fullTargetBuildTaskNames`). Never shrink the gate to dodge a CI
-  failure. The exceptions are the documented retired targets:
-  `watchosArm32` (§5.5.1, retired 2026-05-24 — Apple Watch armv7k EOL +
-  Mach-O 24-bit scattered relocation limit) and the JetBrains-deprecated
-  x86_64 simulator targets `tvosX64` / `watchosX64` / `macosX64`
-  (§5.5.2). These are workspace-wide retirements, not per-repo shrinks.
+  failure. Sydney's current workspace policy retires all native 32-bit
+  targets (`watchosArm32`, `watchosArm64` / arm64_32, `androidNativeArm32`,
+  `androidNativeX86`, `linuxArm32Hfp`, `mingwX86`) and Apple-specific x64
+  targets (`iosX64`, `macosX64`, `tvosX64`, `watchosX64`). Retain Linux/Windows
+  x64, Android native ARM64/x64, Apple ARM64/simulator ARM64, JVM, JS and Wasm.
+  These are workspace-wide retirements, not per-repo gate reductions.
 - **Swift test passes locally** (§0 condition 4). Don't wait for GitHub
   to find Swift Export bugs — by then you've burned a CI run.
 - **Test parity with `tmp/` Rust** (§6). Every upstream `#[test]` /
@@ -749,34 +750,6 @@ is the same; only the offending target list shrank.
 
 Wire Kotlin/Native `cinterop` and (where applicable) Node N-API in the
 same session. Never label FFI work "next pass."
-
-### Default hierarchy template — `nativeMain` covers all native targets
-
-The workspace uses `applyDefaultHierarchyTemplate()` (already in every
-repo's `build.gradle.kts`). This auto-creates intermediate source sets
-like `nativeMain`, `appleMain`, `iosMain`, `linuxMain`,
-`androidNativeMain`, etc. based on which targets are declared.
-
-For `expect`/`actual` declarations:
-
-- An `actual fun` in `nativeMain` satisfies the `expect fun` for **all**
-  native targets at once — no need to write one per target.
-- If a function's implementation differs between platforms (e.g. Linux
-  vs macOS), put that `actual fun` in the appropriate intermediate source
-  set (`linuxMain`, `appleMain`, etc.) or the leaf target source set.
-- The compiler matches `actual` declarations from the closest source set
-  in the hierarchy. A `nativeMain` actual is used by all native targets
-  unless a more specific source set overrides it.
-
-This means the FFI layer for a `*-sys-kotlin` port (like `libc-kotlin`)
-needs `actual fun` written once in `nativeMain` (delegating to
-`platform.posix.*` or a `cinterop` C++ wrapper), not duplicated across
-every individual native target.
-
-For JS/WASM targets: use a Node N-API C++ addon (no insecure NPM
-libraries). For JVM: JNA or JNI bindings. These are separate source
-sets (`jsMain`/`wasmJsMain`/`jvmMain`) and do not share the
-`nativeMain` actuals.
 
 ---
 
