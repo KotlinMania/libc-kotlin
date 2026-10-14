@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcNapiWasm
 
 public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires N-API addon")
@@ -111,7 +112,7 @@ public actual fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("ptsnameR requires N-API addon")
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("clearenv requires N-API addon")
+    LibcNapiWasm.clearenv()
 
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid requires N-API addon")

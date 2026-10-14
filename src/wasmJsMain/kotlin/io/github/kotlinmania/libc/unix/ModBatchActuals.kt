@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcNapiWasm
 
 public actual fun isalnum(c: CInt): CInt =
     throw UnsupportedOperationException("isalnum requires N-API addon")
@@ -161,7 +162,7 @@ public actual fun system(s: String?): CInt =
     throw UnsupportedOperationException("system requires N-API addon")
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv requires N-API addon")
+    LibcNapiWasm.getenv(s)
 
 public actual fun strcpy(dst: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires N-API addon")
@@ -477,7 +478,7 @@ public actual fun getuid(): UidT = 0u
 public actual fun getgid(): GidT = 0u
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires N-API addon")
+    LibcNapiWasm.isatty(fd)
 
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link requires N-API addon")
@@ -599,10 +600,10 @@ public actual fun fsync(fd: CInt): CInt =
     throw UnsupportedOperationException("fsync requires N-API addon")
 
 public actual fun setenv(name: String?, `val`: String?, overwrite: CInt): CInt =
-    throw UnsupportedOperationException("setenv requires N-API addon")
+    LibcNapiWasm.setenv(name, `val`, overwrite)
 
 public actual fun unsetenv(name: String?): CInt =
-    throw UnsupportedOperationException("unsetenv requires N-API addon")
+    LibcNapiWasm.unsetenv(name)
 
 public actual fun symlink(path1: String?, path2: String?): CInt =
     throw UnsupportedOperationException("symlink requires N-API addon")
@@ -827,7 +828,7 @@ public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CI
     throw UnsupportedOperationException("recv requires N-API addon")
 
 public actual fun putenv(string: String?): CInt =
-    throw UnsupportedOperationException("putenv requires N-API addon")
+    LibcNapiWasm.putenv(string)
 
 public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
     throw UnsupportedOperationException("poll requires N-API addon")

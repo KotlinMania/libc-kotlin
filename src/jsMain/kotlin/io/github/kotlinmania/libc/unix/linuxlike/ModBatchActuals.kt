@@ -111,7 +111,7 @@ public actual fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("ptsnameR requires N-API addon")
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("clearenv requires N-API addon")
+    clearenvNapi()
 
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid requires N-API addon")

@@ -427,7 +427,7 @@ public actual fun getpid(): CInt =
     getpidNapi()
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires N-API addon")
+    isattyNapi(fd)
 
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
     LibcNative.lseek(fd, offset.toInt(), origin).toLong()
@@ -474,13 +474,13 @@ public actual fun alignedRealloc(memblock: COpaquePointer?, size: ULong, alignme
     throw UnsupportedOperationException("alignedRealloc requires N-API addon")
 
 public actual fun putenv(envstring: String?): CInt =
-    throw UnsupportedOperationException("putenv requires N-API addon")
+    putenvNapi(envstring)
 
 public actual fun wputenv(envstring: WcharT?): CInt =
     throw UnsupportedOperationException("wputenv requires N-API addon")
 
 public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
-    throw UnsupportedOperationException("putenvS requires N-API addon")
+    putenvSNapi(envstring, valueString)
 
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS requires N-API addon")

@@ -133,7 +133,7 @@ public actual fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt =
     throw UnsupportedOperationException("ptsnameR requires manual FFI bridge — not yet implemented")
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("clearenv requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_clearenv()
 
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: SiginfoT?, options: CInt): CInt =
     throw UnsupportedOperationException("waitid requires manual FFI bridge — not yet implemented")

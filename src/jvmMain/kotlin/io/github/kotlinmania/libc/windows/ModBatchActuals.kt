@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcJni
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("printf not available on JVM — no C library access")
@@ -168,7 +169,7 @@ public actual fun system(s: String?): CInt =
     throw UnsupportedOperationException("system not available on JVM — no C library access")
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv not available on JVM — no C library access")
+    if (s == null) null else LibcJni.getenv(s)
 
 public actual fun strcpy(dst: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy not available on JVM — no C library access")
@@ -409,7 +410,7 @@ public actual fun getpid(): CInt =
     throw UnsupportedOperationException("getpid not available on JVM — no C library access")
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty not available on JVM — no C library access")
+    LibcJni.isatty(fd)
 
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
     throw UnsupportedOperationException("lseek not available on JVM — no C library access")
@@ -456,13 +457,13 @@ public actual fun alignedRealloc(memblock: COpaquePointer?, size: ULong, alignme
     throw UnsupportedOperationException("alignedRealloc not available on JVM — no C library access")
 
 public actual fun putenv(envstring: String?): CInt =
-    throw UnsupportedOperationException("putenv not available on JVM — no C library access")
+    if (envstring == null) -1 else LibcJni.putenv(envstring)
 
 public actual fun wputenv(envstring: WcharT?): CInt =
     throw UnsupportedOperationException("wputenv not available on JVM — no C library access")
 
 public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
-    throw UnsupportedOperationException("putenvS not available on JVM — no C library access")
+    if (envstring == null || valueString == null) 22 else LibcJni.putenvS(envstring, valueString)
 
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS not available on JVM — no C library access")

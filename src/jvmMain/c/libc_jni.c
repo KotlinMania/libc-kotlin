@@ -23,6 +23,8 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <io.h>
+#include <wchar.h>
 #endif
 
 /* --- Sockets --- */
@@ -816,5 +818,186 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_pidfdOpen(
     (void)pid; (void)flags;
     errno = ENOSYS;
     return -1;
+#endif
+}
+
+JNIEXPORT jstring JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_getenv(
+    JNIEnv* env, jclass clazz, jstring name) {
+    (void)clazz;
+    if (!name) return NULL;
+    const char* cname = (*env)->GetStringUTFChars(env, name, NULL);
+    if (!cname) return NULL;
+    const char* val = getenv(cname);
+    jstring result = val ? (*env)->NewStringUTF(env, val) : NULL;
+    (*env)->ReleaseStringUTFChars(env, name, cname);
+    return result;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_setenv(
+    JNIEnv* env, jclass clazz, jstring name, jstring value, jint overwrite) {
+    (void)clazz;
+    if (!name || !value) {
+        errno = EINVAL;
+        return -1;
+    }
+    const char* cname = (*env)->GetStringUTFChars(env, name, NULL);
+    if (!cname) return -1;
+    const char* cval = (*env)->GetStringUTFChars(env, value, NULL);
+    if (!cval) {
+        (*env)->ReleaseStringUTFChars(env, name, cname);
+        return -1;
+    }
+#ifndef _WIN32
+    int res = setenv(cname, cval, (int)overwrite);
+#else
+    int res = -1;
+    if (!*cname || strchr(cname, '=') != NULL) {
+        errno = EINVAL;
+    } else if (!overwrite && getenv(cname) != NULL) {
+        res = 0;
+    } else {
+        res = _putenv_s(cname, cval) == 0 ? 0 : -1;
+    }
+#endif
+    (*env)->ReleaseStringUTFChars(env, value, cval);
+    (*env)->ReleaseStringUTFChars(env, name, cname);
+    return (jint)res;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_unsetenv(
+    JNIEnv* env, jclass clazz, jstring name) {
+    (void)clazz;
+    if (!name) {
+        errno = EINVAL;
+        return -1;
+    }
+    const char* cname = (*env)->GetStringUTFChars(env, name, NULL);
+    if (!cname) return -1;
+#ifndef _WIN32
+    int res = unsetenv(cname);
+#else
+    int res = -1;
+    if (!*cname || strchr(cname, '=') != NULL) {
+        errno = EINVAL;
+    } else {
+        res = _putenv_s(cname, "") == 0 ? 0 : -1;
+    }
+#endif
+    (*env)->ReleaseStringUTFChars(env, name, cname);
+    return (jint)res;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_putenv(
+    JNIEnv* env, jclass clazz, jstring string) {
+    (void)clazz;
+    if (!string) {
+        errno = EINVAL;
+        return -1;
+    }
+    const char* cstr = (*env)->GetStringUTFChars(env, string, NULL);
+    if (!cstr) return -1;
+#ifndef _WIN32
+    int res = putenv(strdup(cstr));
+#else
+    int res = _putenv(_strdup(cstr));
+#endif
+    (*env)->ReleaseStringUTFChars(env, string, cstr);
+    return (jint)res;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_putenvS(
+    JNIEnv* env, jclass clazz, jstring name, jstring value) {
+    (void)clazz;
+    if (!name || !value) {
+        errno = EINVAL;
+        return EINVAL;
+    }
+    const char* cname = (*env)->GetStringUTFChars(env, name, NULL);
+    if (!cname) return EINVAL;
+    const char* cval = (*env)->GetStringUTFChars(env, value, NULL);
+    if (!cval) {
+        (*env)->ReleaseStringUTFChars(env, name, cname);
+        return EINVAL;
+    }
+#ifdef _WIN32
+    int res = (int)_putenv_s(cname, cval);
+#else
+    int res;
+    if (cval[0] == '\0') {
+        res = unsetenv(cname) == 0 ? 0 : errno;
+    } else {
+        res = setenv(cname, cval, 1) == 0 ? 0 : errno;
+    }
+#endif
+    (*env)->ReleaseStringUTFChars(env, value, cval);
+    (*env)->ReleaseStringUTFChars(env, name, cname);
+    return (jint)res;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_clearenv(
+    JNIEnv* env, jclass clazz) {
+    (void)env; (void)clazz;
+#if defined(_WIN32)
+    LPWCH envBlock = GetEnvironmentStringsW();
+    if (!envBlock) return -1;
+    LPWCH p = envBlock;
+    while (*p) {
+        size_t len = wcslen(p);
+        if (p[0] != L'=') {
+            wchar_t* eq = wcschr(p, L'=');
+            if (eq) {
+                size_t namelen = (size_t)(eq - p);
+                wchar_t* name = (wchar_t*)malloc((namelen + 1) * sizeof(wchar_t));
+                if (name) {
+                    memcpy(name, p, namelen * sizeof(wchar_t));
+                    name[namelen] = L'\0';
+                    _wputenv_s(name, L"");
+                    free(name);
+                }
+            }
+        }
+        p += len + 1;
+    }
+    FreeEnvironmentStringsW(envBlock);
+    return 0;
+#elif defined(__linux__) && !defined(__ANDROID__)
+    return clearenv();
+#else
+    extern char **environ;
+    if (!environ) return 0;
+    while (environ[0] != NULL) {
+        const char* entry = environ[0];
+        const char* eq = strchr(entry, '=');
+        if (eq != NULL && eq > entry) {
+            size_t len = (size_t)(eq - entry);
+            char* name = (char*)malloc(len + 1);
+            if (!name) return -1;
+            memcpy(name, entry, len);
+            name[len] = '\0';
+            unsetenv(name);
+            free(name);
+        } else {
+            environ[0] = NULL;
+            break;
+        }
+    }
+    return 0;
+#endif
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_isatty(
+    JNIEnv* env, jclass clazz, jint fd) {
+    (void)env; (void)clazz;
+#ifndef _WIN32
+    return (jint)isatty((int)fd);
+#else
+    return (jint)_isatty((int)fd);
 #endif
 }

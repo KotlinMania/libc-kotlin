@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcNapiWasm
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
@@ -19,7 +20,7 @@ public actual fun calloc(amt: ULong, amt2: ULong): COpaquePointer? =
 public actual fun free(ptr: COpaquePointer?): Unit = throw UnsupportedOperationException("free requires N-API addon")
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv requires N-API addon")
+    LibcNapiWasm.getenv(s)
 
 public actual fun malloc(amt: ULong): COpaquePointer? =
     throw UnsupportedOperationException("malloc requires N-API addon")
@@ -40,13 +41,13 @@ public actual fun realloc(ptr: COpaquePointer?, amt: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc requires N-API addon")
 
 public actual fun setenv(k: String?, v: String?, a: CInt): CInt =
-    throw UnsupportedOperationException("setenv requires N-API addon")
+    LibcNapiWasm.setenv(k, v, a)
 
 public actual fun unsetenv(k: String?): CInt =
-    throw UnsupportedOperationException("unsetenv requires N-API addon")
+    LibcNapiWasm.unsetenv(k)
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("clearenv requires N-API addon")
+    LibcNapiWasm.clearenv()
 
 public actual fun write(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
     throw UnsupportedOperationException("write requires N-API addon")
@@ -140,7 +141,7 @@ public actual fun random(): CLong =
 public actual fun srandom(a: CUInt): Unit = throw UnsupportedOperationException("srandom requires N-API addon")
 
 public actual fun putenv(a: String?): CInt =
-    throw UnsupportedOperationException("putenv requires N-API addon")
+    LibcNapiWasm.putenv(a)
 
 public actual fun clock(): ClockT =
     throw UnsupportedOperationException("clock requires N-API addon")
@@ -449,7 +450,7 @@ public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CI
     throw UnsupportedOperationException("getopt requires N-API addon")
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires N-API addon")
+    LibcNapiWasm.isatty(fd)
 
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link requires N-API addon")

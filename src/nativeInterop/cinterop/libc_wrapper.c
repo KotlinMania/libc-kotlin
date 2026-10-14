@@ -1652,6 +1652,25 @@ int64_t libc_strtol(const char* s, void* endp, int base) {
 uint64_t libc_strxfrm(char* s, const char* ct, uint64_t n) {
     return (uint64_t)strxfrm(s, ct, (size_t)n);
 }
+
+int libc_setenv(const char* envVarName, const char* envVarValue, int overwrite) {
+    if (!envVarName || !*envVarName || strchr(envVarName, '=') != NULL || !envVarValue) {
+        errno = EINVAL;
+        return -1;
+    }
+    if (!overwrite && getenv(envVarName) != NULL) {
+        return 0;
+    }
+    return _putenv_s(envVarName, envVarValue) == 0 ? 0 : -1;
+}
+
+int libc_unsetenv(const char* envVarName) {
+    if (!envVarName || !*envVarName || strchr(envVarName, '=') != NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+    return _putenv_s(envVarName, "") == 0 ? 0 : -1;
+}
 #endif
 
 
@@ -1678,6 +1697,68 @@ int libc_putenv(const char* string) {
     return _putenv(_strdup(string));
 #else
     return putenv(strdup(string));
+#endif
+}
+int libc_putenv_s(const char* name, const char* value) {
+    if (!name || !value) {
+        errno = EINVAL;
+        return EINVAL;
+    }
+#ifdef _WIN32
+    return (int)_putenv_s(name, value);
+#else
+    if (value[0] == '\0') {
+        return unsetenv(name) == 0 ? 0 : errno;
+    }
+    return setenv(name, value, 1) == 0 ? 0 : errno;
+#endif
+}
+int libc_clearenv(void) {
+#if defined(_WIN32)
+    LPWCH env = GetEnvironmentStringsW();
+    if (!env) return -1;
+    LPWCH p = env;
+    while (*p) {
+        size_t len = wcslen(p);
+        if (p[0] != L'=') {
+            wchar_t* eq = wcschr(p, L'=');
+            if (eq) {
+                size_t namelen = (size_t)(eq - p);
+                wchar_t* name = (wchar_t*)malloc((namelen + 1) * sizeof(wchar_t));
+                if (name) {
+                    memcpy(name, p, namelen * sizeof(wchar_t));
+                    name[namelen] = L'\0';
+                    _wputenv_s(name, L"");
+                    free(name);
+                }
+            }
+        }
+        p += len + 1;
+    }
+    FreeEnvironmentStringsW(env);
+    return 0;
+#elif defined(__linux__) && !defined(__ANDROID__)
+    return clearenv();
+#else
+    extern char **environ;
+    if (!environ) return 0;
+    while (environ[0] != NULL) {
+        const char* entry = environ[0];
+        const char* eq = strchr(entry, '=');
+        if (eq != NULL && eq > entry) {
+            size_t len = (size_t)(eq - entry);
+            char* name = (char*)malloc(len + 1);
+            if (!name) return -1;
+            memcpy(name, entry, len);
+            name[len] = '\0';
+            unsetenv(name);
+            free(name);
+        } else {
+            environ[0] = NULL;
+            break;
+        }
+    }
+    return 0;
 #endif
 }
 int libc_poll_single(int fd, short events, short* revents, int timeout) {
