@@ -45,6 +45,21 @@ public fun strtodNapi(s: String?): Double =
 public fun getenvNapi(name: String?): String? =
     if (name != null) LibcNative.getenv(name) else null
 
+public fun setenvNapi(name: String?, value: String?, overwrite: Int): Int =
+    if (name != null && value != null) LibcNative.setenv(name, value, overwrite) else -1
+
+public fun unsetenvNapi(name: String?): Int =
+    if (name != null) LibcNative.unsetenv(name) else -1
+
+public fun putenvNapi(str: String?): Int =
+    if (str != null) LibcNative.putenv(str) else -1
+
+public fun putenvSNapi(name: String?, value: String?): Int =
+    if (name != null && value != null) LibcNative.putenv_s(name, value) else 22
+
+public fun clearenvNapi(): Int =
+    LibcNative.clearenv()
+
 public fun systemNapi(cmd: String?): Int =
     if (cmd != null) LibcNative.system(cmd) else -1
 
@@ -80,6 +95,8 @@ public fun unlinkNapi(path: String?): Int =
     if (path != null) LibcNative.unlink(path) else -1
 
 public fun sleepNapi(secs: UInt): UInt = LibcNative.sleep(secs.toInt()).toUInt()
+
+public fun isattyNapi(fd: Int): Int = LibcNative.isatty(fd)
 
 // ─── math ─────────────────────────────────────────────────────────
 

@@ -647,7 +647,7 @@ public actual fun wputenv(envstring: WcharT?): CInt =
     throw UnsupportedOperationException("wputenv requires manual FFI bridge — not yet implemented")
 
 public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
-    throw UnsupportedOperationException("putenvS requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_putenv_s(envstring, valueString)
 
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS requires manual FFI bridge — not yet implemented")

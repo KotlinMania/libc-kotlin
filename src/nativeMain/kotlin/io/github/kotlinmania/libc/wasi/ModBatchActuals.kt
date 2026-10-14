@@ -179,7 +179,7 @@ public actual fun unsetenv(k: String?): CInt {
 }
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("clearenv requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_clearenv()
 
 public actual fun write(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
     throw UnsupportedOperationException("write requires manual FFI bridge — type mismatch")
@@ -302,7 +302,7 @@ public actual fun random(): CLong =
 public actual fun srandom(a: CUInt): Unit = throw UnsupportedOperationException("srandom requires manual FFI bridge — not yet implemented")
 
 public actual fun putenv(a: String?): CInt =
-    throw UnsupportedOperationException("putenv requires manual FFI bridge — not yet implemented")
+    libc.cinterop.libc_putenv(a)
 
 public actual fun clock(): ClockT =
     throw UnsupportedOperationException("clock requires manual FFI bridge — not yet implemented")

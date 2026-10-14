@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.WasiLibcEnv
 
 public actual fun isalnum(c: CInt): CInt =
     throw UnsupportedOperationException("isalnum not available on WASI — no C library access")
@@ -161,7 +162,7 @@ public actual fun system(s: String?): CInt =
     throw UnsupportedOperationException("system not available on WASI — no C library access")
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv not available on WASI — no C library access")
+    WasiLibcEnv.getenv(s)
 
 public actual fun strcpy(dst: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy not available on WASI — no C library access")
@@ -477,7 +478,7 @@ public actual fun getuid(): UidT = 0u
 public actual fun getgid(): GidT = 0u
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty not available on WASI — no C library access")
+    WasiLibcEnv.isatty(fd)
 
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link not available on WASI — no C library access")
@@ -599,10 +600,10 @@ public actual fun fsync(fd: CInt): CInt =
     throw UnsupportedOperationException("fsync not available on WASI — no C library access")
 
 public actual fun setenv(name: String?, `val`: String?, overwrite: CInt): CInt =
-    throw UnsupportedOperationException("setenv not available on WASI — no C library access")
+    WasiLibcEnv.setenv(name, `val`, overwrite)
 
 public actual fun unsetenv(name: String?): CInt =
-    throw UnsupportedOperationException("unsetenv not available on WASI — no C library access")
+    WasiLibcEnv.unsetenv(name)
 
 public actual fun symlink(path1: String?, path2: String?): CInt =
     throw UnsupportedOperationException("symlink not available on WASI — no C library access")
@@ -827,7 +828,7 @@ public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CI
     throw UnsupportedOperationException("recv not available on WASI — no C library access")
 
 public actual fun putenv(string: String?): CInt =
-    throw UnsupportedOperationException("putenv not available on WASI — no C library access")
+    WasiLibcEnv.putenv(string)
 
 public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt =
     throw UnsupportedOperationException("poll not available on WASI — no C library access")

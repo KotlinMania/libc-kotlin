@@ -523,7 +523,7 @@ public actual fun getgid(): GidT =
     }
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires N-API addon")
+    isattyNapi(fd)
 
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link requires N-API addon")
@@ -645,10 +645,10 @@ public actual fun fsync(fd: CInt): CInt =
     throw UnsupportedOperationException("fsync requires N-API addon")
 
 public actual fun setenv(name: String?, `val`: String?, overwrite: CInt): CInt =
-    throw UnsupportedOperationException("setenv requires N-API addon")
+    setenvNapi(name, `val`, overwrite)
 
 public actual fun unsetenv(name: String?): CInt =
-    throw UnsupportedOperationException("unsetenv requires N-API addon")
+    unsetenvNapi(name)
 
 public actual fun symlink(path1: String?, path2: String?): CInt =
     throw UnsupportedOperationException("symlink requires N-API addon")
@@ -880,7 +880,7 @@ public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CI
 }
 
 public actual fun putenv(string: String?): CInt =
-    throw UnsupportedOperationException("putenv requires N-API addon")
+    putenvNapi(string)
 
 public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
     if (fds == null || nfds == 0u) return 0

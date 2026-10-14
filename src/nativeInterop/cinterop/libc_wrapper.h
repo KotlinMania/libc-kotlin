@@ -523,6 +523,8 @@ int libc_getgrouplist(const char* user, int group, void* groups, int* ngroups);
 int libc_sched_yield(void);
 int64_t libc_write(int fd, const void* buf, uint64_t count);
 int libc_putenv(const char* string);
+int libc_putenv_s(const char* name, const char* value);
+int libc_clearenv(void);
 int libc_poll_single(int fd, short events, short* revents, int timeout);
 int libc_fnmatch(const char* pattern, const char* name, int flags);
 char* libc_strndup(const char* s, uint64_t n);

@@ -42,13 +42,13 @@ public actual fun realloc(ptr: COpaquePointer?, amt: ULong): COpaquePointer? =
     reallocNapi(ptr, amt)
 
 public actual fun setenv(k: String?, v: String?, a: CInt): CInt =
-    throw UnsupportedOperationException("setenv requires N-API addon")
+    setenvNapi(k, v, a)
 
 public actual fun unsetenv(k: String?): CInt =
-    throw UnsupportedOperationException("unsetenv requires N-API addon")
+    unsetenvNapi(k)
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("clearenv requires N-API addon")
+    clearenvNapi()
 
 public actual fun write(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
     LibcNative.write(fd, ptr?.value, size.toInt()).toLong()
@@ -147,7 +147,7 @@ public actual fun random(): CLong =
 public actual fun srandom(a: CUInt): Unit = throw UnsupportedOperationException("srandom requires N-API addon")
 
 public actual fun putenv(a: String?): CInt =
-    throw UnsupportedOperationException("putenv requires N-API addon")
+    putenvNapi(a)
 
 public actual fun clock(): ClockT =
     throw UnsupportedOperationException("clock requires N-API addon")
@@ -467,7 +467,7 @@ public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CI
     throw UnsupportedOperationException("getopt requires N-API addon")
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires N-API addon")
+    isattyNapi(fd)
 
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link requires N-API addon")

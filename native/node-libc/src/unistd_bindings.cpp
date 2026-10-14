@@ -121,4 +121,19 @@ void RegisterUnistdBindings(Napi::Env env, Napi::Object exports) {
         unsigned int seconds = info[0].As<Napi::Number>().Uint32Value();
         return Napi::Number::New(env, ::sleep(seconds));
     }));
+
+    // isatty
+    exports.Set("isatty", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        Napi::Env env = info.Env();
+        if (info.Length() < 1) {
+            Napi::TypeError::New(env, "isatty requires 1 argument").ThrowAsJavaScriptException();
+            return env.Null();
+        }
+        int fd = info[0].As<Napi::Number>().Int32Value();
+#ifdef _WIN32
+        return Napi::Number::New(env, ::_isatty(fd));
+#else
+        return Napi::Number::New(env, ::isatty(fd));
+#endif
+    }));
 }

@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcJni
 
 public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on Android host — use androidNative target for FFI")
@@ -19,7 +20,7 @@ public actual fun calloc(amt: ULong, amt2: ULong): COpaquePointer? =
 public actual fun free(ptr: COpaquePointer?): Unit = throw UnsupportedOperationException("free not available on Android host — use androidNative target for FFI")
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv not available on Android host — use androidNative target for FFI")
+    if (s == null) null else LibcJni.getenv(s)
 
 public actual fun malloc(amt: ULong): COpaquePointer? =
     throw UnsupportedOperationException("malloc not available on Android host — use androidNative target for FFI")
@@ -40,13 +41,13 @@ public actual fun realloc(ptr: COpaquePointer?, amt: ULong): COpaquePointer? =
     throw UnsupportedOperationException("realloc not available on Android host — use androidNative target for FFI")
 
 public actual fun setenv(k: String?, v: String?, a: CInt): CInt =
-    throw UnsupportedOperationException("setenv not available on Android host — use androidNative target for FFI")
+    if (k == null || v == null) -1 else LibcJni.setenv(k, v, a)
 
 public actual fun unsetenv(k: String?): CInt =
-    throw UnsupportedOperationException("unsetenv not available on Android host — use androidNative target for FFI")
+    if (k == null) -1 else LibcJni.unsetenv(k)
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("clearenv not available on Android host — use androidNative target for FFI")
+    LibcJni.clearenv()
 
 public actual fun write(fd: CInt, ptr: COpaquePointer?, size: ULong): SsizeT =
     throw UnsupportedOperationException("write not available on Android host — use androidNative target for FFI")
@@ -140,7 +141,7 @@ public actual fun random(): CLong =
 public actual fun srandom(a: CUInt): Unit = throw UnsupportedOperationException("srandom not available on Android host — use androidNative target for FFI")
 
 public actual fun putenv(a: String?): CInt =
-    throw UnsupportedOperationException("putenv not available on Android host — use androidNative target for FFI")
+    if (a == null) -1 else LibcJni.putenv(a)
 
 public actual fun clock(): ClockT =
     throw UnsupportedOperationException("clock not available on Android host — use androidNative target for FFI")
@@ -449,7 +450,7 @@ public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CI
     throw UnsupportedOperationException("getopt not available on Android host — use androidNative target for FFI")
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty not available on Android host — use androidNative target for FFI")
+    LibcJni.isatty(fd)
 
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link not available on Android host — use androidNative target for FFI")

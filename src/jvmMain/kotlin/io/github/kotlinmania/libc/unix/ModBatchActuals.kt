@@ -162,7 +162,7 @@ public actual fun system(s: String?): CInt =
     throw UnsupportedOperationException("system not available on JVM — no C library access")
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv not available on JVM — no C library access")
+    if (s == null) null else LibcJni.getenv(s)
 
 public actual fun strcpy(dst: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy not available on JVM — no C library access")
@@ -549,7 +549,7 @@ public actual fun getgid(): GidT =
     LibcJni.getgid().toUShort()
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty not available on JVM — no C library access")
+    LibcJni.isatty(fd)
 
 public actual fun link(src: String?, dst: String?): CInt =
     throw UnsupportedOperationException("link not available on JVM — no C library access")
@@ -671,10 +671,10 @@ public actual fun fsync(fd: CInt): CInt =
     throw UnsupportedOperationException("fsync not available on JVM — no C library access")
 
 public actual fun setenv(name: String?, `val`: String?, overwrite: CInt): CInt =
-    throw UnsupportedOperationException("setenv not available on JVM — no C library access")
+    if (name == null || `val` == null) -1 else LibcJni.setenv(name, `val`, overwrite)
 
 public actual fun unsetenv(name: String?): CInt =
-    throw UnsupportedOperationException("unsetenv not available on JVM — no C library access")
+    if (name == null) -1 else LibcJni.unsetenv(name)
 
 public actual fun symlink(path1: String?, path2: String?): CInt =
     throw UnsupportedOperationException("symlink not available on JVM — no C library access")
@@ -907,7 +907,7 @@ public actual fun recv(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CI
 }
 
 public actual fun putenv(string: String?): CInt =
-    throw UnsupportedOperationException("putenv not available on JVM — no C library access")
+    if (string == null) -1 else LibcJni.putenv(string)
 
 public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
     if (fds == null || nfds == 0u) return 0

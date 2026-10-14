@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.LibcNapiWasm
 
 public actual fun printf(format: String?, vararg args: Any?): CInt =
     throw UnsupportedOperationException("printf requires N-API addon")
@@ -168,7 +169,7 @@ public actual fun system(s: String?): CInt =
     throw UnsupportedOperationException("system requires N-API addon")
 
 public actual fun getenv(s: String?): String? =
-    throw UnsupportedOperationException("getenv requires N-API addon")
+    LibcNapiWasm.getenv(s)
 
 public actual fun strcpy(dst: String?, src: String?): String? =
     throw UnsupportedOperationException("strcpy requires N-API addon")
@@ -409,7 +410,7 @@ public actual fun getpid(): CInt =
     throw UnsupportedOperationException("getpid requires N-API addon")
 
 public actual fun isatty(fd: CInt): CInt =
-    throw UnsupportedOperationException("isatty requires N-API addon")
+    LibcNapiWasm.isatty(fd)
 
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
     throw UnsupportedOperationException("lseek requires N-API addon")
@@ -456,13 +457,13 @@ public actual fun alignedRealloc(memblock: COpaquePointer?, size: ULong, alignme
     throw UnsupportedOperationException("alignedRealloc requires N-API addon")
 
 public actual fun putenv(envstring: String?): CInt =
-    throw UnsupportedOperationException("putenv requires N-API addon")
+    LibcNapiWasm.putenv(envstring)
 
 public actual fun wputenv(envstring: WcharT?): CInt =
     throw UnsupportedOperationException("wputenv requires N-API addon")
 
 public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
-    throw UnsupportedOperationException("putenvS requires N-API addon")
+    LibcNapiWasm.putenvS(envstring, valueString)
 
 public actual fun wputenvS(envstring: WcharT?, valueString: WcharT?): ErrnoT =
     throw UnsupportedOperationException("wputenvS requires N-API addon")
