@@ -22,6 +22,8 @@ tmp/
 # AST distance reports and binaries
 port_status_report.md
 high_priority_ports.md
+NEXT_ACTIONS.md
+port_lint_proposed_changes.md
 ast_distance_*.txt
 .cache/
 *.lock
@@ -30,15 +32,10 @@ kotlin-js-store/*
 !kotlin-js-store/yarn.lock
 !kotlin-js-store/wasm/
 !kotlin-js-store/wasm/yarn.lock
-# ast_distance is the compiled drift-measurement binary. Earlier layouts
-# nested it under `tools/ast_distance/<source>/ast_distance`; the current
-# layout places the binary directly at `tools/ast_distance` and keeps its
-# sources in a workspace-shared location. Both shapes are covered: the
-# top-level entry matches a single binary, and the directory-suffixed
-# entries match the old subdir layout's build output.
-tools/ast_distance
+tools/ast_distance/ast_distance
 tools/ast_distance/build/
-tools/ast_distance_bin
+tools/ast_distance
+tools/
 
 # JVM heap dumps
 *.hprof
@@ -66,22 +63,21 @@ local.properties
 # repo — would also produce.
 #
 # Note: the staging directory the Kotlin Swift Export pipeline writes
-# to (`build/swift-test/libLibc.a` + `.swiftmodule/` bundles when run
-# with the Xcode-style env vars) is already covered by `build/` above.
+# to (`build/swift-test/lib*.a` + `.swiftmodule/` bundles when run with
+# the Xcode-style env vars) is already covered by `build/` above.
 .swiftpm/
 DerivedData/
 *.xcuserstate
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
-NEXT_ACTIONS.md
-port_lint_proposed_changes.md
+local.properties
+
+# Repository-specific generated artifacts
+tools/ast_distance_bin
 native/node-libc/build
 native/node-libc/node_modules
 native/node-libc/package-lock.json
-
-# Session files
 2026*
 src/nativeInterop/cinterop/libc_wrapper.o
 *.o.tmp
-src/nativeInterop/cinterop/libc_wrapper.o
 src/nativeInterop/cinterop/libc_wrapper.a

@@ -952,6 +952,8 @@ rootProject.extensions.configure<WasmYarnRootEnvSpec>("kotlinWasmYarnSpec") {
 }
 
 rootProject.extensions.configure<YarnRootExtension>("kotlinYarn") {
+    yarnLockMismatchReportProperty.set(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport.WARNING)
+    yarnLockAutoReplaceProperty.set(true)
     providers
         .gradlePropertiesPrefixedBy("yarn.resolution.")
         .getOrElse(emptyMap())
@@ -1585,7 +1587,9 @@ val fullTargetBuildTaskNames =
                 "jvmMainClasses",
                 "jvmTestClasses",
                 "kotlinUpgradeYarnLock",
+                "kotlinStoreYarnLock",
                 "kotlinWasmUpgradeYarnLock",
+                "kotlinWasmStoreYarnLock",
                 "jsMainClasses",
                 "jsTestClasses",
                 "wasmJsMainClasses",
