@@ -10,7 +10,7 @@ public data class Utmpx(
     val utHost: ByteArray,
     val utSession: UShort,
     val utType: UShort,
-    val utPid: PidT,
+    val utPid: Int,
     val utExit: ExitStatus,
     val utSs: SockaddrStorage,
     val utTv: Timeval,
@@ -60,14 +60,14 @@ public expect fun getutxline(ut: Utmpx?): Utmpx?
 
 public expect fun pututxline(ut: Utmpx?): Utmpx?
 
-public expect fun updwtmpx(file: String?, ut: Utmpx?): CInt
+public expect fun updwtmpx(file: String?, ut: Utmpx?): Int
 
-public expect fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx?
+public expect fun getlastlogx(fname: String?, uid: UInt, ll: Lastlogx?): Lastlogx?
 
-public expect fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt
+public expect fun updlastlogx(fname: String?, uid: UInt, ll: Lastlogx?): Int
 
 public expect fun getutmp(ux: Utmpx?, u: Utmp?)
 
 public expect fun getutmpx(u: Utmp?, ux: Utmpx?)
 
-public expect fun utmpxname(file: String?): CInt 
+public expect fun utmpxname(file: String?): Int

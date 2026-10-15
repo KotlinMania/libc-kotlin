@@ -49,12 +49,3 @@ public class DIR(
 ) {
     public val ptr: Long get() = handle
 }
-
-/**
- * C file position type (`fpos_t` in C). Defined as a typealias where the
- * platform definition is a simple integer, or as a data class where the
- * platform defines a struct. This root declaration provides a default
- * opaque-Long representation that sub-packages may shadow with their own
- * `typealias FposT = ...` when they need a different width.
- */
-public typealias FposT = Long

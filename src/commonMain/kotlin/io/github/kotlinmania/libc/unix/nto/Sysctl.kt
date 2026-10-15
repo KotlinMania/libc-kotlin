@@ -1,0 +1,6 @@
+// port-lint: source unix/nto/mod.rs
+package io.github.kotlinmania.libc.unix.nto
+
+import io.github.kotlinmania.libc.*
+
+public expect fun sysctl(name: Int?, namelen: UInt, oldp: COpaquePointer?, oldlenp: ULong?, newp: COpaquePointer?, newlen: ULong): Int

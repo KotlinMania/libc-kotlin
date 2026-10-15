@@ -4,7 +4,6 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUInt
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toCPointer
@@ -45,8 +44,8 @@ public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpa
 public actual fun cMSGALIGN(len: ULong): ULong =
     throw UnsupportedOperationException("cMSGALIGN requires per-platform actual — size_t width differs across native targets")
 
-public actual fun cMSGSPACE(length: CUInt): CUInt =
+public actual fun cMSGSPACE(length: UInt): UInt =
     throw UnsupportedOperationException("cMSGSPACE requires per-platform actual — size_t width differs across native targets")
 
-public actual fun cMSGLEN(length: CUInt): CUInt =
+public actual fun cMSGLEN(length: UInt): UInt =
     throw UnsupportedOperationException("cMSGLEN requires per-platform actual — size_t width differs across native targets")

@@ -36,7 +36,7 @@ internal object LibcJni {
                 System.load(localBuilt.absolutePath)
                 return
             }
-            val tmpDir = File(System.getProperty("java.io.tmpdir") ?: "/tmp", "kotlinmania-libc-jni-0.1.7")
+            val tmpDir = File(System.getProperty("java.io.tmpdir") ?: "/tmp", "kotlinmania-libc-jni-0.1.8")
             val outFile = File(tmpDir, libName)
             if (!outFile.exists()) {
                 tmpDir.mkdirs()

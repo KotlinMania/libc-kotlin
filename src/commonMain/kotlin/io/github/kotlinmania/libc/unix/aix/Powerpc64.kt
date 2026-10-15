@@ -15,28 +15,28 @@ public data class FdSet(
 )
 
 public data class Flock(
-    val lType: CShort,
-    val lWhence: CShort,
-    val lSysid: CUInt,
-    val lPid: PidT,
-    val lVfs: CInt,
-    val lStart: OffT,
-    val lLen: OffT,
+    val lType: Short,
+    val lWhence: Short,
+    val lSysid: UInt,
+    val lPid: Int,
+    val lVfs: Int,
+    val lStart: Long,
+    val lLen: Long,
 )
 
 public data class Statvfs(
-    val fBsize: CULong,
-    val fFrsize: CULong,
-    val fBlocks: FsblkcntT,
-    val fBfree: FsblkcntT,
-    val fBavail: FsblkcntT,
-    val fFiles: FsfilcntT,
-    val fFfree: FsfilcntT,
-    val fFavail: FsfilcntT,
-    val fFsid: CULong,
+    val fBsize: ULong,
+    val fFrsize: ULong,
+    val fBlocks: ULong,
+    val fBfree: ULong,
+    val fBavail: ULong,
+    val fFiles: ULong,
+    val fFfree: ULong,
+    val fFavail: ULong,
+    val fFsid: ULong,
     val fBasetype: ByteArray,
-    val fFlag: CULong,
-    val fNamemax: CULong,
+    val fFlag: ULong,
+    val fNamemax: ULong,
     val fFstr: ByteArray,
     val fFiller: ULongArray,
 )
@@ -58,64 +58,64 @@ public data class PthreadOnceT(
 )
 
 public data class Stat(
-    val stDev: DevT,
-    val stIno: InoT,
-    val stMode: ModeT,
-    val stNlink: NlinkT,
-    val stFlag: CUShort,
-    val stUid: UidT,
-    val stGid: GidT,
-    val stRdev: DevT,
-    val stSsize: CInt,
+    val stDev: ULong,
+    val stIno: ULong,
+    val stMode: UInt,
+    val stNlink: Short,
+    val stFlag: UShort,
+    val stUid: UInt,
+    val stGid: UInt,
+    val stRdev: ULong,
+    val stSsize: Int,
     val stAtim: StTimespec,
     val stMtim: StTimespec,
     val stCtim: StTimespec,
-    val stBlksize: BlksizeT,
-    val stBlocks: BlkcntT,
-    val stVfstype: CInt,
-    val stVfs: CUInt,
-    val stType: CUInt,
-    val stGen: CUInt,
-    val stPadtoLl: CUInt,
-    val stSize: OffT,
+    val stBlksize: Long,
+    val stBlocks: Long,
+    val stVfstype: Int,
+    val stVfs: UInt,
+    val stType: UInt,
+    val stGen: UInt,
+    val stPadtoLl: UInt,
+    val stSize: Long,
 )
 
 public data class Statfs(
-    val fVersion: CInt,
-    val fType: CInt,
-    val fBsize: CULong,
-    val fBlocks: FsblkcntT,
-    val fBfree: FsblkcntT,
-    val fBavail: FsblkcntT,
-    val fFiles: FsblkcntT,
-    val fFfree: FsblkcntT,
+    val fVersion: Int,
+    val fType: Int,
+    val fBsize: ULong,
+    val fBlocks: ULong,
+    val fBfree: ULong,
+    val fBavail: ULong,
+    val fFiles: ULong,
+    val fFfree: ULong,
     val fFsid: Fsid64T,
-    val fVfstype: CInt,
-    val fFsize: CULong,
-    val fVfsnumber: CInt,
-    val fVfsoff: CInt,
-    val fVfslen: CInt,
-    val fVfsvers: CInt,
+    val fVfstype: Int,
+    val fFsize: ULong,
+    val fVfsnumber: Int,
+    val fVfsoff: Int,
+    val fVfslen: Int,
+    val fVfsvers: Int,
     val fFname: ByteArray,
     val fFpack: ByteArray,
-    val fNameMax: CInt,
+    val fNameMax: Int,
 )
 
 public data class Aiocb(
-    val aioLioOpcode: CInt,
-    val aioFildes: CInt,
-    val aioWord1: CInt,
-    val aioOffset: OffT,
+    val aioLioOpcode: Int,
+    val aioFildes: Int,
+    val aioWord1: Int,
+    val aioOffset: Long,
     val aioBuf: COpaquePointer?,
-    val aioReturn: SsizeT,
-    val aioErrno: CInt,
+    val aioReturn: Long,
+    val aioErrno: Int,
     val aioNbytes: ULong,
-    val aioReqprio: CInt,
+    val aioReqprio: Int,
     val aioSigevent: Sigevent,
-    val aioWord2: CInt,
-    val aioFp: CInt,
+    val aioWord2: Int,
+    val aioFp: Int,
     val aioHandle: Aiocb?,
-    val aioSigevTid: CLong,
+    val aioSigevTid: Long,
 )
 
 public data class VmxregT(
@@ -125,8 +125,8 @@ public data class VmxregT(
 public data class VmxContextT(
     val vr: List<VmxregT>,
     val pad1: UIntArray,
-    val vscr: CUInt,
-    val vrsave: CUInt,
+    val vscr: UInt,
+    val vrsave: UInt,
     val pad2: UIntArray,
 )
 
@@ -138,43 +138,43 @@ public data class TmContextT(
     val vmx: VmxContextT,
     val vsx: VsxContextT,
     val gpr: ULongArray,
-    val lr: CULongLong,
-    val ctr: CULongLong,
-    val cr: CUInt,
-    val xer: CUInt,
-    val amr: CULongLong,
-    val texasr: CULongLong,
-    val tfiar: CULongLong,
-    val tfhar: CULongLong,
-    val ppr: CULongLong,
-    val dscr: CULongLong,
-    val tar: CULongLong,
-    val fpscr: CUInt,
-    val fpscrx: CUInt,
+    val lr: ULong,
+    val ctr: ULong,
+    val cr: UInt,
+    val xer: UInt,
+    val amr: ULong,
+    val texasr: ULong,
+    val tfiar: ULong,
+    val tfhar: ULong,
+    val ppr: ULong,
+    val dscr: ULong,
+    val tar: ULong,
+    val fpscr: UInt,
+    val fpscrx: UInt,
     val fpr: List<FpregT>,
-    val tmcontext: CChar,
-    val tmstate: CChar,
-    val prevowner: CChar,
+    val tmcontext: Byte,
+    val tmstate: Byte,
+    val prevowner: Byte,
     val pad: ByteArray,
 )
 
 public data class Context64(
     val gpr: ULongArray,
-    val msr: CULongLong,
-    val iar: CULongLong,
-    val lr: CULongLong,
-    val ctr: CULongLong,
-    val cr: CUInt,
-    val xer: CUInt,
-    val fpscr: CUInt,
-    val fpscrx: CUInt,
+    val msr: ULong,
+    val iar: ULong,
+    val lr: ULong,
+    val ctr: ULong,
+    val cr: UInt,
+    val xer: UInt,
+    val fpscr: UInt,
+    val fpscrx: UInt,
     val except: ULongArray,
     val fpr: List<FpregT>,
-    val fpeu: CChar,
-    val fpinfo: CChar,
-    val fpscr2431: CChar,
+    val fpeu: Byte,
+    val fpinfo: Byte,
+    val fpscr2431: Byte,
     val pad: ByteArray,
-    val excpType: CInt,
+    val excpType: Int,
 )
 
 public data class McontextT(
@@ -182,24 +182,24 @@ public data class McontextT(
 )
 
 public data class ExtctxT(
-    val flags: CUInt,
+    val flags: UInt,
     val rsvd1: UIntArray,
     val vmx: VmxContextT,
     val ukeys: UIntArray,
     val vsx: VsxContextT,
     val tm: TmContextT,
-    val extctxMagic: CInt,
+    val extctxMagic: Int,
 )
 
 public data class UcontextT(
-    val scOnstack: CInt,
+    val scOnstack: Int,
     val ucSigmask: SigsetT,
-    val scUerror: CInt,
+    val scUerror: Int,
     val ucMcontext: McontextT,
     val ucLink: UcontextT?,
     val ucStack: StackT,
     val extctx: ExtctxT?,
-    val extctxMagic: CInt,
+    val extctxMagic: Int,
     val pad: IntArray,
 )
 
@@ -207,11 +207,11 @@ public data class Utmpx(
     val utUser: ByteArray,
     val utId: ByteArray,
     val utLine: ByteArray,
-    val utPid: PidT,
-    val utType: CShort,
+    val utPid: Int,
+    val utType: Short,
     val utTv: Timeval,
     val utHost: ByteArray,
-    val dblWordPad: CInt,
+    val dblWordPad: Int,
     val reservedA: IntArray,
     val reservedV: IntArray,
 )
@@ -226,103 +226,103 @@ public data class PthreadBarrierT(
 
 public data class MsqidDs(
     val msgPerm: IpcPerm,
-    val msgFirst: CUInt,
-    val msgLast: CUInt,
-    val msgCbytes: CUInt,
-    val msgQnum: CUInt,
-    val msgQbytes: CULong,
-    val msgLspid: PidT,
-    val msgLrpid: PidT,
-    val msgStime: TimeT,
-    val msgRtime: TimeT,
-    val msgCtime: TimeT,
-    val msgRwait: CInt,
-    val msgWwait: CInt,
-    val msgReqevents: CUShort,
+    val msgFirst: UInt,
+    val msgLast: UInt,
+    val msgCbytes: UInt,
+    val msgQnum: UInt,
+    val msgQbytes: ULong,
+    val msgLspid: Int,
+    val msgLrpid: Int,
+    val msgStime: Long,
+    val msgRtime: Long,
+    val msgCtime: Long,
+    val msgRwait: Int,
+    val msgWwait: Int,
+    val msgReqevents: UShort,
 )
 
 public data class SiginfoT(
     val handle: Long = 0L,
-    val siSigno: CInt,
-    val siErrno: CInt,
-    val siCode: CInt,
-    val siPid: PidT,
-    val siUid: UidT,
-    val siStatus: CInt,
+    val siSigno: Int,
+    val siErrno: Int,
+    val siCode: Int,
+    val siPid: Int,
+    val siUid: UInt,
+    val siStatus: Int,
     val siAddr: COpaquePointer?,
-    val siBand: CLong,
+    val siBand: Long,
     val siValue: Sigval,
-    val siFlags: CInt,
+    val siFlags: Int,
     val pad: IntArray,
-    val siUtime: CLong? = null,
-    val siStime: CLong? = null,
+    val siUtime: Long? = null,
+    val siStime: Long? = null,
 ) {
     internal fun siAddr(): COpaquePointer? = siAddr
     internal fun siValue(): Sigval = siValue
-    internal fun siPid(): PidT = siPid
-    internal fun siUid(): UidT = siUid
-    internal fun siStatus(): CInt = siStatus
+    internal fun siPid(): Int = siPid
+    internal fun siUid(): UInt = siUid
+    internal fun siStatus(): Int = siStatus
 }
 
 public data class PollfdExt(
-    val fd: CInt,
-    val events: CShort,
-    val revents: CShort,
+    val fd: Int,
+    val events: Short,
+    val revents: Short,
     val data: PollfdExtU,
 )
 
 public data class FileopsT(
-    val foRw: ((File?, UioRw, COpaquePointer?, CLong, COpaquePointer?) -> CInt)?,
-    val foIoctl: ((File?, CLong, CaddrT, CLong, CLong) -> CInt)?,
-    val foSelect: ((File?, CInt, CUShort?, (() -> Unit)?) -> CInt)?,
-    val foClose: ((File?) -> CInt)?,
-    val foFstat: ((File?, Stat?) -> CInt)?,
+    val foRw: ((File?, UioRw, COpaquePointer?, Long, COpaquePointer?) -> Int)?,
+    val foIoctl: ((File?, Long, String?, Long, Long) -> Int)?,
+    val foSelect: ((File?, Int, UShort?, (() -> Unit)?) -> Int)?,
+    val foClose: ((File?) -> Int)?,
+    val foFstat: ((File?, Stat?) -> Int)?,
 )
 
 public data class File(
-    val fFlag: CLong,
-    val fCount: CInt,
-    val fOptions: CShort,
-    val fType: CShort,
+    val fFlag: Long,
+    val fCount: Int,
+    val fOptions: Short,
+    val fType: Short,
     val fData: COpaquePointer?,
-    val fOffset: CLongLong,
-    val fDirOff: CLong,
+    val fOffset: Long,
+    val fDirOff: Long,
     val fCred: COpaquePointer?,
     val fLock: KernelSimpleLock,
     val fOffsetLock: KernelSimpleLock,
-    val fVinfo: CaddrT,
+    val fVinfo: String?,
     val fOps: FileopsT?,
-    val fParentp: CaddrT,
-    val fFnamep: CaddrT,
+    val fParentp: String?,
+    val fFnamep: String?,
     val fFdata: ByteArray,
 )
 
 public data class LdInfo(
-    val ldinfoNext: CUInt,
-    val ldinfoFlags: CUInt,
+    val ldinfoNext: UInt,
+    val ldinfoFlags: UInt,
     val file: LdInfoFile,
     val ldinfoTextorg: COpaquePointer?,
-    val ldinfoTextsize: CULong,
+    val ldinfoTextsize: ULong,
     val ldinfoDataorg: COpaquePointer?,
-    val ldinfoDatasize: CULong,
+    val ldinfoDatasize: ULong,
     val ldinfoFilename: ByteArray,
 )
 
 public data class FpregT(
-    val d: CDouble,
+    val d: Double,
 )
 
 // C union; only one variant is valid at a time.
 public data class KernelSimpleLock(
-    val slock: CLong? = null,
+    val slock: Long? = null,
     val slockp: LockDataInstrumented? = null,
 )
 
 // C union; only one variant is valid at a time.
 public data class LdInfoFile(
-    val ldinfoFd: CInt? = null,
+    val ldinfoFd: Int? = null,
     val ldinfoFp: File? = null,
-    val coreOffset: CLong? = null,
+    val coreOffset: Long? = null,
 )
 
 // C union; only one variant is valid at a time.
@@ -336,6 +336,6 @@ public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mtWord = lon
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cvWord = longArrayOf(0, 0, 0, 0, 2, 0))
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = longArrayOf(2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = longArrayOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
-public const val RLIM_INFINITY: CULong = 0x7fffffffffffffffuL
+public const val RLIM_INFINITY: ULong = 0x7fffffffffffffffuL
 
-public expect fun getsystemcfg(label: CInt): CULong 
+public expect fun getsystemcfg(label: Int): ULong

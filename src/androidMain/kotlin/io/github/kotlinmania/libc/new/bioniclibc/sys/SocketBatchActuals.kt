@@ -3,11 +3,11 @@ package io.github.kotlinmania.libc.new.bioniclibc.sys
 
 import io.github.kotlinmania.libc.*
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt, timeout: Timespec?): CInt =
+public actual fun recvmmsg(sockfd: Int, msgvec: Mmsghdr?, vlen: UInt, flags: Int, timeout: Timespec?): Int =
     throw UnsupportedOperationException("recvmmsg not available on Android host — use androidNative target for FFI")
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt): CInt =
+public actual fun sendmmsg(sockfd: Int, msgvec: Mmsghdr?, vlen: UInt, flags: Int): Int =
     throw UnsupportedOperationException("sendmmsg not available on Android host — use androidNative target for FFI")
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
+public actual fun recvfrom(socket: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: Sockaddr?, addrlen: UInt?): Long =
     throw UnsupportedOperationException("recvfrom not available on Android host — use androidNative target for FFI")

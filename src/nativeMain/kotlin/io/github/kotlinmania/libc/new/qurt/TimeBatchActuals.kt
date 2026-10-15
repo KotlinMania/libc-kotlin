@@ -6,25 +6,25 @@ package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun time(tloc: TimeT?): TimeT =
+public actual fun time(tloc: Long?): Long =
     throw UnsupportedOperationException("time requires manual FFI bridge — not yet implemented")
 
-public actual fun clock(): ClockT =
+public actual fun clock(): Long =
     throw UnsupportedOperationException("clock requires manual FFI bridge — not yet implemented")
 
-public actual fun mktime(tm: Tm?): TimeT =
+public actual fun mktime(tm: Tm?): Long =
     throw UnsupportedOperationException("mktime requires manual FFI bridge — not yet implemented")
 
-public actual fun gmtime(timep: TimeT?): Tm? =
+public actual fun gmtime(timep: Long?): Tm? =
     throw UnsupportedOperationException("gmtime requires manual FFI bridge — not yet implemented")
 
-public actual fun gmtimeR(timep: TimeT?, result: Tm?): Tm? =
+public actual fun gmtimeR(timep: Long?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR requires manual FFI bridge — not yet implemented")
 
-public actual fun localtime(timep: TimeT?): Tm? =
+public actual fun localtime(timep: Long?): Tm? =
     throw UnsupportedOperationException("localtime requires manual FFI bridge — not yet implemented")
 
-public actual fun localtimeR(timep: TimeT?, result: Tm?): Tm? =
+public actual fun localtimeR(timep: Long?, result: Tm?): Tm? =
     throw UnsupportedOperationException("localtimeR requires manual FFI bridge — not yet implemented")
 
 public actual fun asctime(tm: Tm?): String? =
@@ -33,10 +33,10 @@ public actual fun asctime(tm: Tm?): String? =
 public actual fun asctimeR(tm: Tm?, buf: String?): String? =
     throw UnsupportedOperationException("asctimeR requires manual FFI bridge — not yet implemented")
 
-public actual fun ctime(timep: TimeT?): String? =
+public actual fun ctime(timep: Long?): String? =
     throw UnsupportedOperationException("ctime requires manual FFI bridge — not yet implemented")
 
-public actual fun ctimeR(timep: TimeT?, buf: String?): String? =
+public actual fun ctimeR(timep: Long?, buf: String?): String? =
     throw UnsupportedOperationException("ctimeR requires manual FFI bridge — not yet implemented")
 
 public actual fun strftime(s: String?, maxsize: ULong, format: String?, timeptr: Tm?): ULong =
@@ -45,8 +45,8 @@ public actual fun strftime(s: String?, maxsize: ULong, format: String?, timeptr:
 public actual fun strptime(s: String?, format: String?, tm: Tm?): String? =
     throw UnsupportedOperationException("strptime requires manual FFI bridge — not yet implemented")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+public actual fun clockGettime(clkId: Int, tp: Timespec?): Int =
     throw UnsupportedOperationException("clockGettime requires FFI bridge")
 
-public actual fun nanosleep(req: Timespec?, rem: Timespec?): CInt =
+public actual fun nanosleep(req: Timespec?, rem: Timespec?): Int =
     throw UnsupportedOperationException("nanosleep requires manual FFI bridge — not yet implemented")

@@ -1,0 +1,10 @@
+// port-lint: source wasi/mod.rs
+package io.github.kotlinmania.libc.wasi
+
+import io.github.kotlinmania.libc.*
+
+public data class Dirent(
+    val dIno: ULong,
+    val dType: UByte,
+    val dName: ByteArray,
+)

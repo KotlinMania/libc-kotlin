@@ -1,0 +1,6 @@
+// port-lint: source teeos/mod.rs
+package io.github.kotlinmania.libc.teeos
+
+import io.github.kotlinmania.libc.*
+
+public fun atof(s: String?): Double = 0.0

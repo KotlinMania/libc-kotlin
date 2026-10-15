@@ -4,7 +4,6 @@
 
 package io.github.kotlinmania.libc.vxworks
 
-import io.github.kotlinmania.libc.CInt
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toKString
@@ -34,7 +33,7 @@ public actual fun strdup(cs: String?): String? {
     }
 }
 
-public actual fun strerror(n: CInt): String? {
+public actual fun strerror(n: Int): String? {
     val result = libc.cinterop.libc_strerror(n)
     return result?.toKString()
 }
@@ -44,17 +43,17 @@ public actual fun getlogin(): String? {
     return result?.toKString()
 }
 
-public actual fun ttyname(fd: CInt): String? {
+public actual fun ttyname(fd: Int): String? {
     val result = libc.cinterop.libc_ttyname(fd)
     return result?.toKString()
 }
 
-public actual fun setlocale(category: CInt, locale: String?): String? {
+public actual fun setlocale(category: Int, locale: String?): String? {
     val result = libc.cinterop.libc_setlocale(category, locale)
     return result?.toKString()
 }
 
-public actual fun gaiStrerror(errcode: CInt): String? {
+public actual fun gaiStrerror(errcode: Int): String? {
     val result = libc.cinterop.libc_gai_strerror(errcode)
     return result?.toKString()
 }

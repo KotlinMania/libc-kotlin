@@ -3,5 +3,5 @@ package io.github.kotlinmania.libc.unix.bsd.apple.b64
 
 import io.github.kotlinmania.libc.*
 
-public actual fun exchangedata(path1: String?, path2: String?, options: CUInt): CInt =
+public actual fun exchangedata(path1: String?, path2: String?, options: UInt): Int =
     throw UnsupportedOperationException("exchangedata requires N-API addon")

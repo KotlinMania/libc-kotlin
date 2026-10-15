@@ -1,0 +1,12 @@
+// port-lint: source vxworks/mod.rs
+package io.github.kotlinmania.libc.vxworks
+
+import io.github.kotlinmania.libc.*
+
+public data class SchedParam(
+    val schedPriority: Int,
+    val schedSsLowPriority: Int,
+    val schedSsReplPeriod: Timespec,
+    val schedSsInitBudget: Timespec,
+    val schedSsMaxRepl: Int,
+)

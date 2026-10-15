@@ -13,7 +13,7 @@ import kotlinx.cinterop.invoke
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toLong
 import kotlinx.cinterop.usePinned
-import platform.posix.dlsym
+import libc.cinterop.libc_dlsym as lookupSymbol
 
 // Per ANDROID.md bucket classification:
 //   pthread_getattr_np         Bucket 2 — present on bionic, not in K/N's
@@ -24,19 +24,19 @@ import platform.posix.dlsym
 //   pthread_setaffinity_np     Bucket 2 — API 26+ in bionic
 
 private val pthreadGetaffinityNpP: CPointer<CFunction<(Long, ULong, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_getaffinity_np")?.reinterpret()
+    lookupSymbol(null, "pthread_getaffinity_np")?.reinterpret()
 
 private val pthreadGetattrNpP: CPointer<CFunction<(Long, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_getattr_np")?.reinterpret()
+    lookupSymbol(null, "pthread_getattr_np")?.reinterpret()
 
 private val pthreadGetnameNpP: CPointer<CFunction<(Long, COpaquePointer, ULong) -> Int>>? =
-    dlsym(null, "pthread_getname_np")?.reinterpret()
+    lookupSymbol(null, "pthread_getname_np")?.reinterpret()
 
 private val pthreadSetaffinityNpP: CPointer<CFunction<(Long, ULong, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_setaffinity_np")?.reinterpret()
+    lookupSymbol(null, "pthread_setaffinity_np")?.reinterpret()
 
 private val pthreadSetnameNpP: CPointer<CFunction<(Long, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_setname_np")?.reinterpret()
+    lookupSymbol(null, "pthread_setname_np")?.reinterpret()
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT): Int =
     pthreadGetaffinityNpP?.invoke(thread.rawValue.toLong(), cpusetsize, cpuset.rawValue) ?: 38

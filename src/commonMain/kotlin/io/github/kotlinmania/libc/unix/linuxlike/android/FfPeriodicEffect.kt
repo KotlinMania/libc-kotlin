@@ -1,0 +1,15 @@
+// port-lint: source unix/linux_like/android/mod.rs
+package io.github.kotlinmania.libc.unix.linuxlike.android
+
+import io.github.kotlinmania.libc.*
+
+public data class FfPeriodicEffect(
+    val waveform: UShort,
+    val period: UShort,
+    val magnitude: Short,
+    val offset: Short,
+    val phase: UShort,
+    val envelope: FfEnvelope,
+    val customLen: UInt,
+    val customData: Short?,
+)

@@ -1,0 +1,16 @@
+// port-lint: source unix/linux_like/linux/musl/b32/mips/mod.rs
+package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.mips
+
+import io.github.kotlinmania.libc.*
+
+public data class MsqidDs(
+    val msgPerm: IpcPerm,
+    val msgCbytes: ULong,
+    val msgQnum: ULong,
+    val msgQbytes: ULong,
+    val msgLspid: Int,
+    val msgLrpid: Int,
+    val msgStime: Long,
+    val msgRtime: Long,
+    val msgCtime: Long,
+)

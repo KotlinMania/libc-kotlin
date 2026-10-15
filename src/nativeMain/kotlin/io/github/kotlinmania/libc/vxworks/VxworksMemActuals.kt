@@ -2,7 +2,6 @@
 
 package io.github.kotlinmania.libc.vxworks
 
-import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
@@ -47,12 +46,12 @@ public actual fun free(p: COpaquePointer?) {
     if (p.allocationAlignment != 0uL) libc_aligned_free(pPtr) else libc_free(pPtr)
 }
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
+public actual fun memchr(cx: COpaquePointer?, c: Int, n: ULong): COpaquePointer? {
     val ptr = cx?.value?.toCPointer<ByteVar>() ?: return null
     return libc.cinterop.libc_memchr(ptr, c, n)?.let { COpaquePointer(it.toLong()) }
 }
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): CInt {
+public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): Int {
     val p1 = cx?.value?.toCPointer<ByteVar>()
     val p2 = ct?.value?.toCPointer<ByteVar>()
     return libc.cinterop.libc_memcmp(p1, p2, n)
@@ -64,7 +63,7 @@ public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong):
     return libc.cinterop.libc_memcpy(d, s, n)?.let { COpaquePointer(it.toLong()) }
 }
 
-public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
+public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: Int, n: ULong): COpaquePointer? {
     val d = dest?.value?.toCPointer<ByteVar>()
     val s = src?.value?.toCPointer<ByteVar>()
     return libc.cinterop.libc_memccpy(d, s, c, n)?.let { COpaquePointer(it.toLong()) }
@@ -76,7 +75,7 @@ public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong)
     return libc.cinterop.libc_memmove(d, s, n)?.let { COpaquePointer(it.toLong()) }
 }
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? {
+public actual fun memset(dest: COpaquePointer?, c: Int, n: ULong): COpaquePointer? {
     val d = dest?.value?.toCPointer<ByteVar>()
     return libc.cinterop.libc_memset(d, c, n)?.let { COpaquePointer(it.toLong()) }
 }

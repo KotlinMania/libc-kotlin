@@ -3,9 +3,6 @@ package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
 
-public typealias WcharT = UInt
-public typealias TimeT = Long
-
 public data class Aarch64QregT(
     val qlo: ULong,
     val qhi: ULong,
@@ -31,5 +28,5 @@ public data class McontextT(
 public data class StackT(
     val ssSp: COpaquePointer?,
     val ssSize: ULong,
-    val ssFlags: CInt,
+    val ssFlags: Int,
 )

@@ -11,37 +11,37 @@ import io.github.kotlinmania.libc.*
 // (placed before or after the adjacent field for big- vs little-endian); omitted.
 public data class Msghdr(
     val msgName: COpaquePointer?,
-    val msgNamelen: SocklenT,
+    val msgNamelen: UInt,
     val msgIov: Iovec?,
-    val msgIovlen: CInt,
+    val msgIovlen: Int,
     val msgControl: COpaquePointer?,
-    val msgControllen: SocklenT,
-    val msgFlags: CInt,
+    val msgControllen: UInt,
+    val msgFlags: Int,
 )
 
 // __pad1 is endian-dependent layout padding on 64-bit targets; omitted.
 public data class Cmsghdr(
-    val cmsgLen: SocklenT,
-    val cmsgLevel: CInt,
-    val cmsgType: CInt,
+    val cmsgLen: UInt,
+    val cmsgLevel: Int,
+    val cmsgType: Int,
 )
 
 public fun sendmmsg(
-    sockfd: CInt,
+    sockfd: Int,
     msgvec: Mmsghdr?,
-    vlen: CUInt,
-    flags: CUInt,
-): CInt = -1
+    vlen: UInt,
+    flags: UInt,
+): Int = -1
 
 public fun recvmmsg(
-    sockfd: CInt,
+    sockfd: Int,
     msgvec: Mmsghdr?,
-    vlen: CUInt,
-    flags: CUInt,
+    vlen: UInt,
+    flags: UInt,
     timeout: Timespec?,
-): CInt = -1
+): Int = -1
 
 // On mips / mips64 these are re-exported from bits.socket; on every other
 // architecture they are defined here.
-public const val SOCK_STREAM: CInt = 1
-public const val SOCK_DGRAM: CInt = 2
+public const val SOCK_STREAM: Int = 1
+public const val SOCK_DGRAM: Int = 2

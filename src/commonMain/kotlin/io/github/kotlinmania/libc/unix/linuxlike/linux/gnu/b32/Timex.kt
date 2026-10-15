@@ -1,0 +1,38 @@
+// port-lint: source unix/linux_like/linux/gnu/b32/mod.rs
+package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
+
+import io.github.kotlinmania.libc.*
+
+public data class Timex(
+    val modes: UInt,
+    val offset: Long,
+    val freq: Long,
+    val maxerror: Long,
+    val esterror: Long,
+    val status: Int,
+    val constant: Long,
+    val precision: Long,
+    val tolerance: Long,
+    val time: Timeval,
+    val tick: Long,
+    val ppsfreq: Long,
+    val jitter: Long,
+    val shift: Int,
+    val stabil: Long,
+    val jitcnt: Long,
+    val calcnt: Long,
+    val errcnt: Long,
+    val stbcnt: Long,
+    val tai: Int,
+    val unused1: Int,
+    val unused2: Int,
+    val unused3: Int,
+    val unused4: Int,
+    val unused5: Int,
+    val unused6: Int,
+    val unused7: Int,
+    val unused8: Int,
+    val unused9: Int,
+    val unused10: Int,
+    val unused11: Int,
+)

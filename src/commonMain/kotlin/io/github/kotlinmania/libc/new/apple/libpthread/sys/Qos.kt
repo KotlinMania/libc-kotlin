@@ -1,11 +1,6 @@
 // port-lint: source new/apple/libpthread/sys/qos.rs
 package io.github.kotlinmania.libc.new.apple.libpthread.sys
 
-/**
- * Header: `sys/qos.h`.
- */
-internal typealias qos_class_t = QosClassT
-
 public enum class QosClassT(
     public val value: UInt,
 ) {

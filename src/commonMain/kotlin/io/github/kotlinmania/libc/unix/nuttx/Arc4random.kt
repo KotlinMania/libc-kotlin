@@ -1,0 +1,6 @@
+// port-lint: source unix/nuttx/mod.rs
+package io.github.kotlinmania.libc.unix.nuttx
+
+import io.github.kotlinmania.libc.*
+
+public fun arc4random(): UInt = 0u

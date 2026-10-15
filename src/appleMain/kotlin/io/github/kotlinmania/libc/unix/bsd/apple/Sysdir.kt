@@ -6,9 +6,9 @@ import io.github.kotlinmania.libc.COpaquePointer
 public fun sysdirStartSearchPathEnumeration(
     dir: SysdirSearchPathDirectoryT,
     domainMask: SysdirSearchPathDomainMaskT,
-): SysdirSearchPathEnumerationState = 0u
+): UInt = 0u
 
 public fun sysdirGetNextSearchPathEnumeration(
-    state: SysdirSearchPathEnumerationState,
+    state: UInt,
     path: COpaquePointer?,
-): SysdirSearchPathEnumerationState = 0u
+): UInt = 0u

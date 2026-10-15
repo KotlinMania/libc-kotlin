@@ -2,44 +2,35 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.linuxlike.SaFamilyT
 
-/**
- * Header: `uapi/linux/can.h`.
- */
+public const val CAN_EFF_FLAG: UInt = 0x80000000u
+public const val CAN_RTR_FLAG: UInt = 0x40000000u
+public const val CAN_ERR_FLAG: UInt = 0x20000000u
 
-public typealias CanidT = UInt
+public const val CAN_SFF_MASK: UInt = 0x000007FFu
+public const val CAN_EFF_MASK: UInt = 0x1FFFFFFFu
+public const val CAN_ERR_MASK: UInt = 0x1FFFFFFFu
+public const val CANXL_PRIO_MASK: UInt = CAN_SFF_MASK
 
-public typealias CanErrMaskT = UInt
+public const val CAN_SFF_ID_BITS: Int = 11
+public const val CAN_EFF_ID_BITS: Int = 29
+public const val CANXL_PRIO_BITS: Int = CAN_SFF_ID_BITS
 
-public const val CAN_EFF_FLAG: CanidT = 0x80000000u
-public const val CAN_RTR_FLAG: CanidT = 0x40000000u
-public const val CAN_ERR_FLAG: CanidT = 0x20000000u
-
-public const val CAN_SFF_MASK: CanidT = 0x000007FFu
-public const val CAN_EFF_MASK: CanidT = 0x1FFFFFFFu
-public const val CAN_ERR_MASK: CanidT = 0x1FFFFFFFu
-public const val CANXL_PRIO_MASK: CanidT = CAN_SFF_MASK
-
-public const val CAN_SFF_ID_BITS: CInt = 11
-public const val CAN_EFF_ID_BITS: CInt = 29
-public const val CANXL_PRIO_BITS: CInt = CAN_SFF_ID_BITS
-
-public const val CAN_MAX_DLC: CInt = 8
+public const val CAN_MAX_DLC: Int = 8
 public const val CAN_MAX_DLEN: Int = 8
 
-public const val CANFD_MAX_DLC: CInt = 15
+public const val CANFD_MAX_DLC: Int = 15
 public const val CANFD_MAX_DLEN: Int = 64
 
-public const val CANXL_MIN_DLC: CInt = 0
-public const val CANXL_MAX_DLC: CInt = 2047
-public const val CANXL_MAX_DLC_MASK: CInt = 0x07FF
+public const val CANXL_MIN_DLC: Int = 0
+public const val CANXL_MAX_DLC: Int = 2047
+public const val CANXL_MAX_DLC_MASK: Int = 0x07FF
 public const val CANXL_MIN_DLEN: Int = 1
 public const val CANXL_MAX_DLEN: Int = 2048
 
 // can_dlc was renamed to `len` in Linux 5.11. __pad / __res0 are layout padding.
 public data class CanFrame(
-    val canId: CanidT,
+    val canId: UInt,
     val canDlc: UByte,
     val len8Dlc: UByte,
     val data: ByteArray,
@@ -68,13 +59,13 @@ public data class CanFrame(
     }
 }
 
-public const val CANFD_BRS: CInt = 0x01
-public const val CANFD_ESI: CInt = 0x02
-public const val CANFD_FDF: CInt = 0x04
+public const val CANFD_BRS: Int = 0x01
+public const val CANFD_ESI: Int = 0x02
+public const val CANFD_FDF: Int = 0x04
 
 // __res0 / __res1 are layout padding.
 public data class CanfdFrame(
-    val canId: CanidT,
+    val canId: UInt,
     val len: UByte,
     val flags: UByte,
     val data: ByteArray,
@@ -103,11 +94,11 @@ public data class CanfdFrame(
     }
 }
 
-public const val CANXL_XLF: CInt = 0x80
-public const val CANXL_SEC: CInt = 0x01
+public const val CANXL_XLF: Int = 0x80
+public const val CANXL_SEC: Int = 0x01
 
 public data class CanxlFrame(
-    val prio: CanidT,
+    val prio: UInt,
     val flags: UByte,
     val sdt: UByte,
     val len: UShort,
@@ -147,20 +138,20 @@ public data class CanxlFrame(
 public const val CANXL_HDR_SIZE: Int = 12
 public const val CANXL_MIN_MTU: Int = CANXL_HDR_SIZE + 64
 
-public const val CAN_RAW: CInt = 1
-public const val CAN_BCM: CInt = 2
-public const val CAN_TP16: CInt = 3
-public const val CAN_TP20: CInt = 4
-public const val CAN_MCNET: CInt = 5
-public const val CAN_ISOTP: CInt = 6
-public const val CAN_J1939: CInt = 7
-public const val CAN_NPROTO: CInt = 8
+public const val CAN_RAW: Int = 1
+public const val CAN_BCM: Int = 2
+public const val CAN_TP16: Int = 3
+public const val CAN_TP20: Int = 4
+public const val CAN_MCNET: Int = 5
+public const val CAN_ISOTP: Int = 6
+public const val CAN_J1939: Int = 7
+public const val CAN_NPROTO: Int = 8
 
-public const val SOL_CAN_BASE: CInt = 100
+public const val SOL_CAN_BASE: Int = 100
 
 public data class SockaddrCan(
-    val canFamily: SaFamilyT,
-    val canIfindex: CInt,
+    val canFamily: UShort,
+    val canIfindex: Int,
     val canAddr: CAnonymousSockaddrCanCanAddr,
 )
 
@@ -171,8 +162,8 @@ public data class CAnonymousSockaddrCanCanAddr(
 )
 
 public data class CAnonymousSockaddrCanTp(
-    val rxId: CanidT,
-    val txId: CanidT,
+    val rxId: UInt,
+    val txId: UInt,
 )
 
 public data class CAnonymousSockaddrCanJ1939(
@@ -182,8 +173,8 @@ public data class CAnonymousSockaddrCanJ1939(
 )
 
 public data class CanFilter(
-    val canId: CanidT,
-    val canMask: CanidT,
+    val canId: UInt,
+    val canMask: UInt,
 )
 
-public const val CAN_INV_FILTER: CanidT = 0x20000000u
+public const val CAN_INV_FILTER: UInt = 0x20000000u

@@ -1,0 +1,16 @@
+// port-lint: source unix/linux_like/emscripten/mod.rs
+package io.github.kotlinmania.libc.unix.linuxlike.emscripten
+
+import io.github.kotlinmania.libc.*
+
+public data class Spwd(
+    val spNamp: String?,
+    val spPwdp: String?,
+    val spLstchg: Long,
+    val spMin: Long,
+    val spMax: Long,
+    val spWarn: Long,
+    val spInact: Long,
+    val spExpire: Long,
+    val spFlag: ULong,
+)

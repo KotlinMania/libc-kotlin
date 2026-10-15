@@ -9,10 +9,10 @@ public actual fun fopen(filename: String?, mode: String?): FILE? =
 public actual fun freopen(filename: String?, mode: String?, stream: FILE?): FILE? =
     throw UnsupportedOperationException("freopen not available on JVM — no C library access")
 
-public actual fun fclose(stream: FILE?): CInt =
+public actual fun fclose(stream: FILE?): Int =
     throw UnsupportedOperationException("fclose not available on JVM — no C library access")
 
-public actual fun fflush(stream: FILE?): CInt =
+public actual fun fflush(stream: FILE?): Int =
     throw UnsupportedOperationException("fflush not available on JVM — no C library access")
 
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
@@ -21,94 +21,94 @@ public actual fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream:
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fwrite not available on JVM — no C library access")
 
-public actual fun fgetc(stream: FILE?): CInt =
+public actual fun fgetc(stream: FILE?): Int =
     throw UnsupportedOperationException("fgetc not available on JVM — no C library access")
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
+public actual fun fputc(c: Int, stream: FILE?): Int =
     throw UnsupportedOperationException("fputc not available on JVM — no C library access")
 
-public actual fun getchar(): CInt =
+public actual fun getchar(): Int =
     throw UnsupportedOperationException("getchar not available on JVM — no C library access")
 
-public actual fun putchar(c: CInt): CInt =
+public actual fun putchar(c: Int): Int =
     throw UnsupportedOperationException("putchar not available on JVM — no C library access")
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
+public actual fun ungetc(c: Int, stream: FILE?): Int =
     throw UnsupportedOperationException("ungetc not available on JVM — no C library access")
 
-public actual fun fgets(s: String?, size: CInt, stream: FILE?): String? =
+public actual fun fgets(s: String?, size: Int, stream: FILE?): String? =
     throw UnsupportedOperationException("fgets not available on JVM — no C library access")
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
+public actual fun fputs(s: String?, stream: FILE?): Int =
     throw UnsupportedOperationException("fputs not available on JVM — no C library access")
 
 public actual fun gets(s: String?): String? =
     throw UnsupportedOperationException("gets not available on JVM — no C library access")
 
-public actual fun puts(s: String?): CInt =
+public actual fun puts(s: String?): Int =
     throw UnsupportedOperationException("puts not available on JVM — no C library access")
 
-public actual fun printf(format: String?, vararg args: Any?): CInt =
+public actual fun printf(format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("printf not available on JVM — no C library access")
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("fprintf not available on JVM — no C library access")
 
-public actual fun sprintf(s: String?, format: String?, vararg args: Any?): CInt =
+public actual fun sprintf(s: String?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("sprintf not available on JVM — no C library access")
 
-public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt =
+public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("snprintf not available on JVM — no C library access")
 
-public actual fun vprintf(format: String?, ap: VaList): CInt =
+public actual fun vprintf(format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vprintf not available on JVM — no C library access")
 
-public actual fun vfprintf(stream: FILE?, format: String?, ap: VaList): CInt =
+public actual fun vfprintf(stream: FILE?, format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vfprintf not available on JVM — no C library access")
 
-public actual fun vsprintf(s: String?, format: String?, ap: VaList): CInt =
+public actual fun vsprintf(s: String?, format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vsprintf not available on JVM — no C library access")
 
-public actual fun vsnprintf(s: String?, n: ULong, format: String?, ap: VaList): CInt =
+public actual fun vsnprintf(s: String?, n: ULong, format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vsnprintf not available on JVM — no C library access")
 
-public actual fun scanf(format: String?, vararg args: Any?): CInt =
+public actual fun scanf(format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("scanf not available on JVM — no C library access")
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("fscanf not available on JVM — no C library access")
 
-public actual fun sscanf(s: String?, format: String?, vararg args: Any?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("sscanf not available on JVM — no C library access")
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: FILE?, offset: Long, whence: Int): Int =
     throw UnsupportedOperationException("fseek not available on JVM — no C library access")
 
-public actual fun ftell(stream: FILE?): CLong =
+public actual fun ftell(stream: FILE?): Long =
     throw UnsupportedOperationException("ftell not available on JVM — no C library access")
 
 public actual fun rewind(stream: FILE?): Unit = throw UnsupportedOperationException("rewind not available on JVM — no C library access")
 
-public actual fun fgetpos(stream: FILE?, pos: FposT?): CInt =
+public actual fun fgetpos(stream: FILE?, pos: Long?): Int =
     throw UnsupportedOperationException("fgetpos not available on JVM — no C library access")
 
-public actual fun fsetpos(stream: FILE?, pos: FposT?): CInt =
+public actual fun fsetpos(stream: FILE?, pos: Long?): Int =
     throw UnsupportedOperationException("fsetpos not available on JVM — no C library access")
 
 public actual fun clearerr(stream: FILE?): Unit = throw UnsupportedOperationException("clearerr not available on JVM — no C library access")
 
-public actual fun feof(stream: FILE?): CInt =
+public actual fun feof(stream: FILE?): Int =
     throw UnsupportedOperationException("feof not available on JVM — no C library access")
 
-public actual fun ferror(stream: FILE?): CInt =
+public actual fun ferror(stream: FILE?): Int =
     throw UnsupportedOperationException("ferror not available on JVM — no C library access")
 
 public actual fun perror(s: String?): Unit = throw UnsupportedOperationException("perror not available on JVM — no C library access")
 
-public actual fun remove(filename: String?): CInt =
+public actual fun remove(filename: String?): Int =
     throw UnsupportedOperationException("remove not available on JVM — no C library access")
 
-public actual fun rename(old: String?, new: String?): CInt =
+public actual fun rename(old: String?, new: String?): Int =
     throw UnsupportedOperationException("rename not available on JVM — no C library access")
 
 public actual fun tmpfile(): FILE? =
@@ -117,7 +117,7 @@ public actual fun tmpfile(): FILE? =
 public actual fun tmpnam(s: String?): String? =
     throw UnsupportedOperationException("tmpnam not available on JVM — no C library access")
 
-public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
+public actual fun setvbuf(stream: FILE?, buffer: String?, mode: Int, size: ULong): Int =
     throw UnsupportedOperationException("setvbuf not available on JVM — no C library access")
 
 public actual fun setbuf(stream: FILE?, buffer: String?): Unit = throw UnsupportedOperationException("setbuf not available on JVM — no C library access")

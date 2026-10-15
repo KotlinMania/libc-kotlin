@@ -18,8 +18,3 @@ internal data class Padding<T>(
         fun <T> uninit(value: T): Padding<T> = Padding(value)
     }
 }
-
-/**
- * The default repr type used for C style enums.
- */
-public typealias CEnumRepr = CUInt

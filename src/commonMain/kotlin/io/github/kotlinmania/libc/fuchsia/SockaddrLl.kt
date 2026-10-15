@@ -1,0 +1,14 @@
+// port-lint: source fuchsia/mod.rs
+package io.github.kotlinmania.libc.fuchsia
+
+import io.github.kotlinmania.libc.*
+
+public data class SockaddrLl(
+    val sllFamily: UShort,
+    val sllProtocol: UShort,
+    val sllIfindex: Int,
+    val sllHatype: UShort,
+    val sllPkttype: UByte,
+    val sllHalen: UByte,
+    val sllAddr: UByteArray,
+)

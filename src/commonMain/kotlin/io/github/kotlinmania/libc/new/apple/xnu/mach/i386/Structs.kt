@@ -45,8 +45,8 @@ public data class DarwinX86ExceptionState64(
 
 public data class DarwinX86FloatState64(
     val fpuReserved: IntArray,
-    val fpuFcw: CShort,
-    val fpuFsw: CShort,
+    val fpuFcw: Short,
+    val fpuFsw: Short,
     val fpuFtw: UByte,
     val fpuRsrv1: UByte,
     val fpuFop: UShort,
@@ -83,5 +83,5 @@ public data class DarwinX86FloatState64(
     val fpuXmm14: DarwinXmmReg,
     val fpuXmm15: DarwinXmmReg,
     val fpuRsrv4: UIntArray,
-    val fpuReserved1: CInt,
+    val fpuReserved1: Int,
 )

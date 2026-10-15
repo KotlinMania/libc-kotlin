@@ -1,0 +1,10 @@
+// port-lint: source unix/hurd/mod.rs
+package io.github.kotlinmania.libc.unix.hurd
+
+import io.github.kotlinmania.libc.*
+
+public data class IpMreqn(
+    val imrMultiaddr: InAddr,
+    val imrAddress: InAddr,
+    val imrIfindex: Int,
+)

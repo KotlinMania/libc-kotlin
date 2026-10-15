@@ -9,7 +9,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.invoke
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toLong
-import platform.posix.dlsym
+import libc.cinterop.libc_dlsym as lookupSymbol
 
 // Empirically verified against API 35 arm64-v8a emulator's libc.so
 // (docs/bionic-libc-pthread-api35-arm64.txt). The bucket classification
@@ -26,34 +26,34 @@ import platform.posix.dlsym
 //   pthread_mutex_consistent — bionic has no robust mutexes
 
 private val pthreadSetschedprioP: CPointer<CFunction<(Long, Int) -> Int>>? =
-    dlsym(null, "pthread_setschedprio")?.reinterpret()
+    lookupSymbol(null, "pthread_setschedprio")?.reinterpret()
 
 private val pthreadSpinDestroyP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_spin_destroy")?.reinterpret()
+    lookupSymbol(null, "pthread_spin_destroy")?.reinterpret()
 
 private val pthreadSpinInitP: CPointer<CFunction<(COpaquePointer, Int) -> Int>>? =
-    dlsym(null, "pthread_spin_init")?.reinterpret()
+    lookupSymbol(null, "pthread_spin_init")?.reinterpret()
 
 private val pthreadSpinLockP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_spin_lock")?.reinterpret()
+    lookupSymbol(null, "pthread_spin_lock")?.reinterpret()
 
 private val pthreadSpinTrylockP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_spin_trylock")?.reinterpret()
+    lookupSymbol(null, "pthread_spin_trylock")?.reinterpret()
 
 private val pthreadSpinUnlockP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_spin_unlock")?.reinterpret()
+    lookupSymbol(null, "pthread_spin_unlock")?.reinterpret()
 
 private val pthreadBarrierDestroyP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_barrier_destroy")?.reinterpret()
+    lookupSymbol(null, "pthread_barrier_destroy")?.reinterpret()
 
 private val pthreadBarrierWaitP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_barrier_wait")?.reinterpret()
+    lookupSymbol(null, "pthread_barrier_wait")?.reinterpret()
 
 private val pthreadBarrierattrDestroyP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_barrierattr_destroy")?.reinterpret()
+    lookupSymbol(null, "pthread_barrierattr_destroy")?.reinterpret()
 
 private val pthreadBarrierattrInitP: CPointer<CFunction<(COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_barrierattr_init")?.reinterpret()
+    lookupSymbol(null, "pthread_barrierattr_init")?.reinterpret()
 
 public actual fun pthreadCancel(thread: PthreadT): Int = 38
 

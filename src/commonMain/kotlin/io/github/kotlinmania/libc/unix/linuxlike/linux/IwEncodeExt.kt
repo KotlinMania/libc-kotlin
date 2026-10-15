@@ -1,0 +1,14 @@
+// port-lint: source unix/linux_like/linux/mod.rs
+package io.github.kotlinmania.libc.unix.linuxlike.linux
+
+import io.github.kotlinmania.libc.*
+
+public data class IwEncodeExt(
+    val extFlags: UInt,
+    val txSeq: List<UByte>,
+    val rxSeq: List<UByte>,
+    val addr: Sockaddr,
+    val alg: UShort,
+    val keyLen: UShort,
+    val key: List<UByte>,
+)

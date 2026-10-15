@@ -4,8 +4,8 @@ package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 import io.github.kotlinmania.libc.*
 
 public data class BcmTimeval(
-    val tvSec: CLong,
-    val tvUsec: CLong,
+    val tvSec: Long,
+    val tvUsec: Long,
 )
 
 public data class BcmMsgHead(
@@ -14,7 +14,7 @@ public data class BcmMsgHead(
     val count: UInt,
     val ival1: BcmTimeval,
     val ival2: BcmTimeval,
-    val canId: CanidT,
+    val canId: UInt,
     val nframes: UInt,
     val frames: List<CanFrame>,
 )

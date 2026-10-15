@@ -1,0 +1,37 @@
+// port-lint: source unix/bsd/freebsdlike/dragonfly/mod.rs
+package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
+
+import io.github.kotlinmania.libc.*
+
+public data class McontextT(
+    val mcOnstack: Long,
+    val mcRdi: Long,
+    val mcRsi: Long,
+    val mcRdx: Long,
+    val mcRcx: Long,
+    val mcR8: Long,
+    val mcR9: Long,
+    val mcRax: Long,
+    val mcRbx: Long,
+    val mcRbp: Long,
+    val mcR10: Long,
+    val mcR11: Long,
+    val mcR12: Long,
+    val mcR13: Long,
+    val mcR14: Long,
+    val mcR15: Long,
+    val mcXflags: Long,
+    val mcTrapno: Long,
+    val mcAddr: Long,
+    val mcFlags: Long,
+    val mcErr: Long,
+    val mcRip: Long,
+    val mcCs: Long,
+    val mcRflags: Long,
+    val mcRsp: Long,
+    val mcSs: Long,
+    val mcLen: UInt,
+    val mcFpformat: UInt,
+    val mcOwnedfp: UInt,
+    val mcFpregs: UIntArray,
+)

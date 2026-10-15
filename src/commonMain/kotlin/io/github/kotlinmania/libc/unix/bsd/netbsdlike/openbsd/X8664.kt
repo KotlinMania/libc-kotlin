@@ -18,8 +18,8 @@ public data class Fxsave64(
     val fxXmm: List<ULongArray>,
 )
 
-public const val PT_STEP: CInt = PT_FIRSTMACH + 0
-public const val PT_GETREGS: CInt = PT_FIRSTMACH + 1
-public const val PT_SETREGS: CInt = PT_FIRSTMACH + 2
-public const val PT_GETFPREGS: CInt = PT_FIRSTMACH + 3
-public const val PT_SETFPREGS: CInt = PT_FIRSTMACH + 4
+public const val PT_STEP: Int = PT_FIRSTMACH + 0
+public const val PT_GETREGS: Int = PT_FIRSTMACH + 1
+public const val PT_SETREGS: Int = PT_FIRSTMACH + 2
+public const val PT_GETFPREGS: Int = PT_FIRSTMACH + 3
+public const val PT_SETFPREGS: Int = PT_FIRSTMACH + 4

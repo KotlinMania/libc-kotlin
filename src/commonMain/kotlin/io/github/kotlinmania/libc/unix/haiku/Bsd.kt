@@ -3,8 +3,6 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 
-public typealias StringList = Stringlist
-
 public data class Stringlist(
     val slStr: COpaquePointer?,
     val slMax: ULong,
@@ -12,20 +10,20 @@ public data class Stringlist(
 )
 
 public data class Kevent(
-    val ident: UintptrT,
-    val filter: CShort,
-    val flags: CUShort,
-    val fflags: CUInt,
+    val ident: ULong,
+    val filter: Short,
+    val flags: UShort,
+    val fflags: UInt,
     val data: Long,
     val udata: COpaquePointer?,
     val ext: ULongArray,
 )
 
 public data class DlPhdrInfo(
-    val dlpiAddr: ElfAddr,
+    val dlpiAddr: UInt,
     val dlpiName: String?,
-    val dlpiPhdr: ElfPhdr?,
-    val dlpiPhnum: ElfHalf,
+    val dlpiPhdr: io.github.kotlinmania.libc.unix.haiku.Elf32Phdr?,
+    val dlpiPhnum: UShort,
 )
 
 public const val EVFILT_READ: Short = -1
@@ -38,13 +36,13 @@ public val EV_CLEAR: UShort = (0x0020).toUShort()
 public val EV_EOF: UShort = (0x8000).toUShort()
 public val EV_ERROR: UShort = (0x4000).toUShort()
 public const val NOTE_EXIT: UInt = 0x80000000u
-public const val IOC_VOID: CULong = 0x20000000uL
-public const val IOC_OUT: CULong = 0x40000000uL
-public const val IOC_IN: CULong = 0x80000000uL
-public val IOC_INOUT: CULong = IOC_IN or IOC_OUT
-public const val IOC_DIRMASK: CULong = 0xe0000000uL
+public const val IOC_VOID: ULong = 0x20000000uL
+public const val IOC_OUT: ULong = 0x40000000uL
+public const val IOC_IN: ULong = 0x80000000uL
+public val IOC_INOUT: ULong = IOC_IN or IOC_OUT
+public const val IOC_DIRMASK: ULong = 0xe0000000uL
 
-public expect fun daemon(nochdir: CInt, noclose: CInt): CInt
+public expect fun daemon(nochdir: Int, noclose: Int): Int
 
 public expect fun getprogname(): String?
 
@@ -56,38 +54,38 @@ public fun arc4randomUniform(upperBound: UInt): UInt = 0u
 
 public expect fun arc4randomBuf(buf: COpaquePointer?, n: ULong)
 
-public expect fun mkstemps(template: String?, suffixlen: CInt): CInt
+public expect fun mkstemps(template: String?, suffixlen: Int): Int
 
-public expect fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong
+public expect fun strtonum(nptr: String?, minval: Long, maxval: Long, errstr: COpaquePointer?): Long
 
-public expect fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt
+public expect fun openpty(amaster: Int?, aslave: Int?, name: String?, termp: Termios?, winp: Winsize?): Int
 
-public expect fun loginTty(fd: CInt): CInt
+public expect fun loginTty(fd: Int): Int
 
-public expect fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT
+public expect fun forkpty(amaster: Int?, name: String?, termp: Termios?, winp: Winsize?): Int
 
 public expect fun strsep(string: COpaquePointer?, delimiters: String?): String?
 
 public expect fun explicitBzero(buf: COpaquePointer?, len: ULong)
 
-public expect fun slInit(): StringList?
+public expect fun slInit(): io.github.kotlinmania.libc.unix.haiku.Stringlist?
 
-public expect fun slAdd(sl: StringList?, n: String?): CInt
+public expect fun slAdd(sl: io.github.kotlinmania.libc.unix.haiku.Stringlist?, n: String?): Int
 
-public expect fun slFree(sl: StringList?, i: CInt)
+public expect fun slFree(sl: io.github.kotlinmania.libc.unix.haiku.Stringlist?, i: Int)
 
-public expect fun slFind(sl: StringList?, n: String?): String?
+public expect fun slFind(sl: io.github.kotlinmania.libc.unix.haiku.Stringlist?, n: String?): String?
 
-public expect fun kqueue(): CInt
+public expect fun kqueue(): Int
 
-public expect fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt
+public expect fun kevent(kq: Int, changelist: Kevent?, nchanges: Int, eventlist: Kevent?, nevents: Int, timeout: Timespec?): Int
 
-public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> Int)?, data: COpaquePointer?): Int
 
-public expect fun lutimes(file: String?, times: Timeval?): CInt
+public expect fun lutimes(file: String?, times: Timeval?): Int
 
-public expect fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun preadv(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long
 
-public expect fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun pwritev(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long
 
-public expect fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT 
+public expect fun wait4(pid: Int, status: Int?, options: Int, rusage: Rusage?): Int

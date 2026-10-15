@@ -11,7 +11,7 @@ import kotlinx.cinterop.toLong
 import libc.cinterop.libc_dlclose
 import libc.cinterop.libc_dlerror
 
-public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
+public actual fun dlopen(filename: String?, flag: Int): COpaquePointer? =
     libc.cinterop
         .libc_dlopen(filename, flag)
         ?.toLong()
@@ -28,5 +28,5 @@ public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointe
         ?.toLong()
         ?.let { COpaquePointer(it) }
 
-public actual fun dlclose(handle: COpaquePointer?): CInt =
+public actual fun dlclose(handle: COpaquePointer?): Int =
     libc.cinterop.libc_dlclose(handle?.value?.toCPointer<ByteVar>())

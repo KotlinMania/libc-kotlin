@@ -3,10 +3,8 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
 
-public typealias PthreadIntrospectionHookT = ((CUInt, PthreadT, COpaquePointer?, ULong) -> Unit)?
+public fun pthreadIntrospectionHookInstall(hook: ((UInt, ULong, io.github.kotlinmania.libc.COpaquePointer?, ULong) -> Unit)?): ((UInt, ULong, io.github.kotlinmania.libc.COpaquePointer?, ULong) -> Unit)? = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun pthreadIntrospectionSetspecificNp(thread: ULong, key: Int, value: COpaquePointer?): Int
 
-public expect fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: COpaquePointer?): CInt
-
-public expect fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): COpaquePointer? 
+public expect fun pthreadIntrospectionGetspecificNp(thread: ULong, key: Int): COpaquePointer?

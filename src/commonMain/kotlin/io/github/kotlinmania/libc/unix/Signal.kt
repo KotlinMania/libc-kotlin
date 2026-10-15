@@ -1,0 +1,6 @@
+// port-lint: source unix/mod.rs
+package io.github.kotlinmania.libc.unix
+
+import io.github.kotlinmania.libc.*
+
+public fun signal(signum: Int, handler: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")

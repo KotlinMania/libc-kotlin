@@ -1,0 +1,15 @@
+// port-lint: source unix/cygwin/mod.rs
+package io.github.kotlinmania.libc.unix.cygwin
+
+import io.github.kotlinmania.libc.*
+
+public data class Termios(
+    val cIflag: UInt,
+    val cOflag: UInt,
+    val cCflag: UInt,
+    val cLflag: UInt,
+    val cLine: Byte,
+    val cCc: List<UByte>,
+    val cIspeed: UInt,
+    val cOspeed: UInt,
+)

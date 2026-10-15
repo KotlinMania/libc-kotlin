@@ -3,9 +3,9 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 
-public const val EXIT_SUCCESS: CInt = 0
-public const val EXIT_FAILURE: CInt = 1
-public const val RAND_MAX: CInt = 32767
+public const val EXIT_SUCCESS: Int = 0
+public const val EXIT_FAILURE: Int = 1
+public const val RAND_MAX: Int = 32767
 
 public expect fun malloc(size: ULong): COpaquePointer?
 
@@ -17,50 +17,50 @@ public expect fun free(ptr: COpaquePointer?)
 
 public fun abort(): Nothing = throw UnsupportedOperationException()
 
-public fun exit(status: CInt): Nothing = throw UnsupportedOperationException()
+public fun exit(status: Int): Nothing = throw UnsupportedOperationException()
 
-public expect fun atexit(function: (() -> Unit)?): CInt
+public expect fun atexit(function: (() -> Unit)?): Int
 
 public expect fun getenv(name: String?): String?
 
-public expect fun setenv(name: String?, value: String?, overwrite: CInt): CInt
+public expect fun setenv(name: String?, value: String?, overwrite: Int): Int
 
-public expect fun unsetenv(name: String?): CInt
+public expect fun unsetenv(name: String?): Int
 
-public expect fun atoi(nptr: String?): CInt
+public expect fun atoi(nptr: String?): Int
 
-public expect fun atol(nptr: String?): CLong
+public expect fun atol(nptr: String?): Long
 
-public expect fun atoll(nptr: String?): CLongLong
+public expect fun atoll(nptr: String?): Long
 
-public expect fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong
+public expect fun strtol(nptr: String?, endptr: COpaquePointer?, base: Int): Long
 
-public expect fun strtoul(nptr: String?, endptr: COpaquePointer?, base: CInt): CULong
+public expect fun strtoul(nptr: String?, endptr: COpaquePointer?, base: Int): ULong
 
-public expect fun strtoll(nptr: String?, endptr: COpaquePointer?, base: CInt): CLongLong
+public expect fun strtoll(nptr: String?, endptr: COpaquePointer?, base: Int): Long
 
-public expect fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): CULongLong
+public expect fun strtoull(nptr: String?, endptr: COpaquePointer?, base: Int): ULong
 
-public fun strtod(nptr: String?, endptr: COpaquePointer?): CDouble = 0.0
+public fun strtod(nptr: String?, endptr: COpaquePointer?): Double = 0.0
 
-public fun strtof(nptr: String?, endptr: COpaquePointer?): CFloat = 0.0f
+public fun strtof(nptr: String?, endptr: COpaquePointer?): Float = 0.0f
 
-public expect fun rand(): CInt
+public expect fun rand(): Int
 
-public expect fun srand(seed: CUInt)
+public expect fun srand(seed: UInt)
 
-public expect fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?)
+public expect fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?)
 
-public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer?
+public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): COpaquePointer?
 
-public expect fun abs(j: CInt): CInt
+public expect fun abs(j: Int): Int
 
-public expect fun labs(j: CLong): CLong
+public expect fun labs(j: Long): Long
 
-public expect fun llabs(j: CLongLong): CLongLong
+public expect fun llabs(j: Long): Long
 
-public fun div(numer: CInt, denom: CInt): DivT = throw UnsupportedOperationException("Not implemented on this platform")
+public fun div(numer: Int, denom: Int): DivT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun ldiv(numer: CLong, denom: CLong): LdivT = throw UnsupportedOperationException("Not implemented on this platform")
+public fun ldiv(numer: Long, denom: Long): LdivT = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun lldiv(numer: CLongLong, denom: CLongLong): LldivT = throw UnsupportedOperationException("Not implemented on this platform")
+public fun lldiv(numer: Long, denom: Long): LldivT = throw UnsupportedOperationException("Not implemented on this platform")

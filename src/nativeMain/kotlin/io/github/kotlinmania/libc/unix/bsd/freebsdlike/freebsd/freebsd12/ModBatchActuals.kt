@@ -14,12 +14,12 @@ public actual fun setgrent() {
     libc.cinterop.libc_setgrent()
 }
 
-public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
+public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: Int): Int =
     throw UnsupportedOperationException("mprotect requires FFI bridge")
 
-public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
+public actual fun freelocale(loc: io.github.kotlinmania.libc.COpaquePointer?): Unit = throw UnsupportedOperationException("freelocale requires manual FFI bridge — not yet implemented")
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: ULong, msgtyp: CLong, msgflg: CInt): SsizeT =
+public actual fun msgrcv(msqid: Int, msgp: COpaquePointer?, msgsz: ULong, msgtyp: Long, msgflg: Int): Long =
     throw UnsupportedOperationException("msgrcv requires manual FFI bridge — not yet implemented")
 
 public actual fun dirname(path: String?): String? {
@@ -32,4 +32,4 @@ public actual fun basename(path: String?): String? {
     return libc.cinterop.libc_basename(path)?.toKString()
 }
 
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, arg: COpaquePointer?, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> Int)?): Unit = throw UnsupportedOperationException("qsortR requires manual FFI bridge — not yet implemented")

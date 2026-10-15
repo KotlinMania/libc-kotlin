@@ -20,7 +20,7 @@ public data class DarwinArmThreadState64(
 )
 
 public data class DarwinArmNeonState64(
-    val v: List<Uint128T>,
+    val v: List<ByteArray>,
     val fpsr: UInt,
     val fpcr: UInt,
 )

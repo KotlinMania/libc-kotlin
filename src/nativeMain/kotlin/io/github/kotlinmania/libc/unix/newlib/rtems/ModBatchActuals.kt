@@ -10,29 +10,29 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toCPointer
 import libc.cinterop.libc_futimens
 
-public actual fun futimens(fd: CInt, times: Timespec?): CInt {
+public actual fun futimens(fd: Int, times: Timespec?): Int {
     if (times == null) return -1
     val timesPtr: CPointer<ByteVar>? = times.handle.toCPointer()
     val result = libc_futimens(fd, timesPtr)
     return result
 }
 
-public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: Int, iov: Iovec?, iovcnt: Int): Long =
     throw UnsupportedOperationException("writev requires FFI bridge")
 
-public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: Int, iov: Iovec?, iovcnt: Int): Long =
     throw UnsupportedOperationException("readv requires FFI bridge")
 
-public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: Int): Int =
     throw UnsupportedOperationException("pthreadCondattrSetclock requires manual FFI bridge — not yet implemented")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): Int =
     throw UnsupportedOperationException("getentropy requires manual FFI bridge — not yet implemented")
 
 public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf requires manual FFI bridge — not yet implemented")
 
-public actual fun setgroups(ngroups: CInt, grouplist: GidT?): CInt =
+public actual fun setgroups(ngroups: Int, grouplist: UInt?): Int =
     throw UnsupportedOperationException("setgroups requires manual FFI bridge — not yet implemented")
 
-public actual fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: ULong?, attr: io.github.kotlinmania.libc.COpaquePointer?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadCreate requires manual FFI bridge — not yet implemented")

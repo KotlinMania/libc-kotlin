@@ -14,17 +14,17 @@ import io.github.kotlinmania.libc.unix.close
 
 public expect fun cfmakeraw(termios: Termios?)
 
-public expect fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt
+public expect fun cfsetspeed(termios: Termios?, speed: UInt): Int
 
 public expect fun openpty(
-    amain: CInt?,
-    asubord: CInt?,
+    amain: Int?,
+    asubord: Int?,
     name: String?,
     termp: Termios?,
     winp: Winsize?,
-): CInt
+): Int
 
-internal fun bail(fdm: CInt, fds: CInt): CInt {
+internal fun bail(fdm: Int, fds: Int): Int {
     if (fds >= 0) {
         close(fds)
     }
@@ -35,22 +35,22 @@ internal fun bail(fdm: CInt, fds: CInt): CInt {
 }
 
 public expect fun forkpty(
-    amain: CInt?,
+    amain: Int?,
     name: String?,
     termp: Termios?,
     winp: Winsize?,
-): PidT
+): Int
 
 public expect fun getpwentR(
     pwd: Passwd?,
     buf: String?,
     buflen: ULong,
     result: Passwd?,
-): CInt
+): Int
 
 public expect fun getgrentR(
     grp: Group?,
     buf: String?,
     buflen: ULong,
     result: Group?,
-): CInt 
+): Int

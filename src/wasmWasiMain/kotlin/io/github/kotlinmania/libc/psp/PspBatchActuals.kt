@@ -681,10 +681,10 @@ public actual fun sceKernelStartVTimer(uid: SceUid): Int =
 public actual fun sceKernelStopVTimer(uid: SceUid): Int =
     throw UnsupportedOperationException("sceKernelStopVTimer not available on WASI — no C library access")
 
-public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: SceKernelSysClock?, handler: SceKernelVTimerHandler, common: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceKernelSetVTimerHandler not available on WASI — no C library access")
 
-public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: ((io.github.kotlinmania.libc.psp.SceUid, Long, Long, io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceKernelSetVTimerHandlerWide not available on WASI — no C library access")
 
 public actual fun sceKernelCancelVTimerHandler(uid: SceUid): Int =
@@ -1074,7 +1074,7 @@ public actual fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): 
 public actual fun sceIoRemove(file: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceIoRemove not available on WASI — no C library access")
 
-public actual fun sceIoMkdir(dir: COpaquePointer?, mode: IoPermissions): Int =
+public actual fun sceIoMkdir(dir: COpaquePointer?, mode: Int): Int =
     throw UnsupportedOperationException("sceIoMkdir not available on WASI — no C library access")
 
 public actual fun sceIoRmdir(path: COpaquePointer?): Int =
@@ -1205,7 +1205,7 @@ public actual fun sceMpegFinish(): Unit = throw UnsupportedOperationException("s
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
     throw UnsupportedOperationException("sceMpegRingbufferQueryMemSize not available on WASI — no C library access")
 
-public actual fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int =
+public actual fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: ((io.github.kotlinmania.libc.COpaquePointer?, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, cbParam: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceMpegRingbufferConstruct not available on WASI — no C library access")
 
 public actual fun sceMpegRingbufferDestruct(ringbuffer: SceMpegRingbuffer?): Unit = throw UnsupportedOperationException("sceMpegRingbufferDestruct not available on WASI — no C library access")
@@ -1826,7 +1826,7 @@ public actual fun sceNetAdhocctlScan(): Int =
 public actual fun sceNetAdhocctlGetScanInfo(length: Int?, buf: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceNetAdhocctlGetScanInfo not available on WASI — no C library access")
 
-public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: COpaquePointer?): Int =
+public actual fun sceNetAdhocctlAddHandler(handler: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Unit)?, unknown: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceNetAdhocctlAddHandler not available on WASI — no C library access")
 
 public actual fun sceNetAdhocctlDelHandler(id: Int): Int =
@@ -1913,7 +1913,7 @@ public actual fun sceNetAdhocMatchingInit(memsize: Int): Int =
 public actual fun sceNetAdhocMatchingTerm(): Int =
     throw UnsupportedOperationException("sceNetAdhocMatchingTerm not available on WASI — no C library access")
 
-public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int =
+public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: (() -> Unit)?): Int =
     throw UnsupportedOperationException("sceNetAdhocMatchingCreate not available on WASI — no C library access")
 
 public actual fun sceNetAdhocMatchingDelete(matchingId: Int): Int =
@@ -1964,7 +1964,7 @@ public actual fun sceNetApctlTerm(): Int =
 public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: SceNetApctlInfo?): Int =
     throw UnsupportedOperationException("sceNetApctlGetInfo not available on WASI — no C library access")
 
-public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: COpaquePointer?): Int =
+public actual fun sceNetApctlAddHandler(handler: (() -> Unit)?, parg: COpaquePointer?): Int =
     throw UnsupportedOperationException("sceNetApctlAddHandler not available on WASI — no C library access")
 
 public actual fun sceNetApctlDelHandler(handlerId: Int): Int =
@@ -1985,16 +1985,16 @@ public actual fun sceNetInetInit(): Int =
 public actual fun sceNetInetTerm(): Int =
     throw UnsupportedOperationException("sceNetInetTerm not available on WASI — no C library access")
 
-public actual fun sceNetInetAccept(s: Int, addr: Sockaddr?, addrLen: SocklenT?): Int =
+public actual fun sceNetInetAccept(s: Int, addr: Sockaddr?, addrLen: UInt?): Int =
     throw UnsupportedOperationException("sceNetInetAccept not available on WASI — no C library access")
 
-public actual fun sceNetInetBind(s: Int, myAddr: Sockaddr?, addrLen: SocklenT): Int =
+public actual fun sceNetInetBind(s: Int, myAddr: Sockaddr?, addrLen: UInt): Int =
     throw UnsupportedOperationException("sceNetInetBind not available on WASI — no C library access")
 
-public actual fun sceNetInetConnect(s: Int, servAddr: Sockaddr?, addrLen: SocklenT): Int =
+public actual fun sceNetInetConnect(s: Int, servAddr: Sockaddr?, addrLen: UInt): Int =
     throw UnsupportedOperationException("sceNetInetConnect not available on WASI — no C library access")
 
-public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: SocklenT?): Int =
+public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: UInt?): Int =
     throw UnsupportedOperationException("sceNetInetGetsockopt not available on WASI — no C library access")
 
 public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
@@ -2003,16 +2003,16 @@ public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
 public actual fun sceNetInetRecv(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong =
     throw UnsupportedOperationException("sceNetInetRecv not available on WASI — no C library access")
 
-public actual fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: Sockaddr?, fromLen: SocklenT?): ULong =
+public actual fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: Sockaddr?, fromLen: UInt?): ULong =
     throw UnsupportedOperationException("sceNetInetRecvfrom not available on WASI — no C library access")
 
 public actual fun sceNetInetSend(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong =
     throw UnsupportedOperationException("sceNetInetSend not available on WASI — no C library access")
 
-public actual fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, toLen: SocklenT): ULong =
+public actual fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, toLen: UInt): ULong =
     throw UnsupportedOperationException("sceNetInetSendto not available on WASI — no C library access")
 
-public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: SocklenT): Int =
+public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: UInt): Int =
     throw UnsupportedOperationException("sceNetInetSetsockopt not available on WASI — no C library access")
 
 public actual fun sceNetInetShutdown(s: Int, how: Int): Int =
@@ -2165,7 +2165,7 @@ public actual fun sceHttpGetProxy(id: Int, activateFlag: Int?, mode: Int?, proxy
 public actual fun sceHttpInitCache(maxSize: ULong): Int =
     throw UnsupportedOperationException("sceHttpInitCache not available on WASI — no C library access")
 
-public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int =
+public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: ((Int, io.github.kotlinmania.libc.psp.HttpAuthType, io.github.kotlinmania.libc.COpaquePointer?, io.github.kotlinmania.libc.COpaquePointer?, io.github.kotlinmania.libc.COpaquePointer?, Int, io.github.kotlinmania.libc.COpaquePointer?, ULong?, Int?) -> Int)?): Int =
     throw UnsupportedOperationException("sceHttpSetAuthInfoCB not available on WASI — no C library access")
 
 public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: COpaquePointer?, newProxyPort: UShort): Int =
@@ -2174,7 +2174,7 @@ public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProx
 public actual fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int =
     throw UnsupportedOperationException("sceHttpSetResHeaderMaxSize not available on WASI — no C library access")
 
-public actual fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int =
+public actual fun sceHttpSetMallocFunction(mallocFunc: ((ULong) -> io.github.kotlinmania.libc.COpaquePointer?)?, freeFunc: ((io.github.kotlinmania.libc.COpaquePointer?) -> Unit)?, reallocFunc: ((io.github.kotlinmania.libc.COpaquePointer?, ULong) -> io.github.kotlinmania.libc.COpaquePointer?)?): Int =
     throw UnsupportedOperationException("sceHttpSetMallocFunction not available on WASI — no C library access")
 
 public actual fun sceNetResolverInit(): Int =

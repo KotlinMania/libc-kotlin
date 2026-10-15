@@ -1,0 +1,13 @@
+// port-lint: source unix/bsd/netbsdlike/openbsd/mod.rs
+package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
+
+import io.github.kotlinmania.libc.*
+
+public data class Kevent(
+    val ident: ULong,
+    val filter: Short,
+    val flags: UShort,
+    val fflags: UInt,
+    val data: Long,
+    val udata: COpaquePointer?,
+)

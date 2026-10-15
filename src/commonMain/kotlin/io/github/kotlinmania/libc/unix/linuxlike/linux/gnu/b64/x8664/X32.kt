@@ -5,4 +5,4 @@ import io.github.kotlinmania.libc.*
 
 // Statvfs is defined in NotX32.kt (first definition in this package).
 
-public const val __X32_SYSCALL_BIT: CLong = 0x40000000
+public const val __X32_SYSCALL_BIT: Long = 0x40000000

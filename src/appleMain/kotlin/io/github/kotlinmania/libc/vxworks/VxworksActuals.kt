@@ -14,7 +14,7 @@ import libc.cinterop.libc_tcflush
 
 // VxWorks signals: SIGBUS(10), SIGSTOP(17), SIGTSTP(18), SIGCONT(19), SIGCHLD(20),
 // SIGUSR1(30), SIGUSR2(31) match Darwin natively. Map signals >= 32.
-private fun vxworksToDarwinSignal(sig: CInt): CInt =
+private fun vxworksToDarwinSignal(sig: Int): Int =
     when (sig) {
         33 -> 27 // SIGPROF: VxWorks=33, Darwin=27
         34 -> 12 // SIGSYS: VxWorks=34, Darwin=12
@@ -27,13 +27,13 @@ private fun vxworksToDarwinSignal(sig: CInt): CInt =
         else -> sig
     }
 
-private fun vxworksToDarwinDomain(domain: CInt): CInt =
+private fun vxworksToDarwinDomain(domain: Int): Int =
     when (domain) {
         28 -> 30 // AF_INET6: VxWorks=28, Darwin=30
         else -> domain
     }
 
-private fun vxworksToDarwinMsyncFlags(flags: CInt): CInt {
+private fun vxworksToDarwinMsyncFlags(flags: Int): Int {
     var hostFlags = 0
     if ((flags and 1) != 0) hostFlags = hostFlags or 16 // MS_SYNC: VxWorks=1, Darwin=16 (0x0010)
     if ((flags and 2) != 0) hostFlags = hostFlags or 1 // MS_ASYNC: VxWorks=2, Darwin=1 (0x0001)
@@ -41,7 +41,7 @@ private fun vxworksToDarwinMsyncFlags(flags: CInt): CInt {
     return hostFlags
 }
 
-private fun vxworksToDarwinAction(action: CInt): CInt =
+private fun vxworksToDarwinAction(action: Int): Int =
     when (action) {
         0 -> 1 // TCIFLUSH: VxWorks=0, Darwin=1
         1 -> 2 // TCOFLUSH: VxWorks=1, Darwin=2
@@ -49,17 +49,17 @@ private fun vxworksToDarwinAction(action: CInt): CInt =
         else -> action
     }
 
-public actual fun kill(pid: PidT, signo: CInt): CInt =
+public actual fun kill(pid: Int, signo: Int): Int =
     libc.cinterop.libc_kill(pid, vxworksToDarwinSignal(signo))
 
-public actual fun raise(signo: CInt): CInt =
+public actual fun raise(signo: Int): Int =
     libc.cinterop.libc_raise(vxworksToDarwinSignal(signo))
 
-public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
+public actual fun socket(domain: Int, type: Int, protocol: Int): Int =
     libc.cinterop.libc_socket(vxworksToDarwinDomain(domain), type and 0xF, protocol)
 
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
+public actual fun msync(addr: COpaquePointer?, len: ULong, flags: Int): Int =
     libc.cinterop.libc_msync(addr?.value?.toCPointer<ByteVar>(), len, vxworksToDarwinMsyncFlags(flags))
 
-public actual fun tcflush(fd: CInt, action: CInt): CInt =
+public actual fun tcflush(fd: Int, action: Int): Int =
     libc.cinterop.libc_tcflush(fd, vxworksToDarwinAction(action))

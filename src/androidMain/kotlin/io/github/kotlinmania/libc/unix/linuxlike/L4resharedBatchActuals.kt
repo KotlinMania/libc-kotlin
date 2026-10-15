@@ -7,7 +7,7 @@ import io.github.kotlinmania.libc.unix.getnameinfo
 public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on Android host — use androidNative target for FFI")
 
-public actual fun cPUALLOCSIZE(count: CInt): ULong =
+public actual fun cPUALLOCSIZE(count: Int): ULong =
     throw UnsupportedOperationException("cPUALLOCSIZE not available on Android host — use androidNative target for FFI")
 
 public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on Android host — use androidNative target for FFI")
@@ -19,10 +19,10 @@ public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw Unsupported
 public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on Android host — use androidNative target for FFI")
 
-public actual fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): CInt =
+public actual fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("cPUCOUNTS not available on Android host — use androidNative target for FFI")
 
-public actual fun cPUCOUNT(cpuset: CpuSetT?): CInt =
+public actual fun cPUCOUNT(cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("cPUCOUNT not available on Android host — use androidNative target for FFI")
 
 public actual fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean =
@@ -31,84 +31,84 @@ public actual fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean =
 public actual fun rTLOCALADDR(flags: UInt): Boolean =
     throw UnsupportedOperationException("rTLOCALADDR not available on Android host — use androidNative target for FFI")
 
-public actual fun iopl(level: CInt): CInt =
+public actual fun iopl(level: Int): Int =
     throw UnsupportedOperationException("iopl not available on Android host — use androidNative target for FFI")
 
-public actual fun ioperm(from: CULong, num: CULong, turnOn: CInt): CInt =
+public actual fun ioperm(from: ULong, num: ULong, turnOn: Int): Int =
     throw UnsupportedOperationException("ioperm not available on Android host — use androidNative target for FFI")
 
-public actual fun aioRead(aiocbp: Aiocb?): CInt =
+public actual fun aioRead(aiocbp: Aiocb?): Int =
     throw UnsupportedOperationException("aioRead not available on Android host — use androidNative target for FFI")
 
-public actual fun aioWrite(aiocbp: Aiocb?): CInt =
+public actual fun aioWrite(aiocbp: Aiocb?): Int =
     throw UnsupportedOperationException("aioWrite not available on Android host — use androidNative target for FFI")
 
-public actual fun aioFsync(op: CInt, aiocbp: Aiocb?): CInt =
+public actual fun aioFsync(op: Int, aiocbp: Aiocb?): Int =
     throw UnsupportedOperationException("aioFsync not available on Android host — use androidNative target for FFI")
 
-public actual fun aioError(aiocbp: Aiocb?): CInt =
+public actual fun aioError(aiocbp: Aiocb?): Int =
     throw UnsupportedOperationException("aioError not available on Android host — use androidNative target for FFI")
 
-public actual fun aioReturn(aiocbp: Aiocb?): SsizeT =
+public actual fun aioReturn(aiocbp: Aiocb?): Long =
     throw UnsupportedOperationException("aioReturn not available on Android host — use androidNative target for FFI")
 
-public actual fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: Timespec?): CInt =
+public actual fun aioSuspend(aiocbList: COpaquePointer?, nitems: Int, timeout: Timespec?): Int =
     throw UnsupportedOperationException("aioSuspend not available on Android host — use androidNative target for FFI")
 
-public actual fun aioCancel(fd: CInt, aiocbp: Aiocb?): CInt =
+public actual fun aioCancel(fd: Int, aiocbp: Aiocb?): Int =
     throw UnsupportedOperationException("aioCancel not available on Android host — use androidNative target for FFI")
 
-public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: Sigevent?): CInt =
+public actual fun lioListio(mode: Int, aiocbList: COpaquePointer?, nitems: Int, sevp: Sigevent?): Int =
     throw UnsupportedOperationException("lioListio not available on Android host — use androidNative target for FFI")
 
-public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long =
     throw UnsupportedOperationException("pwritev not available on Android host — use androidNative target for FFI")
 
-public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long =
     throw UnsupportedOperationException("preadv not available on Android host — use androidNative target for FFI")
 
-public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, servlen: SocklenT, flags: CInt): CInt {
+public actual fun getnameinfo(sa: Sockaddr?, salen: UInt, host: String?, hostlen: UInt, serv: String?, servlen: UInt, flags: Int): Int {
     val hBuf = if (hostlen > 0u) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null
     val sBuf = if (servlen > 0u) ByteArray(servlen.toInt().coerceAtMost(256)) else null
     return getnameinfo(sa, salen, hBuf, hostlen, sBuf, servlen, flags)
 }
 
-public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
+public actual fun getloadavg(loadavg: Double?, nelem: Int): Int =
     throw UnsupportedOperationException("getloadavg not available on Android host — use androidNative target for FFI")
 
-public actual fun processVmReadv(pid: PidT, localIov: Iovec?, liovcnt: CULong, remoteIov: Iovec?, riovcnt: CULong, flags: CULong): Long =
+public actual fun processVmReadv(pid: Int, localIov: Iovec?, liovcnt: ULong, remoteIov: Iovec?, riovcnt: ULong, flags: ULong): Long =
     throw UnsupportedOperationException("processVmReadv not available on Android host — use androidNative target for FFI")
 
-public actual fun processVmWritev(pid: PidT, localIov: Iovec?, liovcnt: CULong, remoteIov: Iovec?, riovcnt: CULong, flags: CULong): Long =
+public actual fun processVmWritev(pid: Int, localIov: Iovec?, liovcnt: ULong, remoteIov: Iovec?, riovcnt: ULong, flags: ULong): Long =
     throw UnsupportedOperationException("processVmWritev not available on Android host — use androidNative target for FFI")
 
-public actual fun futimes(fd: CInt, times: Timeval?): CInt =
+public actual fun futimes(fd: Int, times: Timeval?): Int =
     throw UnsupportedOperationException("futimes not available on Android host — use androidNative target for FFI")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+public actual fun strerrorR(errnum: Int, buf: String?, buflen: ULong): Int =
     throw UnsupportedOperationException("strerrorR not available on Android host — use androidNative target for FFI")
 
-public actual fun abs(i: CInt): CInt =
+public actual fun abs(i: Int): Int =
     throw UnsupportedOperationException("abs not available on Android host — use androidNative target for FFI")
 
-public actual fun labs(i: CLong): CLong =
+public actual fun labs(i: Long): Long =
     throw UnsupportedOperationException("labs not available on Android host — use androidNative target for FFI")
 
-public actual fun rand(): CInt =
+public actual fun rand(): Int =
     throw UnsupportedOperationException("rand not available on Android host — use androidNative target for FFI")
 
-public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand not available on Android host — use androidNative target for FFI")
+public actual fun srand(seed: UInt): Unit = throw UnsupportedOperationException("srand not available on Android host — use androidNative target for FFI")
 
-public actual fun lrand48(): CLong =
+public actual fun lrand48(): Long =
     throw UnsupportedOperationException("lrand48 not available on Android host — use androidNative target for FFI")
 
-public actual fun nrand48(xseed: CUShort?): CLong =
+public actual fun nrand48(xseed: UShort?): Long =
     throw UnsupportedOperationException("nrand48 not available on Android host — use androidNative target for FFI")
 
-public actual fun jrand48(xseed: CUShort?): CLong =
+public actual fun jrand48(xseed: UShort?): Long =
     throw UnsupportedOperationException("jrand48 not available on Android host — use androidNative target for FFI")
 
-public actual fun srand48(seed: CLong): Unit = throw UnsupportedOperationException("srand48 not available on Android host — use androidNative target for FFI")
+public actual fun srand48(seed: Long): Unit = throw UnsupportedOperationException("srand48 not available on Android host — use androidNative target for FFI")
 
 public actual fun setpwent(): Unit = throw UnsupportedOperationException("setpwent not available on Android host — use androidNative target for FFI")
 
@@ -134,114 +134,114 @@ public actual fun getspent(): Spwd? =
 public actual fun getspnam(name: String?): Spwd? =
     throw UnsupportedOperationException("getspnam not available on Android host — use androidNative target for FFI")
 
-public actual fun shmget(key: KeyT, size: ULong, shmflg: CInt): CInt =
+public actual fun shmget(key: Int, size: ULong, shmflg: Int): Int =
     throw UnsupportedOperationException("shmget not available on Android host — use androidNative target for FFI")
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
+public actual fun shmat(shmid: Int, shmaddr: COpaquePointer?, shmflg: Int): COpaquePointer? =
     throw UnsupportedOperationException("shmat not available on Android host — use androidNative target for FFI")
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
+public actual fun shmdt(shmaddr: COpaquePointer?): Int =
     throw UnsupportedOperationException("shmdt not available on Android host — use androidNative target for FFI")
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: ShmidDs?): CInt =
+public actual fun shmctl(shmid: Int, cmd: Int, buf: ShmidDs?): Int =
     throw UnsupportedOperationException("shmctl not available on Android host — use androidNative target for FFI")
 
-public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
+public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: Int): Int =
     throw UnsupportedOperationException("mprotect not available on Android host — use androidNative target for FFI")
 
-public actual fun errnoLocation(): CInt? =
+public actual fun errnoLocation(): Int? =
     io.github.kotlinmania.libc.internal.LibcJni
         .getErrno()
 
-public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: CInt, vararg args: Any?): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: ULong, newLen: ULong, flags: Int, vararg args: Any?): COpaquePointer? =
     throw UnsupportedOperationException("mremap not available on Android host — use androidNative target for FFI")
 
 public actual fun globfree(pglob: GlobT?): Unit = throw UnsupportedOperationException("globfree not available on Android host — use androidNative target for FFI")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir not available on Android host — use androidNative target for FFI")
+public actual fun seekdir(dirp: DIR?, loc: Long): Unit = throw UnsupportedOperationException("seekdir not available on Android host — use androidNative target for FFI")
 
-public actual fun telldir(dirp: DIR?): CLong =
+public actual fun telldir(dirp: DIR?): Long =
     throw UnsupportedOperationException("telldir not available on Android host — use androidNative target for FFI")
 
-public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: Int): Int =
     throw UnsupportedOperationException("madvise not available on Android host — use androidNative target for FFI")
 
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
+public actual fun msync(addr: COpaquePointer?, len: ULong, flags: Int): Int =
     throw UnsupportedOperationException("msync not available on Android host — use androidNative target for FFI")
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
+public actual fun recvfrom(socket: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: Sockaddr?, addrlen: UInt?): Long =
     throw UnsupportedOperationException("recvfrom not available on Android host — use androidNative target for FFI")
 
-public actual fun nlLanginfo(item: NlItem): String? =
+public actual fun nlLanginfo(item: Int): String? =
     throw UnsupportedOperationException("nlLanginfo not available on Android host — use androidNative target for FFI")
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): String? =
+public actual fun nlLanginfoL(item: Int, locale: io.github.kotlinmania.libc.COpaquePointer?): String? =
     throw UnsupportedOperationException("nlLanginfoL not available on Android host — use androidNative target for FFI")
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
+public actual fun schedGetaffinity(pid: Int, cpusetsize: ULong, cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("schedGetaffinity not available on Android host — use androidNative target for FFI")
 
-public actual fun schedGetPriorityMax(policy: CInt): CInt =
+public actual fun schedGetPriorityMax(policy: Int): Int =
     throw UnsupportedOperationException("schedGetPriorityMax not available on Android host — use androidNative target for FFI")
 
-public actual fun settimeofday(tv: Timeval?, tz: Timezone?): CInt =
+public actual fun settimeofday(tv: Timeval?, tz: Timezone?): Int =
     throw UnsupportedOperationException("settimeofday not available on Android host — use androidNative target for FFI")
 
-public actual fun semTimedwait(sem: SemT, abstime: Timespec?): CInt =
+public actual fun semTimedwait(sem: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("semTimedwait not available on Android host — use androidNative target for FFI")
 
-public actual fun semGetvalue(sem: SemT, sval: CInt?): CInt =
+public actual fun semGetvalue(sem: io.github.kotlinmania.libc.COpaquePointer?, sval: Int?): Int =
     throw UnsupportedOperationException("semGetvalue not available on Android host — use androidNative target for FFI")
 
-public actual fun mount(src: String?, target: String?, fstype: String?, flags: CULong, data: COpaquePointer?): CInt =
+public actual fun mount(src: String?, target: String?, fstype: String?, flags: ULong, data: COpaquePointer?): Int =
     throw UnsupportedOperationException("mount not available on Android host — use androidNative target for FFI")
 
-public actual fun prctl(option: CInt, vararg args: Any?): CInt =
+public actual fun prctl(option: Int, vararg args: Any?): Int =
     throw UnsupportedOperationException("prctl not available on Android host — use androidNative target for FFI")
 
-public actual fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt =
+public actual fun ppoll(fds: Pollfd?, nfds: UInt, timeout: Timespec?, sigmask: ULong?): Int =
     throw UnsupportedOperationException("ppoll not available on Android host — use androidNative target for FFI")
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
+public actual fun sethostname(name: String?, len: ULong): Int =
     throw UnsupportedOperationException("sethostname not available on Android host — use androidNative target for FFI")
 
-public actual fun schedGetPriorityMin(policy: CInt): CInt =
+public actual fun schedGetPriorityMin(policy: Int): Int =
     throw UnsupportedOperationException("schedGetPriorityMin not available on Android host — use androidNative target for FFI")
 
-public actual fun sysinfo(info: Sysinfo?): CInt =
+public actual fun sysinfo(info: Sysinfo?): Int =
     throw UnsupportedOperationException("sysinfo not available on Android host — use androidNative target for FFI")
 
-public actual fun sigsuspend(mask: SigsetT?): CInt =
+public actual fun sigsuspend(mask: ULong?): Int =
     throw UnsupportedOperationException("sigsuspend not available on Android host — use androidNative target for FFI")
 
-public actual fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
+public actual fun getgrgidR(gid: UInt, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): Int =
     throw UnsupportedOperationException("getgrgidR not available on Android host — use androidNative target for FFI")
 
-public actual fun semClose(sem: SemT): CInt =
+public actual fun semClose(sem: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("semClose not available on Android host — use androidNative target for FFI")
 
-public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
+public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): Int =
     throw UnsupportedOperationException("getgrnamR not available on Android host — use androidNative target for FFI")
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
+public actual fun initgroups(user: String?, group: UInt): Int =
     throw UnsupportedOperationException("initgroups not available on Android host — use androidNative target for FFI")
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT =
+public actual fun semOpen(name: String?, oflag: Int, vararg args: Any?): io.github.kotlinmania.libc.COpaquePointer? =
     throw UnsupportedOperationException("semOpen not available on Android host — use androidNative target for FFI")
 
 public actual fun getgrnam(name: String?): Group? =
     throw UnsupportedOperationException("getgrnam not available on Android host — use androidNative target for FFI")
 
-public actual fun semUnlink(name: String?): CInt =
+public actual fun semUnlink(name: String?): Int =
     throw UnsupportedOperationException("semUnlink not available on Android host — use androidNative target for FFI")
 
-public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
+public actual fun daemon(nochdir: Int, noclose: Int): Int =
     throw UnsupportedOperationException("daemon not available on Android host — use androidNative target for FFI")
 
-public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
+public actual fun sigwait(set: ULong?, sig: Int?): Int =
     throw UnsupportedOperationException("sigwait not available on Android host — use androidNative target for FFI")
 
-public actual fun getgrgid(gid: GidT): Group? =
+public actual fun getgrgid(gid: UInt): Group? =
     throw UnsupportedOperationException("getgrgid not available on Android host — use androidNative target for FFI")
 
 public actual fun popen(command: String?, mode: String?): FILE? {
@@ -252,7 +252,7 @@ public actual fun popen(command: String?, mode: String?): FILE? {
     return if (ptr == 0L) null else FILE(ptr)
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int =
     throw UnsupportedOperationException("faccessat not available on Android host — use androidNative target for FFI")
 
 public actual fun setmntent(filename: String?, ty: String?): FILE? =
@@ -261,75 +261,75 @@ public actual fun setmntent(filename: String?, ty: String?): FILE? =
 public actual fun getmntent(stream: FILE?): Mntent? =
     throw UnsupportedOperationException("getmntent not available on Android host — use androidNative target for FFI")
 
-public actual fun addmntent(stream: FILE?, mnt: Mntent?): CInt =
+public actual fun addmntent(stream: FILE?, mnt: Mntent?): Int =
     throw UnsupportedOperationException("addmntent not available on Android host — use androidNative target for FFI")
 
-public actual fun endmntent(streamp: FILE?): CInt =
+public actual fun endmntent(streamp: FILE?): Int =
     throw UnsupportedOperationException("endmntent not available on Android host — use androidNative target for FFI")
 
 public actual fun hasmntopt(mnt: Mntent?, opt: String?): String? =
     throw UnsupportedOperationException("hasmntopt not available on Android host — use androidNative target for FFI")
 
-public actual fun regcomp(preg: RegexT, pattern: String?, cflags: CInt): CInt =
+public actual fun regcomp(preg: io.github.kotlinmania.libc.COpaquePointer?, pattern: String?, cflags: Int): Int =
     throw UnsupportedOperationException("regcomp not available on Android host — use androidNative target for FFI")
 
-public actual fun regexec(preg: RegexT, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: CInt): CInt =
+public actual fun regexec(preg: io.github.kotlinmania.libc.COpaquePointer?, input: String?, nmatch: ULong, pmatch: RegmatchT?, eflags: Int): Int =
     throw UnsupportedOperationException("regexec not available on Android host — use androidNative target for FFI")
 
-public actual fun regerror(errcode: CInt, preg: RegexT, errbuf: String?, errbufSize: ULong): ULong =
+public actual fun regerror(errcode: Int, preg: io.github.kotlinmania.libc.COpaquePointer?, errbuf: String?, errbufSize: ULong): ULong =
     throw UnsupportedOperationException("regerror not available on Android host — use androidNative target for FFI")
 
-public actual fun regfree(preg: RegexT): Unit = throw UnsupportedOperationException("regfree not available on Android host — use androidNative target for FFI")
+public actual fun regfree(preg: io.github.kotlinmania.libc.COpaquePointer?): Unit = throw UnsupportedOperationException("regfree not available on Android host — use androidNative target for FFI")
 
-public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong =
+public actual fun iconv(cd: io.github.kotlinmania.libc.COpaquePointer?, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong =
     throw UnsupportedOperationException("iconv not available on Android host — use androidNative target for FFI")
 
-public actual fun iconvClose(cd: IconvT): CInt =
+public actual fun iconvClose(cd: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("iconvClose not available on Android host — use androidNative target for FFI")
 
-public actual fun gettid(): PidT =
+public actual fun gettid(): Int =
     throw UnsupportedOperationException("gettid not available on Android host — use androidNative target for FFI")
 
-public actual fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT): CInt =
+public actual fun timerCreate(clockid: Int, sevp: Sigevent?, timerid: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("timerCreate not available on Android host — use androidNative target for FFI")
 
-public actual fun timerDelete(timerid: TimerT): CInt =
+public actual fun timerDelete(timerid: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("timerDelete not available on Android host — use androidNative target for FFI")
 
-public actual fun timerGetoverrun(timerid: TimerT): CInt =
+public actual fun timerGetoverrun(timerid: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("timerGetoverrun not available on Android host — use androidNative target for FFI")
 
-public actual fun timerGettime(timerid: TimerT, currValue: Itimerspec?): CInt =
+public actual fun timerGettime(timerid: io.github.kotlinmania.libc.COpaquePointer?, currValue: Itimerspec?): Int =
     throw UnsupportedOperationException("timerGettime not available on Android host — use androidNative target for FFI")
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt =
+public actual fun timerSettime(timerid: io.github.kotlinmania.libc.COpaquePointer?, flags: Int, newValue: Itimerspec?, oldValue: Itimerspec?): Int =
     throw UnsupportedOperationException("timerSettime not available on Android host — use androidNative target for FFI")
 
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmem not available on Android host — use androidNative target for FFI")
 
-public actual fun schedGetcpu(): CInt =
+public actual fun schedGetcpu(): Int =
     throw UnsupportedOperationException("schedGetcpu not available on Android host — use androidNative target for FFI")
 
-public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: CInt?): CInt =
+public actual fun getoptLong(argc: Int, argv: COpaquePointer?, optstring: String?, longopts: Option?, longindex: Int?): Int =
     throw UnsupportedOperationException("getoptLong not available on Android host — use androidNative target for FFI")
 
-public actual fun copyFileRange(fdIn: CInt, offIn: Off64T?, fdOut: CInt, offOut: Off64T?, len: ULong, flags: CUInt): SsizeT =
+public actual fun copyFileRange(fdIn: Int, offIn: Long?, fdOut: Int, offOut: Long?, len: ULong, flags: UInt): Long =
     throw UnsupportedOperationException("copyFileRange not available on Android host — use androidNative target for FFI")
 
-public actual fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt =
+public actual fun fseeko64(stream: FILE?, offset: Long, whence: Int): Int =
     throw UnsupportedOperationException("fseeko64 not available on Android host — use androidNative target for FFI")
 
-public actual fun fsetpos64(stream: FILE?, ptr: Fpos64T?): CInt =
+public actual fun fsetpos64(stream: FILE?, ptr: Long?): Int =
     throw UnsupportedOperationException("fsetpos64 not available on Android host — use androidNative target for FFI")
 
-public actual fun ftello64(stream: FILE?): Off64T =
+public actual fun ftello64(stream: FILE?): Long =
     throw UnsupportedOperationException("ftello64 not available on Android host — use androidNative target for FFI")
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: ((String?, CInt) -> CInt)?, pglob: GlobT?): CInt =
+public actual fun glob(pattern: String?, flags: Int, errfunc: ((String?, Int) -> Int)?, pglob: GlobT?): Int =
     throw UnsupportedOperationException("glob not available on Android host — use androidNative target for FFI")
 
-public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> Int)?, data: COpaquePointer?): Int =
     throw UnsupportedOperationException("dlIteratePhdr not available on Android host — use androidNative target for FFI")
 
 public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =

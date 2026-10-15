@@ -3,17 +3,15 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64
 
 import io.github.kotlinmania.libc.*
 
-public typealias GregT = ULong
-
 // IpcPerm, Stat, Statfs are defined in Mips64.kt (first definitions in this package).
 
 public data class PswT(
-    val mask: CULong,
-    val addr: CULong,
+    val mask: ULong,
+    val addr: ULong,
 )
 
 public data class FpregsetT(
-    val fpc: CUInt,
+    val fpc: UInt,
     val fprs: List<FpregT>,
 )
 
@@ -25,7 +23,7 @@ public data class McontextT(
 )
 
 public data class UcontextT(
-    val ucFlags: CULong,
+    val ucFlags: ULong,
     val ucLink: UcontextT?,
     val ucStack: StackT,
     val ucMcontext: McontextT,
@@ -34,15 +32,15 @@ public data class UcontextT(
 
 // C union; only one variant is valid at a time.
 public data class FpregT(
-    val d: CDouble? = null,
-    val f: CFloat? = null,
+    val d: Double? = null,
+    val f: Float? = null,
 )
 
-public const val SYS_s390_runtime_instr: CLong = 342
-public const val SYS_s390_pci_mmio_write: CLong = 352
-public const val SYS_s390_pci_mmio_read: CLong = 353
-public const val SYS_s390_guarded_storage: CLong = 378
-public const val SYS_s390_sthyi: CLong = 380
-public const val SYS_cachestat: CLong = 451
-public const val SYS_fchmodat2: CLong = 452
-public const val SYS_mseal: CLong = 462
+public const val SYS_s390_runtime_instr: Long = 342
+public const val SYS_s390_pci_mmio_write: Long = 352
+public const val SYS_s390_pci_mmio_read: Long = 353
+public const val SYS_s390_guarded_storage: Long = 378
+public const val SYS_s390_sthyi: Long = 380
+public const val SYS_cachestat: Long = 451
+public const val SYS_fchmodat2: Long = 452
+public const val SYS_mseal: Long = 462

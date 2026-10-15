@@ -3,17 +3,6 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 
-public typealias GregT = CLong
-public typealias Elf64Addr = CULong
-public typealias Elf64Half = CUShort
-public typealias Elf64Off = CULong
-public typealias Elf64Sword = CInt
-public typealias Elf64Sxword = CLong
-public typealias Elf64Word = CUInt
-public typealias Elf64Xword = CULong
-public typealias Elf64Lword = CULong
-public typealias Elf64Phdr = CAnonymousElf64Phdr
-
 public data class CAnonymousFpchipState(
     val cw: UShort,
     val sw: UShort,
@@ -32,14 +21,14 @@ public data class CAnonymousFpchipState(
 )
 
 public data class CAnonymousElf64Phdr(
-    val pType: Elf64Word,
-    val pFlags: Elf64Word,
-    val pOffset: Elf64Off,
-    val pVaddr: Elf64Addr,
-    val pPaddr: Elf64Addr,
-    val pFilesz: Elf64Xword,
-    val pMemsz: Elf64Xword,
-    val pAlign: Elf64Xword,
+    val pType: UInt,
+    val pFlags: UInt,
+    val pOffset: ULong,
+    val pVaddr: ULong,
+    val pPaddr: ULong,
+    val pFilesz: ULong,
+    val pMemsz: ULong,
+    val pAlign: ULong,
 )
 
 public data class FpregsetT(
@@ -47,21 +36,21 @@ public data class FpregsetT(
 )
 
 public data class McontextT(
-    val gregs: List<GregT>,
+    val gregs: List<Long>,
     val fpregs: FpregsetT,
 )
 
 public data class UcontextT(
-    val ucFlags: CULong,
+    val ucFlags: ULong,
     val ucLink: UcontextT?,
     val ucSigmask: SigsetT,
     val ucStack: StackT,
     val ucMcontext: McontextT,
     val ucBrandData: LongArray,
-    val ucXsave: CLong,
-    val ucFiller: CLong,
+    val ucXsave: Long,
+    val ucFiller: Long,
     val ucXrs: XrsT,
-    val ucLwpid: CUInt,
+    val ucLwpid: UInt,
     val ucFiller2: LongArray,
 )
 
@@ -71,31 +60,31 @@ public data class CAnonymousFpRegSet(
     val fFpregs: List<UIntArray>? = null,
 )
 
-public const val REG_GSBASE: CInt = 27
-public const val REG_FSBASE: CInt = 26
-public const val REG_DS: CInt = 25
-public const val REG_ES: CInt = 24
-public const val REG_GS: CInt = 23
-public const val REG_FS: CInt = 22
-public const val REG_SS: CInt = 21
-public const val REG_RSP: CInt = 20
-public const val REG_RFL: CInt = 19
-public const val REG_CS: CInt = 18
-public const val REG_RIP: CInt = 17
-public const val REG_ERR: CInt = 16
-public const val REG_TRAPNO: CInt = 15
-public const val REG_RAX: CInt = 14
-public const val REG_RCX: CInt = 13
-public const val REG_RDX: CInt = 12
-public const val REG_RBX: CInt = 11
-public const val REG_RBP: CInt = 10
-public const val REG_RSI: CInt = 9
-public const val REG_RDI: CInt = 8
-public const val REG_R8: CInt = 7
-public const val REG_R9: CInt = 6
-public const val REG_R10: CInt = 5
-public const val REG_R11: CInt = 4
-public const val REG_R12: CInt = 3
-public const val REG_R13: CInt = 2
-public const val REG_R14: CInt = 1
-public const val REG_R15: CInt = 0
+public const val REG_GSBASE: Int = 27
+public const val REG_FSBASE: Int = 26
+public const val REG_DS: Int = 25
+public const val REG_ES: Int = 24
+public const val REG_GS: Int = 23
+public const val REG_FS: Int = 22
+public const val REG_SS: Int = 21
+public const val REG_RSP: Int = 20
+public const val REG_RFL: Int = 19
+public const val REG_CS: Int = 18
+public const val REG_RIP: Int = 17
+public const val REG_ERR: Int = 16
+public const val REG_TRAPNO: Int = 15
+public const val REG_RAX: Int = 14
+public const val REG_RCX: Int = 13
+public const val REG_RDX: Int = 12
+public const val REG_RBX: Int = 11
+public const val REG_RBP: Int = 10
+public const val REG_RSI: Int = 9
+public const val REG_RDI: Int = 8
+public const val REG_R8: Int = 7
+public const val REG_R9: Int = 6
+public const val REG_R10: Int = 5
+public const val REG_R11: Int = 4
+public const val REG_R12: Int = 3
+public const val REG_R13: Int = 2
+public const val REG_R14: Int = 1
+public const val REG_R15: Int = 0

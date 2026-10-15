@@ -1,0 +1,39 @@
+// port-lint: source unix/nto/mod.rs
+package io.github.kotlinmania.libc.unix.nto
+
+import io.github.kotlinmania.libc.*
+
+public data class Lconv(
+    val currencySymbol: String?,
+    val intCurrSymbol: String?,
+    val monDecimalPoint: String?,
+    val monGrouping: String?,
+    val monThousandsSep: String?,
+    val negativeSign: String?,
+    val positiveSign: String?,
+    val fracDigits: Byte,
+    val intFracDigits: Byte,
+    val nCsPrecedes: Byte,
+    val nSepBySpace: Byte,
+    val nSignPosn: Byte,
+    val pCsPrecedes: Byte,
+    val pSepBySpace: Byte,
+    val pSignPosn: Byte,
+    val intNCsPrecedes: Byte,
+    val intNSepBySpace: Byte,
+    val intNSignPosn: Byte,
+    val intPCsPrecedes: Byte,
+    val intPSepBySpace: Byte,
+    val intPSignPosn: Byte,
+    val decimalPoint: String?,
+    val grouping: String?,
+    val thousandsSep: String?,
+    val fracGrouping: String?,
+    val fracSep: String?,
+    val falseValue: String?,
+    val trueValue: String?,
+    val no: String?,
+    val yes: String?,
+    val nostr: String?,
+    val yesstr: String?,
+)

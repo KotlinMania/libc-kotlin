@@ -4,17 +4,17 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval
 
-public actual fun atexit(cb: (() -> Unit)?): CInt =
+public actual fun atexit(cb: (() -> Unit)?): Int =
     throw UnsupportedOperationException("atexit requires N-API addon")
 
-public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadAtfork requires N-API addon")
 
-public actual fun pthreadKeyCreate(key: PthreadKeyT?, dtor: ((COpaquePointer?) -> Unit)?): CInt =
+public actual fun pthreadKeyCreate(key: ULong?, dtor: ((COpaquePointer?) -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadKeyCreate requires N-API addon")
 
-public actual fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt =
+public actual fun sigqueue(pid: Int, signo: Int, value: Sigval): Int =
     throw UnsupportedOperationException("sigqueue requires N-API addon")
 
-public actual fun sigqueue(rtpId: RTPID, signo: CInt, pValue: Sigval?, sigCode: CInt): CInt =
+public actual fun sigqueue(rtpId: Int, signo: Int, pValue: Sigval?, sigCode: Int): Int =
     throw UnsupportedOperationException("sigqueue (rtpId overload) requires N-API addon")
