@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
 
-public expect fun sOCKCREDSIZE(ngrps: ULong): ULong
+public expect fun sockcredSize(ngrps: ULong): ULong

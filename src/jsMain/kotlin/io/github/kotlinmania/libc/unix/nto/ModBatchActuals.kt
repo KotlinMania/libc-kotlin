@@ -3,34 +3,34 @@ package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires N-API addon")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires N-API addon")
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires N-API addon")
 
-public actual fun fDCLR(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
 
-public actual fun fDSET(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
 
-public actual fun dEXTRAFIRST(d: Dirent?): DirentExtra? =
+public actual fun dExtraFirst(d: Dirent?): DirentExtra? =
     throw UnsupportedOperationException("dEXTRAFIRST requires N-API addon")
 
-public actual fun dEXTRAVALID(x: DirentExtra?, d: Dirent?): Boolean =
+public actual fun dExtraValid(x: DirentExtra?, d: Dirent?): Boolean =
     throw UnsupportedOperationException("dEXTRAVALID requires N-API addon")
 
-public actual fun dEXTRANEXT(x: DirentExtra?): DirentExtra? =
+public actual fun dExtraNext(x: DirentExtra?): DirentExtra? =
     throw UnsupportedOperationException("dEXTRANEXT requires N-API addon")
 
-public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
+public actual fun sockcredSize(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE requires N-API addon")
 
 public actual fun sendmmsg(sockfd: Int, msgvec: Mmsghdr?, vlen: UInt, flags: UInt): Int =

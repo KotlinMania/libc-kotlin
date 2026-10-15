@@ -28,9 +28,9 @@ package io.github.kotlinmania.libc.wasi
 // - Dirent.kt
 // - ClockidT.kt
 // - Constants.kt
-// - FDISSET.kt
-// - FDSETFunction.kt
-// - FDZERO.kt
+// - FdIsSet.kt
+// - FdSetFunction.kt
+// - FdZero.kt
 // - Exit.kt
 // - Abort.kt
 // - AlignedAlloc.kt

@@ -3,10 +3,10 @@ package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires N-API addon")
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires N-API addon")
 
 public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent requires N-API addon")
@@ -623,19 +623,19 @@ public actual fun sethostid(hostid: Long): Unit = throw UnsupportedOperationExce
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): Int =
     throw UnsupportedOperationException("getentropy requires N-API addon")
 
-public actual fun nSGetExecutablePath(buf: String?, bufsize: UInt?): Int =
+public actual fun nsGetExecutablePath(buf: String?, bufsize: UInt?): Int =
     throw UnsupportedOperationException("nSGetExecutablePath requires N-API addon")
 
-public actual fun nSGetArgv(): COpaquePointer? =
+public actual fun nsGetArgv(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetArgv requires N-API addon")
 
-public actual fun nSGetArgc(): Int? =
+public actual fun nsGetArgc(): Int? =
     throw UnsupportedOperationException("nSGetArgc requires N-API addon")
 
-public actual fun nSGetEnviron(): COpaquePointer? =
+public actual fun nsGetEnviron(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetEnviron requires N-API addon")
 
-public actual fun nSGetProgname(): COpaquePointer? =
+public actual fun nsGetProgname(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetProgname requires N-API addon")
 
 public actual fun machVmMap(targetTask: UInt, address: ULong?, size: ULong, mask: ULong, flags: Int, `object`: UInt, offset: ULong, copy: Int, curProtection: Int, maxProtection: Int, inheritance: UInt): Int =

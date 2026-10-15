@@ -3,22 +3,22 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on WASI — no C library access")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on WASI — no C library access")
 
 public actual fun dirfd(dirp: DIR?): Int =
     throw UnsupportedOperationException("dirfd not available on WASI — no C library access")
 
-public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
+public actual fun sockcredSize(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE not available on WASI — no C library access")
 
-public actual fun pROTMPROTECT(x: Int): Int =
+public actual fun protMprotect(x: Int): Int =
     throw UnsupportedOperationException("pROTMPROTECT not available on WASI — no C library access")
 
-public actual fun pROTMPROTECTEXTRACT(x: Int): Int =
+public actual fun protMprotectExtract(x: Int): Int =
     throw UnsupportedOperationException("pROTMPROTECTEXTRACT not available on WASI — no C library access")
 
 public actual fun clockNanosleep(clkId: Int, flags: Int, rqtp: Timespec?, rmtp: Timespec?): Int =

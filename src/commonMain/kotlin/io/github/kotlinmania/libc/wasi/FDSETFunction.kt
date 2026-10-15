@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
 
-public expect fun fDSET(fd: Int, set: FdSet?)
+public expect fun fdSet(fd: Int, set: FdSet?)

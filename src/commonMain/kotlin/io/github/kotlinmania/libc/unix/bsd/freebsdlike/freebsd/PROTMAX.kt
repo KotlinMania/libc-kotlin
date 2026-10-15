@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
 
-public expect fun pROTMAX(x: Int): Int
+public expect fun protMax(x: Int): Int

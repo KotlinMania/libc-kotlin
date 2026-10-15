@@ -3,21 +3,21 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
 
-public actual fun sCTPPRINDEX(policy: Int): Int =
+public actual fun sctpPrIndex(policy: Int): Int =
     throw UnsupportedOperationException("sCTPPRINDEX not available on Android host — use androidNative target for FFI")
 
-public actual fun sCTPPRPOLICY(policy: Int): Int =
+public actual fun sctpPrPolicy(policy: Int): Int =
     throw UnsupportedOperationException("sCTPPRPOLICY not available on Android host — use androidNative target for FFI")
 
-public actual fun sCTPPRSETPOLICY(flags: Int?, policy: Int): Unit = throw UnsupportedOperationException("sCTPPRSETPOLICY not available on Android host — use androidNative target for FFI")
+public actual fun sctpPrSetPolicy(flags: Int?, policy: Int): Unit = throw UnsupportedOperationException("sCTPPRSETPOLICY not available on Android host — use androidNative target for FFI")
 
-public actual fun sOEEOFFENDER(ee: SockExtendedErr?): Sockaddr? =
+public actual fun soEeOffender(ee: SockExtendedErr?): Sockaddr? =
     throw UnsupportedOperationException("sOEEOFFENDER not available on Android host — use androidNative target for FFI")
 
-public actual fun tPACKETALIGN(x: ULong): ULong =
+public actual fun tpacketAlign(x: ULong): ULong =
     throw UnsupportedOperationException("tPACKETALIGN not available on Android host — use androidNative target for FFI")
 
-public actual fun sUNLEN(s: SockaddrUn): ULong =
+public actual fun sunLen(s: SockaddrUn): ULong =
     throw UnsupportedOperationException("sUNLEN not available on Android host — use androidNative target for FFI")
 
 public actual fun getspnamR(name: String?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): Int =

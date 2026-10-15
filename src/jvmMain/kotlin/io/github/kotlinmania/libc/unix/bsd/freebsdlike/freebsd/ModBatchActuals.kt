@@ -3,42 +3,42 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on JVM — no C library access")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on JVM — no C library access")
 
-public actual fun mALLOCXALIGN(lg: UInt): Int =
+public actual fun mallocxAlign(lg: UInt): Int =
     throw UnsupportedOperationException("mALLOCXALIGN not available on JVM — no C library access")
 
-public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
+public actual fun sockcredSize(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE not available on JVM — no C library access")
 
 public actual fun uname(buf: Utsname?): Int =
     throw UnsupportedOperationException("uname not available on JVM — no C library access")
 
-public actual fun cPUZERO(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
+public actual fun cpuZero(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
 
-public actual fun cPUFILL(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUFILL not available on JVM — no C library access")
+public actual fun cpuFill(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUFILL not available on JVM — no C library access")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
+public actual fun cpuSet(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
+public actual fun cpuClear(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
 
-public actual fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean =
+public actual fun cpuIsSet(cpu: ULong, cpuset: CpusetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on JVM — no C library access")
 
-public actual fun cPUCOUNT(cpuset: CpusetT?): Int =
+public actual fun cpuCount(cpuset: CpusetT?): Int =
     throw UnsupportedOperationException("cPUCOUNT not available on JVM — no C library access")
 
-public actual fun sOCKCRED2SIZE(ngrps: ULong): ULong =
+public actual fun sockcred2Size(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCRED2SIZE not available on JVM — no C library access")
 
-public actual fun pROTMAX(x: Int): Int =
+public actual fun protMax(x: Int): Int =
     throw UnsupportedOperationException("pROTMAX not available on JVM — no C library access")
 
-public actual fun pROTMAXEXTRACT(x: Int): Int =
+public actual fun protMaxExtract(x: Int): Int =
     throw UnsupportedOperationException("pROTMAXEXTRACT not available on JVM — no C library access")
 
 public actual fun fhlink(fhp: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Fhandle?, to: String?): Int =

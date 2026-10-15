@@ -31,14 +31,14 @@ import libc.cinterop.libc_strlcat
 import libc.cinterop.libc_strlcpy
 import libc.cinterop.libc_uname
 
-public actual fun fDCLR(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDSET(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
 
 public actual fun errnoLocation(): Int? =
     throw UnsupportedOperationException("errnoLocation requires manual FFI bridge — not yet implemented")
@@ -222,13 +222,13 @@ public actual fun setrlimit(resource: Int, rlim: Rlimit?): Int {
     return result
 }
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
 
 public actual fun bind(socket: Int, address: Sockaddr?, addressLen: UInt): Int =

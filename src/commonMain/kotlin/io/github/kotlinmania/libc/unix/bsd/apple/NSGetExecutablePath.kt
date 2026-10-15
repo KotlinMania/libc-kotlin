@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
 
-public expect fun nSGetExecutablePath(buf: String?, bufsize: UInt?): Int
+public expect fun nsGetExecutablePath(buf: String?, bufsize: UInt?): Int

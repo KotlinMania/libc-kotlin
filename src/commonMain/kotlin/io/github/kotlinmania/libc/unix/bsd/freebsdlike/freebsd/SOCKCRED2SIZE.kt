@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
 
-public expect fun sOCKCRED2SIZE(ngrps: ULong): ULong
+public expect fun sockcred2Size(ngrps: ULong): ULong

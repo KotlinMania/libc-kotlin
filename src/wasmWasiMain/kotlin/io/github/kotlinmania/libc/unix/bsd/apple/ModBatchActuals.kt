@@ -4,10 +4,10 @@ package io.github.kotlinmania.libc.unix.bsd.apple
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.internal.WasiLibcEnv
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on WASI — no C library access")
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on WASI — no C library access")
 
 public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent not available on WASI — no C library access")
@@ -624,19 +624,19 @@ public actual fun sethostid(hostid: Long): Unit = throw UnsupportedOperationExce
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): Int =
     throw UnsupportedOperationException("getentropy not available on WASI — no C library access")
 
-public actual fun nSGetExecutablePath(buf: String?, bufsize: UInt?): Int =
+public actual fun nsGetExecutablePath(buf: String?, bufsize: UInt?): Int =
     throw UnsupportedOperationException("nSGetExecutablePath not available on WASI — no C library access")
 
-public actual fun nSGetArgv(): COpaquePointer? =
+public actual fun nsGetArgv(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetArgv not available on WASI — no C library access")
 
-public actual fun nSGetArgc(): Int? =
+public actual fun nsGetArgc(): Int? =
     throw UnsupportedOperationException("nSGetArgc not available on WASI — no C library access")
 
-public actual fun nSGetEnviron(): COpaquePointer? =
+public actual fun nsGetEnviron(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetEnviron not available on WASI — no C library access")
 
-public actual fun nSGetProgname(): COpaquePointer? =
+public actual fun nsGetProgname(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetProgname not available on WASI — no C library access")
 
 public actual fun machVmMap(targetTask: UInt, address: ULong?, size: ULong, mask: ULong, flags: Int, `object`: UInt, offset: ULong, copy: Int, curProtection: Int, maxProtection: Int, inheritance: UInt): Int =

@@ -14,22 +14,22 @@ import libc.cinterop.libc_lchflags
 import libc.cinterop.libc_sched_getscheduler
 import libc.cinterop.libc_settimeofday
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
 
 public actual fun dirfd(dirp: DIR?): Int =
     libc.cinterop.libc_dirfd(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
+public actual fun sockcredSize(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE requires manual FFI bridge — not yet implemented")
 
-public actual fun pROTMPROTECT(x: Int): Int =
+public actual fun protMprotect(x: Int): Int =
     throw UnsupportedOperationException("pROTMPROTECT requires manual FFI bridge — not yet implemented")
 
-public actual fun pROTMPROTECTEXTRACT(x: Int): Int =
+public actual fun protMprotectExtract(x: Int): Int =
     throw UnsupportedOperationException("pROTMPROTECTEXTRACT requires manual FFI bridge — not yet implemented")
 
 public actual fun clockNanosleep(clkId: Int, flags: Int, rqtp: Timespec?, rmtp: Timespec?): Int =

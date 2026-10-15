@@ -3,14 +3,14 @@ package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
 
-public actual fun fDCLR(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on Android host — use androidNative target for FFI")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on Android host — use androidNative target for FFI")
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on Android host — use androidNative target for FFI")
 
-public actual fun fDSET(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on Android host — use androidNative target for FFI")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on Android host — use androidNative target for FFI")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on Android host — use androidNative target for FFI")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on Android host — use androidNative target for FFI")
 
 public actual fun getrlimit(resource: Int, rlim: Rlimit?): Int =
     throw UnsupportedOperationException("getrlimit not available on Android host — use androidNative target for FFI")

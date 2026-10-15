@@ -17,25 +17,25 @@ import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
 import libc.cinterop.libc_vfork
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires manual FFI bridge — not yet implemented")
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
 
-public actual fun fDCLR(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires manual FFI bridge — not yet implemented")
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDSET(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires manual FFI bridge — not yet implemented")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires manual FFI bridge — not yet implemented")
 
-public actual fun sIGRTMAX(): Int =
+public actual fun sigRtMax(): Int =
     throw UnsupportedOperationException("sIGRTMAX requires manual FFI bridge — not yet implemented")
 
-public actual fun sIGRTMIN(): Int =
+public actual fun sigRtMin(): Int =
     throw UnsupportedOperationException("sIGRTMIN requires manual FFI bridge — not yet implemented")
 
 public actual fun ioctl(fd: Int, request: Int, vararg args: Any?): Int =

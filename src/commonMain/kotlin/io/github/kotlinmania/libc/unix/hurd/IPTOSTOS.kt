@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
 
-public fun iPTOSTOS(tos: UByte): UByte = 0u
+public fun ipTosTos(tos: UByte): UByte = 0u

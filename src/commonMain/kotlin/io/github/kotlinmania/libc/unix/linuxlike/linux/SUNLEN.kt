@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
 
-public expect fun sUNLEN(s: SockaddrUn): ULong
+public expect fun sunLen(s: SockaddrUn): ULong

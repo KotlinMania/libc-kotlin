@@ -51,8 +51,8 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 // - Statfs.kt
 // - MountInfo.kt
 // - CAnonymousIfrIfru.kt
-// - CMSGDATA.kt
-// - CMSGNXTHDR.kt
+// - CmsgData.kt
+// - CmsgNextHdr.kt
 // - Gettimeofday.kt
 // - Settimeofday.kt
 // - Pledge.kt

@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
 
-public expect fun pROTMPROTECTEXTRACT(x: Int): Int
+public expect fun protMprotectExtract(x: Int): Int

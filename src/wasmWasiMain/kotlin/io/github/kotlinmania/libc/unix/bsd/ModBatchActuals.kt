@@ -4,17 +4,17 @@ package io.github.kotlinmania.libc.unix.bsd
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.internal.WasiLibcEnv
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR not available on WASI — no C library access")
 
-public actual fun fDCLR(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on WASI — no C library access")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on WASI — no C library access")
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on WASI — no C library access")
 
-public actual fun fDSET(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on WASI — no C library access")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on WASI — no C library access")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on WASI — no C library access")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on WASI — no C library access")
 
 public actual fun getrlimit(resource: Int, rlim: Rlimit?): Int =
     throw UnsupportedOperationException("getrlimit not available on WASI — no C library access")

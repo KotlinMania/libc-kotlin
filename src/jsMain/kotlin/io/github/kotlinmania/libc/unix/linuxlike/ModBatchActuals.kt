@@ -3,25 +3,25 @@ package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires N-API addon")
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires N-API addon")
 
-public actual fun fDCLR(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR requires N-API addon")
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET requires N-API addon")
 
-public actual fun fDSET(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET requires N-API addon")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO requires N-API addon")
 
-public actual fun sIGRTMAX(): Int =
+public actual fun sigRtMax(): Int =
     throw UnsupportedOperationException("sIGRTMAX requires N-API addon")
 
-public actual fun sIGRTMIN(): Int =
+public actual fun sigRtMin(): Int =
     throw UnsupportedOperationException("sIGRTMIN requires N-API addon")
 
 public actual fun ioctl(fd: Int, request: Int, vararg args: Any?): Int =

@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
 
-public fun cMSGLEN(length: UInt): UInt = 0u
+public fun cmsgLen(length: UInt): UInt = 0u

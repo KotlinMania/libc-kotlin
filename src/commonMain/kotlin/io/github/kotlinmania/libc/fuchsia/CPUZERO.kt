@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
 
-public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cpuZero(cpuset: CpuSetT?)

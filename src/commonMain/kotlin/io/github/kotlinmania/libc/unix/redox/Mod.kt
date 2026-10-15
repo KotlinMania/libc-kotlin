@@ -38,10 +38,10 @@ package io.github.kotlinmania.libc.unix.redox
 // - PthreadOnceT.kt
 // - PthreadSpinlockT.kt
 // - Constants.kt
-// - FDCLR.kt
-// - FDISSET.kt
-// - FDSETFunction.kt
-// - FDZERO.kt
+// - FdClear.kt
+// - FdIsSet.kt
+// - FdSetFunction.kt
+// - FdZero.kt
 // - ErrnoLocation.kt
 // - StrerrorR.kt
 // - Dirfd.kt
@@ -97,9 +97,9 @@ package io.github.kotlinmania.libc.unix.redox
 // - Setpriority.kt
 // - Getrlimit.kt
 // - Setrlimit.kt
-// - CMSGDATA.kt
-// - CMSGFIRSTHDR.kt
-// - CMSGNXTHDR.kt
+// - CmsgData.kt
+// - CmsgFirstHdr.kt
+// - CmsgNextHdr.kt
 // - Bind.kt
 // - Recvfrom.kt
 // - Recvmsg.kt

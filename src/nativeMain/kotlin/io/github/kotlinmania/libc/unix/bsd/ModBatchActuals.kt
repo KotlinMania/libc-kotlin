@@ -28,7 +28,7 @@ import libc.cinterop.libc_setrlimit
 import libc.cinterop.libc_shm_unlink
 import libc.cinterop.libc_srand
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? {
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? {
     if (mhdr == null) return null
     val mhdrPtr: CPointer<ByteVar>? = mhdr.handle.toCPointer() ?: return null
     val result = libc_cmsg_firsthdr(mhdrPtr) ?: return null
@@ -46,7 +46,7 @@ public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? {
     return Cmsghdr(cmsgLen, cmsgLevel, cmsgType, resultLong)
 }
 
-public actual fun fDCLR(fd: Int, set: FdSet?) {
+public actual fun fdClear(fd: Int, set: FdSet?) {
     if (set == null || fd < 0) return
     val idx = fd / 64
     val bit = fd % 64
@@ -55,7 +55,7 @@ public actual fun fDCLR(fd: Int, set: FdSet?) {
     }
 }
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean {
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean {
     if (set == null || fd < 0) return false
     val idx = fd / 64
     val bit = fd % 64
@@ -66,7 +66,7 @@ public actual fun fDISSET(fd: Int, set: FdSet?): Boolean {
     }
 }
 
-public actual fun fDSET(fd: Int, set: FdSet?) {
+public actual fun fdSet(fd: Int, set: FdSet?) {
     if (set == null || fd < 0) return
     val idx = fd / 64
     val bit = fd % 64
@@ -75,7 +75,7 @@ public actual fun fDSET(fd: Int, set: FdSet?) {
     }
 }
 
-public actual fun fDZERO(set: FdSet?) {
+public actual fun fdZero(set: FdSet?) {
     set?.fdsBits?.fill(0L)
 }
 

@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.linuxlike.android
 
 import io.github.kotlinmania.libc.*
 
-public expect fun nLAALIGN(len: Int): Int
+public expect fun nlaAlign(len: Int): Int

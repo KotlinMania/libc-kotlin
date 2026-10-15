@@ -64,12 +64,12 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 // - IocBaseCmd.kt
 // - IocGroup.kt
 // - Ioc.kt
-// - CMSGDATA.kt
-// - CMSGNXTHDR.kt
+// - CmsgData.kt
+// - CmsgNextHdr.kt
 // - Dirfd.kt
-// - SOCKCREDSIZE.kt
-// - PROTMPROTECT.kt
-// - PROTMPROTECTEXTRACT.kt
+// - SockcredSize.kt
+// - ProtMprotect.kt
+// - ProtMprotectExtract.kt
 // - ClockNanosleep.kt
 // - Reallocarr.kt
 // - Chflags.kt

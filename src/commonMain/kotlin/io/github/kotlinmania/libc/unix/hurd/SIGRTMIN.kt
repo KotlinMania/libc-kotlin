@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
 
-public expect fun sIGRTMIN(): Int
+public expect fun sigRtMin(): Int

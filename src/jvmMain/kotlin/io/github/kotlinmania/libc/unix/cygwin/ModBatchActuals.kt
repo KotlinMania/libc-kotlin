@@ -4,43 +4,43 @@ package io.github.kotlinmania.libc.unix.cygwin
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval
 
-public actual fun fDCLR(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on JVM — no C library access")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on JVM — no C library access")
 
-public actual fun fDISSET(fd: Int, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on JVM — no C library access")
 
-public actual fun fDSET(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on JVM — no C library access")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on JVM — no C library access")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on JVM — no C library access")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on JVM — no C library access")
 
-public actual fun cPUALLOCSIZE(count: Int): ULong =
+public actual fun cpuAllocSize(count: Int): ULong =
     throw UnsupportedOperationException("cPUALLOCSIZE not available on JVM — no C library access")
 
-public actual fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): Int =
+public actual fun cpuCountS(size: ULong, cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("cPUCOUNTS not available on JVM — no C library access")
 
-public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
+public actual fun cpuZero(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on JVM — no C library access")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
+public actual fun cpuSet(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET not available on JVM — no C library access")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
+public actual fun cpuClear(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on JVM — no C library access")
 
-public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
+public actual fun cpuIsSet(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on JVM — no C library access")
 
-public actual fun cPUCOUNT(cpuset: CpuSetT?): Int =
+public actual fun cpuCount(cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("cPUCOUNT not available on JVM — no C library access")
 
-public actual fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean =
+public actual fun cpuEqual(set1: CpuSetT?, set2: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUEQUAL not available on JVM — no C library access")
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR not available on JVM — no C library access")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on JVM — no C library access")
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on JVM — no C library access")
 
 public actual fun sigwait(set: ULong?, sig: Int?): Int =

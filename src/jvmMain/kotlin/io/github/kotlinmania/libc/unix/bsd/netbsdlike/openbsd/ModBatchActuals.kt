@@ -3,10 +3,10 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on JVM — no C library access")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on JVM — no C library access")
 
 public actual fun gettimeofday(tp: Timeval?, tz: Timezone?): Int =

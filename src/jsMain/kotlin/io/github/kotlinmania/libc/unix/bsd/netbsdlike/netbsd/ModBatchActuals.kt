@@ -3,22 +3,22 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires N-API addon")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires N-API addon")
 
 public actual fun dirfd(dirp: DIR?): Int =
     throw UnsupportedOperationException("dirfd requires N-API addon")
 
-public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
+public actual fun sockcredSize(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE requires N-API addon")
 
-public actual fun pROTMPROTECT(x: Int): Int =
+public actual fun protMprotect(x: Int): Int =
     throw UnsupportedOperationException("pROTMPROTECT requires N-API addon")
 
-public actual fun pROTMPROTECTEXTRACT(x: Int): Int =
+public actual fun protMprotectExtract(x: Int): Int =
     throw UnsupportedOperationException("pROTMPROTECTEXTRACT requires N-API addon")
 
 public actual fun clockNanosleep(clkId: Int, flags: Int, rqtp: Timespec?, rmtp: Timespec?): Int =

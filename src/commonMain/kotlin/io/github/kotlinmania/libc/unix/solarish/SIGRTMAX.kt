@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 
-public expect fun sIGRTMAX(): Int
+public expect fun sigRtMax(): Int

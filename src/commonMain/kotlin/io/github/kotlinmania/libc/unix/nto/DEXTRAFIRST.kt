@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
 
-public expect fun dEXTRAFIRST(d: Dirent?): DirentExtra?
+public expect fun dExtraFirst(d: Dirent?): DirentExtra?

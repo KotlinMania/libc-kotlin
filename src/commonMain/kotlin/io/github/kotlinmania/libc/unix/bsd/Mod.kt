@@ -17,11 +17,11 @@ package io.github.kotlinmania.libc.unix.bsd
 // - SockaddrUn.kt
 // - Utsname.kt
 // - Constants.kt
-// - CMSGFIRSTHDR.kt
-// - FDCLR.kt
-// - FDISSET.kt
-// - FDSETFunction.kt
-// - FDZERO.kt
+// - CmsgFirstHdr.kt
+// - FdClear.kt
+// - FdIsSet.kt
+// - FdSetFunction.kt
+// - FdZero.kt
 // - Getrlimit.kt
 // - Setrlimit.kt
 // - StrerrorR.kt

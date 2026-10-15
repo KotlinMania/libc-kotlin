@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
 
-public expect fun fDISSET(fd: Int, set: FdSet?): Boolean
+public expect fun fdIsSet(fd: Int, set: FdSet?): Boolean

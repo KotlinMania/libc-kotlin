@@ -25,10 +25,10 @@ package io.github.kotlinmania.libc.unix.newlib
 // - PthreadCondT.kt
 // - PthreadCondattrT.kt
 // - Constants.kt
-// - FDCLR.kt
-// - FDISSET.kt
-// - FDSETFunction.kt
-// - FDZERO.kt
+// - FdClear.kt
+// - FdIsSet.kt
+// - FdSetFunction.kt
+// - FdZero.kt
 // - Getrlimit.kt
 // - Setrlimit.kt
 // - StrerrorR.kt

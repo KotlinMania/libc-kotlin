@@ -3,19 +3,19 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
 
 import io.github.kotlinmania.libc.*
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on Android host — use androidNative target for FFI")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on Android host — use androidNative target for FFI")
 
-public actual fun cPUZERO(cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Unit = throw UnsupportedOperationException("cPUZERO not available on Android host — use androidNative target for FFI")
+public actual fun cpuZero(cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Unit = throw UnsupportedOperationException("cPUZERO not available on Android host — use androidNative target for FFI")
 
-public actual fun cPUSET(cpu: ULong, cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Unit = throw UnsupportedOperationException("cPUSET not available on Android host — use androidNative target for FFI")
+public actual fun cpuSet(cpu: ULong, cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Unit = throw UnsupportedOperationException("cPUSET not available on Android host — use androidNative target for FFI")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Unit = throw UnsupportedOperationException("cPUCLR not available on Android host — use androidNative target for FFI")
+public actual fun cpuClear(cpu: ULong, cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Unit = throw UnsupportedOperationException("cPUCLR not available on Android host — use androidNative target for FFI")
 
-public actual fun cPUISSET(cpu: ULong, cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Boolean =
+public actual fun cpuIsSet(cpu: ULong, cpuset: io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.CpumaskT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on Android host — use androidNative target for FFI")
 
 public actual fun errnoLocation(): Int? =

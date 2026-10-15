@@ -1213,45 +1213,45 @@ public const val NT_PRFPXREG: Int = 20
 public const val MS_NOUSER: ULong = 0xffffffff80000000uL
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
+public expect fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 
-public expect fun cPUALLOCSIZE(count: Int): ULong
+public expect fun cpuAllocSize(count: Int): ULong
 
-public expect fun cPUZERO(cpuset: CpuSetT?)
+public expect fun cpuZero(cpuset: CpuSetT?)
 
-public expect fun cPUSET(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cpuSet(cpu: ULong, cpuset: CpuSetT?)
 
-public expect fun cPUCLR(cpu: ULong, cpuset: CpuSetT?)
+public expect fun cpuClear(cpu: ULong, cpuset: CpuSetT?)
 
-public expect fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean
+public expect fun cpuIsSet(cpu: ULong, cpuset: CpuSetT?): Boolean
 
-public expect fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): Int
+public expect fun cpuCountS(size: ULong, cpuset: CpuSetT?): Int
 
-public expect fun cPUCOUNT(cpuset: CpuSetT?): Int
+public expect fun cpuCount(cpuset: CpuSetT?): Int
 
-public expect fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean
+public expect fun cpuEqual(set1: CpuSetT?, set2: CpuSetT?): Boolean
 
-public fun iPTOSTOS(tos: UByte): UByte = 0u
+public fun ipTosTos(tos: UByte): UByte = 0u
 
-public fun iPTOSPREC(tos: UByte): UByte = 0u
+public fun ipTosPrec(tos: UByte): UByte = 0u
 
-public fun rTTOS(tos: UByte): UByte = 0u
+public fun rtTos(tos: UByte): UByte = 0u
 
-public fun rTADDRCLASS(flags: UInt): UInt = 0u
+public fun rtAddrClass(flags: UInt): UInt = 0u
 
-public expect fun rTLOCALADDR(flags: UInt): Boolean
+public expect fun rtLocalAddr(flags: UInt): Boolean
 
-public fun eLF32RSYM(`val`: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
+public fun elf32RSym(`val`: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF32RTYPE(`val`: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
+public fun elf32RType(`val`: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF32RINFO(sym: UInt, t: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
+public fun elf32RInfo(sym: UInt, t: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF64RSYM(`val`: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
+public fun elf64RSym(`val`: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF64RTYPE(`val`: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
+public fun elf64RType(`val`: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun eLF64RINFO(sym: ULong, t: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
+public fun elf64RInfo(sym: ULong, t: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
 
 public expect fun iopl(level: Int): Int
 

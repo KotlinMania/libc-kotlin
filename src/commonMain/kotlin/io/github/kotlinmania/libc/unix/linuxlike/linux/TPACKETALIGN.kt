@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
 
-public expect fun tPACKETALIGN(x: ULong): ULong
+public expect fun tpacketAlign(x: ULong): ULong

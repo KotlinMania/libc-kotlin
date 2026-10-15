@@ -4,7 +4,7 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.bsd.cMSGFIRSTHDR
+import io.github.kotlinmania.libc.unix.bsd.cmsgFirstHdr
 import io.github.kotlinmania.libc.unix.getnameinfo
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
@@ -56,7 +56,7 @@ import libc.cinterop.libc_sysctl
 import libc.cinterop.libc_uname
 import libc.cinterop.libc_utimensat
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (mhdr == null) return null
     if (cmsg == null) {
         val bsdMsghdr =
@@ -70,7 +70,7 @@ public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
                 mhdr.msgFlags,
                 mhdr.handle,
             )
-        val bsdResult = cMSGFIRSTHDR(bsdMsghdr) ?: return null
+        val bsdResult = cmsgFirstHdr(bsdMsghdr) ?: return null
         return Cmsghdr(bsdResult.cmsgLen.toULong(), bsdResult.cmsgLevel, bsdResult.cmsgType, bsdResult.handle)
     }
     val mhdrPtr: CPointer<ByteVar>? = mhdr.handle.toCPointer()
@@ -91,7 +91,7 @@ public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     return Cmsghdr(cmsgLen, cmsgLevel, cmsgType, resultLong)
 }
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? {
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
     if (cmsg == null) return null
     val cmsgPtr: CPointer<ByteVar>? = cmsg.handle.toCPointer() ?: return null
     val result = libc_cmsg_data(cmsgPtr) ?: return null
@@ -853,19 +853,19 @@ public actual fun sethostid(hostid: Long): Unit = throw UnsupportedOperationExce
 public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): Int =
     libc.cinterop.libc_getentropy(buf?.value?.toCPointer<kotlinx.cinterop.ByteVar>(), buflen)
 
-public actual fun nSGetExecutablePath(buf: String?, bufsize: UInt?): Int =
+public actual fun nsGetExecutablePath(buf: String?, bufsize: UInt?): Int =
     throw UnsupportedOperationException("nSGetExecutablePath requires manual FFI bridge — not yet implemented")
 
-public actual fun nSGetArgv(): COpaquePointer? =
+public actual fun nsGetArgv(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetArgv requires manual FFI bridge — not yet implemented")
 
-public actual fun nSGetArgc(): Int? =
+public actual fun nsGetArgc(): Int? =
     throw UnsupportedOperationException("nSGetArgc requires manual FFI bridge — not yet implemented")
 
-public actual fun nSGetEnviron(): COpaquePointer? =
+public actual fun nsGetEnviron(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetEnviron requires manual FFI bridge — not yet implemented")
 
-public actual fun nSGetProgname(): COpaquePointer? =
+public actual fun nsGetProgname(): COpaquePointer? =
     throw UnsupportedOperationException("nSGetProgname requires manual FFI bridge — not yet implemented")
 
 public actual fun machVmMap(targetTask: UInt, address: ULong?, size: ULong, mask: ULong, flags: Int, `object`: UInt, offset: ULong, copy: Int, curProtection: Int, maxProtection: Int, inheritance: UInt): Int =

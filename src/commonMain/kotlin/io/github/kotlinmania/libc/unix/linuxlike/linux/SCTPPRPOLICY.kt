@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
 
-public expect fun sCTPPRPOLICY(policy: Int): Int
+public expect fun sctpPrPolicy(policy: Int): Int

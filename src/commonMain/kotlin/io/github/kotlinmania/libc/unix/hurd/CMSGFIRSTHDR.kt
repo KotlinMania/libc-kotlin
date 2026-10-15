@@ -4,4 +4,4 @@ package io.github.kotlinmania.libc.unix.hurd
 import io.github.kotlinmania.libc.*
 
 // Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
-public expect fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr?
+public expect fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr?

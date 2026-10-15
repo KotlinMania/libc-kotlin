@@ -19,16 +19,16 @@ import libc.cinterop.libc_getpagesize
 import libc.cinterop.libc_shmdt
 import libc.cinterop.libc_uname
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA requires manual FFI bridge — not yet implemented")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires manual FFI bridge — not yet implemented")
 
-public actual fun mALLOCXALIGN(lg: UInt): Int =
+public actual fun mallocxAlign(lg: UInt): Int =
     throw UnsupportedOperationException("mALLOCXALIGN requires manual FFI bridge — not yet implemented")
 
-public actual fun sOCKCREDSIZE(ngrps: ULong): ULong =
+public actual fun sockcredSize(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCREDSIZE requires manual FFI bridge — not yet implemented")
 
 public actual fun uname(buf: Utsname?): Int {
@@ -38,27 +38,27 @@ public actual fun uname(buf: Utsname?): Int {
     return result
 }
 
-public actual fun cPUZERO(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUZERO requires manual FFI bridge — not yet implemented")
+public actual fun cpuZero(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUZERO requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUFILL(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUFILL requires manual FFI bridge — not yet implemented")
+public actual fun cpuFill(cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUFILL requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUSET requires manual FFI bridge — not yet implemented")
+public actual fun cpuSet(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUSET requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUCLR requires manual FFI bridge — not yet implemented")
+public actual fun cpuClear(cpu: ULong, cpuset: CpusetT?): Unit = throw UnsupportedOperationException("cPUCLR requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUISSET(cpu: ULong, cpuset: CpusetT?): Boolean =
+public actual fun cpuIsSet(cpu: ULong, cpuset: CpusetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET requires manual FFI bridge — not yet implemented")
 
-public actual fun cPUCOUNT(cpuset: CpusetT?): Int =
+public actual fun cpuCount(cpuset: CpusetT?): Int =
     throw UnsupportedOperationException("cPUCOUNT requires manual FFI bridge — not yet implemented")
 
-public actual fun sOCKCRED2SIZE(ngrps: ULong): ULong =
+public actual fun sockcred2Size(ngrps: ULong): ULong =
     throw UnsupportedOperationException("sOCKCRED2SIZE requires manual FFI bridge — not yet implemented")
 
-public actual fun pROTMAX(x: Int): Int =
+public actual fun protMax(x: Int): Int =
     throw UnsupportedOperationException("pROTMAX requires manual FFI bridge — not yet implemented")
 
-public actual fun pROTMAXEXTRACT(x: Int): Int =
+public actual fun protMaxExtract(x: Int): Int =
     throw UnsupportedOperationException("pROTMAXEXTRACT requires manual FFI bridge — not yet implemented")
 
 public actual fun fhlink(fhp: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Fhandle?, to: String?): Int =

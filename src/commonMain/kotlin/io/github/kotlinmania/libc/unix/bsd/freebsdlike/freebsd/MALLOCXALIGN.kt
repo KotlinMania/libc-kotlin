@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
 
-public expect fun mALLOCXALIGN(lg: UInt): Int
+public expect fun mallocxAlign(lg: UInt): Int

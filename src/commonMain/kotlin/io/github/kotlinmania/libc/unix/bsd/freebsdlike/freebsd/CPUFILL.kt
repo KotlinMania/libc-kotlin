@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
 
-public expect fun cPUFILL(cpuset: CpusetT?)
+public expect fun cpuFill(cpuset: CpusetT?)

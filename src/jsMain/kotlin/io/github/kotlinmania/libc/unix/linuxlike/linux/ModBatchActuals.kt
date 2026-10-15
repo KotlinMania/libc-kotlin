@@ -3,21 +3,21 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
 
-public actual fun sCTPPRINDEX(policy: Int): Int =
+public actual fun sctpPrIndex(policy: Int): Int =
     throw UnsupportedOperationException("sCTPPRINDEX requires N-API addon")
 
-public actual fun sCTPPRPOLICY(policy: Int): Int =
+public actual fun sctpPrPolicy(policy: Int): Int =
     throw UnsupportedOperationException("sCTPPRPOLICY requires N-API addon")
 
-public actual fun sCTPPRSETPOLICY(flags: Int?, policy: Int): Unit = throw UnsupportedOperationException("sCTPPRSETPOLICY requires N-API addon")
+public actual fun sctpPrSetPolicy(flags: Int?, policy: Int): Unit = throw UnsupportedOperationException("sCTPPRSETPOLICY requires N-API addon")
 
-public actual fun sOEEOFFENDER(ee: SockExtendedErr?): Sockaddr? =
+public actual fun soEeOffender(ee: SockExtendedErr?): Sockaddr? =
     throw UnsupportedOperationException("sOEEOFFENDER requires N-API addon")
 
-public actual fun tPACKETALIGN(x: ULong): ULong =
+public actual fun tpacketAlign(x: ULong): ULong =
     throw UnsupportedOperationException("tPACKETALIGN requires N-API addon")
 
-public actual fun sUNLEN(s: SockaddrUn): ULong =
+public actual fun sunLen(s: SockaddrUn): ULong =
     throw UnsupportedOperationException("sUNLEN requires N-API addon")
 
 public actual fun getspnamR(name: String?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): Int =
