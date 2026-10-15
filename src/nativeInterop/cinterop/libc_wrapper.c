@@ -41,6 +41,7 @@ int getentropy(void*, uint64_t);
 #include <windows.h>
 #include <io.h>
 #include <fcntl.h>
+#include <pthread.h>
 #endif
 
 /* Feature test macros for POSIX extensions (pthread_condattr_setclock, sched_*, etc.) */
@@ -2656,6 +2657,52 @@ uint32_t libc_mach_task_self(void) {
     return 0;
 #endif
 }
+
+#ifdef _WIN32
+int libc_pthread_cancel(void* thread) {
+    return pthread_cancel((pthread_t)(uintptr_t)thread);
+}
+
+int libc_pthread_kill(void* thread, int sig) {
+    return pthread_kill((pthread_t)(uintptr_t)thread, sig);
+}
+
+int libc_pthread_spin_destroy(void* lock) {
+    return pthread_spin_destroy((pthread_spinlock_t*)lock);
+}
+
+int libc_pthread_spin_init(void* lock, int pshared) {
+    return pthread_spin_init((pthread_spinlock_t*)lock, pshared);
+}
+
+int libc_pthread_spin_lock(void* lock) {
+    return pthread_spin_lock((pthread_spinlock_t*)lock);
+}
+
+int libc_pthread_spin_trylock(void* lock) {
+    return pthread_spin_trylock((pthread_spinlock_t*)lock);
+}
+
+int libc_pthread_spin_unlock(void* lock) {
+    return pthread_spin_unlock((pthread_spinlock_t*)lock);
+}
+
+int libc_pthread_barrier_destroy(void* barrier) {
+    return pthread_barrier_destroy((pthread_barrier_t*)barrier);
+}
+
+int libc_pthread_barrier_wait(void* barrier) {
+    return pthread_barrier_wait((pthread_barrier_t*)barrier);
+}
+
+int libc_pthread_barrierattr_destroy(void* attr) {
+    return pthread_barrierattr_destroy((pthread_barrierattr_t*)attr);
+}
+
+int libc_pthread_barrierattr_init(void* attr) {
+    return pthread_barrierattr_init((pthread_barrierattr_t*)attr);
+}
+#endif
 
 static void libc_ensure_wsa(void) {
 #ifdef _WIN32
