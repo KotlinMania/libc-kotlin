@@ -15,7 +15,7 @@ import libc.cinterop.libc_dlsym as lookupSymbol
 // (docs/bionic-libc-pthread-api35-arm64.txt). The bucket classification
 // from ANDROID.md is updated based on real exported symbols:
 //
-// Bucket 1 (direct platform.posix delegation): pthread_kill.
+// Bucket 1 (owned C wrapper): pthread_kill.
 // Bucket 2 (in bionic but not in K/N's posix.def — resolved via dlsym):
 //   pthread_setschedprio    LIBC_P (API 28+)
 //   pthread_spin_*          LIBC_N (API 24+)   — was wrongly Bucket 3

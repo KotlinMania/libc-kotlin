@@ -7,7 +7,7 @@ package io.github.kotlinmania.libc.new.common.posix.pthread
  * <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html>
  *
  * Every declaration is mirrored as `expect`; per-target actuals are a single
- * edge call into the platform mechanism (`platform.posix` cinterop on K/N,
+ * edge call into the platform mechanism (owned C bindings on K/N,
  * JNI on the JVM and Android, an N-API addon on Node, a Web Workers +
  * SharedArrayBuffer shim in the browser, the wasi-threads import on WASI).
  */

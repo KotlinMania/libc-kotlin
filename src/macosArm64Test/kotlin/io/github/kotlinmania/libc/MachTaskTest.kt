@@ -11,6 +11,6 @@ class MachTaskTest {
     @Test
     fun returnsCurrentKernelTaskPort() {
         assertNotEquals(0u, machTaskSelf())
-        assertEquals(platform.darwin.mach_task_self_, machTaskSelf())
+        assertEquals(libc.cinterop.libc_mach_task_self(), machTaskSelf())
     }
 }

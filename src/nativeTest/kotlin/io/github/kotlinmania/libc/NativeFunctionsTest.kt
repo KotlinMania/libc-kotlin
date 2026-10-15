@@ -26,10 +26,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
- * Native tests exercising real C library calls via platform.posix.
- * Memory/CMSG functions require per-platform actuals (size_t width differs
- * across 32-bit and 64-bit native targets), so they throw on shared nativeMain.
- * The ctype/string/env functions use CInt params and work on all targets.
+ * Native tests exercising real C library calls through the owned C bindings.
  */
 class NativeFunctionsTest {
     @Test
