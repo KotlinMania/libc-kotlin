@@ -1862,6 +1862,72 @@ int libc_poll(void* fds, uint32_t nfds, int timeout) {
     return WSAPoll((WSAPOLLFD*)fds, (ULONG)nfds, timeout);
 #endif
 }
+
+int libc_poll_descriptors(libc_poll_descriptor* fds, uint32_t nfds, int timeout) {
+    if (nfds == 0) return libc_poll(NULL, 0, timeout);
+    if (!fds) { errno = EFAULT; return -1; }
+#ifndef _WIN32
+    typedef struct pollfd host_pollfd;
+#else
+    typedef WSAPOLLFD host_pollfd;
+#endif
+    if (SIZE_MAX / nfds < sizeof(host_pollfd)) { errno = EINVAL; return -1; }
+    host_pollfd* native = calloc(nfds, sizeof(host_pollfd));
+    if (!native) { errno = ENOMEM; return -1; }
+    for (uint32_t i = 0; i < nfds; ++i) {
+        native[i].fd = fds[i].fd;
+        native[i].events = fds[i].events;
+    }
+    int result = libc_poll(native, nfds, timeout);
+    int saved_errno = errno;
+    for (uint32_t i = 0; i < nfds; ++i) fds[i].revents = native[i].revents;
+    free(native);
+    errno = saved_errno;
+    return result;
+}
+
+int libc_select_timeout(int nfds, void* readfds, void* writefds, void* exceptfds,
+                        int has_timeout, int64_t seconds, int64_t microseconds) {
+    struct timeval timeout;
+    if (has_timeout) {
+        if (seconds < 0 || microseconds < 0 || microseconds >= 1000000) {
+            errno = EINVAL;
+            return -1;
+        }
+        timeout.tv_sec = seconds;
+        timeout.tv_usec = microseconds;
+        if ((int64_t)timeout.tv_sec != seconds) { errno = EOVERFLOW; return -1; }
+    }
+    return libc_select(nfds, readfds, writefds, exceptfds, has_timeout ? &timeout : NULL);
+}
+
+int libc_fd_setsize(void) { return FD_SETSIZE; }
+
+#ifndef _WIN32
+const libc_descriptor_constants* libc_get_descriptor_constants(void) {
+    static const libc_descriptor_constants values = {
+        F_GETFD, F_SETFD, F_GETFL, F_SETFL, FD_CLOEXEC, O_NONBLOCK,
+        AF_UNIX, SOCK_STREAM, EINTR, EBADF, SIGUSR1, EINVAL, F_DUPFD_CLOEXEC, FIONBIO,
+#ifdef __linux__
+        O_CLOEXEC, SOCK_CLOEXEC
+#else
+        0, 0
+#endif
+    };
+    return &values;
+}
+
+int libc_fcntl_noarg(int fd, int command) { return fcntl(fd, command); }
+int libc_fcntl_int(int fd, int command, int argument) { return fcntl(fd, command, argument); }
+int libc_fcntl_pointer(int fd, int command, void* argument) { return fcntl(fd, command, argument); }
+void* libc_pthread_self(void) { return (void*)pthread_self(); }
+libc_signal_handler libc_signal(int number, libc_signal_handler handler) { return signal(number, handler); }
+#ifdef __linux__
+int libc_pipe2(int* fds, int flags) { return pipe2(fds, flags); }
+int libc_dup3(int oldfd, int newfd, int flags) { return dup3(oldfd, newfd, flags); }
+#endif
+#endif
+
 const char* libc_hstrerror(int errcode) {
 #if !defined(_WIN32) && !defined(__ANDROID__)
     return hstrerror(errcode);

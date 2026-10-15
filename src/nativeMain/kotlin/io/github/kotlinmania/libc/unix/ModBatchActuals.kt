@@ -834,9 +834,6 @@ public actual fun open(path: String?, oflag: CInt, vararg args: Any?): CInt =
 public actual fun creat(path: String?, mode: ModeT): CInt =
     libc.cinterop.libc_creat(path, mode)
 
-public actual fun fcntl(fd: CInt, cmd: CInt, vararg args: Any?): CInt =
-    throw UnsupportedOperationException("fcntl requires manual FFI bridge — not yet implemented")
-
 public actual fun opendir(dirname: String?): DIR? =
     throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
 
@@ -1450,13 +1447,10 @@ public actual fun putenv(string: String?): CInt =
     libc.cinterop.libc_putenv(string)
 
 public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
-    if (fds == null || nfds == 0u) {
-        return libc.cinterop.libc_poll(null, 0u, timeout)
+    require(nfds <= 1u && (nfds == 0u || fds != null)) {
+        "Use the array overload when polling multiple descriptors"
     }
-    return memScoped {
-        val revents = alloc<ShortVar>()
-        libc.cinterop.libc_poll_single(fds.fd, fds.events, revents.ptr, timeout)
-    }
+    return poll(if (nfds == 0u) emptyArray() else arrayOf(requireNotNull(fds)), timeout)
 }
 
 public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt =
@@ -1495,17 +1489,17 @@ public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds
                     }
                 }
             }
-            val tv =
-                if (timeout != null) {
-                    val t = allocArray<LongVar>(2)
-                    t[0] = timeout.tvSec
-                    t[1] = timeout.tvUsec
-                    t
-                } else {
-                    null
-                }
-            val ret = libc.cinterop.libc_select(nfds, rset, wset, eset, tv)
-            if (ret > 0) {
+            val ret =
+                libc.cinterop.libc_select_timeout(
+                    nfds,
+                    rset,
+                    wset,
+                    eset,
+                    if (timeout == null) 0 else 1,
+                    timeout?.tvSec ?: 0L,
+                    timeout?.tvUsec ?: 0L,
+                )
+            if (ret >= 0) {
                 if (readfds != null && rset != null) {
                     for (fd in 0 until nfds) {
                         val idx = fd / 64

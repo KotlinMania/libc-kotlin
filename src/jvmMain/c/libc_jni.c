@@ -361,7 +361,12 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_poll(
     JNIEnv* env, jclass clazz, jintArray fds, jshortArray events, jshortArray revents, jint nfds, jint timeout) {
     (void)clazz;
 #ifndef _WIN32
-    if (nfds <= 0 || !fds || !events || !revents) return -1;
+    if (nfds < 0) { errno = EINVAL; return -1; }
+    if (nfds == 0) return poll(NULL, 0, timeout);
+    if (!fds || !events || !revents) { errno = EFAULT; return -1; }
+    if ((*env)->GetArrayLength(env, fds) < nfds ||
+        (*env)->GetArrayLength(env, events) < nfds ||
+        (*env)->GetArrayLength(env, revents) < nfds) { errno = EINVAL; return -1; }
     struct pollfd* pfds = (struct pollfd*)malloc(sizeof(struct pollfd) * nfds);
     if (!pfds) return -1;
 

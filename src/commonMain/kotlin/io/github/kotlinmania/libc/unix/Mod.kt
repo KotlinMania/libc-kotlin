@@ -93,7 +93,7 @@ public data class Iovec(
 public data class Pollfd(
     val fd: CInt,
     val events: CShort,
-    val revents: CShort,
+    var revents: CShort,
 )
 
 public data class Winsize(
