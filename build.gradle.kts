@@ -392,7 +392,18 @@ val jvmToolchainVersion = providers.gradleProperty("jvm.toolchain").getOrElse("2
 kotlin {
     jvmToolchain(jvmToolchainVersion)
 
-    applyDefaultHierarchyTemplate()
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+    applyDefaultHierarchyTemplate {
+        common {
+            group("native") {
+                group("posix") {
+                    group("apple") { withApple() }
+                    group("linux") { withLinux() }
+                    group("androidNative") { withAndroidNative() }
+                }
+            }
+        }
+    }
 
     compilerOptions {
         languageVersion.set(KotlinVersion.KOTLIN_2_4)
@@ -941,6 +952,8 @@ rootProject.extensions.configure<WasmYarnRootEnvSpec>("kotlinWasmYarnSpec") {
 }
 
 rootProject.extensions.configure<YarnRootExtension>("kotlinYarn") {
+    yarnLockMismatchReportProperty.set(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport.WARNING)
+    yarnLockAutoReplaceProperty.set(true)
     providers
         .gradlePropertiesPrefixedBy("yarn.resolution.")
         .getOrElse(emptyMap())
@@ -1574,7 +1587,9 @@ val fullTargetBuildTaskNames =
                 "jvmMainClasses",
                 "jvmTestClasses",
                 "kotlinUpgradeYarnLock",
+                "kotlinStoreYarnLock",
                 "kotlinWasmUpgradeYarnLock",
+                "kotlinWasmStoreYarnLock",
                 "jsMainClasses",
                 "jsTestClasses",
                 "wasmJsMainClasses",

@@ -929,11 +929,15 @@ public actual fun putenv(string: String?): CInt =
     if (string == null) -1 else LibcJni.putenv(string)
 
 public actual fun poll(fds: Pollfd?, nfds: NfdsT, timeout: CInt): CInt {
-    if (fds == null || nfds == 0u) return 0
-    val fdArr = intArrayOf(fds.fd)
-    val evArr = shortArrayOf(fds.events)
-    val revArr = shortArrayOf(0)
-    return LibcJni.poll(fdArr, evArr, revArr, 1, timeout)
+    require(nfds <= 1u && (nfds == 0u || fds != null)) {
+        "The single-descriptor overload accepts at most one descriptor"
+    }
+    val fdArr = if (nfds == 0u) intArrayOf() else intArrayOf(requireNotNull(fds).fd)
+    val evArr = if (nfds == 0u) shortArrayOf() else shortArrayOf(requireNotNull(fds).events)
+    val revArr = ShortArray(nfds.toInt())
+    val result = LibcJni.poll(fdArr, evArr, revArr, nfds.toInt(), timeout)
+    if (nfds != 0u) requireNotNull(fds).revents = revArr[0]
+    return result
 }
 
 public actual fun select(nfds: CInt, readfds: FdSet?, writefds: FdSet?, errorfds: FdSet?, timeout: Timeval?): CInt {

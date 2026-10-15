@@ -535,6 +535,38 @@ int libc_mknod(const char* pathname, uint32_t mode, uint64_t dev);
 const char* libc_strsignal(int sig);
 int libc_pipe(int* fds);
 int libc_poll(void* fds, uint32_t nfds, int timeout);
+
+/* Fixed-width marshaling for the upstream poll API. The host owns its ABI. */
+typedef struct libc_poll_descriptor {
+    int fd;
+    short events;
+    short revents;
+} libc_poll_descriptor;
+int libc_poll_descriptors(libc_poll_descriptor* fds, uint32_t nfds, int timeout);
+int libc_select_timeout(int nfds, void* readfds, void* writefds, void* exceptfds,
+                        int has_timeout, int64_t seconds, int64_t microseconds);
+int libc_fd_setsize(void);
+
+#ifndef _WIN32
+/* Values come from the target headers, not a presumed Linux/Darwin layout. */
+typedef struct libc_descriptor_constants {
+    int f_getfd, f_setfd, f_getfl, f_setfl, fd_cloexec, o_nonblock;
+    int af_unix, sock_stream, eintr, ebadf, sigusr1, einval, f_dupfd_cloexec;
+    uint64_t fionbio;
+    int o_cloexec, sock_cloexec;
+} libc_descriptor_constants;
+const libc_descriptor_constants* libc_get_descriptor_constants(void);
+int libc_fcntl_noarg(int fd, int command);
+int libc_fcntl_int(int fd, int command, int argument);
+int libc_fcntl_pointer(int fd, int command, void* argument);
+void* libc_pthread_self(void);
+typedef void (*libc_signal_handler)(int);
+libc_signal_handler libc_signal(int number, libc_signal_handler handler);
+#ifdef __linux__
+int libc_pipe2(int* fds, int flags);
+int libc_dup3(int oldfd, int newfd, int flags);
+#endif
+#endif
 const char* libc_hstrerror(int errcode);
 
 
