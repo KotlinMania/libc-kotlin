@@ -15,7 +15,7 @@ import libc.cinterop.libc_tcflow
 import libc.cinterop.libc_tcflush
 
 // Fuchsia signals match Linux definitions; translate Linux -> Darwin host signals.
-private fun fuchsiaToDarwinSignal(sig: CInt): CInt =
+private fun fuchsiaToDarwinSignal(sig: Int): Int =
     when (sig) {
         7 -> 10 // SIGBUS: Fuchsia=7, Darwin=10
         10 -> 30 // SIGUSR1: Fuchsia=10, Darwin=30
@@ -31,7 +31,7 @@ private fun fuchsiaToDarwinSignal(sig: CInt): CInt =
     }
 
 // Fuchsia address families match Linux; translate differing constants to Darwin.
-private fun fuchsiaToDarwinDomain(domain: CInt): CInt =
+private fun fuchsiaToDarwinDomain(domain: Int): Int =
     when (domain) {
         10 -> 30 // AF_INET6: Fuchsia(Linux)=10, Darwin=30
         4 -> 23 // AF_IPX: Fuchsia=4, Darwin=23
@@ -40,7 +40,7 @@ private fun fuchsiaToDarwinDomain(domain: CInt): CInt =
         else -> domain
     }
 
-private fun fuchsiaToDarwinMsyncFlags(flags: CInt): CInt {
+private fun fuchsiaToDarwinMsyncFlags(flags: Int): Int {
     var hostFlags = 0
     if ((flags and 1) != 0) hostFlags = hostFlags or 1 // MS_ASYNC: Fuchsia=1, Darwin=1
     if ((flags and 2) != 0) hostFlags = hostFlags or 2 // MS_INVALIDATE: Fuchsia=2, Darwin=2
@@ -48,13 +48,13 @@ private fun fuchsiaToDarwinMsyncFlags(flags: CInt): CInt {
     return hostFlags
 }
 
-private fun fuchsiaToDarwinMadvise(advice: CInt): CInt =
+private fun fuchsiaToDarwinMadvise(advice: Int): Int =
     when (advice) {
         8 -> 5 // MADV_FREE: Fuchsia(Linux)=8, Darwin=5 (Darwin 8 is MADV_FREE_REUSE)
         else -> advice
     }
 
-private fun fuchsiaToDarwinAction(action: CInt): CInt =
+private fun fuchsiaToDarwinAction(action: Int): Int =
     when (action) {
         0 -> 1 // TCIFLUSH / TCOOFF: Fuchsia=0, Darwin=1
         1 -> 2 // TCOFLUSH / TCOON: Fuchsia=1, Darwin=2
@@ -63,23 +63,23 @@ private fun fuchsiaToDarwinAction(action: CInt): CInt =
         else -> action
     }
 
-public actual fun kill(pid: PidT, sig: CInt): CInt =
+public actual fun kill(pid: Int, sig: Int): Int =
     libc.cinterop.libc_kill(pid, fuchsiaToDarwinSignal(sig))
 
-public actual fun raise(signum: CInt): CInt =
+public actual fun raise(signum: Int): Int =
     libc.cinterop.libc_raise(fuchsiaToDarwinSignal(signum))
 
-public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
+public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
     libc.cinterop.libc_socket(fuchsiaToDarwinDomain(domain), ty and 0xF, protocol)
 
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
+public actual fun msync(addr: COpaquePointer?, len: ULong, flags: Int): Int =
     libc.cinterop.libc_msync(addr?.value?.toCPointer<ByteVar>(), len, fuchsiaToDarwinMsyncFlags(flags))
 
-public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: Int): Int =
     libc.cinterop.libc_madvise(addr?.value?.toCPointer<ByteVar>(), len, fuchsiaToDarwinMadvise(advice))
 
-public actual fun tcflow(fd: CInt, action: CInt): CInt =
+public actual fun tcflow(fd: Int, action: Int): Int =
     libc.cinterop.libc_tcflow(fd, fuchsiaToDarwinAction(action))
 
-public actual fun tcflush(fd: CInt, action: CInt): CInt =
+public actual fun tcflush(fd: Int, action: Int): Int =
     libc.cinterop.libc_tcflush(fd, fuchsiaToDarwinAction(action))

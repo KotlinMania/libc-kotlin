@@ -1,0 +1,39 @@
+// port-lint: source unix/linux_like/linux/gnu/b64/riscv64/mod.rs
+package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.riscv64
+
+import io.github.kotlinmania.libc.*
+
+public data class UserRegsStruct(
+    val pc: ULong,
+    val ra: ULong,
+    val sp: ULong,
+    val gp: ULong,
+    val tp: ULong,
+    val t0: ULong,
+    val t1: ULong,
+    val t2: ULong,
+    val s0: ULong,
+    val s1: ULong,
+    val a0: ULong,
+    val a1: ULong,
+    val a2: ULong,
+    val a3: ULong,
+    val a4: ULong,
+    val a5: ULong,
+    val a6: ULong,
+    val a7: ULong,
+    val s2: ULong,
+    val s3: ULong,
+    val s4: ULong,
+    val s5: ULong,
+    val s6: ULong,
+    val s7: ULong,
+    val s8: ULong,
+    val s9: ULong,
+    val s10: ULong,
+    val s11: ULong,
+    val t3: ULong,
+    val t4: ULong,
+    val t5: ULong,
+    val t6: ULong,
+)

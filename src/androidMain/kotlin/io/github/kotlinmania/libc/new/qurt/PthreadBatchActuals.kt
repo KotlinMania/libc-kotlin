@@ -3,113 +3,113 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 
-public actual fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt =
+public actual fun pthreadJoin(thread: UInt, retval: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadJoin not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadDetach(thread: PthreadT): CInt =
+public actual fun pthreadDetach(thread: UInt): Int =
     throw UnsupportedOperationException("pthreadDetach not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
+public actual fun pthreadEqual(t1: UInt, t2: UInt): Int =
     throw UnsupportedOperationException("pthreadEqual not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrInit(attr: PthreadAttrT?): CInt =
+public actual fun pthreadAttrInit(attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadAttrInit not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrDestroy(attr: PthreadAttrT?): CInt =
+public actual fun pthreadAttrDestroy(attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadAttrDestroy not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrSetstacksize(attr: PthreadAttrT?, stacksize: ULong): CInt =
+public actual fun pthreadAttrSetstacksize(attr: UInt?, stacksize: ULong): Int =
     throw UnsupportedOperationException("pthreadAttrSetstacksize not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrGetstacksize(attr: PthreadAttrT?, stacksize: ULong?): CInt =
+public actual fun pthreadAttrGetstacksize(attr: UInt?, stacksize: ULong?): Int =
     throw UnsupportedOperationException("pthreadAttrGetstacksize not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrSetdetachstate(attr: PthreadAttrT?, detachstate: CInt): CInt =
+public actual fun pthreadAttrSetdetachstate(attr: UInt?, detachstate: Int): Int =
     throw UnsupportedOperationException("pthreadAttrSetdetachstate not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrGetdetachstate(attr: PthreadAttrT?, detachstate: CInt?): CInt =
+public actual fun pthreadAttrGetdetachstate(attr: UInt?, detachstate: Int?): Int =
     throw UnsupportedOperationException("pthreadAttrGetdetachstate not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexInit(mutex: PthreadMutexT?, attr: PthreadMutexattrT?): CInt =
+public actual fun pthreadMutexInit(mutex: UInt?, attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadMutexInit not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexDestroy(mutex: PthreadMutexT?): CInt =
+public actual fun pthreadMutexDestroy(mutex: UInt?): Int =
     throw UnsupportedOperationException("pthreadMutexDestroy not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexLock(mutex: PthreadMutexT?): CInt =
+public actual fun pthreadMutexLock(mutex: UInt?): Int =
     throw UnsupportedOperationException("pthreadMutexLock not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexTrylock(mutex: PthreadMutexT?): CInt =
+public actual fun pthreadMutexTrylock(mutex: UInt?): Int =
     throw UnsupportedOperationException("pthreadMutexTrylock not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexUnlock(mutex: PthreadMutexT?): CInt =
+public actual fun pthreadMutexUnlock(mutex: UInt?): Int =
     throw UnsupportedOperationException("pthreadMutexUnlock not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexattrInit(attr: PthreadMutexattrT?): CInt =
+public actual fun pthreadMutexattrInit(attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadMutexattrInit not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexattrDestroy(attr: PthreadMutexattrT?): CInt =
+public actual fun pthreadMutexattrDestroy(attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadMutexattrDestroy not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexattrSettype(attr: PthreadMutexattrT?, kind: CInt): CInt =
+public actual fun pthreadMutexattrSettype(attr: UInt?, kind: Int): Int =
     throw UnsupportedOperationException("pthreadMutexattrSettype not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadMutexattrGettype(attr: PthreadMutexattrT?, kind: CInt?): CInt =
+public actual fun pthreadMutexattrGettype(attr: UInt?, kind: Int?): Int =
     throw UnsupportedOperationException("pthreadMutexattrGettype not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondInit(cond: PthreadCondT?, attr: PthreadCondattrT?): CInt =
+public actual fun pthreadCondInit(cond: UInt?, attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadCondInit not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondDestroy(cond: PthreadCondT?): CInt =
+public actual fun pthreadCondDestroy(cond: UInt?): Int =
     throw UnsupportedOperationException("pthreadCondDestroy not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondWait(cond: PthreadCondT?, mutex: PthreadMutexT?): CInt =
+public actual fun pthreadCondWait(cond: UInt?, mutex: UInt?): Int =
     throw UnsupportedOperationException("pthreadCondWait not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondTimedwait(cond: PthreadCondT?, mutex: PthreadMutexT?, abstime: Timespec?): CInt =
+public actual fun pthreadCondTimedwait(cond: UInt?, mutex: UInt?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("pthreadCondTimedwait not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondSignal(cond: PthreadCondT?): CInt =
+public actual fun pthreadCondSignal(cond: UInt?): Int =
     throw UnsupportedOperationException("pthreadCondSignal not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondBroadcast(cond: PthreadCondT?): CInt =
+public actual fun pthreadCondBroadcast(cond: UInt?): Int =
     throw UnsupportedOperationException("pthreadCondBroadcast not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondattrInit(attr: PthreadCondattrT?): CInt =
+public actual fun pthreadCondattrInit(attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadCondattrInit not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondattrDestroy(attr: PthreadCondattrT?): CInt =
+public actual fun pthreadCondattrDestroy(attr: UInt?): Int =
     throw UnsupportedOperationException("pthreadCondattrDestroy not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT?, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: UInt?, clockId: Int): Int =
     throw UnsupportedOperationException("pthreadCondattrSetclock not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
+public actual fun pthreadKeyDelete(key: Int): Int =
     throw UnsupportedOperationException("pthreadKeyDelete not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
+public actual fun pthreadGetspecific(key: Int): COpaquePointer? =
     throw UnsupportedOperationException("pthreadGetspecific not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
+public actual fun pthreadSetspecific(key: Int, value: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadSetspecific not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt =
+public actual fun pthreadGetnameNp(thread: UInt, name: String?, len: ULong): Int =
     throw UnsupportedOperationException("pthreadGetnameNp not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrSetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
+public actual fun pthreadAttrSetaffinityNp(attr: UInt?, cpusetsize: ULong, cpuset: ULong?): Int =
     throw UnsupportedOperationException("pthreadAttrSetaffinityNp not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadAttrGetaffinityNp(attr: PthreadAttrT?, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
+public actual fun pthreadAttrGetaffinityNp(attr: UInt?, cpusetsize: ULong, cpuset: ULong?): Int =
     throw UnsupportedOperationException("pthreadAttrGetaffinityNp not available on Android host — use androidNative target for FFI")
 
-public actual fun posixMemalign(memptr: COpaquePointer?, alignment: ULong, size: ULong): CInt =
+public actual fun posixMemalign(memptr: COpaquePointer?, alignment: ULong, size: ULong): Int =
     throw UnsupportedOperationException("posixMemalign not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadCreate(thread: PthreadT?, attr: PthreadAttrT?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: UInt?, attr: UInt?, startRoutine: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadCreate not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadKeyCreate(key: PthreadKeyT?, destructor: ((COpaquePointer?) -> Unit)?): CInt =
+public actual fun pthreadKeyCreate(key: Int?, destructor: ((COpaquePointer?) -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadKeyCreate not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadOnce(onceControl: PthreadOnceT?, initRoutine: (() -> Unit)?): CInt =
+public actual fun pthreadOnce(onceControl: Int?, initRoutine: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadOnce not available on Android host — use androidNative target for FFI")

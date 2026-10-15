@@ -3,23 +3,18 @@ package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
 
-public typealias SaFamilyT = CUShort
-public typealias InPortT = CUShort
-public typealias InAddrT = CUInt
-public typealias SocklenT = CUInt
-
 public data class Sockaddr(
-    val saFamily: SaFamilyT,
+    val saFamily: UShort,
     val saData: ByteArray,
 )
 
 public data class InAddr(
-    val sAddr: InAddrT,
+    val sAddr: UInt,
 )
 
 public data class SockaddrIn(
-    val sinFamily: SaFamilyT,
-    val sinPort: InPortT,
+    val sinFamily: UShort,
+    val sinPort: UShort,
     val sinAddr: InAddr,
 )
 
@@ -28,24 +23,24 @@ public data class In6Addr(
 )
 
 public data class SockaddrIn6(
-    val sin6Family: SaFamilyT,
-    val sin6Port: InPortT,
-    val sin6Flowinfo: CUInt,
+    val sin6Family: UShort,
+    val sin6Port: UShort,
+    val sin6Flowinfo: UInt,
     val sin6Addr: In6Addr,
-    val sin6ScopeId: CUInt,
+    val sin6ScopeId: UInt,
 )
 
 public data class SockaddrStorage(
-    val ssFamily: SaFamilyT,
+    val ssFamily: UShort,
     val ssData: ByteArray,
 )
 
 public data class Addrinfo(
-    val aiFlags: CInt,
-    val aiFamily: CInt,
-    val aiSocktype: CInt,
-    val aiProtocol: CInt,
-    val aiAddrlen: SocklenT,
+    val aiFlags: Int,
+    val aiFamily: Int,
+    val aiSocktype: Int,
+    val aiProtocol: Int,
+    val aiAddrlen: UInt,
     val aiAddr: Sockaddr?,
     val aiCanonname: String?,
     val aiNext: Addrinfo?,
@@ -58,87 +53,87 @@ public data class IpMreq(
 
 public data class Ipv6Mreq(
     val ipv6mrMultiaddr: In6Addr,
-    val ipv6mrInterface: CUInt,
+    val ipv6mrInterface: UInt,
 )
 
 public data class Linger(
-    val lOnoff: CInt,
-    val lLinger: CInt,
+    val lOnoff: Int,
+    val lLinger: Int,
 )
 
-public val SHUT_RD: CInt = 1 shl 0
-public val SHUT_WR: CInt = 1 shl 1
-public val SHUT_RDWR: CInt = SHUT_RD or SHUT_WR
-public const val MSG_NOSIGNAL: CInt = 0x4000
-public const val MSG_PEEK: CInt = 0x0002
-public const val SO_REUSEADDR: CInt = 2
-public const val SO_TYPE: CInt = 3
-public const val SO_ERROR: CInt = 4
-public const val SO_BROADCAST: CInt = 6
-public const val SO_SNDBUF: CInt = 7
-public const val SO_RCVBUF: CInt = 8
-public const val SO_KEEPALIVE: CInt = 9
-public const val SO_LINGER: CInt = 13
-public const val SO_ACCEPTCONN: CInt = 30
-public const val SO_PROTOCOL: CInt = 38
-public const val SO_DOMAIN: CInt = 39
-public const val SO_RCVTIMEO: CInt = 66
-public const val SO_SNDTIMEO: CInt = 67
-public const val SOCK_DGRAM: CInt = 5
-public const val SOCK_STREAM: CInt = 6
-public const val SOCK_NONBLOCK: CInt = 0x00004000
-public const val SOL_SOCKET: CInt = 0x7fffffff
-public const val AF_UNSPEC: CInt = 0
-public const val AF_INET: CInt = 1
-public const val AF_INET6: CInt = 2
-public const val IPPROTO_IP: CInt = 0
-public const val IPPROTO_TCP: CInt = 6
-public const val IPPROTO_UDP: CInt = 17
-public const val IPPROTO_IPV6: CInt = 41
-public const val IP_TTL: CInt = 2
-public const val IP_MULTICAST_TTL: CInt = 33
-public const val IP_MULTICAST_LOOP: CInt = 34
-public const val IP_ADD_MEMBERSHIP: CInt = 35
-public const val IP_DROP_MEMBERSHIP: CInt = 36
-public const val IPV6_UNICAST_HOPS: CInt = 16
-public const val IPV6_MULTICAST_LOOP: CInt = 19
-public const val IPV6_JOIN_GROUP: CInt = 20
-public const val IPV6_LEAVE_GROUP: CInt = 21
-public const val IPV6_V6ONLY: CInt = 26
-public const val IPV6_ADD_MEMBERSHIP: CInt = IPV6_JOIN_GROUP
-public const val IPV6_DROP_MEMBERSHIP: CInt = IPV6_LEAVE_GROUP
-public const val TCP_NODELAY: CInt = 1
-public const val TCP_KEEPIDLE: CInt = 4
-public const val TCP_KEEPINTVL: CInt = 5
-public const val TCP_KEEPCNT: CInt = 6
-public const val EAI_SYSTEM: CInt = -11
+public val SHUT_RD: Int = 1 shl 0
+public val SHUT_WR: Int = 1 shl 1
+public val SHUT_RDWR: Int = SHUT_RD or SHUT_WR
+public const val MSG_NOSIGNAL: Int = 0x4000
+public const val MSG_PEEK: Int = 0x0002
+public const val SO_REUSEADDR: Int = 2
+public const val SO_TYPE: Int = 3
+public const val SO_ERROR: Int = 4
+public const val SO_BROADCAST: Int = 6
+public const val SO_SNDBUF: Int = 7
+public const val SO_RCVBUF: Int = 8
+public const val SO_KEEPALIVE: Int = 9
+public const val SO_LINGER: Int = 13
+public const val SO_ACCEPTCONN: Int = 30
+public const val SO_PROTOCOL: Int = 38
+public const val SO_DOMAIN: Int = 39
+public const val SO_RCVTIMEO: Int = 66
+public const val SO_SNDTIMEO: Int = 67
+public const val SOCK_DGRAM: Int = 5
+public const val SOCK_STREAM: Int = 6
+public const val SOCK_NONBLOCK: Int = 0x00004000
+public const val SOL_SOCKET: Int = 0x7fffffff
+public const val AF_UNSPEC: Int = 0
+public const val AF_INET: Int = 1
+public const val AF_INET6: Int = 2
+public const val IPPROTO_IP: Int = 0
+public const val IPPROTO_TCP: Int = 6
+public const val IPPROTO_UDP: Int = 17
+public const val IPPROTO_IPV6: Int = 41
+public const val IP_TTL: Int = 2
+public const val IP_MULTICAST_TTL: Int = 33
+public const val IP_MULTICAST_LOOP: Int = 34
+public const val IP_ADD_MEMBERSHIP: Int = 35
+public const val IP_DROP_MEMBERSHIP: Int = 36
+public const val IPV6_UNICAST_HOPS: Int = 16
+public const val IPV6_MULTICAST_LOOP: Int = 19
+public const val IPV6_JOIN_GROUP: Int = 20
+public const val IPV6_LEAVE_GROUP: Int = 21
+public const val IPV6_V6ONLY: Int = 26
+public const val IPV6_ADD_MEMBERSHIP: Int = IPV6_JOIN_GROUP
+public const val IPV6_DROP_MEMBERSHIP: Int = IPV6_LEAVE_GROUP
+public const val TCP_NODELAY: Int = 1
+public const val TCP_KEEPIDLE: Int = 4
+public const val TCP_KEEPINTVL: Int = 5
+public const val TCP_KEEPCNT: Int = 6
+public const val EAI_SYSTEM: Int = -11
 
-public expect fun socket(domain: CInt, type: CInt, protocol: CInt): CInt
+public expect fun socket(domain: Int, type: Int, protocol: Int): Int
 
-public expect fun connect(fd: CInt, name: Sockaddr?, addrlen: SocklenT): CInt
+public expect fun connect(fd: Int, name: Sockaddr?, addrlen: UInt): Int
 
-public expect fun bind(socket: CInt, addr: Sockaddr?, addrlen: SocklenT): CInt
+public expect fun bind(socket: Int, addr: Sockaddr?, addrlen: UInt): Int
 
-public expect fun listen(socket: CInt, backlog: CInt): CInt
+public expect fun listen(socket: Int, backlog: Int): Int
 
-public expect fun accept(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+public expect fun accept(socket: Int, addr: Sockaddr?, addrlen: UInt?): Int
 
-public expect fun accept4(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt
+public expect fun accept4(socket: Int, addr: Sockaddr?, addrlen: UInt?, flags: Int): Int
 
-public expect fun getsockname(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+public expect fun getsockname(socket: Int, addr: Sockaddr?, addrlen: UInt?): Int
 
-public expect fun getpeername(socket: CInt, addr: Sockaddr?, addrlen: SocklenT?): CInt
+public expect fun getpeername(socket: Int, addr: Sockaddr?, addrlen: UInt?): Int
 
-public expect fun sendto(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT): SsizeT
+public expect fun sendto(socket: Int, buffer: COpaquePointer?, length: ULong, flags: Int, addr: Sockaddr?, addrlen: UInt): Long
 
-public expect fun recvfrom(socket: CInt, buffer: COpaquePointer?, length: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT
+public expect fun recvfrom(socket: Int, buffer: COpaquePointer?, length: ULong, flags: Int, addr: Sockaddr?, addrlen: UInt?): Long
 
-public expect fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT?): CInt
+public expect fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: UInt?): Int
 
-public expect fun setsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: SocklenT): CInt
+public expect fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: UInt): Int
 
-public expect fun getaddrinfo(host: String?, serv: String?, hint: Addrinfo?, res: COpaquePointer?): CInt
+public expect fun getaddrinfo(host: String?, serv: String?, hint: Addrinfo?, res: COpaquePointer?): Int
 
 public expect fun freeaddrinfo(p: Addrinfo?)
 
-public expect fun gaiStrerror(ecode: CInt): String? 
+public expect fun gaiStrerror(ecode: Int): String?

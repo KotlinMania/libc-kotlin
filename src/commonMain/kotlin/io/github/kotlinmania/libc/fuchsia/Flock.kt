@@ -1,0 +1,12 @@
+// port-lint: source fuchsia/mod.rs
+package io.github.kotlinmania.libc.fuchsia
+
+import io.github.kotlinmania.libc.*
+
+public data class Flock(
+    val lType: Short,
+    val lWhence: Short,
+    val lStart: Long,
+    val lLen: Long,
+    val lPid: Int,
+)

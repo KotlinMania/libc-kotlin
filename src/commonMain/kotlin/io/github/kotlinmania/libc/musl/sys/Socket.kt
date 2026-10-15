@@ -26,17 +26,17 @@ public data class Msghdr(
     /** Address to send to/receive from (nullable for unspecified) */
     val msgName: ByteArray?,
     /** Length of address */
-    val msgNamelen: CUInt,
+    val msgNamelen: UInt,
     /** Scatter/gather array */
     val msgIov: List<Iovec>,
     /** Number of elements in msgIov */
-    val msgIovlen: CInt,
+    val msgIovlen: Int,
     /** Ancillary data */
     val msgControl: ByteArray?,
     /** Ancillary data buffer length */
-    val msgControlen: CUInt,
+    val msgControlen: UInt,
     /** Flags on received message */
-    val msgFlags: CInt,
+    val msgFlags: Int,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -87,11 +87,11 @@ public data class Msghdr(
  */
 public data class Cmsghdr(
     /** Length of data in message payload plus header */
-    val cmsgLen: CUInt,
+    val cmsgLen: UInt,
     /** Originating protocol */
-    val cmsgLevel: CInt,
+    val cmsgLevel: Int,
     /** Protocol-specific type */
-    val cmsgType: CInt,
+    val cmsgType: Int,
 )
 
 /**

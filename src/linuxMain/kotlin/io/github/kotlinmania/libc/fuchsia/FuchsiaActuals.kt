@@ -15,23 +15,23 @@ import libc.cinterop.libc_tcflow
 import libc.cinterop.libc_tcflush
 
 // Fuchsia ABI is identical to Linux ABI for signals, address families, msync, and madvise.
-public actual fun kill(pid: PidT, sig: CInt): CInt =
+public actual fun kill(pid: Int, sig: Int): Int =
     libc.cinterop.libc_kill(pid, sig)
 
-public actual fun raise(signum: CInt): CInt =
+public actual fun raise(signum: Int): Int =
     libc.cinterop.libc_raise(signum)
 
-public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
+public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
     libc.cinterop.libc_socket(domain, ty, protocol)
 
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
+public actual fun msync(addr: COpaquePointer?, len: ULong, flags: Int): Int =
     libc.cinterop.libc_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
 
-public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: Int): Int =
     libc.cinterop.libc_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
 
-public actual fun tcflow(fd: CInt, action: CInt): CInt =
+public actual fun tcflow(fd: Int, action: Int): Int =
     libc.cinterop.libc_tcflow(fd, action)
 
-public actual fun tcflush(fd: CInt, action: CInt): CInt =
+public actual fun tcflush(fd: Int, action: Int): Int =
     libc.cinterop.libc_tcflush(fd, action)

@@ -6,13 +6,13 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.x86
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun getcontext(ucp: UcontextT?): CInt =
+public actual fun getcontext(ucp: UcontextT?): Int =
     throw UnsupportedOperationException("getcontext requires manual FFI bridge — not yet implemented")
 
-public actual fun setcontext(ucp: UcontextT?): CInt =
+public actual fun setcontext(ucp: UcontextT?): Int =
     throw UnsupportedOperationException("setcontext requires manual FFI bridge — not yet implemented")
 
-public actual fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): CInt =
+public actual fun swapcontext(uocp: UcontextT?, ucp: UcontextT?): Int =
     throw UnsupportedOperationException("swapcontext requires manual FFI bridge — not yet implemented")
 
-public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: CInt, vararg args: Any?): Unit = throw UnsupportedOperationException("makecontext requires manual FFI bridge — not yet implemented")
+public actual fun makecontext(ucp: UcontextT?, func: (() -> Unit)?, argc: Int, vararg args: Any?): Unit = throw UnsupportedOperationException("makecontext requires manual FFI bridge — not yet implemented")

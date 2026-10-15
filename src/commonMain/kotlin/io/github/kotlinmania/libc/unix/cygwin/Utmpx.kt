@@ -1,0 +1,16 @@
+// port-lint: source unix/cygwin/mod.rs
+package io.github.kotlinmania.libc.unix.cygwin
+
+import io.github.kotlinmania.libc.*
+
+public data class Utmpx(
+    val utType: Short,
+    val utPid: Int,
+    val utLine: ByteArray,
+    val utId: ByteArray,
+    val utTime: Long,
+    val utUser: ByteArray,
+    val utHost: ByteArray,
+    val utAddr: Long,
+    val utTv: Timeval,
+)

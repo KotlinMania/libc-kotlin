@@ -4,10 +4,10 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 
-public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
+public actual fun dlopen(filename: String?, flag: Int): COpaquePointer? =
     throw UnsupportedOperationException("dlopen is not available on Windows (mingwX64)")
 
-public actual fun dlclose(handle: COpaquePointer?): CInt =
+public actual fun dlclose(handle: COpaquePointer?): Int =
     throw UnsupportedOperationException("dlclose is not available on Windows (mingwX64)")
 
 public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =

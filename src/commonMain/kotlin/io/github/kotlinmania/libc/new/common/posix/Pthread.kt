@@ -3,94 +3,94 @@ package io.github.kotlinmania.libc.new.common.posix
 
 import io.github.kotlinmania.libc.*
 
-public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt
+public expect fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): Int
 
-public expect fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt
+public expect fun pthreadAttrGetguardsize(attr: io.github.kotlinmania.libc.COpaquePointer?, guardsize: ULong?): Int
 
-public expect fun pthreadAttrGetinheritsched(attr: PthreadAttrT, inheritsched: CInt?): CInt
+public expect fun pthreadAttrGetinheritsched(attr: io.github.kotlinmania.libc.COpaquePointer?, inheritsched: Int?): Int
 
-public expect fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt
+public expect fun pthreadAttrGetschedparam(attr: io.github.kotlinmania.libc.COpaquePointer?, param: SchedParam?): Int
 
-public expect fun pthreadAttrGetschedpolicy(attr: PthreadAttrT, policy: CInt?): CInt
+public expect fun pthreadAttrGetschedpolicy(attr: io.github.kotlinmania.libc.COpaquePointer?, policy: Int?): Int
 
-public expect fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong?): CInt
+public expect fun pthreadAttrGetstack(attr: io.github.kotlinmania.libc.COpaquePointer?, stackaddr: COpaquePointer?, stacksize: ULong?): Int
 
-public expect fun pthreadAttrSetguardsize(attr: PthreadAttrT, guardsize: ULong): CInt
+public expect fun pthreadAttrSetguardsize(attr: io.github.kotlinmania.libc.COpaquePointer?, guardsize: ULong): Int
 
-public expect fun pthreadAttrSetinheritsched(attr: PthreadAttrT, inheritsched: CInt): CInt
+public expect fun pthreadAttrSetinheritsched(attr: io.github.kotlinmania.libc.COpaquePointer?, inheritsched: Int): Int
 
-public expect fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt
+public expect fun pthreadAttrSetschedparam(attr: io.github.kotlinmania.libc.COpaquePointer?, param: SchedParam?): Int
 
-public expect fun pthreadAttrSetschedpolicy(attr: PthreadAttrT, policy: CInt): CInt
+public expect fun pthreadAttrSetschedpolicy(attr: io.github.kotlinmania.libc.COpaquePointer?, policy: Int): Int
 
-public expect fun pthreadAttrSetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong): CInt
+public expect fun pthreadAttrSetstack(attr: io.github.kotlinmania.libc.COpaquePointer?, stackaddr: COpaquePointer?, stacksize: ULong): Int
 
-public expect fun pthreadBarrierDestroy(barrier: PthreadBarrierT): CInt
+public expect fun pthreadBarrierDestroy(barrier: io.github.kotlinmania.libc.COpaquePointer?): Int
 
-public expect fun pthreadBarrierInit(barrier: PthreadBarrierT, attr: PthreadBarrierattrT, count: CUInt): CInt
+public expect fun pthreadBarrierInit(barrier: io.github.kotlinmania.libc.COpaquePointer?, attr: io.github.kotlinmania.libc.COpaquePointer?, count: UInt): Int
 
-public expect fun pthreadBarrierWait(barrier: PthreadBarrierT): CInt
+public expect fun pthreadBarrierWait(barrier: io.github.kotlinmania.libc.COpaquePointer?): Int
 
-public expect fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT): CInt
+public expect fun pthreadBarrierattrDestroy(attr: io.github.kotlinmania.libc.COpaquePointer?): Int
 
-public expect fun pthreadBarrierattrGetpshared(attr: PthreadBarrierattrT, shared: CInt?): CInt
+public expect fun pthreadBarrierattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int?): Int
 
-public expect fun pthreadBarrierattrInit(attr: PthreadBarrierattrT): CInt
+public expect fun pthreadBarrierattrInit(attr: io.github.kotlinmania.libc.COpaquePointer?): Int
 
-public expect fun pthreadBarrierattrSetpshared(attr: PthreadBarrierattrT, shared: CInt): CInt
+public expect fun pthreadBarrierattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int): Int
 
-public expect fun pthreadCancel(thread: PthreadT): CInt
+public expect fun pthreadCancel(thread: ULong): Int
 
-public expect fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt
+public expect fun pthreadCondattrGetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: Int?): Int
 
-public expect fun pthreadCondattrGetpshared(attr: PthreadCondattrT, pshared: CInt?): CInt
+public expect fun pthreadCondattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int?): Int
 
-public expect fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt
+public expect fun pthreadCondattrSetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: Int): Int
 
-public expect fun pthreadCondattrSetpshared(attr: PthreadCondattrT, pshared: CInt): CInt
+public expect fun pthreadCondattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int): Int
 
-public expect fun pthreadCreate(native: PthreadT?, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: ULong?, attr: io.github.kotlinmania.libc.COpaquePointer?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): Int
 
-public expect fun pthreadGetcpuclockid(thread: PthreadT, clkId: ClockidT?): CInt
+public expect fun pthreadGetcpuclockid(thread: ULong, clkId: Int?): Int
 
-public expect fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt
+public expect fun pthreadGetschedparam(native: ULong, policy: Int?, param: SchedParam?): Int
 
-public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
+public expect fun pthreadKill(thread: ULong, sig: Int): Int
 
-public expect fun pthreadMutexConsistent(mutex: PthreadMutexT): CInt
+public expect fun pthreadMutexConsistent(mutex: io.github.kotlinmania.libc.COpaquePointer?): Int
 
-public expect fun pthreadMutexTimedlock(lock: PthreadMutexT, abstime: Timespec?): CInt
+public expect fun pthreadMutexTimedlock(lock: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int
 
-public expect fun pthreadMutexattrGetprotocol(attr: PthreadMutexattrT, protocol: CInt?): CInt
+public expect fun pthreadMutexattrGetprotocol(attr: io.github.kotlinmania.libc.COpaquePointer?, protocol: Int?): Int
 
-public expect fun pthreadMutexattrGetpshared(attr: PthreadMutexattrT, pshared: CInt?): CInt
+public expect fun pthreadMutexattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int?): Int
 
-public expect fun pthreadMutexattrGetrobust(attr: PthreadMutexattrT, robustness: CInt?): CInt
+public expect fun pthreadMutexattrGetrobust(attr: io.github.kotlinmania.libc.COpaquePointer?, robustness: Int?): Int
 
-public expect fun pthreadMutexattrSetprotocol(attr: PthreadMutexattrT, protocol: CInt): CInt
+public expect fun pthreadMutexattrSetprotocol(attr: io.github.kotlinmania.libc.COpaquePointer?, protocol: Int): Int
 
-public expect fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT, pshared: CInt): CInt
+public expect fun pthreadMutexattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int): Int
 
-public expect fun pthreadMutexattrSetrobust(attr: PthreadMutexattrT, robustness: CInt): CInt
+public expect fun pthreadMutexattrSetrobust(attr: io.github.kotlinmania.libc.COpaquePointer?, robustness: Int): Int
 
-public expect fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT, `val`: CInt?): CInt
+public expect fun pthreadRwlockattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, `val`: Int?): Int
 
-public expect fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT, `val`: CInt): CInt
+public expect fun pthreadRwlockattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, `val`: Int): Int
 
-public expect fun pthreadOnce(control: PthreadOnceT?, routine: (() -> Unit)?): CInt
+public expect fun pthreadOnce(control: Int?, routine: (() -> Unit)?): Int
 
-public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt
+public expect fun pthreadSetschedparam(native: ULong, policy: Int, param: SchedParam?): Int
 
-public expect fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt
+public expect fun pthreadSetschedprio(native: ULong, priority: Int): Int
 
-public expect fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt
+public expect fun pthreadSigmask(how: Int, set: SigsetT?, oldset: SigsetT?): Int
 
-public expect fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt
+public expect fun pthreadSpinDestroy(lock: Int?): Int
 
-public expect fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt
+public expect fun pthreadSpinInit(lock: Int?, pshared: Int): Int
 
-public expect fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt
+public expect fun pthreadSpinLock(lock: Int?): Int
 
-public expect fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt
+public expect fun pthreadSpinTrylock(lock: Int?): Int
 
-public expect fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt 
+public expect fun pthreadSpinUnlock(lock: Int?): Int

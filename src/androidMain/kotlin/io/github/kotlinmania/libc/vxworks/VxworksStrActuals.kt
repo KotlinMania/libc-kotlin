@@ -1,12 +1,10 @@
 // port-lint: source vxworks/mod.rs
 package io.github.kotlinmania.libc.vxworks
 
-import io.github.kotlinmania.libc.CInt
-
-public actual fun strchr(cs: String?, c: CInt): String? =
+public actual fun strchr(cs: String?, c: Int): String? =
     throw UnsupportedOperationException("strchr not available on Android host — use androidNative target for FFI")
 
-public actual fun strrchr(cs: String?, c: CInt): String? =
+public actual fun strrchr(cs: String?, c: Int): String? =
     throw UnsupportedOperationException("strrchr not available on Android host — use androidNative target for FFI")
 
 public actual fun strpbrk(cs: String?, ct: String?): String? =

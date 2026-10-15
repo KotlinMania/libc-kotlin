@@ -8,11 +8,11 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import libc.cinterop.libc_sched_get_priority_max
 import libc.cinterop.libc_sched_get_priority_min
 
-public actual fun schedYield(): CInt =
+public actual fun schedYield(): Int =
     throw UnsupportedOperationException("schedYield requires manual FFI bridge — not yet implemented")
 
-public actual fun schedGetPriorityMax(policy: CInt): CInt =
+public actual fun schedGetPriorityMax(policy: Int): Int =
     libc.cinterop.libc_sched_get_priority_max(policy)
 
-public actual fun schedGetPriorityMin(policy: CInt): CInt =
+public actual fun schedGetPriorityMin(policy: Int): Int =
     libc.cinterop.libc_sched_get_priority_min(policy)

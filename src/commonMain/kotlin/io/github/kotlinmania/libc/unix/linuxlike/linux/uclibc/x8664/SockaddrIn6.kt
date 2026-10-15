@@ -1,0 +1,12 @@
+// port-lint: source unix/linux_like/linux/uclibc/x86_64/mod.rs
+package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664
+
+import io.github.kotlinmania.libc.*
+
+public data class SockaddrIn6(
+    val sin6Family: UShort,
+    val sin6Port: UShort,
+    val sin6Flowinfo: UInt,
+    val sin6Addr: In6Addr,
+    val sin6ScopeId: UInt,
+)

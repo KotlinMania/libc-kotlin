@@ -22,18 +22,18 @@ public actual fun getutxline(ut: Utmpx?): Utmpx? =
 public actual fun pututxline(ut: Utmpx?): Utmpx? =
     throw UnsupportedOperationException("pututxline requires manual FFI bridge — not yet implemented")
 
-public actual fun updwtmpx(file: String?, ut: Utmpx?): CInt =
+public actual fun updwtmpx(file: String?, ut: Utmpx?): Int =
     throw UnsupportedOperationException("updwtmpx requires manual FFI bridge — not yet implemented")
 
-public actual fun getlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): Lastlogx? =
+public actual fun getlastlogx(fname: String?, uid: UInt, ll: Lastlogx?): Lastlogx? =
     throw UnsupportedOperationException("getlastlogx requires manual FFI bridge — not yet implemented")
 
-public actual fun updlastlogx(fname: String?, uid: UidT, ll: Lastlogx?): CInt =
+public actual fun updlastlogx(fname: String?, uid: UInt, ll: Lastlogx?): Int =
     throw UnsupportedOperationException("updlastlogx requires manual FFI bridge — not yet implemented")
 
 public actual fun getutmp(ux: Utmpx?, u: Utmp?): Unit = throw UnsupportedOperationException("getutmp requires manual FFI bridge — not yet implemented")
 
 public actual fun getutmpx(u: Utmp?, ux: Utmpx?): Unit = throw UnsupportedOperationException("getutmpx requires manual FFI bridge — not yet implemented")
 
-public actual fun utmpxname(file: String?): CInt =
+public actual fun utmpxname(file: String?): Int =
     throw UnsupportedOperationException("utmpxname requires manual FFI bridge — not yet implemented")

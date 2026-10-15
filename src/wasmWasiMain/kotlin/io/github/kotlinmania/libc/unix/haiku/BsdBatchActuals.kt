@@ -3,7 +3,7 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 
-public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
+public actual fun daemon(nochdir: Int, noclose: Int): Int =
     throw UnsupportedOperationException("daemon not available on WASI — no C library access")
 
 public actual fun getprogname(): String? =
@@ -13,19 +13,19 @@ public actual fun setprogname(progname: String?): Unit = throw UnsupportedOperat
 
 public actual fun arc4randomBuf(buf: COpaquePointer?, n: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf not available on WASI — no C library access")
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
+public actual fun mkstemps(template: String?, suffixlen: Int): Int =
     throw UnsupportedOperationException("mkstemps not available on WASI — no C library access")
 
-public actual fun strtonum(nptr: String?, minval: CLongLong, maxval: CLongLong, errstr: COpaquePointer?): CLongLong =
+public actual fun strtonum(nptr: String?, minval: Long, maxval: Long, errstr: COpaquePointer?): Long =
     throw UnsupportedOperationException("strtonum not available on WASI — no C library access")
 
-public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt =
+public actual fun openpty(amaster: Int?, aslave: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
     throw UnsupportedOperationException("openpty not available on WASI — no C library access")
 
-public actual fun loginTty(fd: CInt): CInt =
+public actual fun loginTty(fd: Int): Int =
     throw UnsupportedOperationException("loginTty not available on WASI — no C library access")
 
-public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT =
+public actual fun forkpty(amaster: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
     throw UnsupportedOperationException("forkpty not available on WASI — no C library access")
 
 public actual fun strsep(string: COpaquePointer?, delimiters: String?): String? =
@@ -33,34 +33,34 @@ public actual fun strsep(string: COpaquePointer?, delimiters: String?): String? 
 
 public actual fun explicitBzero(buf: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero not available on WASI — no C library access")
 
-public actual fun slInit(): StringList? =
+public actual fun slInit(): io.github.kotlinmania.libc.unix.haiku.Stringlist? =
     throw UnsupportedOperationException("slInit not available on WASI — no C library access")
 
-public actual fun slAdd(sl: StringList?, n: String?): CInt =
+public actual fun slAdd(sl: io.github.kotlinmania.libc.unix.haiku.Stringlist?, n: String?): Int =
     throw UnsupportedOperationException("slAdd not available on WASI — no C library access")
 
-public actual fun slFree(sl: StringList?, i: CInt): Unit = throw UnsupportedOperationException("slFree not available on WASI — no C library access")
+public actual fun slFree(sl: io.github.kotlinmania.libc.unix.haiku.Stringlist?, i: Int): Unit = throw UnsupportedOperationException("slFree not available on WASI — no C library access")
 
-public actual fun slFind(sl: StringList?, n: String?): String? =
+public actual fun slFind(sl: io.github.kotlinmania.libc.unix.haiku.Stringlist?, n: String?): String? =
     throw UnsupportedOperationException("slFind not available on WASI — no C library access")
 
-public actual fun kqueue(): CInt =
+public actual fun kqueue(): Int =
     throw UnsupportedOperationException("kqueue not available on WASI — no C library access")
 
-public actual fun kevent(kq: CInt, changelist: Kevent?, nchanges: CInt, eventlist: Kevent?, nevents: CInt, timeout: Timespec?): CInt =
+public actual fun kevent(kq: Int, changelist: Kevent?, nchanges: Int, eventlist: Kevent?, nevents: Int, timeout: Timespec?): Int =
     throw UnsupportedOperationException("kevent not available on WASI — no C library access")
 
-public actual fun lutimes(file: String?, times: Timeval?): CInt =
+public actual fun lutimes(file: String?, times: Timeval?): Int =
     throw UnsupportedOperationException("lutimes not available on WASI — no C library access")
 
-public actual fun preadv(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun preadv(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long =
     throw UnsupportedOperationException("preadv not available on WASI — no C library access")
 
-public actual fun pwritev(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: OffT): SsizeT =
+public actual fun pwritev(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long =
     throw UnsupportedOperationException("pwritev not available on WASI — no C library access")
 
-public actual fun wait4(pid: PidT, status: CInt?, options: CInt, rusage: Rusage?): PidT =
+public actual fun wait4(pid: Int, status: Int?, options: Int, rusage: Rusage?): Int =
     throw UnsupportedOperationException("wait4 not available on WASI — no C library access")
 
-public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> CInt)?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> Int)?, data: COpaquePointer?): Int =
     throw UnsupportedOperationException("dlIteratePhdr not available on WASI — no C library access")

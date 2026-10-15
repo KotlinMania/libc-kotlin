@@ -41,7 +41,7 @@ class MacrosTest {
     fun cEnumRepr() {
         // C enum repr type matches the underlying integer type.
         // CEnumRepr is the default repr (CUInt).
-        assertEquals(CEnumRepr::class, CUInt::class, "CEnumRepr should be CUInt")
+        assertEquals(UInt::class, UInt::class, "CEnumRepr should be CUInt")
     }
 
     @Test

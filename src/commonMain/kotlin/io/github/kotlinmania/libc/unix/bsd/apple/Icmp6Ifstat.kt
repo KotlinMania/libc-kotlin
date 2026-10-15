@@ -1,0 +1,41 @@
+// port-lint: source unix/bsd/apple/mod.rs
+package io.github.kotlinmania.libc.unix.bsd.apple
+
+import io.github.kotlinmania.libc.*
+
+public data class Icmp6Ifstat(
+    val ifs6InMsg: ULong,
+    val ifs6InError: ULong,
+    val ifs6InDstunreach: ULong,
+    val ifs6InAdminprohib: ULong,
+    val ifs6InTimeexceed: ULong,
+    val ifs6InParamprob: ULong,
+    val ifs6InPkttoobig: ULong,
+    val ifs6InEcho: ULong,
+    val ifs6InEchoreply: ULong,
+    val ifs6InRoutersolicit: ULong,
+    val ifs6InRouteradvert: ULong,
+    val ifs6InNeighborsolicit: ULong,
+    val ifs6InNeighboradvert: ULong,
+    val ifs6InRedirect: ULong,
+    val ifs6InMldquery: ULong,
+    val ifs6InMldreport: ULong,
+    val ifs6InMlddone: ULong,
+    val ifs6OutMsg: ULong,
+    val ifs6OutError: ULong,
+    val ifs6OutDstunreach: ULong,
+    val ifs6OutAdminprohib: ULong,
+    val ifs6OutTimeexceed: ULong,
+    val ifs6OutParamprob: ULong,
+    val ifs6OutPkttoobig: ULong,
+    val ifs6OutEcho: ULong,
+    val ifs6OutEchoreply: ULong,
+    val ifs6OutRoutersolicit: ULong,
+    val ifs6OutRouteradvert: ULong,
+    val ifs6OutNeighborsolicit: ULong,
+    val ifs6OutNeighboradvert: ULong,
+    val ifs6OutRedirect: ULong,
+    val ifs6OutMldquery: ULong,
+    val ifs6OutMldreport: ULong,
+    val ifs6OutMlddone: ULong,
+)

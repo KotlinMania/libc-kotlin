@@ -17,51 +17,51 @@ public actual fun free(ptr: COpaquePointer?): Unit = throw UnsupportedOperationE
 public actual fun getenv(name: String?): String? =
     throw UnsupportedOperationException("getenv requires N-API addon")
 
-public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt =
+public actual fun setenv(name: String?, value: String?, overwrite: Int): Int =
     throw UnsupportedOperationException("setenv requires N-API addon")
 
-public actual fun unsetenv(name: String?): CInt =
+public actual fun unsetenv(name: String?): Int =
     throw UnsupportedOperationException("unsetenv requires N-API addon")
 
-public actual fun atoi(nptr: String?): CInt =
+public actual fun atoi(nptr: String?): Int =
     throw UnsupportedOperationException("atoi requires N-API addon")
 
-public actual fun atol(nptr: String?): CLong =
+public actual fun atol(nptr: String?): Long =
     throw UnsupportedOperationException("atol requires N-API addon")
 
-public actual fun atoll(nptr: String?): CLongLong =
+public actual fun atoll(nptr: String?): Long =
     throw UnsupportedOperationException("atoll requires N-API addon")
 
-public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong =
+public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: Int): Long =
     throw UnsupportedOperationException("strtol requires N-API addon")
 
-public actual fun strtoul(nptr: String?, endptr: COpaquePointer?, base: CInt): CULong =
+public actual fun strtoul(nptr: String?, endptr: COpaquePointer?, base: Int): ULong =
     throw UnsupportedOperationException("strtoul requires N-API addon")
 
-public actual fun strtoll(nptr: String?, endptr: COpaquePointer?, base: CInt): CLongLong =
+public actual fun strtoll(nptr: String?, endptr: COpaquePointer?, base: Int): Long =
     throw UnsupportedOperationException("strtoll requires N-API addon")
 
-public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): CULongLong =
+public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: Int): ULong =
     throw UnsupportedOperationException("strtoull requires N-API addon")
 
-public actual fun rand(): CInt =
+public actual fun rand(): Int =
     throw UnsupportedOperationException("rand requires N-API addon")
 
-public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand requires N-API addon")
+public actual fun srand(seed: UInt): Unit = throw UnsupportedOperationException("srand requires N-API addon")
 
-public actual fun abs(j: CInt): CInt =
+public actual fun abs(j: Int): Int =
     throw UnsupportedOperationException("abs requires N-API addon")
 
-public actual fun labs(j: CLong): CLong =
+public actual fun labs(j: Long): Long =
     throw UnsupportedOperationException("labs requires N-API addon")
 
-public actual fun llabs(j: CLongLong): CLongLong =
+public actual fun llabs(j: Long): Long =
     throw UnsupportedOperationException("llabs requires N-API addon")
 
-public actual fun atexit(function: (() -> Unit)?): CInt =
+public actual fun atexit(function: (() -> Unit)?): Int =
     throw UnsupportedOperationException("atexit requires N-API addon")
 
-public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsort requires N-API addon")
+public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): Unit = throw UnsupportedOperationException("qsort requires N-API addon")
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): COpaquePointer? =
     throw UnsupportedOperationException("bsearch requires N-API addon")

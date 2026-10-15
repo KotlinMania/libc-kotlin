@@ -12,7 +12,7 @@ import libc.cinterop.libc_cmsg_data
 import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_cmsg_nxthdr
 
-public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
+public actual fun cmsgData(cmsg: COpaquePointer?): COpaquePointer? {
     if (cmsg == null) return null
     val cPtr: CPointer<ByteVar>? = cmsg.value.toCPointer()
     if (cPtr == null) return null
@@ -21,7 +21,7 @@ public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
     return COpaquePointer(result.toLong())
 }
 
-public actual fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer? {
+public actual fun cmsgFirstHdr(mhdr: COpaquePointer?): COpaquePointer? {
     if (mhdr == null) return null
     val cPtr: CPointer<ByteVar>? = mhdr.value.toCPointer()
     if (cPtr == null) return null
@@ -30,9 +30,9 @@ public actual fun cMSGFIRSTHDR(mhdr: COpaquePointer?): COpaquePointer? {
     return COpaquePointer(result.toLong())
 }
 
-public actual fun cMSGNXTHDR(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer? {
+public actual fun cmsgNextHdr(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer? {
     if (mhdr == null) return null
-    if (cmsg == null) return cMSGFIRSTHDR(mhdr)
+    if (cmsg == null) return cmsgFirstHdr(mhdr)
     val mhdrPtr: CPointer<ByteVar>? = mhdr.value.toCPointer()
     val cmsgPtr: CPointer<ByteVar>? = cmsg.value.toCPointer()
     if (mhdrPtr == null || cmsgPtr == null) return null

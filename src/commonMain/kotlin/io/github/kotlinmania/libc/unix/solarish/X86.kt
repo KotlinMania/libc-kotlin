@@ -3,30 +3,22 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 
-public typealias Elf32Addr = CULong
-public typealias Elf32Half = CUShort
-public typealias Elf32Off = CULong
-public typealias Elf32Sword = CLong
-public typealias Elf32Word = CULong
-public typealias Elf32Lword = CULongLong
-public typealias Elf32Phdr = CAnonymousElf32Phdr
-
 public data class CAnonymousElf32Phdr(
-    val pType: Elf32Word,
-    val pOffset: Elf32Off,
-    val pVaddr: Elf32Addr,
-    val pPaddr: Elf32Addr,
-    val pFilesz: Elf32Word,
-    val pMemsz: Elf32Word,
-    val pFlags: Elf32Word,
-    val pAlign: Elf32Word,
+    val pType: ULong,
+    val pOffset: ULong,
+    val pVaddr: ULong,
+    val pPaddr: ULong,
+    val pFilesz: ULong,
+    val pMemsz: ULong,
+    val pFlags: ULong,
+    val pAlign: ULong,
 )
 
 public data class DlPhdrInfo(
-    val dlpiAddr: Elf32Addr,
+    val dlpiAddr: ULong,
     val dlpiName: String?,
-    val dlpiPhdr: Elf32Phdr?,
-    val dlpiPhnum: Elf32Half,
-    val dlpiAdds: CULongLong,
-    val dlpiSubs: CULongLong,
+    val dlpiPhdr: io.github.kotlinmania.libc.unix.solarish.CAnonymousElf32Phdr?,
+    val dlpiPhnum: UShort,
+    val dlpiAdds: ULong,
+    val dlpiSubs: ULong,
 )

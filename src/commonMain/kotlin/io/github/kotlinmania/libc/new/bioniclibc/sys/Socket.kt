@@ -5,28 +5,28 @@ import io.github.kotlinmania.libc.*
 
 public data class Msghdr(
     val msgName: COpaquePointer?,
-    val msgNamelen: SocklenT,
+    val msgNamelen: UInt,
     val msgIov: Iovec?,
     val msgIovlen: ULong,
     val msgControl: COpaquePointer?,
     val msgControllen: ULong,
-    val msgFlags: CInt,
+    val msgFlags: Int,
 )
 
 public data class Cmsghdr(
     val cmsgLen: ULong,
-    val cmsgLevel: CInt,
-    val cmsgType: CInt,
+    val cmsgLevel: Int,
+    val cmsgType: Int,
 )
 
 public data class Ucred(
-    val pid: PidT,
-    val uid: UidT,
-    val gid: GidT,
+    val pid: Int,
+    val uid: UInt,
+    val gid: UInt,
 )
 
-public expect fun recvmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt, timeout: Timespec?): CInt
+public expect fun recvmmsg(sockfd: Int, msgvec: Mmsghdr?, vlen: UInt, flags: Int, timeout: Timespec?): Int
 
-public expect fun sendmmsg(sockfd: CInt, msgvec: Mmsghdr?, vlen: CUInt, flags: CInt): CInt
+public expect fun sendmmsg(sockfd: Int, msgvec: Mmsghdr?, vlen: UInt, flags: Int): Int
 
-public expect fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT 
+public expect fun recvfrom(socket: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: Sockaddr?, addrlen: UInt?): Long

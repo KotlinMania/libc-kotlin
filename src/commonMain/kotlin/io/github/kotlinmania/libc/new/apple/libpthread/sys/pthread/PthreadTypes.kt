@@ -3,8 +3,6 @@ package io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread
 
 import io.github.kotlinmania.libc.*
 
-public typealias PthreadKeyT = CULong
-
 public class PthreadAttrT
 
 public class PthreadCondT

@@ -6,7 +6,7 @@ package io.github.kotlinmania.libc.new.netbsd
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun utmpname(file: String?): CInt =
+public actual fun utmpname(file: String?): Int =
     throw UnsupportedOperationException("utmpname requires manual FFI bridge — not yet implemented")
 
 public actual fun setutent(): Unit = throw UnsupportedOperationException("setutent requires manual FFI bridge — not yet implemented")

@@ -8,7 +8,7 @@ public data class McontextT(
 )
 
 public data class UcontextT(
-    val ucFlags: CULong,
+    val ucFlags: ULong,
     val ucLink: UcontextT?,
     val ucStack: StackT,
     val ucMcontext: McontextT,
@@ -16,31 +16,31 @@ public data class UcontextT(
     val private: UByteArray,
 )
 
-public const val R15: CInt = 0
-public const val R14: CInt = 1
-public const val R13: CInt = 2
-public const val R12: CInt = 3
-public const val RBP: CInt = 4
-public const val RBX: CInt = 5
-public const val R11: CInt = 6
-public const val R10: CInt = 7
-public const val R9: CInt = 8
-public const val R8: CInt = 9
-public const val RAX: CInt = 10
-public const val RCX: CInt = 11
-public const val RDX: CInt = 12
-public const val RSI: CInt = 13
-public const val RDI: CInt = 14
-public const val ORIG_RAX: CInt = 15
-public const val RIP: CInt = 16
-public const val CS: CInt = 17
-public const val EFLAGS: CInt = 18
-public const val RSP: CInt = 19
-public const val SS: CInt = 20
-public const val FS_BASE: CInt = 21
-public const val GS_BASE: CInt = 22
-public const val DS: CInt = 23
-public const val ES: CInt = 24
-public const val FS: CInt = 25
-public const val GS: CInt = 26
-public const val MAP_32BIT: CInt = 0x0040
+public const val R15: Int = 0
+public const val R14: Int = 1
+public const val R13: Int = 2
+public const val R12: Int = 3
+public const val RBP: Int = 4
+public const val RBX: Int = 5
+public const val R11: Int = 6
+public const val R10: Int = 7
+public const val R9: Int = 8
+public const val R8: Int = 9
+public const val RAX: Int = 10
+public const val RCX: Int = 11
+public const val RDX: Int = 12
+public const val RSI: Int = 13
+public const val RDI: Int = 14
+public const val ORIG_RAX: Int = 15
+public const val RIP: Int = 16
+public const val CS: Int = 17
+public const val EFLAGS: Int = 18
+public const val RSP: Int = 19
+public const val SS: Int = 20
+public const val FS_BASE: Int = 21
+public const val GS_BASE: Int = 22
+public const val DS: Int = 23
+public const val ES: Int = 24
+public const val FS: Int = 25
+public const val GS: Int = 26
+public const val MAP_32BIT: Int = 0x0040

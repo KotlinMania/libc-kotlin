@@ -1,43 +1,41 @@
 // port-lint: source vxworks/mod.rs
 package io.github.kotlinmania.libc.vxworks
 
-import io.github.kotlinmania.libc.CInt
-
-public actual fun isalnum(c: CInt): CInt =
+public actual fun isalnum(c: Int): Int =
     throw UnsupportedOperationException("isalnum not available on WASI — no C library access")
 
-public actual fun isalpha(c: CInt): CInt =
+public actual fun isalpha(c: Int): Int =
     throw UnsupportedOperationException("isalpha not available on WASI — no C library access")
 
-public actual fun iscntrl(c: CInt): CInt =
+public actual fun iscntrl(c: Int): Int =
     throw UnsupportedOperationException("iscntrl not available on WASI — no C library access")
 
-public actual fun isdigit(c: CInt): CInt =
+public actual fun isdigit(c: Int): Int =
     throw UnsupportedOperationException("isdigit not available on WASI — no C library access")
 
-public actual fun isgraph(c: CInt): CInt =
+public actual fun isgraph(c: Int): Int =
     throw UnsupportedOperationException("isgraph not available on WASI — no C library access")
 
-public actual fun islower(c: CInt): CInt =
+public actual fun islower(c: Int): Int =
     throw UnsupportedOperationException("islower not available on WASI — no C library access")
 
-public actual fun isprint(c: CInt): CInt =
+public actual fun isprint(c: Int): Int =
     throw UnsupportedOperationException("isprint not available on WASI — no C library access")
 
-public actual fun ispunct(c: CInt): CInt =
+public actual fun ispunct(c: Int): Int =
     throw UnsupportedOperationException("ispunct not available on WASI — no C library access")
 
-public actual fun isspace(c: CInt): CInt =
+public actual fun isspace(c: Int): Int =
     throw UnsupportedOperationException("isspace not available on WASI — no C library access")
 
-public actual fun isupper(c: CInt): CInt =
+public actual fun isupper(c: Int): Int =
     throw UnsupportedOperationException("isupper not available on WASI — no C library access")
 
-public actual fun isxdigit(c: CInt): CInt =
+public actual fun isxdigit(c: Int): Int =
     throw UnsupportedOperationException("isxdigit not available on WASI — no C library access")
 
-public actual fun isblank(c: CInt): CInt =
+public actual fun isblank(c: Int): Int =
     throw UnsupportedOperationException("isblank not available on WASI — no C library access")
 
-public actual fun isatty(fd: CInt): CInt =
+public actual fun isatty(fd: Int): Int =
     throw UnsupportedOperationException("isatty not available on WASI — no C library access")

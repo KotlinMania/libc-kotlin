@@ -3,25 +3,25 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 
-public actual fun time(tloc: TimeT?): TimeT =
+public actual fun time(tloc: Long?): Long =
     throw UnsupportedOperationException("time not available on Android host — use androidNative target for FFI")
 
-public actual fun clock(): ClockT =
+public actual fun clock(): Long =
     throw UnsupportedOperationException("clock not available on Android host — use androidNative target for FFI")
 
-public actual fun mktime(tm: Tm?): TimeT =
+public actual fun mktime(tm: Tm?): Long =
     throw UnsupportedOperationException("mktime not available on Android host — use androidNative target for FFI")
 
-public actual fun gmtime(timep: TimeT?): Tm? =
+public actual fun gmtime(timep: Long?): Tm? =
     throw UnsupportedOperationException("gmtime not available on Android host — use androidNative target for FFI")
 
-public actual fun gmtimeR(timep: TimeT?, result: Tm?): Tm? =
+public actual fun gmtimeR(timep: Long?, result: Tm?): Tm? =
     throw UnsupportedOperationException("gmtimeR not available on Android host — use androidNative target for FFI")
 
-public actual fun localtime(timep: TimeT?): Tm? =
+public actual fun localtime(timep: Long?): Tm? =
     throw UnsupportedOperationException("localtime not available on Android host — use androidNative target for FFI")
 
-public actual fun localtimeR(timep: TimeT?, result: Tm?): Tm? =
+public actual fun localtimeR(timep: Long?, result: Tm?): Tm? =
     throw UnsupportedOperationException("localtimeR not available on Android host — use androidNative target for FFI")
 
 public actual fun asctime(tm: Tm?): String? =
@@ -30,10 +30,10 @@ public actual fun asctime(tm: Tm?): String? =
 public actual fun asctimeR(tm: Tm?, buf: String?): String? =
     throw UnsupportedOperationException("asctimeR not available on Android host — use androidNative target for FFI")
 
-public actual fun ctime(timep: TimeT?): String? =
+public actual fun ctime(timep: Long?): String? =
     throw UnsupportedOperationException("ctime not available on Android host — use androidNative target for FFI")
 
-public actual fun ctimeR(timep: TimeT?, buf: String?): String? =
+public actual fun ctimeR(timep: Long?, buf: String?): String? =
     throw UnsupportedOperationException("ctimeR not available on Android host — use androidNative target for FFI")
 
 public actual fun strftime(s: String?, maxsize: ULong, format: String?, timeptr: Tm?): ULong =
@@ -42,8 +42,8 @@ public actual fun strftime(s: String?, maxsize: ULong, format: String?, timeptr:
 public actual fun strptime(s: String?, format: String?, tm: Tm?): String? =
     throw UnsupportedOperationException("strptime not available on Android host — use androidNative target for FFI")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+public actual fun clockGettime(clkId: Int, tp: Timespec?): Int =
     throw UnsupportedOperationException("clockGettime not available on Android host — use androidNative target for FFI")
 
-public actual fun nanosleep(req: Timespec?, rem: Timespec?): CInt =
+public actual fun nanosleep(req: Timespec?, rem: Timespec?): Int =
     throw UnsupportedOperationException("nanosleep not available on Android host — use androidNative target for FFI")

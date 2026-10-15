@@ -4,64 +4,64 @@ package io.github.kotlinmania.libc.unix.cygwin
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Sigval
 
-public actual fun fDCLR(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on WASI — no C library access")
+public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on WASI — no C library access")
 
-public actual fun fDISSET(fd: CInt, set: FdSet?): Boolean =
+public actual fun fdIsSet(fd: Int, set: FdSet?): Boolean =
     throw UnsupportedOperationException("fDISSET not available on WASI — no C library access")
 
-public actual fun fDSET(fd: CInt, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on WASI — no C library access")
+public actual fun fdSet(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDSET not available on WASI — no C library access")
 
-public actual fun fDZERO(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on WASI — no C library access")
+public actual fun fdZero(set: FdSet?): Unit = throw UnsupportedOperationException("fDZERO not available on WASI — no C library access")
 
-public actual fun cPUALLOCSIZE(count: CInt): ULong =
+public actual fun cpuAllocSize(count: Int): ULong =
     throw UnsupportedOperationException("cPUALLOCSIZE not available on WASI — no C library access")
 
-public actual fun cPUCOUNTS(size: ULong, cpuset: CpuSetT?): CInt =
+public actual fun cpuCountS(size: ULong, cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("cPUCOUNTS not available on WASI — no C library access")
 
-public actual fun cPUZERO(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on WASI — no C library access")
+public actual fun cpuZero(cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUZERO not available on WASI — no C library access")
 
-public actual fun cPUSET(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET not available on WASI — no C library access")
+public actual fun cpuSet(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUSET not available on WASI — no C library access")
 
-public actual fun cPUCLR(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on WASI — no C library access")
+public actual fun cpuClear(cpu: ULong, cpuset: CpuSetT?): Unit = throw UnsupportedOperationException("cPUCLR not available on WASI — no C library access")
 
-public actual fun cPUISSET(cpu: ULong, cpuset: CpuSetT?): Boolean =
+public actual fun cpuIsSet(cpu: ULong, cpuset: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUISSET not available on WASI — no C library access")
 
-public actual fun cPUCOUNT(cpuset: CpuSetT?): CInt =
+public actual fun cpuCount(cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("cPUCOUNT not available on WASI — no C library access")
 
-public actual fun cPUEQUAL(set1: CpuSetT?, set2: CpuSetT?): Boolean =
+public actual fun cpuEqual(set1: CpuSetT?, set2: CpuSetT?): Boolean =
     throw UnsupportedOperationException("cPUEQUAL not available on WASI — no C library access")
 
-public actual fun cMSGFIRSTHDR(mhdr: Msghdr?): Cmsghdr? =
+public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR not available on WASI — no C library access")
 
-public actual fun cMSGNXTHDR(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
+public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR not available on WASI — no C library access")
 
-public actual fun cMSGDATA(cmsg: Cmsghdr?): COpaquePointer? =
+public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on WASI — no C library access")
 
-public actual fun sigwait(set: SigsetT?, sig: CInt?): CInt =
+public actual fun sigwait(set: ULong?, sig: Int?): Int =
     throw UnsupportedOperationException("sigwait not available on WASI — no C library access")
 
-public actual fun sigwaitinfo(set: SigsetT?, info: SiginfoT?): CInt =
+public actual fun sigwaitinfo(set: ULong?, info: SiginfoT?): Int =
     throw UnsupportedOperationException("sigwaitinfo not available on WASI — no C library access")
 
-public actual fun pthreadSigmask(how: CInt, set: SigsetT?, oldset: SigsetT?): CInt =
+public actual fun pthreadSigmask(how: Int, set: ULong?, oldset: ULong?): Int =
     throw UnsupportedOperationException("pthreadSigmask not available on WASI — no C library access")
 
-public actual fun sigsuspend(mask: SigsetT?): CInt =
+public actual fun sigsuspend(mask: ULong?): Int =
     throw UnsupportedOperationException("sigsuspend not available on WASI — no C library access")
 
-public actual fun sigaltstack(ss: StackT?, oss: StackT?): CInt =
+public actual fun sigaltstack(ss: StackT?, oss: StackT?): Int =
     throw UnsupportedOperationException("sigaltstack not available on WASI — no C library access")
 
-public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
+public actual fun pthreadKill(thread: io.github.kotlinmania.libc.COpaquePointer?, sig: Int): Int =
     throw UnsupportedOperationException("pthreadKill not available on WASI — no C library access")
 
-public actual fun sigtimedwait(set: SigsetT?, info: SiginfoT?, timeout: Timespec?): CInt =
+public actual fun sigtimedwait(set: ULong?, info: SiginfoT?, timeout: Timespec?): Int =
     throw UnsupportedOperationException("sigtimedwait not available on WASI — no C library access")
 
 public actual fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): ULong =
@@ -70,79 +70,79 @@ public actual fun strftime(s: String?, max: ULong, format: String?, tm: Tm?): UL
 public actual fun asctimeR(tm: Tm?, buf: String?): String? =
     throw UnsupportedOperationException("asctimeR not available on WASI — no C library access")
 
-public actual fun ctimeR(timep: TimeT?, buf: String?): String? =
+public actual fun ctimeR(timep: Long?, buf: String?): String? =
     throw UnsupportedOperationException("ctimeR not available on WASI — no C library access")
 
 public actual fun strptime(s: String?, format: String?, tm: Tm?): String? =
     throw UnsupportedOperationException("strptime not available on WASI — no C library access")
 
-public actual fun clockSettime(clkId: ClockidT, tp: Timespec?): CInt =
+public actual fun clockSettime(clkId: ULong, tp: Timespec?): Int =
     throw UnsupportedOperationException("clockSettime not available on WASI — no C library access")
 
-public actual fun clockGettime(clkId: ClockidT, tp: Timespec?): CInt =
+public actual fun clockGettime(clkId: ULong, tp: Timespec?): Int =
     throw UnsupportedOperationException("clockGettime not available on WASI — no C library access")
 
-public actual fun clockGetres(clkId: ClockidT, tp: Timespec?): CInt =
+public actual fun clockGetres(clkId: ULong, tp: Timespec?): Int =
     throw UnsupportedOperationException("clockGetres not available on WASI — no C library access")
 
-public actual fun timerCreate(clockid: ClockidT, sevp: Sigevent?, timerid: TimerT?): CInt =
+public actual fun timerCreate(clockid: ULong, sevp: Sigevent?, timerid: ULong?): Int =
     throw UnsupportedOperationException("timerCreate not available on WASI — no C library access")
 
-public actual fun timerDelete(timerid: TimerT): CInt =
+public actual fun timerDelete(timerid: ULong): Int =
     throw UnsupportedOperationException("timerDelete not available on WASI — no C library access")
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: Itimerspec?, oldValue: Itimerspec?): CInt =
+public actual fun timerSettime(timerid: ULong, flags: Int, newValue: Itimerspec?, oldValue: Itimerspec?): Int =
     throw UnsupportedOperationException("timerSettime not available on WASI — no C library access")
 
-public actual fun timerGettime(timerid: TimerT, currValue: Itimerspec?): CInt =
+public actual fun timerGettime(timerid: ULong, currValue: Itimerspec?): Int =
     throw UnsupportedOperationException("timerGettime not available on WASI — no C library access")
 
-public actual fun timerGetoverrun(timerid: TimerT): CInt =
+public actual fun timerGetoverrun(timerid: ULong): Int =
     throw UnsupportedOperationException("timerGetoverrun not available on WASI — no C library access")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: Timespec?, rmtp: Timespec?): CInt =
+public actual fun clockNanosleep(clkId: ULong, flags: Int, rqtp: Timespec?, rmtp: Timespec?): Int =
     throw UnsupportedOperationException("clockNanosleep not available on WASI — no C library access")
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: ClockidT?): CInt =
+public actual fun clockGetcpuclockid(pid: Int, clkId: ULong?): Int =
     throw UnsupportedOperationException("clockGetcpuclockid not available on WASI — no C library access")
 
-public actual fun futimes(fd: CInt, times: Timeval?): CInt =
+public actual fun futimes(fd: Int, times: Timeval?): Int =
     throw UnsupportedOperationException("futimes not available on WASI — no C library access")
 
-public actual fun lutimes(file: String?, times: Timeval?): CInt =
+public actual fun lutimes(file: String?, times: Timeval?): Int =
     throw UnsupportedOperationException("lutimes not available on WASI — no C library access")
 
-public actual fun settimeofday(tv: Timeval?, tz: Timezone?): CInt =
+public actual fun settimeofday(tv: Timeval?, tz: Timezone?): Int =
     throw UnsupportedOperationException("settimeofday not available on WASI — no C library access")
 
-public actual fun getitimer(which: CInt, currValue: Itimerval?): CInt =
+public actual fun getitimer(which: Int, currValue: Itimerval?): Int =
     throw UnsupportedOperationException("getitimer not available on WASI — no C library access")
 
-public actual fun setitimer(which: CInt, newValue: Itimerval?, oldValue: Itimerval?): CInt =
+public actual fun setitimer(which: Int, newValue: Itimerval?, oldValue: Itimerval?): Int =
     throw UnsupportedOperationException("setitimer not available on WASI — no C library access")
 
-public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): CInt =
+public actual fun gettimeofday(tp: Timeval?, tz: COpaquePointer?): Int =
     throw UnsupportedOperationException("gettimeofday not available on WASI — no C library access")
 
-public actual fun futimesat(fd: CInt, path: String?, times: Timeval?): CInt =
+public actual fun futimesat(fd: Int, path: String?, times: Timeval?): Int =
     throw UnsupportedOperationException("futimesat not available on WASI — no C library access")
 
-public actual fun getrlimit(resource: CInt, rlim: Rlimit?): CInt =
+public actual fun getrlimit(resource: Int, rlim: Rlimit?): Int =
     throw UnsupportedOperationException("getrlimit not available on WASI — no C library access")
 
-public actual fun setrlimit(resource: CInt, rlim: Rlimit?): CInt =
+public actual fun setrlimit(resource: Int, rlim: Rlimit?): Int =
     throw UnsupportedOperationException("setrlimit not available on WASI — no C library access")
 
-public actual fun getpriority(which: CInt, who: IdT): CInt =
+public actual fun getpriority(which: Int, who: UInt): Int =
     throw UnsupportedOperationException("getpriority not available on WASI — no C library access")
 
-public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
+public actual fun setpriority(which: Int, who: UInt, prio: Int): Int =
     throw UnsupportedOperationException("setpriority not available on WASI — no C library access")
 
-public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
+public actual fun getpwnamR(name: String?, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): Int =
     throw UnsupportedOperationException("getpwnamR not available on WASI — no C library access")
 
-public actual fun getpwuidR(uid: UidT, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
+public actual fun getpwuidR(uid: UInt, pwd: Passwd?, buf: String?, buflen: ULong, result: COpaquePointer?): Int =
     throw UnsupportedOperationException("getpwuidR not available on WASI — no C library access")
 
 public actual fun getpwent(): Passwd? =
@@ -157,112 +157,112 @@ public actual fun ifNameindex(): IfNameindex? =
 
 public actual fun ifFreenameindex(ptr: IfNameindex?): Unit = throw UnsupportedOperationException("ifFreenameindex not available on WASI — no C library access")
 
-public actual fun readv(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+public actual fun readv(fd: Int, iov: Iovec?, iovcnt: Int): Long =
     throw UnsupportedOperationException("readv not available on WASI — no C library access")
 
-public actual fun writev(fd: CInt, iov: Iovec?, iovcnt: CInt): SsizeT =
+public actual fun writev(fd: Int, iov: Iovec?, iovcnt: Int): Long =
     throw UnsupportedOperationException("writev not available on WASI — no C library access")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
+public actual fun mkfifoat(dirfd: Int, pathname: String?, mode: UInt): Int =
     throw UnsupportedOperationException("mkfifoat not available on WASI — no C library access")
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
+public actual fun mknodat(dirfd: Int, pathname: String?, mode: UInt, dev: UInt): Int =
     throw UnsupportedOperationException("mknodat not available on WASI — no C library access")
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: Timespec?, flag: CInt): CInt =
+public actual fun utimensat(dirfd: Int, path: String?, times: Timespec?, flag: Int): Int =
     throw UnsupportedOperationException("utimensat not available on WASI — no C library access")
 
-public actual fun futimens(fd: CInt, times: Timespec?): CInt =
+public actual fun futimens(fd: Int, times: Timespec?): Int =
     throw UnsupportedOperationException("futimens not available on WASI — no C library access")
 
-public actual fun dlfork(`val`: CInt): Unit = throw UnsupportedOperationException("dlfork not available on WASI — no C library access")
+public actual fun dlfork(`val`: Int): Unit = throw UnsupportedOperationException("dlfork not available on WASI — no C library access")
 
-public actual fun accept4(s: CInt, addr: Sockaddr?, addrlen: SocklenT?, flags: CInt): CInt =
+public actual fun accept4(s: Int, addr: Sockaddr?, addrlen: Int?, flags: Int): Int =
     throw UnsupportedOperationException("accept4 not available on WASI — no C library access")
 
-public actual fun bind(socket: CInt, address: Sockaddr?, addressLen: SocklenT): CInt =
+public actual fun bind(socket: Int, address: Sockaddr?, addressLen: Int): Int =
     throw UnsupportedOperationException("bind not available on WASI — no C library access")
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: ULong, flags: CInt, addr: Sockaddr?, addrlen: SocklenT?): SsizeT =
+public actual fun recvfrom(socket: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: Sockaddr?, addrlen: Int?): Long =
     throw UnsupportedOperationException("recvfrom not available on WASI — no C library access")
 
-public actual fun recvmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
+public actual fun recvmsg(fd: Int, msg: Msghdr?, flags: Int): Long =
     throw UnsupportedOperationException("recvmsg not available on WASI — no C library access")
 
-public actual fun sendmsg(fd: CInt, msg: Msghdr?, flags: CInt): SsizeT =
+public actual fun sendmsg(fd: Int, msg: Msghdr?, flags: Int): Long =
     throw UnsupportedOperationException("sendmsg not available on WASI — no C library access")
 
-public actual fun getnameinfo(sa: Sockaddr?, salen: SocklenT, host: String?, hostlen: SocklenT, serv: String?, sevlen: SocklenT, flags: CInt): CInt =
+public actual fun getnameinfo(sa: Sockaddr?, salen: Int, host: String?, hostlen: Int, serv: String?, sevlen: Int, flags: Int): Int =
     throw UnsupportedOperationException("getnameinfo not available on WASI — no C library access")
 
-public actual fun ppoll(fds: Pollfd?, nfds: NfdsT, timeout: Timespec?, sigmask: SigsetT?): CInt =
+public actual fun ppoll(fds: Pollfd?, nfds: UInt, timeout: Timespec?, sigmask: ULong?): Int =
     throw UnsupportedOperationException("ppoll not available on WASI — no C library access")
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
+public actual fun newlocale(mask: Int, locale: String?, base: io.github.kotlinmania.libc.COpaquePointer?): io.github.kotlinmania.libc.COpaquePointer? =
     throw UnsupportedOperationException("newlocale not available on WASI — no C library access")
 
-public actual fun freelocale(loc: LocaleT): Unit = throw UnsupportedOperationException("freelocale not available on WASI — no C library access")
+public actual fun freelocale(loc: io.github.kotlinmania.libc.COpaquePointer?): Unit = throw UnsupportedOperationException("freelocale not available on WASI — no C library access")
 
-public actual fun duplocale(base: LocaleT): LocaleT =
+public actual fun duplocale(base: io.github.kotlinmania.libc.COpaquePointer?): io.github.kotlinmania.libc.COpaquePointer? =
     throw UnsupportedOperationException("duplocale not available on WASI — no C library access")
 
-public actual fun uselocale(loc: LocaleT): LocaleT =
+public actual fun uselocale(loc: io.github.kotlinmania.libc.COpaquePointer?): io.github.kotlinmania.libc.COpaquePointer? =
     throw UnsupportedOperationException("uselocale not available on WASI — no C library access")
 
-public actual fun semInit(sem: SemT, pshared: CInt, value: CUInt): CInt =
+public actual fun semInit(sem: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int, value: UInt): Int =
     throw UnsupportedOperationException("semInit not available on WASI — no C library access")
 
-public actual fun semDestroy(sem: SemT): CInt =
+public actual fun semDestroy(sem: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("semDestroy not available on WASI — no C library access")
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg args: Any?): SemT =
+public actual fun semOpen(name: String?, oflag: Int, vararg args: Any?): io.github.kotlinmania.libc.COpaquePointer? =
     throw UnsupportedOperationException("semOpen not available on WASI — no C library access")
 
-public actual fun semClose(sem: SemT): CInt =
+public actual fun semClose(sem: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("semClose not available on WASI — no C library access")
 
-public actual fun semUnlink(name: String?): CInt =
+public actual fun semUnlink(name: String?): Int =
     throw UnsupportedOperationException("semUnlink not available on WASI — no C library access")
 
-public actual fun semTimedwait(sem: SemT, abstime: Timespec?): CInt =
+public actual fun semTimedwait(sem: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("semTimedwait not available on WASI — no C library access")
 
-public actual fun semGetvalue(sem: SemT, sval: CInt?): CInt =
+public actual fun semGetvalue(sem: io.github.kotlinmania.libc.COpaquePointer?, sval: Int?): Int =
     throw UnsupportedOperationException("semGetvalue not available on WASI — no C library access")
 
-public actual fun clearenv(): CInt =
+public actual fun clearenv(): Int =
     throw UnsupportedOperationException("clearenv not available on WASI — no C library access")
 
-public actual fun ptsnameR(fd: CInt, buf: String?, buflen: ULong): CInt =
+public actual fun ptsnameR(fd: Int, buf: String?, buflen: ULong): Int =
     throw UnsupportedOperationException("ptsnameR not available on WASI — no C library access")
 
-public actual fun getpt(): CInt =
+public actual fun getpt(): Int =
     throw UnsupportedOperationException("getpt not available on WASI — no C library access")
 
 public actual fun memalign(align: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memalign not available on WASI — no C library access")
 
-public actual fun getloadavg(loadavg: CDouble?, nelem: CInt): CInt =
+public actual fun getloadavg(loadavg: Double?, nelem: Int): Int =
     throw UnsupportedOperationException("getloadavg not available on WASI — no C library access")
 
-public actual fun abs(i: CInt): CInt =
+public actual fun abs(i: Int): Int =
     throw UnsupportedOperationException("abs not available on WASI — no C library access")
 
 public actual fun arc4randomBuf(buf: COpaquePointer?, size: ULong): Unit = throw UnsupportedOperationException("arc4randomBuf not available on WASI — no C library access")
 
-public actual fun labs(i: CLong): CLong =
+public actual fun labs(i: Long): Long =
     throw UnsupportedOperationException("labs not available on WASI — no C library access")
 
-public actual fun mkostemp(template: String?, flags: CInt): CInt =
+public actual fun mkostemp(template: String?, flags: Int): Int =
     throw UnsupportedOperationException("mkostemp not available on WASI — no C library access")
 
-public actual fun mkostemps(template: String?, suffixlen: CInt, flags: CInt): CInt =
+public actual fun mkostemps(template: String?, suffixlen: Int, flags: Int): Int =
     throw UnsupportedOperationException("mkostemps not available on WASI — no C library access")
 
-public actual fun mkstemps(template: String?, suffixlen: CInt): CInt =
+public actual fun mkstemps(template: String?, suffixlen: Int): Int =
     throw UnsupportedOperationException("mkstemps not available on WASI — no C library access")
 
-public actual fun rand(): CInt =
+public actual fun rand(): Int =
     throw UnsupportedOperationException("rand not available on WASI — no C library access")
 
 public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong): COpaquePointer? =
@@ -271,84 +271,84 @@ public actual fun reallocarray(ptr: COpaquePointer?, nmemb: ULong, size: ULong):
 public actual fun reallocf(ptr: COpaquePointer?, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("reallocf not available on WASI — no C library access")
 
-public actual fun srand(seed: CUInt): Unit = throw UnsupportedOperationException("srand not available on WASI — no C library access")
+public actual fun srand(seed: UInt): Unit = throw UnsupportedOperationException("srand not available on WASI — no C library access")
 
-public actual fun jrand48(xseed: CUShort?): CLong =
+public actual fun jrand48(xseed: UShort?): Long =
     throw UnsupportedOperationException("jrand48 not available on WASI — no C library access")
 
-public actual fun lcong48(p: CUShort?): Unit = throw UnsupportedOperationException("lcong48 not available on WASI — no C library access")
+public actual fun lcong48(p: UShort?): Unit = throw UnsupportedOperationException("lcong48 not available on WASI — no C library access")
 
-public actual fun lrand48(): CLong =
+public actual fun lrand48(): Long =
     throw UnsupportedOperationException("lrand48 not available on WASI — no C library access")
 
-public actual fun mrand48(): CLong =
+public actual fun mrand48(): Long =
     throw UnsupportedOperationException("mrand48 not available on WASI — no C library access")
 
-public actual fun nrand48(xseed: CUShort?): CLong =
+public actual fun nrand48(xseed: UShort?): Long =
     throw UnsupportedOperationException("nrand48 not available on WASI — no C library access")
 
-public actual fun seed48(xseed: CUShort?): CUShort? =
+public actual fun seed48(xseed: UShort?): UShort? =
     throw UnsupportedOperationException("seed48 not available on WASI — no C library access")
 
-public actual fun srand48(seed: CLong): Unit = throw UnsupportedOperationException("srand48 not available on WASI — no C library access")
+public actual fun srand48(seed: Long): Unit = throw UnsupportedOperationException("srand48 not available on WASI — no C library access")
 
-public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: CInt): CInt =
+public actual fun mprotect(addr: COpaquePointer?, len: ULong, prot: Int): Int =
     throw UnsupportedOperationException("mprotect not available on WASI — no C library access")
 
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
+public actual fun msync(addr: COpaquePointer?, len: ULong, flags: Int): Int =
     throw UnsupportedOperationException("msync not available on WASI — no C library access")
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+public actual fun posixMadvise(addr: COpaquePointer?, len: ULong, advice: Int): Int =
     throw UnsupportedOperationException("posixMadvise not available on WASI — no C library access")
 
-public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: CInt): CInt =
+public actual fun madvise(addr: COpaquePointer?, len: ULong, advice: Int): Int =
     throw UnsupportedOperationException("madvise not available on WASI — no C library access")
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
+public actual fun shmOpen(name: String?, oflag: Int, mode: UInt): Int =
     throw UnsupportedOperationException("shmOpen not available on WASI — no C library access")
 
-public actual fun shmUnlink(name: String?): CInt =
+public actual fun shmUnlink(name: String?): Int =
     throw UnsupportedOperationException("shmUnlink not available on WASI — no C library access")
 
 public actual fun explicitBzero(s: COpaquePointer?, len: ULong): Unit = throw UnsupportedOperationException("explicitBzero not available on WASI — no C library access")
 
-public actual fun ffs(value: CInt): CInt =
+public actual fun ffs(value: Int): Int =
     throw UnsupportedOperationException("ffs not available on WASI — no C library access")
 
-public actual fun ffsl(value: CLong): CInt =
+public actual fun ffsl(value: Long): Int =
     throw UnsupportedOperationException("ffsl not available on WASI — no C library access")
 
-public actual fun ffsll(value: CLongLong): CInt =
+public actual fun ffsll(value: Long): Int =
     throw UnsupportedOperationException("ffsll not available on WASI — no C library access")
 
-public actual fun fls(value: CInt): CInt =
+public actual fun fls(value: Int): Int =
     throw UnsupportedOperationException("fls not available on WASI — no C library access")
 
-public actual fun flsl(value: CLong): CInt =
+public actual fun flsl(value: Long): Int =
     throw UnsupportedOperationException("flsl not available on WASI — no C library access")
 
-public actual fun flsll(value: CLongLong): CInt =
+public actual fun flsll(value: Long): Int =
     throw UnsupportedOperationException("flsll not available on WASI — no C library access")
 
-public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
+public actual fun strcasecmpL(s1: String?, s2: String?, loc: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("strcasecmpL not available on WASI — no C library access")
 
-public actual fun strncasecmpL(s1: String?, s2: String?, n: ULong, loc: LocaleT): CInt =
+public actual fun strncasecmpL(s1: String?, s2: String?, n: ULong, loc: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("strncasecmpL not available on WASI — no C library access")
 
-public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt =
+public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): Int =
     throw UnsupportedOperationException("timingsafeBcmp not available on WASI — no C library access")
 
-public actual fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): CInt =
+public actual fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: ULong): Int =
     throw UnsupportedOperationException("timingsafeMemcmp not available on WASI — no C library access")
 
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: ULong, needle: COpaquePointer?, needlelen: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmem not available on WASI — no C library access")
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: ULong): COpaquePointer? =
+public actual fun memrchr(cx: COpaquePointer?, c: Int, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memrchr not available on WASI — no C library access")
 
-public actual fun strerrorR(errnum: CInt, buf: String?, buflen: ULong): CInt =
+public actual fun strerrorR(errnum: Int, buf: String?, buflen: ULong): Int =
     throw UnsupportedOperationException("strerrorR not available on WASI — no C library access")
 
 public actual fun strsep(string: COpaquePointer?, delim: String?): String? =
@@ -357,347 +357,347 @@ public actual fun strsep(string: COpaquePointer?, delim: String?): String? =
 public actual fun basename(path: String?): String? =
     throw UnsupportedOperationException("basename not available on WASI — no C library access")
 
-public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
+public actual fun daemon(nochdir: Int, noclose: Int): Int =
     throw UnsupportedOperationException("daemon not available on WASI — no C library access")
 
-public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
+public actual fun dup3(src: Int, dst: Int, flags: Int): Int =
     throw UnsupportedOperationException("dup3 not available on WASI — no C library access")
 
-public actual fun eaccess(pathname: String?, mode: CInt): CInt =
+public actual fun eaccess(pathname: String?, mode: Int): Int =
     throw UnsupportedOperationException("eaccess not available on WASI — no C library access")
 
-public actual fun euidaccess(pathname: String?, mode: CInt): CInt =
+public actual fun euidaccess(pathname: String?, mode: Int): Int =
     throw UnsupportedOperationException("euidaccess not available on WASI — no C library access")
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
+public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): Int =
     throw UnsupportedOperationException("execvpe not available on WASI — no C library access")
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
+public actual fun faccessat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int =
     throw UnsupportedOperationException("faccessat not available on WASI — no C library access")
 
-public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
+public actual fun fexecve(fd: Int, argv: COpaquePointer?, envp: COpaquePointer?): Int =
     throw UnsupportedOperationException("fexecve not available on WASI — no C library access")
 
-public actual fun fdatasync(fd: CInt): CInt =
+public actual fun fdatasync(fd: Int): Int =
     throw UnsupportedOperationException("fdatasync not available on WASI — no C library access")
 
-public actual fun getdomainname(name: String?, len: ULong): CInt =
+public actual fun getdomainname(name: String?, len: ULong): Int =
     throw UnsupportedOperationException("getdomainname not available on WASI — no C library access")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): CInt =
+public actual fun getentropy(buf: COpaquePointer?, buflen: ULong): Int =
     throw UnsupportedOperationException("getentropy not available on WASI — no C library access")
 
-public actual fun gethostid(): CLong =
+public actual fun gethostid(): Long =
     throw UnsupportedOperationException("gethostid not available on WASI — no C library access")
 
-public actual fun getpagesize(): CInt =
+public actual fun getpagesize(): Int =
     throw UnsupportedOperationException("getpagesize not available on WASI — no C library access")
 
-public actual fun getpeereid(socket: CInt, euid: UidT?, egid: GidT?): CInt =
+public actual fun getpeereid(socket: Int, euid: UInt?, egid: UInt?): Int =
     throw UnsupportedOperationException("getpeereid not available on WASI — no C library access")
 
-public actual fun pipe2(fds: CInt?, flags: CInt): CInt =
+public actual fun pipe2(fds: Int?, flags: Int): Int =
     throw UnsupportedOperationException("pipe2 not available on WASI — no C library access")
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
+public actual fun sbrk(increment: Long): COpaquePointer? =
     throw UnsupportedOperationException("sbrk not available on WASI — no C library access")
 
-public actual fun setgroups(ngroups: CInt, ptr: GidT?): CInt =
+public actual fun setgroups(ngroups: Int, ptr: UInt?): Int =
     throw UnsupportedOperationException("setgroups not available on WASI — no C library access")
 
-public actual fun sethostname(name: String?, len: ULong): CInt =
+public actual fun sethostname(name: String?, len: ULong): Int =
     throw UnsupportedOperationException("sethostname not available on WASI — no C library access")
 
-public actual fun vhangup(): CInt =
+public actual fun vhangup(): Int =
     throw UnsupportedOperationException("vhangup not available on WASI — no C library access")
 
-public actual fun getdtablesize(): CInt =
+public actual fun getdtablesize(): Int =
     throw UnsupportedOperationException("getdtablesize not available on WASI — no C library access")
 
 public actual fun sync(): Unit = throw UnsupportedOperationException("sync not available on WASI — no C library access")
 
-public actual fun errno(): CInt? =
+public actual fun errno(): Int? =
     throw UnsupportedOperationException("errno not available on WASI — no C library access")
 
-public actual fun schedSetparam(pid: PidT, param: SchedParam?): CInt =
+public actual fun schedSetparam(pid: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("schedSetparam not available on WASI — no C library access")
 
-public actual fun schedGetparam(pid: PidT, param: SchedParam?): CInt =
+public actual fun schedGetparam(pid: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("schedGetparam not available on WASI — no C library access")
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: SchedParam?): CInt =
+public actual fun schedSetscheduler(pid: Int, policy: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("schedSetscheduler not available on WASI — no C library access")
 
-public actual fun schedGetscheduler(pid: PidT): CInt =
+public actual fun schedGetscheduler(pid: Int): Int =
     throw UnsupportedOperationException("schedGetscheduler not available on WASI — no C library access")
 
-public actual fun schedGetPriorityMax(policy: CInt): CInt =
+public actual fun schedGetPriorityMax(policy: Int): Int =
     throw UnsupportedOperationException("schedGetPriorityMax not available on WASI — no C library access")
 
-public actual fun schedGetPriorityMin(policy: CInt): CInt =
+public actual fun schedGetPriorityMin(policy: Int): Int =
     throw UnsupportedOperationException("schedGetPriorityMin not available on WASI — no C library access")
 
-public actual fun schedRrGetInterval(pid: PidT, t: Timespec?): CInt =
+public actual fun schedRrGetInterval(pid: Int, t: Timespec?): Int =
     throw UnsupportedOperationException("schedRrGetInterval not available on WASI — no C library access")
 
-public actual fun schedGetcpu(): CInt =
+public actual fun schedGetcpu(): Int =
     throw UnsupportedOperationException("schedGetcpu not available on WASI — no C library access")
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: ULong, mask: CpuSetT?): CInt =
+public actual fun schedGetaffinity(pid: Int, cpusetsize: ULong, mask: CpuSetT?): Int =
     throw UnsupportedOperationException("schedGetaffinity not available on WASI — no C library access")
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
+public actual fun schedSetaffinity(pid: Int, cpusetsize: ULong, cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("schedSetaffinity not available on WASI — no C library access")
 
-public actual fun pthreadAttrGetguardsize(attr: PthreadAttrT, guardsize: ULong?): CInt =
+public actual fun pthreadAttrGetguardsize(attr: io.github.kotlinmania.libc.COpaquePointer?, guardsize: ULong?): Int =
     throw UnsupportedOperationException("pthreadAttrGetguardsize not available on WASI — no C library access")
 
-public actual fun pthreadAttrGetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt =
+public actual fun pthreadAttrGetschedparam(attr: io.github.kotlinmania.libc.COpaquePointer?, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadAttrGetschedparam not available on WASI — no C library access")
 
-public actual fun pthreadAttrSetschedparam(attr: PthreadAttrT, param: SchedParam?): CInt =
+public actual fun pthreadAttrSetschedparam(attr: io.github.kotlinmania.libc.COpaquePointer?, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadAttrSetschedparam not available on WASI — no C library access")
 
-public actual fun pthreadAttrGetstack(attr: PthreadAttrT, stackaddr: COpaquePointer?, stacksize: ULong?): CInt =
+public actual fun pthreadAttrGetstack(attr: io.github.kotlinmania.libc.COpaquePointer?, stackaddr: COpaquePointer?, stacksize: ULong?): Int =
     throw UnsupportedOperationException("pthreadAttrGetstack not available on WASI — no C library access")
 
-public actual fun pthreadCancel(thread: PthreadT): CInt =
+public actual fun pthreadCancel(thread: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadCancel not available on WASI — no C library access")
 
-public actual fun pthreadCondattrGetclock(attr: PthreadCondattrT, clockId: ClockidT?): CInt =
+public actual fun pthreadCondattrGetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: ULong?): Int =
     throw UnsupportedOperationException("pthreadCondattrGetclock not available on WASI — no C library access")
 
-public actual fun pthreadCondattrGetpshared(attr: PthreadCondattrT, pshared: CInt?): CInt =
+public actual fun pthreadCondattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int?): Int =
     throw UnsupportedOperationException("pthreadCondattrGetpshared not available on WASI — no C library access")
 
-public actual fun pthreadCondattrSetclock(attr: PthreadCondattrT, clockId: ClockidT): CInt =
+public actual fun pthreadCondattrSetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: ULong): Int =
     throw UnsupportedOperationException("pthreadCondattrSetclock not available on WASI — no C library access")
 
-public actual fun pthreadCondattrSetpshared(attr: PthreadCondattrT, pshared: CInt): CInt =
+public actual fun pthreadCondattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int): Int =
     throw UnsupportedOperationException("pthreadCondattrSetpshared not available on WASI — no C library access")
 
-public actual fun pthreadBarrierattrInit(attr: PthreadBarrierattrT?): CInt =
+public actual fun pthreadBarrierattrInit(attr: ULong?): Int =
     throw UnsupportedOperationException("pthreadBarrierattrInit not available on WASI — no C library access")
 
-public actual fun pthreadBarrierattrSetpshared(attr: PthreadBarrierattrT?, shared: CInt): CInt =
+public actual fun pthreadBarrierattrSetpshared(attr: ULong?, shared: Int): Int =
     throw UnsupportedOperationException("pthreadBarrierattrSetpshared not available on WASI — no C library access")
 
-public actual fun pthreadBarrierattrGetpshared(attr: PthreadBarrierattrT?, shared: CInt?): CInt =
+public actual fun pthreadBarrierattrGetpshared(attr: ULong?, shared: Int?): Int =
     throw UnsupportedOperationException("pthreadBarrierattrGetpshared not available on WASI — no C library access")
 
-public actual fun pthreadBarrierattrDestroy(attr: PthreadBarrierattrT?): CInt =
+public actual fun pthreadBarrierattrDestroy(attr: ULong?): Int =
     throw UnsupportedOperationException("pthreadBarrierattrDestroy not available on WASI — no C library access")
 
-public actual fun pthreadBarrierInit(barrier: PthreadBarrierT?, attr: PthreadBarrierattrT?, count: CUInt): CInt =
+public actual fun pthreadBarrierInit(barrier: ULong?, attr: ULong?, count: UInt): Int =
     throw UnsupportedOperationException("pthreadBarrierInit not available on WASI — no C library access")
 
-public actual fun pthreadBarrierDestroy(barrier: PthreadBarrierT?): CInt =
+public actual fun pthreadBarrierDestroy(barrier: ULong?): Int =
     throw UnsupportedOperationException("pthreadBarrierDestroy not available on WASI — no C library access")
 
-public actual fun pthreadBarrierWait(barrier: PthreadBarrierT?): CInt =
+public actual fun pthreadBarrierWait(barrier: ULong?): Int =
     throw UnsupportedOperationException("pthreadBarrierWait not available on WASI — no C library access")
 
-public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: ClockidT?): CInt =
+public actual fun pthreadGetcpuclockid(thread: io.github.kotlinmania.libc.COpaquePointer?, clkId: ULong?): Int =
     throw UnsupportedOperationException("pthreadGetcpuclockid not available on WASI — no C library access")
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: CInt?, param: SchedParam?): CInt =
+public actual fun pthreadGetschedparam(native: io.github.kotlinmania.libc.COpaquePointer?, policy: Int?, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadGetschedparam not available on WASI — no C library access")
 
-public actual fun pthreadMutexTimedlock(lock: PthreadMutexT, abstime: Timespec?): CInt =
+public actual fun pthreadMutexTimedlock(lock: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("pthreadMutexTimedlock not available on WASI — no C library access")
 
-public actual fun pthreadMutexattrGetprotocol(attr: PthreadMutexattrT, protocol: CInt?): CInt =
+public actual fun pthreadMutexattrGetprotocol(attr: io.github.kotlinmania.libc.COpaquePointer?, protocol: Int?): Int =
     throw UnsupportedOperationException("pthreadMutexattrGetprotocol not available on WASI — no C library access")
 
-public actual fun pthreadMutexattrGetpshared(attr: PthreadMutexattrT, pshared: CInt?): CInt =
+public actual fun pthreadMutexattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int?): Int =
     throw UnsupportedOperationException("pthreadMutexattrGetpshared not available on WASI — no C library access")
 
-public actual fun pthreadMutexattrSetprotocol(attr: PthreadMutexattrT, protocol: CInt): CInt =
+public actual fun pthreadMutexattrSetprotocol(attr: io.github.kotlinmania.libc.COpaquePointer?, protocol: Int): Int =
     throw UnsupportedOperationException("pthreadMutexattrSetprotocol not available on WASI — no C library access")
 
-public actual fun pthreadMutexattrSetpshared(attr: PthreadMutexattrT, pshared: CInt): CInt =
+public actual fun pthreadMutexattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, pshared: Int): Int =
     throw UnsupportedOperationException("pthreadMutexattrSetpshared not available on WASI — no C library access")
 
-public actual fun pthreadSpinDestroy(lock: PthreadSpinlockT?): CInt =
+public actual fun pthreadSpinDestroy(lock: ULong?): Int =
     throw UnsupportedOperationException("pthreadSpinDestroy not available on WASI — no C library access")
 
-public actual fun pthreadSpinInit(lock: PthreadSpinlockT?, pshared: CInt): CInt =
+public actual fun pthreadSpinInit(lock: ULong?, pshared: Int): Int =
     throw UnsupportedOperationException("pthreadSpinInit not available on WASI — no C library access")
 
-public actual fun pthreadSpinLock(lock: PthreadSpinlockT?): CInt =
+public actual fun pthreadSpinLock(lock: ULong?): Int =
     throw UnsupportedOperationException("pthreadSpinLock not available on WASI — no C library access")
 
-public actual fun pthreadSpinTrylock(lock: PthreadSpinlockT?): CInt =
+public actual fun pthreadSpinTrylock(lock: ULong?): Int =
     throw UnsupportedOperationException("pthreadSpinTrylock not available on WASI — no C library access")
 
-public actual fun pthreadSpinUnlock(lock: PthreadSpinlockT?): CInt =
+public actual fun pthreadSpinUnlock(lock: ULong?): Int =
     throw UnsupportedOperationException("pthreadSpinUnlock not available on WASI — no C library access")
 
-public actual fun pthreadRwlockattrGetpshared(attr: PthreadRwlockattrT, `val`: CInt?): CInt =
+public actual fun pthreadRwlockattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, `val`: Int?): Int =
     throw UnsupportedOperationException("pthreadRwlockattrGetpshared not available on WASI — no C library access")
 
-public actual fun pthreadRwlockattrSetpshared(attr: PthreadRwlockattrT, `val`: CInt): CInt =
+public actual fun pthreadRwlockattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, `val`: Int): Int =
     throw UnsupportedOperationException("pthreadRwlockattrSetpshared not available on WASI — no C library access")
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: SchedParam?): CInt =
+public actual fun pthreadSetschedparam(native: io.github.kotlinmania.libc.COpaquePointer?, policy: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadSetschedparam not available on WASI — no C library access")
 
-public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
+public actual fun pthreadSetschedprio(native: io.github.kotlinmania.libc.COpaquePointer?, priority: Int): Int =
     throw UnsupportedOperationException("pthreadSetschedprio not available on WASI — no C library access")
 
-public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
+public actual fun pthreadGetaffinityNp(thread: io.github.kotlinmania.libc.COpaquePointer?, cpusetsize: ULong, cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("pthreadGetaffinityNp not available on WASI — no C library access")
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT): CInt =
+public actual fun pthreadGetattrNp(native: io.github.kotlinmania.libc.COpaquePointer?, attr: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadGetattrNp not available on WASI — no C library access")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: String?, len: ULong): CInt =
+public actual fun pthreadGetnameNp(thread: io.github.kotlinmania.libc.COpaquePointer?, name: String?, len: ULong): Int =
     throw UnsupportedOperationException("pthreadGetnameNp not available on WASI — no C library access")
 
-public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT?): CInt =
+public actual fun pthreadSetaffinityNp(thread: io.github.kotlinmania.libc.COpaquePointer?, cpusetsize: ULong, cpuset: CpuSetT?): Int =
     throw UnsupportedOperationException("pthreadSetaffinityNp not available on WASI — no C library access")
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
+public actual fun pthreadSetnameNp(thread: io.github.kotlinmania.libc.COpaquePointer?, name: String?): Int =
     throw UnsupportedOperationException("pthreadSetnameNp not available on WASI — no C library access")
 
-public actual fun ioctl(fd: CInt, request: CInt, vararg args: Any?): CInt =
+public actual fun ioctl(fd: Int, request: Int, vararg args: Any?): Int =
     throw UnsupportedOperationException("ioctl not available on WASI — no C library access")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: CUInt): SsizeT =
+public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long =
     throw UnsupportedOperationException("getrandom not available on WASI — no C library access")
 
-public actual fun mount(src: String?, target: String?, flags: CUInt): CInt =
+public actual fun mount(src: String?, target: String?, flags: UInt): Int =
     throw UnsupportedOperationException("mount not available on WASI — no C library access")
 
-public actual fun umount(target: String?): CInt =
+public actual fun umount(target: String?): Int =
     throw UnsupportedOperationException("umount not available on WASI — no C library access")
 
-public actual fun cygwinUmount(target: String?, flags: CUInt): CInt =
+public actual fun cygwinUmount(target: String?, flags: UInt): Int =
     throw UnsupportedOperationException("cygwinUmount not available on WASI — no C library access")
 
-public actual fun dirfd(dirp: DIR?): CInt =
+public actual fun dirfd(dirp: DIR?): Int =
     throw UnsupportedOperationException("dirfd not available on WASI — no C library access")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong): Unit = throw UnsupportedOperationException("seekdir not available on WASI — no C library access")
+public actual fun seekdir(dirp: DIR?, loc: Long): Unit = throw UnsupportedOperationException("seekdir not available on WASI — no C library access")
 
-public actual fun telldir(dirp: DIR?): CLong =
+public actual fun telldir(dirp: DIR?): Long =
     throw UnsupportedOperationException("telldir not available on WASI — no C library access")
 
-public actual fun uname(buf: Utsname?): CInt =
+public actual fun uname(buf: Utsname?): Int =
     throw UnsupportedOperationException("uname not available on WASI — no C library access")
 
-public actual fun posixSpawn(pid: PidT?, path: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
+public actual fun posixSpawn(pid: Int?, path: String?, fileActions: io.github.kotlinmania.libc.COpaquePointer?, attrp: io.github.kotlinmania.libc.COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): Int =
     throw UnsupportedOperationException("posixSpawn not available on WASI — no C library access")
 
-public actual fun posixSpawnp(pid: PidT?, file: String?, fileActions: PosixSpawnFileActionsT, attrp: PosixSpawnattrT, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
+public actual fun posixSpawnp(pid: Int?, file: String?, fileActions: io.github.kotlinmania.libc.COpaquePointer?, attrp: io.github.kotlinmania.libc.COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): Int =
     throw UnsupportedOperationException("posixSpawnp not available on WASI — no C library access")
 
-public actual fun posixSpawnattrInit(attr: PosixSpawnattrT): CInt =
+public actual fun posixSpawnattrInit(attr: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("posixSpawnattrInit not available on WASI — no C library access")
 
-public actual fun posixSpawnattrDestroy(attr: PosixSpawnattrT): CInt =
+public actual fun posixSpawnattrDestroy(attr: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("posixSpawnattrDestroy not available on WASI — no C library access")
 
-public actual fun posixSpawnattrGetsigdefault(attr: PosixSpawnattrT, default: SigsetT?): CInt =
+public actual fun posixSpawnattrGetsigdefault(attr: io.github.kotlinmania.libc.COpaquePointer?, default: ULong?): Int =
     throw UnsupportedOperationException("posixSpawnattrGetsigdefault not available on WASI — no C library access")
 
-public actual fun posixSpawnattrSetsigdefault(attr: PosixSpawnattrT, default: SigsetT?): CInt =
+public actual fun posixSpawnattrSetsigdefault(attr: io.github.kotlinmania.libc.COpaquePointer?, default: ULong?): Int =
     throw UnsupportedOperationException("posixSpawnattrSetsigdefault not available on WASI — no C library access")
 
-public actual fun posixSpawnattrGetsigmask(attr: PosixSpawnattrT, default: SigsetT?): CInt =
+public actual fun posixSpawnattrGetsigmask(attr: io.github.kotlinmania.libc.COpaquePointer?, default: ULong?): Int =
     throw UnsupportedOperationException("posixSpawnattrGetsigmask not available on WASI — no C library access")
 
-public actual fun posixSpawnattrSetsigmask(attr: PosixSpawnattrT, default: SigsetT?): CInt =
+public actual fun posixSpawnattrSetsigmask(attr: io.github.kotlinmania.libc.COpaquePointer?, default: ULong?): Int =
     throw UnsupportedOperationException("posixSpawnattrSetsigmask not available on WASI — no C library access")
 
-public actual fun posixSpawnattrGetflags(attr: PosixSpawnattrT, flags: CShort?): CInt =
+public actual fun posixSpawnattrGetflags(attr: io.github.kotlinmania.libc.COpaquePointer?, flags: Short?): Int =
     throw UnsupportedOperationException("posixSpawnattrGetflags not available on WASI — no C library access")
 
-public actual fun posixSpawnattrSetflags(attr: PosixSpawnattrT, flags: CShort): CInt =
+public actual fun posixSpawnattrSetflags(attr: io.github.kotlinmania.libc.COpaquePointer?, flags: Short): Int =
     throw UnsupportedOperationException("posixSpawnattrSetflags not available on WASI — no C library access")
 
-public actual fun posixSpawnattrGetpgroup(attr: PosixSpawnattrT, flags: PidT?): CInt =
+public actual fun posixSpawnattrGetpgroup(attr: io.github.kotlinmania.libc.COpaquePointer?, flags: Int?): Int =
     throw UnsupportedOperationException("posixSpawnattrGetpgroup not available on WASI — no C library access")
 
-public actual fun posixSpawnattrSetpgroup(attr: PosixSpawnattrT, flags: PidT): CInt =
+public actual fun posixSpawnattrSetpgroup(attr: io.github.kotlinmania.libc.COpaquePointer?, flags: Int): Int =
     throw UnsupportedOperationException("posixSpawnattrSetpgroup not available on WASI — no C library access")
 
-public actual fun posixSpawnattrGetschedpolicy(attr: PosixSpawnattrT, flags: CInt?): CInt =
+public actual fun posixSpawnattrGetschedpolicy(attr: io.github.kotlinmania.libc.COpaquePointer?, flags: Int?): Int =
     throw UnsupportedOperationException("posixSpawnattrGetschedpolicy not available on WASI — no C library access")
 
-public actual fun posixSpawnattrSetschedpolicy(attr: PosixSpawnattrT, flags: CInt): CInt =
+public actual fun posixSpawnattrSetschedpolicy(attr: io.github.kotlinmania.libc.COpaquePointer?, flags: Int): Int =
     throw UnsupportedOperationException("posixSpawnattrSetschedpolicy not available on WASI — no C library access")
 
-public actual fun posixSpawnattrGetschedparam(attr: PosixSpawnattrT, param: SchedParam?): CInt =
+public actual fun posixSpawnattrGetschedparam(attr: io.github.kotlinmania.libc.COpaquePointer?, param: SchedParam?): Int =
     throw UnsupportedOperationException("posixSpawnattrGetschedparam not available on WASI — no C library access")
 
-public actual fun posixSpawnattrSetschedparam(attr: PosixSpawnattrT, param: SchedParam?): CInt =
+public actual fun posixSpawnattrSetschedparam(attr: io.github.kotlinmania.libc.COpaquePointer?, param: SchedParam?): Int =
     throw UnsupportedOperationException("posixSpawnattrSetschedparam not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsInit(actions: PosixSpawnFileActionsT): CInt =
+public actual fun posixSpawnFileActionsInit(actions: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsInit not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsDestroy(actions: PosixSpawnFileActionsT): CInt =
+public actual fun posixSpawnFileActionsDestroy(actions: io.github.kotlinmania.libc.COpaquePointer?): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsDestroy not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsAddopen(actions: PosixSpawnFileActionsT, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
+public actual fun posixSpawnFileActionsAddopen(actions: io.github.kotlinmania.libc.COpaquePointer?, fd: Int, path: String?, oflag: Int, mode: UInt): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsAddopen not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsAddclose(actions: PosixSpawnFileActionsT, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddclose(actions: io.github.kotlinmania.libc.COpaquePointer?, fd: Int): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsAddclose not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsAdddup2(actions: PosixSpawnFileActionsT, fd: CInt, newfd: CInt): CInt =
+public actual fun posixSpawnFileActionsAdddup2(actions: io.github.kotlinmania.libc.COpaquePointer?, fd: Int, newfd: Int): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsAdddup2 not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsAddchdir(actions: PosixSpawnFileActionsT, path: String?): CInt =
+public actual fun posixSpawnFileActionsAddchdir(actions: io.github.kotlinmania.libc.COpaquePointer?, path: String?): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsAddchdir not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsAddfchdir(actions: PosixSpawnFileActionsT, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddfchdir(actions: io.github.kotlinmania.libc.COpaquePointer?, fd: Int): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsAddfchdir not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsAddchdirNp(actions: PosixSpawnFileActionsT, path: String?): CInt =
+public actual fun posixSpawnFileActionsAddchdirNp(actions: io.github.kotlinmania.libc.COpaquePointer?, path: String?): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsAddchdirNp not available on WASI — no C library access")
 
-public actual fun posixSpawnFileActionsAddfchdirNp(actions: PosixSpawnFileActionsT, fd: CInt): CInt =
+public actual fun posixSpawnFileActionsAddfchdirNp(actions: io.github.kotlinmania.libc.COpaquePointer?, fd: Int): Int =
     throw UnsupportedOperationException("posixSpawnFileActionsAddfchdirNp not available on WASI — no C library access")
 
-public actual fun forkpty(amaster: CInt?, name: String?, termp: Termios?, winp: Winsize?): PidT =
+public actual fun forkpty(amaster: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
     throw UnsupportedOperationException("forkpty not available on WASI — no C library access")
 
-public actual fun openpty(amaster: CInt?, aslave: CInt?, name: String?, termp: Termios?, winp: Winsize?): CInt =
+public actual fun openpty(amaster: Int?, aslave: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
     throw UnsupportedOperationException("openpty not available on WASI — no C library access")
 
-public actual fun getgrgid(gid: GidT): Group? =
+public actual fun getgrgid(gid: UInt): Group? =
     throw UnsupportedOperationException("getgrgid not available on WASI — no C library access")
 
-public actual fun getgrgidR(gid: GidT, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
+public actual fun getgrgidR(gid: UInt, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): Int =
     throw UnsupportedOperationException("getgrgidR not available on WASI — no C library access")
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: GidT?, ngroups: CInt?): CInt =
+public actual fun getgrouplist(user: String?, group: UInt, groups: UInt?, ngroups: Int?): Int =
     throw UnsupportedOperationException("getgrouplist not available on WASI — no C library access")
 
 public actual fun getgrnam(name: String?): Group? =
     throw UnsupportedOperationException("getgrnam not available on WASI — no C library access")
 
-public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): CInt =
+public actual fun getgrnamR(name: String?, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): Int =
     throw UnsupportedOperationException("getgrnamR not available on WASI — no C library access")
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
+public actual fun initgroups(user: String?, group: UInt): Int =
     throw UnsupportedOperationException("initgroups not available on WASI — no C library access")
 
-public actual fun statfs(path: String?, buf: Statfs?): CInt =
+public actual fun statfs(path: String?, buf: Statfs?): Int =
     throw UnsupportedOperationException("statfs not available on WASI — no C library access")
 
-public actual fun fstatfs(fd: CInt, buf: Statfs?): CInt =
+public actual fun fstatfs(fd: Int, buf: Statfs?): Int =
     throw UnsupportedOperationException("fstatfs not available on WASI — no C library access")
 
-public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
+public actual fun posixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int =
     throw UnsupportedOperationException("posixFadvise not available on WASI — no C library access")
 
-public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
+public actual fun posixFallocate(fd: Int, offset: Long, len: Long): Int =
     throw UnsupportedOperationException("posixFallocate not available on WASI — no C library access")
 
-public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
+public actual fun fallocate(fd: Int, mode: Int, offset: Long, len: Long): Int =
     throw UnsupportedOperationException("fallocate not available on WASI — no C library access")
 
 public actual fun endutxent(): Unit = throw UnsupportedOperationException("endutxent not available on WASI — no C library access")
@@ -716,18 +716,18 @@ public actual fun pututxline(utmpx: Utmpx?): Utmpx? =
 
 public actual fun setutxent(): Unit = throw UnsupportedOperationException("setutxent not available on WASI — no C library access")
 
-public actual fun utmpxname(file: String?): CInt =
+public actual fun utmpxname(file: String?): Int =
     throw UnsupportedOperationException("utmpxname not available on WASI — no C library access")
 
 public actual fun updwtmpx(file: String?, utmpx: Utmpx?): Unit = throw UnsupportedOperationException("updwtmpx not available on WASI — no C library access")
 
-public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> CInt)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortR not available on WASI — no C library access")
+public actual fun qsortR(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> Int)?, arg: COpaquePointer?): Unit = throw UnsupportedOperationException("qsortR not available on WASI — no C library access")
 
-public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): CInt =
+public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadAtfork not available on WASI — no C library access")
 
-public actual fun pthreadCreate(native: PthreadT, attr: PthreadAttrT, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: io.github.kotlinmania.libc.COpaquePointer?, attr: io.github.kotlinmania.libc.COpaquePointer?, f: ((COpaquePointer?) -> COpaquePointer?)?, value: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadCreate not available on WASI — no C library access")
 
-public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
+public actual fun pthreadSigqueue(thread: io.github.kotlinmania.libc.COpaquePointer?, sig: Int, value: Sigval): Int =
     throw UnsupportedOperationException("pthreadSigqueue not available on WASI — no C library access")

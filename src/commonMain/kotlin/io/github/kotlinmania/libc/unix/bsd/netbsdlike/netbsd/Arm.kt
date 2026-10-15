@@ -3,4 +3,4 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
 
-public const val _REG_TPIDR: CInt = 34
+public const val _REG_TPIDR: Int = 34

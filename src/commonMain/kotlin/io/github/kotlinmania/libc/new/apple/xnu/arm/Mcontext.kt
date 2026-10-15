@@ -6,8 +6,6 @@ import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmExceptionState
 import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmNeonState64
 import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmThreadState64
 
-public typealias McontextT = DarwinMcontext64?
-
 public data class DarwinMcontext64(
     val es: DarwinArmExceptionState64,
     val ss: DarwinArmThreadState64,

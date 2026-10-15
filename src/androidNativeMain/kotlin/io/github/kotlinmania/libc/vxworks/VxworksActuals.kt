@@ -13,7 +13,7 @@ import libc.cinterop.libc_socket
 import libc.cinterop.libc_tcflush
 
 // VxWorks signals -> Android (Linux ABI) host signals.
-private fun vxworksToLinuxSignal(sig: CInt): CInt =
+private fun vxworksToLinuxSignal(sig: Int): Int =
     when (sig) {
         10 -> 7 // SIGBUS: VxWorks=10, Linux=7
         17 -> 19 // SIGSTOP: VxWorks=17, Linux=19
@@ -34,14 +34,14 @@ private fun vxworksToLinuxSignal(sig: CInt): CInt =
         else -> sig
     }
 
-private fun vxworksToLinuxDomain(domain: CInt): CInt =
+private fun vxworksToLinuxDomain(domain: Int): Int =
     when (domain) {
         28 -> 10 // AF_INET6: VxWorks=28, Linux=10
         19 -> 17 // AF_PACKET: VxWorks=19, Linux=17
         else -> domain
     }
 
-private fun vxworksToLinuxMsyncFlags(flags: CInt): CInt {
+private fun vxworksToLinuxMsyncFlags(flags: Int): Int {
     var hostFlags = 0
     if ((flags and 1) != 0) hostFlags = hostFlags or 4 // MS_SYNC: VxWorks=1, Linux=4
     if ((flags and 2) != 0) hostFlags = hostFlags or 1 // MS_ASYNC: VxWorks=2, Linux=1
@@ -49,17 +49,17 @@ private fun vxworksToLinuxMsyncFlags(flags: CInt): CInt {
     return hostFlags
 }
 
-public actual fun kill(pid: PidT, signo: CInt): CInt =
+public actual fun kill(pid: Int, signo: Int): Int =
     libc.cinterop.libc_kill(pid, vxworksToLinuxSignal(signo))
 
-public actual fun raise(signo: CInt): CInt =
+public actual fun raise(signo: Int): Int =
     libc.cinterop.libc_raise(vxworksToLinuxSignal(signo))
 
-public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
+public actual fun socket(domain: Int, type: Int, protocol: Int): Int =
     libc.cinterop.libc_socket(vxworksToLinuxDomain(domain), type, protocol)
 
-public actual fun msync(addr: COpaquePointer?, len: ULong, flags: CInt): CInt =
+public actual fun msync(addr: COpaquePointer?, len: ULong, flags: Int): Int =
     libc.cinterop.libc_msync(addr?.value?.toCPointer<ByteVar>(), len, vxworksToLinuxMsyncFlags(flags))
 
-public actual fun tcflush(fd: CInt, action: CInt): CInt =
+public actual fun tcflush(fd: Int, action: Int): Int =
     libc.cinterop.libc_tcflush(fd, action)

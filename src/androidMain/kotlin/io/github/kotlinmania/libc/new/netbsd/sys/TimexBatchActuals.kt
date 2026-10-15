@@ -3,8 +3,8 @@ package io.github.kotlinmania.libc.new.netbsd.sys
 
 import io.github.kotlinmania.libc.*
 
-public actual fun ntpGettime(buf: Ntptimeval?): CInt =
+public actual fun ntpGettime(buf: Ntptimeval?): Int =
     throw UnsupportedOperationException("ntpGettime not available on Android host — use androidNative target for FFI")
 
-public actual fun ntpAdjtime(buf: Timex?): CInt =
+public actual fun ntpAdjtime(buf: Timex?): Int =
     throw UnsupportedOperationException("ntpAdjtime not available on Android host — use androidNative target for FFI")

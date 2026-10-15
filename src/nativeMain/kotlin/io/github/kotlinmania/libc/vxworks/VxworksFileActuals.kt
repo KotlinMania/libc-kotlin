@@ -2,11 +2,8 @@
 
 package io.github.kotlinmania.libc.vxworks
 
-import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.FposT
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -49,12 +46,12 @@ public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? 
     return result?.let { FILE(it.toLong()) }
 }
 
-public actual fun fflush(file: FILE?): CInt {
+public actual fun fflush(file: FILE?): Int {
     val filePtr: CPointer<ByteVar>? = file?.handle?.toCPointer()
     return libc.cinterop.libc_fflush(filePtr)
 }
 
-public actual fun fclose(file: FILE?): CInt {
+public actual fun fclose(file: FILE?): Int {
     val filePtr: CPointer<ByteVar>? = file?.handle?.toCPointer()
     return libc.cinterop.libc_fclose(filePtr)
 }
@@ -64,39 +61,39 @@ public actual fun tmpfile(): FILE? {
     return result?.let { FILE(it.toLong()) }
 }
 
-public actual fun fgetc(stream: FILE?): CInt {
+public actual fun fgetc(stream: FILE?): Int {
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
     return libc.cinterop.libc_fgetc(filePtr)
 }
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt {
+public actual fun fputc(c: Int, stream: FILE?): Int {
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
     return libc.cinterop.libc_fputc(c, filePtr)
 }
 
-public actual fun fputs(s: String?, stream: FILE?): CInt {
+public actual fun fputs(s: String?, stream: FILE?): Int {
     if (s == null) return -1
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
     return libc.cinterop.libc_fputs(s, filePtr)
 }
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt {
+public actual fun ungetc(c: Int, stream: FILE?): Int {
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
     return libc.cinterop.libc_ungetc(c, filePtr)
 }
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: FILE?, offset: Long, whence: Int): Int =
     libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
 
-public actual fun ftell(stream: FILE?): CLong =
+public actual fun ftell(stream: FILE?): Long =
     libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun feof(stream: FILE?): CInt {
+public actual fun feof(stream: FILE?): Int {
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
     return libc.cinterop.libc_feof(filePtr)
 }
 
-public actual fun ferror(stream: FILE?): CInt {
+public actual fun ferror(stream: FILE?): Int {
     val filePtr: CPointer<ByteVar>? = stream?.handle?.toCPointer()
     return libc.cinterop.libc_ferror(filePtr)
 }
@@ -106,7 +103,7 @@ public actual fun rewind(stream: FILE?) {
     libc.cinterop.libc_rewind(filePtr)
 }
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? {
+public actual fun fdopen(fd: Int, mode: String?): FILE? {
     val result = libc.cinterop.libc_fdopen(fd, mode)
     return result?.let { FILE(it.toLong()) }
 }
@@ -116,27 +113,27 @@ public actual fun perror(s: String?) {
     libc.cinterop.libc_perror(s)
 }
 
-public actual fun remove(filename: String?): CInt {
+public actual fun remove(filename: String?): Int {
     if (filename == null) return -1
     return libc.cinterop.libc_remove(filename)
 }
 
-public actual fun rename(oldname: String?, newname: String?): CInt {
+public actual fun rename(oldname: String?, newname: String?): Int {
     if (oldname == null) return -1
     if (newname == null) return -1
     return libc.cinterop.libc_rename(oldname, newname)
 }
 
-public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
+public actual fun getchar(): Int = libc.cinterop.libc_getchar()
 
-public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
+public actual fun putchar(c: Int): Int = libc.cinterop.libc_putchar(c)
 
-public actual fun puts(s: String?): CInt {
+public actual fun puts(s: String?): Int {
     if (s == null) return -1
     return libc.cinterop.libc_puts(s)
 }
 
-public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
+public actual fun setvbuf(stream: FILE?, buffer: String?, mode: Int, size: ULong): Int =
     libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
 
 public actual fun setbuf(stream: FILE?, buf: String?): Unit = throw UnsupportedOperationException("setbuf requires CValuesRef bridge for buf param")
@@ -147,8 +144,8 @@ public actual fun fread(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: 
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nobj: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fwrite requires FFI bridge")
 
-public actual fun fgetpos(stream: FILE?, ptr: FposT?): CInt =
+public actual fun fgetpos(stream: FILE?, ptr: Long?): Int =
     throw UnsupportedOperationException("fgetpos requires FposT bridge")
 
-public actual fun fsetpos(stream: FILE?, ptr: FposT?): CInt =
+public actual fun fsetpos(stream: FILE?, ptr: Long?): Int =
     throw UnsupportedOperationException("fsetpos requires FposT bridge")

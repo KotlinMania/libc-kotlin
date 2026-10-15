@@ -13,26 +13,22 @@ import kotlinx.cinterop.invoke
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toLong
 import kotlinx.cinterop.usePinned
-import platform.posix.dlsym
-
-// K/N's posix.def for Linux does not enable _GNU_SOURCE, so glibc's *_np
-// extensions are not declared by platform.posix.* — they ARE in libc.so but
-// must be resolved at runtime via dlsym.
+import libc.cinterop.libc_dlsym as lookupSymbol
 
 private val pthreadGetaffinityNpP: CPointer<CFunction<(ULong, ULong, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_getaffinity_np")?.reinterpret()
+    lookupSymbol(null, "pthread_getaffinity_np")?.reinterpret()
 
 private val pthreadGetattrNpP: CPointer<CFunction<(ULong, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_getattr_np")?.reinterpret()
+    lookupSymbol(null, "pthread_getattr_np")?.reinterpret()
 
 private val pthreadGetnameNpP: CPointer<CFunction<(ULong, COpaquePointer, ULong) -> Int>>? =
-    dlsym(null, "pthread_getname_np")?.reinterpret()
+    lookupSymbol(null, "pthread_getname_np")?.reinterpret()
 
 private val pthreadSetaffinityNpP: CPointer<CFunction<(ULong, ULong, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_setaffinity_np")?.reinterpret()
+    lookupSymbol(null, "pthread_setaffinity_np")?.reinterpret()
 
 private val pthreadSetnameNpP: CPointer<CFunction<(ULong, COpaquePointer) -> Int>>? =
-    dlsym(null, "pthread_setname_np")?.reinterpret()
+    lookupSymbol(null, "pthread_setname_np")?.reinterpret()
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: ULong, cpuset: CpuSetT): Int =
     pthreadGetaffinityNpP?.invoke(thread.rawValue.toLong().toULong(), cpusetsize, cpuset.rawValue) ?: 38

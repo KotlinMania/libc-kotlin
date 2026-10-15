@@ -6,8 +6,8 @@ package io.github.kotlinmania.libc.new.netbsd.sys
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun ntpGettime(buf: Ntptimeval?): CInt =
+public actual fun ntpGettime(buf: Ntptimeval?): Int =
     throw UnsupportedOperationException("ntpGettime requires manual FFI bridge — not yet implemented")
 
-public actual fun ntpAdjtime(buf: Timex?): CInt =
+public actual fun ntpAdjtime(buf: Timex?): Int =
     throw UnsupportedOperationException("ntpAdjtime requires manual FFI bridge — not yet implemented")

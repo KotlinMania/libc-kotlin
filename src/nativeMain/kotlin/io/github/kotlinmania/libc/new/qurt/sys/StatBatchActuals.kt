@@ -6,8 +6,8 @@ package io.github.kotlinmania.libc.new.qurt.sys
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun stat(pathname: String?, statbuf: Stat?): CInt =
+public actual fun stat(pathname: String?, statbuf: Stat?): Int =
     throw UnsupportedOperationException("stat requires manual FFI bridge — not yet implemented")
 
-public actual fun fstat(fd: CInt, statbuf: Stat?): CInt =
+public actual fun fstat(fd: Int, statbuf: Stat?): Int =
     throw UnsupportedOperationException("fstat requires manual FFI bridge — not yet implemented")

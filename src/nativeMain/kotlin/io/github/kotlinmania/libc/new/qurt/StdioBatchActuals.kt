@@ -48,10 +48,10 @@ public actual fun freopen(filename: String?, mode: String?, stream: FILE?): FILE
     return libc.cinterop.libc_freopen(filename, mode, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())?.let { FILE(it.toLong()) }
 }
 
-public actual fun fclose(stream: FILE?): CInt =
+public actual fun fclose(stream: FILE?): Int =
     libc.cinterop.libc_fclose(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun fflush(stream: FILE?): CInt =
+public actual fun fflush(stream: FILE?): Int =
     libc.cinterop.libc_fflush(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
@@ -60,23 +60,23 @@ public actual fun fread(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream:
 public actual fun fwrite(ptr: COpaquePointer?, size: ULong, nmemb: ULong, stream: FILE?): ULong =
     throw UnsupportedOperationException("fwrite requires FFI bridge")
 
-public actual fun fgetc(stream: FILE?): CInt =
+public actual fun fgetc(stream: FILE?): Int =
     libc.cinterop.libc_fgetc(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
+public actual fun fputc(c: Int, stream: FILE?): Int =
     libc.cinterop.libc_fputc(c, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun getchar(): CInt = libc.cinterop.libc_getchar()
+public actual fun getchar(): Int = libc.cinterop.libc_getchar()
 
-public actual fun putchar(c: CInt): CInt = libc.cinterop.libc_putchar(c)
+public actual fun putchar(c: Int): Int = libc.cinterop.libc_putchar(c)
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
+public actual fun ungetc(c: Int, stream: FILE?): Int =
     libc.cinterop.libc_ungetc(c, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun fgets(s: String?, size: CInt, stream: FILE?): String? =
+public actual fun fgets(s: String?, size: Int, stream: FILE?): String? =
     throw UnsupportedOperationException("fgets requires manual FFI bridge — not yet implemented")
 
-public actual fun fputs(s: String?, stream: FILE?): CInt {
+public actual fun fputs(s: String?, stream: FILE?): Int {
     if (s == null) return -1
     return libc.cinterop.libc_fputs(s, stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 }
@@ -84,48 +84,48 @@ public actual fun fputs(s: String?, stream: FILE?): CInt {
 public actual fun gets(s: String?): String? =
     throw UnsupportedOperationException("gets requires manual FFI bridge — not yet implemented")
 
-public actual fun puts(s: String?): CInt {
+public actual fun puts(s: String?): Int {
     if (s == null) return -1
     return libc.cinterop.libc_puts(s)
 }
 
-public actual fun printf(format: String?, vararg args: Any?): CInt =
+public actual fun printf(format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("printf requires manual FFI bridge — not yet implemented")
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("fprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun sprintf(s: String?, format: String?, vararg args: Any?): CInt =
+public actual fun sprintf(s: String?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("sprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): CInt =
+public actual fun snprintf(s: String?, n: ULong, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("snprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun vprintf(format: String?, ap: VaList): CInt =
+public actual fun vprintf(format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun vfprintf(stream: FILE?, format: String?, ap: VaList): CInt =
+public actual fun vfprintf(stream: FILE?, format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vfprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun vsprintf(s: String?, format: String?, ap: VaList): CInt =
+public actual fun vsprintf(s: String?, format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vsprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun vsnprintf(s: String?, n: ULong, format: String?, ap: VaList): CInt =
+public actual fun vsnprintf(s: String?, n: ULong, format: String?, ap: String?): Int =
     throw UnsupportedOperationException("vsnprintf requires manual FFI bridge — not yet implemented")
 
-public actual fun scanf(format: String?, vararg args: Any?): CInt =
+public actual fun scanf(format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("scanf requires manual FFI bridge — not yet implemented")
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg args: Any?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("fscanf requires manual FFI bridge — not yet implemented")
 
-public actual fun sscanf(s: String?, format: String?, vararg args: Any?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg args: Any?): Int =
     throw UnsupportedOperationException("sscanf requires manual FFI bridge — not yet implemented")
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
+public actual fun fseek(stream: FILE?, offset: Long, whence: Int): Int =
     libc.cinterop.libc_fseek(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), offset, whence)
 
-public actual fun ftell(stream: FILE?): CLong =
+public actual fun ftell(stream: FILE?): Long =
     libc.cinterop.libc_ftell(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun rewind(stream: FILE?) {
@@ -134,10 +134,10 @@ public actual fun rewind(stream: FILE?) {
     libc_rewind(streamPtr)
 }
 
-public actual fun fgetpos(stream: FILE?, pos: FposT?): CInt =
+public actual fun fgetpos(stream: FILE?, pos: Long?): Int =
     throw UnsupportedOperationException("fgetpos requires manual FFI bridge — not yet implemented")
 
-public actual fun fsetpos(stream: FILE?, pos: FposT?): CInt =
+public actual fun fsetpos(stream: FILE?, pos: Long?): Int =
     throw UnsupportedOperationException("fsetpos requires manual FFI bridge — not yet implemented")
 
 public actual fun clearerr(stream: FILE?) {
@@ -146,10 +146,10 @@ public actual fun clearerr(stream: FILE?) {
     libc_clearerr(arg1Ptr)
 }
 
-public actual fun feof(stream: FILE?): CInt =
+public actual fun feof(stream: FILE?): Int =
     libc.cinterop.libc_feof(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun ferror(stream: FILE?): CInt =
+public actual fun ferror(stream: FILE?): Int =
     libc.cinterop.libc_ferror(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
 public actual fun perror(s: String?) {
@@ -157,12 +157,12 @@ public actual fun perror(s: String?) {
     libc_perror(s)
 }
 
-public actual fun remove(filename: String?): CInt {
+public actual fun remove(filename: String?): Int {
     if (filename == null) return -1
     return libc.cinterop.libc_remove(filename)
 }
 
-public actual fun rename(old: String?, new: String?): CInt {
+public actual fun rename(old: String?, new: String?): Int {
     if (old == null) return -1
     if (new == null) return -1
     return libc.cinterop.libc_rename(old, new)
@@ -178,7 +178,7 @@ public actual fun tmpnam(s: String?): String? =
         result?.toKString()
     }
 
-public actual fun setvbuf(stream: FILE?, buffer: String?, mode: CInt, size: ULong): CInt =
+public actual fun setvbuf(stream: FILE?, buffer: String?, mode: Int, size: ULong): Int =
     libc.cinterop.libc_setvbuf(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>(), buffer, mode, size)
 
 public actual fun setbuf(stream: FILE?, buffer: String?): Unit = throw UnsupportedOperationException("setbuf requires manual FFI bridge — not yet implemented")

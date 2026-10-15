@@ -3,7 +3,6 @@
 
 package io.github.kotlinmania.libc.vxworks
 
-import io.github.kotlinmania.libc.CInt
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.allocArray
@@ -18,7 +17,7 @@ import libc.cinterop.libc_strrchr
 import libc.cinterop.libc_strstr
 import libc.cinterop.libc_tmpnam
 
-public actual fun strchr(cs: String?, c: CInt): String? {
+public actual fun strchr(cs: String?, c: Int): String? {
     if (cs == null) return null
     return memScoped {
         val cstr = cs.cstr.ptr
@@ -27,7 +26,7 @@ public actual fun strchr(cs: String?, c: CInt): String? {
     }
 }
 
-public actual fun strrchr(cs: String?, c: CInt): String? {
+public actual fun strrchr(cs: String?, c: Int): String? {
     if (cs == null) return null
     return memScoped {
         val cstr = cs.cstr.ptr

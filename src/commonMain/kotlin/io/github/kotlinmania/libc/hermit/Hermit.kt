@@ -1,35 +1,12 @@
 // port-lint: source hermit.rs
 package io.github.kotlinmania.libc.hermit
 
-/**
- * Hermit C type definitions.
- */
-
-public typealias Intmax = Long
-public typealias Uintmax = ULong
-public typealias Intptr = Long
-public typealias Uintptr = ULong
-
-public typealias Size = ULong
-public typealias Ssize = Long
-public typealias Ptrdiff = Long
-
-public typealias ClockId = Int
-public typealias InAddrT = UInt
-public typealias InPortT = UShort
-public typealias Mode = UInt
-public typealias Nfds = ULong
-public typealias Pid = Int
-public typealias SaFamily = UByte
-public typealias Socklen = UInt
-public typealias Time = Long
-
 public data class Addrinfo(
     public val aiFlags: Int,
     public val aiFamily: Int,
     public val aiSocktype: Int,
     public val aiProtocol: Int,
-    public val aiAddrlen: Socklen,
+    public val aiAddrlen: UInt,
     public val aiCanonname: Long,
     public val aiAddr: Long,
     public val aiNext: Long,
@@ -48,7 +25,7 @@ public data class In6Addr(
 )
 
 public data class InAddr(
-    public val sAddr: InAddrT,
+    public val sAddr: UInt,
 )
 
 public data class Iovec(
@@ -65,22 +42,22 @@ public data class Pollfd(
 
 public data class Sockaddr(
     public val saLen: UByte,
-    public val saFamily: SaFamily,
+    public val saFamily: UByte,
     public val saData: ByteArray,
 )
 
 public data class SockaddrIn(
     public val sinLen: UByte,
-    public val sinFamily: SaFamily,
-    public val sinPort: InPortT,
+    public val sinFamily: UByte,
+    public val sinPort: UShort,
     public val sinAddr: InAddr,
     public val sinZero: ByteArray,
 )
 
 public data class SockaddrIn6(
     public val sin6Len: UByte,
-    public val sin6Family: SaFamily,
-    public val sin6Port: InPortT,
+    public val sin6Family: UByte,
+    public val sin6Port: UShort,
     public val sin6Flowinfo: UInt,
     public val sin6Addr: In6Addr,
     public val sin6ScopeId: UInt,
@@ -88,7 +65,7 @@ public data class SockaddrIn6(
 
 public data class SockaddrStorage(
     public val ssLen: UByte,
-    public val ssFamily: SaFamily,
+    public val ssFamily: UByte,
     public val ssPad1: List<UByte>,
     public val ssAlign: Long,
     public val ssPad2: List<UByte>,
@@ -98,7 +75,7 @@ public data class Stat(
     public val stDev: ULong,
     public val stIno: ULong,
     public val stNlink: ULong,
-    public val stMode: Mode,
+    public val stMode: UInt,
     public val stUid: UInt,
     public val stGid: UInt,
     public val stRdev: ULong,
@@ -112,7 +89,7 @@ public data class Stat(
 
 public data class Timespec(
     val handle: Long = 0L,
-    public val tvSec: Time,
+    public val tvSec: Long,
     public val tvNsec: Int,
 )
 
@@ -121,8 +98,8 @@ public const val AF_INET: Int = 3
 public const val AF_INET6: Int = 1
 public const val AF_VSOCK: Int = 2
 
-public const val CLOCK_REALTIME: ClockId = 1
-public const val CLOCK_MONOTONIC: ClockId = 4
+public const val CLOCK_REALTIME: Int = 1
+public const val CLOCK_MONOTONIC: Int = 4
 
 public const val DT_UNKNOWN: UByte = 0u
 public const val DT_FIFO: UByte = 1u
@@ -203,27 +180,27 @@ public const val POLLWRNORM: Short = 0x0100
 public const val POLLWRBAND: Short = 0x0200
 public const val POLLRDHUP: Short = 0x2000
 
-public const val S_IRWXU: Mode = 0x1c0u
-public const val S_IRUSR: Mode = 0x100u
-public const val S_IWUSR: Mode = 0x080u
-public const val S_IXUSR: Mode = 0x040u
-public const val S_IRWXG: Mode = 0x038u
-public const val S_IRGRP: Mode = 0x020u
-public const val S_IWGRP: Mode = 0x010u
-public const val S_IXGRP: Mode = 0x008u
-public const val S_IRWXO: Mode = 0x007u
-public const val S_IROTH: Mode = 0x004u
-public const val S_IWOTH: Mode = 0x002u
-public const val S_IXOTH: Mode = 0x001u
+public const val S_IRWXU: UInt = 0x1c0u
+public const val S_IRUSR: UInt = 0x100u
+public const val S_IWUSR: UInt = 0x080u
+public const val S_IXUSR: UInt = 0x040u
+public const val S_IRWXG: UInt = 0x038u
+public const val S_IRGRP: UInt = 0x020u
+public const val S_IWGRP: UInt = 0x010u
+public const val S_IXGRP: UInt = 0x008u
+public const val S_IRWXO: UInt = 0x007u
+public const val S_IROTH: UInt = 0x004u
+public const val S_IWOTH: UInt = 0x002u
+public const val S_IXOTH: UInt = 0x001u
 
-public const val S_IFMT: Mode = 0xf000u
-public const val S_IFSOCK: Mode = 0xc000u
-public const val S_IFLNK: Mode = 0xa000u
-public const val S_IFREG: Mode = 0x8000u
-public const val S_IFBLK: Mode = 0x6000u
-public const val S_IFDIR: Mode = 0x4000u
-public const val S_IFCHR: Mode = 0x2000u
-public const val S_IFIFO: Mode = 0x1000u
+public const val S_IFMT: UInt = 0xf000u
+public const val S_IFSOCK: UInt = 0xc000u
+public const val S_IFLNK: UInt = 0xa000u
+public const val S_IFREG: UInt = 0x8000u
+public const val S_IFBLK: UInt = 0x6000u
+public const val S_IFDIR: UInt = 0x4000u
+public const val S_IFCHR: UInt = 0x2000u
+public const val S_IFIFO: UInt = 0x1000u
 
 public const val SHUT_RD: Int = 0
 public const val SHUT_WR: Int = 1

@@ -45,62 +45,62 @@ public actual fun getenv(name: String?): String? {
     return libc.cinterop.libc_getenv(name)?.toKString()
 }
 
-public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt {
+public actual fun setenv(name: String?, value: String?, overwrite: Int): Int {
     if (name == null) return -1
     if (value == null) return -1
     return libc.cinterop.libc_setenv(name, value, overwrite)
 }
 
-public actual fun unsetenv(name: String?): CInt {
+public actual fun unsetenv(name: String?): Int {
     if (name == null) return -1
     return libc.cinterop.libc_unsetenv(name)
 }
 
-public actual fun atoi(nptr: String?): CInt {
+public actual fun atoi(nptr: String?): Int {
     if (nptr == null) return 0
     return libc.cinterop.libc_atoi(nptr)
 }
 
-public actual fun atol(nptr: String?): CLong =
+public actual fun atol(nptr: String?): Long =
     libc.cinterop.libc_atol(nptr)
 
-public actual fun atoll(nptr: String?): CLongLong {
+public actual fun atoll(nptr: String?): Long {
     if (nptr == null) return 0
     return libc.cinterop.libc_atoll(nptr)
 }
 
-public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong =
+public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: Int): Long =
     throw UnsupportedOperationException("strtol requires FFI bridge")
 
-public actual fun strtoul(nptr: String?, endptr: COpaquePointer?, base: CInt): CULong =
+public actual fun strtoul(nptr: String?, endptr: COpaquePointer?, base: Int): ULong =
     throw UnsupportedOperationException("strtoul requires manual FFI bridge — not yet implemented")
 
-public actual fun strtoll(nptr: String?, endptr: COpaquePointer?, base: CInt): CLongLong =
+public actual fun strtoll(nptr: String?, endptr: COpaquePointer?, base: Int): Long =
     throw UnsupportedOperationException("strtoll requires manual FFI bridge — not yet implemented")
 
-public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): CULongLong =
+public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: Int): ULong =
     throw UnsupportedOperationException("strtoull requires manual FFI bridge — not yet implemented")
 
-public actual fun rand(): CInt =
+public actual fun rand(): Int =
     libc.cinterop.libc_rand()
 
-public actual fun srand(seed: CUInt) {
+public actual fun srand(seed: UInt) {
     libc_srand(seed)
 }
 
-public actual fun abs(j: CInt): CInt =
+public actual fun abs(j: Int): Int =
     libc.cinterop.libc_abs(j)
 
-public actual fun labs(j: CLong): CLong =
+public actual fun labs(j: Long): Long =
     libc.cinterop.libc_labs(j)
 
-public actual fun llabs(j: CLongLong): CLongLong =
+public actual fun llabs(j: Long): Long =
     libc.cinterop.libc_llabs(j)
 
-public actual fun atexit(function: (() -> Unit)?): CInt =
+public actual fun atexit(function: (() -> Unit)?): Int =
     throw UnsupportedOperationException("atexit requires manual FFI bridge — not yet implemented")
 
-public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): Unit = throw UnsupportedOperationException("qsort requires manual FFI bridge — not yet implemented")
+public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): Unit = throw UnsupportedOperationException("qsort requires manual FFI bridge — not yet implemented")
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> CInt)?): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): COpaquePointer? =
     throw UnsupportedOperationException("bsearch requires manual FFI bridge — not yet implemented")

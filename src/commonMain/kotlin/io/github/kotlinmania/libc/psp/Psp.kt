@@ -3,34 +3,6 @@ package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
 
-public typealias IntmaxT = Long
-public typealias UintmaxT = ULong
-public typealias SizeT = ULong
-public typealias PtrdiffT = Long
-public typealias IntptrT = Long
-public typealias UintptrT = ULong
-public typealias SsizeT = Long
-public typealias SceKernelVTimerHandler = ((SceUid, SceKernelSysClock?, SceKernelSysClock?, COpaquePointer?) -> UInt)?
-public typealias SceKernelVTimerHandlerWide = ((SceUid, Long, Long, COpaquePointer?) -> UInt)?
-public typealias SceKernelThreadEventHandler = ((Int, SceUid, COpaquePointer?) -> Int)?
-public typealias SceKernelAlarmHandler = ((COpaquePointer?) -> UInt)?
-public typealias SceKernelCallbackFunction = ((Int, Int, COpaquePointer?) -> Int)?
-public typealias SceKernelThreadEntry = ((ULong, COpaquePointer?) -> Int)?
-public typealias PowerCallback = ((Int, Int) -> Unit)?
-public typealias IoPermissions = Int
-public typealias UmdCallback = ((Int, Int) -> Int)?
-public typealias SceMpegRingbufferCb = ((COpaquePointer?, Int, COpaquePointer?) -> Int)?
-public typealias GuCallback = ((Int, COpaquePointer?) -> Unit)?
-public typealias GuSwapBuffersCallback = ((COpaquePointer?, COpaquePointer?) -> Unit)?
-public typealias SceNetAdhocctlHandler = ((Int, Int, COpaquePointer?) -> Unit)?
-public typealias AdhocMatchingCallback = (() -> Unit)?
-public typealias SceNetApctlHandler = (() -> Unit)?
-public typealias HttpMallocFunction = ((ULong) -> COpaquePointer?)?
-public typealias HttpReallocFunction = ((COpaquePointer?, ULong) -> COpaquePointer?)?
-public typealias HttpFreeFunction = ((COpaquePointer?) -> Unit)?
-public typealias HttpPasswordCB = ((Int, HttpAuthType, COpaquePointer?, COpaquePointer?, COpaquePointer?, Int, COpaquePointer?, ULong?, Int?) -> Int)?
-public typealias SocklenT = UInt
-
 public enum class AudioFormat(
     public val value: UInt,
 ) {
@@ -1562,7 +1534,7 @@ public data class SceKernelThreadInfo(
     val name: UByteArray,
     val attr: UInt,
     val status: Int,
-    val entry: SceKernelThreadEntry,
+    val entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
     val stack: COpaquePointer?,
     val stackSize: Int,
     val gpReg: COpaquePointer?,
@@ -1638,7 +1610,7 @@ public data class SceKernelVTimerInfo(
     val base: SceKernelSysClock,
     val current: SceKernelSysClock,
     val schedule: SceKernelSysClock,
-    val handler: SceKernelVTimerHandler,
+    val handler: ((io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?,
     val common: COpaquePointer?,
 )
 
@@ -1647,14 +1619,14 @@ public data class SceKernelThreadEventHandlerInfo(
     val name: UByteArray,
     val threadId: SceUid,
     val mask: Int,
-    val handler: SceKernelThreadEventHandler,
+    val handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
     val common: COpaquePointer?,
 )
 
 public data class SceKernelAlarmInfo(
     val size: ULong,
     val schedule: SceKernelSysClock,
-    val handler: SceKernelAlarmHandler,
+    val handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?,
     val common: COpaquePointer?,
 )
 
@@ -1712,7 +1684,7 @@ public data class SceKernelCallbackInfo(
     val size: ULong,
     val name: UByteArray,
     val threadId: SceUid,
-    val callback: SceKernelCallbackFunction,
+    val callback: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
     val common: COpaquePointer?,
     val notifyCount: Int,
     val notifyArg: Int,
@@ -1814,7 +1786,7 @@ public data class SceMpegRingbuffer(
     val unk2: UInt,
     val unk3: UInt,
     val data: COpaquePointer?,
-    val callback: SceMpegRingbufferCb,
+    val callback: ((io.github.kotlinmania.libc.COpaquePointer?, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
     val cbParam: COpaquePointer?,
     val unk4: UInt,
     val unk5: UInt,
@@ -2393,8 +2365,8 @@ public data class SceNetApctlInfo(
     val wifisp: UInt? = null,
 )
 
-public const val INT_MIN: CInt = -2147483648
-public const val INT_MAX: CInt = 2147483647
+public const val INT_MIN: Int = -2147483648
+public const val INT_MAX: Int = 2147483647
 public const val AUDIO_VOLUME_MAX: UInt = 0x8000u
 public const val AUDIO_CHANNEL_MAX: UInt = 8u
 public const val AUDIO_NEXT_CHANNEL: Int = -1
@@ -2859,7 +2831,7 @@ public fun sceKernelStderr(): SceUid = SceUid(0)
 
 public fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType = throw UnsupportedOperationException("Not implemented on this platform")
 
-public fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid = SceUid(0)
+public fun sceKernelCreateThread(name: COpaquePointer?, entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid = SceUid(0)
 
 public expect fun sceKernelDeleteThread(thid: SceUid): Int
 
@@ -2969,15 +2941,15 @@ public expect fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: Int?): Int
 
 public expect fun sceKernelReferMbxStatus(mbxId: SceUid, info: SceKernelMbxInfo?): Int
 
-public fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid = SceUid(0)
+public fun sceKernelSetAlarm(clock: UInt, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid = SceUid(0)
 
-public fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid = SceUid(0)
+public fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid = SceUid(0)
 
 public expect fun sceKernelCancelAlarm(alarmId: SceUid): Int
 
 public expect fun sceKernelReferAlarmStatus(alarmId: SceUid, info: SceKernelAlarmInfo?): Int
 
-public fun sceKernelCreateCallback(name: COpaquePointer?, func: SceKernelCallbackFunction, arg: COpaquePointer?): SceUid = SceUid(0)
+public fun sceKernelCreateCallback(name: COpaquePointer?, func: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, arg: COpaquePointer?): SceUid = SceUid(0)
 
 public expect fun sceKernelReferCallbackStatus(cb: SceUid, status: SceKernelCallbackInfo?): Int
 
@@ -3081,15 +3053,15 @@ public expect fun sceKernelStartVTimer(uid: SceUid): Int
 
 public expect fun sceKernelStopVTimer(uid: SceUid): Int
 
-public expect fun sceKernelSetVTimerHandler(uid: SceUid, time: SceKernelSysClock?, handler: SceKernelVTimerHandler, common: COpaquePointer?): Int
+public expect fun sceKernelSetVTimerHandler(uid: SceUid, time: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): Int
 
-public expect fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: COpaquePointer?): Int
+public expect fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: ((io.github.kotlinmania.libc.psp.SceUid, Long, Long, io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): Int
 
 public expect fun sceKernelCancelVTimerHandler(uid: SceUid): Int
 
 public expect fun sceKernelReferVTimerStatus(uid: SceUid, info: SceKernelVTimerInfo?): Int
 
-public fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: COpaquePointer?): SceUid = SceUid(0)
+public fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, common: COpaquePointer?): SceUid = SceUid(0)
 
 public expect fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int
 
@@ -3329,9 +3301,9 @@ public expect fun sceRtcFormatRFC2822(pszDateTime: String?, pUtc: ULong?, timeZo
 
 public expect fun sceRtcFormatRFC2822LocalTime(pszDateTime: String?, pUtc: ULong?): Int
 
-public fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid = SceUid(0)
+public fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: Int): SceUid = SceUid(0)
 
-public fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid = SceUid(0)
+public fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: Int): SceUid = SceUid(0)
 
 public expect fun sceIoClose(fd: SceUid): Int
 
@@ -3355,7 +3327,7 @@ public expect fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): 
 
 public expect fun sceIoRemove(file: COpaquePointer?): Int
 
-public expect fun sceIoMkdir(dir: COpaquePointer?, mode: IoPermissions): Int
+public expect fun sceIoMkdir(dir: COpaquePointer?, mode: Int): Int
 
 public expect fun sceIoRmdir(path: COpaquePointer?): Int
 
@@ -3445,7 +3417,7 @@ public expect fun sceMpegFinish()
 
 public expect fun sceMpegRingbufferQueryMemSize(packets: Int): Int
 
-public expect fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int
+public expect fun sceMpegRingbufferConstruct(ringbuffer: SceMpegRingbuffer?, packets: Int, data: COpaquePointer?, size: Int, callback: ((io.github.kotlinmania.libc.COpaquePointer?, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, cbParam: COpaquePointer?): Int
 
 public expect fun sceMpegRingbufferDestruct(ringbuffer: SceMpegRingbuffer?)
 
@@ -3537,7 +3509,7 @@ public expect fun sceGuBreak(mode: Int)
 
 public expect fun sceGuContinue()
 
-public fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback = throw UnsupportedOperationException("Not implemented on this platform")
+public fun sceGuSetCallback(signal: GuCallbackId, callback: ((Int, io.github.kotlinmania.libc.COpaquePointer?) -> Unit)?): ((Int, io.github.kotlinmania.libc.COpaquePointer?) -> Unit)? = throw UnsupportedOperationException("Not implemented on this platform")
 
 public expect fun sceGuSignal(behavior: SignalBehavior, signal: Int)
 
@@ -3943,7 +3915,7 @@ public expect fun sceNetAdhocctlScan(): Int
 
 public expect fun sceNetAdhocctlGetScanInfo(length: Int?, buf: COpaquePointer?): Int
 
-public expect fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: COpaquePointer?): Int
+public expect fun sceNetAdhocctlAddHandler(handler: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Unit)?, unknown: COpaquePointer?): Int
 
 public expect fun sceNetAdhocctlDelHandler(id: Int): Int
 
@@ -4001,7 +3973,7 @@ public expect fun sceNetAdhocMatchingInit(memsize: Int): Int
 
 public expect fun sceNetAdhocMatchingTerm(): Int
 
-public expect fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int
+public expect fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: (() -> Unit)?): Int
 
 public expect fun sceNetAdhocMatchingDelete(matchingId: Int): Int
 
@@ -4035,7 +4007,7 @@ public expect fun sceNetApctlTerm(): Int
 
 public expect fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: SceNetApctlInfo?): Int
 
-public expect fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: COpaquePointer?): Int
+public expect fun sceNetApctlAddHandler(handler: (() -> Unit)?, parg: COpaquePointer?): Int
 
 public expect fun sceNetApctlDelHandler(handlerId: Int): Int
 
@@ -4049,25 +4021,25 @@ public expect fun sceNetInetInit(): Int
 
 public expect fun sceNetInetTerm(): Int
 
-public expect fun sceNetInetAccept(s: Int, addr: Sockaddr?, addrLen: SocklenT?): Int
+public expect fun sceNetInetAccept(s: Int, addr: Sockaddr?, addrLen: UInt?): Int
 
-public expect fun sceNetInetBind(s: Int, myAddr: Sockaddr?, addrLen: SocklenT): Int
+public expect fun sceNetInetBind(s: Int, myAddr: Sockaddr?, addrLen: UInt): Int
 
-public expect fun sceNetInetConnect(s: Int, servAddr: Sockaddr?, addrLen: SocklenT): Int
+public expect fun sceNetInetConnect(s: Int, servAddr: Sockaddr?, addrLen: UInt): Int
 
-public expect fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: SocklenT?): Int
+public expect fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: UInt?): Int
 
 public expect fun sceNetInetListen(s: Int, backlog: Int): Int
 
 public expect fun sceNetInetRecv(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong
 
-public expect fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: Sockaddr?, fromLen: SocklenT?): ULong
+public expect fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: Sockaddr?, fromLen: UInt?): ULong
 
 public expect fun sceNetInetSend(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong
 
-public expect fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, toLen: SocklenT): ULong
+public expect fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: Sockaddr?, toLen: UInt): ULong
 
-public expect fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: SocklenT): Int
+public expect fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: UInt): Int
 
 public expect fun sceNetInetShutdown(s: Int, how: Int): Int
 
@@ -4169,13 +4141,13 @@ public expect fun sceHttpGetProxy(id: Int, activateFlag: Int?, mode: Int?, proxy
 
 public expect fun sceHttpInitCache(maxSize: ULong): Int
 
-public expect fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int
+public expect fun sceHttpSetAuthInfoCB(id: Int, cbfunc: ((Int, io.github.kotlinmania.libc.psp.HttpAuthType, io.github.kotlinmania.libc.COpaquePointer?, io.github.kotlinmania.libc.COpaquePointer?, io.github.kotlinmania.libc.COpaquePointer?, Int, io.github.kotlinmania.libc.COpaquePointer?, ULong?, Int?) -> Int)?): Int
 
 public expect fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: COpaquePointer?, newProxyPort: UShort): Int
 
 public expect fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int
 
-public expect fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int
+public expect fun sceHttpSetMallocFunction(mallocFunc: ((ULong) -> io.github.kotlinmania.libc.COpaquePointer?)?, freeFunc: ((io.github.kotlinmania.libc.COpaquePointer?) -> Unit)?, reallocFunc: ((io.github.kotlinmania.libc.COpaquePointer?, ULong) -> io.github.kotlinmania.libc.COpaquePointer?)?): Int
 
 public expect fun sceNetResolverInit(): Int
 
@@ -4189,4 +4161,4 @@ public expect fun sceNetResolverStartAtoN(rid: Int, addr: InAddr?, hostname: COp
 
 public expect fun sceNetResolverStop(rid: Int): Int
 
-public expect fun sceNetResolverTerm(): Int 
+public expect fun sceNetResolverTerm(): Int

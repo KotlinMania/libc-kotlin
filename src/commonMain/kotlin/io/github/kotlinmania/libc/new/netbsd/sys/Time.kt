@@ -8,5 +8,5 @@ public data class Itimerspec(
     val itValue: Timespec,
 )
 
-public const val CLOCK_THREAD_CPUTIME_ID: ClockidT = 0x20000000
-public const val CLOCK_PROCESS_CPUTIME_ID: ClockidT = 0x40000000
+public const val CLOCK_THREAD_CPUTIME_ID: Int = 0x20000000
+public const val CLOCK_PROCESS_CPUTIME_ID: Int = 0x40000000

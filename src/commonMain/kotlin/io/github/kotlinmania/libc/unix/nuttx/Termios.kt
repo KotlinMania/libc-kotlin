@@ -1,0 +1,13 @@
+// port-lint: source unix/nuttx/mod.rs
+package io.github.kotlinmania.libc.unix.nuttx
+
+import io.github.kotlinmania.libc.*
+
+public data class Termios(
+    val cIflag: UInt,
+    val cOflag: UInt,
+    val cCflag: UInt,
+    val cLflag: UInt,
+    val cCc: List<UByte>,
+    val cSpeed: ULong,
+)

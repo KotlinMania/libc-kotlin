@@ -4,11 +4,11 @@ package io.github.kotlinmania.libc.new.openbsd.sys
 import io.github.kotlinmania.libc.*
 
 public data class IpcPerm(
-    val cuid: UidT,
-    val cgid: GidT,
-    val uid: UidT,
-    val gid: GidT,
-    val mode: ModeT,
-    val seq: CUShort,
-    val key: KeyT,
+    val cuid: UInt,
+    val cgid: UInt,
+    val uid: UInt,
+    val gid: UInt,
+    val mode: UInt,
+    val seq: UShort,
+    val key: Int,
 )

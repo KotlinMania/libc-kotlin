@@ -4,6 +4,6 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 import io.github.kotlinmania.libc.*
 
 public data class SchedParam(
-    val schedPriority: CInt,
+    val schedPriority: Int,
     val opaque: ByteArray,
 )

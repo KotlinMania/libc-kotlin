@@ -1,0 +1,36 @@
+// port-lint: source unix/bsd/apple/b64/mod.rs
+package io.github.kotlinmania.libc.unix.bsd.apple.b64
+
+import io.github.kotlinmania.libc.*
+
+public data class IfData(
+    val ifiType: UByte,
+    val ifiTypelen: UByte,
+    val ifiPhysical: UByte,
+    val ifiAddrlen: UByte,
+    val ifiHdrlen: UByte,
+    val ifiRecvquota: UByte,
+    val ifiXmitquota: UByte,
+    val ifiUnused1: UByte,
+    val ifiMtu: UInt,
+    val ifiMetric: UInt,
+    val ifiBaudrate: UInt,
+    val ifiIpackets: UInt,
+    val ifiIerrors: UInt,
+    val ifiOpackets: UInt,
+    val ifiOerrors: UInt,
+    val ifiCollisions: UInt,
+    val ifiIbytes: UInt,
+    val ifiObytes: UInt,
+    val ifiImcasts: UInt,
+    val ifiOmcasts: UInt,
+    val ifiIqdrops: UInt,
+    val ifiNoproto: UInt,
+    val ifiRecvtiming: UInt,
+    val ifiXmittiming: UInt,
+    val ifiLastchange: Timeval32,
+    val ifiUnused2: UInt,
+    val ifiHwassist: UInt,
+    val ifiReserved1: UInt,
+    val ifiReserved2: UInt,
+)

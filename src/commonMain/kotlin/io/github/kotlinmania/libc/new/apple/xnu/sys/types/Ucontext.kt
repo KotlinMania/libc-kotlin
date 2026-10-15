@@ -3,13 +3,11 @@ package io.github.kotlinmania.libc.new.apple.xnu.sys.types
 
 import io.github.kotlinmania.libc.*
 
-public typealias UcontextT = DarwinUcontext
-
 public data class DarwinUcontext(
-    val ucOnstack: CInt,
-    val ucSigmask: SigsetT,
+    val ucOnstack: Int,
+    val ucSigmask: ULong,
     val ucStack: StackT,
-    val ucLink: UcontextT?,
+    val ucLink: io.github.kotlinmania.libc.new.apple.xnu.sys.types.DarwinUcontext?,
     val ucMcsize: ULong,
     val ucMcontext: COpaquePointer?,
 )

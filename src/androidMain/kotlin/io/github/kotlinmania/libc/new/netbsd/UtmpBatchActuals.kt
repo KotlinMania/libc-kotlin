@@ -3,7 +3,7 @@ package io.github.kotlinmania.libc.new.netbsd
 
 import io.github.kotlinmania.libc.*
 
-public actual fun utmpname(file: String?): CInt =
+public actual fun utmpname(file: String?): Int =
     throw UnsupportedOperationException("utmpname not available on Android host — use androidNative target for FFI")
 
 public actual fun setutent(): Unit = throw UnsupportedOperationException("setutent not available on Android host — use androidNative target for FFI")

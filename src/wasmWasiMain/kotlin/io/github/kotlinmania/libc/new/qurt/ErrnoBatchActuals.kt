@@ -3,11 +3,11 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 
-public actual fun errnoLocation(): CInt? =
+public actual fun errnoLocation(): Int? =
     throw UnsupportedOperationException("errnoLocation not available on WASI — no C library access")
 
-public actual fun errno(): CInt? =
+public actual fun errno(): Int? =
     throw UnsupportedOperationException("errno not available on WASI — no C library access")
 
-public actual fun setErrno(value: CInt): Unit =
+public actual fun setErrno(value: Int): Unit =
     throw UnsupportedOperationException("setErrno not available on WASI — no C library access")
