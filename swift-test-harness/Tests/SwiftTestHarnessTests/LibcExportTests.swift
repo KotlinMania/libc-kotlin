@@ -36,4 +36,15 @@ struct LibcExportTests {
         #expect(port == Darwin.mach_task_self_)
     }
 
+    @Test("Standard duration preserves unsigned seconds and checked arithmetic")
+    func testStandardDuration() throws {
+        let duration = ExportedKotlinPackages.io.github.kotlinmania.libc.time.StdDuration.Companion.shared.fromSecs(seconds: UInt64.max)
+        #expect(duration.asSecs() == UInt64.max)
+        let one = ExportedKotlinPackages.io.github.kotlinmania.libc.time.StdDuration.Companion.shared.fromNanos(nanoseconds: 1)
+        let sum = try #require(duration.checkedAdd(other: one))
+        #expect(sum.subsecNanos() == 1)
+        #expect(sum.asSecs() == UInt64.max)
+        #expect(sum.checkedMul(factor: 2) == nil)
+    }
+
 }
