@@ -1,5 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664
 
-import io.github.kotlinmania.libc.*
-
-public class In6Addr
+public data class In6Addr(
+    val s6Addr: UByteArray,
+)

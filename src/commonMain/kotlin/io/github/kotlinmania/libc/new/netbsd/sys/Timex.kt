@@ -1,7 +1,7 @@
 // port-lint: source new/netbsd/sys/timex.rs
 package io.github.kotlinmania.libc.new.netbsd.sys
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timespec
 
 public data class Ntptimeval(
     val time: Timespec,

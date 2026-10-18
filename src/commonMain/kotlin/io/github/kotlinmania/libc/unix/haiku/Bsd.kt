@@ -1,7 +1,11 @@
 // port-lint: source unix/haiku/bsd.rs
 package io.github.kotlinmania.libc.unix.haiku
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
 
 public data class Stringlist(
     val slStr: COpaquePointer?,

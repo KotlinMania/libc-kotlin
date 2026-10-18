@@ -1,8 +1,15 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.bsd.apple
-
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.internal.LibcNapiWasm
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
+import io.github.kotlinmania.libc.unix.bsd.Msghdr
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.bsd.Utsname
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGNXTHDR requires N-API addon")
@@ -105,7 +112,10 @@ public actual fun ctimeR(clock: Long?, result: String?): String? =
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: UInt, host: String?, hostlen: UInt, serv: String?, servlen: UInt, flags: Int): Int =
     LibcNapiWasm.getnameinfo(
-        sa,
+        sa?.let {
+            io.github.kotlinmania.libc.unix.linuxlike
+                .Sockaddr(it.saFamily.toUShort(), it.saData)
+        },
         salen,
         if (host != null && hostlen > 0u) ByteArray(hostlen.toInt()) else null,
         hostlen,

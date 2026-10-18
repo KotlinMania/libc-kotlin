@@ -1,7 +1,10 @@
 // port-lint: source new/bionic_libc/sys/socket.rs
 package io.github.kotlinmania.libc.new.bioniclibc.sys
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 
 public data class Msghdr(
     val msgName: COpaquePointer?,

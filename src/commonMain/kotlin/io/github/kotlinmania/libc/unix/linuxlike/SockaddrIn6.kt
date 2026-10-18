@@ -1,0 +1,11 @@
+package io.github.kotlinmania.libc.unix.linuxlike
+
+import io.github.kotlinmania.libc.unix.In6Addr
+
+public data class SockaddrIn6(
+    val sin6Family: UShort,
+    val sin6Port: UShort,
+    val sin6Flowinfo: UInt,
+    val sin6Addr: In6Addr,
+    val sin6ScopeId: UInt,
+)

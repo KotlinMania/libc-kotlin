@@ -1,7 +1,8 @@
 // port-lint: source unix/linux_like/android/b32/arm.rs
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.android.StackT
 
 public data class Sigcontext(
     val trapNo: ULong,

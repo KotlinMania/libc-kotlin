@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru(

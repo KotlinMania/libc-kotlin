@@ -1,7 +1,7 @@
 // port-lint: source new/glibc/sysdeps/unix/linux/net/route.rs
 package io.github.kotlinmania.libc.new.glibc.sysdeps.unix.linux.net
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 
 public data class Rtentry(
     val rtPad1: ULong,

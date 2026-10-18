@@ -1,7 +1,7 @@
 // port-lint: source Illumos.rs
 package io.github.kotlinmania.libc.unix.solarish
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
 
 public actual fun eventfd(initval: UInt, flags: Int): Int =
     throw UnsupportedOperationException("eventfd requires N-API addon")

@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.aix
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
 
 public data class Msghdr(
     val msgName: COpaquePointer?,

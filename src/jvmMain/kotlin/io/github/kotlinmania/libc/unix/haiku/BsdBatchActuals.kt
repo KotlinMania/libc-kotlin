@@ -1,7 +1,11 @@
 // port-lint: source Bsd.rs
 package io.github.kotlinmania.libc.unix.haiku
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
 
 public actual fun daemon(nochdir: Int, noclose: Int): Int =
     throw UnsupportedOperationException("daemon not available on JVM — no C library access")

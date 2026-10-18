@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.aarch64
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.IpcPerm
 
 public data class ShmidDs(
     val shmPerm: IpcPerm,

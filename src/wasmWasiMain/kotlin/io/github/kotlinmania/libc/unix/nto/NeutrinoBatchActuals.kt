@@ -1,7 +1,8 @@
 // port-lint: source Neutrino.rs
 package io.github.kotlinmania.libc.unix.nto
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Sigval
 
 public actual fun channelCreate(flags: UInt): Int =
     throw UnsupportedOperationException("channelCreate not available on WASI — no C library access")

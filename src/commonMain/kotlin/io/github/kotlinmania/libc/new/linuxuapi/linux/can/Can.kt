@@ -133,10 +133,12 @@ public data class CanxlFrame(
     }
 }
 
-// CAN_MTU / CANFD_MTU / CANXL_MTU / CANXL_MAX_MTU are `size_of::<...>()` of the
-// frame structs; the C struct size cannot be computed in common Kotlin.
+public const val CAN_MTU: Int = 16
+public const val CANFD_MTU: Int = 72
+public const val CANXL_MTU: Int = 2060
 public const val CANXL_HDR_SIZE: Int = 12
 public const val CANXL_MIN_MTU: Int = CANXL_HDR_SIZE + 64
+public const val CANXL_MAX_MTU: Int = CANXL_MTU
 
 public const val CAN_RAW: Int = 1
 public const val CAN_BCM: Int = 2

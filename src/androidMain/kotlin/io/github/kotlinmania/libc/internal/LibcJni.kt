@@ -1,9 +1,10 @@
 package io.github.kotlinmania.libc.internal
-
-import io.github.kotlinmania.libc.Addrinfo
-import io.github.kotlinmania.libc.AddrinfoRegistry
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.Sockaddr
+import io.github.kotlinmania.libc.unix.AddrinfoRegistry
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
+import io.github.kotlinmania.libc.unix.linuxlike.Passwd
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Utsname
 import java.io.File
 
 internal object LibcJni {
@@ -36,7 +37,7 @@ internal object LibcJni {
                 System.load(localBuilt.absolutePath)
                 return
             }
-            val tmpDir = File(System.getProperty("java.io.tmpdir") ?: "/tmp", "kotlinmania-libc-jni-0.1.6")
+            val tmpDir = File(System.getProperty("java.io.tmpdir") ?: "/tmp", "kotlinmania-libc-jni-0.1.9")
             val outFile = File(tmpDir, libName)
             if (!outFile.exists()) {
                 tmpDir.mkdirs()
@@ -311,19 +312,6 @@ internal object LibcJni {
         }
     }
 
-    fun uname(buf: io.github.kotlinmania.libc.Utsname?): Int {
-        if (buf == null) return -1
-        val raw = unameFields() ?: return -1
-        val parts = raw.split('\n')
-        if (parts.size < 5) return -1
-        copyCStringInto(parts[0], buf.sysname)
-        copyCStringInto(parts[1], buf.nodename)
-        copyCStringInto(parts[2], buf.release)
-        copyCStringInto(parts[3], buf.version)
-        copyCStringInto(parts[4], buf.machine)
-        return 0
-    }
-
     fun uname(buf: io.github.kotlinmania.libc.unix.linuxlike.Utsname?): Int {
         if (buf == null) return -1
         val raw = unameFields() ?: return -1
@@ -350,9 +338,9 @@ internal object LibcJni {
         return 0
     }
 
-    fun getpwuid(uid: UInt): io.github.kotlinmania.libc.Passwd? {
+    fun getpwuid(uid: UInt): io.github.kotlinmania.libc.unix.linuxlike.Passwd? {
         val pwd =
-            io.github.kotlinmania.libc
+            io.github.kotlinmania.libc.unix.linuxlike
                 .Passwd()
         val res =
             io.github.kotlinmania.libc
@@ -361,10 +349,10 @@ internal object LibcJni {
         return if (rc == 0 && res.value != 0L) pwd else null
     }
 
-    fun getpwnam(name: String?): io.github.kotlinmania.libc.Passwd? {
+    fun getpwnam(name: String?): io.github.kotlinmania.libc.unix.linuxlike.Passwd? {
         if (name == null) return null
         val pwd =
-            io.github.kotlinmania.libc
+            io.github.kotlinmania.libc.unix.linuxlike
                 .Passwd()
         val res =
             io.github.kotlinmania.libc
@@ -375,30 +363,6 @@ internal object LibcJni {
 
     fun getpwuidR(
         uid: UInt,
-        pwd: io.github.kotlinmania.libc.Passwd?,
-        buflen: ULong,
-        result: io.github.kotlinmania.libc.COpaquePointer?,
-    ): Int {
-        val raw = getpwuidRStr(uid.toInt(), buflen.toLong().coerceAtLeast(0L))
-        return applyPasswdRResult(raw, pwd, result)
-    }
-
-    fun getpwnamR(
-        name: String?,
-        pwd: io.github.kotlinmania.libc.Passwd?,
-        buflen: ULong,
-        result: io.github.kotlinmania.libc.COpaquePointer?,
-    ): Int {
-        if (name == null) {
-            result?.value = 0L
-            return 22
-        }
-        val raw = getpwnamRStr(name, buflen.toLong().coerceAtLeast(0L))
-        return applyPasswdRResult(raw, pwd, result)
-    }
-
-    fun getpwuidR(
-        uid: UInt,
         pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
         buflen: ULong,
         result: io.github.kotlinmania.libc.COpaquePointer?,
@@ -502,34 +466,6 @@ internal object LibcJni {
             return 22
         }
         val raw = getpwnamRStr(name, buflen.toLong().coerceAtLeast(0L))
-        val lines = raw.split('\n')
-        val rc = lines.getOrNull(0)?.toIntOrNull() ?: -1
-        val found = lines.getOrNull(1) == "1"
-        if (rc == 0 && found && lines.size >= 9) {
-            if (pwd != null) {
-                pwd.pwName = lines[2]
-                pwd.pwPasswd = lines[3]
-                pwd.pwUid = lines[4].toUIntOrNull() ?: 0u
-                pwd.pwGid = lines[5].toUIntOrNull() ?: 0u
-                pwd.pwGecos = lines[6]
-                pwd.pwDir = lines[7]
-                pwd.pwShell = lines[8]
-            }
-            if (result != null) {
-                val orig = result.value
-                result.value = if (orig >= 4096L) orig else 1L
-            }
-        } else {
-            result?.value = 0L
-        }
-        return rc
-    }
-
-    private fun applyPasswdRResult(
-        raw: String,
-        pwd: io.github.kotlinmania.libc.Passwd?,
-        result: io.github.kotlinmania.libc.COpaquePointer?,
-    ): Int {
         val lines = raw.split('\n')
         val rc = lines.getOrNull(0)?.toIntOrNull() ?: -1
         val found = lines.getOrNull(1) == "1"

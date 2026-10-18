@@ -1,5 +1,10 @@
 // port-lint: source N/A
 package io.github.kotlinmania.libc
+import io.github.kotlinmania.libc.unix.AddrinfoRegistry
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
+import io.github.kotlinmania.libc.unix.linuxlike.Passwd
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Utsname
 
 /**
  * JS/WASM implementations of core libc functions via N-API.
@@ -196,7 +201,7 @@ public fun unameNapi(buf: Utsname?): Int {
     return 0
 }
 
-public fun unameNapi(buf: io.github.kotlinmania.libc.unix.linuxlike.Utsname?): Int {
+public fun unameNapi(buf: io.github.kotlinmania.libc.unix.bsd.Utsname?): Int {
     if (buf == null) return -1
     val raw = LibcNative.uname_fields() ?: return -1
     val parts = raw.split('\n')
@@ -265,46 +270,6 @@ public fun getpwuidRNapi(
 public fun getpwnamRNapi(
     name: String?,
     pwd: io.github.kotlinmania.libc.unix.bsd.Passwd?,
-    buflen: ULong,
-    result: COpaquePointer?,
-): Int {
-    val tmp = Passwd()
-    val rc = getpwnamRNapi(name, tmp, buflen, result)
-    if (rc == 0 && result?.value != 0L && pwd != null) {
-        pwd.pwName = tmp.pwName
-        pwd.pwPasswd = tmp.pwPasswd
-        pwd.pwUid = tmp.pwUid
-        pwd.pwGid = tmp.pwGid
-        pwd.pwGecos = tmp.pwGecos
-        pwd.pwDir = tmp.pwDir
-        pwd.pwShell = tmp.pwShell
-    }
-    return rc
-}
-
-public fun getpwuidRNapi(
-    uid: UInt,
-    pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
-    buflen: ULong,
-    result: COpaquePointer?,
-): Int {
-    val tmp = Passwd()
-    val rc = getpwuidRNapi(uid, tmp, buflen, result)
-    if (rc == 0 && result?.value != 0L && pwd != null) {
-        pwd.pwName = tmp.pwName
-        pwd.pwPasswd = tmp.pwPasswd
-        pwd.pwUid = tmp.pwUid
-        pwd.pwGid = tmp.pwGid
-        pwd.pwGecos = tmp.pwGecos
-        pwd.pwDir = tmp.pwDir
-        pwd.pwShell = tmp.pwShell
-    }
-    return rc
-}
-
-public fun getpwnamRNapi(
-    name: String?,
-    pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
     buflen: ULong,
     result: COpaquePointer?,
 ): Int {

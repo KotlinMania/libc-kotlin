@@ -1,7 +1,7 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/aarch64.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 
 public data class Fregset(
     val qregs: List<CAnonymousFreg>,

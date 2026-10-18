@@ -1,16 +1,12 @@
 // port-lint: source unix/linux_like/linux/musl/lfs64.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
-
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.Dirent
 import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.Iovec
-import io.github.kotlinmania.libc.Rlimit
-import io.github.kotlinmania.libc.Rlimit64
-import io.github.kotlinmania.libc.Stat
-import io.github.kotlinmania.libc.Statfs
-import io.github.kotlinmania.libc.Statvfs
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.bsd.apple.Stat
+import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
 import io.github.kotlinmania.libc.unix.creat
 import io.github.kotlinmania.libc.unix.fgetpos
 import io.github.kotlinmania.libc.unix.fopen
@@ -22,8 +18,11 @@ import io.github.kotlinmania.libc.unix.fstatat
 import io.github.kotlinmania.libc.unix.fstatvfs
 import io.github.kotlinmania.libc.unix.ftello
 import io.github.kotlinmania.libc.unix.ftruncate
+import io.github.kotlinmania.libc.unix.linuxlike.Dirent
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
 import io.github.kotlinmania.libc.unix.linuxlike.fstatfs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.fallocate
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statfs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.posixFallocate
 import io.github.kotlinmania.libc.unix.linuxlike.linux.sendfile
 import io.github.kotlinmania.libc.unix.linuxlike.posixFadvise

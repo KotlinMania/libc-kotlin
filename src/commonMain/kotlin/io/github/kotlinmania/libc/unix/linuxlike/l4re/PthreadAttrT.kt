@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
 
 public data class PthreadAttrT(
     val detachstate: Int,

@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.In6Addr
 
 public data class In6Rtmsg(
     val rtmsgDst: In6Addr,

@@ -1,7 +1,5 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
-// port-lint: source vxworks/mod.rs
-
 package io.github.kotlinmania.libc.vxworks
 
 import kotlinx.cinterop.cstr

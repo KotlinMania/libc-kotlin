@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.newlib.espidf
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.In6Addr
 
 public data class SockaddrIn6(
     val sin6Len: UByte,

@@ -1,5 +1,5 @@
 package io.github.kotlinmania.libc.unix.aix
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timespec
 
 public expect fun semTimedwait(sem: Int?, abstime: Timespec?): Int

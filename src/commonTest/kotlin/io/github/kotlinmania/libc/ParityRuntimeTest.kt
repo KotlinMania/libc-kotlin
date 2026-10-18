@@ -1,11 +1,11 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
 
 package io.github.kotlinmania.libc
-
 import io.github.kotlinmania.libc.teeos.CpuSetT
 import io.github.kotlinmania.libc.teeos.cpuCount
 import io.github.kotlinmania.libc.teeos.cpuCountS
 import io.github.kotlinmania.libc.unix.*
+import io.github.kotlinmania.libc.unix.bsd.Utsname
 import io.github.kotlinmania.libc.unix.bsd.apple.AF_INET
 import io.github.kotlinmania.libc.unix.bsd.apple.uname
 import io.github.kotlinmania.libc.unix.bsd.getpwnamR
@@ -15,6 +15,7 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ioR
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ioW
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ioWR
 import io.github.kotlinmania.libc.unix.bsd.popen
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
 import io.github.kotlinmania.libc.windows.putenvS
 import kotlin.test.Test
 import kotlin.test.assertEquals

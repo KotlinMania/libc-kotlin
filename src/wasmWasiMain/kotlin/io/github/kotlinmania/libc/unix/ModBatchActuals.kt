@@ -1,8 +1,18 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix
-
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.internal.WasiLibcEnv
+import io.github.kotlinmania.libc.unix.bsd.apple.Sigaction
+import io.github.kotlinmania.libc.unix.bsd.apple.Stat
+import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
+import io.github.kotlinmania.libc.unix.linuxlike.Dirent
+import io.github.kotlinmania.libc.unix.linuxlike.DlInfo
+import io.github.kotlinmania.libc.unix.linuxlike.FdSet
+import io.github.kotlinmania.libc.unix.linuxlike.Lconv
+import io.github.kotlinmania.libc.unix.linuxlike.Passwd
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Termios
 
 public actual fun isalnum(c: Int): Int =
     throw UnsupportedOperationException("isalnum not available on WASI — no C library access")

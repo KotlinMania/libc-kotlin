@@ -1,7 +1,11 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.hurd
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR requires N-API addon")

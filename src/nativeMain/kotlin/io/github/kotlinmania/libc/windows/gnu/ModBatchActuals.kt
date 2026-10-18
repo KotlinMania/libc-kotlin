@@ -1,4 +1,3 @@
-// port-lint: source Mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.windows.gnu

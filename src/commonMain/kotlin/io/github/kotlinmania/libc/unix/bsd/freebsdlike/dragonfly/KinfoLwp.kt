@@ -1,6 +1,7 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Rtprio
 
 public data class KinfoLwp(
     val klPid: Int,

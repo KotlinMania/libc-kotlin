@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timeval
 
 public data class IfData64(
     val ifiType: UByte,

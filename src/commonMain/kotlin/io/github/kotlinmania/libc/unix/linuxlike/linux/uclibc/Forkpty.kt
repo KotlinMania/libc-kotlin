@@ -1,5 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Termios
 
 public expect fun forkpty(amaster: Int?, name: String?, termp: Termios?, winp: Winsize?): Int

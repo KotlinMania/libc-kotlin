@@ -1,7 +1,9 @@
 // port-lint: source Socket.rs
 package io.github.kotlinmania.libc.new.bioniclibc.sys
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 
 public actual fun recvmmsg(sockfd: Int, msgvec: Mmsghdr?, vlen: UInt, flags: Int, timeout: Timespec?): Int =
     throw UnsupportedOperationException("recvmmsg not available on WASI — no C library access")

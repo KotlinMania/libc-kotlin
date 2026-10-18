@@ -1,7 +1,10 @@
-// port-lint: source Pthread.rs
-package io.github.kotlinmania.libc.new.common.posix
+package io.github.kotlinmania.libc.new.common.posix.pthread
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 
 public actual fun pthreadAttrGetguardsize(attr: io.github.kotlinmania.libc.COpaquePointer?, guardsize: ULong?): Int =
     throw UnsupportedOperationException("pthreadAttrGetguardsize not available on Android host — use androidNative target for FFI")
@@ -33,29 +36,14 @@ public actual fun pthreadAttrSetschedpolicy(attr: io.github.kotlinmania.libc.COp
 public actual fun pthreadAttrSetstack(attr: io.github.kotlinmania.libc.COpaquePointer?, stackaddr: COpaquePointer?, stacksize: ULong): Int =
     throw UnsupportedOperationException("pthreadAttrSetstack not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadBarrierDestroy(barrier: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierDestroy not available on Android host — use androidNative target for FFI")
-
 public actual fun pthreadBarrierInit(barrier: io.github.kotlinmania.libc.COpaquePointer?, attr: io.github.kotlinmania.libc.COpaquePointer?, count: UInt): Int =
     throw UnsupportedOperationException("pthreadBarrierInit not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadBarrierWait(barrier: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierWait not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadBarrierattrDestroy(attr: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierattrDestroy not available on Android host — use androidNative target for FFI")
 
 public actual fun pthreadBarrierattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int?): Int =
     throw UnsupportedOperationException("pthreadBarrierattrGetpshared not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadBarrierattrInit(attr: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierattrInit not available on Android host — use androidNative target for FFI")
-
 public actual fun pthreadBarrierattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int): Int =
     throw UnsupportedOperationException("pthreadBarrierattrSetpshared not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadCancel(thread: ULong): Int =
-    throw UnsupportedOperationException("pthreadCancel not available on Android host — use androidNative target for FFI")
 
 public actual fun pthreadCondattrGetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: Int?): Int =
     throw UnsupportedOperationException("pthreadCondattrGetclock not available on Android host — use androidNative target for FFI")
@@ -74,12 +62,6 @@ public actual fun pthreadGetcpuclockid(thread: ULong, clkId: Int?): Int =
 
 public actual fun pthreadGetschedparam(native: ULong, policy: Int?, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadGetschedparam not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadKill(thread: ULong, sig: Int): Int =
-    throw UnsupportedOperationException("pthreadKill not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadMutexConsistent(mutex: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadMutexConsistent not available on Android host — use androidNative target for FFI")
 
 public actual fun pthreadMutexTimedlock(lock: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("pthreadMutexTimedlock not available on Android host — use androidNative target for FFI")
@@ -111,26 +93,8 @@ public actual fun pthreadRwlockattrSetpshared(attr: io.github.kotlinmania.libc.C
 public actual fun pthreadSetschedparam(native: ULong, policy: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadSetschedparam not available on Android host — use androidNative target for FFI")
 
-public actual fun pthreadSetschedprio(native: ULong, priority: Int): Int =
-    throw UnsupportedOperationException("pthreadSetschedprio not available on Android host — use androidNative target for FFI")
-
 public actual fun pthreadSigmask(how: Int, set: SigsetT?, oldset: SigsetT?): Int =
     throw UnsupportedOperationException("pthreadSigmask not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadSpinDestroy(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinDestroy not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadSpinInit(lock: Int?, pshared: Int): Int =
-    throw UnsupportedOperationException("pthreadSpinInit not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadSpinLock(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinLock not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadSpinTrylock(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinTrylock not available on Android host — use androidNative target for FFI")
-
-public actual fun pthreadSpinUnlock(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinUnlock not available on Android host — use androidNative target for FFI")
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadAtfork not available on Android host — use androidNative target for FFI")

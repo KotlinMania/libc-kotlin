@@ -1,8 +1,19 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike
-
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.internal.LibcJni
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Termios
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SiginfoT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Stat64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statfs
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statfs64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statvfs64
 
 public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR not available on Android host — use androidNative target for FFI")

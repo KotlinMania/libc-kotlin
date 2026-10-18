@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.Sigevent
 
 public data class Aiocb(
     val aioFildes: Int,

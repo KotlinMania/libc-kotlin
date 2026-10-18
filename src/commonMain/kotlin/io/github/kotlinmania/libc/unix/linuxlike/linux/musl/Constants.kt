@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.O_NONBLOCK
 
 public const val MAP_ANON: Int = 0x0020
 

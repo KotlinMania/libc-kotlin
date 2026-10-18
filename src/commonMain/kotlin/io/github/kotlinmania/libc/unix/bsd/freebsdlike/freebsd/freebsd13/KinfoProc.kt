@@ -1,6 +1,7 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd13
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.Timeval
 
 public data class KinfoProc(
     val kiStructsize: Int,

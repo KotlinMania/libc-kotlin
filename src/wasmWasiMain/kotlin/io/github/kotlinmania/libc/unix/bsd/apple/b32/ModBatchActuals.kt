@@ -1,4 +1,3 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.bsd.apple.b32
 
 import io.github.kotlinmania.libc.*

@@ -1,4 +1,3 @@
-// port-lint: source vxworks/mod.rs
 package io.github.kotlinmania.libc.vxworks
 
 public actual fun isalnum(c: Int): Int =

@@ -1,7 +1,20 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
+import io.github.kotlinmania.libc.unix.bsd.Msghdr
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.bsd.Utsname
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.InAddr
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Rtprio
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SiginfoT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Termios
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.KinfoProc
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.ShmidDs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.Stat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.Statfs
 
 public actual fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? =
     throw UnsupportedOperationException("cMSGDATA not available on JVM — no C library access")

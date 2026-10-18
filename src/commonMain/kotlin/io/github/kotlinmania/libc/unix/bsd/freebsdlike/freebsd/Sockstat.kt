@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SockaddrStorage
 
 public data class Sockstat(
     val inpPpcb: ULong,

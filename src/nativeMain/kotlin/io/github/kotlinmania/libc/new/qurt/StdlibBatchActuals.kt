@@ -1,4 +1,3 @@
-// port-lint: source Stdlib.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.qurt

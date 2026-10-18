@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.In6Addr
 
 public data class In6Ifreq(
     val ifr6Addr: In6Addr,

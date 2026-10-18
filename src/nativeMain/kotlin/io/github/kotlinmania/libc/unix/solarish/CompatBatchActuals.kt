@@ -2,8 +2,9 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.solarish
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Winsize
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun cfmakeraw(termios: Termios?): Unit = throw UnsupportedOperationException("cfmakeraw requires manual FFI bridge — not yet implemented")

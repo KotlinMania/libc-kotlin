@@ -1,6 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.SockaddrIn6
 
 // C union; only one variant is valid at a time.
 public data class CAnonymousIfrIfru6(
