@@ -2,10 +2,9 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.nto
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Sigval
-
-import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun channelCreate(flags: UInt): Int =

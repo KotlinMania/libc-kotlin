@@ -1,19 +1,18 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
-import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 import io.github.kotlinmania.libc.unix.linuxlike.Itimerspec
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.MsqidDs
 import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
 import io.github.kotlinmania.libc.unix.linuxlike.Sembuf
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SiginfoT
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.SockaddrUn
 import io.github.kotlinmania.libc.unix.linuxlike.Spwd
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.MsqidDs
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SiginfoT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.StackT
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Timeval
-
-import io.github.kotlinmania.libc.*
 
 public actual fun sctpPrIndex(policy: Int): Int =
     throw UnsupportedOperationException("sCTPPRINDEX requires N-API addon")

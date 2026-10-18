@@ -1,6 +1,5 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.InAddr
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.InAddr
 
 public expect fun realhostname(host: String?, hsize: ULong, ip: InAddr?): Int

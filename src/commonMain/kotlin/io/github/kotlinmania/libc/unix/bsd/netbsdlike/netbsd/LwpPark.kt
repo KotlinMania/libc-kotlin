@@ -1,6 +1,5 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
-import io.github.kotlinmania.libc.unix.Timespec
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timespec
 
 public expect fun lwpPark(clock: Int, flags: Int, ts: Timespec?, unpark: Int, hint: COpaquePointer?, unparkhint: COpaquePointer?): Int

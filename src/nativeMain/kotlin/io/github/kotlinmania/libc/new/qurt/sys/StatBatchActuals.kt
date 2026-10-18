@@ -2,9 +2,8 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.qurt.sys
-import io.github.kotlinmania.libc.new.qurt.Stat
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.new.qurt.Stat
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun stat(pathname: String?, statbuf: Stat?): Int =

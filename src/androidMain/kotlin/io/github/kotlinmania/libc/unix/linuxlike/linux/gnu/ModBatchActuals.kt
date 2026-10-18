@@ -1,21 +1,20 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
-import io.github.kotlinmania.libc.unix.linuxlike.DlInfo
-import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Sigval
+import io.github.kotlinmania.libc.unix.linuxlike.DlInfo
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
 import io.github.kotlinmania.libc.unix.linuxlike.Mntent
 import io.github.kotlinmania.libc.unix.linuxlike.Passwd
-import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
 import io.github.kotlinmania.libc.unix.linuxlike.Sigevent
-import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.linuxlike.Spwd
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Timex
 import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 import io.github.kotlinmania.libc.unix.linuxlike.Tm
-
-import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Timex
 
 public actual fun fgetspentR(fp: FILE?, spbuf: Spwd?, buf: String?, buflen: ULong, spbufp: COpaquePointer?): Int =
     throw UnsupportedOperationException("fgetspentR not available on Android host — use androidNative target for FFI")

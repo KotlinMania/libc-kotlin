@@ -1,19 +1,18 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.bsd
-import io.github.kotlinmania.libc.unix.bsd.apple.GlobT
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Rusage
-import io.github.kotlinmania.libc.unix.bsd.apple.StackT
 import io.github.kotlinmania.libc.unix.Timeval
-import io.github.kotlinmania.libc.unix.bsd.apple.Tm
 import io.github.kotlinmania.libc.unix.Winsize
-
-import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.bsd.apple.GlobT
+import io.github.kotlinmania.libc.unix.bsd.apple.StackT
+import io.github.kotlinmania.libc.unix.bsd.apple.Tm
 import kotlinx.cinterop.*
 import libc.cinterop.libc_cmsg_firsthdr
 import libc.cinterop.libc_endgrent

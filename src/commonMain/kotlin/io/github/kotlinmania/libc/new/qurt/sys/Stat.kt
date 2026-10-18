@@ -1,8 +1,7 @@
 // port-lint: source new/qurt/sys/stat.rs
 package io.github.kotlinmania.libc.new.qurt.sys
-import io.github.kotlinmania.libc.new.qurt.Stat
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.new.qurt.Stat
 
 public const val S_IFMT: UInt = 61440u
 public const val S_IFSOCK: UInt = 49152u

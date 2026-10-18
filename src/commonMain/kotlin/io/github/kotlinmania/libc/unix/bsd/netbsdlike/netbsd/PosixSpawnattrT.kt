@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SchedParam
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SchedParam
 
 public data class PosixSpawnattrT(
     val saFlags: Short,

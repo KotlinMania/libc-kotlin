@@ -1,21 +1,20 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.bsd.apple.Sigaction
+import io.github.kotlinmania.libc.unix.bsd.apple.Stat
+import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
 import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
 import io.github.kotlinmania.libc.unix.linuxlike.Dirent
 import io.github.kotlinmania.libc.unix.linuxlike.DlInfo
 import io.github.kotlinmania.libc.unix.linuxlike.FdSet
 import io.github.kotlinmania.libc.unix.linuxlike.Lconv
 import io.github.kotlinmania.libc.unix.linuxlike.Passwd
-import io.github.kotlinmania.libc.unix.bsd.apple.Sigaction
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
-import io.github.kotlinmania.libc.unix.bsd.apple.Stat
-import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Termios
 import io.github.kotlinmania.libc.unix.linuxlike.Tm
-
-import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Termios
 import kotlinx.cinterop.*
 import libc.cinterop.libc_access
 import libc.cinterop.libc_aligned_alloc

@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.nuttx
-import io.github.kotlinmania.libc.unix.Timespec
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timespec
 
 public data class Stat(
     val stDev: Int,

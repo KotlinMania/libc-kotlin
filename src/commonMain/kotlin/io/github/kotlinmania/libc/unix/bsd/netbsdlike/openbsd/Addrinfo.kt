@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
-import io.github.kotlinmania.libc.unix.bsd.Sockaddr
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 
 public data class Addrinfo(
     val aiFlags: Int,

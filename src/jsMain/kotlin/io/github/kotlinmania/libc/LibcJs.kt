@@ -1,7 +1,7 @@
 // port-lint: source N/A
 package io.github.kotlinmania.libc
-import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
 import io.github.kotlinmania.libc.unix.AddrinfoRegistry
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
 import io.github.kotlinmania.libc.unix.linuxlike.Passwd
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.Utsname

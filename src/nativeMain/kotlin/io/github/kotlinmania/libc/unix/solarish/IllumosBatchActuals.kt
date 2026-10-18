@@ -2,9 +2,8 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.solarish
-import io.github.kotlinmania.libc.unix.Iovec
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Iovec
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun eventfd(initval: UInt, flags: Int): Int =

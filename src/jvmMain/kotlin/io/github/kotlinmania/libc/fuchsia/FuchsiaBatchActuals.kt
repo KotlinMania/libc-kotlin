@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.fuchsia
-import io.github.kotlinmania.libc.unix.linuxlike.Timezone
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 public actual fun fdClear(fd: Int, set: FdSet?): Unit = throw UnsupportedOperationException("fDCLR not available on JVM — no C library access")
 

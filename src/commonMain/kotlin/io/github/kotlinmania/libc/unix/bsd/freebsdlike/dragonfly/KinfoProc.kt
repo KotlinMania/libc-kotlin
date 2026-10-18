@@ -1,8 +1,7 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.Timeval
-
-import io.github.kotlinmania.libc.*
 
 public data class KinfoProc(
     val kpPaddr: ULong,

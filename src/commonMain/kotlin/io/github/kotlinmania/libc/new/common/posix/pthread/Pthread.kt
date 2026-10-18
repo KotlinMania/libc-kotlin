@@ -2,9 +2,9 @@
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 
 /**
  * Header: `pthread.h`.

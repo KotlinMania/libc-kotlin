@@ -1,6 +1,4 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.O_NONBLOCK
-
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.linuxlike.EOPNOTSUPP
 import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
@@ -10,6 +8,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.LC_MONETARY_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_NUMERIC_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_TIME_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.NLMSG_MIN_TYPE
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.O_NONBLOCK
 
 public const val HUGETLB_FLAG_ENCODE_SHIFT: Int = 26
 

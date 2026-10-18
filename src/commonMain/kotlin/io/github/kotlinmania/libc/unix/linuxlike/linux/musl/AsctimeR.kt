@@ -1,6 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
-import io.github.kotlinmania.libc.unix.linuxlike.Tm
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
 
 public expect fun asctimeR(tm: Tm?, buf: String?): String?

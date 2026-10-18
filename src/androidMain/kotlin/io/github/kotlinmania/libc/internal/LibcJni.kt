@@ -1,11 +1,10 @@
 package io.github.kotlinmania.libc.internal
-import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.AddrinfoRegistry
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
 import io.github.kotlinmania.libc.unix.linuxlike.Passwd
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.Utsname
-
-import io.github.kotlinmania.libc.COpaquePointer
 import java.io.File
 
 internal object LibcJni {

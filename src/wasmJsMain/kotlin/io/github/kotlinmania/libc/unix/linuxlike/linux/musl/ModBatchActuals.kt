@@ -1,11 +1,10 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.Tm
-
-import io.github.kotlinmania.libc.*
 
 public actual fun getrlimit(resource: Int, rlim: Rlimit?): Int =
     throw UnsupportedOperationException("getrlimit requires N-API addon")

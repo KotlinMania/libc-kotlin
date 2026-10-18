@@ -2,12 +2,11 @@
 
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
-
-import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun pthreadAttrGetguardsize(attr: io.github.kotlinmania.libc.COpaquePointer?, guardsize: ULong?): Int =
@@ -40,19 +39,14 @@ public actual fun pthreadAttrSetschedpolicy(attr: io.github.kotlinmania.libc.COp
 public actual fun pthreadAttrSetstack(attr: io.github.kotlinmania.libc.COpaquePointer?, stackaddr: COpaquePointer?, stacksize: ULong): Int =
     throw UnsupportedOperationException("pthreadAttrSetstack requires manual FFI bridge — not yet implemented")
 
-
 public actual fun pthreadBarrierInit(barrier: io.github.kotlinmania.libc.COpaquePointer?, attr: io.github.kotlinmania.libc.COpaquePointer?, count: UInt): Int =
     throw UnsupportedOperationException("pthreadBarrierInit requires manual FFI bridge — not yet implemented")
-
-
 
 public actual fun pthreadBarrierattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int?): Int =
     throw UnsupportedOperationException("pthreadBarrierattrGetpshared requires manual FFI bridge — not yet implemented")
 
-
 public actual fun pthreadBarrierattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int): Int =
     throw UnsupportedOperationException("pthreadBarrierattrSetpshared requires manual FFI bridge — not yet implemented")
-
 
 public actual fun pthreadCondattrGetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: Int?): Int =
     throw UnsupportedOperationException("pthreadCondattrGetclock requires manual FFI bridge — not yet implemented")
@@ -71,8 +65,6 @@ public actual fun pthreadGetcpuclockid(thread: ULong, clkId: Int?): Int =
 
 public actual fun pthreadGetschedparam(native: ULong, policy: Int?, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadGetschedparam requires manual FFI bridge — not yet implemented")
-
-
 
 public actual fun pthreadMutexTimedlock(lock: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("pthreadMutexTimedlock requires manual FFI bridge — not yet implemented")
@@ -104,14 +96,8 @@ public actual fun pthreadRwlockattrSetpshared(attr: io.github.kotlinmania.libc.C
 public actual fun pthreadSetschedparam(native: ULong, policy: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadSetschedparam requires manual FFI bridge — not yet implemented")
 
-
 public actual fun pthreadSigmask(how: Int, set: SigsetT?, oldset: SigsetT?): Int =
     throw UnsupportedOperationException("pthreadSigmask requires manual FFI bridge — not yet implemented")
-
-
-
-
-
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadAtfork requires manual FFI bridge — not yet implemented")

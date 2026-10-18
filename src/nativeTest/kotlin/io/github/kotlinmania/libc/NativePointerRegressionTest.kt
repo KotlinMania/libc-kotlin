@@ -2,7 +2,6 @@
 
 package io.github.kotlinmania.libc
 import io.github.kotlinmania.libc.unix.Timespec
-
 import io.github.kotlinmania.libc.unix.alignedAlloc
 import io.github.kotlinmania.libc.unix.alignedFree
 import io.github.kotlinmania.libc.unix.free

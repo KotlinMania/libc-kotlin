@@ -1,13 +1,12 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.bsd.Utsname
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.ShmidDs
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SiginfoT
-import io.github.kotlinmania.libc.unix.bsd.Sockaddr
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.bsd.Utsname
-
-import io.github.kotlinmania.libc.*
 
 public actual fun setgrent(): Unit = throw UnsupportedOperationException("setgrent requires N-API addon")
 

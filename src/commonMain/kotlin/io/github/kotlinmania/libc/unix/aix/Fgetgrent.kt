@@ -1,6 +1,5 @@
 package io.github.kotlinmania.libc.unix.aix
-import io.github.kotlinmania.libc.unix.Group
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Group
 
 public expect fun fgetgrent(file: FILE?): Group?

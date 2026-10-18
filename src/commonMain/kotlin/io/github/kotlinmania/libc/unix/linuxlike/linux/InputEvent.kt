@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
-import io.github.kotlinmania.libc.unix.Timeval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timeval
 
 public data class InputEvent(
     val time: Timeval,

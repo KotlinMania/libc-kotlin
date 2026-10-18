@@ -1,11 +1,10 @@
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
-
-import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 
 public actual fun pthreadAttrGetguardsize(attr: io.github.kotlinmania.libc.COpaquePointer?, guardsize: ULong?): Int =
     throw UnsupportedOperationException("pthreadAttrGetguardsize not available on JVM — no C library access")
@@ -37,19 +36,14 @@ public actual fun pthreadAttrSetschedpolicy(attr: io.github.kotlinmania.libc.COp
 public actual fun pthreadAttrSetstack(attr: io.github.kotlinmania.libc.COpaquePointer?, stackaddr: COpaquePointer?, stacksize: ULong): Int =
     throw UnsupportedOperationException("pthreadAttrSetstack not available on JVM — no C library access")
 
-
 public actual fun pthreadBarrierInit(barrier: io.github.kotlinmania.libc.COpaquePointer?, attr: io.github.kotlinmania.libc.COpaquePointer?, count: UInt): Int =
     throw UnsupportedOperationException("pthreadBarrierInit not available on JVM — no C library access")
-
-
 
 public actual fun pthreadBarrierattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int?): Int =
     throw UnsupportedOperationException("pthreadBarrierattrGetpshared not available on JVM — no C library access")
 
-
 public actual fun pthreadBarrierattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int): Int =
     throw UnsupportedOperationException("pthreadBarrierattrSetpshared not available on JVM — no C library access")
-
 
 public actual fun pthreadCondattrGetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: Int?): Int =
     throw UnsupportedOperationException("pthreadCondattrGetclock not available on JVM — no C library access")
@@ -68,8 +62,6 @@ public actual fun pthreadGetcpuclockid(thread: ULong, clkId: Int?): Int =
 
 public actual fun pthreadGetschedparam(native: ULong, policy: Int?, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadGetschedparam not available on JVM — no C library access")
-
-
 
 public actual fun pthreadMutexTimedlock(lock: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("pthreadMutexTimedlock not available on JVM — no C library access")
@@ -101,14 +93,8 @@ public actual fun pthreadRwlockattrSetpshared(attr: io.github.kotlinmania.libc.C
 public actual fun pthreadSetschedparam(native: ULong, policy: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadSetschedparam not available on JVM — no C library access")
 
-
 public actual fun pthreadSigmask(how: Int, set: SigsetT?, oldset: SigsetT?): Int =
     throw UnsupportedOperationException("pthreadSigmask not available on JVM — no C library access")
-
-
-
-
-
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadAtfork not available on JVM — no C library access")

@@ -1,6 +1,5 @@
 package io.github.kotlinmania.libc.unix.newlib
-import io.github.kotlinmania.libc.unix.Group
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Group
 
 public expect fun getgrgidR(gid: UInt, grp: Group?, buf: String?, buflen: ULong, result: COpaquePointer?): Int

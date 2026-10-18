@@ -1,8 +1,7 @@
 // port-lint: source new/apple/xnu/sys/_types/_ucontext.rs
 package io.github.kotlinmania.libc.new.apple.xnu.sys.types
-import io.github.kotlinmania.libc.unix.bsd.apple.StackT
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.bsd.apple.StackT
 
 public data class DarwinUcontext(
     val ucOnstack: Int,

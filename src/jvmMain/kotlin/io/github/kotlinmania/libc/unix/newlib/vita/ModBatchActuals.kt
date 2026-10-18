@@ -1,8 +1,7 @@
 package io.github.kotlinmania.libc.unix.newlib.vita
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Timespec
-
-import io.github.kotlinmania.libc.*
 
 public actual fun futimens(fd: Int, times: Timespec?): Int =
     throw UnsupportedOperationException("futimens not available on JVM — no C library access")

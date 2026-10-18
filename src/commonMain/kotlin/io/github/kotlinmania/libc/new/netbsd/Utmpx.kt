@@ -1,9 +1,8 @@
 // port-lint: source new/netbsd/utmpx_.rs
 package io.github.kotlinmania.libc.new.netbsd
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
-import io.github.kotlinmania.libc.unix.Timeval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
 
 public data class Utmpx(
     val utName: ByteArray,

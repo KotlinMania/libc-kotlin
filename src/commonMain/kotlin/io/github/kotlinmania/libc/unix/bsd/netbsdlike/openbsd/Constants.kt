@@ -1318,7 +1318,9 @@ public const val _LC_LAST: Int = 7
 
 public val LC_ALL_MASK: Int = (1 shl _LC_LAST) - 2
 
-public val LC_GLOBAL_LOCALE: io.github.kotlinmania.libc.COpaquePointer? = io.github.kotlinmania.libc.COpaquePointer(-1L)
+public val LC_GLOBAL_LOCALE: io.github.kotlinmania.libc.COpaquePointer? =
+    io.github.kotlinmania.libc
+        .COpaquePointer(-1L)
 
 public const val RB_ASKNAME: Int = 0x00001
 

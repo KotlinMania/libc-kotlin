@@ -1,9 +1,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.INT_MAX
 import io.github.kotlinmania.libc.unix.INT_MIN
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.O_NONBLOCK
-
-import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.linuxlike.ENODATA
 import io.github.kotlinmania.libc.unix.linuxlike.IPC_STAT
 import io.github.kotlinmania.libc.unix.linuxlike.MSG_FIN
@@ -12,6 +10,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.O_CLOEXEC
 import io.github.kotlinmania.libc.unix.linuxlike.O_EXCL
 import io.github.kotlinmania.libc.unix.linuxlike.ioRequest
 import io.github.kotlinmania.libc.unix.linuxlike.ioctlCode
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.O_NONBLOCK
 
 public const val NLMSG_OVERRUN: Int = 0x4
 

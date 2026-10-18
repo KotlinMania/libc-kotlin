@@ -2,11 +2,10 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.bioniclibc.sys
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
-import io.github.kotlinmania.libc.unix.Timespec
-
-import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
 
 public actual fun recvmmsg(sockfd: Int, msgvec: Mmsghdr?, vlen: UInt, flags: Int, timeout: Timespec?): Int =

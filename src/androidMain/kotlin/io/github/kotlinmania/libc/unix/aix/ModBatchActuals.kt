@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.aix
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Itimerval
@@ -7,8 +8,6 @@ import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.Timeval
-
-import io.github.kotlinmania.libc.*
 
 public actual fun cmsgFirstHdr(mhdr: Msghdr?): Cmsghdr? =
     throw UnsupportedOperationException("cMSGFIRSTHDR not available on Android host — use androidNative target for FFI")

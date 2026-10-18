@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Timeval
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Timeval
 
 public data class Timex(
     val modes: UInt,

@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.newlib.arm
-import io.github.kotlinmania.libc.unix.In6Addr
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.In6Addr
 
 public data class SockaddrIn6(
     val sin6Family: UShort,

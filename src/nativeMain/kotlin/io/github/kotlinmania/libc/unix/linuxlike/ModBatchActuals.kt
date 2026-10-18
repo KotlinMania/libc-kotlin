@@ -1,22 +1,21 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.linuxlike
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Itimerval
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
 import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Termios
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SiginfoT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Stat64
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statfs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statfs64
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statvfs64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Termios
-import io.github.kotlinmania.libc.unix.Timespec
-import io.github.kotlinmania.libc.unix.Winsize
-
-import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
 import kotlinx.cinterop.*
 import libc.cinterop.libc_acct
 import libc.cinterop.libc_dirfd
@@ -206,7 +205,11 @@ public actual fun sendmsg(fd: Int, msg: Msghdr?, flags: Int): Long =
     memScoped {
         if (msg == null) return libc.cinterop.libc_sendmsg_simple(fd, null, 0, null, 0uL, null, 0uL, flags)
         val namePtr = msg.msgName?.value?.toCPointer<ByteVar>()
-        val iovBase = msg.msgIov?.iovBase?.value?.toCPointer<ByteVar>()
+        val iovBase =
+            msg.msgIov
+                ?.iovBase
+                ?.value
+                ?.toCPointer<ByteVar>()
         val iovLen = msg.msgIovlen
         val ctlPtr = msg.msgControl?.value?.toCPointer<ByteVar>()
         libc.cinterop.libc_sendmsg_simple(fd, namePtr, msg.msgNamelen.toInt(), iovBase, iovLen, ctlPtr, msg.msgControllen, flags)
@@ -218,7 +221,11 @@ public actual fun recvmsg(fd: Int, msg: Msghdr?, flags: Int): Long =
         val namePtr = msg.msgName?.value?.toCPointer<ByteVar>()
         val nameLenVar = alloc<IntVar>()
         nameLenVar.value = msg.msgNamelen.toInt()
-        val iovBase = msg.msgIov?.iovBase?.value?.toCPointer<ByteVar>()
+        val iovBase =
+            msg.msgIov
+                ?.iovBase
+                ?.value
+                ?.toCPointer<ByteVar>()
         val iovLen = msg.msgIovlen
         val ctlPtr = msg.msgControl?.value?.toCPointer<ByteVar>()
         val ctlLenVar = alloc<ULongVar>()

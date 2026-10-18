@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc.unix.nuttx
-import io.github.kotlinmania.libc.unix.Timespec
-
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.unix.Timespec
 
 public actual fun errno(): Int? =
     throw UnsupportedOperationException("errno not available on JVM — no C library access")
