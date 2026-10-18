@@ -1,4 +1,3 @@
-// port-lint: source vxworks/mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.vxworks

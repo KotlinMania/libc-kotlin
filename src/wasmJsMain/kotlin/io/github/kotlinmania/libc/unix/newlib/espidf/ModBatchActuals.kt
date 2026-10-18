@@ -1,4 +1,3 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.newlib.espidf
 
 import io.github.kotlinmania.libc.*

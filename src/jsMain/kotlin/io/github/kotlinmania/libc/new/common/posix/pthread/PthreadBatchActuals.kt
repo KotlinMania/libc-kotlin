@@ -1,5 +1,9 @@
-// port-lint: source Pthread.rs
-package io.github.kotlinmania.libc.new.common.posix
+package io.github.kotlinmania.libc.new.common.posix.pthread
+
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
 
 import io.github.kotlinmania.libc.*
 
@@ -33,29 +37,19 @@ public actual fun pthreadAttrSetschedpolicy(attr: io.github.kotlinmania.libc.COp
 public actual fun pthreadAttrSetstack(attr: io.github.kotlinmania.libc.COpaquePointer?, stackaddr: COpaquePointer?, stacksize: ULong): Int =
     throw UnsupportedOperationException("pthreadAttrSetstack requires N-API addon")
 
-public actual fun pthreadBarrierDestroy(barrier: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierDestroy requires N-API addon")
 
 public actual fun pthreadBarrierInit(barrier: io.github.kotlinmania.libc.COpaquePointer?, attr: io.github.kotlinmania.libc.COpaquePointer?, count: UInt): Int =
     throw UnsupportedOperationException("pthreadBarrierInit requires N-API addon")
 
-public actual fun pthreadBarrierWait(barrier: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierWait requires N-API addon")
 
-public actual fun pthreadBarrierattrDestroy(attr: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierattrDestroy requires N-API addon")
 
 public actual fun pthreadBarrierattrGetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int?): Int =
     throw UnsupportedOperationException("pthreadBarrierattrGetpshared requires N-API addon")
 
-public actual fun pthreadBarrierattrInit(attr: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadBarrierattrInit requires N-API addon")
 
 public actual fun pthreadBarrierattrSetpshared(attr: io.github.kotlinmania.libc.COpaquePointer?, shared: Int): Int =
     throw UnsupportedOperationException("pthreadBarrierattrSetpshared requires N-API addon")
 
-public actual fun pthreadCancel(thread: ULong): Int =
-    throw UnsupportedOperationException("pthreadCancel requires N-API addon")
 
 public actual fun pthreadCondattrGetclock(attr: io.github.kotlinmania.libc.COpaquePointer?, clockId: Int?): Int =
     throw UnsupportedOperationException("pthreadCondattrGetclock requires N-API addon")
@@ -75,11 +69,7 @@ public actual fun pthreadGetcpuclockid(thread: ULong, clkId: Int?): Int =
 public actual fun pthreadGetschedparam(native: ULong, policy: Int?, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadGetschedparam requires N-API addon")
 
-public actual fun pthreadKill(thread: ULong, sig: Int): Int =
-    throw UnsupportedOperationException("pthreadKill requires N-API addon")
 
-public actual fun pthreadMutexConsistent(mutex: io.github.kotlinmania.libc.COpaquePointer?): Int =
-    throw UnsupportedOperationException("pthreadMutexConsistent requires N-API addon")
 
 public actual fun pthreadMutexTimedlock(lock: io.github.kotlinmania.libc.COpaquePointer?, abstime: Timespec?): Int =
     throw UnsupportedOperationException("pthreadMutexTimedlock requires N-API addon")
@@ -111,26 +101,14 @@ public actual fun pthreadRwlockattrSetpshared(attr: io.github.kotlinmania.libc.C
 public actual fun pthreadSetschedparam(native: ULong, policy: Int, param: SchedParam?): Int =
     throw UnsupportedOperationException("pthreadSetschedparam requires N-API addon")
 
-public actual fun pthreadSetschedprio(native: ULong, priority: Int): Int =
-    throw UnsupportedOperationException("pthreadSetschedprio requires N-API addon")
 
 public actual fun pthreadSigmask(how: Int, set: SigsetT?, oldset: SigsetT?): Int =
     throw UnsupportedOperationException("pthreadSigmask requires N-API addon")
 
-public actual fun pthreadSpinDestroy(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinDestroy requires N-API addon")
 
-public actual fun pthreadSpinInit(lock: Int?, pshared: Int): Int =
-    throw UnsupportedOperationException("pthreadSpinInit requires N-API addon")
 
-public actual fun pthreadSpinLock(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinLock requires N-API addon")
 
-public actual fun pthreadSpinTrylock(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinTrylock requires N-API addon")
 
-public actual fun pthreadSpinUnlock(lock: Int?): Int =
-    throw UnsupportedOperationException("pthreadSpinUnlock requires N-API addon")
 
 public actual fun pthreadAtfork(prepare: (() -> Unit)?, parent: (() -> Unit)?, child: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadAtfork requires N-API addon")

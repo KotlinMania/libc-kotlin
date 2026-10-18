@@ -4,6 +4,5 @@ import io.github.kotlinmania.libc.*
 
 public data class Ipv6Mreq(
     val ipv6mrMultiaddr: In6Addr,
-    val ipv6mrInterface: Int,
-    val ipv6mrInterface2: UInt,
+    val ipv6mrInterface: UInt,
 )

@@ -4,5 +4,6 @@ import io.github.kotlinmania.libc.*
 
 public data class SockaddrStorage(
     val ssFamily: UShort,
-    val ssAlign: ULong,
+    val ssPad2: ByteArray = ByteArray(118),
+    val ssAlign: ULong = 0uL,
 )

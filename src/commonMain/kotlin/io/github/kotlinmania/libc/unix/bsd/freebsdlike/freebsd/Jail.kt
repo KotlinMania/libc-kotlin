@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
+import io.github.kotlinmania.libc.unix.In6Addr
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.InAddr
 
 import io.github.kotlinmania.libc.*
 

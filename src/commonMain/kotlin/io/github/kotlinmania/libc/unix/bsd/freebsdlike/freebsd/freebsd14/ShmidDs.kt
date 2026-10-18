@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd14
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IpcPerm
 
 import io.github.kotlinmania.libc.*
 

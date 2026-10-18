@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix
+import io.github.kotlinmania.libc.unix.linuxlike.Passwd
 
 import io.github.kotlinmania.libc.*
 

@@ -1,7 +1,20 @@
-// port-lint: source Mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.linuxlike.android
+import io.github.kotlinmania.libc.new.bioniclibc.sys.Cmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.new.bioniclibc.sys.Msghdr
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Sysinfo
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.getnameinfo

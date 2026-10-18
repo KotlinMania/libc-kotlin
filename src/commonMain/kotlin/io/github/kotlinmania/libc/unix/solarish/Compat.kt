@@ -1,5 +1,7 @@
 // port-lint: source unix/solarish/compat.rs
 package io.github.kotlinmania.libc.unix.solarish
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.close

@@ -1,5 +1,6 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/aarch64.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 
 import io.github.kotlinmania.libc.*
 

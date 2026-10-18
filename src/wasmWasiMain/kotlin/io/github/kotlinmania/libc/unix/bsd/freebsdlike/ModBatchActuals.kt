@@ -1,5 +1,18 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.Kevent
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.KinfoProc
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqAttr
+import io.github.kotlinmania.libc.unix.bsd.Passwd
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Sigevent
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Utmpx
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 
@@ -73,7 +86,7 @@ public actual fun getgrouplist(name: String?, basegid: UInt, groups: UInt?, ngro
 
 public actual fun getnameinfo(sa: Sockaddr?, salen: UInt, host: String?, hostlen: ULong, serv: String?, servlen: ULong, flags: Int): Int =
     io.github.kotlinmania.libc.internal.WasiLibcEnv.getnameinfo(
-        sa,
+        sa?.let { io.github.kotlinmania.libc.unix.linuxlike.Sockaddr(it.saFamily.toUShort(), it.saData) },
         salen,
         if (host != null && hostlen > 0uL) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null,
         hostlen.toUInt(),

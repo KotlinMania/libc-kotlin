@@ -1,7 +1,20 @@
-// port-lint: source Mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.Kevent
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.KinfoProc
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqAttr
+import io.github.kotlinmania.libc.unix.bsd.Passwd
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Sigevent
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Utmpx
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.getnameinfo
@@ -109,7 +122,7 @@ public actual fun getnameinfo(sa: Sockaddr?, salen: UInt, host: String?, hostlen
     val sLen = servlen.toUInt()
     val hBuf = if (hLen > 0u) ByteArray(hLen.toInt().coerceAtMost(4096)) else null
     val sBuf = if (sLen > 0u) ByteArray(sLen.toInt().coerceAtMost(256)) else null
-    return getnameinfo(sa, salen, hBuf, hLen, sBuf, sLen, flags)
+    return io.github.kotlinmania.libc.unix.getnameinfo(sa?.let { io.github.kotlinmania.libc.unix.linuxlike.Sockaddr(it.saFamily.toUShort(), it.saData) }, salen, hBuf, hLen, sBuf, sLen, flags)
 }
 
 public actual fun getpriority(which: Int, who: Int): Int {

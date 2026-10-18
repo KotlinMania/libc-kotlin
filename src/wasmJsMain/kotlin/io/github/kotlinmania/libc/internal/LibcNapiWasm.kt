@@ -2,14 +2,14 @@
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
 package io.github.kotlinmania.libc.internal
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
+import io.github.kotlinmania.libc.unix.AddrinfoRegistry
+import io.github.kotlinmania.libc.unix.linuxlike.Passwd
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Utsname
 
-import io.github.kotlinmania.libc.Addrinfo
-import io.github.kotlinmania.libc.AddrinfoRegistry
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.Passwd
-import io.github.kotlinmania.libc.Sockaddr
-import io.github.kotlinmania.libc.Utsname
 
 @JsFun(
     """() => {
@@ -845,7 +845,7 @@ internal object LibcNapiWasm {
         return 0
     }
 
-    fun uname(buf: io.github.kotlinmania.libc.unix.linuxlike.Utsname?): Int {
+    fun uname(buf: io.github.kotlinmania.libc.unix.bsd.Utsname?): Int {
         if (buf == null) return -1
         val raw = wasmUnameFields() ?: return -1
         val parts = raw.split('\n')
@@ -914,46 +914,6 @@ internal object LibcNapiWasm {
     fun getpwnamR(
         name: String?,
         pwd: io.github.kotlinmania.libc.unix.bsd.Passwd?,
-        buflen: ULong,
-        result: COpaquePointer?,
-    ): Int {
-        val tmp = Passwd()
-        val rc = getpwnamR(name, tmp, buflen, result)
-        if (rc == 0 && result?.value != 0L && pwd != null) {
-            pwd.pwName = tmp.pwName
-            pwd.pwPasswd = tmp.pwPasswd
-            pwd.pwUid = tmp.pwUid
-            pwd.pwGid = tmp.pwGid
-            pwd.pwGecos = tmp.pwGecos
-            pwd.pwDir = tmp.pwDir
-            pwd.pwShell = tmp.pwShell
-        }
-        return rc
-    }
-
-    fun getpwuidR(
-        uid: UInt,
-        pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
-        buflen: ULong,
-        result: COpaquePointer?,
-    ): Int {
-        val tmp = Passwd()
-        val rc = getpwuidR(uid, tmp, buflen, result)
-        if (rc == 0 && result?.value != 0L && pwd != null) {
-            pwd.pwName = tmp.pwName
-            pwd.pwPasswd = tmp.pwPasswd
-            pwd.pwUid = tmp.pwUid
-            pwd.pwGid = tmp.pwGid
-            pwd.pwGecos = tmp.pwGecos
-            pwd.pwDir = tmp.pwDir
-            pwd.pwShell = tmp.pwShell
-        }
-        return rc
-    }
-
-    fun getpwnamR(
-        name: String?,
-        pwd: io.github.kotlinmania.libc.unix.linuxlike.Passwd?,
         buflen: ULong,
         result: COpaquePointer?,
     ): Int {

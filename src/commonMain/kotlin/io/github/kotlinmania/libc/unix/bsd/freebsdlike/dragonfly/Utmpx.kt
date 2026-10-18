@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SockaddrStorage
+import io.github.kotlinmania.libc.unix.Timeval
 
 import io.github.kotlinmania.libc.*
 

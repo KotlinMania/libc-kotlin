@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.aarch64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.StackT
 
 import io.github.kotlinmania.libc.*
 

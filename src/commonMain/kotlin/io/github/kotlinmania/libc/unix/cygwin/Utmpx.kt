@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.cygwin
+import io.github.kotlinmania.libc.unix.Timeval
 
 import io.github.kotlinmania.libc.*
 

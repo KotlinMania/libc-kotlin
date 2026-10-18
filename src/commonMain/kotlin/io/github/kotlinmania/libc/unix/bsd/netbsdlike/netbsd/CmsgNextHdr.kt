@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
+import io.github.kotlinmania.libc.unix.bsd.Msghdr
 
 import io.github.kotlinmania.libc.*
 

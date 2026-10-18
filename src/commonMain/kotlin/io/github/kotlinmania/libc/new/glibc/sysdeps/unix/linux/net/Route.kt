@@ -1,5 +1,6 @@
 // port-lint: source new/glibc/sysdeps/unix/linux/net/route.rs
 package io.github.kotlinmania.libc.new.glibc.sysdeps.unix.linux.net
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 
 import io.github.kotlinmania.libc.*
 

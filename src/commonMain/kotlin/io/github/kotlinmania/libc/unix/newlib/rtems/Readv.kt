@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.newlib.rtems
+import io.github.kotlinmania.libc.unix.Iovec
 
 import io.github.kotlinmania.libc.*
 

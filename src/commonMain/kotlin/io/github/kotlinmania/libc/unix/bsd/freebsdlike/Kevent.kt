@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15.Kevent
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

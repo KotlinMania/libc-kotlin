@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.newlib.arm
+import io.github.kotlinmania.libc.unix.newlib.InAddr
 
 import io.github.kotlinmania.libc.*
 

@@ -1,4 +1,3 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*

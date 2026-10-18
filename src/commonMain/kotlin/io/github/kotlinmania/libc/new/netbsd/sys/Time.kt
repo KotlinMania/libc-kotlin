@@ -1,5 +1,6 @@
 // port-lint: source new/netbsd/sys/time.rs
 package io.github.kotlinmania.libc.new.netbsd.sys
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

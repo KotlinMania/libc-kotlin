@@ -1,16 +1,16 @@
 // port-lint: source unix/linux_like/emscripten/lfs64.rs
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.bsd.apple.Stat
+import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
+import io.github.kotlinmania.libc.unix.linuxlike.Dirent
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statfs
 
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.Dirent
 import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.Iovec
-import io.github.kotlinmania.libc.Rlimit
-import io.github.kotlinmania.libc.Rlimit64
-import io.github.kotlinmania.libc.Stat
-import io.github.kotlinmania.libc.Statfs
-import io.github.kotlinmania.libc.Statvfs
 import io.github.kotlinmania.libc.unix.creat
 import io.github.kotlinmania.libc.unix.fgetpos
 import io.github.kotlinmania.libc.unix.fopen

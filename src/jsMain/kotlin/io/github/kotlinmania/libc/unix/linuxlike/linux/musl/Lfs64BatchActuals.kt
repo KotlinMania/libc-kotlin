@@ -1,5 +1,6 @@
 // port-lint: source Lfs64.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
+import io.github.kotlinmania.libc.unix.Iovec
 
 import io.github.kotlinmania.libc.*
 

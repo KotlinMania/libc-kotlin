@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Termios
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 

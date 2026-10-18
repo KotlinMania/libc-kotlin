@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.solarish
+import io.github.kotlinmania.libc.unix.Rlimit
 
 import io.github.kotlinmania.libc.*
 

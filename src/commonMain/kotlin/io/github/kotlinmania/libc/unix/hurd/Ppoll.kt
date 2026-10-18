@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.hurd
+import io.github.kotlinmania.libc.unix.Pollfd
 
 import io.github.kotlinmania.libc.*
 

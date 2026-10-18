@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
 
 package io.github.kotlinmania.libc
+import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
+import io.github.kotlinmania.libc.unix.bsd.Utsname
 
 import io.github.kotlinmania.libc.teeos.CpuSetT
 import io.github.kotlinmania.libc.teeos.cpuCount

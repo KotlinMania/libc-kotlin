@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
 
 import io.github.kotlinmania.libc.*
 

@@ -1,7 +1,8 @@
-// port-lint: source Mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.newlib.vita
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar

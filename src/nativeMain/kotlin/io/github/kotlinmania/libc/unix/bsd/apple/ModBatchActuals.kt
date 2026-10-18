@@ -1,7 +1,15 @@
-// port-lint: source Mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.bsd.apple
+import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.bsd.Msghdr
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
+import io.github.kotlinmania.libc.unix.bsd.Utsname
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.bsd.cmsgFirstHdr
@@ -59,19 +67,7 @@ import libc.cinterop.libc_utimensat
 public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (mhdr == null) return null
     if (cmsg == null) {
-        val bsdMsghdr =
-            io.github.kotlinmania.libc.unix.bsd.Msghdr(
-                mhdr.msgName,
-                mhdr.msgNamelen,
-                null,
-                mhdr.msgIovlen.toInt(),
-                mhdr.msgControl,
-                mhdr.msgControllen.toUInt(),
-                mhdr.msgFlags,
-                mhdr.handle,
-            )
-        val bsdResult = cmsgFirstHdr(bsdMsghdr) ?: return null
-        return Cmsghdr(bsdResult.cmsgLen.toULong(), bsdResult.cmsgLevel, bsdResult.cmsgType, bsdResult.handle)
+        return cmsgFirstHdr(mhdr)
     }
     val mhdrPtr: CPointer<ByteVar>? = mhdr.handle.toCPointer()
     val cmsgPtr: CPointer<ByteVar>? = cmsg.handle.toCPointer()
@@ -81,7 +77,7 @@ public actual fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val resultPtr: CPointer<ByteVar> = resultLong.toCPointer<ByteVar>() ?: return null
     val uintPtr: CPointer<UIntVar> = resultPtr.reinterpret()
     val uintVar: UIntVar = uintPtr.pointed
-    val cmsgLen: ULong = uintVar.value.toULong()
+    val cmsgLen: UInt = uintVar.value
     val levelPtr: CPointer<IntVar> = (resultLong + 4).toCPointer<ByteVar>()!!.reinterpret()
     val levelVar: IntVar = levelPtr.pointed
     val cmsgLevel: Int = levelVar.value
@@ -218,7 +214,7 @@ public actual fun ctimeR(clock: Long?, result: String?): String? =
 public actual fun getnameinfo(sa: Sockaddr?, salen: UInt, host: String?, hostlen: UInt, serv: String?, servlen: UInt, flags: Int): Int {
     val hBuf = if (hostlen > 0u) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null
     val sBuf = if (servlen > 0u) ByteArray(servlen.toInt().coerceAtMost(256)) else null
-    return getnameinfo(sa, salen, hBuf, hostlen, sBuf, servlen, flags)
+    return io.github.kotlinmania.libc.unix.getnameinfo(sa?.let { io.github.kotlinmania.libc.unix.linuxlike.Sockaddr(it.saFamily.toUShort(), it.saData) }, salen, hBuf, hostlen, sBuf, servlen, flags)
 }
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): Int =
@@ -691,7 +687,6 @@ public actual fun uname(buf: Utsname?): Int {
             for (i in 0 until minOf(256, buf.release.size)) buf.release[i] = rel[i]
             for (i in 0 until minOf(256, buf.version.size)) buf.version[i] = ver[i]
             for (i in 0 until minOf(256, buf.machine.size)) buf.machine[i] = mach[i]
-            for (i in 0 until minOf(256, buf.domainname.size)) buf.domainname[i] = dom[i]
         }
         rc
     }

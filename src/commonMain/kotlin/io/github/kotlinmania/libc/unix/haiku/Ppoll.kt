@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.haiku
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

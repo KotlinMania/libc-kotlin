@@ -1,7 +1,7 @@
-// port-lint: source fuchsia/mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.fuchsia
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar

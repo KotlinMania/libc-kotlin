@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.fuchsia
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 import io.github.kotlinmania.libc.*
 

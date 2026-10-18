@@ -2,6 +2,7 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.qurt.sys
+import io.github.kotlinmania.libc.new.qurt.Stat
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi

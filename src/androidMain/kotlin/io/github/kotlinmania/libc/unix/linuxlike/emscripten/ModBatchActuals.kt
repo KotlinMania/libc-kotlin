@@ -1,5 +1,11 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 
 import io.github.kotlinmania.libc.*
 

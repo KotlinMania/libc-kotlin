@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 
 import io.github.kotlinmania.libc.*
 

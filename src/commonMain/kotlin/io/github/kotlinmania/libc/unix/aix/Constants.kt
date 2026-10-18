@@ -252,7 +252,7 @@ public const val YESEXPR: Int = 61
 
 public const val NOEXPR: Int = 62
 
-public val LC_GLOBAL_LOCALE: io.github.kotlinmania.libc.COpaquePointer? = LC_GLOBAL_LOCALE_SENTINEL
+public val LC_GLOBAL_LOCALE: io.github.kotlinmania.libc.COpaquePointer? = io.github.kotlinmania.libc.COpaquePointer(-1L)
 
 public const val LC_COLLATE: Int = 0
 

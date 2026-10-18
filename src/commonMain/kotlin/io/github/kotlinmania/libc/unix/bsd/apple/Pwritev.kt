@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
+import io.github.kotlinmania.libc.unix.Iovec
 
 import io.github.kotlinmania.libc.*
 

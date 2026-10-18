@@ -1,5 +1,15 @@
 // port-lint: source L4reShared.rs
 package io.github.kotlinmania.libc.unix.linuxlike
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Aiocb
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ShmidDs
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Sysinfo
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.internal.LibcNapiWasm

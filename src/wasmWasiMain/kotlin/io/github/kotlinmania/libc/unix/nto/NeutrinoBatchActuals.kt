@@ -1,5 +1,7 @@
 // port-lint: source Neutrino.rs
 package io.github.kotlinmania.libc.unix.nto
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 

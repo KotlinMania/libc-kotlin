@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 import io.github.kotlinmania.libc.*
 

@@ -1,5 +1,13 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.bsd.apple
+import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.bsd.Msghdr
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
+import io.github.kotlinmania.libc.unix.bsd.Utsname
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.getnameinfo
@@ -106,7 +114,7 @@ public actual fun ctimeR(clock: Long?, result: String?): String? =
 public actual fun getnameinfo(sa: Sockaddr?, salen: UInt, host: String?, hostlen: UInt, serv: String?, servlen: UInt, flags: Int): Int {
     val hBuf = if (hostlen > 0u) ByteArray(hostlen.toInt().coerceAtMost(4096)) else null
     val sBuf = if (servlen > 0u) ByteArray(servlen.toInt().coerceAtMost(256)) else null
-    return getnameinfo(sa, salen, hBuf, hostlen, sBuf, servlen, flags)
+    return io.github.kotlinmania.libc.unix.getnameinfo(sa?.let { io.github.kotlinmania.libc.unix.linuxlike.Sockaddr(it.saFamily.toUShort(), it.saData) }, salen, hBuf, hostlen, sBuf, servlen, flags)
 }
 
 public actual fun mincore(addr: COpaquePointer?, len: ULong, vec: String?): Int =

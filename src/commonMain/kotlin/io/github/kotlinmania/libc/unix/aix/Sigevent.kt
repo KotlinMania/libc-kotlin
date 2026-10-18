@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.aix
+import io.github.kotlinmania.libc.unix.Sigval
 
 import io.github.kotlinmania.libc.*
 

@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 
 import io.github.kotlinmania.libc.*
 

@@ -790,7 +790,7 @@ public val LC_TIME_MASK: Int = 1 shl 5
 
 public val LC_MESSAGES_MASK: Int = 1 shl 6
 
-public val LC_GLOBAL_LOCALE: io.github.kotlinmania.libc.COpaquePointer? = LC_GLOBAL_LOCALE_SENTINEL
+public val LC_GLOBAL_LOCALE: io.github.kotlinmania.libc.COpaquePointer? = io.github.kotlinmania.libc.COpaquePointer(-1L)
 
 public const val ST_RDONLY: ULong = 0x80000uL
 

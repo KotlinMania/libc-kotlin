@@ -1,5 +1,5 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.nuttx
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

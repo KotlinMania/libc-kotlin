@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.newlib.vita
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

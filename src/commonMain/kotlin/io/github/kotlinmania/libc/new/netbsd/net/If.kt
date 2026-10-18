@@ -1,5 +1,8 @@
 // port-lint: source new/netbsd/net/if_.rs
 package io.github.kotlinmania.libc.new.netbsd.net
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

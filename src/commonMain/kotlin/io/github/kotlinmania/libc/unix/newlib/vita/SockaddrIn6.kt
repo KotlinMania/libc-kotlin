@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.newlib.vita
+import io.github.kotlinmania.libc.unix.In6Addr
 
 import io.github.kotlinmania.libc.*
 

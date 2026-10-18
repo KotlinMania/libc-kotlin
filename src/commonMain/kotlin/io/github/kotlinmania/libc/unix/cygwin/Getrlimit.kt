@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.cygwin
+import io.github.kotlinmania.libc.unix.Rlimit
 
 import io.github.kotlinmania.libc.*
 

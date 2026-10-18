@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.arm
+import io.github.kotlinmania.libc.unix.Iovec
 
 import io.github.kotlinmania.libc.*
 

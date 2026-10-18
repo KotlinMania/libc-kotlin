@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

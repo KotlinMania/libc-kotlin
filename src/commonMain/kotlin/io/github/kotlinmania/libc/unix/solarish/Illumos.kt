@@ -1,5 +1,7 @@
 // port-lint: source unix/solarish/illumos.rs
 package io.github.kotlinmania.libc.unix.solarish
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Timeval
 
 import io.github.kotlinmania.libc.*
 

@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 
 import io.github.kotlinmania.libc.*
 

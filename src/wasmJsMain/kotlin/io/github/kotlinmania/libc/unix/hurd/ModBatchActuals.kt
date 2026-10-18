@@ -1,5 +1,10 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.hurd
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 

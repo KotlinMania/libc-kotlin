@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
+import io.github.kotlinmania.libc.unix.linuxlike.Sigevent
 
 import io.github.kotlinmania.libc.*
 

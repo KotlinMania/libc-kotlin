@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
+import io.github.kotlinmania.libc.unix.INT_MAX
+import io.github.kotlinmania.libc.unix.INT_MIN
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK

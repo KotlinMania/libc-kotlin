@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android
+import io.github.kotlinmania.libc.new.bioniclibc.sys.Cmsghdr
+import io.github.kotlinmania.libc.new.bioniclibc.sys.Msghdr
 
 import io.github.kotlinmania.libc.*
 

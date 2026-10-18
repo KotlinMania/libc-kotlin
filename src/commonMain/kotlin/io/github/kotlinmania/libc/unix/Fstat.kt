@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix
+import io.github.kotlinmania.libc.unix.bsd.apple.Stat
 
 import io.github.kotlinmania.libc.*
 

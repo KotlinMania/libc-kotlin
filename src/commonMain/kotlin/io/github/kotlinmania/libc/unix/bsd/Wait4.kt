@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.bsd
+import io.github.kotlinmania.libc.unix.Rusage
 
 import io.github.kotlinmania.libc.*
 

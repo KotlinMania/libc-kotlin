@@ -1,4 +1,3 @@
-// port-lint: source unix/mod.rs
 package io.github.kotlinmania.libc.unix
 
 // Preserve the existing limitation: the Windows C runtime has no Unix fcntl API.

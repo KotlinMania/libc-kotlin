@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.aarch64
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.*
 

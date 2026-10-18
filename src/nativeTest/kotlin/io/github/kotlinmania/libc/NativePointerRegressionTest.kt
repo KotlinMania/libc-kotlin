@@ -1,6 +1,7 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc
+import io.github.kotlinmania.libc.unix.Timespec
 
 import io.github.kotlinmania.libc.unix.alignedAlloc
 import io.github.kotlinmania.libc.unix.alignedFree
@@ -301,7 +302,7 @@ class NativePointerRegressionTest {
     @Test
     fun appleWiredBindingsExecute() {
         val tp =
-            io.github.kotlinmania.libc
+            io.github.kotlinmania.libc.unix
                 .Timespec(0L, 0L, 0L)
         val res =
             io.github.kotlinmania.libc.unix.bsd.apple

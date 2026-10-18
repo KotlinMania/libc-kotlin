@@ -1,7 +1,12 @@
-// port-lint: source Mod.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
+import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
+import io.github.kotlinmania.libc.unix.bsd.Msghdr
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Rtprio
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SiginfoT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.bsd.Utsname
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ByteVar

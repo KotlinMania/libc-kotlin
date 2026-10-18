@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+import io.github.kotlinmania.libc.unix.Group
 
 import io.github.kotlinmania.libc.*
 

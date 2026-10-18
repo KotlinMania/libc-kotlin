@@ -1,5 +1,19 @@
-// port-lint: source Mod.rs
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.new.netbsd.sys.Itimerspec
+import io.github.kotlinmania.libc.unix.bsd.Msghdr
+import io.github.kotlinmania.libc.unix.bsd.Passwd
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SchedParam
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.new.netbsd.sys.Statvfs
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Termios
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.new.netbsd.Utmp
+import io.github.kotlinmania.libc.new.netbsd.Utmpx
+import io.github.kotlinmania.libc.unix.Winsize
 
 import io.github.kotlinmania.libc.*
 

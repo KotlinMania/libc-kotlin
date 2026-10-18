@@ -1,4 +1,6 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd12
+import io.github.kotlinmania.libc.unix.Rusage
+import io.github.kotlinmania.libc.unix.Timeval
 
 import io.github.kotlinmania.libc.*
 

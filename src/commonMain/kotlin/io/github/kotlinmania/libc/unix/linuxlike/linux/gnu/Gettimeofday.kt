@@ -1,4 +1,5 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 
 import io.github.kotlinmania.libc.*
 
