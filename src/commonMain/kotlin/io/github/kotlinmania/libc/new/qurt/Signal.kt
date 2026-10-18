@@ -1,7 +1,6 @@
 // port-lint: source new/qurt/signal.rs
 package io.github.kotlinmania.libc.new.qurt
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.Sigval
 
 public data class Sigval(
     val sivalInt: Int,
