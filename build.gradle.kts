@@ -1834,7 +1834,10 @@ tasks.named<org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest>("wasmWa
     // Public KGP test input API: retain its TeamCity test runner and filtering,
     // supply the actual C module alongside the standard WASI imports explicitly.
     inputFileProperty.set(layout.buildDirectory.file("macro-layout-wasi/macro-wasi-test-loader.mjs"))
-    environment("LIBC_WASI_TEST_MODULE", kotlinWasmFile.get().asFile.absolutePath)
+    doFirst {
+        // The linked output is available only after its producer task completes.
+        environment("LIBC_WASI_TEST_MODULE", kotlinWasmFile.get().asFile.absolutePath)
+    }
     environment("LIBC_MACRO_WASM", macroLayoutWasm.get().asFile.absolutePath)
 }
 
