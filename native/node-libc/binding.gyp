@@ -46,13 +46,7 @@
             "libraries": [
               "ws2_32.lib"
             ],
-            "msvs_settings": {
-              "VCCLCompilerTool": {
-                "AdditionalOptions": [
-                  "/std:c++17"
-                ]
-              }
-            }
+            "msbuild_toolset": "ClangCL"
           }
         ]
       ]

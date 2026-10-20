@@ -16,9 +16,9 @@ jobs:
           - runner: ubuntu-latest
             target: LinuxX64
             test: linuxX64Test
-          - runner: ubuntu-24.04-arm
+          - runner: ubuntu-latest
             target: LinuxArm64
-            test: linuxArm64Test
+            test: linkDebugTestLinuxArm64
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
@@ -47,6 +47,24 @@ jobs:
           ${{ matrix.test }}
           --no-configuration-cache
 
+      - name: Preserve the actual ARM64 test executable and checksum
+        if: matrix.target == 'LinuxArm64'
+        run: |
+          cd build/bin/linuxArm64/debugTest
+          test -s test.kexe
+          sha256sum test.kexe > test.kexe.sha256
+
+      - name: Upload the exact ARM64 test executable
+        if: matrix.target == 'LinuxArm64'
+        uses: actions/upload-artifact@v7
+        with:
+          name: linux-arm64-tests-${{ github.sha }}
+          path: |
+            build/bin/linuxArm64/debugTest/test.kexe
+            build/bin/linuxArm64/debugTest/test.kexe.sha256
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload test reports (Linux)
         if: success() || failure()
         uses: actions/upload-artifact@v7
@@ -57,3 +75,61 @@ jobs:
             build/test-results/
           retention-days: 7
           if-no-files-found: warn
+
+  arm64-runtime:
+    name: Run actual Linux ARM64 tests
+    needs: build
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout the same source revision
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6.0.1
+        with:
+          distribution: zulu
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6.3.0
+
+      - name: Download the same-head cross-linked executable
+        uses: actions/download-artifact@v8
+        with:
+          name: linux-arm64-tests-${{ github.sha }}
+          path: build/arm64-test-input
+
+      - name: Verify the binary checksum and ARM64 ELF identity
+        working-directory: build/arm64-test-input
+        run: |
+          sha256sum -c test.kexe.sha256
+          python3 -c 'import pathlib,struct; b=pathlib.Path("test.kexe").read_bytes(); assert b[:6] == b"\x7fELF\x02\x01" and struct.unpack_from("<H", b, 18)[0] == 183, "Expected real ARM64 ELF64 test executable"'
+          chmod +x test.kexe
+
+      - name: Run the same common and native tests using KGP reporting
+        run: >
+          ./gradlew linuxArm64BinaryTest
+          -Pproject.tests.linuxArm64.executable="$PWD/build/arm64-test-input/test.kexe"
+          --no-daemon --max-workers=2 --no-configuration-cache
+
+      - name: Require actual macro and host behavior execution with no skips
+        run: >
+          python3 verification/verify_behavior_results.py build/test-results/linuxArm64BinaryTest
+          --require cEnumBasic --require cEnumRepr --require cEnumSetValue
+          --require cEnumMultipleSetValue --require cEnumVis --require testOffsetOf
+          --require nativeMemoryPreservesBytesAcrossCopyAndResize
+          --require realDescriptorsPreserveBytesAndExposeHostErrors
+
+      - name: Upload actual ARM64 runtime reports
+        if: success() || failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports-LinuxArm64-runtime
+          path: |
+            build/reports/tests/linuxArm64BinaryTest/
+            build/test-results/linuxArm64BinaryTest/
+          if-no-files-found: error
+          retention-days: 7

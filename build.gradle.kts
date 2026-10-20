@@ -1588,6 +1588,34 @@ tasks.register("hostTests") {
     )
 }
 
+// Execute the exact cross-linked test binary on an ARM64 Linux host with KGP reporting.
+val linuxArm64ExternalTestExecutable = providers.gradleProperty("project.tests.linuxArm64.executable")
+if (linuxArm64ExternalTestExecutable.isPresent) {
+    tasks.register<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeHostTest>("linuxArm64BinaryTest") {
+        group = "verification"
+        description = "Runs the cross-linked common/native test suite on real ARM64 Linux."
+        targetName = "linuxArm64"
+        executable(
+            linuxArm64ExternalTestExecutable.map { path ->
+                require(osName.contains("linux") && providers.systemProperty("os.arch").get() in listOf("aarch64", "arm64")) {
+                    "linuxArm64BinaryTest requires an actual ARM64 Linux host"
+                }
+                file(path).also { binary ->
+                    require(binary.isFile && binary.canExecute()) { "Missing executable ARM64 test input: $binary" }
+                }
+            },
+        )
+        filter.isFailOnNoMatchingTests = true
+        ignoreFailures = false
+        binaryResultsDirectory.set(layout.buildDirectory.dir("test-results/linuxArm64BinaryTest/binary"))
+        reports.junitXml.required.set(true)
+        reports.junitXml.outputLocation.set(layout.buildDirectory.dir("test-results/linuxArm64BinaryTest"))
+        reports.html.required.set(true)
+        reports.html.outputLocation.set(layout.buildDirectory.dir("reports/tests/linuxArm64BinaryTest"))
+        outputs.upToDateWhen { false }
+    }
+}
+
 // SwiftExport runs inside a Gradle WorkerExecutor process isolation which defaults to 512m heap.
 // For libc-kotlin (351 source files, tens of thousands of declarations), Analysis API needs 6GB.
 tasks.matching { it.name.endsWith("SwiftExport") }.configureEach {
