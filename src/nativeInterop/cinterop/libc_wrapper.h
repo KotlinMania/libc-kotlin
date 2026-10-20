@@ -1,5 +1,6 @@
 #ifndef LIBC_WRAPPER_H
 #define LIBC_WRAPPER_H
+#include "macro_parity_fixture.h"
 
 #include <stdint.h>
 #include <stddef.h>

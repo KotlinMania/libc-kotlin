@@ -583,6 +583,7 @@ kotlin {
                     val outFile = File(outDir, "$ffiWrapperBase.a")
                     inputs.file(cSource)
                     inputs.file(hSource)
+                    inputs.file("src/nativeInterop/cinterop/macro_parity_fixture.h")
                     outputs.file(outFile)
 
                     doLast {
@@ -778,6 +779,7 @@ kotlin {
             tasks.matching { it.name == "cinterop${ffiName}$targetCapitalized" }.configureEach {
                 dependsOn(wrapperTask)
                 inputs.files(wrapperTask)
+                inputs.file("src/nativeInterop/cinterop/macro_parity_fixture.h")
             }
         }
     }
@@ -1268,6 +1270,7 @@ if (jvmFfiEnabled) {
                     .get()
                     .asFile
             inputs.file(cSource)
+            inputs.file("src/nativeInterop/cinterop/macro_parity_fixture.h")
             inputs.property("jniHostOs", providers.systemProperty("os.name"))
             inputs.property("jniHostArchitecture", providers.systemProperty("os.arch"))
             inputs.property("jniMacosMinimum", "15.0")
@@ -1398,6 +1401,7 @@ if (jvmFfiEnabled) {
         tasks.register<LibcAndroidJniTask>("compileAndroidJni") {
             dependsOn("compile${ffiName}WrapperForAndroidNativeArm64", "compile${ffiName}WrapperForAndroidNativeX64")
             inputs.file("src/jvmMain/c/${ffiNameLower}_jni.c")
+            inputs.file("src/nativeInterop/cinterop/macro_parity_fixture.h")
             nativeDirectory.set(layout.buildDirectory.dir("android-jni"))
             doLast {
                 if (isWindowsHost) throw GradleException("Build Android JNI payloads on the coordinated macOS or Linux host")
@@ -1454,6 +1458,7 @@ if (napiFfiEnabled) {
             group = "build"
             description = "Builds the native node-$ffiNameLower N-API addon via node-gyp"
             workingDir = file(ffiNapiDir)
+            inputs.file("src/nativeInterop/cinterop/macro_parity_fixture.h")
             val isWindows =
                 org.gradle.internal.os.OperatingSystem
                     .current()

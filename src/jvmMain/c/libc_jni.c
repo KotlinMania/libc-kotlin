@@ -1744,3 +1744,9 @@ JNIEXPORT jint JNICALL RAW_JNI(abiVersion)(JNIEnv* env, jobject self) {
     (void)env; (void)self;
     return 2;
 }
+
+#include "../../nativeInterop/cinterop/macro_parity_fixture.h"
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_MacroLayoutBackend_value(JNIEnv* env, jobject self, jint index) {
+    (void)env; (void)self;
+    return (jlong)libc_macro_layout_value(index);
+}

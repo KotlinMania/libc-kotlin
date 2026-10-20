@@ -1,3 +1,4 @@
+#include "../../../src/nativeInterop/cinterop/macro_parity_fixture.h"
 #include <napi.h>
 #include <cerrno>
 #include <cstdint>
@@ -43,6 +44,9 @@ static Napi::Number rawInteger(Napi::Env env, int value) {
 }
 
 void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
+    exports.Set("macroLayoutValue", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
+        return Napi::String::New(info.Env(), std::to_string(libc_macro_layout_value(info[0].As<Napi::Number>().Int32Value())));
+    }));
     exports.Set("rawAbiVersion", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
         return Napi::Number::New(info.Env(), 2);
     }));

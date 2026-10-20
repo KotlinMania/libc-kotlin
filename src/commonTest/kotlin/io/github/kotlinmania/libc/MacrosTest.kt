@@ -1,85 +1,102 @@
+// port-lint: tests macros.rs
 package io.github.kotlinmania.libc
 
-import io.github.kotlinmania.libc.vxworks.O_RDONLY
-import io.github.kotlinmania.libc.vxworks.PROT_READ
-import io.github.kotlinmania.libc.vxworks.PROT_WRITE
-import io.github.kotlinmania.libc.vxworks.SEEK_CUR
-import io.github.kotlinmania.libc.vxworks.SEEK_END
-import io.github.kotlinmania.libc.vxworks.SEEK_SET
-import io.github.kotlinmania.libc.vxworks.SIGKILL
+import io.github.kotlinmania.libc.macros.priv1.*
+import io.github.kotlinmania.libc.macros.priv2.*
+import kotlin.reflect.KClass
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import io.github.kotlinmania.libc.fuchsia.O_RDONLY as FuchsiaO_RDONLY
-import io.github.kotlinmania.libc.fuchsia.SEEK_CUR as FuchsiaSEEK_CUR
-import io.github.kotlinmania.libc.fuchsia.SEEK_END as FuchsiaSEEK_END
-import io.github.kotlinmania.libc.fuchsia.SEEK_SET as FuchsiaSEEK_SET
 
-/**
- * Tests verifying C enum constant values match the upstream definitions.
- * Ported from the upstream test module in macros.rs which verifies that
- * the c_enum! macro generates correct sequential and explicit values.
- *
- * The Rust tests verify the macro infrastructure itself. In the Kotlin port,
- * the equivalent is verifying that the ported const val constants have the
- * correct C-standard values across platform directories.
- */
 class MacrosTest {
     @Test
     fun cEnumBasic() {
-        // C enums get sequential values starting from 0.
-        // Verify standard C constants have correct sequential values.
-        assertEquals(0, SEEK_SET, "SEEK_SET should be 0")
-        assertEquals(0, O_RDONLY, "O_RDONLY should be 0")
-        assertEquals(1, SEEK_CUR, "SEEK_CUR should be 1")
-        assertEquals(2, SEEK_END, "SEEK_END should be 2")
-        assertEquals(0x0001, PROT_READ, "PROT_READ should be 0x0001")
-        assertEquals(0x0002, PROT_WRITE, "PROT_WRITE should be 0x0002")
-        assertEquals(9, SIGKILL, "SIGKILL should be 9")
+        val e = cEnumValues()
+        val var0 = e.variant()
+        val var1 = e.variant()
+        val var2 = e.variant()
+        val anon = cEnumValues()
+        val anon0 = anon.variant()
+        val anon1 = anon.variant()
+        val anon2 = anon.variant()
+
+        assertEquals(UInt::class, typeIdOfVal(var0))
+        assertEquals(0u, var0)
+        assertEquals(1u, var1)
+        assertEquals(2u, var2)
+        assertEquals(UInt::class, typeIdOfVal(anon0))
+        assertEquals(0u, anon0)
+        assertEquals(1u, anon1)
+        assertEquals(2u, anon2)
     }
 
     @Test
     fun cEnumRepr() {
-        // C enum repr type matches the underlying integer type.
-        // CEnumRepr is the default repr (CUInt).
-        assertEquals(UInt::class, UInt::class, "CEnumRepr should be CUInt")
+        val e = cEnumUShortValues()
+        val var0 = e.variant()
+        val anon = cEnumUShortValues()
+        val anon0 = anon.variant()
+
+        assertEquals(UShort::class, typeIdOfVal(var0))
+        assertEquals(0u.toUShort(), var0)
+        assertEquals(UShort::class, typeIdOfVal(anon0))
+        assertEquals(0u.toUShort(), anon0)
     }
 
     @Test
     fun cEnumSetValue() {
-        // Setting an explicit value in a C enum resets the count.
-        // SIGKILL=9 is an explicit value, not sequential from 0.
-        assertEquals(9, SIGKILL, "SIGKILL should be 9 (explicit value)")
+        val e = cEnumValues()
+        val var2 = e.variant(2u)
+        val var3 = e.variant()
+        val var4 = e.variant()
+
+        assertEquals(2u, var2)
+        assertEquals(3u, var3)
+        assertEquals(4u, var4)
     }
 
     @Test
     fun cEnumMultipleSetValue() {
-        // C enums allow duplicate values across different names.
-        // SEEK_SET=0 in both vxworks and fuchsia — same value, different platform.
-        assertEquals(SEEK_SET, FuchsiaSEEK_SET, "SEEK_SET should be 0 on both platforms")
-        assertEquals(O_RDONLY, FuchsiaO_RDONLY, "O_RDONLY should be 0 on both platforms")
-        assertEquals(SEEK_CUR, FuchsiaSEEK_CUR, "SEEK_CUR should be consistent across platforms")
-        assertEquals(SEEK_END, FuchsiaSEEK_END, "SEEK_END should be consistent across platforms")
+        val e = cEnumValues()
+        val var0 = e.variant()
+        val var20 = e.variant(2u)
+        val var30 = e.variant()
+        val var40 = e.variant()
+        val var21 = e.variant(2u)
+        val var31 = e.variant()
+        val var41 = e.variant()
+
+        assertEquals(0u, var0)
+        assertEquals(2u, var20)
+        assertEquals(3u, var30)
+        assertEquals(4u, var40)
+        assertEquals(2u, var21)
+        assertEquals(3u, var31)
+        assertEquals(4u, var41)
     }
 
     @Test
     fun cEnumVis() {
-        // Visibility: pub const val is accessible from outside the module.
-        // The test verifies that constants from different platform packages
-        // are accessible and have the correct values.
-        assertEquals(0, SEEK_SET, "SEEK_SET accessible from vxworks package")
-        assertEquals(0, FuchsiaSEEK_SET, "SEEK_SET accessible from fuchsia package")
+        assertEquals(E1::class, typeIdOfVal(pub1))
+        assertEquals(E2::class, typeIdOfVal(pub2))
+        assertEquals((10u * 2u).toUByte(), pub1)
+        assertEquals((42u * 2u).toUShort(), pub2)
+        assertEquals(42u.toUShort(), privOn1)
     }
 
-    internal fun <T : Any> typeIdOfVal(value: T): String = value::class.simpleName.orEmpty()
+    private fun <T : Any> typeIdOfVal(value: T): KClass<out T> = value::class
 
     @Test
     fun testOffsetOf() {
-        assertEquals("Int", typeIdOfVal(0))
-        // Struct field offsets follow C layout rules.
-        // In a repr(C) struct { a: u8, b: u32 }: a at offset 0, b at offset 4.
-        // The Kotlin data classes don't have C layout, but the constants
-        // that define struct-related values (like SEEK_SET=0 for offset 0)
-        // must match the C values.
-        assertEquals(0, SEEK_SET, "SEEK_SET (offset 0) matches C value")
+        // The fixture must retain the zero-sized, 128-byte-aligned nested field.
+        assertEquals(0uL, macroLayoutValue(10))
+        assertEquals(128uL, macroLayoutValue(11))
+        val base = COpaquePointer(macroLayoutValue(0).toLong())
+        val size = macroLayoutValue(5)
+        for (field in 0..3) {
+            assertEquals(
+                macroLayoutValue(6 + field),
+                offsetOf(base, COpaquePointer(macroLayoutValue(1 + field).toLong()), size),
+            )
+        }
     }
 }

@@ -140,7 +140,7 @@ dual licensed as above, without any additional terms or conditions.
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:libc-kotlin:0.1.12")
+    implementation("io.github.kotlinmania:libc-kotlin:0.1.13")
 }
 ```
 
@@ -187,7 +187,7 @@ Node.js consumers of the JS and Wasm-JS targets install the matching runtime
 archive alongside their application:
 
 ```shell
-npm install https://repo1.maven.org/maven2/io/github/kotlinmania/libc-kotlin/0.1.12/libc-kotlin-0.1.12-node-native.tgz
+npm install https://repo1.maven.org/maven2/io/github/kotlinmania/libc-kotlin/0.1.13/libc-kotlin-0.1.13-node-native.tgz
 ```
 
 The archive contains prebuilt macOS ARM64, Linux x86-64/ARM64 and Windows x86-64
