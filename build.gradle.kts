@@ -134,6 +134,13 @@ val benchmarkIterationTimeUnit = providers.gradleProperty("project.benchmark.ite
 val intellijCoroutinesVersion =
     providers.gradleProperty("versions.intellij.coroutines").getOrElse("1.10.2-intellij-1")
 
+val projectKonanDataDirectory =
+    providers.environmentVariable("KONAN_DATA_DIR")
+        .map {
+            require(it.isNotBlank()) { "KONAN_DATA_DIR must not be blank" }
+            File(it).absoluteFile
+        }.orElse(providers.systemProperty("user.home").map { File(it, ".konan") })
+
 // KGP runs Swift Export in an isolated worker whose classpath is
 // `swiftExportClasspath`. Adding a dependency disables KGP's default
 // dependency population, so keep the default embeddable runner explicit too.
@@ -554,6 +561,11 @@ kotlin {
             val archive = File(cacheDir, "$name.tar.gz")
             val url = "https://download.jetbrains.com/kotlin/native/$name.tar.gz"
             if (!archive.exists() || archive.length() == 0L) {
+                if (gradle.startParameter.isOffline) {
+                    throw GradleException(
+                        "Missing Kotlin/Native dependency $name in $konanDeps; offline mode forbids downloading $url",
+                    )
+                }
                 println("Downloading Kotlin/Native dependency $name from $url ...")
                 execOps
                     .exec {
@@ -592,7 +604,7 @@ kotlin {
                         outDir.mkdirs()
                         if (outFile.exists()) outFile.delete()
                         val tempObj = File(outDir, "$ffiWrapperBase.o")
-                        val konanDeps = File(System.getProperty("user.home"), ".konan/dependencies")
+                        val konanDeps = File(projectKonanDataDirectory.get(), "dependencies")
                         val isMac =
                             org.gradle.internal.os.OperatingSystem
                                 .current()
@@ -1405,7 +1417,7 @@ if (jvmFfiEnabled) {
             doLast {
                 if (isWindowsHost) throw GradleException("Build Android JNI payloads on the coordinated macOS or Linux host")
                 val host = if (isMacHost) "osx" else "linux"
-                val ndk = File(System.getProperty("user.home"), ".konan/dependencies/target-toolchain-2-$host-android_ndk")
+                val ndk = File(projectKonanDataDirectory.get(), "dependencies/target-toolchain-2-$host-android_ndk")
                 val source = file("src/jvmMain/c/${ffiNameLower}_jni.c")
                 val api = providers.gradleProperty("android.minSdk").getOrElse("24")
                 val execOps = project.serviceOf<ExecOperations>()
