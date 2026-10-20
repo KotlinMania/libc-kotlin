@@ -3,8 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { WASI } from 'node:wasi';
 
-const [wasmFile, output] = process.argv.slice(2);
-assert(wasmFile && output, 'Expected wasm binary and report directory');
+const [wasmFile, output, fixtureFile] = process.argv.slice(2);
+assert(wasmFile && output && fixtureFile, 'Expected Kotlin wasm, report directory and compiled C fixture');
 const sandbox = path.resolve(output, 'sandbox');
 fs.mkdirSync(sandbox, { recursive: true });
 for (const name of ['created.txt', 'renamed.txt', 'delete.txt']) {
@@ -15,7 +15,10 @@ let failure;
 try {
   const wasi = new WASI({ version: 'preview1', args: [], env: {}, preopens: { '/sandbox': sandbox } });
   const module = new WebAssembly.Module(fs.readFileSync(wasmFile));
-  const instance = new WebAssembly.Instance(module, wasi.getImportObject());
+  const fixture = new WebAssembly.Instance(new WebAssembly.Module(fs.readFileSync(fixtureFile)), {});
+  const imports = wasi.getImportObject();
+  imports.kotlinmania_macro_fixture = { value: fixture.exports.kotlinmania_macro_layout_value };
+  const instance = new WebAssembly.Instance(module, imports);
   wasi.finalizeBindings(instance);
   assert.equal(typeof instance.exports.verifyLibcPreopenedFiles, 'function');
   assert.equal(instance.exports.verifyLibcPreopenedFiles(), 1);

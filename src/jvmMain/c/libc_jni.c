@@ -1,3 +1,7 @@
+#if defined(__linux__) && !defined(_GNU_SOURCE)
+#define _GNU_SOURCE 1
+#endif
+
 #include <jni.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -32,6 +36,7 @@
 #include <ws2tcpip.h>
 #include <io.h>
 #include <wchar.h>
+#include <share.h>
 #endif
 
 /* --- Sockets --- */
@@ -623,6 +628,7 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_sysconf(
 #ifndef _WIN32
     return (jlong)sysconf((int)name);
 #else
+    (void)name;
     SYSTEM_INFO si;
     GetSystemInfo(&si);
     return (jlong)si.dwPageSize;
@@ -841,8 +847,17 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_getenv(
     if (!name) return NULL;
     const char* cname = (*env)->GetStringUTFChars(env, name, NULL);
     if (!cname) return NULL;
+#ifdef _WIN32
+    char* val = NULL;
+    errno_t status = _dupenv_s(&val, NULL, cname);
+    if (status != 0) errno = status;
+#else
     const char* val = getenv(cname);
+#endif
     jstring result = val ? (*env)->NewStringUTF(env, val) : NULL;
+#ifdef _WIN32
+    free(val);
+#endif
     (*env)->ReleaseStringUTFChars(env, name, cname);
     return result;
 }
@@ -868,10 +883,17 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_setenv(
     int res = -1;
     if (!*cname || strchr(cname, '=') != NULL) {
         errno = EINVAL;
-    } else if (!overwrite && getenv(cname) != NULL) {
-        res = 0;
     } else {
-        res = _putenv_s(cname, cval) == 0 ? 0 : -1;
+        char* existing = NULL;
+        errno_t status = _dupenv_s(&existing, NULL, cname);
+        if (status != 0) errno = status;
+        else if (!overwrite && existing != NULL) res = 0;
+        else {
+            status = _putenv_s(cname, cval);
+            if (status != 0) errno = status;
+            res = status == 0 ? 0 : -1;
+        }
+        free(existing);
     }
 #endif
     (*env)->ReleaseStringUTFChars(env, value, cval);
@@ -1026,8 +1048,14 @@ JNIEXPORT jstring JNICALL
 Java_io_github_kotlinmania_libc_internal_LibcJni_strerror(
     JNIEnv* env, jclass clazz, jint errnum) {
     (void)clazz;
+#ifdef _WIN32
+    char message[256];
+    return strerror_s(message, sizeof(message), (int)errnum) == 0
+        ? (*env)->NewStringUTF(env, message) : NULL;
+#else
     const char* s = strerror((int)errnum);
     return s ? (*env)->NewStringUTF(env, s) : NULL;
+#endif
 }
 
 JNIEXPORT jstring JNICALL
@@ -1126,10 +1154,14 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_getpwuidRStr(
     free(buf);
 #else
     (void)uid;
-    const char* user = getenv("USERNAME");
-    const char* home = getenv("USERPROFILE");
+    char* user = NULL;
+    char* home = NULL;
+    (void)_dupenv_s(&user, NULL, "USERNAME");
+    (void)_dupenv_s(&home, NULL, "USERPROFILE");
     snprintf(out, sizeof(out), "0\n1\n%s\n\n0\n0\n\n%s\n",
              user ? user : "user", home ? home : "C:\\Users\\Default");
+    free(user);
+    free(home);
 #endif
     return (*env)->NewStringUTF(env, out);
 }
@@ -1178,14 +1210,18 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_getpwnamRStr(
     }
     free(buf);
 #else
-    const char* user = getenv("USERNAME");
-    const char* home = getenv("USERPROFILE");
+    char* user = NULL;
+    char* home = NULL;
+    (void)_dupenv_s(&user, NULL, "USERNAME");
+    (void)_dupenv_s(&home, NULL, "USERPROFILE");
     if (user && strcmp(cname, user) == 0) {
         snprintf(out, sizeof(out), "0\n1\n%s\n\n0\n0\n\n%s\n",
                  user, home ? home : "C:\\Users\\Default");
     } else {
         snprintf(out, sizeof(out), "0\n0");
     }
+    free(user);
+    free(home);
 #endif
     (*env)->ReleaseStringUTFChars(env, name, cname);
     return (*env)->NewStringUTF(env, out);
@@ -1203,7 +1239,13 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_fopen(
         (*env)->ReleaseStringUTFChars(env, path, cpath);
         return 0;
     }
+#ifdef _WIN32
+    FILE* fp = NULL;
+    errno_t status = fopen_s(&fp, cpath, cmode);
+    if (status != 0) errno = status;
+#else
     FILE* fp = fopen(cpath, cmode);
+#endif
     (*env)->ReleaseStringUTFChars(env, mode, cmode);
     (*env)->ReleaseStringUTFChars(env, path, cpath);
     return (jlong)(uintptr_t)fp;
@@ -1472,7 +1514,7 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_getnameinfoStr(
     (void)clazz;
     char out[2048];
     if (saFamily < 0) {
-        snprintf(out, sizeof(out), "%d\n\n", EAI_FAIL);
+        snprintf(out, sizeof(out), "%d\n\n", (int)EAI_FAIL);
         return (*env)->NewStringUTF(env, out);
     }
     jni_ensure_wsa();
@@ -1637,7 +1679,8 @@ JNIEXPORT jint JNICALL RAW_JNI(openPath)(JNIEnv* env, jobject self, jbyteArray p
     if (bytes[length - 1] != 0) { errno = EINVAL; result = -1; }
     else {
 #ifdef _WIN32
-        result = _open((const char*)bytes, flags, mode);
+        errno_t status = _sopen_s(&result, (const char*)bytes, flags, _SH_DENYNO, mode);
+        if (status != 0) { errno = status; result = -1; }
 #else
         result = open((const char*)bytes, flags, (mode_t)mode);
 #endif

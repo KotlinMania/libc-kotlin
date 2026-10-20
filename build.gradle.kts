@@ -1,3 +1,5 @@
+@file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+
 import groovy.json.JsonSlurper
 import org.gradle.api.GradleException
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -1524,7 +1526,7 @@ if (napiFfiEnabled) {
             destinationDirectory.set(layout.buildDirectory.dir("native-packages"))
             from(stageNodeRuntime) { into("package") }
         }
-    publishing.publications.named<MavenPublication>("kotlinMultiplatform") {
+    publishing.publications.withType<MavenPublication>().matching { it.name == "kotlinMultiplatform" }.configureEach {
         artifact(nodeRuntimeArchive) { classifier = "node-native" }
     }
     val verifyNodeDistribution =
@@ -1771,23 +1773,93 @@ tasks.named("build") {
     dependsOn(fullTargetBuildTaskNames)
 }
 
+// The browser and WASI run the same C layout fixture as JNI/cinterop/N-API.
+// This is test-only compiler output, not a replacement for a Kotlin publication.
+val macroLayoutDirectory = layout.buildDirectory.dir("macro-layout-wasm")
+val macroLayoutWasm = macroLayoutDirectory.map { it.file("macro-layout.wasm") }
+val macroLayoutScript = macroLayoutDirectory.map { it.file("macro-layout.js") }
+val macroFixtureLlvmBin = providers.gradleProperty("project.macroFixture.llvmBin").orElse("")
+val compileMacroLayoutWasm = tasks.register("compileMacroLayoutWasm") {
+    inputs.files("verification/macro-layout-wasm.c", "src/nativeInterop/cinterop/macro_parity_fixture.h")
+    inputs.property("llvmBin", macroFixtureLlvmBin)
+    outputs.dir(macroLayoutDirectory)
+    doLast {
+        val directory = macroLayoutDirectory.get().asFile.apply { mkdirs() }
+        val llvmBin = macroFixtureLlvmBin.get()
+        fun tool(name: String) = if (llvmBin.isEmpty()) name else File(llvmBin, name).absolutePath
+        val objectFile = directory.resolve("macro-layout.o")
+        val wasmFile = macroLayoutWasm.get().asFile
+        val execOps = project.serviceOf<ExecOperations>()
+        execOps.exec {
+            commandLine(tool("clang"), "--target=wasm32", "-ffreestanding", "-nostdlib", "-Wall", "-Wextra", "-Werror",
+                "-Isrc/nativeInterop/cinterop", "-c", "verification/macro-layout-wasm.c", "-o", objectFile.absolutePath)
+        }.assertNormalExitValue()
+        execOps.exec {
+            commandLine(tool("lld"), "-flavor", "wasm", "--no-entry", "--export=kotlinmania_macro_layout_value",
+                objectFile.absolutePath, "-o", wasmFile.absolutePath)
+        }.assertNormalExitValue()
+        val encoded = Base64.getEncoder().encodeToString(wasmFile.readBytes())
+        macroLayoutScript.get().asFile.writeText(
+            """
+            // Actual compiler output from macro_parity_fixture.h; keep one instance for all address comparisons.
+            (() => {
+                const bytes = Uint8Array.from(atob('$encoded'), c => c.charCodeAt(0));
+                const instance = new WebAssembly.Instance(new WebAssembly.Module(bytes), {});
+                globalThis.__kotlinmaniaMacroLayoutValue = index => instance.exports.kotlinmania_macro_layout_value(index).toString();
+            })();
+            """.trimIndent() + "\n",
+        )
+    }
+}
+tasks.withType<org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest>().matching {
+    it.name == "jsBrowserTest" || it.name == "wasmJsBrowserTest"
+}.configureEach {
+    dependsOn(compileMacroLayoutWasm)
+    inputs.file(macroLayoutScript)
+    environment("LIBC_MACRO_LAYOUT_SCRIPT", macroLayoutScript.get().asFile.absolutePath)
+}
+val macroWasiWasm = objects.fileProperty()
+val prepareMacroWasiTestLoader = tasks.register<Copy>("prepareMacroWasiTestLoader") {
+    from("verification/macro-wasi-test-loader.mjs")
+    into(layout.buildDirectory.dir("macro-layout-wasi"))
+}
+tasks.named<org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest>("wasmWasiNodeTest") {
+    @OptIn(ExperimentalWasmDsl::class)
+    val binary = compilation.binaries
+        .filterIsInstance<org.jetbrains.kotlin.gradle.targets.js.ir.ExecutableWasm>()
+        .single { it.mode == org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsBinaryMode.DEVELOPMENT }
+    @OptIn(ExperimentalWasmDsl::class)
+    val kotlinWasmFile = binary.mainWasmFile
+    macroWasiWasm.set(kotlinWasmFile)
+    dependsOn(compileMacroLayoutWasm, prepareMacroWasiTestLoader, binary.linkTask)
+    inputs.file(macroLayoutWasm)
+    inputs.file(kotlinWasmFile)
+    // Public KGP test input API: retain its TeamCity test runner and filtering,
+    // supply the actual C module alongside the standard WASI imports explicitly.
+    inputFileProperty.set(layout.buildDirectory.file("macro-layout-wasi/macro-wasi-test-loader.mjs"))
+    environment("LIBC_WASI_TEST_MODULE", kotlinWasmFile.get().asFile.absolutePath)
+    environment("LIBC_MACRO_WASM", macroLayoutWasm.get().asFile.absolutePath)
+}
+
 val wasmWasiPreopenTest =
     tasks.register<Exec>("wasmWasiPreopenTest") {
         group = "verification"
         description = "Executes public WASI FILE IO against a real preopened host directory."
         dependsOn("wasmWasiNodeTest")
-        commandLine(
+        inputs.file(macroWasiWasm)
+        inputs.file(macroLayoutWasm)
+        doFirst {
+            commandLine(
             "node",
             "verification/wasi-preopen-test.mjs",
-            layout.buildDirectory
-                .file("compileSync/wasmWasi/test/testDevelopmentExecutable/kotlin/libc-kotlin-test.wasm")
-                .get()
-                .asFile,
+            macroWasiWasm.get().asFile,
             layout.buildDirectory
                 .dir("test-results/wasmWasiPreopenTest")
                 .get()
                 .asFile,
-        )
+            macroLayoutWasm.get().asFile,
+            )
+        }
     }
 tasks.named("test") { dependsOn(wasmWasiPreopenTest) }
 tasks.named("check") { dependsOn(wasmWasiPreopenTest) }

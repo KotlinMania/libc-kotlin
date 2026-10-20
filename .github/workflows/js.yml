@@ -55,8 +55,8 @@ jobs:
           compileKotlinJs
           compileTestKotlinJs
           jsNodeTest
+          jsBrowserTest
           --no-configuration-cache
-        continue-on-error: true
 
       - name: Upload test reports (JS)
         if: success() || failure()

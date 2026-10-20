@@ -15,7 +15,8 @@ struct libc_macro_off1 {
     uint64_t d;
 };
 
-static inline uintptr_t libc_macro_layout_value(int index) {
+// Fixed-width transport preserves actual pointer values on both 32- and 64-bit targets.
+static inline uint64_t libc_macro_layout_value(int index) {
     static struct libc_macro_off1 value;
     switch (index) {
         case 0: return (uintptr_t)&value;
