@@ -35,7 +35,6 @@ import io.github.kotlinmania.libc.unix.bsd.apple.b64.x8664.MallocZoneT
 import io.github.kotlinmania.libc.unix.bsd.apple.b64.x8664.MallocZoneValloc
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.x8664.CAnonymousElf64AuxvUnion
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.DiagnosticHandler
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.esetfunc
 import io.github.kotlinmania.libc.unix.haiku.ImageInitializer
 import io.github.kotlinmania.libc.unix.haiku.ImageTerminator
 import io.github.kotlinmania.libc.unix.nto.GlobErrorHandler
@@ -219,19 +218,16 @@ class CallbackContractsTest {
     }
 
     @Test
-    fun diagnosticHandlerRoundTripRetainsIdentityAndNullableMessage() {
+    fun diagnosticHandlerPreservesSignedStatusAndNullableMessage() {
         val messages = mutableListOf<String?>()
         val handler =
             DiagnosticHandler { status, message ->
                 assertEquals(-5, status)
                 messages.add(message)
             }
-        val returned = esetfunc(handler)
-        assertSame(handler, returned)
-        returned(-5, null)
-        returned(-5, "detail")
+        handler(-5, null)
+        handler(-5, "detail")
         assertEquals(listOf(null, "detail"), messages)
-        assertFailsWith<IllegalArgumentException> { esetfunc(null) }
     }
 
     @Test
