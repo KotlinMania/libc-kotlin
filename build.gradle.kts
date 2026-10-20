@@ -38,7 +38,6 @@ import java.util.zip.ZipInputStream
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.kmp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
@@ -58,13 +57,6 @@ version = providers.gradleProperty("project.version").getOrElse("0.1.0-SNAPSHOT"
 val frameworkName = providers.gradleProperty("project.frameworkName").getOrElse("Unnamed")
 val projectNamespace = providers.gradleProperty("project.namespace").getOrElse("io.github.kotlinmania")
 val kotlinVersion = providers.gradleProperty("versions.kotlin").getOrElse("2.4.0")
-val commonMainBundleName = providers.gradleProperty("project.dependencies.commonMainBundle").get()
-val commonMainDependencyBundle =
-    extensions
-        .getByType(VersionCatalogsExtension::class.java)
-        .named("libs")
-        .findBundle(commonMainBundleName)
-        .orElseThrow { GradleException("Missing libs bundle '$commonMainBundleName'") }
 
 fun csvProperty(name: String): Set<String> =
     providers
@@ -794,9 +786,6 @@ kotlin {
         val hostSystemTest = create("hostSystemTest") { dependsOn(commonTest.get()) }
         listOf("nativeTest", "jvmTest", "androidHostTest", "jsTest", "wasmJsTest").forEach { name ->
             named(name) { dependsOn(hostSystemTest) }
-        }
-        commonMain.dependencies {
-            implementation(commonMainDependencyBundle)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
