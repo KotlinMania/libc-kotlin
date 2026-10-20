@@ -18,7 +18,8 @@ struct LibcExportTests {
         #expect(Unix.memcmp(cx: source, ct: destination, n: 64) != 0)
         let flags = Unix.fileOpenFlags()
         let commands = try #require(Unix.descriptorCommands())
-        let path = "../build/swift-io-\(UUID().uuidString).bin"
+        let outputDirectory = ProcessInfo.processInfo.environment["LIBC_SWIFT_TEST_OUTPUT_ROOT"] ?? "../build"
+        let path = "\(outputDirectory)/swift-io-\(UUID().uuidString).bin"
         let fd = Unix.open(path: path, oflag: flags.readWrite | flags.create | flags.truncate, mode: 0o600)
         #expect(fd >= 0)
         guard fd >= 0 else { return }
@@ -38,6 +39,54 @@ struct LibcExportTests {
         #expect(Unix.fcntl(fd: -1, cmd: commands.getFlags, argument: Optional<ExportedKotlinPackages.io.github.kotlinmania.libc.COpaquePointer>.none) == -1)
         #expect(Unix.lastErrorNumber() == commands.badDescriptor)
     }
+
+    @Test("Named diagnostic callback preserves nullable messages through Kotlin")
+    func testDiagnosticCallbackRoundTrip() {
+        typealias NetBSD = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+        var messages: [String?] = []
+        let callback = NetBSD.diagnosticHandler(function: { status, message in
+            #expect(status == -7)
+            messages.append(message)
+        })
+        let returned = NetBSD.esetfunc(cb: callback)
+        returned(status: -7, message: nil)
+        returned(status: -7, message: "callback detail")
+        #expect(messages.count == 2)
+        #expect(messages[0] == nil)
+        #expect(messages[1] == "callback detail")
+    }
+
+    @Test("Named batch-free callback preserves its zone, pointer and full-width count")
+    func testBatchFreeCallbackRoundTrip() throws {
+        typealias Unix = ExportedKotlinPackages.io.github.kotlinmania.libc.unix
+        typealias Allocator = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.apple.b64.x8664
+        let pointers = try #require(Unix.calloc(nobj: 2, size: 8))
+        defer { Unix.free(p: pointers) }
+        var observedZone: Allocator.MallocZoneT?
+        defer { observedZone = nil }
+        var observedPointer: Int64?
+        var observedCount: UInt32?
+        var calls = 0
+        let callback = Allocator.mallocZoneBatchFree(function: { zone, address, count in
+            observedZone = zone
+            observedPointer = address?.value
+            observedCount = count
+            calls += 1
+        })
+        let zone = Allocator.MallocZoneT(
+            size: nil, malloc: nil, calloc: nil, valloc: nil, free: nil,
+            realloc: nil, destroy: nil, zoneName: nil, batchMalloc: nil,
+            batchFree: callback, introspect: nil, version: 1, memalign: nil,
+            freeDefiniteSize: nil, pressureRelief: nil, claimedAddress: nil
+        )
+        let stored = try #require(zone.batchFree)
+        stored(zone: zone, pointers: pointers, count: UInt32.max)
+        #expect(observedZone === zone)
+        #expect(observedPointer == pointers.value)
+        #expect(observedCount == UInt32.max)
+        #expect(calls == 1)
+    }
+
     @Test("Swift module loads cleanly")
     func testSwiftModuleLoads() throws {
         #expect(ExportedKotlinPackages.io.github.kotlinmania.libc.hermit.AF_INET == 3)

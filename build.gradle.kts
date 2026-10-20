@@ -209,12 +209,15 @@ val requiredAndroidSdkPackageDirs =
     )
 
 fun writeAndroidLocalProperties() {
-    projectAndroidSdkDir.mkdirs()
     val sdkDirPropertyValue = projectAndroidSdkDir.absolutePath.replace("\\", "/")
-    layout.projectDirectory
-        .file("local.properties")
-        .asFile
-        .writeText("sdk.dir=$sdkDirPropertyValue\n")
+    val contents = "sdk.dir=$sdkDirPropertyValue\n"
+    val propertiesFile =
+        layout.projectDirectory
+            .file("local.properties")
+            .asFile
+    if (propertiesFile.isFile && propertiesFile.readText() == contents) return
+    projectAndroidSdkDir.mkdirs()
+    propertiesFile.writeText(contents)
 }
 
 fun isProjectAndroidSdkInstalled(): Boolean =
