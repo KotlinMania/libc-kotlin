@@ -1,9 +1,43 @@
 import Darwin
+import Foundation
 import Testing
 import Libc
 
 @Suite("Libc Export Smoke Tests")
 struct LibcExportTests {
+    @Test("Real allocation, descriptor IO and typed fcntl preserve bytes and errno")
+    func testRealDescriptorIo() throws {
+        typealias Unix = ExportedKotlinPackages.io.github.kotlinmania.libc.unix
+        let source = try #require(Unix.malloc(size: 64))
+        let destination = try #require(Unix.calloc(nobj: 64, size: 1))
+        defer {
+            Unix.free(p: source)
+            Unix.free(p: destination)
+        }
+        #expect(Unix.memset(dest: source, c: 171, n: 64)?.value == source.value)
+        #expect(Unix.memcmp(cx: source, ct: destination, n: 64) != 0)
+        let flags = Unix.fileOpenFlags()
+        let commands = try #require(Unix.descriptorCommands())
+        let path = "../build/swift-io-\(UUID().uuidString).bin"
+        let fd = Unix.open(path: path, oflag: flags.readWrite | flags.create | flags.truncate, mode: 0o600)
+        #expect(fd >= 0)
+        guard fd >= 0 else { return }
+        defer {
+            #expect(Unix.close(fd: fd) == 0)
+            #expect(Unix.unlink(c: path) == 0)
+        }
+        #expect(Unix.write(fd: fd, buf: source, count: 64) == 64)
+        #expect(Unix.lseek(fd: fd, offset: 0, whence: flags.seekStart) == 0)
+        #expect(Unix.read(fd: fd, buf: destination, count: 64) == 64)
+        #expect(Unix.memcmp(cx: source, ct: destination, n: 64) == 0)
+        #expect(Unix.read(fd: fd, buf: destination, count: 1) == 0)
+        let original = Unix.fcntl(fd: fd, cmd: commands.getFlags)
+        #expect(original >= 0)
+        #expect(Unix.fcntl(fd: fd, cmd: commands.setFlags, argument: original | commands.closeOnExec) == 0)
+        #expect(Unix.fcntl(fd: fd, cmd: commands.getFlags) & commands.closeOnExec != 0)
+        #expect(Unix.fcntl(fd: -1, cmd: commands.getFlags, argument: Optional<ExportedKotlinPackages.io.github.kotlinmania.libc.COpaquePointer>.none) == -1)
+        #expect(Unix.lastErrorNumber() == commands.badDescriptor)
+    }
     @Test("Swift module loads cleanly")
     func testSwiftModuleLoads() throws {
         #expect(ExportedKotlinPackages.io.github.kotlinmania.libc.hermit.AF_INET == 3)

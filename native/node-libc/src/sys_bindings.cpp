@@ -268,11 +268,12 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
         int64_t a4 = info.Length() > 4 ? info[4].As<Napi::Number>().Int64Value() : 0;
         int64_t a5 = info.Length() > 5 ? info[5].As<Napi::Number>().Int64Value() : 0;
         int64_t a6 = info.Length() > 6 ? info[6].As<Napi::Number>().Int64Value() : 0;
-#ifndef _WIN32
+#if defined(__linux__)
         long res = ::syscall((long)num, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
         return Napi::Number::New(env, (double)res);
 #else
         (void)num; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+        errno = ENOSYS;
         return Napi::Number::New(env, -1);
 #endif
     }));

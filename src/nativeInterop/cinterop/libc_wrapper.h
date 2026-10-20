@@ -289,6 +289,9 @@ int libc_munmap(void* addr, uint64_t len);
 int libc_nice(int inc);
 int libc_raise(int sig);
 int64_t libc_read(int fd, void* buf, uint64_t count);
+int libc_open(const char* path, int flags, uint32_t mode);
+int libc_raw_open_flag(int index);
+int libc_raw_descriptor_command(int index);
 char* libc_setlocale(int category, const char* locale);
 int libc_setlogmask(int mask);
 int libc_tcflush(int fd, int queue_selector);
@@ -546,6 +549,8 @@ int libc_poll_descriptors(libc_poll_descriptor* fds, uint32_t nfds, int timeout)
 int libc_select_timeout(int nfds, void* readfds, void* writefds, void* exceptfds,
                         int has_timeout, int64_t seconds, int64_t microseconds);
 int libc_fd_setsize(void);
+int libc_numeric_nameinfo_flags(void);
+void* libc_pthread_self(void);
 
 #ifndef _WIN32
 /* Values come from the target headers, not a presumed Linux/Darwin layout. */
@@ -559,7 +564,6 @@ const libc_descriptor_constants* libc_get_descriptor_constants(void);
 int libc_fcntl_noarg(int fd, int command);
 int libc_fcntl_int(int fd, int command, int argument);
 int libc_fcntl_pointer(int fd, int command, void* argument);
-void* libc_pthread_self(void);
 typedef void (*libc_signal_handler)(int);
 libc_signal_handler libc_signal(int number, libc_signal_handler handler);
 #ifdef __linux__

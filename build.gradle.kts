@@ -48,6 +48,11 @@ plugins {
     signing
 }
 
+abstract class LibcAndroidJniTask : DefaultTask() {
+    @get:org.gradle.api.tasks.OutputDirectory
+    abstract val nativeDirectory: org.gradle.api.file.DirectoryProperty
+}
+
 group = providers.gradleProperty("project.group").getOrElse("io.github.kotlinmania")
 version = providers.gradleProperty("project.version").getOrElse("0.1.0-SNAPSHOT")
 val frameworkName = providers.gradleProperty("project.frameworkName").getOrElse("Unnamed")
@@ -368,13 +373,8 @@ tasks
         dependsOn(ensureAndroidSdk)
     }
 
-// Gap #9b: KGP-generated bridge boilerplate and KotlinCoroutineSupport runtime
-// produce warnings (unchecked casts, unused expressions, opt-in requirements)
-// that cannot be fixed in source — they are regenerated every build.
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
-    if (name.startsWith("compileSwiftExport")) {
-        compilerOptions.allWarningsAsErrors.set(false)
-    }
+    compilerOptions.allWarningsAsErrors.set(true)
 }
 
 val jvmToolchainVersion = providers.gradleProperty("jvm.toolchain").getOrElse("21").toInt()
@@ -481,9 +481,6 @@ kotlin {
     js {
         configureBenchmarkCompilation()
         browser {
-            testTask {
-                enabled = false
-            }
         }
         nodejs()
     }
@@ -493,9 +490,6 @@ kotlin {
     wasmJs {
         configureBenchmarkCompilation()
         browser {
-            testTask {
-                enabled = false
-            }
         }
         nodejs()
     }
@@ -520,7 +514,9 @@ kotlin {
         compileSdk = projectCompileSdk.toInt()
         minSdk = providers.gradleProperty("android.minSdk").getOrElse("24").toInt()
         withHostTestBuilder {}.configure {}
-        withDeviceTestBuilder { sourceSetTreeName = "test" }
+        withDeviceTestBuilder { sourceSetTreeName = "test" }.configure {
+            instrumentationRunner = "$projectNamespace.LibcInstrumentationRunner"
+        }
     }
 
     // JVM — jvmTarget derived from the same toolchain property so they can't drift.
@@ -792,6 +788,10 @@ kotlin {
     }
 
     sourceSets {
+        val hostSystemTest = create("hostSystemTest") { dependsOn(commonTest.get()) }
+        listOf("nativeTest", "jvmTest", "androidHostTest", "jsTest", "wasmJsTest").forEach { name ->
+            named(name) { dependsOn(hostSystemTest) }
+        }
         commonMain.dependencies {
             implementation(commonMainDependencyBundle)
         }
@@ -1245,7 +1245,7 @@ val publishToCentralPortal =
 tasks.register("test") {
     group = "verification"
     description = "Runs the commonTest-backed KMP suite, Android host tests, and Swift Export smoke test."
-    dependsOn("hostTests")
+    dependsOn("allTests", "hostTests")
     dependsOn("swiftExportSmokeTest")
 }
 
@@ -1276,6 +1276,9 @@ if (jvmFfiEnabled) {
                     .get()
                     .asFile
             inputs.file(cSource)
+            inputs.property("jniHostOs", providers.systemProperty("os.name"))
+            inputs.property("jniHostArchitecture", providers.systemProperty("os.arch"))
+            inputs.property("jniMacosMinimum", "15.0")
             outputs.dir(outDir)
 
             doLast {
@@ -1308,6 +1311,9 @@ if (jvmFfiEnabled) {
                                 "clang",
                                 "-shared",
                                 "-O2",
+                                "-Wall",
+                                "-Wextra",
+                                "-Werror",
                                 "-I${javaInclude.absolutePath}",
                                 "-I${javaOsInclude.absolutePath}",
                                 cSource.absolutePath,
@@ -1319,18 +1325,51 @@ if (jvmFfiEnabled) {
                         } else {
                             cmd.addAll(listOf("-lws2_32"))
                         }
+                        if (isMac) {
+                            cmd.addAll(listOf("-mmacosx-version-min=15.0", "-Wl,-install_name,@rpath/$libName"))
+                        }
                         execOps
                             .exec {
                                 commandLine(cmd)
                             }.assertNormalExitValue()
                     } catch (e: Exception) {
-                        logger.warn("Could not compile ${ffiNameLower}_jni with host clang: ${e.message}")
+                        throw GradleException("Could not compile ${ffiNameLower}_jni with host clang", e)
                     }
+                } else {
+                    throw GradleException("JNI headers are required at $javaInclude")
                 }
             }
         }
 
-    tasks.named<Test>("jvmTest") {
+    val packageFfiJni =
+        tasks.register<Sync>("package${ffiName}Jni") {
+            dependsOn(compileFfiJni)
+            val hostPlatform =
+                if (isWindowsHost) {
+                    "windows"
+                } else if (isMacHost) {
+                    "macos"
+                } else {
+                    "linux"
+                }
+            val hostArchitecture =
+                when (providers.systemProperty("os.arch").get().lowercase()) {
+                    "aarch64", "arm64" -> "aarch64"
+                    "amd64", "x86_64" -> "x86_64"
+                    else -> throw GradleException("Unsupported JNI host architecture")
+                }
+            from(layout.buildDirectory.dir("natives")) {
+                include("*.so", "*.dll", "*.dylib")
+                into("io/github/kotlinmania/libc/native/$hostPlatform-$hostArchitecture")
+            }
+            from(layout.buildDirectory.dir("jni-distribution")) {
+                exclude("$hostPlatform-$hostArchitecture/**")
+                into("io/github/kotlinmania/libc/native")
+            }
+            into(layout.buildDirectory.dir("generated/jniResources"))
+        }
+    kotlin.sourceSets.named("jvmMain") { resources.srcDir(packageFfiJni) }
+    tasks.withType<Test>().matching { it.name == "jvmTest" || it.name == "testAndroidHostTest" }.configureEach {
         dependsOn(compileFfiJni)
         systemProperty(
             "java.library.path",
@@ -1340,6 +1379,73 @@ if (jvmFfiEnabled) {
                 .asFile.absolutePath,
         )
     }
+    val packagedJniTest =
+        tasks.register<Test>("packagedJniTest") {
+            dependsOn("jvmJar", "jvmTestClasses")
+            val jvmTest = tasks.named<Test>("jvmTest")
+            testClassesDirs = jvmTest.get().testClassesDirs
+            val mainOutput =
+                kotlin.targets
+                    .getByName("jvm")
+                    .compilations
+                    .getByName("main")
+                    .output.allOutputs
+            classpath = files(tasks.named<Jar>("jvmJar").flatMap { it.archiveFile }) + jvmTest.get().classpath.minus(mainOutput)
+            systemProperty(
+                "java.library.path",
+                layout.buildDirectory
+                    .dir("empty-native-search-path")
+                    .get()
+                    .asFile.absolutePath,
+            )
+            filter.includeTestsMatching("*.HostIoTest")
+        }
+    tasks.named("check") { dependsOn(packagedJniTest) }
+
+    val compileAndroidJni =
+        tasks.register<LibcAndroidJniTask>("compileAndroidJni") {
+            dependsOn("compile${ffiName}WrapperForAndroidNativeArm64", "compile${ffiName}WrapperForAndroidNativeX64")
+            inputs.file("src/jvmMain/c/${ffiNameLower}_jni.c")
+            nativeDirectory.set(layout.buildDirectory.dir("android-jni"))
+            doLast {
+                if (isWindowsHost) throw GradleException("Build Android JNI payloads on the coordinated macOS or Linux host")
+                val host = if (isMacHost) "osx" else "linux"
+                val ndk = File(System.getProperty("user.home"), ".konan/dependencies/target-toolchain-2-$host-android_ndk")
+                val source = file("src/jvmMain/c/${ffiNameLower}_jni.c")
+                val api = providers.gradleProperty("android.minSdk").getOrElse("24")
+                val execOps = project.serviceOf<ExecOperations>()
+                for ((abi, triple) in listOf("arm64-v8a" to "aarch64-linux-android", "x86_64" to "x86_64-linux-android")) {
+                    val compiler = File(ndk, "bin/$triple$api-clang")
+                    if (!compiler.exists()) throw GradleException("Missing Android JNI compiler $compiler")
+                    val output = nativeDirectory.get().asFile.resolve("$abi/lib${ffiNameLower}_jni.so")
+                    output.parentFile.mkdirs()
+                    execOps
+                        .exec {
+                            commandLine(compiler.absolutePath, "--sysroot=${ndk.resolve("sysroot")}", "-shared", "-fPIC", "-O2", "-Wall", "-Wextra", "-Werror", "-Wl,-z,max-page-size=16384", source.absolutePath, "-o", output.absolutePath)
+                        }.assertNormalExitValue()
+                }
+            }
+        }
+    extensions.getByType<com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension>().onVariants { variant ->
+        requireNotNull(variant.sources.jniLibs).addGeneratedSourceDirectory(compileAndroidJni) { it.nativeDirectory }
+    }
+
+    val verifyJniDistribution =
+        tasks.register("verifyJniDistribution") {
+            dependsOn(packageFfiJni)
+            doLast {
+                val root =
+                    layout.buildDirectory
+                        .dir("generated/jniResources/io/github/kotlinmania/libc/native")
+                        .get()
+                        .asFile
+                val required = listOf("macos-aarch64/lib${ffiNameLower}_jni.dylib", "linux-x86_64/lib${ffiNameLower}_jni.so", "linux-aarch64/lib${ffiNameLower}_jni.so", "windows-x86_64/${ffiNameLower}_jni.dll")
+                required.forEach { relative ->
+                    if (!root.resolve(relative).isFile) throw GradleException("Missing release JNI payload: $relative")
+                }
+            }
+        }
+    tasks.named("publishToCentralPortal") { dependsOn(verifyJniDistribution) }
 }
 
 // ============================================================================
@@ -1367,11 +1473,88 @@ if (napiFfiEnabled) {
             }
         }
 
-    val copyNodeFfi =
-        tasks.register<Copy>("copyNode$ffiName") {
+    val nodeHostPlatform =
+        if (isMacHost) {
+            "macos"
+        } else if (isWindowsHost) {
+            "windows"
+        } else {
+            "linux"
+        }
+    val nodeHostArchitecture =
+        when (providers.systemProperty("os.arch").get().lowercase()) {
+            "aarch64", "arm64" -> "aarch64"
+            "amd64", "x86_64" -> "x86_64"
+            else -> throw GradleException("Unsupported Node native architecture")
+        }
+    val stageNodeRuntime =
+        tasks.register<Sync>("stageNode${ffiName}Runtime") {
             dependsOn(buildNodeFfi)
-            from(ffiNapiDir)
-            into(layout.buildDirectory.dir("js/node_modules/$ffiNpmPackage"))
+            inputs.property("libraryVersion", project.version.toString())
+            from(ffiNapiDir) { include("index.js") }
+            from(files("LICENSE", "LICENSE-MIT", "LICENSE-APACHE"))
+            from("$ffiNapiDir/build/Release") {
+                include("c_native.node", "libc_native.node")
+                rename { "libc_native.node" }
+                into("prebuilds/$nodeHostPlatform-$nodeHostArchitecture")
+            }
+            from(layout.buildDirectory.dir("napi-distribution")) {
+                exclude("$nodeHostPlatform-$nodeHostArchitecture/**")
+                into("prebuilds")
+            }
+            into(layout.buildDirectory.dir("node-runtime-package"))
+            doLast {
+                destinationDir.resolve("package.json").writeText(
+                    groovy.json.JsonOutput.toJson(
+                        mapOf(
+                            "name" to ffiNpmPackage,
+                            "version" to project.version.toString(),
+                            "main" to "index.js",
+                            "engines" to mapOf("node" to ">=24.15.0"),
+                            "files" to listOf("index.js", "prebuilds", "LICENSE*"),
+                        ),
+                    ) + "\n",
+                )
+            }
+        }
+    val nodeRuntimeArchive =
+        tasks.register<Tar>("packageNode${ffiName}Runtime") {
+            dependsOn(stageNodeRuntime)
+            compression = Compression.GZIP
+            archiveBaseName.set("kotlinmania-$ffiNameLower-native-bindings")
+            archiveVersion.set(project.version.toString())
+            archiveExtension.set("tgz")
+            destinationDirectory.set(layout.buildDirectory.dir("native-packages"))
+            from(stageNodeRuntime) { into("package") }
+        }
+    publishing.publications.named<MavenPublication>("kotlinMultiplatform") {
+        artifact(nodeRuntimeArchive) { classifier = "node-native" }
+    }
+    val verifyNodeDistribution =
+        tasks.register("verifyNodeDistribution") {
+            dependsOn(stageNodeRuntime)
+            doLast {
+                val root = stageNodeRuntime.get().destinationDir.resolve("prebuilds")
+                listOf("macos-aarch64", "linux-x86_64", "linux-aarch64", "windows-x86_64").forEach { host ->
+                    if (!root.resolve("$host/libc_native.node").isFile) throw GradleException("Missing release Node payload: $host")
+                }
+            }
+        }
+    tasks.named("publishToCentralPortal") { dependsOn(verifyNodeDistribution) }
+    val runtimeCopies =
+        listOf("js", "wasm").map { runtime ->
+            tasks.register<Copy>("copyNode${ffiName}${runtime.replaceFirstChar { it.uppercaseChar() }}") {
+                dependsOn(buildNodeFfi)
+                dependsOn(if (runtime == "js") "kotlinNpmInstall" else "kotlinWasmNpmInstall")
+                from(ffiNapiDir) {
+                    include("index.js", "package.json", "build/Release/*.node", "prebuilds/**")
+                }
+                into(layout.buildDirectory.dir("$runtime/node_modules/$ffiNpmPackage"))
+            }
+        }
+    val copyNodeFfi =
+        tasks.register("copyNode$ffiName") {
+            dependsOn(runtimeCopies)
         }
     tasks.matching { it.name.startsWith("jsNodeTest") || it.name.startsWith("wasmJsNodeTest") }.configureEach {
         dependsOn(copyNodeFfi)
@@ -1511,6 +1694,7 @@ tasks.register("swiftExportSmokeTest") {
                 commandLine(
                     "./gradlew",
                     "embedSwiftExportForXcode",
+                    "--max-workers=2",
                     "-Dorg.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g",
                     "--no-configuration-cache",
                     "--no-daemon",
@@ -1616,3 +1800,96 @@ tasks.matching { it.name.contains("XCFramework") }.configureEach {
 tasks.named("build") {
     dependsOn(fullTargetBuildTaskNames)
 }
+
+val wasmWasiPreopenTest =
+    tasks.register<Exec>("wasmWasiPreopenTest") {
+        group = "verification"
+        description = "Executes public WASI FILE IO against a real preopened host directory."
+        dependsOn("wasmWasiNodeTest")
+        commandLine(
+            "node",
+            "verification/wasi-preopen-test.mjs",
+            layout.buildDirectory
+                .file("compileSync/wasmWasi/test/testDevelopmentExecutable/kotlin/libc-kotlin-test.wasm")
+                .get()
+                .asFile,
+            layout.buildDirectory
+                .dir("test-results/wasmWasiPreopenTest")
+                .get()
+                .asFile,
+        )
+    }
+tasks.named("test") { dependsOn(wasmWasiPreopenTest) }
+tasks.named("check") { dependsOn(wasmWasiPreopenTest) }
+
+// CI must execute the behavioral tests on the checked-out revision.
+tasks.withType<AbstractTestTask>().configureEach {
+    outputs.upToDateWhen { !providers.environmentVariable("CI").isPresent }
+    outputs.doNotCacheIf("CI requires actual behavioral test execution") { providers.environmentVariable("CI").isPresent }
+}
+tasks.matching { it.name == "connectedAndroidDeviceTest" }.configureEach {
+    outputs.upToDateWhen { false }
+}
+
+val verifyAndroidLibraryArtifact =
+    tasks.register<Exec>("verifyAndroidLibraryArtifact") {
+        group = "verification"
+        description = "Verifies actual Android AAR JNI payloads, page alignment, POM and metadata."
+        dependsOn("bundleAndroidMainAar", "generateMetadataFileForAndroidPublication", "generatePomFileForAndroidPublication")
+        commandLine(
+            "python3",
+            "verification/verify_android_artifact.py",
+            layout.buildDirectory
+                .file("outputs/aar/libc-kotlin.aar")
+                .get()
+                .asFile,
+            layout.buildDirectory
+                .file("publications/android/module.json")
+                .get()
+                .asFile,
+            layout.buildDirectory
+                .file("publications/android/pom-default.xml")
+                .get()
+                .asFile,
+            layout.buildDirectory
+                .file("reports/publication/android-jni.json")
+                .get()
+                .asFile,
+        )
+    }
+tasks.named("check") { dependsOn(verifyAndroidLibraryArtifact) }
+
+val verifyPackagedJniArtifact =
+    tasks.register<Exec>("verifyPackagedJniArtifact") {
+        group = "verification"
+        dependsOn("jvmJar")
+        val platform =
+            if (isMacHost) {
+                "macos"
+            } else if (isWindowsHost) {
+                "windows"
+            } else {
+                "linux"
+            }
+        val architecture =
+            when (providers.systemProperty("os.arch").get().lowercase()) {
+                "arm64", "aarch64" -> "aarch64"
+                "amd64", "x86_64" -> "x86_64"
+                else -> throw GradleException("Unsupported JNI artifact architecture")
+            }
+        commandLine(
+            "python3",
+            "verification/verify_jni_artifact.py",
+            tasks
+                .named<Jar>("jvmJar")
+                .flatMap { it.archiveFile }
+                .get()
+                .asFile,
+            "$platform-$architecture",
+            layout.buildDirectory
+                .file("reports/publication/jni-$platform-$architecture.json")
+                .get()
+                .asFile,
+        )
+    }
+tasks.named("check") { dependsOn(verifyPackagedJniArtifact) }

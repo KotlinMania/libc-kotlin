@@ -1,4 +1,3 @@
-// port-lint: source N/A
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
 package io.github.kotlinmania.libc.internal
@@ -708,119 +707,128 @@ private external fun wasmHstrerror(errcode: Int): String?
 @JsFun("() => globalThis.__kotlinmania_libc_native.res_init()")
 private external fun wasmResInit(): Int
 
+@JsFun("() => typeof globalThis.process !== 'undefined' && typeof globalThis.process.getBuiltinModule === 'function'")
+private external fun isNativeNodeRuntime(): Boolean
+
 internal object LibcNapiWasm {
-    init {
+    private val loaded: Int by lazy {
+        if (!isNativeNodeRuntime()) throw UnsupportedOperationException("Native libc facilities require Node.js; browsers have no host process or C library access")
         ensureLibcNapiLoaded()
     }
 
-    fun getenv(name: String?): String? = if (name == null) null else wasmGetenv(name)
+    private inline fun <T> nativeCall(call: () -> T): T {
+        check(loaded == 1) { "Native libc bindings did not initialize" }
+        return call()
+    }
+
+    fun getenv(name: String?): String? = if (name == null) null else nativeCall { wasmGetenv(name) }
 
     fun setenv(name: String?, value: String?, overwrite: Int): Int =
-        if (name == null || value == null) -1 else wasmSetenv(name, value, overwrite)
+        if (name == null || value == null) -1 else nativeCall { wasmSetenv(name, value, overwrite) }
 
-    fun unsetenv(name: String?): Int = if (name == null) -1 else wasmUnsetenv(name)
+    fun unsetenv(name: String?): Int = if (name == null) -1 else nativeCall { wasmUnsetenv(name) }
 
-    fun putenv(str: String?): Int = if (str == null) -1 else wasmPutenv(str)
+    fun putenv(str: String?): Int = if (str == null) -1 else nativeCall { wasmPutenv(str) }
 
     fun putenvS(name: String?, value: String?): Int =
-        if (name == null || value == null) 22 else wasmPutenvS(name, value)
+        if (name == null || value == null) 22 else nativeCall { wasmPutenvS(name, value) }
 
-    fun clearenv(): Int = wasmClearenv()
+    fun clearenv(): Int = nativeCall { wasmClearenv() }
 
-    fun isatty(fd: Int): Int = wasmIsatty(fd)
+    fun isatty(fd: Int): Int = nativeCall { wasmIsatty(fd) }
 
-    fun getErrno(): Int = wasmGetErrno()
+    fun getErrno(): Int = nativeCall { wasmGetErrno() }
 
-    fun strerror(errnum: Int): String? = wasmStrerror(errnum)
+    fun strerror(errnum: Int): String? = nativeCall { wasmStrerror(errnum) }
 
-    fun realpath(pathname: String?): String? = if (pathname == null) null else wasmRealpath(pathname)
+    fun realpath(pathname: String?): String? = if (pathname == null) null else nativeCall { wasmRealpath(pathname) }
 
-    fun access(path: String?, mode: Int): Int = if (path == null) -1 else wasmAccess(path, mode)
+    fun access(path: String?, mode: Int): Int = if (path == null) -1 else nativeCall { wasmAccess(path, mode) }
 
-    fun unlink(path: String?): Int = if (path == null) -1 else wasmUnlink(path)
+    fun unlink(path: String?): Int = if (path == null) -1 else nativeCall { wasmUnlink(path) }
 
-    fun remove(filename: String?): Int = if (filename == null) -1 else wasmRemove(filename)
+    fun remove(filename: String?): Int = if (filename == null) -1 else nativeCall { wasmRemove(filename) }
 
     fun rename(oldname: String?, newname: String?): Int =
-        if (oldname == null || newname == null) -1 else wasmRename(oldname, newname)
+        if (oldname == null || newname == null) -1 else nativeCall { wasmRename(oldname, newname) }
 
-    fun close(fd: Int): Int = wasmClose(fd)
+    fun close(fd: Int): Int = nativeCall { wasmClose(fd) }
 
-    fun atoi(s: String?): Int = if (s == null) 0 else wasmAtoi(s)
+    fun atoi(s: String?): Int = if (s == null) 0 else nativeCall { wasmAtoi(s) }
 
-    fun system(s: String?): Int = if (s == null) 1 else wasmSystem(s)
+    fun system(s: String?): Int = if (s == null) 1 else nativeCall { wasmSystem(s) }
 
     fun strcmp(cs: String?, ct: String?): Int =
-        if (cs == null || ct == null) 0 else wasmStrcmp(cs, ct)
+        if (cs == null || ct == null) 0 else nativeCall { wasmStrcmp(cs, ct) }
 
     fun strncmp(cs: String?, ct: String?, n: ULong): Int =
-        if (cs == null || ct == null) 0 else wasmStrncmp(cs, ct, n.toLong().coerceIn(0L, Int.MAX_VALUE.toLong()).toInt())
+        if (cs == null || ct == null) 0 else nativeCall { wasmStrncmp(cs, ct, n.toLong().coerceIn(0L, Int.MAX_VALUE.toLong()).toInt()) }
 
     fun strlen(cs: String?): ULong =
-        if (cs == null) 0uL else wasmStrlen(cs).toULong()
+        if (cs == null) 0uL else nativeCall { wasmStrlen(cs) }.toULong()
 
-    fun getpid(): Int = wasmGetpid()
+    fun getpid(): Int = nativeCall { wasmGetpid() }
 
-    fun getppid(): Int = wasmGetppid()
+    fun getppid(): Int = nativeCall { wasmGetppid() }
 
-    fun geteuid(): UInt = wasmGeteuid().toUInt()
+    fun geteuid(): UInt = nativeCall { wasmGeteuid() }.toUInt()
 
-    fun getegid(): UInt = wasmGetegid().toUInt()
+    fun getegid(): UInt = nativeCall { wasmGetegid() }.toUInt()
 
-    fun getuid(): UInt = wasmGetuid().toUInt()
+    fun getuid(): UInt = nativeCall { wasmGetuid() }.toUInt()
 
-    fun getgid(): UInt = wasmGetgid().toUInt()
+    fun getgid(): UInt = nativeCall { wasmGetgid() }.toUInt()
 
     fun fopen(filename: String?, mode: String?): FILE? {
         if (filename == null || mode == null) return null
-        val h = wasmFopen(filename, mode)
+        val h = nativeCall { wasmFopen(filename, mode) }
         return if (h > 0) FILE(h.toLong()) else null
     }
 
     fun fclose(file: FILE?): Int =
-        if (file == null || file.handle <= 0L) -1 else wasmFclose(file.handle.toInt())
+        if (file == null || file.handle <= 0L) -1 else nativeCall { wasmFclose(file.handle.toInt()) }
 
     fun fflush(file: FILE?): Int =
         if (file == null) {
-            wasmFflush(0)
+            nativeCall { wasmFflush(0) }
         } else if (file.handle <= 0L) {
             -1
         } else {
-            wasmFflush(file.handle.toInt())
+            nativeCall { wasmFflush(file.handle.toInt()) }
         }
 
     fun fgetc(stream: FILE?): Int =
-        if (stream == null || stream.handle <= 0L) -1 else wasmFgetc(stream.handle.toInt())
+        if (stream == null || stream.handle <= 0L) -1 else nativeCall { wasmFgetc(stream.handle.toInt()) }
 
     fun fputc(c: Int, stream: FILE?): Int =
-        if (stream == null || stream.handle <= 0L) -1 else wasmFputc(c, stream.handle.toInt())
+        if (stream == null || stream.handle <= 0L) -1 else nativeCall { wasmFputc(c, stream.handle.toInt()) }
 
     fun fgets(n: Int, stream: FILE?): String? =
-        if (stream == null || stream.handle <= 0L || n <= 0) null else wasmFgets(n, stream.handle.toInt())
+        if (stream == null || stream.handle <= 0L || n <= 0) null else nativeCall { wasmFgets(n, stream.handle.toInt()) }
 
     fun fputs(s: String?, stream: FILE?): Int =
-        if (s == null || stream == null || stream.handle <= 0L) -1 else wasmFputs(s, stream.handle.toInt())
+        if (s == null || stream == null || stream.handle <= 0L) -1 else nativeCall { wasmFputs(s, stream.handle.toInt()) }
 
     fun feof(stream: FILE?): Int =
-        if (stream == null || stream.handle <= 0L) 0 else wasmFeof(stream.handle.toInt())
+        if (stream == null || stream.handle <= 0L) 0 else nativeCall { wasmFeof(stream.handle.toInt()) }
 
     fun ferror(stream: FILE?): Int =
-        if (stream == null || stream.handle <= 0L) 0 else wasmFerror(stream.handle.toInt())
+        if (stream == null || stream.handle <= 0L) 0 else nativeCall { wasmFerror(stream.handle.toInt()) }
 
     fun clearerr(stream: FILE?) {
         if (stream != null && stream.handle > 0L) {
-            wasmClearerr(stream.handle.toInt())
+            nativeCall { wasmClearerr(stream.handle.toInt()) }
         }
     }
 
     fun popen(command: String?, mode: String?): FILE? {
         if (command == null || mode == null) return null
-        val h = wasmPopen(command, mode)
+        val h = nativeCall { wasmPopen(command, mode) }
         return if (h > 0) FILE(h.toLong()) else null
     }
 
     fun pclose(stream: FILE?): Int =
-        if (stream == null || stream.handle <= 0L) -1 else wasmPclose(stream.handle.toInt())
+        if (stream == null || stream.handle <= 0L) -1 else nativeCall { wasmPclose(stream.handle.toInt()) }
 
     private fun copyCStringInto(src: String, dst: ByteArray) {
         dst.fill(0)
@@ -833,7 +841,7 @@ internal object LibcNapiWasm {
 
     fun uname(buf: Utsname?): Int {
         if (buf == null) return -1
-        val raw = wasmUnameFields() ?: return -1
+        val raw = nativeCall { wasmUnameFields() } ?: return -1
         val parts = raw.split('\n')
         if (parts.size < 5) return -1
         copyCStringInto(parts[0], buf.sysname)
@@ -846,7 +854,7 @@ internal object LibcNapiWasm {
 
     fun uname(buf: io.github.kotlinmania.libc.unix.bsd.Utsname?): Int {
         if (buf == null) return -1
-        val raw = wasmUnameFields() ?: return -1
+        val raw = nativeCall { wasmUnameFields() } ?: return -1
         val parts = raw.split('\n')
         if (parts.size < 5) return -1
         copyCStringInto(parts[0], buf.sysname)
@@ -878,7 +886,7 @@ internal object LibcNapiWasm {
 
     fun getpwuidR(uid: UInt, pwd: Passwd?, buflen: ULong, result: COpaquePointer?): Int {
         val len = buflen.toLong().coerceIn(1L, 1048576L).toInt()
-        return applyPasswdRResult(wasmGetpwuidRStr(uid.toInt(), len), pwd, result)
+        return applyPasswdRResult(nativeCall { wasmGetpwuidRStr(uid.toInt(), len) }, pwd, result)
     }
 
     fun getpwnamR(name: String?, pwd: Passwd?, buflen: ULong, result: COpaquePointer?): Int {
@@ -887,7 +895,7 @@ internal object LibcNapiWasm {
             return 22
         }
         val len = buflen.toLong().coerceIn(1L, 1048576L).toInt()
-        return applyPasswdRResult(wasmGetpwnamRStr(name, len), pwd, result)
+        return applyPasswdRResult(nativeCall { wasmGetpwnamRStr(name, len) }, pwd, result)
     }
 
     fun getpwuidR(
@@ -952,17 +960,19 @@ internal object LibcNapiWasm {
         res: COpaquePointer?,
     ): Int {
         val raw =
-            wasmGetaddrinfoStr(
-                if (node != null) 1 else 0,
-                node.orEmpty(),
-                if (service != null) 1 else 0,
-                service.orEmpty(),
-                if (hints != null) 1 else 0,
-                hints?.aiFlags ?: 0,
-                hints?.aiFamily ?: 0,
-                hints?.aiSocktype ?: 0,
-                hints?.aiProtocol ?: 0,
-            )
+            nativeCall {
+                wasmGetaddrinfoStr(
+                    if (node != null) 1 else 0,
+                    node.orEmpty(),
+                    if (service != null) 1 else 0,
+                    service.orEmpty(),
+                    if (hints != null) 1 else 0,
+                    hints?.aiFlags ?: 0,
+                    hints?.aiFamily ?: 0,
+                    hints?.aiSocktype ?: 0,
+                    hints?.aiProtocol ?: 0,
+                )
+            }
         return AddrinfoRegistry.parsePackedResult(raw, hints, res)
     }
 
@@ -982,20 +992,22 @@ internal object LibcNapiWasm {
         if (sa == null) return -1
         val hex = AddrinfoRegistry.encodeHex(sa.saData)
         val raw =
-            wasmGetnameinfoStr(
-                sa.saFamily.toInt(),
-                hex,
-                salen.toInt(),
-                if (host != null) hostlen.toInt() else 0,
-                if (serv != null) servlen.toInt() else 0,
-                flags,
-            )
+            nativeCall {
+                wasmGetnameinfoStr(
+                    sa.saFamily.toInt(),
+                    hex,
+                    salen.toInt(),
+                    if (host != null) hostlen.toInt() else 0,
+                    if (serv != null) servlen.toInt() else 0,
+                    flags,
+                )
+            }
         return AddrinfoRegistry.applyGetnameinfoResult(raw, host, hostlen, serv, servlen)
     }
 
-    fun gaiStrerror(errcode: Int): String? = wasmGaiStrerror(errcode)
+    fun gaiStrerror(errcode: Int): String? = nativeCall { wasmGaiStrerror(errcode) }
 
-    fun hstrerror(errcode: Int): String? = wasmHstrerror(errcode)
+    fun hstrerror(errcode: Int): String? = nativeCall { wasmHstrerror(errcode) }
 
-    fun resInit(): Int = wasmResInit()
+    fun resInit(): Int = nativeCall { wasmResInit() }
 }

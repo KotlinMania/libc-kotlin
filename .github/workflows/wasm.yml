@@ -60,7 +60,14 @@ jobs:
           wasmJsBrowserTest
           wasmJsNodeTest
           wasmWasiNodeTest
+          wasmWasiPreopenTest
           --no-configuration-cache
+
+      - name: Verify actual WASI file IO execution
+        run: >
+          python3 verification/verify_behavior_results.py
+          build/test-results/wasmWasiPreopenTest
+          --require realPreopenedDirectoryIo
 
       - name: Upload test reports (WASM)
         if: success() || failure()

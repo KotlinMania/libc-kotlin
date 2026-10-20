@@ -23,10 +23,15 @@ package io.github.kotlinmania.libc
  * allocation address must be released with unix.alignedFree, since a numeric
  * address alone cannot identify the Windows aligned CRT allocator.
  */
-public class COpaquePointer(
-    public var value: Long = 0L,
-    internal val allocationAlignment: ULong = 0uL,
+public class COpaquePointer internal constructor(
+    value: Long,
+    internal val allocationAlignment: ULong,
 ) {
+    public constructor(value: Long = 0L) : this(value, 0uL)
+
+    public var value: Long = value
+        internal set
+
     public val ptr: Long get() = value
 }
 

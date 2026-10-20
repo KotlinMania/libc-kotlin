@@ -1,5 +1,6 @@
-// port-lint: source N/A
 package io.github.kotlinmania.libc
+import io.github.kotlinmania.libc.internal.RawLibc
+import io.github.kotlinmania.libc.internal.toRawSize
 import io.github.kotlinmania.libc.unix.AddrinfoRegistry
 import io.github.kotlinmania.libc.unix.linuxlike.Addrinfo
 import io.github.kotlinmania.libc.unix.linuxlike.Passwd
@@ -19,24 +20,17 @@ import io.github.kotlinmania.libc.unix.linuxlike.Utsname
 
 // ─── stdlib ───────────────────────────────────────────────────────
 
-public fun mallocNapi(size: ULong): COpaquePointer? {
-    val ptr = LibcNative.malloc(size.toInt())
-    return if (ptr != 0) COpaquePointer(ptr.toLong()) else null
-}
+public fun mallocNapi(size: ULong): COpaquePointer? =
+    RawLibc.allocate(size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
-public fun callocNapi(nobj: ULong, size: ULong): COpaquePointer? {
-    val ptr = LibcNative.calloc(nobj.toInt(), size.toInt())
-    return if (ptr != 0) COpaquePointer(ptr.toLong()) else null
-}
+public fun callocNapi(nobj: ULong, size: ULong): COpaquePointer? =
+    RawLibc.allocateZeroed(nobj.toRawSize(), size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
-public fun reallocNapi(p: COpaquePointer?, size: ULong): COpaquePointer? {
-    val oldPtr = p?.value?.toInt() ?: 0
-    val newPtr = LibcNative.realloc(oldPtr, size.toInt())
-    return if (newPtr != 0) COpaquePointer(newPtr.toLong()) else null
-}
+public fun reallocNapi(p: COpaquePointer?, size: ULong): COpaquePointer? =
+    RawLibc.resize(p?.value ?: 0L, size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public fun freeNapi(p: COpaquePointer?) {
-    p?.let { LibcNative.free(it.value.toInt()) }
+    RawLibc.release(p?.value ?: 0L)
 }
 
 public fun atoiNapi(s: String?): Int = if (s != null) LibcNative.atoi(s) else 0

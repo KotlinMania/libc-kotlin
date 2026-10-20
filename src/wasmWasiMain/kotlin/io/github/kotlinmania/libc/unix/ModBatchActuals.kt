@@ -365,14 +365,23 @@ public actual fun fdopen(fd: Int, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): Int =
     throw UnsupportedOperationException("fileno not available on WASI — no C library access")
 
-public actual fun open(path: String?, oflag: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("open not available on WASI — no C library access")
+public actual fun open(path: String?, oflag: Int): Int =
+    throw UnsupportedOperationException("Unix open flags are unavailable in WASI; use capability-relative WASI file operations")
+
+public actual fun open(path: String?, oflag: Int, mode: UInt): Int =
+    throw UnsupportedOperationException("Unix permission modes are unavailable in WASI; use capability-relative WASI file operations")
 
 public actual fun creat(path: String?, mode: UInt): Int =
     throw UnsupportedOperationException("creat not available on WASI — no C library access")
 
-public actual fun fcntl(fd: Int, cmd: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("fcntl not available on WASI — no C library access")
+public actual fun fcntl(fd: Int, cmd: Int): Int =
+    throw UnsupportedOperationException("POSIX descriptor commands are unavailable in WASI")
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: Int): Int =
+    throw UnsupportedOperationException("POSIX descriptor commands are unavailable in WASI")
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: COpaquePointer?): Int =
+    throw UnsupportedOperationException("Host pointer descriptor commands are unavailable in WASI")
 
 public actual fun opendir(dirname: String?): DIR? =
     throw UnsupportedOperationException("opendir not available on WASI — no C library access")

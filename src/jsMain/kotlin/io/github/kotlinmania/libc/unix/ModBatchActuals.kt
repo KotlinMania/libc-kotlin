@@ -1,5 +1,7 @@
 package io.github.kotlinmania.libc.unix
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.RawLibc
+import io.github.kotlinmania.libc.internal.toRawSize
 import io.github.kotlinmania.libc.unix.bsd.apple.Sigaction
 import io.github.kotlinmania.libc.unix.bsd.apple.Stat
 import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
@@ -164,16 +166,16 @@ public actual fun strtoull(s: COpaquePointer?, endp: COpaquePointer?, base: Int)
     throw UnsupportedOperationException("strtoull requires N-API addon")
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    callocNapi(nobj, size)
+    RawLibc.allocateZeroed(nobj.toRawSize(), size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun malloc(size: ULong): COpaquePointer? =
-    mallocNapi(size)
+    RawLibc.allocate(size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
-    reallocNapi(p, size)
+    RawLibc.resize(p?.value ?: 0L, size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun free(p: COpaquePointer?) {
-    freeNapi(p)
+    RawLibc.release(p?.value ?: 0L)
 }
 
 public actual fun system(s: String?): Int =
@@ -275,22 +277,16 @@ public actual fun wmemchr(cx: UInt?, c: UInt, n: ULong): UInt? =
     throw UnsupportedOperationException("wmemchr requires N-API addon")
 
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): Int =
-    LibcNative.memcmp(cx?.value, ct?.value, n.toInt())
+    RawLibc.compare(cx?.value ?: 0L, ct?.value ?: 0L, n.toRawSize())
 
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    run {
-        val r = LibcNative.memcpy(dest?.value, src?.value, n.toInt())
-        if (r != null && r != 0) COpaquePointer(r.toLong()) else null
-    }
+    RawLibc.copy(dest?.value ?: 0L, src?.value ?: 0L, n.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmove requires N-API addon")
 
 public actual fun memset(dest: COpaquePointer?, c: Int, n: ULong): COpaquePointer? =
-    run {
-        val r = LibcNative.memset(dest?.value, c, n.toInt())
-        if (r != null && r != 0) COpaquePointer(r.toLong()) else null
-    }
+    RawLibc.fill(dest?.value ?: 0L, c, n.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: Int, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memccpy requires N-API addon")
@@ -390,14 +386,18 @@ public actual fun fdopen(fd: Int, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): Int =
     throw UnsupportedOperationException("fileno requires N-API addon")
 
-public actual fun open(path: String?, oflag: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("open requires N-API addon")
+public actual fun open(path: String?, oflag: Int): Int = RawLibc.open(path, oflag, 0)
+
+public actual fun open(path: String?, oflag: Int, mode: UInt): Int = RawLibc.open(path, oflag, mode.toInt())
 
 public actual fun creat(path: String?, mode: UInt): Int =
     throw UnsupportedOperationException("creat requires N-API addon")
 
-public actual fun fcntl(fd: Int, cmd: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("fcntl requires N-API addon")
+public actual fun fcntl(fd: Int, cmd: Int): Int = withDescriptorCommands { RawLibc.fcntlNoArgument(fd, cmd) }
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: Int): Int = withDescriptorCommands { RawLibc.fcntlInteger(fd, cmd, argument) }
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: COpaquePointer?): Int = withDescriptorCommands { RawLibc.fcntlPointer(fd, cmd, argument?.value ?: 0L) }
 
 public actual fun opendir(dirname: String?): DIR? =
     throw UnsupportedOperationException("opendir requires N-API addon")
@@ -449,8 +449,7 @@ public actual fun chown(path: String?, uid: UInt, gid: UInt): Int =
 public actual fun lchown(path: String?, uid: UInt, gid: UInt): Int =
     throw UnsupportedOperationException("lchown requires N-API addon")
 
-public actual fun close(fd: Int): Int =
-    closeNapi(fd)
+public actual fun close(fd: Int): Int = RawLibc.close(fd)
 
 public actual fun dup(fd: Int): Int =
     throw UnsupportedOperationException("dup requires N-API addon")
@@ -524,8 +523,7 @@ public actual fun isatty(fd: Int): Int =
 public actual fun link(src: String?, dst: String?): Int =
     throw UnsupportedOperationException("link requires N-API addon")
 
-public actual fun lseek(fd: Int, offset: Long, whence: Int): Long =
-    LibcNative.lseek(fd, offset.toInt(), whence).toLong()
+public actual fun lseek(fd: Int, offset: Long, whence: Int): Long = RawLibc.seek(fd, offset, whence)
 
 public actual fun pathconf(path: String?, name: Int): Long =
     throw UnsupportedOperationException("pathconf requires N-API addon")
@@ -541,8 +539,7 @@ public actual fun alignedFree(p: COpaquePointer?): Unit = free(p)
 public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc requires N-API addon")
 
-public actual fun read(fd: Int, buf: COpaquePointer?, count: ULong): Long =
-    LibcNative.read(fd, buf?.value, count.toInt()).toLong()
+public actual fun read(fd: Int, buf: COpaquePointer?, count: ULong): Long = RawLibc.read(fd, buf?.value ?: 0L, count.toRawSize())
 
 public actual fun rmdir(path: String?): Int =
     throw UnsupportedOperationException("rmdir requires N-API addon")
@@ -595,8 +592,7 @@ public actual fun wait(status: Int?): Int =
 public actual fun waitpid(pid: Int, status: Int?, options: Int): Int =
     throw UnsupportedOperationException("waitpid requires N-API addon")
 
-public actual fun write(fd: Int, buf: COpaquePointer?, count: ULong): Long =
-    LibcNative.write(fd, buf?.value, count.toInt()).toLong()
+public actual fun write(fd: Int, buf: COpaquePointer?, count: ULong): Long = RawLibc.write(fd, buf?.value ?: 0L, count.toRawSize())
 
 public actual fun pread(fd: Int, buf: COpaquePointer?, count: ULong, offset: Long): Long =
     throw UnsupportedOperationException("pread requires N-API addon")

@@ -1,4 +1,3 @@
-// port-lint: source N/A
 package io.github.kotlinmania.libc
 
 /**
@@ -266,8 +265,10 @@ public external interface LibcNativeBindings {
     public fun pidfd_open(pid: Int, flags: Int): Int
 }
 
-private fun loadLibcNative(): LibcNativeBindings =
-    js(
+private fun loadLibcNative(): LibcNativeBindings {
+    val node: Boolean = js("typeof globalThis.process !== 'undefined' && typeof globalThis.process.getBuiltinModule === 'function'")
+    if (!node) throw UnsupportedOperationException("Native libc facilities require Node.js; browsers have no host process or C library access")
+    return js(
         """
         (function() {
             if (globalThis.__kotlinmania_libc_native) return globalThis.__kotlinmania_libc_native;
@@ -776,5 +777,8 @@ private fun loadLibcNative(): LibcNativeBindings =
         })()
         """,
     ).unsafeCast<LibcNativeBindings>()
+}
 
-public val LibcNative: LibcNativeBindings = loadLibcNative()
+private val loadedLibcNative: LibcNativeBindings by lazy { loadLibcNative() }
+
+public val LibcNative: LibcNativeBindings get() = loadedLibcNative

@@ -370,10 +370,17 @@ class NativePointerRegressionTest {
 
     @Test
     fun dlfcnOperationsExecute() {
+        io.github.kotlinmania.libc.unix
+            .dlerror()
         val handle =
             io.github.kotlinmania.libc.unix
                 .dlopen(null, 0)
         assertNotNull(handle)
+        assertTrue(
+            io.github.kotlinmania.libc.unix
+                .dlerror()
+                .isNullOrEmpty(),
+        )
         val sym =
             io.github.kotlinmania.libc.unix
                 .dlsym(handle, "malloc")
@@ -386,17 +393,17 @@ class NativePointerRegressionTest {
         val closeRes =
             io.github.kotlinmania.libc.unix
                 .dlclose(handle)
-        assertTrue(closeRes == 0 || closeRes == -1)
+        assertEquals(0, closeRes)
     }
 
     @Test
     fun posixPthreadFunctionsExecute() {
         val selfThread =
             io.github.kotlinmania.libc.new.common.posix.pthread
-                .PthreadT(1L.toCPointer<CPointed>()!!)
+                .PthreadT(assertNotNull(libc.cinterop.libc_pthread_self()))
         val res =
             io.github.kotlinmania.libc.new.common.posix.pthread
                 .pthreadKill(selfThread, 0)
-        assertTrue(res == 0 || res == 3 || res == 22)
+        assertEquals(0, res)
     }
 }

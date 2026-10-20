@@ -812,10 +812,11 @@ JNIEXPORT jlong JNICALL
 Java_io_github_kotlinmania_libc_internal_LibcJni_syscall(
     JNIEnv* env, jclass clazz, jlong num, jlong a1, jlong a2, jlong a3, jlong a4, jlong a5, jlong a6) {
     (void)env; (void)clazz;
-#ifndef _WIN32
+#if defined(__linux__)
     return (jlong)syscall((long)num, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
 #else
     (void)num; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+    errno = ENOSYS;
     return -1;
 #endif
 }
@@ -1572,3 +1573,174 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_resInit(
 }
 
 
+
+/* Raw addresses remain 64-bit values throughout JNI. */
+#include <fcntl.h>
+#include <limits.h>
+#ifdef _WIN32
+#include <sys/stat.h>
+#endif
+
+static _Thread_local int raw_last_error;
+static int64_t raw_record(int64_t result) {
+    raw_last_error = errno;
+    return result;
+}
+static int raw_size(jlong size) {
+    if ((uint64_t)size > SIZE_MAX) { errno = EINVAL; raw_last_error = errno; return 0; }
+    return 1;
+}
+#define RAW_JNI(name) Java_io_github_kotlinmania_libc_internal_RawLibc_##name
+
+JNIEXPORT jlong JNICALL RAW_JNI(allocate)(JNIEnv* env, jobject self, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(size)) return 0;
+    return raw_record((int64_t)(uintptr_t)malloc((size_t)size));
+}
+JNIEXPORT jlong JNICALL RAW_JNI(allocateZeroed)(JNIEnv* env, jobject self, jlong count, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(count) || !raw_size(size)) return 0;
+    return raw_record((int64_t)(uintptr_t)calloc((size_t)count, (size_t)size));
+}
+JNIEXPORT jlong JNICALL RAW_JNI(resize)(JNIEnv* env, jobject self, jlong address, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(size)) return 0;
+    return raw_record((int64_t)(uintptr_t)realloc((void*)(uintptr_t)address, (size_t)size));
+}
+JNIEXPORT void JNICALL RAW_JNI(release)(JNIEnv* env, jobject self, jlong address) {
+    (void)env; (void)self;
+    free((void*)(uintptr_t)address); raw_last_error = errno;
+}
+JNIEXPORT jlong JNICALL RAW_JNI(fill)(JNIEnv* env, jobject self, jlong address, jint value, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(size)) return 0;
+    return raw_record((int64_t)(uintptr_t)memset((void*)(uintptr_t)address, value, (size_t)size));
+}
+JNIEXPORT jlong JNICALL RAW_JNI(copy)(JNIEnv* env, jobject self, jlong destination, jlong source, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(size)) return 0;
+    return raw_record((int64_t)(uintptr_t)memcpy((void*)(uintptr_t)destination, (void*)(uintptr_t)source, (size_t)size));
+}
+JNIEXPORT jint JNICALL RAW_JNI(compare)(JNIEnv* env, jobject self, jlong first, jlong second, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(size)) return -1;
+    return (jint)raw_record(memcmp((void*)(uintptr_t)first, (void*)(uintptr_t)second, (size_t)size));
+}
+JNIEXPORT jint JNICALL RAW_JNI(openPath)(JNIEnv* env, jobject self, jbyteArray path, jint flags, jint mode) {
+    (void)self;
+    if (!path) { errno = EFAULT; return (jint)raw_record(-1); }
+    jsize length = (*env)->GetArrayLength(env, path);
+    if (length < 1) { errno = EINVAL; return (jint)raw_record(-1); }
+    jbyte* bytes = (*env)->GetByteArrayElements(env, path, NULL);
+    if (!bytes) return -1;
+    int result;
+    if (bytes[length - 1] != 0) { errno = EINVAL; result = -1; }
+    else {
+#ifdef _WIN32
+        result = _open((const char*)bytes, flags, mode);
+#else
+        result = open((const char*)bytes, flags, (mode_t)mode);
+#endif
+    }
+    int saved = errno;
+    (*env)->ReleaseByteArrayElements(env, path, bytes, JNI_ABORT);
+    raw_last_error = saved;
+    return result;
+}
+JNIEXPORT jint JNICALL RAW_JNI(close)(JNIEnv* env, jobject self, jint fd) {
+    (void)env; (void)self;
+#ifdef _WIN32
+    return (jint)raw_record(_close(fd));
+#else
+    return (jint)raw_record(close(fd));
+#endif
+}
+JNIEXPORT jlong JNICALL RAW_JNI(read)(JNIEnv* env, jobject self, jint fd, jlong address, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(size)) return -1;
+#ifdef _WIN32
+    if ((uint64_t)size > UINT_MAX) { errno = EINVAL; return raw_record(-1); }
+    return raw_record(_read(fd, (void*)(uintptr_t)address, (unsigned int)size));
+#else
+    return raw_record(read(fd, (void*)(uintptr_t)address, (size_t)size));
+#endif
+}
+JNIEXPORT jlong JNICALL RAW_JNI(write)(JNIEnv* env, jobject self, jint fd, jlong address, jlong size) {
+    (void)env; (void)self;
+    if (!raw_size(size)) return -1;
+#ifdef _WIN32
+    if ((uint64_t)size > UINT_MAX) { errno = EINVAL; return raw_record(-1); }
+    return raw_record(_write(fd, (void*)(uintptr_t)address, (unsigned int)size));
+#else
+    return raw_record(write(fd, (void*)(uintptr_t)address, (size_t)size));
+#endif
+}
+JNIEXPORT jlong JNICALL RAW_JNI(seek)(JNIEnv* env, jobject self, jint fd, jlong offset, jint whence) {
+    (void)env; (void)self;
+#ifdef _WIN32
+    return raw_record(_lseeki64(fd, offset, whence));
+#else
+    return raw_record(lseek(fd, (off_t)offset, whence));
+#endif
+}
+JNIEXPORT jint JNICALL RAW_JNI(errno)(JNIEnv* env, jobject self) {
+    (void)env; (void)self; return raw_last_error;
+}
+JNIEXPORT jintArray JNICALL RAW_JNI(openFlags)(JNIEnv* env, jobject self) {
+    (void)self;
+    jint values[] = { O_RDONLY, O_WRONLY, O_RDWR, O_CREAT, O_TRUNC, SEEK_SET,
+#ifdef _WIN32
+        _O_BINARY
+#else
+        0
+#endif
+    };
+    jintArray result = (*env)->NewIntArray(env, 7);
+    if (result) (*env)->SetIntArrayRegion(env, result, 0, 7, values);
+    return result;
+}
+JNIEXPORT jintArray JNICALL RAW_JNI(descriptorCommands)(JNIEnv* env, jobject self) {
+    (void)self;
+#ifdef _WIN32
+    (void)env; return NULL;
+#else
+    jint values[] = { F_GETFD, F_SETFD, FD_CLOEXEC, EBADF };
+    jintArray result = (*env)->NewIntArray(env, 4);
+    if (result) (*env)->SetIntArrayRegion(env, result, 0, 4, values);
+    return result;
+#endif
+}
+JNIEXPORT jint JNICALL RAW_JNI(fcntlNoArgument)(JNIEnv* env, jobject self, jint fd, jint command) {
+    (void)env; (void)self;
+#ifdef _WIN32
+    (void)fd; (void)command; errno = ENOSYS; return (jint)raw_record(-1);
+#else
+    return (jint)raw_record(fcntl(fd, command));
+#endif
+}
+JNIEXPORT jint JNICALL RAW_JNI(fcntlInteger)(JNIEnv* env, jobject self, jint fd, jint command, jint argument) {
+    (void)env; (void)self;
+#ifdef _WIN32
+    (void)fd; (void)command; (void)argument; errno = ENOSYS; return (jint)raw_record(-1);
+#else
+    return (jint)raw_record(fcntl(fd, command, argument));
+#endif
+}
+JNIEXPORT jint JNICALL RAW_JNI(fcntlPointer)(JNIEnv* env, jobject self, jint fd, jint command, jlong address) {
+    (void)env; (void)self;
+#ifdef _WIN32
+    (void)fd; (void)command; (void)address; errno = ENOSYS; return (jint)raw_record(-1);
+#else
+    return (jint)raw_record(fcntl(fd, command, (void*)(uintptr_t)address));
+#endif
+}
+
+JNIEXPORT jint JNICALL RAW_JNI(numericNameinfoFlags)(JNIEnv* env, jobject self) {
+    (void)env; (void)self;
+    return NI_NUMERICHOST | NI_NUMERICSERV;
+}
+
+JNIEXPORT jint JNICALL RAW_JNI(abiVersion)(JNIEnv* env, jobject self) {
+    (void)env; (void)self;
+    return 2;
+}

@@ -9,14 +9,9 @@ import libc.cinterop.libc_fcntl_int
 import libc.cinterop.libc_fcntl_noarg
 import libc.cinterop.libc_fcntl_pointer
 
-/** Passes an absent, integer, or raw pointer argument to the host descriptor API. */
-public actual fun fcntl(fd: Int, cmd: Int, vararg args: Any?): Int {
-    require(args.size <= 1) { "fcntl accepts at most one command argument" }
-    if (args.isEmpty()) return libc_fcntl_noarg(fd, cmd)
-    return when (val argument = args[0]) {
-        is Int -> libc_fcntl_int(fd, cmd, argument)
-        is COpaquePointer -> libc_fcntl_pointer(fd, cmd, argument.value.toCPointer<ByteVar>())
-        null -> libc_fcntl_pointer(fd, cmd, null)
-        else -> throw IllegalArgumentException("fcntl requires an Int or COpaquePointer command argument")
-    }
-}
+public actual fun fcntl(fd: Int, cmd: Int): Int = libc_fcntl_noarg(fd, cmd)
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: Int): Int = libc_fcntl_int(fd, cmd, argument)
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: COpaquePointer?): Int =
+    libc_fcntl_pointer(fd, cmd, argument?.value?.toCPointer<ByteVar>())

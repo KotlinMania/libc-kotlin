@@ -1,6 +1,8 @@
 package io.github.kotlinmania.libc.unix
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.internal.LibcJni
+import io.github.kotlinmania.libc.internal.RawLibc
+import io.github.kotlinmania.libc.internal.toRawSize
 import io.github.kotlinmania.libc.unix.bsd.apple.Sigaction
 import io.github.kotlinmania.libc.unix.bsd.apple.Stat
 import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
@@ -165,15 +167,17 @@ public actual fun strtoull(s: COpaquePointer?, endp: COpaquePointer?, base: Int)
     throw UnsupportedOperationException("strtoull not available on Android host — use androidNative target for FFI")
 
 public actual fun calloc(nobj: ULong, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("calloc not available on Android host — use androidNative target for FFI")
+    RawLibc.allocateZeroed(nobj.toRawSize(), size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun malloc(size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("malloc not available on Android host — use androidNative target for FFI")
+    RawLibc.allocate(size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun realloc(p: COpaquePointer?, size: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("realloc not available on Android host — use androidNative target for FFI")
+    RawLibc.resize(p?.value ?: 0L, size.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
-public actual fun free(p: COpaquePointer?): Unit = throw UnsupportedOperationException("free not available on Android host — use androidNative target for FFI")
+public actual fun free(p: COpaquePointer?) {
+    RawLibc.release(p?.value ?: 0L)
+}
 
 public actual fun system(s: String?): Int =
     throw UnsupportedOperationException("system not available on Android host — use androidNative target for FFI")
@@ -269,16 +273,16 @@ public actual fun wmemchr(cx: UInt?, c: UInt, n: ULong): UInt? =
     throw UnsupportedOperationException("wmemchr not available on Android host — use androidNative target for FFI")
 
 public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: ULong): Int =
-    throw UnsupportedOperationException("memcmp not available on Android host — use androidNative target for FFI")
+    RawLibc.compare(cx?.value ?: 0L, ct?.value ?: 0L, n.toRawSize())
 
 public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memcpy not available on Android host — use androidNative target for FFI")
+    RawLibc.copy(dest?.value ?: 0L, src?.value ?: 0L, n.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memmove not available on Android host — use androidNative target for FFI")
 
 public actual fun memset(dest: COpaquePointer?, c: Int, n: ULong): COpaquePointer? =
-    throw UnsupportedOperationException("memset not available on Android host — use androidNative target for FFI")
+    RawLibc.fill(dest?.value ?: 0L, c, n.toRawSize()).takeIf { it != 0L }?.let { COpaquePointer(it) }
 
 public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: Int, n: ULong): COpaquePointer? =
     throw UnsupportedOperationException("memccpy not available on Android host — use androidNative target for FFI")
@@ -437,14 +441,18 @@ public actual fun fdopen(fd: Int, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): Int =
     throw UnsupportedOperationException("fileno not available on Android host — use androidNative target for FFI")
 
-public actual fun open(path: String?, oflag: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("open not available on Android host — use androidNative target for FFI")
+public actual fun open(path: String?, oflag: Int): Int = RawLibc.open(path, oflag, 0)
+
+public actual fun open(path: String?, oflag: Int, mode: UInt): Int = RawLibc.open(path, oflag, mode.toInt())
 
 public actual fun creat(path: String?, mode: UInt): Int =
     throw UnsupportedOperationException("creat not available on Android host — use androidNative target for FFI")
 
-public actual fun fcntl(fd: Int, cmd: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("fcntl not available on Android host — use androidNative target for FFI")
+public actual fun fcntl(fd: Int, cmd: Int): Int = withDescriptorCommands { RawLibc.fcntlNoArgument(fd, cmd) }
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: Int): Int = withDescriptorCommands { RawLibc.fcntlInteger(fd, cmd, argument) }
+
+public actual fun fcntl(fd: Int, cmd: Int, argument: COpaquePointer?): Int = withDescriptorCommands { RawLibc.fcntlPointer(fd, cmd, argument?.value ?: 0L) }
 
 public actual fun opendir(dirname: String?): DIR? =
     throw UnsupportedOperationException("opendir not available on Android host — use androidNative target for FFI")
@@ -496,8 +504,7 @@ public actual fun chown(path: String?, uid: UInt, gid: UInt): Int =
 public actual fun lchown(path: String?, uid: UInt, gid: UInt): Int =
     throw UnsupportedOperationException("lchown not available on Android host — use androidNative target for FFI")
 
-public actual fun close(fd: Int): Int =
-    throw UnsupportedOperationException("close not available on Android host — use androidNative target for FFI")
+public actual fun close(fd: Int): Int = RawLibc.close(fd)
 
 public actual fun dup(fd: Int): Int =
     throw UnsupportedOperationException("dup not available on Android host — use androidNative target for FFI")
@@ -571,8 +578,7 @@ public actual fun isatty(fd: Int): Int =
 public actual fun link(src: String?, dst: String?): Int =
     throw UnsupportedOperationException("link not available on Android host — use androidNative target for FFI")
 
-public actual fun lseek(fd: Int, offset: Long, whence: Int): Long =
-    throw UnsupportedOperationException("lseek not available on Android host — use androidNative target for FFI")
+public actual fun lseek(fd: Int, offset: Long, whence: Int): Long = RawLibc.seek(fd, offset, whence)
 
 public actual fun pathconf(path: String?, name: Int): Long =
     throw UnsupportedOperationException("pathconf not available on Android host — use androidNative target for FFI")
@@ -588,8 +594,7 @@ public actual fun alignedFree(p: COpaquePointer?): Unit = free(p)
 public actual fun alignedAlloc(alignment: ULong, size: ULong): COpaquePointer? =
     throw UnsupportedOperationException("alignedAlloc not available on Android host — use androidNative target for FFI")
 
-public actual fun read(fd: Int, buf: COpaquePointer?, count: ULong): Long =
-    throw UnsupportedOperationException("read not available on Android host — use androidNative target for FFI")
+public actual fun read(fd: Int, buf: COpaquePointer?, count: ULong): Long = RawLibc.read(fd, buf?.value ?: 0L, count.toRawSize())
 
 public actual fun rmdir(path: String?): Int =
     throw UnsupportedOperationException("rmdir not available on Android host — use androidNative target for FFI")
@@ -642,8 +647,7 @@ public actual fun wait(status: Int?): Int =
 public actual fun waitpid(pid: Int, status: Int?, options: Int): Int =
     throw UnsupportedOperationException("waitpid not available on Android host — use androidNative target for FFI")
 
-public actual fun write(fd: Int, buf: COpaquePointer?, count: ULong): Long =
-    throw UnsupportedOperationException("write not available on Android host — use androidNative target for FFI")
+public actual fun write(fd: Int, buf: COpaquePointer?, count: ULong): Long = RawLibc.write(fd, buf?.value ?: 0L, count.toRawSize())
 
 public actual fun pread(fd: Int, buf: COpaquePointer?, count: ULong, offset: Long): Long =
     throw UnsupportedOperationException("pread not available on Android host — use androidNative target for FFI")

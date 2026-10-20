@@ -838,8 +838,9 @@ public actual fun fdopen(fd: Int, mode: String?): FILE? {
 public actual fun fileno(stream: FILE?): Int =
     libc.cinterop.libc_fileno(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun open(path: String?, oflag: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
+public actual fun open(path: String?, oflag: Int): Int = libc.cinterop.libc_open(path, oflag, 0u)
+
+public actual fun open(path: String?, oflag: Int, mode: UInt): Int = libc.cinterop.libc_open(path, oflag, mode)
 
 public actual fun creat(path: String?, mode: UInt): Int =
     libc.cinterop.libc_creat(path, mode)
