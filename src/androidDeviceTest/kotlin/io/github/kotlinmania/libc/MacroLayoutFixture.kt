@@ -3,7 +3,9 @@ package io.github.kotlinmania.libc
 import io.github.kotlinmania.libc.internal.LibcJni
 
 internal object MacroLayoutBackend {
-    init { LibcJni.getErrno() }
+    init {
+        LibcJni.getErrno()
+    }
     external fun value(index: Int): Long
 }
 

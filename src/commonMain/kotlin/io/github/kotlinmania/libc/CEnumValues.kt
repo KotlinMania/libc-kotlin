@@ -15,17 +15,20 @@ internal class CEnumValues<T : Any>(
     }
 }
 
-internal fun cEnumValues(): CEnumValues<UInt> = CEnumValues(0u) {
-    check(it < UInt.MAX_VALUE) { "Enum discriminant overflow" }
-    it + 1u
-}
+internal fun cEnumValues(): CEnumValues<UInt> =
+    CEnumValues(0u) {
+        check(it < UInt.MAX_VALUE) { "Enum discriminant overflow" }
+        it + 1u
+    }
 
-internal fun cEnumUShortValues(): CEnumValues<UShort> = CEnumValues(0u.toUShort()) {
-    check(it < UShort.MAX_VALUE) { "Enum discriminant overflow" }
-    (it + 1u).toUShort()
-}
+internal fun cEnumUShortValues(): CEnumValues<UShort> =
+    CEnumValues(0u.toUShort()) {
+        check(it < UShort.MAX_VALUE) { "Enum discriminant overflow" }
+        (it + 1u).toUShort()
+    }
 
-internal fun cEnumUByteValues(): CEnumValues<UByte> = CEnumValues(0u.toUByte()) {
-    check(it < UByte.MAX_VALUE) { "Enum discriminant overflow" }
-    (it + 1u).toUByte()
-}
+internal fun cEnumUByteValues(): CEnumValues<UByte> =
+    CEnumValues(0u.toUByte()) {
+        check(it < UByte.MAX_VALUE) { "Enum discriminant overflow" }
+        (it + 1u).toUByte()
+    }

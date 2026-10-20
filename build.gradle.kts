@@ -135,7 +135,8 @@ val intellijCoroutinesVersion =
     providers.gradleProperty("versions.intellij.coroutines").getOrElse("1.10.2-intellij-1")
 
 val projectKonanDataDirectory =
-    providers.environmentVariable("KONAN_DATA_DIR")
+    providers
+        .environmentVariable("KONAN_DATA_DIR")
         .map {
             require(it.isNotBlank()) { "KONAN_DATA_DIR must not be blank" }
             File(it).absoluteFile
@@ -1788,55 +1789,83 @@ val macroLayoutDirectory = layout.buildDirectory.dir("macro-layout-wasm")
 val macroLayoutWasm = macroLayoutDirectory.map { it.file("macro-layout.wasm") }
 val macroLayoutScript = macroLayoutDirectory.map { it.file("macro-layout.js") }
 val macroFixtureLlvmBin = providers.gradleProperty("project.macroFixture.llvmBin").orElse("")
-val compileMacroLayoutWasm = tasks.register("compileMacroLayoutWasm") {
-    inputs.files("verification/macro-layout-wasm.c", "src/nativeInterop/cinterop/macro_parity_fixture.h")
-    inputs.property("llvmBin", macroFixtureLlvmBin)
-    outputs.dir(macroLayoutDirectory)
-    doLast {
-        val directory = macroLayoutDirectory.get().asFile.apply { mkdirs() }
-        val llvmBin = macroFixtureLlvmBin.get()
-        fun tool(name: String) = if (llvmBin.isEmpty()) name else File(llvmBin, name).absolutePath
-        val objectFile = directory.resolve("macro-layout.o")
-        val wasmFile = macroLayoutWasm.get().asFile
-        val execOps = project.serviceOf<ExecOperations>()
-        execOps.exec {
-            commandLine(tool("clang"), "--target=wasm32", "-ffreestanding", "-nostdlib", "-Wall", "-Wextra", "-Werror",
-                "-Isrc/nativeInterop/cinterop", "-c", "verification/macro-layout-wasm.c", "-o", objectFile.absolutePath)
-        }.assertNormalExitValue()
-        execOps.exec {
-            commandLine(tool("lld"), "-flavor", "wasm", "--no-entry", "--export=kotlinmania_macro_layout_value",
-                objectFile.absolutePath, "-o", wasmFile.absolutePath)
-        }.assertNormalExitValue()
-        val encoded = Base64.getEncoder().encodeToString(wasmFile.readBytes())
-        macroLayoutScript.get().asFile.writeText(
-            """
-            // Actual compiler output from macro_parity_fixture.h; keep one instance for all address comparisons.
-            (() => {
-                const bytes = Uint8Array.from(atob('$encoded'), c => c.charCodeAt(0));
-                const instance = new WebAssembly.Instance(new WebAssembly.Module(bytes), {});
-                globalThis.__kotlinmaniaMacroLayoutValue = index => instance.exports.kotlinmania_macro_layout_value(index).toString();
-            })();
-            """.trimIndent() + "\n",
-        )
+val compileMacroLayoutWasm =
+    tasks.register("compileMacroLayoutWasm") {
+        inputs.files("verification/macro-layout-wasm.c", "src/nativeInterop/cinterop/macro_parity_fixture.h")
+        inputs.property("llvmBin", macroFixtureLlvmBin)
+        outputs.dir(macroLayoutDirectory)
+        doLast {
+            val directory = macroLayoutDirectory.get().asFile.apply { mkdirs() }
+            val llvmBin = macroFixtureLlvmBin.get()
+            fun tool(name: String) = if (llvmBin.isEmpty()) name else File(llvmBin, name).absolutePath
+            val objectFile = directory.resolve("macro-layout.o")
+            val wasmFile = macroLayoutWasm.get().asFile
+            val execOps = project.serviceOf<ExecOperations>()
+            execOps
+                .exec {
+                    commandLine(
+                        tool("clang"),
+                        "--target=wasm32",
+                        "-ffreestanding",
+                        "-nostdlib",
+                        "-Wall",
+                        "-Wextra",
+                        "-Werror",
+                        "-Isrc/nativeInterop/cinterop",
+                        "-c",
+                        "verification/macro-layout-wasm.c",
+                        "-o",
+                        objectFile.absolutePath,
+                    )
+                }.assertNormalExitValue()
+            execOps
+                .exec {
+                    commandLine(
+                        tool("lld"),
+                        "-flavor",
+                        "wasm",
+                        "--no-entry",
+                        "--export=kotlinmania_macro_layout_value",
+                        objectFile.absolutePath,
+                        "-o",
+                        wasmFile.absolutePath,
+                    )
+                }.assertNormalExitValue()
+            val encoded = Base64.getEncoder().encodeToString(wasmFile.readBytes())
+            macroLayoutScript.get().asFile.writeText(
+                """
+                // Actual compiler output from macro_parity_fixture.h; keep one instance for all address comparisons.
+                (() => {
+                    const bytes = Uint8Array.from(atob('$encoded'), c => c.charCodeAt(0));
+                    const instance = new WebAssembly.Instance(new WebAssembly.Module(bytes), {});
+                    globalThis.__kotlinmaniaMacroLayoutValue = index => instance.exports.kotlinmania_macro_layout_value(index).toString();
+                })();
+                """.trimIndent() + "\n",
+            )
+        }
     }
-}
-tasks.withType<org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest>().matching {
-    it.name == "jsBrowserTest" || it.name == "wasmJsBrowserTest"
-}.configureEach {
-    dependsOn(compileMacroLayoutWasm)
-    inputs.file(macroLayoutScript)
-    environment("LIBC_MACRO_LAYOUT_SCRIPT", macroLayoutScript.get().asFile.absolutePath)
-}
+tasks
+    .withType<org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest>()
+    .matching {
+        it.name == "jsBrowserTest" || it.name == "wasmJsBrowserTest"
+    }.configureEach {
+        dependsOn(compileMacroLayoutWasm)
+        inputs.file(macroLayoutScript)
+        environment("LIBC_MACRO_LAYOUT_SCRIPT", macroLayoutScript.get().asFile.absolutePath)
+    }
 val macroWasiWasm = objects.fileProperty()
-val prepareMacroWasiTestLoader = tasks.register<Copy>("prepareMacroWasiTestLoader") {
-    from("verification/macro-wasi-test-loader.mjs")
-    into(layout.buildDirectory.dir("macro-layout-wasi"))
-}
+val prepareMacroWasiTestLoader =
+    tasks.register<Copy>("prepareMacroWasiTestLoader") {
+        from("verification/macro-wasi-test-loader.mjs")
+        into(layout.buildDirectory.dir("macro-layout-wasi"))
+    }
 tasks.named<org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest>("wasmWasiNodeTest") {
     @OptIn(ExperimentalWasmDsl::class)
-    val binary = compilation.binaries
-        .filterIsInstance<org.jetbrains.kotlin.gradle.targets.js.ir.ExecutableWasm>()
-        .single { it.mode == org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsBinaryMode.DEVELOPMENT }
+    val binary =
+        compilation.binaries
+            .filterIsInstance<org.jetbrains.kotlin.gradle.targets.js.ir.ExecutableWasm>()
+            .single { it.mode == org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsBinaryMode.DEVELOPMENT }
+
     @OptIn(ExperimentalWasmDsl::class)
     val kotlinWasmFile = binary.mainWasmFile
     macroWasiWasm.set(kotlinWasmFile)
@@ -1862,14 +1891,14 @@ val wasmWasiPreopenTest =
         inputs.file(macroLayoutWasm)
         doFirst {
             commandLine(
-            "node",
-            "verification/wasi-preopen-test.mjs",
-            macroWasiWasm.get().asFile,
-            layout.buildDirectory
-                .dir("test-results/wasmWasiPreopenTest")
-                .get()
-                .asFile,
-            macroLayoutWasm.get().asFile,
+                "node",
+                "verification/wasi-preopen-test.mjs",
+                macroWasiWasm.get().asFile,
+                layout.buildDirectory
+                    .dir("test-results/wasmWasiPreopenTest")
+                    .get()
+                    .asFile,
+                macroLayoutWasm.get().asFile,
             )
         }
     }
