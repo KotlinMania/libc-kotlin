@@ -6,5 +6,5 @@ public data class Sigaction(
     val saFlags: Int,
     val saSigaction: ULong,
     val saMask: ULong,
-    val saRestorer: (() -> Unit)?,
+    val saRestorer: io.github.kotlinmania.libc.SignalRestorer?,
 )

@@ -11,7 +11,7 @@ public data class Sigevent(
     val sigevNotify: Int,
     val sigevSigno: Int,
     val sigevValue: Sigval,
-    val sigevNotifyFunction: ((Sigval) -> Unit)?,
+    val sigevNotifyFunction: SignalNotification?,
     val sigevNotifyAttributes: UInt?,
 )
 
@@ -29,10 +29,10 @@ public data class SiginfoT(
 )
 
 public data class Sigaction(
-    val saHandler: ((Int) -> Unit)?,
+    val saHandler: io.github.kotlinmania.libc.SignalHandler?,
     val saMask: ULong,
     val saFlags: Int,
-    val saSigaction: ((Int, SiginfoT?, COpaquePointer?) -> Unit)?,
+    val saSigaction: SignalAction?,
 )
 
 public const val SIGHUP: Int = 1

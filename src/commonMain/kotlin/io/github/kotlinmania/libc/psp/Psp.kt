@@ -1406,9 +1406,9 @@ public data class GeStack(
 )
 
 public data class GeCallbackData(
-    val signalFunc: ((Int, COpaquePointer?) -> Unit)?,
+    val signalFunc: GraphicsCallback?,
     val signalArg: COpaquePointer?,
-    val finishFunc: ((Int, COpaquePointer?) -> Unit)?,
+    val finishFunc: GraphicsCallback?,
     val finishArg: COpaquePointer?,
 )
 
@@ -1534,7 +1534,7 @@ public data class SceKernelThreadInfo(
     val name: UByteArray,
     val attr: UInt,
     val status: Int,
-    val entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
+    val entry: ThreadEntry?,
     val stack: COpaquePointer?,
     val stackSize: Int,
     val gpReg: COpaquePointer?,
@@ -1610,7 +1610,7 @@ public data class SceKernelVTimerInfo(
     val base: SceKernelSysClock,
     val current: SceKernelSysClock,
     val schedule: SceKernelSysClock,
-    val handler: ((io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.psp.SceKernelSysClock?, io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?,
+    val handler: VTimerHandler?,
     val common: COpaquePointer?,
 )
 
@@ -1619,14 +1619,14 @@ public data class SceKernelThreadEventHandlerInfo(
     val name: UByteArray,
     val threadId: SceUid,
     val mask: Int,
-    val handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
+    val handler: ThreadEventHandler?,
     val common: COpaquePointer?,
 )
 
 public data class SceKernelAlarmInfo(
     val size: ULong,
     val schedule: SceKernelSysClock,
-    val handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?,
+    val handler: AlarmHandler?,
     val common: COpaquePointer?,
 )
 
@@ -1684,7 +1684,7 @@ public data class SceKernelCallbackInfo(
     val size: ULong,
     val name: UByteArray,
     val threadId: SceUid,
-    val callback: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
+    val callback: KernelCallback?,
     val common: COpaquePointer?,
     val notifyCount: Int,
     val notifyArg: Int,
@@ -1786,7 +1786,7 @@ public data class SceMpegRingbuffer(
     val unk2: UInt,
     val unk3: UInt,
     val data: COpaquePointer?,
-    val callback: ((io.github.kotlinmania.libc.COpaquePointer?, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?,
+    val callback: MpegRingbufferCallback?,
     val cbParam: COpaquePointer?,
     val unk4: UInt,
     val unk5: UInt,
@@ -3509,7 +3509,7 @@ public expect fun sceGuBreak(mode: Int)
 
 public expect fun sceGuContinue()
 
-public fun sceGuSetCallback(signal: GuCallbackId, callback: ((Int, io.github.kotlinmania.libc.COpaquePointer?) -> Unit)?): ((Int, io.github.kotlinmania.libc.COpaquePointer?) -> Unit)? = throw UnsupportedOperationException("Not implemented on this platform")
+public fun sceGuSetCallback(signal: GuCallbackId, callback: GraphicsCallback?): GraphicsCallback? = throw UnsupportedOperationException("Not implemented on this platform")
 
 public expect fun sceGuSignal(behavior: SignalBehavior, signal: Int)
 

@@ -6,5 +6,5 @@ import io.github.kotlinmania.libc.*
 public data class CAnonymousElf64AuxvUnion(
     val aVal: Long? = null,
     val aPtr: COpaquePointer? = null,
-    val aFcn: (() -> Unit)? = null,
+    val aFcn: ElfAuxiliaryFunction? = null,
 )

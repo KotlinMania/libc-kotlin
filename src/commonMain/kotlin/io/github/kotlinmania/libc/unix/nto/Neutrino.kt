@@ -95,7 +95,7 @@ public data class ChannelConnectAttr(
 
 public data class SighandlerInfo(
     val siginfo: SiginfoT,
-    val handler: ((Int) -> Unit)?,
+    val handler: io.github.kotlinmania.libc.SignalHandler?,
     val context: COpaquePointer?,
 )
 

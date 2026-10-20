@@ -8,7 +8,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
 public data class Sigaction(
     val saSigaction: ULong,
     val saFlags: Int,
-    val saRestorer: (() -> Unit)?,
+    val saRestorer: io.github.kotlinmania.libc.SignalRestorer?,
     val saMask: SigsetT,
 )
 
