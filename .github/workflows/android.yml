@@ -66,10 +66,15 @@ jobs:
           adb -s emulator-5554 shell chmod 755 /data/local/tmp/libc-native-test
           adb -s emulator-5554 shell 'cd /data/local/tmp && ./libc-native-test' | tee build/android-native-tests.log
 
+      - name: Download the same-head real KMP root publication
+        uses: actions/download-artifact@v8
+        with:
+          name: libc-root-publication-${{ github.sha }}
+          path: build/staging-deploy
+
       - name: Stage the actual Android publication for independent consumption
         run: >
-          ./gradlew publishKotlinMultiplatformPublicationToCentralPortalStagingRepository
-          publishAndroidPublicationToCentralPortalStagingRepository jvmJar
+          ./gradlew publishAndroidPublicationToCentralPortalStagingRepository jvmJar
           verifyAndroidLibraryArtifact verifyPackagedJniArtifact
           --no-daemon --max-workers=2 --no-configuration-cache
 
