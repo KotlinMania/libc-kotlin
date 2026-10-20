@@ -196,3 +196,11 @@ OS descriptors explicitly. WASI preview1 FILE operations use real preopened
 directory capabilities; host-pointer memory and POSIX descriptor commands are
 unsupported. Windows file operations accept `fileOpenFlags().binary` for byte
 preservation; POSIX descriptor commands are unavailable on Windows.
+
+### Existing LLVM for macOS-to-Linux C archives
+
+A macOS cross-build can set `-Pproject.ffi.llvmBin=/absolute/path/to/installed/llvm/bin`
+to use that installation's real `llvm-ar`. The Linux GCC sysroot is still required;
+the archiver path and executable are tracked task inputs. An invalid explicit tool
+fails before use. Without this property, the existing NDK LLVM archiver route remains
+available. Gradle offline mode refuses any missing toolchain download.

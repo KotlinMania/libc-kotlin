@@ -94,6 +94,8 @@ fun boolProperty(name: String, default: Boolean = false): Boolean =
 val nativeFfiEnabled = boolProperty("project.ffi.native")
 val jvmFfiEnabled = boolProperty("project.ffi.jvm")
 val napiFfiEnabled = boolProperty("project.ffi.napi")
+// Optional installed LLVM bin directory for macOS-to-Linux C archive creation.
+val ffiLlvmBin = providers.gradleProperty("project.ffi.llvmBin").orElse("")
 
 val ffiNameRaw = providers.gradleProperty("project.ffi.name").getOrElse("Ffi").trim()
 val ffiName = ffiNameRaw.replaceFirstChar { it.uppercase() } // Libc, Png, ...
@@ -599,6 +601,8 @@ kotlin {
                     inputs.file(cSource)
                     inputs.file(hSource)
                     inputs.file("src/nativeInterop/cinterop/macro_parity_fixture.h")
+                    inputs.property("ffiLlvmBin", ffiLlvmBin)
+                    inputs.files(ffiLlvmBin.map { bin -> if (bin.isEmpty()) emptyList<File>() else listOf(file("$bin/llvm-ar")) })
                     outputs.file(outFile)
 
                     doLast {
@@ -707,9 +711,16 @@ kotlin {
                                         }.assertNormalExitValue()
                                 } else if (isMac) {
                                     ensureKonanDependency(gccDirName, konanDeps, execOps)
-                                    ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
                                     val sysroot = File(konanDeps, "$gccDirName/$targetTriple/sysroot")
-                                    val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                                    val llvmAr =
+                                        if (ffiLlvmBin.get().isNotEmpty()) {
+                                            file("${ffiLlvmBin.get()}/llvm-ar").also { tool ->
+                                                require(tool.isFile && tool.canExecute()) { "Missing executable LLVM archiver: $tool" }
+                                            }
+                                        } else {
+                                            ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
+                                            File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                                        }
                                     if (sysroot.exists() && llvmAr.exists()) {
                                         execOps
                                             .exec {
