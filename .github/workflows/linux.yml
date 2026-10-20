@@ -47,6 +47,15 @@ jobs:
           ${{ matrix.test }}
           --no-configuration-cache
 
+      - name: Verify Linux x64 real macro and system-library test execution
+        if: matrix.target == 'LinuxX64'
+        run: >
+          python3 verification/verify_behavior_results.py build/test-results/linuxX64Test
+          --require cEnumBasic --require cEnumRepr --require cEnumSetValue
+          --require cEnumMultipleSetValue --require cEnumVis --require testOffsetOf
+          --require openptyCreatesAndClosesRealDescriptors
+          --require sharedMemoryCreatesResizesAndUnlinksRealObject
+
       - name: Preserve the actual ARM64 test executable and checksum
         if: matrix.target == 'LinuxArm64'
         run: |
@@ -120,6 +129,8 @@ jobs:
           python3 verification/verify_behavior_results.py build/test-results/linuxArm64BinaryTest
           --require cEnumBasic --require cEnumRepr --require cEnumSetValue
           --require cEnumMultipleSetValue --require cEnumVis --require testOffsetOf
+          --require openptyCreatesAndClosesRealDescriptors
+          --require sharedMemoryCreatesResizesAndUnlinksRealObject
           --require nativeMemoryPreservesBytesAcrossCopyAndResize
           --require realDescriptorsPreserveBytesAndExposeHostErrors
 
