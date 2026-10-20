@@ -92,11 +92,24 @@ class MacrosTest {
         assertEquals(128uL, macroLayoutValue(11))
         val base = COpaquePointer(macroLayoutValue(0).toLong())
         val size = macroLayoutValue(5)
-        for (field in 0..3) {
-            assertEquals(
-                macroLayoutValue(6 + field),
-                offsetOf(base, COpaquePointer(macroLayoutValue(1 + field).toLong()), size),
-            )
-        }
+        assertEquals(
+            macroLayoutValue(6),
+            offsetOf(base, COpaquePointer(macroLayoutValue(1).toLong()), size),
+        )
+        assertEquals(
+            macroLayoutValue(7),
+            offsetOf(base, COpaquePointer(macroLayoutValue(2).toLong()), size),
+        )
+        assertEquals(
+            macroLayoutValue(8),
+            offsetOf(base, COpaquePointer(macroLayoutValue(3).toLong()), size),
+        )
+        assertEquals(
+            macroLayoutValue(9),
+            offsetOf(base, COpaquePointer(macroLayoutValue(4).toLong()), size),
+        )
     }
 }
+
+// The upstream compile-only struct/union macro expansion and derived-trait checks
+// require the Rust compiler's macro system; Kotlin declarations cannot execute them.
