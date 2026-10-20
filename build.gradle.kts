@@ -997,6 +997,8 @@ tasks
         dependsOn("kotlinUpgradeYarnLock")
     }
 
+// WASI uses Node built-ins and direct Wasm imports; KGP intentionally has no NPM install
+// dependency for its test runner. Keep Yarn lock upgrades on the WasmJS tasks only.
 val wasmTasksNeedingYarnLock =
     setOf(
         "compileKotlinWasmJs",
@@ -1005,11 +1007,6 @@ val wasmTasksNeedingYarnLock =
         "wasmJsTestProcessResources",
         "wasmJsNodeTest",
         "wasmJsBrowserTest",
-        "compileKotlinWasmWasi",
-        "compileTestKotlinWasmWasi",
-        "wasmWasiProcessResources",
-        "wasmWasiTestProcessResources",
-        "wasmWasiNodeTest",
         "kotlinWasmStoreYarnLock",
     )
 
