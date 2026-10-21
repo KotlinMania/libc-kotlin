@@ -42,6 +42,36 @@ try {
   assert.ok(bindings.gethostname().length > 0);
   assert.equal(bindings.sleep(0), 0);
   tests.push('actualProcessAndHostname');
+  const system = bindings.uname_fields().split('\n');
+  assert.equal(system.length, 5);
+  assert.equal(system[0], os.type());
+  assert.equal(system[1], os.hostname());
+  assert.equal(system[2], os.release());
+  assert.equal(system[3], os.version());
+  assert.equal(system[4], os.machine());
+  tests.push('actualSystemInformation');
+  const user = os.userInfo();
+  assert.equal(bindings.geteuid() >>> 0, user.uid >>> 0);
+  assert.equal(bindings.getegid() >>> 0, user.gid >>> 0);
+  assert.equal(bindings.getuid() >>> 0, (process.getuid ? process.getuid() : user.uid) >>> 0);
+  assert.equal(bindings.getgid() >>> 0, (process.getgid ? process.getgid() : user.gid) >>> 0);
+  const byUid = bindings.getpwuid_r_str(user.uid, 65536).split('\n');
+  const byName = bindings.getpwnam_r_str(user.username, 65536).split('\n');
+  for (const entry of [byUid, byName]) {
+    assert.equal(entry.length, 9);
+    assert.equal(entry[0], '0');
+    assert.equal(entry[1], '1');
+    assert.equal(entry[2], user.username);
+    assert.equal(Number(entry[4]) >>> 0, user.uid >>> 0);
+    assert.equal(Number(entry[5]) >>> 0, user.gid >>> 0);
+    assert.equal(entry[7], user.homedir);
+    assert.equal(entry[8], user.shell ?? '');
+  }
+  tests.push('actualCurrentAccountByNameAndId');
+  const small = bindings.getpwuid_r_str(user.uid, 1).split('\n');
+  assert.notEqual(Number(small[0]), 0);
+  assert.equal(small[1], '0');
+  tests.push('accountBufferCapacityIsEnforced');
   console.log(JSON.stringify({platform: process.platform, selected, binarySha256, tests, failures: 0, errors: 0, skips: 0}));
 } finally {
   if (descriptor >= 0) bindings.close(descriptor);

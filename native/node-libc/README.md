@@ -48,3 +48,17 @@ Both `jsMain` and `wasmJsMain` (via Node.js) can use this same object. No insecu
 ## Why N-API instead of NPM libraries
 
 Per the KotlinMania workspace rules: do NOT use third-party NPM libraries for FFI. Write your own N-API C++ addon that wraps C library calls directly. This gives the same level of control as Kotlin/Native's cinterop approach.
+## Host system and account information
+
+System information uses Node's existing native libuv runtime. On Windows, current
+account lookup returns the actual account name and home directory reported by
+`uv_os_get_passwd`. Its unavailable UID/GID values retain their bit pattern in the
+Kotlin unsigned fields; they are not POSIX account IDs. The Windows binding accepts
+only this current-account identity or its exact name and reports `ENOTSUP` for
+other lookups. Shell, password and GECOS data are not supplied by this Windows API.
+Successful native account snapshots are always released with `uv_os_free_passwd`.
+Unix account lookups continue to use their actual `getpwuid_r`/`getpwnam_r` APIs.
+
+The existing CI Node consumer verifies OS fields against real host information,
+current-account lookup by name and ID, and rejection of insufficient buffer space.
+This does not establish a Windows POSIX account database or numeric identity model.
