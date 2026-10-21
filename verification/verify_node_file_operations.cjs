@@ -3,7 +3,14 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const bindings = require(path.resolve(process.argv[2]));
+const crypto = require('node:crypto');
+const output = path.resolve(process.argv[2]);
+const candidates = ['c_native.node', 'libc_native.node'].map(name => path.join(output, name)).filter(file => fs.existsSync(file));
+assert.equal(candidates.length, 1, `Expected one freshly compiled Node payload in ${output}`);
+const selected = candidates[0];
+const binarySha256 = crypto.createHash('sha256').update(fs.readFileSync(selected)).digest('hex');
+const bindings = require(selected);
+assert.equal(bindings.rawAbiVersion(), 2);
 const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'libc-node-files-'));
 const tests = [];
 let descriptor = -1;
@@ -35,7 +42,7 @@ try {
   assert.ok(bindings.gethostname().length > 0);
   assert.equal(bindings.sleep(0), 0);
   tests.push('actualProcessAndHostname');
-  console.log(JSON.stringify({platform: process.platform, tests, failures: 0, errors: 0, skips: 0}));
+  console.log(JSON.stringify({platform: process.platform, selected, binarySha256, tests, failures: 0, errors: 0, skips: 0}));
 } finally {
   if (descriptor >= 0) bindings.close(descriptor);
   fs.rmSync(directory, {recursive: true, force: true});

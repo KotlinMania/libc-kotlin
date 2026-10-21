@@ -48,7 +48,7 @@ jobs:
       - name: Verify actual Node descriptor and process operations
         if: inputs.run-tests
         shell: bash
-        run: node verification/verify_node_file_operations.cjs native/node-libc/build/Release/libc_native.node
+        run: node verification/verify_node_file_operations.cjs native/node-libc/build/Release
       - name: Verify real behavior test execution
         if: inputs.run-tests
         shell: bash

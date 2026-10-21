@@ -1033,6 +1033,10 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_isatty(
 #ifndef _WIN32
     return (jint)isatty((int)fd);
 #else
+    if (fd < 0) {
+        errno = EBADF;
+        return 0;
+    }
     return (jint)_isatty((int)fd);
 #endif
 }

@@ -119,6 +119,7 @@ void RegisterUnistdBindings(Napi::Env env, Napi::Object exports) {
         }
         int mode = info[1].As<Napi::Number>().Int32Value();
 #ifdef _WIN32
+        if ((mode & ~6) != 0) { errno = EINVAL; return Napi::Number::New(env, -1); }
         auto text = info[0].As<Napi::String>().Utf16Value();
         std::wstring path(text.begin(), text.end());
         return Napi::Number::New(env, ::_waccess(path.c_str(), mode));
@@ -227,6 +228,7 @@ void RegisterUnistdBindings(Napi::Env env, Napi::Object exports) {
         }
         int fd = info[0].As<Napi::Number>().Int32Value();
 #ifdef _WIN32
+        if (fd < 0) { errno = EBADF; return Napi::Number::New(env, 0); }
         return Napi::Number::New(env, ::_isatty(fd));
 #else
         return Napi::Number::New(env, ::isatty(fd));

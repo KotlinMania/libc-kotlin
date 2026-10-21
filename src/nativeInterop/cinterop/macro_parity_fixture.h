@@ -7,11 +7,17 @@
 #error "The aligned zero-size macro parity fixture needs compiler support; do not substitute a nonzero empty struct"
 #endif
 
+#if defined(_MSC_VER)
+typedef unsigned char libc_macro_off2[0] __attribute__((aligned(128)));
+#define LIBC_MACRO_OFF2_TYPE libc_macro_off2
+#else
 struct __attribute__((aligned(128))) libc_macro_off2 { unsigned char bytes[0]; };
+#define LIBC_MACRO_OFF2_TYPE struct libc_macro_off2
+#endif
 struct libc_macro_off1 {
     uint8_t a;
     uint32_t b;
-    struct libc_macro_off2 c;
+    LIBC_MACRO_OFF2_TYPE c;
     uint64_t d;
 };
 
@@ -29,9 +35,10 @@ static inline uint64_t libc_macro_layout_value(int index) {
         case 7: return offsetof(struct libc_macro_off1, b);
         case 8: return offsetof(struct libc_macro_off1, c);
         case 9: return offsetof(struct libc_macro_off1, d);
-        case 10: return sizeof(struct libc_macro_off2);
-        case 11: return __alignof__(struct libc_macro_off2);
+        case 10: return sizeof(LIBC_MACRO_OFF2_TYPE);
+        case 11: return __alignof__(LIBC_MACRO_OFF2_TYPE);
         default: return UINTPTR_MAX;
     }
 }
+#undef LIBC_MACRO_OFF2_TYPE
 #endif

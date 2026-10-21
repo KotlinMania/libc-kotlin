@@ -556,9 +556,20 @@ kotlin {
     // and fails loudly if neither is available.
     // ========================================================================
     if (nativeFfiEnabled) {
-        fun ensureKonanDependency(name: String, konanDeps: File, execOps: ExecOperations) {
+        fun ensureKonanDependency(name: String, konanDeps: File, execOps: ExecOperations): File {
+            val compilerDependencies = File(projectKonanDataDirectory.get(), "dependencies")
+            val compilerDirectory = File(compilerDependencies, name)
+            val compilerReceipt = File(compilerDependencies, ".extracted")
+            if (
+                compilerReceipt.isFile &&
+                name in compilerReceipt.readLines() &&
+                compilerDirectory.isDirectory &&
+                compilerDirectory.list()?.isNotEmpty() == true
+            ) {
+                return compilerDirectory
+            }
             val targetDir = File(konanDeps, name)
-            if (targetDir.exists()) return
+            if (targetDir.isDirectory && targetDir.list()?.isNotEmpty() == true) return targetDir
             konanDeps.mkdirs()
             val cacheDir = File(konanDeps, "cache").apply { mkdirs() }
             val archive = File(cacheDir, "$name.tar.gz")
@@ -580,6 +591,8 @@ kotlin {
                 .exec {
                     commandLine("tar", "-xzf", archive.absolutePath, "-C", konanDeps.absolutePath)
                 }.assertNormalExitValue()
+            check(targetDir.isDirectory && targetDir.list()?.isNotEmpty() == true) { "Native wrapper dependency extraction produced no directory: $targetDir" }
+            return targetDir
         }
 
         targets.withType<KotlinNativeTarget> {
@@ -614,7 +627,11 @@ kotlin {
                         if (outFile.exists()) outFile.delete()
                         if (konanTargetName.startsWith("linux")) File(outDir, "native-archive-verification.json").delete()
                         val tempObj = File(outDir, "$ffiWrapperBase.o")
-                        val konanDeps = File(projectKonanDataDirectory.get(), "dependencies")
+                        val konanDeps =
+                            layout.buildDirectory
+                                .dir("native-wrapper-dependencies")
+                                .get()
+                                .asFile
                         val isMac =
                             org.gradle.internal.os.OperatingSystem
                                 .current()
@@ -662,9 +679,8 @@ kotlin {
 
                             konanTargetName.startsWith("android") -> {
                                 val hostToolchain = if (isMac) "osx" else "linux"
-                                ensureKonanDependency("target-toolchain-2-$hostToolchain-android_ndk", konanDeps, execOps)
+                                val ndkDir = ensureKonanDependency("target-toolchain-2-$hostToolchain-android_ndk", konanDeps, execOps)
                                 ensureKonanDependency("target-sysroot-1-android_ndk", konanDeps, execOps)
-                                val ndkDir = File(konanDeps, "target-toolchain-2-$hostToolchain-android_ndk")
                                 val sysroot = File(ndkDir, "sysroot")
                                 val clangBin =
                                     if (konanTargetName.contains("arm64")) {
@@ -706,8 +722,8 @@ kotlin {
                                         "x86_64-unknown-linux-gnu" to "x86_64-unknown-linux-gnu-gcc-8.3.0-glibc-2.19-kernel-4.9-2"
                                     }
                                 if (isLinux) {
-                                    ensureKonanDependency(gccDirName, konanDeps, execOps)
-                                    val sysroot = File(konanDeps, "$gccDirName/$targetTriple/sysroot")
+                                    val gccDirectory = ensureKonanDependency(gccDirName, konanDeps, execOps)
+                                    val sysroot = File(gccDirectory, "$targetTriple/sysroot")
                                     require(sysroot.isDirectory) { "Missing target sysroot for $konanTargetName: $sysroot" }
                                     execOps
                                         .exec {
@@ -718,16 +734,16 @@ kotlin {
                                             commandLine("ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
                                         }.assertNormalExitValue()
                                 } else if (isMac) {
-                                    ensureKonanDependency(gccDirName, konanDeps, execOps)
-                                    val sysroot = File(konanDeps, "$gccDirName/$targetTriple/sysroot")
+                                    val gccDirectory = ensureKonanDependency(gccDirName, konanDeps, execOps)
+                                    val sysroot = File(gccDirectory, "$targetTriple/sysroot")
                                     val llvmAr =
                                         if (ffiLlvmBin.get().isNotEmpty()) {
                                             file("${ffiLlvmBin.get()}/llvm-ar").also { tool ->
                                                 require(tool.isFile && tool.canExecute()) { "Missing executable LLVM archiver: $tool" }
                                             }
                                         } else {
-                                            ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
-                                            File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                                            val ndkDirectory = ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
+                                            File(ndkDirectory, "bin/llvm-ar")
                                         }
                                     if (sysroot.exists() && llvmAr.exists()) {
                                         execOps
@@ -749,8 +765,7 @@ kotlin {
                             }
 
                             konanTargetName.startsWith("mingw") -> {
-                                ensureKonanDependency("msys2-mingw-w64-x86_64-2", konanDeps, execOps)
-                                val mingwSysroot = File(konanDeps, "msys2-mingw-w64-x86_64-2")
+                                val mingwSysroot = ensureKonanDependency("msys2-mingw-w64-x86_64-2", konanDeps, execOps)
                                 val arExe = File(mingwSysroot, "bin/ar.exe")
                                 if (isWindows && mingwSysroot.exists()) {
                                     execOps
@@ -762,8 +777,8 @@ kotlin {
                                             commandLine(if (arExe.exists()) arExe.absolutePath else "ar", "rcs", outFile.absolutePath, tempObj.absolutePath)
                                         }.assertNormalExitValue()
                                 } else if (isMac) {
-                                    ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
-                                    val llvmAr = File(konanDeps, "target-toolchain-2-osx-android_ndk/bin/llvm-ar")
+                                    val ndkDirectory = ensureKonanDependency("target-toolchain-2-osx-android_ndk", konanDeps, execOps)
+                                    val llvmAr = File(ndkDirectory, "bin/llvm-ar")
                                     if (mingwSysroot.exists() && llvmAr.exists()) {
                                         execOps
                                             .exec {
