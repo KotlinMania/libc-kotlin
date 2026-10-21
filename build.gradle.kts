@@ -603,11 +603,16 @@ kotlin {
                     inputs.file("src/nativeInterop/cinterop/macro_parity_fixture.h")
                     inputs.property("ffiLlvmBin", ffiLlvmBin)
                     inputs.files(ffiLlvmBin.map { bin -> if (bin.isEmpty()) emptyList<File>() else listOf(file("$bin/llvm-ar")) })
+                    if (konanTargetName.startsWith("linux")) {
+                        inputs.file("verification/verify_native_archive.py")
+                        outputs.file(File(outDir, "native-archive-verification.json"))
+                    }
                     outputs.file(outFile)
 
                     doLast {
                         outDir.mkdirs()
                         if (outFile.exists()) outFile.delete()
+                        if (konanTargetName.startsWith("linux")) File(outDir, "native-archive-verification.json").delete()
                         val tempObj = File(outDir, "$ffiWrapperBase.o")
                         val konanDeps = File(projectKonanDataDirectory.get(), "dependencies")
                         val isMac =
@@ -701,9 +706,12 @@ kotlin {
                                         "x86_64-unknown-linux-gnu" to "x86_64-unknown-linux-gnu-gcc-8.3.0-glibc-2.19-kernel-4.9-2"
                                     }
                                 if (isLinux) {
+                                    ensureKonanDependency(gccDirName, konanDeps, execOps)
+                                    val sysroot = File(konanDeps, "$gccDirName/$targetTriple/sysroot")
+                                    require(sysroot.isDirectory) { "Missing target sysroot for $konanTargetName: $sysroot" }
                                     execOps
                                         .exec {
-                                            commandLine("clang", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                                            commandLine("clang", "--target=$targetTriple", "--sysroot=${sysroot.absolutePath}", "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
                                         }.assertNormalExitValue()
                                     execOps
                                         .exec {
@@ -724,7 +732,7 @@ kotlin {
                                     if (sysroot.exists() && llvmAr.exists()) {
                                         execOps
                                             .exec {
-                                                commandLine("clang", "--target=$targetTriple", "--sysroot=${sysroot.absolutePath}", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
+                                                commandLine("clang", "--target=$targetTriple", "--sysroot=${sysroot.absolutePath}", "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I${cSource.parent}", cSource.absolutePath, "-o", tempObj.absolutePath)
                                             }.assertNormalExitValue()
                                         execOps
                                             .exec {
@@ -780,10 +788,24 @@ kotlin {
                                 if (prebuilt.exists()) prebuilt.copyTo(outFile, overwrite = true)
                             }
                         }
-                        tempObj.delete()
                         if (!outFile.exists() || outFile.length() == 0L) {
                             throw GradleException("compile${ffiName}Wrapper failed: output library does not exist for $konanTargetName at ${outFile.absolutePath}")
                         }
+                        if (konanTargetName.startsWith("linux")) {
+                            val arguments =
+                                mutableListOf(
+                                    "python3",
+                                    file("verification/verify_native_archive.py").absolutePath,
+                                    outFile.absolutePath,
+                                    "--target",
+                                    konanTargetName,
+                                    "--report",
+                                    File(outDir, "native-archive-verification.json").absolutePath,
+                                )
+                            if (tempObj.isFile) arguments.addAll(listOf("--object", tempObj.absolutePath))
+                            execOps.exec { commandLine(arguments) }.assertNormalExitValue()
+                        }
+                        tempObj.delete()
                     }
                 }
 

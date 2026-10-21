@@ -70,7 +70,7 @@ class DirectoryRuntimeTest {
                 assertEquals(0, closedir(stream))
             }
             libc.cinterop.libc_set_errno(0)
-            assertEquals(-1, libc.cinterop.libc_close(fd))
+            assertEquals(-1, libc.cinterop.libc_fcntl_noarg(fd, platform.posix.F_GETFD))
             assertEquals(platform.posix.EBADF, libc.cinterop.libc_get_errno())
 
             val file = libc.cinterop.libc_open("$path/first", platform.posix.O_RDONLY, 0u)
@@ -155,30 +155,30 @@ class DirectoryRuntimeTest {
         }
 
     @Test
-    fun readdirRErrorReturnsCodeAndPreservesErrno() =
+    fun readdirRPreservesErrnoAfterDescriptorErrorThroughEndOfDirectory() =
         withDirectory { path ->
             val stream = assertNotNull(opendir(path))
             try {
                 val buffer = NativeDirectoryEntryBuffer(stream)
                 try {
                     assertTrue(buffer.capacity > 0uL)
-                    val descriptor = libc.cinterop.libc_dirfd(stream.handle.toCPointer<ByteVar>())
-                    val backup = libc.cinterop.libc_dup(descriptor)
-                    assertTrue(backup >= 0)
-                    try {
-                        assertEquals(0, libc.cinterop.libc_close(descriptor))
-                        try {
-                            val result = COpaquePointer(-1)
-                            libc.cinterop.libc_set_errno(platform.posix.EACCES)
-                            assertEquals(platform.posix.EBADF, readdirR(stream, buffer.entry, result))
-                            assertEquals(platform.posix.EACCES, libc.cinterop.libc_get_errno())
-                            assertEquals(0L, result.value)
-                        } finally {
-                            assertEquals(descriptor, libc.cinterop.libc_dup2(backup, descriptor))
-                        }
-                    } finally {
-                        assertEquals(0, libc.cinterop.libc_close(backup))
+                    val names = mutableSetOf<String>()
+                    val result = COpaquePointer()
+                    var reads = 0
+                    while (true) {
+                        // A live directory stream owns its descriptor; never close or replace that descriptor to induce a read error.
+                        assertNull(fdopendir(-1))
+                        assertEquals(platform.posix.EBADF, libc.cinterop.libc_get_errno())
+                        result.value = buffer.address
+                        assertEquals(0, readdirR(stream, buffer.entry, result))
+                        assertEquals(platform.posix.EBADF, libc.cinterop.libc_get_errno())
+                        if (result.value == 0L) break
+                        assertEquals(buffer.address, result.value)
+                        names += buffer.entry.dName.directoryName()
+                        assertTrue(++reads < 100, "Traversal after descriptor error did not terminate")
                     }
+                    assertTrue("first" in names)
+                    assertTrue("second" in names)
                 } finally {
                     buffer.close()
                 }

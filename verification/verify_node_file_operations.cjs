@@ -1,0 +1,42 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const bindings = require(path.resolve(process.argv[2]));
+const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'libc-node-files-'));
+const tests = [];
+let descriptor = -1;
+try {
+  const flags = bindings.rawOpenFlags();
+  descriptor = bindings.rawOpen(path.join(directory, 'data.bin'), flags[2] | flags[3] | flags[4] | flags[6], 0o600);
+  assert.ok(descriptor >= 0);
+  const data = Uint8Array.from([0, 10, 13, 127, 128, 255]);
+  assert.equal(bindings.write(descriptor, data, data.length), data.length);
+  assert.equal(bindings.lseek(descriptor, 0, flags[5]), 0);
+  const read = new Uint8Array(data.length);
+  assert.equal(bindings.read(descriptor, read, read.length), read.length);
+  assert.deepEqual(read, data);
+  assert.equal(bindings.read(descriptor, read, read.length), 0);
+  tests.push('descriptorBytesAndEndOfFile');
+  assert.equal(bindings.read(descriptor, read, read.length + 1), -1);
+  assert.equal(bindings.write(descriptor, data, -1), -1);
+  tests.push('rejectsOutOfBoundsCounts');
+  assert.equal(bindings.close(descriptor), 0);
+  descriptor = -1;
+  const unicode = path.join(directory, 'résumé-目录.txt');
+  fs.writeFileSync(unicode, 'fixture');
+  assert.equal(bindings.access(unicode, 0), 0);
+  assert.equal(bindings.unlink(unicode), 0);
+  assert.equal(fs.existsSync(unicode), false);
+  tests.push('unicodePathAccessAndUnlink');
+  assert.equal(bindings.getpid(), process.pid);
+  assert.equal(bindings.getppid(), process.ppid);
+  assert.ok(bindings.gethostname().length > 0);
+  assert.equal(bindings.sleep(0), 0);
+  tests.push('actualProcessAndHostname');
+  console.log(JSON.stringify({platform: process.platform, tests, failures: 0, errors: 0, skips: 0}));
+} finally {
+  if (descriptor >= 0) bindings.close(descriptor);
+  fs.rmSync(directory, {recursive: true, force: true});
+}

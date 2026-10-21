@@ -55,6 +55,12 @@ jobs:
           --require cEnumMultipleSetValue --require cEnumVis --require testOffsetOf
           --require openptyCreatesAndClosesRealDescriptors
           --require sharedMemoryCreatesResizesAndUnlinksRealObject
+          --require readNamesRemainStableAfterSubsequentReadAndClose
+          --require fdopendirTransfersDescriptorAndFailureRetainsIt
+          --require readdirRUsesCallerStorageAndReportsEndOfDirectory
+          --require missingDirectoryReportsRealErrno
+          --require concurrentReadersShareStreamWithoutOverwritingNames
+          --require readdirRPreservesErrnoAfterDescriptorErrorThroughEndOfDirectory
 
       - name: Preserve the actual ARM64 test executable and checksum
         if: matrix.target == 'LinuxArm64'
@@ -88,7 +94,7 @@ jobs:
   arm64-runtime:
     name: Run actual Linux ARM64 tests
     needs: build
-    if: ${{ !cancelled() }}
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     runs-on: ubuntu-24.04-arm
     permissions:
       contents: read
@@ -119,6 +125,7 @@ jobs:
           chmod +x test.kexe
 
       - name: Run the same common and native tests using KGP reporting
+        id: arm64_tests
         run: >
           ./gradlew linuxArm64BinaryTest
           -Pproject.tests.linuxArm64.executable="$PWD/build/arm64-test-input/test.kexe"
@@ -131,11 +138,17 @@ jobs:
           --require cEnumMultipleSetValue --require cEnumVis --require testOffsetOf
           --require openptyCreatesAndClosesRealDescriptors
           --require sharedMemoryCreatesResizesAndUnlinksRealObject
+          --require readNamesRemainStableAfterSubsequentReadAndClose
+          --require fdopendirTransfersDescriptorAndFailureRetainsIt
+          --require readdirRUsesCallerStorageAndReportsEndOfDirectory
+          --require missingDirectoryReportsRealErrno
+          --require concurrentReadersShareStreamWithoutOverwritingNames
+          --require readdirRPreservesErrnoAfterDescriptorErrorThroughEndOfDirectory
           --require nativeMemoryPreservesBytesAcrossCopyAndResize
           --require realDescriptorsPreserveBytesAndExposeHostErrors
 
       - name: Upload actual ARM64 runtime reports
-        if: success() || failure()
+        if: ${{ always() && (steps.arm64_tests.outcome == 'success' || steps.arm64_tests.outcome == 'failure') }}
         uses: actions/upload-artifact@v7
         with:
           name: test-reports-LinuxArm64-runtime
