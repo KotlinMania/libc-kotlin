@@ -1879,7 +1879,28 @@ tasks.named("build") {
 val macroLayoutDirectory = layout.buildDirectory.dir("macro-layout-wasm")
 val macroLayoutWasm = macroLayoutDirectory.map { it.file("macro-layout.wasm") }
 val macroLayoutScript = macroLayoutDirectory.map { it.file("macro-layout.js") }
-val macroFixtureLlvmBin = providers.gradleProperty("project.macroFixture.llvmBin").orElse("")
+val macroFixtureLlvmBin =
+    providers.gradleProperty("project.macroFixture.llvmBin").orElse(
+        projectKonanDataDirectory.map { dataDirectory ->
+            val dependencies = File(dataDirectory, "dependencies")
+            val receipt = File(dependencies, ".extracted")
+            val candidates =
+                if (receipt.isFile) {
+                    receipt
+                        .readLines()
+                        .filter { it.startsWith("llvm-") }
+                        .distinct()
+                        .map { File(dependencies, "$it/bin") }
+                        .filter { File(it, "clang").canExecute() && File(it, "lld").canExecute() }
+                } else {
+                    emptyList()
+                }
+            require(candidates.size <= 1) {
+                "Multiple installed LLVM toolchains; select project.macroFixture.llvmBin explicitly: $candidates"
+            }
+            candidates.singleOrNull()?.absolutePath ?: ""
+        },
+    )
 val compileMacroLayoutWasm =
     tasks.register("compileMacroLayoutWasm") {
         inputs.files("verification/macro-layout-wasm.c", "src/nativeInterop/cinterop/macro_parity_fixture.h")
