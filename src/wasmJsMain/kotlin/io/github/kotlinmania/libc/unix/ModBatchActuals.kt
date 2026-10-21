@@ -594,10 +594,12 @@ public actual fun killpg(pgrp: Int, sig: Int): Int =
     throw UnsupportedOperationException("killpg requires N-API addon")
 
 public actual fun mlock(addr: COpaquePointer?, len: ULong): Int =
-    throw UnsupportedOperationException("mlock requires N-API addon")
+    io.github.kotlinmania.libc.internal
+        .mlock(addr?.value ?: 0L, len)
 
 public actual fun munlock(addr: COpaquePointer?, len: ULong): Int =
-    throw UnsupportedOperationException("munlock requires N-API addon")
+    io.github.kotlinmania.libc.internal
+        .munlock(addr?.value ?: 0L, len)
 
 public actual fun mlockall(flags: Int): Int =
     throw UnsupportedOperationException("mlockall requires N-API addon")

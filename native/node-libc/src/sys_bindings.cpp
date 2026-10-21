@@ -104,6 +104,8 @@ Napi::Value current_identity(Napi::Env env, bool group) {
 }
 
 Napi::Value rawKill(const Napi::CallbackInfo& info);
+Napi::Value numericMlock(const Napi::CallbackInfo& info);
+Napi::Value numericMunlock(const Napi::CallbackInfo& info);
 
 void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
     // get_errno()
@@ -220,39 +222,8 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
 #endif
     }));
 
-    // mlock(addr, len)
-    exports.Set("mlock", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
-        Napi::Env env = info.Env();
-        if (info.Length() < 2) {
-            Napi::TypeError::New(env, "mlock requires 2 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
-        intptr_t addr = static_cast<intptr_t>(info[0].As<Napi::Number>().Int64Value());
-        size_t len = static_cast<size_t>(info[1].As<Napi::Number>().Int64Value());
-#ifndef _WIN32
-        int res = ::mlock((const void*)addr, len);
-#else
-        int res = VirtualLock((LPVOID)addr, (SIZE_T)len) ? 0 : -1;
-#endif
-        return Napi::Number::New(env, res);
-    }));
-
-    // munlock(addr, len)
-    exports.Set("munlock", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
-        Napi::Env env = info.Env();
-        if (info.Length() < 2) {
-            Napi::TypeError::New(env, "munlock requires 2 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
-        intptr_t addr = static_cast<intptr_t>(info[0].As<Napi::Number>().Int64Value());
-        size_t len = static_cast<size_t>(info[1].As<Napi::Number>().Int64Value());
-#ifndef _WIN32
-        int res = ::munlock((const void*)addr, len);
-#else
-        int res = VirtualUnlock((LPVOID)addr, (SIZE_T)len) ? 0 : -1;
-#endif
-        return Napi::Number::New(env, res);
-    }));
+    exports.Set("mlock", Napi::Function::New(env, numericMlock));
+    exports.Set("munlock", Napi::Function::New(env, numericMunlock));
 
     // sysconf(name)
     exports.Set("sysconf", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {

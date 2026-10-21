@@ -1,0 +1,16 @@
+const assert = require('node:assert/strict');
+const {spawnSync} = require('node:child_process');
+const os = require('node:os');
+const target = process.argv[2];
+const moduleFile = process.argv[3];
+const result = spawnSync(process.execPath, [moduleFile], {cwd: __dirname, encoding: 'utf8', timeout: 15000});
+process.stdout.write(result.stdout || '');
+process.stderr.write(result.stderr || '');
+assert.equal(result.error, undefined);
+assert.equal(result.status, 0);
+assert.equal(result.signal, null);
+const payload = JSON.parse(result.stdout.trim().split('\n').at(-1));
+assert.equal(payload.pid, result.pid);
+assert.equal(payload.error, os.constants.errno.EINVAL);
+assert.deepEqual(payload.tests, ['actualPidProbe', 'nativeSignalError', 'memoryLockPreservesOwnedAllocationAndMutation']);
+console.log(JSON.stringify({target, tests: payload.tests, failures: 0, errors: 0, skips: 0, actualPid: result.pid}));

@@ -51,6 +51,7 @@ jobs:
         run: |
           node verification/verify_node_file_operations.cjs native/node-libc/build/Release
           node verification/verify_node_process_operations.cjs native/node-libc/build/Release
+          node verification/verify_node_memory_lock.cjs native/node-libc/build/Release
       - name: Verify real behavior test execution
         if: inputs.run-tests
         shell: bash

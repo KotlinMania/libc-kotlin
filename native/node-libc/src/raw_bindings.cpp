@@ -17,9 +17,11 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <uv.h>
+#include <windows.h>
 #else
 #include <unistd.h>
 #include <netdb.h>
+#include <sys/mman.h>
 #endif
 
 static thread_local int rawLastError;
@@ -66,6 +68,53 @@ static Napi::Number rawInteger(Napi::Env env, int value) {
     return result;
 }
 
+static Napi::Value memoryLockValue(Napi::Env env, uint64_t address, uint64_t size, bool unlock) {
+#ifdef _WIN32
+    const BOOL result = unlock ? VirtualUnlock(rawPointer(address), static_cast<SIZE_T>(size))
+                               : VirtualLock(rawPointer(address), static_cast<SIZE_T>(size));
+    if (result) return rawInteger(env, 0);
+    switch (GetLastError()) {
+        case ERROR_INVALID_PARAMETER:
+        case ERROR_NOT_LOCKED: errno = EINVAL; break;
+        case ERROR_INVALID_ADDRESS:
+        case ERROR_NOT_ENOUGH_MEMORY:
+        case ERROR_WORKING_SET_QUOTA: errno = ENOMEM; break;
+        case ERROR_ACCESS_DENIED: errno = EACCES; break;
+        case ERROR_PRIVILEGE_NOT_HELD: errno = EPERM; break;
+        default: errno = EIO; break;
+    }
+    return rawInteger(env, -1);
+#else
+    return rawInteger(env, unlock ? ::munlock(rawPointer(address), static_cast<size_t>(size))
+                                  : ::mlock(rawPointer(address), static_cast<size_t>(size)));
+#endif
+}
+static Napi::Value rawMemoryLock(const Napi::CallbackInfo& info, bool unlock) {
+    uint64_t address, size;
+    if (!rawDecimal(info[0], address) || !rawDecimal(info[1], size)) return info.Env().Undefined();
+    return memoryLockValue(info.Env(), address, size, unlock);
+}
+static Napi::Value numericMemoryLock(const Napi::CallbackInfo& info, bool unlock) {
+    uint64_t values[2];
+    for (size_t index = 0; index < 2; ++index) {
+        if (!info[index].IsNumber()) {
+            Napi::TypeError::New(info.Env(), "Memory address and size must be safe integer numbers").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
+        }
+        const double value = info[index].As<Napi::Number>().DoubleValue();
+        if (!std::isfinite(value) || std::trunc(value) != value || value < 0 || value > 9007199254740991.0) {
+            Napi::TypeError::New(info.Env(), "Memory address and size must be safe integer numbers").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
+        }
+        values[index] = static_cast<uint64_t>(value);
+    }
+    return memoryLockValue(info.Env(), values[0], values[1], unlock);
+}
+Napi::Value rawMlock(const Napi::CallbackInfo& info) { return rawMemoryLock(info, false); }
+Napi::Value rawMunlock(const Napi::CallbackInfo& info) { return rawMemoryLock(info, true); }
+Napi::Value numericMlock(const Napi::CallbackInfo& info) { return numericMemoryLock(info, false); }
+Napi::Value numericMunlock(const Napi::CallbackInfo& info) { return numericMemoryLock(info, true); }
+
 Napi::Value rawKill(const Napi::CallbackInfo& info) {
     int pid, sig;
     if (!rawInt32(info[0], pid) || !rawInt32(info[1], sig)) return info.Env().Undefined();
@@ -89,6 +138,8 @@ Napi::Value rawKill(const Napi::CallbackInfo& info) {
 
 void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
     exports.Set("rawKill", Napi::Function::New(env, rawKill));
+    exports.Set("rawMlock", Napi::Function::New(env, rawMlock));
+    exports.Set("rawMunlock", Napi::Function::New(env, rawMunlock));
     exports.Set("macroLayoutValue", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
         int index;
         if (!rawInt32(info[0], index)) return info.Env().Undefined();

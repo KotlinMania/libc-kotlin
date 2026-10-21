@@ -64,3 +64,24 @@ their own revision and runtime scope; they are not retroactive export proof.
 
 Official references: [Kotlin/JS exports](https://kotlinlang.org/docs/js-to-kotlin-interop.html#jsexport-annotation)
 and [Kotlin/Wasm JavaScript interop](https://kotlinlang.org/docs/wasm-js-interop.html).
+
+## Memory locking
+
+The existing public Unix memory-lock operations now use decimal strings for the
+full-width address and unsigned size across the JS/WasmJS import boundary.
+They delegate to actual `mlock`/`munlock` on POSIX and `VirtualLock`/`VirtualUnlock`
+on Windows. Legacy numeric addon callbacks preserve their signatures and reject
+non-integral, negative, non-finite or unsafe integer values before a native call.
+The independent native consumer checks a real owned allocation through lock,
+mutation and unlock; malformed integer/coercion rejection; and an overflowing
+native range with error reporting. Address zero is not used as a portable
+failure assumption: macOS accepted that range during validation.
+
+Windows captures `GetLastError` and maps header-defined failures into the existing
+C-style errno channel. Its unlock semantics differ from POSIX: unlocking pages
+that were not locked can fail. The Windows backend requires its real runner;
+local macOS results do not establish that branch. See Microsoft's
+[VirtualLock](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtuallock)
+and [VirtualUnlock](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualunlock)
+contracts and the [Linux memory-lock contract](https://man7.org/linux/man-pages/man2/mlock.2.html).
+The independent Kotlin application fixtures are in `verification/node-consumer`.

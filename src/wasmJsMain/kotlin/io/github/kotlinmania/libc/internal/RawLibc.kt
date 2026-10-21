@@ -18,6 +18,8 @@ private external interface RawBindings : JsAny {
     fun rawWrite(fd: Int, address: String, size: String): String
     fun rawSeek(fd: Int, offset: String, whence: Int): String
     fun rawKill(pid: Int, sig: Int): Int
+    fun rawMlock(address: String, size: String): Int
+    fun rawMunlock(address: String, size: String): Int
     fun rawNumericNameinfoFlags(): Int
     fun rawErrno(): Int
     fun rawOpenFlag(index: Int): Int
@@ -37,7 +39,7 @@ private external fun nodeRuntimeAvailable(): Boolean
     const path = proc.getBuiltinModule("path");
     const requireNative = modules.createRequire(path.join(proc.cwd(), "package.json"));
     const bindings = requireNative("@kotlinmania/libc-native-bindings");
-    if (typeof bindings.rawAbiVersion !== "function" || bindings.rawAbiVersion() !== 2 || typeof bindings.rawAllocate !== "function" || typeof bindings.rawFcntlInteger !== "function" || typeof bindings.rawKill !== "function") {
+    if (typeof bindings.rawAbiVersion !== "function" || bindings.rawAbiVersion() !== 2 || typeof bindings.rawAllocate !== "function" || typeof bindings.rawFcntlInteger !== "function" || typeof bindings.rawKill !== "function" || typeof bindings.rawMlock !== "function" || typeof bindings.rawMunlock !== "function") {
         throw new Error("libc native bindings lack the required raw-memory and process ABI; install the matching library artifact");
     }
     return bindings;
@@ -51,6 +53,8 @@ private val rawBindings: RawBindings by lazy {
 }
 
 internal fun kill(pid: Int, sig: Int): Int = rawBindings.rawKill(pid, sig)
+internal fun mlock(address: Long, size: ULong): Int = rawBindings.rawMlock(address.toULong().toString(), size.toString())
+internal fun munlock(address: Long, size: ULong): Int = rawBindings.rawMunlock(address.toULong().toString(), size.toString())
 
 internal actual object RawLibc {
     actual fun allocate(size: Long): Long = rawBindings.rawAllocate(size.toULong().toString()).toULong().toLong()
