@@ -759,6 +759,122 @@ int libc_symlink(const char* path1, const char* path2) { return symlink(path1, p
 int libc_chmod(const char* path, uint32_t mode) { return chmod(path, (uint32_t)mode); }
 int libc_fchmod(int attr1, uint32_t attr2) { return fchmod(attr1, (uint32_t)attr2); }
 int libc_closedir(void* ptr) { return closedir(ptr); }
+#ifndef _WIN32
+/* All directory-entry reads through these wrappers share this lock. Foreign
+ * direct reads and closing a stream still require caller synchronization. */
+static pthread_mutex_t libc_directory_read_lock = PTHREAD_MUTEX_INITIALIZER;
+struct libc_directory_entry_storage {
+    size_t capacity;
+    struct dirent entry;
+};
+/* Do not inherit the legacy wrapper's deprecated-warning exception here. */
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic error "-Wdeprecated-declarations"
+#elif defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic error "-Wdeprecated-declarations"
+#endif
+void* libc_opendir(const char* path) { return opendir(path); }
+void* libc_fdopendir(int fd) { return fdopendir(fd); }
+static size_t libc_directory_record_size(const struct dirent* entry) {
+    size_t names = offsetof(struct dirent, d_name) + strlen(entry->d_name) + 1;
+    return entry->d_reclen > names ? entry->d_reclen : names;
+}
+/* Return an owned snapshot so another reader cannot invalidate its bytes. */
+void* libc_readdir(void* stream) {
+    int saved_errno = errno;
+    int status = pthread_mutex_lock(&libc_directory_read_lock);
+    if (status != 0) { errno = status; return NULL; }
+    errno = 0;
+    struct dirent* source = readdir((DIR*)stream);
+    int read_error = errno;
+    void* snapshot = NULL;
+    if (source != NULL) {
+        read_error = 0;
+        size_t size = libc_directory_record_size(source);
+        snapshot = malloc(size);
+        if (snapshot != NULL) memcpy(snapshot, source, size);
+        else read_error = ENOMEM;
+    }
+    status = pthread_mutex_unlock(&libc_directory_read_lock);
+    if (status != 0) { free(snapshot); errno = status; return NULL; }
+    errno = read_error != 0 ? read_error : saved_errno;
+    return snapshot;
+}
+int libc_readdir_r(void* stream, void* entry, void** result) {
+    int saved_errno = errno;
+    if (stream == NULL || entry == NULL || result == NULL) return EINVAL;
+    *result = NULL;
+    struct libc_directory_entry_storage* storage =
+        (struct libc_directory_entry_storage*)((char*)entry - offsetof(struct libc_directory_entry_storage, entry));
+    int status = pthread_mutex_lock(&libc_directory_read_lock);
+    if (status != 0) { errno = saved_errno; return status; }
+    errno = 0;
+    struct dirent* source = readdir((DIR*)stream);
+    int read_error = errno;
+    if (source != NULL) {
+        read_error = 0;
+        size_t size = libc_directory_record_size(source);
+        if (size > storage->capacity) read_error = ENAMETOOLONG;
+        else { memcpy(entry, source, size); *result = entry; }
+    }
+    status = pthread_mutex_unlock(&libc_directory_read_lock);
+    if (status != 0 && read_error == 0) { read_error = status; *result = NULL; }
+    errno = saved_errno;
+    return read_error;
+}
+void* libc_dirent_allocate(void* stream) {
+    int saved_errno = errno;
+    errno = 0;
+    long name_max = fpathconf(dirfd((DIR*)stream), _PC_NAME_MAX);
+    if (name_max < 0) {
+        if (errno == 0) errno = EOVERFLOW;
+        return NULL;
+    }
+    if ((uint64_t)name_max > SIZE_MAX - offsetof(struct dirent, d_name) - 1) {
+        errno = EOVERFLOW;
+        return NULL;
+    }
+    size_t size = offsetof(struct dirent, d_name) + (size_t)name_max + 1;
+    if (size < sizeof(struct dirent)) size = sizeof(struct dirent);
+    if (size > SIZE_MAX - offsetof(struct libc_directory_entry_storage, entry)) {
+        errno = EOVERFLOW;
+        return NULL;
+    }
+    struct libc_directory_entry_storage* storage = malloc(offsetof(struct libc_directory_entry_storage, entry) + size);
+    if (storage == NULL) return NULL;
+    storage->capacity = size;
+    errno = saved_errno;
+    return &storage->entry;
+}
+void libc_dirent_release(void* entry) {
+    if (entry != NULL) free((char*)entry - offsetof(struct libc_directory_entry_storage, entry));
+}
+uint64_t libc_dirent_capacity(const void* entry) {
+    const struct libc_directory_entry_storage* storage =
+        (const struct libc_directory_entry_storage*)((const char*)entry - offsetof(struct libc_directory_entry_storage, entry));
+    return storage->capacity;
+}
+uint64_t libc_dirent_inode(const void* entry) { return ((const struct dirent*)entry)->d_ino; }
+int64_t libc_dirent_offset(const void* entry) {
+#ifdef __APPLE__
+    return (int64_t)((const struct dirent*)entry)->d_seekoff;
+#else
+    return (int64_t)((const struct dirent*)entry)->d_off;
+#endif
+}
+uint16_t libc_dirent_record_length(const void* entry) { return ((const struct dirent*)entry)->d_reclen; }
+uint8_t libc_dirent_type(const void* entry) { return ((const struct dirent*)entry)->d_type; }
+const char* libc_dirent_name(const void* entry) { return ((const struct dirent*)entry)->d_name; }
+uint64_t libc_dirent_name_length(const void* entry) { return strlen(((const struct dirent*)entry)->d_name); }
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#elif defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+#endif
+
 int libc_kill(int32_t pid, int signo) { return kill(pid, signo); }
 int64_t libc_random(void) { return random(); }
 int libc_isascii(int c) { return isascii(c); }

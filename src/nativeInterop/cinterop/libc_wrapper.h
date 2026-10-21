@@ -338,6 +338,22 @@ int libc_symlink(const char* path1, const char* path2);
 int libc_chmod(const char* path, uint32_t mode);
 int libc_fchmod(int attr1, uint32_t attr2);
 int libc_closedir(void* ptr);
+#ifndef _WIN32
+void* libc_opendir(const char* path);
+void* libc_fdopendir(int fd);
+void* libc_readdir(void* stream);
+int libc_readdir_r(void* stream, void* entry, void** result);
+void* libc_dirent_allocate(void* stream);
+void libc_dirent_release(void* entry);
+uint64_t libc_dirent_capacity(const void* entry);
+uint64_t libc_dirent_inode(const void* entry);
+int64_t libc_dirent_offset(const void* entry);
+uint16_t libc_dirent_record_length(const void* entry);
+uint8_t libc_dirent_type(const void* entry);
+const char* libc_dirent_name(const void* entry);
+uint64_t libc_dirent_name_length(const void* entry);
+#include "directory_thread_test_fixture.h"
+#endif
 int libc_kill(int32_t pid, int signo);
 int64_t libc_random(void);
 int libc_isascii(int c);
