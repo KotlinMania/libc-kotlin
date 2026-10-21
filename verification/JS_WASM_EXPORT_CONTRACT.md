@@ -32,7 +32,13 @@ the original subarray only, wrong-type rejection without I/O or coercion, Unicod
 paths, process/system information and account buffer capacity. It loads the exact
 freshly compiled addon and reports its hash. This does not establish Kotlin/JS or
 Kotlin/WasmJS export behavior, Kotlin exception identity, generic relations, or
-browser behavior. Raw pointer/string ABI validation and other legacy addon
+browser behavior. The raw-memory ABI used by the Unix JS/WasmJS actuals separately checks complete
+unsigned/signed decimal strings at their declared 64-bit widths, and int32 numeric
+arguments before calls. Its independent consumer checks allocation, real memory
+mutation/copy/resize, native file reads/writes/EOF, signed failures and errno,
+malformed integers and absence of coercion. Decimal addresses remain raw C
+pointers: numeric validation does not establish allocation ownership, bounds or
+freedom from use-after-free for arbitrary foreign callers. Other legacy addon
 operations still require a separate audit.
 
 ## Required product export acceptance

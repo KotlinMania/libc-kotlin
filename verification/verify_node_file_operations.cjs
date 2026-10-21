@@ -56,6 +56,51 @@ try {
   assert.equal(bindings.read(descriptor, read, read.length + 1), -1);
   assert.equal(bindings.write(descriptor, data, -1), -1);
   tests.push('rejectsOutOfBoundsCounts');
+  let pointer = bindings.rawAllocate('16');
+  const copy = bindings.rawAllocateZeroed('1', '16');
+  assert.match(pointer, /^[0-9]+$/);
+  assert.match(copy, /^[0-9]+$/);
+  assert.notEqual(pointer, '0');
+  assert.notEqual(copy, '0');
+  try {
+    assert.equal(bindings.rawFill(pointer, 165, '6'), pointer);
+    assert.equal(bindings.rawCopy(copy, pointer, '6'), copy);
+    assert.equal(bindings.rawCompare(pointer, copy, '6'), 0);
+    assert.equal(bindings.rawFill(copy, 166, '6'), copy);
+    assert.notEqual(bindings.rawCompare(pointer, copy, '6'), 0);
+    assert.equal(bindings.rawSeek(descriptor, '0', flags[5]), '0');
+    assert.equal(bindings.rawWrite(descriptor, pointer, '6'), '6');
+    assert.equal(bindings.rawSeek(descriptor, '0', flags[5]), '0');
+    assert.equal(bindings.rawRead(descriptor, copy, '6'), '6');
+    assert.equal(bindings.rawCompare(pointer, copy, '6'), 0);
+    assert.equal(bindings.rawRead(descriptor, copy, '1'), '0');
+    const resized = bindings.rawResize(pointer, '32');
+    assert.notEqual(resized, '0');
+    pointer = resized;
+    assert.equal(bindings.rawCompare(pointer, copy, '6'), 0);
+    tests.push('rawMemoryPreservesAddressesMutationAndFileBytes');
+    assert.equal(bindings.rawRead(-1, copy, '1'), '-1');
+    assert.ok(bindings.rawErrno() > 0);
+    assert.equal(bindings.rawSeek(descriptor, '-1', flags[5]), '-1');
+    assert.ok(bindings.rawErrno() > 0);
+    tests.push('rawFileErrorsRetainSignedResultsAndErrno');
+    for (const value of ['', '1junk', ' 1', '1 ', '+1', '-1', '1.0', '1e2',
+      '18446744073709551616', null, {}, 1, 1n, untyped]) {
+      assert.throws(() => bindings.rawAllocate(value), TypeError);
+    }
+    assert.throws(() => bindings.rawAllocate(), TypeError);
+    assert.throws(() => bindings.rawFill(pointer, NaN, '6'), TypeError);
+    assert.throws(() => bindings.rawRead(descriptor + 0.5, copy, '1'), TypeError);
+    assert.throws(() => bindings.rawSeek(descriptor, '9223372036854775808', flags[5]), TypeError);
+    assert.throws(() => bindings.rawSeek(descriptor, '-9223372036854775809', flags[5]), TypeError);
+    assert.equal(coercions, 0);
+    assert.equal(bindings.rawCompare(pointer, copy, '6'), 0);
+    tests.push('rawAbiRejectsMalformedIntegersBeforeMemoryOrIo');
+  } finally {
+    bindings.rawRelease(pointer);
+    bindings.rawRelease(copy);
+  }
+
   assert.equal(bindings.close(descriptor), 0);
   descriptor = -1;
   const unicode = path.join(directory, 'résumé-目录.txt');

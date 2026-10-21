@@ -2,6 +2,9 @@
 #include <napi.h>
 #include <cerrno>
 #include <cstdint>
+#include <charconv>
+#include <cmath>
+#include <limits>
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
@@ -18,11 +21,29 @@
 #endif
 
 static thread_local int rawLastError;
-static uint64_t rawUnsigned(const Napi::Value& value) {
-    return std::strtoull(value.As<Napi::String>().Utf8Value().c_str(), nullptr, 10);
+template <typename T>
+static bool rawDecimal(const Napi::Value& value, T& result) {
+    if (value.IsString()) {
+        const std::string text = value.As<Napi::String>().Utf8Value();
+        const auto parsed = std::from_chars(text.data(), text.data() + text.size(), result, 10);
+        if (parsed.ec == std::errc() && parsed.ptr == text.data() + text.size()) return true;
+    }
+    Napi::TypeError::New(value.Env(), "Raw libc integer must be a complete decimal string within its declared width").ThrowAsJavaScriptException();
+    return false;
 }
-static void* rawPointer(const Napi::Value& value) {
-    return reinterpret_cast<void*>(static_cast<uintptr_t>(rawUnsigned(value)));
+static bool rawInt32(const Napi::Value& value, int& result) {
+    if (value.IsNumber()) {
+        const double number = value.As<Napi::Number>().DoubleValue();
+        if (std::isfinite(number) && std::trunc(number) == number && number >= INT_MIN && number <= INT_MAX) {
+            result = static_cast<int>(number);
+            return true;
+        }
+    }
+    Napi::TypeError::New(value.Env(), "Raw libc int32 argument must be an integer number within int32 range").ThrowAsJavaScriptException();
+    return false;
+}
+static void* rawPointer(uint64_t address) {
+    return reinterpret_cast<void*>(static_cast<uintptr_t>(address));
 }
 static Napi::String rawAddress(Napi::Env env, void* address) {
     int saved = errno;
@@ -44,8 +65,10 @@ static Napi::Number rawInteger(Napi::Env env, int value) {
 }
 
 void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
-    exports.Set("macroLayoutValue", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        return Napi::String::New(info.Env(), std::to_string(libc_macro_layout_value(info[0].As<Napi::Number>().Int32Value())));
+    exports.Set("macroLayoutValue", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int index;
+        if (!rawInt32(info[0], index)) return info.Env().Undefined();
+        return Napi::String::New(info.Env(), std::to_string(libc_macro_layout_value(index)));
     }));
     exports.Set("rawAbiVersion", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
         return Napi::Number::New(info.Env(), 2);
@@ -53,7 +76,9 @@ void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
     exports.Set("rawNumericNameinfoFlags", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
         return Napi::Number::New(info.Env(), NI_NUMERICHOST | NI_NUMERICSERV);
     }));
-    exports.Set("rawOpenFlag", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
+    exports.Set("rawOpenFlag", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int index;
+        if (!rawInt32(info[0], index)) return info.Env().Undefined();
         const int values[] = { O_RDONLY, O_WRONLY, O_RDWR, O_CREAT, O_TRUNC, SEEK_SET,
 #ifdef _WIN32
         _O_BINARY
@@ -61,86 +86,110 @@ void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
         0
 #endif
     };
-        const int index = info[0].As<Napi::Number>().Int32Value();
         if (index < 0 || index >= 7) { errno = EINVAL; return rawInteger(info.Env(), -1); }
         return Napi::Number::New(info.Env(), values[index]);
     }));
-    exports.Set("rawDescriptorCommand", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
+    exports.Set("rawDescriptorCommand", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int index;
+        if (!rawInt32(info[0], index)) return info.Env().Undefined();
 #ifdef _WIN32
         return Napi::Number::New(info.Env(), -1);
 #else
         const int values[] = { F_GETFD, F_SETFD, FD_CLOEXEC, EBADF };
-        const int index = info[0].As<Napi::Number>().Int32Value();
         if (index < 0 || index >= 4) { errno = EINVAL; return rawInteger(info.Env(), -1); }
         return Napi::Number::New(info.Env(), values[index]);
 #endif
     }));
-    exports.Set("rawAllocate", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        return rawAddress(info.Env(), std::malloc(static_cast<size_t>(rawUnsigned(info[0]))));
+    exports.Set("rawAllocate", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        uint64_t size;
+        if (!rawDecimal(info[0], size)) return info.Env().Undefined();
+        return rawAddress(info.Env(), std::malloc(static_cast<size_t>(size)));
     }));
-    exports.Set("rawAllocateZeroed", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        return rawAddress(info.Env(), std::calloc(static_cast<size_t>(rawUnsigned(info[0])), static_cast<size_t>(rawUnsigned(info[1]))));
+    exports.Set("rawAllocateZeroed", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        uint64_t count, size;
+        if (!rawDecimal(info[0], count) || !rawDecimal(info[1], size)) return info.Env().Undefined();
+        return rawAddress(info.Env(), std::calloc(static_cast<size_t>(count), static_cast<size_t>(size)));
     }));
-    exports.Set("rawResize", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        return rawAddress(info.Env(), std::realloc(rawPointer(info[0]), static_cast<size_t>(rawUnsigned(info[1]))));
+    exports.Set("rawResize", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        uint64_t address, size;
+        if (!rawDecimal(info[0], address) || !rawDecimal(info[1], size)) return info.Env().Undefined();
+        return rawAddress(info.Env(), std::realloc(rawPointer(address), static_cast<size_t>(size)));
     }));
-    exports.Set("rawRelease", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        std::free(rawPointer(info[0])); rawLastError = errno; return info.Env().Undefined();
+    exports.Set("rawRelease", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        uint64_t address;
+        if (!rawDecimal(info[0], address)) return info.Env().Undefined();
+        std::free(rawPointer(address)); rawLastError = errno; return info.Env().Undefined();
     }));
-    exports.Set("rawFill", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        return rawAddress(info.Env(), std::memset(rawPointer(info[0]), info[1].As<Napi::Number>().Int32Value(), static_cast<size_t>(rawUnsigned(info[2]))));
+    exports.Set("rawFill", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        uint64_t address, size;
+        int value;
+        if (!rawDecimal(info[0], address) || !rawInt32(info[1], value) || !rawDecimal(info[2], size)) return info.Env().Undefined();
+        return rawAddress(info.Env(), std::memset(rawPointer(address), value, static_cast<size_t>(size)));
     }));
-    exports.Set("rawCopy", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        return rawAddress(info.Env(), std::memcpy(rawPointer(info[0]), rawPointer(info[1]), static_cast<size_t>(rawUnsigned(info[2]))));
+    exports.Set("rawCopy", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        uint64_t destination, source, size;
+        if (!rawDecimal(info[0], destination) || !rawDecimal(info[1], source) || !rawDecimal(info[2], size)) return info.Env().Undefined();
+        return rawAddress(info.Env(), std::memcpy(rawPointer(destination), rawPointer(source), static_cast<size_t>(size)));
     }));
-    exports.Set("rawCompare", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        return rawInteger(info.Env(), std::memcmp(rawPointer(info[0]), rawPointer(info[1]), static_cast<size_t>(rawUnsigned(info[2]))));
+    exports.Set("rawCompare", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        uint64_t first, second, size;
+        if (!rawDecimal(info[0], first) || !rawDecimal(info[1], second) || !rawDecimal(info[2], size)) return info.Env().Undefined();
+        return rawInteger(info.Env(), std::memcmp(rawPointer(first), rawPointer(second), static_cast<size_t>(size)));
     }));
-    exports.Set("rawOpen", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
+    exports.Set("rawOpen", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int flags, mode;
+        if (!rawInt32(info[1], flags) || !rawInt32(info[2], mode)) return info.Env().Undefined();
         if (info[0].IsNull() || info[0].IsUndefined()) { errno = EFAULT; return rawInteger(info.Env(), -1); }
+        if (!info[0].IsString()) {
+            Napi::TypeError::New(info.Env(), "Raw libc path must be a string or null").ThrowAsJavaScriptException();
+            return info.Env().Undefined();
+        }
         std::string path = info[0].As<Napi::String>().Utf8Value();
-        int flags = info[1].As<Napi::Number>().Int32Value();
-        int mode = info[2].As<Napi::Number>().Int32Value();
+
 #ifdef _WIN32
         return rawInteger(info.Env(), _open(path.c_str(), flags, mode));
 #else
         return rawInteger(info.Env(), ::open(path.c_str(), flags, static_cast<mode_t>(mode)));
 #endif
     }));
-    exports.Set("rawClose", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        int fd = info[0].As<Napi::Number>().Int32Value();
+    exports.Set("rawClose", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int fd;
+        if (!rawInt32(info[0], fd)) return info.Env().Undefined();
 #ifdef _WIN32
         return rawInteger(info.Env(), _close(fd));
 #else
         return rawInteger(info.Env(), ::close(fd));
 #endif
     }));
-    exports.Set("rawRead", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        int fd = info[0].As<Napi::Number>().Int32Value();
-        void* address = rawPointer(info[1]);
-        uint64_t size = rawUnsigned(info[2]);
+    exports.Set("rawRead", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int fd;
+        uint64_t address, size;
+        if (!rawInt32(info[0], fd) || !rawDecimal(info[1], address) || !rawDecimal(info[2], size)) return info.Env().Undefined();
+
 #ifdef _WIN32
         if (size > UINT_MAX) { errno = EINVAL; return rawCount(info.Env(), -1); }
-        return rawCount(info.Env(), _read(fd, address, static_cast<unsigned int>(size)));
+        return rawCount(info.Env(), _read(fd, rawPointer(address), static_cast<unsigned int>(size)));
 #else
-        return rawCount(info.Env(), ::read(fd, address, static_cast<size_t>(size)));
+        return rawCount(info.Env(), ::read(fd, rawPointer(address), static_cast<size_t>(size)));
 #endif
     }));
-    exports.Set("rawWrite", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        int fd = info[0].As<Napi::Number>().Int32Value();
-        void* address = rawPointer(info[1]);
-        uint64_t size = rawUnsigned(info[2]);
+    exports.Set("rawWrite", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int fd;
+        uint64_t address, size;
+        if (!rawInt32(info[0], fd) || !rawDecimal(info[1], address) || !rawDecimal(info[2], size)) return info.Env().Undefined();
+
 #ifdef _WIN32
         if (size > UINT_MAX) { errno = EINVAL; return rawCount(info.Env(), -1); }
-        return rawCount(info.Env(), _write(fd, address, static_cast<unsigned int>(size)));
+        return rawCount(info.Env(), _write(fd, rawPointer(address), static_cast<unsigned int>(size)));
 #else
-        return rawCount(info.Env(), ::write(fd, address, static_cast<size_t>(size)));
+        return rawCount(info.Env(), ::write(fd, rawPointer(address), static_cast<size_t>(size)));
 #endif
     }));
-    exports.Set("rawSeek", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
-        int fd = info[0].As<Napi::Number>().Int32Value();
-        int64_t offset = std::strtoll(info[1].As<Napi::String>().Utf8Value().c_str(), nullptr, 10);
-        int whence = info[2].As<Napi::Number>().Int32Value();
+    exports.Set("rawSeek", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int fd, whence;
+        int64_t offset;
+        if (!rawInt32(info[0], fd) || !rawDecimal(info[1], offset) || !rawInt32(info[2], whence)) return info.Env().Undefined();
+
 #ifdef _WIN32
         return rawCount(info.Env(), _lseeki64(fd, offset, whence));
 #else
@@ -172,25 +221,33 @@ void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
         return result;
 #endif
     }));
-    exports.Set("rawFcntlNoArgument", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
+    exports.Set("rawFcntlNoArgument", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int fd, command;
+        if (!rawInt32(info[0], fd) || !rawInt32(info[1], command)) return info.Env().Undefined();
 #ifdef _WIN32
         errno = ENOSYS; return rawInteger(info.Env(), -1);
 #else
-        return rawInteger(info.Env(), ::fcntl(info[0].As<Napi::Number>().Int32Value(), info[1].As<Napi::Number>().Int32Value()));
+        return rawInteger(info.Env(), ::fcntl(fd, command));
 #endif
     }));
-    exports.Set("rawFcntlInteger", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
+    exports.Set("rawFcntlInteger", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int fd, command;
+        int argument;
+        if (!rawInt32(info[0], fd) || !rawInt32(info[1], command) || !rawInt32(info[2], argument)) return info.Env().Undefined();
 #ifdef _WIN32
         errno = ENOSYS; return rawInteger(info.Env(), -1);
 #else
-        return rawInteger(info.Env(), ::fcntl(info[0].As<Napi::Number>().Int32Value(), info[1].As<Napi::Number>().Int32Value(), info[2].As<Napi::Number>().Int32Value()));
+        return rawInteger(info.Env(), ::fcntl(fd, command, argument));
 #endif
     }));
-    exports.Set("rawFcntlPointer", Napi::Function::New(env, [](const Napi::CallbackInfo& info) {
+    exports.Set("rawFcntlPointer", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
+        int fd, command;
+        uint64_t address;
+        if (!rawInt32(info[0], fd) || !rawInt32(info[1], command) || !rawDecimal(info[2], address)) return info.Env().Undefined();
 #ifdef _WIN32
         errno = ENOSYS; return rawInteger(info.Env(), -1);
 #else
-        return rawInteger(info.Env(), ::fcntl(info[0].As<Napi::Number>().Int32Value(), info[1].As<Napi::Number>().Int32Value(), rawPointer(info[2])));
+        return rawInteger(info.Env(), ::fcntl(fd, command, rawPointer(address)));
 #endif
     }));
 }
