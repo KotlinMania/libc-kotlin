@@ -1,6 +1,6 @@
 {
   "name": "@kotlinmania/libc-native-bindings",
-  "version": "0.1.0",
+  "version": "0.1.12",
   "description": "N-API C++ addon providing direct libc bindings for Kotlin/JS and Kotlin/WASM targets",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,9 @@
     "node-addon-api": "^8.0.0"
   },
   "devDependencies": {
-    "node-gyp": "^10.0.0"
+    "node-gyp": "13.1.0"
+  },
+  "overrides": {
+    "tar": "7.5.22"
   }
 }

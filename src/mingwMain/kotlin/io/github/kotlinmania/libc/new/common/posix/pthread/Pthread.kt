@@ -10,7 +10,7 @@ public actual fun pthreadKill(thread: PthreadT, sig: Int): Int =
     libc.cinterop.libc_pthread_kill(thread.rawValue, sig)
 
 // pthread_setschedprio is not exposed by mingw-w64's winpthreads pthread.h.
-public actual fun pthreadSetschedprio(native: PthreadT, priority: Int): Int = 38
+public actual fun pthreadSetschedprio(native: PthreadT, priority: Int): Int = platform.posix.ENOSYS
 
 public actual fun pthreadSpinDestroy(lock: PthreadSpinlockT): Int =
     libc.cinterop.libc_pthread_spin_destroy(lock.rawValue)
@@ -40,4 +40,4 @@ public actual fun pthreadBarrierattrInit(attr: PthreadBarrierattrT): Int =
     libc.cinterop.libc_pthread_barrierattr_init(attr.rawValue)
 
 // pthread_mutex_consistent is not exposed by mingw-w64's winpthreads pthread.h.
-public actual fun pthreadMutexConsistent(mutex: PthreadMutexT): Int = 38
+public actual fun pthreadMutexConsistent(mutex: PthreadMutexT): Int = platform.posix.ENOSYS

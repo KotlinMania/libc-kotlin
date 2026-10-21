@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cstdint>
 
 #ifndef _WIN32
 #include <unistd.h>
@@ -21,6 +22,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
+
+#include <uv.h>
 
 #ifndef _WIN32
 static std::string format_passwd_result(int rc, const struct passwd* res, const struct passwd& pwd) {
@@ -45,6 +48,65 @@ static std::string format_passwd_result(int rc, const struct passwd* res, const 
 }
 #endif
 
+
+namespace libc_node {
+std::string passwd_error(int error) {
+    return std::to_string(error) + "\n0\n\n\n0\n0\n\n\n";
+}
+
+int uv_errno(int error) {
+    switch (error) {
+        case UV_EACCES: return EACCES;
+        case UV_ENOMEM: return ENOMEM;
+        case UV_EINVAL: return EINVAL;
+        case UV_ENOBUFS: return ERANGE;
+        case UV_ENOSYS: return ENOSYS;
+        case UV_ENOENT: return ENOENT;
+        case UV_EPERM: return EPERM;
+        case UV_ERANGE: return ERANGE;
+        case UV_ENOTSUP: return ENOTSUP;
+        default: return EIO;
+    }
+}
+
+std::string current_passwd(std::uint32_t uid, const char* name, size_t capacity) {
+    uv_passwd_t pwd;
+    int status = uv_os_get_passwd(&pwd);
+    if (status != 0) return passwd_error(uv_errno(status));
+    const char* username = pwd.username ? pwd.username : "";
+    const char* home = pwd.homedir ? pwd.homedir : "";
+    const char* shell = pwd.shell ? pwd.shell : "";
+    std::string result;
+    if ((name && std::strcmp(name, username) != 0) || (!name && uid != static_cast<std::uint32_t>(pwd.uid))) {
+        result = passwd_error(ENOTSUP);
+    } else if (capacity < std::strlen(username) + std::strlen(home) + std::strlen(shell) + 3) {
+        result = passwd_error(ERANGE);
+    } else {
+        result = "0\n1\n" + std::string(username) + "\n\n" + std::to_string(static_cast<std::uint32_t>(pwd.uid)) +
+            "\n" + std::to_string(static_cast<std::uint32_t>(pwd.gid)) + "\n\n" + home + "\n" + shell;
+    }
+    uv_os_free_passwd(&pwd);
+    return result;
+}
+
+Napi::Value current_identity(Napi::Env env, bool group) {
+    uv_passwd_t pwd;
+    int status = uv_os_get_passwd(&pwd);
+    if (status != 0) {
+        errno = uv_errno(status);
+        Napi::Error::New(env, uv_strerror(status)).ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    double value = static_cast<double>(static_cast<std::uint32_t>(group ? pwd.gid : pwd.uid));
+    uv_os_free_passwd(&pwd);
+    return Napi::Number::New(env, value);
+}
+}
+
+Napi::Value rawKill(const Napi::CallbackInfo& info);
+Napi::Value numericMlock(const Napi::CallbackInfo& info);
+Napi::Value numericMunlock(const Napi::CallbackInfo& info);
+
 void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
     // get_errno()
     exports.Set("get_errno", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
@@ -54,16 +116,16 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
     // uname_fields()
     exports.Set("uname_fields", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
         Napi::Env env = info.Env();
-#ifndef _WIN32
-        struct utsname u;
-        std::memset(&u, 0, sizeof(u));
-        if (::uname(&u) != 0) return env.Null();
-        char out[2048];
-        std::snprintf(out, sizeof(out), "%s\n%s\n%s\n%s\n%s", u.sysname, u.nodename, u.release, u.version, u.machine);
-        return Napi::String::New(env, out);
-#else
-        return env.Null();
-#endif
+        uv_utsname_t system;
+        int status = uv_os_uname(&system);
+        if (status != 0) { errno = libc_node::uv_errno(status); return env.Null(); }
+        char hostname[UV_MAXHOSTNAMESIZE];
+        size_t length = sizeof(hostname);
+        status = uv_os_gethostname(hostname, &length);
+        if (status != 0) { errno = libc_node::uv_errno(status); return env.Null(); }
+        std::string result = std::string(system.sysname) + "\n" + hostname + "\n" + system.release +
+            "\n" + system.version + "\n" + system.machine;
+        return Napi::String::New(env, result);
     }));
 
     // getpwuid_r_str(uid, buflen)
@@ -84,7 +146,13 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
         ::free(buf);
         return Napi::String::New(env, formatted);
 #else
-        return Napi::String::New(env, "38\n0\n\n\n0\n0\n\n\n");
+        if (info.Length() < 2 || !info[0].IsNumber() || !info[1].IsNumber()) {
+            return Napi::String::New(env, libc_node::passwd_error(EINVAL));
+        }
+        std::uint32_t uid = info[0].As<Napi::Number>().Uint32Value();
+        int64_t capacity = info[1].As<Napi::Number>().Int64Value();
+        if (capacity <= 0) return Napi::String::New(env, libc_node::passwd_error(ERANGE));
+        return Napi::String::New(env, libc_node::current_passwd(uid, nullptr, static_cast<size_t>(capacity)));
 #endif
     }));
 
@@ -107,7 +175,13 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
         ::free(buf);
         return Napi::String::New(env, formatted);
 #else
-        return Napi::String::New(env, "38\n0\n\n\n0\n0\n\n\n");
+        if (info.Length() < 2 || !info[0].IsString() || !info[1].IsNumber()) {
+            return Napi::String::New(env, libc_node::passwd_error(EINVAL));
+        }
+        std::string name = info[0].As<Napi::String>().Utf8Value();
+        int64_t capacity = info[1].As<Napi::Number>().Int64Value();
+        if (capacity <= 0) return Napi::String::New(env, libc_node::passwd_error(ERANGE));
+        return Napi::String::New(env, libc_node::current_passwd(0, name.c_str(), static_cast<size_t>(capacity)));
 #endif
     }));
 
@@ -148,39 +222,8 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
 #endif
     }));
 
-    // mlock(addr, len)
-    exports.Set("mlock", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
-        Napi::Env env = info.Env();
-        if (info.Length() < 2) {
-            Napi::TypeError::New(env, "mlock requires 2 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
-        intptr_t addr = static_cast<intptr_t>(info[0].As<Napi::Number>().Int64Value());
-        size_t len = static_cast<size_t>(info[1].As<Napi::Number>().Int64Value());
-#ifndef _WIN32
-        int res = ::mlock((const void*)addr, len);
-#else
-        int res = VirtualLock((LPVOID)addr, (SIZE_T)len) ? 0 : -1;
-#endif
-        return Napi::Number::New(env, res);
-    }));
-
-    // munlock(addr, len)
-    exports.Set("munlock", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
-        Napi::Env env = info.Env();
-        if (info.Length() < 2) {
-            Napi::TypeError::New(env, "munlock requires 2 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
-        intptr_t addr = static_cast<intptr_t>(info[0].As<Napi::Number>().Int64Value());
-        size_t len = static_cast<size_t>(info[1].As<Napi::Number>().Int64Value());
-#ifndef _WIN32
-        int res = ::munlock((const void*)addr, len);
-#else
-        int res = VirtualUnlock((LPVOID)addr, (SIZE_T)len) ? 0 : -1;
-#endif
-        return Napi::Number::New(env, res);
-    }));
+    exports.Set("mlock", Napi::Function::New(env, numericMlock));
+    exports.Set("munlock", Napi::Function::New(env, numericMunlock));
 
     // sysconf(name)
     exports.Set("sysconf", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
@@ -206,7 +249,7 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
 #ifndef _WIN32
         return Napi::Number::New(env, ::geteuid());
 #else
-        return Napi::Number::New(env, 0);
+        return libc_node::current_identity(env, false);
 #endif
     }));
 
@@ -216,7 +259,7 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
 #ifndef _WIN32
         return Napi::Number::New(env, ::getegid());
 #else
-        return Napi::Number::New(env, 0);
+        return libc_node::current_identity(env, true);
 #endif
     }));
 
@@ -226,7 +269,7 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
 #ifndef _WIN32
         return Napi::Number::New(env, ::getuid());
 #else
-        return Napi::Number::New(env, 0);
+        return libc_node::current_identity(env, false);
 #endif
     }));
 
@@ -236,26 +279,12 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
 #ifndef _WIN32
         return Napi::Number::New(env, ::getgid());
 #else
-        return Napi::Number::New(env, 0);
+        return libc_node::current_identity(env, true);
 #endif
     }));
 
     // kill(pid, sig)
-    exports.Set("kill", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
-        Napi::Env env = info.Env();
-        if (info.Length() < 2) {
-            Napi::TypeError::New(env, "kill requires 2 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
-        int pid = info[0].As<Napi::Number>().Int32Value();
-        int sig = info[1].As<Napi::Number>().Int32Value();
-#ifndef _WIN32
-        int res = ::kill(static_cast<pid_t>(pid), sig);
-#else
-        int res = -1;
-#endif
-        return Napi::Number::New(env, res);
-    }));
+    exports.Set("kill", Napi::Function::New(env, rawKill));
 
     // syscall(num, a1, a2, a3, a4, a5, a6)
     exports.Set("syscall", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
@@ -268,11 +297,12 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
         int64_t a4 = info.Length() > 4 ? info[4].As<Napi::Number>().Int64Value() : 0;
         int64_t a5 = info.Length() > 5 ? info[5].As<Napi::Number>().Int64Value() : 0;
         int64_t a6 = info.Length() > 6 ? info[6].As<Napi::Number>().Int64Value() : 0;
-#ifndef _WIN32
+#if defined(__linux__)
         long res = ::syscall((long)num, (long)a1, (long)a2, (long)a3, (long)a4, (long)a5, (long)a6);
         return Napi::Number::New(env, (double)res);
 #else
         (void)num; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+        errno = ENOSYS;
         return Napi::Number::New(env, -1);
 #endif
     }));

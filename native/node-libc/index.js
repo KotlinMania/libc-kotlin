@@ -1,25 +1,17 @@
-// Entry point for the libc N-API native module
-// Shared between Kotlin/JS (nodeMain) and Kotlin/WASM (wasmJsMain via Node.js)
-//
-// This addon wraps direct C library calls — no insecure NPM dependencies.
-// Both JS and WASM targets load the same compiled .node binary.
-//
-// Note: node-gyp strips the "lib" prefix from the target name, producing
-// "c_native.node" instead of "libc_native.node". This is standard Unix
-// linker behavior — the library is still "libc_native", the file just
-// drops the prefix.
-
-try {
-    module.exports = require('./build/Release/c_native.node');
-} catch (err) {
-    try {
-        module.exports = require('./build/Debug/c_native.node');
-    } catch (err2) {
-        throw new Error(
-            'Could not load libc_native addon. ' +
-            'Run `npm install` or `node-gyp rebuild` in native/node-libc directory.\n' +
-            'Original error: ' + err.message + '\n' +
-            'Debug error: ' + err2.message
-        );
-    }
+const path = require('node:path');
+const fs = require('node:fs');
+const platforms = { darwin: 'macos', linux: 'linux', win32: 'windows' };
+const architectures = { arm64: 'aarch64', x64: 'x86_64' };
+const host = `${platforms[process.platform]}-${architectures[process.arch]}`;
+const candidates = [
+  path.join(__dirname, 'prebuilds', host, 'libc_native.node'),
+  path.join(__dirname, 'build', 'Release', 'c_native.node'),
+  path.join(__dirname, 'build', 'Release', 'libc_native.node'),
+];
+const binary = candidates.find(candidate => fs.existsSync(candidate));
+if (!binary) throw new Error(`Missing libc native payload for ${host}; install the matching node-native library artifact`);
+const bindings = require(binary);
+if (typeof bindings.rawAbiVersion !== 'function' || bindings.rawAbiVersion() !== 2) {
+  throw new Error(`The libc native payload for ${host} does not match library ABI 2`);
 }
+module.exports = bindings;

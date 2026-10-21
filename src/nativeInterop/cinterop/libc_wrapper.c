@@ -358,6 +358,53 @@ int libc_puts(const char* s) { return puts(s); }
 void libc_perror(const char* s) { perror(s); }
 
 /* unistd.h — Windows uses _-prefixed names from <io.h>/<direct.h> */
+int64_t libc_read(int fd, void* buf, uint64_t count) {
+#ifdef _WIN32
+    if (count > UINT_MAX) { errno = EINVAL; return -1; }
+    return _read(fd, buf, (unsigned int)count);
+#else
+    return read(fd, buf, (size_t)count);
+#endif
+}
+int libc_open(const char* path, int flags, uint32_t mode) {
+    if (path == NULL) { errno = EFAULT; return -1; }
+#ifdef _WIN32
+    return _open(path, flags, (int)mode);
+#else
+    return open(path, flags, (mode_t)mode);
+#endif
+}
+int libc_raw_open_flag(int index) {
+    static const int flags[] = { O_RDONLY, O_WRONLY, O_RDWR, O_CREAT, O_TRUNC, SEEK_SET,
+#ifdef _WIN32
+        _O_BINARY
+#else
+        0
+#endif
+    };
+    if (index < 0 || index >= 7) { errno = EINVAL; return -1; }
+    return flags[index];
+}
+int libc_raw_descriptor_command(int index) {
+#ifndef _WIN32
+    static const int commands[] = { F_GETFD, F_SETFD, FD_CLOEXEC, EBADF };
+    if (index < 0 || index >= 4) { errno = EINVAL; return -1; }
+    return commands[index];
+#else
+    (void)index;
+    errno = ENOSYS;
+    return -1;
+#endif
+}
+
+int64_t libc_lseek(int fd, int64_t offset, int whence) {
+#ifdef _WIN32
+    return _lseeki64(fd, offset, whence);
+#else
+    return lseek(fd, (off_t)offset, whence);
+#endif
+}
+
 int libc_close(int fd) {
 #ifdef _WIN32
     return _close(fd);
@@ -655,7 +702,6 @@ int libc_munlockall(void) { return munlockall(); }
 int libc_munmap(void* addr, uint64_t len) { return munmap(addr, len); }
 int libc_nice(int inc) { return nice(inc); }
 int libc_raise(int sig) { return raise(sig); }
-int64_t libc_read(int fd, void* buf, uint64_t count) { return (long)read(fd, buf, count); }
 char* libc_setlocale(int category, const char* locale) { return setlocale(category, locale); }
 int libc_setlogmask(int mask) { return setlogmask(mask); }
 int libc_tcflush(int fd, int queue_selector) { return tcflush(fd, queue_selector); }
@@ -689,7 +735,6 @@ uint64_t libc_confstr(int name, void* buf, uint64_t len) {
 #endif
 }
 int64_t libc_fpathconf(int filedes, int name) { return fpathconf(filedes, name); }
-int64_t libc_lseek(int fd, int64_t offset, int whence) { return lseek(fd, offset, whence); }
 int64_t libc_pathconf(const char* path, int name) { return pathconf(path, name); }
 int64_t libc_sysconf(int attr) { return sysconf(attr); }
 int libc_strcoll(const char* cs, const char* ct) { return strcoll(cs, ct); }
@@ -714,6 +759,122 @@ int libc_symlink(const char* path1, const char* path2) { return symlink(path1, p
 int libc_chmod(const char* path, uint32_t mode) { return chmod(path, (uint32_t)mode); }
 int libc_fchmod(int attr1, uint32_t attr2) { return fchmod(attr1, (uint32_t)attr2); }
 int libc_closedir(void* ptr) { return closedir(ptr); }
+#ifndef _WIN32
+/* All directory-entry reads through these wrappers share this lock. Foreign
+ * direct reads and closing a stream still require caller synchronization. */
+static pthread_mutex_t libc_directory_read_lock = PTHREAD_MUTEX_INITIALIZER;
+struct libc_directory_entry_storage {
+    size_t capacity;
+    struct dirent entry;
+};
+/* Do not inherit the legacy wrapper's deprecated-warning exception here. */
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic error "-Wdeprecated-declarations"
+#elif defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic error "-Wdeprecated-declarations"
+#endif
+void* libc_opendir(const char* path) { return opendir(path); }
+void* libc_fdopendir(int fd) { return fdopendir(fd); }
+static size_t libc_directory_record_size(const struct dirent* entry) {
+    size_t names = offsetof(struct dirent, d_name) + strlen(entry->d_name) + 1;
+    return entry->d_reclen > names ? entry->d_reclen : names;
+}
+/* Return an owned snapshot so another reader cannot invalidate its bytes. */
+void* libc_readdir(void* stream) {
+    int saved_errno = errno;
+    int status = pthread_mutex_lock(&libc_directory_read_lock);
+    if (status != 0) { errno = status; return NULL; }
+    errno = 0;
+    struct dirent* source = readdir((DIR*)stream);
+    int read_error = errno;
+    void* snapshot = NULL;
+    if (source != NULL) {
+        read_error = 0;
+        size_t size = libc_directory_record_size(source);
+        snapshot = malloc(size);
+        if (snapshot != NULL) memcpy(snapshot, source, size);
+        else read_error = ENOMEM;
+    }
+    status = pthread_mutex_unlock(&libc_directory_read_lock);
+    if (status != 0) { free(snapshot); errno = status; return NULL; }
+    errno = read_error != 0 ? read_error : saved_errno;
+    return snapshot;
+}
+int libc_readdir_r(void* stream, void* entry, void** result) {
+    int saved_errno = errno;
+    if (stream == NULL || entry == NULL || result == NULL) return EINVAL;
+    *result = NULL;
+    struct libc_directory_entry_storage* storage =
+        (struct libc_directory_entry_storage*)((char*)entry - offsetof(struct libc_directory_entry_storage, entry));
+    int status = pthread_mutex_lock(&libc_directory_read_lock);
+    if (status != 0) { errno = saved_errno; return status; }
+    errno = 0;
+    struct dirent* source = readdir((DIR*)stream);
+    int read_error = errno;
+    if (source != NULL) {
+        read_error = 0;
+        size_t size = libc_directory_record_size(source);
+        if (size > storage->capacity) read_error = ENAMETOOLONG;
+        else { memcpy(entry, source, size); *result = entry; }
+    }
+    status = pthread_mutex_unlock(&libc_directory_read_lock);
+    if (status != 0 && read_error == 0) { read_error = status; *result = NULL; }
+    errno = saved_errno;
+    return read_error;
+}
+void* libc_dirent_allocate(void* stream) {
+    int saved_errno = errno;
+    errno = 0;
+    long name_max = fpathconf(dirfd((DIR*)stream), _PC_NAME_MAX);
+    if (name_max < 0) {
+        if (errno == 0) errno = EOVERFLOW;
+        return NULL;
+    }
+    if ((uint64_t)name_max > SIZE_MAX - offsetof(struct dirent, d_name) - 1) {
+        errno = EOVERFLOW;
+        return NULL;
+    }
+    size_t size = offsetof(struct dirent, d_name) + (size_t)name_max + 1;
+    if (size < sizeof(struct dirent)) size = sizeof(struct dirent);
+    if (size > SIZE_MAX - offsetof(struct libc_directory_entry_storage, entry)) {
+        errno = EOVERFLOW;
+        return NULL;
+    }
+    struct libc_directory_entry_storage* storage = malloc(offsetof(struct libc_directory_entry_storage, entry) + size);
+    if (storage == NULL) return NULL;
+    storage->capacity = size;
+    errno = saved_errno;
+    return &storage->entry;
+}
+void libc_dirent_release(void* entry) {
+    if (entry != NULL) free((char*)entry - offsetof(struct libc_directory_entry_storage, entry));
+}
+uint64_t libc_dirent_capacity(const void* entry) {
+    const struct libc_directory_entry_storage* storage =
+        (const struct libc_directory_entry_storage*)((const char*)entry - offsetof(struct libc_directory_entry_storage, entry));
+    return storage->capacity;
+}
+uint64_t libc_dirent_inode(const void* entry) { return ((const struct dirent*)entry)->d_ino; }
+int64_t libc_dirent_offset(const void* entry) {
+#ifdef __APPLE__
+    return (int64_t)((const struct dirent*)entry)->d_seekoff;
+#else
+    return (int64_t)((const struct dirent*)entry)->d_off;
+#endif
+}
+uint16_t libc_dirent_record_length(const void* entry) { return ((const struct dirent*)entry)->d_reclen; }
+uint8_t libc_dirent_type(const void* entry) { return ((const struct dirent*)entry)->d_type; }
+const char* libc_dirent_name(const void* entry) { return ((const struct dirent*)entry)->d_name; }
+uint64_t libc_dirent_name_length(const void* entry) { return strlen(((const struct dirent*)entry)->d_name); }
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#elif defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+#endif
+
 int libc_kill(int32_t pid, int signo) { return kill(pid, signo); }
 int64_t libc_random(void) { return random(); }
 int libc_isascii(int c) { return isascii(c); }
@@ -1921,7 +2082,6 @@ const libc_descriptor_constants* libc_get_descriptor_constants(void) {
 int libc_fcntl_noarg(int fd, int command) { return fcntl(fd, command); }
 int libc_fcntl_int(int fd, int command, int argument) { return fcntl(fd, command, argument); }
 int libc_fcntl_pointer(int fd, int command, void* argument) { return fcntl(fd, command, argument); }
-void* libc_pthread_self(void) { return (void*)pthread_self(); }
 libc_signal_handler libc_signal(int number, libc_signal_handler handler) { return signal(number, handler); }
 #ifdef __linux__
 int libc_pipe2(int* fds, int flags) { return pipe2(fds, flags); }
@@ -2853,3 +3013,7 @@ int libc_getnameinfo_packed(
 }
 
 
+
+void* libc_pthread_self(void) { return (void*)(uintptr_t)pthread_self(); }
+
+int libc_numeric_nameinfo_flags(void) { return NI_NUMERICHOST | NI_NUMERICSERV; }

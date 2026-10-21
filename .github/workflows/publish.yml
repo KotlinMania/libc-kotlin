@@ -17,9 +17,16 @@ permissions:
   contents: read
 
 jobs:
+  jni:
+    uses: ./.github/workflows/jni-payloads.yml
+    with:
+      run-tests: false
+    permissions:
+      contents: read
   publish:
+    needs: jni
     name: Publish to Maven Central
-    runs-on: macos-latest
+    runs-on: macos-26
 
     permissions:
       contents: read
@@ -53,6 +60,20 @@ jobs:
           node --version
           npm --version
           yarn --version
+
+      - name: Collect the exact-revision JNI payloads
+        uses: actions/download-artifact@v8
+        with:
+          pattern: jni-*
+          merge-multiple: true
+          path: build/jni-distribution/
+
+      - name: Collect the exact-revision Node payloads
+        uses: actions/download-artifact@v8
+        with:
+          pattern: napi-*
+          merge-multiple: true
+          path: build/napi-distribution/
 
       - name: Build (dry run)
         if: ${{ github.event_name == 'workflow_dispatch' && !inputs.publish }}

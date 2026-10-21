@@ -7,6 +7,6 @@ public data class UcontextT(
     val ucMcontext: McontextT,
     val ucLink: UcontextT?,
     val ucStack: StackT,
-    val ucCofunc: ((UcontextT?, COpaquePointer?) -> Unit)?,
+    val ucCofunc: ContextCoroutine?,
     val ucArg: COpaquePointer?,
 )

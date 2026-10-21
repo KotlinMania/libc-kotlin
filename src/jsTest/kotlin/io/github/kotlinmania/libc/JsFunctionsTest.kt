@@ -18,6 +18,10 @@ import kotlin.test.assertNotNull
 class JsFunctionsTest {
     @Test
     fun mallocWorksOnJs() {
+        if (testIsBrowser()) {
+            assertFailsWith<UnsupportedOperationException> { malloc(1uL) }
+            return
+        }
         val ptr = malloc(1024uL)
         assertNotNull(ptr)
         free(ptr)
@@ -25,6 +29,10 @@ class JsFunctionsTest {
 
     @Test
     fun callocWorksOnJs() {
+        if (testIsBrowser()) {
+            assertFailsWith<UnsupportedOperationException> { calloc(1uL, 1uL) }
+            return
+        }
         val ptr = calloc(10uL, 4uL)
         assertNotNull(ptr)
         free(ptr)
@@ -32,11 +40,19 @@ class JsFunctionsTest {
 
     @Test
     fun freeWorksOnJs() {
+        if (testIsBrowser()) {
+            assertFailsWith<UnsupportedOperationException> { free(null) }
+            return
+        }
         free(null)
     }
 
     @Test
     fun strlenWorksOnJs() {
+        if (testIsBrowser()) {
+            assertFailsWith<UnsupportedOperationException> { strlen("hello") }
+            return
+        }
         assertEquals(5uL, strlen("hello"))
     }
 

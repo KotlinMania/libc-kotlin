@@ -7,7 +7,7 @@ public data class Sigevent(
     val sigevValue: Sigval,
     val sigevSigno: Int,
     val sigevNotify: Int,
-    val sigevNotifyFunction: ((Sigval) -> Unit)?,
+    val sigevNotifyFunction: io.github.kotlinmania.libc.unix.SignalNotification?,
     val sigevNotifyAttributes: PthreadAttrT?,
     val pad: ByteArray,
 )

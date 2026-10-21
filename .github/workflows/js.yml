@@ -47,6 +47,15 @@ jobs:
           clang -c -Isrc/nativeInterop/cinterop src/nativeInterop/cinterop/libc_wrapper.c -o src/nativeInterop/cinterop/libc_wrapper.o
           ar rcs src/nativeInterop/cinterop/libc_wrapper.a src/nativeInterop/cinterop/libc_wrapper.o
         
+      - name: Select existing LLVM tools for the real C Wasm fixture
+        run: |
+          llvm_bin="$(dirname "$(readlink -f "$(command -v clang)")")"
+          test -x "$llvm_bin/clang"
+          test -x "$llvm_bin/lld"
+          "$llvm_bin/clang" --version
+          "$llvm_bin/lld" -flavor wasm --version
+          echo "MACRO_FIXTURE_LLVM_BIN=$llvm_bin" >> "$GITHUB_ENV"
+
       - name: Build and test JS targets
         env:
           ORG_GRADLE_PROJECT_kotlin_js_yarn_download: "false"
@@ -55,8 +64,9 @@ jobs:
           compileKotlinJs
           compileTestKotlinJs
           jsNodeTest
+          jsBrowserTest
+          -Pproject.macroFixture.llvmBin="$MACRO_FIXTURE_LLVM_BIN"
           --no-configuration-cache
-        continue-on-error: true
 
       - name: Upload test reports (JS)
         if: success() || failure()

@@ -838,17 +838,12 @@ public actual fun fdopen(fd: Int, mode: String?): FILE? {
 public actual fun fileno(stream: FILE?): Int =
     libc.cinterop.libc_fileno(stream?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
 
-public actual fun open(path: String?, oflag: Int, vararg args: Any?): Int =
-    throw UnsupportedOperationException("open requires manual FFI bridge — not yet implemented")
+public actual fun open(path: String?, oflag: Int): Int = libc.cinterop.libc_open(path, oflag, 0u)
+
+public actual fun open(path: String?, oflag: Int, mode: UInt): Int = libc.cinterop.libc_open(path, oflag, mode)
 
 public actual fun creat(path: String?, mode: UInt): Int =
     libc.cinterop.libc_creat(path, mode)
-
-public actual fun opendir(dirname: String?): DIR? =
-    throw UnsupportedOperationException("opendir requires manual FFI bridge — not yet implemented")
-
-public actual fun readdir(dirp: DIR?): Dirent? =
-    throw UnsupportedOperationException("readdir requires manual FFI bridge — not yet implemented")
 
 public actual fun closedir(dirp: DIR?): Int =
     libc.cinterop.libc_closedir(dirp?.handle?.toCPointer<kotlinx.cinterop.ByteVar>())
@@ -1730,12 +1725,6 @@ public actual fun mkdirat(dirfd: Int, pathname: String?, mode: UInt): Int =
 
 public actual fun openat(dirfd: Int, pathname: String?, flags: Int, vararg args: Any?): Int =
     throw UnsupportedOperationException("openat requires manual FFI bridge — not yet implemented")
-
-public actual fun fdopendir(fd: Int): DIR? =
-    throw UnsupportedOperationException("fdopendir requires manual FFI bridge — not yet implemented")
-
-public actual fun readdirR(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): Int =
-    throw UnsupportedOperationException("readdirR requires manual FFI bridge — not yet implemented")
 
 public actual fun readlinkat(dirfd: Int, pathname: String?, buf: COpaquePointer?, bufsiz: ULong): Int {
     val rawBuf = buf?.value?.toCPointer<ByteVar>()

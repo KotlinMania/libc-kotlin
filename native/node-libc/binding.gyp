@@ -4,6 +4,7 @@
       "target_name": "libc_native",
       "sources": [
         "src/libc_bindings.cpp",
+        "src/raw_bindings.cpp",
         "src/stdio_bindings.cpp",
         "src/unistd_bindings.cpp",
         "src/string_bindings.cpp",
@@ -20,14 +21,35 @@
       "dependencies": [
         "<!(node -p \"require('node-addon-api').gyp\")"
       ],
-      "cflags!": [ "-fno-exceptions" ],
-      "cflags_cc!": [ "-fno-exceptions" ],
-      "defines": [ "NAPI_DISABLE_CPP_EXCEPTIONS" ],
+      "cflags!": [
+        "-fno-exceptions"
+      ],
+      "cflags_cc!": [
+        "-fno-exceptions"
+      ],
+      "cflags_cc": [
+        "-std=c++17"
+      ],
+      "defines": [
+        "NAPI_DISABLE_CPP_EXCEPTIONS"
+      ],
       "xcode_settings": {
         "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
         "CLANG_CXX_LIBRARY": "libc++",
+        "CLANG_CXX_LANGUAGE_STANDARD": "c++17",
         "MACOSX_DEPLOYMENT_TARGET": "10.15"
-      }
+      },
+      "conditions": [
+        [
+          "OS==\"win\"",
+          {
+            "libraries": [
+              "ws2_32.lib"
+            ],
+            "msbuild_toolset": "ClangCL"
+          }
+        ]
+      ]
     }
   ]
 }

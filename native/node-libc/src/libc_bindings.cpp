@@ -17,6 +17,7 @@ void RegisterSocketBindings(Napi::Env env, Napi::Object exports);
 void RegisterPollBindings(Napi::Env env, Napi::Object exports);
 void RegisterTermBindings(Napi::Env env, Napi::Object exports);
 void RegisterSysBindings(Napi::Env env, Napi::Object exports);
+void RegisterRawBindings(Napi::Env env, Napi::Object exports);
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
     RegisterStdioBindings(env, exports);
@@ -28,6 +29,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     RegisterPollBindings(env, exports);
     RegisterTermBindings(env, exports);
     RegisterSysBindings(env, exports);
+    RegisterRawBindings(env, exports);
 
     // Export errno as a getter (it changes after each call)
     exports.DefineProperty(Napi::PropertyDescriptor::Accessor(

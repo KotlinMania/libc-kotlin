@@ -252,12 +252,14 @@ public data class CAnonymousIfruMap(
 )
 
 public data class Dirent(
-    val dIno: ULong,
-    val dOff: Long,
-    val dReclen: UShort,
-    val dType: UByte,
-    val dName: ByteArray,
-)
+    var dIno: ULong,
+    var dOff: Long,
+    var dReclen: UShort,
+    var dType: UByte,
+    var dName: ByteArray,
+) {
+    internal var nativeStorage: Long = 0L
+}
 
 public data class Dirent64(
     val dIno: ULong,

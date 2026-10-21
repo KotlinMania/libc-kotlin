@@ -140,7 +140,7 @@ dual licensed as above, without any additional terms or conditions.
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:libc-kotlin:0.1.11")
+    implementation("io.github.kotlinmania:libc-kotlin:0.1.13")
 }
 ```
 
@@ -175,3 +175,32 @@ Kotlin port: Copyright (c) 2026 Sydney Renee and The Solace Project.
 ### Acknowledgments
 
 Thanks to the [`rust-lang/libc`](https://github.com/rust-lang/libc) maintainers and contributors for the original Rust implementation. This port reproduces their work in Kotlin Multiplatform; bug reports about upstream design or behavior should go to the upstream repository.
+
+
+### Native runtime artifacts
+
+The JVM JAR carries the host JNI payload. The Android AAR carries ARM64 and
+x86-64 JNI libraries with 16KB-compatible load segments. Kotlin/Native
+publications include the target-specific C interop KLIB and its static wrapper.
+
+Node.js consumers of the JS and Wasm-JS targets install the matching runtime
+archive alongside their application:
+
+```shell
+npm install https://repo1.maven.org/maven2/io/github/kotlinmania/libc-kotlin/0.1.13/libc-kotlin-0.1.13-node-native.tgz
+```
+
+The archive contains prebuilt macOS ARM64, Linux x86-64/ARM64 and Windows x86-64
+payloads. Loading verifies the native ABI. Browsers reject host C pointers and
+OS descriptors explicitly. WASI preview1 FILE operations use real preopened
+directory capabilities; host-pointer memory and POSIX descriptor commands are
+unsupported. Windows file operations accept `fileOpenFlags().binary` for byte
+preservation; POSIX descriptor commands are unavailable on Windows.
+
+### Existing LLVM for macOS-to-Linux C archives
+
+A macOS cross-build can set `-Pproject.ffi.llvmBin=/absolute/path/to/installed/llvm/bin`
+to use that installation's real `llvm-ar`. The Linux GCC sysroot is still required;
+the archiver path and executable are tracked task inputs. An invalid explicit tool
+fails before use. Without this property, the existing NDK LLVM archiver route remains
+available. Gradle offline mode refuses any missing toolchain download.

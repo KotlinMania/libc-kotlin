@@ -26,6 +26,10 @@ permissions:
 # called workflow's own `contents: read` declaration and break checkout.
 # `contents: read` matches what each called workflow needs.
 jobs:
+  jni:
+    uses: ./.github/workflows/jni-payloads.yml
+    permissions:
+      contents: read
   ios:
     uses: ./.github/workflows/ios.yml
     permissions:
@@ -43,6 +47,7 @@ jobs:
     permissions:
       contents: read
   android:
+    needs: macos
     uses: ./.github/workflows/android.yml
     permissions:
       contents: read

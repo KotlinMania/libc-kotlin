@@ -8,5 +8,5 @@ public data class GlobT(
     val glPathv: COpaquePointer?,
     val glOffs: ULong,
     val glFlags: Int,
-    val glErrfunc: ((String?, Int) -> Int)?,
+    val glErrfunc: GlobErrorHandler?,
 )

@@ -6,7 +6,7 @@ public data class ThreadAttr(
     val flags: Int,
     val stacksize: ULong,
     val stackaddr: COpaquePointer?,
-    val exitfunc: ((COpaquePointer?) -> Unit)?,
+    val exitfunc: ThreadExitHandler?,
     val policy: Int,
     val param: SchedParam,
     val guardsize: UInt,

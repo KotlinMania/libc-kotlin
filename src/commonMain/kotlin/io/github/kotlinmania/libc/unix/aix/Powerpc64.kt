@@ -273,11 +273,11 @@ public data class PollfdExt(
 )
 
 public data class FileopsT(
-    val foRw: ((File?, UioRw, COpaquePointer?, Long, COpaquePointer?) -> Int)?,
-    val foIoctl: ((File?, Long, String?, Long, Long) -> Int)?,
-    val foSelect: ((File?, Int, UShort?, (() -> Unit)?) -> Int)?,
-    val foClose: ((File?) -> Int)?,
-    val foFstat: ((File?, Stat?) -> Int)?,
+    val foRw: FileReadWrite?,
+    val foIoctl: FileIoctl?,
+    val foSelect: FileSelect?,
+    val foClose: FileClose?,
+    val foFstat: FileStat?,
 )
 
 public data class File(
