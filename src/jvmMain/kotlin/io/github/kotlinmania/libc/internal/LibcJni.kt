@@ -85,6 +85,15 @@ internal object LibcJni {
     @JvmStatic
     external fun socketpair(domain: Int, type: Int, protocol: Int, sv: IntArray): Int
 
+    @JvmStatic
+    external fun boundDatagramSocket(): Int
+
+    @JvmStatic
+    external fun closesocket(fd: Int): Int
+
+    @JvmStatic
+    external fun pollConstants(): ShortArray
+
     // --- Polling & Select ---
 
     @JvmStatic

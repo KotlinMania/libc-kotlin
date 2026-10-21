@@ -1466,7 +1466,22 @@ if (jvmFfiEnabled) {
             doLast {
                 if (isWindowsHost) throw GradleException("Build Android JNI payloads on the coordinated macOS or Linux host")
                 val host = if (isMacHost) "osx" else "linux"
-                val ndk = File(projectKonanDataDirectory.get(), "dependencies/target-toolchain-2-$host-android_ndk")
+                val dependencyName = "target-toolchain-2-$host-android_ndk"
+                val compilerDependencies = File(projectKonanDataDirectory.get(), "dependencies")
+                val compilerReceipt = File(compilerDependencies, ".extracted")
+                val compilerDirectory = File(compilerDependencies, dependencyName)
+                val ndk =
+                    if (
+                        compilerReceipt.isFile && dependencyName in compilerReceipt.readLines() &&
+                        compilerDirectory.isDirectory && compilerDirectory.list()?.isNotEmpty() == true
+                    ) {
+                        compilerDirectory
+                    } else {
+                        layout.buildDirectory
+                            .dir("native-wrapper-dependencies/$dependencyName")
+                            .get()
+                            .asFile
+                    }
                 val source = file("src/jvmMain/c/${ffiNameLower}_jni.c")
                 val api = providers.gradleProperty("android.minSdk").getOrElse("24")
                 val execOps = project.serviceOf<ExecOperations>()

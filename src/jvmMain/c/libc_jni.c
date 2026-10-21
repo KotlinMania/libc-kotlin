@@ -8,10 +8,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <limits.h>
 
 #ifndef _WIN32
 #include <unistd.h>
-#include <limits.h>
 #include <pwd.h>
 #include <sys/types.h>
 #include <sys/utsname.h>
@@ -39,6 +39,22 @@
 #include <share.h>
 #endif
 
+static int jni_ensure_wsa(void);
+
+#ifdef _WIN32
+static int jni_wsa_errno(int error) {
+    switch (error) {
+        case WSAEINTR: return EINTR;
+        case WSAEINVAL: return EINVAL;
+        case WSAEFAULT: return EFAULT;
+        case WSAENOBUFS: return ENOMEM;
+        case WSAENETDOWN: return ENETDOWN;
+        case WSAENOTSOCK: return ENOTSOCK;
+        default: return EIO;
+    }
+}
+#endif
+
 /* --- Sockets --- */
 
 JNIEXPORT jint JNICALL
@@ -48,7 +64,15 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_socket(
 #ifndef _WIN32
     return socket((int)domain, (int)type, (int)protocol);
 #else
-    return (jint)socket((int)domain, (int)type, (int)protocol);
+    if (jni_ensure_wsa() != 0) return -1;
+    SOCKET result = socket((int)domain, (int)type, (int)protocol);
+    if (result == INVALID_SOCKET) { errno = jni_wsa_errno(WSAGetLastError()); return -1; }
+    if (result > INT_MAX) {
+        closesocket(result);
+        errno = EOVERFLOW;
+        return -1;
+    }
+    return (jint)result;
 #endif
 }
 
@@ -361,48 +385,139 @@ Java_io_github_kotlinmania_libc_internal_LibcJni_socketpair(
 
 /* --- Polling & Select --- */
 
+JNIEXPORT jshortArray JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_pollConstants(JNIEnv* env, jclass clazz) {
+    (void)clazz;
+    jshort constants[3] = { POLLIN, POLLOUT, POLLNVAL };
+    jshortArray result = (*env)->NewShortArray(env, 3);
+    if (result) (*env)->SetShortArrayRegion(env, result, 0, 3, constants);
+    return result;
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_closesocket(JNIEnv* env, jclass clazz, jint fd) {
+    (void)env; (void)clazz;
+    if (fd < 0) { errno = EBADF; return -1; }
+#ifdef _WIN32
+    int result = closesocket((SOCKET)fd);
+    if (result == SOCKET_ERROR) errno = jni_wsa_errno(WSAGetLastError());
+    return result;
+#else
+    return close(fd);
+#endif
+}
+
+JNIEXPORT jint JNICALL
+Java_io_github_kotlinmania_libc_internal_LibcJni_boundDatagramSocket(JNIEnv* env, jclass clazz) {
+    jint fd = Java_io_github_kotlinmania_libc_internal_LibcJni_socket(env, clazz, AF_INET, SOCK_DGRAM, 0);
+    if (fd < 0) return -1;
+    struct sockaddr_in address;
+    memset(&address, 0, sizeof(address));
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+    address.sin_len = sizeof(address);
+#endif
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+#ifdef _WIN32
+    int result = bind((SOCKET)fd, (struct sockaddr*)&address, sizeof(address));
+    int error = result == 0 ? 0 : jni_wsa_errno(WSAGetLastError());
+#else
+    int result = bind(fd, (struct sockaddr*)&address, sizeof(address));
+    int error = errno;
+#endif
+    if (result != 0) {
+        Java_io_github_kotlinmania_libc_internal_LibcJni_closesocket(env, clazz, fd);
+        errno = error;
+        return -1;
+    }
+    return fd;
+}
+
 JNIEXPORT jint JNICALL
 Java_io_github_kotlinmania_libc_internal_LibcJni_poll(
     JNIEnv* env, jclass clazz, jintArray fds, jshortArray events, jshortArray revents, jint nfds, jint timeout) {
     (void)clazz;
-#ifndef _WIN32
     if (nfds < 0) { errno = EINVAL; return -1; }
-    if (nfds == 0) return poll(NULL, 0, timeout);
+    if (nfds == 0) {
+#ifdef _WIN32
+        Sleep(timeout < 0 ? INFINITE : (DWORD)timeout);
+        return 0;
+#else
+        return poll(NULL, 0, timeout);
+#endif
+    }
     if (!fds || !events || !revents) { errno = EFAULT; return -1; }
     if ((*env)->GetArrayLength(env, fds) < nfds ||
         (*env)->GetArrayLength(env, events) < nfds ||
         (*env)->GetArrayLength(env, revents) < nfds) { errno = EINVAL; return -1; }
-    struct pollfd* pfds = (struct pollfd*)malloc(sizeof(struct pollfd) * nfds);
-    if (!pfds) return -1;
-
-    jint* fdsArr = (*env)->GetIntArrayElements(env, fds, NULL);
-    jshort* eventsArr = (*env)->GetShortArrayElements(env, events, NULL);
-
-    for (int i = 0; i < nfds; i++) {
-        pfds[i].fd = fdsArr[i];
-        pfds[i].events = eventsArr[i];
-        pfds[i].revents = 0;
-    }
-
-    int res = poll(pfds, (nfds_t)nfds, (int)timeout);
-
-    if (res >= 0) {
-        jshort* reventsArr = (*env)->GetShortArrayElements(env, revents, NULL);
-        for (int i = 0; i < nfds; i++) {
-            reventsArr[i] = pfds[i].revents;
-        }
-        (*env)->ReleaseShortArrayElements(env, revents, reventsArr, 0);
-    }
-
-    (*env)->ReleaseIntArrayElements(env, fds, fdsArr, JNI_ABORT);
-    (*env)->ReleaseShortArrayElements(env, events, eventsArr, JNI_ABORT);
-    free(pfds);
-    return res;
+#ifdef _WIN32
+    if (jni_ensure_wsa() != 0) return -1;
+    WSAPOLLFD* pfds = (WSAPOLLFD*)calloc((size_t)nfds, sizeof(WSAPOLLFD));
+    int* indices = (int*)calloc((size_t)nfds, sizeof(int));
 #else
-    (void)env; (void)fds; (void)events; (void)revents; (void)nfds; (void)timeout;
-    errno = ENOSYS;
-    return -1;
+    struct pollfd* pfds = (struct pollfd*)calloc((size_t)nfds, sizeof(struct pollfd));
 #endif
+    jshort* returned = (jshort*)calloc((size_t)nfds, sizeof(jshort));
+#ifdef _WIN32
+    if (!pfds || !indices || !returned) {
+        free(pfds); free(indices); free(returned); errno = ENOMEM; return -1;
+    }
+#else
+    if (!pfds || !returned) { free(pfds); free(returned); errno = ENOMEM; return -1; }
+#endif
+    jint* descriptors = (*env)->GetIntArrayElements(env, fds, NULL);
+    jshort* requested = descriptors ? (*env)->GetShortArrayElements(env, events, NULL) : NULL;
+    int result = -1;
+    int saved_errno = errno;
+    if (!descriptors || !requested) goto cleanup;
+#ifdef _WIN32
+    int count = 0;
+    int invalid = 0;
+    for (int i = 0; i < nfds; i++) {
+        if (descriptors[i] < 0) continue;
+        int type = 0;
+        int length = sizeof(type);
+        if (getsockopt((SOCKET)descriptors[i], SOL_SOCKET, SO_TYPE, (char*)&type, &length) == SOCKET_ERROR) {
+            int error = WSAGetLastError();
+            if (error != WSAENOTSOCK) { saved_errno = jni_wsa_errno(error); goto cleanup; }
+            returned[i] = POLLNVAL;
+            invalid++;
+            continue;
+        }
+        indices[count] = i;
+        pfds[count].fd = (SOCKET)descriptors[i];
+        pfds[count].events = requested[i];
+        count++;
+    }
+    if (count == 0) {
+        if (invalid == 0) Sleep(timeout < 0 ? INFINITE : (DWORD)timeout);
+        result = invalid;
+    } else {
+        result = WSAPoll(pfds, (ULONG)count, invalid ? 0 : timeout);
+        if (result == SOCKET_ERROR) { saved_errno = jni_wsa_errno(WSAGetLastError()); goto cleanup; }
+        for (int i = 0; i < count; i++) returned[indices[i]] = pfds[i].revents;
+        result += invalid;
+    }
+#else
+    for (int i = 0; i < nfds; i++) {
+        pfds[i].fd = descriptors[i];
+        pfds[i].events = requested[i];
+    }
+    result = poll(pfds, (nfds_t)nfds, timeout);
+    saved_errno = errno;
+    if (result >= 0) for (int i = 0; i < nfds; i++) returned[i] = pfds[i].revents;
+#endif
+    if (result >= 0) (*env)->SetShortArrayRegion(env, revents, 0, nfds, returned);
+cleanup:
+    if (requested) (*env)->ReleaseShortArrayElements(env, events, requested, JNI_ABORT);
+    if (descriptors) (*env)->ReleaseIntArrayElements(env, fds, descriptors, JNI_ABORT);
+    free(pfds);
+    free(returned);
+#ifdef _WIN32
+    free(indices);
+#endif
+    errno = saved_errno;
+    return result;
 }
 
 JNIEXPORT jint JNICALL
@@ -1425,16 +1540,24 @@ static unsigned int jni_hex_nibble(char c) {
     return 0;
 }
 
-static void jni_ensure_wsa(void) {
 #ifdef _WIN32
-    static int inited = 0;
-    if (!inited) {
-        WSADATA wsa;
-        if (WSAStartup(MAKEWORD(2, 2), &wsa) == 0) {
-            inited = 1;
-        }
-    }
+static INIT_ONCE jni_wsa_once = INIT_ONCE_STATIC_INIT;
+static int jni_wsa_startup_error = 0;
+
+static BOOL CALLBACK jni_start_wsa(PINIT_ONCE once, PVOID parameter, PVOID* context) {
+    (void)once; (void)parameter; (void)context;
+    WSADATA data;
+    jni_wsa_startup_error = WSAStartup(MAKEWORD(2, 2), &data);
+    return TRUE;
+}
 #endif
+
+static int jni_ensure_wsa(void) {
+#ifdef _WIN32
+    if (!InitOnceExecuteOnce(&jni_wsa_once, jni_start_wsa, NULL, NULL)) { errno = EIO; return -1; }
+    if (jni_wsa_startup_error != 0) { errno = jni_wsa_errno(jni_wsa_startup_error); return -1; }
+#endif
+    return 0;
 }
 
 JNIEXPORT jstring JNICALL
