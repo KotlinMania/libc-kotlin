@@ -604,7 +604,8 @@ public actual fun utime(file: String?, buf: Utimbuf?): Int =
     throw UnsupportedOperationException("utime requires N-API addon")
 
 public actual fun kill(pid: Int, sig: Int): Int =
-    LibcNative.kill(pid, sig)
+    io.github.kotlinmania.libc.internal
+        .kill(pid, sig)
 
 public actual fun killpg(pgrp: Int, sig: Int): Int =
     throw UnsupportedOperationException("killpg requires N-API addon")

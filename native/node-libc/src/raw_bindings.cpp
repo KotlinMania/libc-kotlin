@@ -5,6 +5,7 @@
 #include <charconv>
 #include <cmath>
 #include <limits>
+#include <signal.h>
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
@@ -15,6 +16,7 @@
 #include <sys/stat.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <uv.h>
 #else
 #include <unistd.h>
 #include <netdb.h>
@@ -64,7 +66,29 @@ static Napi::Number rawInteger(Napi::Env env, int value) {
     return result;
 }
 
+Napi::Value rawKill(const Napi::CallbackInfo& info) {
+    int pid, sig;
+    if (!rawInt32(info[0], pid) || !rawInt32(info[1], sig)) return info.Env().Undefined();
+#ifdef _WIN32
+    const int status = uv_kill(pid, sig);
+    if (status == 0) return rawInteger(info.Env(), 0);
+    switch (status) {
+        case UV_ESRCH: errno = ESRCH; break;
+        case UV_EINVAL: errno = EINVAL; break;
+        case UV_EPERM: errno = EPERM; break;
+        case UV_EACCES: errno = EACCES; break;
+        case UV_ENOSYS: errno = ENOSYS; break;
+        case UV_ENOTSUP: errno = ENOTSUP; break;
+        default: errno = EIO; break;
+    }
+    return rawInteger(info.Env(), -1);
+#else
+    return rawInteger(info.Env(), ::kill(static_cast<pid_t>(pid), sig));
+#endif
+}
+
 void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
+    exports.Set("rawKill", Napi::Function::New(env, rawKill));
     exports.Set("macroLayoutValue", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
         int index;
         if (!rawInt32(info[0], index)) return info.Env().Undefined();

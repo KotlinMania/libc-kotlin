@@ -103,6 +103,8 @@ Napi::Value current_identity(Napi::Env env, bool group) {
 }
 }
 
+Napi::Value rawKill(const Napi::CallbackInfo& info);
+
 void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
     // get_errno()
     exports.Set("get_errno", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
@@ -311,21 +313,7 @@ void RegisterSysBindings(Napi::Env env, Napi::Object exports) {
     }));
 
     // kill(pid, sig)
-    exports.Set("kill", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
-        Napi::Env env = info.Env();
-        if (info.Length() < 2) {
-            Napi::TypeError::New(env, "kill requires 2 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
-        int pid = info[0].As<Napi::Number>().Int32Value();
-        int sig = info[1].As<Napi::Number>().Int32Value();
-#ifndef _WIN32
-        int res = ::kill(static_cast<pid_t>(pid), sig);
-#else
-        int res = -1;
-#endif
-        return Napi::Number::New(env, res);
-    }));
+    exports.Set("kill", Napi::Function::New(env, rawKill));
 
     // syscall(num, a1, a2, a3, a4, a5, a6)
     exports.Set("syscall", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
