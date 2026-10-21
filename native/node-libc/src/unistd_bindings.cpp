@@ -3,6 +3,7 @@
 #include <cerrno>
 #include <cstdint>
 #include <climits>
+#include <cmath>
 #include <string>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -18,6 +19,25 @@
 #else
 #include <unistd.h>
 #endif
+
+namespace {
+bool transferArguments(const Napi::CallbackInfo& info) {
+    const auto env = info.Env();
+    if (info.Length() < 3 || !info[0].IsNumber() || !info[1].IsTypedArray() ||
+        info[1].As<Napi::TypedArray>().TypedArrayType() != napi_uint8_array || !info[2].IsNumber()) {
+        Napi::TypeError::New(env, "read/write require an integer descriptor, Uint8Array and integer count").ThrowAsJavaScriptException();
+        return false;
+    }
+    const double descriptor = info[0].As<Napi::Number>().DoubleValue();
+    const double count = info[2].As<Napi::Number>().DoubleValue();
+    if (!std::isfinite(descriptor) || std::trunc(descriptor) != descriptor || descriptor < INT_MIN || descriptor > INT_MAX ||
+        !std::isfinite(count) || std::trunc(count) != count || count < -9007199254740991.0 || count > 9007199254740991.0) {
+        Napi::TypeError::New(env, "read/write descriptor must be int32 and count must be a safe integer").ThrowAsJavaScriptException();
+        return false;
+    }
+    return true;
+}
+}
 
 void RegisterUnistdBindings(Napi::Env env, Napi::Object exports) {
     // close
@@ -38,10 +58,7 @@ void RegisterUnistdBindings(Napi::Env env, Napi::Object exports) {
     // read — returns number of bytes read into buffer
     exports.Set("read", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
         Napi::Env env = info.Env();
-        if (info.Length() < 3) {
-            Napi::TypeError::New(env, "read requires 3 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
+        if (!transferArguments(info)) return env.Null();
         int fd = info[0].As<Napi::Number>().Int32Value();
         auto buffer = info[1].As<Napi::Uint8Array>();
         int64_t count = info[2].As<Napi::Number>().Int64Value();
@@ -61,10 +78,7 @@ void RegisterUnistdBindings(Napi::Env env, Napi::Object exports) {
     // write — returns number of bytes written
     exports.Set("write", Napi::Function::New(env, [](const Napi::CallbackInfo& info) -> Napi::Value {
         Napi::Env env = info.Env();
-        if (info.Length() < 3) {
-            Napi::TypeError::New(env, "write requires 3 arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
+        if (!transferArguments(info)) return env.Null();
         int fd = info[0].As<Napi::Number>().Int32Value();
         auto buffer = info[1].As<Napi::Uint8Array>();
         int64_t count = info[2].As<Napi::Number>().Int64Value();

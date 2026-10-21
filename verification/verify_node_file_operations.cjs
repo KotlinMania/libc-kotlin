@@ -26,6 +26,33 @@ try {
   assert.deepEqual(read, data);
   assert.equal(bindings.read(descriptor, read, read.length), 0);
   tests.push('descriptorBytesAndEndOfFile');
+  assert.equal(bindings.lseek(descriptor, 0, flags[5]), 0);
+  const storage = new Uint8Array(data.length + 4).fill(99);
+  const view = storage.subarray(2, data.length + 2);
+  const originalBuffer = view.buffer;
+  assert.equal(bindings.read(descriptor, view, data.length), data.length);
+  assert.equal(view.buffer, originalBuffer);
+  assert.deepEqual(storage, Uint8Array.from([99, 99, ...data, 99, 99]));
+  tests.push('readMutatesOnlyTheOriginalBufferView');
+  let coercions = 0;
+  const untyped = {valueOf() { coercions++; throw new Error('must not coerce'); }};
+  for (const operation of [bindings.read, bindings.write]) {
+    for (const args of [
+      ['0', view, 1], [untyped, view, 1], [0.5, view, 1], [NaN, view, 1],
+      [2 ** 32, view, 1], [descriptor, new Int8Array(1), 1],
+      [descriptor, new Uint8ClampedArray(1), 1], [descriptor, new DataView(view.buffer), 1],
+      [descriptor, {}, 1], [descriptor, null, 1], [descriptor, view, '1'],
+      [descriptor, view, untyped], [descriptor, view, 0.5], [descriptor, view, Infinity],
+      [descriptor, view, Number.MAX_SAFE_INTEGER + 1],
+    ]) {
+      assert.throws(() => operation(...args), TypeError);
+    }
+  }
+  assert.equal(coercions, 0);
+  assert.deepEqual(storage, Uint8Array.from([99, 99, ...data, 99, 99]));
+  assert.equal(bindings.read(descriptor, view, 1), 0);
+  tests.push('rejectsUntypedTransfersBeforeCoercionOrIo');
+
   assert.equal(bindings.read(descriptor, read, read.length + 1), -1);
   assert.equal(bindings.write(descriptor, data, -1), -1);
   tests.push('rejectsOutOfBoundsCounts');
