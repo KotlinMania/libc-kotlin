@@ -9,10 +9,15 @@ const candidates = ['c_native.node', 'libc_native.node'].map(name => path.join(o
 assert.equal(candidates.length, 1, `Expected one freshly compiled Node payload in ${output}`);
 const selected = candidates[0];
 const binarySha256 = crypto.createHash('sha256').update(fs.readFileSync(selected)).digest('hex');
+console.log(`Node consumer loading ${selected} SHA256 ${binarySha256}`);
 const bindings = require(selected);
 assert.equal(bindings.rawAbiVersion(), 2);
 const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'libc-node-files-'));
 const tests = [];
+function passed(name) {
+  tests.push(name);
+  console.log(`PASS ${name}`);
+}
 let descriptor = -1;
 try {
   const flags = bindings.rawOpenFlags();
@@ -25,7 +30,7 @@ try {
   assert.equal(bindings.read(descriptor, read, read.length), read.length);
   assert.deepEqual(read, data);
   assert.equal(bindings.read(descriptor, read, read.length), 0);
-  tests.push('descriptorBytesAndEndOfFile');
+  passed('descriptorBytesAndEndOfFile');
   assert.equal(bindings.lseek(descriptor, 0, flags[5]), 0);
   const storage = new Uint8Array(data.length + 4).fill(99);
   const view = storage.subarray(2, data.length + 2);
@@ -33,7 +38,7 @@ try {
   assert.equal(bindings.read(descriptor, view, data.length), data.length);
   assert.equal(view.buffer, originalBuffer);
   assert.deepEqual(storage, Uint8Array.from([99, 99, ...data, 99, 99]));
-  tests.push('readMutatesOnlyTheOriginalBufferView');
+  passed('readMutatesOnlyTheOriginalBufferView');
   let coercions = 0;
   const untyped = {valueOf() { coercions++; throw new Error('must not coerce'); }};
   for (const operation of [bindings.read, bindings.write]) {
@@ -51,11 +56,11 @@ try {
   assert.equal(coercions, 0);
   assert.deepEqual(storage, Uint8Array.from([99, 99, ...data, 99, 99]));
   assert.equal(bindings.read(descriptor, view, 1), 0);
-  tests.push('rejectsUntypedTransfersBeforeCoercionOrIo');
+  passed('rejectsUntypedTransfersBeforeCoercionOrIo');
 
   assert.equal(bindings.read(descriptor, read, read.length + 1), -1);
   assert.equal(bindings.write(descriptor, data, -1), -1);
-  tests.push('rejectsOutOfBoundsCounts');
+  passed('rejectsOutOfBoundsCounts');
   let pointer = bindings.rawAllocate('16');
   const copy = bindings.rawAllocateZeroed('1', '16');
   assert.match(pointer, /^[0-9]+$/);
@@ -78,12 +83,17 @@ try {
     assert.notEqual(resized, '0');
     pointer = resized;
     assert.equal(bindings.rawCompare(pointer, copy, '6'), 0);
-    tests.push('rawMemoryPreservesAddressesMutationAndFileBytes');
+    passed('rawMemoryPreservesAddressesMutationAndFileBytes');
+    console.log('RUN rawRead invalid descriptor');
     assert.equal(bindings.rawRead(-1, copy, '1'), '-1');
     assert.ok(bindings.rawErrno() > 0);
+    console.log('RUN rawSeek before start');
     assert.equal(bindings.rawSeek(descriptor, '-1', flags[5]), '-1');
     assert.ok(bindings.rawErrno() > 0);
-    tests.push('rawFileErrorsRetainSignedResultsAndErrno');
+    console.log('RUN rawOpen missing file');
+    assert.equal(bindings.rawOpen(path.join(directory, 'missing-file'), flags[0] | flags[6], 0), -1);
+    assert.ok(bindings.rawErrno() > 0);
+    passed('rawFileErrorsRetainSignedResultsAndErrno');
     for (const value of ['', '1junk', ' 1', '1 ', '+1', '-1', '1.0', '1e2',
       '18446744073709551616', null, {}, 1, 1n, untyped]) {
       assert.throws(() => bindings.rawAllocate(value), TypeError);
@@ -95,7 +105,7 @@ try {
     assert.throws(() => bindings.rawSeek(descriptor, '-9223372036854775809', flags[5]), TypeError);
     assert.equal(coercions, 0);
     assert.equal(bindings.rawCompare(pointer, copy, '6'), 0);
-    tests.push('rawAbiRejectsMalformedIntegersBeforeMemoryOrIo');
+    passed('rawAbiRejectsMalformedIntegersBeforeMemoryOrIo');
   } finally {
     bindings.rawRelease(pointer);
     bindings.rawRelease(copy);
@@ -108,12 +118,12 @@ try {
   assert.equal(bindings.access(unicode, 0), 0);
   assert.equal(bindings.unlink(unicode), 0);
   assert.equal(fs.existsSync(unicode), false);
-  tests.push('unicodePathAccessAndUnlink');
+  passed('unicodePathAccessAndUnlink');
   assert.equal(bindings.getpid(), process.pid);
   assert.equal(bindings.getppid(), process.ppid);
   assert.ok(bindings.gethostname().length > 0);
   assert.equal(bindings.sleep(0), 0);
-  tests.push('actualProcessAndHostname');
+  passed('actualProcessAndHostname');
   const system = bindings.uname_fields().split('\n');
   assert.equal(system.length, 5);
   assert.equal(system[0], os.type());
@@ -121,7 +131,7 @@ try {
   assert.equal(system[2], os.release());
   assert.equal(system[3], os.version());
   assert.equal(system[4], os.machine());
-  tests.push('actualSystemInformation');
+  passed('actualSystemInformation');
   const user = os.userInfo();
   assert.equal(bindings.geteuid() >>> 0, user.uid >>> 0);
   assert.equal(bindings.getegid() >>> 0, user.gid >>> 0);
@@ -139,11 +149,11 @@ try {
     assert.equal(entry[7], user.homedir);
     assert.equal(entry[8], user.shell ?? '');
   }
-  tests.push('actualCurrentAccountByNameAndId');
+  passed('actualCurrentAccountByNameAndId');
   const small = bindings.getpwuid_r_str(user.uid, 1).split('\n');
   assert.notEqual(Number(small[0]), 0);
   assert.equal(small[1], '0');
-  tests.push('accountBufferCapacityIsEnforced');
+  passed('accountBufferCapacityIsEnforced');
   console.log(JSON.stringify({platform: process.platform, selected, binarySha256, tests, failures: 0, errors: 0, skips: 0}));
 } finally {
   if (descriptor >= 0) bindings.close(descriptor);

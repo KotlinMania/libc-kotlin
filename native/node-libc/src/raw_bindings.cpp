@@ -167,7 +167,8 @@ void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
         if (!rawInt32(info[0], fd) || !rawDecimal(info[1], address) || !rawDecimal(info[2], size)) return info.Env().Undefined();
 
 #ifdef _WIN32
-        if (size > UINT_MAX) { errno = EINVAL; return rawCount(info.Env(), -1); }
+        if (fd < 0) { errno = EBADF; return rawCount(info.Env(), -1); }
+        if (size > INT_MAX || address == 0) { errno = EINVAL; return rawCount(info.Env(), -1); }
         return rawCount(info.Env(), _read(fd, rawPointer(address), static_cast<unsigned int>(size)));
 #else
         return rawCount(info.Env(), ::read(fd, rawPointer(address), static_cast<size_t>(size)));
@@ -179,7 +180,8 @@ void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
         if (!rawInt32(info[0], fd) || !rawDecimal(info[1], address) || !rawDecimal(info[2], size)) return info.Env().Undefined();
 
 #ifdef _WIN32
-        if (size > UINT_MAX) { errno = EINVAL; return rawCount(info.Env(), -1); }
+        if (fd < 0) { errno = EBADF; return rawCount(info.Env(), -1); }
+        if (size > INT_MAX || address == 0) { errno = EINVAL; return rawCount(info.Env(), -1); }
         return rawCount(info.Env(), _write(fd, rawPointer(address), static_cast<unsigned int>(size)));
 #else
         return rawCount(info.Env(), ::write(fd, rawPointer(address), static_cast<size_t>(size)));
@@ -191,6 +193,11 @@ void RegisterRawBindings(Napi::Env env, Napi::Object exports) {
         if (!rawInt32(info[0], fd) || !rawDecimal(info[1], offset) || !rawInt32(info[2], whence)) return info.Env().Undefined();
 
 #ifdef _WIN32
+        if (fd < 0) { errno = EBADF; return rawCount(info.Env(), -1); }
+        if ((whence != SEEK_SET && whence != SEEK_CUR && whence != SEEK_END) || (whence == SEEK_SET && offset < 0)) {
+            errno = EINVAL;
+            return rawCount(info.Env(), -1);
+        }
         return rawCount(info.Env(), _lseeki64(fd, offset, whence));
 #else
         return rawCount(info.Env(), ::lseek(fd, static_cast<off_t>(offset), whence));
