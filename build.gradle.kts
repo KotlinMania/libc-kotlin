@@ -171,7 +171,10 @@ val intellijCoroutinesVersion =
 // from gradle.properties so one build.gradle.kts serves every project.
 // ============================================================================
 val swiftExportModuleName = optionalTrimmedProperty("project.swiftExport.moduleName") ?: frameworkName
-val swiftExportFlattenPackage = optionalTrimmedProperty("project.swiftExport.flattenPackage") ?: projectNamespace
+val swiftExportFlattenPackage =
+    optionalTrimmedProperty("project.swiftExport.rootPackage")
+        ?: optionalTrimmedProperty("project.swiftExport.flattenPackage")
+        ?: projectNamespace
 val swiftExportEnableCoroutinesSupport =
     providers
         .gradleProperty("project.swiftExport.enableCoroutinesSupport")
@@ -183,14 +186,32 @@ val swiftExportSettings =
         .getOrElse(emptyMap())
 val swiftExportFreeCompilerArgs = csvProperty("project.swiftExport.freeCompilerArgs")
 val swiftExportLinkFreeCompilerArgs = csvProperty("project.swiftExport.linkTask.freeCompilerArgs")
+val swiftExportExportApiBundle = boolProperty("project.swiftExport.exportApiBundle", false)
+val swiftExportHiddenDependencies = csvProperty("project.swiftExport.hidden")
 val appleFrameworkStatic = boolProperty("project.apple.framework.static", false)
 val nativeSharedLibEnabled = boolProperty("project.native.sharedLib", true)
 
+enum class SwiftExportModuleVisibility {
+    EXPOSED,
+    HIDDEN,
+}
+
 data class SwiftExportModuleSpec(
+    val key: String,
     val dependency: Any,
     val moduleName: String,
-    val flattenPackage: String,
+    val rootPackage: String,
+    val visibility: SwiftExportModuleVisibility,
 )
+
+fun deriveSwiftModuleName(rawName: String): String =
+    rawName
+        .removePrefix(":")
+        .substringAfterLast(":")
+        .removeSuffix("-kotlin")
+        .split('-', '_', '.')
+        .filter { it.isNotEmpty() }
+        .joinToString("") { part -> part.replaceFirstChar { it.uppercase() } }
 
 fun parseSwiftExportModuleSpec(rawEntry: String): SwiftExportModuleSpec {
     val parts = rawEntry.split("|").map { it.trim() }
@@ -212,17 +233,34 @@ fun parseSwiftExportModuleSpec(rawEntry: String): SwiftExportModuleSpec {
                         )
                     }.get()
         }
+    val explicitVisibility =
+        when (val rawVis = parts.getOrNull(3)?.uppercase().orEmpty()) {
+            "", "EXPOSED" -> SwiftExportModuleVisibility.EXPOSED
+            "HIDDEN" -> SwiftExportModuleVisibility.HIDDEN
+            else -> throw GradleException("Unknown Swift Export visibility '$rawVis' in '$rawEntry' (expected EXPOSED or HIDDEN)")
+        }
+    val visibility =
+        if (rawDep in swiftExportHiddenDependencies) {
+            SwiftExportModuleVisibility.HIDDEN
+        } else {
+            explicitVisibility
+        }
+    val moduleName = parts.getOrNull(1)?.takeIf { it.isNotEmpty() } ?: deriveSwiftModuleName(rawDep)
     return SwiftExportModuleSpec(
+        key = rawDep,
         dependency = resolvedDep,
-        moduleName = parts.getOrNull(1).orEmpty(),
-        flattenPackage = parts.getOrNull(2).orEmpty(),
+        moduleName = moduleName,
+        rootPackage = parts.getOrNull(2).orEmpty(),
+        visibility = visibility,
     )
 }
 
 val swiftExportModuleExports: List<SwiftExportModuleSpec> =
     buildList {
+        val explicitSpecs = LinkedHashMap<String, SwiftExportModuleSpec>()
         csvProperty("project.swiftExport.exports").forEach { entry ->
-            add(parseSwiftExportModuleSpec(entry))
+            val spec = parseSwiftExportModuleSpec(entry)
+            explicitSpecs[spec.key] = spec
         }
         providers
             .gradlePropertiesPrefixedBy("project.swiftExport.export.")
@@ -231,9 +269,30 @@ val swiftExportModuleExports: List<SwiftExportModuleSpec> =
             .forEach { (_, entry) ->
                 val trimmed = entry.trim()
                 if (trimmed.isNotEmpty()) {
-                    add(parseSwiftExportModuleSpec(trimmed))
+                    val spec = parseSwiftExportModuleSpec(trimmed)
+                    explicitSpecs[spec.key] = spec
                 }
             }
+        if (swiftExportExportApiBundle && commonMainApiDependencyBundle != null) {
+            commonMainApiDependencyBundle.get().forEach { dep ->
+                val coordKey = "${dep.module.group}:${dep.module.name}"
+                val artifactKey = dep.module.name
+                if (coordKey !in explicitSpecs && artifactKey !in explicitSpecs) {
+                    val isHidden = coordKey in swiftExportHiddenDependencies || artifactKey in swiftExportHiddenDependencies
+                    val derivedModule = deriveSwiftModuleName(artifactKey)
+                    val derivedPackage = "${dep.module.group}.${artifactKey.removeSuffix("-kotlin").replace("-", "").replace("_", "")}"
+                    explicitSpecs[coordKey] =
+                        SwiftExportModuleSpec(
+                            key = coordKey,
+                            dependency = dep,
+                            moduleName = derivedModule,
+                            rootPackage = derivedPackage,
+                            visibility = if (isHidden) SwiftExportModuleVisibility.HIDDEN else SwiftExportModuleVisibility.EXPOSED,
+                        )
+                }
+            }
+        }
+        addAll(explicitSpecs.values)
     }
 
 val projectKonanDataDirectory =
@@ -721,16 +780,18 @@ kotlin {
                 freeCompilerArgs.addAll(swiftExportLinkFreeCompilerArgs)
             }
         }
-        swiftExportModuleExports.forEach { exported ->
-            export(exported.dependency) {
-                if (exported.moduleName.isNotEmpty()) {
-                    moduleName = exported.moduleName
-                }
-                if (exported.flattenPackage.isNotEmpty()) {
-                    flattenPackage = exported.flattenPackage
+        swiftExportModuleExports
+            .filter { it.visibility == SwiftExportModuleVisibility.EXPOSED }
+            .forEach { exported ->
+                export(exported.dependency) {
+                    if (exported.moduleName.isNotEmpty()) {
+                        moduleName = exported.moduleName
+                    }
+                    if (exported.rootPackage.isNotEmpty()) {
+                        flattenPackage = exported.rootPackage
+                    }
                 }
             }
-        }
     }
 
     tasks
