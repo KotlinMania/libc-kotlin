@@ -1,4 +1,4 @@
-#include "../../../library/src/nativeInterop/cinterop/macro_parity_fixture.h"
+#include "../../../src/nativeInterop/cinterop/macro_parity_fixture.h"
 #include <napi.h>
 #include <cerrno>
 #include <cstdint>

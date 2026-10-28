@@ -14,7 +14,6 @@ pluginManagement {
             .getOrElse(false)
     val localRepository =
         if (localMavenValidation) {
-            // Preserve the explicitly isolated consumer-validation repository.
             val localMavenPath = providers.systemProperty("maven.repo.local").orNull
             require(localMavenPath != null && File(localMavenPath).isAbsolute) {
                 "Local Maven validation requires -Dmaven.repo.local=/absolute/path/to/isolated-repository"
@@ -32,7 +31,6 @@ pluginManagement {
             configured
         }
 
-    // Normal builds and publishToMavenLocal share the file-configured location.
     System.setProperty("maven.repo.local", localRepository.absolutePath)
     settings.extra["mavenLocalEnabled"] = localMaven
     settings.extra["mavenLocalValidation"] = localMavenValidation
@@ -56,9 +54,6 @@ dependencyResolutionManagement {
         require(localMavenPath != null && File(localMavenPath).isAbsolute) {
             "Local Maven validation requires -Dmaven.repo.local=/absolute/path/to/isolated-repository"
         }
-        // Kotlin's Node/Yarn setup temporarily adds project repositories.
-        // Keep dependency resolution in settings, with their distribution
-        // repositories declared below, instead of rejecting those additions.
         repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     } else {
         repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
@@ -93,7 +88,6 @@ dependencyResolutionManagement {
     }
 }
 
-// Keep ordinary project and buildscript resolution in the same local-first mode.
 gradle.beforeProject {
     if (!localMavenValidation) {
         repositories {
@@ -110,8 +104,74 @@ gradle.beforeProject {
     }
 }
 
-// The repo name lives in gradle.properties (project.name); scaffolds must not
-// hand-edit this file to rename the project.
 rootProject.name = providers.gradleProperty("project.name").get()
 
-include(":library")
+fun module(path: String) {
+    include(":src:${path.replace("/", ":")}")
+}
+
+// Main source-set hierarchy
+module("commonMain")
+module("hostSystemMain")
+module("jvmMain")
+module("androidMain")
+module("androidMain/androidNativeMain")
+module("androidMain/androidNativeMain/androidNativeArm64Main")
+module("androidMain/androidNativeMain/androidNativeX64Main")
+module("webMain")
+module("webMain/jsMain")
+module("webMain/wasmJsMain")
+module("wasmWasiMain")
+module("nativeMain")
+module("nativeMain/posixMain")
+module("nativeMain/appleMain")
+module("nativeMain/appleMain/macosMain")
+module("nativeMain/appleMain/macosMain/macosArm64Main")
+module("nativeMain/appleMain/iosMain")
+module("nativeMain/appleMain/iosMain/iosArm64Main")
+module("nativeMain/appleMain/iosMain/iosSimulatorArm64Main")
+module("nativeMain/appleMain/tvosMain")
+module("nativeMain/appleMain/tvosMain/tvosArm64Main")
+module("nativeMain/appleMain/tvosMain/tvosSimulatorArm64Main")
+module("nativeMain/appleMain/watchosMain")
+module("nativeMain/appleMain/watchosMain/watchosDeviceArm64Main")
+module("nativeMain/appleMain/watchosMain/watchosSimulatorArm64Main")
+module("nativeMain/linuxMain")
+module("nativeMain/linuxMain/linuxArm64Main")
+module("nativeMain/linuxMain/linuxX64Main")
+module("nativeMain/mingwMain")
+module("nativeMain/mingwMain/mingwX64Main")
+
+// Test source-set hierarchy
+module("commonTest")
+module("hostSystemTest")
+module("jvmTest")
+module("androidTest")
+module("androidTest/androidHostTest")
+module("androidTest/androidDeviceTest")
+module("androidTest/androidNativeTest")
+module("androidTest/androidNativeTest/androidNativeArm64Test")
+module("androidTest/androidNativeTest/androidNativeX64Test")
+module("webTest")
+module("webTest/jsTest")
+module("webTest/wasmJsTest")
+module("wasmWasiTest")
+module("nativeTest")
+module("nativeTest/posixTest")
+module("nativeTest/appleTest")
+module("nativeTest/appleTest/macosTest")
+module("nativeTest/appleTest/macosTest/macosArm64Test")
+module("nativeTest/appleTest/iosTest")
+module("nativeTest/appleTest/iosTest/iosArm64Test")
+module("nativeTest/appleTest/iosTest/iosSimulatorArm64Test")
+module("nativeTest/appleTest/tvosTest")
+module("nativeTest/appleTest/tvosTest/tvosArm64Test")
+module("nativeTest/appleTest/tvosTest/tvosSimulatorArm64Test")
+module("nativeTest/appleTest/watchosTest")
+module("nativeTest/appleTest/watchosTest/watchosDeviceArm64Test")
+module("nativeTest/appleTest/watchosTest/watchosSimulatorArm64Test")
+module("nativeTest/linuxTest")
+module("nativeTest/linuxTest/linuxArm64Test")
+module("nativeTest/linuxTest/linuxX64Test")
+module("nativeTest/mingwTest")
+module("nativeTest/mingwTest/mingwX64Test")
