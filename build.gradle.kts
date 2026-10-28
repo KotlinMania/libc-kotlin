@@ -79,15 +79,22 @@ val commonMainApiDependencyBundle =
                 .orElseThrow { GradleException("Missing public API bundle '$bundleName'") }
         }
 // kotlinmania:common-api-bundle:v1 end
-val commonMainBundleName = providers.gradleProperty("project.dependencies.commonMainBundle").get()
 val versionCatalog =
     extensions
         .getByType(VersionCatalogsExtension::class.java)
         .named("libs")
+val commonMainBundleName =
+    providers
+        .gradleProperty("project.dependencies.commonMainBundle")
+        .orNull
+        ?.trim()
+        ?.takeIf { it.isNotEmpty() }
 val commonMainDependencyBundle =
-    versionCatalog
-        .findBundle(commonMainBundleName)
-        .orElseThrow { GradleException("Missing libs bundle '$commonMainBundleName'") }
+    commonMainBundleName?.let { bundleName ->
+        versionCatalog
+            .findBundle(bundleName)
+            .orElseThrow { GradleException("Missing libs bundle '$bundleName'") }
+    }
 
 fun csvProperty(name: String): Set<String> =
     providers
@@ -171,13 +178,89 @@ val intellijCoroutinesVersion =
 // Swift Export & Native Binary Configuration (gradle.properties)
 // ----------------------------------------------------------------------------
 // Drives `swiftExport {}`, `binaries.framework {}`, and `binaries.sharedLib {}`
-// from gradle.properties so one build.gradle.kts serves every project.
+// from gradle.properties so one byte-for-byte identical build.gradle.kts
+// serves every KotlinMania project.
+//
+// Kotlin 2.4.x (2.4.21) vs. Kotlin 2.5.0 (`Kotlin/swift-export-sample`) Findings:
+//
+// 1. DSL Entry Point & Integrations:
+//    - In KGP 2.4.21, Swift Export is configured via `kotlin { swiftExport {} }`
+//      (`org.jetbrains.kotlin.gradle.plugin.mpp.apple.swiftexport.SwiftExportExtension`,
+//      which implements `SwiftExportedModuleMetadata`) and automatically registers
+//      `:embedSwiftExportForXcode` (plus `:generateSPMPackage` / `:buildSPMPackage`).
+//    - In KGP 2.5.0+, `swiftExport {}` is deprecated in favor of:
+//        kotlin {
+//            export {
+//                swift {
+//                    moduleName = "..."
+//                    rootPackage = "..."
+//                    xcodeIntegration { reconfigureDependencies() }
+//                    swiftPackageIntegration {
+//                        reconfigureDependencies()
+//                        outputDirectory = layout.projectDirectory.dir("SwiftPackage")
+//                    }
+//                }
+//            }
+//        }
+//      where `xcodeIntegration {}` registers `:embedSwiftExportForXcode` and
+//      `swiftPackageIntegration {}` registers `:exportDebugSwiftPackage` /
+//      `:exportReleaseSwiftPackage`.
+//
+// 2. Package Collapsing (`rootPackage` vs. `flattenPackage` vs. `"packageRoot"`):
+//    - Inside `swift-export-embeddable` (`SwiftModuleConfig.kt`), the internal
+//      constant is `SwiftModuleConfig.ROOT_PACKAGE = "packageRoot"` and the
+//      constructor parameter is `rootPackage: String?` (parsed into
+//      `targetPackageFqName: FqName?` via `rootPackageToFqn`).
+//    - In KGP 2.4.21, `SwiftExportedModuleMetadata` names this Gradle property
+//      `flattenPackage: Property<String>`, and `SwiftExportAction.kt` forwards it
+//      as `SwiftModuleConfig(rootPackage = flattenPackage, ...)`.
+//    - In KGP 2.5.0, the Gradle DSL property was renamed from `flattenPackage`
+//      to `rootPackage`.
+//    - We alias `SwiftExportedModuleMetadata.rootPackage` to `flattenPackage`
+//      below and read `project.swiftExport.rootPackage` (falling back to
+//      `project.swiftExport.flattenPackage`, then `project.namespace`) so both
+//      `build.gradle.kts` and `gradle.properties` use the 2.5.0 `rootPackage`
+//      terminology today.
+//
+// 3. Why `:macosArm64DebugSwiftExport` Logs `No name for 'packageRoot' and will be ignored`:
+//    - In KGP 2.4.21's `SetupSwiftExportDSL.kt` (`collectModules`), every klib on
+//      the Swift Export classpath is classified into one of two buckets:
+//      (a) Explicitly exported dependencies (`swiftExport { export(dep) { ... } }`)
+//          -> `createFullyExportedSwiftExportedModule(moduleName, flattenPackage, file)`
+//          (`shouldBeFullyExported = true`).
+//      (b) Remaining transitive/implementation dependencies
+//          -> `createTransitiveSwiftExportedModule(moduleName, file)` with
+//          `flattenPackage = null` and `shouldBeFullyExported = false` (exporting
+//          only declarations referenced by the root module's public signatures).
+//    - In `swift-export-embeddable` (`PatchConfigAndLogIssuesKt.patchConfigAndLogIssues`),
+//      the standalone exporter loops over all `KlibInputModule`s and logs
+//      `Warning: No name for 'packageRoot' and will be ignored` whenever
+//      `module.config.targetPackageFqName == null` (`flattenPackage == null`),
+//      even when `shouldBeFullyExported == false`.
+//    - Therefore, any `commonMain` dependency not listed in `project.swiftExport.exports`
+//      (including an unused placeholder bundle in `libs.versions.toml`) causes KGP
+//      to pass a transitive module with `flattenPackage = null` and emit that warning.
+//      Keeping `project.dependencies.commonMainBundle` empty on zero-dependency
+//      crates (like `libc-kotlin`) avoids registering phantom transitive modules.
+//
+// 4. Dependency Visibility (`EXPOSED` vs. `HIDDEN`):
+//    - KGP 2.5.0 introduces `SwiftExportVisibility.EXPOSED` (export whole dependency
+//      module) and `SwiftExportVisibility.HIDDEN` (suppress dependency module; types
+//      referenced in public signatures become empty Swift stubs).
+//    - Our `project.swiftExport.exports` (`<dep>|<ModuleName>|<rootPackage>[|<EXPOSED|HIDDEN>]`),
+//      `project.swiftExport.exportApiBundle`, and `project.swiftExport.hidden`
+//      properties capture these exact semantics in `gradle.properties` now so that
+//      migrating to KGP 2.5.0 requires updating only this block in `build.gradle.kts`.
 // ============================================================================
 val swiftExportModuleName = optionalTrimmedProperty("project.swiftExport.moduleName") ?: frameworkName
-val swiftExportFlattenPackage =
+val swiftExportRootPackage =
     optionalTrimmedProperty("project.swiftExport.rootPackage")
         ?: optionalTrimmedProperty("project.swiftExport.flattenPackage")
         ?: projectNamespace
+
+// Alias 2.5.0's `rootPackage` property onto 2.4.21's `SwiftExportedModuleMetadata.flattenPackage`.
+val org.jetbrains.kotlin.gradle.plugin.mpp.apple.swiftexport.SwiftExportedModuleMetadata.rootPackage: org.gradle.api.provider.Property<String>
+    get() = flattenPackage
 val swiftExportEnableCoroutinesSupport =
     providers
         .gradleProperty("project.swiftExport.enableCoroutinesSupport")
@@ -634,6 +717,8 @@ kotlin {
     val frameworkBundleId = projectNamespace
 
     // Local helper: attach this target's framework to the XCFramework.
+    // Controlled by `project.apple.framework.static` (defaults to `false` so
+    // Apple targets emit dynamic `.framework` slices inside the `.xcframework`).
     fun KotlinNativeTarget.addToXcf(static: Boolean = appleFrameworkStatic) {
         binaries.framework {
             baseName = frameworkName
@@ -643,7 +728,9 @@ kotlin {
         }
     }
 
-    // Local helper: emit dynamic shared libraries (.dylib / .so / .dll) for native targets.
+    // Local helper: emit dynamic shared libraries (`.dylib` on macOS, `.so` on
+    // Linux/Android NDK, `.dll` on MinGW) alongside static klibs/frameworks.
+    // Controlled by `project.native.sharedLib` (defaults to `true`).
     fun KotlinNativeTarget.addSharedLib() {
         if (!nativeSharedLibEnabled) return
         binaries.sharedLib {
@@ -761,9 +848,17 @@ kotlin {
     }
 
     // Swift Export bridge — driven by `project.swiftExport.*` in gradle.properties.
+    //
+    // In KGP 2.4.21, `swiftExport {}` is backed by `SwiftExportExtension` and
+    // `rootPackage` is aliased to `SwiftExportedModuleMetadata.flattenPackage`
+    // (which `SwiftExportAction` forwards as `SwiftModuleConfig.rootPackage`).
+    // When upgrading to KGP 2.5.0+, replace `swiftExport { ... }` with
+    // `export { swift { ...; xcodeIntegration { ... }; swiftPackageIntegration { ... } } }`
+    // using the exact same `swiftExportModuleName`, `swiftExportRootPackage`, and
+    // `swiftExportModuleExports` values parsed above.
     swiftExport {
         moduleName = swiftExportModuleName
-        flattenPackage = swiftExportFlattenPackage
+        rootPackage = swiftExportRootPackage
         configure {
             settings.put("enableCoroutinesSupport", swiftExportEnableCoroutinesSupport)
             swiftExportSettings.forEach { (key, value) ->
@@ -786,7 +881,7 @@ kotlin {
                         moduleName = exported.moduleName
                     }
                     if (exported.rootPackage.isNotEmpty()) {
-                        flattenPackage = exported.rootPackage
+                        rootPackage = exported.rootPackage
                     }
                 }
             }
@@ -799,6 +894,60 @@ kotlin {
             // KGP's generated SPBridge files (KotlinStdlib.kt, <Module>.kt) emit
             // type-erased generic casts without @Suppress("UNCHECKED_CAST").
             compilerOptions.allWarningsAsErrors.set(false)
+        }
+
+    // KGP 2.4.21's SwiftExportTask calls `workerExecutor.processIsolation { workerSpec -> ... }`
+    // without setting `workerSpec.forkOptions.maxHeapSize`, so Gradle spawns the isolated
+    // `Gradle Worker Daemon` with its 512 MB default (`-Xmx512m`). Exporting large crates
+    // (such as `libc-kotlin`, whose generated `Libc.swift` is ~24 MB) exhausts the 512 MB
+    // worker heap inside the Kotlin Analysis API / IntelliJ standalone platform, causing
+    // `SocketConnection.dispatch` to throw `OutOfMemoryError: Java heap space` when sending
+    // `ResponseProtocol.completed(DefaultWorkResult)` back to the parent Gradle daemon and
+    // deadlocking both processes indefinitely. Wrapping `SwiftExportTask.workerExecutor` to
+    // set `forkOptions.maxHeapSize` (configurable via `project.swiftExport.workerMaxHeapSize`,
+    // default `4g`) prevents the worker OOM and hang.
+    val swiftExportWorkerMaxHeapSize =
+        providers.gradleProperty("project.swiftExport.workerMaxHeapSize").getOrElse("4g")
+    tasks
+        .matching {
+            it.javaClass.name.startsWith(
+                "org.jetbrains.kotlin.gradle.plugin.mpp.apple.swiftexport.tasks.SwiftExportTask",
+            )
+        }.configureEach {
+            doFirst {
+                val field =
+                    generateSequence<Class<*>>(javaClass) { it.superclass }
+                        .firstNotNullOfOrNull { cls ->
+                            cls.declaredFields.firstOrNull { it.name == "workerExecutor" }
+                        }
+                if (field != null) {
+                    field.isAccessible = true
+                    val delegate = field.get(this) as? org.gradle.workers.WorkerExecutor
+                    if (delegate != null) {
+                        field.set(
+                            this,
+                            object : org.gradle.workers.WorkerExecutor by delegate {
+                                override fun processIsolation(): org.gradle.workers.WorkQueue =
+                                    delegate.processIsolation {
+                                        if (forkOptions.maxHeapSize.isNullOrBlank()) {
+                                            forkOptions.maxHeapSize = swiftExportWorkerMaxHeapSize
+                                        }
+                                    }
+
+                                override fun processIsolation(
+                                    action: Action<in org.gradle.workers.ProcessWorkerSpec>,
+                                ): org.gradle.workers.WorkQueue =
+                                    delegate.processIsolation {
+                                        if (forkOptions.maxHeapSize.isNullOrBlank()) {
+                                            forkOptions.maxHeapSize = swiftExportWorkerMaxHeapSize
+                                        }
+                                        action.execute(this)
+                                    }
+                            },
+                        )
+                    }
+                }
+            }
         }
 
     // Android KMP library. Block name is `android` — `androidLibrary` is deprecated in current KGP.
@@ -1147,7 +1296,7 @@ kotlin {
             }
         }
         commonMain.dependencies {
-            implementation(commonMainDependencyBundle)
+            commonMainDependencyBundle?.let { implementation(it) }
             commonMainApiDependencyBundle?.let { api(it) }
         }
         commonTest.dependencies {
@@ -1937,14 +2086,14 @@ if (napiFfiEnabled) {
 
     val copyNodeFfi =
         tasks.register<Copy>("copyNode$ffiName") {
-            dependsOn(buildNodeFfi, "kotlinNpmInstall")
+            dependsOn(buildNodeFfi, "kotlinNpmInstall", "kotlinUpgradeYarnLock")
             outputs.upToDateWhen { false }
             from(ffiNapiDir)
             into(layout.buildDirectory.dir("js/node_modules/$ffiNpmPackage"))
         }
     val copyWasmNodeFfi =
         tasks.register<Copy>("copyWasmNode$ffiName") {
-            dependsOn(buildNodeFfi, "kotlinWasmNpmInstall")
+            dependsOn(buildNodeFfi, "kotlinWasmNpmInstall", "kotlinWasmUpgradeYarnLock")
             outputs.upToDateWhen { false }
             from(ffiNapiDir)
             into(layout.buildDirectory.dir("wasm/node_modules/$ffiNpmPackage"))
@@ -1988,14 +2137,14 @@ gradle.includedBuilds.forEach { ib ->
         if (ibNapiFfi) {
             val copyIbNode =
                 tasks.register<Copy>("copyIncludedNode$ibFfiName") {
-                    dependsOn(ib.task(":buildNode$ibFfiName"), "kotlinNpmInstall")
+                    dependsOn(ib.task(":buildNode$ibFfiName"), "kotlinNpmInstall", "kotlinUpgradeYarnLock")
                     outputs.upToDateWhen { false }
                     from(File(ib.projectDir, "native/node-$ibFfiLower"))
                     into(layout.buildDirectory.dir("js/node_modules/@kotlinmania/$ibFfiLower-native-bindings"))
                 }
             val copyIbWasmNode =
                 tasks.register<Copy>("copyIncludedWasmNode$ibFfiName") {
-                    dependsOn(ib.task(":buildNode$ibFfiName"), "kotlinWasmNpmInstall")
+                    dependsOn(ib.task(":buildNode$ibFfiName"), "kotlinWasmNpmInstall", "kotlinWasmUpgradeYarnLock")
                     outputs.upToDateWhen { false }
                     from(File(ib.projectDir, "native/node-$ibFfiLower"))
                     into(layout.buildDirectory.dir("wasm/node_modules/@kotlinmania/$ibFfiLower-native-bindings"))
@@ -2086,6 +2235,14 @@ tasks.register("swiftExportSmokeTest") {
             swiftBuildFile.deleteRecursively()
         }
         swiftBuildFile.mkdirs()
+        val spmPackageDir =
+            layout.buildDirectory
+                .dir("SPMPackage")
+                .get()
+                .asFile
+        if (spmPackageDir.exists()) {
+            spmPackageDir.deleteRecursively()
+        }
         val swiftBuildDir = swiftBuildFile.absolutePath
         execOperations
             .exec {
