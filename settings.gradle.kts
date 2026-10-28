@@ -7,18 +7,35 @@ pluginManagement {
         }
     val localMaven = mavenProperties.getProperty("maven.local")?.trim()?.toBooleanStrictOrNull()
     require(localMaven != null) { "maven.properties must set maven.local=true or false" }
+    val localMavenValidation =
+        providers
+            .gradleProperty("project.repositories.mavenLocal")
+            .map { it.trim().toBooleanStrict() }
+            .getOrElse(false)
     val localRepository =
-        mavenProperties
-            .getProperty("maven.localRepository")
-            ?.trim()
-            ?.takeIf { it.isNotEmpty() }
-            ?.let { File(it) }
-            ?: File(System.getProperty("user.home"), ".m2/repository")
-    require(localRepository.isAbsolute) { "maven.localRepository must be an absolute path" }
+        if (localMavenValidation) {
+            // Preserve the explicitly isolated consumer-validation repository.
+            val localMavenPath = providers.systemProperty("maven.repo.local").orNull
+            require(localMavenPath != null && File(localMavenPath).isAbsolute) {
+                "Local Maven validation requires -Dmaven.repo.local=/absolute/path/to/isolated-repository"
+            }
+            File(localMavenPath)
+        } else {
+            val configured =
+                mavenProperties
+                    .getProperty("maven.localRepository")
+                    ?.trim()
+                    ?.takeIf { it.isNotEmpty() }
+                    ?.let { File(it) }
+                    ?: File(System.getProperty("user.home"), ".m2/repository")
+            require(configured.isAbsolute) { "maven.localRepository must be an absolute path" }
+            configured
+        }
 
-    // Gradle's Maven resolver and publishToMavenLocal use this same location.
+    // Normal builds and publishToMavenLocal share the file-configured location.
     System.setProperty("maven.repo.local", localRepository.absolutePath)
     settings.extra["mavenLocalEnabled"] = localMaven
+    settings.extra["mavenLocalValidation"] = localMavenValidation
 
     repositories {
         if (localMaven) mavenLocal()
@@ -31,23 +48,59 @@ pluginManagement {
 plugins { id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0" }
 
 val localMavenEnabled = extra["mavenLocalEnabled"] as Boolean
+val localMavenValidation = extra["mavenLocalValidation"] as Boolean
 
 dependencyResolutionManagement {
-    // Kotlin tool setup temporarily adds and removes its Node/Yarn Ivy repositories.
-    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    if (localMavenValidation) {
+        val localMavenPath = providers.systemProperty("maven.repo.local").orNull
+        require(localMavenPath != null && File(localMavenPath).isAbsolute) {
+            "Local Maven validation requires -Dmaven.repo.local=/absolute/path/to/isolated-repository"
+        }
+        // Kotlin's Node/Yarn setup temporarily adds project repositories.
+        // Keep dependency resolution in settings, with their distribution
+        // repositories declared below, instead of rejecting those additions.
+        repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    } else {
+        repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    }
     repositories {
-        if (localMavenEnabled) mavenLocal()
+        if (localMavenValidation) {
+            exclusiveContent {
+                forRepository {
+                    mavenLocal { name = "kotlinManiaLocalValidation" }
+                }
+                filter { includeGroup("io.github.kotlinmania") }
+            }
+        } else if (localMavenEnabled) {
+            mavenLocal()
+        }
         google()
         mavenCentral()
+        if (localMavenValidation) {
+            ivy("https://nodejs.org/dist") {
+                name = "Node Distributions"
+                patternLayout { artifact("v[revision]/[artifact](-v[revision]-[classifier]).[ext]") }
+                metadataSources { artifact() }
+                content { includeModule("org.nodejs", "node") }
+            }
+            ivy("https://github.com/yarnpkg/yarn/releases/download") {
+                name = "Yarn Distributions"
+                patternLayout { artifact("v[revision]/[artifact]-v[revision].[ext]") }
+                metadataSources { artifact() }
+                content { includeModule("com.yarnpkg", "yarn") }
+            }
+        }
     }
 }
 
-// Apply the same order to every project's build and buildscript dependencies.
+// Keep ordinary project and buildscript resolution in the same local-first mode.
 gradle.beforeProject {
-    repositories {
-        if (localMavenEnabled) mavenLocal()
-        google()
-        mavenCentral()
+    if (!localMavenValidation) {
+        repositories {
+            if (localMavenEnabled) mavenLocal()
+            google()
+            mavenCentral()
+        }
     }
     buildscript.repositories {
         if (localMavenEnabled) mavenLocal()
@@ -60,3 +113,5 @@ gradle.beforeProject {
 // The repo name lives in gradle.properties (project.name); scaffolds must not
 // hand-edit this file to rename the project.
 rootProject.name = providers.gradleProperty("project.name").get()
+
+include(":library")

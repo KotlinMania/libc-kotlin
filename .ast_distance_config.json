@@ -6,7 +6,7 @@
     "lang": "rust"
   },
   "target": {
-    "path": "src/commonMain/kotlin/io/github/kotlinmania/libc",
+    "path": "library/src/commonMain/kotlin/io/github/kotlinmania/libc",
     "lang": "kotlin"
   },
   "checks": {
