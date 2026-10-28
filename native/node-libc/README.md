@@ -8,7 +8,7 @@ Both JS and WASM targets load the **same** compiled `.node` binary. The C++ obje
 
 ```
 native/node-libc/
-├── binding.gyp              — node-gyp build config
+├── binding.gyp              — source/link specification for the Java builder
 ├── package.json             — npm package definition
 ├── index.js                 — loader (tries Release, falls back to Debug)
 └── src/
@@ -22,13 +22,13 @@ native/node-libc/
 
 ## Building
 
-```bash
-cd native/node-libc
-npm install
-# or: node-gyp rebuild
+Run from the repository root using the Java N-API builder:
+
+```sh
+./gradlew buildNodeLibc -Pproject.ffi.napi=true -Pproject.ffi.name=Libc
 ```
 
-This produces `build/Release/libc_native.node`.
+The Gradle task installs the required Node addon headers with package lifecycle scripts disabled, then `NodeFfiBuilder` compiles the declared C/C++ sources against the pinned Node headers. The addon is written to this directory's `build/Release/`. The corresponding Gradle copy tasks place it in the Kotlin JS/Wasm test runtime. Build failures and compiler diagnostics remain failures.
 
 ## Usage from Kotlin
 

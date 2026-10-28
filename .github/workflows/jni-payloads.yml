@@ -57,7 +57,7 @@ jobs:
         shell: bash
         run: |
           for task in jvmTest packagedJniTest jsNodeTest wasmJsNodeTest; do
-            python3 verification/verify_behavior_results.py "build/test-results/$task" --require nativeMemoryPreservesBytesAcrossCopyAndResize --require realDescriptorsPreserveBytesAndExposeHostErrors
+            ./gradlew -p buildSrc runBuildTool --no-daemon --no-configuration-cache --args="BehaviorResultsVerifier build/test-results/$task --require nativeMemoryPreservesBytesAcrossCopyAndResize --require realDescriptorsPreserveBytesAndExposeHostErrors"
           done
       - name: Stage the actual Node payload
         shell: bash
