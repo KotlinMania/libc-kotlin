@@ -1,4 +1,7 @@
-@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+@file:OptIn(
+    ExperimentalKotlinGradlePluginApi::class,
+    org.jetbrains.kotlin.gradle.swiftexport.ExperimentalSwiftExportDsl::class,
+)
 
 import groovy.json.JsonSlurper
 import io.github.kotlinmania.build.BuildToolTask
@@ -764,7 +767,6 @@ kotlin {
     swiftExport {
         moduleName = swiftExportModuleName
         flattenPackage = swiftExportFlattenPackage
-        @OptIn(org.jetbrains.kotlin.gradle.swiftexport.ExperimentalSwiftExportDsl::class)
         configure {
             settings.put("enableCoroutinesSupport", swiftExportEnableCoroutinesSupport)
             swiftExportSettings.forEach { (key, value) ->
@@ -774,10 +776,9 @@ kotlin {
                 freeCompilerArgs.addAll(swiftExportFreeCompilerArgs)
             }
         }
-        @OptIn(org.jetbrains.kotlin.gradle.swiftexport.ExperimentalSwiftExportDsl::class)
         linkTask {
             if (swiftExportLinkFreeCompilerArgs.isNotEmpty()) {
-                freeCompilerArgs.addAll(swiftExportLinkFreeCompilerArgs)
+                toolOptions.freeCompilerArgs.addAll(swiftExportLinkFreeCompilerArgs)
             }
         }
         swiftExportModuleExports
