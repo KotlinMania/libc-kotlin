@@ -151,6 +151,18 @@ dependencies {
 ./gradlew test
 ```
 
+### Source layout
+
+Physical sources are grouped under `src/common`, `src/apple`, `src/android`,
+`src/jvm`, `src/js`, `src/native`, and `src/swift`. Logical Gradle module paths
+remain stable and are mapped to those directories in `settings.gradle.kts`.
+Android managed sources live in `src/android/jvm/androidMain/kotlin`; its target
+script is `src/android/jvm/build.gradle.kts`. Android Native sources are under
+`src/android/native`. C interop inputs are in `src/native/interop/cinterop`, JNI
+sources in `src/jvm/jvmMain/c`, Node addon sources in `src/js/node-ffi/src`, and
+the Node package/build specification in `src/js/node-ffi/dist`. The Swift harness
+is in `src/swift/swift-test-harness`.
+
 ### Targets
 
 - macOS arm64

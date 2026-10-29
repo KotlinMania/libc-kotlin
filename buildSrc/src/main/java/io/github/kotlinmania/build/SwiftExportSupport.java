@@ -171,7 +171,7 @@ public final class SwiftExportSupport {
                     throw new GradleException("Failed to query xcode-select -p", e);
                 }
 
-                File harnessDir = new File(project.getProjectDir(), "swift-test-harness");
+                File harnessDir = new File(project.getProjectDir(), "src/swift/swift-test-harness");
 
                 for (String[] pair : configurations) {
                     String xcodeConfig = pair[0];

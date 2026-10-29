@@ -49,9 +49,9 @@ jobs:
         if: inputs.run-tests
         shell: bash
         run: |
-          node verification/verify_node_file_operations.cjs native/node-libc/build/Release
-          node verification/verify_node_process_operations.cjs native/node-libc/build/Release
-          node verification/verify_node_memory_lock.cjs native/node-libc/build/Release
+          node verification/verify_node_file_operations.cjs src/js/node-ffi/dist/build/Release
+          node verification/verify_node_process_operations.cjs src/js/node-ffi/dist/build/Release
+          node verification/verify_node_memory_lock.cjs src/js/node-ffi/dist/build/Release
       - name: Verify real behavior test execution
         if: inputs.run-tests
         shell: bash
@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p build/napi-payload/${{ matrix.platform }}
-          for binary in native/node-libc/build/Release/*.node; do
+          for binary in src/js/node-ffi/dist/build/Release/*.node; do
             cp "$binary" build/napi-payload/${{ matrix.platform }}/libc_native.node
           done
       - name: Upload real Node payload

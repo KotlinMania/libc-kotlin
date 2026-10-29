@@ -6,7 +6,7 @@ The neighboring Rust Syn error implementation owns diagnostic message strings an
 
 The observed generated runtime error is separate from libc Error.kt filenames: Swift6 Error requires Sendable, while the generated KotlinError stores public mutable wrapped:KotlinBase. The generated dependency must compile in Swift6 itself; a Swift6 test target importing a dependency compiled in Swift5 is insufficient.
 
-`swift-test-harness/StrictSwift.xcconfig` makes the dependency language mode6 and warnings-as-errors explicit for local embedding and the reusable Swift workflow. The harness Package declares mode6; local and CI Swift test commands require warnings-as-errors. Generated Package.swift and serialization source are no longer rewritten. Runtime corrections belong in the shared producer source.
+`src/swift/swift-test-harness/StrictSwift.xcconfig` makes the dependency language mode6 and warnings-as-errors explicit for local embedding and the reusable Swift workflow. The harness Package declares mode6; local and CI Swift test commands require warnings-as-errors. Generated Package.swift and serialization source are no longer rewritten. Runtime corrections belong in the shared producer source.
 
 The diagnostic SAM tests invoke the callback directly. Upstream NetBSD `esetfunc` accepts a nullable callback and returns a nullable previous callback; the existing common Kotlin passthrough is not evidence of physical NetBSD registration. The Swift test covers its generated factory/protocol round trip, and the common test covers signed status and nullable message forwarding. Neither asserts passthrough identity or null rejection as an upstream registration contract.
 

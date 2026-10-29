@@ -30,7 +30,7 @@ direct-translation/
 *.log
 *.stderr
 *.o.tmp
-**/src/nativeInterop/cinterop/*.a
+**/src/native/interop/cinterop/*.a
 .cache/
 *.lock
 kotlin-js-store/*
@@ -71,6 +71,7 @@ DerivedData/
 node_modules/
 package-lock.json
 !**/native/node-*/package-lock.json
+!**/src/js/node-*/**/package-lock.json
 
 # Java build helpers are source; buildSrc/build remains generated output.
 !buildSrc/

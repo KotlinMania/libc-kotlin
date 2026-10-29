@@ -54,8 +54,8 @@ public final class FfiBuildSupport {
         return project.getTasks().register(wrapperTaskName, ExecTask.class, task -> {
             task.setGroup("build");
             task.setDescription("Compiles " + ffiWrapperBase + ".c into a static library for " + konanTargetName);
-            File cSource = project.file("src/nativeInterop/cinterop/" + ffiWrapperBase + ".c");
-            File hSource = project.file("src/nativeInterop/cinterop/" + ffiWrapperBase + ".h");
+            File cSource = project.file("src/native/interop/cinterop/" + ffiWrapperBase + ".c");
+            File hSource = project.file("src/native/interop/cinterop/" + ffiWrapperBase + ".h");
             File outDir = project.getLayout().getBuildDirectory().dir("cinterop-targets/" + konanTargetName).get().getAsFile();
             File outFile = new File(outDir, ffiWrapperBase + ".a");
             task.getInputs().file(cSource);
@@ -237,7 +237,7 @@ public final class FfiBuildSupport {
             File cSource = project.file(jvmMainCDir + ffiNameLower + "_jni.c");
             File outDir = project.getLayout().getBuildDirectory().dir("natives").get().getAsFile();
             task.getInputs().file(cSource);
-            task.getInputs().files(project.fileTree("src/nativeInterop/cinterop", spec -> spec.include("*.h")));
+            task.getInputs().files(project.fileTree("src/native/interop/cinterop", spec -> spec.include("*.h")));
             task.getOutputs().dir(outDir);
 
             task.doLast(t -> {
@@ -352,7 +352,7 @@ public final class FfiBuildSupport {
                 task.dependsOn("compile" + ffiName + "WrapperForAndroidNativeArm64", "compile" + ffiName + "WrapperForAndroidNativeX64");
             }
             task.getInputs().file(jvmMainCDir + ffiNameLower + "_jni.c");
-            task.getInputs().files(project.fileTree("src/nativeInterop/cinterop", spec -> spec.include("*.h")));
+            task.getInputs().files(project.fileTree("src/native/interop/cinterop", spec -> spec.include("*.h")));
             task.getNativeDirectory().set(project.getLayout().getBuildDirectory().dir("android-jni"));
             task.doLast(t -> {
                 if (isWindowsHost) {
@@ -550,7 +550,7 @@ public final class FfiBuildSupport {
                             rootProject.getTasks().named("kotlinUpgradeYarnLock")
                         );
                         task.getOutputs().upToDateWhen(t -> false);
-                        task.from(new File(ib.getProjectDir(), "native/node-" + ibFfiLower));
+                        task.from(new File(ib.getProjectDir(), "src/js/node-ffi/dist"));
                         task.into(rootProject.getLayout().getBuildDirectory().dir("js/node_modules/@kotlinmania/" + ibFfiLower + "-native-bindings"));
                     }
                 );
@@ -564,7 +564,7 @@ public final class FfiBuildSupport {
                             rootProject.getTasks().named("kotlinWasmUpgradeYarnLock")
                         );
                         task.getOutputs().upToDateWhen(t -> false);
-                        task.from(new File(ib.getProjectDir(), "native/node-" + ibFfiLower));
+                        task.from(new File(ib.getProjectDir(), "src/js/node-ffi/dist"));
                         task.into(rootProject.getLayout().getBuildDirectory().dir("wasm/node_modules/@kotlinmania/" + ibFfiLower + "-native-bindings"));
                     }
                 );
@@ -634,8 +634,8 @@ public final class FfiBuildSupport {
     }
 
     private static void copyPrebuilt(Project project, String konanTargetName, String ffiWrapperBase, File outFile) {
-        File prebuilt = project.file("src/nativeInterop/cinterop/targets/" + konanTargetName + "/" + ffiWrapperBase + ".a");
-        File fallback = project.file("src/nativeInterop/cinterop/" + ffiWrapperBase + ".a");
+        File prebuilt = project.file("src/native/interop/cinterop/targets/" + konanTargetName + "/" + ffiWrapperBase + ".a");
+        File fallback = project.file("src/native/interop/cinterop/" + ffiWrapperBase + ".a");
         try {
             if (prebuilt.exists()) {
                 Files.copy(prebuilt.toPath(), outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
