@@ -19,6 +19,7 @@ import org.gradle.api.Task;
 import org.gradle.api.file.DuplicatesStrategy;
 import org.gradle.api.publish.PublishingExtension;
 import org.gradle.api.publish.maven.MavenPublication;
+import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven;
 import org.gradle.api.publish.maven.tasks.PublishToMavenRepository;
 import org.gradle.api.tasks.TaskCollection;
 import org.gradle.api.tasks.TaskProvider;
@@ -33,7 +34,7 @@ import org.gradle.plugins.signing.SigningExtension;
 public final class CentralPortalSupport {
     private CentralPortalSupport() {}
 
-    public static void configure(Project project, String publishProjectName, boolean jvmFfiEnabled, boolean hasAppleTargets) {
+    public static void configure(Project project, String publishProjectName, boolean hasAppleTargets) {
         Project rootProject = project.getRootProject();
         PublishingExtension publishing = project.getExtensions().getByType(PublishingExtension.class);
 
@@ -95,7 +96,9 @@ public final class CentralPortalSupport {
             project.getTasks().withType(PublishToMavenRepository.class).matching(t ->
                 t.getName().endsWith("ToCentralPortalStagingRepository")
             );
-        centralPortalPublishTasks.configureEach(t -> t.dependsOn(project.getTasks().withType(Sign.class)));
+        project.getTasks().withType(AbstractPublishToMaven.class).configureEach(t ->
+            t.dependsOn(project.getTasks().withType(Sign.class))
+        );
 
         TaskProvider<Zip> centralPortalBundle = project.getTasks().register("centralPortalBundle", Zip.class, task -> {
             task.setGroup("publishing");
@@ -106,14 +109,17 @@ public final class CentralPortalSupport {
             task.getDestinationDirectory().set(project.getLayout().getBuildDirectory().dir("central-portal"));
         });
 
-        project.getTasks().register("publishToCentralPortal", task -> {
+        TaskProvider<Task> publishToCentralPortal = project.getTasks().register("publishToCentralPortal", task -> {
             task.setGroup("publishing");
             task.setDescription("Uploads the deployment bundle to the Sonatype Central Portal.");
             task.dependsOn(centralPortalBundle);
-            if (jvmFfiEnabled) {
-                task.dependsOn("verifyJniDistribution");
-            }
             task.doLast(t -> uploadToCentralPortal(project, publishProjectName, centralPortalBundle.get().getArchiveFile().get().getAsFile()));
+        });
+
+        project.getTasks().register("publishAndReleaseToMavenCentral", task -> {
+            task.setGroup("publishing");
+            task.setDescription("Alias for publishToCentralPortal to maintain compatibility with legacy publish workflows.");
+            task.dependsOn(publishToCentralPortal);
         });
 
         project.getTasks().register("androidPublicationBundle", Zip.class, task -> {

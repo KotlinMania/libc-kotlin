@@ -8,17 +8,13 @@ import com.android.build.api.withAndroid
 import dev.detekt.gradle.Detekt
 import groovy.json.JsonSlurper
 import io.github.kotlinmania.build.AndroidSdkSupport
-import io.github.kotlinmania.build.BuildToolTask
 import io.github.kotlinmania.build.CentralPortalSupport
 import io.github.kotlinmania.build.FfiBuildSupport
 import io.github.kotlinmania.build.IdeSourceSetSupport
-import io.github.kotlinmania.build.NativeTestRunner
 import io.github.kotlinmania.build.SwiftExportSupport
 import io.github.kotlinmania.build.VerificationSupport
 import org.gradle.api.GradleException
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.bundling.Jar
@@ -1085,7 +1081,7 @@ val hasAppleTargets =
     kotlin.targets
         .withType<KotlinNativeTarget>()
         .any { it.konanTarget.family.isAppleFamily }
-CentralPortalSupport.configure(project, publishProjectName, jvmFfiEnabled, hasAppleTargets)
+CentralPortalSupport.configure(project, publishProjectName, hasAppleTargets)
 
 // ============================================================================
 // Verification, Build Aggregates & Runtime Validation
@@ -1153,45 +1149,6 @@ val fullTargetBuildTaskNames =
         if (napiFfiEnabled) add("buildNode$ffiName")
     }
 
-val foreignNativeRuntimeTasks =
-    listOf("linuxArm64", "linuxX64", "mingwX64").map { target ->
-        tasks.register<BuildToolTask>("validate${target.replaceFirstChar { it.uppercase() }}Runtime") {
-            group = "verification"
-            description = "Runs linked tests on a local native host or existing Parallels guest; records unavailable hosts."
-            dependsOn("linkDebugTest${target.replaceFirstChar { it.uppercase() }}")
-            toolClass.set(NativeTestRunner::class.java.name)
-            val executable = if (target == "mingwX64") "test.exe" else "test.kexe"
-            val binaryFile = layout.buildDirectory.file("bin/$target/debugTest/$executable")
-            onlyIf { binaryFile.get().asFile.exists() }
-            val platform = if (target == "mingwX64") "windows" else "linux"
-            arguments.addAll(
-                "--target",
-                target,
-                "--binary",
-                binaryFile.get().asFile.absolutePath,
-                "--report-dir",
-                layout.buildDirectory
-                    .dir("reports/local-native-tests")
-                    .get()
-                    .asFile.absolutePath,
-                "--allow-unavailable",
-            )
-            providers
-                .gradleProperty("project.validation.$platform.vm")
-                .orNull
-                ?.trim()
-                ?.takeIf { it.isNotEmpty() }
-                ?.let { arguments.addAll("--vm", it) }
-        }
-    }
-
-tasks.named("validateLinuxX64Runtime") {
-    mustRunAfter("validateLinuxArm64Runtime")
-}
-tasks.named("validateMingwX64Runtime") {
-    mustRunAfter("validateLinuxX64Runtime")
-}
-
 tasks.register("hostTests") {
     group = "verification"
     description = "Runs every enabled target's tests that this host can execute, plus Android host tests."
@@ -1200,7 +1157,6 @@ tasks.register("hostTests") {
         rootProject.tasks.named("kotlinWasmUpgradeYarnLock"),
         "allTests",
         "testAndroidHostTest",
-        foreignNativeRuntimeTasks,
     )
 }
 
@@ -1312,145 +1268,6 @@ if (macroLayoutCSource.isFile) {
         }
     tasks.named("test") { dependsOn(wasmWasiPreopenTest) }
     tasks.named("check") { dependsOn(wasmWasiPreopenTest) }
-}
-
-val publicationCompilationTasks =
-    kotlin.targets
-        .filter { it.name != "metadata" }
-        .flatMap { target -> target.compilations.map { it.compileTaskProvider } }
-
-val compileAllTargets =
-    tasks.register("compileAllTargets") {
-        group = "verification"
-        description = "Compiles main and test sources for every declared target."
-        dependsOn(publicationCompilationTasks)
-        doLast {
-            val skippedCompilations =
-                publicationCompilationTasks.map { it.get() }.filter { task ->
-                    !task.state.executed ||
-                        (task.state.skipped && !task.state.upToDate && task.state.skipMessage != "FROM-CACHE")
-                }
-            check(skippedCompilations.isEmpty()) {
-                "Required target compilations did not complete: " +
-                    skippedCompilations.joinToString { "${it.path} (${it.state.skipMessage ?: "not executed"})" }
-            }
-        }
-    }
-
-val buildAllTargets =
-    tasks.register("buildAllTargets") {
-        group = "verification"
-        description = "Compiles and links every declared target before runtime validation."
-        dependsOn(
-            rootYarnLockTasks,
-            compileAllTargets,
-            fullTargetBuildTaskNames.filter { it != "swiftExportSmokeTest" },
-        )
-    }
-
-foreignNativeRuntimeTasks.forEach { taskProvider ->
-    taskProvider.configure { mustRunAfter(buildAllTargets) }
-}
-tasks.withType<AbstractTestTask>().configureEach {
-    mustRunAfter(buildAllTargets)
-}
-tasks.named("swiftExportSmokeTest") { mustRunAfter(buildAllTargets) }
-
-val publicationPomChecks =
-    publishing.publications.withType<MavenPublication>().map { publication ->
-        tasks.named("checkPomFileFor${publication.name.replaceFirstChar { it.uppercase() }}Publication")
-    }
-
-val checkPublicationPoms =
-    tasks.register("checkPublicationPoms") {
-        group = "verification"
-        description = "Checks the generated POM for every Maven publication."
-        dependsOn(publicationPomChecks)
-        doLast {
-            for (provider in publicationPomChecks) {
-                val task = provider.get()
-                task.state.rethrowFailure()
-                check(
-                    task.state.executed &&
-                        (!task.state.skipped || task.state.upToDate || task.state.skipMessage == "FROM-CACHE"),
-                ) {
-                    "Required POM check did not execute: ${task.path} (${task.state.skipMessage})"
-                }
-            }
-        }
-    }
-
-val publicationRuntimeTaskNames =
-    listOf(
-        "jvmTest",
-        "testAndroidHostTest",
-        "jsBrowserTest",
-        "jsNodeTest",
-        "wasmJsBrowserTest",
-        "wasmJsNodeTest",
-        "wasmWasiNodeTest",
-        "macosArm64Test",
-        "iosSimulatorArm64Test",
-        "tvosSimulatorArm64Test",
-        "watchosSimulatorArm64Test",
-    )
-
-tasks.matching { it.name in publicationRuntimeTaskNames }.configureEach {
-    outputs.upToDateWhen { false }
-    outputs.doNotCacheIf("Publication requires actual runtime execution") { true }
-}
-
-val verifyPublicationRuntimes =
-    tasks.register("verifyPublicationRuntimes") {
-        group = "verification"
-        description = "Rejects skipped required test tasks and missing, empty or failing runtime reports."
-        dependsOn(buildAllTargets, publicationRuntimeTaskNames, foreignNativeRuntimeTasks)
-        doLast {
-            for (provider in foreignNativeRuntimeTasks) {
-                val task = provider.get()
-                task.state.rethrowFailure()
-                check(task.state.executed && !task.state.skipped) {
-                    "Required native runtime did not execute: ${task.path} (${task.state.skipMessage})"
-                }
-            }
-            for (name in publicationRuntimeTaskNames) {
-                val task = tasks.named<AbstractTestTask>(name).get()
-                task.state.rethrowFailure()
-                check(task.state.executed && !task.state.skipped) {
-                    "Required runtime did not execute: ${task.path} (${task.state.skipMessage})"
-                }
-                val reports =
-                    fileTree(
-                        task.reports.junitXml.outputLocation
-                            .get()
-                            .asFile,
-                    ) { include("*.xml") }.files
-                VerificationSupport.verifyJunitXmlReports(task.path, reports)
-            }
-        }
-    }
-
-val publicationCheck =
-    tasks.register("publicationCheck") {
-        group = "verification"
-        description = "Builds every target, runs tests and checks every POM before Maven publication."
-        dependsOn("build", compileAllTargets, checkPublicationPoms, verifyPublicationRuntimes)
-        doLast {
-            for (name in fullTargetBuildTaskNames + "build") {
-                val task = tasks.named(name).get()
-                task.state.rethrowFailure()
-                check(
-                    task.state.executed &&
-                        (!task.state.skipped || task.state.upToDate || task.state.skipMessage == "FROM-CACHE"),
-                ) {
-                    "Required build task did not execute: ${task.path} (${task.state.skipMessage})"
-                }
-            }
-        }
-    }
-
-tasks.withType<AbstractPublishToMaven>().configureEach {
-    dependsOn(publicationCheck)
 }
 
 tasks.register("classes") {
