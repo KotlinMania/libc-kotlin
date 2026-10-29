@@ -550,7 +550,7 @@ public final class FfiBuildSupport {
                             rootProject.getTasks().named("kotlinUpgradeYarnLock")
                         );
                         task.getOutputs().upToDateWhen(t -> false);
-                        task.from(new File(ib.getProjectDir(), "src/js/node-ffi/dist"));
+                        task.from(new File(ib.getProjectDir(), "src/js/node-" + ibFfiLower + "/dist"));
                         task.into(rootProject.getLayout().getBuildDirectory().dir("js/node_modules/@kotlinmania/" + ibFfiLower + "-native-bindings"));
                     }
                 );
@@ -564,7 +564,7 @@ public final class FfiBuildSupport {
                             rootProject.getTasks().named("kotlinWasmUpgradeYarnLock")
                         );
                         task.getOutputs().upToDateWhen(t -> false);
-                        task.from(new File(ib.getProjectDir(), "src/js/node-ffi/dist"));
+                        task.from(new File(ib.getProjectDir(), "src/js/node-" + ibFfiLower + "/dist"));
                         task.into(rootProject.getLayout().getBuildDirectory().dir("wasm/node_modules/@kotlinmania/" + ibFfiLower + "-native-bindings"));
                     }
                 );

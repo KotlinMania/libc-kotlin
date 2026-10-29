@@ -7,7 +7,7 @@ Shared C++ N-API addon providing direct C library bindings for Kotlin/JS and Kot
 Both JS and WASM targets load the **same** compiled `.node` binary. The C++ objects are reusable — no duplication between targets.
 
 ```
-src/js/node-ffi/
+src/js/node-libc/
 ├── dist/
 │   ├── binding.gyp              — source/link specification for the Java builder
 │   ├── package.json             — npm package definition
