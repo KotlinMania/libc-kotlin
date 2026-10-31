@@ -22,7 +22,3 @@ public const val PTHREAD_MUTEX_NORMAL: Int = 0
 public const val PTHREAD_MUTEX_ERRORCHECK: Int = 1
 public const val PTHREAD_MUTEX_RECURSIVE: Int = 2
 public const val PTHREAD_MUTEX_DEFAULT: Int = PTHREAD_MUTEX_NORMAL
-// PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthread_rwlock_t { __sig: _PTHREAD_RWLOCK_SIG_init, __opaque: [0 (initializer represented at the FFI boundary)
-// PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = pthread_mutex_t { __sig: _PTHREAD_MUTEX_SIG_init, __opaque: [0 (initializer represented at the FFI boundary)
-// PTHREAD_COND_INITIALIZER: PthreadCondT = pthread_cond_t { __sig: _PTHREAD_COND_SIG_init, __opaque: [0 (initializer represented at the FFI boundary)
-// PTHREAD_ONCE_INIT: PthreadOnceT = crate::pthread_once_t { __sig: _PTHREAD_ONCE_SIG_INIT, __opaque: [0 (initializer represented at the FFI boundary)

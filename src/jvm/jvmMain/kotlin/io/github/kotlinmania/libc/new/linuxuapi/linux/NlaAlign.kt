@@ -1,6 +1,5 @@
 package io.github.kotlinmania.libc.new.linuxuapi.linux
 
-import io.github.kotlinmania.libc.*
-
-public actual fun nlaAlign(len: Int): Int =
-    throw UnsupportedOperationException("nLAALIGN not available on JVM — no C library access")
+public actual fun nlaAlign(len: Int): Int {
+    return (len + NLA_ALIGNTO - 1) and (NLA_ALIGNTO - 1).inv()
+}

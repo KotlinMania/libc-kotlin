@@ -10,47 +10,42 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
  * Header: `pthread.h`.
  *
  * <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html>
- *
- * Every declaration is mirrored as `expect`; per-target actuals are a single
- * edge call into the platform mechanism (owned C bindings on K/N,
- * JNI on the JVM and Android, an N-API addon on Node, a Web Workers +
- * SharedArrayBuffer shim in the browser, the wasi-threads import on WASI).
  */
 
-/** `pthread_t` — opaque thread handle. */
+/** Opaque thread handle. */
 public expect class PthreadT
 
-/** `pthread_attr_t` — opaque thread attributes object. */
+/** Opaque thread attributes object. */
 public expect class PthreadAttrT
 
-/** `pthread_mutex_t` — opaque mutex. */
+/** Opaque mutex. */
 public expect class PthreadMutexT
 
-/** `pthread_mutexattr_t` — opaque mutex attributes object. */
+/** Opaque mutex attributes object. */
 public expect class PthreadMutexattrT
 
-/** `pthread_cond_t` — opaque condition variable. */
+/** Opaque condition variable. */
 public expect class PthreadCondT
 
-/** `pthread_condattr_t` — opaque condition-variable attributes object. */
+/** Opaque condition-variable attributes object. */
 public expect class PthreadCondattrT
 
-/** `pthread_rwlock_t` — opaque reader/writer lock. */
+/** Opaque reader/writer lock. */
 public expect class PthreadRwlockT
 
-/** `pthread_rwlockattr_t` — opaque rwlock attributes object. */
+/** Opaque reader/writer lock attributes object. */
 public expect class PthreadRwlockattrT
 
-/** `pthread_barrier_t` — opaque barrier. */
+/** Opaque barrier. */
 public expect class PthreadBarrierT
 
-/** `pthread_barrierattr_t` — opaque barrier attributes object. */
+/** Opaque barrier attributes object. */
 public expect class PthreadBarrierattrT
 
-/** `pthread_spinlock_t` — opaque spinlock. */
+/** Opaque spinlock. */
 public expect class PthreadSpinlockT
 
-/** `pthread_once_t` — opaque "do this once" control object. */
+/** Opaque one-time initialization control object. */
 public expect class PthreadOnceT
 
 public expect fun pthreadCancel(thread: PthreadT): Int

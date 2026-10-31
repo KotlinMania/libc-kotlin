@@ -109,5 +109,4 @@ public val NLA_F_NET_BYTEORDER: Int = 1 shl 14
 public val NLA_TYPE_MASK: Int = (NLA_F_NESTED or NLA_F_NET_BYTEORDER).inv()
 public const val NLA_ALIGNTO: Int = 4
 
-// Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun nlaAlign(len: Int): Int

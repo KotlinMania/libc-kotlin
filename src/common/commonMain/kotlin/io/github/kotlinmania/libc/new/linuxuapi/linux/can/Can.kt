@@ -12,9 +12,13 @@ public const val CAN_EFF_MASK: UInt = 0x1FFFFFFFu
 public const val CAN_ERR_MASK: UInt = 0x1FFFFFFFu
 public const val CANXL_PRIO_MASK: UInt = CAN_SFF_MASK
 
+public typealias CanidT = UInt
+
 public const val CAN_SFF_ID_BITS: Int = 11
 public const val CAN_EFF_ID_BITS: Int = 29
 public const val CANXL_PRIO_BITS: Int = CAN_SFF_ID_BITS
+
+public typealias CanErrMaskT = UInt
 
 public const val CAN_MAX_DLC: Int = 8
 public const val CAN_MAX_DLEN: Int = 8
@@ -28,71 +32,23 @@ public const val CANXL_MAX_DLC_MASK: Int = 0x07FF
 public const val CANXL_MIN_DLEN: Int = 1
 public const val CANXL_MAX_DLEN: Int = 2048
 
-// can_dlc was renamed to `len` in Linux 5.11. __pad / __res0 are layout padding.
 public data class CanFrame(
     val canId: UInt,
     val canDlc: UByte,
     val len8Dlc: UByte,
-    val data: ByteArray,
-) {
-    init {
-        require(data.size == CAN_MAX_DLEN) { "can_frame data must be $CAN_MAX_DLEN bytes" }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-        other as CanFrame
-        if (canId != other.canId) return false
-        if (canDlc != other.canDlc) return false
-        if (len8Dlc != other.len8Dlc) return false
-        if (!data.contentEquals(other.data)) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = canId.hashCode()
-        result = 31 * result + canDlc.hashCode()
-        result = 31 * result + len8Dlc.hashCode()
-        result = 31 * result + data.contentHashCode()
-        return result
-    }
-}
+    val data: List<UByte>,
+)
 
 public const val CANFD_BRS: Int = 0x01
 public const val CANFD_ESI: Int = 0x02
 public const val CANFD_FDF: Int = 0x04
 
-// __res0 / __res1 are layout padding.
 public data class CanfdFrame(
     val canId: UInt,
     val len: UByte,
     val flags: UByte,
-    val data: ByteArray,
-) {
-    init {
-        require(data.size == CANFD_MAX_DLEN) { "canfd_frame data must be $CANFD_MAX_DLEN bytes" }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-        other as CanfdFrame
-        if (canId != other.canId) return false
-        if (len != other.len) return false
-        if (flags != other.flags) return false
-        if (!data.contentEquals(other.data)) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = canId.hashCode()
-        result = 31 * result + len.hashCode()
-        result = 31 * result + flags.hashCode()
-        result = 31 * result + data.contentHashCode()
-        return result
-    }
-}
+    val data: List<UByte>,
+)
 
 public const val CANXL_XLF: Int = 0x80
 public const val CANXL_SEC: Int = 0x01
@@ -103,35 +59,8 @@ public data class CanxlFrame(
     val sdt: UByte,
     val len: UShort,
     val af: UInt,
-    val data: ByteArray,
-) {
-    init {
-        require(data.size == CANXL_MAX_DLEN) { "canxl_frame data must be $CANXL_MAX_DLEN bytes" }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-        other as CanxlFrame
-        if (prio != other.prio) return false
-        if (flags != other.flags) return false
-        if (sdt != other.sdt) return false
-        if (len != other.len) return false
-        if (af != other.af) return false
-        if (!data.contentEquals(other.data)) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = prio.hashCode()
-        result = 31 * result + flags.hashCode()
-        result = 31 * result + sdt.hashCode()
-        result = 31 * result + len.hashCode()
-        result = 31 * result + af.hashCode()
-        result = 31 * result + data.contentHashCode()
-        return result
-    }
-}
+    val data: List<UByte>,
+)
 
 public const val CAN_MTU: Int = 16
 public const val CANFD_MTU: Int = 72

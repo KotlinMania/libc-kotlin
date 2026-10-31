@@ -6,7 +6,7 @@ import io.github.kotlinmania.libc.*
 /**
  * Header: `uapi/linux/membarrier.h`.
  *
- * `membarrier_cmd` command values.
+ * Membarrier command values.
  */
 public val MEMBARRIER_CMD_QUERY: Int = 0
 public val MEMBARRIER_CMD_GLOBAL: Int = 1 shl 0
