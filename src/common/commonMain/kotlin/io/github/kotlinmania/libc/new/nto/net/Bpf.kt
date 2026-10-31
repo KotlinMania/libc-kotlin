@@ -43,7 +43,7 @@ public val BPF_A: UShort = (0x10).toUShort()
 public val BPF_TAX: UShort = (0x00).toUShort()
 public val BPF_TXA: UShort = (0x80).toUShort()
 
-// Inline helper functions (Rust `f!`/`safe_f!`); pure bitwise operations.
+// Inline helper functions performing pure bitwise operations.
 public fun bpfClass(code: UInt): UInt = code and 0x07u
 
 public fun bpfSize(code: UInt): UInt = code and 0x18u
