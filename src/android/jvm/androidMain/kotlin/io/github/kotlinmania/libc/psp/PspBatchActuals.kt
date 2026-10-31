@@ -2196,3 +2196,132 @@ public actual fun sceNetResolverStop(rid: Int): Int =
 
 public actual fun sceNetResolverTerm(): Int =
     throw UnsupportedOperationException("sceNetResolverTerm not available on Android host — use androidNative target for FFI")
+
+public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
+    throw UnsupportedOperationException("sceDisplaySetMode not available on Android host — use androidNative target for FFI")
+
+public actual fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+    throw UnsupportedOperationException("sceDisplaySetFrameBuf not available on Android host — use androidNative target for FFI")
+
+public actual fun sceDisplayGetVcount(): UInt =
+    throw UnsupportedOperationException("sceDisplayGetVcount not available on Android host — use androidNative target for FFI")
+
+public actual fun sceDisplayGetFramePerSec(): Float =
+    throw UnsupportedOperationException("sceDisplayGetFramePerSec not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGeEdramGetSize(): UInt =
+    throw UnsupportedOperationException("sceGeEdramGetSize not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGeGetCmd(cmd: Int): UInt =
+    throw UnsupportedOperationException("sceGeGetCmd not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
+    throw UnsupportedOperationException("sceGeListSync not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGeDrawSync(syncType: Int): GeListState =
+    throw UnsupportedOperationException("sceGeDrawSync not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelAllocPartitionMemory not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelDevkitVersion(): UInt =
+    throw UnsupportedOperationException("sceKernelDevkitVersion not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelGetCompiledSdkVersion(): UInt =
+    throw UnsupportedOperationException("sceKernelGetCompiledSdkVersion not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelLibcClock(): UInt =
+    throw UnsupportedOperationException("sceKernelLibcClock not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt =
+    throw UnsupportedOperationException("sceKernelUtilsMt19937UInt not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCpuSuspendIntr(): UInt =
+    throw UnsupportedOperationException("sceKernelCpuSuspendIntr not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModule not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleMs not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleByID not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleBufferUsbWlan not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelStdin(): SceUid =
+    throw UnsupportedOperationException("sceKernelStdin not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelStdout(): SceUid =
+    throw UnsupportedOperationException("sceKernelStdout not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelStderr(): SceUid =
+    throw UnsupportedOperationException("sceKernelStderr not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
+    throw UnsupportedOperationException("sceKernelGetThreadmanIdType not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateThread(name: COpaquePointer?, entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateThread not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateSema not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateEventFlag not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateMbx not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelSetAlarm(clock: UInt, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelSetAlarm not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelSetSysClockAlarm not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateCallback(name: COpaquePointer?, func: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, arg: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateCallback not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateMsgPipe not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateVpl not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelGetSystemTimeLow(): UInt =
+    throw UnsupportedOperationException("sceKernelGetSystemTimeLow not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateVTimer not available on Android host — use androidNative target for FFI")
+
+public actual fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelRegisterThreadEventHandler not available on Android host — use androidNative target for FFI")
+
+public actual fun scePowerGetCpuClockFrequencyFloat(): Float =
+    throw UnsupportedOperationException("scePowerGetCpuClockFrequencyFloat not available on Android host — use androidNative target for FFI")
+
+public actual fun scePowerGetBusClockFrequencyFloat(): Float =
+    throw UnsupportedOperationException("scePowerGetBusClockFrequencyFloat not available on Android host — use androidNative target for FFI")
+
+public actual fun sceRtcGetTickResolution(): UInt =
+    throw UnsupportedOperationException("sceRtcGetTickResolution not available on Android host — use androidNative target for FFI")
+
+public actual fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: Int): SceUid =
+    throw UnsupportedOperationException("sceIoOpen not available on Android host — use androidNative target for FFI")
+
+public actual fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: Int): SceUid =
+    throw UnsupportedOperationException("sceIoOpenAsync not available on Android host — use androidNative target for FFI")
+
+public actual fun sceIoDopen(dirname: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceIoDopen not available on Android host — use androidNative target for FFI")
+
+public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
+    throw UnsupportedOperationException("sceMpegRegistStream not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuSetCallback(signal: GuCallbackId, callback: GraphicsCallback?): GraphicsCallback? =
+    throw UnsupportedOperationException("sceGuSetCallback not available on Android host — use androidNative target for FFI")
+
+public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
+    throw UnsupportedOperationException("sceGuSync not available on Android host — use androidNative target for FFI")

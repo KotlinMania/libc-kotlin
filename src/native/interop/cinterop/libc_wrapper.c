@@ -3422,3 +3422,66 @@ int libc_getnameinfo_packed(
 void* libc_pthread_self(void) { return (void*)(uintptr_t)pthread_self(); }
 
 int libc_numeric_nameinfo_flags(void) { return NI_NUMERICHOST | NI_NUMERICSERV; }
+
+double libc_strtod(const char* s, void* endp) {
+    if (!s) return 0.0;
+    return strtod(s, (char**)endp);
+}
+
+float libc_strtof(const char* s, void* endp) {
+    if (!s) return 0.0f;
+    return strtof(s, (char**)endp);
+}
+
+double libc_difftime(int64_t time1, int64_t time0) {
+    return difftime((time_t)time1, (time_t)time0);
+}
+
+unsigned int libc_alarm(unsigned int seconds) {
+#ifndef _WIN32
+    return alarm(seconds);
+#else
+    (void)seconds;
+    return 0;
+#endif
+}
+
+uint32_t libc_arc4random(void) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__ANDROID__) || (defined(__GLIBC__) && (__GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 36)))
+    return arc4random();
+#else
+    return ((uint32_t)rand() << 16) ^ (uint32_t)rand();
+#endif
+}
+
+uint32_t libc_arc4random_uniform(uint32_t upper_bound) {
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__ANDROID__) || (defined(__GLIBC__) && (__GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 36)))
+    return arc4random_uniform(upper_bound);
+#else
+    if (upper_bound < 2) return 0;
+    return libc_arc4random() % upper_bound;
+#endif
+}
+
+double libc_drand48(void) {
+#ifndef _WIN32
+    return drand48();
+#else
+    return (double)rand() / ((double)RAND_MAX + 1.0);
+#endif
+}
+
+double libc_erand48(unsigned short* xsubi) {
+#ifndef _WIN32
+    if (!xsubi) return 0.0;
+    return erand48(xsubi);
+#else
+    (void)xsubi;
+    return (double)rand() / ((double)RAND_MAX + 1.0);
+#endif
+}
+
+uint64_t libc_signal_raw(int sig, uint64_t handler) {
+    void (*prev)(int) = signal(sig, (void (*)(int))(uintptr_t)handler);
+    return (uint64_t)(uintptr_t)prev;
+}

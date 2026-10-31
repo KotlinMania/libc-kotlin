@@ -1,6 +1,5 @@
 @file:OptIn(kotlin.wasm.ExperimentalWasmInterop::class)
 
-
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
 import kotlin.wasm.WasmImport

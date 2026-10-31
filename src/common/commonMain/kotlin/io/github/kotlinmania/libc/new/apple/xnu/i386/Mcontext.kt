@@ -11,3 +11,5 @@ public data class DarwinMcontext64(
     val ss: DarwinX86ThreadState64,
     val fs: DarwinX86FloatState64,
 )
+
+public typealias McontextT = DarwinMcontext64

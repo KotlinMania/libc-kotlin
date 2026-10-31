@@ -3,6 +3,95 @@ package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
 
+public typealias IntmaxT = Long
+public typealias UintmaxT = ULong
+
+public typealias SizeT = ULong
+public typealias PtrdiffT = Long
+public typealias IntptrT = Long
+public typealias UintptrT = ULong
+public typealias SsizeT = Long
+
+public typealias SceKernelVTimerHandler = VTimerHandler
+
+public fun interface SceKernelVTimerHandlerWide {
+    public operator fun invoke(uid: SceUid, arg1: Long, arg2: Long, arg3: COpaquePointer?): UInt
+}
+
+public typealias SceKernelThreadEventHandler = ThreadEventHandler
+public typealias SceKernelAlarmHandler = AlarmHandler
+public typealias SceKernelCallbackFunction = KernelCallback
+public typealias SceKernelThreadEntry = ThreadEntry
+
+public fun interface PowerCallback {
+    public operator fun invoke(unknown: Int, powerInfo: Int)
+}
+
+public typealias IoPermissions = Int
+
+public fun interface UmdCallback {
+    public operator fun invoke(unknown: Int, event: Int): Int
+}
+
+public typealias SceMpegRingbufferCb = MpegRingbufferCallback
+public typealias GuCallback = GraphicsCallback
+
+public fun interface GuSwapBuffersCallback {
+    public operator fun invoke(display: COpaquePointer?, render: COpaquePointer?)
+}
+
+public fun interface SceNetAdhocctlHandler {
+    public operator fun invoke(flag: Int, error: Int, unknown: COpaquePointer?)
+}
+
+public fun interface AdhocMatchingCallback {
+    public operator fun invoke(
+        matchingId: Int,
+        event: Int,
+        mac: COpaquePointer?,
+        optLen: Int,
+        optData: COpaquePointer?,
+    )
+}
+
+public fun interface SceNetApctlHandler {
+    public operator fun invoke(
+        oldState: Int,
+        newState: Int,
+        event: Int,
+        error: Int,
+        pArg: COpaquePointer?,
+    )
+}
+
+public fun interface HttpMallocFunction {
+    public operator fun invoke(size: ULong): COpaquePointer?
+}
+
+public fun interface HttpReallocFunction {
+    public operator fun invoke(p: COpaquePointer?, size: ULong): COpaquePointer?
+}
+
+public fun interface HttpFreeFunction {
+    public operator fun invoke(p: COpaquePointer?)
+}
+
+public fun interface HttpPasswordCB {
+    public operator fun invoke(
+        request: Int,
+        authType: HttpAuthType,
+        realm: COpaquePointer?,
+        username: COpaquePointer?,
+        password: COpaquePointer?,
+        needEntity: Int,
+        entityBody: COpaquePointer?,
+        entitySize: ULong?,
+        save: Int?,
+    ): Int
+}
+
+public typealias SocklenT = UInt
+
 public enum class AudioFormat(
     public val value: UInt,
 ) {
@@ -36,22 +125,22 @@ public enum class AudioOutputFrequency(
     public val value: Int,
 ) {
     Khz48(48000),
-    Khz44_1(44100),
+    Khz441(44100),
     Khz32(32000),
     Khz24(24000),
-    Khz22_05(22050),
+    Khz2205(22050),
     Khz16(16000),
     Khz12(12000),
-    Khz11_025(11025),
+    Khz11025(11025),
     Khz8(8000),
 }
 
 public enum class AudioInputFrequency(
     public val value: Int,
 ) {
-    Khz44_1(44100),
-    Khz22_05(22050),
-    Khz11_025(11025),
+    Khz441(44100),
+    Khz2205(22050),
+    Khz11025(11025),
 }
 
 public enum class CtrlMode(
@@ -440,29 +529,29 @@ public enum class SceKernelIdListType(
 public enum class UsbCamResolution(
     public val value: Int,
 ) {
-    Px160_120(0),
-    Px176_144(1),
-    Px320_240(2),
-    Px352_288(3),
-    Px640_480(4),
-    Px1024_768(5),
-    Px1280_960(6),
-    Px480_272(7),
-    Px360_272(8),
+    Px160120(0),
+    Px176144(1),
+    Px320240(2),
+    Px352288(3),
+    Px640480(4),
+    Px1024768(5),
+    Px1280960(6),
+    Px480272(7),
+    Px360272(8),
 }
 
 public enum class UsbCamResolutionEx(
     public val value: Int,
 ) {
-    Px160_120(0),
-    Px176_144(1),
-    Px320_240(2),
-    Px352_288(3),
-    Px360_272(4),
-    Px480_272(5),
-    Px640_480(6),
-    Px1024_768(7),
-    Px1280_960(8),
+    Px160120(0),
+    Px176144(1),
+    Px320240(2),
+    Px352288(3),
+    Px360272(4),
+    Px480272(5),
+    Px640480(6),
+    Px1024768(7),
+    Px1280960(8),
 }
 
 public enum class UsbCamDelay(
@@ -477,9 +566,9 @@ public enum class UsbCamDelay(
 public enum class UsbCamFrameRate(
     public val value: Int,
 ) {
-    Fps3_75(0),
+    Fps375(0),
     Fps5(1),
-    Fps7_5(2),
+    Fps75(2),
     Fps10(3),
     Fps15(4),
     Fps20(5),
@@ -511,23 +600,23 @@ public enum class UsbCamEffectMode(
 public enum class UsbCamEvLevel(
     public val value: Int,
 ) {
-    Pos2_0(0),
-    Pos1_7(1),
-    Pos1_5(2),
-    Pos1_3(3),
-    Pos1_0(4),
-    Pos0_7(5),
-    Pos0_5(6),
-    Pos0_3(7),
+    Pos20(0),
+    Pos17(1),
+    Pos15(2),
+    Pos13(3),
+    Pos10(4),
+    Pos07(5),
+    Pos05(6),
+    Pos03(7),
     Zero(8),
-    Neg0_3(9),
-    Neg0_5(10),
-    Neg0_7(11),
-    Neg1_0(12),
-    Neg1_3(13),
-    Neg1_5(14),
-    Neg1_7(15),
-    Neg2_0(16),
+    Neg03(9),
+    Neg05(10),
+    Neg07(11),
+    Neg10(12),
+    Neg13(13),
+    Neg15(14),
+    Neg17(15),
+    Neg20(16),
 }
 
 public enum class RtcCheckValidError(
@@ -2649,15 +2738,15 @@ public expect fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): 
 
 public expect fun sceCtrlGetIdleCancelThreshold(idlereset: Int?, idleback: Int?): Int
 
-public fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt = 0u
+public expect fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt
 
 public expect fun sceDisplayGetMode(pmode: Int?, pwidth: Int?, pheight: Int?): Int
 
-public fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt = 0u
+public expect fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt
 
 public expect fun sceDisplayGetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong?, pixelFormat: DisplayPixelFormat?, sync: DisplaySetBufSync): Int
 
-public fun sceDisplayGetVcount(): UInt = 0u
+public expect fun sceDisplayGetVcount(): UInt
 
 public expect fun sceDisplayWaitVblank(): Int
 
@@ -2671,19 +2760,19 @@ public expect fun sceDisplayGetAccumulatedHcount(): Int
 
 public expect fun sceDisplayGetCurrentHcount(): Int
 
-public fun sceDisplayGetFramePerSec(): Float = 0.0f
+public expect fun sceDisplayGetFramePerSec(): Float
 
 public expect fun sceDisplayIsForeground(): Int
 
 public expect fun sceDisplayIsVblank(): Int
 
-public fun sceGeEdramGetSize(): UInt = 0u
+public expect fun sceGeEdramGetSize(): UInt
 
 public expect fun sceGeEdramGetAddr(): COpaquePointer?
 
 public expect fun sceGeEdramSetAddrTranslation(width: Int): Int
 
-public fun sceGeGetCmd(cmd: Int): UInt = 0u
+public expect fun sceGeGetCmd(cmd: Int): UInt
 
 public expect fun sceGeGetMtx(type: GeMatrixType, matrix: COpaquePointer?): Int
 
@@ -2701,9 +2790,9 @@ public expect fun sceGeListDeQueue(qid: Int): Int
 
 public expect fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): Int
 
-public fun sceGeListSync(qid: Int, syncType: Int): GeListState = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun sceGeListSync(qid: Int, syncType: Int): GeListState
 
-public fun sceGeDrawSync(syncType: Int): GeListState = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun sceGeDrawSync(syncType: Int): GeListState
 
 public expect fun sceGeBreak(mode: Int, pParam: GeBreakParam?): Int
 
@@ -2719,7 +2808,7 @@ public expect fun sceKernelRegisterExitCallback(id: SceUid): Int
 
 public expect fun sceKernelLoadExec(file: COpaquePointer?, param: SceKernelLoadExecParam?): Int
 
-public fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid = SceUid(0)
+public expect fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid
 
 public expect fun sceKernelGetBlockHeadAddr(blockid: SceUid): COpaquePointer?
 
@@ -2729,15 +2818,15 @@ public expect fun sceKernelTotalFreeMemSize(): ULong
 
 public expect fun sceKernelMaxFreeMemSize(): ULong
 
-public fun sceKernelDevkitVersion(): UInt = 0u
+public expect fun sceKernelDevkitVersion(): UInt
 
 public expect fun sceKernelSetCompiledSdkVersion(version: UInt): Int
 
-public fun sceKernelGetCompiledSdkVersion(): UInt = 0u
+public expect fun sceKernelGetCompiledSdkVersion(): UInt
 
 public expect fun sceKernelLibcTime(t: Int?): Int
 
-public fun sceKernelLibcClock(): UInt = 0u
+public expect fun sceKernelLibcClock(): UInt
 
 public expect fun sceKernelLibcGettimeofday(tp: Timeval?, tzp: Timezone?): Int
 
@@ -2757,7 +2846,7 @@ public expect fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt)
 
 public expect fun sceKernelUtilsMt19937Init(ctx: SceKernelUtilsMt19937Context?, seed: UInt): Int
 
-public fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt = 0u
+public expect fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt
 
 public expect fun sceKernelUtilsMd5Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int
 
@@ -2785,7 +2874,7 @@ public expect fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int
 
 public expect fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: IntrHandlerOptionParam?): Int
 
-public fun sceKernelCpuSuspendIntr(): UInt = 0u
+public expect fun sceKernelCpuSuspendIntr(): UInt
 
 public expect fun sceKernelCpuResumeIntr(flags: UInt)
 
@@ -2795,13 +2884,13 @@ public expect fun sceKernelIsCpuIntrSuspended(flags: UInt): Int
 
 public expect fun sceKernelIsCpuIntrEnable(): Int
 
-public fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
+public expect fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
 
-public fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
+public expect fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
 
-public fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
+public expect fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid
 
-public fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid = SceUid(0)
+public expect fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid
 
 public expect fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: Int?, option: SceKernelSMOption?): Int
 
@@ -2823,15 +2912,15 @@ public expect fun sceKernelVolatileMemTryLock(unk: Int, ptr: COpaquePointer?, si
 
 public expect fun sceKernelVolatileMemUnlock(unk: Int): Int
 
-public fun sceKernelStdin(): SceUid = SceUid(0)
+public expect fun sceKernelStdin(): SceUid
 
-public fun sceKernelStdout(): SceUid = SceUid(0)
+public expect fun sceKernelStdout(): SceUid
 
-public fun sceKernelStderr(): SceUid = SceUid(0)
+public expect fun sceKernelStderr(): SceUid
 
-public fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType
 
-public fun sceKernelCreateThread(name: COpaquePointer?, entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid = SceUid(0)
+public expect fun sceKernelCreateThread(name: COpaquePointer?, entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid
 
 public expect fun sceKernelDeleteThread(thid: SceUid): Int
 
@@ -2895,7 +2984,7 @@ public expect fun sceKernelReferThreadStatus(thid: SceUid, info: SceKernelThread
 
 public expect fun sceKernelReferThreadRunStatus(thid: SceUid, status: SceKernelThreadRunStatus?): Int
 
-public fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid = SceUid(0)
+public expect fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid
 
 public expect fun sceKernelDeleteSema(semaId: SceUid): Int
 
@@ -2909,7 +2998,7 @@ public expect fun sceKernelPollSema(semaId: SceUid, signal: Int): Int
 
 public expect fun sceKernelReferSemaStatus(semaId: SceUid, info: SceKernelSemaInfo?): Int
 
-public fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid = SceUid(0)
+public expect fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid
 
 public expect fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int
 
@@ -2925,7 +3014,7 @@ public expect fun sceKernelDeleteEventFlag(evId: SceUid): Int
 
 public expect fun sceKernelReferEventFlagStatus(event: SceUid, status: SceKernelEventFlagInfo?): Int
 
-public fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid = SceUid(0)
+public expect fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid
 
 public expect fun sceKernelDeleteMbx(mbxId: SceUid): Int
 
@@ -2941,15 +3030,15 @@ public expect fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: Int?): Int
 
 public expect fun sceKernelReferMbxStatus(mbxId: SceUid, info: SceKernelMbxInfo?): Int
 
-public fun sceKernelSetAlarm(clock: UInt, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid = SceUid(0)
+public expect fun sceKernelSetAlarm(clock: UInt, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid
 
-public fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid = SceUid(0)
+public expect fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid
 
 public expect fun sceKernelCancelAlarm(alarmId: SceUid): Int
 
 public expect fun sceKernelReferAlarmStatus(alarmId: SceUid, info: SceKernelAlarmInfo?): Int
 
-public fun sceKernelCreateCallback(name: COpaquePointer?, func: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, arg: COpaquePointer?): SceUid = SceUid(0)
+public expect fun sceKernelCreateCallback(name: COpaquePointer?, func: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, arg: COpaquePointer?): SceUid
 
 public expect fun sceKernelReferCallbackStatus(cb: SceUid, status: SceKernelCallbackInfo?): Int
 
@@ -2967,7 +3056,7 @@ public expect fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf
 
 public expect fun sceKernelReferSystemStatus(status: SceKernelSystemStatus?): Int
 
-public fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid = SceUid(0)
+public expect fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid
 
 public expect fun sceKernelDeleteMsgPipe(uid: SceUid): Int
 
@@ -2987,7 +3076,7 @@ public expect fun sceKernelCancelMsgPipe(uid: SceUid, send: Int?, recv: Int?): I
 
 public expect fun sceKernelReferMsgPipeStatus(uid: SceUid, info: SceKernelMppInfo?): Int
 
-public fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid = SceUid(0)
+public expect fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid
 
 public expect fun sceKernelDeleteVpl(uid: SceUid): Int
 
@@ -3031,9 +3120,9 @@ public expect fun sceKernelGetSystemTime(time: SceKernelSysClock?): Int
 
 public expect fun sceKernelGetSystemTimeWide(): Long
 
-public fun sceKernelGetSystemTimeLow(): UInt = 0u
+public expect fun sceKernelGetSystemTimeLow(): UInt
 
-public fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid = SceUid(0)
+public expect fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid
 
 public expect fun sceKernelDeleteVTimer(uid: SceUid): Int
 
@@ -3061,7 +3150,7 @@ public expect fun sceKernelCancelVTimerHandler(uid: SceUid): Int
 
 public expect fun sceKernelReferVTimerStatus(uid: SceUid, info: SceKernelVTimerInfo?): Int
 
-public fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, common: COpaquePointer?): SceUid = SceUid(0)
+public expect fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, common: COpaquePointer?): SceUid
 
 public expect fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int
 
@@ -3193,13 +3282,13 @@ public expect fun scePowerGetCpuClockFrequency(): Int
 
 public expect fun scePowerGetCpuClockFrequencyInt(): Int
 
-public fun scePowerGetCpuClockFrequencyFloat(): Float = 0.0f
+public expect fun scePowerGetCpuClockFrequencyFloat(): Float
 
 public expect fun scePowerGetBusClockFrequency(): Int
 
 public expect fun scePowerGetBusClockFrequencyInt(): Int
 
-public fun scePowerGetBusClockFrequencyFloat(): Float = 0.0f
+public expect fun scePowerGetBusClockFrequencyFloat(): Float
 
 public expect fun scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int
 
@@ -3229,7 +3318,7 @@ public expect fun sceWlanDevAttach(): Int
 
 public expect fun sceWlanDevDetach(): Int
 
-public fun sceRtcGetTickResolution(): UInt = 0u
+public expect fun sceRtcGetTickResolution(): UInt
 
 public expect fun sceRtcGetCurrentTick(tick: ULong?): Int
 
@@ -3301,9 +3390,9 @@ public expect fun sceRtcFormatRFC2822(pszDateTime: String?, pUtc: ULong?, timeZo
 
 public expect fun sceRtcFormatRFC2822LocalTime(pszDateTime: String?, pUtc: ULong?): Int
 
-public fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: Int): SceUid = SceUid(0)
+public expect fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: Int): SceUid
 
-public fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: Int): SceUid = SceUid(0)
+public expect fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: Int): SceUid
 
 public expect fun sceIoClose(fd: SceUid): Int
 
@@ -3335,7 +3424,7 @@ public expect fun sceIoChdir(path: COpaquePointer?): Int
 
 public expect fun sceIoRename(oldname: COpaquePointer?, newname: COpaquePointer?): Int
 
-public fun sceIoDopen(dirname: COpaquePointer?): SceUid = SceUid(0)
+public expect fun sceIoDopen(dirname: COpaquePointer?): SceUid
 
 public expect fun sceIoDread(fd: SceUid, dir: SceIoDirent?): Int
 
@@ -3435,7 +3524,7 @@ public expect fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePoint
 
 public expect fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: Int?): Int
 
-public fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream
 
 public expect fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream)
 
@@ -3509,7 +3598,7 @@ public expect fun sceGuBreak(mode: Int)
 
 public expect fun sceGuContinue()
 
-public fun sceGuSetCallback(signal: GuCallbackId, callback: GraphicsCallback?): GraphicsCallback? = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun sceGuSetCallback(signal: GuCallbackId, callback: GraphicsCallback?): GraphicsCallback?
 
 public expect fun sceGuSignal(behavior: SignalBehavior, signal: Int)
 
@@ -3535,7 +3624,7 @@ public expect fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, contex
 
 public expect fun sceGuSwapBuffers(): COpaquePointer?
 
-public fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState
 
 public expect fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?)
 

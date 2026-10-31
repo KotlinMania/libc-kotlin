@@ -1,12 +1,8 @@
 package io.github.kotlinmania.libc.new.qurt
 
-import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.RawLibc
 
-public actual fun errnoLocation(): Int? =
-    throw UnsupportedOperationException("errnoLocation requires N-API addon")
+public actual fun errnoLocation(): Int? = RawLibc.errno()
 
-public actual fun errno(): Int? =
-    throw UnsupportedOperationException("errno requires N-API addon")
-
-public actual fun setErrno(value: Int): Unit =
+internal actual fun setErrnoValue(value: Int): Unit =
     throw UnsupportedOperationException("setErrno requires N-API addon")

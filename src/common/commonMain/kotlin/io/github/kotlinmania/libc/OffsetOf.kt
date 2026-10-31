@@ -1,4 +1,3 @@
-// port-lint: source macros.rs
 package io.github.kotlinmania.libc
 
 /** Computes the offset of an actual field address within its enclosing allocation. */

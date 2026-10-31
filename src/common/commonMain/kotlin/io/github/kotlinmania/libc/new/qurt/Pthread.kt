@@ -29,9 +29,9 @@ public expect fun pthreadJoin(thread: UInt, retval: COpaquePointer?): Int
 
 public expect fun pthreadDetach(thread: UInt): Int
 
-public fun pthreadExit(retval: COpaquePointer?): Nothing = throw UnsupportedOperationException()
+public expect fun pthreadExit(retval: COpaquePointer?): Nothing
 
-public fun pthreadSelf(): UInt = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun pthreadSelf(): UInt
 
 public expect fun pthreadEqual(t1: UInt, t2: UInt): Int
 

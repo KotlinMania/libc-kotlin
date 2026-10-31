@@ -64,3 +64,24 @@ public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): COpaquePointer? =
     throw UnsupportedOperationException("bsearch requires N-API addon")
+
+public actual fun abort(): Nothing =
+    throw UnsupportedOperationException("abort requires N-API addon")
+
+public actual fun exit(status: Int): Nothing =
+    throw UnsupportedOperationException("exit requires N-API addon")
+
+public actual fun strtod(nptr: String?, endptr: COpaquePointer?): Double =
+    throw UnsupportedOperationException("strtod requires N-API addon")
+
+public actual fun strtof(nptr: String?, endptr: COpaquePointer?): Float =
+    throw UnsupportedOperationException("strtof requires N-API addon")
+
+public actual fun div(numer: Int, denom: Int): DivT =
+    DivT(quot = numer / denom, rem = numer % denom)
+
+public actual fun ldiv(numer: Long, denom: Long): LdivT =
+    LdivT(quot = numer / denom, rem = numer % denom)
+
+public actual fun lldiv(numer: Long, denom: Long): LldivT =
+    LldivT(quot = numer / denom, rem = numer % denom)

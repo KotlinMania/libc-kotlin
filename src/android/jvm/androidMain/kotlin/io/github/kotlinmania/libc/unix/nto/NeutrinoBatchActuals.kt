@@ -578,3 +578,6 @@ public actual fun interruptAttachArray(intr: Int, handler: ((COpaquePointer?, In
 
 public actual fun interruptAttachArrayR(intr: Int, handler: ((COpaquePointer?, Int) -> COpaquePointer?)?, area: COpaquePointer?, size: Int, flags: UInt): Int =
     throw UnsupportedOperationException("interruptAttachArrayR not available on Android host — use androidNative target for FFI")
+
+public actual fun schedGetCpuNum(): UInt =
+    throw UnsupportedOperationException("schedGetCpuNum not available on Android host — use androidNative target for FFI")

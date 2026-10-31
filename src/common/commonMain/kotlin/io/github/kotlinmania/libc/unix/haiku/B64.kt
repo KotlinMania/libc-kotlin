@@ -3,6 +3,11 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 
+public typealias TimeT = Long
+public typealias ElfAddr = ULong
+public typealias ElfHalf = UShort
+public typealias ElfPhdr = Elf64Phdr
+
 public data class Elf64Phdr(
     val pType: UInt,
     val pFlags: UInt,

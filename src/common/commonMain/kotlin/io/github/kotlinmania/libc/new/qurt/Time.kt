@@ -12,7 +12,7 @@ public expect fun time(tloc: Long?): Long
 
 public expect fun clock(): Long
 
-public fun difftime(time1: Long, time0: Long): Double = 0.0
+public expect fun difftime(time1: Long, time0: Long): Double
 
 public expect fun mktime(tm: Tm?): Long
 

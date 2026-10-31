@@ -3,6 +3,12 @@ package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
 
+public typealias Elf32Half = UShort
+public typealias Elf32Word = UInt
+public typealias Elf32Off = UInt
+public typealias Elf32Addr = UInt
+public typealias Elf32Section = UShort
+
 public data class Elf32Ehdr(
     val eIdent: UByteArray,
     val eType: UShort,

@@ -231,6 +231,6 @@ public expect fun rmdir(pathname: String?): Int
 
 public expect fun getpid(): Int
 
-public fun sleep(seconds: UInt): UInt = 0u
+public expect fun sleep(seconds: UInt): UInt
 
 public expect fun sysconf(name: Int): Long

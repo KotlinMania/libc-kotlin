@@ -3,11 +3,15 @@ package io.github.kotlinmania.libc.new.linuxuapi.linux.can
 
 import io.github.kotlinmania.libc.*
 
+public typealias PgnT = UInt
+public typealias PriorityT = UByte
+public typealias NameT = ULong
+
 public data class J1939Filter(
-    val name: ULong,
-    val nameMask: ULong,
-    val pgn: UInt,
-    val pgnMask: UInt,
+    val name: NameT,
+    val nameMask: NameT,
+    val pgn: PgnT,
+    val pgnMask: PgnT,
     val addr: UByte,
     val addrMask: UByte,
 )

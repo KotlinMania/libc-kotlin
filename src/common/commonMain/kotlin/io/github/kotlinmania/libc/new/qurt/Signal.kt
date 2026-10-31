@@ -81,13 +81,15 @@ public const val SIGEV_SIGNAL: Int = 1
 public const val SIGEV_THREAD: Int = 2
 public const val SA_SIGINFO: Int = 1
 
-public fun signal(sig: Int, handler: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
+public typealias SighandlerT = ULong
+
+public expect fun signal(sig: Int, handler: ULong): ULong
 
 public expect fun kill(pid: Int, sig: Int): Int
 
 public expect fun raise(sig: Int): Int
 
-public fun alarm(seconds: UInt): UInt = 0u
+public expect fun alarm(seconds: UInt): UInt
 
 public expect fun pause(): Int
 

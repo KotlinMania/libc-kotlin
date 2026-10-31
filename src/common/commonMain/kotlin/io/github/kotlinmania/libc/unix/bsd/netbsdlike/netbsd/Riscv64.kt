@@ -3,6 +3,9 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
 
+public typealias GregsetT = ULongArray
+public typealias FregsetT = List<Fpreg>
+
 // C union; only one variant is valid at a time.
 public data class Fpreg(
     val uU64: ULong? = null,

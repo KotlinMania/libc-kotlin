@@ -43,3 +43,9 @@ public actual fun sigaction(sig: Int, act: Sigaction?, oact: Sigaction?): Int =
 
 public actual fun sigtimedwait(set: ULong?, info: SiginfoT?, timeout: Timespec?): Int =
     throw UnsupportedOperationException("sigtimedwait not available on JVM — no C library access")
+
+public actual fun signal(sig: Int, handler: ULong): ULong =
+    throw UnsupportedOperationException("signal not available on JVM — no C library access")
+
+public actual fun alarm(seconds: UInt): UInt =
+    throw UnsupportedOperationException("alarm not available on JVM — no C library access")

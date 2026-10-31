@@ -28,3 +28,5 @@ public const val __PTHREAD_COND_SIZE__: ULong = 40uL
 public const val __PTHREAD_ONCE_SIZE__: ULong = 8uL
 public const val __PTHREAD_RWLOCK_SIZE__: ULong = 192uL
 public const val __PTHREAD_RWLOCKATTR_SIZE__: ULong = 16uL
+
+public typealias PthreadKeyT = ULong

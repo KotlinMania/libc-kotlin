@@ -67,3 +67,9 @@ public actual fun wait4(pid: Int, status: Int?, options: Int, rusage: Rusage?): 
 
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> Int)?, data: COpaquePointer?): Int =
     throw UnsupportedOperationException("dlIteratePhdr not available on Android host — use androidNative target for FFI")
+
+public actual fun arc4random(): UInt =
+    throw UnsupportedOperationException("arc4random not available on Android host — use androidNative target for FFI")
+
+public actual fun arc4randomUniform(upperBound: UInt): UInt =
+    throw UnsupportedOperationException("arc4randomUniform not available on Android host — use androidNative target for FFI")

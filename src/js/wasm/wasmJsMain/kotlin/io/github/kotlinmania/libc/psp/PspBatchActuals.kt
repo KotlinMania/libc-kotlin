@@ -2196,3 +2196,132 @@ public actual fun sceNetResolverStop(rid: Int): Int =
 
 public actual fun sceNetResolverTerm(): Int =
     throw UnsupportedOperationException("sceNetResolverTerm requires N-API addon")
+
+public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
+    throw UnsupportedOperationException("sceDisplaySetMode requires N-API addon")
+
+public actual fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+    throw UnsupportedOperationException("sceDisplaySetFrameBuf requires N-API addon")
+
+public actual fun sceDisplayGetVcount(): UInt =
+    throw UnsupportedOperationException("sceDisplayGetVcount requires N-API addon")
+
+public actual fun sceDisplayGetFramePerSec(): Float =
+    throw UnsupportedOperationException("sceDisplayGetFramePerSec requires N-API addon")
+
+public actual fun sceGeEdramGetSize(): UInt =
+    throw UnsupportedOperationException("sceGeEdramGetSize requires N-API addon")
+
+public actual fun sceGeGetCmd(cmd: Int): UInt =
+    throw UnsupportedOperationException("sceGeGetCmd requires N-API addon")
+
+public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
+    throw UnsupportedOperationException("sceGeListSync requires N-API addon")
+
+public actual fun sceGeDrawSync(syncType: Int): GeListState =
+    throw UnsupportedOperationException("sceGeDrawSync requires N-API addon")
+
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelAllocPartitionMemory requires N-API addon")
+
+public actual fun sceKernelDevkitVersion(): UInt =
+    throw UnsupportedOperationException("sceKernelDevkitVersion requires N-API addon")
+
+public actual fun sceKernelGetCompiledSdkVersion(): UInt =
+    throw UnsupportedOperationException("sceKernelGetCompiledSdkVersion requires N-API addon")
+
+public actual fun sceKernelLibcClock(): UInt =
+    throw UnsupportedOperationException("sceKernelLibcClock requires N-API addon")
+
+public actual fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt =
+    throw UnsupportedOperationException("sceKernelUtilsMt19937UInt requires N-API addon")
+
+public actual fun sceKernelCpuSuspendIntr(): UInt =
+    throw UnsupportedOperationException("sceKernelCpuSuspendIntr requires N-API addon")
+
+public actual fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModule requires N-API addon")
+
+public actual fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleMs requires N-API addon")
+
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleByID requires N-API addon")
+
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleBufferUsbWlan requires N-API addon")
+
+public actual fun sceKernelStdin(): SceUid =
+    throw UnsupportedOperationException("sceKernelStdin requires N-API addon")
+
+public actual fun sceKernelStdout(): SceUid =
+    throw UnsupportedOperationException("sceKernelStdout requires N-API addon")
+
+public actual fun sceKernelStderr(): SceUid =
+    throw UnsupportedOperationException("sceKernelStderr requires N-API addon")
+
+public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
+    throw UnsupportedOperationException("sceKernelGetThreadmanIdType requires N-API addon")
+
+public actual fun sceKernelCreateThread(name: COpaquePointer?, entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateThread requires N-API addon")
+
+public actual fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateSema requires N-API addon")
+
+public actual fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateEventFlag requires N-API addon")
+
+public actual fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateMbx requires N-API addon")
+
+public actual fun sceKernelSetAlarm(clock: UInt, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelSetAlarm requires N-API addon")
+
+public actual fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelSetSysClockAlarm requires N-API addon")
+
+public actual fun sceKernelCreateCallback(name: COpaquePointer?, func: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, arg: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateCallback requires N-API addon")
+
+public actual fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateMsgPipe requires N-API addon")
+
+public actual fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateVpl requires N-API addon")
+
+public actual fun sceKernelGetSystemTimeLow(): UInt =
+    throw UnsupportedOperationException("sceKernelGetSystemTimeLow requires N-API addon")
+
+public actual fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateVTimer requires N-API addon")
+
+public actual fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelRegisterThreadEventHandler requires N-API addon")
+
+public actual fun scePowerGetCpuClockFrequencyFloat(): Float =
+    throw UnsupportedOperationException("scePowerGetCpuClockFrequencyFloat requires N-API addon")
+
+public actual fun scePowerGetBusClockFrequencyFloat(): Float =
+    throw UnsupportedOperationException("scePowerGetBusClockFrequencyFloat requires N-API addon")
+
+public actual fun sceRtcGetTickResolution(): UInt =
+    throw UnsupportedOperationException("sceRtcGetTickResolution requires N-API addon")
+
+public actual fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: Int): SceUid =
+    throw UnsupportedOperationException("sceIoOpen requires N-API addon")
+
+public actual fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: Int): SceUid =
+    throw UnsupportedOperationException("sceIoOpenAsync requires N-API addon")
+
+public actual fun sceIoDopen(dirname: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceIoDopen requires N-API addon")
+
+public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
+    throw UnsupportedOperationException("sceMpegRegistStream requires N-API addon")
+
+public actual fun sceGuSetCallback(signal: GuCallbackId, callback: GraphicsCallback?): GraphicsCallback? =
+    throw UnsupportedOperationException("sceGuSetCallback requires N-API addon")
+
+public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
+    throw UnsupportedOperationException("sceGuSync requires N-API addon")

@@ -7,3 +7,6 @@ public actual fun pthreadIntrospectionSetspecificNp(thread: ULong, key: Int, val
 
 public actual fun pthreadIntrospectionGetspecificNp(thread: ULong, key: Int): COpaquePointer? =
     throw UnsupportedOperationException("pthreadIntrospectionGetspecificNp not available on JVM — no C library access")
+
+public actual fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHook?): PthreadIntrospectionHook? =
+    throw UnsupportedOperationException("pthreadIntrospectionHookInstall not available on JVM — no C library access")

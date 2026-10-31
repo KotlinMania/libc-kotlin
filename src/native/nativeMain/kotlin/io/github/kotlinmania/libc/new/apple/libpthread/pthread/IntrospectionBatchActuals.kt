@@ -10,3 +10,6 @@ public actual fun pthreadIntrospectionSetspecificNp(thread: ULong, key: Int, val
 
 public actual fun pthreadIntrospectionGetspecificNp(thread: ULong, key: Int): COpaquePointer? =
     throw UnsupportedOperationException("pthreadIntrospectionGetspecificNp requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHook?): PthreadIntrospectionHook? =
+    throw UnsupportedOperationException("pthreadIntrospectionHookInstall requires manual FFI bridge — not yet implemented")

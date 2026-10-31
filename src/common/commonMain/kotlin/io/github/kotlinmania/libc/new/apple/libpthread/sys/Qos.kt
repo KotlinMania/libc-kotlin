@@ -10,9 +10,6 @@ public enum class QosClassT(
     QOS_CLASS_UTILITY(0x11u),
     QOS_CLASS_BACKGROUND(0x09u),
     QOS_CLASS_UNSPECIFIED(0x00u),
-    ;
-
-    public fun clone(): QosClassT {
-        return this
-    }
 }
+
+public fun QosClassT.clone(): QosClassT = this

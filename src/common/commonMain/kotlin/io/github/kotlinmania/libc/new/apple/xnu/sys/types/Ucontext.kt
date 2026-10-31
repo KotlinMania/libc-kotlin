@@ -11,3 +11,5 @@ public data class DarwinUcontext(
     val ucMcsize: ULong,
     val ucMcontext: COpaquePointer?,
 )
+
+public typealias UcontextT = DarwinUcontext

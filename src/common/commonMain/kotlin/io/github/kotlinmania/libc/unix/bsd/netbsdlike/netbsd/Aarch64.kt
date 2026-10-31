@@ -3,6 +3,9 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 
+public typealias GregT = ULong
+public typealias CpuSimpleLockNvT = UByte
+
 public data class Fregset(
     val qregs: List<CAnonymousFreg>,
     val fpcr: UInt,

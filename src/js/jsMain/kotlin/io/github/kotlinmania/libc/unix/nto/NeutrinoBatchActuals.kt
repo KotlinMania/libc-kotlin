@@ -578,3 +578,6 @@ public actual fun interruptAttachArray(intr: Int, handler: ((COpaquePointer?, In
 
 public actual fun interruptAttachArrayR(intr: Int, handler: ((COpaquePointer?, Int) -> COpaquePointer?)?, area: COpaquePointer?, size: Int, flags: UInt): Int =
     throw UnsupportedOperationException("interruptAttachArrayR requires N-API addon")
+
+public actual fun schedGetCpuNum(): UInt =
+    throw UnsupportedOperationException("schedGetCpuNum requires N-API addon")

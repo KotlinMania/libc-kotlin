@@ -1,6 +1,5 @@
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
-
 package io.github.kotlinmania.libc.new.common.posix.pthread
 
 public actual class PthreadT internal constructor(

@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.internal.RawLibc
 
 public const val EPERM: Int = 1
 public const val ENOENT: Int = 2
@@ -140,6 +141,10 @@ public const val EHWPOISON: Int = 133
 
 public expect fun errnoLocation(): Int?
 
-public expect fun errno(): Int?
+internal expect fun setErrnoValue(value: Int)
 
-public expect fun setErrno(value: Int)
+public fun errno(): Int = errnoLocation() ?: RawLibc.errno()
+
+public fun setErrno(value: Int) {
+    setErrnoValue(value)
+}

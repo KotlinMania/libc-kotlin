@@ -312,3 +312,66 @@ public actual fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): I
 
 public actual fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): Int =
     throw UnsupportedOperationException("onExitThread requires manual FFI bridge — not yet implemented")
+
+public actual fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): Int =
+    throw UnsupportedOperationException("createArea requires manual FFI bridge — not yet implemented")
+
+public actual fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: Int): Int =
+    throw UnsupportedOperationException("cloneArea requires manual FFI bridge — not yet implemented")
+
+public actual fun findArea(name: String?): Int =
+    throw UnsupportedOperationException("findArea requires manual FFI bridge — not yet implemented")
+
+public actual fun areaFor(address: COpaquePointer?): Int =
+    throw UnsupportedOperationException("areaFor requires manual FFI bridge — not yet implemented")
+
+public actual fun createPort(capacity: Int, name: String?): Int =
+    throw UnsupportedOperationException("createPort requires manual FFI bridge — not yet implemented")
+
+public actual fun findPort(name: String?): Int =
+    throw UnsupportedOperationException("findPort requires manual FFI bridge — not yet implemented")
+
+public actual fun createSem(count: Int, name: String?): Int =
+    throw UnsupportedOperationException("createSem requires manual FFI bridge — not yet implemented")
+
+public actual fun spawnThread(func: ThreadFunc?, name: String?, priority: Int, data: COpaquePointer?): Int =
+    throw UnsupportedOperationException("spawnThread requires manual FFI bridge — not yet implemented")
+
+public actual fun estimateMaxSchedulingLatency(th: Int): Long =
+    throw UnsupportedOperationException("estimateMaxSchedulingLatency requires manual FFI bridge — not yet implemented")
+
+public actual fun findThread(name: String?): Int =
+    throw UnsupportedOperationException("findThread requires manual FFI bridge — not yet implemented")
+
+public actual fun getPthreadThreadId(thread: ULong): Int =
+    throw UnsupportedOperationException("getPthreadThreadId requires manual FFI bridge — not yet implemented")
+
+public actual fun realTimeClockUsecs(): Long =
+    throw UnsupportedOperationException("realTimeClockUsecs requires manual FFI bridge — not yet implemented")
+
+public actual fun systemTime(): Long =
+    throw UnsupportedOperationException("systemTime requires manual FFI bridge — not yet implemented")
+
+public actual fun systemTimeNsecs(): Long =
+    throw UnsupportedOperationException("systemTimeNsecs requires manual FFI bridge — not yet implemented")
+
+public actual fun setAlarm(`when`: Long, flags: UInt): Long =
+    throw UnsupportedOperationException("setAlarm requires manual FFI bridge — not yet implemented")
+
+public actual fun isComputerOnFire(): Double =
+    throw UnsupportedOperationException("isComputerOnFire requires manual FFI bridge — not yet implemented")
+
+public actual fun devForPath(path: String?): Int =
+    throw UnsupportedOperationException("devForPath requires manual FFI bridge — not yet implemented")
+
+public actual fun nextDev(pos: Int?): Int =
+    throw UnsupportedOperationException("nextDev requires manual FFI bridge — not yet implemented")
+
+public actual fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): Int =
+    throw UnsupportedOperationException("fsMountVolume requires manual FFI bridge — not yet implemented")
+
+public actual fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): Int =
+    throw UnsupportedOperationException("loadImage requires manual FFI bridge — not yet implemented")
+
+public actual fun loadAddOn(path: String?): Int =
+    throw UnsupportedOperationException("loadAddOn requires manual FFI bridge — not yet implemented")

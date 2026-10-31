@@ -2199,3 +2199,132 @@ public actual fun sceNetResolverStop(rid: Int): Int =
 
 public actual fun sceNetResolverTerm(): Int =
     throw UnsupportedOperationException("sceNetResolverTerm requires manual FFI bridge — not yet implemented")
+
+public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
+    throw UnsupportedOperationException("sceDisplaySetMode requires PSP kernel SDK — not available on host")
+
+public actual fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+    throw UnsupportedOperationException("sceDisplaySetFrameBuf requires PSP kernel SDK — not available on host")
+
+public actual fun sceDisplayGetVcount(): UInt =
+    throw UnsupportedOperationException("sceDisplayGetVcount requires PSP kernel SDK — not available on host")
+
+public actual fun sceDisplayGetFramePerSec(): Float =
+    throw UnsupportedOperationException("sceDisplayGetFramePerSec requires PSP kernel SDK — not available on host")
+
+public actual fun sceGeEdramGetSize(): UInt =
+    throw UnsupportedOperationException("sceGeEdramGetSize requires PSP kernel SDK — not available on host")
+
+public actual fun sceGeGetCmd(cmd: Int): UInt =
+    throw UnsupportedOperationException("sceGeGetCmd requires PSP kernel SDK — not available on host")
+
+public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
+    throw UnsupportedOperationException("sceGeListSync requires PSP kernel SDK — not available on host")
+
+public actual fun sceGeDrawSync(syncType: Int): GeListState =
+    throw UnsupportedOperationException("sceGeDrawSync requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelAllocPartitionMemory requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelDevkitVersion(): UInt =
+    throw UnsupportedOperationException("sceKernelDevkitVersion requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelGetCompiledSdkVersion(): UInt =
+    throw UnsupportedOperationException("sceKernelGetCompiledSdkVersion requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelLibcClock(): UInt =
+    throw UnsupportedOperationException("sceKernelLibcClock requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelUtilsMt19937UInt(ctx: SceKernelUtilsMt19937Context?): UInt =
+    throw UnsupportedOperationException("sceKernelUtilsMt19937UInt requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCpuSuspendIntr(): UInt =
+    throw UnsupportedOperationException("sceKernelCpuSuspendIntr requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModule requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleMs requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleByID requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: SceKernelLMOption?): SceUid =
+    throw UnsupportedOperationException("sceKernelLoadModuleBufferUsbWlan requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelStdin(): SceUid =
+    throw UnsupportedOperationException("sceKernelStdin requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelStdout(): SceUid =
+    throw UnsupportedOperationException("sceKernelStdout requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelStderr(): SceUid =
+    throw UnsupportedOperationException("sceKernelStderr requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
+    throw UnsupportedOperationException("sceKernelGetThreadmanIdType requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateThread(name: COpaquePointer?, entry: ((ULong, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, initPriority: Int, stackSize: Int, attr: Int, option: SceKernelThreadOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateThread requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: SceKernelSemaOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateSema requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: SceKernelEventFlagOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateEventFlag requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: SceKernelMbxOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateMbx requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelSetAlarm(clock: UInt, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelSetAlarm requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelSetSysClockAlarm(clock: SceKernelSysClock?, handler: ((io.github.kotlinmania.libc.COpaquePointer?) -> UInt)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelSetSysClockAlarm requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateCallback(name: COpaquePointer?, func: ((Int, Int, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, arg: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateCallback requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateMsgPipe requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: SceKernelVplOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateVpl requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelGetSystemTimeLow(): UInt =
+    throw UnsupportedOperationException("sceKernelGetSystemTimeLow requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelCreateVTimer(name: COpaquePointer?, opt: SceKernelVTimerOptParam?): SceUid =
+    throw UnsupportedOperationException("sceKernelCreateVTimer requires PSP kernel SDK — not available on host")
+
+public actual fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: ((Int, io.github.kotlinmania.libc.psp.SceUid, io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, common: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceKernelRegisterThreadEventHandler requires PSP kernel SDK — not available on host")
+
+public actual fun scePowerGetCpuClockFrequencyFloat(): Float =
+    throw UnsupportedOperationException("scePowerGetCpuClockFrequencyFloat requires PSP kernel SDK — not available on host")
+
+public actual fun scePowerGetBusClockFrequencyFloat(): Float =
+    throw UnsupportedOperationException("scePowerGetBusClockFrequencyFloat requires PSP kernel SDK — not available on host")
+
+public actual fun sceRtcGetTickResolution(): UInt =
+    throw UnsupportedOperationException("sceRtcGetTickResolution requires PSP kernel SDK — not available on host")
+
+public actual fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: Int): SceUid =
+    throw UnsupportedOperationException("sceIoOpen requires PSP kernel SDK — not available on host")
+
+public actual fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: Int): SceUid =
+    throw UnsupportedOperationException("sceIoOpenAsync requires PSP kernel SDK — not available on host")
+
+public actual fun sceIoDopen(dirname: COpaquePointer?): SceUid =
+    throw UnsupportedOperationException("sceIoDopen requires PSP kernel SDK — not available on host")
+
+public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
+    throw UnsupportedOperationException("sceMpegRegistStream requires PSP kernel SDK — not available on host")
+
+public actual fun sceGuSetCallback(signal: GuCallbackId, callback: GraphicsCallback?): GraphicsCallback? =
+    throw UnsupportedOperationException("sceGuSetCallback requires PSP kernel SDK — not available on host")
+
+public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
+    throw UnsupportedOperationException("sceGuSync requires PSP kernel SDK — not available on host")

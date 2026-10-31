@@ -1,11 +1,9 @@
 package io.github.kotlinmania.libc.unix.solarish
 
-import io.github.kotlinmania.libc.*
-
 public data class Termios(
-    val cIflag: UInt,
-    val cOflag: UInt,
-    val cCflag: UInt,
-    val cLflag: UInt,
-    val cCc: List<UByte>,
+    var cIflag: UInt,
+    var cOflag: UInt,
+    var cCflag: UInt,
+    var cLflag: UInt,
+    var cCc: List<UByte>,
 )

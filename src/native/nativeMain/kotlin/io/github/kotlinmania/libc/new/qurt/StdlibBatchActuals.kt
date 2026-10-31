@@ -103,3 +103,34 @@ public actual fun qsort(base: COpaquePointer?, nmemb: ULong, size: ULong, compar
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): COpaquePointer? =
     throw UnsupportedOperationException("bsearch requires manual FFI bridge — not yet implemented")
+
+public actual fun abort(): Nothing {
+    libc.cinterop.libc_abort()
+    throw UnsupportedOperationException("abort returned unexpectedly")
+}
+
+public actual fun exit(status: Int): Nothing {
+    libc.cinterop.libc_exit(status)
+    throw UnsupportedOperationException("exit returned unexpectedly")
+}
+
+public actual fun strtod(nptr: String?, endptr: COpaquePointer?): Double {
+    if (nptr == null) return 0.0
+    val endRaw: CPointer<ByteVar>? = endptr?.value?.toCPointer()
+    return libc.cinterop.libc_strtod(nptr, endRaw)
+}
+
+public actual fun strtof(nptr: String?, endptr: COpaquePointer?): Float {
+    if (nptr == null) return 0.0f
+    val endRaw: CPointer<ByteVar>? = endptr?.value?.toCPointer()
+    return libc.cinterop.libc_strtof(nptr, endRaw)
+}
+
+public actual fun div(numer: Int, denom: Int): DivT =
+    DivT(quot = numer / denom, rem = numer % denom)
+
+public actual fun ldiv(numer: Long, denom: Long): LdivT =
+    LdivT(quot = numer / denom, rem = numer % denom)
+
+public actual fun lldiv(numer: Long, denom: Long): LldivT =
+    LldivT(quot = numer / denom, rem = numer % denom)

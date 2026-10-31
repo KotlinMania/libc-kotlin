@@ -309,3 +309,66 @@ public actual fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): I
 
 public actual fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): Int =
     throw UnsupportedOperationException("onExitThread not available on JVM — no C library access")
+
+public actual fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): Int =
+    throw UnsupportedOperationException("createArea not available on JVM — no C library access")
+
+public actual fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: Int): Int =
+    throw UnsupportedOperationException("cloneArea not available on JVM — no C library access")
+
+public actual fun findArea(name: String?): Int =
+    throw UnsupportedOperationException("findArea not available on JVM — no C library access")
+
+public actual fun areaFor(address: COpaquePointer?): Int =
+    throw UnsupportedOperationException("areaFor not available on JVM — no C library access")
+
+public actual fun createPort(capacity: Int, name: String?): Int =
+    throw UnsupportedOperationException("createPort not available on JVM — no C library access")
+
+public actual fun findPort(name: String?): Int =
+    throw UnsupportedOperationException("findPort not available on JVM — no C library access")
+
+public actual fun createSem(count: Int, name: String?): Int =
+    throw UnsupportedOperationException("createSem not available on JVM — no C library access")
+
+public actual fun spawnThread(func: ThreadFunc?, name: String?, priority: Int, data: COpaquePointer?): Int =
+    throw UnsupportedOperationException("spawnThread not available on JVM — no C library access")
+
+public actual fun estimateMaxSchedulingLatency(th: Int): Long =
+    throw UnsupportedOperationException("estimateMaxSchedulingLatency not available on JVM — no C library access")
+
+public actual fun findThread(name: String?): Int =
+    throw UnsupportedOperationException("findThread not available on JVM — no C library access")
+
+public actual fun getPthreadThreadId(thread: ULong): Int =
+    throw UnsupportedOperationException("getPthreadThreadId not available on JVM — no C library access")
+
+public actual fun realTimeClockUsecs(): Long =
+    throw UnsupportedOperationException("realTimeClockUsecs not available on JVM — no C library access")
+
+public actual fun systemTime(): Long =
+    throw UnsupportedOperationException("systemTime not available on JVM — no C library access")
+
+public actual fun systemTimeNsecs(): Long =
+    throw UnsupportedOperationException("systemTimeNsecs not available on JVM — no C library access")
+
+public actual fun setAlarm(`when`: Long, flags: UInt): Long =
+    throw UnsupportedOperationException("setAlarm not available on JVM — no C library access")
+
+public actual fun isComputerOnFire(): Double =
+    throw UnsupportedOperationException("isComputerOnFire not available on JVM — no C library access")
+
+public actual fun devForPath(path: String?): Int =
+    throw UnsupportedOperationException("devForPath not available on JVM — no C library access")
+
+public actual fun nextDev(pos: Int?): Int =
+    throw UnsupportedOperationException("nextDev not available on JVM — no C library access")
+
+public actual fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): Int =
+    throw UnsupportedOperationException("fsMountVolume not available on JVM — no C library access")
+
+public actual fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): Int =
+    throw UnsupportedOperationException("loadImage not available on JVM — no C library access")
+
+public actual fun loadAddOn(path: String?): Int =
+    throw UnsupportedOperationException("loadAddOn not available on JVM — no C library access")

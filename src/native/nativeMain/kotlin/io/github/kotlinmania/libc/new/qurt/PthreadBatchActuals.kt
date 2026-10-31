@@ -4,6 +4,8 @@ package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toLong
+import libc.cinterop.libc_pthread_self
 
 public actual fun pthreadJoin(thread: UInt, retval: COpaquePointer?): Int =
     throw UnsupportedOperationException("pthreadJoin requires manual FFI bridge — not yet implemented")
@@ -115,3 +117,11 @@ public actual fun pthreadKeyCreate(key: Int?, destructor: ((COpaquePointer?) -> 
 
 public actual fun pthreadOnce(onceControl: Int?, initRoutine: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadOnce requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadExit(retval: COpaquePointer?): Nothing =
+    throw UnsupportedOperationException("pthreadExit requires manual FFI bridge — not yet implemented")
+
+public actual fun pthreadSelf(): UInt {
+    val raw = libc_pthread_self() ?: return 0u
+    return raw.toLong().toUInt()
+}

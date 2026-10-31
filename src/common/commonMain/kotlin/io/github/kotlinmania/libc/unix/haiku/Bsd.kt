@@ -52,9 +52,9 @@ public expect fun getprogname(): String?
 
 public expect fun setprogname(progname: String?)
 
-public fun arc4random(): UInt = 0u
+public expect fun arc4random(): UInt
 
-public fun arc4randomUniform(upperBound: UInt): UInt = 0u
+public expect fun arc4randomUniform(upperBound: UInt): UInt
 
 public expect fun arc4randomBuf(buf: COpaquePointer?, n: ULong)
 

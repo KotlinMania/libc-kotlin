@@ -23,16 +23,12 @@ internal class Padding<T>(
     /**
      * Do nothing when hashing to ignore the existence of padding fields.
      */
-    fun hash(): Int {
-        return 0
-    }
+    fun hash(): Int = 0
 
     /**
      * Padding fields are all equal, regardless of what is inside them, so they do not affect anything.
      */
-    fun eq(other: Padding<T>): Boolean {
-        return other === this || true
-    }
+    fun eq(other: Padding<T>): Boolean = other === this || true
 
     override fun toString(): String = fmt()
 
@@ -41,20 +37,14 @@ internal class Padding<T>(
     override fun equals(other: Any?): Boolean = other is Padding<*>
 
     companion object {
-        fun <T> default(): Padding<T> {
-            return Padding(null)
-        }
+        fun <T> default(): Padding<T> = Padding(null)
 
         /**
          * Constructor for uninitialized padding in constant contexts.
          */
-        fun <T> uninit(): Padding<T> {
-            return Padding(null)
-        }
+        fun <T> uninit(): Padding<T> = Padding(null)
 
-        fun <T> uninit(value: T): Padding<T> {
-            return Padding(value)
-        }
+        fun <T> uninit(value: T): Padding<T> = Padding(value)
     }
 }
 

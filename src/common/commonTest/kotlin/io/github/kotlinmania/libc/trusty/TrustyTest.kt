@@ -26,4 +26,13 @@ class TrustyTest {
         assertEquals(12L, ts.tvSec)
         assertEquals(345L, ts.tvNsec)
     }
+
+    @Test
+    fun testTrustyStrlenAndTypealiases() {
+        val len: SizeT = strlen("trusty")
+        assertEquals(6uL, len)
+        assertEquals(0uL, strlen(null))
+        val clk: ClockidT = CLOCK_BOOTTIME
+        assertEquals(7, clk)
+    }
 }

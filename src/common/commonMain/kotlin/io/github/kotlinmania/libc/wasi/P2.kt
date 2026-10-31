@@ -3,6 +3,12 @@ package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
 
+public typealias SaFamilyT = UShort
+public typealias InPortT = UShort
+public typealias InAddrT = UInt
+
+public typealias SocklenT = UInt
+
 public data class Sockaddr(
     val saFamily: UShort,
     val saData: ByteArray,

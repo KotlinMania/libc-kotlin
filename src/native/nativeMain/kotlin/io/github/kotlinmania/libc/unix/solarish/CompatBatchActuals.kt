@@ -1,24 +1,37 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.solarish
-import io.github.kotlinmania.libc.*
+
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.Group
-import io.github.kotlinmania.libc.unix.Winsize
-import kotlinx.cinterop.ExperimentalForeignApi
 
-public actual fun cfmakeraw(termios: Termios?): Unit = throw UnsupportedOperationException("cfmakeraw requires manual FFI bridge — not yet implemented")
+internal actual fun solarishCfsetispeed(termios: Termios?, speed: UInt): Int =
+    throw UnsupportedOperationException("solarishCfsetispeed requires Solaris/illumos libc — not available on host")
 
-public actual fun cfsetspeed(termios: Termios?, speed: UInt): Int =
-    throw UnsupportedOperationException("cfsetspeed requires manual FFI bridge — not yet implemented")
+internal actual fun solarishCfsetospeed(termios: Termios?, speed: UInt): Int =
+    throw UnsupportedOperationException("solarishCfsetospeed requires Solaris/illumos libc — not available on host")
 
-public actual fun openpty(amain: Int?, asubord: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
-    throw UnsupportedOperationException("openpty requires manual FFI bridge — not yet implemented")
+internal actual fun solarishTcsetattr(fd: Int, optionalActions: Int, termios: Termios?): Int =
+    throw UnsupportedOperationException("solarishTcsetattr requires Solaris/illumos libc — not available on host")
 
-public actual fun forkpty(amain: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
-    throw UnsupportedOperationException("forkpty requires manual FFI bridge — not yet implemented")
+internal actual fun solarishGetErrno(): Int = libc.cinterop.libc_get_errno()
 
-public actual fun getpwentR(pwd: Passwd?, buf: String?, buflen: ULong, result: Passwd?): Int =
-    throw UnsupportedOperationException("getpwentR requires manual FFI bridge — not yet implemented")
+internal actual fun solarishSetErrno(value: Int) {
+    libc.cinterop.libc_set_errno(value)
+}
 
-public actual fun getgrentR(grp: Group?, buf: String?, buflen: ULong, result: Group?): Int =
-    throw UnsupportedOperationException("getgrentR requires manual FFI bridge — not yet implemented")
+internal actual fun solarishNativeGetpwentR(
+    pwd: Passwd?,
+    buf: String?,
+    buflen: Int,
+    result: COpaquePointer?,
+): Passwd? =
+    throw UnsupportedOperationException("native_getpwent_r requires Solaris/illumos libc — not available on host")
+
+internal actual fun solarishNativeGetgrentR(
+    grp: Group?,
+    buf: String?,
+    buflen: Int,
+    result: COpaquePointer?,
+): Group? =
+    throw UnsupportedOperationException("native_getgrent_r requires Solaris/illumos libc — not available on host")

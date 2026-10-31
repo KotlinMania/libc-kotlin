@@ -4,6 +4,8 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Timeval
 
+public typealias LgrpRsrcT = Int
+
 public data class Aiocb(
     val aioFildes: Int,
     val aioBuf: COpaquePointer?,

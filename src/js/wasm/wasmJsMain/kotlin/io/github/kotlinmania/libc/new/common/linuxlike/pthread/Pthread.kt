@@ -1,6 +1,5 @@
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
-
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadAttrT

@@ -1,21 +1,35 @@
 package io.github.kotlinmania.libc.unix.solarish
-import io.github.kotlinmania.libc.*
+
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.Group
-import io.github.kotlinmania.libc.unix.Winsize
 
-public actual fun cfmakeraw(termios: Termios?): Unit = throw UnsupportedOperationException("cfmakeraw requires N-API addon")
+internal actual fun solarishCfsetispeed(termios: Termios?, speed: UInt): Int =
+    throw UnsupportedOperationException("solarishCfsetispeed requires N-API addon")
 
-public actual fun cfsetspeed(termios: Termios?, speed: UInt): Int =
-    throw UnsupportedOperationException("cfsetspeed requires N-API addon")
+internal actual fun solarishCfsetospeed(termios: Termios?, speed: UInt): Int =
+    throw UnsupportedOperationException("solarishCfsetospeed requires N-API addon")
 
-public actual fun openpty(amain: Int?, asubord: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
-    throw UnsupportedOperationException("openpty requires N-API addon")
+internal actual fun solarishTcsetattr(fd: Int, optionalActions: Int, termios: Termios?): Int =
+    throw UnsupportedOperationException("solarishTcsetattr requires N-API addon")
 
-public actual fun forkpty(amain: Int?, name: String?, termp: Termios?, winp: Winsize?): Int =
-    throw UnsupportedOperationException("forkpty requires N-API addon")
+internal actual fun solarishGetErrno(): Int =
+    throw UnsupportedOperationException("solarishGetErrno requires N-API addon")
 
-public actual fun getpwentR(pwd: Passwd?, buf: String?, buflen: ULong, result: Passwd?): Int =
-    throw UnsupportedOperationException("getpwentR requires N-API addon")
+internal actual fun solarishSetErrno(value: Int): Unit =
+    throw UnsupportedOperationException("solarishSetErrno requires N-API addon")
 
-public actual fun getgrentR(grp: Group?, buf: String?, buflen: ULong, result: Group?): Int =
-    throw UnsupportedOperationException("getgrentR requires N-API addon")
+internal actual fun solarishNativeGetpwentR(
+    pwd: Passwd?,
+    buf: String?,
+    buflen: Int,
+    result: COpaquePointer?,
+): Passwd? =
+    throw UnsupportedOperationException("solarishNativeGetpwentR requires N-API addon")
+
+internal actual fun solarishNativeGetgrentR(
+    grp: Group?,
+    buf: String?,
+    buflen: Int,
+    result: COpaquePointer?,
+): Group? =
+    throw UnsupportedOperationException("solarishNativeGetgrentR requires N-API addon")

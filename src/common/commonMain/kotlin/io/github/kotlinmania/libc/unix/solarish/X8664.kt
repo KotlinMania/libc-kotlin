@@ -3,6 +3,18 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 
+public typealias GregT = Long
+
+public typealias Elf64Addr = ULong
+public typealias Elf64Half = UShort
+public typealias Elf64Off = ULong
+public typealias Elf64Sword = Int
+public typealias Elf64Sxword = Long
+public typealias Elf64Word = UInt
+public typealias Elf64Xword = ULong
+public typealias Elf64Lword = ULong
+public typealias Elf64Phdr = CAnonymousElf64Phdr
+
 public data class CAnonymousFpchipState(
     val cw: UShort,
     val sw: UShort,

@@ -112,3 +112,9 @@ public actual fun pthreadKeyCreate(key: Int?, destructor: ((COpaquePointer?) -> 
 
 public actual fun pthreadOnce(onceControl: Int?, initRoutine: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadOnce not available on WASI — no C library access")
+
+public actual fun pthreadExit(retval: COpaquePointer?): Nothing =
+    throw UnsupportedOperationException("pthreadExit not available on WASI — no C library access")
+
+public actual fun pthreadSelf(): UInt =
+    throw UnsupportedOperationException("pthreadSelf not available on WASI — no C library access")

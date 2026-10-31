@@ -47,3 +47,9 @@ public actual fun sigaction(sig: Int, act: Sigaction?, oact: Sigaction?): Int =
 
 public actual fun sigtimedwait(set: ULong?, info: SiginfoT?, timeout: Timespec?): Int =
     throw UnsupportedOperationException("sigtimedwait requires manual FFI bridge — not yet implemented")
+
+public actual fun signal(sig: Int, handler: ULong): ULong =
+    libc.cinterop.libc_signal_raw(sig, handler)
+
+public actual fun alarm(seconds: UInt): UInt =
+    libc.cinterop.libc_alarm(seconds)

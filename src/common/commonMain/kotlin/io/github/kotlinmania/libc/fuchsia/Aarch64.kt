@@ -3,6 +3,11 @@ package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
 
+public typealias U64 = ULong
+public typealias WcharT = UInt
+public typealias NlinkT = ULong
+public typealias BlksizeT = Long
+
 public data class Stat(
     val stDev: ULong,
     val stIno: ULong,

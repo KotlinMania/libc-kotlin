@@ -1,3 +1,4 @@
+// port-lint: source new/qurt/stdlib.rs
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
@@ -14,9 +15,9 @@ public expect fun realloc(ptr: COpaquePointer?, size: ULong): COpaquePointer?
 
 public expect fun free(ptr: COpaquePointer?)
 
-public fun abort(): Nothing = throw UnsupportedOperationException()
+public expect fun abort(): Nothing
 
-public fun exit(status: Int): Nothing = throw UnsupportedOperationException()
+public expect fun exit(status: Int): Nothing
 
 public expect fun atexit(function: (() -> Unit)?): Int
 
@@ -40,9 +41,9 @@ public expect fun strtoll(nptr: String?, endptr: COpaquePointer?, base: Int): Lo
 
 public expect fun strtoull(nptr: String?, endptr: COpaquePointer?, base: Int): ULong
 
-public fun strtod(nptr: String?, endptr: COpaquePointer?): Double = 0.0
+public expect fun strtod(nptr: String?, endptr: COpaquePointer?): Double
 
-public fun strtof(nptr: String?, endptr: COpaquePointer?): Float = 0.0f
+public expect fun strtof(nptr: String?, endptr: COpaquePointer?): Float
 
 public expect fun rand(): Int
 
@@ -58,8 +59,8 @@ public expect fun labs(j: Long): Long
 
 public expect fun llabs(j: Long): Long
 
-public fun div(numer: Int, denom: Int): DivT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun div(numer: Int, denom: Int): DivT
 
-public fun ldiv(numer: Long, denom: Long): LdivT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun ldiv(numer: Long, denom: Long): LdivT
 
-public fun lldiv(numer: Long, denom: Long): LldivT = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun lldiv(numer: Long, denom: Long): LldivT

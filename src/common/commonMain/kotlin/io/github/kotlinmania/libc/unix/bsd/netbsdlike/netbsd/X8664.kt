@@ -3,6 +3,9 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
 
+public typealias CGregT = ULong
+public typealias FpregsetT = ByteArray
+
 public const val _REG_RDI: Int = 0
 public const val _REG_RSI: Int = 1
 public const val _REG_RDX: Int = 2

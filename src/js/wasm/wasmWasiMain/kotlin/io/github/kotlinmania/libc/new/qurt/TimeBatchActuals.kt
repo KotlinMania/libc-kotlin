@@ -46,3 +46,6 @@ public actual fun clockGettime(clkId: Int, tp: Timespec?): Int =
 
 public actual fun nanosleep(req: Timespec?, rem: Timespec?): Int =
     throw UnsupportedOperationException("nanosleep not available on WASI — no C library access")
+
+public actual fun difftime(time1: Long, time0: Long): Double =
+    (time1 - time0).toDouble()

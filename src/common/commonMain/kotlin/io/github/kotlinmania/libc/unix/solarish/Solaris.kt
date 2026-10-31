@@ -3,6 +3,10 @@ package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
 
+public typealias DoorAttrT = UInt
+public typealias DoorIdT = ULong
+public typealias LgrpAffinityT = UInt
+
 public data class XrsT(
     val xrsId: ULong,
     val xrsPtr: String?,

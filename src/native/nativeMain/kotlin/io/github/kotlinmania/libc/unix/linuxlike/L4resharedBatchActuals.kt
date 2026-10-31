@@ -16,6 +16,10 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Sysinfo
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UShortVar
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.set
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 import libc.cinterop.libc_abs
@@ -389,3 +393,41 @@ public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?)
 
 public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen64 requires manual FFI bridge — not yet implemented")
+
+public actual fun ipTosTos(tos: UByte): UByte = tos and IPTOS_TOS_MASK
+
+public actual fun ipTosPrec(tos: UByte): UByte = tos and IPTOS_PREC_MASK
+
+public actual fun rtTos(tos: UByte): UByte = tos and IPTOS_TOS_MASK
+
+public actual fun rtAddrClass(flags: UInt): UInt = flags shr 23
+
+public actual fun elf32RSym(`val`: UInt): UInt = `val` shr 8
+
+public actual fun elf32RType(`val`: UInt): UInt = `val` and 0xffu
+
+public actual fun elf32RInfo(sym: UInt, t: UInt): UInt = (sym shl (8 + t.toInt())) and 0xffu
+
+public actual fun elf64RSym(`val`: ULong): ULong = `val` shr 32
+
+public actual fun elf64RType(`val`: ULong): ULong = `val` and 0xffffffffuL
+
+public actual fun elf64RInfo(sym: ULong, t: ULong): ULong = sym shl (32 + t.toInt())
+
+public actual fun drand48(): Double = libc.cinterop.libc_drand48()
+
+public actual fun erand48(xseed: UShort?): Double =
+    if (xseed != null) {
+        memScoped {
+            val arr = allocArray<UShortVar>(3)
+            arr[0] = xseed
+            arr[1] = 0u
+            arr[2] = 0u
+            libc.cinterop.libc_erand48(arr)
+        }
+    } else {
+        0.0
+    }
+
+public actual fun iconvOpen(tocode: String?, fromcode: String?): io.github.kotlinmania.libc.COpaquePointer? =
+    throw UnsupportedOperationException("iconvOpen requires manual FFI bridge — not yet implemented")

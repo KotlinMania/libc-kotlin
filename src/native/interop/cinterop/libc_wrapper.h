@@ -729,5 +729,15 @@ int libc_getnameinfo_packed(
     int flags
 );
 
+double libc_strtod(const char* s, void* endp);
+float libc_strtof(const char* s, void* endp);
+double libc_difftime(int64_t time1, int64_t time0);
+unsigned int libc_alarm(unsigned int seconds);
+uint32_t libc_arc4random(void);
+uint32_t libc_arc4random_uniform(uint32_t upper_bound);
+double libc_drand48(void);
+double libc_erand48(unsigned short* xsubi);
+uint64_t libc_signal_raw(int sig, uint64_t handler);
+
 #endif /* LIBC_WRAPPER_H */
 

@@ -112,3 +112,9 @@ public actual fun pthreadKeyCreate(key: Int?, destructor: ((COpaquePointer?) -> 
 
 public actual fun pthreadOnce(onceControl: Int?, initRoutine: (() -> Unit)?): Int =
     throw UnsupportedOperationException("pthreadOnce requires N-API addon")
+
+public actual fun pthreadExit(retval: COpaquePointer?): Nothing =
+    throw UnsupportedOperationException("pthreadExit requires N-API addon")
+
+public actual fun pthreadSelf(): UInt =
+    throw UnsupportedOperationException("pthreadSelf requires N-API addon")

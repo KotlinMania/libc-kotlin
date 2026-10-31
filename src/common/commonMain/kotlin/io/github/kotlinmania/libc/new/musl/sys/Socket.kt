@@ -10,8 +10,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
  * Header: `sys/socket.h`.
  */
 
-// __pad1 / __pad2 are endian-dependent layout padding on 64-bit targets
-// (placed before or after the adjacent field for big- vs little-endian); omitted.
+// Endian-dependent layout padding on 64-bit targets is omitted in Kotlin.
 public data class Msghdr(
     val msgName: COpaquePointer?,
     val msgNamelen: UInt,
@@ -22,27 +21,27 @@ public data class Msghdr(
     val msgFlags: Int,
 )
 
-// __pad1 is endian-dependent layout padding on 64-bit targets; omitted.
+// Endian-dependent layout padding on 64-bit targets is omitted in Kotlin.
 public data class Cmsghdr(
     val cmsgLen: UInt,
     val cmsgLevel: Int,
     val cmsgType: Int,
 )
 
-public fun sendmmsg(
+public expect fun sendmmsg(
     sockfd: Int,
     msgvec: Mmsghdr?,
     vlen: UInt,
     flags: UInt,
-): Int = -1
+): Int
 
-public fun recvmmsg(
+public expect fun recvmmsg(
     sockfd: Int,
     msgvec: Mmsghdr?,
     vlen: UInt,
     flags: UInt,
     timeout: Timespec?,
-): Int = -1
+): Int
 
 // On mips / mips64 these are re-exported from bits.socket; on every other
 // architecture they are defined here.

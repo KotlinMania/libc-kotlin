@@ -79,3 +79,9 @@ public actual fun wait4(pid: Int, status: Int?, options: Int, rusage: Rusage?): 
 
 public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?) -> Int)?, data: COpaquePointer?): Int =
     throw UnsupportedOperationException("dlIteratePhdr requires manual FFI bridge — not yet implemented")
+
+public actual fun arc4random(): UInt =
+    libc.cinterop.libc_arc4random()
+
+public actual fun arc4randomUniform(upperBound: UInt): UInt =
+    libc.cinterop.libc_arc4random_uniform(upperBound)

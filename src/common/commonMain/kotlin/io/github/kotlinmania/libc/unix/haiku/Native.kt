@@ -3,6 +3,23 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 
+public typealias StatusT = Int
+public typealias BigtimeT = Long
+public typealias NanotimeT = Long
+public typealias TypeCode = UInt
+public typealias PerformCode = UInt
+public typealias AreaId = Int
+public typealias PortId = Int
+public typealias SemId = Int
+public typealias TeamId = Int
+public typealias ThreadId = Int
+
+public fun interface ThreadFunc {
+    public operator fun invoke(data: COpaquePointer?): StatusT
+}
+
+public typealias ImageId = Int
+
 internal fun haikuConstant(a: Char, b: Char, c: Char, d: Char): UInt =
     ((a.code.toUInt() shl 24) + (b.code.toUInt() shl 16) + (c.code.toUInt() shl 8) + d.code.toUInt())
 
@@ -381,8 +398,8 @@ public const val B_TOPOLOGY_CORE: UInt = 3u
 public const val B_TOPOLOGY_PACKAGE: UInt = 4u
 
 public const val B_CPU_UNKNOWN: UInt = 0u
-public const val B_CPU_x86: UInt = 1u
-public const val B_CPU_x86_64: UInt = 2u
+public const val B_CPU_X86: UInt = 1u
+public const val B_CPU_X86_64: UInt = 2u
 public const val B_CPU_PPC: UInt = 3u
 public const val B_CPU_PPC_64: UInt = 4u
 public const val B_CPU_M68K: UInt = 5u
@@ -741,13 +758,13 @@ public val B_NETWORK_ADDRESS_TYPE: UInt = haikuConstant('N', 'W', 'A', 'D')
 public val B_MIME_STRING_TYPE: UInt = haikuConstant('M', 'I', 'M', 'S')
 public val B_ASCII_TYPE: UInt = haikuConstant('T', 'E', 'X', 'T')
 
-public fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): Int
 
-public fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: Int): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: Int): Int
 
-public fun findArea(name: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun findArea(name: String?): Int
 
-public fun areaFor(address: COpaquePointer?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun areaFor(address: COpaquePointer?): Int
 
 public expect fun deleteArea(id: Int): Int
 
@@ -757,11 +774,17 @@ public expect fun setAreaProtection(id: Int, newProtection: UInt): Int
 
 public expect fun getAreaInfo(id: Int, areaInfo: AreaInfo?, size: ULong): Int
 
+public fun getAreaInfo(id: AreaId, info: AreaInfo?): StatusT =
+    getAreaInfo(id, info, 88uL)
+
 public expect fun getNextAreaInfo(team: Int, cookie: Long?, areaInfo: AreaInfo?, size: ULong): Int
 
-public fun createPort(capacity: Int, name: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public fun getNextAreaInfo(team: TeamId, cookie: Long?, info: AreaInfo?): StatusT =
+    getNextAreaInfo(team, cookie, info, 88uL)
 
-public fun findPort(name: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun createPort(capacity: Int, name: String?): Int
+
+public expect fun findPort(name: String?): Int
 
 public expect fun readPort(port: Int, code: Int?, buffer: COpaquePointer?, bufferSize: ULong): Long
 
@@ -785,11 +808,20 @@ public expect fun setPortOwner(port: Int, team: Int): Int
 
 public expect fun getPortInfo(port: Int, buf: PortInfo?, portInfoSize: ULong): Int
 
+public fun getPortInfo(port: PortId, buf: PortInfo?): StatusT =
+    getPortInfo(port, buf, 52uL)
+
 public expect fun getNextPortInfo(port: Int, cookie: Int?, portInfo: PortInfo?, portInfoSize: ULong): Int
+
+public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?): StatusT =
+    getNextPortInfo(port, cookie, portInfo, 52uL)
 
 public expect fun getPortMessageInfoEtc(port: Int, info: PortMessageInfo?, infoSize: ULong, flags: UInt, timeout: Long): Int
 
-public fun createSem(count: Int, name: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, flags: UInt, timeout: BigtimeT): StatusT =
+    getPortMessageInfoEtc(port, info, 24uL, flags, timeout)
+
+public expect fun createSem(count: Int, name: String?): Int
 
 public expect fun deleteSem(id: Int): Int
 
@@ -811,15 +843,27 @@ public expect fun setSemOwner(id: Int, team: Int): Int
 
 public expect fun getSemInfo(id: Int, info: SemInfo?, infoSize: ULong): Int
 
+public fun getSemInfo(id: SemId, info: SemInfo?): StatusT =
+    getSemInfo(id, info, 48uL)
+
 public expect fun getNextSemInfo(team: Int, cookie: Int?, info: SemInfo?, infoSize: ULong): Int
+
+public fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?): StatusT =
+    getNextSemInfo(team, cookie, info, 48uL)
 
 public expect fun killTeam(team: Int): Int
 
 public expect fun getTeamInfo(team: Int, info: TeamInfo?, size: ULong): Int
 
+public fun getTeamInfo(team: TeamId, info: TeamInfo?): StatusT =
+    getTeamInfo(team, info, 100uL)
+
 public expect fun getNextTeamInfo(cookie: Int?, info: TeamInfo?, size: ULong): Int
 
-public fun spawnThread(func: ((io.github.kotlinmania.libc.COpaquePointer?) -> Int)?, name: String?, priority: Int, data: COpaquePointer?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?): StatusT =
+    getNextTeamInfo(cookie, info, 100uL)
+
+public expect fun spawnThread(func: ThreadFunc?, name: String?, priority: Int, data: COpaquePointer?): Int
 
 public expect fun killThread(thread: Int): Int
 
@@ -833,7 +877,7 @@ public expect fun setThreadPriority(thread: Int, newPriority: Int): Int
 
 public expect fun suggestThreadPriority(what: UInt, period: Int, jitter: Long, length: Long): Int
 
-public fun estimateMaxSchedulingLatency(th: Int): Long = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun estimateMaxSchedulingLatency(th: Int): Long
 
 public expect fun exitThread(status: Int)
 
@@ -841,7 +885,7 @@ public expect fun waitForThread(thread: Int, returnValue: Int?): Int
 
 public expect fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): Int
 
-public fun findThread(name: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun findThread(name: String?): Int
 
 public expect fun getSchedulerMode(): Int
 
@@ -861,23 +905,32 @@ public expect fun snoozeUntil(time: Long, timeBase: Int): Int
 
 public expect fun getThreadInfo(id: Int, info: ThreadInfo?, size: ULong): Int
 
+public fun getThreadInfo(id: ThreadId, info: ThreadInfo?): StatusT =
+    getThreadInfo(id, info, 88uL)
+
 public expect fun getNextThreadInfo(team: Int, cookie: Int?, info: ThreadInfo?, size: ULong): Int
 
-public fun getPthreadThreadId(thread: ULong): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?): StatusT =
+    getNextThreadInfo(team, cookie, info, 88uL)
+
+public expect fun getPthreadThreadId(thread: ULong): Int
 
 public expect fun getTeamUsageInfo(team: Int, who: Int, info: TeamUsageInfo?, size: ULong): Int
+
+public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?): StatusT =
+    getTeamUsageInfo(team, who, info, 16uL)
 
 public expect fun realTimeClock(): ULong
 
 public expect fun setRealTimeClock(secsSinceJan1st1970: ULong)
 
-public fun realTimeClockUsecs(): Long = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun realTimeClockUsecs(): Long
 
-public fun systemTime(): Long = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun systemTime(): Long
 
-public fun systemTimeNsecs(): Long = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun systemTimeNsecs(): Long
 
-public fun setAlarm(`when`: Long, flags: UInt): Long = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun setAlarm(`when`: Long, flags: UInt): Long
 
 public expect fun debugger(message: String?)
 
@@ -894,7 +947,7 @@ public expect fun getCpuTopologyInfo(topologyInfos: CpuTopologyNodeInfo?, topolo
 
 public expect fun isComputerOn(): Int
 
-public fun isComputerOnFire(): Double = 0.0
+public expect fun isComputerOnFire(): Double
 
 public expect fun sendSignal(threadID: Int, signal: UInt): Int
 
@@ -944,9 +997,9 @@ public expect fun fsReadIndexDir(indexDirectory: DIR?): Dirent?
 
 public expect fun fsRewindIndexDir(indexDirectory: DIR?)
 
-public fun devForPath(path: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun devForPath(path: String?): Int
 
-public fun nextDev(pos: Int?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun nextDev(pos: Int?): Int
 
 public expect fun fsStatDev(dev: Int, info: FsInfo?): Int
 
@@ -960,13 +1013,13 @@ public expect fun fsReadQuery(d: DIR?): Dirent?
 
 public expect fun getPathForDirent(dent: Dirent?, buf: String?, len: ULong): Int
 
-public fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): Int
 
 public expect fun fsUnmountVolume(path: String?, flags: UInt): Int
 
-public fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): Int
 
-public fun loadAddOn(path: String?): Int = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun loadAddOn(path: String?): Int
 
 public expect fun unloadAddOn(image: Int): Int
 
@@ -978,7 +1031,13 @@ public expect fun clearCaches(address: COpaquePointer?, length: ULong, flags: UI
 
 public expect fun getImageInfo(image: Int, info: ImageInfo?, size: ULong): Int
 
+public fun getImageInfo(image: ImageId, info: ImageInfo?): StatusT =
+    getImageInfo(image, info, 1104uL)
+
 public expect fun getNextImageInfo(team: Int, cookie: Int?, info: ImageInfo?, size: ULong): Int
+
+public fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?): StatusT =
+    getNextImageInfo(team, cookie, info, 1104uL)
 
 public expect fun findPath(codePointer: COpaquePointer?, baseDirectory: UInt, subPath: String?, pathBuffer: String?, bufferSize: ULong): Int
 

@@ -43,21 +43,20 @@ public val BPF_A: UShort = (0x10).toUShort()
 public val BPF_TAX: UShort = (0x00).toUShort()
 public val BPF_TXA: UShort = (0x80).toUShort()
 
-// Inline helper functions performing pure bitwise operations.
-public fun bpfClass(code: UInt): UInt = code and 0x07u
+public expect fun bpfClass(code: UInt): UInt
 
-public fun bpfSize(code: UInt): UInt = code and 0x18u
+public expect fun bpfSize(code: UInt): UInt
 
-public fun bpfMode(code: UInt): UInt = code and 0xe0u
+public expect fun bpfMode(code: UInt): UInt
 
-public fun bpfOp(code: UInt): UInt = code and 0xf0u
+public expect fun bpfOp(code: UInt): UInt
 
-public fun bpfSrc(code: UInt): UInt = code and 0x08u
+public expect fun bpfSrc(code: UInt): UInt
 
-public fun bpfRval(code: UInt): UInt = code and 0x18u
+public expect fun bpfRval(code: UInt): UInt
 
-public fun bpfMiscOp(code: UInt): UInt = code and 0xf8u
+public expect fun bpfMiscOp(code: UInt): UInt
 
-public fun bpfStmt(code: UShort, k: UInt): BpfInsn = BpfInsn(code = code, jt = 0.toUByte(), jf = 0.toUByte(), k = k)
+public expect fun bpfStmt(code: UShort, k: UInt): BpfInsn
 
-public fun bpfJump(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn = BpfInsn(code = code, jt = jt, jf = jf, k = k)
+public expect fun bpfJump(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn

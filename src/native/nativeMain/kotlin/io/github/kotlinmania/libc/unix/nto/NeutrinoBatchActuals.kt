@@ -581,3 +581,6 @@ public actual fun interruptAttachArray(intr: Int, handler: ((COpaquePointer?, In
 
 public actual fun interruptAttachArrayR(intr: Int, handler: ((COpaquePointer?, Int) -> COpaquePointer?)?, area: COpaquePointer?, size: Int, flags: UInt): Int =
     throw UnsupportedOperationException("interruptAttachArrayR requires manual FFI bridge — not yet implemented")
+
+public actual fun schedGetCpuNum(): UInt =
+    throw UnsupportedOperationException("schedGetCpuNum requires manual FFI bridge — not yet implemented")

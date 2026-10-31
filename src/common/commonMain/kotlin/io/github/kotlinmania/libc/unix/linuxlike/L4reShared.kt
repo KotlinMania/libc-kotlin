@@ -13,6 +13,33 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ShmidDs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Sysinfo
 
+public typealias Elf32Half = UShort
+public typealias Elf32Word = UInt
+public typealias Elf32Off = UInt
+public typealias Elf32Addr = UInt
+public typealias Elf32Xword = ULong
+public typealias Elf32Sword = Int
+
+public typealias Elf64Half = UShort
+public typealias Elf64Word = UInt
+public typealias Elf64Off = ULong
+public typealias Elf64Addr = ULong
+public typealias Elf64Xword = ULong
+public typealias Elf64Sxword = Long
+public typealias Elf64Sword = Int
+
+public typealias Elf32Section = UShort
+public typealias Elf64Section = UShort
+
+public typealias Elf32Relr = Elf32Word
+public typealias Elf64Relr = Elf64Xword
+public typealias Elf32Rel = CAnonymousElf32Rel
+public typealias Elf64Rel = CAnonymousElf64Rel
+public typealias Elf32Rela = CAnonymousElf32Rela
+public typealias Elf64Rela = CAnonymousElf64Rela
+
+public typealias IconvT = COpaquePointer
+
 internal const val DATE_BASE: Int = 0x20000
 
 public data class GlobT(
@@ -372,7 +399,7 @@ public const val NOEXPR: Int = 0x50001
 public const val YESSTR: Int = 0x50002
 public const val NOSTR: Int = 0x50003
 public const val RUSAGE_CHILDREN: Int = -1
-public const val L_tmpnam: UInt = 20u
+public const val L_TMPNAM: UInt = 20u
 public const val _PC_LINK_MAX: Int = 0
 public const val _PC_MAX_CANON: Int = 1
 public const val _PC_MAX_INPUT: Int = 2
@@ -817,7 +844,7 @@ public const val IPC_NOWAIT: Int = 2048
 public const val IPC_RMID: Int = 0
 public const val IPC_SET: Int = 1
 
-// IPC_STAT is 0x102 on musl32_time64 targets.
+// IPC_STAT is 0x102 on 32-bit musl 64-bit time targets.
 public const val IPC_STAT: Int = 2
 public const val IPC_INFO: Int = 3
 public const val SHM_R: Int = 256
@@ -1224,7 +1251,6 @@ public const val NT_LWPSINFO: Int = 17
 public const val NT_PRFPXREG: Int = 20
 public const val MS_NOUSER: ULong = 0xffffffff80000000uL
 
-// Inline helper functions (Rust `f!`/`safe_f!`); bodies provided per platform.
 public expect fun cmsgNextHdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr?
 
 public expect fun cpuAllocSize(count: Int): ULong
@@ -1243,27 +1269,27 @@ public expect fun cpuCount(cpuset: CpuSetT?): Int
 
 public expect fun cpuEqual(set1: CpuSetT?, set2: CpuSetT?): Boolean
 
-public fun ipTosTos(tos: UByte): UByte = 0u
+public expect fun ipTosTos(tos: UByte): UByte
 
-public fun ipTosPrec(tos: UByte): UByte = 0u
+public expect fun ipTosPrec(tos: UByte): UByte
 
-public fun rtTos(tos: UByte): UByte = 0u
+public expect fun rtTos(tos: UByte): UByte
 
-public fun rtAddrClass(flags: UInt): UInt = 0u
+public expect fun rtAddrClass(flags: UInt): UInt
 
 public expect fun rtLocalAddr(flags: UInt): Boolean
 
-public fun elf32RSym(`val`: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun elf32RSym(`val`: UInt): UInt
 
-public fun elf32RType(`val`: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun elf32RType(`val`: UInt): UInt
 
-public fun elf32RInfo(sym: UInt, t: UInt): UInt = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun elf32RInfo(sym: UInt, t: UInt): UInt
 
-public fun elf64RSym(`val`: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun elf64RSym(`val`: ULong): ULong
 
-public fun elf64RType(`val`: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun elf64RType(`val`: ULong): ULong
 
-public fun elf64RInfo(sym: ULong, t: ULong): ULong = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun elf64RInfo(sym: ULong, t: ULong): ULong
 
 public expect fun iopl(level: Int): Int
 
@@ -1309,9 +1335,9 @@ public expect fun rand(): Int
 
 public expect fun srand(seed: UInt)
 
-public fun drand48(): Double = 0.0
+public expect fun drand48(): Double
 
-public fun erand48(xseed: UShort?): Double = 0.0
+public expect fun erand48(xseed: UShort?): Double
 
 public expect fun lrand48(): Long
 
@@ -1441,7 +1467,7 @@ public expect fun regerror(errcode: Int, preg: io.github.kotlinmania.libc.COpaqu
 
 public expect fun regfree(preg: io.github.kotlinmania.libc.COpaquePointer?)
 
-public fun iconvOpen(tocode: String?, fromcode: String?): io.github.kotlinmania.libc.COpaquePointer? = throw UnsupportedOperationException("Not implemented on this platform")
+public expect fun iconvOpen(tocode: String?, fromcode: String?): io.github.kotlinmania.libc.COpaquePointer?
 
 public expect fun iconv(cd: io.github.kotlinmania.libc.COpaquePointer?, inbuf: COpaquePointer?, inbytesleft: ULong?, outbuf: COpaquePointer?, outbytesleft: ULong?): ULong
 

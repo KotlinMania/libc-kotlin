@@ -34,3 +34,6 @@ public actual fun getpid(): Int =
 
 public actual fun sysconf(name: Int): Long =
     throw UnsupportedOperationException("sysconf not available on JVM — no C library access")
+
+public actual fun sleep(seconds: UInt): UInt =
+    throw UnsupportedOperationException("sleep not available on JVM — no C library access")

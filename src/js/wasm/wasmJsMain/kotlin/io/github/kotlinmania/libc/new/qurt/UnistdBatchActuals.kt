@@ -34,3 +34,6 @@ public actual fun getpid(): Int =
 
 public actual fun sysconf(name: Int): Long =
     throw UnsupportedOperationException("sysconf requires N-API addon")
+
+public actual fun sleep(seconds: UInt): UInt =
+    throw UnsupportedOperationException("sleep requires N-API addon")

@@ -4,6 +4,8 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.Sigval
 
+public typealias NtoJobT = SyncT
+
 public data class SyspageEntryInfo(
     val entryOff: UShort,
     val entrySize: UShort,
@@ -698,7 +700,7 @@ public expect fun schedGet(pid: Int, tid: Int, param: SchedParam?): Int
 
 public expect fun schedGetR(pid: Int, tid: Int, param: SchedParam?): Int
 
-public fun schedGetCpuNum(): UInt = 0u
+public expect fun schedGetCpuNum(): UInt
 
 public expect fun schedSet(pid: Int, tid: Int, algorithm: Int, param: SchedParam?): Int
 

@@ -1,4 +1,3 @@
-// port-lint: source macros.rs
 package io.github.kotlinmania.libc
 
 /** Assigns the next discriminant, restarting after every explicit value. */

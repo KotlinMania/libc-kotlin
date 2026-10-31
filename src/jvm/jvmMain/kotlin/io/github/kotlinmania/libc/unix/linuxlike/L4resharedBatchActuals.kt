@@ -342,3 +342,32 @@ public actual fun dlIteratePhdr(callback: ((DlPhdrInfo?, ULong, COpaquePointer?)
 
 public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
     throw UnsupportedOperationException("freopen64 not available on JVM — no C library access")
+
+public actual fun ipTosTos(tos: UByte): UByte = tos and IPTOS_TOS_MASK
+
+public actual fun ipTosPrec(tos: UByte): UByte = tos and IPTOS_PREC_MASK
+
+public actual fun rtTos(tos: UByte): UByte = tos and IPTOS_TOS_MASK
+
+public actual fun rtAddrClass(flags: UInt): UInt = flags shr 23
+
+public actual fun elf32RSym(`val`: UInt): UInt = `val` shr 8
+
+public actual fun elf32RType(`val`: UInt): UInt = `val` and 0xffu
+
+public actual fun elf32RInfo(sym: UInt, t: UInt): UInt = (sym shl (8 + t.toInt())) and 0xffu
+
+public actual fun elf64RSym(`val`: ULong): ULong = `val` shr 32
+
+public actual fun elf64RType(`val`: ULong): ULong = `val` and 0xffffffffuL
+
+public actual fun elf64RInfo(sym: ULong, t: ULong): ULong = sym shl (32 + t.toInt())
+
+public actual fun drand48(): Double =
+    throw UnsupportedOperationException("drand48 not available on JVM — no C library access")
+
+public actual fun erand48(xseed: UShort?): Double =
+    throw UnsupportedOperationException("erand48 not available on JVM — no C library access")
+
+public actual fun iconvOpen(tocode: String?, fromcode: String?): io.github.kotlinmania.libc.COpaquePointer? =
+    throw UnsupportedOperationException("iconvOpen not available on JVM — no C library access")
