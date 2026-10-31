@@ -1,4 +1,3 @@
-// port-lint: source Wali.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.wasm32

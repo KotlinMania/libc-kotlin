@@ -1,4 +1,3 @@
-// port-lint: source new/common/posix/pthread.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.common.posix.pthread

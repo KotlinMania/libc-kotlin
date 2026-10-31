@@ -1,4 +1,3 @@
-// port-lint: source Compat.rs
 package io.github.kotlinmania.libc.unix.solarish
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Group

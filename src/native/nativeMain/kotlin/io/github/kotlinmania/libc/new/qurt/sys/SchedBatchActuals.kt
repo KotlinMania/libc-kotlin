@@ -1,4 +1,3 @@
-// port-lint: source Sched.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.qurt.sys

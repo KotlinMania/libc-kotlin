@@ -1,4 +1,3 @@
-// port-lint: source Socket.rs
 package io.github.kotlinmania.libc.new.bioniclibc.sys
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.Timespec

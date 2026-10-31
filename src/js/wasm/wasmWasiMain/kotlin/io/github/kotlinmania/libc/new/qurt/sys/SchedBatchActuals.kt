@@ -1,4 +1,3 @@
-// port-lint: source Sched.rs
 package io.github.kotlinmania.libc.new.qurt.sys
 
 import io.github.kotlinmania.libc.*

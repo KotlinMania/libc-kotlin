@@ -1,4 +1,3 @@
-// port-lint: source Semaphore.rs
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*

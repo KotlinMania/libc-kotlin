@@ -1,4 +1,3 @@
-// port-lint: source NotX32.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664

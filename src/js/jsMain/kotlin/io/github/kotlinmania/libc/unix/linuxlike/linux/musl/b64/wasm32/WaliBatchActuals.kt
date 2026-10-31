@@ -1,4 +1,3 @@
-// port-lint: source Wali.rs
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.wasm32
 
 import io.github.kotlinmania.libc.*

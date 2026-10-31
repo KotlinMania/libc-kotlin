@@ -15,9 +15,13 @@
     "todos": true,
     "lint": true
   },
+  "macro_files": [
+    "macros.rs"
+  ],
   "reexport_modules": [
     "lib",
     "lib.rs",
-    "libc/src/lib.rs"
+    "libc/src/lib.rs",
+    "mod.rs"
   ]
 }

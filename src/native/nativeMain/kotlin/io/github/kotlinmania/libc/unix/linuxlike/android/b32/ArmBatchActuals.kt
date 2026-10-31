@@ -1,4 +1,3 @@
-// port-lint: source Arm.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32

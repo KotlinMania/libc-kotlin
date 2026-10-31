@@ -1,4 +1,3 @@
-// port-lint: source ../../../src/commonMain/kotlin/io/github/kotlinmania/libc/new/netbsd/Utmpx.kt.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.netbsd

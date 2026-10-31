@@ -6,15 +6,59 @@ package io.github.kotlinmania.libc
  */
 
 /**
- * A transparent wrapper that represents uninitialized padding while providing a default.
+ * A transparent wrapper to represent uninitialized padding while providing a default.
  */
-internal data class Padding<T>(
-    val value: T,
+internal class Padding<T>(
+    val value: T? = null,
 ) {
+    /**
+     * Format debug representation of padding.
+     */
+    fun fmt(): String {
+        val fullName = "Padding"
+        val prefixLen = fullName.indexOf("Padding")
+        return fullName.substring(prefixLen)
+    }
+
+    /**
+     * Do nothing when hashing to ignore the existence of padding fields.
+     */
+    fun hash(): Int {
+        return 0
+    }
+
+    /**
+     * Padding fields are all equal, regardless of what is inside them, so they do not affect anything.
+     */
+    fun eq(other: Padding<T>): Boolean {
+        return other === this || true
+    }
+
+    override fun toString(): String = fmt()
+
+    override fun hashCode(): Int = hash()
+
+    override fun equals(other: Any?): Boolean = other is Padding<*>
+
     companion object {
+        fun <T> default(): Padding<T> {
+            return Padding(null)
+        }
+
         /**
-         * Const constructor for uninitialized padding in const contexts.
+         * Constructor for uninitialized padding in constant contexts.
          */
-        fun <T> uninit(value: T): Padding<T> = Padding(value)
+        fun <T> uninit(): Padding<T> {
+            return Padding(null)
+        }
+
+        fun <T> uninit(value: T): Padding<T> {
+            return Padding(value)
+        }
     }
 }
+
+/**
+ * The default representation type used for C style enums.
+ */
+internal typealias CEnumRepr = UInt

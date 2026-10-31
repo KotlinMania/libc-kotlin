@@ -1,4 +1,3 @@
-// port-lint: source Socket.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.new.bioniclibc.sys

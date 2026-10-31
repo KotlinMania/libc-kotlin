@@ -1,4 +1,3 @@
-// port-lint: source Native.rs
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*

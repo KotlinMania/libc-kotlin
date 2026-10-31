@@ -1,4 +1,3 @@
-// port-lint: source library/core/src/time.rs
 package io.github.kotlinmania.libc.time
 
 /** A nonnegative span of whole seconds and fractional nanoseconds. */

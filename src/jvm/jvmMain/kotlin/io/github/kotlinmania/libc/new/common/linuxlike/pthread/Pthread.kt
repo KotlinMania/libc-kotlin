@@ -1,4 +1,3 @@
-// port-lint: source new/common/linux_like/pthread.rs
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.new.common.posix.pthread.PthreadAttrT

@@ -1,13 +1,7 @@
-// port-lint: source types.rs
 package io.github.kotlinmania.libc
 
 /**
- * Opaque C types used across the libc port.
- *
- * In the Rust upstream these are `*mut c_void` / `FILE` / `DIR` / `fpos_t` —
- * opaque pointers returned by the C standard library. The Kotlin port models
- * them as simple opaque classes so that function signatures match the C API
- * shape without requiring platform-specific kotlinx.cinterop definitions.
+ * Opaque C pointer and stream handle types used across the libc port.
  */
 
 /**

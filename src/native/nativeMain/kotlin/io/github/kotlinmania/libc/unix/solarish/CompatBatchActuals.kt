@@ -1,4 +1,3 @@
-// port-lint: source Compat.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.solarish

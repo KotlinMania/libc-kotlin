@@ -1,4 +1,3 @@
-// port-lint: source P2.rs
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*

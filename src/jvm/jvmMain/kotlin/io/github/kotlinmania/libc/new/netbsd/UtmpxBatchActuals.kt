@@ -1,4 +1,3 @@
-// port-lint: source Utmpx.rs
 package io.github.kotlinmania.libc.new.netbsd
 
 import io.github.kotlinmania.libc.*

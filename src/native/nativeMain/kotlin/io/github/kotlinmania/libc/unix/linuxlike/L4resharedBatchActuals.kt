@@ -1,4 +1,3 @@
-// port-lint: source L4reShared.rs
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.libc.unix.linuxlike

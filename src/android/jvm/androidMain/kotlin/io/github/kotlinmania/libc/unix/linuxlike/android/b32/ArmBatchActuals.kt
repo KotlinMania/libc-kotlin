@@ -1,4 +1,3 @@
-// port-lint: source Arm.rs
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
