@@ -3,7 +3,7 @@ package io.github.kotlinmania.libc
 /**
  * N-API native bindings for libc functions on JS/WASM targets.
  *
- * This object loads the shared C++ N-API addon (`native/node-libc/`) which wraps
+ * This object loads the shared C++ N-API addon (`src/js/node-libc/dist/`) which wraps
  * direct C library calls. Both Kotlin/JS (nodeMain) and Kotlin/WASM (wasmJsMain
  * via Node.js) load the same compiled `.node` binary.
  *
