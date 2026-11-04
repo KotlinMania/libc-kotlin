@@ -11,11 +11,12 @@ class LibcInstrumentationRunner : Instrumentation() {
     }
 
     override fun onStart() {
-        val tests = HostIoTest(targetContext.cacheDir.absolutePath)
+        val tests = HostIoTest()
+        val cacheDir = targetContext.cacheDir.absolutePath
         val cases =
             listOf(
                 "androidNativeMemoryPreservesBytesAcrossCopyAndResize" to tests::androidNativeMemoryPreservesBytesAcrossCopyAndResize,
-                "androidDescriptorsPreserveBytesAndExposeHostErrors" to tests::androidDescriptorsPreserveBytesAndExposeHostErrors,
+                "androidDescriptorsPreserveBytesAndExposeHostErrors" to { verifyHostDescriptorIo(cacheDir) },
             )
         var failed = 0
         cases.forEachIndexed { index, (name, execute) ->

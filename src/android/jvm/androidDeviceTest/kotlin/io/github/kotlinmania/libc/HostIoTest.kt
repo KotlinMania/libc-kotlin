@@ -1,15 +1,15 @@
 package io.github.kotlinmania.libc
 
+import androidx.test.platform.app.InstrumentationRegistry
 import kotlin.test.Test
 
-class HostIoTest(
-    private val directory: String,
-) {
+class HostIoTest {
     @Test
     fun androidNativeMemoryPreservesBytesAcrossCopyAndResize() = verifyHostMemory()
 
     @Test
     fun androidDescriptorsPreserveBytesAndExposeHostErrors() {
-        verifyHostDescriptorIo(directory)
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        verifyHostDescriptorIo(instrumentation.targetContext.cacheDir.absolutePath)
     }
 }
