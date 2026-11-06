@@ -5334,7 +5334,7 @@ public val PROC_PIDPATHINFO_MAXSIZE: CInt = 4096
 
 public val PROC_PIDLISTFDS: CInt = 1
 
-public val PROC_PIDLISTFD_SIZE: CInt = sizeOf<ProcFdinfo>().toInt()
+public val PROC_PIDLISTFD_SIZE: CInt = 0
 
 public val PROX_FDTYPE_ATALK: CInt = 0
 
