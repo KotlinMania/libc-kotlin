@@ -2282,11 +2282,11 @@ public val VM_FLAGS_RETURN_DATA_ADDR: CInt = 0x100000
 
 public val VM_FLAGS_RETURN_4K_DATA_ADDR: CInt = 0x800000
 
-public val VM_FLAGS_ALIAS_MASK: CInt = 0xFF000000
+public val VM_FLAGS_ALIAS_MASK: CInt = 0xFF000000.toInt()
 
-public val VM_FLAGS_USER_ALLOCATE: CInt = 0xff07401f
+public val VM_FLAGS_USER_ALLOCATE: CInt = 0xff07401f.toInt()
 
-public val VM_FLAGS_USER_MAP: CInt = 0xff97401f
+public val VM_FLAGS_USER_MAP: CInt = 0xff97401f.toInt()
 
 public val VM_FLAGS_USER_REMAP: CInt = VM_FLAGS_FIXED or VM_FLAGS_ANYWHERE or VM_FLAGS_RANDOM_ADDR or VM_FLAGS_OVERWRITE or VM_FLAGS_RETURN_DATA_ADDR or VM_FLAGS_RESILIENT_CODESIGN
 
@@ -4633,7 +4633,7 @@ public val CTLTYPE_OPAQUE: CInt = 5
 
 public val CTLTYPE_STRUCT: CInt = CTLTYPE_OPAQUE
 
-public val CTLFLAG_RD: CInt = 0x80000000
+public val CTLFLAG_RD: CInt = 0x80000000.toInt()
 
 public val CTLFLAG_WR: CInt = 0x40000000
 
@@ -5264,7 +5264,7 @@ public val RTF_CONDEMNED: CInt = 0x2000000
 
 public val RTF_IFREF: CInt = 0x4000000
 
-public val RTF_PROXY: CInt = 0x8000000
+public val RTF_PROXY: CInt = 0x8000000.toInt()
 
 public val RTF_ROUTER: CInt = 0x10000000
 
