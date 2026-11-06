@@ -67,8 +67,7 @@ public typealias UidT = CUshort
 
 public typealias GidT = CUshort
 
-public sealed class DIR {
-}
+public open class DIR(val handle: Long = 0L)
 
 public typealias LocaleT = COpaquePointer?
 
@@ -346,8 +345,7 @@ public expect val IN6ADDR_ANY: In6Addr
 public sealed class FposT {
 }
 
-public sealed class FILE {
-}
+public open class FILE(val handle: Long = 0L)
 
 public expect fun isalnum(c: CInt): CInt
 

@@ -201,3 +201,15 @@ public typealias DarwinX86ThreadState64 = COpaquePointer?
 public typealias DarwinX86FloatState64 = COpaquePointer?
 public typealias Formatter = COpaquePointer?
 public typealias Pollfd = COpaquePointer?
+
+// More missing types from nativeMain actuals
+public typealias MachErrorT = CInt
+public typealias CCRNGStatus = CInt
+public typealias VmMapT = CULong
+public typealias MachVmSizeT = CULong
+public typealias MachVmOffsetT = CULong
+public typealias MemEntryNamePortT = CUint
+public typealias MemoryObjectOffsetT = CULong
+public typealias VmInheritT = CInt
+public typealias LedgerArrayT = COpaquePointer?
+public typealias SfHdtr = COpaquePointer?
