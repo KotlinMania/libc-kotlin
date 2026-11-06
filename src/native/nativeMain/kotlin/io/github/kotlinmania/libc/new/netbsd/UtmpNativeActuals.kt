@@ -8,15 +8,15 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.*
 
 public actual fun utmpname(file: String?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_utmp_utmpname(file)
+    libc.cinterop.libc_utmp_utmpname(file)
 
 public actual fun setutent() {
-    io.github.kotlinmania.libc.cinterop.libc_utmp_setutent()
+    libc.cinterop.libc_utmp_setutent()
 }
 
 public actual fun getutent(): Utmp? =
-    io.github.kotlinmania.libc.cinterop.libc_utmp_getutent()?.let { COpaquePointer(it.toLong()) }
+    libc.cinterop.libc_utmp_getutent()?.let { COpaquePointer(it.toLong()) }
 
 public actual fun endutent() {
-    io.github.kotlinmania.libc.cinterop.libc_utmp_endutent()
+    libc.cinterop.libc_utmp_endutent()
 }

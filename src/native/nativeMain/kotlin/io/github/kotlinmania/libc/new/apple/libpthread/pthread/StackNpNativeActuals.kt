@@ -8,4 +8,4 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.*
 
 public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: UintptrT?): UintptrT =
-    io.github.kotlinmania.libc.cinterop.libc_stack_np_pthread_stack_frame_decode_np(frameAddr, returnAddr?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_stack_np_pthread_stack_frame_decode_np(frameAddr, returnAddr?.value?.toCPointer<ByteVar>())

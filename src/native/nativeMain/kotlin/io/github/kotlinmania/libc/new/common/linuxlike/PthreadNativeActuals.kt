@@ -9,16 +9,16 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.*
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: CpuSetT?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_pthread_pthread_getaffinity_np(thread.toInt(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_pthread_pthread_getaffinity_np(thread.toInt(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetattrNp(native: PthreadT, attr: PthreadAttrT?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_pthread_pthread_getattr_np(native.toInt(), attr?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_pthread_pthread_getattr_np(native.toInt(), attr?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_pthread_pthread_getname_np(thread.toInt(), name?.value?.toCPointer<ByteVar>(), len)
+    libc.cinterop.libc_pthread_pthread_getname_np(thread.toInt(), name?.value?.toCPointer<ByteVar>(), len)
 
 public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: CpuSetT?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_pthread_pthread_setaffinity_np(thread.toInt(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_pthread_pthread_setaffinity_np(thread.toInt(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_pthread_pthread_setname_np(thread.toInt(), name)
+    libc.cinterop.libc_pthread_pthread_setname_np(thread.toInt(), name)

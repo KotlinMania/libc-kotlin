@@ -8,4 +8,4 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.*
 
 public actual fun errnoLocation(): CInt? =
-    io.github.kotlinmania.libc.cinterop.libc_errno_errno_location()?.let { COpaquePointer(it.toLong()) }
+    libc.cinterop.libc_errno_errno_location()?.let { COpaquePointer(it.toLong()) }

@@ -8,7 +8,7 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.*
 
 public actual fun ntpGettime(buf: Ntptimeval?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_timex_ntp_gettime(buf?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_timex_ntp_gettime(buf?.value?.toCPointer<ByteVar>())
 
 public actual fun ntpAdjtime(buf: Timex?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_timex_ntp_adjtime(buf?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_timex_ntp_adjtime(buf?.value?.toCPointer<ByteVar>())

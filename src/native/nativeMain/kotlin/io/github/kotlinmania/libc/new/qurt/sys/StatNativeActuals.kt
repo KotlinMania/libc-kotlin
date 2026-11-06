@@ -8,7 +8,7 @@ import io.github.kotlinmania.libc.*
 import kotlinx.cinterop.*
 
 public actual fun stat(pathname: String?, statbuf: Stat?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_stat_stat(pathname, statbuf?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_stat_stat(pathname, statbuf?.value?.toCPointer<ByteVar>())
 
 public actual fun fstat(fd: CInt, statbuf: Stat?): CInt =
-    io.github.kotlinmania.libc.cinterop.libc_stat_fstat(fd, statbuf?.value?.toCPointer<ByteVar>())
+    libc.cinterop.libc_stat_fstat(fd, statbuf?.value?.toCPointer<ByteVar>())
