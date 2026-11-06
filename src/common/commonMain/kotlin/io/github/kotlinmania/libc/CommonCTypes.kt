@@ -158,3 +158,25 @@ public typealias pthreadRwlockT = PthreadRwlockT
 public typealias pthreadMutexT = PthreadMutexT
 public typealias pthreadCondT = PthreadCondT
 
+// More Apple-specific types from apple_mod.kt
+public typealias WSTATUS = CInt
+public typealias SockaddrIn6 = io.github.kotlinmania.libc.unix.bsd.SockaddrIn6
+public typealias OsSignpostTypeT = COpaquePointer?
+public typealias OsSignpostIdT = COpaquePointer?
+public typealias Kevent = COpaquePointer?
+public typealias Kevent64S = COpaquePointer?
+public typealias MachMsgTypeNumberT = CUint
+public typealias Utsname = COpaquePointer?
+public typealias IntptrT = Long
+public typealias PolicyT = CInt
+public typealias SaeAssocidT = COpaquePointer?
+public typealias SaeConnidT = COpaquePointer?
+public typealias WSTOPSIG = COpaquePointer?
+public typealias CCCryptorStatus = COpaquePointer?
+public typealias IfData = io.github.kotlinmania.libc.unix.bsd.apple.b64.IfData
+public typealias PthreadJitWriteCallbackT = COpaquePointer?
+public typealias Addrinfo = COpaquePointer?
+public fun CMSG_FIRSTHDR(x: COpaquePointer?): COpaquePointer? = null
+public fun CMSG_NXTHDR(x: COpaquePointer?): COpaquePointer? = null
+public fun CMSG_DATA(x: COpaquePointer?): COpaquePointer? = null
+public fun CMSG_SPACE(x: COpaquePointer?): COpaquePointer? = null

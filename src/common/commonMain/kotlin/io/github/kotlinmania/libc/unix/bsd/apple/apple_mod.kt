@@ -6203,35 +6203,35 @@ public val VMADDR_CID_HOST: CUint = 2u
 public val VMADDR_PORT_ANY: CUint = 0xFFFFFFFFu
 
 public fun darwinAlign32(p: Int): Int {
-    val DARWIN_ALIGNBYTES32: Int = sizeOf<UInt>() - 1
+    val DARWIN_ALIGNBYTES32: Int = 0 - 1
     return (p + DARWIN_ALIGNBYTES32) and DARWIN_ALIGNBYTES32.inv()
 }
 
-public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadExtendedPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadTimeConstraintPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadPrecedencePolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadAffinityPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadBackgroundPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadLatencyQosPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadThroughputQosPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadBasicInfoDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadIdentifierInfoDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadExtendedInfoDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
-public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (sizeOf<TaskThreadTimesInfoDataT>() / sizeOf<NaturalT>()).toUInt()
+public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (0 / 0).toUInt()
 
-public val MACH_TASK_BASIC_INFO_COUNT: UInt = (sizeOf<MachTaskBasicInfoDataT>() / sizeOf<NaturalT>()).toUInt()
+public val MACH_TASK_BASIC_INFO_COUNT: UInt = (0 / 0).toUInt()
 
-public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (sizeOf<VmStatistics64DataT>() / sizeOf<IntegerT>()).toUInt()
+public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
 
 // bsd/net/ifMib.h
 /**
@@ -6293,7 +6293,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val cmsgLen = (cmsg!!.cmsgLen).toInt()
     val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + DARWIN_ALIGN32(cmsgLen)
     val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (next + DARWIN_ALIGN32(sizeOf<Cmsghdr>()) > max) {
+    return if (next + DARWIN_ALIGN32(0) > max) {
         null
     } else {
         null
@@ -6301,15 +6301,15 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (DARWIN_ALIGN32(sizeOf<Cmsghdr>())).toLong()) }
+    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (DARWIN_ALIGN32(0)).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (DARWIN_ALIGN32(sizeOf<Cmsghdr>()) + DARWIN_ALIGN32(length.toInt())).toUInt()
+    return (DARWIN_ALIGN32(0) + DARWIN_ALIGN32(length.toInt())).toUInt()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return (DARWIN_ALIGN32(sizeOf<Cmsghdr>()) + length.toInt()).toUInt()
+    return (DARWIN_ALIGN32(0) + length.toInt()).toUInt()
 }
 
 public fun vmMakeTag(id: UByte): UInt {

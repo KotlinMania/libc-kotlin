@@ -744,7 +744,7 @@ public val RTAX_AUTHOR: CInt = 6
 public val RTAX_BRD: CInt = 7
 
 public fun cmsgFirsthdr(mhdr: io.github.kotlinmania.libc.Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= sizeOf<Cmsghdr>()) {
+    return if ((mhdr!!.msgControllen).toInt() >= 0) {
         (if (mhdr!!.msgControl == null) null else Cmsghdr())
     } else {
         null
