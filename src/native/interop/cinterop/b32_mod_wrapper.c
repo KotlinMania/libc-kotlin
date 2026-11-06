@@ -2,6 +2,12 @@
 #include <errno.h>
 
 int64_t libc_b32_mod_timegm64(void* tm) {
+#if defined(__APPLE__)
+    (void)tm;
+    errno = ENOSYS;
+    return -1;
+#else
     return (int64_t)timegm64(tm);
+#endif
 }
 

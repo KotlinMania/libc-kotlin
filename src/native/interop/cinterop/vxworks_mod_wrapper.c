@@ -1313,7 +1313,7 @@ void libc_vxworks_mod_freeaddrinfo(void* res) {
 }
 
 uint64_t libc_vxworks_mod_signal(int32_t signum, uint64_t handler) {
-    return (uint64_t)signal(signum, handler);
+    return (uint64_t)signal(signum, (void (*)(int))handler);
 }
 
 int32_t libc_vxworks_mod_getpid(void) {

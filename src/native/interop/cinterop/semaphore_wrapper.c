@@ -1,6 +1,9 @@
 #include "semaphore_wrapper.h"
 #include <errno.h>
-#if !defined(_WIN32)
+#if defined(__APPLE__)
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#include <semaphore.h>
+#elif !defined(_WIN32)
 #include <semaphore.h>
 #endif
 
@@ -57,6 +60,12 @@ int32_t libc_semaphore_sem_post(void* sem) {
 }
 
 int32_t libc_semaphore_sem_getvalue(void* sem, void* sval) {
+#if !defined(_WIN32)
     return (int32_t)sem_getvalue(sem, sval);
+#else
+    (void)sem; (void)sval;
+    errno = ENOSYS;
+    return -1;
+#endif
 }
 

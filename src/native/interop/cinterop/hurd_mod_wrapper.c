@@ -562,8 +562,8 @@ int32_t libc_hurd_mod_pthread_condattr_setpshared(void* attr, int32_t pshared) {
     return (int32_t)pthread_condattr_setpshared(attr, pshared);
 }
 
-int32_t libc_hurd_mod_pthread_once(void* control, int32_t routine) {
-    return (int32_t)pthread_once(control, routine);
+int32_t libc_hurd_mod_pthread_once(void* control, void* routine) {
+    return (int32_t)pthread_once(control, (void (*)(void))routine);
 }
 
 int32_t libc_hurd_mod_pthread_barrierattr_init(void* attr) {

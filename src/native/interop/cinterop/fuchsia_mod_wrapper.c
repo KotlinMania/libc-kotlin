@@ -990,7 +990,7 @@ int32_t libc_fuchsia_mod_ftruncate(int32_t fd, int64_t length) {
 }
 
 uint64_t libc_fuchsia_mod_signal(int32_t signum, uint64_t handler) {
-    return (uint64_t)signal(signum, handler);
+    return (uint64_t)signal(signum, (void (*)(int))handler);
 }
 
 char* libc_fuchsia_mod_realpath(const char* pathname, char* resolved) {

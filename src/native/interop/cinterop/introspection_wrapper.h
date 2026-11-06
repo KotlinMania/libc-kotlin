@@ -9,9 +9,9 @@
 extern "C" {
 #endif
 
-int32_t libc_introspection_pthread_introspection_hook_install(int32_t hook);
-int32_t libc_introspection_pthread_introspection_setspecific_np(int32_t thread, int32_t key, void* value);
-void* libc_introspection_pthread_introspection_getspecific_np(int32_t thread, int32_t key);
+int32_t libc_introspection_pthread_introspection_hook_install(void* hook);
+int32_t libc_introspection_pthread_introspection_setspecific_np(void* thread, int32_t key, void* value);
+void* libc_introspection_pthread_introspection_getspecific_np(void* thread, int32_t key);
 
 #ifdef __cplusplus
 }

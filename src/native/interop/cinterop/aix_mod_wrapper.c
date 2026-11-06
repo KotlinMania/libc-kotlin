@@ -224,7 +224,7 @@ int32_t libc_aix_mod_pthread_mutex_timedlock(void* mutex, void* abstime) {
 }
 
 int32_t libc_aix_mod_pthread_once(void* once_control, void* init_routine) {
-    return (int32_t)pthread_once(once_control, init_routine);
+    return (int32_t)pthread_once(once_control, (void (*)(void))init_routine);
 }
 
 int32_t libc_aix_mod_pthread_rwlockattr_getpshared(void* attr, void* pshared) {

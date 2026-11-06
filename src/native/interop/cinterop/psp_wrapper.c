@@ -1929,7 +1929,7 @@ bool libc_psp_sce_gu_display(bool state) {
     return (bool)sceGuDisplay(state);
 }
 
-void libc_psp_sce_gu_depth_func(int32_t function) {
+void libc_psp_sce_gu_depth_func(void* function) {
     sceGuDepthFunc(function);
 }
 
@@ -1965,7 +1965,7 @@ void libc_psp_sce_gu_continue(void) {
     sceGuContinue();
 }
 
-int32_t libc_psp_sce_gu_set_callback(int32_t signal, int32_t callback) {
+int32_t libc_psp_sce_gu_set_callback(int32_t signal, void* callback) {
     return (int32_t)sceGuSetCallback(signal, callback);
 }
 
@@ -2893,7 +2893,7 @@ int32_t libc_psp_sce_net_adhoc_matching_term(void) {
     return (int32_t)sceNetAdhocMatchingTerm();
 }
 
-int32_t libc_psp_sce_net_adhoc_matching_create(int32_t mode, int32_t max_peers, uint16_t port, int32_t buf_size, uint32_t hello_delay, uint32_t ping_delay, int32_t init_count, uint32_t msg_delay, int32_t callback) {
+int32_t libc_psp_sce_net_adhoc_matching_create(int32_t mode, int32_t max_peers, uint16_t port, int32_t buf_size, uint32_t hello_delay, uint32_t ping_delay, int32_t init_count, uint32_t msg_delay, void* callback) {
     return (int32_t)sceNetAdhocMatchingCreate(mode, max_peers, port, buf_size, hello_delay, ping_delay, init_count, msg_delay, callback);
 }
 

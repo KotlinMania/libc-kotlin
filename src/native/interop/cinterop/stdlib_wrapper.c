@@ -29,8 +29,8 @@ void libc_stdlib_exit(int32_t status) {
     exit(status);
 }
 
-int32_t libc_stdlib_atexit(int32_t function) {
-    return (int32_t)atexit(function);
+int32_t libc_stdlib_atexit(void* function) {
+    return (int32_t)atexit((void (*)(void))function);
 }
 
 char* libc_stdlib_getenv(const char* name) {
@@ -103,12 +103,12 @@ void libc_stdlib_srand(uint32_t seed) {
     srand(seed);
 }
 
-void libc_stdlib_qsort(void* base, uint64_t nmemb, uint64_t size, int32_t compar) {
-    qsort(base, nmemb, size, compar);
+void libc_stdlib_qsort(void* base, uint64_t nmemb, uint64_t size, void* compar) {
+    qsort(base, nmemb, size, (int (*)(const void*, const void*))compar);
 }
 
-void* libc_stdlib_bsearch(void* key, void* base, uint64_t nmemb, uint64_t size, int32_t compar) {
-    return (void*)bsearch(key, base, nmemb, size, compar);
+void* libc_stdlib_bsearch(void* key, void* base, uint64_t nmemb, uint64_t size, void* compar) {
+    return (void*)bsearch(key, base, nmemb, size, (int (*)(const void*, const void*))compar);
 }
 
 int32_t libc_stdlib_abs(int32_t j) {
@@ -124,14 +124,14 @@ int64_t libc_stdlib_llabs(int64_t j) {
 }
 
 int32_t libc_stdlib_div(int32_t numer, int32_t denom) {
-    return (int32_t)div(numer, denom);
+    return div(numer, denom).quot;
 }
 
 int32_t libc_stdlib_ldiv(int64_t numer, int64_t denom) {
-    return (int32_t)ldiv(numer, denom);
+    return (int32_t)(ldiv(numer, denom).quot);
 }
 
 int32_t libc_stdlib_lldiv(int64_t numer, int64_t denom) {
-    return (int32_t)lldiv(numer, denom);
+    return (int32_t)(lldiv(numer, denom).quot);
 }
 

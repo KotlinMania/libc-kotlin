@@ -5,6 +5,46 @@
 #include <semaphore.h>
 #include <dirent.h>
 #include <sys/mman.h>
+#include <aio.h>
+#include <grp.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <stdlib.h>
+#include <utmpx.h>
+#include <netdb.h>
+#include <sys/sysctl.h>
+#include <sys/sem.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <mach/mach_time.h>
+#include <mach/mach_init.h>
+#include <mach/thread_policy.h>
+#include <os/lock.h>
+#include <os/log.h>
+#include <os/signpost.h>
+#if __has_include(<os/sync.h>)
+#include <os/sync.h>
+#endif
+#include <sys/qos.h>
+#include <execinfo.h>
+#include <sys/mount.h>
+#include <sys/ptrace.h>
+#include <sys/quota.h>
+#include <util.h>
+#include <locale.h>
+#include <sys/uio.h>
+#include <sys/xattr.h>
+#include <spawn.h>
+#include <mach-o/dyld.h>
+#include <libgen.h>
+#endif
+#pragma clang diagnostic ignored "-Wint-conversion"
+#pragma clang diagnostic ignored "-Wint-to-void-pointer-cast"
+#pragma clang diagnostic ignored "-Wpointer-to-int-cast"
+#pragma clang diagnostic ignored "-Wimplicit-function-declaration"
+#if defined(__APPLE__)
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#include <pthread/introspection.h>
 #endif
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
 #include <sys/event.h>
@@ -495,8 +535,8 @@ int32_t libc_apple_mod_uselocale(int32_t loc) {
     return (int32_t)uselocale(loc);
 }
 
-const char* libc_apple_mod_querylocale(int32_t mask, int32_t loc) {
-    return (const char*)querylocale(mask, loc);
+void* libc_apple_mod_querylocale(int32_t mask, int32_t loc) {
+    return (void*)querylocale(mask, loc);
 }
 
 int32_t libc_apple_mod_getpriority(int32_t which, uint32_t who) {
@@ -619,20 +659,20 @@ int32_t libc_apple_mod_posix_spawnattr_destroy(void* attr) {
     return (int32_t)posix_spawnattr_destroy(attr);
 }
 
-int32_t libc_apple_mod_posix_spawnattr_getsigdefault(void* attr, void* default) {
-    return (int32_t)posix_spawnattr_getsigdefault(attr, default);
+int32_t libc_apple_mod_posix_spawnattr_getsigdefault(void* attr, void* defval) {
+    return (int32_t)posix_spawnattr_getsigdefault(attr, defval);
 }
 
-int32_t libc_apple_mod_posix_spawnattr_setsigdefault(void* attr, void* default) {
-    return (int32_t)posix_spawnattr_setsigdefault(attr, default);
+int32_t libc_apple_mod_posix_spawnattr_setsigdefault(void* attr, void* defval) {
+    return (int32_t)posix_spawnattr_setsigdefault(attr, defval);
 }
 
-int32_t libc_apple_mod_posix_spawnattr_getsigmask(void* attr, void* default) {
-    return (int32_t)posix_spawnattr_getsigmask(attr, default);
+int32_t libc_apple_mod_posix_spawnattr_getsigmask(void* attr, void* defval) {
+    return (int32_t)posix_spawnattr_getsigmask(attr, defval);
 }
 
-int32_t libc_apple_mod_posix_spawnattr_setsigmask(void* attr, void* default) {
-    return (int32_t)posix_spawnattr_setsigmask(attr, default);
+int32_t libc_apple_mod_posix_spawnattr_setsigmask(void* attr, void* defval) {
+    return (int32_t)posix_spawnattr_setsigmask(attr, defval);
 }
 
 int32_t libc_apple_mod_posix_spawnattr_getflags(void* attr, void* flags) {

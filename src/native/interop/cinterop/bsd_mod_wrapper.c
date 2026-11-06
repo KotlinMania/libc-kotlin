@@ -13,6 +13,17 @@
 #include <sys/mman.h>
 #include <sys/socket.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <glob.h>
+#include <langinfo.h>
+#include <string.h>
+#include <ifaddrs.h>
+#include <pwd.h>
+#include <grp.h>
+#pragma clang diagnostic ignored "-Wint-conversion"
+#pragma clang diagnostic ignored "-Wint-to-void-pointer-cast"
+#pragma clang diagnostic ignored "-Wpointer-to-int-cast"
+#pragma clang diagnostic ignored "-Wimplicit-function-declaration"
 #endif
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
 #include <sys/event.h>

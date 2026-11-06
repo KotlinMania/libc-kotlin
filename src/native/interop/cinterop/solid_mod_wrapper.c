@@ -1,3 +1,4 @@
+#if defined(__solid__)
 #include "solid_mod_wrapper.h"
 #include <errno.h>
 #include <ctype.h>
@@ -396,7 +397,7 @@ void* libc_solid_mod_calloc(uint64_t arg1, uint64_t arg2) {
 }
 
 int32_t libc_solid_mod_div(int32_t arg1, int32_t arg2) {
-    return (int32_t)div(arg1, arg2);
+    return div(arg1, arg2).quot;
 }
 
 void libc_solid_mod_free(void* arg1) {
@@ -412,7 +413,7 @@ int64_t libc_solid_mod_labs(int64_t arg1) {
 }
 
 int32_t libc_solid_mod_ldiv(int64_t arg1, int64_t arg2) {
-    return (int32_t)ldiv(arg1, arg2);
+    return (int32_t)(ldiv(arg1, arg2).quot);
 }
 
 void* libc_solid_mod_malloc(uint64_t arg1) {
@@ -552,7 +553,7 @@ int64_t libc_solid_mod_llabs(int64_t arg1) {
 }
 
 int32_t libc_solid_mod_lldiv(int64_t arg1, int64_t arg2) {
-    return (int32_t)lldiv(arg1, arg2);
+    return (int32_t)(lldiv(arg1, arg2).quot);
 }
 
 int64_t libc_solid_mod_strtoll(const char* arg1, void* arg2, int32_t arg3) {
@@ -658,7 +659,7 @@ int32_t libc_solid_mod_l64a_r(int64_t arg1, char* arg2, int32_t arg3) {
 }
 
 int32_t libc_solid_mod_qdiv(int64_t arg1, int64_t arg2) {
-    return (int32_t)qdiv(arg1, arg2);
+    return (int32_t)(qdiv(arg1, arg2).quot);
 }
 
 int64_t libc_solid_mod_strtol_l(const char* arg1, void* arg2, int32_t arg3, uint64_t arg4) {
@@ -1147,3 +1148,4 @@ int64_t libc_solid_mod_lseek(int32_t arg1, int64_t arg2, int32_t arg3) {
     return (int64_t)lseek(arg1, arg2, arg3);
 }
 
+#endif /* __solid__ */

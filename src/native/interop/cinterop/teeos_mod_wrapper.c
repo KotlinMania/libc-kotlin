@@ -613,7 +613,7 @@ void* libc_teeos_mod_bsearch(void* key, void* base, uint64_t nel, uint64_t width
 }
 
 int32_t libc_teeos_mod_div(int32_t num, int32_t den) {
-    return (int32_t)div(num, den);
+    return div(num, den).quot;
 }
 
 char* libc_teeos_mod_ecvt(double x, int32_t n, void* dp, void* sign) {

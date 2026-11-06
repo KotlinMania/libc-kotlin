@@ -1,6 +1,8 @@
 #include "sched_wrapper.h"
 #include <errno.h>
-#if !defined(_WIN32)
+#if defined(__APPLE__)
+#include <sched.h>
+#elif !defined(_WIN32)
 #include <sys/sched.h>
 #endif
 

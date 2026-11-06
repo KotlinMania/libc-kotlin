@@ -392,7 +392,7 @@ void libc_windows_mod_srand(uint32_t seed) {
 }
 
 uint64_t libc_windows_mod_signal(int32_t signum, uint64_t handler) {
-    return (uint64_t)signal(signum, handler);
+    return (uint64_t)signal(signum, (void (*)(int))handler);
 }
 
 int32_t libc_windows_mod_raise(int32_t signum) {

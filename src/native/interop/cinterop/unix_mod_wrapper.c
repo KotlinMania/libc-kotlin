@@ -1021,7 +1021,7 @@ int32_t libc_unix_mod_ftruncate(int32_t fd, int64_t length) {
 }
 
 uint64_t libc_unix_mod_signal(int32_t signum, uint64_t handler) {
-    return (uint64_t)signal(signum, handler);
+    return (uint64_t)signal(signum, (void (*)(int))handler);
 }
 
 int32_t libc_unix_mod_getrusage(int32_t resource, void* usage) {
@@ -1306,8 +1306,8 @@ int64_t libc_unix_mod_mktime(void* tm) {
     return (int64_t)mktime(tm);
 }
 
-int64_t libc_unix_mod_time(void* time) {
-    return (int64_t)time(time);
+int64_t libc_unix_mod_time(void* time_p) {
+    return (int64_t)time((time_t*)time_p);
 }
 
 void* libc_unix_mod_gmtime(void* time_p) {
@@ -1459,27 +1459,27 @@ int32_t libc_unix_mod_fstatvfs(int32_t fd, void* buf) {
 }
 
 int32_t libc_unix_mod_sigemptyset(void* set) {
-    return (int32_t)sigemptyset(set);
+    return (int32_t)sigemptyset((sigset_t*)set);
 }
 
 int32_t libc_unix_mod_sigaddset(void* set, int32_t signum) {
-    return (int32_t)sigaddset(set, signum);
+    return (int32_t)sigaddset((sigset_t*)set, signum);
 }
 
 int32_t libc_unix_mod_sigfillset(void* set) {
-    return (int32_t)sigfillset(set);
+    return (int32_t)sigfillset((sigset_t*)set);
 }
 
 int32_t libc_unix_mod_sigdelset(void* set, int32_t signum) {
-    return (int32_t)sigdelset(set, signum);
+    return (int32_t)sigdelset((sigset_t*)set, signum);
 }
 
 int32_t libc_unix_mod_sigismember(void* set, int32_t signum) {
-    return (int32_t)sigismember(set, signum);
+    return (int32_t)sigismember((sigset_t*)set, signum);
 }
 
 int32_t libc_unix_mod_sigprocmask(int32_t how, void* set, void* oldset) {
-    return (int32_t)sigprocmask(how, set, oldset);
+    return (int32_t)sigprocmask(how, (sigset_t*)set, (sigset_t*)oldset);
 }
 
 int32_t libc_unix_mod_sigpending(void* set) {

@@ -142,7 +142,7 @@ int32_t libc_hurd_mod_pthread_condattr_getclock(void* attr, void* clock_id);
 int32_t libc_hurd_mod_pthread_condattr_setclock(void* __attr, int32_t __clock_id);
 int32_t libc_hurd_mod_pthread_condattr_getpshared(void* attr, void* pshared);
 int32_t libc_hurd_mod_pthread_condattr_setpshared(void* attr, int32_t pshared);
-int32_t libc_hurd_mod_pthread_once(void* control, int32_t routine);
+int32_t libc_hurd_mod_pthread_once(void* control, void* routine);
 int32_t libc_hurd_mod_pthread_barrierattr_init(void* attr);
 int32_t libc_hurd_mod_pthread_barrierattr_destroy(void* attr);
 int32_t libc_hurd_mod_pthread_barrierattr_getpshared(void* attr, void* shared);

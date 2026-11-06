@@ -1,6 +1,10 @@
 #include "stdio_wrapper.h"
 #include <errno.h>
 #include <stdio.h>
+#include <stdarg.h>
+#if defined(__APPLE__)
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 void* libc_stdio_fopen(const char* filename, const char* mode) {
     return (void*)fopen(filename, mode);
@@ -62,20 +66,20 @@ int32_t libc_stdio_puts(const char* s) {
     return (int32_t)puts(s);
 }
 
-int32_t libc_stdio_vprintf(const char* format, int32_t ap) {
-    return (int32_t)vprintf(format, ap);
+int32_t libc_stdio_vprintf(const char* format, void* ap) {
+    return (int32_t)vprintf(format, (va_list)ap);
 }
 
-int32_t libc_stdio_vfprintf(void* stream, const char* format, int32_t ap) {
-    return (int32_t)vfprintf((FILE*)stream, format, ap);
+int32_t libc_stdio_vfprintf(void* stream, const char* format, void* ap) {
+    return (int32_t)vfprintf((FILE*)stream, format, (va_list)ap);
 }
 
-int32_t libc_stdio_vsprintf(char* s, const char* format, int32_t ap) {
-    return (int32_t)vsprintf(s, format, ap);
+int32_t libc_stdio_vsprintf(char* s, const char* format, void* ap) {
+    return (int32_t)vsprintf(s, format, (va_list)ap);
 }
 
-int32_t libc_stdio_vsnprintf(char* s, uint64_t n, const char* format, int32_t ap) {
-    return (int32_t)vsnprintf(s, n, format, ap);
+int32_t libc_stdio_vsnprintf(char* s, uint64_t n, const char* format, void* ap) {
+    return (int32_t)vsnprintf(s, n, format, (va_list)ap);
 }
 
 int32_t libc_stdio_fseek(void* stream, int64_t offset, int32_t whence) {
