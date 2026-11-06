@@ -37,6 +37,9 @@ import io.github.kotlinmania.libc.UintptrT
 import io.github.kotlinmania.libc.Utsname
 import io.github.kotlinmania.libc.Winsize
 
+// Stub for kotlinx.cinterop.CPointer.addrOf (Native-only)
+internal fun addrOf(x: Any?): COpaquePointer? = null
+
 // Apple (ios/darwin)-specific definitions
 //
 // This covers *-apple-* triples currently
@@ -488,7 +491,7 @@ public open class SiginfoT(
             public var siAddr: COpaquePointer? = null,
             public var siValue: Sigval = Sigval(null),
         )
-        return (if (((this as SiginfoT?)) == null) null else SiginfoTimer()).siValue
+        return (if (((this as SiginfoT?)) == null) null else SiginfoTimer())?.siValue
     }
 
     public open fun siPid(): PidT {

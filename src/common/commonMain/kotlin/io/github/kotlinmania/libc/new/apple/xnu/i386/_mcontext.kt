@@ -1,6 +1,10 @@
 // port-lint: source new/apple/xnu/i386/_mcontext.rs
 package io.github.kotlinmania.libc.new.apple.xnu.i386
 
+import io.github.kotlinmania.libc.new.apple.xnu.mach.i386.DarwinX86ExceptionState64
+import io.github.kotlinmania.libc.new.apple.xnu.mach.i386.DarwinX86ThreadState64
+import io.github.kotlinmania.libc.new.apple.xnu.mach.i386.DarwinX86FloatState64
+
 // Header: `i386 / _mcontext.h`
 //
 // <https://github.com/apple-oss-distributions/xnu/blob/main/bsd/i386/_mcontext.h>

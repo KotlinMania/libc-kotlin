@@ -1,6 +1,10 @@
 // port-lint: source new/apple/xnu/arm/_mcontext.rs
 package io.github.kotlinmania.libc.new.apple.xnu.arm
 
+import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmExceptionState64
+import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmThreadState64
+import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.DarwinArmNeonState64
+
 // Header: `arm / _mcontext.h`
 //
 // <https://github.com/apple-oss-distributions/xnu/blob/main/bsd/arm/_mcontext.h>
