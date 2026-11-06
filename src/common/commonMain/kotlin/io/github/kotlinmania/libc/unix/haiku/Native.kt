@@ -2,1055 +2,2175 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CDouble
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.LibcDynamicFfi
+import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.UidT
 
+public fun interface ImageInfoInitRoutineCallback {
+    public operator fun invoke()
+}
+
+public fun interface OnExitThreadCallbackCallback {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
+// support/SupportDefs.h
 public typealias StatusT = Int
+
 public typealias BigtimeT = Long
+
 public typealias NanotimeT = Long
+
 public typealias TypeCode = UInt
+
 public typealias PerformCode = UInt
+
+// kernel/OS.h
 public typealias AreaId = Int
+
 public typealias PortId = Int
+
 public typealias SemId = Int
+
 public typealias TeamId = Int
+
 public typealias ThreadId = Int
 
 public fun interface ThreadFunc {
-    public operator fun invoke(data: COpaquePointer?): StatusT
+    public operator fun invoke(arg0: COpaquePointer?): StatusT
 }
 
+// kernel/image.h
 public typealias ImageId = Int
 
-internal fun haikuConstant(a: Char, b: Char, c: Char, d: Char): UInt =
-    ((a.code.toUInt() shl 24) + (b.code.toUInt() shl 16) + (c.code.toUInt() shl 8) + d.code.toUInt())
+public typealias ThreadState = CEnumRepr
 
-public data class AreaInfo(
-    val area: Int,
-    val name: ByteArray,
-    val size: ULong,
-    val lock: UInt,
-    val protection: UInt,
-    val team: Int,
-    val ramSize: UInt,
-    val copyCount: UInt,
-    val inCount: UInt,
-    val outCount: UInt,
-    val address: COpaquePointer?,
+public val B_THREAD_RUNNING: ThreadState = 1
+
+public val B_THREAD_READY: ThreadState = B_THREAD_RUNNING + 1
+
+public val B_THREAD_RECEIVING: ThreadState = B_THREAD_READY + 1
+
+public val B_THREAD_ASLEEP: ThreadState = B_THREAD_RECEIVING + 1
+
+public val B_THREAD_SUSPENDED: ThreadState = B_THREAD_ASLEEP + 1
+
+public val B_THREAD_WAITING: ThreadState = B_THREAD_SUSPENDED + 1
+
+public typealias ImageType = CEnumRepr
+
+public val B_APP_IMAGE: ImageType = 1
+
+public val B_LIBRARY_IMAGE: ImageType = B_APP_IMAGE + 1
+
+public val B_ADD_ON_IMAGE: ImageType = B_LIBRARY_IMAGE + 1
+
+public val B_SYSTEM_IMAGE: ImageType = B_ADD_ON_IMAGE + 1
+
+public typealias BeTaskFlags = CEnumRepr
+
+public val B_DEFAULT_MEDIA_PRIORITY: BeTaskFlags = 0x000
+
+public val B_OFFLINE_PROCESSING: BeTaskFlags = 0x001
+
+public val B_STATUS_RENDERING: BeTaskFlags = 0x002
+
+public val B_USER_INPUT_HANDLING: BeTaskFlags = 0x004
+
+public val B_LIVE_VIDEO_MANIPULATION: BeTaskFlags = 0x008
+
+public val B_VIDEO_PLAYBACK: BeTaskFlags = 0x010
+
+public val B_VIDEO_RECORDING: BeTaskFlags = 0x020
+
+public val B_LIVE_AUDIO_MANIPULATION: BeTaskFlags = 0x040
+
+public val B_AUDIO_PLAYBACK: BeTaskFlags = 0x080
+
+public val B_AUDIO_RECORDING: BeTaskFlags = 0x100
+
+public val B_LIVE_3D_RENDERING: BeTaskFlags = 0x200
+
+public val B_NUMBER_CRUNCHING: BeTaskFlags = 0x400
+
+public val B_MIDI_PROCESSING: BeTaskFlags = 0x800
+
+public typealias SchdulerMode = CEnumRepr
+
+public val SCHEDULER_MODE_LOW_LATENCY: SchdulerMode = 0
+
+public val SCHEDULER_MODE_POWER_SAVING: SchdulerMode = SCHEDULER_MODE_LOW_LATENCY + 1
+
+public typealias PathBaseDirectory = CEnumRepr
+
+public val B_FIND_PATH_INSTALLATION_LOCATION_DIRECTORY: PathBaseDirectory = 0
+
+public val B_FIND_PATH_ADD_ONS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_INSTALLATION_LOCATION_DIRECTORY + 1
+
+public val B_FIND_PATH_APPS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_ADD_ONS_DIRECTORY + 1
+
+public val B_FIND_PATH_BIN_DIRECTORY: PathBaseDirectory = B_FIND_PATH_APPS_DIRECTORY + 1
+
+public val B_FIND_PATH_BOOT_DIRECTORY: PathBaseDirectory = B_FIND_PATH_BIN_DIRECTORY + 1
+
+public val B_FIND_PATH_CACHE_DIRECTORY: PathBaseDirectory = B_FIND_PATH_BOOT_DIRECTORY + 1
+
+public val B_FIND_PATH_DATA_DIRECTORY: PathBaseDirectory = B_FIND_PATH_CACHE_DIRECTORY + 1
+
+public val B_FIND_PATH_DEVELOP_DIRECTORY: PathBaseDirectory = B_FIND_PATH_DATA_DIRECTORY + 1
+
+public val B_FIND_PATH_DEVELOP_LIB_DIRECTORY: PathBaseDirectory = B_FIND_PATH_DEVELOP_DIRECTORY + 1
+
+public val B_FIND_PATH_DOCUMENTATION_DIRECTORY: PathBaseDirectory = B_FIND_PATH_DEVELOP_LIB_DIRECTORY + 1
+
+public val B_FIND_PATH_ETC_DIRECTORY: PathBaseDirectory = B_FIND_PATH_DOCUMENTATION_DIRECTORY + 1
+
+public val B_FIND_PATH_FONTS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_ETC_DIRECTORY + 1
+
+public val B_FIND_PATH_HEADERS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_FONTS_DIRECTORY + 1
+
+public val B_FIND_PATH_LIB_DIRECTORY: PathBaseDirectory = B_FIND_PATH_HEADERS_DIRECTORY + 1
+
+public val B_FIND_PATH_LOG_DIRECTORY: PathBaseDirectory = B_FIND_PATH_LIB_DIRECTORY + 1
+
+public val B_FIND_PATH_MEDIA_NODES_DIRECTORY: PathBaseDirectory = B_FIND_PATH_LOG_DIRECTORY + 1
+
+public val B_FIND_PATH_PACKAGES_DIRECTORY: PathBaseDirectory = B_FIND_PATH_MEDIA_NODES_DIRECTORY + 1
+
+public val B_FIND_PATH_PREFERENCES_DIRECTORY: PathBaseDirectory = B_FIND_PATH_PACKAGES_DIRECTORY + 1
+
+public val B_FIND_PATH_SERVERS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_PREFERENCES_DIRECTORY + 1
+
+public val B_FIND_PATH_SETTINGS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_SERVERS_DIRECTORY + 1
+
+public val B_FIND_PATH_SOUNDS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_SETTINGS_DIRECTORY + 1
+
+public val B_FIND_PATH_SPOOL_DIRECTORY: PathBaseDirectory = B_FIND_PATH_SOUNDS_DIRECTORY + 1
+
+public val B_FIND_PATH_TRANSLATORS_DIRECTORY: PathBaseDirectory = B_FIND_PATH_SPOOL_DIRECTORY + 1
+
+public val B_FIND_PATH_VAR_DIRECTORY: PathBaseDirectory = B_FIND_PATH_TRANSLATORS_DIRECTORY + 1
+
+public val B_FIND_PATH_IMAGE_PATH: PathBaseDirectory = 1000
+
+public val B_FIND_PATH_PACKAGE_PATH: PathBaseDirectory = B_FIND_PATH_IMAGE_PATH + 1
+
+public typealias DirectoryWhich = CEnumRepr
+
+public val B_DESKTOP_DIRECTORY: DirectoryWhich = 0
+
+public val B_TRASH_DIRECTORY: DirectoryWhich = B_DESKTOP_DIRECTORY + 1
+
+public val B_SYSTEM_DIRECTORY: DirectoryWhich = 1000
+
+public val B_SYSTEM_ADDONS_DIRECTORY: DirectoryWhich = 1002
+
+public val B_SYSTEM_BOOT_DIRECTORY: DirectoryWhich = B_SYSTEM_ADDONS_DIRECTORY + 1
+
+public val B_SYSTEM_FONTS_DIRECTORY: DirectoryWhich = B_SYSTEM_BOOT_DIRECTORY + 1
+
+public val B_SYSTEM_LIB_DIRECTORY: DirectoryWhich = B_SYSTEM_FONTS_DIRECTORY + 1
+
+public val B_SYSTEM_SERVERS_DIRECTORY: DirectoryWhich = B_SYSTEM_LIB_DIRECTORY + 1
+
+public val B_SYSTEM_APPS_DIRECTORY: DirectoryWhich = B_SYSTEM_SERVERS_DIRECTORY + 1
+
+public val B_SYSTEM_BIN_DIRECTORY: DirectoryWhich = B_SYSTEM_APPS_DIRECTORY + 1
+
+public val B_SYSTEM_DOCUMENTATION_DIRECTORY: DirectoryWhich = 1010
+
+public val B_SYSTEM_PREFERENCES_DIRECTORY: DirectoryWhich = B_SYSTEM_DOCUMENTATION_DIRECTORY + 1
+
+public val B_SYSTEM_TRANSLATORS_DIRECTORY: DirectoryWhich = B_SYSTEM_PREFERENCES_DIRECTORY + 1
+
+public val B_SYSTEM_MEDIA_NODES_DIRECTORY: DirectoryWhich = B_SYSTEM_TRANSLATORS_DIRECTORY + 1
+
+public val B_SYSTEM_SOUNDS_DIRECTORY: DirectoryWhich = B_SYSTEM_MEDIA_NODES_DIRECTORY + 1
+
+public val B_SYSTEM_DATA_DIRECTORY: DirectoryWhich = B_SYSTEM_SOUNDS_DIRECTORY + 1
+
+public val B_SYSTEM_DEVELOP_DIRECTORY: DirectoryWhich = B_SYSTEM_DATA_DIRECTORY + 1
+
+public val B_SYSTEM_PACKAGES_DIRECTORY: DirectoryWhich = B_SYSTEM_DEVELOP_DIRECTORY + 1
+
+public val B_SYSTEM_HEADERS_DIRECTORY: DirectoryWhich = B_SYSTEM_PACKAGES_DIRECTORY + 1
+
+public val B_SYSTEM_ETC_DIRECTORY: DirectoryWhich = 2008
+
+public val B_SYSTEM_SETTINGS_DIRECTORY: DirectoryWhich = 2010
+
+public val B_SYSTEM_LOG_DIRECTORY: DirectoryWhich = 2012
+
+public val B_SYSTEM_SPOOL_DIRECTORY: DirectoryWhich = B_SYSTEM_LOG_DIRECTORY + 1
+
+public val B_SYSTEM_TEMP_DIRECTORY: DirectoryWhich = B_SYSTEM_SPOOL_DIRECTORY + 1
+
+public val B_SYSTEM_VAR_DIRECTORY: DirectoryWhich = B_SYSTEM_TEMP_DIRECTORY + 1
+
+public val B_SYSTEM_CACHE_DIRECTORY: DirectoryWhich = 2020
+
+public val B_SYSTEM_NONPACKAGED_DIRECTORY: DirectoryWhich = 2023
+
+public val B_SYSTEM_NONPACKAGED_ADDONS_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_TRANSLATORS_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_ADDONS_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_MEDIA_NODES_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_TRANSLATORS_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_BIN_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_MEDIA_NODES_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_DATA_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_BIN_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_FONTS_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_DATA_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_SOUNDS_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_FONTS_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_DOCUMENTATION_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_SOUNDS_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_LIB_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_DOCUMENTATION_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_HEADERS_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_LIB_DIRECTORY + 1
+
+public val B_SYSTEM_NONPACKAGED_DEVELOP_DIRECTORY: DirectoryWhich = B_SYSTEM_NONPACKAGED_HEADERS_DIRECTORY + 1
+
+public val B_USER_DIRECTORY: DirectoryWhich = 3000
+
+public val B_USER_CONFIG_DIRECTORY: DirectoryWhich = B_USER_DIRECTORY + 1
+
+public val B_USER_ADDONS_DIRECTORY: DirectoryWhich = B_USER_CONFIG_DIRECTORY + 1
+
+public val B_USER_BOOT_DIRECTORY: DirectoryWhich = B_USER_ADDONS_DIRECTORY + 1
+
+public val B_USER_FONTS_DIRECTORY: DirectoryWhich = B_USER_BOOT_DIRECTORY + 1
+
+public val B_USER_LIB_DIRECTORY: DirectoryWhich = B_USER_FONTS_DIRECTORY + 1
+
+public val B_USER_SETTINGS_DIRECTORY: DirectoryWhich = B_USER_LIB_DIRECTORY + 1
+
+public val B_USER_DESKBAR_DIRECTORY: DirectoryWhich = B_USER_SETTINGS_DIRECTORY + 1
+
+public val B_USER_PRINTERS_DIRECTORY: DirectoryWhich = B_USER_DESKBAR_DIRECTORY + 1
+
+public val B_USER_TRANSLATORS_DIRECTORY: DirectoryWhich = B_USER_PRINTERS_DIRECTORY + 1
+
+public val B_USER_MEDIA_NODES_DIRECTORY: DirectoryWhich = B_USER_TRANSLATORS_DIRECTORY + 1
+
+public val B_USER_SOUNDS_DIRECTORY: DirectoryWhich = B_USER_MEDIA_NODES_DIRECTORY + 1
+
+public val B_USER_DATA_DIRECTORY: DirectoryWhich = B_USER_SOUNDS_DIRECTORY + 1
+
+public val B_USER_CACHE_DIRECTORY: DirectoryWhich = B_USER_DATA_DIRECTORY + 1
+
+public val B_USER_PACKAGES_DIRECTORY: DirectoryWhich = B_USER_CACHE_DIRECTORY + 1
+
+public val B_USER_HEADERS_DIRECTORY: DirectoryWhich = B_USER_PACKAGES_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_DIRECTORY: DirectoryWhich = B_USER_HEADERS_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_ADDONS_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_TRANSLATORS_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_ADDONS_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_MEDIA_NODES_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_TRANSLATORS_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_BIN_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_MEDIA_NODES_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_DATA_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_BIN_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_FONTS_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_DATA_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_SOUNDS_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_FONTS_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_DOCUMENTATION_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_SOUNDS_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_LIB_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_DOCUMENTATION_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_HEADERS_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_LIB_DIRECTORY + 1
+
+public val B_USER_NONPACKAGED_DEVELOP_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_HEADERS_DIRECTORY + 1
+
+public val B_USER_DEVELOP_DIRECTORY: DirectoryWhich = B_USER_NONPACKAGED_DEVELOP_DIRECTORY + 1
+
+public val B_USER_DOCUMENTATION_DIRECTORY: DirectoryWhich = B_USER_DEVELOP_DIRECTORY + 1
+
+public val B_USER_SERVERS_DIRECTORY: DirectoryWhich = B_USER_DOCUMENTATION_DIRECTORY + 1
+
+public val B_USER_APPS_DIRECTORY: DirectoryWhich = B_USER_SERVERS_DIRECTORY + 1
+
+public val B_USER_BIN_DIRECTORY: DirectoryWhich = B_USER_APPS_DIRECTORY + 1
+
+public val B_USER_PREFERENCES_DIRECTORY: DirectoryWhich = B_USER_BIN_DIRECTORY + 1
+
+public val B_USER_ETC_DIRECTORY: DirectoryWhich = B_USER_PREFERENCES_DIRECTORY + 1
+
+public val B_USER_LOG_DIRECTORY: DirectoryWhich = B_USER_ETC_DIRECTORY + 1
+
+public val B_USER_SPOOL_DIRECTORY: DirectoryWhich = B_USER_LOG_DIRECTORY + 1
+
+public val B_USER_VAR_DIRECTORY: DirectoryWhich = B_USER_SPOOL_DIRECTORY + 1
+
+public val B_APPS_DIRECTORY: DirectoryWhich = 4000
+
+public val B_PREFERENCES_DIRECTORY: DirectoryWhich = B_APPS_DIRECTORY + 1
+
+public val B_UTILITIES_DIRECTORY: DirectoryWhich = B_PREFERENCES_DIRECTORY + 1
+
+public val B_PACKAGE_LINKS_DIRECTORY: DirectoryWhich = B_UTILITIES_DIRECTORY + 1
+
+public typealias TopologyLevelType = CEnumRepr
+
+public val B_TOPOLOGY_UNKNOWN: TopologyLevelType = 0
+
+public val B_TOPOLOGY_ROOT: TopologyLevelType = B_TOPOLOGY_UNKNOWN + 1
+
+public val B_TOPOLOGY_SMT: TopologyLevelType = B_TOPOLOGY_ROOT + 1
+
+public val B_TOPOLOGY_CORE: TopologyLevelType = B_TOPOLOGY_SMT + 1
+
+public val B_TOPOLOGY_PACKAGE: TopologyLevelType = B_TOPOLOGY_CORE + 1
+
+public typealias CpuPlatform = CEnumRepr
+
+public val B_CPU_UNKNOWN: CpuPlatform = 0
+
+public val B_CPU_X86: CpuPlatform = B_CPU_UNKNOWN + 1
+
+public val B_CPU_X86_64: CpuPlatform = B_CPU_X86 + 1
+
+public val B_CPU_PPC: CpuPlatform = B_CPU_X86_64 + 1
+
+public val B_CPU_PPC_64: CpuPlatform = B_CPU_PPC + 1
+
+public val B_CPU_M68K: CpuPlatform = B_CPU_PPC_64 + 1
+
+public val B_CPU_ARM: CpuPlatform = B_CPU_M68K + 1
+
+public val B_CPU_ARM_64: CpuPlatform = B_CPU_ARM + 1
+
+public val B_CPU_ALPHA: CpuPlatform = B_CPU_ARM_64 + 1
+
+public val B_CPU_MIPS: CpuPlatform = B_CPU_ALPHA + 1
+
+public val B_CPU_SH: CpuPlatform = B_CPU_MIPS + 1
+
+public val B_CPU_SPARC: CpuPlatform = B_CPU_SH + 1
+
+public val B_CPU_RISC_V: CpuPlatform = B_CPU_SPARC + 1
+
+public typealias CpuVendor = CEnumRepr
+
+public val B_CPU_VENDOR_UNKNOWN: CpuVendor = 0
+
+public val B_CPU_VENDOR_AMD: CpuVendor = B_CPU_VENDOR_UNKNOWN + 1
+
+public val B_CPU_VENDOR_CYRIX: CpuVendor = B_CPU_VENDOR_AMD + 1
+
+public val B_CPU_VENDOR_IDT: CpuVendor = B_CPU_VENDOR_CYRIX + 1
+
+public val B_CPU_VENDOR_INTEL: CpuVendor = B_CPU_VENDOR_IDT + 1
+
+public val B_CPU_VENDOR_NATIONAL_SEMICONDUCTOR: CpuVendor = B_CPU_VENDOR_INTEL + 1
+
+public val B_CPU_VENDOR_RISE: CpuVendor = B_CPU_VENDOR_NATIONAL_SEMICONDUCTOR + 1
+
+public val B_CPU_VENDOR_TRANSMETA: CpuVendor = B_CPU_VENDOR_RISE + 1
+
+public val B_CPU_VENDOR_VIA: CpuVendor = B_CPU_VENDOR_TRANSMETA + 1
+
+public val B_CPU_VENDOR_IBM: CpuVendor = B_CPU_VENDOR_VIA + 1
+
+public val B_CPU_VENDOR_MOTOROLA: CpuVendor = B_CPU_VENDOR_IBM + 1
+
+public val B_CPU_VENDOR_NEC: CpuVendor = B_CPU_VENDOR_MOTOROLA + 1
+
+public val B_CPU_VENDOR_HYGON: CpuVendor = B_CPU_VENDOR_NEC + 1
+
+public val B_CPU_VENDOR_SUN: CpuVendor = B_CPU_VENDOR_HYGON + 1
+
+public val B_CPU_VENDOR_FUJITSU: CpuVendor = B_CPU_VENDOR_SUN + 1
+
+// kernel/OS.h
+public open class AreaInfo(
+    public var area: AreaId,
+    public var name: List<CChar>,
+    public var size: Int,
+    public var lock: UInt,
+    public var protection: UInt,
+    public var team: TeamId,
+    public var ramSize: UInt,
+    public var copyCount: UInt,
+    public var inCount: UInt,
+    public var outCount: UInt,
+    public var address: COpaquePointer?,
 )
 
-public data class PortInfo(
-    val port: Int,
-    val team: Int,
-    val name: ByteArray,
-    val capacity: Int,
-    val queueCount: Int,
-    val totalCount: Int,
+public open class PortInfo(
+    public var port: PortId,
+    public var team: TeamId,
+    public var name: List<CChar>,
+    public var capacity: Int,
+    public var queueCount: Int,
+    public var totalCount: Int,
 )
 
-public data class PortMessageInfo(
-    val size: ULong,
-    val sender: UInt,
-    val senderGroup: UInt,
-    val senderTeam: Int,
+public open class PortMessageInfo(
+    public var size: SizeT,
+    public var sender: UidT,
+    public var senderGroup: GidT,
+    public var senderTeam: TeamId,
 )
 
-public data class TeamInfo(
-    val team: Int,
-    val threadCount: Int,
-    val imageCount: Int,
-    val areaCount: Int,
-    val debuggerNubThread: Int,
-    val debuggerNubPort: Int,
-    val argc: Int,
-    val args: ByteArray,
-    val uid: UInt,
-    val gid: UInt,
+public open class TeamInfo(
+    public var team: TeamId,
+    public var threadCount: Int,
+    public var imageCount: Int,
+    public var areaCount: Int,
+    public var debuggerNubThread: ThreadId,
+    public var debuggerNubPort: PortId,
+    public var argc: Int,
+    public var args: List<CChar>,
+    public var uid: UidT,
+    public var gid: GidT,
 )
 
-public data class SemInfo(
-    val sem: Int,
-    val team: Int,
-    val name: ByteArray,
-    val count: Int,
-    val latestHolder: Int,
+public open class SemInfo(
+    public var sem: SemId,
+    public var team: TeamId,
+    public var name: List<CChar>,
+    public var count: Int,
+    public var latestHolder: ThreadId,
 )
 
-public data class TeamUsageInfo(
-    val userTime: Long,
-    val kernelTime: Long,
+public open class TeamUsageInfo(public var userTime: BigtimeT, public var kernelTime: BigtimeT)
+
+public open class ThreadInfo(
+    public var thread: ThreadId,
+    public var team: TeamId,
+    public var name: List<CChar>,
+    public var state: ThreadState,
+    public var priority: Int,
+    public var sem: SemId,
+    public var userTime: BigtimeT,
+    public var kernelTime: BigtimeT,
+    public var stackBase: COpaquePointer?,
+    public var stackEnd: COpaquePointer?,
 )
 
-public data class ThreadInfo(
-    val thread: Int,
-    val team: Int,
-    val name: ByteArray,
-    val state: UInt,
-    val priority: Int,
-    val sem: Int,
-    val userTime: Long,
-    val kernelTime: Long,
-    val stackBase: COpaquePointer?,
-    val stackEnd: COpaquePointer?,
+public open class CpuInfo(
+    public var activeTime: BigtimeT,
+    public var enabled: Boolean,
+    public var currentFrequency: ULong,
 )
 
-public data class CpuInfo(
-    val activeTime: Long,
-    val enabled: Boolean,
-    val currentFrequency: ULong,
+public open class SystemInfo(
+    public var bootTime: BigtimeT,
+    public var cpuCount: UInt,
+    public var maxPages: ULong,
+    public var usedPages: ULong,
+    public var cachedPages: ULong,
+    public var blockCachePages: ULong,
+    public var ignoredPages: ULong,
+    public var neededMemory: ULong,
+    public var freeMemory: ULong,
+    public var maxSwapPages: ULong,
+    public var freeSwapPages: ULong,
+    public var pageFaults: UInt,
+    public var maxSems: UInt,
+    public var usedSems: UInt,
+    public var maxPorts: UInt,
+    public var usedPorts: UInt,
+    public var maxThreads: UInt,
+    public var usedThreads: UInt,
+    public var maxTeams: UInt,
+    public var usedTeams: UInt,
+    public var kernelName: List<CChar>,
+    public var kernelBuildDate: List<CChar>,
+    public var kernelBuildTime: List<CChar>,
+    public var kernelVersion: Long,
+    public var abi: UInt,
 )
 
-public data class SystemInfo(
-    val bootTime: Long,
-    val cpuCount: UInt,
-    val maxPages: ULong,
-    val usedPages: ULong,
-    val cachedPages: ULong,
-    val blockCachePages: ULong,
-    val ignoredPages: ULong,
-    val neededMemory: ULong,
-    val freeMemory: ULong,
-    val maxSwapPages: ULong,
-    val freeSwapPages: ULong,
-    val pageFaults: UInt,
-    val maxSems: UInt,
-    val usedSems: UInt,
-    val maxPorts: UInt,
-    val usedPorts: UInt,
-    val maxThreads: UInt,
-    val usedThreads: UInt,
-    val maxTeams: UInt,
-    val usedTeams: UInt,
-    val kernelName: ByteArray,
-    val kernelBuildDate: ByteArray,
-    val kernelBuildTime: ByteArray,
-    val kernelVersion: Long,
-    val abi: UInt,
+public open class ObjectWaitInfo(
+    public var obj: Int,
+    public var type: UShort,
+    public var events: UShort,
 )
 
-public data class ObjectWaitInfo(
-    val obj: Int,
-    val type: UShort,
-    val events: UShort,
+public open class CpuTopologyRootInfo(public var platform: CpuPlatform)
+
+public open class CpuTopologyPackageInfo(public var vendor: CpuVendor, public var cacheLineSize: UInt)
+
+public open class CpuTopologyCoreInfo(public var model: UInt, public var defaultFrequency: ULong)
+
+// kernel/fsAttr.h
+public open class AttrInfo(public var type: UInt, public var size: OffT)
+
+// kernel/fsIndex.h
+public open class IndexInfo(
+    public var type: UInt,
+    public var size: OffT,
+    public var modificationTime: TimeT,
+    public var creationTime: TimeT,
+    public var uid: UidT,
+    public var gid: GidT,
 )
 
-public data class CpuTopologyRootInfo(
-    val platform: UInt,
+// kernel/fsInfo.h
+public open class FsInfo(
+    public var dev: DevT,
+    public var root: InoT,
+    public var flags: UInt,
+    public var blockSize: OffT,
+    public var ioSize: OffT,
+    public var totalBlocks: OffT,
+    public var freeBlocks: OffT,
+    public var totalNodes: OffT,
+    public var freeNodes: OffT,
+    public var deviceName: List<CChar>,
+    public var volumeName: List<CChar>,
+    public var fshName: List<CChar>,
 )
 
-public data class CpuTopologyPackageInfo(
-    val vendor: UInt,
-    val cacheLineSize: UInt,
+public open class ImageInfo(
+    public var id: ImageId,
+    public var imageType: CInt,
+    public var sequence: Int,
+    public var initOrder: Int,
+    // Note(1.0): these should be made optional
+    public var initRoutine: ImageInfoInitRoutineCallback,
+    public var termRoutine: ImageInfoInitRoutineCallback,
+    public var device: DevT,
+    public var node: InoT,
+    public var name: List<CChar>,
+    public var text: COpaquePointer?,
+    public var data: COpaquePointer?,
+    public var textSize: Int,
+    public var dataSize: Int,
+    public var apiVersion: Int,
+    public var abi: Int,
 )
 
-public data class CpuTopologyCoreInfo(
-    val model: UInt,
-    val defaultFrequency: ULong,
+public open class CAnonymousEax0(public var maxEax: UInt, public var vendorId: List<CChar>)
+
+public open class CAnonymousEax1(
+    public var stepping: UInt,
+    public var model: UInt,
+    public var family: UInt,
+    public var tpe: UInt,
+    public var reserved0: UInt,
+    public var extendedModel: UInt,
+    public var extendedFamily: UInt,
+    public var reserved1: UInt,
+    public var brandIndex: UInt,
+    public var clflush: UInt,
+    public var logicalCpus: UInt,
+    public var apicId: UInt,
+    public var features: UInt,
+    public var extendedFeatures: UInt,
 )
 
-public data class AttrInfo(
-    val type: UInt,
-    val size: Long,
+public open class CAnonymousEax2(public var callNum: UByte, public var cacheDescriptors: List<UByte>)
+
+public open class CAnonymousEax3(
+    public var reserved: List<UInt>,
+    public var serialNumberHigh: UInt,
+    public var serialNumberLow: UInt,
 )
 
-public data class IndexInfo(
-    val type: UInt,
-    val size: Long,
-    val modificationTime: Int,
-    val creationTime: Int,
-    val uid: UInt,
-    val gid: UInt,
+public open class CAnonymousRegs(
+    public var eax: UInt,
+    public var ebx: UInt,
+    public var edx: UInt,
+    public var ecx: UInt,
 )
 
-public data class FsInfo(
-    val dev: Int,
-    val root: Long,
-    val flags: UInt,
-    val blockSize: Long,
-    val ioSize: Long,
-    val totalBlocks: Long,
-    val freeBlocks: Long,
-    val totalNodes: Long,
-    val freeNodes: Long,
-    val deviceName: ByteArray,
-    val volumeName: ByteArray,
-    val fshName: ByteArray,
+public open class CpuTopologyNodeInfo(
+    public var id: UInt,
+    public var type: TopologyLevelType,
+    public var level: UInt,
+    public var data: CAnonymousCpuTopologyInfoData,
 )
 
-public data class ImageInfo(
-    val id: Int,
-    val imageType: Int,
-    val sequence: Int,
-    val initOrder: Int,
-    val initRoutine: ImageInitializer?,
-    val termRoutine: ImageTerminator?,
-    val device: Int,
-    val node: Long,
-    val name: ByteArray,
-    val text: COpaquePointer?,
-    val data: COpaquePointer?,
-    val textSize: Int,
-    val dataSize: Int,
-    val apiVersion: Int,
-    val abi: Int,
-)
+public open class CpuidInfo(
+    public var eax0: CAnonymousEax0? = null,
+    public var eax1: CAnonymousEax1? = null,
+    public var eax2: CAnonymousEax2? = null,
+    public var eax3: CAnonymousEax3? = null,
+    public var asChars: List<CChar>? = null,
+    public var regs: CAnonymousRegs? = null,
+) {
+    public open fun eq(other: CpuidInfo): Boolean {
+        return this.eax0 == other.eax0 || this.eax1 == other.eax1 || this.eax2 == other.eax2 || this.eax3 == other.eax3 || this.asChars == other.asChars || this.regs == other.regs
+    }
 
-public data class CAnonymousEax0(
-    val maxEax: UInt,
-    val vendorId: ByteArray,
-)
+    public override fun hashCode(): Int {
+        var state = 0
+        error("traits")
+        return state
+    }
+}
 
-public data class CAnonymousEax1(
-    val stepping: UInt,
-    val model: UInt,
-    val family: UInt,
-    val tpe: UInt,
-    val extendedModel: UInt,
-    val extendedFamily: UInt,
-    val brandIndex: UInt,
-    val clflush: UInt,
-    val logicalCpus: UInt,
-    val apicId: UInt,
-    val features: UInt,
-    val extendedFeatures: UInt,
-)
+public open class CAnonymousCpuTopologyInfoData(
+    public var root: CpuTopologyRootInfo? = null,
+    public var pkg: CpuTopologyPackageInfo? = null,
+    public var core: CpuTopologyCoreInfo? = null,
+) {
+    public open fun eq(other: CAnonymousCpuTopologyInfoData): Boolean {
+        return this.root == other.root || this.pkg == other.pkg || this.core == other.core
+    }
 
-public data class CAnonymousEax2(
-    val callNum: UByte,
-    val cacheDescriptors: UByteArray,
-)
+    public override fun hashCode(): Int {
+        var state = 0
+        error("traits")
+        return state
+    }
+}
 
-public data class CAnonymousEax3(
-    val serialNumberHigh: UInt,
-    val serialNumberLow: UInt,
-)
+// kernel/OS.h
+public val B_OS_NAME_LENGTH: Int = 32
 
-public data class CAnonymousRegs(
-    val eax: UInt,
-    val ebx: UInt,
-    val edx: UInt,
-    val ecx: UInt,
-)
+public val B_PAGE_SIZE: Int = 4096
 
-public data class CpuTopologyNodeInfo(
-    val id: UInt,
-    val type: UInt,
-    val level: UInt,
-    val data: CAnonymousCpuTopologyInfoData,
-)
+public val B_INFINITE_TIMEOUT: Int = 9223372036854775807
 
-// C union; only one variant is valid at a time.
-public data class CpuidInfo(
-    val eax0: CAnonymousEax0? = null,
-    val eax1: CAnonymousEax1? = null,
-    val eax2: CAnonymousEax2? = null,
-    val eax3: CAnonymousEax3? = null,
-    val asChars: ByteArray? = null,
-    val regs: CAnonymousRegs? = null,
-)
+public val B_RELATIVE_TIMEOUT: UInt = 0x8u
 
-// C union; only one variant is valid at a time.
-public data class CAnonymousCpuTopologyInfoData(
-    val root: CpuTopologyRootInfo? = null,
-    val pkg: CpuTopologyPackageInfo? = null,
-    val core: CpuTopologyCoreInfo? = null,
-)
+public val B_ABSOLUTE_TIMEOUT: UInt = 0x10u
 
-public const val B_THREAD_RUNNING: UInt = 1u
-public const val B_THREAD_READY: UInt = 2u
-public const val B_THREAD_RECEIVING: UInt = 3u
-public const val B_THREAD_ASLEEP: UInt = 4u
-public const val B_THREAD_SUSPENDED: UInt = 5u
-public const val B_THREAD_WAITING: UInt = 6u
+public val B_TIMEOUT_REAL_TIME_BASE: UInt = 0x40u
 
-public const val B_APP_IMAGE: UInt = 1u
-public const val B_LIBRARY_IMAGE: UInt = 2u
-public const val B_ADD_ON_IMAGE: UInt = 3u
-public const val B_SYSTEM_IMAGE: UInt = 4u
-
-public const val B_DEFAULT_MEDIA_PRIORITY: UInt = 0x000u
-public const val B_OFFLINE_PROCESSING: UInt = 0x001u
-public const val B_STATUS_RENDERING: UInt = 0x002u
-public const val B_USER_INPUT_HANDLING: UInt = 0x004u
-public const val B_LIVE_VIDEO_MANIPULATION: UInt = 0x008u
-public const val B_VIDEO_PLAYBACK: UInt = 0x010u
-public const val B_VIDEO_RECORDING: UInt = 0x020u
-public const val B_LIVE_AUDIO_MANIPULATION: UInt = 0x040u
-public const val B_AUDIO_PLAYBACK: UInt = 0x080u
-public const val B_AUDIO_RECORDING: UInt = 0x100u
-public const val B_LIVE_3D_RENDERING: UInt = 0x200u
-public const val B_NUMBER_CRUNCHING: UInt = 0x400u
-public const val B_MIDI_PROCESSING: UInt = 0x800u
-
-public const val SCHEDULER_MODE_LOW_LATENCY: UInt = 0u
-public const val SCHEDULER_MODE_POWER_SAVING: UInt = 1u
-
-public const val B_FIND_PATH_INSTALLATION_LOCATION_DIRECTORY: UInt = 0u
-public const val B_FIND_PATH_ADD_ONS_DIRECTORY: UInt = 1u
-public const val B_FIND_PATH_APPS_DIRECTORY: UInt = 2u
-public const val B_FIND_PATH_BIN_DIRECTORY: UInt = 3u
-public const val B_FIND_PATH_BOOT_DIRECTORY: UInt = 4u
-public const val B_FIND_PATH_CACHE_DIRECTORY: UInt = 5u
-public const val B_FIND_PATH_DATA_DIRECTORY: UInt = 6u
-public const val B_FIND_PATH_DEVELOP_DIRECTORY: UInt = 7u
-public const val B_FIND_PATH_DEVELOP_LIB_DIRECTORY: UInt = 8u
-public const val B_FIND_PATH_DOCUMENTATION_DIRECTORY: UInt = 9u
-public const val B_FIND_PATH_ETC_DIRECTORY: UInt = 10u
-public const val B_FIND_PATH_FONTS_DIRECTORY: UInt = 11u
-public const val B_FIND_PATH_HEADERS_DIRECTORY: UInt = 12u
-public const val B_FIND_PATH_LIB_DIRECTORY: UInt = 13u
-public const val B_FIND_PATH_LOG_DIRECTORY: UInt = 14u
-public const val B_FIND_PATH_MEDIA_NODES_DIRECTORY: UInt = 15u
-public const val B_FIND_PATH_PACKAGES_DIRECTORY: UInt = 16u
-public const val B_FIND_PATH_PREFERENCES_DIRECTORY: UInt = 17u
-public const val B_FIND_PATH_SERVERS_DIRECTORY: UInt = 18u
-public const val B_FIND_PATH_SETTINGS_DIRECTORY: UInt = 19u
-public const val B_FIND_PATH_SOUNDS_DIRECTORY: UInt = 20u
-public const val B_FIND_PATH_SPOOL_DIRECTORY: UInt = 21u
-public const val B_FIND_PATH_TRANSLATORS_DIRECTORY: UInt = 22u
-public const val B_FIND_PATH_VAR_DIRECTORY: UInt = 23u
-public const val B_FIND_PATH_IMAGE_PATH: UInt = 1000u
-public const val B_FIND_PATH_PACKAGE_PATH: UInt = 1001u
-
-public const val B_DESKTOP_DIRECTORY: UInt = 0u
-public const val B_TRASH_DIRECTORY: UInt = 1u
-public const val B_SYSTEM_DIRECTORY: UInt = 1000u
-public const val B_SYSTEM_ADDONS_DIRECTORY: UInt = 1002u
-public const val B_SYSTEM_BOOT_DIRECTORY: UInt = 1003u
-public const val B_SYSTEM_FONTS_DIRECTORY: UInt = 1004u
-public const val B_SYSTEM_LIB_DIRECTORY: UInt = 1005u
-public const val B_SYSTEM_SERVERS_DIRECTORY: UInt = 1006u
-public const val B_SYSTEM_APPS_DIRECTORY: UInt = 1007u
-public const val B_SYSTEM_BIN_DIRECTORY: UInt = 1008u
-public const val B_SYSTEM_DOCUMENTATION_DIRECTORY: UInt = 1010u
-public const val B_SYSTEM_PREFERENCES_DIRECTORY: UInt = 1011u
-public const val B_SYSTEM_TRANSLATORS_DIRECTORY: UInt = 1012u
-public const val B_SYSTEM_MEDIA_NODES_DIRECTORY: UInt = 1013u
-public const val B_SYSTEM_SOUNDS_DIRECTORY: UInt = 1014u
-public const val B_SYSTEM_DATA_DIRECTORY: UInt = 1015u
-public const val B_SYSTEM_DEVELOP_DIRECTORY: UInt = 1016u
-public const val B_SYSTEM_PACKAGES_DIRECTORY: UInt = 1017u
-public const val B_SYSTEM_HEADERS_DIRECTORY: UInt = 1018u
-public const val B_SYSTEM_ETC_DIRECTORY: UInt = 2008u
-public const val B_SYSTEM_SETTINGS_DIRECTORY: UInt = 2010u
-public const val B_SYSTEM_LOG_DIRECTORY: UInt = 2012u
-public const val B_SYSTEM_SPOOL_DIRECTORY: UInt = 2013u
-public const val B_SYSTEM_TEMP_DIRECTORY: UInt = 2014u
-public const val B_SYSTEM_VAR_DIRECTORY: UInt = 2015u
-public const val B_SYSTEM_CACHE_DIRECTORY: UInt = 2020u
-public const val B_SYSTEM_NONPACKAGED_DIRECTORY: UInt = 2023u
-public const val B_SYSTEM_NONPACKAGED_ADDONS_DIRECTORY: UInt = 2024u
-public const val B_SYSTEM_NONPACKAGED_TRANSLATORS_DIRECTORY: UInt = 2025u
-public const val B_SYSTEM_NONPACKAGED_MEDIA_NODES_DIRECTORY: UInt = 2026u
-public const val B_SYSTEM_NONPACKAGED_BIN_DIRECTORY: UInt = 2027u
-public const val B_SYSTEM_NONPACKAGED_DATA_DIRECTORY: UInt = 2028u
-public const val B_SYSTEM_NONPACKAGED_FONTS_DIRECTORY: UInt = 2029u
-public const val B_SYSTEM_NONPACKAGED_SOUNDS_DIRECTORY: UInt = 2030u
-public const val B_SYSTEM_NONPACKAGED_DOCUMENTATION_DIRECTORY: UInt = 2031u
-public const val B_SYSTEM_NONPACKAGED_LIB_DIRECTORY: UInt = 2032u
-public const val B_SYSTEM_NONPACKAGED_HEADERS_DIRECTORY: UInt = 2033u
-public const val B_SYSTEM_NONPACKAGED_DEVELOP_DIRECTORY: UInt = 2034u
-public const val B_USER_DIRECTORY: UInt = 3000u
-public const val B_USER_CONFIG_DIRECTORY: UInt = 3001u
-public const val B_USER_ADDONS_DIRECTORY: UInt = 3002u
-public const val B_USER_BOOT_DIRECTORY: UInt = 3003u
-public const val B_USER_FONTS_DIRECTORY: UInt = 3004u
-public const val B_USER_LIB_DIRECTORY: UInt = 3005u
-public const val B_USER_SETTINGS_DIRECTORY: UInt = 3006u
-public const val B_USER_DESKBAR_DIRECTORY: UInt = 3007u
-public const val B_USER_PRINTERS_DIRECTORY: UInt = 3008u
-public const val B_USER_TRANSLATORS_DIRECTORY: UInt = 3009u
-public const val B_USER_MEDIA_NODES_DIRECTORY: UInt = 3010u
-public const val B_USER_SOUNDS_DIRECTORY: UInt = 3011u
-public const val B_USER_DATA_DIRECTORY: UInt = 3012u
-public const val B_USER_CACHE_DIRECTORY: UInt = 3013u
-public const val B_USER_PACKAGES_DIRECTORY: UInt = 3014u
-public const val B_USER_HEADERS_DIRECTORY: UInt = 3015u
-public const val B_USER_NONPACKAGED_DIRECTORY: UInt = 3016u
-public const val B_USER_NONPACKAGED_ADDONS_DIRECTORY: UInt = 3017u
-public const val B_USER_NONPACKAGED_TRANSLATORS_DIRECTORY: UInt = 3018u
-public const val B_USER_NONPACKAGED_MEDIA_NODES_DIRECTORY: UInt = 3019u
-public const val B_USER_NONPACKAGED_BIN_DIRECTORY: UInt = 3020u
-public const val B_USER_NONPACKAGED_DATA_DIRECTORY: UInt = 3021u
-public const val B_USER_NONPACKAGED_FONTS_DIRECTORY: UInt = 3022u
-public const val B_USER_NONPACKAGED_SOUNDS_DIRECTORY: UInt = 3023u
-public const val B_USER_NONPACKAGED_DOCUMENTATION_DIRECTORY: UInt = 3024u
-public const val B_USER_NONPACKAGED_LIB_DIRECTORY: UInt = 3025u
-public const val B_USER_NONPACKAGED_HEADERS_DIRECTORY: UInt = 3026u
-public const val B_USER_NONPACKAGED_DEVELOP_DIRECTORY: UInt = 3027u
-public const val B_USER_DEVELOP_DIRECTORY: UInt = 3028u
-public const val B_USER_DOCUMENTATION_DIRECTORY: UInt = 3029u
-public const val B_USER_SERVERS_DIRECTORY: UInt = 3030u
-public const val B_USER_APPS_DIRECTORY: UInt = 3031u
-public const val B_USER_BIN_DIRECTORY: UInt = 3032u
-public const val B_USER_PREFERENCES_DIRECTORY: UInt = 3033u
-public const val B_USER_ETC_DIRECTORY: UInt = 3034u
-public const val B_USER_LOG_DIRECTORY: UInt = 3035u
-public const val B_USER_SPOOL_DIRECTORY: UInt = 3036u
-public const val B_USER_VAR_DIRECTORY: UInt = 3037u
-public const val B_APPS_DIRECTORY: UInt = 4000u
-public const val B_PREFERENCES_DIRECTORY: UInt = 4001u
-public const val B_UTILITIES_DIRECTORY: UInt = 4002u
-public const val B_PACKAGE_LINKS_DIRECTORY: UInt = 4003u
-
-public const val B_TOPOLOGY_UNKNOWN: UInt = 0u
-public const val B_TOPOLOGY_ROOT: UInt = 1u
-public const val B_TOPOLOGY_SMT: UInt = 2u
-public const val B_TOPOLOGY_CORE: UInt = 3u
-public const val B_TOPOLOGY_PACKAGE: UInt = 4u
-
-public const val B_CPU_UNKNOWN: UInt = 0u
-public const val B_CPU_X86: UInt = 1u
-public const val B_CPU_X86_64: UInt = 2u
-public const val B_CPU_PPC: UInt = 3u
-public const val B_CPU_PPC_64: UInt = 4u
-public const val B_CPU_M68K: UInt = 5u
-public const val B_CPU_ARM: UInt = 6u
-public const val B_CPU_ARM_64: UInt = 7u
-public const val B_CPU_ALPHA: UInt = 8u
-public const val B_CPU_MIPS: UInt = 9u
-public const val B_CPU_SH: UInt = 10u
-public const val B_CPU_SPARC: UInt = 11u
-public const val B_CPU_RISC_V: UInt = 12u
-
-public const val B_CPU_VENDOR_UNKNOWN: UInt = 0u
-public const val B_CPU_VENDOR_AMD: UInt = 1u
-public const val B_CPU_VENDOR_CYRIX: UInt = 2u
-public const val B_CPU_VENDOR_IDT: UInt = 3u
-public const val B_CPU_VENDOR_INTEL: UInt = 4u
-public const val B_CPU_VENDOR_NATIONAL_SEMICONDUCTOR: UInt = 5u
-public const val B_CPU_VENDOR_RISE: UInt = 6u
-public const val B_CPU_VENDOR_TRANSMETA: UInt = 7u
-public const val B_CPU_VENDOR_VIA: UInt = 8u
-public const val B_CPU_VENDOR_IBM: UInt = 9u
-public const val B_CPU_VENDOR_MOTOROLA: UInt = 10u
-public const val B_CPU_VENDOR_NEC: UInt = 11u
-public const val B_CPU_VENDOR_HYGON: UInt = 12u
-public const val B_CPU_VENDOR_SUN: UInt = 13u
-public const val B_CPU_VENDOR_FUJITSU: UInt = 14u
-
-public const val B_OS_NAME_LENGTH: ULong = 32uL
-public const val B_PAGE_SIZE: ULong = 4096uL
-public const val B_INFINITE_TIMEOUT: ULong = 9223372036854775807uL
-public const val B_RELATIVE_TIMEOUT: UInt = 0x8u
-public const val B_ABSOLUTE_TIMEOUT: UInt = 0x10u
-public const val B_TIMEOUT_REAL_TIME_BASE: UInt = 0x40u
 public val B_ABSOLUTE_REAL_TIME_TIMEOUT: UInt = B_ABSOLUTE_TIMEOUT or B_TIMEOUT_REAL_TIME_BASE
-public const val B_NO_LOCK: UInt = 0u
-public const val B_LAZY_LOCK: UInt = 1u
-public const val B_FULL_LOCK: UInt = 2u
-public const val B_CONTIGUOUS: UInt = 3u
-public const val B_LOMEM: UInt = 4u
-public const val B_32_BIT_FULL_LOCK: UInt = 5u
-public const val B_32_BIT_CONTIGUOUS: UInt = 6u
-public const val B_ANY_ADDRESS: UInt = 0u
-public const val B_EXACT_ADDRESS: UInt = 1u
-public const val B_BASE_ADDRESS: UInt = 2u
-public const val B_CLONE_ADDRESS: UInt = 3u
-public const val B_ANY_KERNEL_ADDRESS: UInt = 4u
-public const val B_RANDOMIZED_ANY_ADDRESS: UInt = 6u
-public const val B_RANDOMIZED_BASE_ADDRESS: UInt = 7u
+
+public val B_NO_LOCK: UInt = 0u
+
+public val B_LAZY_LOCK: UInt = 1u
+
+public val B_FULL_LOCK: UInt = 2u
+
+public val B_CONTIGUOUS: UInt = 3u
+
+public val B_LOMEM: UInt = 4u
+
+public val B_32_BIT_FULL_LOCK: UInt = 5u
+
+public val B_32_BIT_CONTIGUOUS: UInt = 6u
+
+public val B_ANY_ADDRESS: UInt = 0u
+
+public val B_EXACT_ADDRESS: UInt = 1u
+
+public val B_BASE_ADDRESS: UInt = 2u
+
+public val B_CLONE_ADDRESS: UInt = 3u
+
+public val B_ANY_KERNEL_ADDRESS: UInt = 4u
+
+public val B_RANDOMIZED_ANY_ADDRESS: UInt = 6u
+
+public val B_RANDOMIZED_BASE_ADDRESS: UInt = 7u
+
 public val B_READ_AREA: UInt = 1u shl 0
+
 public val B_WRITE_AREA: UInt = 1u shl 1
+
 public val B_EXECUTE_AREA: UInt = 1u shl 2
+
 public val B_STACK_AREA: UInt = 1u shl 3
+
 public val B_CLONEABLE_AREA: UInt = 1u shl 8
-public const val B_CAN_INTERRUPT: UInt = 0x01u
-public const val B_CHECK_PERMISSION: UInt = 0x04u
-public const val B_KILL_CAN_INTERRUPT: UInt = 0x20u
-public const val B_DO_NOT_RESCHEDULE: UInt = 0x02u
-public const val B_RELEASE_ALL: UInt = 0x08u
-public const val B_RELEASE_IF_WAITING_ONLY: UInt = 0x10u
-public const val B_CURRENT_TEAM: Int = 0
-public const val B_SYSTEM_TEAM: Int = 1
-public const val B_TEAM_USAGE_SELF: Int = 0
-public const val B_TEAM_USAGE_CHILDREN: Int = -1
-public const val B_IDLE_PRIORITY: Int = 0
-public const val B_LOWEST_ACTIVE_PRIORITY: Int = 1
-public const val B_LOW_PRIORITY: Int = 5
-public const val B_NORMAL_PRIORITY: Int = 10
-public const val B_DISPLAY_PRIORITY: Int = 15
-public const val B_URGENT_DISPLAY_PRIORITY: Int = 20
-public const val B_REAL_TIME_DISPLAY_PRIORITY: Int = 100
-public const val B_URGENT_PRIORITY: Int = 110
-public const val B_REAL_TIME_PRIORITY: Int = 120
-public const val B_SYSTEM_TIMEBASE: Int = 0
-public const val B_FIRST_REAL_TIME_PRIORITY: Int = B_REAL_TIME_DISPLAY_PRIORITY
-public const val B_ONE_SHOT_ABSOLUTE_ALARM: UInt = 1u
-public const val B_ONE_SHOT_RELATIVE_ALARM: UInt = 2u
-public const val B_PERIODIC_ALARM: UInt = 3u
-public val B_OBJECT_TYPE_FD: UShort = (0).toUShort()
-public val B_OBJECT_TYPE_SEMAPHORE: UShort = (1).toUShort()
-public val B_OBJECT_TYPE_PORT: UShort = (2).toUShort()
-public val B_OBJECT_TYPE_THREAD: UShort = (3).toUShort()
-public val B_EVENT_READ: UShort = (0x0001).toUShort()
-public val B_EVENT_WRITE: UShort = (0x0002).toUShort()
-public val B_EVENT_ERROR: UShort = (0x0004).toUShort()
-public val B_EVENT_PRIORITY_READ: UShort = (0x0008).toUShort()
-public val B_EVENT_PRIORITY_WRITE: UShort = (0x0010).toUShort()
-public val B_EVENT_HIGH_PRIORITY_READ: UShort = (0x0020).toUShort()
-public val B_EVENT_HIGH_PRIORITY_WRITE: UShort = (0x0040).toUShort()
-public val B_EVENT_DISCONNECTED: UShort = (0x0080).toUShort()
-public val B_EVENT_ACQUIRE_SEMAPHORE: UShort = (0x0001).toUShort()
-public val B_EVENT_INVALID: UShort = (0x1000).toUShort()
-public const val B_FS_IS_READONLY: UInt = 0x00000001u
-public const val B_FS_IS_REMOVABLE: UInt = 0x00000002u
-public const val B_FS_IS_PERSISTENT: UInt = 0x00000004u
-public const val B_FS_IS_SHARED: UInt = 0x00000008u
-public const val B_FS_HAS_MIME: UInt = 0x00010000u
-public const val B_FS_HAS_ATTR: UInt = 0x00020000u
-public const val B_FS_HAS_QUERY: UInt = 0x00040000u
-public const val B_FS_HAS_SELF_HEALING_LINKS: UInt = 0x00080000u
-public const val B_FS_HAS_ALIASES: UInt = 0x00100000u
-public const val B_FS_SUPPORTS_NODE_MONITORING: UInt = 0x00200000u
-public const val B_FS_SUPPORTS_MONITOR_CHILDREN: UInt = 0x00400000u
-public const val B_LIVE_QUERY: UInt = 0x00000001u
-public const val B_QUERY_NON_INDEXED: UInt = 0x00000002u
-public const val B_MOUNT_READ_ONLY: UInt = 1u
-public const val B_MOUNT_VIRTUAL_DEVICE: UInt = 2u
-public const val B_FORCE_UNMOUNT: UInt = 1u
-public const val B_FLUSH_DCACHE: UInt = 0x0001u
-public const val B_FLUSH_ICACHE: UInt = 0x0004u
-public const val B_INVALIDATE_DCACHE: UInt = 0x0002u
-public const val B_INVALIDATE_ICACHE: UInt = 0x0008u
-public const val B_SYMBOL_TYPE_DATA: Int = 0x1
-public const val B_SYMBOL_TYPE_TEXT: Int = 0x2
-public const val B_SYMBOL_TYPE_ANY: Int = 0x5
-public const val B_DEV_NAME_LENGTH: ULong = 128uL
-public val B_FILE_NAME_LENGTH: ULong = FILENAME_MAX.toULong()
-public val B_PATH_NAME_LENGTH: ULong = PATH_MAX.toULong()
-public val B_ATTR_NAME_LENGTH: ULong = B_FILE_NAME_LENGTH - 1u
-public val B_MIME_TYPE_LENGTH: ULong = B_ATTR_NAME_LENGTH - 15u
-public const val B_MAX_SYMLINKS: ULong = 16uL
+
+public val B_CAN_INTERRUPT: UInt = 0x01u
+
+public val B_CHECK_PERMISSION: UInt = 0x04u
+
+public val B_KILL_CAN_INTERRUPT: UInt = 0x20u
+
+public val B_DO_NOT_RESCHEDULE: UInt = 0x02u
+
+public val B_RELEASE_ALL: UInt = 0x08u
+
+public val B_RELEASE_IF_WAITING_ONLY: UInt = 0x10u
+
+public val B_CURRENT_TEAM: TeamId = 0
+
+public val B_SYSTEM_TEAM: TeamId = 1
+
+public val B_TEAM_USAGE_SELF: Int = 0
+
+public val B_TEAM_USAGE_CHILDREN: Int = -1
+
+public val B_IDLE_PRIORITY: Int = 0
+
+public val B_LOWEST_ACTIVE_PRIORITY: Int = 1
+
+public val B_LOW_PRIORITY: Int = 5
+
+public val B_NORMAL_PRIORITY: Int = 10
+
+public val B_DISPLAY_PRIORITY: Int = 15
+
+public val B_URGENT_DISPLAY_PRIORITY: Int = 20
+
+public val B_REAL_TIME_DISPLAY_PRIORITY: Int = 100
+
+public val B_URGENT_PRIORITY: Int = 110
+
+public val B_REAL_TIME_PRIORITY: Int = 120
+
+public val B_SYSTEM_TIMEBASE: Int = 0
+
+public val B_FIRST_REAL_TIME_PRIORITY: Int = B_REAL_TIME_DISPLAY_PRIORITY
+
+public val B_ONE_SHOT_ABSOLUTE_ALARM: UInt = 1u
+
+public val B_ONE_SHOT_RELATIVE_ALARM: UInt = 2u
+
+public val B_PERIODIC_ALARM: UInt = 3u
+
+public val B_OBJECT_TYPE_FD: UShort = 0u
+
+public val B_OBJECT_TYPE_SEMAPHORE: UShort = 1u
+
+public val B_OBJECT_TYPE_PORT: UShort = 2u
+
+public val B_OBJECT_TYPE_THREAD: UShort = 3u
+
+public val B_EVENT_READ: UShort = 0x0001u
+
+public val B_EVENT_WRITE: UShort = 0x0002u
+
+public val B_EVENT_ERROR: UShort = 0x0004u
+
+public val B_EVENT_PRIORITY_READ: UShort = 0x0008u
+
+public val B_EVENT_PRIORITY_WRITE: UShort = 0x0010u
+
+public val B_EVENT_HIGH_PRIORITY_READ: UShort = 0x0020u
+
+public val B_EVENT_HIGH_PRIORITY_WRITE: UShort = 0x0040u
+
+public val B_EVENT_DISCONNECTED: UShort = 0x0080u
+
+public val B_EVENT_ACQUIRE_SEMAPHORE: UShort = 0x0001u
+
+public val B_EVENT_INVALID: UShort = 0x1000u
+
+// kernel/fsInfo.h
+public val B_FS_IS_READONLY: UInt = 0x00000001u
+
+public val B_FS_IS_REMOVABLE: UInt = 0x00000002u
+
+public val B_FS_IS_PERSISTENT: UInt = 0x00000004u
+
+public val B_FS_IS_SHARED: UInt = 0x00000008u
+
+public val B_FS_HAS_MIME: UInt = 0x00010000u
+
+public val B_FS_HAS_ATTR: UInt = 0x00020000u
+
+public val B_FS_HAS_QUERY: UInt = 0x00040000u
+
+public val B_FS_HAS_SELF_HEALING_LINKS: UInt = 0x00080000u
+
+public val B_FS_HAS_ALIASES: UInt = 0x00100000u
+
+public val B_FS_SUPPORTS_NODE_MONITORING: UInt = 0x00200000u
+
+public val B_FS_SUPPORTS_MONITOR_CHILDREN: UInt = 0x00400000u
+
+// kernel/fsQuery.h
+public val B_LIVE_QUERY: UInt = 0x00000001u
+
+public val B_QUERY_NON_INDEXED: UInt = 0x00000002u
+
+// kernel/fsVolume.h
+public val B_MOUNT_READ_ONLY: UInt = 1u
+
+public val B_MOUNT_VIRTUAL_DEVICE: UInt = 2u
+
+public val B_FORCE_UNMOUNT: UInt = 1u
+
+// kernel/image.h
+public val B_FLUSH_DCACHE: UInt = 0x0001u
+
+public val B_FLUSH_ICACHE: UInt = 0x0004u
+
+public val B_INVALIDATE_DCACHE: UInt = 0x0002u
+
+public val B_INVALIDATE_ICACHE: UInt = 0x0008u
+
+public val B_SYMBOL_TYPE_DATA: Int = 0x1
+
+public val B_SYMBOL_TYPE_TEXT: Int = 0x2
+
+public val B_SYMBOL_TYPE_ANY: Int = 0x5
+
+// storage/StorageDefs.h
+public val B_DEV_NAME_LENGTH: Int = 128
+
+public val B_FILE_NAME_LENGTH: Int = FILENAME_MAX.toInt()
+
+public val B_PATH_NAME_LENGTH: Int = PATH_MAX.toInt()
+
+public val B_ATTR_NAME_LENGTH: Int = B_FILE_NAME_LENGTH - 1
+
+public val B_MIME_TYPE_LENGTH: Int = B_ATTR_NAME_LENGTH - 15
+
+public val B_MAX_SYMLINKS: Int = 16
+
+// Haiku open modes in BFile are passed as u32
 public val B_READ_ONLY: UInt = O_RDONLY.toUInt()
+
 public val B_WRITE_ONLY: UInt = O_WRONLY.toUInt()
+
 public val B_READ_WRITE: UInt = O_RDWR.toUInt()
+
 public val B_FAIL_IF_EXISTS: UInt = O_EXCL.toUInt()
+
 public val B_CREATE_FILE: UInt = O_CREAT.toUInt()
+
 public val B_ERASE_FILE: UInt = O_TRUNC.toUInt()
+
 public val B_OPEN_AT_END: UInt = O_APPEND.toUInt()
-public const val B_FILE_NODE: UInt = 0x01u
-public const val B_SYMLINK_NODE: UInt = 0x02u
-public const val B_DIRECTORY_NODE: UInt = 0x04u
-public const val B_ANY_NODE: UInt = 0x07u
-public const val B_GENERAL_ERROR_BASE: Int = Int.MIN_VALUE
-public const val B_OS_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x1000
-public const val B_APP_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x2000
-public const val B_INTERFACE_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x3000
-public const val B_MEDIA_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x4000
-public const val B_TRANSLATION_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x4800
-public const val B_MIDI_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x5000
-public const val B_STORAGE_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x6000
-public const val B_POSIX_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x7000
-public const val B_MAIL_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x8000
-public const val B_PRINT_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0x9000
-public const val B_DEVICE_ERROR_BASE: Int = B_GENERAL_ERROR_BASE + 0xa000
-public const val B_ERRORS_END: Int = B_GENERAL_ERROR_BASE + 0xffff
-public const val B_NO_MEMORY: Int = B_GENERAL_ERROR_BASE + 0
-public const val B_IO_ERROR: Int = B_GENERAL_ERROR_BASE + 1
-public const val B_PERMISSION_DENIED: Int = B_GENERAL_ERROR_BASE + 2
-public const val B_BAD_INDEX: Int = B_GENERAL_ERROR_BASE + 3
-public const val B_BAD_TYPE: Int = B_GENERAL_ERROR_BASE + 4
-public const val B_BAD_VALUE: Int = B_GENERAL_ERROR_BASE + 5
-public const val B_MISMATCHED_VALUES: Int = B_GENERAL_ERROR_BASE + 6
-public const val B_NAME_NOT_FOUND: Int = B_GENERAL_ERROR_BASE + 7
-public const val B_NAME_IN_USE: Int = B_GENERAL_ERROR_BASE + 8
-public const val B_TIMED_OUT: Int = B_GENERAL_ERROR_BASE + 9
-public const val B_INTERRUPTED: Int = B_GENERAL_ERROR_BASE + 10
-public const val B_WOULD_BLOCK: Int = B_GENERAL_ERROR_BASE + 11
-public const val B_CANCELED: Int = B_GENERAL_ERROR_BASE + 12
-public const val B_NO_INIT: Int = B_GENERAL_ERROR_BASE + 13
-public const val B_NOT_INITIALIZED: Int = B_GENERAL_ERROR_BASE + 13
-public const val B_BUSY: Int = B_GENERAL_ERROR_BASE + 14
-public const val B_NOT_ALLOWED: Int = B_GENERAL_ERROR_BASE + 15
-public const val B_BAD_DATA: Int = B_GENERAL_ERROR_BASE + 16
-public const val B_DONT_DO_THAT: Int = B_GENERAL_ERROR_BASE + 17
-public const val B_ERROR: Int = -1
-public const val B_OK: Int = 0
-public const val B_NO_ERROR: Int = 0
-public const val B_BAD_SEM_ID: Int = B_OS_ERROR_BASE + 0
-public const val B_NO_MORE_SEMS: Int = B_OS_ERROR_BASE + 1
-public const val B_BAD_THREAD_ID: Int = B_OS_ERROR_BASE + 0x100
-public const val B_NO_MORE_THREADS: Int = B_OS_ERROR_BASE + 0x101
-public const val B_BAD_THREAD_STATE: Int = B_OS_ERROR_BASE + 0x102
-public const val B_BAD_TEAM_ID: Int = B_OS_ERROR_BASE + 0x103
-public const val B_NO_MORE_TEAMS: Int = B_OS_ERROR_BASE + 0x104
-public const val B_BAD_PORT_ID: Int = B_OS_ERROR_BASE + 0x200
-public const val B_NO_MORE_PORTS: Int = B_OS_ERROR_BASE + 0x201
-public const val B_BAD_IMAGE_ID: Int = B_OS_ERROR_BASE + 0x300
-public const val B_BAD_ADDRESS: Int = B_OS_ERROR_BASE + 0x301
-public const val B_NOT_AN_EXECUTABLE: Int = B_OS_ERROR_BASE + 0x302
-public const val B_MISSING_LIBRARY: Int = B_OS_ERROR_BASE + 0x303
-public const val B_MISSING_SYMBOL: Int = B_OS_ERROR_BASE + 0x304
-public const val B_UNKNOWN_EXECUTABLE: Int = B_OS_ERROR_BASE + 0x305
-public const val B_LEGACY_EXECUTABLE: Int = B_OS_ERROR_BASE + 0x306
-public const val B_DEBUGGER_ALREADY_INSTALLED: Int = B_OS_ERROR_BASE + 0x400
-public const val B_BAD_REPLY: Int = B_APP_ERROR_BASE + 0
-public const val B_DUPLICATE_REPLY: Int = B_APP_ERROR_BASE + 1
-public const val B_MESSAGE_TO_SELF: Int = B_APP_ERROR_BASE + 2
-public const val B_BAD_HANDLER: Int = B_APP_ERROR_BASE + 3
-public const val B_ALREADY_RUNNING: Int = B_APP_ERROR_BASE + 4
-public const val B_LAUNCH_FAILED: Int = B_APP_ERROR_BASE + 5
-public const val B_AMBIGUOUS_APP_LAUNCH: Int = B_APP_ERROR_BASE + 6
-public const val B_UNKNOWN_MIME_TYPE: Int = B_APP_ERROR_BASE + 7
-public const val B_BAD_SCRIPT_SYNTAX: Int = B_APP_ERROR_BASE + 8
-public const val B_LAUNCH_FAILED_NO_RESOLVE_LINK: Int = B_APP_ERROR_BASE + 9
-public const val B_LAUNCH_FAILED_EXECUTABLE: Int = B_APP_ERROR_BASE + 10
-public const val B_LAUNCH_FAILED_APP_NOT_FOUND: Int = B_APP_ERROR_BASE + 11
-public const val B_LAUNCH_FAILED_APP_IN_TRASH: Int = B_APP_ERROR_BASE + 12
-public const val B_LAUNCH_FAILED_NO_PREFERRED_APP: Int = B_APP_ERROR_BASE + 13
-public const val B_LAUNCH_FAILED_FILES_APP_NOT_FOUND: Int = B_APP_ERROR_BASE + 14
-public const val B_BAD_MIME_SNIFFER_RULE: Int = B_APP_ERROR_BASE + 15
-public const val B_NOT_A_MESSAGE: Int = B_APP_ERROR_BASE + 16
-public const val B_SHUTDOWN_CANCELLED: Int = B_APP_ERROR_BASE + 17
-public const val B_SHUTTING_DOWN: Int = B_APP_ERROR_BASE + 18
-public const val B_FILE_ERROR: Int = B_STORAGE_ERROR_BASE + 0
-public const val B_FILE_EXISTS: Int = B_STORAGE_ERROR_BASE + 2
-public const val B_ENTRY_NOT_FOUND: Int = B_STORAGE_ERROR_BASE + 3
-public const val B_NAME_TOO_LONG: Int = B_STORAGE_ERROR_BASE + 4
-public const val B_NOT_A_DIRECTORY: Int = B_STORAGE_ERROR_BASE + 5
-public const val B_DIRECTORY_NOT_EMPTY: Int = B_STORAGE_ERROR_BASE + 6
-public const val B_DEVICE_FULL: Int = B_STORAGE_ERROR_BASE + 7
-public const val B_READ_ONLY_DEVICE: Int = B_STORAGE_ERROR_BASE + 8
-public const val B_IS_A_DIRECTORY: Int = B_STORAGE_ERROR_BASE + 9
-public const val B_NO_MORE_FDS: Int = B_STORAGE_ERROR_BASE + 10
-public const val B_CROSS_DEVICE_LINK: Int = B_STORAGE_ERROR_BASE + 11
-public const val B_LINK_LIMIT: Int = B_STORAGE_ERROR_BASE + 12
-public const val B_BUSTED_PIPE: Int = B_STORAGE_ERROR_BASE + 13
-public const val B_UNSUPPORTED: Int = B_STORAGE_ERROR_BASE + 14
-public const val B_PARTITION_TOO_SMALL: Int = B_STORAGE_ERROR_BASE + 15
-public const val B_PARTIAL_READ: Int = B_STORAGE_ERROR_BASE + 16
-public const val B_PARTIAL_WRITE: Int = B_STORAGE_ERROR_BASE + 17
-public const val B_BUFFER_OVERFLOW: Int = EOVERFLOW
-public const val B_TOO_MANY_ARGS: Int = E2BIG
-public const val B_FILE_TOO_LARGE: Int = EFBIG
-public const val B_RESULT_NOT_REPRESENTABLE: Int = ERANGE
-public const val B_DEVICE_NOT_FOUND: Int = ENODEV
-public const val B_NOT_SUPPORTED: Int = EOPNOTSUPP
-public const val B_STREAM_NOT_FOUND: Int = B_MEDIA_ERROR_BASE + 0
-public const val B_SERVER_NOT_FOUND: Int = B_MEDIA_ERROR_BASE + 1
-public const val B_RESOURCE_NOT_FOUND: Int = B_MEDIA_ERROR_BASE + 2
-public const val B_RESOURCE_UNAVAILABLE: Int = B_MEDIA_ERROR_BASE + 3
-public const val B_BAD_SUBSCRIBER: Int = B_MEDIA_ERROR_BASE + 4
-public const val B_SUBSCRIBER_NOT_ENTERED: Int = B_MEDIA_ERROR_BASE + 5
-public const val B_BUFFER_NOT_AVAILABLE: Int = B_MEDIA_ERROR_BASE + 6
-public const val B_LAST_BUFFER_ERROR: Int = B_MEDIA_ERROR_BASE + 7
-public const val B_MEDIA_SYSTEM_FAILURE: Int = B_MEDIA_ERROR_BASE + 100
-public const val B_MEDIA_BAD_NODE: Int = B_MEDIA_ERROR_BASE + 101
-public const val B_MEDIA_NODE_BUSY: Int = B_MEDIA_ERROR_BASE + 102
-public const val B_MEDIA_BAD_FORMAT: Int = B_MEDIA_ERROR_BASE + 103
-public const val B_MEDIA_BAD_BUFFER: Int = B_MEDIA_ERROR_BASE + 104
-public const val B_MEDIA_TOO_MANY_NODES: Int = B_MEDIA_ERROR_BASE + 105
-public const val B_MEDIA_TOO_MANY_BUFFERS: Int = B_MEDIA_ERROR_BASE + 106
-public const val B_MEDIA_NODE_ALREADY_EXISTS: Int = B_MEDIA_ERROR_BASE + 107
-public const val B_MEDIA_BUFFER_ALREADY_EXISTS: Int = B_MEDIA_ERROR_BASE + 108
-public const val B_MEDIA_CANNOT_SEEK: Int = B_MEDIA_ERROR_BASE + 109
-public const val B_MEDIA_CANNOT_CHANGE_RUN_MODE: Int = B_MEDIA_ERROR_BASE + 110
-public const val B_MEDIA_APP_ALREADY_REGISTERED: Int = B_MEDIA_ERROR_BASE + 111
-public const val B_MEDIA_APP_NOT_REGISTERED: Int = B_MEDIA_ERROR_BASE + 112
-public const val B_MEDIA_CANNOT_RECLAIM_BUFFERS: Int = B_MEDIA_ERROR_BASE + 113
-public const val B_MEDIA_BUFFERS_NOT_RECLAIMED: Int = B_MEDIA_ERROR_BASE + 114
-public const val B_MEDIA_TIME_SOURCE_STOPPED: Int = B_MEDIA_ERROR_BASE + 115
-public const val B_MEDIA_TIME_SOURCE_BUSY: Int = B_MEDIA_ERROR_BASE + 116
-public const val B_MEDIA_BAD_SOURCE: Int = B_MEDIA_ERROR_BASE + 117
-public const val B_MEDIA_BAD_DESTINATION: Int = B_MEDIA_ERROR_BASE + 118
-public const val B_MEDIA_ALREADY_CONNECTED: Int = B_MEDIA_ERROR_BASE + 119
-public const val B_MEDIA_NOT_CONNECTED: Int = B_MEDIA_ERROR_BASE + 120
-public const val B_MEDIA_BAD_CLIP_FORMAT: Int = B_MEDIA_ERROR_BASE + 121
-public const val B_MEDIA_ADDON_FAILED: Int = B_MEDIA_ERROR_BASE + 122
-public const val B_MEDIA_ADDON_DISABLED: Int = B_MEDIA_ERROR_BASE + 123
-public const val B_MEDIA_CHANGE_IN_PROGRESS: Int = B_MEDIA_ERROR_BASE + 124
-public const val B_MEDIA_STALE_CHANGE_COUNT: Int = B_MEDIA_ERROR_BASE + 125
-public const val B_MEDIA_ADDON_RESTRICTED: Int = B_MEDIA_ERROR_BASE + 126
-public const val B_MEDIA_NO_HANDLER: Int = B_MEDIA_ERROR_BASE + 127
-public const val B_MEDIA_DUPLICATE_FORMAT: Int = B_MEDIA_ERROR_BASE + 128
-public const val B_MEDIA_REALTIME_DISABLED: Int = B_MEDIA_ERROR_BASE + 129
-public const val B_MEDIA_REALTIME_UNAVAILABLE: Int = B_MEDIA_ERROR_BASE + 130
-public const val B_MAIL_NO_DAEMON: Int = B_MAIL_ERROR_BASE + 0
-public const val B_MAIL_UNKNOWN_USER: Int = B_MAIL_ERROR_BASE + 1
-public const val B_MAIL_WRONG_PASSWORD: Int = B_MAIL_ERROR_BASE + 2
-public const val B_MAIL_UNKNOWN_HOST: Int = B_MAIL_ERROR_BASE + 3
-public const val B_MAIL_ACCESS_ERROR: Int = B_MAIL_ERROR_BASE + 4
-public const val B_MAIL_UNKNOWN_FIELD: Int = B_MAIL_ERROR_BASE + 5
-public const val B_MAIL_NO_RECIPIENT: Int = B_MAIL_ERROR_BASE + 6
-public const val B_MAIL_INVALID_MAIL: Int = B_MAIL_ERROR_BASE + 7
-public const val B_NO_PRINT_SERVER: Int = B_PRINT_ERROR_BASE + 0
-public const val B_DEV_INVALID_IOCTL: Int = B_DEVICE_ERROR_BASE + 0
-public const val B_DEV_NO_MEMORY: Int = B_DEVICE_ERROR_BASE + 1
-public const val B_DEV_BAD_DRIVE_NUM: Int = B_DEVICE_ERROR_BASE + 2
-public const val B_DEV_NO_MEDIA: Int = B_DEVICE_ERROR_BASE + 3
-public const val B_DEV_UNREADABLE: Int = B_DEVICE_ERROR_BASE + 4
-public const val B_DEV_FORMAT_ERROR: Int = B_DEVICE_ERROR_BASE + 5
-public const val B_DEV_TIMEOUT: Int = B_DEVICE_ERROR_BASE + 6
-public const val B_DEV_RECALIBRATE_ERROR: Int = B_DEVICE_ERROR_BASE + 7
-public const val B_DEV_SEEK_ERROR: Int = B_DEVICE_ERROR_BASE + 8
-public const val B_DEV_ID_ERROR: Int = B_DEVICE_ERROR_BASE + 9
-public const val B_DEV_READ_ERROR: Int = B_DEVICE_ERROR_BASE + 10
-public const val B_DEV_WRITE_ERROR: Int = B_DEVICE_ERROR_BASE + 11
-public const val B_DEV_NOT_READY: Int = B_DEVICE_ERROR_BASE + 12
-public const val B_DEV_MEDIA_CHANGED: Int = B_DEVICE_ERROR_BASE + 13
-public const val B_DEV_MEDIA_CHANGE_REQUESTED: Int = B_DEVICE_ERROR_BASE + 14
-public const val B_DEV_RESOURCE_CONFLICT: Int = B_DEVICE_ERROR_BASE + 15
-public const val B_DEV_CONFIGURATION_ERROR: Int = B_DEVICE_ERROR_BASE + 16
-public const val B_DEV_DISABLED_BY_USER: Int = B_DEVICE_ERROR_BASE + 17
-public const val B_DEV_DOOR_OPEN: Int = B_DEVICE_ERROR_BASE + 18
-public const val B_DEV_INVALID_PIPE: Int = B_DEVICE_ERROR_BASE + 19
-public const val B_DEV_CRC_ERROR: Int = B_DEVICE_ERROR_BASE + 20
-public const val B_DEV_STALLED: Int = B_DEVICE_ERROR_BASE + 21
-public const val B_DEV_BAD_PID: Int = B_DEVICE_ERROR_BASE + 22
-public const val B_DEV_UNEXPECTED_PID: Int = B_DEVICE_ERROR_BASE + 23
-public const val B_DEV_DATA_OVERRUN: Int = B_DEVICE_ERROR_BASE + 24
-public const val B_DEV_DATA_UNDERRUN: Int = B_DEVICE_ERROR_BASE + 25
-public const val B_DEV_FIFO_OVERRUN: Int = B_DEVICE_ERROR_BASE + 26
-public const val B_DEV_FIFO_UNDERRUN: Int = B_DEVICE_ERROR_BASE + 27
-public const val B_DEV_PENDING: Int = B_DEVICE_ERROR_BASE + 28
-public const val B_DEV_MULTIPLE_ERRORS: Int = B_DEVICE_ERROR_BASE + 29
-public const val B_DEV_TOO_LATE: Int = B_DEVICE_ERROR_BASE + 30
-public const val B_TRANSLATION_BASE_ERROR: Int = B_TRANSLATION_ERROR_BASE + 0
-public const val B_NO_TRANSLATOR: Int = B_TRANSLATION_ERROR_BASE + 1
-public const val B_ILLEGAL_DATA: Int = B_TRANSLATION_ERROR_BASE + 2
-public val B_AFFINE_TRANSFORM_TYPE: UInt = haikuConstant('A', 'M', 'T', 'X')
-public val B_ALIGNMENT_TYPE: UInt = haikuConstant('A', 'L', 'G', 'N')
-public val B_ANY_TYPE: UInt = haikuConstant('A', 'N', 'Y', 'T')
-public val B_ATOM_TYPE: UInt = haikuConstant('A', 'T', 'O', 'M')
-public val B_ATOMREF_TYPE: UInt = haikuConstant('A', 'T', 'M', 'R')
-public val B_BOOL_TYPE: UInt = haikuConstant('B', 'O', 'O', 'L')
-public val B_CHAR_TYPE: UInt = haikuConstant('C', 'H', 'A', 'R')
-public val B_COLOR_8_BIT_TYPE: UInt = haikuConstant('C', 'L', 'R', 'B')
-public val B_DOUBLE_TYPE: UInt = haikuConstant('D', 'B', 'L', 'E')
-public val B_FLOAT_TYPE: UInt = haikuConstant('F', 'L', 'O', 'T')
-public val B_GRAYSCALE_8_BIT_TYPE: UInt = haikuConstant('G', 'R', 'Y', 'B')
-public val B_INT16_TYPE: UInt = haikuConstant('S', 'H', 'R', 'T')
-public val B_INT32_TYPE: UInt = haikuConstant('L', 'O', 'N', 'G')
-public val B_INT64_TYPE: UInt = haikuConstant('L', 'L', 'N', 'G')
-public val B_INT8_TYPE: UInt = haikuConstant('B', 'Y', 'T', 'E')
-public val B_LARGE_ICON_TYPE: UInt = haikuConstant('I', 'C', 'O', 'N')
-public val B_MEDIA_PARAMETER_GROUP_TYPE: UInt = haikuConstant('B', 'M', 'C', 'G')
-public val B_MEDIA_PARAMETER_TYPE: UInt = haikuConstant('B', 'M', 'C', 'T')
-public val B_MEDIA_PARAMETER_WEB_TYPE: UInt = haikuConstant('B', 'M', 'C', 'W')
-public val B_MESSAGE_TYPE: UInt = haikuConstant('M', 'S', 'G', 'G')
-public val B_MESSENGER_TYPE: UInt = haikuConstant('M', 'S', 'N', 'G')
-public val B_MIME_TYPE: UInt = haikuConstant('M', 'I', 'M', 'E')
-public val B_MINI_ICON_TYPE: UInt = haikuConstant('M', 'I', 'C', 'N')
-public val B_MONOCHROME_1_BIT_TYPE: UInt = haikuConstant('M', 'N', 'O', 'B')
-public val B_OBJECT_TYPE: UInt = haikuConstant('O', 'P', 'T', 'R')
-public val B_OFF_T_TYPE: UInt = haikuConstant('O', 'F', 'F', 'T')
-public val B_PATTERN_TYPE: UInt = haikuConstant('P', 'A', 'T', 'N')
-public val B_POINTER_TYPE: UInt = haikuConstant('P', 'N', 'T', 'R')
-public val B_POINT_TYPE: UInt = haikuConstant('B', 'P', 'N', 'T')
-public val B_PROPERTY_INFO_TYPE: UInt = haikuConstant('S', 'C', 'T', 'D')
-public val B_RAW_TYPE: UInt = haikuConstant('R', 'A', 'W', 'T')
-public val B_RECT_TYPE: UInt = haikuConstant('R', 'E', 'C', 'T')
-public val B_REF_TYPE: UInt = haikuConstant('R', 'R', 'E', 'F')
-public val B_RGB_32_BIT_TYPE: UInt = haikuConstant('R', 'G', 'B', 'B')
-public val B_RGB_COLOR_TYPE: UInt = haikuConstant('R', 'G', 'B', 'C')
-public val B_SIZE_TYPE: UInt = haikuConstant('S', 'I', 'Z', 'E')
-public val B_SIZE_T_TYPE: UInt = haikuConstant('S', 'I', 'Z', 'T')
-public val B_SSIZE_T_TYPE: UInt = haikuConstant('S', 'S', 'Z', 'T')
-public val B_STRING_TYPE: UInt = haikuConstant('C', 'S', 'T', 'R')
-public val B_STRING_LIST_TYPE: UInt = haikuConstant('S', 'T', 'R', 'L')
-public val B_TIME_TYPE: UInt = haikuConstant('T', 'I', 'M', 'E')
-public val B_UINT16_TYPE: UInt = haikuConstant('U', 'S', 'H', 'T')
-public val B_UINT32_TYPE: UInt = haikuConstant('U', 'L', 'N', 'G')
-public val B_UINT64_TYPE: UInt = haikuConstant('U', 'L', 'L', 'G')
-public val B_UINT8_TYPE: UInt = haikuConstant('U', 'B', 'Y', 'T')
-public val B_VECTOR_ICON_TYPE: UInt = haikuConstant('V', 'I', 'C', 'N')
-public val B_XATTR_TYPE: UInt = haikuConstant('X', 'A', 'T', 'R')
-public val B_NETWORK_ADDRESS_TYPE: UInt = haikuConstant('N', 'W', 'A', 'D')
-public val B_MIME_STRING_TYPE: UInt = haikuConstant('M', 'I', 'M', 'S')
-public val B_ASCII_TYPE: UInt = haikuConstant('T', 'E', 'X', 'T')
-
-public expect fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): Int
-
-public expect fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: Int): Int
-
-public expect fun findArea(name: String?): Int
-
-public expect fun areaFor(address: COpaquePointer?): Int
-
-public expect fun deleteArea(id: Int): Int
-
-public expect fun resizeArea(id: Int, newSize: ULong): Int
-
-public expect fun setAreaProtection(id: Int, newProtection: UInt): Int
-
-public expect fun getAreaInfo(id: Int, areaInfo: AreaInfo?, size: ULong): Int
-
-public fun getAreaInfo(id: AreaId, info: AreaInfo?): StatusT =
-    getAreaInfo(id, info, 88uL)
-
-public expect fun getNextAreaInfo(team: Int, cookie: Long?, areaInfo: AreaInfo?, size: ULong): Int
-
-public fun getNextAreaInfo(team: TeamId, cookie: Long?, info: AreaInfo?): StatusT =
-    getNextAreaInfo(team, cookie, info, 88uL)
-
-public expect fun createPort(capacity: Int, name: String?): Int
-
-public expect fun findPort(name: String?): Int
-
-public expect fun readPort(port: Int, code: Int?, buffer: COpaquePointer?, bufferSize: ULong): Long
-
-public expect fun readPortEtc(port: Int, code: Int?, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: Long): Long
-
-public expect fun writePort(port: Int, code: Int, buffer: COpaquePointer?, bufferSize: ULong): Int
-
-public expect fun writePortEtc(port: Int, code: Int, buffer: COpaquePointer?, bufferSize: ULong, flags: UInt, timeout: Long): Int
-
-public expect fun closePort(port: Int): Int
-
-public expect fun deletePort(port: Int): Int
-
-public expect fun portBufferSize(port: Int): Long
-
-public expect fun portBufferSizeEtc(port: Int, flags: UInt, timeout: Long): Long
-
-public expect fun portCount(port: Int): Long
 
-public expect fun setPortOwner(port: Int, team: Int): Int
+public val B_FILE_NODE: UInt = 0x01u
 
-public expect fun getPortInfo(port: Int, buf: PortInfo?, portInfoSize: ULong): Int
+public val B_SYMLINK_NODE: UInt = 0x02u
 
-public fun getPortInfo(port: PortId, buf: PortInfo?): StatusT =
-    getPortInfo(port, buf, 52uL)
+public val B_DIRECTORY_NODE: UInt = 0x04u
 
-public expect fun getNextPortInfo(port: Int, cookie: Int?, portInfo: PortInfo?, portInfoSize: ULong): Int
+public val B_ANY_NODE: UInt = 0x07u
 
-public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?): StatusT =
-    getNextPortInfo(port, cookie, portInfo, 52uL)
+// support/Errors.h
+public val B_GENERAL_ERROR_BASE: StatusT = Int.MIN_VALUE
 
-public expect fun getPortMessageInfoEtc(port: Int, info: PortMessageInfo?, infoSize: ULong, flags: UInt, timeout: Long): Int
+public val B_OS_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x1000
 
-public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, flags: UInt, timeout: BigtimeT): StatusT =
-    getPortMessageInfoEtc(port, info, 24uL, flags, timeout)
+public val B_APP_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x2000
 
-public expect fun createSem(count: Int, name: String?): Int
+public val B_INTERFACE_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x3000
 
-public expect fun deleteSem(id: Int): Int
+public val B_MEDIA_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x4000
 
-public expect fun acquireSem(id: Int): Int
+public val B_TRANSLATION_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x4800
 
-public expect fun acquireSemEtc(id: Int, count: Int, flags: UInt, timeout: Long): Int
+public val B_MIDI_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x5000
 
-public expect fun releaseSem(id: Int): Int
+public val B_STORAGE_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x6000
 
-public expect fun releaseSemEtc(id: Int, count: Int, flags: UInt): Int
+public val B_POSIX_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x7000
 
-public expect fun switchSem(semToBeReleased: Int, id: Int): Int
+public val B_MAIL_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x8000
 
-public expect fun switchSemEtc(semToBeReleased: Int, id: Int, count: Int, flags: UInt, timeout: Long): Int
+public val B_PRINT_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0x9000
 
-public expect fun getSemCount(id: Int, threadCount: Int?): Int
+public val B_DEVICE_ERROR_BASE: StatusT = B_GENERAL_ERROR_BASE + 0xa000
 
-public expect fun setSemOwner(id: Int, team: Int): Int
+public val B_ERRORS_END: StatusT = B_GENERAL_ERROR_BASE + 0xffff
 
-public expect fun getSemInfo(id: Int, info: SemInfo?, infoSize: ULong): Int
+// General errors
+public val B_NO_MEMORY: StatusT = B_GENERAL_ERROR_BASE + 0
 
-public fun getSemInfo(id: SemId, info: SemInfo?): StatusT =
-    getSemInfo(id, info, 48uL)
+public val B_IO_ERROR: StatusT = B_GENERAL_ERROR_BASE + 1
 
-public expect fun getNextSemInfo(team: Int, cookie: Int?, info: SemInfo?, infoSize: ULong): Int
+public val B_PERMISSION_DENIED: StatusT = B_GENERAL_ERROR_BASE + 2
 
-public fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?): StatusT =
-    getNextSemInfo(team, cookie, info, 48uL)
+public val B_BAD_INDEX: StatusT = B_GENERAL_ERROR_BASE + 3
 
-public expect fun killTeam(team: Int): Int
+public val B_BAD_TYPE: StatusT = B_GENERAL_ERROR_BASE + 4
 
-public expect fun getTeamInfo(team: Int, info: TeamInfo?, size: ULong): Int
+public val B_BAD_VALUE: StatusT = B_GENERAL_ERROR_BASE + 5
 
-public fun getTeamInfo(team: TeamId, info: TeamInfo?): StatusT =
-    getTeamInfo(team, info, 100uL)
+public val B_MISMATCHED_VALUES: StatusT = B_GENERAL_ERROR_BASE + 6
 
-public expect fun getNextTeamInfo(cookie: Int?, info: TeamInfo?, size: ULong): Int
+public val B_NAME_NOT_FOUND: StatusT = B_GENERAL_ERROR_BASE + 7
 
-public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?): StatusT =
-    getNextTeamInfo(cookie, info, 100uL)
+public val B_NAME_IN_USE: StatusT = B_GENERAL_ERROR_BASE + 8
 
-public expect fun spawnThread(func: ThreadFunc?, name: String?, priority: Int, data: COpaquePointer?): Int
+public val B_TIMED_OUT: StatusT = B_GENERAL_ERROR_BASE + 9
 
-public expect fun killThread(thread: Int): Int
+public val B_INTERRUPTED: StatusT = B_GENERAL_ERROR_BASE + 10
 
-public expect fun resumeThread(thread: Int): Int
+public val B_WOULD_BLOCK: StatusT = B_GENERAL_ERROR_BASE + 11
 
-public expect fun suspendThread(thread: Int): Int
+public val B_CANCELED: StatusT = B_GENERAL_ERROR_BASE + 12
 
-public expect fun renameThread(thread: Int, newName: String?): Int
+public val B_NO_INIT: StatusT = B_GENERAL_ERROR_BASE + 13
 
-public expect fun setThreadPriority(thread: Int, newPriority: Int): Int
+public val B_NOT_INITIALIZED: StatusT = B_GENERAL_ERROR_BASE + 13
 
-public expect fun suggestThreadPriority(what: UInt, period: Int, jitter: Long, length: Long): Int
+public val B_BUSY: StatusT = B_GENERAL_ERROR_BASE + 14
 
-public expect fun estimateMaxSchedulingLatency(th: Int): Long
+public val B_NOT_ALLOWED: StatusT = B_GENERAL_ERROR_BASE + 15
 
-public expect fun exitThread(status: Int)
+public val B_BAD_DATA: StatusT = B_GENERAL_ERROR_BASE + 16
 
-public expect fun waitForThread(thread: Int, returnValue: Int?): Int
+public val B_DONT_DO_THAT: StatusT = B_GENERAL_ERROR_BASE + 17
 
-public expect fun onExitThread(callback: ((COpaquePointer?) -> Unit)?, data: COpaquePointer?): Int
+public val B_ERROR: StatusT = -1
 
-public expect fun findThread(name: String?): Int
+public val B_OK: StatusT = 0
 
-public expect fun getSchedulerMode(): Int
+public val B_NO_ERROR: StatusT = 0
 
-public expect fun setSchedulerMode(mode: Int): Int
+// Kernel kit errors
+public val B_BAD_SEM_ID: StatusT = B_OS_ERROR_BASE + 0
 
-public expect fun sendData(thread: Int, code: Int, buffer: COpaquePointer?, bufferSize: ULong): Int
+public val B_NO_MORE_SEMS: StatusT = B_OS_ERROR_BASE + 1
 
-public expect fun receiveData(sender: Int?, buffer: COpaquePointer?, bufferSize: ULong): Int
+public val B_BAD_THREAD_ID: StatusT = B_OS_ERROR_BASE + 0x100
 
-public expect fun hasData(thread: Int): Boolean
+public val B_NO_MORE_THREADS: StatusT = B_OS_ERROR_BASE + 0x101
 
-public expect fun snooze(amount: Long): Int
+public val B_BAD_THREAD_STATE: StatusT = B_OS_ERROR_BASE + 0x102
 
-public expect fun snoozeEtc(amount: Long, timeBase: Int, flags: UInt): Int
+public val B_BAD_TEAM_ID: StatusT = B_OS_ERROR_BASE + 0x103
 
-public expect fun snoozeUntil(time: Long, timeBase: Int): Int
+public val B_NO_MORE_TEAMS: StatusT = B_OS_ERROR_BASE + 0x104
 
-public expect fun getThreadInfo(id: Int, info: ThreadInfo?, size: ULong): Int
+public val B_BAD_PORT_ID: StatusT = B_OS_ERROR_BASE + 0x200
 
-public fun getThreadInfo(id: ThreadId, info: ThreadInfo?): StatusT =
-    getThreadInfo(id, info, 88uL)
+public val B_NO_MORE_PORTS: StatusT = B_OS_ERROR_BASE + 0x201
 
-public expect fun getNextThreadInfo(team: Int, cookie: Int?, info: ThreadInfo?, size: ULong): Int
+public val B_BAD_IMAGE_ID: StatusT = B_OS_ERROR_BASE + 0x300
 
-public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?): StatusT =
-    getNextThreadInfo(team, cookie, info, 88uL)
+public val B_BAD_ADDRESS: StatusT = B_OS_ERROR_BASE + 0x301
 
-public expect fun getPthreadThreadId(thread: ULong): Int
+public val B_NOT_AN_EXECUTABLE: StatusT = B_OS_ERROR_BASE + 0x302
 
-public expect fun getTeamUsageInfo(team: Int, who: Int, info: TeamUsageInfo?, size: ULong): Int
+public val B_MISSING_LIBRARY: StatusT = B_OS_ERROR_BASE + 0x303
 
-public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?): StatusT =
-    getTeamUsageInfo(team, who, info, 16uL)
+public val B_MISSING_SYMBOL: StatusT = B_OS_ERROR_BASE + 0x304
 
-public expect fun realTimeClock(): ULong
+public val B_UNKNOWN_EXECUTABLE: StatusT = B_OS_ERROR_BASE + 0x305
 
-public expect fun setRealTimeClock(secsSinceJan1st1970: ULong)
+public val B_LEGACY_EXECUTABLE: StatusT = B_OS_ERROR_BASE + 0x306
 
-public expect fun realTimeClockUsecs(): Long
+public val B_DEBUGGER_ALREADY_INSTALLED: StatusT = B_OS_ERROR_BASE + 0x400
 
-public expect fun systemTime(): Long
+// Application kit errors
+public val B_BAD_REPLY: StatusT = B_APP_ERROR_BASE + 0
 
-public expect fun systemTimeNsecs(): Long
+public val B_DUPLICATE_REPLY: StatusT = B_APP_ERROR_BASE + 1
 
-public expect fun setAlarm(`when`: Long, flags: UInt): Long
+public val B_MESSAGE_TO_SELF: StatusT = B_APP_ERROR_BASE + 2
 
-public expect fun debugger(message: String?)
+public val B_BAD_HANDLER: StatusT = B_APP_ERROR_BASE + 3
 
-public expect fun disableDebugger(state: Int): Int
+public val B_ALREADY_RUNNING: StatusT = B_APP_ERROR_BASE + 4
 
-public expect fun getSystemInfo(info: SystemInfo?): Int
+public val B_LAUNCH_FAILED: StatusT = B_APP_ERROR_BASE + 5
 
-public expect fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?, size: ULong): Int
+public val B_AMBIGUOUS_APP_LAUNCH: StatusT = B_APP_ERROR_BASE + 6
 
-public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?): Int =
-    getCpuInfoEtc(firstCPU, cpuCount, info, 24uL)
+public val B_UNKNOWN_MIME_TYPE: StatusT = B_APP_ERROR_BASE + 7
 
-public expect fun getCpuTopologyInfo(topologyInfos: CpuTopologyNodeInfo?, topologyInfoCount: UInt?): Int
+public val B_BAD_SCRIPT_SYNTAX: StatusT = B_APP_ERROR_BASE + 8
 
-public expect fun isComputerOn(): Int
+public val B_LAUNCH_FAILED_NO_RESOLVE_LINK: StatusT = B_APP_ERROR_BASE + 9
 
-public expect fun isComputerOnFire(): Double
+public val B_LAUNCH_FAILED_EXECUTABLE: StatusT = B_APP_ERROR_BASE + 10
 
-public expect fun sendSignal(threadID: Int, signal: UInt): Int
+public val B_LAUNCH_FAILED_APP_NOT_FOUND: StatusT = B_APP_ERROR_BASE + 11
 
-public expect fun setSignalStack(base: COpaquePointer?, size: ULong)
+public val B_LAUNCH_FAILED_APP_IN_TRASH: StatusT = B_APP_ERROR_BASE + 12
 
-public expect fun waitForObjects(infos: ObjectWaitInfo?, numInfos: Int): Long
+public val B_LAUNCH_FAILED_NO_PREFERRED_APP: StatusT = B_APP_ERROR_BASE + 13
 
-public expect fun waitForObjectsEtc(infos: ObjectWaitInfo?, numInfos: Int, flags: UInt, timeout: Long): Long
+public val B_LAUNCH_FAILED_FILES_APP_NOT_FOUND: StatusT = B_APP_ERROR_BASE + 14
 
-public expect fun fsReadAttr(fd: Int, attribute: String?, type: UInt, pos: Long, buffer: COpaquePointer?, readBytes: ULong): Long
+public val B_BAD_MIME_SNIFFER_RULE: StatusT = B_APP_ERROR_BASE + 15
 
-public expect fun fsWriteAttr(fd: Int, attribute: String?, type: UInt, pos: Long, buffer: COpaquePointer?, writeBytes: ULong): Long
+public val B_NOT_A_MESSAGE: StatusT = B_APP_ERROR_BASE + 16
 
-public expect fun fsRemoveAttr(fd: Int, attribute: String?): Int
+public val B_SHUTDOWN_CANCELLED: StatusT = B_APP_ERROR_BASE + 17
 
-public expect fun fsStatAttr(fd: Int, attribute: String?, attrInfo: AttrInfo?): Int
+public val B_SHUTTING_DOWN: StatusT = B_APP_ERROR_BASE + 18
 
-public expect fun fsOpenAttr(path: String?, attribute: String?, type: UInt, openMode: Int): Int
+// Storage kit errors
+public val B_FILE_ERROR: StatusT = B_STORAGE_ERROR_BASE + 0
 
-public expect fun fsFopenAttr(fd: Int, attribute: String?, type: UInt, openMode: Int): Int
+public val B_FILE_EXISTS: StatusT = B_STORAGE_ERROR_BASE + 2
 
-public expect fun fsCloseAttr(fd: Int): Int
+public val B_ENTRY_NOT_FOUND: StatusT = B_STORAGE_ERROR_BASE + 3
 
-public expect fun fsOpenAttrDir(path: String?): DIR?
+public val B_NAME_TOO_LONG: StatusT = B_STORAGE_ERROR_BASE + 4
 
-public expect fun fsLopenAttrDir(path: String?): DIR?
+public val B_NOT_A_DIRECTORY: StatusT = B_STORAGE_ERROR_BASE + 5
 
-public expect fun fsFopenAttrDir(fd: Int): DIR?
+public val B_DIRECTORY_NOT_EMPTY: StatusT = B_STORAGE_ERROR_BASE + 6
 
-public expect fun fsCloseAttrDir(dir: DIR?): Int
+public val B_DEVICE_FULL: StatusT = B_STORAGE_ERROR_BASE + 7
 
-public expect fun fsReadAttrDir(dir: DIR?): Dirent?
+public val B_READ_ONLY_DEVICE: StatusT = B_STORAGE_ERROR_BASE + 8
 
-public expect fun fsRewindAttrDir(dir: DIR?)
+public val B_IS_A_DIRECTORY: StatusT = B_STORAGE_ERROR_BASE + 9
 
-public expect fun fsCreateIndex(device: Int, name: String?, type: UInt, flags: UInt): Int
+public val B_NO_MORE_FDS: StatusT = B_STORAGE_ERROR_BASE + 10
 
-public expect fun fsRemoveIndex(device: Int, name: String?): Int
+public val B_CROSS_DEVICE_LINK: StatusT = B_STORAGE_ERROR_BASE + 11
 
-public expect fun fsStatIndex(device: Int, name: String?, indexInfo: IndexInfo?): Int
+public val B_LINK_LIMIT: StatusT = B_STORAGE_ERROR_BASE + 12
 
-public expect fun fsOpenIndexDir(device: Int): DIR?
+public val B_BUSTED_PIPE: StatusT = B_STORAGE_ERROR_BASE + 13
 
-public expect fun fsCloseIndexDir(indexDirectory: DIR?): Int
+public val B_UNSUPPORTED: StatusT = B_STORAGE_ERROR_BASE + 14
 
-public expect fun fsReadIndexDir(indexDirectory: DIR?): Dirent?
+public val B_PARTITION_TOO_SMALL: StatusT = B_STORAGE_ERROR_BASE + 15
 
-public expect fun fsRewindIndexDir(indexDirectory: DIR?)
+public val B_PARTIAL_READ: StatusT = B_STORAGE_ERROR_BASE + 16
 
-public expect fun devForPath(path: String?): Int
+public val B_PARTIAL_WRITE: StatusT = B_STORAGE_ERROR_BASE + 17
 
-public expect fun nextDev(pos: Int?): Int
+// Mapped posix errors
+public val B_BUFFER_OVERFLOW: StatusT = EOVERFLOW
 
-public expect fun fsStatDev(dev: Int, info: FsInfo?): Int
+public val B_TOO_MANY_ARGS: StatusT = E2BIG
 
-public expect fun fsOpenQuery(device: Int, query: String?, flags: UInt): DIR?
+public val B_FILE_TOO_LARGE: StatusT = EFBIG
 
-public expect fun fsOpenLiveQuery(device: Int, query: String?, flags: UInt, port: Int, token: Int): DIR?
+public val B_RESULT_NOT_REPRESENTABLE: StatusT = ERANGE
 
-public expect fun fsCloseQuery(d: DIR?): Int
+public val B_DEVICE_NOT_FOUND: StatusT = ENODEV
 
-public expect fun fsReadQuery(d: DIR?): Dirent?
+public val B_NOT_SUPPORTED: StatusT = EOPNOTSUPP
 
-public expect fun getPathForDirent(dent: Dirent?, buf: String?, len: ULong): Int
+// Media kit errors
+public val B_STREAM_NOT_FOUND: StatusT = B_MEDIA_ERROR_BASE + 0
 
-public expect fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): Int
+public val B_SERVER_NOT_FOUND: StatusT = B_MEDIA_ERROR_BASE + 1
 
-public expect fun fsUnmountVolume(path: String?, flags: UInt): Int
+public val B_RESOURCE_NOT_FOUND: StatusT = B_MEDIA_ERROR_BASE + 2
 
-public expect fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): Int
+public val B_RESOURCE_UNAVAILABLE: StatusT = B_MEDIA_ERROR_BASE + 3
 
-public expect fun loadAddOn(path: String?): Int
+public val B_BAD_SUBSCRIBER: StatusT = B_MEDIA_ERROR_BASE + 4
 
-public expect fun unloadAddOn(image: Int): Int
+public val B_SUBSCRIBER_NOT_ENTERED: StatusT = B_MEDIA_ERROR_BASE + 5
 
-public expect fun getImageSymbol(image: Int, name: String?, symbolType: Int, symbolLocation: COpaquePointer?): Int
+public val B_BUFFER_NOT_AVAILABLE: StatusT = B_MEDIA_ERROR_BASE + 6
 
-public expect fun getNthImageSymbol(image: Int, n: Int, nameBuffer: String?, nameLength: Int?, symbolType: Int?, symbolLocation: COpaquePointer?): Int
+public val B_LAST_BUFFER_ERROR: StatusT = B_MEDIA_ERROR_BASE + 7
 
-public expect fun clearCaches(address: COpaquePointer?, length: ULong, flags: UInt)
+public val B_MEDIA_SYSTEM_FAILURE: StatusT = B_MEDIA_ERROR_BASE + 100
 
-public expect fun getImageInfo(image: Int, info: ImageInfo?, size: ULong): Int
+public val B_MEDIA_BAD_NODE: StatusT = B_MEDIA_ERROR_BASE + 101
 
-public fun getImageInfo(image: ImageId, info: ImageInfo?): StatusT =
-    getImageInfo(image, info, 1104uL)
+public val B_MEDIA_NODE_BUSY: StatusT = B_MEDIA_ERROR_BASE + 102
 
-public expect fun getNextImageInfo(team: Int, cookie: Int?, info: ImageInfo?, size: ULong): Int
+public val B_MEDIA_BAD_FORMAT: StatusT = B_MEDIA_ERROR_BASE + 103
 
-public fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?): StatusT =
-    getNextImageInfo(team, cookie, info, 1104uL)
+public val B_MEDIA_BAD_BUFFER: StatusT = B_MEDIA_ERROR_BASE + 104
 
-public expect fun findPath(codePointer: COpaquePointer?, baseDirectory: UInt, subPath: String?, pathBuffer: String?, bufferSize: ULong): Int
+public val B_MEDIA_TOO_MANY_NODES: StatusT = B_MEDIA_ERROR_BASE + 105
 
-public expect fun findPathEtc(codePointer: COpaquePointer?, dependency: String?, architecture: String?, baseDirectory: UInt, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): Int
+public val B_MEDIA_TOO_MANY_BUFFERS: StatusT = B_MEDIA_ERROR_BASE + 106
 
-public expect fun findPathForPath(path: String?, baseDirectory: UInt, subPath: String?, pathBuffer: String?, bufferSize: ULong): Int
+public val B_MEDIA_NODE_ALREADY_EXISTS: StatusT = B_MEDIA_ERROR_BASE + 107
 
-public expect fun findPathForPathEtc(path: String?, dependency: String?, architecture: String?, baseDirectory: UInt, subPath: String?, flags: UInt, pathBuffer: String?, bufferSize: ULong): Int
+public val B_MEDIA_BUFFER_ALREADY_EXISTS: StatusT = B_MEDIA_ERROR_BASE + 108
 
-public expect fun findPaths(baseDirectory: UInt, subPath: String?, paths: COpaquePointer?, pathCount: ULong?): Int
+public val B_MEDIA_CANNOT_SEEK: StatusT = B_MEDIA_ERROR_BASE + 109
 
-public expect fun findPathsEtc(architecture: String?, baseDirectory: UInt, subPath: String?, flags: UInt, paths: COpaquePointer?, pathCount: ULong?): Int
+public val B_MEDIA_CANNOT_CHANGE_RUN_MODE: StatusT = B_MEDIA_ERROR_BASE + 110
 
-public expect fun findDirectory(which: UInt, volume: Int, createIt: Boolean, pathString: String?, length: Int): Int
+public val B_MEDIA_APP_ALREADY_REGISTERED: StatusT = B_MEDIA_ERROR_BASE + 111
 
-public expect fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): Int
+public val B_MEDIA_APP_NOT_REGISTERED: StatusT = B_MEDIA_ERROR_BASE + 112
+
+public val B_MEDIA_CANNOT_RECLAIM_BUFFERS: StatusT = B_MEDIA_ERROR_BASE + 113
+
+public val B_MEDIA_BUFFERS_NOT_RECLAIMED: StatusT = B_MEDIA_ERROR_BASE + 114
+
+public val B_MEDIA_TIME_SOURCE_STOPPED: StatusT = B_MEDIA_ERROR_BASE + 115
+
+public val B_MEDIA_TIME_SOURCE_BUSY: StatusT = B_MEDIA_ERROR_BASE + 116
+
+public val B_MEDIA_BAD_SOURCE: StatusT = B_MEDIA_ERROR_BASE + 117
+
+public val B_MEDIA_BAD_DESTINATION: StatusT = B_MEDIA_ERROR_BASE + 118
+
+public val B_MEDIA_ALREADY_CONNECTED: StatusT = B_MEDIA_ERROR_BASE + 119
+
+public val B_MEDIA_NOT_CONNECTED: StatusT = B_MEDIA_ERROR_BASE + 120
+
+public val B_MEDIA_BAD_CLIP_FORMAT: StatusT = B_MEDIA_ERROR_BASE + 121
+
+public val B_MEDIA_ADDON_FAILED: StatusT = B_MEDIA_ERROR_BASE + 122
+
+public val B_MEDIA_ADDON_DISABLED: StatusT = B_MEDIA_ERROR_BASE + 123
+
+public val B_MEDIA_CHANGE_IN_PROGRESS: StatusT = B_MEDIA_ERROR_BASE + 124
+
+public val B_MEDIA_STALE_CHANGE_COUNT: StatusT = B_MEDIA_ERROR_BASE + 125
+
+public val B_MEDIA_ADDON_RESTRICTED: StatusT = B_MEDIA_ERROR_BASE + 126
+
+public val B_MEDIA_NO_HANDLER: StatusT = B_MEDIA_ERROR_BASE + 127
+
+public val B_MEDIA_DUPLICATE_FORMAT: StatusT = B_MEDIA_ERROR_BASE + 128
+
+public val B_MEDIA_REALTIME_DISABLED: StatusT = B_MEDIA_ERROR_BASE + 129
+
+public val B_MEDIA_REALTIME_UNAVAILABLE: StatusT = B_MEDIA_ERROR_BASE + 130
+
+// Mail kit errors
+public val B_MAIL_NO_DAEMON: StatusT = B_MAIL_ERROR_BASE + 0
+
+public val B_MAIL_UNKNOWN_USER: StatusT = B_MAIL_ERROR_BASE + 1
+
+public val B_MAIL_WRONG_PASSWORD: StatusT = B_MAIL_ERROR_BASE + 2
+
+public val B_MAIL_UNKNOWN_HOST: StatusT = B_MAIL_ERROR_BASE + 3
+
+public val B_MAIL_ACCESS_ERROR: StatusT = B_MAIL_ERROR_BASE + 4
+
+public val B_MAIL_UNKNOWN_FIELD: StatusT = B_MAIL_ERROR_BASE + 5
+
+public val B_MAIL_NO_RECIPIENT: StatusT = B_MAIL_ERROR_BASE + 6
+
+public val B_MAIL_INVALID_MAIL: StatusT = B_MAIL_ERROR_BASE + 7
+
+// Print kit errors
+public val B_NO_PRINT_SERVER: StatusT = B_PRINT_ERROR_BASE + 0
+
+// Device kit errors
+public val B_DEV_INVALID_IOCTL: StatusT = B_DEVICE_ERROR_BASE + 0
+
+public val B_DEV_NO_MEMORY: StatusT = B_DEVICE_ERROR_BASE + 1
+
+public val B_DEV_BAD_DRIVE_NUM: StatusT = B_DEVICE_ERROR_BASE + 2
+
+public val B_DEV_NO_MEDIA: StatusT = B_DEVICE_ERROR_BASE + 3
+
+public val B_DEV_UNREADABLE: StatusT = B_DEVICE_ERROR_BASE + 4
+
+public val B_DEV_FORMAT_ERROR: StatusT = B_DEVICE_ERROR_BASE + 5
+
+public val B_DEV_TIMEOUT: StatusT = B_DEVICE_ERROR_BASE + 6
+
+public val B_DEV_RECALIBRATE_ERROR: StatusT = B_DEVICE_ERROR_BASE + 7
+
+public val B_DEV_SEEK_ERROR: StatusT = B_DEVICE_ERROR_BASE + 8
+
+public val B_DEV_ID_ERROR: StatusT = B_DEVICE_ERROR_BASE + 9
+
+public val B_DEV_READ_ERROR: StatusT = B_DEVICE_ERROR_BASE + 10
+
+public val B_DEV_WRITE_ERROR: StatusT = B_DEVICE_ERROR_BASE + 11
+
+public val B_DEV_NOT_READY: StatusT = B_DEVICE_ERROR_BASE + 12
+
+public val B_DEV_MEDIA_CHANGED: StatusT = B_DEVICE_ERROR_BASE + 13
+
+public val B_DEV_MEDIA_CHANGE_REQUESTED: StatusT = B_DEVICE_ERROR_BASE + 14
+
+public val B_DEV_RESOURCE_CONFLICT: StatusT = B_DEVICE_ERROR_BASE + 15
+
+public val B_DEV_CONFIGURATION_ERROR: StatusT = B_DEVICE_ERROR_BASE + 16
+
+public val B_DEV_DISABLED_BY_USER: StatusT = B_DEVICE_ERROR_BASE + 17
+
+public val B_DEV_DOOR_OPEN: StatusT = B_DEVICE_ERROR_BASE + 18
+
+public val B_DEV_INVALID_PIPE: StatusT = B_DEVICE_ERROR_BASE + 19
+
+public val B_DEV_CRC_ERROR: StatusT = B_DEVICE_ERROR_BASE + 20
+
+public val B_DEV_STALLED: StatusT = B_DEVICE_ERROR_BASE + 21
+
+public val B_DEV_BAD_PID: StatusT = B_DEVICE_ERROR_BASE + 22
+
+public val B_DEV_UNEXPECTED_PID: StatusT = B_DEVICE_ERROR_BASE + 23
+
+public val B_DEV_DATA_OVERRUN: StatusT = B_DEVICE_ERROR_BASE + 24
+
+public val B_DEV_DATA_UNDERRUN: StatusT = B_DEVICE_ERROR_BASE + 25
+
+public val B_DEV_FIFO_OVERRUN: StatusT = B_DEVICE_ERROR_BASE + 26
+
+public val B_DEV_FIFO_UNDERRUN: StatusT = B_DEVICE_ERROR_BASE + 27
+
+public val B_DEV_PENDING: StatusT = B_DEVICE_ERROR_BASE + 28
+
+public val B_DEV_MULTIPLE_ERRORS: StatusT = B_DEVICE_ERROR_BASE + 29
+
+public val B_DEV_TOO_LATE: StatusT = B_DEVICE_ERROR_BASE + 30
+
+// translation kit errors
+public val B_TRANSLATION_BASE_ERROR: StatusT = B_TRANSLATION_ERROR_BASE + 0
+
+public val B_NO_TRANSLATOR: StatusT = B_TRANSLATION_ERROR_BASE + 1
+
+public val B_ILLEGAL_DATA: StatusT = B_TRANSLATION_ERROR_BASE + 2
+
+// support/TypeConstants.h
+public val B_AFFINE_TRANSFORM_TYPE: UInt = (('A'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('X'.toUInt())
+
+public val B_ALIGNMENT_TYPE: UInt = (('A'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('G'.toUInt()) shl 8) + ('N'.toUInt())
+
+public val B_ANY_TYPE: UInt = (('A'.toUInt()) shl 24) + (('N'.toUInt()) shl 16) + (('Y'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_ATOM_TYPE: UInt = (('A'.toUInt()) shl 24) + (('T'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('M'.toUInt())
+
+public val B_ATOMREF_TYPE: UInt = (('A'.toUInt()) shl 24) + (('T'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('R'.toUInt())
+
+public val B_BOOL_TYPE: UInt = (('B'.toUInt()) shl 24) + (('O'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('L'.toUInt())
+
+public val B_CHAR_TYPE: UInt = (('C'.toUInt()) shl 24) + (('H'.toUInt()) shl 16) + (('A'.toUInt()) shl 8) + ('R'.toUInt())
+
+public val B_COLOR_8_BIT_TYPE: UInt = (('C'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('R'.toUInt()) shl 8) + ('B'.toUInt())
+
+public val B_DOUBLE_TYPE: UInt = (('D'.toUInt()) shl 24) + (('B'.toUInt()) shl 16) + (('L'.toUInt()) shl 8) + ('E'.toUInt())
+
+public val B_FLOAT_TYPE: UInt = (('F'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_GRAYSCALE_8_BIT_TYPE: UInt = (('G'.toUInt()) shl 24) + (('R'.toUInt()) shl 16) + (('Y'.toUInt()) shl 8) + ('B'.toUInt())
+
+public val B_INT16_TYPE: UInt = (('S'.toUInt()) shl 24) + (('H'.toUInt()) shl 16) + (('R'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_INT32_TYPE: UInt = (('L'.toUInt()) shl 24) + (('O'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+
+public val B_INT64_TYPE: UInt = (('L'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+
+public val B_INT8_TYPE: UInt = (('B'.toUInt()) shl 24) + (('Y'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('E'.toUInt())
+
+public val B_LARGE_ICON_TYPE: UInt = (('I'.toUInt()) shl 24) + (('C'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('N'.toUInt())
+
+public val B_MEDIA_PARAMETER_GROUP_TYPE: UInt = (('B'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('G'.toUInt())
+
+public val B_MEDIA_PARAMETER_TYPE: UInt = (('B'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_MEDIA_PARAMETER_WEB_TYPE: UInt = (('B'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('W'.toUInt())
+
+public val B_MESSAGE_TYPE: UInt = (('M'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('G'.toUInt()) shl 8) + ('G'.toUInt())
+
+public val B_MESSENGER_TYPE: UInt = (('M'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+
+public val B_MIME_TYPE: UInt = (('M'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('E'.toUInt())
+
+public val B_MINI_ICON_TYPE: UInt = (('M'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('N'.toUInt())
+
+public val B_MONOCHROME_1_BIT_TYPE: UInt = (('M'.toUInt()) shl 24) + (('N'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('B'.toUInt())
+
+public val B_OBJECT_TYPE: UInt = (('O'.toUInt()) shl 24) + (('P'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+
+public val B_OFF_T_TYPE: UInt = (('O'.toUInt()) shl 24) + (('F'.toUInt()) shl 16) + (('F'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_PATTERN_TYPE: UInt = (('P'.toUInt()) shl 24) + (('A'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('N'.toUInt())
+
+public val B_POINTER_TYPE: UInt = (('P'.toUInt()) shl 24) + (('N'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+
+public val B_POINT_TYPE: UInt = (('B'.toUInt()) shl 24) + (('P'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_PROPERTY_INFO_TYPE: UInt = (('S'.toUInt()) shl 24) + (('C'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('D'.toUInt())
+
+public val B_RAW_TYPE: UInt = (('R'.toUInt()) shl 24) + (('A'.toUInt()) shl 16) + (('W'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_RECT_TYPE: UInt = (('R'.toUInt()) shl 24) + (('E'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_REF_TYPE: UInt = (('R'.toUInt()) shl 24) + (('R'.toUInt()) shl 16) + (('E'.toUInt()) shl 8) + ('F'.toUInt())
+
+public val B_RGB_32_BIT_TYPE: UInt = (('R'.toUInt()) shl 24) + (('G'.toUInt()) shl 16) + (('B'.toUInt()) shl 8) + ('B'.toUInt())
+
+public val B_RGB_COLOR_TYPE: UInt = (('R'.toUInt()) shl 24) + (('G'.toUInt()) shl 16) + (('B'.toUInt()) shl 8) + ('C'.toUInt())
+
+public val B_SIZE_TYPE: UInt = (('S'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('Z'.toUInt()) shl 8) + ('E'.toUInt())
+
+public val B_SIZE_T_TYPE: UInt = (('S'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('Z'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_SSIZE_T_TYPE: UInt = (('S'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('Z'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_STRING_TYPE: UInt = (('C'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+
+public val B_STRING_LIST_TYPE: UInt = (('S'.toUInt()) shl 24) + (('T'.toUInt()) shl 16) + (('R'.toUInt()) shl 8) + ('L'.toUInt())
+
+public val B_TIME_TYPE: UInt = (('T'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('E'.toUInt())
+
+public val B_UINT16_TYPE: UInt = (('U'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('H'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_UINT32_TYPE: UInt = (('U'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+
+public val B_UINT64_TYPE: UInt = (('U'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('L'.toUInt()) shl 8) + ('G'.toUInt())
+
+public val B_UINT8_TYPE: UInt = (('U'.toUInt()) shl 24) + (('B'.toUInt()) shl 16) + (('Y'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_VECTOR_ICON_TYPE: UInt = (('V'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('N'.toUInt())
+
+public val B_XATTR_TYPE: UInt = (('X'.toUInt()) shl 24) + (('A'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+
+public val B_NETWORK_ADDRESS_TYPE: UInt = (('N'.toUInt()) shl 24) + (('W'.toUInt()) shl 16) + (('A'.toUInt()) shl 8) + ('D'.toUInt())
+
+public val B_MIME_STRING_TYPE: UInt = (('M'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('S'.toUInt())
+
+public val B_ASCII_TYPE: UInt = (('T'.toUInt()) shl 24) + (('E'.toUInt()) shl 16) + (('X'.toUInt()) shl 8) + ('T'.toUInt())
+
+public val B_APP_IMAGE_SYMBOL: COpaquePointer? = nullVal()
+
+// kernel/OS.h
+public fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId {
+    val __cstr_0 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("create_area", -1, longArrayOf(__cstr_0, startAddress?.value ?: 0L, addressSpec.toLong(), size.toLong(), lock.toLong(), protection.toLong())).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun cloneArea(name: String?, destAddress: COpaquePointer?, addressSpec: UInt, protection: UInt, source: AreaId): AreaId {
+    val __cstr_0 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("clone_area", -1, longArrayOf(__cstr_0, destAddress?.value ?: 0L, addressSpec.toLong(), protection.toLong(), source.toLong())).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun findArea(name: String?): AreaId {
+    val __cstr_0 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("find_area", -1, longArrayOf(__cstr_0)).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun areaFor(address: COpaquePointer?): AreaId {
+    return LibcDynamicFfi.invoke("area_for", -1, longArrayOf(address?.value ?: 0L)).toInt()
+}
+
+public fun deleteArea(id: AreaId): StatusT {
+    return LibcDynamicFfi.invoke("delete_area", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun resizeArea(id: AreaId, newSize: ULong): StatusT {
+    return LibcDynamicFfi.invoke("resize_area", -1, longArrayOf(id.toLong(), newSize.toLong())).toInt()
+}
+
+public fun setAreaProtection(id: AreaId, newProtection: UInt): StatusT {
+    return LibcDynamicFfi.invoke("set_area_protection", -1, longArrayOf(id.toLong(), newProtection.toLong())).toInt()
+}
+
+public fun getAreaInfo(id: AreaId, areaInfo: AreaInfo?, size: ULong): StatusT {
+    return LibcDynamicFfi.invoke("_get_area_info", -1, longArrayOf(id.toLong(), areaInfo?.value ?: 0L, size.toLong())).toInt()
+}
+
+public fun getNextAreaInfo(team: TeamId, cookie: Long?, areaInfo: AreaInfo?, size: ULong): StatusT {
+    val __slot_1 = if (cookie == null) 0L else LibcDynamicFfi.allocScalarSlot(cookie)
+    try {
+        return LibcDynamicFfi.invoke("_get_next_area_info", -1, longArrayOf(team.toLong(), __slot_1, areaInfo?.value ?: 0L, size.toLong())).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun createPort(capacity: Int, name: String?): PortId {
+    val __cstr_1 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("create_port", -1, longArrayOf(capacity.toLong(), __cstr_1)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun findPort(name: String?): PortId {
+    val __cstr_0 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("find_port", -1, longArrayOf(__cstr_0)).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun readPort(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: SizeT): SsizeT {
+    val __slot_1 = if (code == null) 0L else LibcDynamicFfi.allocScalarSlot(code.toLong())
+    try {
+        return LibcDynamicFfi.invoke("read_port", -1, longArrayOf(port.toLong(), __slot_1, buffer?.value ?: 0L, bufferSize.toLong()))
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun readPortEtc(port: PortId, code: Int?, buffer: COpaquePointer?, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): SsizeT {
+    val __slot_1 = if (code == null) 0L else LibcDynamicFfi.allocScalarSlot(code.toLong())
+    try {
+        return LibcDynamicFfi.invoke("read_port_etc", -1, longArrayOf(port.toLong(), __slot_1, buffer?.value ?: 0L, bufferSize.toLong(), flags.toLong(), timeout))
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun writePort(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("write_port", -1, longArrayOf(port.toLong(), code.toLong(), buffer?.value ?: 0L, bufferSize.toLong())).toInt()
+}
+
+public fun writePortEtc(port: PortId, code: Int, buffer: COpaquePointer?, bufferSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT {
+    return LibcDynamicFfi.invoke("write_port_etc", -1, longArrayOf(port.toLong(), code.toLong(), buffer?.value ?: 0L, bufferSize.toLong(), flags.toLong(), timeout)).toInt()
+}
+
+public fun closePort(port: PortId): StatusT {
+    return LibcDynamicFfi.invoke("close_port", -1, longArrayOf(port.toLong())).toInt()
+}
+
+public fun deletePort(port: PortId): StatusT {
+    return LibcDynamicFfi.invoke("delete_port", -1, longArrayOf(port.toLong())).toInt()
+}
+
+public fun portBufferSize(port: PortId): SsizeT {
+    return LibcDynamicFfi.invoke("port_buffer_size", -1, longArrayOf(port.toLong()))
+}
+
+public fun portBufferSizeEtc(port: PortId, flags: UInt, timeout: BigtimeT): SsizeT {
+    return LibcDynamicFfi.invoke("port_buffer_size_etc", -1, longArrayOf(port.toLong(), flags.toLong(), timeout))
+}
+
+public fun portCount(port: PortId): SsizeT {
+    return LibcDynamicFfi.invoke("port_count", -1, longArrayOf(port.toLong()))
+}
+
+public fun setPortOwner(port: PortId, team: TeamId): StatusT {
+    return LibcDynamicFfi.invoke("set_port_owner", -1, longArrayOf(port.toLong(), team.toLong())).toInt()
+}
+
+public fun getPortInfo(port: PortId, buf: PortInfo?, portInfoSize: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_port_info", -1, longArrayOf(port.toLong(), buf?.value ?: 0L, portInfoSize.toLong())).toInt()
+}
+
+public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?, portInfoSize: SizeT): StatusT {
+    val __slot_1 = if (cookie == null) 0L else LibcDynamicFfi.allocScalarSlot(cookie.toLong())
+    try {
+        return LibcDynamicFfi.invoke("_get_next_port_info", -1, longArrayOf(port.toLong(), __slot_1, portInfo?.value ?: 0L, portInfoSize.toLong())).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, infoSize: SizeT, flags: UInt, timeout: BigtimeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_port_message_info_etc", -1, longArrayOf(port.toLong(), info?.value ?: 0L, infoSize.toLong(), flags.toLong(), timeout)).toInt()
+}
+
+public fun createSem(count: Int, name: String?): SemId {
+    val __cstr_1 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("create_sem", -1, longArrayOf(count.toLong(), __cstr_1)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun deleteSem(id: SemId): StatusT {
+    return LibcDynamicFfi.invoke("delete_sem", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun acquireSem(id: SemId): StatusT {
+    return LibcDynamicFfi.invoke("acquire_sem", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun acquireSemEtc(id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT {
+    return LibcDynamicFfi.invoke("acquire_sem_etc", -1, longArrayOf(id.toLong(), count.toLong(), flags.toLong(), timeout)).toInt()
+}
+
+public fun releaseSem(id: SemId): StatusT {
+    return LibcDynamicFfi.invoke("release_sem", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun releaseSemEtc(id: SemId, count: Int, flags: UInt): StatusT {
+    return LibcDynamicFfi.invoke("release_sem_etc", -1, longArrayOf(id.toLong(), count.toLong(), flags.toLong())).toInt()
+}
+
+public fun switchSem(semToBeReleased: SemId, id: SemId): StatusT {
+    return LibcDynamicFfi.invoke("switch_sem", -1, longArrayOf(semToBeReleased.toLong(), id.toLong())).toInt()
+}
+
+public fun switchSemEtc(semToBeReleased: SemId, id: SemId, count: Int, flags: UInt, timeout: BigtimeT): StatusT {
+    return LibcDynamicFfi.invoke("switch_sem_etc", -1, longArrayOf(semToBeReleased.toLong(), id.toLong(), count.toLong(), flags.toLong(), timeout)).toInt()
+}
+
+public fun getSemCount(id: SemId, threadCount: Int?): StatusT {
+    val __slot_1 = if (threadCount == null) 0L else LibcDynamicFfi.allocScalarSlot(threadCount.toLong())
+    try {
+        return LibcDynamicFfi.invoke("get_sem_count", -1, longArrayOf(id.toLong(), __slot_1)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun setSemOwner(id: SemId, team: TeamId): StatusT {
+    return LibcDynamicFfi.invoke("set_sem_owner", -1, longArrayOf(id.toLong(), team.toLong())).toInt()
+}
+
+public fun getSemInfo(id: SemId, info: SemInfo?, infoSize: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_sem_info", -1, longArrayOf(id.toLong(), info?.value ?: 0L, infoSize.toLong())).toInt()
+}
+
+public fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?, infoSize: SizeT): StatusT {
+    val __slot_1 = if (cookie == null) 0L else LibcDynamicFfi.allocScalarSlot(cookie.toLong())
+    try {
+        return LibcDynamicFfi.invoke("_get_next_sem_info", -1, longArrayOf(team.toLong(), __slot_1, info?.value ?: 0L, infoSize.toLong())).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun killTeam(team: TeamId): StatusT {
+    return LibcDynamicFfi.invoke("kill_team", -1, longArrayOf(team.toLong())).toInt()
+}
+
+public fun getTeamInfo(team: TeamId, info: TeamInfo?, size: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_team_info", -1, longArrayOf(team.toLong(), info?.value ?: 0L, size.toLong())).toInt()
+}
+
+public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?, size: SizeT): StatusT {
+    val __slot_0 = if (cookie == null) 0L else LibcDynamicFfi.allocScalarSlot(cookie.toLong())
+    try {
+        return LibcDynamicFfi.invoke("_get_next_team_info", -1, longArrayOf(__slot_0, info?.value ?: 0L, size.toLong())).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+    }
+}
+
+public fun spawnThread(func: ThreadFunc, name: String?, priority: Int, data: COpaquePointer?): ThreadId {
+    val __scratch_0 = LibcDynamicFfi.allocZeroed(4096)
+    val __cstr_1 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("spawn_thread", -1, longArrayOf(__scratch_0, __cstr_1, priority.toLong(), data?.value ?: 0L)).toInt()
+    } finally {
+        if (__scratch_0 != 0L) LibcDynamicFfi.freeMem(__scratch_0)
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun killThread(thread: ThreadId): StatusT {
+    return LibcDynamicFfi.invoke("kill_thread", -1, longArrayOf(thread.toLong())).toInt()
+}
+
+public fun resumeThread(thread: ThreadId): StatusT {
+    return LibcDynamicFfi.invoke("resume_thread", -1, longArrayOf(thread.toLong())).toInt()
+}
+
+public fun suspendThread(thread: ThreadId): StatusT {
+    return LibcDynamicFfi.invoke("suspend_thread", -1, longArrayOf(thread.toLong())).toInt()
+}
+
+public fun renameThread(thread: ThreadId, newName: String?): StatusT {
+    val __cstr_1 = if (newName == null) 0L else LibcDynamicFfi.allocUtf8CString(newName)
+    try {
+        return LibcDynamicFfi.invoke("rename_thread", -1, longArrayOf(thread.toLong(), __cstr_1)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun setThreadPriority(thread: ThreadId, newPriority: Int): StatusT {
+    return LibcDynamicFfi.invoke("set_thread_priority", -1, longArrayOf(thread.toLong(), newPriority.toLong())).toInt()
+}
+
+public fun suggestThreadPriority(what: UInt, period: Int, jitter: BigtimeT, length: BigtimeT): Int {
+    return LibcDynamicFfi.invoke("suggest_thread_priority", -1, longArrayOf(what.toLong(), period.toLong(), jitter, length)).toInt()
+}
+
+public fun estimateMaxSchedulingLatency(th: ThreadId): BigtimeT {
+    return LibcDynamicFfi.invoke("estimate_max_scheduling_latency", -1, longArrayOf(th.toLong()))
+}
+
+public fun exitThread(status: StatusT) {
+    LibcDynamicFfi.invoke("exit_thread", -1, longArrayOf(status.toLong()))
+}
+
+public fun waitForThread(thread: ThreadId, returnValue: Int?): StatusT {
+    val __slot_1 = if (returnValue == null) 0L else LibcDynamicFfi.allocScalarSlot(returnValue.toLong())
+    try {
+        return LibcDynamicFfi.invoke("wait_for_thread", -1, longArrayOf(thread.toLong(), __slot_1)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun onExitThread(callback: OnExitThreadCallbackCallback, data: COpaquePointer?): StatusT {
+    val __scratch_0 = LibcDynamicFfi.allocZeroed(4096)
+    try {
+        return LibcDynamicFfi.invoke("on_exit_thread", -1, longArrayOf(__scratch_0, data?.value ?: 0L)).toInt()
+    } finally {
+        if (__scratch_0 != 0L) LibcDynamicFfi.freeMem(__scratch_0)
+    }
+}
+
+public fun findThread(name: String?): ThreadId {
+    val __cstr_0 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("find_thread", -1, longArrayOf(__cstr_0)).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun getSchedulerMode(): Int {
+    return LibcDynamicFfi.invoke("get_scheduler_mode", -1, longArrayOf()).toInt()
+}
+
+public fun setSchedulerMode(mode: Int): StatusT {
+    return LibcDynamicFfi.invoke("set_scheduler_mode", -1, longArrayOf(mode.toLong())).toInt()
+}
+
+public fun sendData(thread: ThreadId, code: Int, buffer: COpaquePointer?, bufferSize: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("send_data", -1, longArrayOf(thread.toLong(), code.toLong(), buffer?.value ?: 0L, bufferSize.toLong())).toInt()
+}
+
+public fun receiveData(sender: Int?, buffer: COpaquePointer?, bufferSize: SizeT): Int {
+    val __slot_0 = if (sender == null) 0L else LibcDynamicFfi.allocScalarSlot(sender.toLong())
+    try {
+        return LibcDynamicFfi.invoke("receive_data", -1, longArrayOf(__slot_0, buffer?.value ?: 0L, bufferSize.toLong())).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+    }
+}
+
+public fun hasData(thread: ThreadId): Boolean {
+    val rawRet = LibcDynamicFfi.invoke("has_data", -1, longArrayOf(thread.toLong()))
+    return (rawRet and 0xFFL) != 0L
+}
+
+public fun snooze(amount: BigtimeT): StatusT {
+    return LibcDynamicFfi.invoke("snooze", -1, longArrayOf(amount)).toInt()
+}
+
+public fun snoozeEtc(amount: BigtimeT, timeBase: CInt, flags: UInt): StatusT {
+    return LibcDynamicFfi.invoke("snooze_etc", -1, longArrayOf(amount, timeBase.toLong(), flags.toLong())).toInt()
+}
+
+public fun snoozeUntil(time: BigtimeT, timeBase: CInt): StatusT {
+    return LibcDynamicFfi.invoke("snooze_until", -1, longArrayOf(time, timeBase.toLong())).toInt()
+}
+
+public fun getThreadInfo(id: ThreadId, info: ThreadInfo?, size: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_thread_info", -1, longArrayOf(id.toLong(), info?.value ?: 0L, size.toLong())).toInt()
+}
+
+public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?, size: SizeT): StatusT {
+    val __slot_1 = if (cookie == null) 0L else LibcDynamicFfi.allocScalarSlot(cookie.toLong())
+    try {
+        return LibcDynamicFfi.invoke("_get_next_thread_info", -1, longArrayOf(team.toLong(), __slot_1, info?.value ?: 0L, size.toLong())).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun getPthreadThreadId(thread: PthreadT): ThreadId {
+    return LibcDynamicFfi.invoke("get_pthread_thread_id", -1, longArrayOf(thread.toLong())).toInt()
+}
+
+public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?, size: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_team_usage_info", -1, longArrayOf(team.toLong(), who.toLong(), info?.value ?: 0L, size.toLong())).toInt()
+}
+
+public fun realTimeClock(): CUlong {
+    return LibcDynamicFfi.invoke("real_time_clock", -1, longArrayOf()).toULong()
+}
+
+public fun setRealTimeClock(secsSinceJan1st1970: CUlong) {
+    LibcDynamicFfi.invoke("set_real_time_clock", -1, longArrayOf(secsSinceJan1st1970.toLong()))
+}
+
+public fun realTimeClockUsecs(): BigtimeT {
+    return LibcDynamicFfi.invoke("real_time_clock_usecs", -1, longArrayOf())
+}
+
+public fun systemTime(): BigtimeT {
+    return LibcDynamicFfi.invoke("system_time", -1, longArrayOf())
+}
+
+public fun systemTimeNsecs(): NanotimeT {
+    return LibcDynamicFfi.invoke("system_time_nsecs", -1, longArrayOf())
+}
+
+// setTimezone() is deprecated and a no-op
+public fun setAlarm(whenBranch: BigtimeT, flags: UInt): BigtimeT {
+    return LibcDynamicFfi.invoke("set_alarm", -1, longArrayOf(whenBranch, flags.toLong()))
+}
+
+public fun debugger(message: String?) {
+    val __cstr_0 = if (message == null) 0L else LibcDynamicFfi.allocUtf8CString(message)
+    try {
+        LibcDynamicFfi.invoke("debugger", -1, longArrayOf(__cstr_0))
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun disableDebugger(state: CInt): CInt {
+    return LibcDynamicFfi.invoke("disable_debugger", -1, longArrayOf(state.toLong())).toInt()
+}
+
+public fun getSystemInfo(info: SystemInfo?): StatusT {
+    return LibcDynamicFfi.invoke("get_system_info", -1, longArrayOf(info?.value ?: 0L)).toInt()
+}
+
+public fun getCpuInfoEtc(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?, size: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_cpu_info_etc", -1, longArrayOf(firstCPU.toLong(), cpuCount.toLong(), info?.value ?: 0L, size.toLong())).toInt()
+}
+
+public fun getCpuTopologyInfo(topologyInfos: CpuTopologyNodeInfo?, topologyInfoCount: UInt?): StatusT {
+    val __slot_1 = if (topologyInfoCount == null) 0L else LibcDynamicFfi.allocScalarSlot(topologyInfoCount.toLong())
+    try {
+        return LibcDynamicFfi.invoke("get_cpu_topology_info", -1, longArrayOf(topologyInfos?.value ?: 0L, __slot_1)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun isComputerOn(): Int {
+    return LibcDynamicFfi.invoke("is_computer_on", -1, longArrayOf()).toInt()
+}
+
+public fun isComputerOnFire(): CDouble {
+    return LibcDynamicFfi.invokeFp("is_computer_on_fire", 0, false, longArrayOf())
+}
+
+public fun sendSignal(threadID: ThreadId, signal: CUint): CInt {
+    return LibcDynamicFfi.invoke("send_signal", -1, longArrayOf(threadID.toLong(), signal.toLong())).toInt()
+}
+
+public fun setSignalStack(base: COpaquePointer?, size: SizeT) {
+    LibcDynamicFfi.invoke("set_signal_stack", -1, longArrayOf(base?.value ?: 0L, size.toLong()))
+}
+
+public fun waitForObjects(infos: ObjectWaitInfo?, numInfos: CInt): SsizeT {
+    return LibcDynamicFfi.invoke("wait_for_objects", -1, longArrayOf(infos?.value ?: 0L, numInfos.toLong()))
+}
+
+public fun waitForObjectsEtc(infos: ObjectWaitInfo?, numInfos: CInt, flags: UInt, timeout: BigtimeT): SsizeT {
+    return LibcDynamicFfi.invoke("wait_for_objects_etc", -1, longArrayOf(infos?.value ?: 0L, numInfos.toLong(), flags.toLong(), timeout))
+}
+
+// kernel/fsAttr.h
+public fun fsReadAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, readBytes: SizeT): SsizeT {
+    val __cstr_1 = if (attribute == null) 0L else LibcDynamicFfi.allocUtf8CString(attribute)
+    try {
+        return LibcDynamicFfi.invoke("fs_read_attr", -1, longArrayOf(fd.toLong(), __cstr_1, type.toLong(), pos, buffer?.value ?: 0L, readBytes.toLong()))
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsWriteAttr(fd: CInt, attribute: String?, type: UInt, pos: OffT, buffer: COpaquePointer?, writeBytes: SizeT): SsizeT {
+    val __cstr_1 = if (attribute == null) 0L else LibcDynamicFfi.allocUtf8CString(attribute)
+    try {
+        return LibcDynamicFfi.invoke("fs_write_attr", -1, longArrayOf(fd.toLong(), __cstr_1, type.toLong(), pos, buffer?.value ?: 0L, writeBytes.toLong()))
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsRemoveAttr(fd: CInt, attribute: String?): CInt {
+    val __cstr_1 = if (attribute == null) 0L else LibcDynamicFfi.allocUtf8CString(attribute)
+    try {
+        return LibcDynamicFfi.invoke("fs_remove_attr", -1, longArrayOf(fd.toLong(), __cstr_1)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsStatAttr(fd: CInt, attribute: String?, attrInfo: AttrInfo?): CInt {
+    val __cstr_1 = if (attribute == null) 0L else LibcDynamicFfi.allocUtf8CString(attribute)
+    try {
+        return LibcDynamicFfi.invoke("fs_stat_attr", -1, longArrayOf(fd.toLong(), __cstr_1, attrInfo?.value ?: 0L)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsOpenAttr(path: String?, attribute: String?, type: UInt, openMode: CInt): CInt {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    val __cstr_1 = if (attribute == null) 0L else LibcDynamicFfi.allocUtf8CString(attribute)
+    try {
+        return LibcDynamicFfi.invoke("fs_open_attr", -1, longArrayOf(__cstr_0, __cstr_1, type.toLong(), openMode.toLong())).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsFopenAttr(fd: CInt, attribute: String?, type: UInt, openMode: CInt): CInt {
+    val __cstr_1 = if (attribute == null) 0L else LibcDynamicFfi.allocUtf8CString(attribute)
+    try {
+        return LibcDynamicFfi.invoke("fs_fopen_attr", -1, longArrayOf(fd.toLong(), __cstr_1, type.toLong(), openMode.toLong())).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsCloseAttr(fd: CInt): CInt {
+    return LibcDynamicFfi.invoke("fs_close_attr", -1, longArrayOf(fd.toLong())).toInt()
+}
+
+public fun fsOpenAttrDir(path: String?): DIR? {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    try {
+        val rawRet = LibcDynamicFfi.invoke("fs_open_attr_dir", -1, longArrayOf(__cstr_0))
+        return if (rawRet == 0L) null else DIR(rawRet)
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun fsLopenAttrDir(path: String?): DIR? {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    try {
+        val rawRet = LibcDynamicFfi.invoke("fs_lopen_attr_dir", -1, longArrayOf(__cstr_0))
+        return if (rawRet == 0L) null else DIR(rawRet)
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun fsFopenAttrDir(fd: CInt): DIR? {
+    val rawRet = LibcDynamicFfi.invoke("fs_fopen_attr_dir", -1, longArrayOf(fd.toLong()))
+    return if (rawRet == 0L) null else DIR(rawRet)
+}
+
+public fun fsCloseAttrDir(dir: DIR?): CInt {
+    return LibcDynamicFfi.invoke("fs_close_attr_dir", -1, longArrayOf(dir?.handle ?: 0L)).toInt()
+}
+
+public fun fsReadAttrDir(dir: DIR?): Dirent? {
+    val rawRet = LibcDynamicFfi.invoke("fs_read_attr_dir", -1, longArrayOf(dir?.handle ?: 0L))
+    return if (rawRet == 0L) null else COpaquePointer(rawRet)
+}
+
+public fun fsRewindAttrDir(dir: DIR?) {
+    LibcDynamicFfi.invoke("fs_rewind_attr_dir", -1, longArrayOf(dir?.handle ?: 0L))
+}
+
+// kernel/fsImage.h
+public fun fsCreateIndex(device: DevT, name: String?, type: UInt, flags: UInt): CInt {
+    val __cstr_1 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("fs_create_index", -1, longArrayOf(device.toLong(), __cstr_1, type.toLong(), flags.toLong())).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsRemoveIndex(device: DevT, name: String?): CInt {
+    val __cstr_1 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("fs_remove_index", -1, longArrayOf(device.toLong(), __cstr_1)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsStatIndex(device: DevT, name: String?, indexInfo: IndexInfo?): CInt {
+    val __cstr_1 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("fs_stat_index", -1, longArrayOf(device.toLong(), __cstr_1, indexInfo?.value ?: 0L)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsOpenIndexDir(device: DevT): DIR? {
+    val rawRet = LibcDynamicFfi.invoke("fs_open_index_dir", -1, longArrayOf(device.toLong()))
+    return if (rawRet == 0L) null else DIR(rawRet)
+}
+
+public fun fsCloseIndexDir(indexDirectory: DIR?): CInt {
+    return LibcDynamicFfi.invoke("fs_close_index_dir", -1, longArrayOf(indexDirectory?.handle ?: 0L)).toInt()
+}
+
+public fun fsReadIndexDir(indexDirectory: DIR?): Dirent? {
+    val rawRet = LibcDynamicFfi.invoke("fs_read_index_dir", -1, longArrayOf(indexDirectory?.handle ?: 0L))
+    return if (rawRet == 0L) null else COpaquePointer(rawRet)
+}
+
+public fun fsRewindIndexDir(indexDirectory: DIR?) {
+    LibcDynamicFfi.invoke("fs_rewind_index_dir", -1, longArrayOf(indexDirectory?.handle ?: 0L))
+}
+
+// kernel/fsInfo.h
+public fun devForPath(path: String?): DevT {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    try {
+        return LibcDynamicFfi.invoke("dev_for_path", -1, longArrayOf(__cstr_0)).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun nextDev(pos: Int?): DevT {
+    val __slot_0 = if (pos == null) 0L else LibcDynamicFfi.allocScalarSlot(pos.toLong())
+    try {
+        return LibcDynamicFfi.invoke("next_dev", -1, longArrayOf(__slot_0)).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+    }
+}
+
+public fun fsStatDev(dev: DevT, info: FsInfo?): CInt {
+    return LibcDynamicFfi.invoke("fs_stat_dev", -1, longArrayOf(dev.toLong(), info?.value ?: 0L)).toInt()
+}
+
+// kernel/fsQuery.h
+public fun fsOpenQuery(device: DevT, query: String?, flags: UInt): DIR? {
+    val __cstr_1 = if (query == null) 0L else LibcDynamicFfi.allocUtf8CString(query)
+    try {
+        val rawRet = LibcDynamicFfi.invoke("fs_open_query", -1, longArrayOf(device.toLong(), __cstr_1, flags.toLong()))
+        return if (rawRet == 0L) null else DIR(rawRet)
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsOpenLiveQuery(device: DevT, query: String?, flags: UInt, port: PortId, token: Int): DIR? {
+    val __cstr_1 = if (query == null) 0L else LibcDynamicFfi.allocUtf8CString(query)
+    try {
+        val rawRet = LibcDynamicFfi.invoke("fs_open_live_query", -1, longArrayOf(device.toLong(), __cstr_1, flags.toLong(), port.toLong(), token.toLong()))
+        return if (rawRet == 0L) null else DIR(rawRet)
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun fsCloseQuery(d: DIR?): CInt {
+    return LibcDynamicFfi.invoke("fs_close_query", -1, longArrayOf(d?.handle ?: 0L)).toInt()
+}
+
+public fun fsReadQuery(d: DIR?): Dirent? {
+    val rawRet = LibcDynamicFfi.invoke("fs_read_query", -1, longArrayOf(d?.handle ?: 0L))
+    return if (rawRet == 0L) null else COpaquePointer(rawRet)
+}
+
+public fun getPathForDirent(dent: Dirent?, buf: COpaquePointer?, len: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("get_path_for_dirent", -1, longArrayOf(dent?.value ?: 0L, buf?.value ?: 0L, len.toLong())).toInt()
+}
+
+// kernel/fsVolume.h
+public fun fsMountVolume(where: String?, device: String?, filesystem: String?, flags: UInt, parameters: String?): DevT {
+    val __cstr_0 = if (where == null) 0L else LibcDynamicFfi.allocUtf8CString(where)
+    val __cstr_1 = if (device == null) 0L else LibcDynamicFfi.allocUtf8CString(device)
+    val __cstr_2 = if (filesystem == null) 0L else LibcDynamicFfi.allocUtf8CString(filesystem)
+    val __cstr_4 = if (parameters == null) 0L else LibcDynamicFfi.allocUtf8CString(parameters)
+    try {
+        return LibcDynamicFfi.invoke("fs_mount_volume", -1, longArrayOf(__cstr_0, __cstr_1, __cstr_2, flags.toLong(), __cstr_4)).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+        if (__cstr_2 != 0L) LibcDynamicFfi.freeMem(__cstr_2)
+        if (__cstr_4 != 0L) LibcDynamicFfi.freeMem(__cstr_4)
+    }
+}
+
+public fun fsUnmountVolume(path: String?, flags: UInt): StatusT {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    try {
+        return LibcDynamicFfi.invoke("fs_unmount_volume", -1, longArrayOf(__cstr_0, flags.toLong())).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+// kernel/image.h
+public fun loadImage(argc: Int, argv: COpaquePointer?, environ: COpaquePointer?): ThreadId {
+    return LibcDynamicFfi.invoke("load_image", -1, longArrayOf(argc.toLong(), argv?.value ?: 0L, environ?.value ?: 0L)).toInt()
+}
+
+public fun loadAddOn(path: String?): ImageId {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    try {
+        return LibcDynamicFfi.invoke("load_add_on", -1, longArrayOf(__cstr_0)).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun unloadAddOn(image: ImageId): StatusT {
+    return LibcDynamicFfi.invoke("unload_add_on", -1, longArrayOf(image.toLong())).toInt()
+}
+
+public fun getImageSymbol(image: ImageId, name: String?, symbolType: Int, symbolLocation: COpaquePointer?): StatusT {
+    val __cstr_1 = if (name == null) 0L else LibcDynamicFfi.allocUtf8CString(name)
+    try {
+        return LibcDynamicFfi.invoke("get_image_symbol", -1, longArrayOf(image.toLong(), __cstr_1, symbolType.toLong(), symbolLocation?.value ?: 0L)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun getNthImageSymbol(image: ImageId, n: Int, nameBuffer: COpaquePointer?, nameLength: Int?, symbolType: Int?, symbolLocation: COpaquePointer?): StatusT {
+    val __slot_3 = if (nameLength == null) 0L else LibcDynamicFfi.allocScalarSlot(nameLength.toLong())
+    val __slot_4 = if (symbolType == null) 0L else LibcDynamicFfi.allocScalarSlot(symbolType.toLong())
+    try {
+        return LibcDynamicFfi.invoke("get_nth_image_symbol", -1, longArrayOf(image.toLong(), n.toLong(), nameBuffer?.value ?: 0L, __slot_3, __slot_4, symbolLocation?.value ?: 0L)).toInt()
+    } finally {
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+        if (__slot_4 != 0L) LibcDynamicFfi.freeMem(__slot_4)
+    }
+}
+
+public fun clearCaches(address: COpaquePointer?, length: SizeT, flags: UInt) {
+    LibcDynamicFfi.invoke("clear_caches", -1, longArrayOf(address?.value ?: 0L, length.toLong(), flags.toLong()))
+}
+
+public fun getImageInfo(image: ImageId, info: ImageInfo?, size: SizeT): StatusT {
+    return LibcDynamicFfi.invoke("_get_image_info", -1, longArrayOf(image.toLong(), info?.value ?: 0L, size.toLong())).toInt()
+}
+
+public fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?, size: SizeT): StatusT {
+    val __slot_1 = if (cookie == null) 0L else LibcDynamicFfi.allocScalarSlot(cookie.toLong())
+    try {
+        return LibcDynamicFfi.invoke("_get_next_image_info", -1, longArrayOf(team.toLong(), __slot_1, info?.value ?: 0L, size.toLong())).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun findPath(codePointer: COpaquePointer?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: COpaquePointer?, bufferSize: ULong): StatusT {
+    val __cstr_2 = if (subPath == null) 0L else LibcDynamicFfi.allocUtf8CString(subPath)
+    try {
+        return LibcDynamicFfi.invoke("find_path", -1, longArrayOf(codePointer?.value ?: 0L, baseDirectory.toLong(), __cstr_2, pathBuffer?.value ?: 0L, bufferSize.toLong())).toInt()
+    } finally {
+        if (__cstr_2 != 0L) LibcDynamicFfi.freeMem(__cstr_2)
+    }
+}
+
+public fun findPathEtc(codePointer: COpaquePointer?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: COpaquePointer?, bufferSize: SizeT): StatusT {
+    val __cstr_1 = if (dependency == null) 0L else LibcDynamicFfi.allocUtf8CString(dependency)
+    val __cstr_2 = if (architecture == null) 0L else LibcDynamicFfi.allocUtf8CString(architecture)
+    val __cstr_4 = if (subPath == null) 0L else LibcDynamicFfi.allocUtf8CString(subPath)
+    try {
+        return LibcDynamicFfi.invoke("find_path_etc", -1, longArrayOf(codePointer?.value ?: 0L, __cstr_1, __cstr_2, baseDirectory.toLong(), __cstr_4, flags.toLong(), pathBuffer?.value ?: 0L, bufferSize.toLong())).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+        if (__cstr_2 != 0L) LibcDynamicFfi.freeMem(__cstr_2)
+        if (__cstr_4 != 0L) LibcDynamicFfi.freeMem(__cstr_4)
+    }
+}
+
+public fun findPathForPath(path: String?, baseDirectory: PathBaseDirectory, subPath: String?, pathBuffer: COpaquePointer?, bufferSize: SizeT): StatusT {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    val __cstr_2 = if (subPath == null) 0L else LibcDynamicFfi.allocUtf8CString(subPath)
+    try {
+        return LibcDynamicFfi.invoke("find_path_for_path", -1, longArrayOf(__cstr_0, baseDirectory.toLong(), __cstr_2, pathBuffer?.value ?: 0L, bufferSize.toLong())).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+        if (__cstr_2 != 0L) LibcDynamicFfi.freeMem(__cstr_2)
+    }
+}
+
+public fun findPathForPathEtc(path: String?, dependency: String?, architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, pathBuffer: COpaquePointer?, bufferSize: SizeT): StatusT {
+    val __cstr_0 = if (path == null) 0L else LibcDynamicFfi.allocUtf8CString(path)
+    val __cstr_1 = if (dependency == null) 0L else LibcDynamicFfi.allocUtf8CString(dependency)
+    val __cstr_2 = if (architecture == null) 0L else LibcDynamicFfi.allocUtf8CString(architecture)
+    val __cstr_4 = if (subPath == null) 0L else LibcDynamicFfi.allocUtf8CString(subPath)
+    try {
+        return LibcDynamicFfi.invoke("find_path_for_path_etc", -1, longArrayOf(__cstr_0, __cstr_1, __cstr_2, baseDirectory.toLong(), __cstr_4, flags.toLong(), pathBuffer?.value ?: 0L, bufferSize.toLong())).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+        if (__cstr_2 != 0L) LibcDynamicFfi.freeMem(__cstr_2)
+        if (__cstr_4 != 0L) LibcDynamicFfi.freeMem(__cstr_4)
+    }
+}
+
+public fun findPaths(baseDirectory: PathBaseDirectory, subPath: String?, paths: COpaquePointer?, pathCount: SizeT?): StatusT {
+    val __cstr_1 = if (subPath == null) 0L else LibcDynamicFfi.allocUtf8CString(subPath)
+    val __slot_3 = if (pathCount == null) 0L else LibcDynamicFfi.allocScalarSlot(pathCount.toLong())
+    try {
+        return LibcDynamicFfi.invoke("find_paths", -1, longArrayOf(baseDirectory.toLong(), __cstr_1, paths?.value ?: 0L, __slot_3)).toInt()
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+    }
+}
+
+public fun findPathsEtc(architecture: String?, baseDirectory: PathBaseDirectory, subPath: String?, flags: UInt, paths: COpaquePointer?, pathCount: SizeT?): StatusT {
+    val __cstr_0 = if (architecture == null) 0L else LibcDynamicFfi.allocUtf8CString(architecture)
+    val __cstr_2 = if (subPath == null) 0L else LibcDynamicFfi.allocUtf8CString(subPath)
+    val __slot_5 = if (pathCount == null) 0L else LibcDynamicFfi.allocScalarSlot(pathCount.toLong())
+    try {
+        return LibcDynamicFfi.invoke("find_paths_etc", -1, longArrayOf(__cstr_0, baseDirectory.toLong(), __cstr_2, flags.toLong(), paths?.value ?: 0L, __slot_5)).toInt()
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+        if (__cstr_2 != 0L) LibcDynamicFfi.freeMem(__cstr_2)
+        if (__slot_5 != 0L) LibcDynamicFfi.freeMem(__slot_5)
+    }
+}
+
+public fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: Boolean, pathString: COpaquePointer?, length: Int): StatusT {
+    return LibcDynamicFfi.invoke("find_directory", -1, longArrayOf(which.toLong(), volume.toLong(), if (createIt) 1L else 0L, pathString?.value ?: 0L, length.toLong())).toInt()
+}
+
+public fun getCpuid(info: CpuidInfo?, eaxRegister: UInt, cpuNum: UInt): StatusT {
+    return LibcDynamicFfi.invoke("get_cpuid", -1, longArrayOf(info?.value ?: 0L, eaxRegister.toLong(), cpuNum.toLong())).toInt()
+}
+
+// The following functions are defined as macros in C/C++
+public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?): StatusT {
+    return getCpuInfoEtc(firstCPU, cpuCount, info, sizeOf<CpuInfo>().toULong())
+}
+
+public fun getAreaInfo(id: AreaId, info: AreaInfo?): StatusT {
+    return getAreaInfo(id, info, sizeOf<AreaInfo>().toInt())
+}
+
+public fun getNextAreaInfo(team: TeamId, cookie: Int?, info: AreaInfo?): StatusT {
+    return getNextAreaInfo(team, cookie, info, sizeOf<AreaInfo>().toInt())
+}
+
+public fun getPortInfo(port: PortId, buf: PortInfo?): StatusT {
+    return getPortInfo(port, buf, sizeOf<PortInfo>().toULong())
+}
+
+public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?): StatusT {
+    return getNextPortInfo(port, cookie, portInfo, sizeOf<PortInfo>().toULong())
+}
+
+public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, flags: UInt, timeout: BigtimeT): StatusT {
+    return getPortMessageInfoEtc(port, info, sizeOf<PortMessageInfo>().toULong(), flags, timeout)
+}
+
+public fun getSemInfo(id: SemId, info: SemInfo?): StatusT {
+    return getSemInfo(id, info, sizeOf<SemInfo>().toULong())
+}
+
+public fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?): StatusT {
+    return getNextSemInfo(team, cookie, info, sizeOf<SemInfo>().toULong())
+}
+
+public fun getTeamInfo(team: TeamId, info: TeamInfo?): StatusT {
+    return getTeamInfo(team, info, sizeOf<TeamInfo>().toULong())
+}
+
+public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?): StatusT {
+    return getNextTeamInfo(cookie, info, sizeOf<TeamInfo>().toULong())
+}
+
+public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?): StatusT {
+    return getTeamUsageInfo(team, who, info, sizeOf<TeamUsageInfo>().toULong())
+}
+
+public fun getThreadInfo(id: ThreadId, info: ThreadInfo?): StatusT {
+    return getThreadInfo(id, info, sizeOf<ThreadInfo>().toULong())
+}
+
+public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?): StatusT {
+    return getNextThreadInfo(team, cookie, info, sizeOf<ThreadInfo>().toULong())
+}
+
+// kernel/image.h
+public fun getImageInfo(image: ImageId, info: ImageInfo?): StatusT {
+    return getImageInfo(image, info, sizeOf<ImageInfo>().toULong())
+}
+
+public fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?): StatusT {
+    return getNextImageInfo(team, cookie, info, sizeOf<ImageInfo>().toULong())
+}

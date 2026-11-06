@@ -2,101 +2,157 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.CUshort
 
-public typealias GregT = Long
+public typealias GregT = CLong
 
-public typealias Elf64Addr = ULong
-public typealias Elf64Half = UShort
-public typealias Elf64Off = ULong
-public typealias Elf64Sword = Int
-public typealias Elf64Sxword = Long
-public typealias Elf64Word = UInt
-public typealias Elf64Xword = ULong
-public typealias Elf64Lword = ULong
+public typealias Elf64Addr = CUlong
+
+public typealias Elf64Half = CUshort
+
+public typealias Elf64Off = CUlong
+
+public typealias Elf64Sword = CInt
+
+public typealias Elf64Sxword = CLong
+
+public typealias Elf64Word = CUint
+
+public typealias Elf64Xword = CUlong
+
+public typealias Elf64Lword = CUlong
+
 public typealias Elf64Phdr = CAnonymousElf64Phdr
 
-public data class CAnonymousFpchipState(
-    val cw: UShort,
-    val sw: UShort,
-    val fctw: UByte,
-    val fxRsvd: UByte,
-    val fop: UShort,
-    val rip: ULong,
-    val rdp: ULong,
-    val mxcsr: UInt,
-    val mxcsrMask: UInt,
-    val st: List<Upad128T>,
-    val xmm: List<Upad128T>,
-    val fxIgn: List<Upad128T>,
-    val status: UInt,
-    val xstatus: UInt,
+public open class CAnonymousFpchipState(
+    public var cw: UShort,
+    public var sw: UShort,
+    public var fctw: UByte,
+    public var fxRsvd: UByte,
+    public var fop: UShort,
+    public var rip: ULong,
+    public var rdp: ULong,
+    public var mxcsr: UInt,
+    public var mxcsrMask: UInt,
+    public var st: List<Upad128T>,
+    public var xmm: List<Upad128T>,
+    public var fxIgn: List<Upad128T>,
+    public var status: UInt,
+    public var xstatus: UInt,
 )
 
-public data class CAnonymousElf64Phdr(
-    val pType: UInt,
-    val pFlags: UInt,
-    val pOffset: ULong,
-    val pVaddr: ULong,
-    val pPaddr: ULong,
-    val pFilesz: ULong,
-    val pMemsz: ULong,
-    val pAlign: ULong,
+public open class CAnonymousElf64Phdr(
+    public var pType: Elf64Word,
+    public var pFlags: Elf64Word,
+    public var pOffset: Elf64Off,
+    public var pVaddr: Elf64Addr,
+    public var pPaddr: Elf64Addr,
+    public var pFilesz: Elf64Xword,
+    public var pMemsz: Elf64Xword,
+    public var pAlign: Elf64Xword,
 )
 
-public data class FpregsetT(
-    val fpRegSet: CAnonymousFpRegSet,
+public open class DlPhdrInfo(
+    public var dlpiAddr: Elf64Addr,
+    public var dlpiName: COpaquePointer?,
+    public var dlpiPhdr: CAnonymousElf64Phdr?,
+    public var dlpiPhnum: Elf64Half,
+    public var dlpiAdds: CUlonglong,
+    public var dlpiSubs: CUlonglong,
+    public var dlpiTlsModid: CUlong,
+    public var dlpiTlsData: COpaquePointer?,
 )
 
-public data class McontextT(
-    val gregs: List<Long>,
-    val fpregs: FpregsetT,
+public open class FpregsetT(public var fpRegSet: CAnonymousFpRegSet)
+
+public open class McontextT(public var gregs: List<GregT>, public var fpregs: FpregsetT)
+
+public open class UcontextT(
+    public var ucFlags: CUlong,
+    public var ucLink: UcontextT?,
+    public var ucSigmask: SigsetT,
+    public var ucStack: StackT,
+    public var ucMcontext: McontextT,
+    public var ucBrandData: List<COpaquePointer?>,
+    public var ucXsave: CLong,
+    public var ucFiller: CLong,
+    public var ucXrs: solaris.XrsT,
+    public var ucLwpid: CUint,
 )
 
-public data class UcontextT(
-    val ucFlags: ULong,
-    val ucLink: UcontextT?,
-    val ucSigmask: SigsetT,
-    val ucStack: StackT,
-    val ucMcontext: McontextT,
-    val ucBrandData: LongArray,
-    val ucXsave: Long,
-    val ucFiller: Long,
-    val ucXrs: XrsT,
-    val ucLwpid: UInt,
-    val ucFiller2: LongArray,
-)
+public open class CAnonymousFpRegSet(public var fpchipState: CAnonymousFpchipState? = null, public var fFpregs: List<List<UInt>>? = null) {
+    public open fun eq(other: CAnonymousFpRegSet): Boolean {
+        return this.fpchipState == other.fpchipState || this.fFpregs.iter().zip(other.fFpregs.iter()).all({ (a, b) -> a == b })
+    }
 
-// C union; only one variant is valid at a time.
-public data class CAnonymousFpRegSet(
-    val fpchipState: CAnonymousFpchipState? = null,
-    val fFpregs: List<UIntArray>? = null,
-)
+    public override fun hashCode(): Int {
+        var state = 0
+        run {
+            state = 31 * state + (this.fFpregs).hashCode()
+        }
+        return state
+    }
+}
 
-public const val REG_GSBASE: Int = 27
-public const val REG_FSBASE: Int = 26
-public const val REG_DS: Int = 25
-public const val REG_ES: Int = 24
-public const val REG_GS: Int = 23
-public const val REG_FS: Int = 22
-public const val REG_SS: Int = 21
-public const val REG_RSP: Int = 20
-public const val REG_RFL: Int = 19
-public const val REG_CS: Int = 18
-public const val REG_RIP: Int = 17
-public const val REG_ERR: Int = 16
-public const val REG_TRAPNO: Int = 15
-public const val REG_RAX: Int = 14
-public const val REG_RCX: Int = 13
-public const val REG_RDX: Int = 12
-public const val REG_RBX: Int = 11
-public const val REG_RBP: Int = 10
-public const val REG_RSI: Int = 9
-public const val REG_RDI: Int = 8
-public const val REG_R8: Int = 7
-public const val REG_R9: Int = 6
-public const val REG_R10: Int = 5
-public const val REG_R11: Int = 4
-public const val REG_R12: Int = 3
-public const val REG_R13: Int = 2
-public const val REG_R14: Int = 1
-public const val REG_R15: Int = 0
+// sys/regset.h
+public val REG_GSBASE: CInt = 27
+
+public val REG_FSBASE: CInt = 26
+
+public val REG_DS: CInt = 25
+
+public val REG_ES: CInt = 24
+
+public val REG_GS: CInt = 23
+
+public val REG_FS: CInt = 22
+
+public val REG_SS: CInt = 21
+
+public val REG_RSP: CInt = 20
+
+public val REG_RFL: CInt = 19
+
+public val REG_CS: CInt = 18
+
+public val REG_RIP: CInt = 17
+
+public val REG_ERR: CInt = 16
+
+public val REG_TRAPNO: CInt = 15
+
+public val REG_RAX: CInt = 14
+
+public val REG_RCX: CInt = 13
+
+public val REG_RDX: CInt = 12
+
+public val REG_RBX: CInt = 11
+
+public val REG_RBP: CInt = 10
+
+public val REG_RSI: CInt = 9
+
+public val REG_RDI: CInt = 8
+
+public val REG_R8: CInt = 7
+
+public val REG_R9: CInt = 6
+
+public val REG_R10: CInt = 5
+
+public val REG_R11: CInt = 4
+
+public val REG_R12: CInt = 3
+
+public val REG_R13: CInt = 2
+
+public val REG_R14: CInt = 1
+
+public val REG_R15: CInt = 0

@@ -1,79 +1,133 @@
 // port-lint: source new/netbsd/sys/timex.rs
 package io.github.kotlinmania.libc.new.netbsd.sys
+
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.LibcDynamicFfi
+import io.github.kotlinmania.libc.Timespec
 
-public data class Ntptimeval(
-    val time: Timespec,
-    val maxerror: Long,
-    val esterror: Long,
-    val tai: Long,
-    val timeState: Int,
+// Header: `sys / timex.h`
+//
+// <https://github.com/NetBSD/src/tree/trunk/sys/sys/timex.h>
+
+public val MAXPHASE: CLong = 500000000L
+
+public val MAXFREQ: CLong = 500000L
+
+public val MINSEC: CInt = 256
+
+public val MAXSEC: CInt = 2048
+
+public val NANOSECOND: CLong = 1000000000L
+
+public val SCALE_PPM: CInt = 65
+
+public val MAXTC: CInt = 10
+
+public val MOD_OFFSET: CUint = 0x0001u
+
+public val MOD_FREQUENCY: CUint = 0x0002u
+
+public val MOD_MAXERROR: CUint = 0x0004u
+
+public val MOD_ESTERROR: CUint = 0x0008u
+
+public val MOD_STATUS: CUint = 0x0010u
+
+public val MOD_TIMECONST: CUint = 0x0020u
+
+public val MOD_PPSMAX: CUint = 0x0040u
+
+public val MOD_TAI: CUint = 0x0080u
+
+public val MOD_MICRO: CUint = 0x1000u
+
+public val MOD_NANO: CUint = 0x2000u
+
+public val MOD_CLKB: CUint = 0x4000u
+
+public val MOD_CLKA: CUint = 0x8000u
+
+public val STA_PLL: CInt = 0x0001
+
+public val STA_PPSFREQ: CInt = 0x0002
+
+public val STA_PPSTIME: CInt = 0x0004
+
+public val STA_FLL: CInt = 0x0008
+
+public val STA_INS: CInt = 0x0010
+
+public val STA_DEL: CInt = 0x0020
+
+public val STA_UNSYNC: CInt = 0x0040
+
+public val STA_FREQHOLD: CInt = 0x0080
+
+public val STA_PPSSIGNAL: CInt = 0x0100
+
+public val STA_PPSJITTER: CInt = 0x0200
+
+public val STA_PPSWANDER: CInt = 0x0400
+
+public val STA_PPSERROR: CInt = 0x0800
+
+public val STA_CLOCKERR: CInt = 0x1000
+
+public val STA_NANO: CInt = 0x2000
+
+public val STA_MODE: CInt = 0x4000
+
+public val STA_CLK: CInt = 0x8000
+
+public val STA_RONLY: CInt = STA_PPSSIGNAL or STA_PPSJITTER or STA_PPSWANDER or STA_PPSERROR or STA_CLOCKERR or STA_NANO or STA_MODE or STA_CLK
+
+public val TIME_OK: CInt = 0
+
+public val TIME_INS: CInt = 1
+
+public val TIME_DEL: CInt = 2
+
+public val TIME_OOP: CInt = 3
+
+public val TIME_WAIT: CInt = 4
+
+public val TIME_ERROR: CInt = 5
+
+public open class Ntptimeval(
+    public var time: Timespec,
+    public var maxerror: CLong,
+    public var esterror: CLong,
+    public var tai: CLong,
+    public var timeState: CInt,
 )
 
-public data class Timex(
-    val modes: UInt,
-    val offset: Long,
-    val freq: Long,
-    val maxerror: Long,
-    val esterror: Long,
-    val status: Int,
-    val constant: Long,
-    val precision: Long,
-    val tolerance: Long,
-    val ppsfreq: Long,
-    val jitter: Long,
-    val shift: Int,
-    val stabil: Long,
-    val jitcnt: Long,
-    val calcnt: Long,
-    val errcnt: Long,
-    val stbcnt: Long,
+public open class Timex(
+    public var modes: CUint,
+    public var offset: CLong,
+    public var freq: CLong,
+    public var maxerror: CLong,
+    public var esterror: CLong,
+    public var status: CInt,
+    public var constant: CLong,
+    public var precision: CLong,
+    public var tolerance: CLong,
+    public var ppsfreq: CLong,
+    public var jitter: CLong,
+    public var shift: CInt,
+    public var stabil: CLong,
+    public var jitcnt: CLong,
+    public var calcnt: CLong,
+    public var errcnt: CLong,
+    public var stbcnt: CLong,
 )
 
-public const val MAXPHASE: Long = 500000000
-public const val MAXFREQ: Long = 500000
-public const val MINSEC: Int = 256
-public const val MAXSEC: Int = 2048
-public const val NANOSECOND: Long = 1000000000
-public const val SCALE_PPM: Int = 65
-public const val MAXTC: Int = 10
-public const val MOD_OFFSET: UInt = 0x0001u
-public const val MOD_FREQUENCY: UInt = 0x0002u
-public const val MOD_MAXERROR: UInt = 0x0004u
-public const val MOD_ESTERROR: UInt = 0x0008u
-public const val MOD_STATUS: UInt = 0x0010u
-public const val MOD_TIMECONST: UInt = 0x0020u
-public const val MOD_PPSMAX: UInt = 0x0040u
-public const val MOD_TAI: UInt = 0x0080u
-public const val MOD_MICRO: UInt = 0x1000u
-public const val MOD_NANO: UInt = 0x2000u
-public const val MOD_CLKB: UInt = 0x4000u
-public const val MOD_CLKA: UInt = 0x8000u
-public const val STA_PLL: Int = 0x0001
-public const val STA_PPSFREQ: Int = 0x0002
-public const val STA_PPSTIME: Int = 0x0004
-public const val STA_FLL: Int = 0x0008
-public const val STA_INS: Int = 0x0010
-public const val STA_DEL: Int = 0x0020
-public const val STA_UNSYNC: Int = 0x0040
-public const val STA_FREQHOLD: Int = 0x0080
-public const val STA_PPSSIGNAL: Int = 0x0100
-public const val STA_PPSJITTER: Int = 0x0200
-public const val STA_PPSWANDER: Int = 0x0400
-public const val STA_PPSERROR: Int = 0x0800
-public const val STA_CLOCKERR: Int = 0x1000
-public const val STA_NANO: Int = 0x2000
-public const val STA_MODE: Int = 0x4000
-public const val STA_CLK: Int = 0x8000
-public val STA_RONLY: Int = STA_PPSSIGNAL or STA_PPSJITTER or STA_PPSWANDER or STA_PPSERROR or STA_CLOCKERR or STA_NANO or STA_MODE or STA_CLK
-public const val TIME_OK: Int = 0
-public const val TIME_INS: Int = 1
-public const val TIME_DEL: Int = 2
-public const val TIME_OOP: Int = 3
-public const val TIME_WAIT: Int = 4
-public const val TIME_ERROR: Int = 5
+public fun ntpGettime(buf: Ntptimeval?): CInt {
+    return LibcDynamicFfi.invoke("__ntp_gettime50", -1, longArrayOf(buf?.value ?: 0L)).toInt()
+}
 
-public expect fun ntpGettime(buf: Ntptimeval?): Int
-
-public expect fun ntpAdjtime(buf: Timex?): Int
+public fun ntpAdjtime(buf: Timex?): CInt {
+    return LibcDynamicFfi.invoke("ntp_adjtime", -1, longArrayOf(buf?.value ?: 0L)).toInt()
+}

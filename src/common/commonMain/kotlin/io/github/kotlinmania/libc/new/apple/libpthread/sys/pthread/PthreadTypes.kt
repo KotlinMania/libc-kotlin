@@ -2,31 +2,50 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.CUlong
 
-public class PthreadAttrT
+// Header: `sys / _pthread / _pthread_types.h`
+//
+// <https://github.com/apple-oss-distributions/libpthread/blob/main/include/sys/_pthread/_pthread_types.h>
+//
+// Note that the actual header defines `_opaque_pthread_ *` structs which are typedefed to
+// `__darwin_pthread *` structs, and typedefed again in separate `_pthread_ *.h` files to their final
+// `pthread_` name. This isn't useful for us so we simplify a bit and just define everything here.
 
-public class PthreadCondT
+public val PTHREAD_SIZE: Int = 8176
 
-public class PthreadCondattrT
+public val PTHREAD_ATTR_SIZE: Int = 56
 
-public class PthreadMutexT
+public val PTHREAD_MUTEXATTR_SIZE: Int = 8
 
-public class PthreadMutexattrT
+public val PTHREAD_MUTEX_SIZE: Int = 56
 
-public class PthreadOnceT
+public val PTHREAD_CONDATTR_SIZE: Int = 8
 
-public class PthreadRwlockT
+public val PTHREAD_COND_SIZE: Int = 40
 
-public class PthreadRwlockattrT
+public val PTHREAD_ONCE_SIZE: Int = 8
 
-public const val __PTHREAD_SIZE__: ULong = 8176uL
-public const val __PTHREAD_ATTR_SIZE__: ULong = 56uL
-public const val __PTHREAD_MUTEXATTR_SIZE__: ULong = 8uL
-public const val __PTHREAD_MUTEX_SIZE__: ULong = 56uL
-public const val __PTHREAD_CONDATTR_SIZE__: ULong = 8uL
-public const val __PTHREAD_COND_SIZE__: ULong = 40uL
-public const val __PTHREAD_ONCE_SIZE__: ULong = 8uL
-public const val __PTHREAD_RWLOCK_SIZE__: ULong = 192uL
-public const val __PTHREAD_RWLOCKATTR_SIZE__: ULong = 16uL
+public val PTHREAD_RWLOCK_SIZE: Int = 192
 
-public typealias PthreadKeyT = ULong
+public val PTHREAD_RWLOCKATTR_SIZE: Int = 16
+
+public open class PthreadAttrT(internal var sig: CLong, internal var opaque: List<CChar>)
+
+public open class PthreadCondT(internal var sig: CLong, internal var opaque: List<UByte>)
+
+public open class PthreadCondattrT(internal var sig: CLong, internal var opaque: List<UByte>)
+
+public open class PthreadMutexT(internal var sig: CLong, internal var opaque: List<UByte>)
+
+public open class PthreadMutexattrT(internal var sig: CLong, internal var opaque: List<UByte>)
+
+public open class PthreadOnceT(internal var sig: CLong, internal var opaque: List<CChar>)
+
+public open class PthreadRwlockT(internal var sig: CLong, internal var opaque: List<UByte>)
+
+public open class PthreadRwlockattrT(internal var sig: CLong, internal var opaque: List<UByte>)
+
+public typealias PthreadKeyT = CUlong

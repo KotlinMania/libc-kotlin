@@ -1,9 +1,0 @@
-package io.github.kotlinmania.libc.unix.newlib.vita
-
-import io.github.kotlinmania.libc.*
-
-public data class SockaddrUn(
-    val ssLen: UByte,
-    val sunFamily: UShort,
-    val sunPath: ByteArray,
-)

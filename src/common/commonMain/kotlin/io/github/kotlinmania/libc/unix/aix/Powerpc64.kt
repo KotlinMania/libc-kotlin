@@ -1,342 +1,402 @@
 // port-lint: source unix/aix/powerpc64.rs
 package io.github.kotlinmania.libc.unix.aix
+
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CDouble
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CShort
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.LibcDynamicFfi
+import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.Sigval
+import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.UidT
 
-// Opaque type — C empty enum used as an opaque pointer target.
-public class LockDataInstrumented
-
-public data class SigsetT(
-    val ssSet: ULongArray,
-)
-
-public data class FdSet(
-    val fdsBits: LongArray,
-)
-
-public data class Flock(
-    val lType: Short,
-    val lWhence: Short,
-    val lSysid: UInt,
-    val lPid: Int,
-    val lVfs: Int,
-    val lStart: Long,
-    val lLen: Long,
-)
-
-public data class Statvfs(
-    val fBsize: ULong,
-    val fFrsize: ULong,
-    val fBlocks: ULong,
-    val fBfree: ULong,
-    val fBavail: ULong,
-    val fFiles: ULong,
-    val fFfree: ULong,
-    val fFavail: ULong,
-    val fFsid: ULong,
-    val fBasetype: ByteArray,
-    val fFlag: ULong,
-    val fNamemax: ULong,
-    val fFstr: ByteArray,
-    val fFiller: ULongArray,
-)
-
-public data class PthreadRwlockT(
-    val rwWord: LongArray,
-)
-
-public data class PthreadCondT(
-    val cvWord: LongArray,
-)
-
-public data class PthreadMutexT(
-    val mtWord: LongArray,
-)
-
-public data class PthreadOnceT(
-    val onWord: LongArray,
-)
-
-public data class Stat(
-    val stDev: ULong,
-    val stIno: ULong,
-    val stMode: UInt,
-    val stNlink: Short,
-    val stFlag: UShort,
-    val stUid: UInt,
-    val stGid: UInt,
-    val stRdev: ULong,
-    val stSsize: Int,
-    val stAtim: StTimespec,
-    val stMtim: StTimespec,
-    val stCtim: StTimespec,
-    val stBlksize: Long,
-    val stBlocks: Long,
-    val stVfstype: Int,
-    val stVfs: UInt,
-    val stType: UInt,
-    val stGen: UInt,
-    val stPadtoLl: UInt,
-    val stSize: Long,
-)
-
-public data class Statfs(
-    val fVersion: Int,
-    val fType: Int,
-    val fBsize: ULong,
-    val fBlocks: ULong,
-    val fBfree: ULong,
-    val fBavail: ULong,
-    val fFiles: ULong,
-    val fFfree: ULong,
-    val fFsid: Fsid64T,
-    val fVfstype: Int,
-    val fFsize: ULong,
-    val fVfsnumber: Int,
-    val fVfsoff: Int,
-    val fVfslen: Int,
-    val fVfsvers: Int,
-    val fFname: ByteArray,
-    val fFpack: ByteArray,
-    val fNameMax: Int,
-)
-
-public data class Aiocb(
-    val aioLioOpcode: Int,
-    val aioFildes: Int,
-    val aioWord1: Int,
-    val aioOffset: Long,
-    val aioBuf: COpaquePointer?,
-    val aioReturn: Long,
-    val aioErrno: Int,
-    val aioNbytes: ULong,
-    val aioReqprio: Int,
-    val aioSigevent: Sigevent,
-    val aioWord2: Int,
-    val aioFp: Int,
-    val aioHandle: Aiocb?,
-    val aioSigevTid: Long,
-)
-
-public data class VmxregT(
-    val v: UIntArray,
-)
-
-public data class VmxContextT(
-    val vr: List<VmxregT>,
-    val pad1: UIntArray,
-    val vscr: UInt,
-    val vrsave: UInt,
-    val pad2: UIntArray,
-)
-
-public data class VsxContextT(
-    val vsrDw1: ULongArray,
-)
-
-public data class TmContextT(
-    val vmx: VmxContextT,
-    val vsx: VsxContextT,
-    val gpr: ULongArray,
-    val lr: ULong,
-    val ctr: ULong,
-    val cr: UInt,
-    val xer: UInt,
-    val amr: ULong,
-    val texasr: ULong,
-    val tfiar: ULong,
-    val tfhar: ULong,
-    val ppr: ULong,
-    val dscr: ULong,
-    val tar: ULong,
-    val fpscr: UInt,
-    val fpscrx: UInt,
-    val fpr: List<FpregT>,
-    val tmcontext: Byte,
-    val tmstate: Byte,
-    val prevowner: Byte,
-    val pad: ByteArray,
-)
-
-public data class Context64(
-    val gpr: ULongArray,
-    val msr: ULong,
-    val iar: ULong,
-    val lr: ULong,
-    val ctr: ULong,
-    val cr: UInt,
-    val xer: UInt,
-    val fpscr: UInt,
-    val fpscrx: UInt,
-    val except: ULongArray,
-    val fpr: List<FpregT>,
-    val fpeu: Byte,
-    val fpinfo: Byte,
-    val fpscr2431: Byte,
-    val pad: ByteArray,
-    val excpType: Int,
-)
-
-public data class McontextT(
-    val jmpContext: Context64,
-)
-
-public data class ExtctxT(
-    val flags: UInt,
-    val rsvd1: UIntArray,
-    val vmx: VmxContextT,
-    val ukeys: UIntArray,
-    val vsx: VsxContextT,
-    val tm: TmContextT,
-    val extctxMagic: Int,
-)
-
-public data class UcontextT(
-    val scOnstack: Int,
-    val ucSigmask: SigsetT,
-    val scUerror: Int,
-    val ucMcontext: McontextT,
-    val ucLink: UcontextT?,
-    val ucStack: StackT,
-    val extctx: ExtctxT?,
-    val extctxMagic: Int,
-    val pad: IntArray,
-)
-
-public data class Utmpx(
-    val utUser: ByteArray,
-    val utId: ByteArray,
-    val utLine: ByteArray,
-    val utPid: Int,
-    val utType: Short,
-    val utTv: Timeval,
-    val utHost: ByteArray,
-    val dblWordPad: Int,
-    val reservedA: IntArray,
-    val reservedV: IntArray,
-)
-
-public data class PthreadSpinlockT(
-    val spWord: LongArray,
-)
-
-public data class PthreadBarrierT(
-    val brWord: LongArray,
-)
-
-public data class MsqidDs(
-    val msgPerm: IpcPerm,
-    val msgFirst: UInt,
-    val msgLast: UInt,
-    val msgCbytes: UInt,
-    val msgQnum: UInt,
-    val msgQbytes: ULong,
-    val msgLspid: Int,
-    val msgLrpid: Int,
-    val msgStime: Long,
-    val msgRtime: Long,
-    val msgCtime: Long,
-    val msgRwait: Int,
-    val msgWwait: Int,
-    val msgReqevents: UShort,
-)
-
-public data class SiginfoT(
-    val handle: Long = 0L,
-    val siSigno: Int,
-    val siErrno: Int,
-    val siCode: Int,
-    val siPid: Int,
-    val siUid: UInt,
-    val siStatus: Int,
-    val siAddr: COpaquePointer?,
-    val siBand: Long,
-    val siValue: Sigval,
-    val siFlags: Int,
-    val pad: IntArray,
-    val siUtime: Long? = null,
-    val siStime: Long? = null,
-) {
-    internal fun siAddr(): COpaquePointer? = siAddr
-    internal fun siValue(): Sigval = siValue
-    internal fun siPid(): Int = siPid
-    internal fun siUid(): UInt = siUid
-    internal fun siStatus(): Int = siStatus
+public fun interface FileopsTFoRwCallback {
+    public operator fun invoke(file: File?, rw: UioRw, io: COpaquePointer?, ext: CLong, secattr: COpaquePointer?): CInt
 }
 
-public data class PollfdExt(
-    val fd: Int,
-    val events: Short,
-    val revents: Short,
-    val data: PollfdExtU,
+public fun interface FileopsTFoIoctlCallback {
+    public operator fun invoke(file: File?, a: CLong, b: CaddrT, c: CLong, d: CLong): CInt
+}
+
+public fun interface FnCallback {
+    public operator fun invoke()
+}
+
+public fun interface FileopsTFoSelectCallback {
+    public operator fun invoke(file: File?, a: CInt, b: CUshort?, c: FnCallback): CInt
+}
+
+public fun interface FileopsTFoCloseCallback {
+    public operator fun invoke(file: File?): CInt
+}
+
+public fun interface FileopsTFoFstatCallback {
+    public operator fun invoke(file: File?, sstat: Stat?): CInt
+}
+
+// Define lockDataInstrumented as an empty enum
+public sealed class LockDataInstrumented {
+}
+
+public open class SigsetT(public var ssSet: List<CUlong>)
+
+public open class FdSet(public var fdsBits: List<CLong>)
+
+public open class Flock(
+    public var lType: CShort,
+    public var lWhence: CShort,
+    public var lSysid: CUint,
+    public var lPid: PidT,
+    public var lVfs: CInt,
+    public var lStart: OffT,
+    public var lLen: OffT,
 )
 
-public data class FileopsT(
-    val foRw: FileReadWrite?,
-    val foIoctl: FileIoctl?,
-    val foSelect: FileSelect?,
-    val foClose: FileClose?,
-    val foFstat: FileStat?,
+public open class Statvfs(
+    public var fBsize: CUlong,
+    public var fFrsize: CUlong,
+    public var fBlocks: FsblkcntT,
+    public var fBfree: FsblkcntT,
+    public var fBavail: FsblkcntT,
+    public var fFiles: FsfilcntT,
+    public var fFfree: FsfilcntT,
+    public var fFavail: FsfilcntT,
+    public var fFsid: CUlong,
+    public var fBasetype: List<CChar>,
+    public var fFlag: CUlong,
+    public var fNamemax: CUlong,
+    public var fFstr: List<CChar>,
+    public var fFiller: List<CUlong>,
 )
 
-public data class File(
-    val fFlag: Long,
-    val fCount: Int,
-    val fOptions: Short,
-    val fType: Short,
-    val fData: COpaquePointer?,
-    val fOffset: Long,
-    val fDirOff: Long,
-    val fCred: COpaquePointer?,
-    val fLock: KernelSimpleLock,
-    val fOffsetLock: KernelSimpleLock,
-    val fVinfo: String?,
-    val fOps: FileopsT?,
-    val fParentp: String?,
-    val fFnamep: String?,
-    val fFdata: ByteArray,
+public open class PthreadRwlockT(public var rwWord: List<CLong>)
+
+public open class PthreadCondT(public var cvWord: List<CLong>)
+
+public open class PthreadMutexT(public var mtWord: List<CLong>)
+
+public open class PthreadOnceT(public var onWord: List<CLong>)
+
+public open class Stat(
+    public var stDev: DevT,
+    public var stIno: InoT,
+    public var stMode: ModeT,
+    public var stNlink: NlinkT,
+    public var stFlag: CUshort,
+    public var stUid: UidT,
+    public var stGid: GidT,
+    public var stRdev: DevT,
+    public var stSsize: CInt,
+    public var stAtim: StTimespec,
+    public var stMtim: StTimespec,
+    public var stCtim: StTimespec,
+    public var stBlksize: BlksizeT,
+    public var stBlocks: BlkcntT,
+    public var stVfstype: CInt,
+    public var stVfs: CUint,
+    public var stType: CUint,
+    public var stGen: CUint,
+    public var stReserved: List<CUint>,
+    public var stPadtoLl: CUint,
+    public var stSize: OffT,
 )
 
-public data class LdInfo(
-    val ldinfoNext: UInt,
-    val ldinfoFlags: UInt,
-    val file: LdInfoFile,
-    val ldinfoTextorg: COpaquePointer?,
-    val ldinfoTextsize: ULong,
-    val ldinfoDataorg: COpaquePointer?,
-    val ldinfoDatasize: ULong,
-    val ldinfoFilename: ByteArray,
+public open class Statfs(
+    public var fVersion: CInt,
+    public var fType: CInt,
+    public var fBsize: CUlong,
+    public var fBlocks: FsblkcntT,
+    public var fBfree: FsblkcntT,
+    public var fBavail: FsblkcntT,
+    public var fFiles: FsblkcntT,
+    public var fFfree: FsblkcntT,
+    public var fFsid: Fsid64T,
+    public var fVfstype: CInt,
+    public var fFsize: CUlong,
+    public var fVfsnumber: CInt,
+    public var fVfsoff: CInt,
+    public var fVfslen: CInt,
+    public var fVfsvers: CInt,
+    public var fFname: List<CChar>,
+    public var fFpack: List<CChar>,
+    public var fNameMax: CInt,
 )
 
-public data class FpregT(
-    val d: Double,
+public open class Aiocb(
+    public var aioLioOpcode: CInt,
+    public var aioFildes: CInt,
+    public var aioWord1: CInt,
+    public var aioOffset: OffT,
+    public var aioBuf: COpaquePointer?,
+    public var aioReturn: SsizeT,
+    public var aioErrno: CInt,
+    public var aioNbytes: SizeT,
+    public var aioReqprio: CInt,
+    public var aioSigevent: Sigevent,
+    public var aioWord2: CInt,
+    public var aioFp: CInt,
+    public var aioHandle: Aiocb?,
+    public var aioReserved: List<CUint>,
+    public var aioSigevTid: CLong,
 )
 
-// C union; only one variant is valid at a time.
-public data class KernelSimpleLock(
-    val slock: Long? = null,
-    val slockp: LockDataInstrumented? = null,
+public open class VmxregT(public var v: List<CUint>)
+
+public open class VmxContextT(
+    public var vr: List<VmxregT>,
+    public var pad1: List<CUint>,
+    public var vscr: CUint,
+    public var vrsave: CUint,
+    public var pad2: List<CUint>,
 )
 
-// C union; only one variant is valid at a time.
-public data class LdInfoFile(
-    val ldinfoFd: Int? = null,
-    val ldinfoFp: File? = null,
-    val coreOffset: Long? = null,
+public open class VsxContextT(public var vsrDw1: List<CUlonglong>)
+
+public open class TmContextT(
+    public var vmx: VmxContextT,
+    public var vsx: VsxContextT,
+    public var gpr: List<CUlonglong>,
+    public var lr: CUlonglong,
+    public var ctr: CUlonglong,
+    public var cr: CUint,
+    public var xer: CUint,
+    public var amr: CUlonglong,
+    public var texasr: CUlonglong,
+    public var tfiar: CUlonglong,
+    public var tfhar: CUlonglong,
+    public var ppr: CUlonglong,
+    public var dscr: CUlonglong,
+    public var tar: CUlonglong,
+    public var fpscr: CUint,
+    public var fpscrx: CUint,
+    public var fpr: List<FpregT>,
+    public var tmcontext: CChar,
+    public var tmstate: CChar,
+    public var prevowner: CChar,
+    public var pad: List<CChar>,
 )
 
-// C union; only one variant is valid at a time.
-public data class PollfdExtU(
-    val addr: COpaquePointer? = null,
-    val data32: UInt? = null,
-    val data: ULong? = null,
+public open class Context64(
+    public var gpr: List<CUlonglong>,
+    public var msr: CUlonglong,
+    public var iar: CUlonglong,
+    public var lr: CUlonglong,
+    public var ctr: CUlonglong,
+    public var cr: CUint,
+    public var xer: CUint,
+    public var fpscr: CUint,
+    public var fpscrx: CUint,
+    public var except: List<CUlonglong>,
+    public var fpr: List<FpregT>,
+    public var fpeu: CChar,
+    public var fpinfo: CChar,
+    public var fpscr2431: CChar,
+    public var pad: List<CChar>,
+    public var excpType: CInt,
 )
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mtWord = longArrayOf(0, 2, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cvWord = longArrayOf(0, 0, 0, 0, 2, 0))
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwWord = longArrayOf(2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(onWord = longArrayOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
-public const val RLIM_INFINITY: ULong = 0x7fffffffffffffffuL
+public open class McontextT(public var jmpContext: Context64)
 
-public expect fun getsystemcfg(label: Int): ULong
+public open class ExtctxT(
+    public var flags: CUint,
+    public var rsvd1: List<CUint>,
+    public var vmx: VmxContextT,
+    public var ukeys: List<CUint>,
+    public var vsx: VsxContextT,
+    public var tm: TmContextT,
+    public var reserved: List<CChar>,
+    public var extctxMagic: CInt,
+)
+
+public open class UcontextT(
+    public var scOnstack: CInt,
+    public var ucSigmask: SigsetT,
+    public var scUerror: CInt,
+    public var ucMcontext: McontextT,
+    public var ucLink: UcontextT?,
+    public var ucStack: StackT,
+    public var extctx: ExtctxT?,
+    public var extctxMagic: CInt,
+    public var pad: List<CInt>,
+)
+
+public open class Utmpx(
+    public var utUser: List<CChar>,
+    public var utId: List<CChar>,
+    public var utLine: List<CChar>,
+    public var utPid: PidT,
+    public var utType: CShort,
+    public var utTv: Timeval,
+    public var utHost: List<CChar>,
+    public var dblWordPad: CInt,
+    public var reservedA: List<CInt>,
+    public var reservedV: List<CInt>,
+)
+
+public open class PthreadSpinlockT(public var spWord: List<CLong>)
+
+public open class PthreadBarrierT(public var brWord: List<CLong>)
+
+public open class MsqidDs(
+    public var msgPerm: IpcPerm,
+    public var msgFirst: CUint,
+    public var msgLast: CUint,
+    public var msgCbytes: CUint,
+    public var msgQnum: CUint,
+    public var msgQbytes: CUlong,
+    public var msgLspid: PidT,
+    public var msgLrpid: PidT,
+    public var msgStime: TimeT,
+    public var msgRtime: TimeT,
+    public var msgCtime: TimeT,
+    public var msgRwait: CInt,
+    public var msgWwait: CInt,
+    public var msgReqevents: CUshort,
+)
+
+public open class SiginfoT(
+    public var siSigno: CInt,
+    public var siErrno: CInt,
+    public var siCode: CInt,
+    public var siPid: PidT,
+    public var siUid: UidT,
+    public var siStatus: CInt,
+    public var siAddr: COpaquePointer?,
+    public var siBand: CLong,
+    public var siValue: Sigval,
+    public var siFlags: CInt,
+    public var pad: List<CInt>,
+) {
+    public open fun siAddr(): COpaquePointer? {
+        return this.siAddr
+    }
+
+    public open fun siValue(): Sigval {
+        return this.siValue
+    }
+
+    public open fun siPid(): PidT {
+        return this.siPid
+    }
+
+    public open fun siUid(): UidT {
+        return this.siUid
+    }
+
+    public open fun siStatus(): CInt {
+        return this.siStatus
+    }
+}
+
+public open class PollfdExt(
+    public var fd: CInt,
+    public var events: CShort,
+    public var revents: CShort,
+    public var data: PollfdExtU,
+)
+
+public open class KernelSimpleLock(public var slock: CLong? = null, public var slockp: LockDataInstrumented?? = null)
+
+public open class FileopsT(
+    public var foRw: FileopsTFoRwCallback?,
+    public var foIoctl: FileopsTFoIoctlCallback?,
+    public var foSelect: FileopsTFoSelectCallback?,
+    public var foClose: FileopsTFoCloseCallback?,
+    public var foFstat: FileopsTFoFstatCallback?,
+)
+
+public open class File(
+    public var fFlag: CLong,
+    public var fCount: CInt,
+    public var fOptions: CShort,
+    public var fType: CShort,
+    // Should be pointer to 'vnode'
+    public var fData: COpaquePointer?,
+    public var fOffset: CLonglong,
+    public var fDirOff: CLong,
+    // Should be pointer to 'cred'
+    public var fCred: COpaquePointer?,
+    public var fLock: KernelSimpleLock,
+    public var fOffsetLock: KernelSimpleLock,
+    public var fVinfo: CaddrT,
+    public var fOps: FileopsT?,
+    public var fParentp: CaddrT,
+    public var fFnamep: CaddrT,
+    public var fFdata: List<CChar>,
+)
+
+public open class LdInfoFile(
+    public var ldinfoFd: CInt? = null,
+    public var ldinfoFp: File?? = null,
+    public var coreOffset: CLong? = null,
+)
+
+public open class LdInfo(
+    public var ldinfoNext: CUint,
+    public var ldinfoFlags: CUint,
+    public var file: LdInfoFile,
+    public var ldinfoTextorg: COpaquePointer?,
+    public var ldinfoTextsize: CUlong,
+    public var ldinfoDataorg: COpaquePointer?,
+    public var ldinfoDatasize: CUlong,
+    public var ldinfoFilename: List<CChar>,
+)
+
+public open class PollfdExtU(
+    public var addr: COpaquePointer?? = null,
+    public var data32: UInt? = null,
+    public var data: ULong? = null,
+) {
+    public open fun eq(other: PollfdExtU): Boolean {
+        return this.addr == other.addr && this.data32 == other.data32 && this.data == other.data
+    }
+
+    public override fun hashCode(): Int {
+        var state = 0
+        run {
+            state = 31 * state + (this.addr).hashCode()
+            state = 31 * state + (this.data).hashCode()
+            state = 31 * state + (this.data32).hashCode()
+        }
+        return state
+    }
+}
+
+public open class FpregT(public var d: CDouble) {
+    public open fun eq(other: FpregT): Boolean {
+        return this.d == other.d
+    }
+
+    public override fun hashCode(): Int {
+        var state = 0
+        val d: ULong = this.d.toBits()
+        state = 31 * state + (d).hashCode()
+        return state
+    }
+}
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(mtWord = listOf(0u, 2u, 0u, 0u, 0u, 0u, 0u, 0u))
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(cvWord = listOf(0u, 0u, 0u, 0u, 2u, 0u))
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(rwWord = listOf(2u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u))
+
+public val PTHREAD_ONCE_INIT: PthreadOnceT = Any(onWord = listOf(0, 0, 0, 0, 0, 2, 0, 0, 0))
+
+public val RLIM_INFINITY: CUlong = 0x7fffffffffffffffuL
+
+public fun getsystemcfg(label: CInt): CUlong {
+    return LibcDynamicFfi.invoke("getsystemcfg", -1, longArrayOf(label.toLong())).toULong()
+}

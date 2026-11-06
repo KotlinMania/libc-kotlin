@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.solarish
-
-import io.github.kotlinmania.libc.*
-
-public expect fun sysinfo(command: Int, buf: String?, count: Long): Int

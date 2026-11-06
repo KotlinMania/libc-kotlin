@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
-
-import io.github.kotlinmania.libc.*
-
-public expect fun getresuid(ruid: UInt?, euid: UInt?, suid: UInt?): Int

@@ -1,9 +1,0 @@
-package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664
-
-import io.github.kotlinmania.libc.*
-
-public data class LibcFpxreg(
-    val significand: UShortArray,
-    val exponent: UShort,
-    val private: UShortArray,
-)

@@ -2,40 +2,56 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.U128
+import io.github.kotlinmania.libc.unix.SizeT
 
 public typealias ClockT = Int
+
 public typealias WcharT = UInt
+
 public typealias TimeT = Long
+
 public typealias SusecondsT = Long
+
 public typealias RegisterT = Long
 
-public data class Gpregs(
-    val gpX: List<Long>,
-    val gpLr: Long,
-    val gpSp: Long,
-    val gpElr: Long,
-    val gpSpsr: UInt,
-    val gpPad: Int,
+public open class Gpregs(
+    public var gpX: List<RegisterT>,
+    public var gpLr: RegisterT,
+    public var gpSp: RegisterT,
+    public var gpElr: RegisterT,
+    public var gpSpsr: UInt,
+    public var gpPad: CInt,
 )
 
-public data class Fpregs(
-    val fpQ: ByteArray,
-    val fpSr: UInt,
-    val fpCr: UInt,
-    val fpFlags: Int,
-    val fpPad: Int,
+public open class Fpregs(
+    public var fpQ: U128,
+    public var fpSr: UInt,
+    public var fpCr: UInt,
+    public var fpFlags: CInt,
+    public var fpPad: CInt,
 )
 
-public data class McontextT(
-    val mcGpregs: Gpregs,
-    val mcFpregs: Fpregs,
-    val mcFlags: Int,
-    val mcPad: Int,
-    val mcSpare: ULongArray,
+public open class McontextT(
+    public var mcGpregs: Gpregs,
+    public var mcFpregs: Fpregs,
+    public var mcFlags: CInt,
+    public var mcPad: CInt,
+    public var mcSpare: List<ULong>,
 )
 
-public const val BIOCSRTIMEOUT: ULong = 0x8010426duL
-public const val BIOCGRTIMEOUT: ULong = 0x4010426euL
-public const val MAP_32BIT: Int = 0x00080000
-public const val MINSIGSTKSZ: ULong = 4096uL
-public const val TIOCTIMESTAMP: ULong = 0x40107459uL
+internal val ALIGNBYTES: Int = sizeOf<CLonglong>() - 1
+
+public val BIOCSRTIMEOUT: CUlong = 0x8010426duL
+
+public val BIOCGRTIMEOUT: CUlong = 0x4010426euL
+
+public val MAP_32BIT: CInt = 0x00080000
+
+public val MINSIGSTKSZ: SizeT = 4096uL
+
+// 1024 * 4
+public val TIOCTIMESTAMP: CUlong = 0x40107459uL

@@ -2,8 +2,7 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CInt
 
-public data class SchedParam(
-    val schedPriority: Int,
-    val opaque: ByteArray,
-)
+public open class SchedParam(public var schedPriority: CInt, public var opaque: List<CChar>)

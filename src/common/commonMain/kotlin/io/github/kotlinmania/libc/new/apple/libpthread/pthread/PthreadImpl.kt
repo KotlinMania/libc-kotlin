@@ -2,10 +2,20 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
 
-public const val _PTHREAD_MUTEX_SIG_init: Long = 0x32AAABA7
-public const val _PTHREAD_COND_SIG_init: Long = 0x3CB0B1BB
-public const val _PTHREAD_RWLOCK_SIG_init: Long = 0x2DA8B3B4
-public const val SCHED_OTHER: Int = 1
-public const val SCHED_FIFO: Int = 4
-public const val SCHED_RR: Int = 2
+// Note(apple): these should all be `public(crate)`
+public val PTHREAD_MUTEX_SIG_INIT: CLong = 0x32AAABA7L
+
+public val PTHREAD_COND_SIG_INIT: CLong = 0x3CB0B1BBL
+
+internal val PTHREAD_ONCE_SIG_INIT: CLong = 0x30B1BCBAL
+
+public val PTHREAD_RWLOCK_SIG_INIT: CLong = 0x2DA8B3B4L
+
+public val SCHED_OTHER: CInt = 1
+
+public val SCHED_FIFO: CInt = 4
+
+public val SCHED_RR: CInt = 2

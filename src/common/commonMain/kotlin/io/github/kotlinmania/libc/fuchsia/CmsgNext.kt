@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.fuchsia
-
-import io.github.kotlinmania.libc.*
-
-internal fun cmsgNext(cmsg: COpaquePointer?, len: Long): COpaquePointer? = nextMessageAddress(cmsg, len)

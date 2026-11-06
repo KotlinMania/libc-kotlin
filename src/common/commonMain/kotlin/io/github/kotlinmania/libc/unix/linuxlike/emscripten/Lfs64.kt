@@ -1,120 +1,162 @@
 // port-lint: source unix/linux_like/emscripten/lfs64.rs
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
+
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.DIR
 import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.fstat
+import io.github.kotlinmania.libc.fstatat
+import io.github.kotlinmania.libc.fstatfs
+import io.github.kotlinmania.libc.fstatvfs
+import io.github.kotlinmania.libc.lstat
+import io.github.kotlinmania.libc.mmap
+import io.github.kotlinmania.libc.new.qurt.ftruncate
+import io.github.kotlinmania.libc.new.qurt.readdir
+import io.github.kotlinmania.libc.posixFadvise
+import io.github.kotlinmania.libc.posixFallocate
+import io.github.kotlinmania.libc.pread
+import io.github.kotlinmania.libc.pwrite
+import io.github.kotlinmania.libc.readdirR
+import io.github.kotlinmania.libc.solid.creat
+import io.github.kotlinmania.libc.solid.fgetpos
+import io.github.kotlinmania.libc.solid.fopen
+import io.github.kotlinmania.libc.solid.freopen
+import io.github.kotlinmania.libc.solid.fseeko
+import io.github.kotlinmania.libc.solid.fsetpos
+import io.github.kotlinmania.libc.solid.ftello
+import io.github.kotlinmania.libc.solid.lseek
+import io.github.kotlinmania.libc.solid.tmpfile
+import io.github.kotlinmania.libc.stat
+import io.github.kotlinmania.libc.statfs
+import io.github.kotlinmania.libc.statvfs
+import io.github.kotlinmania.libc.truncate
 import io.github.kotlinmania.libc.unix.Iovec
-import io.github.kotlinmania.libc.unix.Rlimit
-import io.github.kotlinmania.libc.unix.bsd.apple.Stat
-import io.github.kotlinmania.libc.unix.bsd.apple.Statvfs
-import io.github.kotlinmania.libc.unix.creat
-import io.github.kotlinmania.libc.unix.fgetpos
-import io.github.kotlinmania.libc.unix.fopen
-import io.github.kotlinmania.libc.unix.freopen
-import io.github.kotlinmania.libc.unix.fseeko
-import io.github.kotlinmania.libc.unix.fsetpos
-import io.github.kotlinmania.libc.unix.fstat
-import io.github.kotlinmania.libc.unix.fstatat
-import io.github.kotlinmania.libc.unix.fstatvfs
-import io.github.kotlinmania.libc.unix.ftello
-import io.github.kotlinmania.libc.unix.ftruncate
-import io.github.kotlinmania.libc.unix.linuxlike.Dirent
-import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.fstatfs
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Statfs
-import io.github.kotlinmania.libc.unix.linuxlike.posixFadvise
-import io.github.kotlinmania.libc.unix.linuxlike.statfs
-import io.github.kotlinmania.libc.unix.lseek
-import io.github.kotlinmania.libc.unix.lstat
-import io.github.kotlinmania.libc.unix.mmap
-import io.github.kotlinmania.libc.unix.pread
-import io.github.kotlinmania.libc.unix.pwrite
-import io.github.kotlinmania.libc.unix.readdir
-import io.github.kotlinmania.libc.unix.readdirR
-import io.github.kotlinmania.libc.unix.stat
-import io.github.kotlinmania.libc.unix.statvfs
-import io.github.kotlinmania.libc.unix.tmpfile
-import io.github.kotlinmania.libc.unix.truncate
+import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.preadv
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.pwritev
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.getrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.setrlimit
 
-/**
- * LFS64 entry points. Each is a thin alias for its non-64 counterpart.
- *
- * open64 / openat64 are variadic re-exports of open / openat (the `mode`
- * argument is optional), so they have no shim here.
- */
+// In-sync with ../linux/musl/lfs64.rs except for fallocate64, prlimit64 and sendfile64
+public fun creat64(path: COpaquePointer?, mode: ModeT): CInt {
+    return creat(path, mode)
+}
 
-public fun creat64(path: String?, mode: UInt): Int = creat(path, mode)
+public fun fgetpos64(stream: FILE?, pos: Fpos64T?): CInt {
+    return fgetpos(stream, COpaquePointer(pos.toLong()))
+}
 
-public fun fgetpos64(stream: FILE?, pos: Long?): Int = fgetpos(stream, pos)
+public fun fopen64(pathname: COpaquePointer?, mode: COpaquePointer?): FILE? {
+    return fopen(pathname, mode)
+}
 
-public fun fopen64(pathname: String?, mode: String?): FILE? = fopen(pathname, mode)
+public fun freopen64(pathname: COpaquePointer?, mode: COpaquePointer?, stream: FILE?): FILE? {
+    return freopen(pathname, mode, stream)
+}
 
-public fun freopen64(pathname: String?, mode: String?, stream: FILE?): FILE? =
-    freopen(pathname, mode, stream)
+public fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt {
+    return fseeko(stream, offset, whence)
+}
 
-public fun fseeko64(stream: FILE?, offset: Long, whence: Int): Int = fseeko(stream, offset, whence)
+public fun fsetpos64(stream: FILE?, pos: Fpos64T?): CInt {
+    return fsetpos(stream, COpaquePointer(pos.toLong()))
+}
 
-public fun fsetpos64(stream: FILE?, pos: Long?): Int = fsetpos(stream, pos)
+public fun fstat64(fildes: CInt, buf: Stat64?): CInt {
+    return fstat(fildes, (buf)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun fstat64(fildes: Int, buf: Stat?): Int = fstat(fildes, buf)
+public fun fstatat64(fd: CInt, path: COpaquePointer?, buf: Stat64?, flag: CInt): CInt {
+    return fstatat(fd, path, (buf)?.let { COpaquePointer(it.hashCode().toLong()) }, flag)
+}
 
-public fun fstatat64(fd: Int, path: String?, buf: Stat?, flag: Int): Int = fstatat(fd, path, buf, flag)
+public fun fstatfs64(fd: CInt, buf: Statfs64?): CInt {
+    return fstatfs(fd, (buf)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun fstatfs64(fd: Int, buf: Statfs?): Int = fstatfs(fd, buf)
+public fun fstatvfs64(fd: CInt, buf: Statvfs64?): CInt {
+    return fstatvfs(fd, (buf)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun fstatvfs64(fd: Int, buf: Statvfs?): Int = fstatvfs(fd, buf)
+public fun ftello64(stream: FILE?): Off64T {
+    return ftello(stream)
+}
 
-public fun ftello64(stream: FILE?): Long = ftello(stream)
+public fun ftruncate64(fd: CInt, length: Off64T): CInt {
+    return ftruncate(fd, length)
+}
 
-public fun ftruncate64(fd: Int, length: Long): Int = ftruncate(fd, length)
+public fun getrlimit64(resource: CInt, rlim: Rlimit64?): CInt {
+    return getrlimit(resource, (rlim)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun getrlimit64(resource: Int, rlim: Rlimit64?): Int =
-    getrlimit(resource, rlim?.let { Rlimit(0L, it.rlimCur, it.rlimMax) })
+public fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T {
+    return lseek(fd, offset, whence)
+}
 
-public fun lseek64(fd: Int, offset: Long, whence: Int): Long = lseek(fd, offset, whence)
+public fun lstat64(path: COpaquePointer?, buf: Stat64?): CInt {
+    return lstat(path, (buf)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun lstat64(path: String?, buf: Stat?): Int = lstat(path, buf)
+public fun mmap64(addr: COpaquePointer?, length: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? {
+    return mmap(addr, length, prot, flags, fd, offset)
+}
 
-public fun mmap64(
-    addr: COpaquePointer?,
-    length: ULong,
-    prot: Int,
-    flags: Int,
-    fd: Int,
-    offset: Long,
-): COpaquePointer? = mmap(addr, length, prot, flags, fd, offset)
+public fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advice: CInt): CInt {
+    return posixFadvise(fd, offset, len, advice)
+}
 
-public fun posixFadvise64(fd: Int, offset: Long, len: Long, advice: Int): Int =
-    posixFadvise(fd, offset, len, advice)
+public fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt {
+    return posixFallocate(fd, offset, len)
+}
 
-public fun posixFallocate64(fd: Int, offset: Long, len: Long): Int =
-    posixFallocate(fd, offset, len)
+public fun pread64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT {
+    return pread(fd, buf, count, offset)
+}
 
-public fun pread64(fd: Int, buf: COpaquePointer?, count: ULong, offset: Long): Long =
-    pread(fd, buf, count, offset)
+public fun preadv64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT {
+    return preadv(fd, iov, iovcnt, offset)
+}
 
-public fun preadv64(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long =
-    preadv(fd, iov, iovcnt, offset)
+public fun pwrite64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT {
+    return pwrite(fd, buf, count, offset)
+}
 
-public fun pwrite64(fd: Int, buf: COpaquePointer?, count: ULong, offset: Long): Long =
-    pwrite(fd, buf, count, offset)
+public fun pwritev64(fd: CInt, iov: Iovec?, iovcnt: CInt, offset: Off64T): SsizeT {
+    return pwritev(fd, iov, iovcnt, offset)
+}
 
-public fun pwritev64(fd: Int, iov: Iovec?, iovcnt: Int, offset: Long): Long =
-    pwritev(fd, iov, iovcnt, offset)
+public fun readdir64(dirp: DIR?): Dirent64? {
+    return (readdir(dirp) as COpaquePointer?)
+}
 
-public fun readdir64(dirp: DIR?): Dirent? = readdir(dirp)
+public fun readdir64R(dirp: DIR?, entry: Dirent64?, result: COpaquePointer?): CInt {
+    return readdirR(dirp, (entry)?.let { COpaquePointer(it.hashCode().toLong()) }, result)
+}
 
-public fun readdir64R(dirp: DIR?, entry: Dirent?, result: COpaquePointer?): Int = readdirR(dirp, entry, result)
+public fun setrlimit64(resource: CInt, rlim: Rlimit64?): CInt {
+    return setrlimit(resource, (rlim)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun setrlimit64(resource: Int, rlim: Rlimit64?): Int =
-    setrlimit(resource, rlim?.let { Rlimit(0L, it.rlimCur, it.rlimMax) })
+public fun stat64(pathname: COpaquePointer?, statbuf: Stat64?): CInt {
+    return stat(pathname, (statbuf)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun stat64(pathname: String?, statbuf: Stat?): Int = stat(pathname, statbuf)
+public fun statfs64(pathname: COpaquePointer?, buf: Statfs64?): CInt {
+    return statfs(pathname, (buf)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun statfs64(pathname: String?, buf: Statfs?): Int = statfs(pathname, buf)
+public fun statvfs64(path: COpaquePointer?, buf: Statvfs64?): CInt {
+    return statvfs(path, (buf)?.let { COpaquePointer(it.hashCode().toLong()) })
+}
 
-public fun statvfs64(path: String?, buf: Statvfs?): Int = statvfs(path, buf)
+public fun tmpfile64(): FILE? {
+    return tmpfile()
+}
 
-public fun tmpfile64(): FILE? = tmpfile()
-
-public fun truncate64(path: String?, length: Long): Int = truncate(path, length)
+public fun truncate64(path: COpaquePointer?, length: Off64T): CInt {
+    return truncate(path, length)
+}

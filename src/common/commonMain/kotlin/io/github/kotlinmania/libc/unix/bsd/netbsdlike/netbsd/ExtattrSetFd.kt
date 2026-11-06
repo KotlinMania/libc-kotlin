@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
-
-import io.github.kotlinmania.libc.*
-
-public expect fun extattrSetFd(fd: Int, attrnamespace: Int, attrname: String?, data: COpaquePointer?, nbytes: ULong): Int

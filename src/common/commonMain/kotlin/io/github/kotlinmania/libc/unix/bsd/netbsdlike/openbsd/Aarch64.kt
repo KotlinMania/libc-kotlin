@@ -2,17 +2,23 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.CUlong
 
 public typealias UcontextT = Sigcontext
 
-public data class Sigcontext(
-    val scMask: Int,
-    val scSp: ULong,
-    val scLr: ULong,
-    val scElr: ULong,
-    val scSpsr: ULong,
-    val scX: ULongArray,
-    val scCookie: Long,
+public open class Sigcontext(
+    public var scUnused: CInt,
+    public var scMask: CInt,
+    public var scSp: CUlong,
+    public var scLr: CUlong,
+    public var scElr: CUlong,
+    public var scSpsr: CUlong,
+    public var scX: List<CUlong>,
+    public var scCookie: CLong,
 )
 
-public const val _MAX_PAGE_SHIFT: UInt = 12u
+internal val ALIGNBYTES: Int = sizeOf<CLong>() - 1
+
+public val MAX_PAGE_SHIFT: UInt = 12u

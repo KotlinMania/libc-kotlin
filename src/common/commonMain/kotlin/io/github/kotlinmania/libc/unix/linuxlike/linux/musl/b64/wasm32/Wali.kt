@@ -2,287 +2,718 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.wasm32
 
 import io.github.kotlinmania.libc.*
-
-public expect fun syscallSYSRead(a1: Int, a2: Int, a3: UInt): Long
-
-public expect fun syscallSYSWrite(a1: Int, a2: Int, a3: UInt): Long
-
-public expect fun syscallSYSOpen(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSClose(a1: Int): Long
-
-public expect fun syscallSYSStat(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSFstat(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSLstat(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSPoll(a1: Int, a2: UInt, a3: Int): Long
-
-public expect fun syscallSYSLseek(a1: Int, a2: Long, a3: Int): Long
-
-public expect fun syscallSYSMmap(a1: Int, a2: UInt, a3: Int, a4: Int, a5: Int, a6: Long): Long
-
-public expect fun syscallSYSMprotect(a1: Int, a2: UInt, a3: Int): Long
-
-public expect fun syscallSYSMunmap(a1: Int, a2: UInt): Long
-
-public expect fun syscallSYSBrk(a1: Int): Long
-
-public expect fun syscallSYSRtSigaction(a1: Int, a2: Int, a3: Int, a4: UInt): Long
-
-public expect fun syscallSYSRtSigprocmask(a1: Int, a2: Int, a3: Int, a4: UInt): Long
-
-public expect fun syscallSYSRtSigreturn(a1: Long): Long
-
-public expect fun syscallSYSIoctl(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSPread64(a1: Int, a2: Int, a3: UInt, a4: Long): Long
-
-public expect fun syscallSYSPwrite64(a1: Int, a2: Int, a3: UInt, a4: Long): Long
-
-public expect fun syscallSYSReadv(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSWritev(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSAccess(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSPipe(a1: Int): Long
-
-public expect fun syscallSYSSelect(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): Long
-
-public expect fun syscallSYSSchedYield(): Long
-
-public expect fun syscallSYSMremap(a1: Int, a2: UInt, a3: UInt, a4: Int, a5: Int): Long
-
-public expect fun syscallSYSMsync(a1: Int, a2: UInt, a3: Int): Long
-
-public expect fun syscallSYSMadvise(a1: Int, a2: UInt, a3: Int): Long
-
-public expect fun syscallSYSDup(a1: Int): Long
-
-public expect fun syscallSYSDup2(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSNanosleep(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSAlarm(a1: Int): Long
-
-public expect fun syscallSYSSetitimer(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSGetpid(): Long
-
-public expect fun syscallSYSSocket(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSConnect(a1: Int, a2: Int, a3: UInt): Long
-
-public expect fun syscallSYSAccept(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSSendto(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: UInt): Long
-
-public expect fun syscallSYSRecvfrom(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: Int): Long
-
-public expect fun syscallSYSSendmsg(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSRecvmsg(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSShutdown(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSBind(a1: Int, a2: Int, a3: UInt): Long
-
-public expect fun syscallSYSListen(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSGetsockname(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSGetpeername(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSSocketpair(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSSetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: UInt): Long
-
-public expect fun syscallSYSGetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): Long
-
-public expect fun syscallSYSFork(): Long
-
-public expect fun syscallSYSExecve(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSExit(a1: Int): Long
-
-public expect fun syscallSYSWait4(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSKill(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSUname(a1: Int): Long
-
-public expect fun syscallSYSFcntl(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSFlock(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSFsync(a1: Int): Long
-
-public expect fun syscallSYSFdatasync(a1: Int): Long
-
-public expect fun syscallSYSFtruncate(a1: Int, a2: Long): Long
-
-public expect fun syscallSYSGetdents(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSGetcwd(a1: Int, a2: UInt): Long
-
-public expect fun syscallSYSChdir(a1: Int): Long
-
-public expect fun syscallSYSFchdir(a1: Int): Long
-
-public expect fun syscallSYSRename(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSMkdir(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSRmdir(a1: Int): Long
-
-public expect fun syscallSYSLink(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSUnlink(a1: Int): Long
-
-public expect fun syscallSYSSymlink(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSReadlink(a1: Int, a2: Int, a3: UInt): Long
-
-public expect fun syscallSYSChmod(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSFchmod(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSChown(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSFchown(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSUmask(a1: Int): Long
-
-public expect fun syscallSYSGetrlimit(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSGetrusage(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSSysinfo(a1: Int): Long
-
-public expect fun syscallSYSGetuid(): Long
-
-public expect fun syscallSYSGetgid(): Long
-
-public expect fun syscallSYSSetuid(a1: Int): Long
-
-public expect fun syscallSYSSetgid(a1: Int): Long
-
-public expect fun syscallSYSGeteuid(): Long
-
-public expect fun syscallSYSGetegid(): Long
-
-public expect fun syscallSYSSetpgid(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSGetppid(): Long
-
-public expect fun syscallSYSSetsid(): Long
-
-public expect fun syscallSYSSetreuid(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSSetregid(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSGetgroups(a1: UInt, a2: Int): Long
-
-public expect fun syscallSYSSetgroups(a1: UInt, a2: Int): Long
-
-public expect fun syscallSYSSetresuid(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSSetresgid(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSGetpgid(a1: Int): Long
-
-public expect fun syscallSYSGetsid(a1: Int): Long
-
-public expect fun syscallSYSRtSigpending(a1: Int, a2: UInt): Long
-
-public expect fun syscallSYSRtSigsuspend(a1: Int, a2: UInt): Long
-
-public expect fun syscallSYSSigaltstack(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSUtime(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSStatfs(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSFstatfs(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSPrctl(a1: Int, a2: ULong, a3: ULong, a4: ULong, a5: ULong): Long
-
-public expect fun syscallSYSSetrlimit(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSChroot(a1: Int): Long
-
-public expect fun syscallSYSGettid(): Long
-
-public expect fun syscallSYSTkill(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSFutex(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): Long
-
-public expect fun syscallSYSSchedGetaffinity(a1: Int, a2: UInt, a3: Int): Long
-
-public expect fun syscallSYSGetdents64(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSSetTidAddress(a1: Int): Long
-
-public expect fun syscallSYSFadvise(a1: Int, a2: Long, a3: Long, a4: Int): Long
-
-public expect fun syscallSYSClockGettime(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSClockGetres(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSClockNanosleep(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSExitGroup(a1: Int): Long
-
-public expect fun syscallSYSEpollCtl(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSOpenat(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSMkdirat(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSFchownat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): Long
-
-public expect fun syscallSYSFstatat(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSUnlinkat(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSLinkat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): Long
-
-public expect fun syscallSYSSymlinkat(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSReadlinkat(a1: Int, a2: Int, a3: Int, a4: UInt): Long
-
-public expect fun syscallSYSFchmodat(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSFaccessat(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSPselect6(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): Long
-
-public expect fun syscallSYSPpoll(a1: Int, a2: UInt, a3: Int, a4: Int, a5: UInt): Long
-
-public expect fun syscallSYSUtimensat(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSEpollPwait(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: UInt): Long
-
-public expect fun syscallSYSEventfd(a1: Int): Long
-
-public expect fun syscallSYSAccept4(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSEventfd2(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSEpollCreate1(a1: Int): Long
-
-public expect fun syscallSYSDup3(a1: Int, a2: Int, a3: Int): Long
-
-public expect fun syscallSYSPipe2(a1: Int, a2: Int): Long
-
-public expect fun syscallSYSPrlimit64(a1: Int, a2: Int, a3: Int, a4: Int): Long
-
-public expect fun syscallSYSRenameat2(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): Long
-
-public expect fun syscallSYSGetrandom(a1: Int, a2: UInt, a3: Int): Long
-
-public expect fun syscallSYSStatx(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): Long
-
-public expect fun syscallSYSFaccessat2(a1: Int, a2: Int, a3: Int, a4: Int): Long
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.LibcDynamicFfi
+
+// WebAssembly Linux Interface syscall specification
+
+// --- Autogenerated from WALI/scripts/autogen.py ---
+// 0
+public fun syscallSysRead(a1: Int, a2: Int, a3: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_read", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 1
+public fun syscallSysWrite(a1: Int, a2: Int, a3: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_write", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 2
+public fun syscallSysOpen(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_open", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 3
+public fun syscallSysClose(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_close", -1, longArrayOf(a1.toLong()))
+}
+
+// 4
+public fun syscallSysStat(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_stat", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 5
+public fun syscallSysFstat(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fstat", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 6
+public fun syscallSysLstat(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_lstat", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 7
+public fun syscallSysPoll(a1: Int, a2: UInt, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_poll", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 8
+public fun syscallSysLseek(a1: Int, a2: Long, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_lseek", -1, longArrayOf(a1.toLong(), a2, a3.toLong()))
+}
+
+// 9
+public fun syscallSysMmap(a1: Int, a2: UInt, a3: Int, a4: Int, a5: Int, a6: Long): CLong {
+    return LibcDynamicFfi.invoke("SYS_mmap", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong(), a6))
+}
+
+// 10
+public fun syscallSysMprotect(a1: Int, a2: UInt, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_mprotect", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 11
+public fun syscallSysMunmap(a1: Int, a2: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_munmap", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 12
+public fun syscallSysBrk(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_brk", -1, longArrayOf(a1.toLong()))
+}
+
+// 13
+public fun syscallSysRtSigaction(a1: Int, a2: Int, a3: Int, a4: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_rt_sigaction", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 14
+public fun syscallSysRtSigprocmask(a1: Int, a2: Int, a3: Int, a4: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_rt_sigprocmask", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 15
+public fun syscallSysRtSigreturn(a1: Long): CLong {
+    return LibcDynamicFfi.invoke("SYS_rt_sigreturn", -1, longArrayOf(a1))
+}
+
+// 16
+public fun syscallSysIoctl(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_ioctl", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 17
+public fun syscallSysPread64(a1: Int, a2: Int, a3: UInt, a4: Long): CLong {
+    return LibcDynamicFfi.invoke("SYS_pread64", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4))
+}
+
+// 18
+public fun syscallSysPwrite64(a1: Int, a2: Int, a3: UInt, a4: Long): CLong {
+    return LibcDynamicFfi.invoke("SYS_pwrite64", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4))
+}
+
+// 19
+public fun syscallSysReadv(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_readv", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 20
+public fun syscallSysWritev(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_writev", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 21
+public fun syscallSysAccess(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_access", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 22
+public fun syscallSysPipe(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_pipe", -1, longArrayOf(a1.toLong()))
+}
+
+// 23
+public fun syscallSysSelect(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_select", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 24
+public fun syscallSysSchedYield(): CLong {
+    return LibcDynamicFfi.invoke("SYS_sched_yield", -1, longArrayOf())
+}
+
+// 25
+public fun syscallSysMremap(a1: Int, a2: UInt, a3: UInt, a4: Int, a5: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_mremap", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 26
+public fun syscallSysMsync(a1: Int, a2: UInt, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_msync", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 28
+public fun syscallSysMadvise(a1: Int, a2: UInt, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_madvise", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 32
+public fun syscallSysDup(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_dup", -1, longArrayOf(a1.toLong()))
+}
+
+// 33
+public fun syscallSysDup2(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_dup2", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 35
+public fun syscallSysNanosleep(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_nanosleep", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 37
+public fun syscallSysAlarm(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_alarm", -1, longArrayOf(a1.toLong()))
+}
+
+// 38
+public fun syscallSysSetitimer(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setitimer", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 39
+public fun syscallSysGetpid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_getpid", -1, longArrayOf())
+}
+
+// 41
+public fun syscallSysSocket(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_socket", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 42
+public fun syscallSysConnect(a1: Int, a2: Int, a3: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_connect", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 43
+public fun syscallSysAccept(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_accept", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 44
+public fun syscallSysSendto(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_sendto", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong(), a6.toLong()))
+}
+
+// 45
+public fun syscallSysRecvfrom(a1: Int, a2: Int, a3: UInt, a4: Int, a5: Int, a6: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_recvfrom", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong(), a6.toLong()))
+}
+
+// 46
+public fun syscallSysSendmsg(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_sendmsg", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 47
+public fun syscallSysRecvmsg(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_recvmsg", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 48
+public fun syscallSysShutdown(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_shutdown", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 49
+public fun syscallSysBind(a1: Int, a2: Int, a3: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_bind", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 50
+public fun syscallSysListen(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_listen", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 51
+public fun syscallSysGetsockname(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getsockname", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 52
+public fun syscallSysGetpeername(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getpeername", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 53
+public fun syscallSysSocketpair(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_socketpair", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 54
+public fun syscallSysSetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_setsockopt", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 55
+public fun syscallSysGetsockopt(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getsockopt", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 57
+public fun syscallSysFork(): CLong {
+    return LibcDynamicFfi.invoke("SYS_fork", -1, longArrayOf())
+}
+
+// 59
+public fun syscallSysExecve(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_execve", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 60
+public fun syscallSysExit(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_exit", -1, longArrayOf(a1.toLong()))
+}
+
+// 61
+public fun syscallSysWait4(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_wait4", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 62
+public fun syscallSysKill(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_kill", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 63
+public fun syscallSysUname(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_uname", -1, longArrayOf(a1.toLong()))
+}
+
+// 72
+public fun syscallSysFcntl(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fcntl", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 73
+public fun syscallSysFlock(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_flock", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 74
+public fun syscallSysFsync(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fsync", -1, longArrayOf(a1.toLong()))
+}
+
+// 75
+public fun syscallSysFdatasync(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fdatasync", -1, longArrayOf(a1.toLong()))
+}
+
+// 77
+public fun syscallSysFtruncate(a1: Int, a2: Long): CLong {
+    return LibcDynamicFfi.invoke("SYS_ftruncate", -1, longArrayOf(a1.toLong(), a2))
+}
+
+// 78
+public fun syscallSysGetdents(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getdents", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 79
+public fun syscallSysGetcwd(a1: Int, a2: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_getcwd", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 80
+public fun syscallSysChdir(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_chdir", -1, longArrayOf(a1.toLong()))
+}
+
+// 81
+public fun syscallSysFchdir(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fchdir", -1, longArrayOf(a1.toLong()))
+}
+
+// 82
+public fun syscallSysRename(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_rename", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 83
+public fun syscallSysMkdir(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_mkdir", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 84
+public fun syscallSysRmdir(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_rmdir", -1, longArrayOf(a1.toLong()))
+}
+
+// 86
+public fun syscallSysLink(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_link", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 87
+public fun syscallSysUnlink(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_unlink", -1, longArrayOf(a1.toLong()))
+}
+
+// 88
+public fun syscallSysSymlink(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_symlink", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 89
+public fun syscallSysReadlink(a1: Int, a2: Int, a3: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_readlink", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 90
+public fun syscallSysChmod(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_chmod", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 91
+public fun syscallSysFchmod(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fchmod", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 92
+public fun syscallSysChown(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_chown", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 93
+public fun syscallSysFchown(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fchown", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 95
+public fun syscallSysUmask(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_umask", -1, longArrayOf(a1.toLong()))
+}
+
+// 97
+public fun syscallSysGetrlimit(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getrlimit", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 98
+public fun syscallSysGetrusage(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getrusage", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 99
+public fun syscallSysSysinfo(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_sysinfo", -1, longArrayOf(a1.toLong()))
+}
+
+// 102
+public fun syscallSysGetuid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_getuid", -1, longArrayOf())
+}
+
+// 104
+public fun syscallSysGetgid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_getgid", -1, longArrayOf())
+}
+
+// 105
+public fun syscallSysSetuid(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setuid", -1, longArrayOf(a1.toLong()))
+}
+
+// 106
+public fun syscallSysSetgid(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setgid", -1, longArrayOf(a1.toLong()))
+}
+
+// 107
+public fun syscallSysGeteuid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_geteuid", -1, longArrayOf())
+}
+
+// 108
+public fun syscallSysGetegid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_getegid", -1, longArrayOf())
+}
+
+// 109
+public fun syscallSysSetpgid(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setpgid", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 110
+public fun syscallSysGetppid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_getppid", -1, longArrayOf())
+}
+
+// 112
+public fun syscallSysSetsid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_setsid", -1, longArrayOf())
+}
+
+// 113
+public fun syscallSysSetreuid(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setreuid", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 114
+public fun syscallSysSetregid(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setregid", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 115
+public fun syscallSysGetgroups(a1: UInt, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getgroups", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 116
+public fun syscallSysSetgroups(a1: UInt, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setgroups", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 117
+public fun syscallSysSetresuid(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setresuid", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 119
+public fun syscallSysSetresgid(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setresgid", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 121
+public fun syscallSysGetpgid(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getpgid", -1, longArrayOf(a1.toLong()))
+}
+
+// 124
+public fun syscallSysGetsid(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getsid", -1, longArrayOf(a1.toLong()))
+}
+
+// 127
+public fun syscallSysRtSigpending(a1: Int, a2: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_rt_sigpending", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 130
+public fun syscallSysRtSigsuspend(a1: Int, a2: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_rt_sigsuspend", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 131
+public fun syscallSysSigaltstack(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_sigaltstack", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 132
+public fun syscallSysUtime(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_utime", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 137
+public fun syscallSysStatfs(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_statfs", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 138
+public fun syscallSysFstatfs(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fstatfs", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 157
+public fun syscallSysPrctl(a1: Int, a2: ULong, a3: ULong, a4: ULong, a5: ULong): CLong {
+    return LibcDynamicFfi.invoke("SYS_prctl", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 160
+public fun syscallSysSetrlimit(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_setrlimit", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 161
+public fun syscallSysChroot(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_chroot", -1, longArrayOf(a1.toLong()))
+}
+
+// 186
+public fun syscallSysGettid(): CLong {
+    return LibcDynamicFfi.invoke("SYS_gettid", -1, longArrayOf())
+}
+
+// 200
+public fun syscallSysTkill(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_tkill", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 202
+public fun syscallSysFutex(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_futex", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong(), a6.toLong()))
+}
+
+// 204
+public fun syscallSysSchedGetaffinity(a1: Int, a2: UInt, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_sched_getaffinity", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 217
+public fun syscallSysGetdents64(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getdents64", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 218
+public fun syscallSysSetTidAddress(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_set_tid_address", -1, longArrayOf(a1.toLong()))
+}
+
+// 221
+public fun syscallSysFadvise(a1: Int, a2: Long, a3: Long, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fadvise", -1, longArrayOf(a1.toLong(), a2, a3, a4.toLong()))
+}
+
+// 228
+public fun syscallSysClockGettime(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_clock_gettime", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 229
+public fun syscallSysClockGetres(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_clock_getres", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 230
+public fun syscallSysClockNanosleep(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_clock_nanosleep", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 231
+public fun syscallSysExitGroup(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_exit_group", -1, longArrayOf(a1.toLong()))
+}
+
+// 233
+public fun syscallSysEpollCtl(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_epoll_ctl", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 257
+public fun syscallSysOpenat(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_openat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 258
+public fun syscallSysMkdirat(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_mkdirat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 260
+public fun syscallSysFchownat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fchownat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 262
+public fun syscallSysFstatat(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fstatat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 263
+public fun syscallSysUnlinkat(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_unlinkat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 265
+public fun syscallSysLinkat(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_linkat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 266
+public fun syscallSysSymlinkat(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_symlinkat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 267
+public fun syscallSysReadlinkat(a1: Int, a2: Int, a3: Int, a4: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_readlinkat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 268
+public fun syscallSysFchmodat(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_fchmodat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 269
+public fun syscallSysFaccessat(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_faccessat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 270
+public fun syscallSysPselect6(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_pselect6", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong(), a6.toLong()))
+}
+
+// 271
+public fun syscallSysPpoll(a1: Int, a2: UInt, a3: Int, a4: Int, a5: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_ppoll", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 280
+public fun syscallSysUtimensat(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_utimensat", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 281
+public fun syscallSysEpollPwait(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int, a6: UInt): CLong {
+    return LibcDynamicFfi.invoke("SYS_epoll_pwait", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong(), a6.toLong()))
+}
+
+// 284
+public fun syscallSysEventfd(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_eventfd", -1, longArrayOf(a1.toLong()))
+}
+
+// 288
+public fun syscallSysAccept4(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_accept4", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 290
+public fun syscallSysEventfd2(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_eventfd2", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 291
+public fun syscallSysEpollCreate1(a1: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_epoll_create1", -1, longArrayOf(a1.toLong()))
+}
+
+// 292
+public fun syscallSysDup3(a1: Int, a2: Int, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_dup3", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 293
+public fun syscallSysPipe2(a1: Int, a2: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_pipe2", -1, longArrayOf(a1.toLong(), a2.toLong()))
+}
+
+// 302
+public fun syscallSysPrlimit64(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_prlimit64", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}
+
+// 316
+public fun syscallSysRenameat2(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_renameat2", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 318
+public fun syscallSysGetrandom(a1: Int, a2: UInt, a3: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_getrandom", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong()))
+}
+
+// 332
+public fun syscallSysStatx(a1: Int, a2: Int, a3: Int, a4: Int, a5: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_statx", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong(), a5.toLong()))
+}
+
+// 439
+public fun syscallSysFaccessat2(a1: Int, a2: Int, a3: Int, a4: Int): CLong {
+    return LibcDynamicFfi.invoke("SYS_faccessat2", -1, longArrayOf(a1.toLong(), a2.toLong(), a3.toLong(), a4.toLong()))
+}

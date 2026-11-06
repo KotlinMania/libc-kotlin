@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.wasi
-
-import io.github.kotlinmania.libc.*
-
-public expect fun strcasecmp(s1: String?, s2: String?): Int

@@ -2,25 +2,95 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.CUchar
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.PT_FIRSTMACH
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 
 public typealias CGregT = ULong
-public typealias FpregsetT = ByteArray
 
-public const val _REG_RDI: Int = 0
-public const val _REG_RSI: Int = 1
-public const val _REG_RDX: Int = 2
-public const val _REG_RCX: Int = 3
-public const val _REG_RBP: Int = 12
-public const val _REG_RBX: Int = 13
-public const val _REG_RAX: Int = 14
-public const val _REG_GS: Int = 15
-public const val _REG_FS: Int = 16
-public const val _REG_ES: Int = 17
-public const val _REG_DS: Int = 18
-public const val _REG_TRAPNO: Int = 19
-public const val _REG_ERR: Int = 20
-public const val _REG_RIP: Int = 21
-public const val _REG_CS: Int = 22
-public const val _REG_RFLAGS: Int = 23
-public const val _REG_RSP: Int = 24
-public const val _REG_SS: Int = 25
+public typealias CpuSimpleLockNvT = CUchar
+
+// Note(alignment): Type is `__aligned(8)`
+public typealias FpregsetT = List<CChar>
+
+public open class McontextT(
+    public var gregs: List<CGregT>,
+    public var mcTlsbase: CGregT,
+    public var fpregs: FpregsetT,
+)
+
+public open class UcontextT(
+    public var ucFlags: CUint,
+    public var ucLink: UcontextT?,
+    public var ucSigmask: SigsetT,
+    public var ucStack: StackT,
+    public var ucMcontext: McontextT,
+)
+
+internal val ALIGNBYTES: Int = sizeOf<CLong>() - 1
+
+public val PT_STEP: CInt = PT_FIRSTMACH + 0
+
+public val PT_GETREGS: CInt = PT_FIRSTMACH + 1
+
+public val PT_SETREGS: CInt = PT_FIRSTMACH + 2
+
+public val PT_GETFPREGS: CInt = PT_FIRSTMACH + 3
+
+public val PT_SETFPREGS: CInt = PT_FIRSTMACH + 4
+
+public val REG_RDI: CInt = 0
+
+public val REG_RSI: CInt = 1
+
+public val REG_RDX: CInt = 2
+
+public val REG_RCX: CInt = 3
+
+public val REG_R8: CInt = 4
+
+public val REG_R9: CInt = 5
+
+public val REG_R10: CInt = 6
+
+public val REG_R11: CInt = 7
+
+public val REG_R12: CInt = 8
+
+public val REG_R13: CInt = 9
+
+public val REG_R14: CInt = 10
+
+public val REG_R15: CInt = 11
+
+public val REG_RBP: CInt = 12
+
+public val REG_RBX: CInt = 13
+
+public val REG_RAX: CInt = 14
+
+public val REG_GS: CInt = 15
+
+public val REG_FS: CInt = 16
+
+public val REG_ES: CInt = 17
+
+public val REG_DS: CInt = 18
+
+public val REG_TRAPNO: CInt = 19
+
+public val REG_ERR: CInt = 20
+
+public val REG_RIP: CInt = 21
+
+public val REG_CS: CInt = 22
+
+public val REG_RFLAGS: CInt = 23
+
+public val REG_RSP: CInt = 24
+
+public val REG_SS: CInt = 25

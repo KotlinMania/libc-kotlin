@@ -1,15 +1,21 @@
 // port-lint: source unix/haiku/b32.rs
 package io.github.kotlinmania.libc.unix.haiku
 
-import io.github.kotlinmania.libc.*
+public typealias TimeT = Int
 
-public data class Elf32Phdr(
-    val pType: UInt,
-    val pOffset: UInt,
-    val pVaddr: UInt,
-    val pPaddr: UInt,
-    val pFilesz: UInt,
-    val pMemsz: UInt,
-    val pFlags: UInt,
-    val pAlign: UInt,
+public typealias ElfAddr = Elf32Addr
+
+public typealias ElfHalf = Elf32Half
+
+public typealias ElfPhdr = Elf32Phdr
+
+public open class Elf32Phdr(
+    public var pType: Elf32Word,
+    public var pOffset: Elf32Off,
+    public var pVaddr: Elf32Addr,
+    public var pPaddr: Elf32Addr,
+    public var pFilesz: Elf32Word,
+    public var pMemsz: Elf32Word,
+    public var pFlags: Elf32Word,
+    public var pAlign: Elf32Word,
 )

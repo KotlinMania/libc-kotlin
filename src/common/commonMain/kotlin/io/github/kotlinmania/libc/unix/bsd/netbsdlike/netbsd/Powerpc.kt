@@ -2,5 +2,16 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CDouble
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.PT_FIRSTMACH
 
-public const val PT_STEP: Int = PT_FIRSTMACH + 0
+public typealias CpuSimpleLockNvT = CInt
+
+internal val ALIGNBYTES: Int = sizeOf<CDouble>() - 1
+
+public val PT_STEP: CInt = PT_FIRSTMACH + 0
+
+public val PT_GETREGS: CInt = PT_FIRSTMACH + 1
+
+public val PT_SETREGS: CInt = PT_FIRSTMACH + 2

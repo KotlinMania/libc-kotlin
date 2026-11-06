@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.vxworks
-
-import io.github.kotlinmania.libc.*
-
-public fun taskIdSelf(): Int = throw UnsupportedOperationException("Not implemented on this platform")

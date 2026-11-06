@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.aix
-
-import io.github.kotlinmania.libc.*
-
-public expect fun mount(device: String?, path: String?, flags: Int): Int

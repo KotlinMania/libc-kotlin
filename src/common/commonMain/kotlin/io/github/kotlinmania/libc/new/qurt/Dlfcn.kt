@@ -2,17 +2,58 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.LibcDynamicFfi
 
-public const val RTLD_LAZY: Int = 1
-public const val RTLD_NOW: Int = 2
-public const val RTLD_GLOBAL: Int = 0x100
-public const val RTLD_LOCAL: Int = 0x200
-public const val DL_LAZY: Int = RTLD_LAZY
+// Header: `dlfcn.h`
+//
+// Dynamic linking functions and constants from Hexagon toolchain.
 
-public expect fun dlopen(filename: String?, flag: Int): COpaquePointer?
+// Values for dlopen `mode`
+public val RTLD_LAZY: CInt = 1
 
-public expect fun dlclose(handle: COpaquePointer?): Int
+public val RTLD_NOW: CInt = 2
 
-public expect fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer?
+public val RTLD_GLOBAL: CInt = 0x100
 
-public expect fun dlerror(): String?
+public val RTLD_LOCAL: CInt = 0x200
+
+// Compatibility constant
+public val DL_LAZY: CInt = RTLD_LAZY
+
+// Special handles
+public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1).toLong())
+
+public val RTLD_DEFAULT: COpaquePointer? = COpaquePointer((-2).toLong())
+
+public val RTLD_SELF: COpaquePointer? = COpaquePointer((-3).toLong())
+
+public fun dlopen(filename: String?, flag: CInt): COpaquePointer? {
+    val __cstr_0 = if (filename == null) 0L else LibcDynamicFfi.allocUtf8CString(filename)
+    try {
+        val rawRet = LibcDynamicFfi.invoke("dlopen", -1, longArrayOf(__cstr_0, flag.toLong()))
+        return if (rawRet == 0L) null else COpaquePointer(rawRet)
+    } finally {
+        if (__cstr_0 != 0L) LibcDynamicFfi.freeMem(__cstr_0)
+    }
+}
+
+public fun dlclose(handle: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("dlclose", -1, longArrayOf(handle?.value ?: 0L)).toInt()
+}
+
+public fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? {
+    val __cstr_1 = if (symbol == null) 0L else LibcDynamicFfi.allocUtf8CString(symbol)
+    try {
+        val rawRet = LibcDynamicFfi.invoke("dlsym", -1, longArrayOf(handle?.value ?: 0L, __cstr_1))
+        return if (rawRet == 0L) null else COpaquePointer(rawRet)
+    } finally {
+        if (__cstr_1 != 0L) LibcDynamicFfi.freeMem(__cstr_1)
+    }
+}
+
+public fun dlerror(): COpaquePointer? {
+    val rawRet = LibcDynamicFfi.invoke("dlerror", -1, longArrayOf())
+    return if (rawRet == 0L) null else COpaquePointer(rawRet)
+}

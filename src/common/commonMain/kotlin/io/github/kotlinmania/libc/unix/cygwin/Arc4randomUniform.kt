@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.cygwin
-
-import io.github.kotlinmania.libc.*
-
-public fun arc4randomUniform(l: UInt): UInt = 0u

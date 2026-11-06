@@ -2,6 +2,8 @@
 package io.github.kotlinmania.libc.new.musl.arch.mips.bits
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
 
-public const val SOCK_STREAM: Int = 2
-public const val SOCK_DGRAM: Int = 1
+public val SOCK_STREAM: CInt = 2
+
+public val SOCK_DGRAM: CInt = 1

@@ -2,7 +2,14 @@
 package io.github.kotlinmania.libc.new.common.posix
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
 
-public const val STDIN_FILENO: Int = 0
-public const val STDOUT_FILENO: Int = 1
-public const val STDERR_FILENO: Int = 2
+// Header: `unistd.h`
+//
+// <https://pubs.opengroup.org/onlinepubs/007904975/basedefs/unistd.h.html>
+
+public val STDIN_FILENO: CInt = 0
+
+public val STDOUT_FILENO: CInt = 1
+
+public val STDERR_FILENO: CInt = 2

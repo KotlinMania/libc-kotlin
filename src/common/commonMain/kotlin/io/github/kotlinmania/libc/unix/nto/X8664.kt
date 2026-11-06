@@ -2,67 +2,96 @@
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.SizeT
 
-public data class X8664CpuRegisters(
-    val rdi: ULong,
-    val rsi: ULong,
-    val rdx: ULong,
-    val r10: ULong,
-    val r8: ULong,
-    val r9: ULong,
-    val rax: ULong,
-    val rbx: ULong,
-    val rbp: ULong,
-    val rcx: ULong,
-    val r11: ULong,
-    val r12: ULong,
-    val r13: ULong,
-    val r14: ULong,
-    val r15: ULong,
-    val rip: ULong,
-    val cs: UInt,
-    val rflags: ULong,
-    val rsp: ULong,
-    val ss: UInt,
+public typealias WcharT = UInt
+
+public typealias TimeT = Long
+
+public open class X8664CpuRegisters(
+    public var rdi: ULong,
+    public var rsi: ULong,
+    public var rdx: ULong,
+    public var r10: ULong,
+    public var r8: ULong,
+    public var r9: ULong,
+    public var rax: ULong,
+    public var rbx: ULong,
+    public var rbp: ULong,
+    public var rcx: ULong,
+    public var r11: ULong,
+    public var r12: ULong,
+    public var r13: ULong,
+    public var r14: ULong,
+    public var r15: ULong,
+    public var rip: ULong,
+    public var cs: UInt,
+    public var rsvd1: UInt,
+    public var rflags: ULong,
+    public var rsp: ULong,
+    public var ss: UInt,
+    public var rsvd2: UInt,
 )
 
-// McontextT and StackT are defined in Aarch64.kt (first definitions in this package).
+public open class McontextT(public var cpu: X8664CpuRegisters, public var fpu: X8664FpuRegisters)
 
-public data class FsaveArea64(
-    val fpuControlWord: UInt,
-    val fpuStatusWord: UInt,
-    val fpuTagWord: UInt,
-    val fpuIp: UInt,
-    val fpuCs: UInt,
-    val fpuOp: UInt,
-    val fpuDs: UInt,
-    val stRegs: UByteArray,
+public open class StackT(
+    public var ssSp: COpaquePointer?,
+    public var ssSize: SizeT,
+    public var ssFlags: CInt,
 )
 
-public data class FxsaveArea64(
-    val fpuControlWord: UShort,
-    val fpuStatusWord: UShort,
-    val fpuTagWord: UShort,
-    val fpuOperand: UShort,
-    val fpuRip: ULong,
-    val fpuRdp: ULong,
-    val mxcsr: UInt,
-    val mxcsrMask: UInt,
-    val stRegs: UByteArray,
-    val xmmRegs: UByteArray,
+public open class FsaveArea64(
+    public var fpuControlWord: UInt,
+    public var fpuStatusWord: UInt,
+    public var fpuTagWord: UInt,
+    public var fpuIp: UInt,
+    public var fpuCs: UInt,
+    public var fpuOp: UInt,
+    public var fpuDs: UInt,
+    public var stRegs: List<UByte>,
 )
 
-public data class FpuExtentionSavearea64(
-    val other: UByteArray,
-    val xstateBv: ULong,
-    val xstateUndef: ULongArray,
-    val xstateInfo: UByteArray,
+public open class FxsaveArea64(
+    public var fpuControlWord: UShort,
+    public var fpuStatusWord: UShort,
+    public var fpuTagWord: UShort,
+    public var fpuOperand: UShort,
+    public var fpuRip: ULong,
+    public var fpuRdp: ULong,
+    public var mxcsr: UInt,
+    public var mxcsrMask: UInt,
+    public var stRegs: List<UByte>,
+    public var xmmRegs: List<UByte>,
+    public var reserved2: List<UByte>,
 )
 
-// C union; only one variant is valid at a time.
-public data class X8664FpuRegisters(
-    val fsaveArea: FsaveArea64? = null,
-    val fxsaveArea: FxsaveArea64? = null,
-    val xsaveArea: FpuExtentionSavearea64? = null,
-    val data: UByteArray? = null,
+public open class FpuExtentionSavearea64(
+    public var other: List<UByte>,
+    public var xstateBv: ULong,
+    public var xstateUndef: List<ULong>,
+    public var xstateInfo: List<UByte>,
 )
+
+public open class X8664FpuRegisters(
+    public var fsaveArea: FsaveArea64? = null,
+    public var fxsaveArea: FxsaveArea64? = null,
+    public var xsaveArea: FpuExtentionSavearea64? = null,
+    public var data: List<UByte>? = null,
+) {
+    public open fun eq(other: X8664FpuRegisters): Boolean {
+        return this.fsaveArea == other.fsaveArea || this.fxsaveArea == other.fxsaveArea || this.xsaveArea == other.xsaveArea
+    }
+
+    public override fun hashCode(): Int {
+        var state = 0
+        run {
+            state = 31 * state + (this.fsaveArea).hashCode()
+            state = 31 * state + (this.fxsaveArea).hashCode()
+            state = 31 * state + (this.xsaveArea).hashCode()
+        }
+        return state
+    }
+}

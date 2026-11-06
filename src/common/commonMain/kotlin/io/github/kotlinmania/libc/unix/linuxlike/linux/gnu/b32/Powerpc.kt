@@ -2,799 +2,1513 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.unix.Sigval
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CShort
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.SighandlerT
+import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.linuxlike.FsidT
+import io.github.kotlinmania.libc.unix.linuxlike.KeyT
+import io.github.kotlinmania.libc.unix.linuxlike.SpeedT
+import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.Blkcnt64T
+import io.github.kotlinmania.libc.unix.linuxlike.linux.DevT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.Ino64T
+import io.github.kotlinmania.libc.unix.linuxlike.linux.ModeT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
+
+public fun interface SigactionSaRestorerCallback {
+    public operator fun invoke()
+}
 
 public typealias WcharT = Int
 
-public data class Sigaction(
-    val saSigaction: ULong,
-    val saMask: SigsetT,
-    val saFlags: Int,
-    val saRestorer: io.github.kotlinmania.libc.SignalRestorer?,
+public open class Sigaction(
+    public var saSigaction: SighandlerT,
+    public var saMask: SigsetT,
+    public var saFlags: CInt,
+    public var saRestorer: SigactionSaRestorerCallback?,
 )
 
-public data class Statfs(
-    val fType: Int,
-    val fBsize: Int,
-    val fBlocks: ULong,
-    val fBfree: ULong,
-    val fBavail: ULong,
-    val fFiles: ULong,
-    val fFfree: ULong,
-    val fFsid: ULong,
-    val fNamelen: Int,
-    val fFrsize: Int,
-    val fFlags: Int,
-    val fSpare: List<Int>,
+public open class Statfs(
+    public var fType: FswordT,
+    public var fBsize: FswordT,
+    public var fBlocks: FsblkcntT,
+    public var fBfree: FsblkcntT,
+    public var fBavail: FsblkcntT,
+    public var fFiles: FsfilcntT,
+    public var fFfree: FsfilcntT,
+    public var fFsid: FsidT,
+    public var fNamelen: FswordT,
+    public var fFrsize: FswordT,
+    public var fFlags: FswordT,
+    public var fSpare: List<FswordT>,
 )
 
-public data class Flock(
-    val lType: Short,
-    val lWhence: Short,
-    val lStart: Long,
-    val lLen: Long,
-    val lPid: Int,
+public open class Flock(
+    public var lType: CShort,
+    public var lWhence: CShort,
+    public var lStart: OffT,
+    public var lLen: OffT,
+    public var lPid: PidT,
 )
 
-public data class Flock64(
-    val lType: Short,
-    val lWhence: Short,
-    val lStart: Long,
-    val lLen: Long,
-    val lPid: Int,
+public open class Flock64(
+    public var lType: CShort,
+    public var lWhence: CShort,
+    public var lStart: Off64T,
+    public var lLen: Off64T,
+    public var lPid: PidT,
 )
 
-public data class IpcPerm(
-    val key: Int,
-    val uid: UInt,
-    val gid: UInt,
-    val cuid: UInt,
-    val cgid: UInt,
-    val mode: UInt,
-    val seq: UInt,
+public open class IpcPerm(
+    public var key: KeyT,
+    public var uid: UidT,
+    public var gid: GidT,
+    public var cuid: UidT,
+    public var cgid: GidT,
+    public var mode: ModeT,
+    public var seq: UInt,
+    public var pad1: UInt,
+    public var glibcReserved1: ULong,
+    public var glibcReserved2: ULong,
 )
 
-// Stat is defined in Mod.kt (first definition in this package).
-public data class Stat64(
-    val stDev: ULong,
-    val stIno: ULong,
-    val stMode: UInt,
-    val stNlink: UInt,
-    val stUid: UInt,
-    val stGid: UInt,
-    val stRdev: ULong,
-    val stSize: Long,
-    val stBlksize: Long,
-    val stBlocks: Long,
-    val stAtime: Long,
-    val stAtimeNsec: Long,
-    val stMtime: Long,
-    val stMtimeNsec: Long,
-    val stCtime: Long,
-    val stCtimeNsec: Long,
+public open class Stat(
+    public var stDev: DevT,
+    public var pad1: CUshort,
+    public var stIno: InoT,
+    public var stMode: ModeT,
+    public var stNlink: NlinkT,
+    public var stUid: UidT,
+    public var stGid: GidT,
+    public var stRdev: DevT,
+    public var pad2: CUshort,
+    public var stSize: OffT,
+    public var stBlksize: BlksizeT,
+    public var stBlocks: BlkcntT,
+    public var stAtime: TimeT,
+    public var atimePad: CInt,
+    public var stAtimeNsec: CLong,
+    public var stMtime: TimeT,
+    public var mtimePad: CInt,
+    public var stMtimeNsec: CLong,
+    public var stCtime: TimeT,
+    public var ctimePad: CInt,
+    public var stCtimeNsec: CLong,
+    public var glibcReserved4: CUlong,
+    public var glibcReserved5: CUlong,
 )
 
-public data class Statfs64(
-    val fType: Int,
-    val fBsize: Int,
-    val fBlocks: ULong,
-    val fBfree: ULong,
-    val fBavail: ULong,
-    val fFiles: ULong,
-    val fFfree: ULong,
-    val fFsid: ULong,
-    val fNamelen: Int,
-    val fFrsize: Int,
-    val fFlags: Int,
-    val fSpare: List<Int>,
+public open class Stat64(
+    public var stDev: DevT,
+    public var stIno: Ino64T,
+    public var stMode: ModeT,
+    public var stNlink: NlinkT,
+    public var stUid: UidT,
+    public var stGid: GidT,
+    public var stRdev: DevT,
+    public var pad2: CUshort,
+    public var stSize: Off64T,
+    public var stBlksize: BlksizeT,
+    public var stBlocks: Blkcnt64T,
+    public var stAtime: TimeT,
+    public var atimePad: CInt,
+    public var stAtimeNsec: CLong,
+    public var stMtime: TimeT,
+    public var mtimePad: CInt,
+    public var stMtimeNsec: CLong,
+    public var stCtime: TimeT,
+    public var ctimePad: CInt,
+    public var stCtimeNsec: CLong,
+    public var glibcReserved4: CUlong,
+    public var glibcReserved5: CUlong,
 )
 
-public data class Statvfs64(
-    val fBsize: ULong,
-    val fFrsize: ULong,
-    val fBlocks: ULong,
-    val fBfree: ULong,
-    val fBavail: ULong,
-    val fFiles: ULong,
-    val fFfree: ULong,
-    val fFavail: ULong,
-    val fFsid: ULong,
-    val fFlag: ULong,
-    val fNamemax: ULong,
-    val fSpare: IntArray,
+public open class Statfs64(
+    public var fType: FswordT,
+    public var fBsize: FswordT,
+    public var fBlocks: ULong,
+    public var fBfree: ULong,
+    public var fBavail: ULong,
+    public var fFiles: ULong,
+    public var fFfree: ULong,
+    public var fFsid: FsidT,
+    public var fNamelen: FswordT,
+    public var fFrsize: FswordT,
+    public var fFlags: FswordT,
+    public var fSpare: List<FswordT>,
 )
 
-public data class ShmidDs(
-    val shmPerm: IpcPerm,
-    val shmSegsz: ULong,
-    val shmAtime: Long,
-    val shmDtime: Long,
-    val shmCtime: Long,
-    val shmSegsz2: ULong,
-    val shmCpid: Int,
-    val shmLpid: Int,
-    val shmNattch: ULong,
+public open class Statvfs64(
+    public var fBsize: CUlong,
+    public var fFrsize: CUlong,
+    public var fBlocks: ULong,
+    public var fBfree: ULong,
+    public var fBavail: ULong,
+    public var fFiles: ULong,
+    public var fFfree: ULong,
+    public var fFavail: ULong,
+    public var fFsid: CUlong,
+    public var fUnused: CInt,
+    public var fFlag: CUlong,
+    public var fNamemax: CUlong,
+    public var fSpare: List<CInt>,
 )
 
-public data class MsqidDs(
-    val msgPerm: IpcPerm,
-    val msgStime: Long,
-    val msgRtime: Long,
-    val msgCtime: Long,
-    val msgCbytes: ULong,
-    val msgQnum: ULong,
-    val msgQbytes: ULong,
-    val msgLspid: Int,
-    val msgLrpid: Int,
+public open class ShmidDs(
+    public var shmPerm: IpcPerm,
+    public var shmSegsz: SizeT,
+    public var glibcReserved1: CUint,
+    public var shmAtime: TimeT,
+    public var glibcReserved2: CUint,
+    public var shmDtime: TimeT,
+    public var glibcReserved3: CUint,
+    public var shmCtime: TimeT,
+    public var glibcReserved4: CUint,
+    public var shmCpid: PidT,
+    public var shmLpid: PidT,
+    public var shmNattch: ShmattT,
+    public var glibcReserved5: CUlong,
+    public var glibcReserved6: CUlong,
 )
 
-public data class SiginfoT(
-    val handle: Long = 0L,
-    val siSigno: Int,
-    val siErrno: Int,
-    val siCode: Int,
-    val pad: IntArray,
-    val align: List<ULong>,
-    val siAddr: COpaquePointer? = null,
-    val siValue: Sigval? = null,
-    val siPid: Int? = null,
-    val siUid: UInt? = null,
-    val siStatus: Int? = null,
-    val siUtime: Long? = null,
-    val siStime: Long? = null,
+public open class MsqidDs(
+    public var msgPerm: IpcPerm,
+    public var glibcReserved1: CUint,
+    public var msgStime: TimeT,
+    public var glibcReserved2: CUint,
+    public var msgRtime: TimeT,
+    public var glibcReserved3: CUint,
+    public var msgCtime: TimeT,
+    public var msgCbytes: CUlong,
+    public var msgQnum: MsgqnumT,
+    public var msgQbytes: MsglenT,
+    public var msgLspid: PidT,
+    public var msgLrpid: PidT,
+    public var glibcReserved4: CUlong,
+    public var glibcReserved5: CUlong,
 )
 
-public data class StackT(
-    val ssSp: COpaquePointer?,
-    val ssFlags: Int,
-    val ssSize: ULong,
+public open class SiginfoT(
+    public var siSigno: CInt,
+    public var siErrno: CInt,
+    public var siCode: CInt,
+    public var pad: List<CInt>,
+    public var align: List<Int>,
 )
 
-public const val VEOF: ULong = 4uL
-public const val RTLD_DEEPBIND: Int = 0x8
-public const val RTLD_GLOBAL: Int = 0x100
-public const val RTLD_NOLOAD: Int = 0x4
-public const val O_DIRECT: Int = 0x20000
-public const val O_DIRECTORY: Int = 0x4000
-public const val O_NOFOLLOW: Int = 0x8000
-public const val O_LARGEFILE: Int = 65536
-public const val O_APPEND: Int = 1024
-public const val O_CREAT: Int = 64
-public const val O_EXCL: Int = 128
-public const val O_NOCTTY: Int = 256
-public const val O_NONBLOCK: Int = 2048
-public const val O_SYNC: Int = 1052672
-public const val O_RSYNC: Int = 1052672
-public const val O_DSYNC: Int = 4096
-public const val O_FSYNC: Int = 0x101000
-public const val O_ASYNC: Int = 0x2000
-public const val O_NDELAY: Int = 0x800
-public const val TCSANOW: Int = 0
-public const val TCSADRAIN: Int = 1
-public const val TCSAFLUSH: Int = 2
-public const val MADV_SOFT_OFFLINE: Int = 101
-public const val MAP_LOCKED: Int = 0x00080
-public const val MAP_NORESERVE: Int = 0x00040
-public const val MAP_ANON: Int = 0x0020
-public const val MAP_ANONYMOUS: Int = 0x0020
-public const val MAP_DENYWRITE: Int = 0x0800
-public const val MAP_EXECUTABLE: Int = 0x01000
-public const val MAP_POPULATE: Int = 0x08000
-public const val MAP_NONBLOCK: Int = 0x010000
-public const val MAP_STACK: Int = 0x020000
-public const val MAP_HUGETLB: Int = 0x040000
-public const val MAP_GROWSDOWN: Int = 0x0100
-public const val MAP_SYNC: Int = 0x080000
-public const val EDEADLOCK: Int = 58
-public const val EUCLEAN: Int = 117
-public const val ENOTNAM: Int = 118
-public const val ENAVAIL: Int = 119
-public const val EISNAM: Int = 120
-public const val EREMOTEIO: Int = 121
-public const val EDEADLK: Int = 35
-public const val ENAMETOOLONG: Int = 36
-public const val ENOLCK: Int = 37
-public const val ENOSYS: Int = 38
-public const val ENOTEMPTY: Int = 39
-public const val ELOOP: Int = 40
-public const val ENOMSG: Int = 42
-public const val EIDRM: Int = 43
-public const val ECHRNG: Int = 44
-public const val EL2NSYNC: Int = 45
-public const val EL3HLT: Int = 46
-public const val EL3RST: Int = 47
-public const val ELNRNG: Int = 48
-public const val EUNATCH: Int = 49
-public const val ENOCSI: Int = 50
-public const val EL2HLT: Int = 51
-public const val EBADE: Int = 52
-public const val EBADR: Int = 53
-public const val EXFULL: Int = 54
-public const val ENOANO: Int = 55
-public const val EBADRQC: Int = 56
-public const val EBADSLT: Int = 57
-public const val EMULTIHOP: Int = 72
-public const val EOVERFLOW: Int = 75
-public const val ENOTUNIQ: Int = 76
-public const val EBADFD: Int = 77
-public const val EBADMSG: Int = 74
-public const val EREMCHG: Int = 78
-public const val ELIBACC: Int = 79
-public const val ELIBBAD: Int = 80
-public const val ELIBSCN: Int = 81
-public const val ELIBMAX: Int = 82
-public const val ELIBEXEC: Int = 83
-public const val EILSEQ: Int = 84
-public const val ERESTART: Int = 85
-public const val ESTRPIPE: Int = 86
-public const val EUSERS: Int = 87
-public const val ENOTSOCK: Int = 88
-public const val EDESTADDRREQ: Int = 89
-public const val EMSGSIZE: Int = 90
-public const val EPROTOTYPE: Int = 91
-public const val ENOPROTOOPT: Int = 92
-public const val EPROTONOSUPPORT: Int = 93
-public const val ESOCKTNOSUPPORT: Int = 94
-public const val EOPNOTSUPP: Int = 95
-public const val EPFNOSUPPORT: Int = 96
-public const val EAFNOSUPPORT: Int = 97
-public const val EADDRINUSE: Int = 98
-public const val EADDRNOTAVAIL: Int = 99
-public const val ENETDOWN: Int = 100
-public const val ENETUNREACH: Int = 101
-public const val ENETRESET: Int = 102
-public const val ECONNABORTED: Int = 103
-public const val ECONNRESET: Int = 104
-public const val ENOBUFS: Int = 105
-public const val EISCONN: Int = 106
-public const val ENOTCONN: Int = 107
-public const val ESHUTDOWN: Int = 108
-public const val ETOOMANYREFS: Int = 109
-public const val ETIMEDOUT: Int = 110
-public const val ECONNREFUSED: Int = 111
-public const val EHOSTDOWN: Int = 112
-public const val EHOSTUNREACH: Int = 113
-public const val EALREADY: Int = 114
-public const val EINPROGRESS: Int = 115
-public const val ESTALE: Int = 116
-public const val EDQUOT: Int = 122
-public const val ENOMEDIUM: Int = 123
-public const val EMEDIUMTYPE: Int = 124
-public const val ECANCELED: Int = 125
-public const val ENOKEY: Int = 126
-public const val EKEYEXPIRED: Int = 127
-public const val EKEYREVOKED: Int = 128
-public const val EKEYREJECTED: Int = 129
-public const val EOWNERDEAD: Int = 130
-public const val ENOTRECOVERABLE: Int = 131
-public const val EHWPOISON: Int = 133
-public const val ERFKILL: Int = 132
-public const val SA_SIGINFO: Int = 0x00000004
-public const val SA_NOCLDWAIT: Int = 0x00000002
-public const val SOCK_STREAM: Int = 1
-public const val SOCK_DGRAM: Int = 2
-public const val MCL_CURRENT: Int = 0x2000
-public const val MCL_FUTURE: Int = 0x4000
-public const val MCL_ONFAULT: Int = 0x8000
-public const val POLLWRNORM: Short = 0x100
-public const val POLLWRBAND: Short = 0x200
-public const val F_GETLK: Int = 12
-public const val F_GETOWN: Int = 9
-public const val F_SETOWN: Int = 8
-public const val EFD_NONBLOCK: Int = 0x800
-public const val SFD_NONBLOCK: Int = 0x0800
-public const val SIGCHLD: Int = 17
-public const val SIGBUS: Int = 7
-public const val SIGUSR1: Int = 10
-public const val SIGUSR2: Int = 12
-public const val SIGCONT: Int = 18
-public const val SIGSTOP: Int = 19
-public const val SIGTSTP: Int = 20
-public const val SIGURG: Int = 23
-public const val SIGIO: Int = 29
-public const val SIGSYS: Int = 31
-public const val SIGSTKFLT: Int = 16
-public const val SIGUNUSED: Int = 31
-public const val SIGPOLL: Int = 29
-public const val SIGPWR: Int = 30
-public const val SIG_SETMASK: Int = 2
-public const val SIG_BLOCK: Int = 0x000000
-public const val SIG_UNBLOCK: Int = 0x01
-public const val SIGTTIN: Int = 21
-public const val SIGTTOU: Int = 22
-public const val SIGXCPU: Int = 24
-public const val SIGXFSZ: Int = 25
-public const val SIGVTALRM: Int = 26
-public const val SIGPROF: Int = 27
-public const val SIGWINCH: Int = 28
-public const val SIGSTKSZ: ULong = 0x4000uL
-public const val MINSIGSTKSZ: ULong = 4096uL
-public const val CBAUD: UInt = 0xffu
-public const val TAB1: UInt = 0x400u
-public const val TAB2: UInt = 0x800u
-public const val TAB3: UInt = 0xc00u
-public const val CR1: UInt = 0x1000u
-public const val CR2: UInt = 0x2000u
-public const val CR3: UInt = 0x3000u
-public const val FF1: UInt = 0x4000u
-public const val BS1: UInt = 0x8000u
-public const val VT1: UInt = 0x10000u
-public const val VWERASE: ULong = 0xauL
-public const val VREPRINT: ULong = 0xbuL
-public const val VSUSP: ULong = 0xcuL
-public const val VSTART: ULong = 0xduL
-public const val VSTOP: ULong = 0xeuL
-public const val VDISCARD: ULong = 0x10uL
-public const val VTIME: ULong = 0x7uL
-public const val IXON: UInt = 0x200u
-public const val IXOFF: UInt = 0x400u
-public const val ONLCR: UInt = 0x2u
-public const val CSIZE: UInt = 0x300u
-public const val CS6: UInt = 0x100u
-public const val CS7: UInt = 0x200u
-public const val CS8: UInt = 0x300u
-public const val CSTOPB: UInt = 0x400u
-public const val CREAD: UInt = 0x800u
-public const val PARENB: UInt = 0x1000u
-public const val PARODD: UInt = 0x2000u
-public const val HUPCL: UInt = 0x4000u
-public const val CLOCAL: UInt = 0x8000u
-public const val ECHOKE: UInt = 0x1u
-public const val ECHOE: UInt = 0x2u
-public const val ECHOK: UInt = 0x4u
-public const val ECHONL: UInt = 0x10u
-public const val ECHOPRT: UInt = 0x20u
-public const val ECHOCTL: UInt = 0x40u
-public const val ISIG: UInt = 0x80u
-public const val ICANON: UInt = 0x100u
-public const val PENDIN: UInt = 0x20000000u
-public const val NOFLSH: UInt = 0x80000000u
-public const val VSWTC: ULong = 9uL
-public const val OLCUC: UInt = 4u
-public const val NLDLY: UInt = 768u
-public const val CRDLY: UInt = 12288u
-public const val TABDLY: UInt = 3072u
-public const val BSDLY: UInt = 32768u
-public const val FFDLY: UInt = 16384u
-public const val VTDLY: UInt = 65536u
-public const val XTABS: UInt = 3072u
-public const val B0: UInt = 0u
-public const val B50: UInt = 1u
-public const val B75: UInt = 2u
-public const val B110: UInt = 3u
-public const val B134: UInt = 4u
-public const val B150: UInt = 5u
-public const val B200: UInt = 6u
-public const val B300: UInt = 7u
-public const val B600: UInt = 8u
-public const val B1200: UInt = 9u
-public const val B1800: UInt = 10u
-public const val B2400: UInt = 11u
-public const val B4800: UInt = 12u
-public const val B9600: UInt = 13u
-public const val B19200: UInt = 14u
-public const val B38400: UInt = 15u
-public const val EXTA: UInt = B19200
-public const val EXTB: UInt = B38400
-public const val CBAUDEX: UInt = 16u
-public const val B57600: UInt = 16u
-public const val B115200: UInt = 17u
-public const val B230400: UInt = 18u
-public const val B460800: UInt = 19u
-public const val B500000: UInt = 20u
-public const val B576000: UInt = 21u
-public const val B921600: UInt = 22u
-public const val B1000000: UInt = 23u
-public const val B1152000: UInt = 24u
-public const val B1500000: UInt = 25u
-public const val B2000000: UInt = 26u
-public const val B2500000: UInt = 27u
-public const val B3000000: UInt = 28u
-public const val B3500000: UInt = 29u
-public const val B4000000: UInt = 30u
-public const val VEOL: ULong = 6uL
-public const val VEOL2: ULong = 8uL
-public const val VMIN: ULong = 5uL
-public const val IEXTEN: UInt = 0x400u
-public const val TOSTOP: UInt = 0x400000u
-public const val FLUSHO: UInt = 0x800000u
-public const val EXTPROC: UInt = 0x10000000u
-public const val SYS_RESTART_SYSCALL: Long = 0
-public const val SYS_EXIT: Long = 1
-public const val SYS_FORK: Long = 2
-public const val SYS_READ: Long = 3
-public const val SYS_WRITE: Long = 4
-public const val SYS_OPEN: Long = 5
-public const val SYS_CLOSE: Long = 6
-public const val SYS_WAITPID: Long = 7
-public const val SYS_CREAT: Long = 8
-public const val SYS_LINK: Long = 9
-public const val SYS_UNLINK: Long = 10
-public const val SYS_EXECVE: Long = 11
-public const val SYS_CHDIR: Long = 12
-public const val SYS_TIME: Long = 13
-public const val SYS_MKNOD: Long = 14
-public const val SYS_CHMOD: Long = 15
-public const val SYS_LCHOWN: Long = 16
-public const val SYS_BREAK: Long = 17
-public const val SYS_OLDSTAT: Long = 18
-public const val SYS_LSEEK: Long = 19
-public const val SYS_GETPID: Long = 20
-public const val SYS_MOUNT: Long = 21
-public const val SYS_UMOUNT: Long = 22
-public const val SYS_SETUID: Long = 23
-public const val SYS_GETUID: Long = 24
-public const val SYS_STIME: Long = 25
-public const val SYS_PTRACE: Long = 26
-public const val SYS_ALARM: Long = 27
-public const val SYS_OLDFSTAT: Long = 28
-public const val SYS_PAUSE: Long = 29
-public const val SYS_UTIME: Long = 30
-public const val SYS_STTY: Long = 31
-public const val SYS_GTTY: Long = 32
-public const val SYS_ACCESS: Long = 33
-public const val SYS_NICE: Long = 34
-public const val SYS_FTIME: Long = 35
-public const val SYS_SYNC: Long = 36
-public const val SYS_KILL: Long = 37
-public const val SYS_RENAME: Long = 38
-public const val SYS_MKDIR: Long = 39
-public const val SYS_RMDIR: Long = 40
-public const val SYS_DUP: Long = 41
-public const val SYS_PIPE: Long = 42
-public const val SYS_TIMES: Long = 43
-public const val SYS_PROF: Long = 44
-public const val SYS_BRK: Long = 45
-public const val SYS_SETGID: Long = 46
-public const val SYS_GETGID: Long = 47
-public const val SYS_SIGNAL: Long = 48
-public const val SYS_GETEUID: Long = 49
-public const val SYS_GETEGID: Long = 50
-public const val SYS_ACCT: Long = 51
-public const val SYS_UMOUNT2: Long = 52
-public const val SYS_LOCK: Long = 53
-public const val SYS_IOCTL: Long = 54
-public const val SYS_FCNTL: Long = 55
-public const val SYS_MPX: Long = 56
-public const val SYS_SETPGID: Long = 57
-public const val SYS_ULIMIT: Long = 58
-public const val SYS_OLDOLDUNAME: Long = 59
-public const val SYS_UMASK: Long = 60
-public const val SYS_CHROOT: Long = 61
-public const val SYS_USTAT: Long = 62
-public const val SYS_DUP2: Long = 63
-public const val SYS_GETPPID: Long = 64
-public const val SYS_GETPGRP: Long = 65
-public const val SYS_SETSID: Long = 66
-public const val SYS_SIGACTION: Long = 67
-public const val SYS_SGETMASK: Long = 68
-public const val SYS_SSETMASK: Long = 69
-public const val SYS_SETREUID: Long = 70
-public const val SYS_SETREGID: Long = 71
-public const val SYS_SIGSUSPEND: Long = 72
-public const val SYS_SIGPENDING: Long = 73
-public const val SYS_SETHOSTNAME: Long = 74
-public const val SYS_SETRLIMIT: Long = 75
-public const val SYS_GETRLIMIT: Long = 76
-public const val SYS_GETRUSAGE: Long = 77
-public const val SYS_GETTIMEOFDAY: Long = 78
-public const val SYS_SETTIMEOFDAY: Long = 79
-public const val SYS_GETGROUPS: Long = 80
-public const val SYS_SETGROUPS: Long = 81
-public const val SYS_SELECT: Long = 82
-public const val SYS_SYMLINK: Long = 83
-public const val SYS_OLDLSTAT: Long = 84
-public const val SYS_READLINK: Long = 85
-public const val SYS_USELIB: Long = 86
-public const val SYS_SWAPON: Long = 87
-public const val SYS_REBOOT: Long = 88
-public const val SYS_READDIR: Long = 89
-public const val SYS_MMAP: Long = 90
-public const val SYS_MUNMAP: Long = 91
-public const val SYS_TRUNCATE: Long = 92
-public const val SYS_FTRUNCATE: Long = 93
-public const val SYS_FCHMOD: Long = 94
-public const val SYS_FCHOWN: Long = 95
-public const val SYS_GETPRIORITY: Long = 96
-public const val SYS_SETPRIORITY: Long = 97
-public const val SYS_PROFIL: Long = 98
-public const val SYS_STATFS: Long = 99
-public const val SYS_FSTATFS: Long = 100
-public const val SYS_IOPERM: Long = 101
-public const val SYS_SOCKETCALL: Long = 102
-public const val SYS_SYSLOG: Long = 103
-public const val SYS_SETITIMER: Long = 104
-public const val SYS_GETITIMER: Long = 105
-public const val SYS_STAT: Long = 106
-public const val SYS_LSTAT: Long = 107
-public const val SYS_FSTAT: Long = 108
-public const val SYS_OLDUNAME: Long = 109
-public const val SYS_IOPL: Long = 110
-public const val SYS_VHANGUP: Long = 111
-public const val SYS_IDLE: Long = 112
-public const val SYS_VM86: Long = 113
-public const val SYS_WAIT4: Long = 114
-public const val SYS_SWAPOFF: Long = 115
-public const val SYS_SYSINFO: Long = 116
-public const val SYS_IPC: Long = 117
-public const val SYS_FSYNC: Long = 118
-public const val SYS_SIGRETURN: Long = 119
-public const val SYS_CLONE: Long = 120
-public const val SYS_SETDOMAINNAME: Long = 121
-public const val SYS_UNAME: Long = 122
-public const val SYS_MODIFY_LDT: Long = 123
-public const val SYS_ADJTIMEX: Long = 124
-public const val SYS_MPROTECT: Long = 125
-public const val SYS_SIGPROCMASK: Long = 126
-public const val SYS_CREATE_MODULE: Long = 127
-public const val SYS_INIT_MODULE: Long = 128
-public const val SYS_DELETE_MODULE: Long = 129
-public const val SYS_GET_KERNEL_SYMS: Long = 130
-public const val SYS_QUOTACTL: Long = 131
-public const val SYS_GETPGID: Long = 132
-public const val SYS_FCHDIR: Long = 133
-public const val SYS_BDFLUSH: Long = 134
-public const val SYS_SYSFS: Long = 135
-public const val SYS_PERSONALITY: Long = 136
-public const val SYS_AFS_SYSCALL: Long = 137
-public const val SYS_SETFSUID: Long = 138
-public const val SYS_SETFSGID: Long = 139
-public const val SYS__LLSEEK: Long = 140
-public const val SYS_GETDENTS: Long = 141
-public const val SYS__NEWSELECT: Long = 142
-public const val SYS_FLOCK: Long = 143
-public const val SYS_MSYNC: Long = 144
-public const val SYS_READV: Long = 145
-public const val SYS_WRITEV: Long = 146
-public const val SYS_GETSID: Long = 147
-public const val SYS_FDATASYNC: Long = 148
-public const val SYS__SYSCTL: Long = 149
-public const val SYS_MLOCK: Long = 150
-public const val SYS_MUNLOCK: Long = 151
-public const val SYS_MLOCKALL: Long = 152
-public const val SYS_MUNLOCKALL: Long = 153
-public const val SYS_SCHED_SETPARAM: Long = 154
-public const val SYS_SCHED_GETPARAM: Long = 155
-public const val SYS_SCHED_SETSCHEDULER: Long = 156
-public const val SYS_SCHED_GETSCHEDULER: Long = 157
-public const val SYS_SCHED_YIELD: Long = 158
-public const val SYS_SCHED_GET_PRIORITY_MAX: Long = 159
-public const val SYS_SCHED_GET_PRIORITY_MIN: Long = 160
-public const val SYS_SCHED_RR_GET_INTERVAL: Long = 161
-public const val SYS_NANOSLEEP: Long = 162
-public const val SYS_MREMAP: Long = 163
-public const val SYS_SETRESUID: Long = 164
-public const val SYS_GETRESUID: Long = 165
-public const val SYS_QUERY_MODULE: Long = 166
-public const val SYS_POLL: Long = 167
-public const val SYS_NFSSERVCTL: Long = 168
-public const val SYS_SETRESGID: Long = 169
-public const val SYS_GETRESGID: Long = 170
-public const val SYS_PRCTL: Long = 171
-public const val SYS_RT_SIGRETURN: Long = 172
-public const val SYS_RT_SIGACTION: Long = 173
-public const val SYS_RT_SIGPROCMASK: Long = 174
-public const val SYS_RT_SIGPENDING: Long = 175
-public const val SYS_RT_SIGTIMEDWAIT: Long = 176
-public const val SYS_RT_SIGQUEUEINFO: Long = 177
-public const val SYS_RT_SIGSUSPEND: Long = 178
-public const val SYS_PREAD64: Long = 179
-public const val SYS_PWRITE64: Long = 180
-public const val SYS_CHOWN: Long = 181
-public const val SYS_GETCWD: Long = 182
-public const val SYS_CAPGET: Long = 183
-public const val SYS_CAPSET: Long = 184
-public const val SYS_SIGALTSTACK: Long = 185
-public const val SYS_SENDFILE: Long = 186
-public const val SYS_GETPMSG: Long = 187
-public const val SYS_PUTPMSG: Long = 188
-public const val SYS_VFORK: Long = 189
-public const val SYS_UGETRLIMIT: Long = 190
-public const val SYS_READAHEAD: Long = 191
-public const val SYS_MMAP2: Long = 192
-public const val SYS_TRUNCATE64: Long = 193
-public const val SYS_FTRUNCATE64: Long = 194
-public const val SYS_STAT64: Long = 195
-public const val SYS_LSTAT64: Long = 196
-public const val SYS_FSTAT64: Long = 197
-public const val SYS_PCICONFIG_READ: Long = 198
-public const val SYS_PCICONFIG_WRITE: Long = 199
-public const val SYS_PCICONFIG_IOBASE: Long = 200
-public const val SYS_MULTIPLEXER: Long = 201
-public const val SYS_GETDENTS64: Long = 202
-public const val SYS_PIVOT_ROOT: Long = 203
-public const val SYS_FCNTL64: Long = 204
-public const val SYS_MADVISE: Long = 205
-public const val SYS_MINCORE: Long = 206
-public const val SYS_GETTID: Long = 207
-public const val SYS_TKILL: Long = 208
-public const val SYS_SETXATTR: Long = 209
-public const val SYS_LSETXATTR: Long = 210
-public const val SYS_FSETXATTR: Long = 211
-public const val SYS_GETXATTR: Long = 212
-public const val SYS_LGETXATTR: Long = 213
-public const val SYS_FGETXATTR: Long = 214
-public const val SYS_LISTXATTR: Long = 215
-public const val SYS_LLISTXATTR: Long = 216
-public const val SYS_FLISTXATTR: Long = 217
-public const val SYS_REMOVEXATTR: Long = 218
-public const val SYS_LREMOVEXATTR: Long = 219
-public const val SYS_FREMOVEXATTR: Long = 220
-public const val SYS_FUTEX: Long = 221
-public const val SYS_SCHED_SETAFFINITY: Long = 222
-public const val SYS_SCHED_GETAFFINITY: Long = 223
-public const val SYS_TUXCALL: Long = 225
-public const val SYS_SENDFILE64: Long = 226
-public const val SYS_IO_SETUP: Long = 227
-public const val SYS_IO_DESTROY: Long = 228
-public const val SYS_IO_GETEVENTS: Long = 229
-public const val SYS_IO_SUBMIT: Long = 230
-public const val SYS_IO_CANCEL: Long = 231
-public const val SYS_SET_TID_ADDRESS: Long = 232
-public const val SYS_FADVISE64: Long = 233
-public const val SYS_EXIT_GROUP: Long = 234
-public const val SYS_LOOKUP_DCOOKIE: Long = 235
-public const val SYS_EPOLL_CREATE: Long = 236
-public const val SYS_EPOLL_CTL: Long = 237
-public const val SYS_EPOLL_WAIT: Long = 238
-public const val SYS_REMAP_FILE_PAGES: Long = 239
-public const val SYS_TIMER_CREATE: Long = 240
-public const val SYS_TIMER_SETTIME: Long = 241
-public const val SYS_TIMER_GETTIME: Long = 242
-public const val SYS_TIMER_GETOVERRUN: Long = 243
-public const val SYS_TIMER_DELETE: Long = 244
-public const val SYS_CLOCK_SETTIME: Long = 245
-public const val SYS_CLOCK_GETTIME: Long = 246
-public const val SYS_CLOCK_GETRES: Long = 247
-public const val SYS_CLOCK_NANOSLEEP: Long = 248
-public const val SYS_SWAPCONTEXT: Long = 249
-public const val SYS_TGKILL: Long = 250
-public const val SYS_UTIMES: Long = 251
-public const val SYS_STATFS64: Long = 252
-public const val SYS_FSTATFS64: Long = 253
-public const val SYS_FADVISE64_64: Long = 254
-public const val SYS_RTAS: Long = 255
-public const val SYS_SYS_DEBUG_SETCONTEXT: Long = 256
-public const val SYS_MIGRATE_PAGES: Long = 258
-public const val SYS_MBIND: Long = 259
-public const val SYS_GET_MEMPOLICY: Long = 260
-public const val SYS_SET_MEMPOLICY: Long = 261
-public const val SYS_MQ_OPEN: Long = 262
-public const val SYS_MQ_UNLINK: Long = 263
-public const val SYS_MQ_TIMEDSEND: Long = 264
-public const val SYS_MQ_TIMEDRECEIVE: Long = 265
-public const val SYS_MQ_NOTIFY: Long = 266
-public const val SYS_MQ_GETSETATTR: Long = 267
-public const val SYS_KEXEC_LOAD: Long = 268
-public const val SYS_ADD_KEY: Long = 269
-public const val SYS_REQUEST_KEY: Long = 270
-public const val SYS_KEYCTL: Long = 271
-public const val SYS_WAITID: Long = 272
-public const val SYS_IOPRIO_SET: Long = 273
-public const val SYS_IOPRIO_GET: Long = 274
-public const val SYS_INOTIFY_INIT: Long = 275
-public const val SYS_INOTIFY_ADD_WATCH: Long = 276
-public const val SYS_INOTIFY_RM_WATCH: Long = 277
-public const val SYS_SPU_RUN: Long = 278
-public const val SYS_SPU_CREATE: Long = 279
-public const val SYS_PSELECT6: Long = 280
-public const val SYS_PPOLL: Long = 281
-public const val SYS_UNSHARE: Long = 282
-public const val SYS_SPLICE: Long = 283
-public const val SYS_TEE: Long = 284
-public const val SYS_VMSPLICE: Long = 285
-public const val SYS_OPENAT: Long = 286
-public const val SYS_MKDIRAT: Long = 287
-public const val SYS_MKNODAT: Long = 288
-public const val SYS_FCHOWNAT: Long = 289
-public const val SYS_FUTIMESAT: Long = 290
-public const val SYS_FSTATAT64: Long = 291
-public const val SYS_UNLINKAT: Long = 292
-public const val SYS_RENAMEAT: Long = 293
-public const val SYS_LINKAT: Long = 294
-public const val SYS_SYMLINKAT: Long = 295
-public const val SYS_READLINKAT: Long = 296
-public const val SYS_FCHMODAT: Long = 297
-public const val SYS_FACCESSAT: Long = 298
-public const val SYS_GET_ROBUST_LIST: Long = 299
-public const val SYS_SET_ROBUST_LIST: Long = 300
-public const val SYS_MOVE_PAGES: Long = 301
-public const val SYS_GETCPU: Long = 302
-public const val SYS_EPOLL_PWAIT: Long = 303
-public const val SYS_UTIMENSAT: Long = 304
-public const val SYS_SIGNALFD: Long = 305
-public const val SYS_TIMERFD_CREATE: Long = 306
-public const val SYS_EVENTFD: Long = 307
-public const val SYS_SYNC_FILE_RANGE2: Long = 308
-public const val SYS_FALLOCATE: Long = 309
-public const val SYS_SUBPAGE_PROT: Long = 310
-public const val SYS_TIMERFD_SETTIME: Long = 311
-public const val SYS_TIMERFD_GETTIME: Long = 312
-public const val SYS_SIGNALFD4: Long = 313
-public const val SYS_EVENTFD2: Long = 314
-public const val SYS_EPOLL_CREATE1: Long = 315
-public const val SYS_DUP3: Long = 316
-public const val SYS_PIPE2: Long = 317
-public const val SYS_INOTIFY_INIT1: Long = 318
-public const val SYS_PERF_EVENT_OPEN: Long = 319
-public const val SYS_PREADV: Long = 320
-public const val SYS_PWRITEV: Long = 321
-public const val SYS_RT_TGSIGQUEUEINFO: Long = 322
-public const val SYS_FANOTIFY_INIT: Long = 323
-public const val SYS_FANOTIFY_MARK: Long = 324
-public const val SYS_PRLIMIT64: Long = 325
-public const val SYS_SOCKET: Long = 326
-public const val SYS_BIND: Long = 327
-public const val SYS_CONNECT: Long = 328
-public const val SYS_LISTEN: Long = 329
-public const val SYS_ACCEPT: Long = 330
-public const val SYS_GETSOCKNAME: Long = 331
-public const val SYS_GETPEERNAME: Long = 332
-public const val SYS_SOCKETPAIR: Long = 333
-public const val SYS_SEND: Long = 334
-public const val SYS_SENDTO: Long = 335
-public const val SYS_RECV: Long = 336
-public const val SYS_RECVFROM: Long = 337
-public const val SYS_SHUTDOWN: Long = 338
-public const val SYS_SETSOCKOPT: Long = 339
-public const val SYS_GETSOCKOPT: Long = 340
-public const val SYS_SENDMSG: Long = 341
-public const val SYS_RECVMSG: Long = 342
-public const val SYS_RECVMMSG: Long = 343
-public const val SYS_ACCEPT4: Long = 344
-public const val SYS_NAME_TO_HANDLE_AT: Long = 345
-public const val SYS_OPEN_BY_HANDLE_AT: Long = 346
-public const val SYS_CLOCK_ADJTIME: Long = 347
-public const val SYS_SYNCFS: Long = 348
-public const val SYS_SENDMMSG: Long = 349
-public const val SYS_SETNS: Long = 350
-public const val SYS_PROCESS_VM_READV: Long = 351
-public const val SYS_PROCESS_VM_WRITEV: Long = 352
-public const val SYS_FINIT_MODULE: Long = 353
-public const val SYS_KCMP: Long = 354
-public const val SYS_SCHED_SETATTR: Long = 355
-public const val SYS_SCHED_GETATTR: Long = 356
-public const val SYS_RENAMEAT2: Long = 357
-public const val SYS_SECCOMP: Long = 358
-public const val SYS_GETRANDOM: Long = 359
-public const val SYS_MEMFD_CREATE: Long = 360
-public const val SYS_BPF: Long = 361
-public const val SYS_EXECVEAT: Long = 362
-public const val SYS_SWITCH_ENDIAN: Long = 363
-public const val SYS_USERFAULTFD: Long = 364
-public const val SYS_MEMBARRIER: Long = 365
-public const val SYS_MLOCK2: Long = 378
-public const val SYS_COPY_FILE_RANGE: Long = 379
-public const val SYS_PREADV2: Long = 380
-public const val SYS_PWRITEV2: Long = 381
-public const val SYS_KEXEC_FILE_LOAD: Long = 382
-public const val SYS_STATX: Long = 383
-public const val SYS_RSEQ: Long = 387
-public const val SYS_PIDFD_SEND_SIGNAL: Long = 424
-public const val SYS_IO_URING_SETUP: Long = 425
-public const val SYS_IO_URING_ENTER: Long = 426
-public const val SYS_IO_URING_REGISTER: Long = 427
-public const val SYS_OPEN_TREE: Long = 428
-public const val SYS_MOVE_MOUNT: Long = 429
-public const val SYS_FSOPEN: Long = 430
-public const val SYS_FSCONFIG: Long = 431
-public const val SYS_FSMOUNT: Long = 432
-public const val SYS_FSPICK: Long = 433
-public const val SYS_PIDFD_OPEN: Long = 434
-public const val SYS_CLONE3: Long = 435
-public const val SYS_CLOSE_RANGE: Long = 436
-public const val SYS_OPENAT2: Long = 437
-public const val SYS_PIDFD_GETFD: Long = 438
-public const val SYS_FACCESSAT2: Long = 439
-public const val SYS_PROCESS_MADVISE: Long = 440
-public const val SYS_EPOLL_PWAIT2: Long = 441
-public const val SYS_MOUNT_SETATTR: Long = 442
-public const val SYS_QUOTACTL_FD: Long = 443
-public const val SYS_LANDLOCK_CREATE_RULESET: Long = 444
-public const val SYS_LANDLOCK_ADD_RULE: Long = 445
-public const val SYS_LANDLOCK_RESTRICT_SELF: Long = 446
-public const val SYS_MEMFD_SECRET: Long = 447
-public const val SYS_PROCESS_MRELEASE: Long = 448
-public const val SYS_FUTEX_WAITV: Long = 449
-public const val SYS_SET_MEMPOLICY_HOME_NODE: Long = 450
-public const val SYS_MSEAL: Long = 462
+public open class StackT(
+    public var ssSp: COpaquePointer?,
+    public var ssFlags: CInt,
+    public var ssSize: SizeT,
+)
+
+public val VEOF: Int = 4
+
+public val RTLD_DEEPBIND: CInt = 0x8
+
+public val RTLD_GLOBAL: CInt = 0x100
+
+public val RTLD_NOLOAD: CInt = 0x4
+
+public val O_DIRECT: CInt = 0x20000
+
+public val O_DIRECTORY: CInt = 0x4000
+
+public val O_NOFOLLOW: CInt = 0x8000
+
+public val O_LARGEFILE: CInt = 65536
+
+public val O_APPEND: CInt = 1024
+
+public val O_CREAT: CInt = 64
+
+public val O_EXCL: CInt = 128
+
+public val O_NOCTTY: CInt = 256
+
+public val O_NONBLOCK: CInt = 2048
+
+public val O_SYNC: CInt = 1052672
+
+public val O_RSYNC: CInt = 1052672
+
+public val O_DSYNC: CInt = 4096
+
+public val O_FSYNC: CInt = 0x101000
+
+public val O_ASYNC: CInt = 0x2000
+
+public val O_NDELAY: CInt = 0x800
+
+public val TCSANOW: CInt = 0
+
+public val TCSADRAIN: CInt = 1
+
+public val TCSAFLUSH: CInt = 2
+
+public val MADV_SOFT_OFFLINE: CInt = 101
+
+public val MAP_LOCKED: CInt = 0x00080
+
+public val MAP_NORESERVE: CInt = 0x00040
+
+public val MAP_ANON: CInt = 0x0020
+
+public val MAP_ANONYMOUS: CInt = 0x0020
+
+public val MAP_DENYWRITE: CInt = 0x0800
+
+public val MAP_EXECUTABLE: CInt = 0x01000
+
+public val MAP_POPULATE: CInt = 0x08000
+
+public val MAP_NONBLOCK: CInt = 0x010000
+
+public val MAP_STACK: CInt = 0x020000
+
+public val MAP_HUGETLB: CInt = 0x040000
+
+public val MAP_GROWSDOWN: CInt = 0x0100
+
+public val MAP_SYNC: CInt = 0x080000
+
+public val EDEADLOCK: CInt = 58
+
+public val EUCLEAN: CInt = 117
+
+public val ENOTNAM: CInt = 118
+
+public val ENAVAIL: CInt = 119
+
+public val EISNAM: CInt = 120
+
+public val EREMOTEIO: CInt = 121
+
+public val EDEADLK: CInt = 35
+
+public val ENAMETOOLONG: CInt = 36
+
+public val ENOLCK: CInt = 37
+
+public val ENOSYS: CInt = 38
+
+public val ENOTEMPTY: CInt = 39
+
+public val ELOOP: CInt = 40
+
+public val ENOMSG: CInt = 42
+
+public val EIDRM: CInt = 43
+
+public val ECHRNG: CInt = 44
+
+public val EL2NSYNC: CInt = 45
+
+public val EL3HLT: CInt = 46
+
+public val EL3RST: CInt = 47
+
+public val ELNRNG: CInt = 48
+
+public val EUNATCH: CInt = 49
+
+public val ENOCSI: CInt = 50
+
+public val EL2HLT: CInt = 51
+
+public val EBADE: CInt = 52
+
+public val EBADR: CInt = 53
+
+public val EXFULL: CInt = 54
+
+public val ENOANO: CInt = 55
+
+public val EBADRQC: CInt = 56
+
+public val EBADSLT: CInt = 57
+
+public val EMULTIHOP: CInt = 72
+
+public val EOVERFLOW: CInt = 75
+
+public val ENOTUNIQ: CInt = 76
+
+public val EBADFD: CInt = 77
+
+public val EBADMSG: CInt = 74
+
+public val EREMCHG: CInt = 78
+
+public val ELIBACC: CInt = 79
+
+public val ELIBBAD: CInt = 80
+
+public val ELIBSCN: CInt = 81
+
+public val ELIBMAX: CInt = 82
+
+public val ELIBEXEC: CInt = 83
+
+public val EILSEQ: CInt = 84
+
+public val ERESTART: CInt = 85
+
+public val ESTRPIPE: CInt = 86
+
+public val EUSERS: CInt = 87
+
+public val ENOTSOCK: CInt = 88
+
+public val EDESTADDRREQ: CInt = 89
+
+public val EMSGSIZE: CInt = 90
+
+public val EPROTOTYPE: CInt = 91
+
+public val ENOPROTOOPT: CInt = 92
+
+public val EPROTONOSUPPORT: CInt = 93
+
+public val ESOCKTNOSUPPORT: CInt = 94
+
+public val EOPNOTSUPP: CInt = 95
+
+public val EPFNOSUPPORT: CInt = 96
+
+public val EAFNOSUPPORT: CInt = 97
+
+public val EADDRINUSE: CInt = 98
+
+public val EADDRNOTAVAIL: CInt = 99
+
+public val ENETDOWN: CInt = 100
+
+public val ENETUNREACH: CInt = 101
+
+public val ENETRESET: CInt = 102
+
+public val ECONNABORTED: CInt = 103
+
+public val ECONNRESET: CInt = 104
+
+public val ENOBUFS: CInt = 105
+
+public val EISCONN: CInt = 106
+
+public val ENOTCONN: CInt = 107
+
+public val ESHUTDOWN: CInt = 108
+
+public val ETOOMANYREFS: CInt = 109
+
+public val ETIMEDOUT: CInt = 110
+
+public val ECONNREFUSED: CInt = 111
+
+public val EHOSTDOWN: CInt = 112
+
+public val EHOSTUNREACH: CInt = 113
+
+public val EALREADY: CInt = 114
+
+public val EINPROGRESS: CInt = 115
+
+public val ESTALE: CInt = 116
+
+public val EDQUOT: CInt = 122
+
+public val ENOMEDIUM: CInt = 123
+
+public val EMEDIUMTYPE: CInt = 124
+
+public val ECANCELED: CInt = 125
+
+public val ENOKEY: CInt = 126
+
+public val EKEYEXPIRED: CInt = 127
+
+public val EKEYREVOKED: CInt = 128
+
+public val EKEYREJECTED: CInt = 129
+
+public val EOWNERDEAD: CInt = 130
+
+public val ENOTRECOVERABLE: CInt = 131
+
+public val EHWPOISON: CInt = 133
+
+public val ERFKILL: CInt = 132
+
+public val SA_SIGINFO: CInt = 0x00000004
+
+public val SA_NOCLDWAIT: CInt = 0x00000002
+
+public val SOCK_STREAM: CInt = 1
+
+public val SOCK_DGRAM: CInt = 2
+
+public val MCL_CURRENT: CInt = 0x2000
+
+public val MCL_FUTURE: CInt = 0x4000
+
+public val MCL_ONFAULT: CInt = 0x8000
+
+public val POLLWRNORM: CShort = 0x100
+
+public val POLLWRBAND: CShort = 0x200
+
+public val F_GETLK: CInt = 12
+
+public val F_GETLK1: CInt = 5
+
+public val F_GETOWN: CInt = 9
+
+public val F_SETOWN: CInt = 8
+
+public val EFD_NONBLOCK: CInt = 0x800
+
+public val SFD_NONBLOCK: CInt = 0x0800
+
+public val SIGCHLD: CInt = 17
+
+public val SIGBUS: CInt = 7
+
+public val SIGUSR1: CInt = 10
+
+public val SIGUSR2: CInt = 12
+
+public val SIGCONT: CInt = 18
+
+public val SIGSTOP: CInt = 19
+
+public val SIGTSTP: CInt = 20
+
+public val SIGURG: CInt = 23
+
+public val SIGIO: CInt = 29
+
+public val SIGSYS: CInt = 31
+
+public val SIGSTKFLT: CInt = 16
+
+public val SIGUNUSED: CInt = 31
+
+public val SIGPOLL: CInt = 29
+
+public val SIGPWR: CInt = 30
+
+public val SIG_SETMASK: CInt = 2
+
+public val SIG_BLOCK: CInt = 0x000000
+
+public val SIG_UNBLOCK: CInt = 0x01
+
+public val SIGTTIN: CInt = 21
+
+public val SIGTTOU: CInt = 22
+
+public val SIGXCPU: CInt = 24
+
+public val SIGXFSZ: CInt = 25
+
+public val SIGVTALRM: CInt = 26
+
+public val SIGPROF: CInt = 27
+
+public val SIGWINCH: CInt = 28
+
+public val SIGSTKSZ: SizeT = 0x4000uL
+
+public val MINSIGSTKSZ: SizeT = 4096uL
+
+public val CBAUD: TcflagT = 0xffu
+
+public val TAB1: TcflagT = 0x400u
+
+public val TAB2: TcflagT = 0x800u
+
+public val TAB3: TcflagT = 0xc00u
+
+public val CR1: TcflagT = 0x1000u
+
+public val CR2: TcflagT = 0x2000u
+
+public val CR3: TcflagT = 0x3000u
+
+public val FF1: TcflagT = 0x4000u
+
+public val BS1: TcflagT = 0x8000u
+
+public val VT1: TcflagT = 0x10000u
+
+public val VWERASE: Int = 0xa
+
+public val VREPRINT: Int = 0xb
+
+public val VSUSP: Int = 0xc
+
+public val VSTART: Int = 0xd
+
+public val VSTOP: Int = 0xe
+
+public val VDISCARD: Int = 0x10
+
+public val VTIME: Int = 0x7
+
+public val IXON: TcflagT = 0x200u
+
+public val IXOFF: TcflagT = 0x400u
+
+public val ONLCR: TcflagT = 0x2u
+
+public val CSIZE: TcflagT = 0x300u
+
+public val CS6: TcflagT = 0x100u
+
+public val CS7: TcflagT = 0x200u
+
+public val CS8: TcflagT = 0x300u
+
+public val CSTOPB: TcflagT = 0x400u
+
+public val CREAD: TcflagT = 0x800u
+
+public val PARENB: TcflagT = 0x1000u
+
+public val PARODD: TcflagT = 0x2000u
+
+public val HUPCL: TcflagT = 0x4000u
+
+public val CLOCAL: TcflagT = 0x8000u
+
+public val ECHOKE: TcflagT = 0x1u
+
+public val ECHOE: TcflagT = 0x2u
+
+public val ECHOK: TcflagT = 0x4u
+
+public val ECHONL: TcflagT = 0x10u
+
+public val ECHOPRT: TcflagT = 0x20u
+
+public val ECHOCTL: TcflagT = 0x40u
+
+public val ISIG: TcflagT = 0x80u
+
+public val ICANON: TcflagT = 0x100u
+
+public val PENDIN: TcflagT = 0x20000000u
+
+public val NOFLSH: TcflagT = 0x80000000u
+
+public val VSWTC: Int = 9
+
+public val OLCUC: TcflagT = 4u
+
+public val NLDLY: TcflagT = 768u
+
+public val CRDLY: TcflagT = 12288u
+
+public val TABDLY: TcflagT = 3072u
+
+public val BSDLY: TcflagT = 32768u
+
+public val FFDLY: TcflagT = 16384u
+
+public val VTDLY: TcflagT = 65536u
+
+public val XTABS: TcflagT = 3072u
+
+public val B0: SpeedT = 0u
+
+public val B50: SpeedT = 1u
+
+public val B75: SpeedT = 2u
+
+public val B110: SpeedT = 3u
+
+public val B134: SpeedT = 4u
+
+public val B150: SpeedT = 5u
+
+public val B200: SpeedT = 6u
+
+public val B300: SpeedT = 7u
+
+public val B600: SpeedT = 8u
+
+public val B1200: SpeedT = 9u
+
+public val B1800: SpeedT = 10u
+
+public val B2400: SpeedT = 11u
+
+public val B4800: SpeedT = 12u
+
+public val B9600: SpeedT = 13u
+
+public val B19200: SpeedT = 14u
+
+public val B38400: SpeedT = 15u
+
+public val EXTA: SpeedT = B19200
+
+public val EXTB: SpeedT = B38400
+
+public val CBAUDEX: SpeedT = 16u
+
+public val B57600: SpeedT = 16u
+
+public val B115200: SpeedT = 17u
+
+public val B230400: SpeedT = 18u
+
+public val B460800: SpeedT = 19u
+
+public val B500000: SpeedT = 20u
+
+public val B576000: SpeedT = 21u
+
+public val B921600: SpeedT = 22u
+
+public val B1000000: SpeedT = 23u
+
+public val B1152000: SpeedT = 24u
+
+public val B1500000: SpeedT = 25u
+
+public val B2000000: SpeedT = 26u
+
+public val B2500000: SpeedT = 27u
+
+public val B3000000: SpeedT = 28u
+
+public val B3500000: SpeedT = 29u
+
+public val B4000000: SpeedT = 30u
+
+public val VEOL: Int = 6
+
+public val VEOL2: Int = 8
+
+public val VMIN: Int = 5
+
+public val IEXTEN: TcflagT = 0x400u
+
+public val TOSTOP: TcflagT = 0x400000u
+
+public val FLUSHO: TcflagT = 0x800000u
+
+public val EXTPROC: TcflagT = 0x10000000u
+
+public val SYS_RESTART_SYSCALL: CLong = 0L
+
+public val SYS_EXIT: CLong = 1L
+
+public val SYS_FORK: CLong = 2L
+
+public val SYS_READ: CLong = 3L
+
+public val SYS_WRITE: CLong = 4L
+
+public val SYS_OPEN: CLong = 5L
+
+public val SYS_CLOSE: CLong = 6L
+
+public val SYS_WAITPID: CLong = 7L
+
+public val SYS_CREAT: CLong = 8L
+
+public val SYS_LINK: CLong = 9L
+
+public val SYS_UNLINK: CLong = 10L
+
+public val SYS_EXECVE: CLong = 11L
+
+public val SYS_CHDIR: CLong = 12L
+
+public val SYS_TIME: CLong = 13L
+
+public val SYS_MKNOD: CLong = 14L
+
+public val SYS_CHMOD: CLong = 15L
+
+public val SYS_LCHOWN: CLong = 16L
+
+public val SYS_BREAK: CLong = 17L
+
+public val SYS_OLDSTAT: CLong = 18L
+
+public val SYS_LSEEK: CLong = 19L
+
+public val SYS_GETPID: CLong = 20L
+
+public val SYS_MOUNT: CLong = 21L
+
+public val SYS_UMOUNT: CLong = 22L
+
+public val SYS_SETUID: CLong = 23L
+
+public val SYS_GETUID: CLong = 24L
+
+public val SYS_STIME: CLong = 25L
+
+public val SYS_PTRACE: CLong = 26L
+
+public val SYS_ALARM: CLong = 27L
+
+public val SYS_OLDFSTAT: CLong = 28L
+
+public val SYS_PAUSE: CLong = 29L
+
+public val SYS_UTIME: CLong = 30L
+
+public val SYS_STTY: CLong = 31L
+
+public val SYS_GTTY: CLong = 32L
+
+public val SYS_ACCESS: CLong = 33L
+
+public val SYS_NICE: CLong = 34L
+
+public val SYS_FTIME: CLong = 35L
+
+public val SYS_SYNC: CLong = 36L
+
+public val SYS_KILL: CLong = 37L
+
+public val SYS_RENAME: CLong = 38L
+
+public val SYS_MKDIR: CLong = 39L
+
+public val SYS_RMDIR: CLong = 40L
+
+public val SYS_DUP: CLong = 41L
+
+public val SYS_PIPE: CLong = 42L
+
+public val SYS_TIMES: CLong = 43L
+
+public val SYS_PROF: CLong = 44L
+
+public val SYS_BRK: CLong = 45L
+
+public val SYS_SETGID: CLong = 46L
+
+public val SYS_GETGID: CLong = 47L
+
+public val SYS_SIGNAL: CLong = 48L
+
+public val SYS_GETEUID: CLong = 49L
+
+public val SYS_GETEGID: CLong = 50L
+
+public val SYS_ACCT: CLong = 51L
+
+public val SYS_UMOUNT2: CLong = 52L
+
+public val SYS_LOCK: CLong = 53L
+
+public val SYS_IOCTL: CLong = 54L
+
+public val SYS_FCNTL: CLong = 55L
+
+public val SYS_MPX: CLong = 56L
+
+public val SYS_SETPGID: CLong = 57L
+
+public val SYS_ULIMIT: CLong = 58L
+
+public val SYS_OLDOLDUNAME: CLong = 59L
+
+public val SYS_UMASK: CLong = 60L
+
+public val SYS_CHROOT: CLong = 61L
+
+public val SYS_USTAT: CLong = 62L
+
+public val SYS_DUP2: CLong = 63L
+
+public val SYS_GETPPID: CLong = 64L
+
+public val SYS_GETPGRP: CLong = 65L
+
+public val SYS_SETSID: CLong = 66L
+
+public val SYS_SIGACTION: CLong = 67L
+
+public val SYS_SGETMASK: CLong = 68L
+
+public val SYS_SSETMASK: CLong = 69L
+
+public val SYS_SETREUID: CLong = 70L
+
+public val SYS_SETREGID: CLong = 71L
+
+public val SYS_SIGSUSPEND: CLong = 72L
+
+public val SYS_SIGPENDING: CLong = 73L
+
+public val SYS_SETHOSTNAME: CLong = 74L
+
+public val SYS_SETRLIMIT: CLong = 75L
+
+public val SYS_GETRLIMIT: CLong = 76L
+
+public val SYS_GETRUSAGE: CLong = 77L
+
+public val SYS_GETTIMEOFDAY: CLong = 78L
+
+public val SYS_SETTIMEOFDAY: CLong = 79L
+
+public val SYS_GETGROUPS: CLong = 80L
+
+public val SYS_SETGROUPS: CLong = 81L
+
+public val SYS_SELECT: CLong = 82L
+
+public val SYS_SYMLINK: CLong = 83L
+
+public val SYS_OLDLSTAT: CLong = 84L
+
+public val SYS_READLINK: CLong = 85L
+
+public val SYS_USELIB: CLong = 86L
+
+public val SYS_SWAPON: CLong = 87L
+
+public val SYS_REBOOT: CLong = 88L
+
+public val SYS_READDIR: CLong = 89L
+
+public val SYS_MMAP: CLong = 90L
+
+public val SYS_MUNMAP: CLong = 91L
+
+public val SYS_TRUNCATE: CLong = 92L
+
+public val SYS_FTRUNCATE: CLong = 93L
+
+public val SYS_FCHMOD: CLong = 94L
+
+public val SYS_FCHOWN: CLong = 95L
+
+public val SYS_GETPRIORITY: CLong = 96L
+
+public val SYS_SETPRIORITY: CLong = 97L
+
+public val SYS_PROFIL: CLong = 98L
+
+public val SYS_STATFS: CLong = 99L
+
+public val SYS_FSTATFS: CLong = 100L
+
+public val SYS_IOPERM: CLong = 101L
+
+public val SYS_SOCKETCALL: CLong = 102L
+
+public val SYS_SYSLOG: CLong = 103L
+
+public val SYS_SETITIMER: CLong = 104L
+
+public val SYS_GETITIMER: CLong = 105L
+
+public val SYS_STAT: CLong = 106L
+
+public val SYS_LSTAT: CLong = 107L
+
+public val SYS_FSTAT: CLong = 108L
+
+public val SYS_OLDUNAME: CLong = 109L
+
+public val SYS_IOPL: CLong = 110L
+
+public val SYS_VHANGUP: CLong = 111L
+
+public val SYS_IDLE: CLong = 112L
+
+public val SYS_VM86: CLong = 113L
+
+public val SYS_WAIT4: CLong = 114L
+
+public val SYS_SWAPOFF: CLong = 115L
+
+public val SYS_SYSINFO: CLong = 116L
+
+public val SYS_IPC: CLong = 117L
+
+public val SYS_FSYNC: CLong = 118L
+
+public val SYS_SIGRETURN: CLong = 119L
+
+public val SYS_CLONE: CLong = 120L
+
+public val SYS_SETDOMAINNAME: CLong = 121L
+
+public val SYS_UNAME: CLong = 122L
+
+public val SYS_MODIFY_LDT: CLong = 123L
+
+public val SYS_ADJTIMEX: CLong = 124L
+
+public val SYS_MPROTECT: CLong = 125L
+
+public val SYS_SIGPROCMASK: CLong = 126L
+
+public val SYS_CREATE_MODULE: CLong = 127L
+
+public val SYS_INIT_MODULE: CLong = 128L
+
+public val SYS_DELETE_MODULE: CLong = 129L
+
+public val SYS_GET_KERNEL_SYMS: CLong = 130L
+
+public val SYS_QUOTACTL: CLong = 131L
+
+public val SYS_GETPGID: CLong = 132L
+
+public val SYS_FCHDIR: CLong = 133L
+
+public val SYS_BDFLUSH: CLong = 134L
+
+public val SYS_SYSFS: CLong = 135L
+
+public val SYS_PERSONALITY: CLong = 136L
+
+public val SYS_AFS_SYSCALL: CLong = 137L
+
+// Syscall for Andrew File System
+public val SYS_SETFSUID: CLong = 138L
+
+public val SYS_SETFSGID: CLong = 139L
+
+public val SYS_LLSEEK: CLong = 140L
+
+public val SYS_GETDENTS: CLong = 141L
+
+public val SYS_NEWSELECT: CLong = 142L
+
+public val SYS_FLOCK: CLong = 143L
+
+public val SYS_MSYNC: CLong = 144L
+
+public val SYS_READV: CLong = 145L
+
+public val SYS_WRITEV: CLong = 146L
+
+public val SYS_GETSID: CLong = 147L
+
+public val SYS_FDATASYNC: CLong = 148L
+
+public val SYS_SYSCTL: CLong = 149L
+
+public val SYS_MLOCK: CLong = 150L
+
+public val SYS_MUNLOCK: CLong = 151L
+
+public val SYS_MLOCKALL: CLong = 152L
+
+public val SYS_MUNLOCKALL: CLong = 153L
+
+public val SYS_SCHED_SETPARAM: CLong = 154L
+
+public val SYS_SCHED_GETPARAM: CLong = 155L
+
+public val SYS_SCHED_SETSCHEDULER: CLong = 156L
+
+public val SYS_SCHED_GETSCHEDULER: CLong = 157L
+
+public val SYS_SCHED_YIELD: CLong = 158L
+
+public val SYS_SCHED_GET_PRIORITY_MAX: CLong = 159L
+
+public val SYS_SCHED_GET_PRIORITY_MIN: CLong = 160L
+
+public val SYS_SCHED_RR_GET_INTERVAL: CLong = 161L
+
+public val SYS_NANOSLEEP: CLong = 162L
+
+public val SYS_MREMAP: CLong = 163L
+
+public val SYS_SETRESUID: CLong = 164L
+
+public val SYS_GETRESUID: CLong = 165L
+
+public val SYS_QUERY_MODULE: CLong = 166L
+
+public val SYS_POLL: CLong = 167L
+
+public val SYS_NFSSERVCTL: CLong = 168L
+
+public val SYS_SETRESGID: CLong = 169L
+
+public val SYS_GETRESGID: CLong = 170L
+
+public val SYS_PRCTL: CLong = 171L
+
+public val SYS_RT_SIGRETURN: CLong = 172L
+
+public val SYS_RT_SIGACTION: CLong = 173L
+
+public val SYS_RT_SIGPROCMASK: CLong = 174L
+
+public val SYS_RT_SIGPENDING: CLong = 175L
+
+public val SYS_RT_SIGTIMEDWAIT: CLong = 176L
+
+public val SYS_RT_SIGQUEUEINFO: CLong = 177L
+
+public val SYS_RT_SIGSUSPEND: CLong = 178L
+
+public val SYS_PREAD64: CLong = 179L
+
+public val SYS_PWRITE64: CLong = 180L
+
+public val SYS_CHOWN: CLong = 181L
+
+public val SYS_GETCWD: CLong = 182L
+
+public val SYS_CAPGET: CLong = 183L
+
+public val SYS_CAPSET: CLong = 184L
+
+public val SYS_SIGALTSTACK: CLong = 185L
+
+public val SYS_SENDFILE: CLong = 186L
+
+public val SYS_GETPMSG: CLong = 187L
+
+// some people actually want streams
+public val SYS_PUTPMSG: CLong = 188L
+
+// some people actually want streams
+public val SYS_VFORK: CLong = 189L
+
+public val SYS_UGETRLIMIT: CLong = 190L
+
+// SuS compliant getrlimit
+public val SYS_READAHEAD: CLong = 191L
+
+public val SYS_MMAP2: CLong = 192L
+
+public val SYS_TRUNCATE64: CLong = 193L
+
+public val SYS_FTRUNCATE64: CLong = 194L
+
+public val SYS_STAT64: CLong = 195L
+
+public val SYS_LSTAT64: CLong = 196L
+
+public val SYS_FSTAT64: CLong = 197L
+
+public val SYS_PCICONFIG_READ: CLong = 198L
+
+public val SYS_PCICONFIG_WRITE: CLong = 199L
+
+public val SYS_PCICONFIG_IOBASE: CLong = 200L
+
+public val SYS_MULTIPLEXER: CLong = 201L
+
+public val SYS_GETDENTS64: CLong = 202L
+
+public val SYS_PIVOT_ROOT: CLong = 203L
+
+public val SYS_FCNTL64: CLong = 204L
+
+public val SYS_MADVISE: CLong = 205L
+
+public val SYS_MINCORE: CLong = 206L
+
+public val SYS_GETTID: CLong = 207L
+
+public val SYS_TKILL: CLong = 208L
+
+public val SYS_SETXATTR: CLong = 209L
+
+public val SYS_LSETXATTR: CLong = 210L
+
+public val SYS_FSETXATTR: CLong = 211L
+
+public val SYS_GETXATTR: CLong = 212L
+
+public val SYS_LGETXATTR: CLong = 213L
+
+public val SYS_FGETXATTR: CLong = 214L
+
+public val SYS_LISTXATTR: CLong = 215L
+
+public val SYS_LLISTXATTR: CLong = 216L
+
+public val SYS_FLISTXATTR: CLong = 217L
+
+public val SYS_REMOVEXATTR: CLong = 218L
+
+public val SYS_LREMOVEXATTR: CLong = 219L
+
+public val SYS_FREMOVEXATTR: CLong = 220L
+
+public val SYS_FUTEX: CLong = 221L
+
+public val SYS_SCHED_SETAFFINITY: CLong = 222L
+
+public val SYS_SCHED_GETAFFINITY: CLong = 223L
+
+public val SYS_TUXCALL: CLong = 225L
+
+public val SYS_SENDFILE64: CLong = 226L
+
+public val SYS_IO_SETUP: CLong = 227L
+
+public val SYS_IO_DESTROY: CLong = 228L
+
+public val SYS_IO_GETEVENTS: CLong = 229L
+
+public val SYS_IO_SUBMIT: CLong = 230L
+
+public val SYS_IO_CANCEL: CLong = 231L
+
+public val SYS_SET_TID_ADDRESS: CLong = 232L
+
+public val SYS_FADVISE64: CLong = 233L
+
+public val SYS_EXIT_GROUP: CLong = 234L
+
+public val SYS_LOOKUP_DCOOKIE: CLong = 235L
+
+public val SYS_EPOLL_CREATE: CLong = 236L
+
+public val SYS_EPOLL_CTL: CLong = 237L
+
+public val SYS_EPOLL_WAIT: CLong = 238L
+
+public val SYS_REMAP_FILE_PAGES: CLong = 239L
+
+public val SYS_TIMER_CREATE: CLong = 240L
+
+public val SYS_TIMER_SETTIME: CLong = 241L
+
+public val SYS_TIMER_GETTIME: CLong = 242L
+
+public val SYS_TIMER_GETOVERRUN: CLong = 243L
+
+public val SYS_TIMER_DELETE: CLong = 244L
+
+public val SYS_CLOCK_SETTIME: CLong = 245L
+
+public val SYS_CLOCK_GETTIME: CLong = 246L
+
+public val SYS_CLOCK_GETRES: CLong = 247L
+
+public val SYS_CLOCK_NANOSLEEP: CLong = 248L
+
+public val SYS_SWAPCONTEXT: CLong = 249L
+
+public val SYS_TGKILL: CLong = 250L
+
+public val SYS_UTIMES: CLong = 251L
+
+public val SYS_STATFS64: CLong = 252L
+
+public val SYS_FSTATFS64: CLong = 253L
+
+public val SYS_FADVISE64_64: CLong = 254L
+
+public val SYS_RTAS: CLong = 255L
+
+public val SYS_SYS_DEBUG_SETCONTEXT: CLong = 256L
+
+public val SYS_MIGRATE_PAGES: CLong = 258L
+
+public val SYS_MBIND: CLong = 259L
+
+public val SYS_GET_MEMPOLICY: CLong = 260L
+
+public val SYS_SET_MEMPOLICY: CLong = 261L
+
+public val SYS_MQ_OPEN: CLong = 262L
+
+public val SYS_MQ_UNLINK: CLong = 263L
+
+public val SYS_MQ_TIMEDSEND: CLong = 264L
+
+public val SYS_MQ_TIMEDRECEIVE: CLong = 265L
+
+public val SYS_MQ_NOTIFY: CLong = 266L
+
+public val SYS_MQ_GETSETATTR: CLong = 267L
+
+public val SYS_KEXEC_LOAD: CLong = 268L
+
+public val SYS_ADD_KEY: CLong = 269L
+
+public val SYS_REQUEST_KEY: CLong = 270L
+
+public val SYS_KEYCTL: CLong = 271L
+
+public val SYS_WAITID: CLong = 272L
+
+public val SYS_IOPRIO_SET: CLong = 273L
+
+public val SYS_IOPRIO_GET: CLong = 274L
+
+public val SYS_INOTIFY_INIT: CLong = 275L
+
+public val SYS_INOTIFY_ADD_WATCH: CLong = 276L
+
+public val SYS_INOTIFY_RM_WATCH: CLong = 277L
+
+public val SYS_SPU_RUN: CLong = 278L
+
+public val SYS_SPU_CREATE: CLong = 279L
+
+public val SYS_PSELECT6: CLong = 280L
+
+public val SYS_PPOLL: CLong = 281L
+
+public val SYS_UNSHARE: CLong = 282L
+
+public val SYS_SPLICE: CLong = 283L
+
+public val SYS_TEE: CLong = 284L
+
+public val SYS_VMSPLICE: CLong = 285L
+
+public val SYS_OPENAT: CLong = 286L
+
+public val SYS_MKDIRAT: CLong = 287L
+
+public val SYS_MKNODAT: CLong = 288L
+
+public val SYS_FCHOWNAT: CLong = 289L
+
+public val SYS_FUTIMESAT: CLong = 290L
+
+public val SYS_FSTATAT64: CLong = 291L
+
+public val SYS_UNLINKAT: CLong = 292L
+
+public val SYS_RENAMEAT: CLong = 293L
+
+public val SYS_LINKAT: CLong = 294L
+
+public val SYS_SYMLINKAT: CLong = 295L
+
+public val SYS_READLINKAT: CLong = 296L
+
+public val SYS_FCHMODAT: CLong = 297L
+
+public val SYS_FACCESSAT: CLong = 298L
+
+public val SYS_GET_ROBUST_LIST: CLong = 299L
+
+public val SYS_SET_ROBUST_LIST: CLong = 300L
+
+public val SYS_MOVE_PAGES: CLong = 301L
+
+public val SYS_GETCPU: CLong = 302L
+
+public val SYS_EPOLL_PWAIT: CLong = 303L
+
+public val SYS_UTIMENSAT: CLong = 304L
+
+public val SYS_SIGNALFD: CLong = 305L
+
+public val SYS_TIMERFD_CREATE: CLong = 306L
+
+public val SYS_EVENTFD: CLong = 307L
+
+public val SYS_SYNC_FILE_RANGE2: CLong = 308L
+
+public val SYS_FALLOCATE: CLong = 309L
+
+public val SYS_SUBPAGE_PROT: CLong = 310L
+
+public val SYS_TIMERFD_SETTIME: CLong = 311L
+
+public val SYS_TIMERFD_GETTIME: CLong = 312L
+
+public val SYS_SIGNALFD4: CLong = 313L
+
+public val SYS_EVENTFD2: CLong = 314L
+
+public val SYS_EPOLL_CREATE1: CLong = 315L
+
+public val SYS_DUP3: CLong = 316L
+
+public val SYS_PIPE2: CLong = 317L
+
+public val SYS_INOTIFY_INIT1: CLong = 318L
+
+public val SYS_PERF_EVENT_OPEN: CLong = 319L
+
+public val SYS_PREADV: CLong = 320L
+
+public val SYS_PWRITEV: CLong = 321L
+
+public val SYS_RT_TGSIGQUEUEINFO: CLong = 322L
+
+public val SYS_FANOTIFY_INIT: CLong = 323L
+
+public val SYS_FANOTIFY_MARK: CLong = 324L
+
+public val SYS_PRLIMIT64: CLong = 325L
+
+public val SYS_SOCKET: CLong = 326L
+
+public val SYS_BIND: CLong = 327L
+
+public val SYS_CONNECT: CLong = 328L
+
+public val SYS_LISTEN: CLong = 329L
+
+public val SYS_ACCEPT: CLong = 330L
+
+public val SYS_GETSOCKNAME: CLong = 331L
+
+public val SYS_GETPEERNAME: CLong = 332L
+
+public val SYS_SOCKETPAIR: CLong = 333L
+
+public val SYS_SEND: CLong = 334L
+
+public val SYS_SENDTO: CLong = 335L
+
+public val SYS_RECV: CLong = 336L
+
+public val SYS_RECVFROM: CLong = 337L
+
+public val SYS_SHUTDOWN: CLong = 338L
+
+public val SYS_SETSOCKOPT: CLong = 339L
+
+public val SYS_GETSOCKOPT: CLong = 340L
+
+public val SYS_SENDMSG: CLong = 341L
+
+public val SYS_RECVMSG: CLong = 342L
+
+public val SYS_RECVMMSG: CLong = 343L
+
+public val SYS_ACCEPT4: CLong = 344L
+
+public val SYS_NAME_TO_HANDLE_AT: CLong = 345L
+
+public val SYS_OPEN_BY_HANDLE_AT: CLong = 346L
+
+public val SYS_CLOCK_ADJTIME: CLong = 347L
+
+public val SYS_SYNCFS: CLong = 348L
+
+public val SYS_SENDMMSG: CLong = 349L
+
+public val SYS_SETNS: CLong = 350L
+
+public val SYS_PROCESS_VM_READV: CLong = 351L
+
+public val SYS_PROCESS_VM_WRITEV: CLong = 352L
+
+public val SYS_FINIT_MODULE: CLong = 353L
+
+public val SYS_KCMP: CLong = 354L
+
+public val SYS_SCHED_SETATTR: CLong = 355L
+
+public val SYS_SCHED_GETATTR: CLong = 356L
+
+public val SYS_RENAMEAT2: CLong = 357L
+
+public val SYS_SECCOMP: CLong = 358L
+
+public val SYS_GETRANDOM: CLong = 359L
+
+public val SYS_MEMFD_CREATE: CLong = 360L
+
+public val SYS_BPF: CLong = 361L
+
+public val SYS_EXECVEAT: CLong = 362L
+
+public val SYS_SWITCH_ENDIAN: CLong = 363L
+
+public val SYS_USERFAULTFD: CLong = 364L
+
+public val SYS_MEMBARRIER: CLong = 365L
+
+public val SYS_MLOCK2: CLong = 378L
+
+public val SYS_COPY_FILE_RANGE: CLong = 379L
+
+public val SYS_PREADV2: CLong = 380L
+
+public val SYS_PWRITEV2: CLong = 381L
+
+public val SYS_KEXEC_FILE_LOAD: CLong = 382L
+
+public val SYS_STATX: CLong = 383L
+
+public val SYS_RSEQ: CLong = 387L
+
+public val SYS_PIDFD_SEND_SIGNAL: CLong = 424L
+
+public val SYS_IO_URING_SETUP: CLong = 425L
+
+public val SYS_IO_URING_ENTER: CLong = 426L
+
+public val SYS_IO_URING_REGISTER: CLong = 427L
+
+public val SYS_OPEN_TREE: CLong = 428L
+
+public val SYS_MOVE_MOUNT: CLong = 429L
+
+public val SYS_FSOPEN: CLong = 430L
+
+public val SYS_FSCONFIG: CLong = 431L
+
+public val SYS_FSMOUNT: CLong = 432L
+
+public val SYS_FSPICK: CLong = 433L
+
+public val SYS_PIDFD_OPEN: CLong = 434L
+
+public val SYS_CLONE3: CLong = 435L
+
+public val SYS_CLOSE_RANGE: CLong = 436L
+
+public val SYS_OPENAT2: CLong = 437L
+
+public val SYS_PIDFD_GETFD: CLong = 438L
+
+public val SYS_FACCESSAT2: CLong = 439L
+
+public val SYS_PROCESS_MADVISE: CLong = 440L
+
+public val SYS_EPOLL_PWAIT2: CLong = 441L
+
+public val SYS_MOUNT_SETATTR: CLong = 442L
+
+public val SYS_QUOTACTL_FD: CLong = 443L
+
+public val SYS_LANDLOCK_CREATE_RULESET: CLong = 444L
+
+public val SYS_LANDLOCK_ADD_RULE: CLong = 445L
+
+public val SYS_LANDLOCK_RESTRICT_SELF: CLong = 446L
+
+public val SYS_MEMFD_SECRET: CLong = 447L
+
+public val SYS_PROCESS_MRELEASE: CLong = 448L
+
+public val SYS_FUTEX_WAITV: CLong = 449L
+
+public val SYS_SET_MEMPOLICY_HOME_NODE: CLong = 450L
+
+public val SYS_MSEAL: CLong = 462L

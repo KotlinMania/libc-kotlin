@@ -2,31 +2,42 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.CUshort
 
-public typealias Elf32Addr = ULong
-public typealias Elf32Half = UShort
-public typealias Elf32Off = ULong
-public typealias Elf32Sword = Long
-public typealias Elf32Word = ULong
-public typealias Elf32Lword = ULong
+public typealias Elf32Addr = CUlong
+
+public typealias Elf32Half = CUshort
+
+public typealias Elf32Off = CUlong
+
+public typealias Elf32Sword = CLong
+
+public typealias Elf32Word = CUlong
+
+public typealias Elf32Lword = CUlonglong
+
 public typealias Elf32Phdr = CAnonymousElf32Phdr
 
-public data class CAnonymousElf32Phdr(
-    val pType: ULong,
-    val pOffset: ULong,
-    val pVaddr: ULong,
-    val pPaddr: ULong,
-    val pFilesz: ULong,
-    val pMemsz: ULong,
-    val pFlags: ULong,
-    val pAlign: ULong,
+public open class CAnonymousElf32Phdr(
+    public var pType: Elf32Word,
+    public var pOffset: Elf32Off,
+    public var pVaddr: Elf32Addr,
+    public var pPaddr: Elf32Addr,
+    public var pFilesz: Elf32Word,
+    public var pMemsz: Elf32Word,
+    public var pFlags: Elf32Word,
+    public var pAlign: Elf32Word,
 )
 
-public data class DlPhdrInfo(
-    val dlpiAddr: ULong,
-    val dlpiName: String?,
-    val dlpiPhdr: io.github.kotlinmania.libc.unix.solarish.CAnonymousElf32Phdr?,
-    val dlpiPhnum: UShort,
-    val dlpiAdds: ULong,
-    val dlpiSubs: ULong,
+public open class DlPhdrInfo(
+    public var dlpiAddr: Elf32Addr,
+    public var dlpiName: COpaquePointer?,
+    public var dlpiPhdr: CAnonymousElf32Phdr?,
+    public var dlpiPhnum: Elf32Half,
+    public var dlpiAdds: CUlonglong,
+    public var dlpiSubs: CUlonglong,
 )

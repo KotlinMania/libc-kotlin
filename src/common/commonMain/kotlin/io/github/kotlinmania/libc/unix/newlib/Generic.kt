@@ -2,33 +2,38 @@
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.CUchar
+import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.UidT
 
-public data class SigsetT(
-    val value: UInt,
+// Common types used by most newlib platforms
+
+public open class SigsetT(public var value: UInt)
+
+public open class Stat(
+    public var stDev: DevT,
+    public var stIno: InoT,
+    public var stMode: ModeT,
+    public var stNlink: NlinkT,
+    public var stUid: UidT,
+    public var stGid: GidT,
+    public var stRdev: DevT,
+    public var stSize: OffT,
+    public var stAtime: TimeT,
+    public var stSpare1: CLong,
+    public var stMtime: TimeT,
+    public var stSpare2: CLong,
+    public var stCtime: TimeT,
+    public var stSpare3: CLong,
+    public var stBlksize: BlksizeT,
+    public var stBlocks: BlkcntT,
+    public var stSpare4: List<CLong>,
 )
 
-public data class Stat(
-    val stDev: Short,
-    val stIno: UShort,
-    val stMode: UInt,
-    val stNlink: UShort,
-    val stUid: UInt,
-    val stGid: UInt,
-    val stRdev: Short,
-    val stSize: Long,
-    val stAtime: Long,
-    val stSpare1: Long,
-    val stMtime: Long,
-    val stSpare2: Long,
-    val stCtime: Long,
-    val stSpare3: Long,
-    val stBlksize: Int,
-    val stBlocks: Int,
-    val stSpare4: LongArray,
-)
-
-public data class Dirent(
-    val dIno: UShort,
-    val dType: UByte,
-    val dName: ByteArray,
+public open class Dirent(
+    public var dIno: InoT,
+    public var dType: CUchar,
+    public var dName: List<CChar>,
 )

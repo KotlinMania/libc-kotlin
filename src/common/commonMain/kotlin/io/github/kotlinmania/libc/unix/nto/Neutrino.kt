@@ -1,819 +1,1694 @@
 // port-lint: source unix/nto/neutrino.rs
 package io.github.kotlinmania.libc.unix.nto
+
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.LibcDynamicFfi
+import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.Sigval
+import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.UidT
+
+public fun interface SighandlerInfoHandlerCallback {
+    public operator fun invoke(value: CInt)
+}
+
+public fun interface SignalActionSigstubCallback {
+    public operator fun invoke()
+}
+
+public fun interface ThreadCreateFuncCallback {
+    public operator fun invoke(arg: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface InterruptHookTraceHandlerCallback {
+    public operator fun invoke(arg1: CInt): Sigevent?
+}
+
+public fun interface InterruptHookIdleHandlerCallback {
+    public operator fun invoke(arg1: ULong?, arg2: QtimeEntry?)
+}
+
+public fun interface InterruptHookIdle2HandlerCallback {
+    public operator fun invoke(arg1: CUint, arg2: SyspageEntry?, arg3: IdleHook?)
+}
+
+public fun interface InterruptAttachHandlerCallback {
+    public operator fun invoke(area: COpaquePointer?, id: CInt): Sigevent?
+}
+
+public fun interface InterruptAttachArrayHandlerCallback {
+    public operator fun invoke(area: COpaquePointer?, id: CInt): COpaquePointer?
+}
 
 public typealias NtoJobT = SyncT
 
-public data class SyspageEntryInfo(
-    val entryOff: UShort,
-    val entrySize: UShort,
+public open class SyspageEntryInfo(public var entryOff: UShort, public var entrySize: UShort)
+
+public open class SyspageArrayInfo(
+    public var entryOff: UShort,
+    public var entrySize: UShort,
+    public var elementSize: UShort,
 )
 
-public data class SyspageArrayInfo(
-    val entryOff: UShort,
-    val entrySize: UShort,
-    val elementSize: UShort,
+public open class Intrspin(public var value: CUint)
+
+public open class IovT(
+    public var iovBase: COpaquePointer?,
+    // union
+    public var iovLen: SizeT,
 )
 
-public data class Intrspin(
-    val value: UInt,
+public open class Itimer(public var nsec: ULong, public var intervalNsec: ULong)
+
+public open class MsgInfo64(
+    public var nd: UInt,
+    public var srcnd: UInt,
+    public var pid: PidT,
+    public var tid: Int,
+    public var chid: Int,
+    public var scoid: Int,
+    public var coid: Int,
+    public var priority: Short,
+    public var flags: Short,
+    public var msglen: Int,
+    public var srcmsglen: Int,
+    public var dstmsglen: Int,
+    public var typeId: UInt,
+    public var reserved: UInt,
 )
 
-public data class IovT(
-    val iovBase: COpaquePointer?,
-    val iovLen: ULong,
+public open class CredInfo(
+    public var ruid: UidT,
+    public var euid: UidT,
+    public var suid: UidT,
+    public var rgid: GidT,
+    public var egid: GidT,
+    public var sgid: GidT,
+    public var ngroups: UInt,
+    public var grouplist: List<GidT>,
 )
 
-public data class Itimer(
-    val nsec: ULong,
-    val intervalNsec: ULong,
+public open class ClientInfo(
+    public var nd: UInt,
+    public var pid: PidT,
+    public var sid: PidT,
+    public var flags: UInt,
+    public var cred: CredInfo,
 )
 
-public data class MsgInfo64(
-    val nd: UInt,
-    val srcnd: UInt,
-    val pid: Int,
-    val tid: Int,
-    val chid: Int,
-    val scoid: Int,
-    val coid: Int,
-    val priority: Short,
-    val flags: Short,
-    val msglen: Long,
-    val srcmsglen: Long,
-    val dstmsglen: Long,
-    val typeId: UInt,
+public open class ClientAble(
+    public var ability: UInt,
+    public var flags: UInt,
+    public var rangeLo: ULong,
+    public var rangeHi: ULong,
 )
 
-public data class CredInfo(
-    val ruid: UInt,
-    val euid: UInt,
-    val suid: UInt,
-    val rgid: UInt,
-    val egid: UInt,
-    val sgid: UInt,
-    val ngroups: UInt,
-    val grouplist: List<UInt>,
+public open class NtoChannelConfig(
+    public var event: Sigevent,
+    public var numPulses: CUint,
+    public var rearmThreshold: CUint,
+    public var options: CUint,
+    public var reserved: List<CUint>,
 )
 
-public data class ClientInfo(
-    val nd: UInt,
-    val pid: Int,
-    val sid: Int,
-    val flags: UInt,
-    val cred: CredInfo,
+// Note: The following structures are defined in a header file which doesn't
+// appear as part of the default headers found in a standard installation
+// of Neutrino 7.1 SDP.  Commented out for now.
+// pub struct _asyncmsg_put_header {
+// pub err: cInt,
+// pub iov: *mut crate::iovT,
+// pub parts: cInt,
+// pub handle: cUint,
+// pub cb: Option<
+// unchecked extern "C" fn(
+// err: cInt,
+// buf: *mut cVoid,
+// handle: cUint,
+// ) -> cInt>,
+// pub putHdrFlags: cUint,
+// }
+// pub struct _asyncmsg_connection_attr {
+// pub callBack: Option<
+// unchecked extern "C" fn(
+// err: cInt,
+// buff: *mut cVoid,
+// handle: cUint,
+// ) -> cInt>,
+// pub bufferSize: sizeT,
+// pub maxNumBuffer: cUint,
+// pub triggerNumMsg: cUint,
+// pub triggerTime: crate::_itimer,
+// reserve: Padding<cUint>,
+// }
+// pub struct _asyncmsg_connection_descriptor {
+// pub flags: cUint,
+// pub sendqSize: cUint,
+// pub sendqHead: cUint,
+// pub sendqTail: cUint,
+// pub sendqFree: cUint,
+// pub err: cInt,
+// pub ev: crate::sigevent,
+// pub numCurmsg: cUint,
+// pub ttimer: crate::timerT,
+// pub blockCon: crate::pthreadCondT,
+// pub mu: crate::pthreadMutexT,
+// reserved: Padding<cUint>,
+// pub attr: crate::_asyncmsg_connection_attr,
+// reserves: Padding<[cUint; 3]>,
+// pub sendq: [crate::_asyncmsg_put_header; 1], // flexarray
+// }
+public open class CAnonymousStructEv(public var event: Sigevent, public var coid: CInt)
+
+public open class ChannelConnectAttr(
+    // union
+    public var ev: CAnonymousStructEv,
 )
 
-public data class ClientAble(
-    val ability: UInt,
-    val flags: UInt,
-    val rangeLo: ULong,
-    val rangeHi: ULong,
+public open class SighandlerInfo(
+    public var siginfo: SiginfoT,
+    public var handler: SighandlerInfoHandlerCallback?,
+    public var context: COpaquePointer?,
 )
 
-public data class NtoChannelConfig(
-    val event: Sigevent,
-    val numPulses: UInt,
-    val rearmThreshold: UInt,
-    val options: UInt,
+public open class CAnonymousStructTime(public var length: CUint, public var scale: CUint)
+
+public open class IdleHook(
+    public var hookSize: CUint,
+    public var cmd: CUint,
+    public var mode: CUint,
+    public var latency: CUint,
+    public var nextFire: ULong,
+    public var currTime: ULong,
+    public var todAdjust: ULong,
+    public var resp: CUint,
+    public var time: CAnonymousStructTime,
+    public var trigger: Sigevent,
+    public var intrs: CUint?,
+    public var blockStackSize: CUint,
 )
 
-public class AsyncmsgPutHeader
+public open class Clockadjust(public var tickCount: UInt, public var tickNsecInc: Int)
 
-public class AsyncmsgConnectionAttr
-
-public class AsyncmsgConnectionDescriptor
-
-public data class CAnonymousStructEv(
-    val event: Sigevent,
-    val coid: Int,
+public open class QtimeEntry(
+    public var cyclesPerSec: ULong,
+    public var nsecTodAdjust: ULong,
+    // volatile
+    public var nsec: ULong,
+    // volatile
+    public var nsecInc: UInt,
+    public var bootTime: UInt,
+    public var adjust: Clockadjust,
+    public var timerRate: UInt,
+    public var timerScale: Int,
+    public var timerLoad: UInt,
+    public var intr: Int,
+    public var epoch: UInt,
+    public var flags: UInt,
+    public var rrIntervalMul: UInt,
+    public var timerLoadHi: UInt,
+    public var nsecStable: ULong,
+    // volatile
+    public var timerLoadMax: ULong,
+    public var timerProgTime: UInt,
+    public var spare: List<UInt>,
 )
 
-public data class ChannelConnectAttr(
-    val ev: CAnonymousStructEv,
+public open class SchedInfo(
+    public var priorityMin: CInt,
+    public var priorityMax: CInt,
+    public var interval: ULong,
+    public var priorityPriv: CInt,
+    public var reserved: List<CInt>,
 )
 
-public data class SighandlerInfo(
-    val siginfo: SiginfoT,
-    val handler: io.github.kotlinmania.libc.SignalHandler?,
-    val context: COpaquePointer?,
+public open class TimerInfo(
+    public var itime: Itimer,
+    public var otime: Itimer,
+    public var flags: UInt,
+    public var tid: Int,
+    public var notify: Int,
+    public var clockid: ClockidT,
+    public var overruns: UInt,
+    public var event: Sigevent,
 )
 
-public data class CAnonymousStructTime(
-    val length: UInt,
-    val scale: UInt,
+public open class Clockperiod(public var nsec: UInt, public var fract: Int)
+
+public open class SyspageEntry(
+    public var size: UShort,
+    public var totalSize: UShort,
+    public var type: UShort,
+    public var numCpu: UShort,
+    public var systemPrivate: SyspageEntryInfo,
+    public var oldAsinfo: SyspageEntryInfo,
+    public var mangleNameToCauseCompilationErrsMeminfo: SyspageEntryInfo,
+    public var hwinfo: SyspageEntryInfo,
+    public var oldCpuinfo: SyspageEntryInfo,
+    public var oldCacheattr: SyspageEntryInfo,
+    public var qtime: SyspageEntryInfo,
+    public var callout: SyspageEntryInfo,
+    public var callin: SyspageEntryInfo,
+    public var typedStrings: SyspageEntryInfo,
+    public var strings: SyspageEntryInfo,
+    public var oldIntrinfo: SyspageEntryInfo,
+    public var smp: SyspageEntryInfo,
+    public var pminfo: SyspageEntryInfo,
+    public var oldMdriver: SyspageEntryInfo,
+    public var spare0: List<UInt>,
+    public var reserved: List<UByte>,
+    // anonymous union with architecture dependent structs
+    public var newAsinfo: SyspageArrayInfo,
+    public var newCpuinfo: SyspageArrayInfo,
+    public var newCacheattr: SyspageArrayInfo,
+    public var newIntrinfo: SyspageArrayInfo,
+    public var newMdriver: SyspageArrayInfo,
 )
 
-public data class IdleHook(
-    val hookSize: UInt,
-    val cmd: UInt,
-    val mode: UInt,
-    val latency: UInt,
-    val nextFire: ULong,
-    val currTime: ULong,
-    val todAdjust: ULong,
-    val resp: UInt,
-    val time: CAnonymousStructTime,
-    val trigger: Sigevent,
-    val intrs: UInt?,
-    val blockStackSize: UInt,
-)
-
-public data class Clockadjust(
-    val tickCount: UInt,
-    val tickNsecInc: Int,
-)
-
-public data class QtimeEntry(
-    val cyclesPerSec: ULong,
-    val nsecTodAdjust: ULong,
-    val nsec: ULong,
-    val nsecInc: UInt,
-    val bootTime: UInt,
-    val adjust: Clockadjust,
-    val timerRate: UInt,
-    val timerScale: Int,
-    val timerLoad: UInt,
-    val intr: Int,
-    val epoch: UInt,
-    val flags: UInt,
-    val rrIntervalMul: UInt,
-    val timerLoadHi: UInt,
-    val nsecStable: ULong,
-    val timerLoadMax: ULong,
-    val timerProgTime: UInt,
-    val spare: UIntArray,
-)
-
-public data class SchedInfo(
-    val priorityMin: Int,
-    val priorityMax: Int,
-    val interval: ULong,
-    val priorityPriv: Int,
-)
-
-public data class TimerInfo(
-    val itime: Itimer,
-    val otime: Itimer,
-    val flags: UInt,
-    val tid: Int,
-    val notify: Int,
-    val clockid: Int,
-    val overruns: UInt,
-    val event: Sigevent,
-)
-
-public data class Clockperiod(
-    val nsec: UInt,
-    val fract: Int,
-)
-
-public data class SyspageEntry(
-    val size: UShort,
-    val totalSize: UShort,
-    val type: UShort,
-    val numCpu: UShort,
-    val systemPrivate: SyspageEntryInfo,
-    val oldAsinfo: SyspageEntryInfo,
-    val mangleNameToCauseCompilationErrsMeminfo: SyspageEntryInfo,
-    val hwinfo: SyspageEntryInfo,
-    val oldCpuinfo: SyspageEntryInfo,
-    val oldCacheattr: SyspageEntryInfo,
-    val qtime: SyspageEntryInfo,
-    val callout: SyspageEntryInfo,
-    val callin: SyspageEntryInfo,
-    val typedStrings: SyspageEntryInfo,
-    val strings: SyspageEntryInfo,
-    val oldIntrinfo: SyspageEntryInfo,
-    val smp: SyspageEntryInfo,
-    val pminfo: SyspageEntryInfo,
-    val oldMdriver: SyspageEntryInfo,
-    val spare0: UIntArray,
-    val newAsinfo: SyspageArrayInfo,
-    val newCpuinfo: SyspageArrayInfo,
-    val newCacheattr: SyspageArrayInfo,
-    val newIntrinfo: SyspageArrayInfo,
-    val newMdriver: SyspageArrayInfo,
-)
-
-public const val SYSMGR_PID: UInt = 1u
-public const val SYSMGR_CHID: UInt = 1u
-public val SYSMGR_COID: UInt = _NTO_SIDE_CHANNEL
-public const val SYSMGR_HANDLE: UInt = 0u
-public const val STATE_DEAD: Int = 0x00
-public const val STATE_RUNNING: Int = 0x01
-public const val STATE_READY: Int = 0x02
-public const val STATE_STOPPED: Int = 0x03
-public const val STATE_SEND: Int = 0x04
-public const val STATE_RECEIVE: Int = 0x05
-public const val STATE_REPLY: Int = 0x06
-public const val STATE_STACK: Int = 0x07
-public const val STATE_WAITTHREAD: Int = 0x08
-public const val STATE_WAITPAGE: Int = 0x09
-public const val STATE_SIGSUSPEND: Int = 0x0a
-public const val STATE_SIGWAITINFO: Int = 0x0b
-public const val STATE_NANOSLEEP: Int = 0x0c
-public const val STATE_MUTEX: Int = 0x0d
-public const val STATE_CONDVAR: Int = 0x0e
-public const val STATE_JOIN: Int = 0x0f
-public const val STATE_INTR: Int = 0x10
-public const val STATE_SEM: Int = 0x11
-public const val STATE_WAITCTX: Int = 0x12
-public const val STATE_NET_SEND: Int = 0x13
-public const val STATE_NET_REPLY: Int = 0x14
-public const val STATE_MAX: Int = 0x18
-public val _NTO_TIMEOUT_RECEIVE: Int = 1 shl STATE_RECEIVE
-public val _NTO_TIMEOUT_SEND: Int = 1 shl STATE_SEND
-public val _NTO_TIMEOUT_REPLY: Int = 1 shl STATE_REPLY
-public val _NTO_TIMEOUT_SIGSUSPEND: Int = 1 shl STATE_SIGSUSPEND
-public val _NTO_TIMEOUT_SIGWAITINFO: Int = 1 shl STATE_SIGWAITINFO
-public val _NTO_TIMEOUT_NANOSLEEP: Int = 1 shl STATE_NANOSLEEP
-public val _NTO_TIMEOUT_MUTEX: Int = 1 shl STATE_MUTEX
-public val _NTO_TIMEOUT_CONDVAR: Int = 1 shl STATE_CONDVAR
-public val _NTO_TIMEOUT_JOIN: Int = 1 shl STATE_JOIN
-public val _NTO_TIMEOUT_INTR: Int = 1 shl STATE_INTR
-public val _NTO_TIMEOUT_SEM: Int = 1 shl STATE_SEM
-public const val _NTO_MI_ENDIAN_BIG: UInt = 1u
-public const val _NTO_MI_ENDIAN_DIFF: UInt = 2u
-public const val _NTO_MI_UNBLOCK_REQ: UInt = 256u
-public const val _NTO_MI_NET_CRED_DIRTY: UInt = 512u
-public const val _NTO_MI_CONSTRAINED: UInt = 1024u
-public const val _NTO_MI_CHROOT: UInt = 2048u
-public const val _NTO_MI_BITS_64: UInt = 4096u
-public const val _NTO_MI_BITS_DIFF: UInt = 8192u
-public const val _NTO_MI_SANDBOX: UInt = 16384u
-public const val _NTO_CI_ENDIAN_BIG: UInt = 1u
-public const val _NTO_CI_BKGND_PGRP: UInt = 4u
-public const val _NTO_CI_ORPHAN_PGRP: UInt = 8u
-public const val _NTO_CI_STOPPED: UInt = 128u
-public const val _NTO_CI_UNABLE: UInt = 256u
-public const val _NTO_CI_TYPE_ID: UInt = 512u
-public const val _NTO_CI_CHROOT: UInt = 2048u
-public const val _NTO_CI_BITS_64: UInt = 4096u
-public const val _NTO_CI_SANDBOX: UInt = 16384u
-public const val _NTO_CI_LOADER: UInt = 32768u
-public const val _NTO_CI_FULL_GROUPS: UInt = 2147483648u
-public const val _NTO_TI_ACTIVE: UInt = 1u
-public const val _NTO_TI_ABSOLUTE: UInt = 2u
-public const val _NTO_TI_EXPIRED: UInt = 4u
-public const val _NTO_TI_TOD_BASED: UInt = 8u
-public const val _NTO_TI_TARGET_PROCESS: UInt = 16u
-public const val _NTO_TI_REPORT_TOLERANCE: UInt = 32u
-public const val _NTO_TI_PRECISE: UInt = 64u
-public const val _NTO_TI_TOLERANT: UInt = 128u
-public const val _NTO_TI_WAKEUP: UInt = 256u
-public const val _NTO_TI_PROCESS_TOLERANT: UInt = 512u
-public const val _NTO_TI_HIGH_RESOLUTION: UInt = 1024u
-public const val _PULSE_TYPE: UInt = 0u
-public const val _PULSE_SUBTYPE: UInt = 0u
-public const val _PULSE_CODE_UNBLOCK: Int = -32
-public const val _PULSE_CODE_DISCONNECT: Int = -33
-public const val _PULSE_CODE_THREADDEATH: Int = -34
-public const val _PULSE_CODE_COIDDEATH: Int = -35
-public const val _PULSE_CODE_NET_ACK: Int = -36
-public const val _PULSE_CODE_NET_UNBLOCK: Int = -37
-public const val _PULSE_CODE_NET_DETACH: Int = -38
-public const val _PULSE_CODE_RESTART: Int = -39
-public const val _PULSE_CODE_NORESTART: Int = -40
-public const val _PULSE_CODE_UNBLOCK_RESTART: Int = -41
-public const val _PULSE_CODE_UNBLOCK_TIMER: Int = -42
-public const val _PULSE_CODE_MINAVAIL: UInt = 0u
-public const val _PULSE_CODE_MAXAVAIL: UInt = 127u
-public const val _NTO_HARD_FLAGS_END: UInt = 1u
-public const val _NTO_PULSE_IF_UNIQUE: UInt = 4096u
-public const val _NTO_PULSE_REPLACE: UInt = 8192u
-public const val _NTO_PF_NOCLDSTOP: UInt = 1u
-public const val _NTO_PF_LOADING: UInt = 2u
-public const val _NTO_PF_TERMING: UInt = 4u
-public const val _NTO_PF_ZOMBIE: UInt = 8u
-public const val _NTO_PF_NOZOMBIE: UInt = 16u
-public const val _NTO_PF_FORKED: UInt = 32u
-public const val _NTO_PF_ORPHAN_PGRP: UInt = 64u
-public const val _NTO_PF_STOPPED: UInt = 128u
-public const val _NTO_PF_DEBUG_STOPPED: UInt = 256u
-public const val _NTO_PF_BKGND_PGRP: UInt = 512u
-public const val _NTO_PF_NOISYNC: UInt = 1024u
-public const val _NTO_PF_CONTINUED: UInt = 2048u
-public const val _NTO_PF_CHECK_INTR: UInt = 4096u
-public const val _NTO_PF_COREDUMP: UInt = 8192u
-public const val _NTO_PF_RING0: UInt = 32768u
-public const val _NTO_PF_SLEADER: UInt = 65536u
-public const val _NTO_PF_WAITINFO: UInt = 131072u
-public const val _NTO_PF_DESTROYALL: UInt = 524288u
-public const val _NTO_PF_NOCOREDUMP: UInt = 1048576u
-public const val _NTO_PF_WAITDONE: UInt = 4194304u
-public const val _NTO_PF_TERM_WAITING: UInt = 8388608u
-public const val _NTO_PF_ASLR: UInt = 16777216u
-public const val _NTO_PF_EXECED: UInt = 33554432u
-public const val _NTO_PF_APP_STOPPED: UInt = 67108864u
-public const val _NTO_PF_64BIT: UInt = 134217728u
-public const val _NTO_PF_NET: UInt = 268435456u
-public const val _NTO_PF_NOLAZYSTACK: UInt = 536870912u
-public const val _NTO_PF_NOEXEC_STACK: UInt = 1073741824u
-public const val _NTO_PF_LOADER_PERMS: UInt = 2147483648u
-public const val _NTO_TF_INTR_PENDING: UInt = 65536u
-public const val _NTO_TF_DETACHED: UInt = 131072u
-public const val _NTO_TF_SHR_MUTEX: UInt = 262144u
-public const val _NTO_TF_SHR_MUTEX_EUID: UInt = 524288u
-public const val _NTO_TF_THREADS_HOLD: UInt = 1048576u
-public const val _NTO_TF_UNBLOCK_REQ: UInt = 4194304u
-public const val _NTO_TF_ALIGN_FAULT: UInt = 16777216u
-public const val _NTO_TF_SSTEP: UInt = 33554432u
-public const val _NTO_TF_ALLOCED_STACK: UInt = 67108864u
-public const val _NTO_TF_NOMULTISIG: UInt = 134217728u
-public const val _NTO_TF_LOW_LATENCY: UInt = 268435456u
-public const val _NTO_TF_IOPRIV: UInt = 2147483648u
-public const val _NTO_TCTL_IO_PRIV: UInt = 1u
-public const val _NTO_TCTL_THREADS_HOLD: UInt = 2u
-public const val _NTO_TCTL_THREADS_CONT: UInt = 3u
-public const val _NTO_TCTL_RUNMASK: UInt = 4u
-public const val _NTO_TCTL_ALIGN_FAULT: UInt = 5u
-public const val _NTO_TCTL_RUNMASK_GET_AND_SET: UInt = 6u
-public const val _NTO_TCTL_PERFCOUNT: UInt = 7u
-public const val _NTO_TCTL_ONE_THREAD_HOLD: UInt = 8u
-public const val _NTO_TCTL_ONE_THREAD_CONT: UInt = 9u
-public const val _NTO_TCTL_RUNMASK_GET_AND_SET_INHERIT: UInt = 10u
-public const val _NTO_TCTL_NAME: UInt = 11u
-public const val _NTO_TCTL_RCM_GET_AND_SET: UInt = 12u
-public const val _NTO_TCTL_SHR_MUTEX: UInt = 13u
-public const val _NTO_TCTL_IO: UInt = 14u
-public const val _NTO_TCTL_NET_KIF_GET_AND_SET: UInt = 15u
-public const val _NTO_TCTL_LOW_LATENCY: UInt = 16u
-public const val _NTO_TCTL_ADD_EXIT_EVENT: UInt = 17u
-public const val _NTO_TCTL_DEL_EXIT_EVENT: UInt = 18u
-public const val _NTO_TCTL_IO_LEVEL: UInt = 19u
-public const val _NTO_TCTL_RESERVED: UInt = 2147483648u
-public const val _NTO_TCTL_IO_LEVEL_INHERIT: UInt = 1073741824u
-public const val _NTO_IO_LEVEL_NONE: UInt = 1u
-public const val _NTO_IO_LEVEL_1: UInt = 2u
-public const val _NTO_IO_LEVEL_2: UInt = 3u
-public const val _NTO_THREAD_NAME_MAX: UInt = 100u
-public const val _NTO_CHF_FIXED_PRIORITY: UInt = 1u
-public const val _NTO_CHF_UNBLOCK: UInt = 2u
-public const val _NTO_CHF_THREAD_DEATH: UInt = 4u
-public const val _NTO_CHF_DISCONNECT: UInt = 8u
-public const val _NTO_CHF_NET_MSG: UInt = 16u
-public const val _NTO_CHF_SENDER_LEN: UInt = 32u
-public const val _NTO_CHF_COID_DISCONNECT: UInt = 64u
-public const val _NTO_CHF_REPLY_LEN: UInt = 128u
-public const val _NTO_CHF_PULSE_POOL: UInt = 256u
-public const val _NTO_CHF_ASYNC_NONBLOCK: UInt = 512u
-public const val _NTO_CHF_ASYNC: UInt = 1024u
-public const val _NTO_CHF_GLOBAL: UInt = 2048u
-public const val _NTO_CHF_PRIVATE: UInt = 4096u
-public const val _NTO_CHF_MSG_PAUSING: UInt = 8192u
-public const val _NTO_CHF_INHERIT_RUNMASK: UInt = 16384u
-public const val _NTO_CHF_UNBLOCK_TIMER: UInt = 32768u
-public const val _NTO_CHO_CUSTOM_EVENT: UInt = 1u
-public const val _NTO_COF_CLOEXEC: UInt = 1u
-public const val _NTO_COF_DEAD: UInt = 2u
-public const val _NTO_COF_NOSHARE: UInt = 64u
-public const val _NTO_COF_NETCON: UInt = 128u
-public const val _NTO_COF_NONBLOCK: UInt = 256u
-public const val _NTO_COF_ASYNC: UInt = 512u
-public const val _NTO_COF_GLOBAL: UInt = 1024u
-public const val _NTO_COF_NOEVENT: UInt = 2048u
-public const val _NTO_COF_INSECURE: UInt = 4096u
-public const val _NTO_COF_REG_EVENTS: UInt = 8192u
-public const val _NTO_COF_UNREG_EVENTS: UInt = 16384u
-public const val _NTO_COF_MASK: UInt = 65535u
-public const val _NTO_SIDE_CHANNEL: UInt = 1073741824u
-public const val _NTO_CONNECTION_SCOID: UInt = 65536u
-public const val _NTO_GLOBAL_CHANNEL: UInt = 1073741824u
-public val _NTO_TIMEOUT_MASK: UInt = (1u shl STATE_MAX) - 1u
-public val _NTO_TIMEOUT_ACTIVE: UInt = 1u shl STATE_MAX
-public val _NTO_TIMEOUT_IMMEDIATE: UInt = 1u shl (STATE_MAX + 1)
-public const val _NTO_IC_LATENCY: UInt = 0u
-public const val _NTO_INTR_FLAGS_END: UInt = 1u
-public const val _NTO_INTR_FLAGS_NO_UNMASK: UInt = 2u
-public const val _NTO_INTR_FLAGS_PROCESS: UInt = 4u
-public const val _NTO_INTR_FLAGS_TRK_MSK: UInt = 8u
-public const val _NTO_INTR_FLAGS_ARRAY: UInt = 16u
-public const val _NTO_INTR_FLAGS_EXCLUSIVE: UInt = 32u
-public const val _NTO_INTR_FLAGS_FPU: UInt = 64u
-public const val _NTO_INTR_CLASS_EXTERNAL: UInt = 0u
-public const val _NTO_INTR_CLASS_SYNTHETIC: UInt = 2147418112u
-public const val _NTO_INTR_SPARE: UInt = 2147483647u
-public const val _NTO_HOOK_IDLE: UInt = 2147418113u
-public const val _NTO_HOOK_OVERDRIVE: UInt = 2147418114u
-public const val _NTO_HOOK_LAST: UInt = 2147418114u
-public const val _NTO_HOOK_IDLE2_FLAG: UInt = 32768u
-public const val _NTO_IH_CMD_SLEEP_SETUP: UInt = 1u
-public const val _NTO_IH_CMD_SLEEP_BLOCK: UInt = 2u
-public const val _NTO_IH_CMD_SLEEP_WAKEUP: UInt = 4u
-public const val _NTO_IH_CMD_SLEEP_ONLINE: UInt = 8u
-public const val _NTO_IH_RESP_NEEDS_BLOCK: UInt = 1u
-public const val _NTO_IH_RESP_NEEDS_WAKEUP: UInt = 2u
-public const val _NTO_IH_RESP_NEEDS_ONLINE: UInt = 4u
-public const val _NTO_IH_RESP_SYNC_TIME: UInt = 16u
-public const val _NTO_IH_RESP_SYNC_TLB: UInt = 32u
-public const val _NTO_IH_RESP_SUGGEST_OFFLINE: UInt = 256u
-public const val _NTO_IH_RESP_SLEEP_MODE_REACHED: UInt = 512u
-public const val _NTO_IH_RESP_DELIVER_INTRS: UInt = 1024u
-public const val _NTO_READIOV_SEND: UInt = 0u
-public const val _NTO_READIOV_REPLY: UInt = 1u
-public const val _NTO_KEYDATA_VTID: UInt = 2147483648u
-public const val _NTO_KEYDATA_PATHSIGN: UInt = 32768u
-public const val _NTO_KEYDATA_OP_MASK: UInt = 255u
-public const val _NTO_KEYDATA_VERIFY: UInt = 0u
-public const val _NTO_KEYDATA_CALCULATE: UInt = 1u
-public const val _NTO_KEYDATA_CALCULATE_REUSE: UInt = 2u
-public const val _NTO_KEYDATA_PATHSIGN_VERIFY: UInt = 32768u
-public const val _NTO_KEYDATA_PATHSIGN_CALCULATE: UInt = 32769u
-public const val _NTO_KEYDATA_PATHSIGN_CALCULATE_REUSE: UInt = 32770u
-public const val _NTO_SCTL_SETPRIOCEILING: UInt = 1u
-public const val _NTO_SCTL_GETPRIOCEILING: UInt = 2u
-public const val _NTO_SCTL_SETEVENT: UInt = 3u
-public const val _NTO_SCTL_MUTEX_WAKEUP: UInt = 4u
-public const val _NTO_SCTL_MUTEX_CONSISTENT: UInt = 5u
-public const val _NTO_SCTL_SEM_VALUE: UInt = 6u
-public const val _NTO_CLIENTINFO_GETGROUPS: UInt = 1u
-public const val _NTO_CLIENTINFO_GETTYPEID: UInt = 2u
-
-public expect fun channelCreate(flags: UInt): Int
-
-public expect fun channelCreateR(flags: UInt): Int
-
-public expect fun channelCreatePulsePool(flags: UInt, config: NtoChannelConfig?): Int
-
-public expect fun channelCreateExt(flags: UInt, mode: UInt, bufsize: ULong, maxnumbuf: UInt, ev: Sigevent?, cred: CredInfo?): Int
-
-public expect fun channelDestroy(chid: Int): Int
-
-public expect fun channelDestroyR(chid: Int): Int
-
-public expect fun connectAttach(nd: UInt, pid: Int, chid: Int, index: UInt, flags: Int): Int
-
-public expect fun connectAttachR(nd: UInt, pid: Int, chid: Int, index: UInt, flags: Int): Int
-
-public expect fun connectDetach(coid: Int): Int
-
-public expect fun connectDetachR(coid: Int): Int
-
-public expect fun connectServerInfo(pid: Int, coid: Int, info: MsgInfo64?): Int
-
-public expect fun connectServerInfoR(pid: Int, coid: Int, info: MsgInfo64?): Int
-
-public expect fun connectClientInfoExtraArgs(scoid: Int, infoPp: ClientInfo?, ngroups: Int, abilities: ClientAble?, nable: Int, typeId: UInt?): Int
-
-public expect fun connectClientInfoExtraArgsR(scoid: Int, infoPp: ClientInfo?, ngroups: Int, abilities: ClientAble?, nable: Int, typeId: UInt?): Int
-
-public expect fun connectClientInfo(scoid: Int, info: ClientInfo?, ngroups: Int): Int
-
-public expect fun connectClientInfoR(scoid: Int, info: ClientInfo?, ngroups: Int): Int
-
-public expect fun connectClientInfoExt(scoid: Int, infoPp: COpaquePointer?, flags: Int): Int
-
-public expect fun clientInfoExtFree(infoPp: COpaquePointer?): Int
-
-public expect fun connectClientInfoAble(scoid: Int, infoPp: COpaquePointer?, flags: Int, abilities: ClientAble?, nable: Int): Int
-
-public expect fun connectFlags(pid: Int, coid: Int, mask: UInt, bits: UInt): Int
-
-public expect fun connectFlagsR(pid: Int, coid: Int, mask: UInt, bits: UInt): Int
-
-public expect fun channelConnectAttr(id: UInt, oldAttr: ChannelConnectAttr?, newAttr: ChannelConnectAttr?, flags: UInt): Int
-
-public expect fun msgSend(coid: Int, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendR(coid: Int, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendnc(coid: Int, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendncR(coid: Int, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendsv(coid: Int, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgSendsvR(coid: Int, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgSendsvnc(coid: Int, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgSendsvncR(coid: Int, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgSendvs(coid: Int, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendvsR(coid: Int, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendvsnc(coid: Int, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendvsncR(coid: Int, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): Long
-
-public expect fun msgSendv(coid: Int, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgSendvR(coid: Int, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgSendvnc(coid: Int, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgSendvncR(coid: Int, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): Long
-
-public expect fun msgReceive(chid: Int, msg: COpaquePointer?, bytes: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReceiveR(chid: Int, msg: COpaquePointer?, bytes: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReceivev(chid: Int, iov: Iovec?, parts: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReceivevR(chid: Int, iov: Iovec?, parts: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReceivePulse(chid: Int, pulse: COpaquePointer?, bytes: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReceivePulseR(chid: Int, pulse: COpaquePointer?, bytes: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReceivePulsev(chid: Int, iov: Iovec?, parts: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReceivePulsevR(chid: Int, iov: Iovec?, parts: ULong, info: MsgInfo64?): Int
-
-public expect fun msgReply(rcvid: Int, status: Long, msg: COpaquePointer?, bytes: ULong): Int
-
-public expect fun msgReplyR(rcvid: Int, status: Long, msg: COpaquePointer?, bytes: ULong): Int
-
-public expect fun msgReplyv(rcvid: Int, status: Long, iov: Iovec?, parts: ULong): Int
-
-public expect fun msgReplyvR(rcvid: Int, status: Long, iov: Iovec?, parts: ULong): Int
-
-public expect fun msgReadiov(rcvid: Int, iov: Iovec?, parts: ULong, offset: ULong, flags: Int): Long
-
-public expect fun msgReadiovR(rcvid: Int, iov: Iovec?, parts: ULong, offset: ULong, flags: Int): Long
-
-public expect fun msgRead(rcvid: Int, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
-
-public expect fun msgReadR(rcvid: Int, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
-
-public expect fun msgReadv(rcvid: Int, iov: Iovec?, parts: ULong, offset: ULong): Long
-
-public expect fun msgReadvR(rcvid: Int, iov: Iovec?, parts: ULong, offset: ULong): Long
-
-public expect fun msgWrite(rcvid: Int, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
-
-public expect fun msgWriteR(rcvid: Int, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
-
-public expect fun msgWritev(rcvid: Int, iov: Iovec?, parts: ULong, offset: ULong): Long
-
-public expect fun msgWritevR(rcvid: Int, iov: Iovec?, parts: ULong, offset: ULong): Long
-
-public expect fun msgSendPulse(coid: Int, priority: Int, code: Int, value: Int): Int
-
-public expect fun msgSendPulseR(coid: Int, priority: Int, code: Int, value: Int): Int
-
-public expect fun msgSendPulsePtr(coid: Int, priority: Int, code: Int, value: COpaquePointer?): Int
+public val SYSMGR_PID: UInt = 1u
 
-public expect fun msgSendPulsePtrR(coid: Int, priority: Int, code: Int, value: COpaquePointer?): Int
+public val SYSMGR_CHID: UInt = 1u
 
-public expect fun msgDeliverEvent(rcvid: Int, event: Sigevent?): Int
+public val SYSMGR_COID: UInt = NTO_SIDE_CHANNEL
 
-public expect fun msgDeliverEventR(rcvid: Int, event: Sigevent?): Int
+public val SYSMGR_HANDLE: UInt = 0u
 
-public expect fun msgVerifyEvent(rcvid: Int, event: Sigevent?): Int
+public val STATE_DEAD: CInt = 0x00
 
-public expect fun msgVerifyEventR(rcvid: Int, event: Sigevent?): Int
+public val STATE_RUNNING: CInt = 0x01
 
-public expect fun msgRegisterEvent(event: Sigevent?, coid: Int): Int
+public val STATE_READY: CInt = 0x02
 
-public expect fun msgRegisterEventR(event: Sigevent?, coid: Int): Int
+public val STATE_STOPPED: CInt = 0x03
 
-public expect fun msgUnregisterEvent(event: Sigevent?): Int
+public val STATE_SEND: CInt = 0x04
 
-public expect fun msgUnregisterEventR(event: Sigevent?): Int
+public val STATE_RECEIVE: CInt = 0x05
 
-public expect fun msgInfo(rcvid: Int, info: MsgInfo64?): Int
+public val STATE_REPLY: CInt = 0x06
 
-public expect fun msgInfoR(rcvid: Int, info: MsgInfo64?): Int
+public val STATE_STACK: CInt = 0x07
 
-public expect fun msgKeyData(rcvid: Int, oper: Int, key: UInt, newkey: UInt?, iov: Iovec?, parts: Int): Int
+public val STATE_WAITTHREAD: CInt = 0x08
 
-public expect fun msgKeyDataR(rcvid: Int, oper: Int, key: UInt, newkey: UInt?, iov: Iovec?, parts: Int): Int
+public val STATE_WAITPAGE: CInt = 0x09
 
-public expect fun msgError(rcvid: Int, err: Int): Int
+public val STATE_SIGSUSPEND: CInt = 0x0a
 
-public expect fun msgErrorR(rcvid: Int, err: Int): Int
+public val STATE_SIGWAITINFO: CInt = 0x0b
 
-public expect fun msgCurrent(rcvid: Int): Int
+public val STATE_NANOSLEEP: CInt = 0x0c
 
-public expect fun msgCurrentR(rcvid: Int): Int
+public val STATE_MUTEX: CInt = 0x0d
 
-public expect fun msgSendAsyncGbl(coid: Int, smsg: COpaquePointer?, sbytes: ULong, msgPrio: UInt): Int
+public val STATE_CONDVAR: CInt = 0x0e
 
-public expect fun msgSendAsync(coid: Int): Int
+public val STATE_JOIN: CInt = 0x0f
 
-public expect fun msgReceiveAsyncGbl(chid: Int, rmsg: COpaquePointer?, rbytes: ULong, info: MsgInfo64?, coid: Int): Int
+public val STATE_INTR: CInt = 0x10
 
-public expect fun msgReceiveAsync(chid: Int, iov: Iovec?, parts: UInt): Int
+public val STATE_SEM: CInt = 0x11
 
-public expect fun msgPause(rcvid: Int, cookie: UInt): Int
+public val STATE_WAITCTX: CInt = 0x12
 
-public expect fun msgPauseR(rcvid: Int, cookie: UInt): Int
+public val STATE_NET_SEND: CInt = 0x13
 
-public expect fun signalKill(nd: UInt, pid: Int, tid: Int, signo: Int, code: Int, value: Int): Int
+public val STATE_NET_REPLY: CInt = 0x14
 
-public expect fun signalKillR(nd: UInt, pid: Int, tid: Int, signo: Int, code: Int, value: Int): Int
+public val STATE_MAX: CInt = 0x18
 
-public expect fun signalKillSigval(nd: UInt, pid: Int, tid: Int, signo: Int, code: Int, value: Sigval?): Int
+public val NTO_TIMEOUT_RECEIVE: Int = 1 shl STATE_RECEIVE
 
-public expect fun signalKillSigvalR(nd: UInt, pid: Int, tid: Int, signo: Int, code: Int, value: Sigval?): Int
+public val NTO_TIMEOUT_SEND: Int = 1 shl STATE_SEND
 
-public expect fun signalReturn(info: SighandlerInfo?): Int
+public val NTO_TIMEOUT_REPLY: Int = 1 shl STATE_REPLY
 
-public expect fun signalFault(sigcode: UInt, regs: COpaquePointer?, refaddr: ULong): Int
+public val NTO_TIMEOUT_SIGSUSPEND: Int = 1 shl STATE_SIGSUSPEND
 
-public expect fun signalAction(pid: Int, sigstub: (() -> Unit)?, signo: Int, act: Sigaction?, oact: Sigaction?): Int
+public val NTO_TIMEOUT_SIGWAITINFO: Int = 1 shl STATE_SIGWAITINFO
 
-public expect fun signalActionR(pid: Int, sigstub: (() -> Unit)?, signo: Int, act: Sigaction?, oact: Sigaction?): Int
+public val NTO_TIMEOUT_NANOSLEEP: Int = 1 shl STATE_NANOSLEEP
 
-public expect fun signalProcmask(pid: Int, tid: Int, how: Int, set: SigsetT?, oldset: SigsetT?): Int
+public val NTO_TIMEOUT_MUTEX: Int = 1 shl STATE_MUTEX
 
-public expect fun signalProcmaskR(pid: Int, tid: Int, how: Int, set: SigsetT?, oldset: SigsetT?): Int
+public val NTO_TIMEOUT_CONDVAR: Int = 1 shl STATE_CONDVAR
 
-public expect fun signalSuspend(set: SigsetT?): Int
+public val NTO_TIMEOUT_JOIN: Int = 1 shl STATE_JOIN
 
-public expect fun signalSuspendR(set: SigsetT?): Int
+public val NTO_TIMEOUT_INTR: Int = 1 shl STATE_INTR
 
-public expect fun signalWaitinfo(set: SigsetT?, info: SiginfoT?): Int
+public val NTO_TIMEOUT_SEM: Int = 1 shl STATE_SEM
 
-public expect fun signalWaitinfoR(set: SigsetT?, info: SiginfoT?): Int
+public val NTO_MI_ENDIAN_BIG: UInt = 1u
 
-public expect fun signalWaitinfoMask(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): Int
+public val NTO_MI_ENDIAN_DIFF: UInt = 2u
 
-public expect fun signalWaitinfoMaskR(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): Int
+public val NTO_MI_UNBLOCK_REQ: UInt = 256u
 
-public expect fun threadCreate(pid: Int, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): Int
+public val NTO_MI_NET_CRED_DIRTY: UInt = 512u
 
-public expect fun threadCreateR(pid: Int, func: ((COpaquePointer?) -> COpaquePointer?)?, arg: COpaquePointer?, attr: ThreadAttr?): Int
+public val NTO_MI_CONSTRAINED: UInt = 1024u
 
-public expect fun threadDestroy(tid: Int, priority: Int, status: COpaquePointer?): Int
+public val NTO_MI_CHROOT: UInt = 2048u
 
-public expect fun threadDestroyR(tid: Int, priority: Int, status: COpaquePointer?): Int
+public val NTO_MI_BITS_64: UInt = 4096u
 
-public expect fun threadDetach(tid: Int): Int
+public val NTO_MI_BITS_DIFF: UInt = 8192u
 
-public expect fun threadDetachR(tid: Int): Int
+public val NTO_MI_SANDBOX: UInt = 16384u
 
-public expect fun threadJoin(tid: Int, status: COpaquePointer?): Int
+public val NTO_CI_ENDIAN_BIG: UInt = 1u
 
-public expect fun threadJoinR(tid: Int, status: COpaquePointer?): Int
+public val NTO_CI_BKGND_PGRP: UInt = 4u
 
-public expect fun threadCancel(tid: Int, canstub: (() -> Unit)?): Int
+public val NTO_CI_ORPHAN_PGRP: UInt = 8u
 
-public expect fun threadCancelR(tid: Int, canstub: (() -> Unit)?): Int
+public val NTO_CI_STOPPED: UInt = 128u
 
-public expect fun threadCtl(cmd: Int, data: COpaquePointer?): Int
+public val NTO_CI_UNABLE: UInt = 256u
 
-public expect fun threadCtlR(cmd: Int, data: COpaquePointer?): Int
+public val NTO_CI_TYPE_ID: UInt = 512u
 
-public expect fun threadCtlExt(pid: Int, tid: Int, cmd: Int, data: COpaquePointer?): Int
+public val NTO_CI_CHROOT: UInt = 2048u
 
-public expect fun threadCtlExtR(pid: Int, tid: Int, cmd: Int, data: COpaquePointer?): Int
+public val NTO_CI_BITS_64: UInt = 4096u
 
-public expect fun interruptHookTrace(handler: ((Int) -> Sigevent?)?, flags: UInt): Int
+public val NTO_CI_SANDBOX: UInt = 16384u
 
-public expect fun interruptHookIdle(handler: ((ULong?, QtimeEntry?) -> Unit)?, flags: UInt): Int
+public val NTO_CI_LOADER: UInt = 32768u
 
-public expect fun interruptHookIdle2(handler: (() -> Unit)?, flags: UInt): Int
+public val NTO_CI_FULL_GROUPS: UInt = 2147483648u
 
-public expect fun interruptHookOverdriveEvent(event: Sigevent?, flags: UInt): Int
+public val NTO_TI_ACTIVE: UInt = 1u
 
-public expect fun interruptAttachEvent(intr: Int, event: Sigevent?, flags: UInt): Int
+public val NTO_TI_ABSOLUTE: UInt = 2u
 
-public expect fun interruptAttachEventR(intr: Int, event: Sigevent?, flags: UInt): Int
+public val NTO_TI_EXPIRED: UInt = 4u
 
-public expect fun interruptAttach(intr: Int, handler: ((COpaquePointer?, Int) -> Sigevent?)?, area: COpaquePointer?, size: Int, flags: UInt): Int
+public val NTO_TI_TOD_BASED: UInt = 8u
 
-public expect fun interruptAttachR(intr: Int, handler: ((COpaquePointer?, Int) -> Sigevent?)?, area: COpaquePointer?, size: Int, flags: UInt): Int
+public val NTO_TI_TARGET_PROCESS: UInt = 16u
 
-public expect fun interruptAttachArray(intr: Int, handler: ((COpaquePointer?, Int) -> COpaquePointer?)?, area: COpaquePointer?, size: Int, flags: UInt): Int
+public val NTO_TI_REPORT_TOLERANCE: UInt = 32u
 
-public expect fun interruptAttachArrayR(intr: Int, handler: ((COpaquePointer?, Int) -> COpaquePointer?)?, area: COpaquePointer?, size: Int, flags: UInt): Int
+public val NTO_TI_PRECISE: UInt = 64u
 
-public expect fun interruptDetach(id: Int): Int
+public val NTO_TI_TOLERANT: UInt = 128u
 
-public expect fun interruptDetachR(id: Int): Int
+public val NTO_TI_WAKEUP: UInt = 256u
 
-public expect fun interruptWait(flags: Int, timeout: ULong?): Int
+public val NTO_TI_PROCESS_TOLERANT: UInt = 512u
 
-public expect fun interruptWaitR(flags: Int, timeout: ULong?): Int
+public val NTO_TI_HIGH_RESOLUTION: UInt = 1024u
 
-public expect fun interruptCharacteristic(type: Int, id: Int, new: UInt?, old: UInt?): Int
+public val PULSE_TYPE: UInt = 0u
 
-public expect fun interruptCharacteristicR(type: Int, id: Int, new: UInt?, old: UInt?): Int
+public val PULSE_SUBTYPE: UInt = 0u
 
-public expect fun schedGet(pid: Int, tid: Int, param: SchedParam?): Int
+public val PULSE_CODE_UNBLOCK: Int = -32
 
-public expect fun schedGetR(pid: Int, tid: Int, param: SchedParam?): Int
+public val PULSE_CODE_DISCONNECT: Int = -33
 
-public expect fun schedGetCpuNum(): UInt
+public val PULSE_CODE_THREADDEATH: Int = -34
 
-public expect fun schedSet(pid: Int, tid: Int, algorithm: Int, param: SchedParam?): Int
+public val PULSE_CODE_COIDDEATH: Int = -35
 
-public expect fun schedSetR(pid: Int, tid: Int, algorithm: Int, param: SchedParam?): Int
+public val PULSE_CODE_NET_ACK: Int = -36
 
-public expect fun schedInfo(pid: Int, algorithm: Int, info: SchedInfo?): Int
+public val PULSE_CODE_NET_UNBLOCK: Int = -37
 
-public expect fun schedInfoR(pid: Int, algorithm: Int, info: SchedInfo?): Int
+public val PULSE_CODE_NET_DETACH: Int = -38
 
-public expect fun schedYield(): Int
+public val PULSE_CODE_RESTART: Int = -39
 
-public expect fun schedYieldR(): Int
+public val PULSE_CODE_NORESTART: Int = -40
 
-public expect fun schedCtl(cmd: Int, data: COpaquePointer?, length: ULong): Int
+public val PULSE_CODE_UNBLOCK_RESTART: Int = -41
 
-public expect fun schedCtlR(cmd: Int, data: COpaquePointer?, length: ULong): Int
+public val PULSE_CODE_UNBLOCK_TIMER: Int = -42
 
-public expect fun schedJobCreate(job: io.github.kotlinmania.libc.unix.nto.SyncT?): Int
+public val PULSE_CODE_MINAVAIL: UInt = 0u
 
-public expect fun schedJobCreateR(job: io.github.kotlinmania.libc.unix.nto.SyncT?): Int
+public val PULSE_CODE_MAXAVAIL: UInt = 127u
 
-public expect fun schedJobDestroy(job: io.github.kotlinmania.libc.unix.nto.SyncT?): Int
+public val NTO_HARD_FLAGS_END: UInt = 1u
 
-public expect fun schedJobDestroyR(job: io.github.kotlinmania.libc.unix.nto.SyncT?): Int
+public val NTO_PULSE_IF_UNIQUE: UInt = 4096u
 
-public expect fun schedWaypoint(job: io.github.kotlinmania.libc.unix.nto.SyncT?, new: Long?, max: Long?, old: Long?): Int
+public val NTO_PULSE_REPLACE: UInt = 8192u
 
-public expect fun schedWaypointR(job: io.github.kotlinmania.libc.unix.nto.SyncT?, new: Long?, max: Long?, old: Long?): Int
+public val NTO_PF_NOCLDSTOP: UInt = 1u
 
-public expect fun timerCreate(id: Int, notify: Sigevent?): Int
+public val NTO_PF_LOADING: UInt = 2u
 
-public expect fun timerCreateR(id: Int, notify: Sigevent?): Int
+public val NTO_PF_TERMING: UInt = 4u
 
-public expect fun timerDestroy(id: Int): Int
+public val NTO_PF_ZOMBIE: UInt = 8u
 
-public expect fun timerDestroyR(id: Int): Int
+public val NTO_PF_NOZOMBIE: UInt = 16u
 
-public expect fun timerSettime(id: Int, flags: Int, itime: Itimer?, oitime: Itimer?): Int
+public val NTO_PF_FORKED: UInt = 32u
 
-public expect fun timerSettimeR(id: Int, flags: Int, itime: Itimer?, oitime: Itimer?): Int
+public val NTO_PF_ORPHAN_PGRP: UInt = 64u
 
-public expect fun timerInfo(pid: Int, id: Int, flags: Int, info: TimerInfo?): Int
+public val NTO_PF_STOPPED: UInt = 128u
 
-public expect fun timerInfoR(pid: Int, id: Int, flags: Int, info: TimerInfo?): Int
+public val NTO_PF_DEBUG_STOPPED: UInt = 256u
 
-public expect fun timerAlarm(id: Int, itime: Itimer?, otime: Itimer?): Int
+public val NTO_PF_BKGND_PGRP: UInt = 512u
 
-public expect fun timerAlarmR(id: Int, itime: Itimer?, otime: Itimer?): Int
+public val NTO_PF_NOISYNC: UInt = 1024u
 
-public expect fun timerTimeout(id: Int, flags: Int, notify: Sigevent?, ntime: ULong?, otime: ULong?): Int
+public val NTO_PF_CONTINUED: UInt = 2048u
 
-public expect fun timerTimeoutR(id: Int, flags: Int, notify: Sigevent?, ntime: ULong?, otime: ULong?): Int
+public val NTO_PF_CHECK_INTR: UInt = 4096u
 
-public expect fun syncTypeCreate(type: UInt, sync: SyncT?, attr: SyncAttr?): Int
+public val NTO_PF_COREDUMP: UInt = 8192u
 
-public expect fun syncTypeCreateR(type: UInt, sync: SyncT?, attr: SyncAttr?): Int
+public val NTO_PF_RING0: UInt = 32768u
 
-public expect fun syncDestroy(sync: SyncT?): Int
+public val NTO_PF_SLEADER: UInt = 65536u
 
-public expect fun syncDestroyR(sync: SyncT?): Int
+public val NTO_PF_WAITINFO: UInt = 131072u
 
-public expect fun syncCtl(cmd: Int, sync: SyncT?, data: COpaquePointer?): Int
+public val NTO_PF_DESTROYALL: UInt = 524288u
 
-public expect fun syncCtlR(cmd: Int, sync: SyncT?, data: COpaquePointer?): Int
+public val NTO_PF_NOCOREDUMP: UInt = 1048576u
 
-public expect fun syncMutexEvent(sync: SyncT?, event: Sigevent?): Int
+public val NTO_PF_WAITDONE: UInt = 4194304u
 
-public expect fun syncMutexEventR(sync: SyncT?, event: Sigevent?): Int
+public val NTO_PF_TERM_WAITING: UInt = 8388608u
 
-public expect fun syncMutexLock(sync: SyncT?): Int
+public val NTO_PF_ASLR: UInt = 16777216u
 
-public expect fun syncMutexLockR(sync: SyncT?): Int
+public val NTO_PF_EXECED: UInt = 33554432u
 
-public expect fun syncMutexUnlock(sync: SyncT?): Int
+public val NTO_PF_APP_STOPPED: UInt = 67108864u
 
-public expect fun syncMutexUnlockR(sync: SyncT?): Int
+public val NTO_PF_64BIT: UInt = 134217728u
 
-public expect fun syncMutexRevive(sync: SyncT?): Int
+public val NTO_PF_NET: UInt = 268435456u
 
-public expect fun syncMutexReviveR(sync: SyncT?): Int
+public val NTO_PF_NOLAZYSTACK: UInt = 536870912u
 
-public expect fun syncCondvarWait(sync: SyncT?, mutex: SyncT?): Int
+public val NTO_PF_NOEXEC_STACK: UInt = 1073741824u
 
-public expect fun syncCondvarWaitR(sync: SyncT?, mutex: SyncT?): Int
+public val NTO_PF_LOADER_PERMS: UInt = 2147483648u
 
-public expect fun syncCondvarSignal(sync: SyncT?, all: Int): Int
+public val NTO_TF_INTR_PENDING: UInt = 65536u
 
-public expect fun syncCondvarSignalR(sync: SyncT?, all: Int): Int
+public val NTO_TF_DETACHED: UInt = 131072u
 
-public expect fun syncSemPost(sync: SyncT?): Int
+public val NTO_TF_SHR_MUTEX: UInt = 262144u
 
-public expect fun syncSemPostR(sync: SyncT?): Int
+public val NTO_TF_SHR_MUTEX_EUID: UInt = 524288u
 
-public expect fun syncSemWait(sync: SyncT?, tryto: Int): Int
+public val NTO_TF_THREADS_HOLD: UInt = 1048576u
 
-public expect fun syncSemWaitR(sync: SyncT?, tryto: Int): Int
+public val NTO_TF_UNBLOCK_REQ: UInt = 4194304u
 
-public expect fun clockTime(id: Int, new: ULong?, old: ULong?): Int
+public val NTO_TF_ALIGN_FAULT: UInt = 16777216u
 
-public expect fun clockTimeR(id: Int, new: ULong?, old: ULong?): Int
+public val NTO_TF_SSTEP: UInt = 33554432u
 
-public expect fun clockAdjust(id: Int, new: Clockadjust?, old: Clockadjust?): Int
+public val NTO_TF_ALLOCED_STACK: UInt = 67108864u
 
-public expect fun clockAdjustR(id: Int, new: Clockadjust?, old: Clockadjust?): Int
+public val NTO_TF_NOMULTISIG: UInt = 134217728u
 
-public expect fun clockPeriod(id: Int, new: Clockperiod?, old: Clockperiod?, reserved: Int): Int
+public val NTO_TF_LOW_LATENCY: UInt = 268435456u
 
-public expect fun clockPeriodR(id: Int, new: Clockperiod?, old: Clockperiod?, reserved: Int): Int
+public val NTO_TF_IOPRIV: UInt = 2147483648u
 
-public expect fun clockId(pid: Int, tid: Int): Int
+public val NTO_TCTL_IO_PRIV: UInt = 1u
 
-public expect fun clockIdR(pid: Int, tid: Int): Int
+public val NTO_TCTL_THREADS_HOLD: UInt = 2u
 
-public expect fun interruptMask(intr: Int, id: Int): Int
+public val NTO_TCTL_THREADS_CONT: UInt = 3u
 
-public expect fun interruptUnmask(intr: Int, id: Int): Int
+public val NTO_TCTL_RUNMASK: UInt = 4u
+
+public val NTO_TCTL_ALIGN_FAULT: UInt = 5u
+
+public val NTO_TCTL_RUNMASK_GET_AND_SET: UInt = 6u
+
+public val NTO_TCTL_PERFCOUNT: UInt = 7u
+
+public val NTO_TCTL_ONE_THREAD_HOLD: UInt = 8u
+
+public val NTO_TCTL_ONE_THREAD_CONT: UInt = 9u
+
+public val NTO_TCTL_RUNMASK_GET_AND_SET_INHERIT: UInt = 10u
+
+public val NTO_TCTL_NAME: UInt = 11u
+
+public val NTO_TCTL_RCM_GET_AND_SET: UInt = 12u
+
+public val NTO_TCTL_SHR_MUTEX: UInt = 13u
+
+public val NTO_TCTL_IO: UInt = 14u
+
+public val NTO_TCTL_NET_KIF_GET_AND_SET: UInt = 15u
+
+public val NTO_TCTL_LOW_LATENCY: UInt = 16u
+
+public val NTO_TCTL_ADD_EXIT_EVENT: UInt = 17u
+
+public val NTO_TCTL_DEL_EXIT_EVENT: UInt = 18u
+
+public val NTO_TCTL_IO_LEVEL: UInt = 19u
+
+public val NTO_TCTL_RESERVED: UInt = 2147483648u
+
+public val NTO_TCTL_IO_LEVEL_INHERIT: UInt = 1073741824u
+
+public val NTO_IO_LEVEL_NONE: UInt = 1u
+
+public val NTO_IO_LEVEL_1: UInt = 2u
+
+public val NTO_IO_LEVEL_2: UInt = 3u
+
+public val NTO_THREAD_NAME_MAX: UInt = 100u
+
+public val NTO_CHF_FIXED_PRIORITY: UInt = 1u
+
+public val NTO_CHF_UNBLOCK: UInt = 2u
+
+public val NTO_CHF_THREAD_DEATH: UInt = 4u
+
+public val NTO_CHF_DISCONNECT: UInt = 8u
+
+public val NTO_CHF_NET_MSG: UInt = 16u
+
+public val NTO_CHF_SENDER_LEN: UInt = 32u
+
+public val NTO_CHF_COID_DISCONNECT: UInt = 64u
+
+public val NTO_CHF_REPLY_LEN: UInt = 128u
+
+public val NTO_CHF_PULSE_POOL: UInt = 256u
+
+public val NTO_CHF_ASYNC_NONBLOCK: UInt = 512u
+
+public val NTO_CHF_ASYNC: UInt = 1024u
+
+public val NTO_CHF_GLOBAL: UInt = 2048u
+
+public val NTO_CHF_PRIVATE: UInt = 4096u
+
+public val NTO_CHF_MSG_PAUSING: UInt = 8192u
+
+public val NTO_CHF_INHERIT_RUNMASK: UInt = 16384u
+
+public val NTO_CHF_UNBLOCK_TIMER: UInt = 32768u
+
+public val NTO_CHO_CUSTOM_EVENT: UInt = 1u
+
+public val NTO_COF_CLOEXEC: UInt = 1u
+
+public val NTO_COF_DEAD: UInt = 2u
+
+public val NTO_COF_NOSHARE: UInt = 64u
+
+public val NTO_COF_NETCON: UInt = 128u
+
+public val NTO_COF_NONBLOCK: UInt = 256u
+
+public val NTO_COF_ASYNC: UInt = 512u
+
+public val NTO_COF_GLOBAL: UInt = 1024u
+
+public val NTO_COF_NOEVENT: UInt = 2048u
+
+public val NTO_COF_INSECURE: UInt = 4096u
+
+public val NTO_COF_REG_EVENTS: UInt = 8192u
+
+public val NTO_COF_UNREG_EVENTS: UInt = 16384u
+
+public val NTO_COF_MASK: UInt = 65535u
+
+public val NTO_SIDE_CHANNEL: UInt = 1073741824u
+
+public val NTO_CONNECTION_SCOID: UInt = 65536u
+
+public val NTO_GLOBAL_CHANNEL: UInt = 1073741824u
+
+public val NTO_TIMEOUT_MASK: UInt = (1u shl STATE_MAX) - 1u
+
+public val NTO_TIMEOUT_ACTIVE: UInt = 1u shl STATE_MAX
+
+public val NTO_TIMEOUT_IMMEDIATE: UInt = 1u shl (STATE_MAX + 1)
+
+public val NTO_IC_LATENCY: UInt = 0u
+
+public val NTO_INTR_FLAGS_END: UInt = 1u
+
+public val NTO_INTR_FLAGS_NO_UNMASK: UInt = 2u
+
+public val NTO_INTR_FLAGS_PROCESS: UInt = 4u
+
+public val NTO_INTR_FLAGS_TRK_MSK: UInt = 8u
+
+public val NTO_INTR_FLAGS_ARRAY: UInt = 16u
+
+public val NTO_INTR_FLAGS_EXCLUSIVE: UInt = 32u
+
+public val NTO_INTR_FLAGS_FPU: UInt = 64u
+
+public val NTO_INTR_CLASS_EXTERNAL: UInt = 0u
+
+public val NTO_INTR_CLASS_SYNTHETIC: UInt = 2147418112u
+
+public val NTO_INTR_SPARE: UInt = 2147483647u
+
+public val NTO_HOOK_IDLE: UInt = 2147418113u
+
+public val NTO_HOOK_OVERDRIVE: UInt = 2147418114u
+
+public val NTO_HOOK_LAST: UInt = 2147418114u
+
+public val NTO_HOOK_IDLE2_FLAG: UInt = 32768u
+
+public val NTO_IH_CMD_SLEEP_SETUP: UInt = 1u
+
+public val NTO_IH_CMD_SLEEP_BLOCK: UInt = 2u
+
+public val NTO_IH_CMD_SLEEP_WAKEUP: UInt = 4u
+
+public val NTO_IH_CMD_SLEEP_ONLINE: UInt = 8u
+
+public val NTO_IH_RESP_NEEDS_BLOCK: UInt = 1u
+
+public val NTO_IH_RESP_NEEDS_WAKEUP: UInt = 2u
+
+public val NTO_IH_RESP_NEEDS_ONLINE: UInt = 4u
+
+public val NTO_IH_RESP_SYNC_TIME: UInt = 16u
+
+public val NTO_IH_RESP_SYNC_TLB: UInt = 32u
+
+public val NTO_IH_RESP_SUGGEST_OFFLINE: UInt = 256u
+
+public val NTO_IH_RESP_SLEEP_MODE_REACHED: UInt = 512u
+
+public val NTO_IH_RESP_DELIVER_INTRS: UInt = 1024u
+
+public val NTO_READIOV_SEND: UInt = 0u
+
+public val NTO_READIOV_REPLY: UInt = 1u
+
+public val NTO_KEYDATA_VTID: UInt = 2147483648u
+
+public val NTO_KEYDATA_PATHSIGN: UInt = 32768u
+
+public val NTO_KEYDATA_OP_MASK: UInt = 255u
+
+public val NTO_KEYDATA_VERIFY: UInt = 0u
+
+public val NTO_KEYDATA_CALCULATE: UInt = 1u
+
+public val NTO_KEYDATA_CALCULATE_REUSE: UInt = 2u
+
+public val NTO_KEYDATA_PATHSIGN_VERIFY: UInt = 32768u
+
+public val NTO_KEYDATA_PATHSIGN_CALCULATE: UInt = 32769u
+
+public val NTO_KEYDATA_PATHSIGN_CALCULATE_REUSE: UInt = 32770u
+
+public val NTO_SCTL_SETPRIOCEILING: UInt = 1u
+
+public val NTO_SCTL_GETPRIOCEILING: UInt = 2u
+
+public val NTO_SCTL_SETEVENT: UInt = 3u
+
+public val NTO_SCTL_MUTEX_WAKEUP: UInt = 4u
+
+public val NTO_SCTL_MUTEX_CONSISTENT: UInt = 5u
+
+public val NTO_SCTL_SEM_VALUE: UInt = 6u
+
+public val NTO_CLIENTINFO_GETGROUPS: UInt = 1u
+
+public val NTO_CLIENTINFO_GETTYPEID: UInt = 2u
+
+public fun channelCreate(flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("ChannelCreate", -1, longArrayOf(flags.toLong())).toInt()
+}
+
+public fun channelCreateR(flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("ChannelCreate_r", -1, longArrayOf(flags.toLong())).toInt()
+}
+
+public fun channelCreatePulsePool(flags: CUint, config: NtoChannelConfig?): CInt {
+    return LibcDynamicFfi.invoke("ChannelCreatePulsePool", -1, longArrayOf(flags.toLong(), config?.value ?: 0L)).toInt()
+}
+
+public fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: Sigevent?, cred: CredInfo?): CInt {
+    return LibcDynamicFfi.invoke("ChannelCreateExt", -1, longArrayOf(flags.toLong(), mode.toLong(), bufsize.toLong(), maxnumbuf.toLong(), ev?.value ?: 0L, cred?.value ?: 0L)).toInt()
+}
+
+public fun channelDestroy(chid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ChannelDestroy", -1, longArrayOf(chid.toLong())).toInt()
+}
+
+public fun channelDestroyR(chid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ChannelDestroy_r", -1, longArrayOf(chid.toLong())).toInt()
+}
+
+public fun connectAttach(nd: UInt, pid: PidT, chid: CInt, index: CUint, flags: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectAttach", -1, longArrayOf(nd.toLong(), pid.toLong(), chid.toLong(), index.toLong(), flags.toLong())).toInt()
+}
+
+public fun connectAttachR(nd: UInt, pid: PidT, chid: CInt, index: CUint, flags: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectAttach_r", -1, longArrayOf(nd.toLong(), pid.toLong(), chid.toLong(), index.toLong(), flags.toLong())).toInt()
+}
+
+// Note: The following function uses a structure defined in a header file
+// which doesn't appear as part of the default headers found in a
+// standard installation of Neutrino 7.1 SDP.  Commented out for now.
+// pub fn ConnectAttachExt(
+// __nd: u32,
+// __pid: crate::pidT,
+// __chid: cInt,
+// __index: cUint,
+// __flags: cInt,
+// __cd: *mut _asyncmsg_connection_descriptor,
+// ) -> cInt;
+public fun connectDetach(coid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectDetach", -1, longArrayOf(coid.toLong())).toInt()
+}
+
+public fun connectDetachR(coid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectDetach_r", -1, longArrayOf(coid.toLong())).toInt()
+}
+
+public fun connectServerInfo(pid: PidT, coid: CInt, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("ConnectServerInfo", -1, longArrayOf(pid.toLong(), coid.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun connectServerInfoR(pid: PidT, coid: CInt, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("ConnectServerInfo_r", -1, longArrayOf(pid.toLong(), coid.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun connectClientInfoExtraArgs(scoid: CInt, infoPp: ClientInfo?, ngroups: CInt, abilities: ClientAble?, nable: CInt, typeId: CUint?): CInt {
+    val __slot_5 = if (typeId == null) 0L else LibcDynamicFfi.allocScalarSlot(typeId.toLong())
+    try {
+        return LibcDynamicFfi.invoke("ConnectClientInfoExtraArgs", -1, longArrayOf(scoid.toLong(), infoPp?.value ?: 0L, ngroups.toLong(), abilities?.value ?: 0L, nable.toLong(), __slot_5)).toInt()
+    } finally {
+        if (__slot_5 != 0L) LibcDynamicFfi.freeMem(__slot_5)
+    }
+}
+
+public fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: ClientInfo?, ngroups: CInt, abilities: ClientAble?, nable: CInt, typeId: CUint?): CInt {
+    val __slot_5 = if (typeId == null) 0L else LibcDynamicFfi.allocScalarSlot(typeId.toLong())
+    try {
+        return LibcDynamicFfi.invoke("ConnectClientInfoExtraArgs_r", -1, longArrayOf(scoid.toLong(), infoPp?.value ?: 0L, ngroups.toLong(), abilities?.value ?: 0L, nable.toLong(), __slot_5)).toInt()
+    } finally {
+        if (__slot_5 != 0L) LibcDynamicFfi.freeMem(__slot_5)
+    }
+}
+
+public fun connectClientInfo(scoid: CInt, info: ClientInfo?, ngroups: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectClientInfo", -1, longArrayOf(scoid.toLong(), info?.value ?: 0L, ngroups.toLong())).toInt()
+}
+
+public fun connectClientInfoR(scoid: CInt, info: ClientInfo?, ngroups: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectClientInfo_r", -1, longArrayOf(scoid.toLong(), info?.value ?: 0L, ngroups.toLong())).toInt()
+}
+
+public fun connectClientInfoExt(scoid: CInt, infoPp: COpaquePointer?, flags: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectClientInfoExt", -1, longArrayOf(scoid.toLong(), infoPp?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun clientInfoExtFree(infoPp: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ClientInfoExtFree", -1, longArrayOf(infoPp?.value ?: 0L)).toInt()
+}
+
+public fun connectClientInfoAble(scoid: CInt, infoPp: COpaquePointer?, flags: CInt, abilities: ClientAble?, nable: CInt): CInt {
+    return LibcDynamicFfi.invoke("ConnectClientInfoAble", -1, longArrayOf(scoid.toLong(), infoPp?.value ?: 0L, flags.toLong(), abilities?.value ?: 0L, nable.toLong())).toInt()
+}
+
+public fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt {
+    return LibcDynamicFfi.invoke("ConnectFlags", -1, longArrayOf(pid.toLong(), coid.toLong(), mask.toLong(), bits.toLong())).toInt()
+}
+
+public fun connectFlagsR(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt {
+    return LibcDynamicFfi.invoke("ConnectFlags_r", -1, longArrayOf(pid.toLong(), coid.toLong(), mask.toLong(), bits.toLong())).toInt()
+}
+
+public fun channelConnectAttr(id: CUint, oldAttr: ChannelConnectAttr?, newAttr: ChannelConnectAttr?, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("ChannelConnectAttr", -1, longArrayOf(id.toLong(), oldAttr?.value ?: 0L, newAttr?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun msgSend(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSend", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSend_r", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendnc(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendnc", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendncR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendnc_r", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendsv(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendsv", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgSendsvR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendsv_r", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgSendsvnc(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendsvnc", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgSendsvncR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendsvnc_r", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgSendvs(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendvs", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendvsR(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendvs_r", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendvsnc(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendvsnc", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendvsncR(coid: CInt, siov: Iovec?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendvsnc_r", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), rmsg?.value ?: 0L, rbytes.toLong()))
+}
+
+public fun msgSendv(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendv", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgSendvR(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendv_r", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgSendvnc(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendvnc", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgSendvncR(coid: CInt, siov: Iovec?, sparts: ULong, riov: Iovec?, rparts: ULong): CLong {
+    return LibcDynamicFfi.invoke("MsgSendvnc_r", -1, longArrayOf(coid.toLong(), siov?.value ?: 0L, sparts.toLong(), riov?.value ?: 0L, rparts.toLong()))
+}
+
+public fun msgReceive(chid: CInt, msg: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceive", -1, longArrayOf(chid.toLong(), msg?.value ?: 0L, bytes.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReceiveR(chid: CInt, msg: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceive_r", -1, longArrayOf(chid.toLong(), msg?.value ?: 0L, bytes.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReceivev(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceivev", -1, longArrayOf(chid.toLong(), iov?.value ?: 0L, parts.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReceivevR(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceivev_r", -1, longArrayOf(chid.toLong(), iov?.value ?: 0L, parts.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReceivePulse(chid: CInt, pulse: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceivePulse", -1, longArrayOf(chid.toLong(), pulse?.value ?: 0L, bytes.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReceivePulseR(chid: CInt, pulse: COpaquePointer?, bytes: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceivePulse_r", -1, longArrayOf(chid.toLong(), pulse?.value ?: 0L, bytes.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReceivePulsev(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceivePulsev", -1, longArrayOf(chid.toLong(), iov?.value ?: 0L, parts.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReceivePulsevR(chid: CInt, iov: Iovec?, parts: ULong, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgReceivePulsev_r", -1, longArrayOf(chid.toLong(), iov?.value ?: 0L, parts.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgReply(rcvid: CInt, status: CLong, msg: COpaquePointer?, bytes: ULong): CInt {
+    return LibcDynamicFfi.invoke("MsgReply", -1, longArrayOf(rcvid.toLong(), status, msg?.value ?: 0L, bytes.toLong())).toInt()
+}
+
+public fun msgReplyR(rcvid: CInt, status: CLong, msg: COpaquePointer?, bytes: ULong): CInt {
+    return LibcDynamicFfi.invoke("MsgReply_r", -1, longArrayOf(rcvid.toLong(), status, msg?.value ?: 0L, bytes.toLong())).toInt()
+}
+
+public fun msgReplyv(rcvid: CInt, status: CLong, iov: Iovec?, parts: ULong): CInt {
+    return LibcDynamicFfi.invoke("MsgReplyv", -1, longArrayOf(rcvid.toLong(), status, iov?.value ?: 0L, parts.toLong())).toInt()
+}
+
+public fun msgReplyvR(rcvid: CInt, status: CLong, iov: Iovec?, parts: ULong): CInt {
+    return LibcDynamicFfi.invoke("MsgReplyv_r", -1, longArrayOf(rcvid.toLong(), status, iov?.value ?: 0L, parts.toLong())).toInt()
+}
+
+public fun msgReadiov(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong, flags: CInt): Long {
+    return LibcDynamicFfi.invoke("MsgReadiov", -1, longArrayOf(rcvid.toLong(), iov?.value ?: 0L, parts.toLong(), offset.toLong(), flags.toLong()))
+}
+
+public fun msgReadiovR(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong, flags: CInt): Long {
+    return LibcDynamicFfi.invoke("MsgReadiov_r", -1, longArrayOf(rcvid.toLong(), iov?.value ?: 0L, parts.toLong(), offset.toLong(), flags.toLong()))
+}
+
+public fun msgRead(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgRead", -1, longArrayOf(rcvid.toLong(), msg?.value ?: 0L, bytes.toLong(), offset.toLong()))
+}
+
+public fun msgReadR(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgRead_r", -1, longArrayOf(rcvid.toLong(), msg?.value ?: 0L, bytes.toLong(), offset.toLong()))
+}
+
+public fun msgReadv(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgReadv", -1, longArrayOf(rcvid.toLong(), iov?.value ?: 0L, parts.toLong(), offset.toLong()))
+}
+
+public fun msgReadvR(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgReadv_r", -1, longArrayOf(rcvid.toLong(), iov?.value ?: 0L, parts.toLong(), offset.toLong()))
+}
+
+public fun msgWrite(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgWrite", -1, longArrayOf(rcvid.toLong(), msg?.value ?: 0L, bytes.toLong(), offset.toLong()))
+}
+
+public fun msgWriteR(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgWrite_r", -1, longArrayOf(rcvid.toLong(), msg?.value ?: 0L, bytes.toLong(), offset.toLong()))
+}
+
+public fun msgWritev(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgWritev", -1, longArrayOf(rcvid.toLong(), iov?.value ?: 0L, parts.toLong(), offset.toLong()))
+}
+
+public fun msgWritevR(rcvid: CInt, iov: Iovec?, parts: ULong, offset: ULong): Long {
+    return LibcDynamicFfi.invoke("MsgWritev_r", -1, longArrayOf(rcvid.toLong(), iov?.value ?: 0L, parts.toLong(), offset.toLong()))
+}
+
+public fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgSendPulse", -1, longArrayOf(coid.toLong(), priority.toLong(), code.toLong(), value.toLong())).toInt()
+}
+
+public fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgSendPulse_r", -1, longArrayOf(coid.toLong(), priority.toLong(), code.toLong(), value.toLong())).toInt()
+}
+
+public fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("MsgSendPulsePtr", -1, longArrayOf(coid.toLong(), priority.toLong(), code.toLong(), value?.value ?: 0L)).toInt()
+}
+
+public fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("MsgSendPulsePtr_r", -1, longArrayOf(coid.toLong(), priority.toLong(), code.toLong(), value?.value ?: 0L)).toInt()
+}
+
+public fun msgDeliverEvent(rcvid: CInt, event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("MsgDeliverEvent", -1, longArrayOf(rcvid.toLong(), event?.value ?: 0L)).toInt()
+}
+
+public fun msgDeliverEventR(rcvid: CInt, event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("MsgDeliverEvent_r", -1, longArrayOf(rcvid.toLong(), event?.value ?: 0L)).toInt()
+}
+
+public fun msgVerifyEvent(rcvid: CInt, event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("MsgVerifyEvent", -1, longArrayOf(rcvid.toLong(), event?.value ?: 0L)).toInt()
+}
+
+public fun msgVerifyEventR(rcvid: CInt, event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("MsgVerifyEvent_r", -1, longArrayOf(rcvid.toLong(), event?.value ?: 0L)).toInt()
+}
+
+public fun msgRegisterEvent(event: Sigevent?, coid: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgRegisterEvent", -1, longArrayOf(event?.value ?: 0L, coid.toLong())).toInt()
+}
+
+public fun msgRegisterEventR(event: Sigevent?, coid: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgRegisterEvent_r", -1, longArrayOf(event?.value ?: 0L, coid.toLong())).toInt()
+}
+
+public fun msgUnregisterEvent(event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("MsgUnregisterEvent", -1, longArrayOf(event?.value ?: 0L)).toInt()
+}
+
+public fun msgUnregisterEventR(event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("MsgUnregisterEvent_r", -1, longArrayOf(event?.value ?: 0L)).toInt()
+}
+
+public fun msgInfo(rcvid: CInt, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgInfo", -1, longArrayOf(rcvid.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgInfoR(rcvid: CInt, info: MsgInfo64?): CInt {
+    return LibcDynamicFfi.invoke("MsgInfo_r", -1, longArrayOf(rcvid.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: UInt?, iov: Iovec?, parts: CInt): CInt {
+    val __slot_3 = if (newkey == null) 0L else LibcDynamicFfi.allocScalarSlot(newkey.toLong())
+    try {
+        return LibcDynamicFfi.invoke("MsgKeyData", -1, longArrayOf(rcvid.toLong(), oper.toLong(), key.toLong(), __slot_3, iov?.value ?: 0L, parts.toLong())).toInt()
+    } finally {
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+    }
+}
+
+public fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: UInt?, iov: Iovec?, parts: CInt): CInt {
+    val __slot_3 = if (newkey == null) 0L else LibcDynamicFfi.allocScalarSlot(newkey.toLong())
+    try {
+        return LibcDynamicFfi.invoke("MsgKeyData_r", -1, longArrayOf(rcvid.toLong(), oper.toLong(), key.toLong(), __slot_3, iov?.value ?: 0L, parts.toLong())).toInt()
+    } finally {
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+    }
+}
+
+public fun msgError(rcvid: CInt, err: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgError", -1, longArrayOf(rcvid.toLong(), err.toLong())).toInt()
+}
+
+public fun msgErrorR(rcvid: CInt, err: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgError_r", -1, longArrayOf(rcvid.toLong(), err.toLong())).toInt()
+}
+
+public fun msgCurrent(rcvid: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgCurrent", -1, longArrayOf(rcvid.toLong())).toInt()
+}
+
+public fun msgCurrentR(rcvid: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgCurrent_r", -1, longArrayOf(rcvid.toLong())).toInt()
+}
+
+public fun msgSendAsyncGbl(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, msgPrio: CUint): CInt {
+    return LibcDynamicFfi.invoke("MsgSendAsyncGbl", -1, longArrayOf(coid.toLong(), smsg?.value ?: 0L, sbytes.toLong(), msgPrio.toLong())).toInt()
+}
+
+public fun msgSendAsync(coid: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgSendAsync", -1, longArrayOf(coid.toLong())).toInt()
+}
+
+public fun msgReceiveAsyncGbl(chid: CInt, rmsg: COpaquePointer?, rbytes: ULong, info: MsgInfo64?, coid: CInt): CInt {
+    return LibcDynamicFfi.invoke("MsgReceiveAsyncGbl", -1, longArrayOf(chid.toLong(), rmsg?.value ?: 0L, rbytes.toLong(), info?.value ?: 0L, coid.toLong())).toInt()
+}
+
+public fun msgReceiveAsync(chid: CInt, iov: Iovec?, parts: CUint): CInt {
+    return LibcDynamicFfi.invoke("MsgReceiveAsync", -1, longArrayOf(chid.toLong(), iov?.value ?: 0L, parts.toLong())).toInt()
+}
+
+public fun msgPause(rcvid: CInt, cookie: CUint): CInt {
+    return LibcDynamicFfi.invoke("MsgPause", -1, longArrayOf(rcvid.toLong(), cookie.toLong())).toInt()
+}
+
+public fun msgPauseR(rcvid: CInt, cookie: CUint): CInt {
+    return LibcDynamicFfi.invoke("MsgPause_r", -1, longArrayOf(rcvid.toLong(), cookie.toLong())).toInt()
+}
+
+public fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt {
+    return LibcDynamicFfi.invoke("SignalKill", -1, longArrayOf(nd.toLong(), pid.toLong(), tid.toLong(), signo.toLong(), code.toLong(), value.toLong())).toInt()
+}
+
+public fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt {
+    return LibcDynamicFfi.invoke("SignalKill_r", -1, longArrayOf(nd.toLong(), pid.toLong(), tid.toLong(), signo.toLong(), code.toLong(), value.toLong())).toInt()
+}
+
+public fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: Sigval?): CInt {
+    return LibcDynamicFfi.invoke("SignalKillSigval", -1, longArrayOf(nd.toLong(), pid.toLong(), tid.toLong(), signo.toLong(), code.toLong(), value?.value ?: 0L)).toInt()
+}
+
+public fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: Sigval?): CInt {
+    return LibcDynamicFfi.invoke("SignalKillSigval_r", -1, longArrayOf(nd.toLong(), pid.toLong(), tid.toLong(), signo.toLong(), code.toLong(), value?.value ?: 0L)).toInt()
+}
+
+public fun signalReturn(info: SighandlerInfo?): CInt {
+    return LibcDynamicFfi.invoke("SignalReturn", -1, longArrayOf(info?.value ?: 0L)).toInt()
+}
+
+public fun signalFault(sigcode: CUint, regs: COpaquePointer?, refaddr: ULong): CInt {
+    return LibcDynamicFfi.invoke("SignalFault", -1, longArrayOf(sigcode.toLong(), regs?.value ?: 0L, refaddr.toLong())).toInt()
+}
+
+public fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt {
+    val __scratch_1 = LibcDynamicFfi.allocZeroed(4096)
+    try {
+        return LibcDynamicFfi.invoke("SignalAction", -1, longArrayOf(pid.toLong(), __scratch_1, signo.toLong(), act?.value ?: 0L, oact?.value ?: 0L)).toInt()
+    } finally {
+        if (__scratch_1 != 0L) LibcDynamicFfi.freeMem(__scratch_1)
+    }
+}
+
+public fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: Sigaction?, oact: Sigaction?): CInt {
+    val __scratch_1 = LibcDynamicFfi.allocZeroed(4096)
+    try {
+        return LibcDynamicFfi.invoke("SignalAction_r", -1, longArrayOf(pid.toLong(), __scratch_1, signo.toLong(), act?.value ?: 0L, oact?.value ?: 0L)).toInt()
+    } finally {
+        if (__scratch_1 != 0L) LibcDynamicFfi.freeMem(__scratch_1)
+    }
+}
+
+public fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: SigsetT?, oldset: SigsetT?): CInt {
+    val __slot_3 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    val __slot_4 = if (oldset == null) 0L else LibcDynamicFfi.allocScalarSlot(oldset.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalProcmask", -1, longArrayOf(pid.toLong(), tid.toLong(), how.toLong(), __slot_3, __slot_4)).toInt()
+    } finally {
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+        if (__slot_4 != 0L) LibcDynamicFfi.freeMem(__slot_4)
+    }
+}
+
+public fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: SigsetT?, oldset: SigsetT?): CInt {
+    val __slot_3 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    val __slot_4 = if (oldset == null) 0L else LibcDynamicFfi.allocScalarSlot(oldset.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalProcmask_r", -1, longArrayOf(pid.toLong(), tid.toLong(), how.toLong(), __slot_3, __slot_4)).toInt()
+    } finally {
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+        if (__slot_4 != 0L) LibcDynamicFfi.freeMem(__slot_4)
+    }
+}
+
+public fun signalSuspend(set: SigsetT?): CInt {
+    val __slot_0 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalSuspend", -1, longArrayOf(__slot_0)).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+    }
+}
+
+public fun signalSuspendR(set: SigsetT?): CInt {
+    val __slot_0 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalSuspend_r", -1, longArrayOf(__slot_0)).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+    }
+}
+
+public fun signalWaitinfo(set: SigsetT?, info: SiginfoT?): CInt {
+    val __slot_0 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalWaitinfo", -1, longArrayOf(__slot_0, info?.value ?: 0L)).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+    }
+}
+
+public fun signalWaitinfoR(set: SigsetT?, info: SiginfoT?): CInt {
+    val __slot_0 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalWaitinfo_r", -1, longArrayOf(__slot_0, info?.value ?: 0L)).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+    }
+}
+
+public fun signalWaitinfoMask(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): CInt {
+    val __slot_0 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    val __slot_2 = if (mask == null) 0L else LibcDynamicFfi.allocScalarSlot(mask.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalWaitinfoMask", -1, longArrayOf(__slot_0, info?.value ?: 0L, __slot_2)).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+    }
+}
+
+public fun signalWaitinfoMaskR(set: SigsetT?, info: SiginfoT?, mask: SigsetT?): CInt {
+    val __slot_0 = if (set == null) 0L else LibcDynamicFfi.allocScalarSlot(set.toLong())
+    val __slot_2 = if (mask == null) 0L else LibcDynamicFfi.allocScalarSlot(mask.toLong())
+    try {
+        return LibcDynamicFfi.invoke("SignalWaitinfoMask_r", -1, longArrayOf(__slot_0, info?.value ?: 0L, __slot_2)).toInt()
+    } finally {
+        if (__slot_0 != 0L) LibcDynamicFfi.freeMem(__slot_0)
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+    }
+}
+
+public fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: ThreadAttr?): CInt {
+    val __scratch_1 = LibcDynamicFfi.allocZeroed(4096)
+    try {
+        return LibcDynamicFfi.invoke("ThreadCreate", -1, longArrayOf(pid.toLong(), __scratch_1, arg?.value ?: 0L, attr?.value ?: 0L)).toInt()
+    } finally {
+        if (__scratch_1 != 0L) LibcDynamicFfi.freeMem(__scratch_1)
+    }
+}
+
+public fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: ThreadAttr?): CInt {
+    val __scratch_1 = LibcDynamicFfi.allocZeroed(4096)
+    try {
+        return LibcDynamicFfi.invoke("ThreadCreate_r", -1, longArrayOf(pid.toLong(), __scratch_1, arg?.value ?: 0L, attr?.value ?: 0L)).toInt()
+    } finally {
+        if (__scratch_1 != 0L) LibcDynamicFfi.freeMem(__scratch_1)
+    }
+}
+
+public fun threadDestroy(tid: CInt, priority: CInt, status: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadDestroy", -1, longArrayOf(tid.toLong(), priority.toLong(), status?.value ?: 0L)).toInt()
+}
+
+public fun threadDestroyR(tid: CInt, priority: CInt, status: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadDestroy_r", -1, longArrayOf(tid.toLong(), priority.toLong(), status?.value ?: 0L)).toInt()
+}
+
+public fun threadDetach(tid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ThreadDetach", -1, longArrayOf(tid.toLong())).toInt()
+}
+
+public fun threadDetachR(tid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ThreadDetach_r", -1, longArrayOf(tid.toLong())).toInt()
+}
+
+public fun threadJoin(tid: CInt, status: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadJoin", -1, longArrayOf(tid.toLong(), status?.value ?: 0L)).toInt()
+}
+
+public fun threadJoinR(tid: CInt, status: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadJoin_r", -1, longArrayOf(tid.toLong(), status?.value ?: 0L)).toInt()
+}
+
+public fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt {
+    val __scratch_1 = LibcDynamicFfi.allocZeroed(4096)
+    try {
+        return LibcDynamicFfi.invoke("ThreadCancel", -1, longArrayOf(tid.toLong(), __scratch_1)).toInt()
+    } finally {
+        if (__scratch_1 != 0L) LibcDynamicFfi.freeMem(__scratch_1)
+    }
+}
+
+public fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt {
+    val __scratch_1 = LibcDynamicFfi.allocZeroed(4096)
+    try {
+        return LibcDynamicFfi.invoke("ThreadCancel_r", -1, longArrayOf(tid.toLong(), __scratch_1)).toInt()
+    } finally {
+        if (__scratch_1 != 0L) LibcDynamicFfi.freeMem(__scratch_1)
+    }
+}
+
+public fun threadCtl(cmd: CInt, data: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadCtl", -1, longArrayOf(cmd.toLong(), data?.value ?: 0L)).toInt()
+}
+
+public fun threadCtlR(cmd: CInt, data: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadCtl_r", -1, longArrayOf(cmd.toLong(), data?.value ?: 0L)).toInt()
+}
+
+public fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadCtlExt", -1, longArrayOf(pid.toLong(), tid.toLong(), cmd.toLong(), data?.value ?: 0L)).toInt()
+}
+
+public fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("ThreadCtlExt_r", -1, longArrayOf(pid.toLong(), tid.toLong(), cmd.toLong(), data?.value ?: 0L)).toInt()
+}
+
+public fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptHookTrace", -1, longArrayOf(handler?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptHookIdle", -1, longArrayOf(handler?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptHookIdle2", -1, longArrayOf(handler?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun interruptHookOverdriveEvent(event: Sigevent?, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptHookOverdriveEvent", -1, longArrayOf(event?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun interruptAttachEvent(intr: CInt, event: Sigevent?, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptAttachEvent", -1, longArrayOf(intr.toLong(), event?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun interruptAttachEventR(intr: CInt, event: Sigevent?, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptAttachEvent_r", -1, longArrayOf(intr.toLong(), event?.value ?: 0L, flags.toLong())).toInt()
+}
+
+public fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptAttach", -1, longArrayOf(intr.toLong(), handler?.value ?: 0L, area?.value ?: 0L, size.toLong(), flags.toLong())).toInt()
+}
+
+public fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptAttach_r", -1, longArrayOf(intr.toLong(), handler?.value ?: 0L, area?.value ?: 0L, size.toLong(), flags.toLong())).toInt()
+}
+
+public fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptAttachArray", -1, longArrayOf(intr.toLong(), handler?.value ?: 0L, area?.value ?: 0L, size.toLong(), flags.toLong())).toInt()
+}
+
+public fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt {
+    return LibcDynamicFfi.invoke("InterruptAttachArray_r", -1, longArrayOf(intr.toLong(), handler?.value ?: 0L, area?.value ?: 0L, size.toLong(), flags.toLong())).toInt()
+}
+
+public fun interruptDetach(id: CInt): CInt {
+    return LibcDynamicFfi.invoke("InterruptDetach", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun interruptDetachR(id: CInt): CInt {
+    return LibcDynamicFfi.invoke("InterruptDetach_r", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun interruptWait(flags: CInt, timeout: ULong?): CInt {
+    val __slot_1 = if (timeout == null) 0L else LibcDynamicFfi.allocScalarSlot(timeout.toLong())
+    try {
+        return LibcDynamicFfi.invoke("InterruptWait", -1, longArrayOf(flags.toLong(), __slot_1)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun interruptWaitR(flags: CInt, timeout: ULong?): CInt {
+    val __slot_1 = if (timeout == null) 0L else LibcDynamicFfi.allocScalarSlot(timeout.toLong())
+    try {
+        return LibcDynamicFfi.invoke("InterruptWait_r", -1, longArrayOf(flags.toLong(), __slot_1)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+    }
+}
+
+public fun interruptCharacteristic(type: CInt, id: CInt, new: CUint?, old: CUint?): CInt {
+    val __slot_2 = if (new == null) 0L else LibcDynamicFfi.allocScalarSlot(new.toLong())
+    val __slot_3 = if (old == null) 0L else LibcDynamicFfi.allocScalarSlot(old.toLong())
+    try {
+        return LibcDynamicFfi.invoke("InterruptCharacteristic", -1, longArrayOf(type.toLong(), id.toLong(), __slot_2, __slot_3)).toInt()
+    } finally {
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+    }
+}
+
+public fun interruptCharacteristicR(type: CInt, id: CInt, new: CUint?, old: CUint?): CInt {
+    val __slot_2 = if (new == null) 0L else LibcDynamicFfi.allocScalarSlot(new.toLong())
+    val __slot_3 = if (old == null) 0L else LibcDynamicFfi.allocScalarSlot(old.toLong())
+    try {
+        return LibcDynamicFfi.invoke("InterruptCharacteristic_r", -1, longArrayOf(type.toLong(), id.toLong(), __slot_2, __slot_3)).toInt()
+    } finally {
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+    }
+}
+
+public fun schedGet(pid: PidT, tid: CInt, param: SchedParam?): CInt {
+    return LibcDynamicFfi.invoke("SchedGet", -1, longArrayOf(pid.toLong(), tid.toLong(), param?.value ?: 0L)).toInt()
+}
+
+public fun schedGetR(pid: PidT, tid: CInt, param: SchedParam?): CInt {
+    return LibcDynamicFfi.invoke("SchedGet_r", -1, longArrayOf(pid.toLong(), tid.toLong(), param?.value ?: 0L)).toInt()
+}
+
+public fun schedGetCpuNum(): CUint {
+    return LibcDynamicFfi.invoke("SchedGetCpuNum", -1, longArrayOf()).toUInt()
+}
+
+public fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: SchedParam?): CInt {
+    return LibcDynamicFfi.invoke("SchedSet", -1, longArrayOf(pid.toLong(), tid.toLong(), algorithm.toLong(), param?.value ?: 0L)).toInt()
+}
+
+public fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: SchedParam?): CInt {
+    return LibcDynamicFfi.invoke("SchedSet_r", -1, longArrayOf(pid.toLong(), tid.toLong(), algorithm.toLong(), param?.value ?: 0L)).toInt()
+}
+
+public fun schedInfo(pid: PidT, algorithm: CInt, info: SchedInfo?): CInt {
+    return LibcDynamicFfi.invoke("SchedInfo", -1, longArrayOf(pid.toLong(), algorithm.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun schedInfoR(pid: PidT, algorithm: CInt, info: SchedInfo?): CInt {
+    return LibcDynamicFfi.invoke("SchedInfo_r", -1, longArrayOf(pid.toLong(), algorithm.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun schedYield(): CInt {
+    return LibcDynamicFfi.invoke("SchedYield", -1, longArrayOf()).toInt()
+}
+
+public fun schedYieldR(): CInt {
+    return LibcDynamicFfi.invoke("SchedYield_r", -1, longArrayOf()).toInt()
+}
+
+public fun schedCtl(cmd: CInt, data: COpaquePointer?, length: ULong): CInt {
+    return LibcDynamicFfi.invoke("SchedCtl", -1, longArrayOf(cmd.toLong(), data?.value ?: 0L, length.toLong())).toInt()
+}
+
+public fun schedCtlR(cmd: CInt, data: COpaquePointer?, length: ULong): CInt {
+    return LibcDynamicFfi.invoke("SchedCtl_r", -1, longArrayOf(cmd.toLong(), data?.value ?: 0L, length.toLong())).toInt()
+}
+
+public fun schedJobCreate(job: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SchedJobCreate", -1, longArrayOf(job?.value ?: 0L)).toInt()
+}
+
+public fun schedJobCreateR(job: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SchedJobCreate_r", -1, longArrayOf(job?.value ?: 0L)).toInt()
+}
+
+public fun schedJobDestroy(job: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SchedJobDestroy", -1, longArrayOf(job?.value ?: 0L)).toInt()
+}
+
+public fun schedJobDestroyR(job: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SchedJobDestroy_r", -1, longArrayOf(job?.value ?: 0L)).toInt()
+}
+
+public fun schedWaypoint(job: SyncT?, new: Long?, max: Long?, old: Long?): CInt {
+    val __slot_1 = if (new == null) 0L else LibcDynamicFfi.allocScalarSlot(new)
+    val __slot_2 = if (max == null) 0L else LibcDynamicFfi.allocScalarSlot(max)
+    val __slot_3 = if (old == null) 0L else LibcDynamicFfi.allocScalarSlot(old)
+    try {
+        return LibcDynamicFfi.invoke("SchedWaypoint", -1, longArrayOf(job?.value ?: 0L, __slot_1, __slot_2, __slot_3)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+    }
+}
+
+public fun schedWaypointR(job: SyncT?, new: Long?, max: Long?, old: Long?): CInt {
+    val __slot_1 = if (new == null) 0L else LibcDynamicFfi.allocScalarSlot(new)
+    val __slot_2 = if (max == null) 0L else LibcDynamicFfi.allocScalarSlot(max)
+    val __slot_3 = if (old == null) 0L else LibcDynamicFfi.allocScalarSlot(old)
+    try {
+        return LibcDynamicFfi.invoke("SchedWaypoint_r", -1, longArrayOf(job?.value ?: 0L, __slot_1, __slot_2, __slot_3)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+    }
+}
+
+public fun timerCreate(id: ClockidT, notify: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("TimerCreate", -1, longArrayOf(id.toLong(), notify?.value ?: 0L)).toInt()
+}
+
+public fun timerCreateR(id: ClockidT, notify: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("TimerCreate_r", -1, longArrayOf(id.toLong(), notify?.value ?: 0L)).toInt()
+}
+
+public fun timerDestroy(id: TimerT): CInt {
+    return LibcDynamicFfi.invoke("TimerDestroy", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun timerDestroyR(id: TimerT): CInt {
+    return LibcDynamicFfi.invoke("TimerDestroy_r", -1, longArrayOf(id.toLong())).toInt()
+}
+
+public fun timerSettime(id: TimerT, flags: CInt, itime: Itimer?, oitime: Itimer?): CInt {
+    return LibcDynamicFfi.invoke("TimerSettime", -1, longArrayOf(id.toLong(), flags.toLong(), itime?.value ?: 0L, oitime?.value ?: 0L)).toInt()
+}
+
+public fun timerSettimeR(id: TimerT, flags: CInt, itime: Itimer?, oitime: Itimer?): CInt {
+    return LibcDynamicFfi.invoke("TimerSettime_r", -1, longArrayOf(id.toLong(), flags.toLong(), itime?.value ?: 0L, oitime?.value ?: 0L)).toInt()
+}
+
+public fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: TimerInfo?): CInt {
+    return LibcDynamicFfi.invoke("TimerInfo", -1, longArrayOf(pid.toLong(), id.toLong(), flags.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: TimerInfo?): CInt {
+    return LibcDynamicFfi.invoke("TimerInfo_r", -1, longArrayOf(pid.toLong(), id.toLong(), flags.toLong(), info?.value ?: 0L)).toInt()
+}
+
+public fun timerAlarm(id: ClockidT, itime: Itimer?, otime: Itimer?): CInt {
+    return LibcDynamicFfi.invoke("TimerAlarm", -1, longArrayOf(id.toLong(), itime?.value ?: 0L, otime?.value ?: 0L)).toInt()
+}
+
+public fun timerAlarmR(id: ClockidT, itime: Itimer?, otime: Itimer?): CInt {
+    return LibcDynamicFfi.invoke("TimerAlarm_r", -1, longArrayOf(id.toLong(), itime?.value ?: 0L, otime?.value ?: 0L)).toInt()
+}
+
+public fun timerTimeout(id: ClockidT, flags: CInt, notify: Sigevent?, ntime: ULong?, otime: ULong?): CInt {
+    val __slot_3 = if (ntime == null) 0L else LibcDynamicFfi.allocScalarSlot(ntime.toLong())
+    val __slot_4 = if (otime == null) 0L else LibcDynamicFfi.allocScalarSlot(otime.toLong())
+    try {
+        return LibcDynamicFfi.invoke("TimerTimeout", -1, longArrayOf(id.toLong(), flags.toLong(), notify?.value ?: 0L, __slot_3, __slot_4)).toInt()
+    } finally {
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+        if (__slot_4 != 0L) LibcDynamicFfi.freeMem(__slot_4)
+    }
+}
+
+public fun timerTimeoutR(id: ClockidT, flags: CInt, notify: Sigevent?, ntime: ULong?, otime: ULong?): CInt {
+    val __slot_3 = if (ntime == null) 0L else LibcDynamicFfi.allocScalarSlot(ntime.toLong())
+    val __slot_4 = if (otime == null) 0L else LibcDynamicFfi.allocScalarSlot(otime.toLong())
+    try {
+        return LibcDynamicFfi.invoke("TimerTimeout_r", -1, longArrayOf(id.toLong(), flags.toLong(), notify?.value ?: 0L, __slot_3, __slot_4)).toInt()
+    } finally {
+        if (__slot_3 != 0L) LibcDynamicFfi.freeMem(__slot_3)
+        if (__slot_4 != 0L) LibcDynamicFfi.freeMem(__slot_4)
+    }
+}
+
+public fun syncTypeCreate(type: CUint, sync: SyncT?, attr: SyncAttr?): CInt {
+    return LibcDynamicFfi.invoke("SyncTypeCreate", -1, longArrayOf(type.toLong(), sync?.value ?: 0L, attr?.value ?: 0L)).toInt()
+}
+
+public fun syncTypeCreateR(type: CUint, sync: SyncT?, attr: SyncAttr?): CInt {
+    return LibcDynamicFfi.invoke("SyncTypeCreate_r", -1, longArrayOf(type.toLong(), sync?.value ?: 0L, attr?.value ?: 0L)).toInt()
+}
+
+public fun syncDestroy(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncDestroy", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncDestroyR(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncDestroy_r", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncCtl(cmd: CInt, sync: SyncT?, data: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("SyncCtl", -1, longArrayOf(cmd.toLong(), sync?.value ?: 0L, data?.value ?: 0L)).toInt()
+}
+
+public fun syncCtlR(cmd: CInt, sync: SyncT?, data: COpaquePointer?): CInt {
+    return LibcDynamicFfi.invoke("SyncCtl_r", -1, longArrayOf(cmd.toLong(), sync?.value ?: 0L, data?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexEvent(sync: SyncT?, event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexEvent", -1, longArrayOf(sync?.value ?: 0L, event?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexEventR(sync: SyncT?, event: Sigevent?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexEvent_r", -1, longArrayOf(sync?.value ?: 0L, event?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexLock(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexLock", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexLockR(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexLock_r", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexUnlock(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexUnlock", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexUnlockR(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexUnlock_r", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexRevive(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexRevive", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncMutexReviveR(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncMutexRevive_r", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncCondvarWait(sync: SyncT?, mutex: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncCondvarWait", -1, longArrayOf(sync?.value ?: 0L, mutex?.value ?: 0L)).toInt()
+}
+
+public fun syncCondvarWaitR(sync: SyncT?, mutex: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncCondvarWait_r", -1, longArrayOf(sync?.value ?: 0L, mutex?.value ?: 0L)).toInt()
+}
+
+public fun syncCondvarSignal(sync: SyncT?, all: CInt): CInt {
+    return LibcDynamicFfi.invoke("SyncCondvarSignal", -1, longArrayOf(sync?.value ?: 0L, all.toLong())).toInt()
+}
+
+public fun syncCondvarSignalR(sync: SyncT?, all: CInt): CInt {
+    return LibcDynamicFfi.invoke("SyncCondvarSignal_r", -1, longArrayOf(sync?.value ?: 0L, all.toLong())).toInt()
+}
+
+public fun syncSemPost(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncSemPost", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncSemPostR(sync: SyncT?): CInt {
+    return LibcDynamicFfi.invoke("SyncSemPost_r", -1, longArrayOf(sync?.value ?: 0L)).toInt()
+}
+
+public fun syncSemWait(sync: SyncT?, tryto: CInt): CInt {
+    return LibcDynamicFfi.invoke("SyncSemWait", -1, longArrayOf(sync?.value ?: 0L, tryto.toLong())).toInt()
+}
+
+public fun syncSemWaitR(sync: SyncT?, tryto: CInt): CInt {
+    return LibcDynamicFfi.invoke("SyncSemWait_r", -1, longArrayOf(sync?.value ?: 0L, tryto.toLong())).toInt()
+}
+
+public fun clockTime(id: ClockidT, new: ULong?, old: ULong?): CInt {
+    val __slot_1 = if (new == null) 0L else LibcDynamicFfi.allocScalarSlot(new.toLong())
+    val __slot_2 = if (old == null) 0L else LibcDynamicFfi.allocScalarSlot(old.toLong())
+    try {
+        return LibcDynamicFfi.invoke("ClockTime", -1, longArrayOf(id.toLong(), __slot_1, __slot_2)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+    }
+}
+
+public fun clockTimeR(id: ClockidT, new: ULong?, old: ULong?): CInt {
+    val __slot_1 = if (new == null) 0L else LibcDynamicFfi.allocScalarSlot(new.toLong())
+    val __slot_2 = if (old == null) 0L else LibcDynamicFfi.allocScalarSlot(old.toLong())
+    try {
+        return LibcDynamicFfi.invoke("ClockTime_r", -1, longArrayOf(id.toLong(), __slot_1, __slot_2)).toInt()
+    } finally {
+        if (__slot_1 != 0L) LibcDynamicFfi.freeMem(__slot_1)
+        if (__slot_2 != 0L) LibcDynamicFfi.freeMem(__slot_2)
+    }
+}
+
+public fun clockAdjust(id: ClockidT, new: Clockadjust?, old: Clockadjust?): CInt {
+    return LibcDynamicFfi.invoke("ClockAdjust", -1, longArrayOf(id.toLong(), new?.value ?: 0L, old?.value ?: 0L)).toInt()
+}
+
+public fun clockAdjustR(id: ClockidT, new: Clockadjust?, old: Clockadjust?): CInt {
+    return LibcDynamicFfi.invoke("ClockAdjust_r", -1, longArrayOf(id.toLong(), new?.value ?: 0L, old?.value ?: 0L)).toInt()
+}
+
+public fun clockPeriod(id: ClockidT, new: Clockperiod?, old: Clockperiod?, reserved: CInt): CInt {
+    return LibcDynamicFfi.invoke("ClockPeriod", -1, longArrayOf(id.toLong(), new?.value ?: 0L, old?.value ?: 0L, reserved.toLong())).toInt()
+}
+
+public fun clockPeriodR(id: ClockidT, new: Clockperiod?, old: Clockperiod?, reserved: CInt): CInt {
+    return LibcDynamicFfi.invoke("ClockPeriod_r", -1, longArrayOf(id.toLong(), new?.value ?: 0L, old?.value ?: 0L, reserved.toLong())).toInt()
+}
+
+public fun clockId(pid: PidT, tid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ClockId", -1, longArrayOf(pid.toLong(), tid.toLong())).toInt()
+}
+
+public fun clockIdR(pid: PidT, tid: CInt): CInt {
+    return LibcDynamicFfi.invoke("ClockId_r", -1, longArrayOf(pid.toLong(), tid.toLong())).toInt()
+}
+
+//
+// Note: The following commented out functions are implemented in assembly.
+// We can implmement them either via a C Note or rust's inline assembly.
+//
+// pub fn InterruptEnable();
+// pub fn InterruptDisable();
+public fun interruptMask(intr: CInt, id: CInt): CInt {
+    return LibcDynamicFfi.invoke("InterruptMask", -1, longArrayOf(intr.toLong(), id.toLong())).toInt()
+}
+
+public fun interruptUnmask(intr: CInt, id: CInt): CInt {
+    return LibcDynamicFfi.invoke("InterruptUnmask", -1, longArrayOf(intr.toLong(), id.toLong())).toInt()
+}

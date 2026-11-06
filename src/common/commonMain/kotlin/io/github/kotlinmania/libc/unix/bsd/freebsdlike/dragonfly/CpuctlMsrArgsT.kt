@@ -1,8 +1,0 @@
-package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
-
-import io.github.kotlinmania.libc.*
-
-public data class CpuctlMsrArgsT(
-    val msr: Int,
-    val data: ULong,
-)

@@ -2,25 +2,30 @@
 package io.github.kotlinmania.libc.new.apple.xnu.mach.arm
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.Uint128T
 
-public data class DarwinArmExceptionState64(
-    val far: ULong,
-    val esr: UInt,
-    val exception: UInt,
+// Header: `arm / _structs.h`
+//
+// <https://github.com/apple-oss-distributions/xnu/blob/main/osfmk/mach/arm/_structs.h>
+
+public open class DarwinArmExceptionState64(
+    public var far: ULong,
+    public var esr: UInt,
+    public var exception: UInt,
 )
 
-public data class DarwinArmThreadState64(
-    val x: ULongArray,
-    val fp: ULong,
-    val lr: ULong,
-    val sp: ULong,
-    val pc: ULong,
-    val cpsr: UInt,
-    val pad: UInt,
+public open class DarwinArmThreadState64(
+    public var x: List<ULong>,
+    public var fp: ULong,
+    public var lr: ULong,
+    public var sp: ULong,
+    public var pc: ULong,
+    public var cpsr: UInt,
+    public var pad: UInt,
 )
 
-public data class DarwinArmNeonState64(
-    val v: List<ByteArray>,
-    val fpsr: UInt,
-    val fpcr: UInt,
+public open class DarwinArmNeonState64(
+    public var v: List<Uint128T>,
+    public var fpsr: UInt,
+    public var fpcr: UInt,
 )

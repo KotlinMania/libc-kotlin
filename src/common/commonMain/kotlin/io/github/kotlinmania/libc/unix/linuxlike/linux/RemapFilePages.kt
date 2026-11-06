@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.linuxlike.linux
-
-import io.github.kotlinmania.libc.*
-
-public expect fun remapFilePages(addr: COpaquePointer?, size: ULong, prot: Int, pgoff: ULong, flags: Int): Int
