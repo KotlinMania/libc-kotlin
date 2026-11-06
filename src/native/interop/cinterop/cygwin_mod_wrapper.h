@@ -204,10 +204,10 @@ int32_t libc_cygwin_mod_posix_spawn(void* pid, const char* path, void* file_acti
 int32_t libc_cygwin_mod_posix_spawnp(void* pid, const char* file, void* file_actions, void* attrp, void* argv, void* envp);
 int32_t libc_cygwin_mod_posix_spawnattr_init(void* attr);
 int32_t libc_cygwin_mod_posix_spawnattr_destroy(void* attr);
-int32_t libc_cygwin_mod_posix_spawnattr_getsigdefault(void* attr, void* default);
-int32_t libc_cygwin_mod_posix_spawnattr_setsigdefault(void* attr, void* default);
-int32_t libc_cygwin_mod_posix_spawnattr_getsigmask(void* attr, void* default);
-int32_t libc_cygwin_mod_posix_spawnattr_setsigmask(void* attr, void* default);
+int32_t libc_cygwin_mod_posix_spawnattr_getsigdefault(void* attr, void* defval);
+int32_t libc_cygwin_mod_posix_spawnattr_setsigdefault(void* attr, void* defval);
+int32_t libc_cygwin_mod_posix_spawnattr_getsigmask(void* attr, void* defval);
+int32_t libc_cygwin_mod_posix_spawnattr_setsigmask(void* attr, void* defval);
 int32_t libc_cygwin_mod_posix_spawnattr_getflags(void* attr, void* flags);
 int32_t libc_cygwin_mod_posix_spawnattr_setflags(void* attr, int16_t flags);
 int32_t libc_cygwin_mod_posix_spawnattr_getpgroup(void* attr, void* flags);

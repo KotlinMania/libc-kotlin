@@ -270,7 +270,13 @@ void libc_unix_mod_exit(int32_t status) {
 }
 
 int32_t libc_unix_mod_system(const char* s) {
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED) || defined(__linux__)
     return (int32_t)system(s);
+#else
+    (void)s;
+    errno = ENOSYS;
+    return -1;
+#endif
 }
 
 char* libc_unix_mod_getenv(const char* s) {

@@ -919,11 +919,11 @@ int32_t libc_aix_mod_posix_spawnattr_getschedpolicy(void* attr, void* flags) {
     return (int32_t)posix_spawnattr_getschedpolicy(attr, flags);
 }
 
-int32_t libc_aix_mod_posix_spawnattr_getsigdefault(void* attr, void* default) {
+int32_t libc_aix_mod_posix_spawnattr_getsigdefault(void* attr, void* defval) {
     return (int32_t)posix_spawnattr_getsigdefault(attr, default);
 }
 
-int32_t libc_aix_mod_posix_spawnattr_getsigmask(void* attr, void* default) {
+int32_t libc_aix_mod_posix_spawnattr_getsigmask(void* attr, void* defval) {
     return (int32_t)posix_spawnattr_getsigmask(attr, default);
 }
 
@@ -947,11 +947,11 @@ int32_t libc_aix_mod_posix_spawnattr_setschedpolicy(void* attr, int32_t flags) {
     return (int32_t)posix_spawnattr_setschedpolicy(attr, flags);
 }
 
-int32_t libc_aix_mod_posix_spawnattr_setsigdefault(void* attr, void* default) {
+int32_t libc_aix_mod_posix_spawnattr_setsigdefault(void* attr, void* defval) {
     return (int32_t)posix_spawnattr_setsigdefault(attr, default);
 }
 
-int32_t libc_aix_mod_posix_spawnattr_setsigmask(void* attr, void* default) {
+int32_t libc_aix_mod_posix_spawnattr_setsigmask(void* attr, void* defval) {
     return (int32_t)posix_spawnattr_setsigmask(attr, default);
 }
 

@@ -1,6 +1,6 @@
 #include "utmp_wrapper.h"
 #include <errno.h>
-#if !defined(_WIN32)
+#if !defined(_WIN32) && __has_include(<utmp.h>)
 #include <utmp.h>
 #endif
 

@@ -28,15 +28,26 @@
 #include <sys/qos.h>
 #include <execinfo.h>
 #include <sys/mount.h>
-#include <sys/ptrace.h>
-#include <sys/quota.h>
-#include <util.h>
 #include <locale.h>
 #include <sys/uio.h>
 #include <sys/xattr.h>
+#if __has_include(<spawn.h>)
 #include <spawn.h>
+#endif
+#if __has_include(<mach-o/dyld.h>)
 #include <mach-o/dyld.h>
+#endif
+#if __has_include(<libgen.h>)
 #include <libgen.h>
+#endif
+#if __has_include(<sys/ptrace.h>)
+#include <sys/ptrace.h>
+#endif
+#if __has_include(<sys/quota.h>)
+#include <sys/quota.h>
+#endif
+#if __has_include(<util.h>)
+#include <util.h>
 #endif
 #pragma clang diagnostic ignored "-Wint-conversion"
 #pragma clang diagnostic ignored "-Wint-to-void-pointer-cast"
@@ -44,7 +55,9 @@
 #pragma clang diagnostic ignored "-Wimplicit-function-declaration"
 #if defined(__APPLE__)
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#if __has_include(<pthread/introspection.h>)
 #include <pthread/introspection.h>
+#endif
 #endif
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
 #include <sys/event.h>
@@ -325,7 +338,12 @@ int32_t libc_apple_mod_pthread_threadid_np(int32_t thread, void* thread_id) {
 }
 
 void libc_apple_mod_pthread_jit_write_protect_np(int32_t enabled) {
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
     pthread_jit_write_protect_np(enabled);
+#else
+    (void)enabled;
+    errno = ENOSYS;
+#endif
 }
 
 int32_t libc_apple_mod_pthread_jit_write_protect_supported_np(void) {
@@ -936,7 +954,13 @@ int32_t libc_apple_mod_proc_setthread_csm(uint32_t flags) {
 }
 
 int32_t libc_apple_mod_gethostuuid(void* id, void* timeout) {
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
     return (int32_t)gethostuuid(id, timeout);
+#else
+    (void)id; (void)timeout;
+    errno = ENOSYS;
+    return -1;
+#endif
 }
 
 int64_t libc_apple_mod_gethostid(void) {
@@ -1092,7 +1116,13 @@ void libc_apple_mod_qsort_r(void* base, uint64_t num, uint64_t size, void* arg, 
 }
 
 int32_t libc_apple_mod_clock_settime(uint32_t clock_id, void* tp) {
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
     return (int32_t)clock_settime(clock_id, tp);
+#else
+    (void)clock_id; (void)tp;
+    errno = ENOSYS;
+    return -1;
+#endif
 }
 
 void* libc_apple_mod_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
@@ -1115,3 +1145,4 @@ int32_t libc_apple_mod_iconv_close(void* cd) {
     return (int32_t)iconv_close(cd);
 }
 
+#endif /* !defined(_WIN32) from line 4 */
