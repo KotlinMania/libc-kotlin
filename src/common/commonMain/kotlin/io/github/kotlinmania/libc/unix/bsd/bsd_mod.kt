@@ -401,101 +401,101 @@ public val VTIME: Int = 17
 
 public val VSTATUS: Int = 18
 
-public val POSIX_VDISABLE: CcT = 0xff
+public val POSIX_VDISABLE: CcT = 0xff.toUByte()
 
-public val IGNBRK: TcflagT = 0x00000001
+public val IGNBRK: TcflagT = 0x00000001.toULong()
 
-public val BRKINT: TcflagT = 0x00000002
+public val BRKINT: TcflagT = 0x00000002.toULong()
 
-public val IGNPAR: TcflagT = 0x00000004
+public val IGNPAR: TcflagT = 0x00000004.toULong()
 
-public val PARMRK: TcflagT = 0x00000008
+public val PARMRK: TcflagT = 0x00000008.toULong()
 
-public val INPCK: TcflagT = 0x00000010
+public val INPCK: TcflagT = 0x00000010.toULong()
 
-public val ISTRIP: TcflagT = 0x00000020
+public val ISTRIP: TcflagT = 0x00000020.toULong()
 
-public val INLCR: TcflagT = 0x00000040
+public val INLCR: TcflagT = 0x00000040.toULong()
 
-public val IGNCR: TcflagT = 0x00000080
+public val IGNCR: TcflagT = 0x00000080.toULong()
 
-public val ICRNL: TcflagT = 0x00000100
+public val ICRNL: TcflagT = 0x00000100.toULong()
 
-public val IXON: TcflagT = 0x00000200
+public val IXON: TcflagT = 0x00000200.toULong()
 
-public val IXOFF: TcflagT = 0x00000400
+public val IXOFF: TcflagT = 0x00000400.toULong()
 
-public val IXANY: TcflagT = 0x00000800
+public val IXANY: TcflagT = 0x00000800.toULong()
 
-public val IMAXBEL: TcflagT = 0x00002000
+public val IMAXBEL: TcflagT = 0x00002000.toULong()
 
-public val OPOST: TcflagT = 0x1
+public val OPOST: TcflagT = 0x1.toULong()
 
-public val ONLCR: TcflagT = 0x2
+public val ONLCR: TcflagT = 0x2.toULong()
 
-public val OXTABS: TcflagT = 0x4
+public val OXTABS: TcflagT = 0x4.toULong()
 
-public val ONOEOT: TcflagT = 0x8
+public val ONOEOT: TcflagT = 0x8.toULong()
 
-public val CIGNORE: TcflagT = 0x00000001
+public val CIGNORE: TcflagT = 0x00000001.toULong()
 
-public val CSIZE: TcflagT = 0x00000300
+public val CSIZE: TcflagT = 0x00000300.toULong()
 
-public val CS5: TcflagT = 0x00000000
+public val CS5: TcflagT = 0x00000000.toULong()
 
-public val CS6: TcflagT = 0x00000100
+public val CS6: TcflagT = 0x00000100.toULong()
 
-public val CS7: TcflagT = 0x00000200
+public val CS7: TcflagT = 0x00000200.toULong()
 
-public val CS8: TcflagT = 0x00000300
+public val CS8: TcflagT = 0x00000300.toULong()
 
-public val CSTOPB: TcflagT = 0x00000400
+public val CSTOPB: TcflagT = 0x00000400.toULong()
 
-public val CREAD: TcflagT = 0x00000800
+public val CREAD: TcflagT = 0x00000800.toULong()
 
-public val PARENB: TcflagT = 0x00001000
+public val PARENB: TcflagT = 0x00001000.toULong()
 
-public val PARODD: TcflagT = 0x00002000
+public val PARODD: TcflagT = 0x00002000.toULong()
 
-public val HUPCL: TcflagT = 0x00004000
+public val HUPCL: TcflagT = 0x00004000.toULong()
 
-public val CLOCAL: TcflagT = 0x00008000
+public val CLOCAL: TcflagT = 0x00008000.toULong()
 
-public val ECHOKE: TcflagT = 0x00000001
+public val ECHOKE: TcflagT = 0x00000001.toULong()
 
-public val ECHOE: TcflagT = 0x00000002
+public val ECHOE: TcflagT = 0x00000002.toULong()
 
-public val ECHOK: TcflagT = 0x00000004
+public val ECHOK: TcflagT = 0x00000004.toULong()
 
-public val ECHO: TcflagT = 0x00000008
+public val ECHO: TcflagT = 0x00000008.toULong()
 
-public val ECHONL: TcflagT = 0x00000010
+public val ECHONL: TcflagT = 0x00000010.toULong()
 
-public val ECHOPRT: TcflagT = 0x00000020
+public val ECHOPRT: TcflagT = 0x00000020.toULong()
 
-public val ECHOCTL: TcflagT = 0x00000040
+public val ECHOCTL: TcflagT = 0x00000040.toULong()
 
-public val ISIG: TcflagT = 0x00000080
+public val ISIG: TcflagT = 0x00000080.toULong()
 
-public val ICANON: TcflagT = 0x00000100
+public val ICANON: TcflagT = 0x00000100.toULong()
 
-public val ALTWERASE: TcflagT = 0x00000200
+public val ALTWERASE: TcflagT = 0x00000200.toULong()
 
-public val IEXTEN: TcflagT = 0x00000400
+public val IEXTEN: TcflagT = 0x00000400.toULong()
 
-public val EXTPROC: TcflagT = 0x00000800
+public val EXTPROC: TcflagT = 0x00000800.toULong()
 
-public val TOSTOP: TcflagT = 0x00400000
+public val TOSTOP: TcflagT = 0x00400000.toULong()
 
-public val FLUSHO: TcflagT = 0x00800000
+public val FLUSHO: TcflagT = 0x00800000.toULong()
 
-public val NOKERNINFO: TcflagT = 0x02000000
+public val NOKERNINFO: TcflagT = 0x02000000.toULong()
 
-public val PENDIN: TcflagT = 0x20000000
+public val PENDIN: TcflagT = 0x20000000.toULong()
 
-public val NOFLSH: TcflagT = 0x80000000
+public val NOFLSH: TcflagT = 0x80000000.toULong()
 
-public val MDMBUF: TcflagT = 0x00100000
+public val MDMBUF: TcflagT = 0x00100000.toULong()
 
 public val WNOHANG: CInt = 0x00000001
 

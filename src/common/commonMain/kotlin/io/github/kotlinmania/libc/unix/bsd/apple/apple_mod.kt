@@ -4341,7 +4341,7 @@ public val CS_DARWIN_USER_TEMP_DIR: CInt = 65537
 
 public val CS_DARWIN_USER_CACHE_DIR: CInt = 65538
 
-public val OS_UNFAIR_LOCK_INIT: OsUnfairLock = Any(osUnfairLockOpaque = 0)
+public val OS_UNFAIR_LOCK_INIT: OsUnfairLock = OsUnfairLock()
 
 public val OS_LOG_TYPE_DEFAULT: io.github.kotlinmania.libc.OsLogTypeT = 0x00u
 
