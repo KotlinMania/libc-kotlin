@@ -479,14 +479,14 @@ public open class SiginfoT(
 
     public open fun siValue(): Sigval {
         open class SiginfoTimer(
-            public var siSigno: CInt,
-            public var siErrno: CInt,
-            public var siCode: CInt,
-            public var siPid: PidT,
-            public var siUid: UidT,
-            public var siStatus: CInt,
-            public var siAddr: COpaquePointer?,
-            public var siValue: Sigval,
+            public var siSigno: CInt = 0,
+            public var siErrno: CInt = 0,
+            public var siCode: CInt = 0,
+            public var siPid: PidT = 0,
+            public var siUid: UidT = 0u,
+            public var siStatus: CInt = 0,
+            public var siAddr: COpaquePointer? = null,
+            public var siValue: Sigval = Sigval(null),
         )
         return (if (((this as SiginfoT?)) == null) null else SiginfoTimer()).siValue
     }
