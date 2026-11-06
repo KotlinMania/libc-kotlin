@@ -4,6 +4,8 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread
 
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
+import io.github.kotlinmania.libc.*
+import kotlinx.cinterop.*
 
 public actual fun pthreadStackFrameDecodeNp(frameAddr: UintptrT, returnAddr: UintptrT?): UintptrT =
-    io.github.kotlinmania.libc.new.apple.libpthread.pthread.cinterop.libc_stack_np_pthread_stack_frame_decode_np(frameAddr, returnAddr?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.cinterop.libc_stack_np_pthread_stack_frame_decode_np(frameAddr, returnAddr?.value?.toCPointer<ByteVar>())
