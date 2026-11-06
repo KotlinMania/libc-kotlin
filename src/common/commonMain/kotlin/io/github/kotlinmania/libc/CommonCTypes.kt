@@ -113,11 +113,11 @@ public typealias Winsize = io.github.kotlinmania.libc.unix.Winsize
 public typealias Rusage = io.github.kotlinmania.libc.unix.Rusage
 public typealias SysdirSearchPathDomainMaskT = io.github.kotlinmania.libc.unix.bsd.apple.SysdirSearchPathDomainMaskT
 // Corrected class type aliases (verified locations)
-public typealias Passwd = io.github.kotlinmania.libc.unix.nto.Passwd
-public typealias Mmsghdr = io.github.kotlinmania.libc.unix.nto.Mmsghdr
-public typealias Timezone = io.github.kotlinmania.libc.unix.nto.Timezone
-public typealias Itimerspec = io.github.kotlinmania.libc.new.netbsd.sys.Itimerspec
-public typealias Sigevent = io.github.kotlinmania.libc.unix.nto.Sigevent
+public typealias Passwd = io.github.kotlinmania.libc.unix.bsd.Passwd
+public class Mmsghdr(public var msgHdr: Msghdr?, public var msgLen: UInt)
+public typealias Timezone = io.github.kotlinmania.libc.unix.bsd.apple.Timezone
+public class Itimerspec(public var itInterval: Timespec, public var itValue: Timespec)
+public typealias Sigevent = io.github.kotlinmania.libc.unix.bsd.apple.Sigevent
 
 // Additional Apple-specific type aliases
 public typealias KernReturnT = CInt
