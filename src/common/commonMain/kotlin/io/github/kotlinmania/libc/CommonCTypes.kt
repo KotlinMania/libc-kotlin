@@ -116,6 +116,26 @@ public typealias SysdirSearchPathDomainMaskT = io.github.kotlinmania.libc.unix.b
 public typealias Passwd = io.github.kotlinmania.libc.unix.nto.Passwd
 public typealias Mmsghdr = io.github.kotlinmania.libc.unix.nto.Mmsghdr
 public typealias Timezone = io.github.kotlinmania.libc.unix.nto.Timezone
-public typealias Itimerspec = io.github.kotlinmania.libc.unix.Itimerspec
+public typealias Itimerspec = io.github.kotlinmania.libc.new.netbsd.sys.Itimerspec
 public typealias Sigevent = io.github.kotlinmania.libc.unix.nto.Sigevent
+
+// Additional Apple-specific type aliases
+public typealias KernReturnT = CInt
+public typealias CopyfileFlagsT = UInt
+public typealias MachPortT = CUint
+public typealias BooleanT = CInt
+public typealias OsLogT = COpaquePointer?
+public typealias WcharT = Int
+public typealias VmProtT = CInt
+public typealias TypeId = CInt
+public typealias Itimer = CInt
+public typealias QosClassT = io.github.kotlinmania.libc.new.apple.libpthread.sys.QosClassT
+public typealias MallocZoneT = io.github.kotlinmania.libc.unix.bsd.apple.b64.x8664.MallocZoneT
+public typealias PthreadRwlockattrT = io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.PthreadRwlockattrT
+public typealias FdSet = io.github.kotlinmania.libc.unix.bsd.FdSet
+public typealias PthreadBarrierattrT = COpaquePointer?
+public typealias PthreadSpinlockT = COpaquePointer?
+public typealias PthreadBarrierT = COpaquePointer?
+public typealias SemT = CInt
+public typealias SyncAttr = COpaquePointer?
 
