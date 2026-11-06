@@ -139,3 +139,15 @@ public typealias PthreadBarrierT = COpaquePointer?
 public typealias SemT = CInt
 public typealias SyncAttr = COpaquePointer?
 
+// More Apple-specific types
+public typealias OsLogTypeT = UByte
+public typealias ClockT = CUlong
+public typealias TaskT = CUint
+public typealias SysdirSearchPathEnumerationState = CUint
+public typealias IntegerT = CInt
+public typealias CopyfileStatusT = UInt
+public typealias InAddr = io.github.kotlinmania.libc.unix.bsd.apple.InAddr
+public typealias GlobT = io.github.kotlinmania.libc.unix.bsd.apple.GlobT
+public typealias Dirent = io.github.kotlinmania.libc.unix.bsd.apple.Dirent
+public val DARWIN_ALIGN32: UInt = 2u
+
