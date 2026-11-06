@@ -613,7 +613,18 @@ kotlin {
                 compilations.getByName("main") {
                     cinterops {
                         create(ffiNameLower) {
-                            defFile(project.file(ffiDefFile))
+                            // Apple targets use a reduced .def file with only Apple-relevant
+                            // wrapper headers. libSystem.dylib provides all C symbols;
+                            // non-Apple headers reference system headers not available on macOS.
+                            val isAppleTarget = konanTargetName.startsWith("macos") ||
+                                konanTargetName.startsWith("ios") ||
+                                konanTargetName.startsWith("tvos") ||
+                                konanTargetName.startsWith("watchos")
+                            val targetDefFile = if (isAppleTarget)
+                                "src/native/interop/cinterop/${ffiName}Apple.def"
+                            else
+                                ffiDefFile
+                            defFile(project.file(targetDefFile))
                             packageName("$ffiNameLower.cinterop")
                             if (wrapperTask != null) {
                                 extraOpts(
