@@ -300,9 +300,9 @@ public val INADDR_BROADCAST: InAddrT = 4294967295u
 
 public val INADDR_NONE: InAddrT = 4294967295u
 
-public val IN6ADDR_LOOPBACK_INIT: In6Addr = Any(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1))
+public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1))
 
-public val IN6ADDR_ANY_INIT: In6Addr = Any(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 
 public val ARPOP_REQUEST: UShort = 1u
 

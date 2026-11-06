@@ -161,8 +161,8 @@ public typealias pthreadCondT = PthreadCondT
 // More Apple-specific types from apple_mod.kt
 public typealias WSTATUS = CInt
 public typealias SockaddrIn6 = io.github.kotlinmania.libc.unix.bsd.SockaddrIn6
-public typealias OsSignpostTypeT = COpaquePointer?
-public typealias OsSignpostIdT = COpaquePointer?
+public typealias OsSignpostTypeT = UInt
+public typealias OsSignpostIdT = ULong
 public typealias Kevent = COpaquePointer?
 public typealias Kevent64S = COpaquePointer?
 public typealias MachMsgTypeNumberT = CUint
