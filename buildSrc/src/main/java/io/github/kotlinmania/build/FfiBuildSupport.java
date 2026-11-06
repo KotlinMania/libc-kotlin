@@ -59,18 +59,13 @@ public final class FfiBuildSupport {
 
         if (konanTargetName.startsWith("macos") || konanTargetName.startsWith("ios")
             || konanTargetName.startsWith("tvos") || konanTargetName.startsWith("watchos")) {
-            // Apple + BSD common
-            result.add("apple_mod_wrapper.c");
-            result.add("bsd_mod_wrapper.c");
-            result.add("bsd_wrapper.c");
-            result.add("qos_wrapper.c");
-            result.add("stack_np_wrapper.c");
-            result.add("utmp_wrapper.c");
-            result.add("utmpx_wrapper.c");
-            result.add("pthread_spis_wrapper.c");
-            result.add("timex_wrapper.c");
-            result.add("unix_mod_wrapper.c");
-            result.add("introspection_wrapper.c");
+            // Apple platforms: use single amalgamated pass-through file.
+            // libSystem.dylib provides ALL C function symbols — no need to compile
+            // individual per-module wrapper files. The passthrough file contains
+            // all 889 Apple-relevant functions in one compilation unit.
+            // Replace the universal list with just the passthrough file.
+            result.clear();
+            result.add("libc_apple_passthrough.c");
         } else if (konanTargetName.startsWith("linux")) {
             result.add("linux_mod_wrapper.c");
             result.add("linux_like_mod_wrapper.c");
