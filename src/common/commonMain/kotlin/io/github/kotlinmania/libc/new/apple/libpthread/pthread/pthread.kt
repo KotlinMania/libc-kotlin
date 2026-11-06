@@ -26,7 +26,7 @@ public val PTHREAD_CANCEL_DEFERRED: CInt = 0x02
 
 public val PTHREAD_CANCEL_ASYNCHRONOUS: CInt = 0x00
 
-public val PTHREAD_CANCELED: COpaquePointer? = COpaquePointer(1.toLong())
+public val PTHREAD_CANCELED: COpaquePointer? = null
 
 public val PTHREAD_SCOPE_SYSTEM: CInt = 1
 
@@ -50,10 +50,21 @@ public val PTHREAD_MUTEX_RECURSIVE: CInt = 2
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(sig = pthreadRwlockSigInit, opaque = List(PTHREAD_RWLOCK_SIZE) { 0 })
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(sig = pthreadMutexSigInit, opaque = List(PTHREAD_MUTEX_SIZE) { 0 })
+public val PTHREAD_RWLOCK_SIZE: Int = 0
+public val PTHREAD_MUTEX_SIZE: Int = 0
+public val PTHREAD_COND_SIZE: Int = 0
+public val PTHREAD_ONCE_SIZE: Int = 0
+public val PTHREAD_ONCE_SIG_INIT: Int = 0
+public val pthreadRwlockSigInit: Int = 0
+public val pthreadMutexSigInit: Int = 0
+public val pthreadCondSigInit: Int = 0
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(sig = pthreadCondSigInit, opaque = List(PTHREAD_COND_SIZE) { 0 })
 
-public val PTHREAD_ONCE_INIT: PthreadOnceT = pthreadOnceT(sig = PTHREAD_ONCE_SIG_INIT, opaque = List(PTHREAD_ONCE_SIZE) { 0 })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = null
+
+public val PTHREAD_ONCE_INIT: PthreadOnceT = null

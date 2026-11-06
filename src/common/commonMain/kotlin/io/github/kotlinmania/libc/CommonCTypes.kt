@@ -149,5 +149,12 @@ public typealias CopyfileStatusT = UInt
 public typealias InAddr = io.github.kotlinmania.libc.unix.bsd.apple.InAddr
 public typealias GlobT = io.github.kotlinmania.libc.unix.bsd.apple.GlobT
 public typealias Dirent = io.github.kotlinmania.libc.unix.bsd.apple.Dirent
-public val DARWIN_ALIGN32: UInt = 2u
+// C macro: align to 4-byte boundary
+public fun DARWIN_ALIGN32(len: Int): Int = (len + 3) and 3.inv()
+
+// Lowercase aliases (kexe output uses lowercase, CommonCTypes uses uppercase)
+public typealias pthreadOnceT = PthreadOnceT
+public typealias pthreadRwlockT = PthreadRwlockT
+public typealias pthreadMutexT = PthreadMutexT
+public typealias pthreadCondT = PthreadCondT
 
