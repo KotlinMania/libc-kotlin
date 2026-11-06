@@ -51,15 +51,14 @@ public final class FfiBuildSupport {
     ) {
         Project rootProject = project.getRootProject();
         String wrapperTaskName = "compile" + ffiName + "WrapperFor" + targetCapitalized;
+        File cinteropDir = project.file("src/native/interop/cinterop");
         return project.getTasks().register(wrapperTaskName, ExecTask.class, task -> {
             task.setGroup("build");
-            task.setDescription("Compiles " + ffiWrapperBase + ".c into a static library for " + konanTargetName);
-            File cSource = project.file("src/native/interop/cinterop/" + ffiWrapperBase + ".c");
-            File hSource = project.file("src/native/interop/cinterop/" + ffiWrapperBase + ".h");
+            task.setDescription("Compiles all *_wrapper.c files into a static library for " + konanTargetName);
             File outDir = project.getLayout().getBuildDirectory().dir("cinterop-targets/" + konanTargetName).get().getAsFile();
             File outFile = new File(outDir, ffiWrapperBase + ".a");
-            task.getInputs().file(cSource);
-            task.getInputs().file(hSource);
+            // Collect all per-module wrapper C and header files
+            task.getInputs().files(project.fileTree(cinteropDir, spec -> spec.include("*_wrapper.c").include("*_wrapper.h")));
             if (konanTargetName.startsWith("linux")) {
                 task.getInputs().dir(rootProject.file("buildSrc/src/main/java"));
                 task.getOutputs().file(new File(outDir, "native-archive-verification.json"));
@@ -74,13 +73,28 @@ public final class FfiBuildSupport {
                 if (konanTargetName.startsWith("linux")) {
                     new File(outDir, "native-archive-verification.json").delete();
                 }
-                File tempObj = new File(outDir, ffiWrapperBase + ".o");
                 File konanDeps = project.getLayout().getBuildDirectory().dir("native-wrapper-dependencies").get().getAsFile();
                 String os = System.getProperty("os.name", "").toLowerCase(Locale.ROOT);
                 boolean isMac = os.contains("mac");
                 boolean isLinux = os.contains("linux");
                 boolean isWindows = os.contains("windows");
                 ExecOperations execOps = task.getExecOperations();
+
+                // Gather all wrapper C source files
+                List<File> cSources = new ArrayList<>();
+                File[] children = cinteropDir.listFiles((dir, name) -> name.endsWith("_wrapper.c"));
+                if (children != null) {
+                    for (File c : children) {
+                        cSources.add(c);
+                    }
+                }
+                if (cSources.isEmpty()) {
+                    throw new GradleException("No *_wrapper.c files found in " + cinteropDir);
+                }
+
+                // Compile each wrapper C file to a .o, then archive all into one .a
+                List<File> objFiles = new ArrayList<>();
+                String includeDir = cinteropDir.getAbsolutePath();
 
                 if (isMac && (konanTargetName.startsWith("macos") || konanTargetName.startsWith("ios")
                     || konanTargetName.startsWith("tvos") || konanTargetName.startsWith("watchos"))) {
@@ -98,14 +112,20 @@ public final class FfiBuildSupport {
                         case "tvos_simulator_arm64" -> { appleTriple = "arm64-apple-tvos14.0-simulator"; sdkName = "appletvsimulator"; }
                         default -> { appleTriple = "arm64-apple-macos14.0"; sdkName = "macosx"; }
                     }
-                    execOps.exec(s -> s.commandLine(
-                        "xcrun", "-sdk", sdkName, "clang", "-target", appleTriple,
-                        "-Wall", "-Wextra", "-Werror", "-c", "-I" + cSource.getParent(),
-                        cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
-                    )).assertNormalExitValue();
-                    execOps.exec(s -> s.commandLine(
-                        "xcrun", "-sdk", sdkName, "ar", "rcs", outFile.getAbsolutePath(), tempObj.getAbsolutePath()
-                    )).assertNormalExitValue();
+                    for (File cSource : cSources) {
+                        File tempObj = new File(outDir, cSource.getName().replace(".c", ".o"));
+                        execOps.exec(s -> s.commandLine(
+                            "xcrun", "-sdk", sdkName, "clang", "-target", appleTriple,
+                            "-Wall", "-Wextra", "-Werror", "-c", "-I" + includeDir,
+                            cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
+                        )).assertNormalExitValue();
+                        objFiles.add(tempObj);
+                    }
+                    List<String> arCmd = new ArrayList<>();
+                    arCmd.add("xcrun"); arCmd.add("-sdk"); arCmd.add(sdkName); arCmd.add("ar"); arCmd.add("rcs");
+                    arCmd.add(outFile.getAbsolutePath());
+                    for (File o : objFiles) { arCmd.add(o.getAbsolutePath()); }
+                    execOps.exec(s -> s.commandLine(arCmd)).assertNormalExitValue();
                 } else if (konanTargetName.startsWith("android")) {
                     String hostToolchain = isMac ? "osx" : "linux";
                     File ndkDir = ensureKonanDependency(
@@ -120,14 +140,19 @@ public final class FfiBuildSupport {
                         ? new File(ndkDir, "bin/aarch64-linux-android-ar")
                         : new File(ndkDir, "bin/x86_64-linux-android-ar");
                     if (clangBin.exists() && sysroot.exists()) {
-                        execOps.exec(s -> s.commandLine(
-                            clangBin.getAbsolutePath(), "--sysroot=" + sysroot.getAbsolutePath(),
-                            "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I" + cSource.getParent(),
-                            cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
-                        )).assertNormalExitValue();
-                        execOps.exec(s -> s.commandLine(
-                            arBin.getAbsolutePath(), "rcs", outFile.getAbsolutePath(), tempObj.getAbsolutePath()
-                        )).assertNormalExitValue();
+                        for (File cSource : cSources) {
+                            File tempObj = new File(outDir, cSource.getName().replace(".c", ".o"));
+                            execOps.exec(s -> s.commandLine(
+                                clangBin.getAbsolutePath(), "--sysroot=" + sysroot.getAbsolutePath(),
+                                "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I" + includeDir,
+                                cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
+                            )).assertNormalExitValue();
+                            objFiles.add(tempObj);
+                        }
+                        List<String> arCmd = new ArrayList<>();
+                        arCmd.add(arBin.getAbsolutePath()); arCmd.add("rcs"); arCmd.add(outFile.getAbsolutePath());
+                        for (File o : objFiles) { arCmd.add(o.getAbsolutePath()); }
+                        execOps.exec(s -> s.commandLine(arCmd)).assertNormalExitValue();
                     } else {
                         copyPrebuilt(project, konanTargetName, ffiWrapperBase, outFile);
                     }
@@ -143,14 +168,19 @@ public final class FfiBuildSupport {
                         if (!sysroot.isDirectory()) {
                             throw new GradleException("Missing target sysroot for " + konanTargetName + ": " + sysroot);
                         }
-                        execOps.exec(s -> s.commandLine(
-                            "clang", "--target=" + targetTriple, "--sysroot=" + sysroot.getAbsolutePath(),
-                            "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I" + cSource.getParent(),
-                            cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
-                        )).assertNormalExitValue();
-                        execOps.exec(s -> s.commandLine(
-                            "ar", "rcs", outFile.getAbsolutePath(), tempObj.getAbsolutePath()
-                        )).assertNormalExitValue();
+                        for (File cSource : cSources) {
+                            File tempObj = new File(outDir, cSource.getName().replace(".c", ".o"));
+                            execOps.exec(s -> s.commandLine(
+                                "clang", "--target=" + targetTriple, "--sysroot=" + sysroot.getAbsolutePath(),
+                                "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I" + includeDir,
+                                cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
+                            )).assertNormalExitValue();
+                            objFiles.add(tempObj);
+                        }
+                        List<String> arCmd = new ArrayList<>();
+                        arCmd.add("ar"); arCmd.add("rcs"); arCmd.add(outFile.getAbsolutePath());
+                        for (File o : objFiles) { arCmd.add(o.getAbsolutePath()); }
+                        execOps.exec(s -> s.commandLine(arCmd)).assertNormalExitValue();
                     } else if (isMac) {
                         File gccDirectory = ensureKonanDependency(project, gccDirName, konanDataDir, konanDeps, execOps);
                         File ndkDirectory = ensureKonanDependency(
@@ -159,14 +189,19 @@ public final class FfiBuildSupport {
                         File sysroot = new File(gccDirectory, targetTriple + "/sysroot");
                         File llvmAr = new File(ndkDirectory, "bin/llvm-ar");
                         if (sysroot.exists() && llvmAr.exists()) {
-                            execOps.exec(s -> s.commandLine(
-                                "clang", "--target=" + targetTriple, "--sysroot=" + sysroot.getAbsolutePath(),
-                                "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I" + cSource.getParent(),
-                                cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
-                            )).assertNormalExitValue();
-                            execOps.exec(s -> s.commandLine(
-                                llvmAr.getAbsolutePath(), "rcs", outFile.getAbsolutePath(), tempObj.getAbsolutePath()
-                            )).assertNormalExitValue();
+                            for (File cSource : cSources) {
+                                File tempObj = new File(outDir, cSource.getName().replace(".c", ".o"));
+                                execOps.exec(s -> s.commandLine(
+                                    "clang", "--target=" + targetTriple, "--sysroot=" + sysroot.getAbsolutePath(),
+                                    "-fPIC", "-Wall", "-Wextra", "-Werror", "-c", "-I" + includeDir,
+                                    cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
+                                )).assertNormalExitValue();
+                                objFiles.add(tempObj);
+                            }
+                            List<String> arCmd = new ArrayList<>();
+                            arCmd.add(llvmAr.getAbsolutePath()); arCmd.add("rcs"); arCmd.add(outFile.getAbsolutePath());
+                            for (File o : objFiles) { arCmd.add(o.getAbsolutePath()); }
+                            execOps.exec(s -> s.commandLine(arCmd)).assertNormalExitValue();
                         } else {
                             copyPrebuilt(project, konanTargetName, ffiWrapperBase, outFile);
                         }
@@ -177,28 +212,38 @@ public final class FfiBuildSupport {
                     File mingwSysroot = ensureKonanDependency(project, "msys2-mingw-w64-x86_64-2", konanDataDir, konanDeps, execOps);
                     File arExe = new File(mingwSysroot, "bin/ar.exe");
                     if (isWindows && mingwSysroot.exists()) {
-                        execOps.exec(s -> s.commandLine(
-                            "clang", "--target=x86_64-w64-mingw32", "--sysroot=" + mingwSysroot.getAbsolutePath(),
-                            "-Wall", "-Wextra", "-Werror", "-c", "-I" + cSource.getParent(),
-                            cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
-                        )).assertNormalExitValue();
-                        execOps.exec(s -> s.commandLine(
-                            arExe.exists() ? arExe.getAbsolutePath() : "ar", "rcs", outFile.getAbsolutePath(), tempObj.getAbsolutePath()
-                        )).assertNormalExitValue();
+                        for (File cSource : cSources) {
+                            File tempObj = new File(outDir, cSource.getName().replace(".c", ".o"));
+                            execOps.exec(s -> s.commandLine(
+                                "clang", "--target=x86_64-w64-mingw32", "--sysroot=" + mingwSysroot.getAbsolutePath(),
+                                "-Wall", "-Wextra", "-Werror", "-c", "-I" + includeDir,
+                                cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
+                            )).assertNormalExitValue();
+                            objFiles.add(tempObj);
+                        }
+                        List<String> arCmd = new ArrayList<>();
+                        arCmd.add(arExe.exists() ? arExe.getAbsolutePath() : "ar"); arCmd.add("rcs"); arCmd.add(outFile.getAbsolutePath());
+                        for (File o : objFiles) { arCmd.add(o.getAbsolutePath()); }
+                        execOps.exec(s -> s.commandLine(arCmd)).assertNormalExitValue();
                     } else if (isMac) {
                         File ndkDirectory = ensureKonanDependency(
                             project, "target-toolchain-2-osx-android_ndk", konanDataDir, konanDeps, execOps
                         );
                         File llvmAr = new File(ndkDirectory, "bin/llvm-ar");
                         if (mingwSysroot.exists() && llvmAr.exists()) {
-                            execOps.exec(s -> s.commandLine(
-                                "clang", "--target=x86_64-w64-mingw32", "--sysroot=" + mingwSysroot.getAbsolutePath(),
-                                "-Wall", "-Wextra", "-Werror", "-c", "-I" + cSource.getParent(),
-                                cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
-                            )).assertNormalExitValue();
-                            execOps.exec(s -> s.commandLine(
-                                llvmAr.getAbsolutePath(), "rcs", outFile.getAbsolutePath(), tempObj.getAbsolutePath()
-                            )).assertNormalExitValue();
+                            for (File cSource : cSources) {
+                                File tempObj = new File(outDir, cSource.getName().replace(".c", ".o"));
+                                execOps.exec(s -> s.commandLine(
+                                    "clang", "--target=x86_64-w64-mingw32", "--sysroot=" + mingwSysroot.getAbsolutePath(),
+                                    "-Wall", "-Wextra", "-Werror", "-c", "-I" + includeDir,
+                                    cSource.getAbsolutePath(), "-o", tempObj.getAbsolutePath()
+                                )).assertNormalExitValue();
+                                objFiles.add(tempObj);
+                            }
+                            List<String> arCmd = new ArrayList<>();
+                            arCmd.add(llvmAr.getAbsolutePath()); arCmd.add("rcs"); arCmd.add(outFile.getAbsolutePath());
+                            for (File o : objFiles) { arCmd.add(o.getAbsolutePath()); }
+                            execOps.exec(s -> s.commandLine(arCmd)).assertNormalExitValue();
                         } else {
                             copyPrebuilt(project, "mingw_x64", ffiWrapperBase, outFile);
                         }
@@ -214,7 +259,10 @@ public final class FfiBuildSupport {
                         "compile" + ffiName + "Wrapper failed: output library does not exist for " + konanTargetName + " at " + outFile
                     );
                 }
-                tempObj.delete();
+                // Clean up intermediate .o files
+                for (File o : objFiles) {
+                    o.delete();
+                }
             });
         });
     }
