@@ -263,15 +263,15 @@ public val IPV6_V6ONLY: CInt = 27
 
 public val IPV6_DONTFRAG: CInt = 62
 
-public val IPTOS_ECN_NOTECT: UByte = 0x00u
+public val IPTOS_ECN_NOTECT: UByte = 0.toUByte()x00u
 
-public val IPTOS_ECN_MASK: UByte = 0x03u
+public val IPTOS_ECN_MASK: UByte = 0.toUByte()x03u
 
-public val IPTOS_ECN_ECT1: UByte = 0x01u
+public val IPTOS_ECN_ECT1: UByte = 0.toUByte()x01u
 
-public val IPTOS_ECN_ECT0: UByte = 0x02u
+public val IPTOS_ECN_ECT0: UByte = 0.toUByte()x02u
 
-public val IPTOS_ECN_CE: UByte = 0x03u
+public val IPTOS_ECN_CE: UByte = 0.toUByte()x03u
 
 public val ST_RDONLY: CUlong = 1uL
 
