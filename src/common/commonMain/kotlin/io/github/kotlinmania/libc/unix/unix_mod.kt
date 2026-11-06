@@ -932,7 +932,6 @@ public expect fun chroot(name: String?): CInt
 
 public expect fun usleep(secs: UsecondsT): CInt
 
-public expect fun usleep(secs: CUint): CInt
 
 public expect fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT
 

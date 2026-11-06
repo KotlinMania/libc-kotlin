@@ -55,7 +55,6 @@ public val PTHREAD_RWLOCK_SIZE: Int = 0
 public val PTHREAD_MUTEX_SIZE: Int = 0
 public val PTHREAD_COND_SIZE: Int = 0
 public val PTHREAD_ONCE_SIZE: Int = 0
-public val PTHREAD_ONCE_SIG_INIT: Int = 0
 public val pthreadRwlockSigInit: Int = 0
 public val pthreadMutexSigInit: Int = 0
 public val pthreadCondSigInit: Int = 0
