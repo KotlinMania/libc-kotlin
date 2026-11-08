@@ -335,6 +335,14 @@ val browserTestExcludes =
         .map { it.trim() }
         .filter { it.isNotEmpty() }
 
+val wasmWasiWindowsTestExcludes =
+    providers
+        .gradleProperty("project.wasmWasi.windowsTestExcludes")
+        .getOrElse("")
+        .split(',')
+        .map { it.trim() }
+        .filter { it.isNotEmpty() }
+
 val extraKotlinCompilerArgs =
     providers
         .gradleProperty("project.kotlin.freeCompilerArgs")
@@ -538,7 +546,13 @@ kotlin {
     wasmWasi {
         configureBenchmarkCompilation()
         binaries.library()
-        nodejs()
+        nodejs {
+            testTask {
+                if (System.getProperty("os.name", "").startsWith("Windows")) {
+                    wasmWasiWindowsTestExcludes.forEach { filter.excludeTestsMatching(it) }
+                }
+            }
+        }
     }
 
     swiftExport {
@@ -589,6 +603,12 @@ kotlin {
         check(nativeFfiTargetNames.all { it in configuredNativeTargets }) {
             "Unknown project.ffi.native.targets: ${nativeFfiTargetNames - configuredNativeTargets}"
         }
+        val discoveredDefFiles =
+            project
+                .fileTree("src/native/interop/cinterop") { include("*.def") }
+                .files
+                .sortedBy { it.name }
+                .ifEmpty { listOf(project.file(ffiDefFile)) }
         targets
             .withType<KotlinNativeTarget>()
             .matching {
@@ -612,37 +632,51 @@ kotlin {
 
                 compilations.getByName("main") {
                     cinterops {
-                        create(ffiNameLower) {
-                            // Apple targets use a reduced .def file with only Apple-relevant
-                            // wrapper headers. libSystem.dylib provides all C symbols;
-                            // non-Apple headers reference system headers not available on macOS.
-                            val isAppleTarget = konanTargetName.startsWith("macos") ||
-                                konanTargetName.startsWith("ios") ||
-                                konanTargetName.startsWith("tvos") ||
-                                konanTargetName.startsWith("watchos")
-                            val targetDefFile = if (isAppleTarget)
-                                "src/native/interop/cinterop/${ffiName}Apple.def"
-                            else
-                                ffiDefFile
-                            defFile(project.file(targetDefFile))
-                            packageName("$ffiNameLower.cinterop")
-                            if (wrapperTask != null) {
-                                extraOpts(
-                                    "-libraryPath",
-                                    layout.buildDirectory
-                                        .dir("cinterop-targets/$konanTargetName")
-                                        .get()
-                                        .asFile.absolutePath,
-                                )
+                        discoveredDefFiles.forEach { currentDefFile ->
+                            val defBaseName = currentDefFile.nameWithoutExtension
+                            val cinteropName =
+                                if (discoveredDefFiles.size == 1 && currentDefFile == project.file(ffiDefFile)) {
+                                    ffiNameLower
+                                } else {
+                                    defBaseName.replaceFirstChar { it.lowercase() }
+                                }
+                            val explicitPkg =
+                                if (currentDefFile.isFile) {
+                                    currentDefFile
+                                        .useLines { lines ->
+                                            lines
+                                                .map { it.trim() }
+                                                .firstOrNull { it.startsWith("package") && '=' in it }
+                                                ?.substringAfter('=')
+                                                ?.trim()
+                                                ?.takeIf { it.isNotEmpty() }
+                                        }
+                                } else {
+                                    null
+                                }
+                            create(cinteropName) {
+                                defFile(currentDefFile)
+                                packageName(explicitPkg ?: "$ffiNameLower.cinterop")
+                                if (wrapperTask != null) {
+                                    extraOpts(
+                                        "-libraryPath",
+                                        layout.buildDirectory
+                                            .dir("cinterop-targets/$konanTargetName")
+                                            .get()
+                                            .asFile.absolutePath,
+                                    )
+                                }
                             }
                         }
                     }
                 }
                 if (wrapperTask != null) {
-                    tasks.matching { it.name == "cinterop${ffiName}$targetCapitalized" }.configureEach {
-                        dependsOn(wrapperTask)
-                        inputs.files(wrapperTask)
-                    }
+                    tasks
+                        .matching { it.name.startsWith("cinterop") && it.name.endsWith(targetCapitalized) }
+                        .configureEach {
+                            dependsOn(wrapperTask)
+                            inputs.files(wrapperTask)
+                        }
                 }
             }
     }
