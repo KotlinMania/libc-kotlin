@@ -434,19 +434,19 @@ int32_t libc_linux_mod_posix_spawnattr_destroy(void* attr) {
 }
 
 int32_t libc_linux_mod_posix_spawnattr_getsigdefault(void* attr, void* defval) {
-    return (int32_t)posix_spawnattr_getsigdefault(attr, default);
+    return (int32_t)posix_spawnattr_getsigdefault(attr, defval);
 }
 
 int32_t libc_linux_mod_posix_spawnattr_setsigdefault(void* attr, void* defval) {
-    return (int32_t)posix_spawnattr_setsigdefault(attr, default);
+    return (int32_t)posix_spawnattr_setsigdefault(attr, defval);
 }
 
 int32_t libc_linux_mod_posix_spawnattr_getsigmask(void* attr, void* defval) {
-    return (int32_t)posix_spawnattr_getsigmask(attr, default);
+    return (int32_t)posix_spawnattr_getsigmask(attr, defval);
 }
 
 int32_t libc_linux_mod_posix_spawnattr_setsigmask(void* attr, void* defval) {
-    return (int32_t)posix_spawnattr_setsigmask(attr, default);
+    return (int32_t)posix_spawnattr_setsigmask(attr, defval);
 }
 
 int32_t libc_linux_mod_posix_spawnattr_getflags(void* attr, void* flags) {

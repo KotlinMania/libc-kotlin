@@ -491,7 +491,7 @@ public open class SiginfoT(
             public var siAddr: COpaquePointer? = null,
             public var siValue: Sigval = Sigval(null),
         )
-        return (if (((this as SiginfoT?)) == null) null else SiginfoTimer())?.siValue
+        return (if (((this as SiginfoT?)) == null) null else SiginfoTimer())?.siValue ?: Sigval(null)
     }
 
     public open fun siPid(): PidT {
@@ -1645,7 +1645,7 @@ public open class Log2phys(
     public var l2pDevoffset: OffT,
 )
 
-public open class OsUnfairLockS(public var osUnfairLockOpaque: UInt)
+public open class OsUnfairLockS(public var osUnfairLockOpaque: UInt = 0u)
 
 public open class SockaddrVm(
     public var svmLen: CUchar,
@@ -1673,16 +1673,7 @@ public open class In6Ifreq(public var ifrName: List<CChar>, public var ifrIfru: 
 
 public open class Ifconf(public var ifcLen: CInt, public var ifcIfcu: CAnonymousIfcIfcu) {
     public open fun eq(other: Ifconf): Boolean {
-        val lenPtr1 = addrOf(this.ifcLen)
-        val lenPtr2 = addrOf(other.ifcLen)
-        val ifcuPtr1 = addrOf(this.ifcIfcu)
-        val ifcuPtr2 = addrOf(other.ifcIfcu)
-        // SAFETY: `ifconf` implements `Copy` so the reads are valid
-        val len1 = lenPtr1.readUnaligned()
-        val len2 = lenPtr2.readUnaligned()
-        val ifcu1 = ifcuPtr1.readUnaligned()
-        val ifcu2 = ifcuPtr2.readUnaligned()
-        return len1 == len2 && ifcu1 == ifcu2
+        return this.ifcLen == other.ifcLen && this.ifcIfcu.eq(other.ifcIfcu)
     }
 }
 
@@ -1720,7 +1711,7 @@ public open class CAnonymousIfrIfru(
     public var ifruFunctionalType: UInt? = null,
 ) {
     public open fun eq(other: CAnonymousIfrIfru): Boolean {
-        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruFlags == other.ifruFlags && this.ifruMetrics == other.ifruMetrics && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && this.ifruDevmtu == other.ifruDevmtu && this.ifruKpi == other.ifruKpi && this.ifruWakeFlags == other.ifruWakeFlags && this.ifruRouteRefcnt == other.ifruRouteRefcnt && this.ifruCap.iter().zip(other.ifruCap.iter()).all({ (a, b) -> a == b }) && this.ifruFunctionalType == other.ifruFunctionalType
+        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruFlags == other.ifruFlags && this.ifruMetrics == other.ifruMetrics && this.ifruMtu == other.ifruMtu && this.ifruPhys == other.ifruPhys && this.ifruMedia == other.ifruMedia && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && this.ifruDevmtu == other.ifruDevmtu && this.ifruKpi == other.ifruKpi && this.ifruWakeFlags == other.ifruWakeFlags && this.ifruRouteRefcnt == other.ifruRouteRefcnt && this.ifruCap == other.ifruCap && this.ifruFunctionalType == other.ifruFunctionalType
     }
 
     public override fun hashCode(): Int {
@@ -1774,7 +1765,7 @@ public open class CAnonymousIfrIfru6(
     public var ifruScopeId: List<UInt>? = null,
 ) {
     public open fun eq(other: CAnonymousIfrIfru6): Boolean {
-        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruFlags == other.ifruFlags && this.ifruFlags6 == other.ifruFlags6 && this.ifruMetrics == other.ifruMetrics && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && this.ifruScopeId.iter().zip(other.ifruScopeId.iter()).all({ (a, b) -> a == b })
+        return this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruFlags == other.ifruFlags && this.ifruFlags6 == other.ifruFlags6 && this.ifruMetrics == other.ifruMetrics && this.ifruIntval == other.ifruIntval && this.ifruData == other.ifruData && this.ifruScopeId == other.ifruScopeId
     }
 
     public override fun hashCode(): Int {
@@ -5166,13 +5157,13 @@ public val AI_NUMERICHOST: CInt = 0x00000004
 
 public val AI_NUMERICSERV: CInt = 0x00001000
 
-public val AI_MASK: CInt = AI_PASSIVE or AI_CANONNAME or AI_NUMERICHOST or AI_NUMERICSERV or AI_ADDRCONFIG
-
 public val AI_ALL: CInt = 0x00000100
 
 public val AI_V4MAPPED_CFG: CInt = 0x00000200
 
 public val AI_ADDRCONFIG: CInt = 0x00000400
+
+public val AI_MASK: CInt = AI_PASSIVE or AI_CANONNAME or AI_NUMERICHOST or AI_NUMERICSERV or AI_ADDRCONFIG
 
 public val AI_V4MAPPED: CInt = 0x00000800
 
@@ -5337,7 +5328,7 @@ public val PROC_PIDPATHINFO_MAXSIZE: CInt = 4096
 
 public val PROC_PIDLISTFDS: CInt = 1
 
-public val PROC_PIDLISTFD_SIZE: CInt = 0
+public val PROC_PIDLISTFD_SIZE: CInt = 8
 
 public val PROX_FDTYPE_ATALK: CInt = 0
 
@@ -6206,35 +6197,35 @@ public val VMADDR_CID_HOST: CUint = 2u
 public val VMADDR_PORT_ANY: CUint = 0xFFFFFFFFu
 
 public fun darwinAlign32(p: Int): Int {
-    val DARWIN_ALIGNBYTES32: Int = 0 - 1
+    val DARWIN_ALIGNBYTES32: Int = 4 - 1
     return (p + DARWIN_ALIGNBYTES32) and DARWIN_ALIGNBYTES32.inv()
 }
 
-public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (4 / 4).toUInt()
 
-public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (16 / 4).toUInt()
 
-public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (4 / 4).toUInt()
 
-public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (4 / 4).toUInt()
 
-public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (4 / 4).toUInt()
 
-public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (4 / 4).toUInt()
 
-public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (4 / 4).toUInt()
 
-public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (40 / 4).toUInt()
 
-public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (24 / 4).toUInt()
 
-public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (112 / 4).toUInt()
 
-public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (0 / 0).toUInt()
+public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (16 / 4).toUInt()
 
-public val MACH_TASK_BASIC_INFO_COUNT: UInt = (0 / 0).toUInt()
+public val MACH_TASK_BASIC_INFO_COUNT: UInt = (48 / 4).toUInt()
 
-public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (0 / 0).toUInt()
+public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (416 / 4).toUInt()
 
 // bsd/net/ifMib.h
 /**
@@ -6291,12 +6282,12 @@ public val MAX_KCTL_NAME: Int = 96
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
-        return CMSG_FIRSTHDR(mhdr)
+        return if (mhdr != null && mhdr.msgControllen.toInt() >= 12 && mhdr.msgControl != null) Cmsghdr() else null
     }
-    val cmsgLen = (cmsg!!.cmsgLen).toInt()
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + DARWIN_ALIGN32(cmsgLen)
-    val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (next + DARWIN_ALIGN32(0) > max) {
+    val cmsgLen = (cmsg.cmsgLen).toInt()
+    val next = (cmsg.hashCode().toLong()).toInt() + DARWIN_ALIGN32(cmsgLen)
+    val max = (mhdr?.msgControl?.address ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    return if (next + DARWIN_ALIGN32(12) > max) {
         null
     } else {
         null
@@ -6304,15 +6295,15 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (DARWIN_ALIGN32(0)).toLong()) }
+    return if (cmsg == null) null else 0u
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (DARWIN_ALIGN32(0) + DARWIN_ALIGN32(length.toInt())).toUInt()
+    return (DARWIN_ALIGN32(12) + DARWIN_ALIGN32(length.toInt())).toUInt()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return (DARWIN_ALIGN32(0) + length.toInt()).toUInt()
+    return (DARWIN_ALIGN32(12) + length.toInt()).toUInt()
 }
 
 public fun vmMakeTag(id: UByte): UInt {
@@ -6328,15 +6319,15 @@ public fun wstatus(status: CInt): CInt {
 }
 
 public fun wifcontinued(status: CInt): Boolean {
-    return WSTATUS(status) == WSTOPPED && WSTOPSIG(status) == 0x13
+    return wstatus(status) == WSTOPPED && wstopsig(status) == 0x13
 }
 
 public fun wifsignaled(status: CInt): Boolean {
-    return WSTATUS(status) != WSTOPPED && WSTATUS(status) != 0
+    return wstatus(status) != WSTOPPED && wstatus(status) != 0
 }
 
 public fun wifstopped(status: CInt): Boolean {
-    return WSTATUS(status) == WSTOPPED && WSTOPSIG(status) != 0x13
+    return wstatus(status) == WSTOPPED && wstopsig(status) != 0x13
 }
 
 public fun makedev(major: Int, minor: Int): DevT {

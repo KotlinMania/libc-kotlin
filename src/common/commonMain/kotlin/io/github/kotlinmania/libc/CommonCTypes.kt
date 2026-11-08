@@ -217,3 +217,4 @@ public typealias TaskInspectT = CUint
 public typealias TaskFlavorT = CUint
 public typealias TaskInfoT = COpaquePointer?
 public typealias Lconv = COpaquePointer?
+public typealias MemoryObjectT = CUint

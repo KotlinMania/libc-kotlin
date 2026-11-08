@@ -4,7 +4,6 @@ package io.github.kotlinmania.libc.new.apple
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.new.apple.libpthread.pthread.*
 import io.github.kotlinmania.libc.new.apple.xnu.*
-import io.github.kotlinmania.pthread.pthread.*
 
 // Apple interfaces.
 //

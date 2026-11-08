@@ -300,9 +300,9 @@ public val INADDR_BROADCAST: InAddrT = 4294967295u
 
 public val INADDR_NONE: InAddrT = 4294967295u
 
-public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1))
+public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = listOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 1u))
 
-public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = listOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u))
 
 public val ARPOP_REQUEST: UShort = 1u
 
@@ -1032,19 +1032,23 @@ public expect fun getline(lineptr: COpaquePointer?, n: ULong?, stream: FILE?): S
 public expect fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt
 
 public fun htonl(hostlong: UInt): UInt {
-    return UInt.toBe(hostlong)
+    return ((hostlong and 0x000000FFu) shl 24) or
+        ((hostlong and 0x0000FF00u) shl 8) or
+        ((hostlong and 0x00FF0000u) shr 8) or
+        ((hostlong and 0xFF000000u) shr 24)
 }
 
 public fun htons(hostshort: UShort): UShort {
-    return UShort.toBe(hostshort)
+    val v = hostshort.toInt() and 0xFFFF
+    return (((v and 0xFF) shl 8) or ((v ushr 8) and 0xFF)).toUShort()
 }
 
 public fun ntohl(netlong: UInt): UInt {
-    return UInt.fromBe(netlong)
+    return htonl(netlong)
 }
 
 public fun ntohs(netshort: UShort): UShort {
-    return UShort.fromBe(netshort)
+    return htons(netshort)
 }
 
 public expect fun adjtime(delta: Timeval?, olddelta: Timeval?): CInt

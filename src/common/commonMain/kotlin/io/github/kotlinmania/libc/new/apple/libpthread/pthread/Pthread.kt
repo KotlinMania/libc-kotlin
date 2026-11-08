@@ -26,7 +26,7 @@ public val PTHREAD_CANCEL_DEFERRED: CInt = 0x02
 
 public val PTHREAD_CANCEL_ASYNCHRONOUS: CInt = 0x00
 
-public val PTHREAD_CANCELED: COpaquePointer? = null
+public val PTHREAD_CANCELED: COpaquePointer? = COpaquePointer(1.toLong())
 
 public val PTHREAD_SCOPE_SYSTEM: CInt = 1
 

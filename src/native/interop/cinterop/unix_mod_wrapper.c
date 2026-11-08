@@ -1630,7 +1630,19 @@ char* libc_unix_mod_stpncpy(char* dst, const char* src, uint64_t n) {
 }
 
 int32_t libc_unix_mod_sigqueue(int32_t pid, int32_t sig, int32_t value) {
+#if defined(__linux__) && !defined(__ANDROID__)
+    union sigval sv;
+    sv.sival_int = value;
+    return (int32_t)sigqueue(pid, sig, sv);
+#elif !defined(_WIN32)
     return (int32_t)sigqueue(pid, sig, value);
+#else
+    (void)pid;
+    (void)sig;
+    (void)value;
+    errno = ENOSYS;
+    return -1;
+#endif
 }
 
 uint64_t libc_unix_mod_confstr(int32_t name, char* buf, uint64_t len) {
