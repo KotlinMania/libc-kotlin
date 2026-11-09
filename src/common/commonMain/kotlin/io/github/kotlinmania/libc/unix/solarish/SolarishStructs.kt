@@ -974,13 +974,13 @@ public data class SiginfoKillval(
 public data class SiginfoSigcld(
     public var pid: PidT = 0,
     public var value: SiginfoCldval = SiginfoCldval(),
-    public var ctid: CtidT = 0u,
+    public var ctid: CtidT = 0,
     public var zoneid: ZoneidT = 0,
 )
 
 public data class SiginfoKill(
     public var pid: PidT = 0,
     public var value: SiginfoKillval = SiginfoKillval(),
-    public var ctid: CtidT = 0u,
+    public var ctid: CtidT = 0,
     public var zoneid: ZoneidT = 0,
 )

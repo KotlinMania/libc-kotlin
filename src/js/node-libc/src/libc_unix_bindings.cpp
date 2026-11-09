@@ -5629,7 +5629,7 @@ static Napi::Value libc_unix_realpath_napi(const Napi::CallbackInfo& km_info) {
 static Napi::Value libc_unix_times_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    typedef int64_t (*km_fn_t)(void*);
+    typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -5647,8 +5647,8 @@ static Napi::Value libc_unix_times_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "times"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(buf) : -1;
-    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
+    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(buf) : -1;
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
 static Napi::Value libc_unix_pthreadSelf_napi(const Napi::CallbackInfo& km_info) {
@@ -5957,8 +5957,8 @@ static Napi::Value libc_unix_pthreadKeyCreate_napi(const Napi::CallbackInfo& km_
 
 static Napi::Value libc_unix_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    typedef int32_t (*km_fn_t)(uint32_t);
+    int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -5982,8 +5982,8 @@ static Napi::Value libc_unix_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_
 
 static Napi::Value libc_unix_pthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    typedef void* (*km_fn_t)(uint32_t);
+    int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -6007,9 +6007,9 @@ static Napi::Value libc_unix_pthreadGetspecific_napi(const Napi::CallbackInfo& k
 
 static Napi::Value libc_unix_pthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    typedef int32_t (*km_fn_t)(uint32_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -8105,7 +8105,7 @@ static Napi::Value libc_unix_tcdrain_napi(const Napi::CallbackInfo& km_info) {
 static Napi::Value libc_unix_cfgetispeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    typedef uint64_t (*km_fn_t)(void*);
+    typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -8123,14 +8123,14 @@ static Napi::Value libc_unix_cfgetispeed_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "cfgetispeed"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(termios) : 0;
-    return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
+    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(termios) : 0;
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
 static Napi::Value libc_unix_cfgetospeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    typedef uint64_t (*km_fn_t)(void*);
+    typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -8148,15 +8148,15 @@ static Napi::Value libc_unix_cfgetospeed_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "cfgetospeed"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(termios) : 0;
-    return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
+    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(termios) : 0;
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
 static Napi::Value libc_unix_cfsetispeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t speed = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -8181,8 +8181,8 @@ static Napi::Value libc_unix_cfsetispeed_napi(const Napi::CallbackInfo& km_info)
 static Napi::Value libc_unix_cfsetospeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t speed = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -9236,8 +9236,8 @@ static Napi::Value libc_unix_cfmakeraw_napi(const Napi::CallbackInfo& km_info) {
 static Napi::Value libc_unix_cfsetspeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t speed = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {

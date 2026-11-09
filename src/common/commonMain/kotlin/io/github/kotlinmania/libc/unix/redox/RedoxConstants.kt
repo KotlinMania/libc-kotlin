@@ -923,7 +923,7 @@ public val MAP_ANONYMOUS: CInt = MAP_ANON
 
 public val MAP_FIXED: CInt = 0x0004
 
-public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as Any?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MS_ASYNC: CInt = 0x0001
 

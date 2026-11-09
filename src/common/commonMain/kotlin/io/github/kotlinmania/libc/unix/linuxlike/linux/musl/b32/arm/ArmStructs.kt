@@ -173,4 +173,4 @@ public data class UcontextT(
     }
 }
 
-public data class MaxAlignT(public var priv: Pair<Long, Long> = Pair<Long, Long>())
+public data class MaxAlignT(public var priv: Pair<Long, Long> = Pair<Long, Long>(0L, 0L))

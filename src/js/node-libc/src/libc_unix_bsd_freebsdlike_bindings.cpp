@@ -243,11 +243,11 @@ static Napi::Value libc_unix_bsd_freebsdlike_chflagsat_napi(const Napi::Callback
 
 static Napi::Value libc_unix_bsd_freebsdlike_clockNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t clk_id = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    typedef int32_t (*km_fn_t)(uint64_t, int32_t, void*, void*);
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -271,9 +271,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_clockNanosleep_napi(const Napi::Cal
 
 static Napi::Value libc_unix_bsd_freebsdlike_clockGetres_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t clk_id = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -297,9 +297,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_clockGetres_napi(const Napi::Callba
 
 static Napi::Value libc_unix_bsd_freebsdlike_clockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t clk_id = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -323,9 +323,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_clockGettime_napi(const Napi::Callb
 
 static Napi::Value libc_unix_bsd_freebsdlike_clockSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t clk_id = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {
@@ -1453,8 +1453,8 @@ static Napi::Value libc_unix_bsd_freebsdlike_pthreadCondattrGetpshared_napi(cons
 static Napi::Value libc_unix_bsd_freebsdlike_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t clock_id = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
     if (km_fn_ptr == nullptr) {

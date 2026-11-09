@@ -2480,10 +2480,10 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
         return null
     }
     // Note(msrv): `.wrappingByteAdd()` stabilized in 1.75
-    val nextCmsg = ((null.wrappingAdd(cmsgAlign(((cmsg!!.cmsgLen).toInt()).toULong())) as Any?) as Cmsghdr?)
+    val nextCmsg = (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }.wrappingAdd(cmsgAlign(((cmsg!!.cmsgLen).toInt()).toULong())) as Any?) as Cmsghdr?)
     // In case the addition wrapped. `nextAddr> maxAddr`
     // would otherwise not work as intended.
-    if ((nextCmsg.toInt()) < (((cmsg)?.hashCode()?.toLong() ?: 0L).toInt())) {
+    if ((((nextCmsg)?.hashCode()?.toLong() ?: 0L).toInt()) < (((cmsg)?.hashCode()?.toLong() ?: 0L).toInt())) {
         return null
     }
     var maxAddr = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
@@ -2493,7 +2493,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
         // https://www.openwall.com/lists/musl/2025/12/27/1
         maxAddr -= 1
     }
-    return if (nextCmsg.toInt() + 8 > maxAddr) {
+    return if (((nextCmsg)?.hashCode()?.toLong() ?: 0L).toInt() + 8 > maxAddr) {
         null
     } else {
         ((nextCmsg as Any?) as Cmsghdr?)

@@ -11,7 +11,6 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.pthreadMutexT
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SighandlerT
@@ -440,7 +439,7 @@ public data class FpregT(public var d: CDouble = 0.0) {
 
     public override fun hashCode(): Int {
         var state = 0
-        val d: ULong = this.d.toBits()
+        val d: ULong = this.d.toRawBits().toULong()
         state = 31 * state + (d).hashCode()
         return state
     }

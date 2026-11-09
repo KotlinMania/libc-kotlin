@@ -1215,7 +1215,7 @@ public val TMPFS_ARGS_VERSION: CInt = 1
 
 public val SI_MAXSZ: SizeT = 128uL
 
-public val SI_PAD: SizeT = (SI_MAXSZ / 8uL.toULong()) - 3uL
+public val SI_PAD: SizeT = (SI_MAXSZ / 8uL) - 3uL
 
 public val MAP_STACK: CInt = 0x4000
 

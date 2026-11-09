@@ -4,6 +4,7 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd14
 
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT

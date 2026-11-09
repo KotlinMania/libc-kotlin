@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.netbsd.utmpx
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.UidT
 
 public actual fun setutxent() {

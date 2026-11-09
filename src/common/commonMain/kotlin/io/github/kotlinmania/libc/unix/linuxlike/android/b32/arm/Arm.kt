@@ -5,12 +5,11 @@ package io.github.kotlinmania.libc.unix.linuxlike.android.b32.arm
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.android.StackT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.Sigset64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.SigsetT
-import io.github.kotlinmania.libc.unix.linuxlike.android.b32.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.android.syscall
 
 public typealias WcharT = UInt
@@ -898,6 +897,6 @@ public val NGREG: CInt = 18
 // From NDK's asm/auxvec.h
 public val AT_SYSINFO_EHDR: CUlong = 33uL
 
-public fun accept4(fd: CInt, addr: Sockaddr?, len: SocklenT?, flg: CInt): CInt {
-    return syscall(SYS_ACCEPT4, fd, addr, len, flg).toInt()
+public fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt {
+    return syscall(SYS_ACCEPT4, fd.toLong(), ((addr)?.hashCode()?.toLong() ?: 0L), ((len)?.hashCode()?.toLong() ?: 0L), flg.toLong()).toInt()
 }

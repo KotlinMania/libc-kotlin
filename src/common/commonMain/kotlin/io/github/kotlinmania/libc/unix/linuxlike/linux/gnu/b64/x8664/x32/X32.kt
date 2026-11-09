@@ -5,7 +5,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.x32
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.pthreadMutexT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.FsblkcntT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.FsfilcntT

@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt.dlfcn
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
     null

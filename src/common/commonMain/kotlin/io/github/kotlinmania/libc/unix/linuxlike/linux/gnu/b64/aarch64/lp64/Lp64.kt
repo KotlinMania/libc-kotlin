@@ -4,7 +4,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.lp64
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.pthreadMutexT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
 
 public val SIZEOF_PTHREAD_CONDATTR_T: Int = 8

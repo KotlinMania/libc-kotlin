@@ -2,6 +2,9 @@
 
 package io.github.kotlinmania.libc.unix.nuttx
 
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.DIR
+
 public actual fun errno(): COpaquePointer? =
     null
 

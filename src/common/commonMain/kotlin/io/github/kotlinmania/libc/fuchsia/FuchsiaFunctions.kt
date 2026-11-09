@@ -94,7 +94,7 @@ public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as COpaquePointer?)
+    return (cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
@@ -103,20 +103,20 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     } else if (cmsgNext(cmsg).add(8) >= mhdrEnd(mhdr)) {
         null
     } else {
-        cmsgNext(cmsg).cast()
+        ((cmsgNext(cmsg) as Any?) as Cmsghdr?)
     }
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
     return if ((mhdr!!.msgControllen).toULong() >= 8uL.toULong()) {
-        mhdr!!.msgControl.cast()
+        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
 }
 
 public fun cmsgAlign(len: SizeT): SizeT {
-    return (len + 8uL.toULong() - 1uL) and ((8 - 1).inv()).toULong()
+    return (len + 8uL - 1uL) and (8uL - 1uL).inv()
 }
 
 public fun cmsgSpace(len: CUint): CUint {
@@ -189,15 +189,15 @@ public fun minor(dev: DevT): CUint {
 }
 
 public fun cmsgLen(cmsg: Cmsghdr?): SsizeT {
-    return (((cmsg!!.cmsgLen).toULong() + 8uL.toULong() - 1uL) and ((8 - 1).inv()).toULong()).toLong()
+    return (((cmsg!!.cmsgLen).toULong() + 8uL - 1uL) and ((8uL - 1uL).inv()).toULong()).toLong()
 }
 
 public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (cmsgLen(cmsg)).toLong()) }) as Any?) as COpaquePointer?)
+    return ((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (cmsgLen(cmsg)).toLong()) })
 }
 
 public fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? {
-    return mhdr!!.msgControl.offset((mhdr!!.msgControllen).toInt()).cast()
+    return (mhdr!!.msgControl.offset((mhdr!!.msgControllen).toInt()))?.let { COpaquePointer(it.hashCode().toLong()) }
 }
 
 public expect fun isalnum(c: CInt): CInt

@@ -9,8 +9,8 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -21,9 +21,9 @@ import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.ClockidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.DevT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
 
 private object UnixBsdFreebsdlikeJniBridge {
     init {
@@ -52,16 +52,16 @@ private object UnixBsdFreebsdlikeJniBridge {
     external fun libc_unix_bsd_freebsdlike_chflagsat(fd: Int, path: String?, flags: Long, atflag: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_clockNanosleep(clkId: Long, flags: Int, rqtp: Long, rmtp: Long): Int
+    external fun libc_unix_bsd_freebsdlike_clockNanosleep(clkId: Int, flags: Int, rqtp: Long, rmtp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_clockGetres(clkId: Long, tp: Long): Int
+    external fun libc_unix_bsd_freebsdlike_clockGetres(clkId: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_clockGettime(clkId: Long, tp: Long): Int
+    external fun libc_unix_bsd_freebsdlike_clockGettime(clkId: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_clockSettime(clkId: Long, tp: Long): Int
+    external fun libc_unix_bsd_freebsdlike_clockSettime(clkId: Int, tp: Long): Int
 
     @JvmStatic
     external fun libc_unix_bsd_freebsdlike_clockGetcpuclockid(pid: Int, clkId: Long): Int
@@ -187,7 +187,7 @@ private object UnixBsdFreebsdlikeJniBridge {
     external fun libc_unix_bsd_freebsdlike_pthreadCondattrGetpshared(attr: Long, pshared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_pthreadCondattrSetclock(attr: Long, clockId: Long): Int
+    external fun libc_unix_bsd_freebsdlike_pthreadCondattrSetclock(attr: Long, clockId: Int): Int
 
     @JvmStatic
     external fun libc_unix_bsd_freebsdlike_pthreadCondattrSetpshared(attr: Long, pshared: Int): Int
@@ -560,16 +560,16 @@ public actual fun chflagsat(fd: CInt, path: String?, flags: CUlong, atflag: CInt
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_chflagsat(fd, path, flags.toLong(), atflag)
 
 public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockNanosleep(clkId.toLong(), flags, (rqtp?.value ?: 0L), (rmtp?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockNanosleep(clkId, flags, (rqtp?.value ?: 0L), (rmtp?.value ?: 0L))
 
 public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockGetres(clkId.toLong(), (tp?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockGetres(clkId, (tp?.value ?: 0L))
 
 public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockGettime(clkId.toLong(), (tp?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockGettime(clkId, (tp?.value ?: 0L))
 
 public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockSettime(clkId.toLong(), (tp?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockSettime(clkId, (tp?.value ?: 0L))
 
 public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_clockGetcpuclockid(pid, (clkId?.value ?: 0L))
@@ -696,7 +696,7 @@ public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpa
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_pthreadCondattrGetpshared((attr?.value ?: 0L), (pshared?.value ?: 0L))
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_pthreadCondattrSetclock((attr?.value ?: 0L), clockId.toLong())
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_pthreadCondattrSetclock((attr?.value ?: 0L), clockId)
 
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_pthreadCondattrSetpshared((attr?.value ?: 0L), pshared)
@@ -977,31 +977,31 @@ public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CIn
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_posixSpawnFileActionsAdddup2((actions?.value ?: 0L), fd, newfd)
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqClose(mqd.toLong())
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqClose((mqd?.value ?: 0L))
 
 public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqGetattr(mqd.toLong(), (attr?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqGetattr((mqd?.value ?: 0L), (attr?.value ?: 0L))
 
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqNotify(mqd.toLong(), (notification?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqNotify((mqd?.value ?: 0L), (notification?.value ?: 0L))
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    null
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqReceive(mqd.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqReceive((mqd?.value ?: 0L), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))
 
 public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqSend(mqd.toLong(), msgPtr, msgLen.toLong(), msgPrio.toInt())
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqSend((mqd?.value ?: 0L), msgPtr, msgLen.toLong(), msgPrio.toInt())
 
 public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqSetattr(mqd.toLong(), (newattr?.value ?: 0L), (oldattr?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqSetattr((mqd?.value ?: 0L), (newattr?.value ?: 0L), (oldattr?.value ?: 0L))
 
 public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqTimedreceive(mqd.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L), (absTimeout?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqTimedreceive((mqd?.value ?: 0L), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L), (absTimeout?.value ?: 0L))
 
 public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqTimedsend(mqd.toLong(), msgPtr, msgLen.toLong(), msgPrio.toInt(), (absTimeout?.value ?: 0L))
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqTimedsend((mqd?.value ?: 0L), msgPtr, msgLen.toLong(), msgPrio.toInt(), (absTimeout?.value ?: 0L))
 
 public actual fun mqUnlink(name: String?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqUnlink(name)

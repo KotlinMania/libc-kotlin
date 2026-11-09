@@ -2622,8 +2622,8 @@ char* libc_unix_realpath(const char* pathname, char* resolved) {
     return NULL;
 }
 
-int64_t libc_unix_times(void* buf) {
-    typedef int64_t (*km_fn_t)(void*);
+int32_t libc_unix_times(void* buf) {
+    typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -2960,8 +2960,8 @@ int32_t libc_unix_pthreadKeyCreate(void* key, void* dtor) {
     return -1;
 }
 
-int32_t libc_unix_pthreadKeyDelete(uint32_t key) {
-    typedef int32_t (*km_fn_t)(uint32_t);
+int32_t libc_unix_pthreadKeyDelete(int32_t key) {
+    typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -2986,8 +2986,8 @@ int32_t libc_unix_pthreadKeyDelete(uint32_t key) {
     return -1;
 }
 
-void* libc_unix_pthreadGetspecific(uint32_t key) {
-    typedef void* (*km_fn_t)(uint32_t);
+void* libc_unix_pthreadGetspecific(int32_t key) {
+    typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -3012,8 +3012,8 @@ void* libc_unix_pthreadGetspecific(uint32_t key) {
     return NULL;
 }
 
-int32_t libc_unix_pthreadSetspecific(uint32_t key, void* value) {
-    typedef int32_t (*km_fn_t)(uint32_t, void*);
+int32_t libc_unix_pthreadSetspecific(int32_t key, void* value) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -4738,8 +4738,8 @@ int32_t libc_unix_tcdrain(int32_t fd) {
     return -1;
 }
 
-uint64_t libc_unix_cfgetispeed(void* termios) {
-    typedef uint64_t (*km_fn_t)(void*);
+uint32_t libc_unix_cfgetispeed(void* termios) {
+    typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -4764,8 +4764,8 @@ uint64_t libc_unix_cfgetispeed(void* termios) {
     return 0;
 }
 
-uint64_t libc_unix_cfgetospeed(void* termios) {
-    typedef uint64_t (*km_fn_t)(void*);
+uint32_t libc_unix_cfgetospeed(void* termios) {
+    typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -4790,8 +4790,8 @@ uint64_t libc_unix_cfgetospeed(void* termios) {
     return 0;
 }
 
-int32_t libc_unix_cfsetispeed(void* termios, uint64_t speed) {
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+int32_t libc_unix_cfsetispeed(void* termios, uint32_t speed) {
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -4816,8 +4816,8 @@ int32_t libc_unix_cfsetispeed(void* termios, uint64_t speed) {
     return -1;
 }
 
-int32_t libc_unix_cfsetospeed(void* termios, uint64_t speed) {
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+int32_t libc_unix_cfsetospeed(void* termios, uint32_t speed) {
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -5842,8 +5842,8 @@ int32_t libc_unix_cfmakeraw(void* termios) {
     return -1;
 }
 
-int32_t libc_unix_cfsetspeed(void* termios, uint64_t speed) {
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+int32_t libc_unix_cfsetspeed(void* termios, uint32_t speed) {
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {

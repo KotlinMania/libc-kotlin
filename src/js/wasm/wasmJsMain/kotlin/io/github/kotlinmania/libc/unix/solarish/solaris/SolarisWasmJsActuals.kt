@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.unix.solarish.solaris
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT

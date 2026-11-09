@@ -53,7 +53,7 @@ public fun sctpPrSetPolicy(flags: CInt, policy: CInt) {
 }
 
 public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return (((ee)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as Sockaddr?)
+    return null
 }
 
 public fun tpacketAlign(x: Int): Int {
@@ -97,7 +97,7 @@ public fun bpfJump(code: U16, k: U32, jt: U8, jf: U8): SockFilter {
 }
 
 public fun sunLen(s: SockaddrUn): Int {
-    return 0uL + strlen(s.sunPath.decodeToString().substringBefore('\u0000')).toInt()
+    return 0 + strlen(s.sunPath.asByteArray().decodeToString().substringBefore('\u0000')).toInt()
 }
 
 public fun sctpPrTtlEnabled(policy: CInt): Boolean {

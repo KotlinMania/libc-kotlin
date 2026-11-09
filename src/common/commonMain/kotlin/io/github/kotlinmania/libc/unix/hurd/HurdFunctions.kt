@@ -64,7 +64,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
     val next = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt() > max || ((next)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((next!!.cmsgLen).toInt()) > max) {
+    return if (((((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }))?.rawValue ?: 0L).toInt() > max || ((next)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((next!!.cmsgLen).toInt()) > max) {
         null
     } else {
         ((next as Any?) as Cmsghdr?)

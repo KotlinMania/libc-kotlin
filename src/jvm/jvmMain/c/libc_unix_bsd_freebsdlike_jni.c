@@ -197,10 +197,10 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_Unix
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockNanosleep(JNIEnv* km_env, jclass km_clazz, jlong clk_id, jint flags, jlong rqtp, jlong rmtp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockNanosleep(JNIEnv* km_env, jclass km_clazz, jint clk_id, jint flags, jlong rqtp, jlong rmtp) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(uint64_t, int32_t, void*, void*);
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -218,14 +218,14 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_Unix
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_nanosleep");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)clk_id, (int32_t)flags, (void*)(uintptr_t)rqtp, (void*)(uintptr_t)rmtp) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (int32_t)flags, (void*)(uintptr_t)rqtp, (void*)(uintptr_t)rmtp) : -1;
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockGetres(JNIEnv* km_env, jclass km_clazz, jlong clk_id, jlong tp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockGetres(JNIEnv* km_env, jclass km_clazz, jint clk_id, jlong tp) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -243,14 +243,14 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_Unix
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_getres");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)clk_id, (void*)(uintptr_t)tp) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp) : -1;
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockGettime(JNIEnv* km_env, jclass km_clazz, jlong clk_id, jlong tp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockGettime(JNIEnv* km_env, jclass km_clazz, jint clk_id, jlong tp) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -268,14 +268,14 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_Unix
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_gettime");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)clk_id, (void*)(uintptr_t)tp) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp) : -1;
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockSettime(JNIEnv* km_env, jclass km_clazz, jlong clk_id, jlong tp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1clockSettime(JNIEnv* km_env, jclass km_clazz, jint clk_id, jlong tp) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -293,7 +293,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_Unix
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_settime");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)clk_id, (void*)(uintptr_t)tp) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp) : -1;
     return (jint)km_res;
 }
 
@@ -1335,10 +1335,10 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_Unix
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1pthreadCondattrSetclock(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong clock_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_UnixBsdFreebsdlikeJniBridge_libc_1unix_1bsd_1freebsdlike_1pthreadCondattrSetclock(JNIEnv* km_env, jclass km_clazz, jlong attr, jint clock_id) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -1356,7 +1356,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_Unix
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_condattr_setclock");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (uint64_t)clock_id) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)clock_id) : -1;
     return (jint)km_res;
 }
 

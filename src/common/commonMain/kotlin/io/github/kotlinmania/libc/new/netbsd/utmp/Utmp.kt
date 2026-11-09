@@ -5,7 +5,7 @@ package io.github.kotlinmania.libc.new.netbsd.utmp
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
 
 // Header: `utmp.h`
 //

@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.trusty
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 
 public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =

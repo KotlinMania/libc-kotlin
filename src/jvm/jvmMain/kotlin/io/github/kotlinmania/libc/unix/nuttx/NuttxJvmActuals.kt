@@ -4,7 +4,7 @@ package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.unix.DIR
 
 private object UnixNuttxJniBridge {
     init {

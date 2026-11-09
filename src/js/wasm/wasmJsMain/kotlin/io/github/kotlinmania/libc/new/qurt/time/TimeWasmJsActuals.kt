@@ -4,6 +4,7 @@ package io.github.kotlinmania.libc.new.qurt.time
 
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.ClockT
 import io.github.kotlinmania.libc.new.qurt.ClockidT
 import io.github.kotlinmania.libc.new.qurt.SizeT

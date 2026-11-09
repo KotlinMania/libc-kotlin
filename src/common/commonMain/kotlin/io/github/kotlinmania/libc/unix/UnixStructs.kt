@@ -7,9 +7,9 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ClockT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.ClockT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.RlimT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SusecondsT
 
 public data class Group(
@@ -88,10 +88,10 @@ public data class Itimerval(public var itInterval: Timeval = Timeval(), public v
 
 // <sys/times.h>
 public data class Tms(
-    public var tmsUtime: ClockT = 0L,
-    public var tmsStime: ClockT = 0L,
-    public var tmsCutime: ClockT = 0L,
-    public var tmsCstime: ClockT = 0L,
+    public var tmsUtime: ClockT = 0,
+    public var tmsStime: ClockT = 0,
+    public var tmsCutime: ClockT = 0,
+    public var tmsCstime: ClockT = 0,
 )
 
 public data class Servent(

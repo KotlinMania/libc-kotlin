@@ -327,25 +327,25 @@ public val S_NFS_LIB_NFSERR_DQUOT: CInt = EDQUOT
 
 public val S_NFS_LIB_NFSERR_STALE: CInt = ESTALE
 
-public val S_NFS_LIB_NFSERR_WFLUSH: CInt = M_NFS_STAT or nfsstat.NFSERR_WFLUSH.value.toInt()
+public val S_NFS_LIB_NFSERR_WFLUSH: CInt = M_NFS_STAT or Nfsstat.NFSERR_WFLUSH.value.toInt()
 
-public val S_NFS_LIB_NFSERR_REMOTE: CInt = M_NFS_STAT or nfsstat.NFSERR_REMOTE.value.toInt()
+public val S_NFS_LIB_NFSERR_REMOTE: CInt = M_NFS_STAT or Nfsstat.NFSERR_REMOTE.value.toInt()
 
-public val S_NFS_LIB_NFSERR_BADHANDLE: CInt = M_NFS_STAT or nfsstat.NFSERR_BADHANDLE.value.toInt()
+public val S_NFS_LIB_NFSERR_BADHANDLE: CInt = M_NFS_STAT or Nfsstat.NFSERR_BADHANDLE.value.toInt()
 
-public val S_NFS_LIB_NFSERR_NOT_SYNC: CInt = M_NFS_STAT or nfsstat.NFSERR_NOT_SYNC.value.toInt()
+public val S_NFS_LIB_NFSERR_NOT_SYNC: CInt = M_NFS_STAT or Nfsstat.NFSERR_NOT_SYNC.value.toInt()
 
-public val S_NFS_LIB_NFSERR_BAD_COOKIE: CInt = M_NFS_STAT or nfsstat.NFSERR_BAD_COOKIE.value.toInt()
+public val S_NFS_LIB_NFSERR_BAD_COOKIE: CInt = M_NFS_STAT or Nfsstat.NFSERR_BAD_COOKIE.value.toInt()
 
 public val S_NFS_LIB_NFSERR_NOTSUPP: CInt = EOPNOTSUPP
 
-public val S_NFS_LIB_NFSERR_TOOSMALL: CInt = M_NFS_STAT or nfsstat.NFSERR_TOOSMALL.value.toInt()
+public val S_NFS_LIB_NFSERR_TOOSMALL: CInt = M_NFS_STAT or Nfsstat.NFSERR_TOOSMALL.value.toInt()
 
 public val S_NFS_LIB_NFSERR_SERVERFAULT: CInt = EIO
 
-public val S_NFS_LIB_NFSERR_BADTYPE: CInt = M_NFS_STAT or nfsstat.NFSERR_BADTYPE.value.toInt()
+public val S_NFS_LIB_NFSERR_BADTYPE: CInt = M_NFS_STAT or Nfsstat.NFSERR_BADTYPE.value.toInt()
 
-public val S_NFS_LIB_NFSERR_JUKEBOX: CInt = M_NFS_STAT or nfsstat.NFSERR_JUKEBOX.value.toInt()
+public val S_NFS_LIB_NFSERR_JUKEBOX: CInt = M_NFS_STAT or Nfsstat.NFSERR_JUKEBOX.value.toInt()
 
 // internal offset values for below constants
 public val TASK_ERROR_BASE: CInt = 0x00030000

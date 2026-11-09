@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.linuxlike.l4re.Off64T

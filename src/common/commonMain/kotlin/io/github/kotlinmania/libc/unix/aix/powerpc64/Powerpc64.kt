@@ -831,7 +831,7 @@ public data class FpregT(public var d: CDouble = 0.0) {
 
     public override fun hashCode(): Int {
         var state = 0
-        val d: ULong = this.d.toBits()
+        val d: ULong = this.d.toRawBits().toULong()
         state = 31 * state + (d).hashCode()
         return state
     }

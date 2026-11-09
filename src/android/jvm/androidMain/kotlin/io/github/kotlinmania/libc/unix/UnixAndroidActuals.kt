@@ -14,15 +14,15 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.unix.bsd.UsecondsT
 import io.github.kotlinmania.libc.unix.bsd.apple.DevT
-import io.github.kotlinmania.libc.unix.bsd.apple.SpeedT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadKeyT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SpeedT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.ClockT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.NfdsT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadKeyT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.PthreadT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ClockT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.WcharT
 
 private object UnixJniBridge {
@@ -655,7 +655,7 @@ private object UnixJniBridge {
     external fun libc_unix_realpath(pathname: String?, resolved: Long): Long
 
     @JvmStatic
-    external fun libc_unix_times(buf: Long): Long
+    external fun libc_unix_times(buf: Long): Int
 
     @JvmStatic
     external fun libc_unix_pthreadSelf(): Long
@@ -943,16 +943,16 @@ private object UnixJniBridge {
     external fun libc_unix_tcdrain(fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cfgetispeed(termios: Long): Long
+    external fun libc_unix_cfgetispeed(termios: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cfgetospeed(termios: Long): Long
+    external fun libc_unix_cfgetospeed(termios: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cfsetispeed(termios: Long, speed: Long): Int
+    external fun libc_unix_cfsetispeed(termios: Long, speed: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cfsetospeed(termios: Long, speed: Long): Int
+    external fun libc_unix_cfsetospeed(termios: Long, speed: Int): Int
 
     @JvmStatic
     external fun libc_unix_tcgetattr(fd: Int, termios: Long): Int
@@ -1072,7 +1072,7 @@ private object UnixJniBridge {
     external fun libc_unix_cfmakeraw(termios: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cfsetspeed(termios: Long, speed: Long): Int
+    external fun libc_unix_cfsetspeed(termios: Long, speed: Int): Int
 
     @JvmStatic
     external fun libc_unix_fnmatch(pattern: String?, name: String?, flags: Int): Int
@@ -1797,13 +1797,13 @@ public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateD
     UnixJniBridge.libc_unix_pthreadKeyCreate((key?.value ?: 0L), 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    UnixJniBridge.libc_unix_pthreadKeyDelete(key.toInt())
+    UnixJniBridge.libc_unix_pthreadKeyDelete(key)
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    UnixJniBridge.libc_unix_pthreadGetspecific(key.toInt()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixJniBridge.libc_unix_pthreadGetspecific(key).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    UnixJniBridge.libc_unix_pthreadSetspecific(key.toInt(), (value?.value ?: 0L))
+    UnixJniBridge.libc_unix_pthreadSetspecific(key, (value?.value ?: 0L))
 
 public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
     UnixJniBridge.libc_unix_pthreadMutexInit((lock?.value ?: 0L), (attr?.value ?: 0L))
@@ -2049,16 +2049,16 @@ public actual fun tcdrain(fd: CInt): CInt =
     UnixJniBridge.libc_unix_tcdrain(fd)
 
 public actual fun cfgetispeed(termios: COpaquePointer?): SpeedT =
-    UnixJniBridge.libc_unix_cfgetispeed((termios?.value ?: 0L)).toULong()
+    UnixJniBridge.libc_unix_cfgetispeed((termios?.value ?: 0L)).toUInt()
 
 public actual fun cfgetospeed(termios: COpaquePointer?): SpeedT =
-    UnixJniBridge.libc_unix_cfgetospeed((termios?.value ?: 0L)).toULong()
+    UnixJniBridge.libc_unix_cfgetospeed((termios?.value ?: 0L)).toUInt()
 
 public actual fun cfsetispeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    UnixJniBridge.libc_unix_cfsetispeed((termios?.value ?: 0L), speed.toLong())
+    UnixJniBridge.libc_unix_cfsetispeed((termios?.value ?: 0L), speed.toInt())
 
 public actual fun cfsetospeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    UnixJniBridge.libc_unix_cfsetospeed((termios?.value ?: 0L), speed.toLong())
+    UnixJniBridge.libc_unix_cfsetospeed((termios?.value ?: 0L), speed.toInt())
 
 public actual fun tcgetattr(fd: CInt, termios: COpaquePointer?): CInt =
     UnixJniBridge.libc_unix_tcgetattr(fd, (termios?.value ?: 0L))
@@ -2189,7 +2189,7 @@ public actual fun cfmakeraw(termios: COpaquePointer?): CInt =
     UnixJniBridge.libc_unix_cfmakeraw((termios?.value ?: 0L))
 
 public actual fun cfsetspeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    UnixJniBridge.libc_unix_cfsetspeed((termios?.value ?: 0L), speed.toLong())
+    UnixJniBridge.libc_unix_cfsetspeed((termios?.value ?: 0L), speed.toInt())
 
 public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
     UnixJniBridge.libc_unix_fnmatch(pattern, name, flags)

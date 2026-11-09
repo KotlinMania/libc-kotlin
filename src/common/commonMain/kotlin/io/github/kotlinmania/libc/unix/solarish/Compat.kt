@@ -49,13 +49,13 @@ public fun cfmakeraw(termios: Termios?) {
 public fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt {
     // Neither of these functions on illumos or Solaris actually ever
     // return an error
-    cfsetispeed(termios, speed)
-    cfsetospeed(termios, speed)
+    cfsetispeed(((termios)?.let { COpaquePointer(it.hashCode().toLong()) }), speed)
+    cfsetospeed(((termios)?.let { COpaquePointer(it.hashCode().toLong()) }), speed)
     return 0
 }
 
 public fun bail(fdm: CInt, fds: CInt): CInt {
-    val e = errno()
+    val e = (errno()?.rawValue ?: 0L).toInt()
     if (fds >= 0) {
         close(fds)
     }
@@ -88,27 +88,27 @@ public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: T
     }
     // Open the subordinate device without setting it as the controlling
     // terminal for this process:
-    val fds = open(subordpath, O_RDWR or O_NOCTTY)
+    val fds = open(((subordpath)?.toString()), O_RDWR or O_NOCTTY)
     if (fds < 0) {
         return bail(fdm, -1)
     }
     // Check if the STREAMS modules are already pushed:
-    val setup = ioctl(fds, I_FIND, ((LDTERM)?.hashCode()?.toLong() ?: 0L))
+    val setup = ioctl(fds, I_FIND, LDTERM)
     if (setup < 0) {
         return bail(fdm, fds)
     } else if (setup == 0) {
         // The line discipline is not present, so push the appropriate STREAMS
         // modules for the subordinate device:
-        if (ioctl(fds, I_PUSH, ((PTEM)?.hashCode()?.toLong() ?: 0L)) < 0 || ioctl(fds, I_PUSH, ((LDTERM)?.hashCode()?.toLong() ?: 0L)) < 0) {
+        if (ioctl(fds, I_PUSH, PTEM) < 0 || ioctl(fds, I_PUSH, LDTERM) < 0) {
             return bail(fdm, fds)
         }
     }
     // If provided, set the terminal parameters:
-    if (!(termp == null) && tcsetattr(fds, TCSAFLUSH, termp) != 0) {
+    if (!(termp == null) && tcsetattr(fds, TCSAFLUSH, ((termp)?.let { COpaquePointer(it.hashCode().toLong()) })) != 0) {
         return bail(fdm, fds)
     }
     // If provided, set the window size:
-    if (!(winp == null) && ioctl(fds, TIOCSWINSZ, ((winp)?.hashCode()?.toLong() ?: 0L)) < 0) {
+    if (!(winp == null) && ioctl(fds, TIOCSWINSZ, ((winp)?.let { COpaquePointer(it.hashCode().toLong()) })) < 0) {
         return bail(fdm, fds)
     }
     // If the caller wants the name of the subordinate device, copy it out.
@@ -117,7 +117,7 @@ public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: T
     // upper bound on the copy length for this pointer.  Nobody should pass
     // anything but NULL here, preferring instead to use ptsname(3C) directly.
     if (!(name == null)) {
-        strcpy(name, subordpath)
+        strcpy(name, ((subordpath)?.toString()))
     }
     amain = fdm
     asubord = fds
@@ -145,7 +145,7 @@ public fun forkpty(amain: CInt?, name: COpaquePointer?, termp: Termios?, winp: W
     // terminal.  This will fail (with ENOTTY) if we are not the leader in
     // our own session, so we call setsid() first.  Finally, arrange for
     // the pseudo-terminal to occupy the standard I/O descriptors.
-    if (setsid() < 0 || ioctl(fds, TIOCSCTTY, ((0)?.hashCode()?.toLong() ?: 0L)) < 0 || dup2(fds, 0) < 0 || dup2(fds, 1) < 0 || dup2(fds, 2) < 0) {
+    if (setsid() < 0 || ioctl(fds, TIOCSCTTY, 0) < 0 || dup2(fds, 0) < 0 || dup2(fds, 1) < 0 || dup2(fds, 2) < 0) {
         // At this stage there are no particularly good ways to handle failure.
         // Exit as abruptly as possible, using _exit() to avoid messing with any
         // state still shared with the parent process.
@@ -161,11 +161,11 @@ public fun forkpty(amain: CInt?, name: COpaquePointer?, termp: Termios?, winp: W
 
 public fun getpwentR(pwd: Passwd?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt {
     var result = result
-    val oldErrno = errno()
+    val oldErrno = (errno()?.rawValue ?: 0L).toInt()
     run { errno(); 0 }
-    result = nativeGetpwentR(pwd, buf, minOf(buflen, CInt.MAX_VALUE.value.toULong()).toInt())
+    result = nativeGetpwentR(pwd, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
     val ret = if ((result!! == null)) {
-        errno()
+        (errno()?.rawValue ?: 0L).toInt()
     } else {
         0
     }
@@ -175,11 +175,11 @@ public fun getpwentR(pwd: Passwd?, buf: COpaquePointer?, buflen: SizeT, result: 
 
 public fun getgrentR(grp: Group?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt {
     var result = result
-    val oldErrno = errno()
+    val oldErrno = (errno()?.rawValue ?: 0L).toInt()
     run { errno(); 0 }
-    result = nativeGetgrentR(grp, buf, minOf(buflen, CInt.MAX_VALUE.value.toULong()).toInt())
+    result = nativeGetgrentR(grp, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
     val ret = if ((result!! == null)) {
-        errno()
+        (errno()?.rawValue ?: 0L).toInt()
     } else {
         0
     }

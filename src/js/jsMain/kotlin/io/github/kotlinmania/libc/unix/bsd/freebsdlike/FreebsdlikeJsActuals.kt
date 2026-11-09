@@ -9,8 +9,8 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -21,9 +21,9 @@ import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.ClockidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.DevT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
 
 private val _unixBsdFreebsdlikeNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
@@ -50,16 +50,16 @@ public actual fun chflagsat(fd: CInt, path: String?, flags: CUlong, atflag: CInt
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_chflagsat(fd, path, flags.toString(), atflag) as Int) else 0
 
 public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockNanosleep(clkId.toString(), flags, (rqtp?.value ?: 0L).toString(), (rmtp?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockNanosleep(clkId, flags, (rqtp?.value ?: 0L).toString(), (rmtp?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockGetres(clkId.toString(), (tp?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockGetres(clkId, (tp?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockGettime(clkId.toString(), (tp?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockGettime(clkId, (tp?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockSettime(clkId.toString(), (tp?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockSettime(clkId, (tp?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_clockGetcpuclockid(pid, (clkId?.value ?: 0L).toString()) as Int) else 0
@@ -188,7 +188,7 @@ public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpa
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_pthreadCondattrGetpshared((attr?.value ?: 0L).toString(), (pshared?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_pthreadCondattrSetclock((attr?.value ?: 0L).toString(), clockId.toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_pthreadCondattrSetclock((attr?.value ?: 0L).toString(), clockId) as Int) else 0
 
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_pthreadCondattrSetpshared((attr?.value ?: 0L).toString(), pshared) as Int) else 0
@@ -479,31 +479,31 @@ public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CIn
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_posixSpawnFileActionsAdddup2((actions?.value ?: 0L).toString(), fd, newfd) as Int) else 0
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqClose(mqd.toLong().toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqClose((mqd?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqGetattr(mqd.toLong().toString(), (attr?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqGetattr((mqd?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqNotify(mqd.toLong().toString(), (notification?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqNotify((mqd?.value ?: 0L).toString(), (notification?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    null
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqReceive(mqd.toLong().toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString()) as String).toLong() else 0L
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqReceive((mqd?.value ?: 0L).toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqSend(mqd.toLong().toString(), msgPtr, msgLen.toString(), msgPrio.toInt()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqSend((mqd?.value ?: 0L).toString(), msgPtr, msgLen.toString(), msgPrio.toInt()) as Int) else 0
 
 public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqSetattr(mqd.toLong().toString(), (newattr?.value ?: 0L).toString(), (oldattr?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqSetattr((mqd?.value ?: 0L).toString(), (newattr?.value ?: 0L).toString(), (oldattr?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqTimedreceive(mqd.toLong().toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString(), (absTimeout?.value ?: 0L).toString()) as String).toLong() else 0L
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqTimedreceive((mqd?.value ?: 0L).toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString(), (absTimeout?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqTimedsend(mqd.toLong().toString(), msgPtr, msgLen.toString(), msgPrio.toInt(), (absTimeout?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqTimedsend((mqd?.value ?: 0L).toString(), msgPtr, msgLen.toString(), msgPrio.toInt(), (absTimeout?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqUnlink(name: String?): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqUnlink(name) as Int) else 0

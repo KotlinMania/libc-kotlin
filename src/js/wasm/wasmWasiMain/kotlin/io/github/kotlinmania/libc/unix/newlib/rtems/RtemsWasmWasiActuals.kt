@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.unix.newlib.rtems
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.newlib.ClockidT

@@ -39,7 +39,7 @@ public fun interface DlIteratePhdrCallbackCallback {
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val next = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt() > max) {
+    return if (((((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }))?.rawValue ?: 0L).toInt() > max) {
         null
     } else {
         ((next as Any?) as Cmsghdr?)
@@ -102,7 +102,7 @@ public fun nlaAlign(len: CInt): CInt {
 }
 
 public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return (((ee)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as Sockaddr?)
+    return null
 }
 
 public fun makedev(ma: CUint, mi: CUint): DevT {

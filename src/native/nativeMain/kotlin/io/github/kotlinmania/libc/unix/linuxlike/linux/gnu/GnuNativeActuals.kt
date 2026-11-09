@@ -8,7 +8,7 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT

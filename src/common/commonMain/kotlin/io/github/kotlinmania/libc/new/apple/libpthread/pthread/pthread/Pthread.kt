@@ -68,4 +68,4 @@ public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(sig = PTHREA
 
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(sig = PTHREAD_COND_SIG_INIT, opaque = UByteArray((PTHREAD_COND_SIZE).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(sig = PTHREAD_ONCE_SIG_INIT, opaque = ByteArray((PTHREAD_ONCE_SIZE).toInt()) { 0.toByte() })
+public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(sig = PTHREAD_ONCE_SIG_INIT, opaque = UByteArray((PTHREAD_ONCE_SIZE).toInt()) { 0u.toUByte() })

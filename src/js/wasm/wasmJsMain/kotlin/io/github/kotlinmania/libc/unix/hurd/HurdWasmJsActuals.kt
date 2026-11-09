@@ -5,9 +5,12 @@ package io.github.kotlinmania.libc.unix.hurd
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.SizeT
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =

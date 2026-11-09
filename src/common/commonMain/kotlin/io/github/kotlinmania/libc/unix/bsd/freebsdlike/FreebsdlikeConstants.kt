@@ -18,8 +18,8 @@ import io.github.kotlinmania.libc.unix.bsd.POLLPRI
 import io.github.kotlinmania.libc.unix.bsd.POLLRDBAND
 import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
 import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.ClockidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.SemT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SemT
 
 // Non-public helper constant
 public val SIZEOF_LONG: Int = 8
@@ -680,33 +680,33 @@ public val RUSAGE_SELF: CInt = 0
 
 public val RUSAGE_CHILDREN: CInt = -1
 
-public val CLOCK_REALTIME: ClockidT = 0uL
+public val CLOCK_REALTIME: ClockidT = 0
 
-public val CLOCK_VIRTUAL: ClockidT = 1uL
+public val CLOCK_VIRTUAL: ClockidT = 1
 
-public val CLOCK_PROF: ClockidT = 2uL
+public val CLOCK_PROF: ClockidT = 2
 
-public val CLOCK_MONOTONIC: ClockidT = 4uL
+public val CLOCK_MONOTONIC: ClockidT = 4
 
-public val CLOCK_UPTIME: ClockidT = 5uL
+public val CLOCK_UPTIME: ClockidT = 5
 
-public val CLOCK_UPTIME_PRECISE: ClockidT = 7uL
+public val CLOCK_UPTIME_PRECISE: ClockidT = 7
 
-public val CLOCK_UPTIME_FAST: ClockidT = 8uL
+public val CLOCK_UPTIME_FAST: ClockidT = 8
 
-public val CLOCK_REALTIME_PRECISE: ClockidT = 9uL
+public val CLOCK_REALTIME_PRECISE: ClockidT = 9
 
-public val CLOCK_REALTIME_FAST: ClockidT = 10uL
+public val CLOCK_REALTIME_FAST: ClockidT = 10
 
-public val CLOCK_MONOTONIC_PRECISE: ClockidT = 11uL
+public val CLOCK_MONOTONIC_PRECISE: ClockidT = 11
 
-public val CLOCK_MONOTONIC_FAST: ClockidT = 12uL
+public val CLOCK_MONOTONIC_FAST: ClockidT = 12
 
-public val CLOCK_SECOND: ClockidT = 13uL
+public val CLOCK_SECOND: ClockidT = 13
 
-public val CLOCK_THREAD_CPUTIME_ID: ClockidT = 14uL
+public val CLOCK_THREAD_CPUTIME_ID: ClockidT = 14
 
-public val CLOCK_PROCESS_CPUTIME_ID: ClockidT = 15uL
+public val CLOCK_PROCESS_CPUTIME_ID: ClockidT = 15
 
 public val MADV_NORMAL: CInt = 0
 

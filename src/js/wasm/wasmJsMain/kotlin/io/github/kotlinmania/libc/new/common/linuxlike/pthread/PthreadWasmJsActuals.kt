@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 

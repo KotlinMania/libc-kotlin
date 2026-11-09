@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.windows.msvc
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.windows.SizeT
 
 public actual fun stricmp(s1: String?, s2: String?): CInt =

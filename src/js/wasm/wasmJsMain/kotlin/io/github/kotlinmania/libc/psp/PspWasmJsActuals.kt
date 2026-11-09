@@ -2,6 +2,8 @@
 
 package io.github.kotlinmania.libc.psp
 
+import io.github.kotlinmania.libc.COpaquePointer
+
 public actual fun sceAudioChReserve(channel: Int, sampleCount: Int, format: AudioFormat): Int =
     0
 

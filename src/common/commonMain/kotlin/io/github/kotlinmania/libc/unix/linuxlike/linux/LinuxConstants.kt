@@ -2599,13 +2599,13 @@ public val TLS_1_2_VERSION_MAJOR: U8 = 0x3u
 
 public val TLS_1_2_VERSION_MINOR: U8 = 0x3u
 
-public val TLS_1_2_VERSION: U16 = (((TLS_1_2_VERSION_MAJOR.toUShort()) shl 8) or (TLS_1_2_VERSION_MINOR.toUShort())).toUShort()
+public val TLS_1_2_VERSION: U16 = ((((TLS_1_2_VERSION_MAJOR.toUShort()).toUInt() shl 8).toUShort()) or (TLS_1_2_VERSION_MINOR.toUShort())).toUShort()
 
 public val TLS_1_3_VERSION_MAJOR: U8 = 0x3u
 
 public val TLS_1_3_VERSION_MINOR: U8 = 0x4u
 
-public val TLS_1_3_VERSION: U16 = (((TLS_1_3_VERSION_MAJOR.toUShort()) shl 8) or (TLS_1_3_VERSION_MINOR.toUShort())).toUShort()
+public val TLS_1_3_VERSION: U16 = ((((TLS_1_3_VERSION_MAJOR.toUShort()).toUInt() shl 8).toUShort()) or (TLS_1_3_VERSION_MINOR.toUShort())).toUShort()
 
 public val TLS_CIPHER_AES_GCM_128: U16 = 51u
 

@@ -26,13 +26,13 @@ public fun interface PthreadKeyCreateDtorCallback {
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val set1 = set!!
     val n = set1.nfds
-    return set1.fds.slice(0 until n).iter().any({ p -> p == fd })
+    return set1.fds.slice(0 until n).any({ p -> p == fd })
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val set1 = set!!
     val n = set1.nfds
-    if (!set1.fds.slice(0 until n).iter().any({ p -> p == fd })) {
+    if (!set1.fds.slice(0 until n).any({ p -> p == fd })) {
         set1.nfds = n + 1
         set1.fds[n] = fd
     }
@@ -169,9 +169,9 @@ public expect fun asctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePoint
 
 public expect fun ctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer?
 
-public expect val CLOCK_MONOTONIC: UByte
+public expect val CLOCK_MONOTONIC1: UByte
 
-public expect val CLOCK_REALTIME: UByte
+public expect val CLOCK_REALTIME1: UByte
 
 public expect fun nanosleep(a: COpaquePointer?, b: COpaquePointer?): CInt
 

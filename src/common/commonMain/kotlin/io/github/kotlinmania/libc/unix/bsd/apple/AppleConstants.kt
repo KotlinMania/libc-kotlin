@@ -2806,7 +2806,7 @@ public val RTLD_GLOBAL: CInt = 0x8
 
 public val RTLD_MAIN_ONLY: COpaquePointer? = COpaquePointer((-5).toLong())
 
-public val WSTOPPED: CInt = 127
+public val WSTOPPED1: CInt = 127
 
 public val LOG_NETINFO: CInt = 12 shl 3
 

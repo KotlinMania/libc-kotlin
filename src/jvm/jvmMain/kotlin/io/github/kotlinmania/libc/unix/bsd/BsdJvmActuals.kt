@@ -9,8 +9,8 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -18,8 +18,8 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.bsd.apple.DevT
-import io.github.kotlinmania.libc.unix.bsd.apple.ModeT
-import io.github.kotlinmania.libc.unix.bsd.apple.NlItem
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.NlItem
 
 private object UnixBsdJniBridge {
     init {

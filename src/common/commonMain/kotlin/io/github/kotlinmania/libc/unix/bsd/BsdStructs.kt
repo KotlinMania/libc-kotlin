@@ -11,7 +11,7 @@ import io.github.kotlinmania.libc.unix.InPortT
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.bsd.apple.FD_SETSIZE
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.FD_SETSIZE
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
 
 public data class Sockaddr(

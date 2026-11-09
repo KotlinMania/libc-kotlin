@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT

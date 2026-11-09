@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread.introspection
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadKeyT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 

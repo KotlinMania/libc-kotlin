@@ -8,6 +8,7 @@ import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
@@ -19,10 +20,10 @@ public actual var ENVIRON: COpaquePointer?
         _ffi_static_ENVIRON = value
     }
 
-public actual val CLOCK_MONOTONIC: UByte
+public actual val CLOCK_MONOTONIC1: UByte
     get() = 0u
 
-public actual val CLOCK_REALTIME: UByte
+public actual val CLOCK_REALTIME1: UByte
     get() = 0u
 
 public actual fun exit(code: CInt): Nothing =

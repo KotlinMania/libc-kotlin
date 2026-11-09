@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt.sys.mman
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 

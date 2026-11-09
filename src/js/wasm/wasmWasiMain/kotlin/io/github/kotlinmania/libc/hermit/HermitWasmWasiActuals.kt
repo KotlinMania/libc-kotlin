@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun alloc(size: ULong, align: ULong): COpaquePointer? =
     null

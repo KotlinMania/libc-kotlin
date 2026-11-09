@@ -45,28 +45,28 @@ public fun ioc(dir: UInt, ty: UInt, nr: UInt, size: Int): Ioctl {
  * Build an ioctl number for an argumentless ioctl.
  */
 public fun io(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_NONE, ty, nr, 0)
+    return ioc(IOC_NONE.toULong(), ty.toULong(), nr.toULong(), 0uL)
 }
 
 /**
  * Build an ioctl number for an read-only ioctl.
  */
 public fun <T> ior(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_READ, ty, nr, 8)
+    return ioc(IOC_READ.toULong(), ty.toULong(), nr.toULong(), 8uL.toULong())
 }
 
 /**
  * Build an ioctl number for an write-only ioctl.
  */
 public fun <T> iow(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_WRITE, ty, nr, 8)
+    return ioc(IOC_WRITE.toULong(), ty.toULong(), nr.toULong(), 8uL.toULong())
 }
 
 /**
  * Build an ioctl number for a read-write ioctl.
  */
 public fun <T> iowr(ty: UInt, nr: UInt): Ioctl {
-    return ioc(IOC_READ or IOC_WRITE, ty, nr, 8)
+    return ioc(IOC_READ or IOC_WRITE, ty.toULong(), nr.toULong(), 8uL.toULong())
 }
 
 public expect fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt
@@ -84,7 +84,7 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as COpaquePointer?)
+    return (cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {

@@ -6,7 +6,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.new.qurt.FILE
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.VaList
 

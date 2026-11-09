@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.wasi.p2
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.wasi.SizeT
 import io.github.kotlinmania.libc.wasi.SsizeT
 

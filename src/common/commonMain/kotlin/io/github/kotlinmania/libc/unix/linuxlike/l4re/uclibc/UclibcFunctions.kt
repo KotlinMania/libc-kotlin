@@ -44,7 +44,7 @@ public fun SiginfoT.siAddr(): COpaquePointer? {
         public var siCode: CInt = 0,
         public var siAddr: COpaquePointer? = null,
     )
-    return ((fromRef(this) as Any?) as SiginfoSigfault?)!!.siAddr
+    return ((this as Any?) as SiginfoSigfault?)!!.siAddr
 }
 
 public fun SiginfoT.siValue(): Sigval {
@@ -56,11 +56,11 @@ public fun SiginfoT.siValue(): Sigval {
         public var siOverrun: CInt = 0,
         public var siValue: Sigval = Sigval(),
     )
-    return ((fromRef(this) as Any?) as SiginfoSiValue?)!!.siValue
+    return ((this as Any?) as SiginfoSiValue?)!!.siValue
 }
 
 public fun SiginfoT.sifields(): Sifields {
-    return ((fromRef(this) as Any?) as SiginfoF?)!!.sifields
+    return ((this as Any?) as SiginfoF?)!!.sifields
 }
 
 public fun SiginfoT.siPid(): PidT {

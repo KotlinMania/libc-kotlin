@@ -96,4 +96,4 @@ public data class MsqidDs(
     public var pad2: CUlong = 0uL,
 )
 
-public data class MaxAlignT(public var priv: Pair<Long, Double> = Pair<Long, Double>())
+public data class MaxAlignT(public var priv: Pair<Long, Double> = Pair<Long, Double>(0L, 0.0))

@@ -4,6 +4,7 @@ package io.github.kotlinmania.libc.new.qurt.unistd
 
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.PidT

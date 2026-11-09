@@ -70,15 +70,15 @@ public fun wstatus(status: CInt): CInt {
 }
 
 public fun wifcontinued(status: CInt): Boolean {
-    return wstatus(status) == WSTOPPED && wstopsig(status) == 0x13
+    return wstatus(status) == WSTOPPED1 && wstopsig(status) == 0x13
 }
 
 public fun wifsignaled(status: CInt): Boolean {
-    return wstatus(status) != WSTOPPED && wstatus(status) != 0
+    return wstatus(status) != WSTOPPED1 && wstatus(status) != 0
 }
 
 public fun wifstopped(status: CInt): Boolean {
-    return wstatus(status) == WSTOPPED && wstopsig(status) != 0x13
+    return wstatus(status) == WSTOPPED1 && wstopsig(status) != 0x13
 }
 
 public fun makedev(major: Int, minor: Int): DevT {

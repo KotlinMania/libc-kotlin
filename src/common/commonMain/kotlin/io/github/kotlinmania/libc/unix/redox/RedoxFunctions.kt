@@ -15,7 +15,7 @@ public fun interface PthreadCreateStartCallback {
 
 // intentionally not public, only used for fdSet
 public fun cmsgAlign(len: SizeT): SizeT {
-    return (len + 8uL.toULong() - 1uL) and ((8 - 1).inv()).toULong()
+    return (len + 8uL - 1uL) and (8uL - 1uL).inv()
 }
 
 public fun cmsgLen(length: CUint): CUint {

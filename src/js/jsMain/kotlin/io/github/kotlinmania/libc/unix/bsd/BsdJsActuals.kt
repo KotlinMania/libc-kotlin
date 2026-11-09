@@ -9,8 +9,8 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -18,8 +18,8 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.bsd.apple.DevT
-import io.github.kotlinmania.libc.unix.bsd.apple.ModeT
-import io.github.kotlinmania.libc.unix.bsd.apple.NlItem
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.NlItem
 
 private val _unixBsdNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")

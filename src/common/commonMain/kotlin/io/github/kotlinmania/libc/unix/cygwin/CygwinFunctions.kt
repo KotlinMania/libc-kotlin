@@ -120,7 +120,7 @@ public fun cmsgSpace(length: CUint): CUint {
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
     return if ((mhdr!!.msgControllen).toInt() >= 8) {
-        mhdr!!.msgControl.cast()
+        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
     } else {
         null
     }
@@ -137,7 +137,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }.cast()
+    return ((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) })?.let { COpaquePointer(it.hashCode().toLong()) }
 }
 
 public fun makedev(ma: CUint, mi: CUint): DevT {

@@ -16,8 +16,8 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.bsd.apple.DevT
-import io.github.kotlinmania.libc.unix.bsd.apple.ModeT
-import io.github.kotlinmania.libc.unix.bsd.apple.NlItem
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.NlItem
 
 public fun interface GlobErrfuncCallback {
     public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt

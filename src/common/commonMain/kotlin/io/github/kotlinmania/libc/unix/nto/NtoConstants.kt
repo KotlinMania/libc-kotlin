@@ -2794,7 +2794,7 @@ public val PTHREAD_PROCESS_SHARED: CInt = 0x01
 
 public val PTHREAD_KEYS_MAX: Int = 128
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000u, owner = 0xffffffff.toInt())
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000u, owner = 0xffffffffu)
 
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffbu)
 

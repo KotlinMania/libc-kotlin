@@ -5397,10 +5397,10 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1times(JNIEnv* km_env, jclass km_clazz, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1times(JNIEnv* km_env, jclass km_clazz, jlong buf) {
     (void)km_env;
     (void)km_clazz;
-    typedef int64_t (*km_fn_t)(void*);
+    typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -5418,8 +5418,8 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "times");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)buf) : -1;
-    return (jlong)km_res;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)buf) : -1;
+    return (jint)km_res;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1pthreadSelf(JNIEnv* km_env, jclass km_clazz) {
@@ -5724,7 +5724,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1pthreadKeyDelete(JNIEnv* km_env, jclass km_clazz, jint key) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(uint32_t);
+    typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -5742,14 +5742,14 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_key_delete");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)key) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)key) : -1;
     return (jint)km_res;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1pthreadGetspecific(JNIEnv* km_env, jclass km_clazz, jint key) {
     (void)km_env;
     (void)km_clazz;
-    typedef void* (*km_fn_t)(uint32_t);
+    typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -5767,14 +5767,14 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getspecific");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)key) : NULL;
+    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)key) : NULL;
     return (jlong)(uintptr_t)km_res;
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1pthreadSetspecific(JNIEnv* km_env, jclass km_clazz, jint key, jlong value) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(uint32_t, void*);
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -5792,7 +5792,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_setspecific");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)key, (void*)(uintptr_t)value) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)key, (void*)(uintptr_t)value) : -1;
     return (jint)km_res;
 }
 
@@ -7821,10 +7821,10 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfgetispeed(JNIEnv* km_env, jclass km_clazz, jlong termios) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfgetispeed(JNIEnv* km_env, jclass km_clazz, jlong termios) {
     (void)km_env;
     (void)km_clazz;
-    typedef uint64_t (*km_fn_t)(void*);
+    typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -7842,14 +7842,14 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cfgetispeed");
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios) : 0;
-    return (jlong)km_res;
+    uint32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios) : 0;
+    return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfgetospeed(JNIEnv* km_env, jclass km_clazz, jlong termios) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfgetospeed(JNIEnv* km_env, jclass km_clazz, jlong termios) {
     (void)km_env;
     (void)km_clazz;
-    typedef uint64_t (*km_fn_t)(void*);
+    typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -7867,14 +7867,14 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cfgetospeed");
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios) : 0;
-    return (jlong)km_res;
+    uint32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios) : 0;
+    return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfsetispeed(JNIEnv* km_env, jclass km_clazz, jlong termios, jlong speed) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfsetispeed(JNIEnv* km_env, jclass km_clazz, jlong termios, jint speed) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -7892,14 +7892,14 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cfsetispeed");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios, (uint64_t)speed) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios, (uint32_t)speed) : -1;
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfsetospeed(JNIEnv* km_env, jclass km_clazz, jlong termios, jlong speed) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfsetospeed(JNIEnv* km_env, jclass km_clazz, jlong termios, jint speed) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -7917,7 +7917,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cfsetospeed");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios, (uint64_t)speed) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios, (uint32_t)speed) : -1;
     return (jint)km_res;
 }
 
@@ -8910,10 +8910,10 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfsetspeed(JNIEnv* km_env, jclass km_clazz, jlong termios, jlong speed) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1cfsetspeed(JNIEnv* km_env, jclass km_clazz, jlong termios, jint speed) {
     (void)km_env;
     (void)km_clazz;
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -8931,7 +8931,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cfsetspeed");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios, (uint64_t)speed) : -1;
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)termios, (uint32_t)speed) : -1;
     return (jint)km_res;
 }
 

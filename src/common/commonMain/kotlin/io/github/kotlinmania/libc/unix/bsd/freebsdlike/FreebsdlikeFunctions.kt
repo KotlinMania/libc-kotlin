@@ -19,9 +19,9 @@ import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.ClockidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.DevT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
 
 public fun interface DlIteratePhdrCallbackCallback {
     public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt

@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread.spawn
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.qos.QosClassT
 
 public actual fun posixSpawnattrSetQosClassNp(attr: COpaquePointer?, qosClass: QosClassT): CInt =

@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.unix.nto
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.PidT
 

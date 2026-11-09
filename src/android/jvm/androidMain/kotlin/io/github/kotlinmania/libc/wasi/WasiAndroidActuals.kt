@@ -842,10 +842,10 @@ public actual var ENVIRON: COpaquePointer?
         _ffi_static_ENVIRON = value
     }
 
-public actual val CLOCK_MONOTONIC: UByte
+public actual val CLOCK_MONOTONIC1: UByte
     get() = 0u
 
-public actual val CLOCK_REALTIME: UByte
+public actual val CLOCK_REALTIME1: UByte
     get() = 0u
 
 public actual fun exit(code: CInt): Nothing {

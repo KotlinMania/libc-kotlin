@@ -6,7 +6,7 @@ import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.new.qurt.GidT
 import io.github.kotlinmania.libc.new.qurt.ModeT
 import io.github.kotlinmania.libc.new.qurt.UidT
-import io.github.kotlinmania.libc.unix.bsd.apple.KeyT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KeyT
 
 // Header: `sys / ipc.h`
 //
@@ -19,5 +19,5 @@ public data class IpcPerm(
     public var gid: GidT = 0u,
     public var mode: ModeT = 0u,
     public var seq: CUshort = 0u,
-    public var key: KeyT = 0,
+    public var key: KeyT = 0L,
 )

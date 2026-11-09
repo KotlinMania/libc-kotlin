@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.windows.gnu
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.windows.SizeT
 import io.github.kotlinmania.libc.windows.WcharT
 

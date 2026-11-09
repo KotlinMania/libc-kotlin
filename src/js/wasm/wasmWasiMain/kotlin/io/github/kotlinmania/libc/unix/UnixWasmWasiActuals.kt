@@ -8,20 +8,21 @@ import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.unix.bsd.UsecondsT
 import io.github.kotlinmania.libc.unix.bsd.apple.DevT
-import io.github.kotlinmania.libc.unix.bsd.apple.SpeedT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadKeyT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SpeedT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.ClockT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.NfdsT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadKeyT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.PthreadT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ClockT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.WcharT
 
 public actual val IN6ADDR_LOOPBACK: In6Addr
@@ -691,7 +692,7 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
     null
 
 public actual fun times(buf: COpaquePointer?): ClockT =
-    0L
+    0
 
 public actual fun pthreadSelf(): PthreadT =
     0uL
@@ -979,10 +980,10 @@ public actual fun tcdrain(fd: CInt): CInt =
     0
 
 public actual fun cfgetispeed(termios: COpaquePointer?): SpeedT =
-    0uL
+    0u
 
 public actual fun cfgetospeed(termios: COpaquePointer?): SpeedT =
-    0uL
+    0u
 
 public actual fun cfsetispeed(termios: COpaquePointer?, speed: SpeedT): CInt =
     0

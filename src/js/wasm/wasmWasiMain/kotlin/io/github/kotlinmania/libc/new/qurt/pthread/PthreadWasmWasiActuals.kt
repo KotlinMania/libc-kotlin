@@ -4,6 +4,7 @@ package io.github.kotlinmania.libc.new.qurt.pthread
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.ClockidT
 import io.github.kotlinmania.libc.new.qurt.PthreadKeyT
 import io.github.kotlinmania.libc.new.qurt.PthreadT

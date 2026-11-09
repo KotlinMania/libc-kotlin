@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
@@ -881,7 +882,7 @@ public val PL_EVENT_SIGNAL: CInt = 1
 
 public val PL_EVENT_SUSPENDED: CInt = 2
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(ptmMagic = 0x33330003u, ptmErrorcheck = 0u, ptmPad1 = 0, ptmUnused = 0u, ptmPad2 = 0, ptmWaiters = null, ptmOwner = 0uL, ptmRecursed = 0u, ptmSpare2 = null)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(ptmMagic = 0x33330003u, ptmErrorcheck = 0u, ptmPad1 = UByteArray(0), ptmUnused = 0u, ptmPad2 = UByteArray(0), ptmWaiters = null, ptmOwner = 0uL, ptmRecursed = 0u, ptmSpare2 = null)
 
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(ptcMagic = 0x55550005u, ptcLock = 0u, ptcWaitersFirst = null, ptcWaitersLast = null, ptcMutex = null, ptcPrivate = null)
 

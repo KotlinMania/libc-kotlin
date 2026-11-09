@@ -7,7 +7,7 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.CcT
-import io.github.kotlinmania.libc.unix.bsd.apple.TcflagT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.TcflagT
 
 public val LC_ALL: CInt = 0
 
@@ -263,99 +263,99 @@ public val VSTATUS: Int = 18
 
 public val POSIX_VDISABLE: CcT = 0xffu
 
-public val IGNBRK: TcflagT = 0x00000001uL
+public val IGNBRK: TcflagT = 0x00000001u
 
-public val BRKINT: TcflagT = 0x00000002uL
+public val BRKINT: TcflagT = 0x00000002u
 
-public val IGNPAR: TcflagT = 0x00000004uL
+public val IGNPAR: TcflagT = 0x00000004u
 
-public val PARMRK: TcflagT = 0x00000008uL
+public val PARMRK: TcflagT = 0x00000008u
 
-public val INPCK: TcflagT = 0x00000010uL
+public val INPCK: TcflagT = 0x00000010u
 
-public val ISTRIP: TcflagT = 0x00000020uL
+public val ISTRIP: TcflagT = 0x00000020u
 
-public val INLCR: TcflagT = 0x00000040uL
+public val INLCR: TcflagT = 0x00000040u
 
-public val IGNCR: TcflagT = 0x00000080uL
+public val IGNCR: TcflagT = 0x00000080u
 
-public val ICRNL: TcflagT = 0x00000100uL
+public val ICRNL: TcflagT = 0x00000100u
 
-public val IXON: TcflagT = 0x00000200uL
+public val IXON: TcflagT = 0x00000200u
 
-public val IXOFF: TcflagT = 0x00000400uL
+public val IXOFF: TcflagT = 0x00000400u
 
-public val IXANY: TcflagT = 0x00000800uL
+public val IXANY: TcflagT = 0x00000800u
 
-public val IMAXBEL: TcflagT = 0x00002000uL
+public val IMAXBEL: TcflagT = 0x00002000u
 
-public val OPOST: TcflagT = 0x1uL
+public val OPOST: TcflagT = 0x1u
 
-public val ONLCR: TcflagT = 0x2uL
+public val ONLCR: TcflagT = 0x2u
 
-public val OXTABS: TcflagT = 0x4uL
+public val OXTABS: TcflagT = 0x4u
 
-public val ONOEOT: TcflagT = 0x8uL
+public val ONOEOT: TcflagT = 0x8u
 
-public val CIGNORE: TcflagT = 0x00000001uL
+public val CIGNORE: TcflagT = 0x00000001u
 
-public val CSIZE: TcflagT = 0x00000300uL
+public val CSIZE: TcflagT = 0x00000300u
 
-public val CS5: TcflagT = 0x00000000uL
+public val CS5: TcflagT = 0x00000000u
 
-public val CS6: TcflagT = 0x00000100uL
+public val CS6: TcflagT = 0x00000100u
 
-public val CS7: TcflagT = 0x00000200uL
+public val CS7: TcflagT = 0x00000200u
 
-public val CS8: TcflagT = 0x00000300uL
+public val CS8: TcflagT = 0x00000300u
 
-public val CSTOPB: TcflagT = 0x00000400uL
+public val CSTOPB: TcflagT = 0x00000400u
 
-public val CREAD: TcflagT = 0x00000800uL
+public val CREAD: TcflagT = 0x00000800u
 
-public val PARENB: TcflagT = 0x00001000uL
+public val PARENB: TcflagT = 0x00001000u
 
-public val PARODD: TcflagT = 0x00002000uL
+public val PARODD: TcflagT = 0x00002000u
 
-public val HUPCL: TcflagT = 0x00004000uL
+public val HUPCL: TcflagT = 0x00004000u
 
-public val CLOCAL: TcflagT = 0x00008000uL
+public val CLOCAL: TcflagT = 0x00008000u
 
-public val ECHOKE: TcflagT = 0x00000001uL
+public val ECHOKE: TcflagT = 0x00000001u
 
-public val ECHOE: TcflagT = 0x00000002uL
+public val ECHOE: TcflagT = 0x00000002u
 
-public val ECHOK: TcflagT = 0x00000004uL
+public val ECHOK: TcflagT = 0x00000004u
 
-public val ECHO: TcflagT = 0x00000008uL
+public val ECHO: TcflagT = 0x00000008u
 
-public val ECHONL: TcflagT = 0x00000010uL
+public val ECHONL: TcflagT = 0x00000010u
 
-public val ECHOPRT: TcflagT = 0x00000020uL
+public val ECHOPRT: TcflagT = 0x00000020u
 
-public val ECHOCTL: TcflagT = 0x00000040uL
+public val ECHOCTL: TcflagT = 0x00000040u
 
-public val ISIG: TcflagT = 0x00000080uL
+public val ISIG: TcflagT = 0x00000080u
 
-public val ICANON: TcflagT = 0x00000100uL
+public val ICANON: TcflagT = 0x00000100u
 
-public val ALTWERASE: TcflagT = 0x00000200uL
+public val ALTWERASE: TcflagT = 0x00000200u
 
-public val IEXTEN: TcflagT = 0x00000400uL
+public val IEXTEN: TcflagT = 0x00000400u
 
-public val EXTPROC: TcflagT = 0x00000800uL
+public val EXTPROC: TcflagT = 0x00000800u
 
-public val TOSTOP: TcflagT = 0x00400000uL
+public val TOSTOP: TcflagT = 0x00400000u
 
-public val FLUSHO: TcflagT = 0x00800000uL
+public val FLUSHO: TcflagT = 0x00800000u
 
-public val NOKERNINFO: TcflagT = 0x02000000uL
+public val NOKERNINFO: TcflagT = 0x02000000u
 
-public val PENDIN: TcflagT = 0x20000000uL
+public val PENDIN: TcflagT = 0x20000000u
 
-public val NOFLSH: TcflagT = 0x80000000uL
+public val NOFLSH: TcflagT = 0x80000000u
 
-public val MDMBUF: TcflagT = 0x00100000uL
+public val MDMBUF: TcflagT = 0x00100000u
 
 public val WNOHANG: CInt = 0x00000001
 

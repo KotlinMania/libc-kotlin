@@ -10,7 +10,7 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.IntptrT
 import io.github.kotlinmania.libc.unix.LocaleT

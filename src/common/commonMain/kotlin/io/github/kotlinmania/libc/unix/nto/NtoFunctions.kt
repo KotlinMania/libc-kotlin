@@ -97,7 +97,7 @@ public fun fdZero(set: FdSet?) {
 }
 
 public fun dextraFirst(d: Dirent?): DirentExtra? {
-    val f = ((((d).dName) as Any?) as COpaquePointer?)
+    val f = ((((d)!!.dName) as Any?) as DirentExtra?)
     val s = ((d)?.hashCode()?.toLong() ?: 0L).toInt()
     return null
 }

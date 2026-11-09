@@ -107,7 +107,7 @@ public val SHM_LOCK: CInt = 11
 public val SHM_UNLOCK: CInt = 12
 
 // unistd.h
-public val FD_SETSIZE: Int = 256
+public val FD_SETSIZE1: Int = 256
 
 public val R_OK: CInt = 4
 
@@ -161,13 +161,23 @@ public val WEXITED: CInt = 16
 
 public val W_CONTINUED: CInt = 65535
 
-public val WCOREFLAG: CInt = 128
+public val WCOREFLAG1: CInt = 128
 
 public val RAND_MAX: CInt = 2147483647
 
 public val EXIT_FAILURE: CInt = 1
 
 public val EXIT_SUCCESS: CInt = 0
+
+public val LITTLE_ENDIAN1: Int = 1234
+
+public val BIG_ENDIAN1: Int = 4321
+
+public val PDP_ENDIAN1: Int = 3412
+
+public val BYTE_ORDER1: Int = 1234
+
+public val FLOAT_WORD_ORDER: Int = 1234
 
 public val LITTLE_ENDIAN: Int = 1234
 
@@ -177,7 +187,8 @@ public val PDP_ENDIAN: Int = 3412
 
 public val BYTE_ORDER: Int = 1234
 
-public val FLOAT_WORD_ORDER: Int = 1234
+// sys/select.h
+public val FD_SETSIZE: Int = 256
 
 public val SIZEOF_PTHREAD_MUTEX_T: Int = 32
 
@@ -993,31 +1004,57 @@ public val POLLHUP: Short = 16
 public val POLLNVAL: Short = 32
 
 // locale.h
-public val LC_CTYPE: Int = 0
+public val LC_CTYPE1: Int = 0
 
-public val LC_NUMERIC: Int = 1
+public val LC_NUMERIC1: Int = 1
 
-public val LC_TIME: Int = 2
+public val LC_TIME1: Int = 2
 
-public val LC_COLLATE: Int = 3
+public val LC_COLLATE1: Int = 3
 
-public val LC_MONETARY: Int = 4
+public val LC_MONETARY1: Int = 4
 
-public val LC_MESSAGES: Int = 5
+public val LC_MESSAGES1: Int = 5
 
-public val LC_ALL: Int = 6
+public val LC_ALL1: Int = 6
 
-public val LC_PAPER: Int = 7
+public val LC_PAPER1: Int = 7
 
-public val LC_NAME: Int = 8
+public val LC_NAME1: Int = 8
 
-public val LC_ADDRESS: Int = 9
+public val LC_ADDRESS1: Int = 9
 
-public val LC_TELEPHONE: Int = 10
+public val LC_TELEPHONE1: Int = 10
 
-public val LC_MEASUREMENT: Int = 11
+public val LC_MEASUREMENT1: Int = 11
 
-public val LC_IDENTIFICATION: Int = 12
+public val LC_IDENTIFICATION1: Int = 12
+
+public val LC_CTYPE: CInt = 0
+
+public val LC_NUMERIC: CInt = 1
+
+public val LC_TIME: CInt = 2
+
+public val LC_COLLATE: CInt = 3
+
+public val LC_MONETARY: CInt = 4
+
+public val LC_MESSAGES: CInt = 5
+
+public val LC_ALL: CInt = 6
+
+public val LC_PAPER: CInt = 7
+
+public val LC_NAME: CInt = 8
+
+public val LC_ADDRESS: CInt = 9
+
+public val LC_TELEPHONE: CInt = 10
+
+public val LC_MEASUREMENT: CInt = 11
+
+public val LC_IDENTIFICATION: CInt = 12
 
 public val LC_CTYPE_MASK: CInt = 1
 
@@ -1316,11 +1353,19 @@ public val CHWFLOW: TcflagT = 1245184u
 
 public val ECHOKE: TcflagT = 1u
 
+public val ECHOE1: TcflagT = 2u
+
 public val ECHOE: TcflagT = 2u
+
+public val ECHOK1: TcflagT = 4u
 
 public val ECHOK: TcflagT = 4u
 
+public val ECHO1: TcflagT = 8u
+
 public val ECHO: TcflagT = 8u
+
+public val ECHONL1: TcflagT = 16u
 
 public val ECHONL: TcflagT = 16u
 
@@ -1328,15 +1373,23 @@ public val ECHOPRT: TcflagT = 32u
 
 public val ECHOCTL: TcflagT = 64u
 
+public val ISIG1: TcflagT = 128u
+
 public val ISIG: TcflagT = 128u
+
+public val ICANON1: TcflagT = 256u
 
 public val ICANON: TcflagT = 256u
 
 public val ALTWERASE: TcflagT = 512u
 
+public val IEXTEN1: TcflagT = 1024u
+
 public val IEXTEN: TcflagT = 1024u
 
 public val EXTPROC: TcflagT = 2048u
+
+public val TOSTOP1: TcflagT = 4194304u
 
 public val TOSTOP: TcflagT = 4194304u
 
@@ -1345,6 +1398,8 @@ public val FLUSHO: TcflagT = 8388608u
 public val NOKERNINFO: TcflagT = 33554432u
 
 public val PENDIN: TcflagT = 536870912u
+
+public val NOFLSH1: TcflagT = 2147483648u
 
 public val NOFLSH: TcflagT = 2147483648u
 
@@ -1606,6 +1661,8 @@ public val SIGRTMIN: Int = 32
 
 public val SIGRTMAX: Int = 32
 
+public val NSIG1: Int = 33
+
 public val NSIG: Int = 33
 
 // bits/sigaction.h
@@ -1740,6 +1797,8 @@ public val DBG_SINGLE_TRAP: CInt = 1
 
 public val DBG_BRKPNT_FAULT: CInt = 2
 
+public val NGREG1: Int = 19
+
 public val NGREG: Int = 19
 
 // bits/sigstack.h
@@ -1748,33 +1807,33 @@ public val MINSIGSTKSZ: Int = 8192
 public val SIGSTKSZ: Int = 40960
 
 // sys/stat.h
-public val S_IFMT: ModeT = 61440u
+public val S_IFMT1: ModeT = 61440u
 
-public val S_IFDIR: ModeT = 16384u
+public val S_IFDIR1: ModeT = 16384u
 
-public val S_IFCHR: ModeT = 8192u
+public val S_IFCHR1: ModeT = 8192u
 
-public val S_IFBLK: ModeT = 24576u
+public val S_IFBLK1: ModeT = 24576u
 
-public val S_IFREG: ModeT = 32768u
+public val S_IFREG1: ModeT = 32768u
 
-public val S_IFLNK: ModeT = 40960u
+public val S_IFLNK1: ModeT = 40960u
 
-public val S_IFSOCK: ModeT = 49152u
+public val S_IFSOCK1: ModeT = 49152u
 
-public val S_IFIFO: ModeT = 4096u
+public val S_IFIFO1: ModeT = 4096u
 
-public val S_ISUID: ModeT = 2048u
+public val S_ISUID1: ModeT = 2048u
 
-public val S_ISGID: ModeT = 1024u
+public val S_ISGID1: ModeT = 1024u
 
-public val S_ISVTX: ModeT = 512u
+public val S_ISVTX1: ModeT = 512u
 
-public val S_IREAD: ModeT = 256u
+public val S_IREAD1: ModeT = 256u
 
-public val S_IWRITE: ModeT = 128u
+public val S_IWRITE1: ModeT = 128u
 
-public val S_IEXEC: ModeT = 64u
+public val S_IEXEC1: ModeT = 64u
 
 public val S_INOCACHE: ModeT = 65536u
 
@@ -1824,6 +1883,28 @@ public val UTIME_NOW: CLong = -1L
 
 public val UTIME_OMIT: CLong = -2L
 
+public val S_IFMT: ModeT = 61440u
+
+public val S_IFDIR: ModeT = 16384u
+
+public val S_IFCHR: ModeT = 8192u
+
+public val S_IFBLK: ModeT = 24576u
+
+public val S_IFREG: ModeT = 32768u
+
+public val S_IFIFO: ModeT = 4096u
+
+public val S_IFLNK: ModeT = 40960u
+
+public val S_IFSOCK: ModeT = 49152u
+
+public val S_ISUID: ModeT = 2048u
+
+public val S_ISGID: ModeT = 1024u
+
+public val S_ISVTX: ModeT = 512u
+
 public val S_IRUSR: ModeT = 256u
 
 public val S_IWUSR: ModeT = 128u
@@ -1831,6 +1912,12 @@ public val S_IWUSR: ModeT = 128u
 public val S_IXUSR: ModeT = 64u
 
 public val S_IRWXU: ModeT = 448u
+
+public val S_IREAD: ModeT = 256u
+
+public val S_IWRITE: ModeT = 128u
+
+public val S_IEXEC: ModeT = 64u
 
 public val S_IRGRP: ModeT = 32u
 
@@ -2561,6 +2648,8 @@ public val SCHED_RR: CInt = 2
 
 public val BITS_TYPES_STRUCT_SCHED_PARAM: Int = 1
 
+public val CPU_SETSIZE1: Int = 1024
+
 public val CPU_SETSIZE: Int = 1024
 
 // pthread.h
@@ -2878,6 +2967,9 @@ public val TCP_MSS_DEFAULT: Int = 536
 
 public val TCP_MSS_DESIRED: Int = 1220
 
+// sys/wait.h
+public val WCOREFLAG: CInt = 128
+
 public val WAIT_ANY: PidT = -1
 
 public val WAIT_MYPGRP: PidT = 0
@@ -2961,98 +3053,3 @@ public val MREMAP_FIXED: CInt = 2
 public val MCL_CURRENT: CInt = 0x0001
 
 public val MCL_FUTURE: CInt = 0x0002
-
-// sys/xattr.h
-public val XATTR_CREATE: CInt = 0x1
-
-public val XATTR_REPLACE: CInt = 0x2
-
-// spawn.h
-public val POSIX_SPAWN_USEVFORK: CInt = 64
-
-public val POSIX_SPAWN_SETSID: CInt = 128
-
-// sys/syslog.h
-public val LOG_CRON: CInt = 9 shl 3
-
-public val LOG_AUTHPRIV: CInt = 10 shl 3
-
-public val LOG_FTP: CInt = 11 shl 3
-
-public val LOG_PERROR: CInt = 0x20
-
-// net/if.h
-public val IFF_UP: CInt = 0x1
-
-public val IFF_BROADCAST: CInt = 0x2
-
-public val IFF_DEBUG: CInt = 0x4
-
-public val IFF_LOOPBACK: CInt = 0x8
-
-public val IFF_POINTOPOINT: CInt = 0x10
-
-public val IFF_NOTRAILERS: CInt = 0x20
-
-public val IFF_RUNNING: CInt = 0x40
-
-public val IFF_NOARP: CInt = 0x80
-
-public val IFF_PROMISC: CInt = 0x100
-
-public val IFF_ALLMULTI: CInt = 0x200
-
-public val IFF_MASTER: CInt = 0x400
-
-public val IFF_SLAVE: CInt = 0x800
-
-public val IFF_MULTICAST: CInt = 0x1000
-
-public val IFF_PORTSEL: CInt = 0x2000
-
-public val IFF_AUTOMEDIA: CInt = 0x4000
-
-public val IFF_DYNAMIC: CInt = 0x8000
-
-// random.h
-public val GRND_NONBLOCK: CUint = 1u
-
-public val GRND_RANDOM: CUint = 2u
-
-public val GRND_INSECURE: CUint = 4u
-
-public val PC_LINK_MAX: CInt = 0
-
-public val PC_MAX_CANON: CInt = 1
-
-public val PC_MAX_INPUT: CInt = 2
-
-public val PC_NAME_MAX: CInt = 3
-
-public val PC_PATH_MAX: CInt = 4
-
-public val PC_PIPE_BUF: CInt = 5
-
-public val PC_CHOWN_RESTRICTED: CInt = 6
-
-public val PC_NO_TRUNC: CInt = 7
-
-public val PC_VDISABLE: CInt = 8
-
-public val PC_SYNC_IO: CInt = 9
-
-public val PC_ASYNC_IO: CInt = 10
-
-public val PC_PRIO_IO: CInt = 11
-
-public val PC_SOCK_MAXBUF: CInt = 12
-
-public val PC_FILESIZEBITS: CInt = 13
-
-public val PC_REC_INCR_XFER_SIZE: CInt = 14
-
-public val PC_REC_MAX_XFER_SIZE: CInt = 15
-
-public val PC_REC_MIN_XFER_SIZE: CInt = 16
-
-public val PC_REC_XFER_ALIGN: CInt = 17

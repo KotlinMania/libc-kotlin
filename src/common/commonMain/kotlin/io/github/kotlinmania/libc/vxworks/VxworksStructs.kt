@@ -741,14 +741,14 @@ public data class SaUT(public var saHandler: SaUTSaHandlerCallback? = null, publ
                 null -> 0.toInt()
                 else -> {
                     val handler = matchVal
-                    handler.toInt()
+                    ((handler)?.hashCode()?.toLong() ?: 0L).toInt()
                 }
             }
             val h2 = when (val matchVal1 = other.saHandler) {
                 null -> 0.toInt()
                 else -> {
                     val handler1 = matchVal1
-                    handler1.toInt()
+                    ((handler1)?.hashCode()?.toLong() ?: 0L).toInt()
                 }
             }
             h1 == h2
@@ -762,7 +762,7 @@ public data class SaUT(public var saHandler: SaUTSaHandlerCallback? = null, publ
                 null -> 0.toInt()
                 else -> {
                     val handler = matchVal
-                    handler.toInt()
+                    ((handler)?.hashCode()?.toLong() ?: 0L).toInt()
                 }
             }
             state = 31 * state + (h).hashCode()
@@ -777,12 +777,12 @@ public data class Sigval(public var sivalInt: CInt = 0, public var sivalPtr: COp
     }
 
     public fun eq(other: Sigval): Boolean {
-        return this.sivalPtr.toInt() == ((other.sivalPtr)?.rawValue ?: 0L).toInt()
+        return ((this.sivalPtr)?.rawValue ?: 0L).toInt() == ((other.sivalPtr)?.rawValue ?: 0L).toInt()
     }
 
     public override fun hashCode(): Int {
         var state = 0
-        state = 31 * state + ((this.sivalPtr.toInt())).hashCode()
+        state = 31 * state + ((((this.sivalPtr)?.rawValue ?: 0L).toInt())).hashCode()
         return state
     }
 }

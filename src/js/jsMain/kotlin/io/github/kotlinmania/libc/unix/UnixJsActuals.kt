@@ -14,15 +14,15 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.unix.bsd.UsecondsT
 import io.github.kotlinmania.libc.unix.bsd.apple.DevT
-import io.github.kotlinmania.libc.unix.bsd.apple.SpeedT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadKeyT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SpeedT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.ClockT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.NfdsT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadKeyT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.PthreadT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ClockT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.WcharT
 
 private val _unixNapiAddon: dynamic =
@@ -724,7 +724,7 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_realpath(pathname, (resolved?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun times(buf: COpaquePointer?): ClockT =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_times((buf?.value ?: 0L).toString()) as String).toLong() else 0L
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_times((buf?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadSelf(): PthreadT =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadSelf() as String).toLong().toULong() else 0uL
@@ -767,13 +767,13 @@ public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateD
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadKeyDelete(key.toInt()) as Int) else 0
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadKeyDelete(key) as Int) else 0
 
 public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadGetspecific(key.toInt()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadGetspecific(key) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadSetspecific(key.toInt(), (value?.value ?: 0L).toString()) as Int) else 0
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadSetspecific(key, (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadMutexInit((lock?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else 0
@@ -1025,16 +1025,16 @@ public actual fun tcdrain(fd: CInt): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_tcdrain(fd) as Int) else 0
 
 public actual fun cfgetispeed(termios: COpaquePointer?): SpeedT =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfgetispeed((termios?.value ?: 0L).toString()) as String).toULong() else 0uL
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfgetispeed((termios?.value ?: 0L).toString()) as Int).toUInt() else 0u
 
 public actual fun cfgetospeed(termios: COpaquePointer?): SpeedT =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfgetospeed((termios?.value ?: 0L).toString()) as String).toULong() else 0uL
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfgetospeed((termios?.value ?: 0L).toString()) as Int).toUInt() else 0u
 
 public actual fun cfsetispeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfsetispeed((termios?.value ?: 0L).toString(), speed.toString()) as Int) else 0
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfsetispeed((termios?.value ?: 0L).toString(), speed.toInt()) as Int) else 0
 
 public actual fun cfsetospeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfsetospeed((termios?.value ?: 0L).toString(), speed.toString()) as Int) else 0
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfsetospeed((termios?.value ?: 0L).toString(), speed.toInt()) as Int) else 0
 
 public actual fun tcgetattr(fd: CInt, termios: COpaquePointer?): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_tcgetattr(fd, (termios?.value ?: 0L).toString()) as Int) else 0
@@ -1169,7 +1169,7 @@ public actual fun cfmakeraw(termios: COpaquePointer?): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfmakeraw((termios?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun cfsetspeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfsetspeed((termios?.value ?: 0L).toString(), speed.toString()) as Int) else 0
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_cfsetspeed((termios?.value ?: 0L).toString(), speed.toInt()) as Int) else 0
 
 public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_fnmatch(pattern, name, flags) as Int) else 0

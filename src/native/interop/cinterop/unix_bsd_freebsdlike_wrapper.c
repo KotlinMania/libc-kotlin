@@ -200,8 +200,8 @@ int32_t libc_unix_bsd_freebsdlike_chflagsat(int32_t fd, const char* path, uint64
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_clockNanosleep(uint64_t clk_id, int32_t flags, void* rqtp, void* rmtp) {
-    typedef int32_t (*km_fn_t)(uint64_t, int32_t, void*, void*);
+int32_t libc_unix_bsd_freebsdlike_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp, void* rmtp) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -226,8 +226,8 @@ int32_t libc_unix_bsd_freebsdlike_clockNanosleep(uint64_t clk_id, int32_t flags,
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_clockGetres(uint64_t clk_id, void* tp) {
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+int32_t libc_unix_bsd_freebsdlike_clockGetres(int32_t clk_id, void* tp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -252,8 +252,8 @@ int32_t libc_unix_bsd_freebsdlike_clockGetres(uint64_t clk_id, void* tp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_clockGettime(uint64_t clk_id, void* tp) {
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+int32_t libc_unix_bsd_freebsdlike_clockGettime(int32_t clk_id, void* tp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -278,8 +278,8 @@ int32_t libc_unix_bsd_freebsdlike_clockGettime(uint64_t clk_id, void* tp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_clockSettime(uint64_t clk_id, void* tp) {
-    typedef int32_t (*km_fn_t)(uint64_t, void*);
+int32_t libc_unix_bsd_freebsdlike_clockSettime(int32_t clk_id, void* tp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
@@ -1359,8 +1359,8 @@ int32_t libc_unix_bsd_freebsdlike_pthreadCondattrGetpshared(void* attr, void* ps
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
-    typedef int32_t (*km_fn_t)(void*, uint64_t);
+int32_t libc_unix_bsd_freebsdlike_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {

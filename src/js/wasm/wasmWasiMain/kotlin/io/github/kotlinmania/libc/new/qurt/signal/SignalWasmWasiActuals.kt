@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt.signal
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.PidT
 

@@ -1997,39 +1997,39 @@ public val ACCOUNTING: CShort = 9
 
 public val DOWN_TIME: CShort = 10
 
-public val TIOC: CInt = TIOC
+public val TIOC1: CInt = ('T'.code.toInt()) shl 8
 
 public val T_IOC: CInt = ('t'.code.toInt()) shl 8
 
-public val TCGETA: CInt = TIOC or 1
+public val TCGETA: CInt = TIOC1 or 1
 
-public val TCSETA: CInt = TIOC or 2
+public val TCSETA: CInt = TIOC1 or 2
 
-public val TCSETAW: CInt = TIOC or 3
+public val TCSETAW: CInt = TIOC1 or 3
 
-public val TCSETAF: CInt = TIOC or 4
+public val TCSETAF: CInt = TIOC1 or 4
 
-public val TCSBRK: CInt = TIOC or 5
+public val TCSBRK: CInt = TIOC1 or 5
 
-public val TCXONC: CInt = TIOC or 6
+public val TCXONC: CInt = TIOC1 or 6
 
-public val TCFLSH: CInt = TIOC or 7
+public val TCFLSH: CInt = TIOC1 or 7
 
-public val TCDSET: CInt = TIOC or 32
+public val TCDSET: CInt = TIOC1 or 32
 
-public val TCGETS: CInt = TIOC or 13
+public val TCGETS: CInt = TIOC1 or 13
 
-public val TCSETS: CInt = TIOC or 14
+public val TCSETS: CInt = TIOC1 or 14
 
-public val TCSANOW: CInt = TIOC or 14
+public val TCSANOW: CInt = TIOC1 or 14
 
-public val TCSETSW: CInt = TIOC or 15
+public val TCSETSW: CInt = TIOC1 or 15
 
-public val TCSADRAIN: CInt = TIOC or 15
+public val TCSADRAIN: CInt = TIOC1 or 15
 
-public val TCSETSF: CInt = TIOC or 16
+public val TCSETSF: CInt = TIOC1 or 16
 
-public val TCSAFLUSH: CInt = TIOC or 16
+public val TCSAFLUSH: CInt = TIOC1 or 16
 
 public val TCIFLUSH: CInt = 0
 
@@ -2045,23 +2045,25 @@ public val TCIOFF: CInt = 2
 
 public val TCION: CInt = 3
 
-public val TIOCKBON: CInt = TIOC or 8
+public val TIOC: CInt = TIOC1
 
-public val TIOCKBOF: CInt = TIOC or 9
+public val TIOCKBON: CInt = TIOC1 or 8
 
-public val TIOCGWINSZ: CInt = TIOC or 104
+public val TIOCKBOF: CInt = TIOC1 or 9
 
-public val TIOCSWINSZ: CInt = TIOC or 103
+public val TIOCGWINSZ: CInt = TIOC1 or 104
 
-public val TIOCGSOFTCAR: CInt = TIOC or 105
+public val TIOCSWINSZ: CInt = TIOC1 or 103
 
-public val TIOCSSOFTCAR: CInt = TIOC or 106
+public val TIOCGSOFTCAR: CInt = TIOC1 or 105
 
-public val TIOCGPPS: CInt = TIOC or 125
+public val TIOCSSOFTCAR: CInt = TIOC1 or 106
 
-public val TIOCSPPS: CInt = TIOC or 126
+public val TIOCGPPS: CInt = TIOC1 or 125
 
-public val TIOCGPPSEV: CInt = TIOC or 127
+public val TIOCSPPS: CInt = TIOC1 or 126
+
+public val TIOCGPPSEV: CInt = TIOC1 or 127
 
 public val TIOCGETD: CInt = T_IOC or 0
 

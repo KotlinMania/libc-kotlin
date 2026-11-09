@@ -5,6 +5,7 @@ package io.github.kotlinmania.libc.unix.haiku
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT

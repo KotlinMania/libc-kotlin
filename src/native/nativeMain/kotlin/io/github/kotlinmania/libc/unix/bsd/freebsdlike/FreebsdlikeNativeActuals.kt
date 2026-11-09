@@ -9,8 +9,8 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -21,9 +21,9 @@ import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.ClockidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.DevT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
@@ -467,31 +467,31 @@ public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CIn
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_posixSpawnFileActionsAdddup2(actions?.value?.toCPointer<ByteVar>(), fd, newfd)
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqClose(mqd.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqClose(mqd?.value?.toCPointer<ByteVar>())
 
 public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqGetattr(mqd?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
 
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqNotify(mqd.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqNotify(mqd?.value?.toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    null
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqReceive(mqd?.value?.toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
 
 public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqSend(mqd?.value?.toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
 
 public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr?.value?.toCPointer<ByteVar>(), oldattr?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqSetattr(mqd?.value?.toCPointer<ByteVar>(), newattr?.value?.toCPointer<ByteVar>(), oldattr?.value?.toCPointer<ByteVar>())
 
 public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqTimedreceive(mqd?.value?.toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
 
 public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqTimedsend(mqd?.value?.toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
 
 public actual fun mqUnlink(name: String?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqUnlink(name)

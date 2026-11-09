@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt.semaphore
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =

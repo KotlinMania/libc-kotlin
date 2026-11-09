@@ -1073,15 +1073,15 @@ public val SCHED_FLAG_UTIL_CLAMP_MIN: CInt = 0x20
 public val SCHED_FLAG_UTIL_CLAMP_MAX: CInt = 0x40
 
 // linux/ifXdp.h
-public val XDP_SHARED_UMEM: U16 = (1u shl 0).toUShort()
+public val XDP_SHARED_UMEM: U16 = (1u.toUInt() shl 0).toUShort()
 
-public val XDP_COPY: U16 = (1u shl 1).toUShort()
+public val XDP_COPY: U16 = (1u.toUInt() shl 1).toUShort()
 
-public val XDP_ZEROCOPY: U16 = (1u shl 2).toUShort()
+public val XDP_ZEROCOPY: U16 = (1u.toUInt() shl 2).toUShort()
 
-public val XDP_USE_NEED_WAKEUP: U16 = (1u shl 3).toUShort()
+public val XDP_USE_NEED_WAKEUP: U16 = (1u.toUInt() shl 3).toUShort()
 
-public val XDP_USE_SG: U16 = (1u shl 4).toUShort()
+public val XDP_USE_SG: U16 = (1u.toUInt() shl 4).toUShort()
 
 public val XDP_UMEM_UNALIGNED_CHUNK_FLAG: U32 = 1u shl 0
 

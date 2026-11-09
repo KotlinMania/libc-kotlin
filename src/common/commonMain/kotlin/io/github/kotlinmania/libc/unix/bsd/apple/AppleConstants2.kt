@@ -30,6 +30,8 @@ public val LIO_NOWAIT: CInt = 1
 
 public val WEXITED: CInt = 0x00000004
 
+public val WSTOPPED: CInt = 0x00000008
+
 public val WCONTINUED: CInt = 0x00000010
 
 public val WNOWAIT: CInt = 0x00000020

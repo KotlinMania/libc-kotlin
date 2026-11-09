@@ -561,7 +561,7 @@ public data class ThreadInfo(
     public var thread: ThreadId = 0,
     public var team: TeamId = 0,
     public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
-    public var state: ThreadState = 0u,
+    public var state: ThreadState = 0,
     public var priority: Int = 0,
     public var sem: SemId = 0,
     public var userTime: BigtimeT = 0L,
@@ -640,9 +640,9 @@ public data class ObjectWaitInfo(
     public var events: UShort = 0u,
 )
 
-public data class CpuTopologyRootInfo(public var platform: CpuPlatform = 0u)
+public data class CpuTopologyRootInfo(public var platform: CpuPlatform = 0)
 
-public data class CpuTopologyPackageInfo(public var vendor: CpuVendor = 0u, public var cacheLineSize: UInt = 0u)
+public data class CpuTopologyPackageInfo(public var vendor: CpuVendor = 0, public var cacheLineSize: UInt = 0u)
 
 public data class CpuTopologyCoreInfo(public var model: UInt = 0u, public var defaultFrequency: ULong = 0uL)
 
@@ -848,7 +848,7 @@ public data class CAnonymousRegs(
 
 public data class CpuTopologyNodeInfo(
     public var id: UInt = 0u,
-    public var type: TopologyLevelType = 0u,
+    public var type: TopologyLevelType = 0,
     public var level: UInt = 0u,
     public var data: CAnonymousCpuTopologyInfoData = CAnonymousCpuTopologyInfoData(),
 )
@@ -1846,63 +1846,63 @@ public expect fun findDirectory(which: DirectoryWhich, volume: DevT, createIt: B
 public expect fun getCpuid(info: COpaquePointer?, eaxRegister: UInt, cpuNum: UInt): StatusT
 
 // The following functions are defined as macros in C/C++
-public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?): StatusT {
+public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: COpaquePointer?): StatusT {
     return getCpuInfoEtc(firstCPU, cpuCount, info, 8.toULong())
 }
 
-public fun getAreaInfo(id: AreaId, info: AreaInfo?): StatusT {
+public fun getAreaInfo(id: AreaId, info: COpaquePointer?): StatusT {
     return getAreaInfo(id, info, 8.toInt())
 }
 
-public fun getNextAreaInfo(team: TeamId, cookie: Int?, info: AreaInfo?): StatusT {
+public fun getNextAreaInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
     return getNextAreaInfo(team, cookie, info, 8.toInt())
 }
 
-public fun getPortInfo(port: PortId, buf: PortInfo?): StatusT {
+public fun getPortInfo(port: PortId, buf: COpaquePointer?): StatusT {
     return getPortInfo(port, buf, 8.toULong())
 }
 
-public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?): StatusT {
+public fun getNextPortInfo(port: PortId, cookie: COpaquePointer?, portInfo: COpaquePointer?): StatusT {
     return getNextPortInfo(port, cookie, portInfo, 8.toULong())
 }
 
-public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, flags: UInt, timeout: BigtimeT): StatusT {
+public fun getPortMessageInfoEtc(port: PortId, info: COpaquePointer?, flags: UInt, timeout: BigtimeT): StatusT {
     return getPortMessageInfoEtc(port, info, 8.toULong(), flags, timeout)
 }
 
-public fun getSemInfo(id: SemId, info: SemInfo?): StatusT {
+public fun getSemInfo(id: SemId, info: COpaquePointer?): StatusT {
     return getSemInfo(id, info, 8.toULong())
 }
 
-public fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?): StatusT {
+public fun getNextSemInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
     return getNextSemInfo(team, cookie, info, 8.toULong())
 }
 
-public fun getTeamInfo(team: TeamId, info: TeamInfo?): StatusT {
+public fun getTeamInfo(team: TeamId, info: COpaquePointer?): StatusT {
     return getTeamInfo(team, info, 8.toULong())
 }
 
-public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?): StatusT {
+public fun getNextTeamInfo(cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
     return getNextTeamInfo(cookie, info, 8.toULong())
 }
 
-public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?): StatusT {
+public fun getTeamUsageInfo(team: TeamId, who: Int, info: COpaquePointer?): StatusT {
     return getTeamUsageInfo(team, who, info, 8.toULong())
 }
 
-public fun getThreadInfo(id: ThreadId, info: ThreadInfo?): StatusT {
+public fun getThreadInfo(id: ThreadId, info: COpaquePointer?): StatusT {
     return getThreadInfo(id, info, 8.toULong())
 }
 
-public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?): StatusT {
+public fun getNextThreadInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
     return getNextThreadInfo(team, cookie, info, 8.toULong())
 }
 
 // kernel/image.h
-public fun getImageInfo(image: ImageId, info: ImageInfo?): StatusT {
+public fun getImageInfo(image: ImageId, info: COpaquePointer?): StatusT {
     return getImageInfo(image, info, 8.toULong())
 }
 
-public fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?): StatusT {
+public fun getNextImageInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
     return getNextImageInfo(team, cookie, info, 8.toULong())
 }

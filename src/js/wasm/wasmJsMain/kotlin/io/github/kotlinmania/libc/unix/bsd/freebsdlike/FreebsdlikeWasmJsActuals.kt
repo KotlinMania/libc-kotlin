@@ -4,9 +4,12 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -17,9 +20,9 @@ import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.ClockidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.DevT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
 
 public actual fun semDestroy(sem: COpaquePointer?): CInt =
     0
@@ -463,7 +466,7 @@ public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     0
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    null
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
     0L

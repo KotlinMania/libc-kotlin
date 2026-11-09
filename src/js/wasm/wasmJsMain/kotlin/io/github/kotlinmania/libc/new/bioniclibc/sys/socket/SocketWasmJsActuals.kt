@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.bioniclibc.sys.socket
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.SsizeT

@@ -7,11 +7,11 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.FILE
 import io.github.kotlinmania.libc.new.netbsd.sys.types.CpuidT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.MqdT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.TimerT
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.IntmaxT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT

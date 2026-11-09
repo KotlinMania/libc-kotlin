@@ -3,6 +3,7 @@
 package io.github.kotlinmania.libc.new.qurt
 
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun opendir(name: String?): DIR? =
     null
