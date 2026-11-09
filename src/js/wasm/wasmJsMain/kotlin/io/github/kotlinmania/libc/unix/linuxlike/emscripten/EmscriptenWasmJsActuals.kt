@@ -80,7 +80,7 @@ public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     0
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
@@ -125,7 +125,7 @@ public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, f
 public actual fun sync() {
 }
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =

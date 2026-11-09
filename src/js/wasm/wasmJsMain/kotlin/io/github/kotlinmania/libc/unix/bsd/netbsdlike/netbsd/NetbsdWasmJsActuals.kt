@@ -5,7 +5,10 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.solid.CpuidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.CpuidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.MqdT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.TimerT
 import io.github.kotlinmania.libc.unix.IntmaxT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -15,9 +18,6 @@ import io.github.kotlinmania.libc.unix.UintmaxT
 import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.LwpidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.TimerT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 
 public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
@@ -113,7 +113,7 @@ public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: SizeT,
 public actual fun mount(src: String?, target: String?, flags: CInt, data: COpaquePointer?, size: SizeT): CInt =
     0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -269,7 +269,7 @@ public actual fun explicitMemset(b: COpaquePointer?, c: CInt, len: SizeT) {
 public actual fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
     0
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun mremap(oldp: COpaquePointer?, oldsize: SizeT, newp: COpaquePointer?, newsize: SizeT, flags: CInt): COpaquePointer? =
@@ -366,7 +366,7 @@ public actual fun getgrentR(grp: COpaquePointer?, buf: COpaquePointer?, buflen: 
     0
 
 public actual fun efopen(p: String?, m: String?): FILE =
-    null as FILE
+    FILE()
 
 public actual fun emalloc(n: SizeT): COpaquePointer? =
     null
@@ -398,10 +398,10 @@ public actual fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): 
 public actual fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT =
     0uL
 
-public actual fun easprintf(string: COpaquePointer?, fmt: String?): CInt =
+public actual fun easprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun evasprintf(string: COpaquePointer?, fmt: String?): CInt =
+public actual fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback? =

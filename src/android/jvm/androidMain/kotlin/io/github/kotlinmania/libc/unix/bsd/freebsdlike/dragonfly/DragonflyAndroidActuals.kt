@@ -194,7 +194,7 @@ public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, optio
     UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_waitid(idtype.toInt(), id, (infop?.value ?: 0L), options)
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_freelocale(loc.toLong())
+    UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_freelocale((loc?.value ?: 0L))
 }
 
 public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: COpaquePointer?): CInt =
@@ -236,7 +236,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: COpaquePo
 public actual fun schedGetcpu(): CInt =
     UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu()
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
@@ -264,7 +264,7 @@ public actual fun updlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): C
     UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_updlastlogx(fname, uid.toShort(), (ll?.value ?: 0L))
 
 public actual fun getutxuser(name: String?): Utmpx =
-    null as Utmpx
+    Utmpx()
 
 public actual fun utmpxname(file: String?): CInt =
     UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_utmpxname(file)
@@ -325,7 +325,7 @@ public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {
 }
 
 public actual fun kvmVmMapEntryFirst(kvm: COpaquePointer?, map: VmMapT, entry: VmMapEntryT): VmMapEntryT =
-    UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst((kvm?.value ?: 0L), map.toLong(), (entry?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst((kvm?.value ?: 0L), (map?.value ?: 0L), (entry?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun kvmVmMapEntryNext(kvm: COpaquePointer?, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT =
     UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext((kvm?.value ?: 0L), (map?.value ?: 0L), (entry?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }

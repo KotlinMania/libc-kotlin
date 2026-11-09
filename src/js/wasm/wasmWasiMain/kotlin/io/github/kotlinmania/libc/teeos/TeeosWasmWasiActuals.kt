@@ -10,7 +10,6 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.new.qurt.errno.errnoLocation
 
 public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
     null
@@ -177,16 +176,16 @@ public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePo
 public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
     0
 
-public actual fun printf(fmt: String?): CInt =
+public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(fmt: String?): CInt =
+public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, fmt: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
@@ -228,7 +227,7 @@ public actual fun getpid(): PidT =
 public actual fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
     0
 
-public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict: String?, restrict: COpaquePointer?): SizeT =
+public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT =
     0uL
 
 public actual fun time(t: COpaquePointer?): TimeT =
@@ -246,7 +245,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, valp: COpaquePointer?): CInt
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     0
 
-public actual fun semOpen(name: String?, flags: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semPost(sem: COpaquePointer?): CInt =
@@ -421,7 +420,7 @@ public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: Size
     null
 
 public actual fun div(num: CInt, den: CInt): DivT =
-    null as DivT
+    DivT()
 
 public actual fun ecvt(x: CDouble, n: CInt, dp: COpaquePointer?, sign: COpaquePointer?): COpaquePointer? =
     null

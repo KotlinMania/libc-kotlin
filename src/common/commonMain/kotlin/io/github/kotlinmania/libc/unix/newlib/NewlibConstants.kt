@@ -1,92 +1,37 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUlong
 
-// unverified constants
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(size = List(SIZEOF_PTHREAD_MUTEX_T) { PTHREAD_INITIALIZER_BYTE })
-
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(size = List(SIZEOF_PTHREAD_COND_T) { PTHREAD_INITIALIZER_BYTE })
-
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(size = List(SIZEOF_PTHREAD_RWLOCK_T) { PTHREAD_INITIALIZER_BYTE })
-
 // supports multicast
-public val NCCS: Int = 11
-
-public val NCCS1: Int = 32
-
 public val PTHREAD_INITIALIZER_BYTE: UByte = 0xffu
-
-public val SIZEOF_PTHREAD_ATTR_T: Int = 32
 
 public val SIZEOF_PTHREAD_MUTEX_T: Int = 4
 
-public val SIZEOF_PTHREAD_MUTEXATTR_T: Int = 12
+// unverified constants
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()) { PTHREAD_INITIALIZER_BYTE.toUByte() })
 
 public val SIZEOF_PTHREAD_COND_T: Int = 4
 
-public val SIZEOF_PTHREAD_CONDATTR_T: Int = 8
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()) { PTHREAD_INITIALIZER_BYTE.toUByte() })
 
 public val SIZEOF_PTHREAD_RWLOCK_T: Int = 4
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()) { PTHREAD_INITIALIZER_BYTE.toUByte() })
+
+public val NCCS: Int = 11
+
+public val SIZEOF_PTHREAD_ATTR_T: Int = 32
+
+public val SIZEOF_PTHREAD_MUTEXATTR_T: Int = 12
+
+public val SIZEOF_PTHREAD_CONDATTR_T: Int = 8
 
 public val SIZEOF_PTHREAD_RWLOCKATTR_T: Int = 12
 
 public val SIZEOF_PTHREAD_BARRIER_T: Int = 32
-
-public val PTHREAD_INITIALIZER_BYTE1: UByte = 0xffu
-
-public val SIZEOF_PTHREAD_ATTR_T1: Int = 4
-
-public val SIZEOF_PTHREAD_MUTEX_T1: Int = 4
-
-public val SIZEOF_PTHREAD_MUTEXATTR_T1: Int = 4
-
-public val SIZEOF_PTHREAD_COND_T1: Int = 4
-
-public val SIZEOF_PTHREAD_CONDATTR_T1: Int = 4
-
-public val SIZEOF_PTHREAD_RWLOCK_T1: Int = 4
-
-public val SIZEOF_PTHREAD_RWLOCKATTR_T1: Int = 4
-
-public val SIZEOF_PTHREAD_BARRIER_T1: Int = 4
-
-public val PTHREAD_INITIALIZER_BYTE2: UByte = 0x00u
-
-public val SIZEOF_PTHREAD_ATTR_T2: Int = 96
-
-public val SIZEOF_PTHREAD_MUTEX_T2: Int = 64
-
-public val SIZEOF_PTHREAD_MUTEXATTR_T2: Int = 24
-
-public val SIZEOF_PTHREAD_COND_T2: Int = 28
-
-public val SIZEOF_PTHREAD_CONDATTR_T2: Int = 24
-
-public val SIZEOF_PTHREAD_RWLOCK_T2: Int = 32
-
-public val SIZEOF_PTHREAD_RWLOCKATTR_T2: Int = 8
-
-public val SIZEOF_PTHREAD_BARRIER_T2: Int = 32
-
-public val PTHREAD_INITIALIZER_BYTE3: UByte = 0u
-
-public val SIZEOF_PTHREAD_ATTR_T3: Int = 56
-
-public val SIZEOF_PTHREAD_MUTEX_T3: Int = 40
-
-public val SIZEOF_PTHREAD_MUTEXATTR_T3: Int = 4
-
-public val SIZEOF_PTHREAD_COND_T3: Int = 48
-
-public val SIZEOF_PTHREAD_CONDATTR_T3: Int = 4
-
-public val SIZEOF_PTHREAD_RWLOCK_T3: Int = 56
-
-public val SIZEOF_PTHREAD_RWLOCKATTR_T3: Int = 8
-
-public val SIZEOF_PTHREAD_BARRIER_T3: Int = 32
 
 public val SIZEOF_PTHREAD_BARRIERATTR_T: Int = 4
 
@@ -101,10 +46,6 @@ public val PTHREAD_MUTEX_RECURSIVE: CInt = 1
 public val PTHREAD_MUTEX_ERRORCHECK: CInt = 2
 
 public val FD_SETSIZE: Int = 64
-
-public val FD_SETSIZE1: Int = 256
-
-public val FD_SETSIZE2: Int = 1024
 
 // intentionally not public, only used for fdSet
 public val ULONG_SIZE: Int = 32
@@ -332,8 +273,6 @@ public val O_ACCMODE: CInt = 3
 
 public val O_CLOEXEC: CInt = 0x40000
 
-public val O_CLOEXEC1: CInt = 0x80000
-
 public val RTLD_LAZY: CInt = 0x1
 
 public val SEEK_SET: CInt = 0
@@ -398,8 +337,6 @@ public val PF_INET: CInt = 2
 
 public val PF_INET6: CInt = 10
 
-public val PF_INET61: CInt = 23
-
 public val AF_UNSPEC: CInt = 0
 
 public val AF_INET: CInt = 2
@@ -446,7 +383,7 @@ public val SO_PROTOCOL: CInt = 0x1016
 
 public val SO_PROTOTYPE: CInt = SO_PROTOCOL
 
-public val SO_VENDOR: CInt = 0x80000000
+public val SO_VENDOR: CInt = 0x80000000.toInt()
 
 public val SO_DEBUG: CInt = 0x01
 
@@ -487,8 +424,6 @@ public val SO_SNDTIMEO: CInt = 0x1005
 public val SO_RCVTIMEO: CInt = 0x1006
 
 public val SO_ERROR: CInt = 0x1009
-
-public val SO_ERROR1: CInt = 0x1007
 
 public val SO_TYPE: CInt = 0x1008
 
@@ -551,14 +486,6 @@ public val TCP_NODELAY: CInt = 1
 
 public val TCP_MAXSEG: CInt = 2
 
-public val TCP_NODELAY1: CInt = 1
-
-public val TCP_MAXSEG1: CInt = 8194
-
-public val TCP_NODELAY2: CInt = 8193
-
-public val TCP_MAXSEG2: CInt = 8194
-
 public val TCP_NOPUSH: CInt = 4
 
 public val TCP_NOOPT: CInt = 8
@@ -569,23 +496,9 @@ public val TCP_KEEPINTVL: CInt = 4
 
 public val TCP_KEEPCNT: CInt = 5
 
-public val TCP_KEEPIDLE1: CInt = 256
-
-public val TCP_KEEPINTVL1: CInt = 512
-
-public val TCP_KEEPCNT1: CInt = 1024
-
 public val IP_TOS: CInt = 7
 
-public val IP_TOS1: CInt = 1
-
-public val IP_TOS2: CInt = 3
-
 public val IP_TTL: CInt = 4
-
-public val IP_TTL1: CInt = 2
-
-public val IP_TTL2: CInt = 8
 
 public val IP_MULTICAST_IF: CInt = 6
 
@@ -593,23 +506,9 @@ public val IP_MULTICAST_TTL: CInt = 5
 
 public val IP_MULTICAST_LOOP: CInt = 7
 
-public val IP_MULTICAST_IF1: CInt = 9
-
-public val IP_MULTICAST_TTL1: CInt = 10
-
-public val IP_MULTICAST_LOOP1: CInt = 11
-
 public val IP_ADD_MEMBERSHIP: CInt = 12
 
 public val IP_DROP_MEMBERSHIP: CInt = 13
-
-public val IP_ADD_MEMBERSHIP1: CInt = 3
-
-public val IP_DROP_MEMBERSHIP1: CInt = 4
-
-public val IP_ADD_MEMBERSHIP2: CInt = 11
-
-public val IP_DROP_MEMBERSHIP2: CInt = 12
 
 public val IPV6_UNICAST_HOPS: CInt = 4
 
@@ -618,12 +517,6 @@ public val IPV6_MULTICAST_IF: CInt = 768
 public val IPV6_MULTICAST_HOPS: CInt = 769
 
 public val IPV6_MULTICAST_LOOP: CInt = 770
-
-public val IPV6_MULTICAST_IF1: CInt = 9
-
-public val IPV6_MULTICAST_HOPS1: CInt = 10
-
-public val IPV6_MULTICAST_LOOP1: CInt = 11
 
 public val IPV6_V6ONLY: CInt = 27
 
@@ -643,14 +536,6 @@ public val NO_RECOVERY: CInt = 212
 
 public val TRY_AGAIN: CInt = 213
 
-public val HOST_NOT_FOUND1: CInt = 1
-
-public val NO_DATA1: CInt = 2
-
-public val NO_RECOVERY1: CInt = 3
-
-public val TRY_AGAIN1: CInt = 4
-
 public val NO_ADDRESS: CInt = 2
 
 public val AI_PASSIVE: CInt = 1
@@ -662,10 +547,6 @@ public val AI_NUMERICHOST: CInt = 4
 public val AI_NUMERICSERV: CInt = 8
 
 public val AI_ADDRCONFIG: CInt = 64
-
-public val AI_NUMERICSERV1: CInt = 0
-
-public val AI_ADDRCONFIG1: CInt = 0
 
 public val NI_MAXHOST: CInt = 1025
 
@@ -681,10 +562,6 @@ public val NI_NUMERICSERV: CInt = 8
 
 public val NI_DGRAM: CInt = 16
 
-public val NI_NUMERICSERV1: CInt = 0
-
-public val NI_DGRAM1: CInt = 0
-
 public val EAI_FAMILY: CInt = 204
 
 public val EAI_MEMORY: CInt = 203
@@ -692,14 +569,6 @@ public val EAI_MEMORY: CInt = 203
 public val EAI_NONAME: CInt = 200
 
 public val EAI_SOCKTYPE: CInt = 10
-
-public val EAI_FAMILY1: CInt = -303
-
-public val EAI_MEMORY1: CInt = -304
-
-public val EAI_NONAME1: CInt = -305
-
-public val EAI_SOCKTYPE1: CInt = -307
 
 public val EXIT_SUCCESS: CInt = 0
 

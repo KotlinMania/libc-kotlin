@@ -1,12 +1,12 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CDTRCTS
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
 import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
@@ -23,7 +23,6 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.NlItem
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SpeedT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TcflagT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.O_CLOEXEC
 
 public val AT_FDCWD: CInt = -100
 
@@ -95,17 +94,17 @@ public val EXTATTR_NAMESPACE_USER: CInt = 1
 
 public val EXTATTR_NAMESPACE_SYSTEM: CInt = 2
 
-public val LC_COLLATE_MASK: CInt = 1 shl LC_COLLATE
+public val LC_COLLATE_MASK: CInt = 1 shl LC_COLLATE.toInt()
 
-public val LC_CTYPE_MASK: CInt = 1 shl LC_CTYPE
+public val LC_CTYPE_MASK: CInt = 1 shl LC_CTYPE.toInt()
 
-public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY
+public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY.toInt()
 
-public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC
+public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC.toInt()
 
-public val LC_TIME_MASK: CInt = 1 shl LC_TIME
+public val LC_TIME_MASK: CInt = 1 shl LC_TIME.toInt()
 
-public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES
+public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES.toInt()
 
 public val LC_ALL_MASK: CInt = 0.inv()
 
@@ -271,7 +270,7 @@ public val SOCK_DCCP: CInt = SOCK_CONN_DGRAM
 
 public val SOCK_NOSIGPIPE: CInt = 0x40000000
 
-public val SOCK_FLAGS_MASK: CInt = 0xf0000000
+public val SOCK_FLAGS_MASK: CInt = 0xf0000000.toInt()
 
 public val SO_SNDTIMEO: CInt = 0x100b
 
@@ -853,7 +852,7 @@ public val MNT_SYMPERM: CInt = 0x20000000
 
 public val MNT_NODEVMTIME: CInt = 0x40000000
 
-public val MNT_SOFTDEP: CInt = 0x80000000
+public val MNT_SOFTDEP: CInt = 0x80000000.toInt()
 
 public val MNT_POSIX1EACLS: CInt = 0x00000800
 
@@ -882,13 +881,11 @@ public val PL_EVENT_SIGNAL: CInt = 1
 
 public val PL_EVENT_SUSPENDED: CInt = 2
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(ptmMagic = 0x33330003u, ptmErrorcheck = 0u, ptmPad1 = 0u, ptmUnused = 0u, ptmPad2 = 0u, ptmWaiters = null, ptmOwner = 0u, ptmRecursed = 0u, ptmSpare2 = null)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(ptmMagic = 0x33330003u, ptmErrorcheck = 0u, ptmPad1 = 0, ptmUnused = 0u, ptmPad2 = 0, ptmWaiters = null, ptmOwner = 0uL, ptmRecursed = 0u, ptmSpare2 = null)
 
-public val PTHREAD_MUTEX_INITIALIZER1: PthreadMutexT = Any(ptmMagic = 0x33330003u, ptmErrorcheck = 0u, ptmUnused = 0u, ptmWaiters = null, ptmOwner = 0u, ptmRecursed = 0u, ptmSpare2 = null)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(ptcMagic = 0x55550005u, ptcLock = 0u, ptcWaitersFirst = null, ptcWaitersLast = null, ptcMutex = null, ptcPrivate = null)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(ptcMagic = 0x55550005u, ptcLock = 0u, ptcWaitersFirst = null, ptcWaitersLast = null, ptcMutex = null, ptcPrivate = null)
-
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(ptrMagic = 0x99990009u, ptrInterlock = 0u, ptrRblockedFirst = null, ptrRblockedLast = null, ptrWblockedFirst = null, ptrWblockedLast = null, ptrNreaders = 0u, ptrOwner = 0u, ptrPrivate = null)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(ptrMagic = 0x99990009u, ptrInterlock = 0u, ptrRblockedFirst = null, ptrRblockedLast = null, ptrWblockedFirst = null, ptrWblockedLast = null, ptrNreaders = 0u, ptrOwner = 0uL, ptrPrivate = null)
 
 public val PTHREAD_MUTEX_NORMAL: CInt = 0
 
@@ -1090,7 +1087,7 @@ public val CTLFLAG_OWNDESC: CInt = 0x00040000
 
 public val CTLFLAG_UNSIGNED: CInt = 0x00080000
 
-public val SYSCTL_VERS_MASK: CInt = 0xff000000
+public val SYSCTL_VERS_MASK: CInt = 0xff000000.toInt()
 
 public val SYSCTL_VERS_0: CInt = 0x00000000
 

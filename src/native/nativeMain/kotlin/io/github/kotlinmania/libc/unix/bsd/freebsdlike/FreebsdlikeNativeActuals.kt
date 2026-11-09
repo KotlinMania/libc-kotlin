@@ -71,7 +71,7 @@ public actual fun dirfd(dirp: DIR?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_dirfd(dirp?.handle?.toCPointer<ByteVar>())
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun endutxent() {
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_endutxent()
@@ -147,10 +147,10 @@ public actual fun mincore(addr: COpaquePointer?, len: SizeT, vec: COpaquePointer
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mincore(addr?.value?.toCPointer<ByteVar>(), len, vec?.value?.toCPointer<ByteVar>())
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_nlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_nlLanginfoL(item, locale?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_pipe2(fds?.value?.toCPointer<ByteVar>(), flags)
@@ -263,7 +263,7 @@ public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: 
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
 
 public actual fun querylocale(mask: CInt, loc: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_querylocale(mask, loc.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_querylocale(mask, loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun rtprio(function: CInt, pid: PidT, rtp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_rtprio(function, pid, rtp?.value?.toCPointer<ByteVar>())
@@ -333,7 +333,7 @@ public actual fun sysctlnametomib(name: String?, mibp: COpaquePointer?, sizep: C
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_sysctlnametomib(name, mibp?.value?.toCPointer<ByteVar>(), sizep?.value?.toCPointer<ByteVar>())
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_utimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flag)
@@ -475,7 +475,7 @@ public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_mqNotify(mqd.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =

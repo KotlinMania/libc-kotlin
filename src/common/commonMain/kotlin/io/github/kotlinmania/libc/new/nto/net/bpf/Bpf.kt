@@ -1,7 +1,7 @@
 // port-lint: source new/nto/net/bpf.rs
 package io.github.kotlinmania.libc.new.nto.net.bpf
 
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.BpfInsn
+import io.github.kotlinmania.libc.unix.nto.BpfInsn
 
 public val BPF_LD: UShort = 0x00u
 
@@ -108,9 +108,9 @@ public fun bpfMiscop(code: UInt): UInt {
 }
 
 public fun bpfStmt(code: UShort, k: UInt): BpfInsn {
-    return Any(code = code, jt = 0, jf = 0, k = k)
+    return BpfInsn(code = code, jt = 0u, jf = 0u, k = k)
 }
 
 public fun bpfJump(code: UShort, k: UInt, jt: UByte, jf: UByte): BpfInsn {
-    return Any(code = code, jt = jt, jf = jf, k = k)
+    return BpfInsn(code = code, jt = jt, jf = jf, k = k)
 }

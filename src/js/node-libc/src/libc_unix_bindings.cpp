@@ -7474,31 +7474,6 @@ static Napi::Value libc_unix_usleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_usleep_2_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    uint32_t secs = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    typedef int32_t (*km_fn_t)(uint32_t);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "usleep")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "usleep")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "usleep"));
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(secs) : -1;
-    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
-}
-
 static Napi::Value libc_unix_send_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
@@ -9596,7 +9571,6 @@ static void register_unix_napi(Napi::Env env, Napi::Object exports) {
     exports.Set("libc_unix_getprotobynumber", Napi::Function::New(env, libc_unix_getprotobynumber_napi));
     exports.Set("libc_unix_chroot", Napi::Function::New(env, libc_unix_chroot_napi));
     exports.Set("libc_unix_usleep", Napi::Function::New(env, libc_unix_usleep_napi));
-    exports.Set("libc_unix_usleep_2", Napi::Function::New(env, libc_unix_usleep_2_napi));
     exports.Set("libc_unix_send", Napi::Function::New(env, libc_unix_send_napi));
     exports.Set("libc_unix_recv", Napi::Function::New(env, libc_unix_recv_napi));
     exports.Set("libc_unix_putenv", Napi::Function::New(env, libc_unix_putenv_napi));

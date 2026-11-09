@@ -7,10 +7,9 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.IntptrT
 import io.github.kotlinmania.libc.unix.LocaleT
@@ -41,19 +40,19 @@ public fun interface LfindComparCallback {
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= sizeOf<Cmsghdr>()) {
-        (mhdr!!.msgControl as Cmsghdr?)
+    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+        null
     } else {
-        nullMut<Cmsghdr>()
+        null
     }
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     return if ((cmsg == null)) {
-        CMSG_FIRSTHDR(mhdr)
+        cmsgFirsthdr(mhdr)
     } else {
-        if ((((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + (cmsg!!.cmsgLen).toInt() + sizeOf<Cmsghdr>()) > (((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt())) {
-            nullMut<Cmsghdr>()
+        if ((((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + (cmsg!!.cmsgLen).toInt() + 8) > (((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt())) {
+            null
         } else {
             // AIX does not have any alignment/padding for ancillary data, so we don't need _CMSG_ALIGN here.
             null
@@ -61,42 +60,42 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (sizeOf<Cmsghdr>().toInt()).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (8.toInt()).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return sizeOf<Cmsghdr>().toUInt() + length
+    return 8.toUInt() + length
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return sizeOf<Cmsghdr>().toUInt() + length
+    return 8.toUInt() + length
 }
 
 public fun fdZero(set: FdSet?) {
-    for (slot in set!!.fdsBits.iterMut()) {
-        slot = 0
+    for (idx in (set!!.fdsBits).indices) {
+        (set!!.fdsBits)[idx] = 0L
     }
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
-    val bits = sizeOf<CLong>() * 8
+    val bits = 8 * 8
     val fd1 = fd.toInt()
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1uL shl (fd1 % bits))
+    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
     return
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
-    val bits = sizeOf<CLong>() * 8
+    val bits = 8 * 8
     val fd1 = fd.toInt()
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1uL shl (fd1 % bits)).inv()
+    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
-    val bits = sizeOf<CLong>() * 8
+    val bits = 8 * 8
     val fd1 = fd.toInt()
-    return (set!!.fdsBits[fd1 / bits] and (1uL shl (fd1 % bits))) != 0uL
+    return (set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits))) != 0L
 }
 
 public fun wifstopped(status: CInt): Boolean {
@@ -104,7 +103,7 @@ public fun wifstopped(status: CInt): Boolean {
 }
 
 public fun wstopsig(status: CInt): CInt {
-    return if (WIFSTOPPED(status)) {
+    return if (wifstopped(status)) {
         (((status.toUInt()) shr 8) and 0xffu).toInt()
     } else {
         -1
@@ -116,7 +115,7 @@ public fun wifexited(status: CInt): Boolean {
 }
 
 public fun wexitstatus(status: CInt): CInt {
-    return if (WIFEXITED(status)) {
+    return if (wifexited(status)) {
         (((status.toUInt()) shr 8) and 0xffu).toInt()
     } else {
         -1
@@ -124,11 +123,11 @@ public fun wexitstatus(status: CInt): CInt {
 }
 
 public fun wifsignaled(status: CInt): Boolean {
-    return !WIFEXITED(status) && !WIFSTOPPED(status)
+    return !wifexited(status) && !wifstopped(status)
 }
 
 public fun wtermsig(status: CInt): CInt {
-    return if (WIFSIGNALED(status)) {
+    return if (wifsignaled(status)) {
         (((status.toUInt()) shr 16) and 0xffu).toInt()
     } else {
         -1
@@ -156,7 +155,7 @@ public fun minor(dev: DevT): CUint {
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
     val minor1 = minor.toULong()
-    var dev = 0
+    var dev = 0uL
     dev = dev or (major1 shl 16)
     dev = dev or minor1
     return dev

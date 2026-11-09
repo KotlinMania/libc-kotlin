@@ -29,10 +29,10 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual val IN6ADDR_LOOPBACK: In6Addr
-    get() = null as In6Addr
+    get() = In6Addr()
 
 public actual val IN6ADDR_ANY: In6Addr
-    get() = null as In6Addr
+    get() = In6Addr()
 
 public actual fun isalnum(c: CInt): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_isalnum(c)
@@ -338,25 +338,25 @@ public actual fun getpwnam(name: String?): COpaquePointer? =
 public actual fun getpwuid(uid: UidT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_getpwuid(uid)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -419,13 +419,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_fileno(stream?.handle?.toCPointer<ByteVar>())
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_creat(path, mode)
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -492,13 +492,13 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_dup2(src, dst)
 
-public actual fun execl(path: String?, arg0: String?): CInt =
+public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execle(path: String?, arg0: String?): CInt =
+public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execlp(file: String?, arg0: String?): CInt =
+public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
@@ -709,7 +709,7 @@ public actual fun times(buf: COpaquePointer?): ClockT =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_times(buf?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadSelf(): PthreadT =
-    io.github.kotlinmania.libc.unix.cinterop.libc_unix_pthreadSelf()?.toLong() ?: 0L
+    (io.github.kotlinmania.libc.unix.cinterop.libc_unix_pthreadSelf()?.toLong() ?: 0L).toULong()
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_pthreadEqual(t1.toLong().toCPointer<ByteVar>(), t2.toLong().toCPointer<ByteVar>())
@@ -1048,7 +1048,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_setlogmask(maskpri)
 
-public actual fun syslog(priority: CInt, message: String?) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun nice(incr: CInt): CInt =
@@ -1105,7 +1105,7 @@ public actual fun pause(): CInt =
 public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_mkdirat(dirfd, pathname, mode)
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fdopendir(fd: CInt): DIR? =

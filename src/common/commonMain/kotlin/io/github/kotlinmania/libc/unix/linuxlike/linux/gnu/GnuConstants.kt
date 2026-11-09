@@ -7,14 +7,14 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.new.linuxuapi.linux.netlink.NLMSG_MIN_TYPE
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.aix.LC_MESSAGES_MASK
-import io.github.kotlinmania.libc.unix.aix.LC_MONETARY_MASK
-import io.github.kotlinmania.libc.unix.aix.LC_NUMERIC_MASK
-import io.github.kotlinmania.libc.unix.aix.LC_TIME_MASK
-import io.github.kotlinmania.libc.unix.bsd.apple.LC_COLLATE_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_CTYPE_MASK
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.NLMSG_MIN_TYPE
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MESSAGES_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MONETARY_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_NUMERIC_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_TIME_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.linux.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.U8
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.EOPNOTSUPP
@@ -397,10 +397,6 @@ public val BINDERFS_SUPER_MAGIC: CLong = 0x6c6f6f70L
 
 public val XFS_SUPER_MAGIC: CLong = 0x58465342L
 
-public val BINDERFS_SUPER_MAGIC1: CUint = 0x6c6f6f70u
-
-public val XFS_SUPER_MAGIC1: CUint = 0x58465342u
-
 public val CPU_SETSIZE: CInt = 0x400
 
 public val PTRACE_TRACEME: CUint = 0u
@@ -534,9 +530,9 @@ public val ELFOSABI_ARM_AEABI: UByte = 64u
 public val CLONE_NEWTIME: CInt = 0x80
 
 // DIFF(main): changed to `cUlonglong` in e9abac9ac2
-public val CLONE_CLEAR_SIGHAND: CInt = 0x100000000
+public val CLONE_CLEAR_SIGHAND: CInt = 0x100000000L.toInt()
 
-public val CLONE_INTO_CGROUP: CInt = 0x200000000
+public val CLONE_INTO_CGROUP: CInt = 0x200000000L.toInt()
 
 public val M_MXFAST: CInt = 1
 
@@ -701,10 +697,6 @@ public val GLOB_TILDE_CHECK: CInt = 1 shl 14
 public val MADV_COLLAPSE: CInt = 25
 
 public val PTHREAD_STACK_MIN: SizeT = 16384uL
-
-public val PTHREAD_STACK_MIN1: SizeT = 0x6000uL
-
-public val PTHREAD_STACK_MIN2: SizeT = 131072uL
 
 public val PTHREAD_MUTEX_ADAPTIVE_NP: CInt = 3
 

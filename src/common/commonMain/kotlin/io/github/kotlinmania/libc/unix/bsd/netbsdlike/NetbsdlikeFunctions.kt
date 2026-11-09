@@ -15,31 +15,32 @@ import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.IdtypeT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.ioc
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.DevT
 
 public fun io(g: CUlong, n: CUlong): CUlong {
-    return IOC(IOC_VOID, g, n, 0)
+    return ioc(IOC_VOID, g, n, 0uL)
 }
 
 /**
  * Build an ioctl number for an read-only ioctl.
  */
 public fun <T> ior(g: CUlong, n: CUlong): CUlong {
-    return IOC(IOC_OUT, g, n, sizeOf<T>().toULong())
+    return ioc(IOC_OUT, g, n, 8.toULong())
 }
 
 /**
  * Build an ioctl number for an write-only ioctl.
  */
 public fun <T> iow(g: CUlong, n: CUlong): CUlong {
-    return IOC(IOC_IN, g, n, sizeOf<T>().toULong())
+    return ioc(IOC_IN, g, n, 8.toULong())
 }
 
 /**
  * Build an ioctl number for a read-write ioctl.
  */
 public fun <T> iowr(g: CUlong, n: CUlong): CUlong {
-    return IOC(IOC_INOUT, g, n, sizeOf<T>().toULong())
+    return ioc(IOC_INOUT, g, n, 8.toULong())
 }
 
 public expect fun setgrent()

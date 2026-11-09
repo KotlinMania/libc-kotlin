@@ -3,19 +3,11 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.RTF_BFD
-import io.github.kotlinmania.libc.RTF_MPLS
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.aix.RTF_BLACKHOLE
-import io.github.kotlinmania.libc.unix.aix.RTF_PROTO1
-import io.github.kotlinmania.libc.unix.aix.RTF_PROTO2
-import io.github.kotlinmania.libc.unix.aix.RTF_REJECT
-import io.github.kotlinmania.libc.unix.aix.RTF_STATIC
 import io.github.kotlinmania.libc.unix.bsd.LC_COLLATE
 import io.github.kotlinmania.libc.unix.bsd.LC_CTYPE
 import io.github.kotlinmania.libc.unix.bsd.LC_MESSAGES
@@ -24,13 +16,16 @@ import io.github.kotlinmania.libc.unix.bsd.LC_NUMERIC
 import io.github.kotlinmania.libc.unix.bsd.LC_TIME
 import io.github.kotlinmania.libc.unix.bsd.MDMBUF
 import io.github.kotlinmania.libc.unix.bsd.O_SYNC
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RTF_LLINFO
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RTF_PROTO3
+import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
+import io.github.kotlinmania.libc.unix.bsd.RTF_BLACKHOLE
+import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO1
+import io.github.kotlinmania.libc.unix.bsd.RTF_PROTO2
+import io.github.kotlinmania.libc.unix.bsd.RTF_REJECT
+import io.github.kotlinmania.libc.unix.bsd.RTF_STATIC
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TcflagT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.aarch64.MAX_PAGE_SHIFT
-import io.github.kotlinmania.libc.unix.cygwin.POLLRDNORM
 
 public val UT_NAMESIZE: Int = 32
 
@@ -648,25 +643,25 @@ public val PTHREAD_MUTEX_STRICT_NP: CInt = 4
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_STRICT_NP
 
-public val EVFILT_READ: Short = -1
+public val EVFILT_READ: Short = (-1).toShort()
 
-public val EVFILT_WRITE: Short = -2
+public val EVFILT_WRITE: Short = (-2).toShort()
 
-public val EVFILT_AIO: Short = -3
+public val EVFILT_AIO: Short = (-3).toShort()
 
-public val EVFILT_VNODE: Short = -4
+public val EVFILT_VNODE: Short = (-4).toShort()
 
-public val EVFILT_PROC: Short = -5
+public val EVFILT_PROC: Short = (-5).toShort()
 
-public val EVFILT_SIGNAL: Short = -6
+public val EVFILT_SIGNAL: Short = (-6).toShort()
 
-public val EVFILT_TIMER: Short = -7
+public val EVFILT_TIMER: Short = (-7).toShort()
 
-public val EVFILT_DEVICE: Short = -8
+public val EVFILT_DEVICE: Short = (-8).toShort()
 
-public val EVFILT_EXCEPT: Short = -9
+public val EVFILT_EXCEPT: Short = (-9).toShort()
 
-public val EVFILT_USER: Short = -10
+public val EVFILT_USER: Short = (-10).toShort()
 
 public val EV_ADD: UShort = 0x1u
 
@@ -1158,7 +1153,7 @@ public val NFSMNT_ACDIRMAX: CInt = 0x200000
 
 // acdirmax field valid
 // Flags valid only in kernel
-public val NFSMNT_INTERNAL: CInt = 0xfffc0000
+public val NFSMNT_INTERNAL: CInt = 0xfffc0000.toInt()
 
 // Bits set internally
 public val NFSMNT_HASWRITEVERF: CInt = 0x40000
@@ -1200,7 +1195,7 @@ public val NFSMNT_HASAUTH: CInt = 0x20000000
 public val NFSMNT_WANTAUTH: CInt = 0x40000000
 
 // Wants an authenticator
-public val NFSMNT_AUTHERR: CInt = 0x80000000
+public val NFSMNT_AUTHERR: CInt = 0x80000000.toInt()
 
 // Authentication error
 public val MSDOSFSMNT_SHORTNAME: CInt = 0x1
@@ -1220,7 +1215,7 @@ public val TMPFS_ARGS_VERSION: CInt = 1
 
 public val SI_MAXSZ: SizeT = 128uL
 
-public val SI_PAD: SizeT = (SI_MAXSZ / sizeOf<CInt>()) - 3uL
+public val SI_PAD: SizeT = (SI_MAXSZ / 8uL.toULong()) - 3uL
 
 public val MAP_STACK: CInt = 0x4000
 
@@ -1297,11 +1292,11 @@ public val IFF_LINK2: CInt = 0x4000
 public val IFF_MULTICAST: CInt = 0x8000
 
 // supports multicast
-public val PTHREAD_STACK_MIN: SizeT = 1u shl MAX_PAGE_SHIFT
+public val PTHREAD_STACK_MIN: SizeT = 1uL shl MAX_PAGE_SHIFT.toInt()
 
-public val MINSIGSTKSZ: SizeT = 3u shl MAX_PAGE_SHIFT
+public val MINSIGSTKSZ: SizeT = 3uL shl MAX_PAGE_SHIFT.toInt()
 
-public val SIGSTKSZ: SizeT = MINSIGSTKSZ + (1u shl MAX_PAGE_SHIFT) * 4
+public val SIGSTKSZ: SizeT = MINSIGSTKSZ + (1uL shl MAX_PAGE_SHIFT.toInt()) * 4uL
 
 public val PT_SET_EVENT_MASK: CInt = 12
 
@@ -1477,23 +1472,23 @@ public val CLOCK_UPTIME: ClockidT = 5
 
 public val CLOCK_BOOTTIME: ClockidT = 6
 
-public val LC_COLLATE_MASK: CInt = 1 shl LC_COLLATE
+public val LC_COLLATE_MASK: CInt = 1 shl LC_COLLATE.toInt()
 
-public val LC_CTYPE_MASK: CInt = 1 shl LC_CTYPE
+public val LC_CTYPE_MASK: CInt = 1 shl LC_CTYPE.toInt()
 
-public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY
+public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY.toInt()
 
-public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC
+public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC.toInt()
 
-public val LC_TIME_MASK: CInt = 1 shl LC_TIME
+public val LC_TIME_MASK: CInt = 1 shl LC_TIME.toInt()
 
-public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES
+public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES.toInt()
 
 public val LC_LAST: CInt = 7
 
 public val LC_ALL_MASK: CInt = (1 shl LC_LAST) - 2
 
-public val LC_GLOBAL_LOCALE: LocaleT = (-1).toULong()
+public val LC_GLOBAL_LOCALE: LocaleT = ((-1 as Any?) as LocaleT)
 
 // sys/reboot.h
 public val RB_ASKNAME: CInt = 0x00001

@@ -11,7 +11,6 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.new.qurt.errno.errnoLocation
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
@@ -54,7 +53,7 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePoint
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun pthreadSelf(): PthreadT =
-    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSelf()?.toLong() ?: 0L
+    (io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSelf()?.toLong() ?: 0L).toULong()
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadJoin(native.toLong().toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
@@ -184,16 +183,16 @@ public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePo
 public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadGetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set?.value?.toCPointer<ByteVar>())
 
-public actual fun printf(fmt: String?): CInt =
+public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(fmt: String?): CInt =
+public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, fmt: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
@@ -237,8 +236,8 @@ public actual fun getpid(): PidT =
 public actual fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_gettimeofday(tv?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
 
-public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict: String?, restrict: COpaquePointer?): SizeT =
-    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strftime(restrict?.value?.toCPointer<ByteVar>(), sz, restrict, restrict?.value?.toCPointer<ByteVar>())
+public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT =
+    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strftime(restrict?.value?.toCPointer<ByteVar>(), sz, restrict_2, restrict_3?.value?.toCPointer<ByteVar>())
 
 public actual fun time(t: COpaquePointer?): TimeT =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_time(t?.value?.toCPointer<ByteVar>())
@@ -255,7 +254,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, valp: COpaquePointer?): CInt
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
 
-public actual fun semOpen(name: String?, flags: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semPost(sem: COpaquePointer?): CInt =
@@ -431,7 +430,7 @@ public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: Size
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_bsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nel, width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun div(num: CInt, den: CInt): DivT =
-    null as DivT
+    DivT()
 
 public actual fun ecvt(x: CDouble, n: CInt, dp: COpaquePointer?, sign: COpaquePointer?): COpaquePointer? =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_ecvt(x, n, dp?.value?.toCPointer<ByteVar>(), sign?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }

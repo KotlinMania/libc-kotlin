@@ -624,8 +624,6 @@ public expect fun chroot(name: String?): CInt
 
 public expect fun usleep(secs: UsecondsT): CInt
 
-public expect fun usleep(secs: CUint): CInt
-
 public expect fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT
 
 public expect fun recv(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT
@@ -725,19 +723,19 @@ public expect fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: 
 public expect fun lockf(fd: CInt, cmd: CInt, len: OffT): CInt
 
 public fun htonl(hostlong: UInt): UInt {
-    return UInt.toBe(hostlong)
+    return ((((hostlong) shl 24)) or (((hostlong) and 0x0000FF00u) shl 8) or (((hostlong) shr 8) and 0x0000FF00u) or ((hostlong) shr 24))
 }
 
 public fun htons(hostshort: UShort): UShort {
-    return UShort.toBe(hostshort)
+    return (((((hostshort).toUInt() and 0xFFu) shl 8) or (((hostshort).toUInt() shr 8) and 0xFFu)).toUShort())
 }
 
 public fun ntohl(netlong: UInt): UInt {
-    return UInt.fromBe(netlong)
+    return ((((netlong) shl 24)) or (((netlong) and 0x0000FF00u) shl 8) or (((netlong) shr 8) and 0x0000FF00u) or ((netlong) shr 24))
 }
 
 public fun ntohs(netshort: UShort): UShort {
-    return UShort.fromBe(netshort)
+    return (((((netshort).toUInt() and 0xFFu) shl 8) or (((netshort).toUInt() shr 8) and 0xFFu)).toUShort())
 }
 
 public expect fun adjtime(delta: COpaquePointer?, olddelta: COpaquePointer?): CInt

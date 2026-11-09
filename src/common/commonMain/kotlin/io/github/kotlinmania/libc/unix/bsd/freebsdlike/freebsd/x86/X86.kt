@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.x86
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
 
@@ -17,40 +16,40 @@ public typealias SusecondsT = Int
 
 public typealias RegisterT = Int
 
-public open class McontextT(
-    public var mcOnstack: RegisterT,
-    public var mcGs: RegisterT,
-    public var mcFs: RegisterT,
-    public var mcEs: RegisterT,
-    public var mcDs: RegisterT,
-    public var mcEdi: RegisterT,
-    public var mcEsi: RegisterT,
-    public var mcEbp: RegisterT,
-    public var mcIsp: RegisterT,
-    public var mcEbx: RegisterT,
-    public var mcEdx: RegisterT,
-    public var mcEcx: RegisterT,
-    public var mcEax: RegisterT,
-    public var mcTrapno: RegisterT,
-    public var mcErr: RegisterT,
-    public var mcEip: RegisterT,
-    public var mcCs: RegisterT,
-    public var mcEflags: RegisterT,
-    public var mcEsp: RegisterT,
-    public var mcSs: RegisterT,
-    public var mcLen: CInt,
-    public var mcFpformat: CInt,
-    public var mcOwnedfp: CInt,
-    public var mcFlags: RegisterT,
-    public var mcFpstate: List<CInt>,
-    public var mcFsbase: RegisterT,
-    public var mcGsbase: RegisterT,
-    public var mcXfpustate: RegisterT,
-    public var mcXfpustateLen: RegisterT,
-    public var mcSpare2: List<CInt>,
+public class McontextT(
+    public var mcOnstack: RegisterT = 0,
+    public var mcGs: RegisterT = 0,
+    public var mcFs: RegisterT = 0,
+    public var mcEs: RegisterT = 0,
+    public var mcDs: RegisterT = 0,
+    public var mcEdi: RegisterT = 0,
+    public var mcEsi: RegisterT = 0,
+    public var mcEbp: RegisterT = 0,
+    public var mcIsp: RegisterT = 0,
+    public var mcEbx: RegisterT = 0,
+    public var mcEdx: RegisterT = 0,
+    public var mcEcx: RegisterT = 0,
+    public var mcEax: RegisterT = 0,
+    public var mcTrapno: RegisterT = 0,
+    public var mcErr: RegisterT = 0,
+    public var mcEip: RegisterT = 0,
+    public var mcCs: RegisterT = 0,
+    public var mcEflags: RegisterT = 0,
+    public var mcEsp: RegisterT = 0,
+    public var mcSs: RegisterT = 0,
+    public var mcLen: CInt = 0,
+    public var mcFpformat: CInt = 0,
+    public var mcOwnedfp: CInt = 0,
+    public var mcFlags: RegisterT = 0,
+    public var mcFpstate: IntArray = IntArray(128),
+    public var mcFsbase: RegisterT = 0,
+    public var mcGsbase: RegisterT = 0,
+    public var mcXfpustate: RegisterT = 0,
+    public var mcXfpustateLen: RegisterT = 0,
+    public var mcSpare2: IntArray = IntArray(4),
 )
 
-internal val ALIGNBYTES: Int = sizeOf<CLong>() - 1
+internal val ALIGNBYTES: Int = 8 - 1
 
 public val MINSIGSTKSZ: SizeT = 2048uL
 

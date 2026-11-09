@@ -299,23 +299,23 @@ public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: 
     UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_uselocale(loc.toLong()).toULong()()
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_freelocale(loc.toLong())
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_freelocale((loc?.value ?: 0L))
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, base.toLong()).toULong()()
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_duplocale(base.toLong()).toULong()()
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
     UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_explicitBzero((s?.value ?: 0L), len.toLong())
 }
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {

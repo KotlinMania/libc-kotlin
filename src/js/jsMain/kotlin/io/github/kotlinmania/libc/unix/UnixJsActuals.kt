@@ -29,10 +29,10 @@ private val _unixNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
 
 public actual val IN6ADDR_LOOPBACK: In6Addr
-    get() = null as In6Addr
+    get() = In6Addr()
 
 public actual val IN6ADDR_ANY: In6Addr
-    get() = null as In6Addr
+    get() = In6Addr()
 
 public actual fun isalnum(c: CInt): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_isalnum(c) as Int) else 0
@@ -354,25 +354,25 @@ public actual fun getpwnam(name: String?): COpaquePointer? =
 public actual fun getpwuid(uid: UidT): COpaquePointer? =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_getpwuid(uid.toInt()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -435,13 +435,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_fileno((stream?.handle ?: 0L).toString()) as Int) else 0
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_creat(path, mode.toInt()) as Int) else 0
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -510,13 +510,13 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_dup2(src, dst) as Int) else 0
 
-public actual fun execl(path: String?, arg0: String?): CInt =
+public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execle(path: String?, arg0: String?): CInt =
+public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execlp(file: String?, arg0: String?): CInt =
+public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
@@ -727,7 +727,7 @@ public actual fun times(buf: COpaquePointer?): ClockT =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_times((buf?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadSelf() as String).toLong().toULong()() else 0uL
+    if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadSelf() as String).toLong().toULong() else 0uL
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadEqual(t1.toLong().toString(), t2.toLong().toString()) as Int) else 0
@@ -1078,7 +1078,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_setlogmask(maskpri) as Int) else 0
 
-public actual fun syslog(priority: CInt, message: String?) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun nice(incr: CInt): CInt =
@@ -1135,7 +1135,7 @@ public actual fun pause(): CInt =
 public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_mkdirat(dirfd, pathname, mode.toInt()) as Int) else 0
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fdopendir(fd: CInt): DIR? =

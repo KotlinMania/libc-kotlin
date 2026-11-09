@@ -28,7 +28,7 @@ public actual fun pthreadExit(retval: COpaquePointer?): Nothing {
 }
 
 public actual fun pthreadSelf(): PthreadT =
-    io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadSelf()?.toLong() ?: 0L
+    (io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadSelf()?.toLong() ?: 0L).toUInt()
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadEqual(t1.toLong().toCPointer<ByteVar>(), t2.toLong().toCPointer<ByteVar>())

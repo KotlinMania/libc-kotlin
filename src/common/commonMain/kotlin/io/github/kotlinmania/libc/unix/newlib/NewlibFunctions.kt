@@ -6,7 +6,7 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.UidT
@@ -19,26 +19,26 @@ public fun interface PthreadAtforkPrepareCallback {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
     val fd1 = fd.toInt()
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1 shl (fd1 % bits)).inv()
+    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1uL shl (fd1 % bits)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val bits = 8 * 8
     val fd1 = fd.toInt()
-    return (set!!.fdsBits[fd1 / bits] and (1 shl (fd1 % bits))) != 0
+    return (set!!.fdsBits[fd1 / bits] and (1uL shl (fd1 % bits))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
     val fd1 = fd.toInt()
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1 shl (fd1 % bits))
+    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1uL shl (fd1 % bits))
     return
 }
 
 public fun fdZero(set: FdSet?) {
-    for (slot in set!!.fdsBits.iterMut()) {
-        slot = 0
+    for (idx in (set!!.fdsBits).indices) {
+        (set!!.fdsBits)[idx] = 0uL
     }
 }
 

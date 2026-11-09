@@ -25,7 +25,7 @@ public actual fun prlimit(pid: PidT, resource: CInt, newLimit: COpaquePointer?, 
 public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
     0
 
-public actual fun ptrace(request: CInt): CLong =
+public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =

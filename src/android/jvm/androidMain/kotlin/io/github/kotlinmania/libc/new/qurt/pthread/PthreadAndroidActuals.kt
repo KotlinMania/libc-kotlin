@@ -148,7 +148,7 @@ public actual fun pthreadExit(retval: COpaquePointer?): Nothing {
 }
 
 public actual fun pthreadSelf(): PthreadT =
-    NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadSelf().toUInt()()
+    NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadSelf().toUInt()
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadEqual(t1.toLong(), t2.toLong())

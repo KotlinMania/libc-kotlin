@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.x8664
 
 import io.github.kotlinmania.libc.*
@@ -32,137 +33,202 @@ public class DebugStruct(
     }
 }
 
-public open class Reg32(
-    public var rFs: UInt,
-    public var rEs: UInt,
-    public var rDs: UInt,
-    public var rEdi: UInt,
-    public var rEsi: UInt,
-    public var rEbp: UInt,
-    public var rIsp: UInt,
-    public var rEbx: UInt,
-    public var rEdx: UInt,
-    public var rEcx: UInt,
-    public var rEax: UInt,
-    public var rTrapno: UInt,
-    public var rErr: UInt,
-    public var rEip: UInt,
-    public var rCs: UInt,
-    public var rEflags: UInt,
-    public var rEsp: UInt,
-    public var rSs: UInt,
-    public var rGs: UInt,
+public class Reg32(
+    public var rFs: UInt = 0u,
+    public var rEs: UInt = 0u,
+    public var rDs: UInt = 0u,
+    public var rEdi: UInt = 0u,
+    public var rEsi: UInt = 0u,
+    public var rEbp: UInt = 0u,
+    public var rIsp: UInt = 0u,
+    public var rEbx: UInt = 0u,
+    public var rEdx: UInt = 0u,
+    public var rEcx: UInt = 0u,
+    public var rEax: UInt = 0u,
+    public var rTrapno: UInt = 0u,
+    public var rErr: UInt = 0u,
+    public var rEip: UInt = 0u,
+    public var rCs: UInt = 0u,
+    public var rEflags: UInt = 0u,
+    public var rEsp: UInt = 0u,
+    public var rSs: UInt = 0u,
+    public var rGs: UInt = 0u,
 )
 
-public open class Reg(
-    public var rR15: Long,
-    public var rR14: Long,
-    public var rR13: Long,
-    public var rR12: Long,
-    public var rR11: Long,
-    public var rR10: Long,
-    public var rR9: Long,
-    public var rR8: Long,
-    public var rRdi: Long,
-    public var rRsi: Long,
-    public var rRbp: Long,
-    public var rRbx: Long,
-    public var rRdx: Long,
-    public var rRcx: Long,
-    public var rRax: Long,
-    public var rTrapno: UInt,
-    public var rFs: UShort,
-    public var rGs: UShort,
-    public var rErr: UInt,
-    public var rEs: UShort,
-    public var rDs: UShort,
-    public var rRip: Long,
-    public var rCs: Long,
-    public var rRflags: Long,
-    public var rRsp: Long,
-    public var rSs: Long,
+public class Reg(
+    public var rR15: Long = 0L,
+    public var rR14: Long = 0L,
+    public var rR13: Long = 0L,
+    public var rR12: Long = 0L,
+    public var rR11: Long = 0L,
+    public var rR10: Long = 0L,
+    public var rR9: Long = 0L,
+    public var rR8: Long = 0L,
+    public var rRdi: Long = 0L,
+    public var rRsi: Long = 0L,
+    public var rRbp: Long = 0L,
+    public var rRbx: Long = 0L,
+    public var rRdx: Long = 0L,
+    public var rRcx: Long = 0L,
+    public var rRax: Long = 0L,
+    public var rTrapno: UInt = 0u,
+    public var rFs: UShort = 0u,
+    public var rGs: UShort = 0u,
+    public var rErr: UInt = 0u,
+    public var rEs: UShort = 0u,
+    public var rDs: UShort = 0u,
+    public var rRip: Long = 0L,
+    public var rCs: Long = 0L,
+    public var rRflags: Long = 0L,
+    public var rRsp: Long = 0L,
+    public var rSs: Long = 0L,
 )
 
-public open class Fpreg32(
-    public var fprEnv: List<UInt>,
-    public var fprAcc: List<List<UByte>>,
-    public var fprExSw: UInt,
-    public var fprPad: List<UByte>,
-)
-
-public open class Fpreg(
-    public var fprEnv: List<ULong>,
-    public var fprAcc: List<List<UByte>>,
-    public var fprXacc: List<List<UByte>>,
-    public var fprSpare: List<ULong>,
-)
-
-public open class Xmmreg(
-    public var xmmEnv: List<UInt>,
-    public var xmmAcc: List<List<UByte>>,
-    public var xmmReg: List<List<UByte>>,
-    public var xmmPad: List<UByte>,
-)
-
-public open class McontextT(
-    public var mcOnstack: RegisterT,
-    public var mcRdi: RegisterT,
-    public var mcRsi: RegisterT,
-    public var mcRdx: RegisterT,
-    public var mcRcx: RegisterT,
-    public var mcR8: RegisterT,
-    public var mcR9: RegisterT,
-    public var mcRax: RegisterT,
-    public var mcRbx: RegisterT,
-    public var mcRbp: RegisterT,
-    public var mcR10: RegisterT,
-    public var mcR11: RegisterT,
-    public var mcR12: RegisterT,
-    public var mcR13: RegisterT,
-    public var mcR14: RegisterT,
-    public var mcR15: RegisterT,
-    public var mcTrapno: UInt,
-    public var mcFs: UShort,
-    public var mcGs: UShort,
-    public var mcAddr: RegisterT,
-    public var mcFlags: UInt,
-    public var mcEs: UShort,
-    public var mcDs: UShort,
-    public var mcErr: RegisterT,
-    public var mcRip: RegisterT,
-    public var mcCs: RegisterT,
-    public var mcRflags: RegisterT,
-    public var mcRsp: RegisterT,
-    public var mcSs: RegisterT,
-    public var mcLen: CLong,
-    public var mcFpformat: CLong,
-    public var mcOwnedfp: CLong,
-    public var mcFpstate: List<CLong>,
-    public var mcFsbase: RegisterT,
-    public var mcGsbase: RegisterT,
-    public var mcXfpustate: RegisterT,
-    public var mcXfpustateLen: RegisterT,
-    // freebsd < 15
-    public var mcSpare: List<CLong>,
-    // freebsd >= 15
-    public var mcTlsbase: RegisterT,
-)
-
-public open class CAnonymousElf64AuxvUnion(
-    public var aVal: CLong? = null,
-    public var aPtr: COpaquePointer?? = null,
-    public var aFcn: CAnonymousElf64AuxvUnionAFcnCallback? = null,
+public data class Fpreg32(
+    public var fprEnv: UIntArray = UIntArray(7),
+    public var fprAcc: List<UByteArray> = List(8) { UByteArray(0) },
+    public var fprExSw: UInt = 0u,
+    public var fprPad: UByteArray = UByteArray(64),
 ) {
-    public open fun fmt(f: StringBuilder) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Fpreg32) return false
+        if (!this.fprEnv.contentEquals(other.fprEnv)) return false
+        if (this.fprAcc != other.fprAcc) return false
+        if (this.fprExSw != other.fprExSw) return false
+        if (!this.fprPad.contentEquals(other.fprPad)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fprEnv.contentHashCode()
+        result = 31 * result + this.fprAcc.hashCode()
+        result = 31 * result + this.fprExSw.hashCode()
+        result = 31 * result + this.fprPad.contentHashCode()
+        return result
+    }
+}
+
+public data class Fpreg(
+    public var fprEnv: ULongArray = ULongArray(4),
+    public var fprAcc: List<UByteArray> = List(8) { UByteArray(0) },
+    public var fprXacc: List<UByteArray> = List(16) { UByteArray(0) },
+    public var fprSpare: ULongArray = ULongArray(12),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Fpreg) return false
+        if (!this.fprEnv.contentEquals(other.fprEnv)) return false
+        if (this.fprAcc != other.fprAcc) return false
+        if (this.fprXacc != other.fprXacc) return false
+        if (!this.fprSpare.contentEquals(other.fprSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fprEnv.contentHashCode()
+        result = 31 * result + this.fprAcc.hashCode()
+        result = 31 * result + this.fprXacc.hashCode()
+        result = 31 * result + this.fprSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class Xmmreg(
+    public var xmmEnv: UIntArray = UIntArray(8),
+    public var xmmAcc: List<UByteArray> = List(8) { UByteArray(0) },
+    public var xmmReg: List<UByteArray> = List(8) { UByteArray(0) },
+    public var xmmPad: UByteArray = UByteArray(224),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Xmmreg) return false
+        if (!this.xmmEnv.contentEquals(other.xmmEnv)) return false
+        if (this.xmmAcc != other.xmmAcc) return false
+        if (this.xmmReg != other.xmmReg) return false
+        if (!this.xmmPad.contentEquals(other.xmmPad)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.xmmEnv.contentHashCode()
+        result = 31 * result + this.xmmAcc.hashCode()
+        result = 31 * result + this.xmmReg.hashCode()
+        result = 31 * result + this.xmmPad.contentHashCode()
+        return result
+    }
+}
+
+public class McontextT(
+    public var mcOnstack: RegisterT = 0L,
+    public var mcRdi: RegisterT = 0L,
+    public var mcRsi: RegisterT = 0L,
+    public var mcRdx: RegisterT = 0L,
+    public var mcRcx: RegisterT = 0L,
+    public var mcR8: RegisterT = 0L,
+    public var mcR9: RegisterT = 0L,
+    public var mcRax: RegisterT = 0L,
+    public var mcRbx: RegisterT = 0L,
+    public var mcRbp: RegisterT = 0L,
+    public var mcR10: RegisterT = 0L,
+    public var mcR11: RegisterT = 0L,
+    public var mcR12: RegisterT = 0L,
+    public var mcR13: RegisterT = 0L,
+    public var mcR14: RegisterT = 0L,
+    public var mcR15: RegisterT = 0L,
+    public var mcTrapno: UInt = 0u,
+    public var mcFs: UShort = 0u,
+    public var mcGs: UShort = 0u,
+    public var mcAddr: RegisterT = 0L,
+    public var mcFlags: UInt = 0u,
+    public var mcEs: UShort = 0u,
+    public var mcDs: UShort = 0u,
+    public var mcErr: RegisterT = 0L,
+    public var mcRip: RegisterT = 0L,
+    public var mcCs: RegisterT = 0L,
+    public var mcRflags: RegisterT = 0L,
+    public var mcRsp: RegisterT = 0L,
+    public var mcSs: RegisterT = 0L,
+    public var mcLen: CLong = 0L,
+    public var mcFpformat: CLong = 0L,
+    public var mcOwnedfp: CLong = 0L,
+    public var mcFpstate: LongArray = LongArray(64),
+    public var mcFsbase: RegisterT = 0L,
+    public var mcGsbase: RegisterT = 0L,
+    public var mcXfpustate: RegisterT = 0L,
+    public var mcXfpustateLen: RegisterT = 0L,
+    // freebsd < 15
+    public var mcSpare: LongArray = LongArray(4),
+    // freebsd >= 15
+    public var mcTlsbase: RegisterT = 0L,
+)
+
+public data class CAnonymousElf64AuxvUnion(
+    public var aVal: CLong = 0L,
+    public var aPtr: COpaquePointer? = null,
+    public var aFcn: CAnonymousElf64AuxvUnionAFcnCallback = CAnonymousElf64AuxvUnionAFcnCallback {},
+) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_elf64_auxv_union").finishNonExhaustive()
     }
 
     // Note(msrv): suggested method was added in 1.85
-    public open fun eq(other: CAnonymousElf64AuxvUnion): Boolean {
+    public fun eq(other: CAnonymousElf64AuxvUnion): Boolean {
         return this.aVal == other.aVal || this.aPtr == other.aPtr || this.aFcn == other.aFcn
     }
 }
 
-public open class Elf64Auxinfo(public var aType: CLong, public var aUn: CAnonymousElf64AuxvUnion)
+public data class Elf64Auxinfo(public var aType: CLong = 0L, public var aUn: CAnonymousElf64AuxvUnion = CAnonymousElf64AuxvUnion())
 
-public open class MaxAlignT(public var priv: List<Double>)
+public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MaxAlignT) return false
+        if (!this.priv.contentEquals(other.priv)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.priv.contentHashCode()
+    }
+}

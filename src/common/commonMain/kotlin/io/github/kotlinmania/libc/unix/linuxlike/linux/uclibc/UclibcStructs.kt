@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*
@@ -16,6 +17,8 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.S32
 import io.github.kotlinmania.libc.unix.linuxlike.linux.U32
 import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.FsblkcntT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.FsfilcntT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.SIZEOF_PTHREAD_CONDATTR_T
+import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.SIZEOF_PTHREAD_MUTEXATTR_T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.U64
 
 public class DebugStruct(
@@ -42,113 +45,223 @@ public class DebugStruct(
     }
 }
 
-public open class Statvfs(
+public data class Statvfs(
     // Different than GNU!
-    public var fBsize: CUlong,
-    public var fFrsize: CUlong,
-    public var fBlocks: FsblkcntT,
-    public var fBfree: FsblkcntT,
-    public var fBavail: FsblkcntT,
-    public var fFiles: FsfilcntT,
-    public var fFfree: FsfilcntT,
-    public var fFavail: FsfilcntT,
-    public var fFsid: CUlong,
-    public var fFlag: CUlong,
-    public var fNamemax: CUlong,
-    public var fSpare: List<CInt>,
+    public var fBsize: CUlong = 0uL,
+    public var fFrsize: CUlong = 0uL,
+    public var fBlocks: FsblkcntT = 0uL,
+    public var fBfree: FsblkcntT = 0uL,
+    public var fBavail: FsblkcntT = 0uL,
+    public var fFiles: FsfilcntT = 0uL,
+    public var fFfree: FsfilcntT = 0uL,
+    public var fFavail: FsfilcntT = 0uL,
+    public var fFsid: CUlong = 0uL,
+    public var fFlag: CUlong = 0uL,
+    public var fNamemax: CUlong = 0uL,
+    public var fSpare: IntArray = IntArray(6),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statvfs) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fFavail != other.fFavail) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fFlag != other.fFlag) return false
+        if (this.fNamemax != other.fNamemax) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fBsize.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fFavail.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fFlag.hashCode()
+        result = 31 * result + this.fNamemax.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class RegexT(
+    public var buffer: COpaquePointer? = null,
+    public var allocated: SizeT = 0uL,
+    public var used: SizeT = 0uL,
+    public var syntax: CUlong = 0uL,
+    public var fastmap: COpaquePointer? = null,
+    public var translate: COpaquePointer? = null,
+    public var reNsub: SizeT = 0uL,
+    public var bitfield: UByte = 0u,
 )
 
-public open class RegexT(
-    public var buffer: COpaquePointer?,
-    public var allocated: SizeT,
-    public var used: SizeT,
-    public var syntax: CUlong,
-    public var fastmap: COpaquePointer?,
-    public var translate: COpaquePointer?,
-    public var reNsub: SizeT,
-    public var bitfield: UByte,
+public data class Rtentry(
+    public var rtPad1: CUlong = 0uL,
+    public var rtDst: Sockaddr = Sockaddr(),
+    public var rtGateway: Sockaddr = Sockaddr(),
+    public var rtGenmask: Sockaddr = Sockaddr(),
+    public var rtFlags: CUshort = 0u,
+    public var rtPad2: CShort = 0,
+    public var rtPad3: CUlong = 0uL,
+    public var rtTos: CUchar = 0u,
+    public var rtClass: CUchar = 0u,
+    public var rtPad4: ShortArray = ShortArray(3),
+    public var rtMetric: CShort = 0,
+    public var rtDev: COpaquePointer? = null,
+    public var rtMtu: CUlong = 0uL,
+    public var rtWindow: CUlong = 0uL,
+    public var rtIrtt: CUshort = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Rtentry) return false
+        if (this.rtPad1 != other.rtPad1) return false
+        if (this.rtDst != other.rtDst) return false
+        if (this.rtGateway != other.rtGateway) return false
+        if (this.rtGenmask != other.rtGenmask) return false
+        if (this.rtFlags != other.rtFlags) return false
+        if (this.rtPad2 != other.rtPad2) return false
+        if (this.rtPad3 != other.rtPad3) return false
+        if (this.rtTos != other.rtTos) return false
+        if (this.rtClass != other.rtClass) return false
+        if (!this.rtPad4.contentEquals(other.rtPad4)) return false
+        if (this.rtMetric != other.rtMetric) return false
+        if (this.rtDev != other.rtDev) return false
+        if (this.rtMtu != other.rtMtu) return false
+        if (this.rtWindow != other.rtWindow) return false
+        if (this.rtIrtt != other.rtIrtt) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.rtPad1.hashCode()
+        result = 31 * result + this.rtDst.hashCode()
+        result = 31 * result + this.rtGateway.hashCode()
+        result = 31 * result + this.rtGenmask.hashCode()
+        result = 31 * result + this.rtFlags.hashCode()
+        result = 31 * result + this.rtPad2.hashCode()
+        result = 31 * result + this.rtPad3.hashCode()
+        result = 31 * result + this.rtTos.hashCode()
+        result = 31 * result + this.rtClass.hashCode()
+        result = 31 * result + this.rtPad4.contentHashCode()
+        result = 31 * result + this.rtMetric.hashCode()
+        result = 31 * result + this.rtDev.hashCode()
+        result = 31 * result + this.rtMtu.hashCode()
+        result = 31 * result + this.rtWindow.hashCode()
+        result = 31 * result + this.rtIrtt.hashCode()
+        return result
+    }
+}
+
+public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+
+public data class PtracePeeksiginfoArgs(
+    public var off: U64 = 0uL,
+    public var flags: U32 = 0u,
+    public var nr: S32 = 0,
 )
 
-public open class Rtentry(
-    public var rtPad1: CUlong,
-    public var rtDst: Sockaddr,
-    public var rtGateway: Sockaddr,
-    public var rtGenmask: Sockaddr,
-    public var rtFlags: CUshort,
-    public var rtPad2: CShort,
-    public var rtPad3: CUlong,
-    public var rtTos: CUchar,
-    public var rtClass: CUchar,
-    public var rtPad4: List<CShort>,
-    public var rtMetric: CShort,
-    public var rtDev: COpaquePointer?,
-    public var rtMtu: CUlong,
-    public var rtWindow: CUlong,
-    public var rtIrtt: CUshort,
-)
+public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEXATTR_T).toInt())) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadMutexattrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class ExitStatus(public var eTermination: CShort, public var eExit: CShort)
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
 
-public open class PtracePeeksiginfoArgs(
-    public var off: U64,
-    public var flags: U32,
-    public var nr: S32,
-)
+public data class PthreadCondattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_CONDATTR_T).toInt())) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadCondattrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class PthreadMutexattrT(public var size: List<UByte>)
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
 
-public open class PthreadCondattrT(public var size: List<UByte>)
-
-public open class TcpInfo(
-    public var tcpiState: UByte,
-    public var tcpiCaState: UByte,
-    public var tcpiRetransmits: UByte,
-    public var tcpiProbes: UByte,
-    public var tcpiBackoff: UByte,
-    public var tcpiOptions: UByte,
+public class TcpInfo(
+    public var tcpiState: UByte = 0u,
+    public var tcpiCaState: UByte = 0u,
+    public var tcpiRetransmits: UByte = 0u,
+    public var tcpiProbes: UByte = 0u,
+    public var tcpiBackoff: UByte = 0u,
+    public var tcpiOptions: UByte = 0u,
     /**
      * This contains the bitfields `tcpiSndWscale` and `tcpiRcvWscale`.
      * Each is 4 bits.
      */
-    public var tcpiSndRcvWscale: UByte,
-    public var tcpiRto: UInt,
-    public var tcpiAto: UInt,
-    public var tcpiSndMss: UInt,
-    public var tcpiRcvMss: UInt,
-    public var tcpiUnacked: UInt,
-    public var tcpiSacked: UInt,
-    public var tcpiLost: UInt,
-    public var tcpiRetrans: UInt,
-    public var tcpiFackets: UInt,
-    public var tcpiLastDataSent: UInt,
-    public var tcpiLastAckSent: UInt,
-    public var tcpiLastDataRecv: UInt,
-    public var tcpiLastAckRecv: UInt,
-    public var tcpiPmtu: UInt,
-    public var tcpiRcvSsthresh: UInt,
-    public var tcpiRtt: UInt,
-    public var tcpiRttvar: UInt,
-    public var tcpiSndSsthresh: UInt,
-    public var tcpiSndCwnd: UInt,
-    public var tcpiAdvmss: UInt,
-    public var tcpiReordering: UInt,
-    public var tcpiRcvRtt: UInt,
-    public var tcpiRcvSpace: UInt,
-    public var tcpiTotalRetrans: UInt,
+    public var tcpiSndRcvWscale: UByte = 0u,
+    public var tcpiRto: UInt = 0u,
+    public var tcpiAto: UInt = 0u,
+    public var tcpiSndMss: UInt = 0u,
+    public var tcpiRcvMss: UInt = 0u,
+    public var tcpiUnacked: UInt = 0u,
+    public var tcpiSacked: UInt = 0u,
+    public var tcpiLost: UInt = 0u,
+    public var tcpiRetrans: UInt = 0u,
+    public var tcpiFackets: UInt = 0u,
+    public var tcpiLastDataSent: UInt = 0u,
+    public var tcpiLastAckSent: UInt = 0u,
+    public var tcpiLastDataRecv: UInt = 0u,
+    public var tcpiLastAckRecv: UInt = 0u,
+    public var tcpiPmtu: UInt = 0u,
+    public var tcpiRcvSsthresh: UInt = 0u,
+    public var tcpiRtt: UInt = 0u,
+    public var tcpiRttvar: UInt = 0u,
+    public var tcpiSndSsthresh: UInt = 0u,
+    public var tcpiSndCwnd: UInt = 0u,
+    public var tcpiAdvmss: UInt = 0u,
+    public var tcpiReordering: UInt = 0u,
+    public var tcpiRcvRtt: UInt = 0u,
+    public var tcpiRcvSpace: UInt = 0u,
+    public var tcpiTotalRetrans: UInt = 0u,
 )
 
-public open class SifieldsSigchld(
-    public var siPid: PidT,
-    public var siUid: UidT,
-    public var siStatus: CInt,
-    public var siUtime: CLong,
-    public var siStime: CLong,
+public data class SifieldsSigchld(
+    public var siPid: PidT = 0,
+    public var siUid: UidT = 0u,
+    public var siStatus: CInt = 0,
+    public var siUtime: CLong = 0L,
+    public var siStime: CLong = 0L,
 )
 
-public open class Sifields(public var alignPointer: COpaquePointer?? = null, public var sigchld: SifieldsSigchld? = null) {
-    public open fun fmt(f: StringBuilder) {
+public data class Sifields(public var alignPointer: COpaquePointer? = null, public var sigchld: SifieldsSigchld = SifieldsSigchld()) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sifields").finishNonExhaustive()
     }
 }
 
-public open class SiginfoF(public var siginfoBase: List<CInt>, public var sifields: Sifields)
+public data class SiginfoF(public var siginfoBase: IntArray = IntArray(3), public var sifields: Sifields = Sifields()) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SiginfoF) return false
+        if (!this.siginfoBase.contentEquals(other.siginfoBase)) return false
+        if (this.sifields != other.sifields) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.siginfoBase.contentHashCode()
+        result = 31 * result + this.sifields.hashCode()
+        return result
+    }
+}

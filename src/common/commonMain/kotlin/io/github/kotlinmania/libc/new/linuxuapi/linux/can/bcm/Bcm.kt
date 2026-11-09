@@ -7,17 +7,17 @@ import io.github.kotlinmania.libc.new.linuxuapi.linux.can.CanidT
 
 // Header: `linux / can / bcm.h`
 
-public open class BcmTimeval(public var tvSec: CLong, public var tvUsec: CLong)
+public data class BcmTimeval(public var tvSec: CLong = 0L, public var tvUsec: CLong = 0L)
 
-public open class BcmMsgHead(
-    public var opcode: UInt,
-    public var flags: UInt,
-    public var count: UInt,
-    public var ival1: BcmTimeval,
-    public var ival2: BcmTimeval,
-    public var canId: CanidT,
-    public var nframes: UInt,
-    public var frames: List<CanFrame>,
+public data class BcmMsgHead(
+    public var opcode: UInt = 0u,
+    public var flags: UInt = 0u,
+    public var count: UInt = 0u,
+    public var ival1: BcmTimeval = BcmTimeval(),
+    public var ival2: BcmTimeval = BcmTimeval(),
+    public var canId: CanidT = 0u,
+    public var nframes: UInt = 0u,
+    public var frames: List<CanFrame> = List(0) { CanFrame() },
 )
 
 public val TX_SETUP: UInt = 1u

@@ -82,168 +82,132 @@ public typealias SctpAssocT = UInt
 
 public typealias EventfdT = ULong
 
-public sealed class DevstatSupportFlags(public val value: UInt) {
-    public data object DevstatAllSupported : DevstatSupportFlags(0x00u)
-    public data object DevstatNoBlocksize : DevstatSupportFlags(0x01u)
-    public data object DevstatNoOrderedTags : DevstatSupportFlags(0x02u)
-    public data object DevstatBsUnavailable : DevstatSupportFlags(0x04u)
-
-    public open fun clone(): DevstatSupportFlags {
-        return this
-    }
+public enum class DevstatSupportFlags(public val value: UInt) {
+    DEVSTAT_ALL_SUPPORTED(0x00u),
+    DEVSTAT_NO_BLOCKSIZE(0x01u),
+    DEVSTAT_NO_ORDERED_TAGS(0x02u),
+    DEVSTAT_BS_UNAVAILABLE(0x04u),
 }
 
-public sealed class DevstatTransFlags(public val value: UInt) {
-    public data object DevstatNoData : DevstatTransFlags(0x00u)
-    public data object DevstatRead : DevstatTransFlags(0x01u)
-    public data object DevstatWrite : DevstatTransFlags(0x02u)
-    public data object DevstatFree : DevstatTransFlags(0x03u)
-
-    public open fun clone(): DevstatTransFlags {
-        return this
-    }
+public enum class DevstatTransFlags(public val value: UInt) {
+    DEVSTAT_NO_DATA(0x00u),
+    DEVSTAT_READ(0x01u),
+    DEVSTAT_WRITE(0x02u),
+    DEVSTAT_FREE(0x03u),
 }
 
-public sealed class DevstatTagType(public val value: UInt) {
-    public data object DevstatTagSimple : DevstatTagType(0x00u)
-    public data object DevstatTagHead : DevstatTagType(0x01u)
-    public data object DevstatTagOrdered : DevstatTagType(0x02u)
-    public data object DevstatTagNone : DevstatTagType(0x03u)
-
-    public open fun clone(): DevstatTagType {
-        return this
-    }
+public enum class DevstatTagType(public val value: UInt) {
+    DEVSTAT_TAG_SIMPLE(0x00u),
+    DEVSTAT_TAG_HEAD(0x01u),
+    DEVSTAT_TAG_ORDERED(0x02u),
+    DEVSTAT_TAG_NONE(0x03u),
 }
 
-public sealed class DevstatMatchFlags(public val value: UInt) {
-    public data object DevstatMatchNone : DevstatMatchFlags(0x00u)
-    public data object DevstatMatchType : DevstatMatchFlags(0x01u)
-    public data object DevstatMatchIf : DevstatMatchFlags(0x02u)
-    public data object DevstatMatchPass : DevstatMatchFlags(0x04u)
-
-    public open fun clone(): DevstatMatchFlags {
-        return this
-    }
+public enum class DevstatMatchFlags(public val value: UInt) {
+    DEVSTAT_MATCH_NONE(0x00u),
+    DEVSTAT_MATCH_TYPE(0x01u),
+    DEVSTAT_MATCH_IF(0x02u),
+    DEVSTAT_MATCH_PASS(0x04u),
 }
 
-public sealed class DevstatPriority(public val value: UInt) {
-    public data object DevstatPriorityMin : DevstatPriority(0x000u)
-    public data object DevstatPriorityOther : DevstatPriority(0x020u)
-    public data object DevstatPriorityPass : DevstatPriority(0x030u)
-    public data object DevstatPriorityFd : DevstatPriority(0x040u)
-    public data object DevstatPriorityWfd : DevstatPriority(0x050u)
-    public data object DevstatPriorityTape : DevstatPriority(0x060u)
-    public data object DevstatPriorityCd : DevstatPriority(0x090u)
-    public data object DevstatPriorityDisk : DevstatPriority(0x110u)
-    public data object DevstatPriorityArray : DevstatPriority(0x120u)
-    public data object DevstatPriorityMax : DevstatPriority(0xfffu)
-
-    public open fun clone(): DevstatPriority {
-        return this
-    }
+public enum class DevstatPriority(public val value: UInt) {
+    DEVSTAT_PRIORITY_MIN(0x000u),
+    DEVSTAT_PRIORITY_OTHER(0x020u),
+    DEVSTAT_PRIORITY_PASS(0x030u),
+    DEVSTAT_PRIORITY_FD(0x040u),
+    DEVSTAT_PRIORITY_WFD(0x050u),
+    DEVSTAT_PRIORITY_TAPE(0x060u),
+    DEVSTAT_PRIORITY_CD(0x090u),
+    DEVSTAT_PRIORITY_DISK(0x110u),
+    DEVSTAT_PRIORITY_ARRAY(0x120u),
+    DEVSTAT_PRIORITY_MAX(0xfffu),
 }
 
-public sealed class DevstatTypeFlags(public val value: UInt) {
-    public data object DevstatTypeDirect : DevstatTypeFlags(0x000u)
-    public data object DevstatTypeSequential : DevstatTypeFlags(0x001u)
-    public data object DevstatTypePrinter : DevstatTypeFlags(0x002u)
-    public data object DevstatTypeProcessor : DevstatTypeFlags(0x003u)
-    public data object DevstatTypeWorm : DevstatTypeFlags(0x004u)
-    public data object DevstatTypeCdrom : DevstatTypeFlags(0x005u)
-    public data object DevstatTypeScanner : DevstatTypeFlags(0x006u)
-    public data object DevstatTypeOptical : DevstatTypeFlags(0x007u)
-    public data object DevstatTypeChanger : DevstatTypeFlags(0x008u)
-    public data object DevstatTypeComm : DevstatTypeFlags(0x009u)
-    public data object DevstatTypeAsc0 : DevstatTypeFlags(0x00au)
-    public data object DevstatTypeAsc1 : DevstatTypeFlags(0x00bu)
-    public data object DevstatTypeStorarray : DevstatTypeFlags(0x00cu)
-    public data object DevstatTypeEnclosure : DevstatTypeFlags(0x00du)
-    public data object DevstatTypeFloppy : DevstatTypeFlags(0x00eu)
-    public data object DevstatTypeMask : DevstatTypeFlags(0x00fu)
-    public data object DevstatTypeIfScsi : DevstatTypeFlags(0x010u)
-    public data object DevstatTypeIfIde : DevstatTypeFlags(0x020u)
-    public data object DevstatTypeIfOther : DevstatTypeFlags(0x030u)
-    public data object DevstatTypeIfMask : DevstatTypeFlags(0x0f0u)
-    public data object DevstatTypePass : DevstatTypeFlags(0x100u)
-
-    public open fun clone(): DevstatTypeFlags {
-        return this
-    }
+public enum class DevstatTypeFlags(public val value: UInt) {
+    DEVSTAT_TYPE_DIRECT(0x000u),
+    DEVSTAT_TYPE_SEQUENTIAL(0x001u),
+    DEVSTAT_TYPE_PRINTER(0x002u),
+    DEVSTAT_TYPE_PROCESSOR(0x003u),
+    DEVSTAT_TYPE_WORM(0x004u),
+    DEVSTAT_TYPE_CDROM(0x005u),
+    DEVSTAT_TYPE_SCANNER(0x006u),
+    DEVSTAT_TYPE_OPTICAL(0x007u),
+    DEVSTAT_TYPE_CHANGER(0x008u),
+    DEVSTAT_TYPE_COMM(0x009u),
+    DEVSTAT_TYPE_ASC0(0x00au),
+    DEVSTAT_TYPE_ASC1(0x00bu),
+    DEVSTAT_TYPE_STORARRAY(0x00cu),
+    DEVSTAT_TYPE_ENCLOSURE(0x00du),
+    DEVSTAT_TYPE_FLOPPY(0x00eu),
+    DEVSTAT_TYPE_MASK(0x00fu),
+    DEVSTAT_TYPE_IF_SCSI(0x010u),
+    DEVSTAT_TYPE_IF_IDE(0x020u),
+    DEVSTAT_TYPE_IF_OTHER(0x030u),
+    DEVSTAT_TYPE_IF_MASK(0x0f0u),
+    DEVSTAT_TYPE_PASS(0x100u),
 }
 
-public sealed class DevstatMetric {
-    public data object DsmNone : DevstatMetric()
-    public data object DsmTotalBytes : DevstatMetric()
-    public data object DsmTotalBytesRead : DevstatMetric()
-    public data object DsmTotalBytesWrite : DevstatMetric()
-    public data object DsmTotalTransfers : DevstatMetric()
-    public data object DsmTotalTransfersRead : DevstatMetric()
-    public data object DsmTotalTransfersWrite : DevstatMetric()
-    public data object DsmTotalTransfersOther : DevstatMetric()
-    public data object DsmTotalBlocks : DevstatMetric()
-    public data object DsmTotalBlocksRead : DevstatMetric()
-    public data object DsmTotalBlocksWrite : DevstatMetric()
-    public data object DsmKbPerTransfer : DevstatMetric()
-    public data object DsmKbPerTransferRead : DevstatMetric()
-    public data object DsmKbPerTransferWrite : DevstatMetric()
-    public data object DsmTransfersPerSecond : DevstatMetric()
-    public data object DsmTransfersPerSecondRead : DevstatMetric()
-    public data object DsmTransfersPerSecondWrite : DevstatMetric()
-    public data object DsmTransfersPerSecondOther : DevstatMetric()
-    public data object DsmMbPerSecond : DevstatMetric()
-    public data object DsmMbPerSecondRead : DevstatMetric()
-    public data object DsmMbPerSecondWrite : DevstatMetric()
-    public data object DsmBlocksPerSecond : DevstatMetric()
-    public data object DsmBlocksPerSecondRead : DevstatMetric()
-    public data object DsmBlocksPerSecondWrite : DevstatMetric()
-    public data object DsmMsPerTransaction : DevstatMetric()
-    public data object DsmMsPerTransactionRead : DevstatMetric()
-    public data object DsmMsPerTransactionWrite : DevstatMetric()
-    public data object DsmSkip : DevstatMetric()
-    public data object DsmTotalBytesFree : DevstatMetric()
-    public data object DsmTotalTransfersFree : DevstatMetric()
-    public data object DsmTotalBlocksFree : DevstatMetric()
-    public data object DsmKbPerTransferFree : DevstatMetric()
-    public data object DsmMbPerSecondFree : DevstatMetric()
-    public data object DsmTransfersPerSecondFree : DevstatMetric()
-    public data object DsmBlocksPerSecondFree : DevstatMetric()
-    public data object DsmMsPerTransactionOther : DevstatMetric()
-    public data object DsmMsPerTransactionFree : DevstatMetric()
-    public data object DsmBusyPct : DevstatMetric()
-    public data object DsmQueueLength : DevstatMetric()
-    public data object DsmTotalDuration : DevstatMetric()
-    public data object DsmTotalDurationRead : DevstatMetric()
-    public data object DsmTotalDurationWrite : DevstatMetric()
-    public data object DsmTotalDurationFree : DevstatMetric()
-    public data object DsmTotalDurationOther : DevstatMetric()
-    public data object DsmTotalBusyTime : DevstatMetric()
-    public data object DsmMax : DevstatMetric()
-
-    public open fun clone(): DevstatMetric {
-        return this
-    }
+public enum class DevstatMetric(public val value: UInt) {
+    DSM_NONE(0u),
+    DSM_TOTAL_BYTES(1u),
+    DSM_TOTAL_BYTES_READ(2u),
+    DSM_TOTAL_BYTES_WRITE(3u),
+    DSM_TOTAL_TRANSFERS(4u),
+    DSM_TOTAL_TRANSFERS_READ(5u),
+    DSM_TOTAL_TRANSFERS_WRITE(6u),
+    DSM_TOTAL_TRANSFERS_OTHER(7u),
+    DSM_TOTAL_BLOCKS(8u),
+    DSM_TOTAL_BLOCKS_READ(9u),
+    DSM_TOTAL_BLOCKS_WRITE(10u),
+    DSM_KB_PER_TRANSFER(11u),
+    DSM_KB_PER_TRANSFER_READ(12u),
+    DSM_KB_PER_TRANSFER_WRITE(13u),
+    DSM_TRANSFERS_PER_SECOND(14u),
+    DSM_TRANSFERS_PER_SECOND_READ(15u),
+    DSM_TRANSFERS_PER_SECOND_WRITE(16u),
+    DSM_TRANSFERS_PER_SECOND_OTHER(17u),
+    DSM_MB_PER_SECOND(18u),
+    DSM_MB_PER_SECOND_READ(19u),
+    DSM_MB_PER_SECOND_WRITE(20u),
+    DSM_BLOCKS_PER_SECOND(21u),
+    DSM_BLOCKS_PER_SECOND_READ(22u),
+    DSM_BLOCKS_PER_SECOND_WRITE(23u),
+    DSM_MS_PER_TRANSACTION(24u),
+    DSM_MS_PER_TRANSACTION_READ(25u),
+    DSM_MS_PER_TRANSACTION_WRITE(26u),
+    DSM_SKIP(27u),
+    DSM_TOTAL_BYTES_FREE(28u),
+    DSM_TOTAL_TRANSFERS_FREE(29u),
+    DSM_TOTAL_BLOCKS_FREE(30u),
+    DSM_KB_PER_TRANSFER_FREE(31u),
+    DSM_MB_PER_SECOND_FREE(32u),
+    DSM_TRANSFERS_PER_SECOND_FREE(33u),
+    DSM_BLOCKS_PER_SECOND_FREE(34u),
+    DSM_MS_PER_TRANSACTION_OTHER(35u),
+    DSM_MS_PER_TRANSACTION_FREE(36u),
+    DSM_BUSY_PCT(37u),
+    DSM_QUEUE_LENGTH(38u),
+    DSM_TOTAL_DURATION(39u),
+    DSM_TOTAL_DURATION_READ(40u),
+    DSM_TOTAL_DURATION_WRITE(41u),
+    DSM_TOTAL_DURATION_FREE(42u),
+    DSM_TOTAL_DURATION_OTHER(43u),
+    DSM_TOTAL_BUSY_TIME(44u),
+    DSM_MAX(45u),
 }
 
-public sealed class DevstatSelectMode {
-    public data object DsSelectAdd : DevstatSelectMode()
-    public data object DsSelectOnly : DevstatSelectMode()
-    public data object DsSelectRemove : DevstatSelectMode()
-    public data object DsSelectAddonly : DevstatSelectMode()
-
-    public open fun clone(): DevstatSelectMode {
-        return this
-    }
+public enum class DevstatSelectMode(public val value: UInt) {
+    DS_SELECT_ADD(0u),
+    DS_SELECT_ONLY(1u),
+    DS_SELECT_REMOVE(2u),
+    DS_SELECT_ADDONLY(3u),
 }
 
-public sealed class Dot3Vendors(public val value: UInt) {
-    public data object Dot3VendorAmd : Dot3Vendors(1u)
-    public data object Dot3VendorIntel : Dot3Vendors(2u)
-    public data object Dot3VendorNational : Dot3Vendors(4u)
-    public data object Dot3VendorFujitsu : Dot3Vendors(5u)
-    public data object Dot3VendorDigital : Dot3Vendors(6u)
-    public data object Dot3VendorWesternDigital : Dot3Vendors(7u)
-
-    public open fun clone(): Dot3Vendors {
-        return this
-    }
+public enum class Dot3Vendors(public val value: UInt) {
+    Dot3VendorAmd(1u),
+    Dot3VendorIntel(2u),
+    Dot3VendorNational(4u),
+    Dot3VendorFujitsu(5u),
+    Dot3VendorDigital(6u),
+    Dot3VendorWesternDigital(7u),
 }

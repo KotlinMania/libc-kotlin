@@ -343,7 +343,7 @@ public val MAP_NORESERVE: CInt = 0x10
 
 public val MAP_ANON: CInt = MAP_ANONYMOUS
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MS_ASYNC: CInt = 0x01
 
@@ -472,7 +472,7 @@ public val ETXTBSY: CInt = -2147454917
 public val ENOATTR: CInt = -2147454916
 
 // INT_MIN
-public val ENOMEM: CInt = -2147483648
+public val ENOMEM: CInt = -2147483648.toInt()
 
 // POSIX errors that can be mapped to BeOS error codes
 public val EACCES: CInt = -2147483646
@@ -1083,11 +1083,11 @@ public val SC_RE_DUP_MAX: CInt = 142
 
 public val PTHREAD_STACK_MIN: SizeT = 8192uL
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(flags = 0u, lock = 0u, unused = 0u, owner = -1, ownerCount = 0u)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0u, lock = 0, unused = 0, owner = -1, ownerCount = 0)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(flags = 0u, unused = 0u, mutex = null, waiterCount = 0u, lock = 0u)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(flags = 0u, unused = 0, mutex = null, waiterCount = 0, lock = 0)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(flags = 0u, owner = -1, lockSem = 0u, lockCount = 0u, readerCount = 0u, writerCount = 0u, waiters = List(2u) { null })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(flags = 0u, owner = -1, lockSem = 0, lockCount = 0, readerCount = 0, writerCount = 0, waiters = List(2) { null })
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = 0
 

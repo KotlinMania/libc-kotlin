@@ -59,7 +59,7 @@ public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
 public actual fun setlogin(name: String?): CInt =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setlogin(name)
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun kqueue(): CInt =
@@ -68,7 +68,7 @@ public actual fun kqueue(): CInt =
 public actual fun unmount(target: String?, arg: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_unmount(target, arg)
 
-public actual fun syscall(num: CInt): CInt =
+public actual fun syscall(num: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getpwent(): COpaquePointer? =
@@ -187,7 +187,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -303,7 +303,7 @@ public actual fun strftime(buf: COpaquePointer?, maxsize: SizeT, format: String?
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_strftime(buf?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>())
 
 public actual fun strftimeL(buf: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?, locale: LocaleT): SizeT =
-    io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_strftimeL(buf?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>(), locale.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_strftimeL(buf?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>(), locale?.value?.toCPointer<ByteVar>())
 
 public actual fun devname(dev: DevT, modeT: ModeT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_devname(dev, modeT)?.let { COpaquePointer(it.toLong()) }

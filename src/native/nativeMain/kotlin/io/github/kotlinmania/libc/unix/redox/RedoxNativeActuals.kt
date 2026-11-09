@@ -106,10 +106,10 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_pthreadCancel(thread.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_pthreadCancel(thread?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_pthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
+    io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_pthreadKill(thread?.value?.toCPointer<ByteVar>(), sig)
 
 public actual fun sigtimedwait(set: COpaquePointer?, sig: COpaquePointer?, timeout: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_sigtimedwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
@@ -154,7 +154,7 @@ public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt
 public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_epollCtl(epfd, op, fd, event?.value?.toCPointer<ByteVar>())
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =

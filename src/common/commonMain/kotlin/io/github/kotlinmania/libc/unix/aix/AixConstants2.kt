@@ -140,9 +140,9 @@ public val SC_VERSION: CInt = 9
 
 public val SC_PASS_MAX: CInt = 45
 
-public val SC_PAGESIZE: CInt = SC_PAGE_SIZE
-
 public val SC_PAGE_SIZE: CInt = 48
+
+public val SC_PAGESIZE: CInt = SC_PAGE_SIZE
 
 public val SC_XOPEN_VERSION: CInt = 46
 

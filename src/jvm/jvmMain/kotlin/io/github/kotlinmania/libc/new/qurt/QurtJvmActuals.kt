@@ -174,7 +174,7 @@ public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaqueP
 public actual fun clockGetcpuclockid(pid: PidT, clockId: COpaquePointer?): CInt =
     NewQurtJniBridge.libc_new_qurt_clockGetcpuclockid(pid, (clockId?.value ?: 0L))
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semClose(sem: COpaquePointer?): CInt =

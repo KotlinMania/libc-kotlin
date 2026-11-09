@@ -138,7 +138,7 @@ public actual fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: COpaquePointe
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_aioWaitcomplete((iocbp?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun mqGetfdNp(mqd: MqdT): CInt =
-    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp(mqd.toLong().toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp((mqd?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_waitid(idtype.toInt(), id.toString(), (infop?.value ?: 0L).toString(), options) as Int) else 0
@@ -164,7 +164,7 @@ public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_semget(key.toString(), nsems, semflg) as Int) else 0
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
@@ -302,7 +302,7 @@ public actual fun mount(type: String?, dir: String?, flags: CInt, data: COpaqueP
 public actual fun nmount(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_nmount((iov?.value ?: 0L).toString(), niov.toInt(), flags) as Int) else 0
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun rfork(flags: CInt): CInt =
@@ -341,19 +341,19 @@ public actual fun capIoctlsGet(fd: CInt, cmds: COpaquePointer?, maxcmds: ULong):
 public actual fun capIoctlsLimit(fd: CInt, cmds: COpaquePointer?, ncmds: ULong): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd, (cmds?.value ?: 0L).toString(), ncmds.toString()) as Int) else 0
 
-public actual fun capRightsInit(version: CInt, rights: COpaquePointer?): COpaquePointer? =
+public actual fun capRightsInit(version: CInt, rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: COpaquePointer?): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version, fd, (rightsp?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun capRightsSet(rights: COpaquePointer?): COpaquePointer? =
+public actual fun capRightsSet(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
     null
 
-public actual fun capRightsClear(rights: COpaquePointer?): COpaquePointer? =
+public actual fun capRightsClear(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
     null
 
-public actual fun capRightsIsSet(rights: COpaquePointer?): Boolean =
+public actual fun capRightsIsSet(rights: COpaquePointer?, vararg variadicArgs: Long): Boolean =
     false
 
 public actual fun capRightsIsValid(rights: COpaquePointer?): Boolean =
@@ -479,7 +479,7 @@ public actual fun fdatasync(fd: CInt): CInt =
 public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux, (buf?.value ?: 0L).toString(), buflen) as Int) else 0
 
-public actual fun setproctitleFast(fmt: String?) {
+public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
@@ -659,10 +659,10 @@ public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flag
 public actual fun humanizeNumber(buf: COpaquePointer?, len: SizeT, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_humanizeNumber((buf?.value ?: 0L).toString(), len.toString(), number.toString(), suffix, scale, flags) as Int) else 0
 
-public actual fun flopen(path: String?, flags: CInt): CInt =
+public actual fun flopen(path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun flopenat(fd: CInt, path: String?, flags: CInt): CInt =
+public actual fun flopenat(fd: CInt, path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getlocalbase(): COpaquePointer? =
@@ -786,16 +786,16 @@ public actual fun timerCreate(clockId: ClockidT, evp: COpaquePointer?, timerid: 
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerCreate(clockId, (evp?.value ?: 0L).toString(), (timerid?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerDelete(timerid.toLong().toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerDelete((timerid?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun(timerid.toLong().toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun((timerid?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerGettime(timerid: TimerT, value: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerGettime(timerid.toLong().toString(), (value?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerGettime((timerid?.value ?: 0L).toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerSettime(timerid: TimerT, flags: CInt, value: COpaquePointer?, ovalue: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerSettime(timerid.toLong().toString(), flags, (value?.value ?: 0L).toString(), (ovalue?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_timerSettime((timerid?.value ?: 0L).toString(), flags, (value?.value ?: 0L).toString(), (ovalue?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun devstatGetnumdevs(kd: COpaquePointer?): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_devstatGetnumdevs((kd?.value ?: 0L).toString()) as Int) else 0

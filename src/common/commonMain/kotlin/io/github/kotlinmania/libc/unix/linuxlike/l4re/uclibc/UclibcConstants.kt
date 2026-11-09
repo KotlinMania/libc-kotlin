@@ -1,14 +1,15 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.MS_I_VERSION
-import io.github.kotlinmania.libc.MS_MANDLOCK
-import io.github.kotlinmania.libc.MS_RDONLY
-import io.github.kotlinmania.libc.MS_SYNCHRONOUS
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PTHREAD_PROCESS_PRIVATE
+import io.github.kotlinmania.libc.unix.linuxlike.MS_I_VERSION
+import io.github.kotlinmania.libc.unix.linuxlike.MS_MANDLOCK
+import io.github.kotlinmania.libc.unix.linuxlike.MS_RDONLY
+import io.github.kotlinmania.libc.unix.linuxlike.MS_SYNCHRONOUS
+import io.github.kotlinmania.libc.unix.linuxlike.PTHREAD_PROCESS_PRIVATE
 import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
 import io.github.kotlinmania.libc.unix.linuxlike.l4re.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.aarch64.B19200
@@ -72,6 +73,8 @@ public val SO_TIMESTAMP: CInt = 29
 
 public val RLIM_INFINITY: RlimT = 0uL.inv()
 
+public val PF_NFC: CInt = 39
+
 public val AF_NFC: CInt = PF_NFC
 
 public val BUFSIZ: CInt = 256
@@ -120,8 +123,6 @@ public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 
 public val PACKET_MR_UNICAST: CInt = 3
 
-public val PF_NFC: CInt = 39
-
 public val PF_VSOCK: CInt = 40
 
 public val RTLD_NOLOAD: CInt = 0x00004
@@ -158,12 +159,12 @@ public val PTHREAD_MUTEX_ADAPTIVE_NP: CInt = 3
 
 public val LT_SPINLOCK_INIT: CInt = 0
 
-public val LOCK_INITIALIZER: PthreadFastlock = pthreadFastlock(status = 0, spinlock = LT_SPINLOCK_INIT)
+public val LOCK_INITIALIZER: PthreadFastlock = PthreadFastlock(status = 0L, spinlock = LT_SPINLOCK_INIT)
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(mReserved = 0u, mCount = 0u, mOwner = null, mKind = PTHREAD_MUTEX_TIMED_NP, mLock = LOCK_INITIALIZER)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mReserved = 0, mCount = 0, mOwner = null, mKind = PTHREAD_MUTEX_TIMED_NP, mLock = LOCK_INITIALIZER)
 
-public val PTHREAD_COND_PADDING_SIZE: Int = 48 - sizeOf<PthreadFastlock>() - sizeOf<PthreadDescr>() - sizeOf<PthreadCondAlignT>()
+public val PTHREAD_COND_PADDING_SIZE: Int = 48 - 8 - 8 - 8
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(cLock = LOCK_INITIALIZER, cWaiting = null, padding = List(PTHREAD_COND_PADDING_SIZE) { 0u }, align = 0u)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(cLock = LOCK_INITIALIZER, cWaiting = null, padding = UByteArray((PTHREAD_COND_PADDING_SIZE).toInt()) { 0u.toUByte() }, align = 0L)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(rwLock = LOCK_INITIALIZER, rwReaders = 0u, rwWriter = null, rwReadWaiting = null, rwWriteWaiting = null, rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwLock = LOCK_INITIALIZER, rwReaders = 0, rwWriter = null, rwReadWaiting = null, rwWriteWaiting = null, rwKind = PTHREAD_RWLOCK_DEFAULT_NP, rwPshared = PTHREAD_PROCESS_PRIVATE)

@@ -322,10 +322,10 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     UnixRedoxJniBridge.libc_unix_redox_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadCancel(thread.toLong())
+    UnixRedoxJniBridge.libc_unix_redox_pthreadCancel((thread?.value ?: 0L))
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadKill(thread.toLong(), sig)
+    UnixRedoxJniBridge.libc_unix_redox_pthreadKill((thread?.value ?: 0L), sig)
 
 public actual fun sigtimedwait(set: COpaquePointer?, sig: COpaquePointer?, timeout: COpaquePointer?): CInt =
     UnixRedoxJniBridge.libc_unix_redox_sigtimedwait((set?.value ?: 0L), (sig?.value ?: 0L), (timeout?.value ?: 0L))
@@ -370,7 +370,7 @@ public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt
 public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
     UnixRedoxJniBridge.libc_unix_redox_epollCtl(epfd, op, fd, (event?.value ?: 0L))
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =

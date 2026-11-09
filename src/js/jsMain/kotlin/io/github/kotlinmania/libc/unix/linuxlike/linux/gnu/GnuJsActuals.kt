@@ -172,7 +172,7 @@ public actual fun globfree64(pglob: COpaquePointer?) {
     }
 }
 
-public actual fun ptrace(request: CUint): CLong =
+public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -203,10 +203,10 @@ public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, 
     if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(thread.toLong().toString(), (retval?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallinfo2(): Mallinfo2 =
-    null as Mallinfo2
+    Mallinfo2()
 
 public actual fun mallocStats() {
     if (_unixLinuxlikeLinuxGnuNapiAddon != null) {

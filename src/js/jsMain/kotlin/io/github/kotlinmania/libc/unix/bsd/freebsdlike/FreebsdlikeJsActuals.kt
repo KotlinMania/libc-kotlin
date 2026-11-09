@@ -71,7 +71,7 @@ public actual fun dirfd(dirp: DIR?): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_dirfd((dirp?.handle ?: 0L).toString()) as Int) else 0
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun endutxent() {
     if (_unixBsdFreebsdlikeNapiAddon != null) {
@@ -149,10 +149,10 @@ public actual fun mincore(addr: COpaquePointer?, len: SizeT, vec: COpaquePointer
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mincore((addr?.value ?: 0L).toString(), len.toString(), (vec?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_nlLanginfoL(item, locale.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_nlLanginfoL(item, (locale?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_pipe2((fds?.value ?: 0L).toString(), flags) as Int) else 0
@@ -269,7 +269,7 @@ public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: 
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else 0L
 
 public actual fun querylocale(mask: CInt, loc: LocaleT): COpaquePointer? =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_querylocale(mask, loc.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_querylocale(mask, (loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun rtprio(function: CInt, pid: PidT, rtp: COpaquePointer?): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_rtprio(function, pid, (rtp?.value ?: 0L).toString()) as Int) else 0
@@ -341,7 +341,7 @@ public actual fun sysctlnametomib(name: String?, mibp: COpaquePointer?, sizep: C
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_sysctlnametomib(name, (mibp?.value ?: 0L).toString(), (sizep?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_utimensat(dirfd, path, (times?.value ?: 0L).toString(), flag) as Int) else 0
@@ -487,7 +487,7 @@ public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_mqNotify(mqd.toLong().toString(), (notification?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =

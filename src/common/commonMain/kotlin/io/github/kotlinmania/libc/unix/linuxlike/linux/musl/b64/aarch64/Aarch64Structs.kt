@@ -1,9 +1,9 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.aarch64
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.Uint128T
@@ -19,83 +19,134 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.StackT
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad0: CUlong,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var pad1: CInt,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CUint>,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad0: CUlong = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0,
+    public var pad1: CInt = 0,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: UIntArray = UIntArray(2),
 )
 
-public open class UserRegsStruct(
-    public var regs: List<CUlonglong>,
-    public var sp: CUlonglong,
-    public var pc: CUlonglong,
-    public var pstate: CUlonglong,
+public data class UserRegsStruct(
+    public var regs: ULongArray = ULongArray(31),
+    public var sp: CUlonglong = 0uL,
+    public var pc: CUlonglong = 0uL,
+    public var pstate: CUlonglong = 0uL,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UserRegsStruct) return false
+        if (!this.regs.contentEquals(other.regs)) return false
+        if (this.sp != other.sp) return false
+        if (this.pc != other.pc) return false
+        if (this.pstate != other.pstate) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.regs.contentHashCode()
+        result = 31 * result + this.sp.hashCode()
+        result = 31 * result + this.pc.hashCode()
+        result = 31 * result + this.pstate.hashCode()
+        return result
+    }
+}
+
+public data class IpcPerm(
+    public var key: KeyT = 0,
+    public var ipcPermKey: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CInt = 0,
+    public var unused1: CLong = 0L,
+    public var unused2: CLong = 0L,
 )
 
-public open class IpcPerm(
-    public var key: KeyT,
-    public var ipcPermKey: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: ModeT,
-    public var seq: CInt,
-    public var unused1: CLong,
-    public var unused2: CLong,
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucStack: StackT = StackT(),
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var ucMcontext: McontextT = McontextT(),
 )
 
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucStack: StackT,
-    public var ucSigmask: SigsetT,
-    public var ucMcontext: McontextT,
+public data class McontextT(
+    public var faultAddress: CUlong = 0uL,
+    public var regs: ULongArray = ULongArray(31),
+    public var sp: CUlong = 0uL,
+    public var pc: CUlong = 0uL,
+    public var pstate: CUlong = 0uL,
+    public var reserved: ULongArray = ULongArray(512),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (this.faultAddress != other.faultAddress) return false
+        if (!this.regs.contentEquals(other.regs)) return false
+        if (this.sp != other.sp) return false
+        if (this.pc != other.pc) return false
+        if (this.pstate != other.pstate) return false
+        if (!this.reserved.contentEquals(other.reserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.faultAddress.hashCode()
+        result = 31 * result + this.regs.contentHashCode()
+        result = 31 * result + this.sp.hashCode()
+        result = 31 * result + this.pc.hashCode()
+        result = 31 * result + this.pstate.hashCode()
+        result = 31 * result + this.reserved.contentHashCode()
+        return result
+    }
+}
+
+public data class CloneArgs(
+    public var flags: CUlonglong = 0uL,
+    public var pidfd: CUlonglong = 0uL,
+    public var childTid: CUlonglong = 0uL,
+    public var parentTid: CUlonglong = 0uL,
+    public var exitSignal: CUlonglong = 0uL,
+    public var stack: CUlonglong = 0uL,
+    public var stackSize: CUlonglong = 0uL,
+    public var tls: CUlonglong = 0uL,
+    public var setTid: CUlonglong = 0uL,
+    public var setTidSize: CUlonglong = 0uL,
+    public var cgroup: CUlonglong = 0uL,
 )
 
-public open class McontextT(
-    public var faultAddress: CUlong,
-    public var regs: List<CUlong>,
-    public var sp: CUlong,
-    public var pc: CUlong,
-    public var pstate: CUlong,
-    public var reserved: List<ULong>,
+public data class UserFpsimdStruct(
+    public var vregs: List<Uint128T> = List(32) { U128() },
+    public var fpsr: UInt = 0u,
+    public var fpcr: UInt = 0u,
 )
 
-public open class CloneArgs(
-    public var flags: CUlonglong,
-    public var pidfd: CUlonglong,
-    public var childTid: CUlonglong,
-    public var parentTid: CUlonglong,
-    public var exitSignal: CUlonglong,
-    public var stack: CUlonglong,
-    public var stackSize: CUlonglong,
-    public var tls: CUlonglong,
-    public var setTid: CUlonglong,
-    public var setTidSize: CUlonglong,
-    public var cgroup: CUlonglong,
-)
+public data class MaxAlignT(public var priv: FloatArray = FloatArray(8)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MaxAlignT) return false
+        if (!this.priv.contentEquals(other.priv)) return false
+        return true
+    }
 
-public open class UserFpsimdStruct(
-    public var vregs: List<Uint128T>,
-    public var fpsr: UInt,
-    public var fpcr: UInt,
-)
-
-public open class MaxAlignT(public var priv: List<Float>)
+    override fun hashCode(): Int {
+        return this.priv.contentHashCode()
+    }
+}

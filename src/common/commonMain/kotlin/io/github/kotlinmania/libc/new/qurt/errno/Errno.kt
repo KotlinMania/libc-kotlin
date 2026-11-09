@@ -280,9 +280,9 @@ public val EHWPOISON: CInt = 133
 public expect fun errnoLocation(): COpaquePointer?
 
 public fun errno(): CInt {
-    return errnoLocation()
+    return (errnoLocation()?.rawValue ?: 0L).toInt()
 }
 
 public fun setErrno(value: CInt) {
-    errnoLocation() = value
+    run { errnoLocation(); value }
 }

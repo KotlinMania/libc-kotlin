@@ -1,18 +1,17 @@
 // port-lint: source unix/linux_like/android/b32/arm.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32.arm
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.syscall
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.android.StackT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.Sigset64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.SocklenT
+import io.github.kotlinmania.libc.unix.linuxlike.android.syscall
 
 public typealias WcharT = UInt
 
@@ -20,51 +19,77 @@ public typealias GregT = Int
 
 public typealias McontextT = Sigcontext
 
-public open class Sigcontext(
-    public var trapNo: CUlong,
-    public var errorCode: CUlong,
-    public var oldmask: CUlong,
-    public var armR0: CUlong,
-    public var armR1: CUlong,
-    public var armR2: CUlong,
-    public var armR3: CUlong,
-    public var armR4: CUlong,
-    public var armR5: CUlong,
-    public var armR6: CUlong,
-    public var armR7: CUlong,
-    public var armR8: CUlong,
-    public var armR9: CUlong,
-    public var armR10: CUlong,
-    public var armFp: CUlong,
-    public var armIp: CUlong,
-    public var armSp: CUlong,
-    public var armLr: CUlong,
-    public var armPc: CUlong,
-    public var armCpsr: CUlong,
-    public var faultAddress: CUlong,
+public class Sigcontext(
+    public var trapNo: CUlong = 0uL,
+    public var errorCode: CUlong = 0uL,
+    public var oldmask: CUlong = 0uL,
+    public var armR0: CUlong = 0uL,
+    public var armR1: CUlong = 0uL,
+    public var armR2: CUlong = 0uL,
+    public var armR3: CUlong = 0uL,
+    public var armR4: CUlong = 0uL,
+    public var armR5: CUlong = 0uL,
+    public var armR6: CUlong = 0uL,
+    public var armR7: CUlong = 0uL,
+    public var armR8: CUlong = 0uL,
+    public var armR9: CUlong = 0uL,
+    public var armR10: CUlong = 0uL,
+    public var armFp: CUlong = 0uL,
+    public var armIp: CUlong = 0uL,
+    public var armSp: CUlong = 0uL,
+    public var armLr: CUlong = 0uL,
+    public var armPc: CUlong = 0uL,
+    public var armCpsr: CUlong = 0uL,
+    public var faultAddress: CUlong = 0uL,
 )
 
-public open class CAnonymousUcSigmaskWithPadding(
-    public var ucSigmask: SigsetT,
+public data class CAnonymousUcSigmaskWithPadding(
+    public var ucSigmask: SigsetT = 0uL,
     // Android has a wrong (smaller) sigsetT on x86.
-    public var paddingRtSigset: UInt,
+    public var paddingRtSigset: UInt = 0u,
 )
 
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucStack: StackT,
-    public var ucMcontext: McontextT,
-    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask,
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucStack: StackT = StackT(),
+    public var ucMcontext: McontextT = Sigcontext(),
+    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = CAnonymousUcSigmask(),
     // The kernel adds extra padding after ucSigmask to match
     // glibc sigsetT on ARM.
-    public var padding: List<CChar>,
-    public var align: List<CLonglong>,
-    public var ucRegspace: List<CUlong>,
-)
+    public var padding: UByteArray = UByteArray(120),
+    public var align: LongArray = LongArray(0),
+    public var ucRegspace: ULongArray = ULongArray(128),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucFlags != other.ucFlags) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        if (this.ucSigmaskCAnonymousUnion != other.ucSigmaskCAnonymousUnion) return false
+        if (!this.padding.contentEquals(other.padding)) return false
+        if (!this.align.contentEquals(other.align)) return false
+        if (!this.ucRegspace.contentEquals(other.ucRegspace)) return false
+        return true
+    }
 
-public open class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskWithPadding? = null, public var ucSigmask64: Sigset64T? = null) {
-    public open fun eq(other: CAnonymousUcSigmask): Boolean {
+    override fun hashCode(): Int {
+        var result = this.ucFlags.hashCode()
+        result = 31 * result + this.ucLink.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        result = 31 * result + this.ucSigmaskCAnonymousUnion.hashCode()
+        result = 31 * result + this.padding.contentHashCode()
+        result = 31 * result + this.align.contentHashCode()
+        result = 31 * result + this.ucRegspace.contentHashCode()
+        return result
+    }
+}
+
+public data class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskWithPadding = CAnonymousUcSigmaskWithPadding(), public var ucSigmask64: Sigset64T = Sigset64T()) {
+    public fun eq(other: CAnonymousUcSigmask): Boolean {
         return this.ucSigmask == other.ucSigmask
     }
 

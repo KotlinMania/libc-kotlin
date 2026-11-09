@@ -8,6 +8,10 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UintptrT
 
+public fun interface FnCallback {
+    public operator fun invoke()
+}
+
 public typealias ClockT = UInt
 
 public typealias SaFamilyT = UByte
@@ -138,5 +142,6 @@ public typealias NlItem = CInt
 // The `else` block targets the modern `io - sock` stack.
 // - targetEnv = "nto71Iosock": QNX 7.1 with the optional new stack
 // - targetEnv = "nto80": QNX 8.0
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

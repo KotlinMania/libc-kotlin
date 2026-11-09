@@ -1,4 +1,5 @@
 // port-lint: source unix/nto/aarch64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.nto.aarch64
 
 import io.github.kotlinmania.libc.*
@@ -10,24 +11,40 @@ public typealias WcharT = UInt
 
 public typealias TimeT = Long
 
-public open class Aarch64QregT(public var qlo: ULong, public var qhi: ULong)
+public data class Aarch64QregT(public var qlo: ULong = 0uL, public var qhi: ULong = 0uL)
 
-public open class Aarch64FpuRegisters(
-    public var reg: List<Aarch64QregT>,
-    public var fpsr: UInt,
-    public var fpcr: UInt,
+public data class Aarch64FpuRegisters(
+    public var reg: List<Aarch64QregT> = List(32) { Aarch64QregT() },
+    public var fpsr: UInt = 0u,
+    public var fpcr: UInt = 0u,
 )
 
-public open class Aarch64CpuRegisters(
-    public var gpr: List<ULong>,
-    public var elr: ULong,
-    public var pstate: ULong,
-)
+public data class Aarch64CpuRegisters(
+    public var gpr: ULongArray = ULongArray(32),
+    public var elr: ULong = 0uL,
+    public var pstate: ULong = 0uL,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Aarch64CpuRegisters) return false
+        if (!this.gpr.contentEquals(other.gpr)) return false
+        if (this.elr != other.elr) return false
+        if (this.pstate != other.pstate) return false
+        return true
+    }
 
-public open class McontextT(public var cpu: Aarch64CpuRegisters, public var fpu: Aarch64FpuRegisters)
+    override fun hashCode(): Int {
+        var result = this.gpr.contentHashCode()
+        result = 31 * result + this.elr.hashCode()
+        result = 31 * result + this.pstate.hashCode()
+        return result
+    }
+}
 
-public open class StackT(
-    public var ssSp: COpaquePointer?,
-    public var ssSize: SizeT,
-    public var ssFlags: CInt,
+public data class McontextT(public var cpu: Aarch64CpuRegisters = Aarch64CpuRegisters(), public var fpu: Aarch64FpuRegisters = Aarch64FpuRegisters())
+
+public data class StackT(
+    public var ssSp: COpaquePointer? = null,
+    public var ssSize: SizeT = 0uL,
+    public var ssFlags: CInt = 0,
 )

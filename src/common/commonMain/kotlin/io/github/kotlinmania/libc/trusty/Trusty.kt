@@ -37,9 +37,9 @@ public typealias TimeT = CLong
 
 public typealias ClockidT = CInt
 
-public open class Iovec(public var iovBase: COpaquePointer?, public var iovLen: SizeT)
+public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
 
-public open class Timespec(public var tvSec: TimeT, public var tvNsec: CLong)
+public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: CLong = 0L)
 
 public val PROT_READ: Int = 1
 
@@ -54,7 +54,7 @@ public val STDERR_FILENO: CInt = 2
 
 public val AT_PAGESZ: CUlong = 6uL
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public expect fun calloc(nobj: SizeT, size: SizeT): COpaquePointer?
 

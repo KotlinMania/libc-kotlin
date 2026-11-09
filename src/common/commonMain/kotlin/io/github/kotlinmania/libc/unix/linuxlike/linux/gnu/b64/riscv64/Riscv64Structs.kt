@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.riscv64
 
 import io.github.kotlinmania.libc.*
@@ -57,251 +58,476 @@ public class DebugStruct(
     }
 }
 
-public open class PthreadAttrT(public var size: List<CUlong>)
+public data class PthreadAttrT(public var size: ULongArray = ULongArray(7)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadAttrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad1: DevT,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var pad2: CInt,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CInt>,
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
+
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad1: DevT = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0,
+    public var pad2: CInt = 0,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: IntArray = IntArray(2),
 )
 
-public open class Stat64(
-    public var stDev: DevT,
-    public var stIno: Ino64T,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad1: DevT,
-    public var stSize: Off64T,
-    public var stBlksize: BlksizeT,
-    public var pad2: CInt,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CInt>,
+public class Stat64(
+    public var stDev: DevT = 0uL,
+    public var stIno: Ino64T = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad1: DevT = 0uL,
+    public var stSize: Off64T = 0L,
+    public var stBlksize: BlksizeT = 0,
+    public var pad2: CInt = 0,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: IntArray = IntArray(2),
 )
 
-public open class Statfs(
-    public var fType: CLong,
-    public var fBsize: CLong,
-    public var fBlocks: FsblkcntT,
-    public var fBfree: FsblkcntT,
-    public var fBavail: FsblkcntT,
-    public var fFiles: FsfilcntT,
-    public var fFfree: FsfilcntT,
-    public var fFsid: FsidT,
-    public var fNamelen: CLong,
-    public var fFrsize: CLong,
-    public var fFlags: CLong,
-    public var fSpare: List<CLong>,
-)
-
-public open class Statfs64(
-    public var fType: CLong,
-    public var fBsize: CLong,
-    public var fBlocks: Fsblkcnt64T,
-    public var fBfree: Fsblkcnt64T,
-    public var fBavail: Fsblkcnt64T,
-    public var fFiles: Fsfilcnt64T,
-    public var fFfree: Fsfilcnt64T,
-    public var fFsid: FsidT,
-    public var fNamelen: CLong,
-    public var fFrsize: CLong,
-    public var fFlags: CLong,
-    public var fSpare: List<CLong>,
-)
-
-public open class Statvfs(
-    public var fBsize: CUlong,
-    public var fFrsize: CUlong,
-    public var fBlocks: FsblkcntT,
-    public var fBfree: FsblkcntT,
-    public var fBavail: FsblkcntT,
-    public var fFiles: FsfilcntT,
-    public var fFfree: FsfilcntT,
-    public var fFavail: FsfilcntT,
-    public var fFsid: CUlong,
-    public var fFlag: CUlong,
-    public var fNamemax: CUlong,
-    public var fSpare: List<CInt>,
-)
-
-public open class Statvfs64(
-    public var fBsize: CUlong,
-    public var fFrsize: CUlong,
-    public var fBlocks: Fsblkcnt64T,
-    public var fBfree: Fsblkcnt64T,
-    public var fBavail: Fsblkcnt64T,
-    public var fFiles: Fsfilcnt64T,
-    public var fFfree: Fsfilcnt64T,
-    public var fFavail: Fsfilcnt64T,
-    public var fFsid: CUlong,
-    public var fFlag: CUlong,
-    public var fNamemax: CUlong,
-    public var fSpare: List<CInt>,
-)
-
-public open class SiginfoT(
-    public var siSigno: CInt,
-    public var siErrno: CInt,
-    public var siCode: CInt,
-    public var pad: List<CInt>,
-    public var align: List<ULong>,
-)
-
-public open class StackT(
-    public var ssSp: COpaquePointer?,
-    public var ssFlags: CInt,
-    public var ssSize: SizeT,
-)
-
-public open class Sigaction(
-    public var saSigaction: SighandlerT,
-    public var saMask: SigsetT,
-    public var saFlags: CInt,
-    public var saRestorer: SigactionSaRestorerCallback?,
-)
-
-public open class IpcPerm(
-    public var key: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: CUshort,
-    public var pad1: CUshort,
-    public var seq: CUshort,
-    public var pad2: CUshort,
-    public var unused1: CUlong,
-    public var unused2: CUlong,
-)
-
-public open class ShmidDs(
-    public var shmPerm: IpcPerm,
-    public var shmSegsz: SizeT,
-    public var shmAtime: TimeT,
-    public var shmDtime: TimeT,
-    public var shmCtime: TimeT,
-    public var shmCpid: PidT,
-    public var shmLpid: PidT,
-    public var shmNattch: ShmattT,
-    public var unused5: CUlong,
-    public var unused6: CUlong,
-)
-
-public open class Flock(
-    public var lType: CShort,
-    public var lWhence: CShort,
-    public var lStart: OffT,
-    public var lLen: OffT,
-    public var lPid: PidT,
-)
-
-public open class Flock64(
-    public var lType: CShort,
-    public var lWhence: CShort,
-    public var lStart: Off64T,
-    public var lLen: Off64T,
-    public var lPid: PidT,
-)
-
-public open class UserRegsStruct(
-    public var pc: CUlong,
-    public var ra: CUlong,
-    public var sp: CUlong,
-    public var gp: CUlong,
-    public var tp: CUlong,
-    public var t0: CUlong,
-    public var t1: CUlong,
-    public var t2: CUlong,
-    public var s0: CUlong,
-    public var s1: CUlong,
-    public var a0: CUlong,
-    public var a1: CUlong,
-    public var a2: CUlong,
-    public var a3: CUlong,
-    public var a4: CUlong,
-    public var a5: CUlong,
-    public var a6: CUlong,
-    public var a7: CUlong,
-    public var s2: CUlong,
-    public var s3: CUlong,
-    public var s4: CUlong,
-    public var s5: CUlong,
-    public var s6: CUlong,
-    public var s7: CUlong,
-    public var s8: CUlong,
-    public var s9: CUlong,
-    public var s10: CUlong,
-    public var s11: CUlong,
-    public var t3: CUlong,
-    public var t4: CUlong,
-    public var t5: CUlong,
-    public var t6: CUlong,
-)
-
-public open class CloneArgs(
-    public var flags: CUlonglong,
-    public var pidfd: CUlonglong,
-    public var childTid: CUlonglong,
-    public var parentTid: CUlonglong,
-    public var exitSignal: CUlonglong,
-    public var stack: CUlonglong,
-    public var stackSize: CUlonglong,
-    public var tls: CUlonglong,
-    public var setTid: CUlonglong,
-    public var setTidSize: CUlonglong,
-    public var cgroup: CUlonglong,
-)
-
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucStack: StackT,
-    public var ucSigmask: SigsetT,
-    public var ucMcontext: McontextT,
-)
-
-public open class McontextT(public var gregs: List<CUlong>, public var fpregs: RiscvMcFpState)
-
-public open class RiscvMcFpState(
-    public var f: RiscvMcFExtState? = null,
-    public var d: RiscvMcDExtState? = null,
-    public var q: RiscvMcQExtState? = null,
+public data class Statfs(
+    public var fType: CLong = 0L,
+    public var fBsize: CLong = 0L,
+    public var fBlocks: FsblkcntT = 0uL,
+    public var fBfree: FsblkcntT = 0uL,
+    public var fBavail: FsblkcntT = 0uL,
+    public var fFiles: FsfilcntT = 0uL,
+    public var fFfree: FsfilcntT = 0uL,
+    public var fFsid: FsidT = FsidT(),
+    public var fNamelen: CLong = 0L,
+    public var fFrsize: CLong = 0L,
+    public var fFlags: CLong = 0L,
+    public var fSpare: LongArray = LongArray(4),
 ) {
-    public open fun fmt(f: StringBuilder) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statfs) return false
+        if (this.fType != other.fType) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fNamelen != other.fNamelen) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fFlags != other.fFlags) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fType.hashCode()
+        result = 31 * result + this.fBsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fNamelen.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fFlags.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class Statfs64(
+    public var fType: CLong = 0L,
+    public var fBsize: CLong = 0L,
+    public var fBlocks: Fsblkcnt64T = 0uL,
+    public var fBfree: Fsblkcnt64T = 0uL,
+    public var fBavail: Fsblkcnt64T = 0uL,
+    public var fFiles: Fsfilcnt64T = 0uL,
+    public var fFfree: Fsfilcnt64T = 0uL,
+    public var fFsid: FsidT = FsidT(),
+    public var fNamelen: CLong = 0L,
+    public var fFrsize: CLong = 0L,
+    public var fFlags: CLong = 0L,
+    public var fSpare: LongArray = LongArray(4),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statfs64) return false
+        if (this.fType != other.fType) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fNamelen != other.fNamelen) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fFlags != other.fFlags) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fType.hashCode()
+        result = 31 * result + this.fBsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fNamelen.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fFlags.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class Statvfs(
+    public var fBsize: CUlong = 0uL,
+    public var fFrsize: CUlong = 0uL,
+    public var fBlocks: FsblkcntT = 0uL,
+    public var fBfree: FsblkcntT = 0uL,
+    public var fBavail: FsblkcntT = 0uL,
+    public var fFiles: FsfilcntT = 0uL,
+    public var fFfree: FsfilcntT = 0uL,
+    public var fFavail: FsfilcntT = 0uL,
+    public var fFsid: CUlong = 0uL,
+    public var fFlag: CUlong = 0uL,
+    public var fNamemax: CUlong = 0uL,
+    public var fSpare: IntArray = IntArray(6),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statvfs) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fFavail != other.fFavail) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fFlag != other.fFlag) return false
+        if (this.fNamemax != other.fNamemax) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fBsize.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fFavail.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fFlag.hashCode()
+        result = 31 * result + this.fNamemax.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class Statvfs64(
+    public var fBsize: CUlong = 0uL,
+    public var fFrsize: CUlong = 0uL,
+    public var fBlocks: Fsblkcnt64T = 0uL,
+    public var fBfree: Fsblkcnt64T = 0uL,
+    public var fBavail: Fsblkcnt64T = 0uL,
+    public var fFiles: Fsfilcnt64T = 0uL,
+    public var fFfree: Fsfilcnt64T = 0uL,
+    public var fFavail: Fsfilcnt64T = 0uL,
+    public var fFsid: CUlong = 0uL,
+    public var fFlag: CUlong = 0uL,
+    public var fNamemax: CUlong = 0uL,
+    public var fSpare: IntArray = IntArray(6),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statvfs64) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fFavail != other.fFavail) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fFlag != other.fFlag) return false
+        if (this.fNamemax != other.fNamemax) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fBsize.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fFavail.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fFlag.hashCode()
+        result = 31 * result + this.fNamemax.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class SiginfoT(
+    public var siSigno: CInt = 0,
+    public var siErrno: CInt = 0,
+    public var siCode: CInt = 0,
+    public var pad: IntArray = IntArray(29),
+    public var align: ULongArray = ULongArray(0),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SiginfoT) return false
+        if (this.siSigno != other.siSigno) return false
+        if (this.siErrno != other.siErrno) return false
+        if (this.siCode != other.siCode) return false
+        if (!this.pad.contentEquals(other.pad)) return false
+        if (!this.align.contentEquals(other.align)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.siSigno.hashCode()
+        result = 31 * result + this.siErrno.hashCode()
+        result = 31 * result + this.siCode.hashCode()
+        result = 31 * result + this.pad.contentHashCode()
+        result = 31 * result + this.align.contentHashCode()
+        return result
+    }
+}
+
+public data class StackT(
+    public var ssSp: COpaquePointer? = null,
+    public var ssFlags: CInt = 0,
+    public var ssSize: SizeT = 0uL,
+)
+
+public data class Sigaction(
+    public var saSigaction: SighandlerT = 0uL,
+    public var saMask: SigsetT = SigsetT(),
+    public var saFlags: CInt = 0,
+    public var saRestorer: SigactionSaRestorerCallback? = null,
+)
+
+public data class IpcPerm(
+    public var key: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: CUshort = 0u,
+    public var pad1: CUshort = 0u,
+    public var seq: CUshort = 0u,
+    public var pad2: CUshort = 0u,
+    public var unused1: CUlong = 0uL,
+    public var unused2: CUlong = 0uL,
+)
+
+public data class ShmidDs(
+    public var shmPerm: IpcPerm = IpcPerm(),
+    public var shmSegsz: SizeT = 0uL,
+    public var shmAtime: TimeT = 0L,
+    public var shmDtime: TimeT = 0L,
+    public var shmCtime: TimeT = 0L,
+    public var shmCpid: PidT = 0,
+    public var shmLpid: PidT = 0,
+    public var shmNattch: ShmattT = 0uL,
+    public var unused5: CUlong = 0uL,
+    public var unused6: CUlong = 0uL,
+)
+
+public data class Flock(
+    public var lType: CShort = 0,
+    public var lWhence: CShort = 0,
+    public var lStart: OffT = 0L,
+    public var lLen: OffT = 0L,
+    public var lPid: PidT = 0,
+)
+
+public data class Flock64(
+    public var lType: CShort = 0,
+    public var lWhence: CShort = 0,
+    public var lStart: Off64T = 0L,
+    public var lLen: Off64T = 0L,
+    public var lPid: PidT = 0,
+)
+
+public class UserRegsStruct(
+    public var pc: CUlong = 0uL,
+    public var ra: CUlong = 0uL,
+    public var sp: CUlong = 0uL,
+    public var gp: CUlong = 0uL,
+    public var tp: CUlong = 0uL,
+    public var t0: CUlong = 0uL,
+    public var t1: CUlong = 0uL,
+    public var t2: CUlong = 0uL,
+    public var s0: CUlong = 0uL,
+    public var s1: CUlong = 0uL,
+    public var a0: CUlong = 0uL,
+    public var a1: CUlong = 0uL,
+    public var a2: CUlong = 0uL,
+    public var a3: CUlong = 0uL,
+    public var a4: CUlong = 0uL,
+    public var a5: CUlong = 0uL,
+    public var a6: CUlong = 0uL,
+    public var a7: CUlong = 0uL,
+    public var s2: CUlong = 0uL,
+    public var s3: CUlong = 0uL,
+    public var s4: CUlong = 0uL,
+    public var s5: CUlong = 0uL,
+    public var s6: CUlong = 0uL,
+    public var s7: CUlong = 0uL,
+    public var s8: CUlong = 0uL,
+    public var s9: CUlong = 0uL,
+    public var s10: CUlong = 0uL,
+    public var s11: CUlong = 0uL,
+    public var t3: CUlong = 0uL,
+    public var t4: CUlong = 0uL,
+    public var t5: CUlong = 0uL,
+    public var t6: CUlong = 0uL,
+)
+
+public data class CloneArgs(
+    public var flags: CUlonglong = 0uL,
+    public var pidfd: CUlonglong = 0uL,
+    public var childTid: CUlonglong = 0uL,
+    public var parentTid: CUlonglong = 0uL,
+    public var exitSignal: CUlonglong = 0uL,
+    public var stack: CUlonglong = 0uL,
+    public var stackSize: CUlonglong = 0uL,
+    public var tls: CUlonglong = 0uL,
+    public var setTid: CUlonglong = 0uL,
+    public var setTidSize: CUlonglong = 0uL,
+    public var cgroup: CUlonglong = 0uL,
+)
+
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucStack: StackT = StackT(),
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var ucMcontext: McontextT = McontextT(),
+)
+
+public data class McontextT(public var gregs: ULongArray = ULongArray(32), public var fpregs: RiscvMcFpState = RiscvMcFpState()) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
+        if (this.fpregs != other.fpregs) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.gregs.contentHashCode()
+        result = 31 * result + this.fpregs.hashCode()
+        return result
+    }
+}
+
+public data class RiscvMcFpState(
+    public var f: RiscvMcFExtState = RiscvMcFExtState(),
+    public var d: RiscvMcDExtState = RiscvMcDExtState(),
+    public var q: RiscvMcQExtState = RiscvMcQExtState(),
+) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__riscv_mc_fp_state").finishNonExhaustive()
     }
 }
 
-public open class RiscvMcFExtState(public var f: List<CUint>, public var fcsr: CUint)
+public data class RiscvMcFExtState(public var f: UIntArray = UIntArray(32), public var fcsr: CUint = 0u) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RiscvMcFExtState) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (this.fcsr != other.fcsr) return false
+        return true
+    }
 
-public open class RiscvMcDExtState(public var f: List<CUlonglong>, public var fcsr: CUint)
+    override fun hashCode(): Int {
+        var result = this.f.contentHashCode()
+        result = 31 * result + this.fcsr.hashCode()
+        return result
+    }
+}
 
-public open class RiscvMcQExtState(
-    public var f: List<CUlonglong>,
-    public var fcsr: CUint,
-    public var glibcReserved: List<CUint>,
-)
+public data class RiscvMcDExtState(public var f: ULongArray = ULongArray(32), public var fcsr: CUint = 0u) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RiscvMcDExtState) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (this.fcsr != other.fcsr) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.f.contentHashCode()
+        result = 31 * result + this.fcsr.hashCode()
+        return result
+    }
+}
+
+public data class RiscvMcQExtState(
+    public var f: ULongArray = ULongArray(64),
+    public var fcsr: CUint = 0u,
+    public var glibcReserved: UIntArray = UIntArray(3),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RiscvMcQExtState) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (this.fcsr != other.fcsr) return false
+        if (!this.glibcReserved.contentEquals(other.glibcReserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.f.contentHashCode()
+        result = 31 * result + this.fcsr.hashCode()
+        result = 31 * result + this.glibcReserved.contentHashCode()
+        return result
+    }
+}

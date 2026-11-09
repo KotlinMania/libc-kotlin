@@ -194,7 +194,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
 public actual fun semDestroy(sem: COpaquePointer?): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semClose(sem: COpaquePointer?): CInt =
@@ -569,7 +569,7 @@ public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =

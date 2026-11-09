@@ -89,7 +89,7 @@ public actual fun processVmReadv(pid: PidT, localIov: COpaquePointer?, localIovC
 public actual fun processVmWritev(pid: PidT, localIov: COpaquePointer?, localIovCount: CUlong, remoteIov: COpaquePointer?, remoteIovCount: CUlong, flags: CUlong): SsizeT =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_processVmWritev(pid, (localIov?.value ?: 0L).toString(), localIovCount.toString(), (remoteIov?.value ?: 0L).toString(), remoteIovCount.toString(), flags.toString()) as String).toLong() else 0L
 
-public actual fun ptrace(request: CInt): CLong =
+public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
@@ -114,7 +114,7 @@ public actual fun schedGetcpu(): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_schedGetcpu() as Int) else 0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_mallocInfo(options, (stream?.handle ?: 0L).toString()) as Int) else 0
@@ -203,7 +203,7 @@ public actual fun timerfdGettime(fd: CInt, currentValue: COpaquePointer?): CInt 
 public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_timerfdSettime(fd, flags, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun syscall(num: CLong): CLong =
+public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -278,7 +278,7 @@ public actual fun mount(src: String?, target: String?, fstype: String?, flags: C
 public actual fun personality(persona: CUint): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_personality(persona.toInt()) as Int) else 0
 
-public actual fun prctl(option: CInt): CInt =
+public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
@@ -287,7 +287,7 @@ public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_ppoll((fds?.value ?: 0L).toString(), nfds.toInt(), (timeout?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -341,7 +341,7 @@ public actual fun semClose(sem: COpaquePointer?): CInt =
 public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_getgrnamR(name, (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

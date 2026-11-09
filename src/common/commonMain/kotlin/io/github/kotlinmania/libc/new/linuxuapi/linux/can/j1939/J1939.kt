@@ -81,13 +81,13 @@ public val J1939_EE_INFO_RX_DPO: CInt = 3
 
 public val J1939_EE_INFO_RX_ABORT: CInt = 4
 
-public open class J1939Filter(
-    public var name: NameT,
-    public var nameMask: NameT,
-    public var pgn: PgnT,
-    public var pgnMask: PgnT,
-    public var addr: UByte,
-    public var addrMask: UByte,
+public data class J1939Filter(
+    public var name: NameT = 0uL,
+    public var nameMask: NameT = 0uL,
+    public var pgn: PgnT = 0u,
+    public var pgnMask: PgnT = 0u,
+    public var addr: UByte = 0u,
+    public var addrMask: UByte = 0u,
 )
 
 public val J1939_FILTER_MAX: CInt = 512

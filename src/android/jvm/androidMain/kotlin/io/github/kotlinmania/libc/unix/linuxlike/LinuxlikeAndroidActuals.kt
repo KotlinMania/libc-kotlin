@@ -283,7 +283,7 @@ private object UnixLinuxlikeJniBridge {
     external fun libc_unix_linuxlike_statx(dirfd: Int, pathname: String?, flags: Int, mask: Int, statxbuf: Long): Int
 }
 
-public actual fun ioctl(fd: CInt, request: Ioctl): CInt =
+public actual fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun libcCurrentSigrtmax(): CInt =
@@ -353,17 +353,17 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, 
     UnixLinuxlikeJniBridge.libc_unix_linuxlike_utimensat(dirfd, path, (times?.value ?: 0L), flag)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixLinuxlikeJniBridge.libc_unix_linuxlike_duplocale(base.toLong()).toULong()()
+    UnixLinuxlikeJniBridge.libc_unix_linuxlike_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixLinuxlikeJniBridge.libc_unix_linuxlike_freelocale(loc.toLong())
+    UnixLinuxlikeJniBridge.libc_unix_linuxlike_freelocale((loc?.value ?: 0L))
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixLinuxlikeJniBridge.libc_unix_linuxlike_newlocale(mask, locale, base.toLong()).toULong()()
+    UnixLinuxlikeJniBridge.libc_unix_linuxlike_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixLinuxlikeJniBridge.libc_unix_linuxlike_uselocale(loc.toLong()).toULong()()
+    UnixLinuxlikeJniBridge.libc_unix_linuxlike_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     UnixLinuxlikeJniBridge.libc_unix_linuxlike_mknodat(dirfd, pathname, mode.toInt(), dev.toLong())
@@ -445,7 +445,7 @@ public actual fun strftime(s: COpaquePointer?, max: SizeT, format: String?, tm: 
     UnixLinuxlikeJniBridge.libc_unix_linuxlike_strftime((s?.value ?: 0L), max.toLong(), format, (tm?.value ?: 0L)).toULong()
 
 public actual fun strftimeL(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?, locale: LocaleT): SizeT =
-    UnixLinuxlikeJniBridge.libc_unix_linuxlike_strftimeL((s?.value ?: 0L), max.toLong(), format, (tm?.value ?: 0L), locale.toLong()).toULong()
+    UnixLinuxlikeJniBridge.libc_unix_linuxlike_strftimeL((s?.value ?: 0L), max.toLong(), format, (tm?.value ?: 0L), (locale?.value ?: 0L)).toULong()
 
 public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
     UnixLinuxlikeJniBridge.libc_unix_linuxlike_strptime(s, format, (tm?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
@@ -508,10 +508,10 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     UnixLinuxlikeJniBridge.libc_unix_linuxlike_mmap64((addr?.value ?: 0L), len.toLong(), prot, flags, fd, offset).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun open64(path: String?, oflag: CInt): CInt =
+public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat64(fd: CInt, path: String?, oflag: CInt): CInt =
+public actual fun openat64(fd: CInt, path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =

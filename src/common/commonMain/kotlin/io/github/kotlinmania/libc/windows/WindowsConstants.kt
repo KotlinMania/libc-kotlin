@@ -4,7 +4,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 
-public val INT_MIN: CInt = -2147483648
+public val INT_MIN: CInt = -2147483648.toInt()
 
 public val INT_MAX: CInt = 2147483647
 

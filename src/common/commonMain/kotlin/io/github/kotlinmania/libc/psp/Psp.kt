@@ -1,4 +1,5 @@
 // port-lint: source psp.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
@@ -122,2096 +123,2952 @@ public typealias HttpPasswordCB = HttpPasswordCBFn?
 
 public typealias SocklenT = UInt
 
-public sealed class AudioFormat(public val value: UInt) {
-    public data object Stereo : AudioFormat(0u)
-    public data object Mono : AudioFormat(0x10u)
-}
-
-public sealed class DisplayMode(public val value: UInt) {
-    public data object Lcd : DisplayMode(0u)
-}
-
-public sealed class DisplayPixelFormat(public val value: UInt) {
-    public data object Psm5650 : DisplayPixelFormat(0u)
-    public data object Psm5551 : DisplayPixelFormat(1u)
-    public data object Psm4444 : DisplayPixelFormat(2u)
-    public data object Psm8888 : DisplayPixelFormat(3u)
-}
-
-public sealed class DisplaySetBufSync(public val value: UInt) {
-    public data object Immediate : DisplaySetBufSync(0u)
-    public data object NextFrame : DisplaySetBufSync(1u)
-}
-
-public sealed class AudioOutputFrequency(public val value: Int) {
-    public data object Khz48 : AudioOutputFrequency(48000)
-    public data object Khz441 : AudioOutputFrequency(44100)
-    public data object Khz32 : AudioOutputFrequency(32000)
-    public data object Khz24 : AudioOutputFrequency(24000)
-    public data object Khz2205 : AudioOutputFrequency(22050)
-    public data object Khz16 : AudioOutputFrequency(16000)
-    public data object Khz12 : AudioOutputFrequency(12000)
-    public data object Khz11025 : AudioOutputFrequency(11025)
-    public data object Khz8 : AudioOutputFrequency(8000)
-}
-
-public sealed class AudioInputFrequency(public val value: Int) {
-    public data object Khz441 : AudioInputFrequency(44100)
-    public data object Khz2205 : AudioInputFrequency(22050)
-    public data object Khz11025 : AudioInputFrequency(11025)
-}
-
-public sealed class CtrlMode(public val value: UInt) {
-    public data object Digital : CtrlMode(0u)
-    public data object Analog : CtrlMode(Digital.value + 1u)
-}
-
-public sealed class GeMatrixType(public val value: Int) {
-    public data object Bone0 : GeMatrixType(0)
-    public data object Bone1 : GeMatrixType(Bone0.value + 1)
-    public data object Bone2 : GeMatrixType(Bone1.value + 1)
-    public data object Bone3 : GeMatrixType(Bone2.value + 1)
-    public data object Bone4 : GeMatrixType(Bone3.value + 1)
-    public data object Bone5 : GeMatrixType(Bone4.value + 1)
-    public data object Bone6 : GeMatrixType(Bone5.value + 1)
-    public data object Bone7 : GeMatrixType(Bone6.value + 1)
-    public data object World : GeMatrixType(Bone7.value + 1)
-    public data object View : GeMatrixType(World.value + 1)
-    public data object Projection : GeMatrixType(View.value + 1)
-    public data object TexGen : GeMatrixType(Projection.value + 1)
-}
-
-public sealed class GeListState(public val value: Int) {
-    public data object Done : GeListState(0)
-    public data object Queued : GeListState(Done.value + 1)
-    public data object DrawingDone : GeListState(Queued.value + 1)
-    public data object StallReached : GeListState(DrawingDone.value + 1)
-    public data object CancelDone : GeListState(StallReached.value + 1)
-}
-
-public sealed class GeCommand(public val value: UByte) {
-    public data object Nop : GeCommand(0u)
-    public data object Vaddr : GeCommand(0x1u)
-    public data object Iaddr : GeCommand(0x2u)
-    public data object Prim : GeCommand(0x4u)
-    public data object Bezier : GeCommand(0x5u)
-    public data object Spline : GeCommand(0x6u)
-    public data object BoundingBox : GeCommand(0x7u)
-    public data object Jump : GeCommand(0x8u)
-    public data object BJump : GeCommand(0x9u)
-    public data object Call : GeCommand(0xau)
-    public data object Ret : GeCommand(0xbu)
-    public data object End : GeCommand(0xcu)
-    public data object Signal : GeCommand(0xeu)
-    public data object Finish : GeCommand(0xfu)
-    public data object Base : GeCommand(0x10u)
-    public data object VertexType : GeCommand(0x12u)
-    public data object OffsetAddr : GeCommand(0x13u)
-    public data object Origin : GeCommand(0x14u)
-    public data object Region1 : GeCommand(0x15u)
-    public data object Region2 : GeCommand(0x16u)
-    public data object LightingEnable : GeCommand(0x17u)
-    public data object LightEnable0 : GeCommand(0x18u)
-    public data object LightEnable1 : GeCommand(0x19u)
-    public data object LightEnable2 : GeCommand(0x1au)
-    public data object LightEnable3 : GeCommand(0x1bu)
-    public data object DepthClampEnable : GeCommand(0x1cu)
-    public data object CullFaceEnable : GeCommand(0x1du)
-    public data object TextureMapEnable : GeCommand(0x1eu)
-    public data object FogEnable : GeCommand(0x1fu)
-    public data object DitherEnable : GeCommand(0x20u)
-    public data object AlphaBlendEnable : GeCommand(0x21u)
-    public data object AlphaTestEnable : GeCommand(0x22u)
-    public data object ZTestEnable : GeCommand(0x23u)
-    public data object StencilTestEnable : GeCommand(0x24u)
-    public data object AntiAliasEnable : GeCommand(0x25u)
-    public data object PatchCullEnable : GeCommand(0x26u)
-    public data object ColorTestEnable : GeCommand(0x27u)
-    public data object LogicOpEnable : GeCommand(0x28u)
-    public data object BoneMatrixNumber : GeCommand(0x2au)
-    public data object BoneMatrixData : GeCommand(0x2bu)
-    public data object MorphWeight0 : GeCommand(0x2cu)
-    public data object MorphWeight1 : GeCommand(0x2du)
-    public data object MorphWeight2 : GeCommand(0x2eu)
-    public data object MorphWeight3 : GeCommand(0x2fu)
-    public data object MorphWeight4 : GeCommand(0x30u)
-    public data object MorphWeight5 : GeCommand(0x31u)
-    public data object MorphWeight6 : GeCommand(0x32u)
-    public data object MorphWeight7 : GeCommand(0x33u)
-    public data object PatchDivision : GeCommand(0x36u)
-    public data object PatchPrimitive : GeCommand(0x37u)
-    public data object PatchFacing : GeCommand(0x38u)
-    public data object WorldMatrixNumber : GeCommand(0x3au)
-    public data object WorldMatrixData : GeCommand(0x3bu)
-    public data object ViewMatrixNumber : GeCommand(0x3cu)
-    public data object ViewMatrixData : GeCommand(0x3du)
-    public data object ProjMatrixNumber : GeCommand(0x3eu)
-    public data object ProjMatrixData : GeCommand(0x3fu)
-    public data object TGenMatrixNumber : GeCommand(0x40u)
-    public data object TGenMatrixData : GeCommand(0x41u)
-    public data object ViewportXScale : GeCommand(0x42u)
-    public data object ViewportYScale : GeCommand(0x43u)
-    public data object ViewportZScale : GeCommand(0x44u)
-    public data object ViewportXCenter : GeCommand(0x45u)
-    public data object ViewportYCenter : GeCommand(0x46u)
-    public data object ViewportZCenter : GeCommand(0x47u)
-    public data object TexScaleU : GeCommand(0x48u)
-    public data object TexScaleV : GeCommand(0x49u)
-    public data object TexOffsetU : GeCommand(0x4au)
-    public data object TexOffsetV : GeCommand(0x4bu)
-    public data object OffsetX : GeCommand(0x4cu)
-    public data object OffsetY : GeCommand(0x4du)
-    public data object ShadeMode : GeCommand(0x50u)
-    public data object ReverseNormal : GeCommand(0x51u)
-    public data object MaterialUpdate : GeCommand(0x53u)
-    public data object MaterialEmissive : GeCommand(0x54u)
-    public data object MaterialAmbient : GeCommand(0x55u)
-    public data object MaterialDiffuse : GeCommand(0x56u)
-    public data object MaterialSpecular : GeCommand(0x57u)
-    public data object MaterialAlpha : GeCommand(0x58u)
-    public data object MaterialSpecularCoef : GeCommand(0x5bu)
-    public data object AmbientColor : GeCommand(0x5cu)
-    public data object AmbientAlpha : GeCommand(0x5du)
-    public data object LightMode : GeCommand(0x5eu)
-    public data object LightType0 : GeCommand(0x5fu)
-    public data object LightType1 : GeCommand(0x60u)
-    public data object LightType2 : GeCommand(0x61u)
-    public data object LightType3 : GeCommand(0x62u)
-    public data object Light0X : GeCommand(0x63u)
-    public data object Light0Y : GeCommand((Light0X.value + 1u).toUByte())
-    public data object Light0Z : GeCommand((Light0Y.value + 1u).toUByte())
-    public data object Light1X : GeCommand((Light0Z.value + 1u).toUByte())
-    public data object Light1Y : GeCommand((Light1X.value + 1u).toUByte())
-    public data object Light1Z : GeCommand((Light1Y.value + 1u).toUByte())
-    public data object Light2X : GeCommand((Light1Z.value + 1u).toUByte())
-    public data object Light2Y : GeCommand((Light2X.value + 1u).toUByte())
-    public data object Light2Z : GeCommand((Light2Y.value + 1u).toUByte())
-    public data object Light3X : GeCommand((Light2Z.value + 1u).toUByte())
-    public data object Light3Y : GeCommand((Light3X.value + 1u).toUByte())
-    public data object Light3Z : GeCommand((Light3Y.value + 1u).toUByte())
-    public data object Light0DirectionX : GeCommand(0x6fu)
-    public data object Light0DirectionY : GeCommand((Light0DirectionX.value + 1u).toUByte())
-    public data object Light0DirectionZ : GeCommand((Light0DirectionY.value + 1u).toUByte())
-    public data object Light1DirectionX : GeCommand((Light0DirectionZ.value + 1u).toUByte())
-    public data object Light1DirectionY : GeCommand((Light1DirectionX.value + 1u).toUByte())
-    public data object Light1DirectionZ : GeCommand((Light1DirectionY.value + 1u).toUByte())
-    public data object Light2DirectionX : GeCommand((Light1DirectionZ.value + 1u).toUByte())
-    public data object Light2DirectionY : GeCommand((Light2DirectionX.value + 1u).toUByte())
-    public data object Light2DirectionZ : GeCommand((Light2DirectionY.value + 1u).toUByte())
-    public data object Light3DirectionX : GeCommand((Light2DirectionZ.value + 1u).toUByte())
-    public data object Light3DirectionY : GeCommand((Light3DirectionX.value + 1u).toUByte())
-    public data object Light3DirectionZ : GeCommand((Light3DirectionY.value + 1u).toUByte())
-    public data object Light0ConstantAtten : GeCommand(0x7bu)
-    public data object Light0LinearAtten : GeCommand((Light0ConstantAtten.value + 1u).toUByte())
-    public data object Light0QuadtraticAtten : GeCommand((Light0LinearAtten.value + 1u).toUByte())
-    public data object Light1ConstantAtten : GeCommand((Light0QuadtraticAtten.value + 1u).toUByte())
-    public data object Light1LinearAtten : GeCommand((Light1ConstantAtten.value + 1u).toUByte())
-    public data object Light1QuadtraticAtten : GeCommand((Light1LinearAtten.value + 1u).toUByte())
-    public data object Light2ConstantAtten : GeCommand((Light1QuadtraticAtten.value + 1u).toUByte())
-    public data object Light2LinearAtten : GeCommand((Light2ConstantAtten.value + 1u).toUByte())
-    public data object Light2QuadtraticAtten : GeCommand((Light2LinearAtten.value + 1u).toUByte())
-    public data object Light3ConstantAtten : GeCommand((Light2QuadtraticAtten.value + 1u).toUByte())
-    public data object Light3LinearAtten : GeCommand((Light3ConstantAtten.value + 1u).toUByte())
-    public data object Light3QuadtraticAtten : GeCommand((Light3LinearAtten.value + 1u).toUByte())
-    public data object Light0ExponentAtten : GeCommand(0x87u)
-    public data object Light1ExponentAtten : GeCommand((Light0ExponentAtten.value + 1u).toUByte())
-    public data object Light2ExponentAtten : GeCommand((Light1ExponentAtten.value + 1u).toUByte())
-    public data object Light3ExponentAtten : GeCommand((Light2ExponentAtten.value + 1u).toUByte())
-    public data object Light0CutoffAtten : GeCommand(0x8bu)
-    public data object Light1CutoffAtten : GeCommand((Light0CutoffAtten.value + 1u).toUByte())
-    public data object Light2CutoffAtten : GeCommand((Light1CutoffAtten.value + 1u).toUByte())
-    public data object Light3CutoffAtten : GeCommand((Light2CutoffAtten.value + 1u).toUByte())
-    public data object Light0Ambient : GeCommand(0x8fu)
-    public data object Light0Diffuse : GeCommand((Light0Ambient.value + 1u).toUByte())
-    public data object Light0Specular : GeCommand((Light0Diffuse.value + 1u).toUByte())
-    public data object Light1Ambient : GeCommand((Light0Specular.value + 1u).toUByte())
-    public data object Light1Diffuse : GeCommand((Light1Ambient.value + 1u).toUByte())
-    public data object Light1Specular : GeCommand((Light1Diffuse.value + 1u).toUByte())
-    public data object Light2Ambient : GeCommand((Light1Specular.value + 1u).toUByte())
-    public data object Light2Diffuse : GeCommand((Light2Ambient.value + 1u).toUByte())
-    public data object Light2Specular : GeCommand((Light2Diffuse.value + 1u).toUByte())
-    public data object Light3Ambient : GeCommand((Light2Specular.value + 1u).toUByte())
-    public data object Light3Diffuse : GeCommand((Light3Ambient.value + 1u).toUByte())
-    public data object Light3Specular : GeCommand((Light3Diffuse.value + 1u).toUByte())
-    public data object Cull : GeCommand(0x9bu)
-    public data object FrameBufPtr : GeCommand(0x9cu)
-    public data object FrameBufWidth : GeCommand(0x9du)
-    public data object ZBufPtr : GeCommand(0x9eu)
-    public data object ZBufWidth : GeCommand(0x9fu)
-    public data object TexAddr0 : GeCommand(0xa0u)
-    public data object TexAddr1 : GeCommand((TexAddr0.value + 1u).toUByte())
-    public data object TexAddr2 : GeCommand((TexAddr1.value + 1u).toUByte())
-    public data object TexAddr3 : GeCommand((TexAddr2.value + 1u).toUByte())
-    public data object TexAddr4 : GeCommand((TexAddr3.value + 1u).toUByte())
-    public data object TexAddr5 : GeCommand((TexAddr4.value + 1u).toUByte())
-    public data object TexAddr6 : GeCommand((TexAddr5.value + 1u).toUByte())
-    public data object TexAddr7 : GeCommand((TexAddr6.value + 1u).toUByte())
-    public data object TexBufWidth0 : GeCommand(0xa8u)
-    public data object TexBufWidth1 : GeCommand((TexBufWidth0.value + 1u).toUByte())
-    public data object TexBufWidth2 : GeCommand((TexBufWidth1.value + 1u).toUByte())
-    public data object TexBufWidth3 : GeCommand((TexBufWidth2.value + 1u).toUByte())
-    public data object TexBufWidth4 : GeCommand((TexBufWidth3.value + 1u).toUByte())
-    public data object TexBufWidth5 : GeCommand((TexBufWidth4.value + 1u).toUByte())
-    public data object TexBufWidth6 : GeCommand((TexBufWidth5.value + 1u).toUByte())
-    public data object TexBufWidth7 : GeCommand((TexBufWidth6.value + 1u).toUByte())
-    public data object ClutAddr : GeCommand(0xb0u)
-    public data object ClutAddrUpper : GeCommand(0xb1u)
-    public data object TransferSrc : GeCommand((ClutAddrUpper.value + 1u).toUByte())
-    public data object TransferSrcW : GeCommand((TransferSrc.value + 1u).toUByte())
-    public data object TransferDst : GeCommand((TransferSrcW.value + 1u).toUByte())
-    public data object TransferDstW : GeCommand((TransferDst.value + 1u).toUByte())
-    public data object TexSize0 : GeCommand(0xb8u)
-    public data object TexSize1 : GeCommand((TexSize0.value + 1u).toUByte())
-    public data object TexSize2 : GeCommand((TexSize1.value + 1u).toUByte())
-    public data object TexSize3 : GeCommand((TexSize2.value + 1u).toUByte())
-    public data object TexSize4 : GeCommand((TexSize3.value + 1u).toUByte())
-    public data object TexSize5 : GeCommand((TexSize4.value + 1u).toUByte())
-    public data object TexSize6 : GeCommand((TexSize5.value + 1u).toUByte())
-    public data object TexSize7 : GeCommand((TexSize6.value + 1u).toUByte())
-    public data object TexMapMode : GeCommand(0xc0u)
-    public data object TexShadeLs : GeCommand(0xc1u)
-    public data object TexMode : GeCommand(0xc2u)
-    public data object TexFormat : GeCommand(0xc3u)
-    public data object LoadClut : GeCommand(0xc4u)
-    public data object ClutFormat : GeCommand(0xc5u)
-    public data object TexFilter : GeCommand(0xc6u)
-    public data object TexWrap : GeCommand(0xc7u)
-    public data object TexLevel : GeCommand(0xc8u)
-    public data object TexFunc : GeCommand(0xc9u)
-    public data object TexEnvColor : GeCommand(0xcau)
-    public data object TexFlush : GeCommand(0xcbu)
-    public data object TexSync : GeCommand(0xccu)
-    public data object Fog1 : GeCommand(0xcdu)
-    public data object Fog2 : GeCommand(0xceu)
-    public data object FogColor : GeCommand(0xcfu)
-    public data object TexLodSlope : GeCommand(0xd0u)
-    public data object FramebufPixFormat : GeCommand(0xd2u)
-    public data object ClearMode : GeCommand(0xd3u)
-    public data object Scissor1 : GeCommand(0xd4u)
-    public data object Scissor2 : GeCommand(0xd5u)
-    public data object MinZ : GeCommand(0xd6u)
-    public data object MaxZ : GeCommand(0xd7u)
-    public data object ColorTest : GeCommand(0xd8u)
-    public data object ColorRef : GeCommand(0xd9u)
-    public data object ColorTestmask : GeCommand(0xdau)
-    public data object AlphaTest : GeCommand(0xdbu)
-    public data object StencilTest : GeCommand(0xdcu)
-    public data object StencilOp : GeCommand(0xddu)
-    public data object ZTest : GeCommand(0xdeu)
-    public data object BlendMode : GeCommand(0xdfu)
-    public data object BlendFixedA : GeCommand(0xe0u)
-    public data object BlendFixedB : GeCommand(0xe1u)
-    public data object Dith0 : GeCommand(0xe2u)
-    public data object Dith1 : GeCommand((Dith0.value + 1u).toUByte())
-    public data object Dith2 : GeCommand((Dith1.value + 1u).toUByte())
-    public data object Dith3 : GeCommand((Dith2.value + 1u).toUByte())
-    public data object LogicOp : GeCommand(0xe6u)
-    public data object ZWriteDisable : GeCommand(0xe7u)
-    public data object MaskRgb : GeCommand(0xe8u)
-    public data object MaskAlpha : GeCommand(0xe9u)
-    public data object TransferStart : GeCommand(0xeau)
-    public data object TransferSrcPos : GeCommand(0xebu)
-    public data object TransferDstPos : GeCommand(0xecu)
-    public data object TransferSize : GeCommand(0xeeu)
-    public data object Vscx : GeCommand(0xf0u)
-    public data object Vscy : GeCommand(0xf1u)
-    public data object Vscz : GeCommand(0xf2u)
-    public data object Vtcs : GeCommand(0xf3u)
-    public data object Vtct : GeCommand(0xf4u)
-    public data object Vtcq : GeCommand(0xf5u)
-    public data object Vcv : GeCommand(0xf6u)
-    public data object Vap : GeCommand(0xf7u)
-    public data object Vfc : GeCommand(0xf8u)
-    public data object Vscv : GeCommand(0xf9u)
-    public data object Unknown03 : GeCommand(0x03u)
-    public data object Unknown0D : GeCommand(0x0du)
-    public data object Unknown11 : GeCommand(0x11u)
-    public data object Unknown29 : GeCommand(0x29u)
-    public data object Unknown34 : GeCommand(0x34u)
-    public data object Unknown35 : GeCommand(0x35u)
-    public data object Unknown39 : GeCommand(0x39u)
-    public data object Unknown4E : GeCommand(0x4eu)
-    public data object Unknown4F : GeCommand(0x4fu)
-    public data object Unknown52 : GeCommand(0x52u)
-    public data object Unknown59 : GeCommand(0x59u)
-    public data object Unknown5A : GeCommand(0x5au)
-    public data object UnknownB6 : GeCommand(0xb6u)
-    public data object UnknownB7 : GeCommand(0xb7u)
-    public data object UnknownD1 : GeCommand(0xd1u)
-    public data object UnknownED : GeCommand(0xedu)
-    public data object UnknownEF : GeCommand(0xefu)
-    public data object UnknownFA : GeCommand(0xfau)
-    public data object UnknownFB : GeCommand(0xfbu)
-    public data object UnknownFC : GeCommand(0xfcu)
-    public data object UnknownFD : GeCommand(0xfdu)
-    public data object UnknownFE : GeCommand(0xfeu)
-    public data object NopFF : GeCommand(0xffu)
-}
-
-public sealed class SceSysMemPartitionId(public val value: Int) {
-    public data object SceKernelUnknownPartition : SceSysMemPartitionId(0)
-    public data object SceKernelPrimaryKernelPartition : SceSysMemPartitionId(1)
-    public data object SceKernelPrimaryUserPartition : SceSysMemPartitionId(2)
-    public data object SceKernelOtherKernelPartition1 : SceSysMemPartitionId(3)
-    public data object SceKernelOtherKernelPartition2 : SceSysMemPartitionId(4)
-    public data object SceKernelVshellPARTITION : SceSysMemPartitionId(5)
-    public data object SceKernelScUserPartition : SceSysMemPartitionId(6)
-    public data object SceKernelMeUserPartition : SceSysMemPartitionId(7)
-    public data object SceKernelExtendedScKernelPartition : SceSysMemPartitionId(8)
-    public data object SceKernelExtendedSc2KernelPartition : SceSysMemPartitionId(9)
-    public data object SceKernelExtendedMeKernelPartition : SceSysMemPartitionId(10)
-    public data object SceKernelVshellKernelPartition : SceSysMemPartitionId(11)
-    public data object SceKernelExtendedKernelPartition : SceSysMemPartitionId(12)
-}
-
-public sealed class SceSysMemBlockTypes(public val value: Int) {
-    public data object Low : SceSysMemBlockTypes(0)
-    public data object High : SceSysMemBlockTypes(Low.value + 1)
-    public data object Addr : SceSysMemBlockTypes(High.value + 1)
-}
-
-public sealed class Interrupt(public val value: UInt) {
-    public data object Gpio : Interrupt(4u)
-    public data object Ata : Interrupt(5u)
-    public data object Umd : Interrupt(6u)
-    public data object Mscm0 : Interrupt(7u)
-    public data object Wlan : Interrupt(8u)
-    public data object Audio : Interrupt(10u)
-    public data object I2c : Interrupt(12u)
-    public data object Sircs : Interrupt(14u)
-    public data object Systimer0 : Interrupt(15u)
-    public data object Systimer1 : Interrupt(16u)
-    public data object Systimer2 : Interrupt(17u)
-    public data object Systimer3 : Interrupt(18u)
-    public data object Thread0 : Interrupt(19u)
-    public data object Nand : Interrupt(20u)
-    public data object Dmacplus : Interrupt(21u)
-    public data object Dma0 : Interrupt(22u)
-    public data object Dma1 : Interrupt(23u)
-    public data object Memlmd : Interrupt(24u)
-    public data object Ge : Interrupt(25u)
-    public data object Vblank : Interrupt(30u)
-    public data object Mecodec : Interrupt(31u)
-    public data object Hpremote : Interrupt(36u)
-    public data object Mscm1 : Interrupt(60u)
-    public data object Mscm2 : Interrupt(61u)
-    public data object Thread1 : Interrupt(65u)
-    public data object Interrupt : Interrupt(66u)
-}
-
-public sealed class SubInterrupt(public val value: UInt) {
-    public data object Gpio : SubInterrupt(Interrupt.Gpio.toUInt())
-    public data object Ata : SubInterrupt(Interrupt.Ata.toUInt())
-    public data object Umd : SubInterrupt(Interrupt.Umd.toUInt())
-    public data object Dmacplus : SubInterrupt(Interrupt.Dmacplus.toUInt())
-    public data object Ge : SubInterrupt(Interrupt.Ge.toUInt())
-    public data object Display : SubInterrupt(Interrupt.Vblank.toUInt())
-}
-
-public sealed class SceKernelIdListType(public val value: UInt) {
-    public data object Thread : SceKernelIdListType(1u)
-    public data object Semaphore : SceKernelIdListType(2u)
-    public data object EventFlag : SceKernelIdListType(3u)
-    public data object Mbox : SceKernelIdListType(4u)
-    public data object Vpl : SceKernelIdListType(5u)
-    public data object Fpl : SceKernelIdListType(6u)
-    public data object Mpipe : SceKernelIdListType(7u)
-    public data object Callback : SceKernelIdListType(8u)
-    public data object ThreadEventHandler : SceKernelIdListType(9u)
-    public data object Alarm : SceKernelIdListType(10u)
-    public data object VTimer : SceKernelIdListType(11u)
-    public data object SleepThread : SceKernelIdListType(64u)
-    public data object DelayThread : SceKernelIdListType(65u)
-    public data object SuspendThread : SceKernelIdListType(66u)
-    public data object DormantThread : SceKernelIdListType(67u)
-}
-
-public sealed class UsbCamResolution(public val value: Int) {
-    public data object Px160120 : UsbCamResolution(0)
-    public data object Px176144 : UsbCamResolution(1)
-    public data object Px320240 : UsbCamResolution(2)
-    public data object Px352288 : UsbCamResolution(3)
-    public data object Px640480 : UsbCamResolution(4)
-    public data object Px1024768 : UsbCamResolution(5)
-    public data object Px1280960 : UsbCamResolution(6)
-    public data object Px480272 : UsbCamResolution(7)
-    public data object Px360272 : UsbCamResolution(8)
-}
-
-public sealed class UsbCamResolutionEx(public val value: Int) {
-    public data object Px160120 : UsbCamResolutionEx(0)
-    public data object Px176144 : UsbCamResolutionEx(1)
-    public data object Px320240 : UsbCamResolutionEx(2)
-    public data object Px352288 : UsbCamResolutionEx(3)
-    public data object Px360272 : UsbCamResolutionEx(4)
-    public data object Px480272 : UsbCamResolutionEx(5)
-    public data object Px640480 : UsbCamResolutionEx(6)
-    public data object Px1024768 : UsbCamResolutionEx(7)
-    public data object Px1280960 : UsbCamResolutionEx(8)
-}
-
-public sealed class UsbCamDelay(public val value: Int) {
-    public data object NoDelay : UsbCamDelay(0)
-    public data object Delay10Sec : UsbCamDelay(1)
-    public data object Delay20Sec : UsbCamDelay(2)
-    public data object Delay30Sec : UsbCamDelay(3)
-}
-
-public sealed class UsbCamFrameRate(public val value: Int) {
-    public data object Fps375 : UsbCamFrameRate(0)
-    public data object Fps5 : UsbCamFrameRate(1)
-    public data object Fps75 : UsbCamFrameRate(2)
-    public data object Fps10 : UsbCamFrameRate(3)
-    public data object Fps15 : UsbCamFrameRate(4)
-    public data object Fps20 : UsbCamFrameRate(5)
-    public data object Fps30 : UsbCamFrameRate(6)
-    public data object Fps60 : UsbCamFrameRate(7)
-}
-
-public sealed class UsbCamWb(public val value: Int) {
-    public data object Auto : UsbCamWb(0)
-    public data object Daylight : UsbCamWb(1)
-    public data object Fluorescent : UsbCamWb(2)
-    public data object Incadescent : UsbCamWb(3)
-}
-
-public sealed class UsbCamEffectMode(public val value: Int) {
-    public data object Normal : UsbCamEffectMode(0)
-    public data object Negative : UsbCamEffectMode(1)
-    public data object Blackwhite : UsbCamEffectMode(2)
-    public data object Sepia : UsbCamEffectMode(3)
-    public data object Blue : UsbCamEffectMode(4)
-    public data object Red : UsbCamEffectMode(5)
-    public data object Green : UsbCamEffectMode(6)
-}
-
-public sealed class UsbCamEvLevel(public val value: Int) {
-    public data object Pos20 : UsbCamEvLevel(0)
-    public data object Pos17 : UsbCamEvLevel(1)
-    public data object Pos15 : UsbCamEvLevel(2)
-    public data object Pos13 : UsbCamEvLevel(3)
-    public data object Pos10 : UsbCamEvLevel(4)
-    public data object Pos07 : UsbCamEvLevel(5)
-    public data object Pos05 : UsbCamEvLevel(6)
-    public data object Pos03 : UsbCamEvLevel(7)
-    public data object Zero : UsbCamEvLevel(8)
-    public data object Neg03 : UsbCamEvLevel(Zero.value + 1)
-    public data object Neg05 : UsbCamEvLevel(Neg03.value + 1)
-    public data object Neg07 : UsbCamEvLevel(Neg05.value + 1)
-    public data object Neg10 : UsbCamEvLevel(Neg07.value + 1)
-    public data object Neg13 : UsbCamEvLevel(Neg10.value + 1)
-    public data object Neg15 : UsbCamEvLevel(Neg13.value + 1)
-    public data object Neg17 : UsbCamEvLevel(Neg15.value + 1)
-    public data object Neg20 : UsbCamEvLevel(Neg17.value + 1)
-}
-
-public sealed class RtcCheckValidError(public val value: Int) {
-    public data object InvalidYear : RtcCheckValidError(-1)
-    public data object InvalidMonth : RtcCheckValidError(-2)
-    public data object InvalidDay : RtcCheckValidError(-3)
-    public data object InvalidHour : RtcCheckValidError(-4)
-    public data object InvalidMinutes : RtcCheckValidError(-5)
-    public data object InvalidSeconds : RtcCheckValidError(-6)
-    public data object InvalidMicroseconds : RtcCheckValidError(-7)
-}
-
-public sealed class PowerTick(public val value: UInt) {
-    public data object All : PowerTick(0u)
-    public data object Suspend : PowerTick(1u)
-    public data object Display : PowerTick(6u)
-}
-
-public sealed class IoAssignPerms(public val value: UInt) {
-    public data object RdWr : IoAssignPerms(0u)
-    public data object RdOnly : IoAssignPerms(1u)
-}
-
-public sealed class IoWhence(public val value: UInt) {
-    public data object Set : IoWhence(0u)
-    public data object Cur : IoWhence(1u)
-    public data object End : IoWhence(2u)
-}
-
-public sealed class UmdType(public val value: UInt) {
-    public data object Game : UmdType(0x10u)
-    public data object Video : UmdType(0x20u)
-    public data object Audio : UmdType(0x40u)
-}
-
-public sealed class GuPrimitive(public val value: UInt) {
-    public data object Points : GuPrimitive(0u)
-    public data object Lines : GuPrimitive(1u)
-    public data object LineStrip : GuPrimitive(2u)
-    public data object Triangles : GuPrimitive(3u)
-    public data object TriangleStrip : GuPrimitive(4u)
-    public data object TriangleFan : GuPrimitive(5u)
-    public data object Sprites : GuPrimitive(6u)
-}
-
-public sealed class PatchPrimitive(public val value: UInt) {
-    public data object Points : PatchPrimitive(0u)
-    public data object LineStrip : PatchPrimitive(2u)
-    public data object TriangleStrip : PatchPrimitive(4u)
-}
-
-public sealed class GuState(public val value: UInt) {
-    public data object AlphaTest : GuState(0u)
-    public data object DepthTest : GuState(1u)
-    public data object ScissorTest : GuState(2u)
-    public data object StencilTest : GuState(3u)
-    public data object Blend : GuState(4u)
-    public data object CullFace : GuState(5u)
-    public data object Dither : GuState(6u)
-    public data object Fog : GuState(7u)
-    public data object ClipPlanes : GuState(8u)
-    public data object Texture2D : GuState(9u)
-    public data object Lighting : GuState(10u)
-    public data object Light0 : GuState(11u)
-    public data object Light1 : GuState(12u)
-    public data object Light2 : GuState(13u)
-    public data object Light3 : GuState(14u)
-    public data object LineSmooth : GuState(15u)
-    public data object PatchCullFace : GuState(16u)
-    public data object ColorTest : GuState(17u)
-    public data object ColorLogicOp : GuState(18u)
-    public data object FaceNormalReverse : GuState(19u)
-    public data object PatchFace : GuState(20u)
-    public data object Fragment2X : GuState(21u)
-}
-
-public sealed class MatrixMode(public val value: UInt) {
-    public data object Projection : MatrixMode(0u)
-    public data object View : MatrixMode(1u)
-    public data object Model : MatrixMode(2u)
-    public data object Texture : MatrixMode(3u)
-}
-
-public sealed class TexturePixelFormat(public val value: UInt) {
-    public data object Psm5650 : TexturePixelFormat(0u)
-    public data object Psm5551 : TexturePixelFormat(1u)
-    public data object Psm4444 : TexturePixelFormat(2u)
-    public data object Psm8888 : TexturePixelFormat(3u)
-    public data object PsmT4 : TexturePixelFormat(4u)
-    public data object PsmT8 : TexturePixelFormat(5u)
-    public data object PsmT16 : TexturePixelFormat(6u)
-    public data object PsmT32 : TexturePixelFormat(7u)
-    public data object PsmDxt1 : TexturePixelFormat(8u)
-    public data object PsmDxt3 : TexturePixelFormat(9u)
-    public data object PsmDxt5 : TexturePixelFormat(10u)
-}
-
-public sealed class SplineMode(public val value: UInt) {
-    public data object FillFill : SplineMode(0u)
-    public data object OpenFill : SplineMode(1u)
-    public data object FillOpen : SplineMode(2u)
-    public data object OpenOpen : SplineMode(3u)
-}
-
-public sealed class ShadingModel(public val value: UInt) {
-    public data object Flat : ShadingModel(0u)
-    public data object Smooth : ShadingModel(1u)
-}
-
-public sealed class LogicalOperation(public val value: UInt) {
-    public data object Clear : LogicalOperation(0u)
-    public data object And : LogicalOperation(1u)
-    public data object AndReverse : LogicalOperation(2u)
-    public data object Copy : LogicalOperation(3u)
-    public data object AndInverted : LogicalOperation(4u)
-    public data object Noop : LogicalOperation(5u)
-    public data object Xor : LogicalOperation(6u)
-    public data object Or : LogicalOperation(7u)
-    public data object Nor : LogicalOperation(8u)
-    public data object Equiv : LogicalOperation(9u)
-    public data object Inverted : LogicalOperation(10u)
-    public data object OrReverse : LogicalOperation(11u)
-    public data object CopyInverted : LogicalOperation(12u)
-    public data object OrInverted : LogicalOperation(13u)
-    public data object Nand : LogicalOperation(14u)
-    public data object Set : LogicalOperation(15u)
-}
-
-public sealed class TextureFilter(public val value: UInt) {
-    public data object Nearest : TextureFilter(0u)
-    public data object Linear : TextureFilter(1u)
-    public data object NearestMipmapNearest : TextureFilter(4u)
-    public data object LinearMipmapNearest : TextureFilter(5u)
-    public data object NearestMipmapLinear : TextureFilter(6u)
-    public data object LinearMipmapLinear : TextureFilter(7u)
-}
-
-public sealed class TextureMapMode(public val value: UInt) {
-    public data object TextureCoords : TextureMapMode(0u)
-    public data object TextureMatrix : TextureMapMode(1u)
-    public data object EnvironmentMap : TextureMapMode(2u)
-}
-
-public sealed class TextureLevelMode(public val value: UInt) {
-    public data object Auto : TextureLevelMode(0u)
-    public data object Const : TextureLevelMode(1u)
-    public data object Slope : TextureLevelMode(2u)
-}
-
-public sealed class TextureProjectionMapMode(public val value: UInt) {
-    public data object Position : TextureProjectionMapMode(0u)
-    public data object Uv : TextureProjectionMapMode(1u)
-    public data object NormalizedNormal : TextureProjectionMapMode(2u)
-    public data object Normal : TextureProjectionMapMode(3u)
-}
-
-public sealed class GuTexWrapMode(public val value: UInt) {
-    public data object Repeat : GuTexWrapMode(0u)
-    public data object Clamp : GuTexWrapMode(1u)
-}
-
-public sealed class FrontFaceDirection(public val value: UInt) {
-    public data object Clockwise : FrontFaceDirection(0u)
-    public data object CounterClockwise : FrontFaceDirection(1u)
-}
-
-public sealed class AlphaFunc(public val value: UInt) {
-    public data object Never : AlphaFunc(0u)
-    public data object Always : AlphaFunc(Never.value + 1u)
-    public data object Equal : AlphaFunc(Always.value + 1u)
-    public data object NotEqual : AlphaFunc(Equal.value + 1u)
-    public data object Less : AlphaFunc(NotEqual.value + 1u)
-    public data object LessOrEqual : AlphaFunc(Less.value + 1u)
-    public data object Greater : AlphaFunc(LessOrEqual.value + 1u)
-    public data object GreaterOrEqual : AlphaFunc(Greater.value + 1u)
-}
-
-public sealed class StencilFunc(public val value: UInt) {
-    public data object Never : StencilFunc(0u)
-    public data object Always : StencilFunc(Never.value + 1u)
-    public data object Equal : StencilFunc(Always.value + 1u)
-    public data object NotEqual : StencilFunc(Equal.value + 1u)
-    public data object Less : StencilFunc(NotEqual.value + 1u)
-    public data object LessOrEqual : StencilFunc(Less.value + 1u)
-    public data object Greater : StencilFunc(LessOrEqual.value + 1u)
-    public data object GreaterOrEqual : StencilFunc(Greater.value + 1u)
-}
-
-public sealed class ColorFunc(public val value: UInt) {
-    public data object Never : ColorFunc(0u)
-    public data object Always : ColorFunc(Never.value + 1u)
-    public data object Equal : ColorFunc(Always.value + 1u)
-    public data object NotEqual : ColorFunc(Equal.value + 1u)
-}
-
-public sealed class DepthFunc(public val value: UInt) {
-    public data object Never : DepthFunc(0u)
-    public data object Always : DepthFunc(Never.value + 1u)
-    public data object Equal : DepthFunc(Always.value + 1u)
-    public data object NotEqual : DepthFunc(Equal.value + 1u)
-    public data object Less : DepthFunc(NotEqual.value + 1u)
-    public data object LessOrEqual : DepthFunc(Less.value + 1u)
-    public data object Greater : DepthFunc(LessOrEqual.value + 1u)
-    public data object GreaterOrEqual : DepthFunc(Greater.value + 1u)
-}
-
-public sealed class TextureEffect(public val value: UInt) {
-    public data object Modulate : TextureEffect(0u)
-    public data object Decal : TextureEffect(1u)
-    public data object Blend : TextureEffect(2u)
-    public data object Replace : TextureEffect(3u)
-    public data object Add : TextureEffect(4u)
-}
-
-public sealed class TextureColorComponent(public val value: UInt) {
-    public data object Rgb : TextureColorComponent(0u)
-    public data object Rgba : TextureColorComponent(1u)
-}
-
-public sealed class MipmapLevel(public val value: UInt) {
-    public data object None : MipmapLevel(0u)
-    public data object Level1 : MipmapLevel(None.value + 1u)
-    public data object Level2 : MipmapLevel(Level1.value + 1u)
-    public data object Level3 : MipmapLevel(Level2.value + 1u)
-    public data object Level4 : MipmapLevel(Level3.value + 1u)
-    public data object Level5 : MipmapLevel(Level4.value + 1u)
-    public data object Level6 : MipmapLevel(Level5.value + 1u)
-    public data object Level7 : MipmapLevel(Level6.value + 1u)
-}
-
-public sealed class BlendOp(public val value: UInt) {
-    public data object Add : BlendOp(0u)
-    public data object Subtract : BlendOp(1u)
-    public data object ReverseSubtract : BlendOp(2u)
-    public data object Min : BlendOp(3u)
-    public data object Max : BlendOp(4u)
-    public data object Abs : BlendOp(5u)
-}
-
-public sealed class BlendSrc(public val value: UInt) {
-    public data object SrcColor : BlendSrc(0u)
-    public data object OneMinusSrcColor : BlendSrc(1u)
-    public data object SrcAlpha : BlendSrc(2u)
-    public data object OneMinusSrcAlpha : BlendSrc(3u)
-    public data object Fix : BlendSrc(10u)
-}
-
-public sealed class BlendDst(public val value: UInt) {
-    public data object DstColor : BlendDst(0u)
-    public data object OneMinusDstColor : BlendDst(1u)
-    public data object DstAlpha : BlendDst(4u)
-    public data object OneMinusDstAlpha : BlendDst(5u)
-    public data object Fix : BlendDst(10u)
-}
-
-public sealed class StencilOperation(public val value: UInt) {
-    public data object Keep : StencilOperation(0u)
-    public data object Zero : StencilOperation(1u)
-    public data object Replace : StencilOperation(2u)
-    public data object Invert : StencilOperation(3u)
-    public data object Incr : StencilOperation(4u)
-    public data object Decr : StencilOperation(5u)
-}
-
-public sealed class LightMode(public val value: UInt) {
-    public data object SingleColor : LightMode(0u)
-    public data object SeparateSpecularColor : LightMode(1u)
-}
-
-public sealed class LightType(public val value: UInt) {
-    public data object Directional : LightType(0u)
-    public data object Pointlight : LightType(1u)
-    public data object Spotlight : LightType(2u)
-}
-
-public sealed class GuContextType(public val value: UInt) {
-    public data object Direct : GuContextType(0u)
-    public data object Call : GuContextType(1u)
-    public data object Send : GuContextType(2u)
-}
-
-public sealed class GuQueueMode(public val value: UInt) {
-    public data object Tail : GuQueueMode(0u)
-    public data object Head : GuQueueMode(1u)
-}
-
-public sealed class GuSyncMode(public val value: UInt) {
-    public data object Finish : GuSyncMode(0u)
-    public data object Signal : GuSyncMode(1u)
-    public data object Done : GuSyncMode(2u)
-    public data object List : GuSyncMode(3u)
-    public data object Send : GuSyncMode(4u)
-}
-
-public sealed class GuSyncBehavior(public val value: UInt) {
-    public data object Wait : GuSyncBehavior(0u)
-    public data object NoWait : GuSyncBehavior(1u)
-}
-
-public sealed class GuCallbackId(public val value: UInt) {
-    public data object Signal : GuCallbackId(1u)
-    public data object Finish : GuCallbackId(4u)
-}
-
-public sealed class SignalBehavior(public val value: UInt) {
-    public data object Suspend : SignalBehavior(1u)
-    public data object Continue : SignalBehavior(2u)
-}
-
-public sealed class ClutPixelFormat(public val value: UInt) {
-    public data object Psm5650 : ClutPixelFormat(0u)
-    public data object Psm5551 : ClutPixelFormat(1u)
-    public data object Psm4444 : ClutPixelFormat(2u)
-    public data object Psm8888 : ClutPixelFormat(3u)
-}
-
-public sealed class KeyType(public val value: Int) {
-    public data object Directory : KeyType(1)
-    public data object Integer : KeyType(2)
-    public data object String : KeyType(3)
-    public data object Bytes : KeyType(4)
-}
-
-public sealed class UtilityMsgDialogMode {
-    public data object Error : UtilityMsgDialogMode()
-    public data object Text : UtilityMsgDialogMode()
-}
-
-public sealed class UtilityMsgDialogPressed {
-    public data object Unknown1 : UtilityMsgDialogPressed()
-    public data object Yes : UtilityMsgDialogPressed()
-    public data object No : UtilityMsgDialogPressed()
-    public data object Back : UtilityMsgDialogPressed()
-}
-
-public sealed class UtilityDialogButtonAccept {
-    public data object Circle : UtilityDialogButtonAccept()
-    public data object Cross : UtilityDialogButtonAccept()
-}
-
-public sealed class SceUtilityOskInputLanguage {
-    public data object Default : SceUtilityOskInputLanguage()
-    public data object Japanese : SceUtilityOskInputLanguage()
-    public data object English : SceUtilityOskInputLanguage()
-    public data object French : SceUtilityOskInputLanguage()
-    public data object Spanish : SceUtilityOskInputLanguage()
-    public data object German : SceUtilityOskInputLanguage()
-    public data object Italian : SceUtilityOskInputLanguage()
-    public data object Dutch : SceUtilityOskInputLanguage()
-    public data object Portugese : SceUtilityOskInputLanguage()
-    public data object Russian : SceUtilityOskInputLanguage()
-    public data object Korean : SceUtilityOskInputLanguage()
-}
-
-public sealed class SceUtilityOskInputType(public val value: UInt) {
-    public data object All : SceUtilityOskInputType(0u)
-    public data object LatinDigit : SceUtilityOskInputType(All.value + 1u)
-    public data object LatinSymbol : SceUtilityOskInputType(LatinDigit.value + 1u)
-    public data object LatinLowercase : SceUtilityOskInputType(4u)
-    public data object LatinUppercase : SceUtilityOskInputType(8u)
-    public data object JapaneseDigit : SceUtilityOskInputType(0x100u)
-    public data object JapaneseSymbol : SceUtilityOskInputType(0x200u)
-    public data object JapaneseLowercase : SceUtilityOskInputType(0x400u)
-    public data object JapaneseUppercase : SceUtilityOskInputType(0x800u)
-    public data object JapaneseHiragana : SceUtilityOskInputType(0x1000u)
-    public data object JapaneseHalfWidthKatakana : SceUtilityOskInputType(0x2000u)
-    public data object JapaneseKatakana : SceUtilityOskInputType(0x4000u)
-    public data object JapaneseKanji : SceUtilityOskInputType(0x8000u)
-    public data object RussianLowercase : SceUtilityOskInputType(0x10000u)
-    public data object RussianUppercase : SceUtilityOskInputType(0x20000u)
-    public data object Korean : SceUtilityOskInputType(0x40000u)
-    public data object Url : SceUtilityOskInputType(0x80000u)
-}
-
-public sealed class SceUtilityOskState {
-    public data object None : SceUtilityOskState()
-    public data object Initializing : SceUtilityOskState()
-    public data object Initialized : SceUtilityOskState()
-    public data object Visible : SceUtilityOskState()
-    public data object Quit : SceUtilityOskState()
-    public data object Finished : SceUtilityOskState()
-}
-
-public sealed class SceUtilityOskResult {
-    public data object Unchanged : SceUtilityOskResult()
-    public data object Cancelled : SceUtilityOskResult()
-    public data object Changed : SceUtilityOskResult()
-}
-
-public sealed class SystemParamLanguage {
-    public data object Japanese : SystemParamLanguage()
-    public data object English : SystemParamLanguage()
-    public data object French : SystemParamLanguage()
-    public data object Spanish : SystemParamLanguage()
-    public data object German : SystemParamLanguage()
-    public data object Italian : SystemParamLanguage()
-    public data object Dutch : SystemParamLanguage()
-    public data object Portugese : SystemParamLanguage()
-    public data object Russian : SystemParamLanguage()
-    public data object Korean : SystemParamLanguage()
-    public data object ChineseTraditional : SystemParamLanguage()
-    public data object ChineseSimplified : SystemParamLanguage()
-}
-
-public sealed class SystemParamId(public val value: UInt) {
-    public data object StringNickname : SystemParamId(1u)
-    public data object AdhocChannel : SystemParamId(StringNickname.value + 1u)
-    public data object WlanPowerSave : SystemParamId(AdhocChannel.value + 1u)
-    public data object DateFormat : SystemParamId(WlanPowerSave.value + 1u)
-    public data object TimeFormat : SystemParamId(DateFormat.value + 1u)
-    public data object Timezone : SystemParamId(TimeFormat.value + 1u)
-    public data object DaylightSavings : SystemParamId(Timezone.value + 1u)
-    public data object Language : SystemParamId(DaylightSavings.value + 1u)
-    public data object Unknown : SystemParamId(Language.value + 1u)
-}
-
-public sealed class SystemParamAdhocChannel(public val value: UInt) {
-    public data object ChannelAutomatic : SystemParamAdhocChannel(0u)
-    public data object Channel1 : SystemParamAdhocChannel(1u)
-    public data object Channel6 : SystemParamAdhocChannel(6u)
-    public data object Channel11 : SystemParamAdhocChannel(11u)
-}
-
-public sealed class SystemParamWlanPowerSaveState {
-    public data object Off : SystemParamWlanPowerSaveState()
-    public data object On : SystemParamWlanPowerSaveState()
-}
-
-public sealed class SystemParamDateFormat {
-    public data object Yyyymmdd : SystemParamDateFormat()
-    public data object Mmddyyyy : SystemParamDateFormat()
-    public data object Ddmmyyyy : SystemParamDateFormat()
-}
-
-public sealed class SystemParamTimeFormat {
-    public data object Hour24 : SystemParamTimeFormat()
-    public data object Hour12 : SystemParamTimeFormat()
-}
-
-public sealed class SystemParamDaylightSavings {
-    public data object Std : SystemParamDaylightSavings()
-    public data object Dst : SystemParamDaylightSavings()
-}
-
-public sealed class AvModule {
-    public data object AvCodec : AvModule()
-    public data object SasCore : AvModule()
-    public data object Atrac3Plus : AvModule()
-    public data object MpegBase : AvModule()
-    public data object Mp3 : AvModule()
-    public data object Vaudio : AvModule()
-    public data object Aac : AvModule()
-    public data object G729 : AvModule()
-}
-
-public sealed class Module(public val value: UInt) {
-    public data object NetCommon : Module(0x100u)
-    public data object NetAdhoc : Module(NetCommon.value + 1u)
-    public data object NetInet : Module(NetAdhoc.value + 1u)
-    public data object NetParseUri : Module(NetInet.value + 1u)
-    public data object NetHttp : Module(NetParseUri.value + 1u)
-    public data object NetSsl : Module(NetHttp.value + 1u)
-    public data object UsbPspCm : Module(0x200u)
-    public data object UsbMic : Module(UsbPspCm.value + 1u)
-    public data object UsbCam : Module(UsbMic.value + 1u)
-    public data object UsbGps : Module(UsbCam.value + 1u)
-    public data object AvCodec : Module(0x300u)
-    public data object AvSascore : Module(AvCodec.value + 1u)
-    public data object AvAtrac3Plus : Module(AvSascore.value + 1u)
-    public data object AvMpegBase : Module(AvAtrac3Plus.value + 1u)
-    public data object AvMp3 : Module(AvMpegBase.value + 1u)
-    public data object AvVaudio : Module(AvMp3.value + 1u)
-    public data object AvAac : Module(AvVaudio.value + 1u)
-    public data object AvG729 : Module(AvAac.value + 1u)
-    public data object NpCommon : Module(0x400u)
-    public data object NpService : Module(NpCommon.value + 1u)
-    public data object NpMatching2 : Module(NpService.value + 1u)
-    public data object NpDrm : Module(0x500u)
-    public data object Irda : Module(0x600u)
-}
-
-public sealed class NetModule(public val value: UInt) {
-    public data object NetCommon : NetModule(1u)
-    public data object NetAdhoc : NetModule(NetCommon.value + 1u)
-    public data object NetInet : NetModule(NetAdhoc.value + 1u)
-    public data object NetParseUri : NetModule(NetInet.value + 1u)
-    public data object NetHttp : NetModule(NetParseUri.value + 1u)
-    public data object NetSsl : NetModule(NetHttp.value + 1u)
-}
-
-public sealed class UsbModule(public val value: UInt) {
-    public data object UsbPspCm : UsbModule(1u)
-    public data object UsbAcc : UsbModule(UsbPspCm.value + 1u)
-    public data object UsbMic : UsbModule(UsbAcc.value + 1u)
-    public data object UsbCam : UsbModule(UsbMic.value + 1u)
-    public data object UsbGps : UsbModule(UsbCam.value + 1u)
-}
-
-public sealed class NetParam {
-    public data object Name : NetParam()
-    public data object Ssid : NetParam()
-    public data object Secure : NetParam()
-    public data object WepKey : NetParam()
-    public data object IsStaticIp : NetParam()
-    public data object Ip : NetParam()
-    public data object NetMask : NetParam()
-    public data object Route : NetParam()
-    public data object ManualDns : NetParam()
-    public data object PrimaryDns : NetParam()
-    public data object SecondaryDns : NetParam()
-    public data object ProxyUser : NetParam()
-    public data object ProxyPass : NetParam()
-    public data object UseProxy : NetParam()
-    public data object ProxyServer : NetParam()
-    public data object ProxyPort : NetParam()
-    public data object Unknown1 : NetParam()
-    public data object Unknown2 : NetParam()
-}
-
-public sealed class UtilityNetconfAction {
-    public data object ConnectAP : UtilityNetconfAction()
-    public data object DisplayStatus : UtilityNetconfAction()
-    public data object ConnectAdhoc : UtilityNetconfAction()
-}
-
-public sealed class UtilitySavedataMode {
-    public data object AutoLoad : UtilitySavedataMode()
-    public data object AutoSave : UtilitySavedataMode()
-    public data object Load : UtilitySavedataMode()
-    public data object Save : UtilitySavedataMode()
-    public data object ListLoad : UtilitySavedataMode()
-    public data object ListSave : UtilitySavedataMode()
-    public data object ListDelete : UtilitySavedataMode()
-    public data object Delete : UtilitySavedataMode()
-}
-
-public sealed class UtilitySavedataFocus {
-    public data object Unknown1 : UtilitySavedataFocus()
-    public data object FirstList : UtilitySavedataFocus()
-    public data object LastList : UtilitySavedataFocus()
-    public data object Latest : UtilitySavedataFocus()
-    public data object Oldest : UtilitySavedataFocus()
-    public data object Unknown2 : UtilitySavedataFocus()
-    public data object Unknown3 : UtilitySavedataFocus()
-    public data object FirstEmpty : UtilitySavedataFocus()
-    public data object LastEmpty : UtilitySavedataFocus()
-}
-
-public sealed class UtilityGameSharingMode(public val value: UInt) {
-    public data object Single : UtilityGameSharingMode(1u)
-    public data object Multiple : UtilityGameSharingMode(Single.value + 1u)
-}
-
-public sealed class UtilityGameSharingDataType(public val value: UInt) {
-    public data object File : UtilityGameSharingDataType(1u)
-    public data object Memory : UtilityGameSharingDataType(File.value + 1u)
-}
-
-public sealed class UtilityHtmlViewerInterfaceMode {
-    public data object Full : UtilityHtmlViewerInterfaceMode()
-    public data object Limited : UtilityHtmlViewerInterfaceMode()
-    public data object None : UtilityHtmlViewerInterfaceMode()
-}
-
-public sealed class UtilityHtmlViewerCookieMode(public val value: UInt) {
-    public data object Disabled : UtilityHtmlViewerCookieMode(0u)
-    public data object Enabled : UtilityHtmlViewerCookieMode(Disabled.value + 1u)
-    public data object Confirm : UtilityHtmlViewerCookieMode(Enabled.value + 1u)
-    public data object Default : UtilityHtmlViewerCookieMode(Confirm.value + 1u)
-}
-
-public sealed class UtilityHtmlViewerTextSize {
-    public data object Large : UtilityHtmlViewerTextSize()
-    public data object Normal : UtilityHtmlViewerTextSize()
-    public data object Small : UtilityHtmlViewerTextSize()
-}
-
-public sealed class UtilityHtmlViewerDisplayMode {
-    public data object Normal : UtilityHtmlViewerDisplayMode()
-    public data object Fit : UtilityHtmlViewerDisplayMode()
-    public data object SmartFit : UtilityHtmlViewerDisplayMode()
-}
-
-public sealed class UtilityHtmlViewerConnectMode {
-    public data object Last : UtilityHtmlViewerConnectMode()
-    public data object ManualOnce : UtilityHtmlViewerConnectMode()
-    public data object ManualAll : UtilityHtmlViewerConnectMode()
-}
-
-public sealed class UtilityHtmlViewerDisconnectMode {
-    public data object Enable : UtilityHtmlViewerDisconnectMode()
-    public data object Disable : UtilityHtmlViewerDisconnectMode()
-    public data object Confirm : UtilityHtmlViewerDisconnectMode()
-}
-
-public sealed class ScePspnetAdhocPtpState {
-    public data object Closed : ScePspnetAdhocPtpState()
-    public data object Listen : ScePspnetAdhocPtpState()
-    public data object SynSent : ScePspnetAdhocPtpState()
-    public data object SynReceived : ScePspnetAdhocPtpState()
-    public data object Established : ScePspnetAdhocPtpState()
-}
-
-public sealed class AdhocMatchingMode(public val value: UInt) {
-    public data object Host : AdhocMatchingMode(1u)
-    public data object Client : AdhocMatchingMode(Host.value + 1u)
-    public data object Ptp : AdhocMatchingMode(Client.value + 1u)
-}
-
-public sealed class ApctlState {
-    public data object Disconnected : ApctlState()
-    public data object Scanning : ApctlState()
-    public data object Joining : ApctlState()
-    public data object GettingIp : ApctlState()
-    public data object GotIp : ApctlState()
-    public data object EapAuth : ApctlState()
-    public data object KeyExchange : ApctlState()
-}
-
-public sealed class ApctlEvent {
-    public data object ConnectRequest : ApctlEvent()
-    public data object ScanRequest : ApctlEvent()
-    public data object ScanComplete : ApctlEvent()
-    public data object Established : ApctlEvent()
-    public data object GetIp : ApctlEvent()
-    public data object DisconnectRequest : ApctlEvent()
-    public data object Error : ApctlEvent()
-    public data object Info : ApctlEvent()
-    public data object EapAuth : ApctlEvent()
-    public data object KeyExchange : ApctlEvent()
-    public data object Reconnect : ApctlEvent()
-}
-
-public sealed class ApctlInfo {
-    public data object ProfileName : ApctlInfo()
-    public data object Bssid : ApctlInfo()
-    public data object Ssid : ApctlInfo()
-    public data object SsidLength : ApctlInfo()
-    public data object SecurityType : ApctlInfo()
-    public data object Strength : ApctlInfo()
-    public data object Channel : ApctlInfo()
-    public data object PowerSave : ApctlInfo()
-    public data object Ip : ApctlInfo()
-    public data object SubnetMask : ApctlInfo()
-    public data object Gateway : ApctlInfo()
-    public data object PrimaryDns : ApctlInfo()
-    public data object SecondaryDns : ApctlInfo()
-    public data object UseProxy : ApctlInfo()
-    public data object ProxyUrl : ApctlInfo()
-    public data object ProxyPort : ApctlInfo()
-    public data object EapType : ApctlInfo()
-    public data object StartBrowser : ApctlInfo()
-    public data object Wifisp : ApctlInfo()
-}
-
-public sealed class ApctlInfoSecurityType {
-    public data object None : ApctlInfoSecurityType()
-    public data object Wep : ApctlInfoSecurityType()
-    public data object Wpa : ApctlInfoSecurityType()
-}
-
-public sealed class HttpMethod {
-    public data object Get : HttpMethod()
-    public data object Post : HttpMethod()
-    public data object Head : HttpMethod()
-}
-
-public sealed class HttpAuthType {
-    public data object Basic : HttpAuthType()
-    public data object Digest : HttpAuthType()
-}
-
-public open class SceUid(public var value: Int) {
+public enum class AudioFormat(public val value: UInt) {
+    Stereo(0u),
+    Mono(0x10u),
+}
+
+public enum class DisplayMode(public val value: UInt) {
+    Lcd(0u),
+}
+
+public enum class DisplayPixelFormat(public val value: UInt) {
+    Psm5650(0u),
+    Psm5551(1u),
+    Psm4444(2u),
+    Psm8888(3u),
+}
+
+public enum class DisplaySetBufSync(public val value: UInt) {
+    Immediate(0u),
+    NextFrame(1u),
+}
+
+public enum class AudioOutputFrequency(public val value: Int) {
+    Khz48(48000),
+    Khz441(44100),
+    Khz32(32000),
+    Khz24(24000),
+    Khz2205(22050),
+    Khz16(16000),
+    Khz12(12000),
+    Khz11025(11025),
+    Khz8(8000),
+}
+
+public enum class AudioInputFrequency(public val value: Int) {
+    Khz441(44100),
+    Khz2205(22050),
+    Khz11025(11025),
+}
+
+public enum class CtrlMode(public val value: UInt) {
+    Digital(0u),
+    Analog(((0u) + 1u)),
+}
+
+public enum class GeMatrixType(public val value: Int) {
+    Bone0(0),
+    Bone1(((0) + 1)),
+    Bone2(((0) + 2)),
+    Bone3(((0) + 3)),
+    Bone4(((0) + 4)),
+    Bone5(((0) + 5)),
+    Bone6(((0) + 6)),
+    Bone7(((0) + 7)),
+    World(((0) + 8)),
+    View(((0) + 9)),
+    Projection(((0) + 10)),
+    TexGen(((0) + 11)),
+}
+
+public enum class GeListState(public val value: Int) {
+    Done(0),
+    Queued(((0) + 1)),
+    DrawingDone(((0) + 2)),
+    StallReached(((0) + 3)),
+    CancelDone(((0) + 4)),
+}
+
+public enum class GeCommand(public val value: UByte) {
+    Nop(0u),
+    Vaddr(0x1u),
+    Iaddr(0x2u),
+    Prim(0x4u),
+    Bezier(0x5u),
+    Spline(0x6u),
+    BoundingBox(0x7u),
+    Jump(0x8u),
+    BJump(0x9u),
+    Call(0xau),
+    Ret(0xbu),
+    End(0xcu),
+    Signal(0xeu),
+    Finish(0xfu),
+    Base(0x10u),
+    VertexType(0x12u),
+    OffsetAddr(0x13u),
+    Origin(0x14u),
+    Region1(0x15u),
+    Region2(0x16u),
+    LightingEnable(0x17u),
+    LightEnable0(0x18u),
+    LightEnable1(0x19u),
+    LightEnable2(0x1au),
+    LightEnable3(0x1bu),
+    DepthClampEnable(0x1cu),
+    CullFaceEnable(0x1du),
+    TextureMapEnable(0x1eu),
+    FogEnable(0x1fu),
+    DitherEnable(0x20u),
+    AlphaBlendEnable(0x21u),
+    AlphaTestEnable(0x22u),
+    ZTestEnable(0x23u),
+    StencilTestEnable(0x24u),
+    AntiAliasEnable(0x25u),
+    PatchCullEnable(0x26u),
+    ColorTestEnable(0x27u),
+    LogicOpEnable(0x28u),
+    BoneMatrixNumber(0x2au),
+    BoneMatrixData(0x2bu),
+    MorphWeight0(0x2cu),
+    MorphWeight1(0x2du),
+    MorphWeight2(0x2eu),
+    MorphWeight3(0x2fu),
+    MorphWeight4(0x30u),
+    MorphWeight5(0x31u),
+    MorphWeight6(0x32u),
+    MorphWeight7(0x33u),
+    PatchDivision(0x36u),
+    PatchPrimitive(0x37u),
+    PatchFacing(0x38u),
+    WorldMatrixNumber(0x3au),
+    WorldMatrixData(0x3bu),
+    ViewMatrixNumber(0x3cu),
+    ViewMatrixData(0x3du),
+    ProjMatrixNumber(0x3eu),
+    ProjMatrixData(0x3fu),
+    TGenMatrixNumber(0x40u),
+    TGenMatrixData(0x41u),
+    ViewportXScale(0x42u),
+    ViewportYScale(0x43u),
+    ViewportZScale(0x44u),
+    ViewportXCenter(0x45u),
+    ViewportYCenter(0x46u),
+    ViewportZCenter(0x47u),
+    TexScaleU(0x48u),
+    TexScaleV(0x49u),
+    TexOffsetU(0x4au),
+    TexOffsetV(0x4bu),
+    OffsetX(0x4cu),
+    OffsetY(0x4du),
+    ShadeMode(0x50u),
+    ReverseNormal(0x51u),
+    MaterialUpdate(0x53u),
+    MaterialEmissive(0x54u),
+    MaterialAmbient(0x55u),
+    MaterialDiffuse(0x56u),
+    MaterialSpecular(0x57u),
+    MaterialAlpha(0x58u),
+    MaterialSpecularCoef(0x5bu),
+    AmbientColor(0x5cu),
+    AmbientAlpha(0x5du),
+    LightMode(0x5eu),
+    LightType0(0x5fu),
+    LightType1(0x60u),
+    LightType2(0x61u),
+    LightType3(0x62u),
+    Light0X(0x63u),
+    Light0Y(((0x63u).toUInt() + 1u).toUByte()),
+    Light0Z(((0x63u).toUInt() + 2u).toUByte()),
+    Light1X(((0x63u).toUInt() + 3u).toUByte()),
+    Light1Y(((0x63u).toUInt() + 4u).toUByte()),
+    Light1Z(((0x63u).toUInt() + 5u).toUByte()),
+    Light2X(((0x63u).toUInt() + 6u).toUByte()),
+    Light2Y(((0x63u).toUInt() + 7u).toUByte()),
+    Light2Z(((0x63u).toUInt() + 8u).toUByte()),
+    Light3X(((0x63u).toUInt() + 9u).toUByte()),
+    Light3Y(((0x63u).toUInt() + 10u).toUByte()),
+    Light3Z(((0x63u).toUInt() + 11u).toUByte()),
+    Light0DirectionX(0x6fu),
+    Light0DirectionY(((0x6fu).toUInt() + 1u).toUByte()),
+    Light0DirectionZ(((0x6fu).toUInt() + 2u).toUByte()),
+    Light1DirectionX(((0x6fu).toUInt() + 3u).toUByte()),
+    Light1DirectionY(((0x6fu).toUInt() + 4u).toUByte()),
+    Light1DirectionZ(((0x6fu).toUInt() + 5u).toUByte()),
+    Light2DirectionX(((0x6fu).toUInt() + 6u).toUByte()),
+    Light2DirectionY(((0x6fu).toUInt() + 7u).toUByte()),
+    Light2DirectionZ(((0x6fu).toUInt() + 8u).toUByte()),
+    Light3DirectionX(((0x6fu).toUInt() + 9u).toUByte()),
+    Light3DirectionY(((0x6fu).toUInt() + 10u).toUByte()),
+    Light3DirectionZ(((0x6fu).toUInt() + 11u).toUByte()),
+    Light0ConstantAtten(0x7bu),
+    Light0LinearAtten(((0x7bu).toUInt() + 1u).toUByte()),
+    Light0QuadtraticAtten(((0x7bu).toUInt() + 2u).toUByte()),
+    Light1ConstantAtten(((0x7bu).toUInt() + 3u).toUByte()),
+    Light1LinearAtten(((0x7bu).toUInt() + 4u).toUByte()),
+    Light1QuadtraticAtten(((0x7bu).toUInt() + 5u).toUByte()),
+    Light2ConstantAtten(((0x7bu).toUInt() + 6u).toUByte()),
+    Light2LinearAtten(((0x7bu).toUInt() + 7u).toUByte()),
+    Light2QuadtraticAtten(((0x7bu).toUInt() + 8u).toUByte()),
+    Light3ConstantAtten(((0x7bu).toUInt() + 9u).toUByte()),
+    Light3LinearAtten(((0x7bu).toUInt() + 10u).toUByte()),
+    Light3QuadtraticAtten(((0x7bu).toUInt() + 11u).toUByte()),
+    Light0ExponentAtten(0x87u),
+    Light1ExponentAtten(((0x87u).toUInt() + 1u).toUByte()),
+    Light2ExponentAtten(((0x87u).toUInt() + 2u).toUByte()),
+    Light3ExponentAtten(((0x87u).toUInt() + 3u).toUByte()),
+    Light0CutoffAtten(0x8bu),
+    Light1CutoffAtten(((0x8bu).toUInt() + 1u).toUByte()),
+    Light2CutoffAtten(((0x8bu).toUInt() + 2u).toUByte()),
+    Light3CutoffAtten(((0x8bu).toUInt() + 3u).toUByte()),
+    Light0Ambient(0x8fu),
+    Light0Diffuse(((0x8fu).toUInt() + 1u).toUByte()),
+    Light0Specular(((0x8fu).toUInt() + 2u).toUByte()),
+    Light1Ambient(((0x8fu).toUInt() + 3u).toUByte()),
+    Light1Diffuse(((0x8fu).toUInt() + 4u).toUByte()),
+    Light1Specular(((0x8fu).toUInt() + 5u).toUByte()),
+    Light2Ambient(((0x8fu).toUInt() + 6u).toUByte()),
+    Light2Diffuse(((0x8fu).toUInt() + 7u).toUByte()),
+    Light2Specular(((0x8fu).toUInt() + 8u).toUByte()),
+    Light3Ambient(((0x8fu).toUInt() + 9u).toUByte()),
+    Light3Diffuse(((0x8fu).toUInt() + 10u).toUByte()),
+    Light3Specular(((0x8fu).toUInt() + 11u).toUByte()),
+    Cull(0x9bu),
+    FrameBufPtr(0x9cu),
+    FrameBufWidth(0x9du),
+    ZBufPtr(0x9eu),
+    ZBufWidth(0x9fu),
+    TexAddr0(0xa0u),
+    TexAddr1(((0xa0u).toUInt() + 1u).toUByte()),
+    TexAddr2(((0xa0u).toUInt() + 2u).toUByte()),
+    TexAddr3(((0xa0u).toUInt() + 3u).toUByte()),
+    TexAddr4(((0xa0u).toUInt() + 4u).toUByte()),
+    TexAddr5(((0xa0u).toUInt() + 5u).toUByte()),
+    TexAddr6(((0xa0u).toUInt() + 6u).toUByte()),
+    TexAddr7(((0xa0u).toUInt() + 7u).toUByte()),
+    TexBufWidth0(0xa8u),
+    TexBufWidth1(((0xa8u).toUInt() + 1u).toUByte()),
+    TexBufWidth2(((0xa8u).toUInt() + 2u).toUByte()),
+    TexBufWidth3(((0xa8u).toUInt() + 3u).toUByte()),
+    TexBufWidth4(((0xa8u).toUInt() + 4u).toUByte()),
+    TexBufWidth5(((0xa8u).toUInt() + 5u).toUByte()),
+    TexBufWidth6(((0xa8u).toUInt() + 6u).toUByte()),
+    TexBufWidth7(((0xa8u).toUInt() + 7u).toUByte()),
+    ClutAddr(0xb0u),
+    ClutAddrUpper(0xb1u),
+    TransferSrc(((0xb1u).toUInt() + 1u).toUByte()),
+    TransferSrcW(((0xb1u).toUInt() + 2u).toUByte()),
+    TransferDst(((0xb1u).toUInt() + 3u).toUByte()),
+    TransferDstW(((0xb1u).toUInt() + 4u).toUByte()),
+    TexSize0(0xb8u),
+    TexSize1(((0xb8u).toUInt() + 1u).toUByte()),
+    TexSize2(((0xb8u).toUInt() + 2u).toUByte()),
+    TexSize3(((0xb8u).toUInt() + 3u).toUByte()),
+    TexSize4(((0xb8u).toUInt() + 4u).toUByte()),
+    TexSize5(((0xb8u).toUInt() + 5u).toUByte()),
+    TexSize6(((0xb8u).toUInt() + 6u).toUByte()),
+    TexSize7(((0xb8u).toUInt() + 7u).toUByte()),
+    TexMapMode(0xc0u),
+    TexShadeLs(0xc1u),
+    TexMode(0xc2u),
+    TexFormat(0xc3u),
+    LoadClut(0xc4u),
+    ClutFormat(0xc5u),
+    TexFilter(0xc6u),
+    TexWrap(0xc7u),
+    TexLevel(0xc8u),
+    TexFunc(0xc9u),
+    TexEnvColor(0xcau),
+    TexFlush(0xcbu),
+    TexSync(0xccu),
+    Fog1(0xcdu),
+    Fog2(0xceu),
+    FogColor(0xcfu),
+    TexLodSlope(0xd0u),
+    FramebufPixFormat(0xd2u),
+    ClearMode(0xd3u),
+    Scissor1(0xd4u),
+    Scissor2(0xd5u),
+    MinZ(0xd6u),
+    MaxZ(0xd7u),
+    ColorTest(0xd8u),
+    ColorRef(0xd9u),
+    ColorTestmask(0xdau),
+    AlphaTest(0xdbu),
+    StencilTest(0xdcu),
+    StencilOp(0xddu),
+    ZTest(0xdeu),
+    BlendMode(0xdfu),
+    BlendFixedA(0xe0u),
+    BlendFixedB(0xe1u),
+    Dith0(0xe2u),
+    Dith1(((0xe2u).toUInt() + 1u).toUByte()),
+    Dith2(((0xe2u).toUInt() + 2u).toUByte()),
+    Dith3(((0xe2u).toUInt() + 3u).toUByte()),
+    LogicOp(0xe6u),
+    ZWriteDisable(0xe7u),
+    MaskRgb(0xe8u),
+    MaskAlpha(0xe9u),
+    TransferStart(0xeau),
+    TransferSrcPos(0xebu),
+    TransferDstPos(0xecu),
+    TransferSize(0xeeu),
+    Vscx(0xf0u),
+    Vscy(0xf1u),
+    Vscz(0xf2u),
+    Vtcs(0xf3u),
+    Vtct(0xf4u),
+    Vtcq(0xf5u),
+    Vcv(0xf6u),
+    Vap(0xf7u),
+    Vfc(0xf8u),
+    Vscv(0xf9u),
+    Unknown03(0x03u),
+    Unknown0D(0x0du),
+    Unknown11(0x11u),
+    Unknown29(0x29u),
+    Unknown34(0x34u),
+    Unknown35(0x35u),
+    Unknown39(0x39u),
+    Unknown4E(0x4eu),
+    Unknown4F(0x4fu),
+    Unknown52(0x52u),
+    Unknown59(0x59u),
+    Unknown5A(0x5au),
+    UnknownB6(0xb6u),
+    UnknownB7(0xb7u),
+    UnknownD1(0xd1u),
+    UnknownED(0xedu),
+    UnknownEF(0xefu),
+    UnknownFA(0xfau),
+    UnknownFB(0xfbu),
+    UnknownFC(0xfcu),
+    UnknownFD(0xfdu),
+    UnknownFE(0xfeu),
+    NopFF(0xffu),
+}
+
+public enum class SceSysMemPartitionId(public val value: Int) {
+    SceKernelUnknownPartition(0),
+    SceKernelPrimaryKernelPartition(1),
+    SceKernelPrimaryUserPartition(2),
+    SceKernelOtherKernelPartition1(3),
+    SceKernelOtherKernelPartition2(4),
+    SceKernelVshellPARTITION(5),
+    SceKernelScUserPartition(6),
+    SceKernelMeUserPartition(7),
+    SceKernelExtendedScKernelPartition(8),
+    SceKernelExtendedSc2KernelPartition(9),
+    SceKernelExtendedMeKernelPartition(10),
+    SceKernelVshellKernelPartition(11),
+    SceKernelExtendedKernelPartition(12),
+}
+
+public enum class SceSysMemBlockTypes(public val value: Int) {
+    Low(0),
+    High(((0) + 1)),
+    Addr(((0) + 2)),
+}
+
+public enum class Interrupt(public val value: UInt) {
+    Gpio(4u),
+    Ata(5u),
+    Umd(6u),
+    Mscm0(7u),
+    Wlan(8u),
+    Audio(10u),
+    I2c(12u),
+    Sircs(14u),
+    Systimer0(15u),
+    Systimer1(16u),
+    Systimer2(17u),
+    Systimer3(18u),
+    Thread0(19u),
+    Nand(20u),
+    Dmacplus(21u),
+    Dma0(22u),
+    Dma1(23u),
+    Memlmd(24u),
+    Ge(25u),
+    Vblank(30u),
+    Mecodec(31u),
+    Hpremote(36u),
+    Mscm1(60u),
+    Mscm2(61u),
+    Thread1(65u),
+    Interrupt(66u),
+}
+
+public enum class SubInterrupt(public val value: UInt) {
+    Gpio(Interrupt.Gpio.value.toUInt()),
+    Ata(Interrupt.Ata.value.toUInt()),
+    Umd(Interrupt.Umd.value.toUInt()),
+    Dmacplus(Interrupt.Dmacplus.value.toUInt()),
+    Ge(Interrupt.Ge.value.toUInt()),
+    Display(Interrupt.Vblank.value.toUInt()),
+}
+
+public enum class SceKernelIdListType(public val value: UInt) {
+    Thread(1u),
+    Semaphore(2u),
+    EventFlag(3u),
+    Mbox(4u),
+    Vpl(5u),
+    Fpl(6u),
+    Mpipe(7u),
+    Callback(8u),
+    ThreadEventHandler(9u),
+    Alarm(10u),
+    VTimer(11u),
+    SleepThread(64u),
+    DelayThread(65u),
+    SuspendThread(66u),
+    DormantThread(67u),
+}
+
+public enum class UsbCamResolution(public val value: Int) {
+    Px160120(0),
+    Px176144(1),
+    Px320240(2),
+    Px352288(3),
+    Px640480(4),
+    Px1024768(5),
+    Px1280960(6),
+    Px480272(7),
+    Px360272(8),
+}
+
+public enum class UsbCamResolutionEx(public val value: Int) {
+    Px160120(0),
+    Px176144(1),
+    Px320240(2),
+    Px352288(3),
+    Px360272(4),
+    Px480272(5),
+    Px640480(6),
+    Px1024768(7),
+    Px1280960(8),
+}
+
+public enum class UsbCamDelay(public val value: Int) {
+    NoDelay(0),
+    Delay10Sec(1),
+    Delay20Sec(2),
+    Delay30Sec(3),
+}
+
+public enum class UsbCamFrameRate(public val value: Int) {
+    Fps375(0),
+    Fps5(1),
+    Fps75(2),
+    Fps10(3),
+    Fps15(4),
+    Fps20(5),
+    Fps30(6),
+    Fps60(7),
+}
+
+public enum class UsbCamWb(public val value: Int) {
+    Auto(0),
+    Daylight(1),
+    Fluorescent(2),
+    Incadescent(3),
+}
+
+public enum class UsbCamEffectMode(public val value: Int) {
+    Normal(0),
+    Negative(1),
+    Blackwhite(2),
+    Sepia(3),
+    Blue(4),
+    Red(5),
+    Green(6),
+}
+
+public enum class UsbCamEvLevel(public val value: Int) {
+    Pos20(0),
+    Pos17(1),
+    Pos15(2),
+    Pos13(3),
+    Pos10(4),
+    Pos07(5),
+    Pos05(6),
+    Pos03(7),
+    Zero(8),
+    Neg03(((8) + 1)),
+    Neg05(((8) + 2)),
+    Neg07(((8) + 3)),
+    Neg10(((8) + 4)),
+    Neg13(((8) + 5)),
+    Neg15(((8) + 6)),
+    Neg17(((8) + 7)),
+    Neg20(((8) + 8)),
+}
+
+public enum class RtcCheckValidError(public val value: Int) {
+    InvalidYear(-1),
+    InvalidMonth(-2),
+    InvalidDay(-3),
+    InvalidHour(-4),
+    InvalidMinutes(-5),
+    InvalidSeconds(-6),
+    InvalidMicroseconds(-7),
+}
+
+public enum class PowerTick(public val value: UInt) {
+    All(0u),
+    Suspend(1u),
+    Display(6u),
+}
+
+public enum class IoAssignPerms(public val value: UInt) {
+    RdWr(0u),
+    RdOnly(1u),
+}
+
+public enum class IoWhence(public val value: UInt) {
+    Set(0u),
+    Cur(1u),
+    End(2u),
+}
+
+public enum class UmdType(public val value: UInt) {
+    Game(0x10u),
+    Video(0x20u),
+    Audio(0x40u),
+}
+
+public enum class GuPrimitive(public val value: UInt) {
+    Points(0u),
+    Lines(1u),
+    LineStrip(2u),
+    Triangles(3u),
+    TriangleStrip(4u),
+    TriangleFan(5u),
+    Sprites(6u),
+}
+
+public enum class PatchPrimitive(public val value: UInt) {
+    Points(0u),
+    LineStrip(2u),
+    TriangleStrip(4u),
+}
+
+public enum class GuState(public val value: UInt) {
+    AlphaTest(0u),
+    DepthTest(1u),
+    ScissorTest(2u),
+    StencilTest(3u),
+    Blend(4u),
+    CullFace(5u),
+    Dither(6u),
+    Fog(7u),
+    ClipPlanes(8u),
+    Texture2D(9u),
+    Lighting(10u),
+    Light0(11u),
+    Light1(12u),
+    Light2(13u),
+    Light3(14u),
+    LineSmooth(15u),
+    PatchCullFace(16u),
+    ColorTest(17u),
+    ColorLogicOp(18u),
+    FaceNormalReverse(19u),
+    PatchFace(20u),
+    Fragment2X(21u),
+}
+
+public enum class MatrixMode(public val value: UInt) {
+    Projection(0u),
+    View(1u),
+    Model(2u),
+    Texture(3u),
+}
+
+public enum class TexturePixelFormat(public val value: UInt) {
+    Psm5650(0u),
+    Psm5551(1u),
+    Psm4444(2u),
+    Psm8888(3u),
+    PsmT4(4u),
+    PsmT8(5u),
+    PsmT16(6u),
+    PsmT32(7u),
+    PsmDxt1(8u),
+    PsmDxt3(9u),
+    PsmDxt5(10u),
+}
+
+public enum class SplineMode(public val value: UInt) {
+    FillFill(0u),
+    OpenFill(1u),
+    FillOpen(2u),
+    OpenOpen(3u),
+}
+
+public enum class ShadingModel(public val value: UInt) {
+    Flat(0u),
+    Smooth(1u),
+}
+
+public enum class LogicalOperation(public val value: UInt) {
+    Clear(0u),
+    And(1u),
+    AndReverse(2u),
+    Copy(3u),
+    AndInverted(4u),
+    Noop(5u),
+    Xor(6u),
+    Or(7u),
+    Nor(8u),
+    Equiv(9u),
+    Inverted(10u),
+    OrReverse(11u),
+    CopyInverted(12u),
+    OrInverted(13u),
+    Nand(14u),
+    Set(15u),
+}
+
+public enum class TextureFilter(public val value: UInt) {
+    Nearest(0u),
+    Linear(1u),
+    NearestMipmapNearest(4u),
+    LinearMipmapNearest(5u),
+    NearestMipmapLinear(6u),
+    LinearMipmapLinear(7u),
+}
+
+public enum class TextureMapMode(public val value: UInt) {
+    TextureCoords(0u),
+    TextureMatrix(1u),
+    EnvironmentMap(2u),
+}
+
+public enum class TextureLevelMode(public val value: UInt) {
+    Auto(0u),
+    Const(1u),
+    Slope(2u),
+}
+
+public enum class TextureProjectionMapMode(public val value: UInt) {
+    Position(0u),
+    Uv(1u),
+    NormalizedNormal(2u),
+    Normal(3u),
+}
+
+public enum class GuTexWrapMode(public val value: UInt) {
+    Repeat(0u),
+    Clamp(1u),
+}
+
+public enum class FrontFaceDirection(public val value: UInt) {
+    Clockwise(0u),
+    CounterClockwise(1u),
+}
+
+public enum class AlphaFunc(public val value: UInt) {
+    Never(0u),
+    Always(((0u) + 1u)),
+    Equal(((0u) + 2u)),
+    NotEqual(((0u) + 3u)),
+    Less(((0u) + 4u)),
+    LessOrEqual(((0u) + 5u)),
+    Greater(((0u) + 6u)),
+    GreaterOrEqual(((0u) + 7u)),
+}
+
+public enum class StencilFunc(public val value: UInt) {
+    Never(0u),
+    Always(((0u) + 1u)),
+    Equal(((0u) + 2u)),
+    NotEqual(((0u) + 3u)),
+    Less(((0u) + 4u)),
+    LessOrEqual(((0u) + 5u)),
+    Greater(((0u) + 6u)),
+    GreaterOrEqual(((0u) + 7u)),
+}
+
+public enum class ColorFunc(public val value: UInt) {
+    Never(0u),
+    Always(((0u) + 1u)),
+    Equal(((0u) + 2u)),
+    NotEqual(((0u) + 3u)),
+}
+
+public enum class DepthFunc(public val value: UInt) {
+    Never(0u),
+    Always(((0u) + 1u)),
+    Equal(((0u) + 2u)),
+    NotEqual(((0u) + 3u)),
+    Less(((0u) + 4u)),
+    LessOrEqual(((0u) + 5u)),
+    Greater(((0u) + 6u)),
+    GreaterOrEqual(((0u) + 7u)),
+}
+
+public enum class TextureEffect(public val value: UInt) {
+    Modulate(0u),
+    Decal(1u),
+    Blend(2u),
+    Replace(3u),
+    Add(4u),
+}
+
+public enum class TextureColorComponent(public val value: UInt) {
+    Rgb(0u),
+    Rgba(1u),
+}
+
+public enum class MipmapLevel(public val value: UInt) {
+    None(0u),
+    Level1(((0u) + 1u)),
+    Level2(((0u) + 2u)),
+    Level3(((0u) + 3u)),
+    Level4(((0u) + 4u)),
+    Level5(((0u) + 5u)),
+    Level6(((0u) + 6u)),
+    Level7(((0u) + 7u)),
+}
+
+public enum class BlendOp(public val value: UInt) {
+    Add(0u),
+    Subtract(1u),
+    ReverseSubtract(2u),
+    Min(3u),
+    Max(4u),
+    Abs(5u),
+}
+
+public enum class BlendSrc(public val value: UInt) {
+    SrcColor(0u),
+    OneMinusSrcColor(1u),
+    SrcAlpha(2u),
+    OneMinusSrcAlpha(3u),
+    Fix(10u),
+}
+
+public enum class BlendDst(public val value: UInt) {
+    DstColor(0u),
+    OneMinusDstColor(1u),
+    DstAlpha(4u),
+    OneMinusDstAlpha(5u),
+    Fix(10u),
+}
+
+public enum class StencilOperation(public val value: UInt) {
+    Keep(0u),
+    Zero(1u),
+    Replace(2u),
+    Invert(3u),
+    Incr(4u),
+    Decr(5u),
+}
+
+public enum class LightMode(public val value: UInt) {
+    SingleColor(0u),
+    SeparateSpecularColor(1u),
+}
+
+public enum class LightType(public val value: UInt) {
+    Directional(0u),
+    Pointlight(1u),
+    Spotlight(2u),
+}
+
+public enum class GuContextType(public val value: UInt) {
+    Direct(0u),
+    Call(1u),
+    Send(2u),
+}
+
+public enum class GuQueueMode(public val value: UInt) {
+    Tail(0u),
+    Head(1u),
+}
+
+public enum class GuSyncMode(public val value: UInt) {
+    Finish(0u),
+    Signal(1u),
+    Done(2u),
+    List(3u),
+    Send(4u),
+}
+
+public enum class GuSyncBehavior(public val value: UInt) {
+    Wait(0u),
+    NoWait(1u),
+}
+
+public enum class GuCallbackId(public val value: UInt) {
+    Signal(1u),
+    Finish(4u),
+}
+
+public enum class SignalBehavior(public val value: UInt) {
+    Suspend(1u),
+    Continue(2u),
+}
+
+public enum class ClutPixelFormat(public val value: UInt) {
+    Psm5650(0u),
+    Psm5551(1u),
+    Psm4444(2u),
+    Psm8888(3u),
+}
+
+public enum class KeyType(public val value: UInt) {
+    Directory(1u),
+    Integer(2u),
+    String(3u),
+    Bytes(4u),
+}
+
+public enum class UtilityMsgDialogMode(public val value: UInt) {
+    Error(0u),
+    Text(1u),
+}
+
+public enum class UtilityMsgDialogPressed(public val value: UInt) {
+    Unknown1(0u),
+    Yes(1u),
+    No(2u),
+    Back(3u),
+}
+
+public enum class UtilityDialogButtonAccept(public val value: UInt) {
+    Circle(0u),
+    Cross(1u),
+}
+
+public enum class SceUtilityOskInputLanguage(public val value: UInt) {
+    Default(0u),
+    Japanese(1u),
+    English(2u),
+    French(3u),
+    Spanish(4u),
+    German(5u),
+    Italian(6u),
+    Dutch(7u),
+    Portugese(8u),
+    Russian(9u),
+    Korean(10u),
+}
+
+public enum class SceUtilityOskInputType(public val value: UInt) {
+    All(0u),
+    LatinDigit(1u),
+    LatinSymbol(2u),
+    LatinLowercase(4u),
+    LatinUppercase(8u),
+    JapaneseDigit(0x100u),
+    JapaneseSymbol(0x200u),
+    JapaneseLowercase(0x400u),
+    JapaneseUppercase(0x800u),
+    JapaneseHiragana(0x1000u),
+    JapaneseHalfWidthKatakana(0x2000u),
+    JapaneseKatakana(0x4000u),
+    JapaneseKanji(0x8000u),
+    RussianLowercase(0x10000u),
+    RussianUppercase(0x20000u),
+    Korean(0x40000u),
+    Url(0x80000u),
+}
+
+public enum class SceUtilityOskState(public val value: UInt) {
+    None(0u),
+    Initializing(1u),
+    Initialized(2u),
+    Visible(3u),
+    Quit(4u),
+    Finished(5u),
+}
+
+public enum class SceUtilityOskResult(public val value: UInt) {
+    Unchanged(0u),
+    Cancelled(1u),
+    Changed(2u),
+}
+
+public enum class SystemParamLanguage(public val value: UInt) {
+    Japanese(0u),
+    English(1u),
+    French(2u),
+    Spanish(3u),
+    German(4u),
+    Italian(5u),
+    Dutch(6u),
+    Portugese(7u),
+    Russian(8u),
+    Korean(9u),
+    ChineseTraditional(10u),
+    ChineseSimplified(11u),
+}
+
+public enum class SystemParamId(public val value: UInt) {
+    StringNickname(1u),
+    AdhocChannel(((1u) + 1u)),
+    WlanPowerSave(((1u) + 2u)),
+    DateFormat(((1u) + 3u)),
+    TimeFormat(((1u) + 4u)),
+    Timezone(((1u) + 5u)),
+    DaylightSavings(((1u) + 6u)),
+    Language(((1u) + 7u)),
+    Unknown(((1u) + 8u)),
+}
+
+public enum class SystemParamAdhocChannel(public val value: UInt) {
+    ChannelAutomatic(0u),
+    Channel1(1u),
+    Channel6(6u),
+    Channel11(11u),
+}
+
+public enum class SystemParamWlanPowerSaveState(public val value: UInt) {
+    Off(0u),
+    On(1u),
+}
+
+public enum class SystemParamDateFormat(public val value: UInt) {
+    YYYYMMDD(0u),
+    MMDDYYYY(1u),
+    DDMMYYYY(2u),
+}
+
+public enum class SystemParamTimeFormat(public val value: UInt) {
+    Hour24(0u),
+    Hour12(1u),
+}
+
+public enum class SystemParamDaylightSavings(public val value: UInt) {
+    Std(0u),
+    Dst(1u),
+}
+
+public enum class AvModule(public val value: UInt) {
+    AvCodec(0u),
+    SasCore(1u),
+    Atrac3Plus(2u),
+    MpegBase(3u),
+    Mp3(4u),
+    Vaudio(5u),
+    Aac(6u),
+    G729(7u),
+}
+
+public enum class Module(public val value: UInt) {
+    NetCommon(0x100u),
+    NetAdhoc(((0x100u) + 1u)),
+    NetInet(((0x100u) + 2u)),
+    NetParseUri(((0x100u) + 3u)),
+    NetHttp(((0x100u) + 4u)),
+    NetSsl(((0x100u) + 5u)),
+    UsbPspCm(0x200u),
+    UsbMic(((0x200u) + 1u)),
+    UsbCam(((0x200u) + 2u)),
+    UsbGps(((0x200u) + 3u)),
+    AvCodec(0x300u),
+    AvSascore(((0x300u) + 1u)),
+    AvAtrac3Plus(((0x300u) + 2u)),
+    AvMpegBase(((0x300u) + 3u)),
+    AvMp3(((0x300u) + 4u)),
+    AvVaudio(((0x300u) + 5u)),
+    AvAac(((0x300u) + 6u)),
+    AvG729(((0x300u) + 7u)),
+    NpCommon(0x400u),
+    NpService(((0x400u) + 1u)),
+    NpMatching2(((0x400u) + 2u)),
+    NpDrm(0x500u),
+    Irda(0x600u),
+}
+
+public enum class NetModule(public val value: UInt) {
+    NetCommon(1u),
+    NetAdhoc(((1u) + 1u)),
+    NetInet(((1u) + 2u)),
+    NetParseUri(((1u) + 3u)),
+    NetHttp(((1u) + 4u)),
+    NetSsl(((1u) + 5u)),
+}
+
+public enum class UsbModule(public val value: UInt) {
+    UsbPspCm(1u),
+    UsbAcc(((1u) + 1u)),
+    UsbMic(((1u) + 2u)),
+    UsbCam(((1u) + 3u)),
+    UsbGps(((1u) + 4u)),
+}
+
+public enum class NetParam(public val value: UInt) {
+    Name(0u),
+    Ssid(1u),
+    Secure(2u),
+    WepKey(3u),
+    IsStaticIp(4u),
+    Ip(5u),
+    NetMask(6u),
+    Route(7u),
+    ManualDns(8u),
+    PrimaryDns(9u),
+    SecondaryDns(10u),
+    ProxyUser(11u),
+    ProxyPass(12u),
+    UseProxy(13u),
+    ProxyServer(14u),
+    ProxyPort(15u),
+    Unknown1(16u),
+    Unknown2(17u),
+}
+
+public enum class UtilityNetconfAction(public val value: UInt) {
+    ConnectAP(0u),
+    DisplayStatus(1u),
+    ConnectAdhoc(2u),
+}
+
+public enum class UtilitySavedataMode(public val value: UInt) {
+    AutoLoad(0u),
+    AutoSave(1u),
+    Load(2u),
+    Save(3u),
+    ListLoad(4u),
+    ListSave(5u),
+    ListDelete(6u),
+    Delete(7u),
+}
+
+public enum class UtilitySavedataFocus(public val value: UInt) {
+    Unknown1(0u),
+    FirstList(1u),
+    LastList(2u),
+    Latest(3u),
+    Oldest(4u),
+    Unknown2(5u),
+    Unknown3(6u),
+    FirstEmpty(7u),
+    LastEmpty(8u),
+}
+
+public enum class UtilityGameSharingMode(public val value: UInt) {
+    Single(1u),
+    Multiple(((1u) + 1u)),
+}
+
+public enum class UtilityGameSharingDataType(public val value: UInt) {
+    File(1u),
+    Memory(((1u) + 1u)),
+}
+
+public enum class UtilityHtmlViewerInterfaceMode(public val value: UInt) {
+    Full(0u),
+    Limited(1u),
+    None(2u),
+}
+
+public enum class UtilityHtmlViewerCookieMode(public val value: UInt) {
+    Disabled(0u),
+    Enabled(((0u) + 1u)),
+    Confirm(((0u) + 2u)),
+    Default(((0u) + 3u)),
+}
+
+public enum class UtilityHtmlViewerTextSize(public val value: UInt) {
+    Large(0u),
+    Normal(1u),
+    Small(2u),
+}
+
+public enum class UtilityHtmlViewerDisplayMode(public val value: UInt) {
+    Normal(0u),
+    Fit(1u),
+    SmartFit(2u),
+}
+
+public enum class UtilityHtmlViewerConnectMode(public val value: UInt) {
+    Last(0u),
+    ManualOnce(1u),
+    ManualAll(2u),
+}
+
+public enum class UtilityHtmlViewerDisconnectMode(public val value: UInt) {
+    Enable(0u),
+    Disable(1u),
+    Confirm(2u),
+}
+
+public enum class ScePspnetAdhocPtpState(public val value: UInt) {
+    Closed(0u),
+    Listen(1u),
+    SynSent(2u),
+    SynReceived(3u),
+    Established(4u),
+}
+
+public enum class AdhocMatchingMode(public val value: UInt) {
+    Host(1u),
+    Client(((1u) + 1u)),
+    Ptp(((1u) + 2u)),
+}
+
+public enum class ApctlState(public val value: UInt) {
+    Disconnected(0u),
+    Scanning(1u),
+    Joining(2u),
+    GettingIp(3u),
+    GotIp(4u),
+    EapAuth(5u),
+    KeyExchange(6u),
+}
+
+public enum class ApctlEvent(public val value: UInt) {
+    ConnectRequest(0u),
+    ScanRequest(1u),
+    ScanComplete(2u),
+    Established(3u),
+    GetIp(4u),
+    DisconnectRequest(5u),
+    Error(6u),
+    Info(7u),
+    EapAuth(8u),
+    KeyExchange(9u),
+    Reconnect(10u),
+}
+
+public enum class ApctlInfo(public val value: UInt) {
+    ProfileName(0u),
+    Bssid(1u),
+    Ssid(2u),
+    SsidLength(3u),
+    SecurityType(4u),
+    Strength(5u),
+    Channel(6u),
+    PowerSave(7u),
+    Ip(8u),
+    SubnetMask(9u),
+    Gateway(10u),
+    PrimaryDns(11u),
+    SecondaryDns(12u),
+    UseProxy(13u),
+    ProxyUrl(14u),
+    ProxyPort(15u),
+    EapType(16u),
+    StartBrowser(17u),
+    Wifisp(18u),
+}
+
+public enum class ApctlInfoSecurityType(public val value: UInt) {
+    None(0u),
+    Wep(1u),
+    Wpa(2u),
+}
+
+public enum class HttpMethod(public val value: UInt) {
+    Get(0u),
+    Post(1u),
+    Head(2u),
+}
+
+public enum class HttpAuthType(public val value: UInt) {
+    Basic(0u),
+    Digest(1u),
+}
+
+public data class SceUid(public var value: Int = 0) {
     public var field0: Int
         get() = value
         set(v) { value = v }
 }
 
-public open class SceMpeg(public var value: COpaquePointer?) {
+public data class SceMpeg(public var value: COpaquePointer? = null) {
     public var field0: COpaquePointer?
         get() = value
         set(v) { value = v }
 }
 
-public open class SceMpegStream(public var value: COpaquePointer?) {
+public data class SceMpegStream(public var value: COpaquePointer? = null) {
     public var field0: COpaquePointer?
         get() = value
         set(v) { value = v }
 }
 
-public open class Mp3Handle(public var value: Int) {
+public data class Mp3Handle(public var value: Int = 0) {
     public var field0: Int
         get() = value
         set(v) { value = v }
 }
 
-public open class RegHandle(public var value: UInt) {
+public data class RegHandle(public var value: UInt = 0u) {
     public var field0: UInt
         get() = value
         set(v) { value = v }
 }
 
-public open class Sockaddr(
-    public var saLen: UByte,
-    public var saFamily: UByte,
-    public var saData: List<UByte>,
-)
-
-public open class InAddr(public var sAddr: UInt)
-
-public open class AudioInputParams(
-    public var unknown1: Int,
-    public var gain: Int,
-    public var unknown2: Int,
-    public var unknown3: Int,
-    public var unknown4: Int,
-    public var unknown5: Int,
-)
-
-public open class Atrac3BufferInfo(
-    public var pucWritePositionFirstBuf: COpaquePointer?,
-    public var uiWritableByteFirstBuf: UInt,
-    public var uiMinWriteByteFirstBuf: UInt,
-    public var uiReadPositionFirstBuf: UInt,
-    public var pucWritePositionSecondBuf: COpaquePointer?,
-    public var uiWritableByteSecondBuf: UInt,
-    public var uiMinWriteByteSecondBuf: UInt,
-    public var uiReadPositionSecondBuf: UInt,
-)
-
-public open class SceCtrlData(
-    public var timestamp: UInt,
-    public var buttons: Int,
-    public var lx: UByte,
-    public var ly: UByte,
-    public var rsrv: List<UByte>,
-)
-
-public open class SceCtrlLatch(
-    public var uiMake: UInt,
-    public var uiBreak: UInt,
-    public var uiPress: UInt,
-    public var uiRelease: UInt,
-)
-
-public open class GeStack(public var stack: List<UInt>)
-
-public open class GeCallbackData(
-    public var signalFunc: GuCallbackFn?,
-    public var signalArg: COpaquePointer?,
-    public var finishFunc: GuCallbackFn?,
-    public var finishArg: COpaquePointer?,
-)
-
-public open class GeListArgs(
-    public var size: UInt,
-    public var context: GeContext?,
-    public var numStacks: UInt,
-    public var stacks: GeStack?,
-)
-
-public open class GeBreakParam(public var buf: List<UInt>)
-
-public open class SceKernelLoadExecParam(
-    public var size: Int,
-    public var args: Int,
-    public var argp: COpaquePointer?,
-    public var key: COpaquePointer?,
-)
-
-public open class Timeval(public var tvSec: Int, public var tvUsec: Int)
-
-public open class Timezone(public var tzMinutesWest: Int, public var tzDstTime: Int)
-
-public open class IntrHandlerOptionParam(
-    public var size: Int,
-    public var entry: UInt,
-    public var common: UInt,
-    public var gp: UInt,
-    public var intrCode: UShort,
-    public var subCount: UShort,
-    public var intrLevel: UShort,
-    public var enabled: UShort,
-    public var calls: UInt,
-    public var field1c: UInt,
-    public var totalClockLo: UInt,
-    public var totalClockHi: UInt,
-    public var minClockLo: UInt,
-    public var minClockHi: UInt,
-    public var maxClockLo: UInt,
-    public var maxClockHi: UInt,
-)
-
-public open class SceKernelLMOption(
-    public var size: Int,
-    public var mPidText: SceUid,
-    public var mPidData: SceUid,
-    public var flags: UInt,
-    public var position: UByte,
-    public var access: UByte,
-    public var cReserved: List<UByte>,
-)
-
-public open class SceKernelSMOption(
-    public var size: Int,
-    public var mPidStack: SceUid,
-    public var stackSize: Int,
-    public var priority: Int,
-    public var attribute: UInt,
-)
-
-public open class SceKernelModuleInfo(
-    public var size: Int,
-    public var nSegment: UByte,
-    public var reserved: List<UByte>,
-    public var segmentAddr: List<Int>,
-    public var segmentSize: List<Int>,
-    public var entryAddr: UInt,
-    public var gpValue: UInt,
-    public var textAddr: UInt,
-    public var textSize: UInt,
-    public var dataSize: UInt,
-    public var bssSize: UInt,
-    public var attribute: UShort,
-    public var version: List<UByte>,
-    public var name: List<UByte>,
-)
-
-public open class DebugProfilerRegs(
-    public var enable: UInt,
-    public var systemck: UInt,
-    public var cpuck: UInt,
-    public var internal: UInt,
-    public var memory: UInt,
-    public var copz: UInt,
-    public var vfpu: UInt,
-    public var sleep: UInt,
-    public var busAccess: UInt,
-    public var uncachedLoad: UInt,
-    public var uncachedStore: UInt,
-    public var cachedLoad: UInt,
-    public var cachedStore: UInt,
-    public var iMiss: UInt,
-    public var dMiss: UInt,
-    public var dWriteback: UInt,
-    public var cop0Inst: UInt,
-    public var fpuInst: UInt,
-    public var vfpuInst: UInt,
-    public var localBus: UInt,
-)
-
-public open class SceKernelSysClock(public var low: UInt, public var hi: UInt)
-
-public open class SceKernelThreadOptParam(public var size: Int, public var stackMpid: SceUid)
-
-public open class SceKernelThreadInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var attr: UInt,
-    public var status: Int,
-    public var entry: SceKernelThreadEntry,
-    public var stack: COpaquePointer?,
-    public var stackSize: Int,
-    public var gpReg: COpaquePointer?,
-    public var initPriority: Int,
-    public var currentPriority: Int,
-    public var waitType: Int,
-    public var waitId: SceUid,
-    public var wakeupCount: Int,
-    public var exitStatus: Int,
-    public var runClocks: SceKernelSysClock,
-    public var intrPreemptCount: UInt,
-    public var threadPreemptCount: UInt,
-    public var releaseCount: UInt,
-)
-
-public open class SceKernelThreadRunStatus(
-    public var size: Int,
-    public var status: Int,
-    public var currentPriority: Int,
-    public var waitType: Int,
-    public var waitId: Int,
-    public var wakeupCount: Int,
-    public var runClocks: SceKernelSysClock,
-    public var intrPreemptCount: UInt,
-    public var threadPreemptCount: UInt,
-    public var releaseCount: UInt,
-)
-
-public open class SceKernelSemaOptParam(public var size: Int)
-
-public open class SceKernelSemaInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var attr: UInt,
-    public var initCount: Int,
-    public var currentCount: Int,
-    public var maxCount: Int,
-    public var numWaitThreads: Int,
-)
-
-public open class SceKernelEventFlagInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var attr: UInt,
-    public var initPattern: UInt,
-    public var currentPattern: UInt,
-    public var numWaitThreads: Int,
-)
-
-public open class SceKernelEventFlagOptParam(public var size: Int)
-
-public open class SceKernelMbxOptParam(public var size: Int)
-
-public open class SceKernelMbxInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var attr: UInt,
-    public var numWaitThreads: Int,
-    public var numMessages: Int,
-    public var firstMessage: COpaquePointer?,
-)
-
-public open class SceKernelVTimerInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var active: Int,
-    public var base: SceKernelSysClock,
-    public var current: SceKernelSysClock,
-    public var schedule: SceKernelSysClock,
-    public var handler: SceKernelVTimerHandler,
-    public var common: COpaquePointer?,
-)
-
-public open class SceKernelThreadEventHandlerInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var threadId: SceUid,
-    public var mask: Int,
-    public var handler: SceKernelThreadEventHandler,
-    public var common: COpaquePointer?,
-)
-
-public open class SceKernelAlarmInfo(
-    public var size: Int,
-    public var schedule: SceKernelSysClock,
-    public var handler: SceKernelAlarmHandler,
-    public var common: COpaquePointer?,
-)
-
-public open class SceKernelSystemStatus(
-    public var size: Int,
-    public var status: UInt,
-    public var idleClocks: SceKernelSysClock,
-    public var comesOutOfIdleCount: UInt,
-    public var threadSwitchCount: UInt,
-    public var vfpuSwitchCount: UInt,
-)
-
-public open class SceKernelMppInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var attr: UInt,
-    public var bufSize: Int,
-    public var freeSize: Int,
-    public var numSendWaitThreads: Int,
-    public var numReceiveWaitThreads: Int,
-)
-
-public open class SceKernelVplOptParam(public var size: Int)
-
-public open class SceKernelVplInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var attr: UInt,
-    public var poolSize: Int,
-    public var freeSize: Int,
-    public var numWaitThreads: Int,
-)
-
-public open class SceKernelFplOptParam(public var size: Int)
-
-public open class SceKernelFplInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var attr: UInt,
-    public var blockSize: Int,
-    public var numBlocks: Int,
-    public var freeBlocks: Int,
-    public var numWaitThreads: Int,
-)
-
-public open class SceKernelVTimerOptParam(public var size: Int)
-
-public open class SceKernelCallbackInfo(
-    public var size: Int,
-    public var name: List<UByte>,
-    public var threadId: SceUid,
-    public var callback: SceKernelCallbackFunction,
-    public var common: COpaquePointer?,
-    public var notifyCount: Int,
-    public var notifyArg: Int,
-)
-
-public open class UsbCamSetupStillParam(
-    public var size: Int,
-    public var resolution: UsbCamResolution,
-    public var jpegSize: Int,
-    public var reverseFlags: Int,
-    public var delay: UsbCamDelay,
-    public var compLevel: Int,
-)
-
-public open class UsbCamSetupStillExParam(
-    public var size: Int,
-    public var unk: UInt,
-    public var resolution: UsbCamResolutionEx,
-    public var jpegSize: Int,
-    public var compLevel: Int,
-    public var unk2: UInt,
-    public var unk3: UInt,
-    public var flip: Int,
-    public var mirror: Int,
-    public var delay: UsbCamDelay,
-    public var unk4: List<UInt>,
-)
-
-public open class UsbCamSetupVideoParam(
-    public var size: Int,
-    public var resolution: UsbCamResolution,
-    public var framerate: UsbCamFrameRate,
-    public var whiteBalance: UsbCamWb,
-    public var saturation: Int,
-    public var brightness: Int,
-    public var contrast: Int,
-    public var sharpness: Int,
-    public var effectMode: UsbCamEffectMode,
-    public var frameSize: Int,
-    public var unk: UInt,
-    public var evlEvel: UsbCamEvLevel,
-)
-
-public open class UsbCamSetupVideoExParam(
-    public var size: Int,
-    public var unk: UInt,
-    public var resolution: UsbCamResolutionEx,
-    public var framerate: UsbCamFrameRate,
-    public var unk2: UInt,
-    public var unk3: UInt,
-    public var whiteBalance: UsbCamWb,
-    public var saturation: Int,
-    public var brightness: Int,
-    public var contrast: Int,
-    public var sharpness: Int,
-    public var unk4: UInt,
-    public var unk5: UInt,
-    public var unk6: List<UInt>,
-    public var effectMode: UsbCamEffectMode,
-    public var unk7: UInt,
-    public var unk8: UInt,
-    public var unk9: UInt,
-    public var unk10: UInt,
-    public var unk11: UInt,
-    public var frameSize: Int,
-    public var unk12: UInt,
-    public var evLevel: UsbCamEvLevel,
-)
-
-public open class ScePspDateTime(
-    public var year: UShort,
-    public var month: UShort,
-    public var day: UShort,
-    public var hour: UShort,
-    public var minutes: UShort,
-    public var seconds: UShort,
-    public var microseconds: UInt,
-)
-
-public open class SceIoStat(
-    public var stMode: Int,
-    public var stAttr: Int,
-    public var stSize: Long,
-    public var stCtime: ScePspDateTime,
-    public var stAtime: ScePspDateTime,
-    public var stMtime: ScePspDateTime,
-    public var stPrivate: List<UInt>,
-)
-
-public open class UmdInfo(public var size: UInt, public var type: UmdType)
-
-public open class SceMpegRingbuffer(
-    public var packets: Int,
-    public var unk0: UInt,
-    public var unk1: UInt,
-    public var unk2: UInt,
-    public var unk3: UInt,
-    public var data: COpaquePointer?,
-    public var callback: SceMpegRingbufferCb,
-    public var cbParam: COpaquePointer?,
-    public var unk4: UInt,
-    public var unk5: UInt,
-    public var sceMpeg: COpaquePointer?,
-)
-
-public open class SceMpegAu(
-    public var ptsMsb: UInt,
-    public var pts: UInt,
-    public var dtsMsb: UInt,
-    public var dts: UInt,
-    public var esBuffer: UInt,
-    public var auSize: UInt,
-)
-
-public open class SceMpegAvcMode(public var unk0: Int, public var pixelFormat: DisplayPixelFormat)
-
-public open class SceMpegLLI(
-    public var src: COpaquePointer?,
-    public var dst: COpaquePointer?,
-    public var next: COpaquePointer?,
-    public var size: Int,
-)
-
-public open class SceMpegYCrCbBuffer(
-    public var frameBufferHeight16: Int,
-    public var frameBufferWidth16: Int,
-    public var unknown: Int,
-    public var unknown2: Int,
-    public var yBuffer: COpaquePointer?,
-    public var yBuffer2: COpaquePointer?,
-    public var crBuffer: COpaquePointer?,
-    public var cbBuffer: COpaquePointer?,
-    public var crBuffer2: COpaquePointer?,
-    public var cbBuffer2: COpaquePointer?,
-    public var frameHeight: Int,
-    public var frameWidth: Int,
-    public var frameBufferWidth: Int,
-    public var unknown3: List<Int>,
-)
-
-public open class ScePspSRect(
-    public var x: Short,
-    public var y: Short,
-    public var w: Short,
-    public var h: Short,
-)
-
-public open class ScePspIRect(
-    public var x: Int,
-    public var y: Int,
-    public var w: Int,
-    public var h: Int,
-)
-
-public open class ScePspL64Rect(
-    public var x: ULong,
-    public var y: ULong,
-    public var w: ULong,
-    public var h: ULong,
-)
-
-public open class ScePspSVector2(public var x: Short, public var y: Short)
-
-public open class ScePspIVector2(public var x: Int, public var y: Int)
-
-public open class ScePspL64Vector2(public var x: ULong, public var y: ULong)
-
-public open class ScePspSVector3(
-    public var x: Short,
-    public var y: Short,
-    public var z: Short,
-)
-
-public open class ScePspIVector3(
-    public var x: Int,
-    public var y: Int,
-    public var z: Int,
-)
-
-public open class ScePspL64Vector3(
-    public var x: ULong,
-    public var y: ULong,
-    public var z: ULong,
-)
-
-public open class ScePspSVector4(
-    public var x: Short,
-    public var y: Short,
-    public var z: Short,
-    public var w: Short,
-)
-
-public open class ScePspIVector4(
-    public var x: Int,
-    public var y: Int,
-    public var z: Int,
-    public var w: Int,
-)
-
-public open class ScePspL64Vector4(
-    public var x: ULong,
-    public var y: ULong,
-    public var z: ULong,
-    public var w: ULong,
-)
-
-public open class ScePspIMatrix2(public var x: ScePspIVector2, public var y: ScePspIVector2)
-
-public open class ScePspIMatrix3(
-    public var x: ScePspIVector3,
-    public var y: ScePspIVector3,
-    public var z: ScePspIVector3,
-)
-
-public open class ScePspIMatrix4(
-    public var x: ScePspIVector4,
-    public var y: ScePspIVector4,
-    public var z: ScePspIVector4,
-    public var w: ScePspIVector4,
-)
-
-public open class ScePspIMatrix4Unaligned(
-    public var x: ScePspIVector4,
-    public var y: ScePspIVector4,
-    public var z: ScePspIVector4,
-    public var w: ScePspIVector4,
-)
-
-public open class SceMp3InitArg(
-    public var mp3StreamStart: UInt,
-    public var unk1: UInt,
-    public var mp3StreamEnd: UInt,
-    public var unk2: UInt,
-    public var mp3Buf: COpaquePointer?,
-    public var mp3BufSize: Int,
-    public var pcmBuf: COpaquePointer?,
-    public var pcmBufSize: Int,
-)
-
-public open class OpenPSID(public var data: List<UByte>)
-
-public open class UtilityDialogCommon(
-    public var size: UInt,
-    public var language: SystemParamLanguage,
-    public var buttonAccept: UtilityDialogButtonAccept,
-    public var graphicsThread: Int,
-    public var accessThread: Int,
-    public var fontThread: Int,
-    public var soundThread: Int,
-    public var result: Int,
-    public var reserved: List<Int>,
-)
-
-public open class UtilityNetconfAdhoc(public var name: List<UByte>, public var timeout: UInt)
-
-public open class UtilityNetconfData(
-    public var base: UtilityDialogCommon,
-    public var action: UtilityNetconfAction,
-    public var adhocparam: UtilityNetconfAdhoc?,
-    public var hotspot: Int,
-    public var hotspotConnected: Int,
-    public var wifisp: Int,
-)
-
-public open class UtilitySavedataFileData(
-    public var buf: COpaquePointer?,
-    public var bufSize: Int,
-    public var size: Int,
-    public var unknown: Int,
-)
-
-public open class UtilitySavedataListSaveNewData(public var icon0: UtilitySavedataFileData, public var title: COpaquePointer?)
-
-public open class UtilityGameSharingParams(
-    public var base: UtilityDialogCommon,
-    public var unknown1: Int,
-    public var unknown2: Int,
-    public var name: List<UByte>,
-    public var unknown3: Int,
-    public var unknown4: Int,
-    public var unknown5: Int,
-    public var result: Int,
-    public var filepath: COpaquePointer?,
-    public var mode: UtilityGameSharingMode,
-    public var datatype: UtilityGameSharingDataType,
-    public var data: COpaquePointer?,
-    public var datasize: UInt,
-)
-
-public open class UtilityHtmlViewerParam(
-    public var base: UtilityDialogCommon,
-    public var memaddr: COpaquePointer?,
-    public var memsize: UInt,
-    public var unknown1: Int,
-    public var unknown2: Int,
-    public var initialurl: COpaquePointer?,
-    public var numtabs: UInt,
-    public var interfacemode: UtilityHtmlViewerInterfaceMode,
-    public var options: Int,
-    public var dldirname: COpaquePointer?,
-    public var dlfilename: COpaquePointer?,
-    public var uldirname: COpaquePointer?,
-    public var ulfilename: COpaquePointer?,
-    public var cookiemode: UtilityHtmlViewerCookieMode,
-    public var unknown3: UInt,
-    public var homeurl: COpaquePointer?,
-    public var textsize: UtilityHtmlViewerTextSize,
-    public var displaymode: UtilityHtmlViewerDisplayMode,
-    public var connectmode: UtilityHtmlViewerConnectMode,
-    public var disconnectmode: UtilityHtmlViewerDisconnectMode,
-    public var memused: UInt,
-    public var unknown4: List<Int>,
-)
-
-public open class SceUtilityOskData(
-    public var unk00: Int,
-    public var unk04: Int,
-    public var language: SceUtilityOskInputLanguage,
-    public var unk12: Int,
-    public var inputtype: SceUtilityOskInputType,
-    public var lines: Int,
-    public var unk24: Int,
-    public var desc: UShort?,
-    public var intext: UShort?,
-    public var outtextlength: Int,
-    public var outtext: UShort?,
-    public var result: SceUtilityOskResult,
-    public var outtextlimit: Int,
-)
-
-public open class SceUtilityOskParams(
-    public var base: UtilityDialogCommon,
-    public var datacount: Int,
-    public var data: SceUtilityOskData?,
-    public var state: SceUtilityOskState,
-    public var unk60: Int,
-)
-
-public open class SceNetMallocStat(
-    public var pool: Int,
-    public var maximum: Int,
-    public var free: Int,
-)
-
-public open class SceNetAdhocctlAdhocId(
-    public var unknown: Int,
-    public var adhocId: List<UByte>,
-    public var unk: List<UByte>,
-)
-
-public open class SceNetAdhocctlScanInfo(
-    public var next: SceNetAdhocctlScanInfo?,
-    public var channel: Int,
-    public var name: List<UByte>,
-    public var bssid: List<UByte>,
-    public var unknown: List<UByte>,
-    public var unknown2: Int,
-)
-
-public open class SceNetAdhocctlGameModeInfo(public var count: Int, public var macs: List<List<UByte>>)
-
-public open class SceNetAdhocPtpStat(
-    public var next: SceNetAdhocPtpStat?,
-    public var ptpId: Int,
-    public var mac: List<UByte>,
-    public var peermac: List<UByte>,
-    public var port: UShort,
-    public var peerport: UShort,
-    public var sentData: UInt,
-    public var rcvdData: UInt,
-    public var state: ScePspnetAdhocPtpState,
-)
-
-public open class SceNetAdhocPdpStat(
-    public var next: SceNetAdhocPdpStat?,
-    public var pdpId: Int,
-    public var mac: List<UByte>,
-    public var port: UShort,
-    public var rcvdData: UInt,
-)
-
-public open class AdhocPoolStat(
-    public var size: Int,
-    public var maxsize: Int,
-    public var freesize: Int,
-)
-
-public open class GeContext(public var context: List<UInt>)
-
-public open class SceKernelUtilsSha1Context(
-    public var h: List<UInt>,
-    public var usRemains: UShort,
-    public var usComputed: UShort,
-    public var ullTotalLen: ULong,
-    public var buf: List<UByte>,
-)
-
-public open class SceKernelUtilsMt19937Context(public var count: UInt, public var state: List<UInt>)
-
-public open class SceKernelUtilsMd5Context(
-    public var h: List<UInt>,
-    public var pad: UInt,
-    public var usRemains: UShort,
-    public var usComputed: UShort,
-    public var ullTotalLen: ULong,
-    public var buf: List<UByte>,
-)
-
-public open class SceIoDirent(
-    public var dStat: SceIoStat,
-    public var dName: List<UByte>,
-    public var dPrivate: COpaquePointer?,
-    public var dummy: Int,
-)
-
-public open class ScePspFRect(
-    public var x: Float,
-    public var y: Float,
-    public var w: Float,
-    public var h: Float,
-)
-
-public open class ScePspFVector3(
-    public var x: Float,
-    public var y: Float,
-    public var z: Float,
-)
-
-public open class ScePspFVector4(
-    public var x: Float,
-    public var y: Float,
-    public var z: Float,
-    public var w: Float,
-)
-
-public open class ScePspFVector4Unaligned(
-    public var x: Float,
-    public var y: Float,
-    public var z: Float,
-    public var w: Float,
-)
-
-public open class ScePspFVector2(public var x: Float, public var y: Float)
-
-public open class ScePspFMatrix2(public var x: ScePspFVector2, public var y: ScePspFVector2)
-
-public open class ScePspFMatrix3(
-    public var x: ScePspFVector3,
-    public var y: ScePspFVector3,
-    public var z: ScePspFVector3,
-)
-
-public open class ScePspFMatrix4(
-    public var x: ScePspFVector4,
-    public var y: ScePspFVector4,
-    public var z: ScePspFVector4,
-    public var w: ScePspFVector4,
-)
-
-public open class ScePspFMatrix4Unaligned(
-    public var x: ScePspFVector4,
-    public var y: ScePspFVector4,
-    public var z: ScePspFVector4,
-    public var w: ScePspFVector4,
-)
-
-public open class ScePspVector3(
-    public var fv: ScePspFVector3? = null,
-    public var iv: ScePspIVector3? = null,
-    public var f: List<Float>? = null,
-    public var i: List<Int>? = null,
-)
-
-public open class ScePspVector4(
-    public var fv: ScePspFVector4? = null,
-    public var iv: ScePspIVector4? = null,
-    public var qw: U128? = null,
-    public var f: List<Float>? = null,
-    public var i: List<Int>? = null,
-)
-
-public open class ScePspMatrix2(
-    public var fm: ScePspFMatrix2? = null,
-    public var im: ScePspIMatrix2? = null,
-    public var fv: List<ScePspFVector2>? = null,
-    public var iv: List<ScePspIVector2>? = null,
-    public var v: List<ScePspVector2>? = null,
-    public var f: List<List<Float>>? = null,
-    public var i: List<List<Int>>? = null,
-)
-
-public open class ScePspMatrix3(
-    public var fm: ScePspFMatrix3? = null,
-    public var im: ScePspIMatrix3? = null,
-    public var fv: List<ScePspFVector3>? = null,
-    public var iv: List<ScePspIVector3>? = null,
-    public var v: List<ScePspVector3>? = null,
-    public var f: List<List<Float>>? = null,
-    public var i: List<List<Int>>? = null,
-)
-
-public open class ScePspVector2(
-    public var fv: ScePspFVector2? = null,
-    public var iv: ScePspIVector2? = null,
-    public var f: List<Float>? = null,
-    public var i: List<Int>? = null,
-)
-
-public open class ScePspMatrix4(
-    public var fm: ScePspFMatrix4? = null,
-    public var im: ScePspIMatrix4? = null,
-    public var fv: List<ScePspFVector4>? = null,
-    public var iv: List<ScePspIVector4>? = null,
-    public var v: List<ScePspVector4>? = null,
-    public var f: List<List<Float>>? = null,
-    public var i: List<List<Int>>? = null,
-)
-
-public open class Key(
-    public var keyType: KeyType,
-    public var name: List<UByte>,
-    public var nameLen: UInt,
-    public var unk2: UInt,
-    public var unk3: UInt,
-)
-
-public open class UtilityMsgDialogParams(
-    public var base: UtilityDialogCommon,
-    public var unknown: Int,
-    public var mode: UtilityMsgDialogMode,
-    public var errorValue: UInt,
-    public var message: List<UByte>,
-    public var options: Int,
-    public var buttonPressed: UtilityMsgDialogPressed,
-)
-
-public open class UtilityNetData(public var asUint: UInt? = null, public var asString: List<UByte>? = null)
-
-public open class UtilitySavedataSFOParam(
-    public var title: List<UByte>,
-    public var savedataTitle: List<UByte>,
-    public var detail: List<UByte>,
-    public var parentalLevel: UByte,
-    public var unknown: List<UByte>,
-)
-
-public open class SceUtilitySavedataParam(
-    public var base: UtilityDialogCommon,
-    public var mode: UtilitySavedataMode,
-    public var unknown1: Int,
-    public var overwrite: Int,
-    public var gameName: List<UByte>,
-    public var reserved: List<UByte>,
-    public var saveName: List<UByte>,
-    public var saveNameList: List<UByte>?,
-    public var fileName: List<UByte>,
-    public var reserved1: List<UByte>,
-    public var dataBuf: COpaquePointer?,
-    public var dataBufSize: Int,
-    public var dataSize: Int,
-    public var sfoParam: UtilitySavedataSFOParam,
-    public var icon0FileData: UtilitySavedataFileData,
-    public var icon1FileData: UtilitySavedataFileData,
-    public var pic1FileData: UtilitySavedataFileData,
-    public var snd0FileData: UtilitySavedataFileData,
-    public var newData: UtilitySavedataListSaveNewData?,
-    public var focus: UtilitySavedataFocus,
-    public var unknown2: List<Int>,
-    public var key: List<UByte>,
-    public var unknown3: List<UByte>,
-)
-
-public open class SceNetAdhocctlPeerInfo(
-    public var next: SceNetAdhocctlPeerInfo?,
-    public var nickname: List<UByte>,
-    public var mac: List<UByte>,
-    public var unknown: List<UByte>,
-    public var timestamp: UInt,
-)
-
-public open class SceNetAdhocctlParams(
-    public var channel: Int,
-    public var name: List<UByte>,
-    public var bssid: List<UByte>,
-    public var nickname: List<UByte>,
-)
-
-public open class SceNetApctlInfo(
-    public var name: List<UByte>? = null,
-    public var bssid: List<UByte>? = null,
-    public var ssid: List<UByte>? = null,
-    public var ssidLength: UInt? = null,
-    public var securityType: UInt? = null,
-    public var strength: UByte? = null,
-    public var channel: UByte? = null,
-    public var powerSave: UByte? = null,
-    public var ip: List<UByte>? = null,
-    public var subNetMask: List<UByte>? = null,
-    public var gateway: List<UByte>? = null,
-    public var primaryDns: List<UByte>? = null,
-    public var secondaryDns: List<UByte>? = null,
-    public var useProxy: UInt? = null,
-    public var proxyUrl: List<UByte>? = null,
-    public var proxyPort: UShort? = null,
-    public var eapType: UInt? = null,
-    public var startBrowser: UInt? = null,
-    public var wifisp: UInt? = null,
-)
-
-public val INT_MIN: CInt = -2147483648
+public data class Sockaddr(
+    public var saLen: UByte = 0u,
+    public var saFamily: UByte = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Sockaddr) return false
+        if (this.saLen != other.saLen) return false
+        if (this.saFamily != other.saFamily) return false
+        if (!this.saData.contentEquals(other.saData)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.saLen.hashCode()
+        result = 31 * result + this.saFamily.hashCode()
+        result = 31 * result + this.saData.contentHashCode()
+        return result
+    }
+}
+
+public data class InAddr(public var sAddr: UInt = 0u)
+
+public data class AudioInputParams(
+    public var unknown1: Int = 0,
+    public var gain: Int = 0,
+    public var unknown2: Int = 0,
+    public var unknown3: Int = 0,
+    public var unknown4: Int = 0,
+    public var unknown5: Int = 0,
+)
+
+public data class Atrac3BufferInfo(
+    public var pucWritePositionFirstBuf: COpaquePointer? = null,
+    public var uiWritableByteFirstBuf: UInt = 0u,
+    public var uiMinWriteByteFirstBuf: UInt = 0u,
+    public var uiReadPositionFirstBuf: UInt = 0u,
+    public var pucWritePositionSecondBuf: COpaquePointer? = null,
+    public var uiWritableByteSecondBuf: UInt = 0u,
+    public var uiMinWriteByteSecondBuf: UInt = 0u,
+    public var uiReadPositionSecondBuf: UInt = 0u,
+)
+
+public data class SceCtrlData(
+    public var timestamp: UInt = 0u,
+    public var buttons: Int = 0,
+    public var lx: UByte = 0u,
+    public var ly: UByte = 0u,
+    public var rsrv: UByteArray = UByteArray(6),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceCtrlData) return false
+        if (this.timestamp != other.timestamp) return false
+        if (this.buttons != other.buttons) return false
+        if (this.lx != other.lx) return false
+        if (this.ly != other.ly) return false
+        if (!this.rsrv.contentEquals(other.rsrv)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.timestamp.hashCode()
+        result = 31 * result + this.buttons.hashCode()
+        result = 31 * result + this.lx.hashCode()
+        result = 31 * result + this.ly.hashCode()
+        result = 31 * result + this.rsrv.contentHashCode()
+        return result
+    }
+}
+
+public data class SceCtrlLatch(
+    public var uiMake: UInt = 0u,
+    public var uiBreak: UInt = 0u,
+    public var uiPress: UInt = 0u,
+    public var uiRelease: UInt = 0u,
+)
+
+public data class GeStack(public var stack: UIntArray = UIntArray(8)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is GeStack) return false
+        if (!this.stack.contentEquals(other.stack)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.stack.contentHashCode()
+    }
+}
+
+public data class GeCallbackData(
+    public var signalFunc: GuCallbackFn? = null,
+    public var signalArg: COpaquePointer? = null,
+    public var finishFunc: GuCallbackFn? = null,
+    public var finishArg: COpaquePointer? = null,
+)
+
+public data class GeListArgs(
+    public var size: UInt = 0u,
+    public var context: GeContext? = null,
+    public var numStacks: UInt = 0u,
+    public var stacks: GeStack? = null,
+)
+
+public data class GeBreakParam(public var buf: UIntArray = UIntArray(4)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is GeBreakParam) return false
+        if (!this.buf.contentEquals(other.buf)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.buf.contentHashCode()
+    }
+}
+
+public data class SceKernelLoadExecParam(
+    public var size: Int = 0,
+    public var args: Int = 0,
+    public var argp: COpaquePointer? = null,
+    public var key: COpaquePointer? = null,
+)
+
+public data class Timeval(public var tvSec: Int = 0, public var tvUsec: Int = 0)
+
+public data class Timezone(public var tzMinutesWest: Int = 0, public var tzDstTime: Int = 0)
+
+public data class IntrHandlerOptionParam(
+    public var size: Int = 0,
+    public var entry: UInt = 0u,
+    public var common: UInt = 0u,
+    public var gp: UInt = 0u,
+    public var intrCode: UShort = 0u,
+    public var subCount: UShort = 0u,
+    public var intrLevel: UShort = 0u,
+    public var enabled: UShort = 0u,
+    public var calls: UInt = 0u,
+    public var field1c: UInt = 0u,
+    public var totalClockLo: UInt = 0u,
+    public var totalClockHi: UInt = 0u,
+    public var minClockLo: UInt = 0u,
+    public var minClockHi: UInt = 0u,
+    public var maxClockLo: UInt = 0u,
+    public var maxClockHi: UInt = 0u,
+)
+
+public data class SceKernelLMOption(
+    public var size: Int = 0,
+    public var mPidText: SceUid = SceUid(),
+    public var mPidData: SceUid = SceUid(),
+    public var flags: UInt = 0u,
+    public var position: UByte = 0u,
+    public var access: UByte = 0u,
+    public var cReserved: UByteArray = UByteArray(2),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelLMOption) return false
+        if (this.size != other.size) return false
+        if (this.mPidText != other.mPidText) return false
+        if (this.mPidData != other.mPidData) return false
+        if (this.flags != other.flags) return false
+        if (this.position != other.position) return false
+        if (this.access != other.access) return false
+        if (!this.cReserved.contentEquals(other.cReserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.mPidText.hashCode()
+        result = 31 * result + this.mPidData.hashCode()
+        result = 31 * result + this.flags.hashCode()
+        result = 31 * result + this.position.hashCode()
+        result = 31 * result + this.access.hashCode()
+        result = 31 * result + this.cReserved.contentHashCode()
+        return result
+    }
+}
+
+public data class SceKernelSMOption(
+    public var size: Int = 0,
+    public var mPidStack: SceUid = SceUid(),
+    public var stackSize: Int = 0,
+    public var priority: Int = 0,
+    public var attribute: UInt = 0u,
+)
+
+public data class SceKernelModuleInfo(
+    public var size: Int = 0,
+    public var nSegment: UByte = 0u,
+    public var reserved: UByteArray = UByteArray(3),
+    public var segmentAddr: IntArray = IntArray(4),
+    public var segmentSize: IntArray = IntArray(4),
+    public var entryAddr: UInt = 0u,
+    public var gpValue: UInt = 0u,
+    public var textAddr: UInt = 0u,
+    public var textSize: UInt = 0u,
+    public var dataSize: UInt = 0u,
+    public var bssSize: UInt = 0u,
+    public var attribute: UShort = 0u,
+    public var version: UByteArray = UByteArray(2),
+    public var name: UByteArray = UByteArray(28),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelModuleInfo) return false
+        if (this.size != other.size) return false
+        if (this.nSegment != other.nSegment) return false
+        if (!this.reserved.contentEquals(other.reserved)) return false
+        if (!this.segmentAddr.contentEquals(other.segmentAddr)) return false
+        if (!this.segmentSize.contentEquals(other.segmentSize)) return false
+        if (this.entryAddr != other.entryAddr) return false
+        if (this.gpValue != other.gpValue) return false
+        if (this.textAddr != other.textAddr) return false
+        if (this.textSize != other.textSize) return false
+        if (this.dataSize != other.dataSize) return false
+        if (this.bssSize != other.bssSize) return false
+        if (this.attribute != other.attribute) return false
+        if (!this.version.contentEquals(other.version)) return false
+        if (!this.name.contentEquals(other.name)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.nSegment.hashCode()
+        result = 31 * result + this.reserved.contentHashCode()
+        result = 31 * result + this.segmentAddr.contentHashCode()
+        result = 31 * result + this.segmentSize.contentHashCode()
+        result = 31 * result + this.entryAddr.hashCode()
+        result = 31 * result + this.gpValue.hashCode()
+        result = 31 * result + this.textAddr.hashCode()
+        result = 31 * result + this.textSize.hashCode()
+        result = 31 * result + this.dataSize.hashCode()
+        result = 31 * result + this.bssSize.hashCode()
+        result = 31 * result + this.attribute.hashCode()
+        result = 31 * result + this.version.contentHashCode()
+        result = 31 * result + this.name.contentHashCode()
+        return result
+    }
+}
+
+public class DebugProfilerRegs(
+    public var enable: UInt = 0u,
+    public var systemck: UInt = 0u,
+    public var cpuck: UInt = 0u,
+    public var internal: UInt = 0u,
+    public var memory: UInt = 0u,
+    public var copz: UInt = 0u,
+    public var vfpu: UInt = 0u,
+    public var sleep: UInt = 0u,
+    public var busAccess: UInt = 0u,
+    public var uncachedLoad: UInt = 0u,
+    public var uncachedStore: UInt = 0u,
+    public var cachedLoad: UInt = 0u,
+    public var cachedStore: UInt = 0u,
+    public var iMiss: UInt = 0u,
+    public var dMiss: UInt = 0u,
+    public var dWriteback: UInt = 0u,
+    public var cop0Inst: UInt = 0u,
+    public var fpuInst: UInt = 0u,
+    public var vfpuInst: UInt = 0u,
+    public var localBus: UInt = 0u,
+)
+
+public data class SceKernelSysClock(public var low: UInt = 0u, public var hi: UInt = 0u)
+
+public data class SceKernelThreadOptParam(public var size: Int = 0, public var stackMpid: SceUid = SceUid())
+
+public class SceKernelThreadInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var attr: UInt = 0u,
+    public var status: Int = 0,
+    public var entry: SceKernelThreadEntry = SceKernelThreadEntry { _, _ -> 0 },
+    public var stack: COpaquePointer? = null,
+    public var stackSize: Int = 0,
+    public var gpReg: COpaquePointer? = null,
+    public var initPriority: Int = 0,
+    public var currentPriority: Int = 0,
+    public var waitType: Int = 0,
+    public var waitId: SceUid = SceUid(),
+    public var wakeupCount: Int = 0,
+    public var exitStatus: Int = 0,
+    public var runClocks: SceKernelSysClock = SceKernelSysClock(),
+    public var intrPreemptCount: UInt = 0u,
+    public var threadPreemptCount: UInt = 0u,
+    public var releaseCount: UInt = 0u,
+)
+
+public data class SceKernelThreadRunStatus(
+    public var size: Int = 0,
+    public var status: Int = 0,
+    public var currentPriority: Int = 0,
+    public var waitType: Int = 0,
+    public var waitId: Int = 0,
+    public var wakeupCount: Int = 0,
+    public var runClocks: SceKernelSysClock = SceKernelSysClock(),
+    public var intrPreemptCount: UInt = 0u,
+    public var threadPreemptCount: UInt = 0u,
+    public var releaseCount: UInt = 0u,
+)
+
+public data class SceKernelSemaOptParam(public var size: Int = 0)
+
+public data class SceKernelSemaInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var attr: UInt = 0u,
+    public var initCount: Int = 0,
+    public var currentCount: Int = 0,
+    public var maxCount: Int = 0,
+    public var numWaitThreads: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelSemaInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.attr != other.attr) return false
+        if (this.initCount != other.initCount) return false
+        if (this.currentCount != other.currentCount) return false
+        if (this.maxCount != other.maxCount) return false
+        if (this.numWaitThreads != other.numWaitThreads) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.attr.hashCode()
+        result = 31 * result + this.initCount.hashCode()
+        result = 31 * result + this.currentCount.hashCode()
+        result = 31 * result + this.maxCount.hashCode()
+        result = 31 * result + this.numWaitThreads.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelEventFlagInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var attr: UInt = 0u,
+    public var initPattern: UInt = 0u,
+    public var currentPattern: UInt = 0u,
+    public var numWaitThreads: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelEventFlagInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.attr != other.attr) return false
+        if (this.initPattern != other.initPattern) return false
+        if (this.currentPattern != other.currentPattern) return false
+        if (this.numWaitThreads != other.numWaitThreads) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.attr.hashCode()
+        result = 31 * result + this.initPattern.hashCode()
+        result = 31 * result + this.currentPattern.hashCode()
+        result = 31 * result + this.numWaitThreads.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelEventFlagOptParam(public var size: Int = 0)
+
+public data class SceKernelMbxOptParam(public var size: Int = 0)
+
+public data class SceKernelMbxInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var attr: UInt = 0u,
+    public var numWaitThreads: Int = 0,
+    public var numMessages: Int = 0,
+    public var firstMessage: COpaquePointer? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelMbxInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.attr != other.attr) return false
+        if (this.numWaitThreads != other.numWaitThreads) return false
+        if (this.numMessages != other.numMessages) return false
+        if (this.firstMessage != other.firstMessage) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.attr.hashCode()
+        result = 31 * result + this.numWaitThreads.hashCode()
+        result = 31 * result + this.numMessages.hashCode()
+        result = 31 * result + this.firstMessage.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelVTimerInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var active: Int = 0,
+    public var base: SceKernelSysClock = SceKernelSysClock(),
+    public var current: SceKernelSysClock = SceKernelSysClock(),
+    public var schedule: SceKernelSysClock = SceKernelSysClock(),
+    public var handler: SceKernelVTimerHandler = SceKernelVTimerHandler { _, _, _, _ -> 0u },
+    public var common: COpaquePointer? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelVTimerInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.active != other.active) return false
+        if (this.base != other.base) return false
+        if (this.current != other.current) return false
+        if (this.schedule != other.schedule) return false
+        if (this.handler != other.handler) return false
+        if (this.common != other.common) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.active.hashCode()
+        result = 31 * result + this.base.hashCode()
+        result = 31 * result + this.current.hashCode()
+        result = 31 * result + this.schedule.hashCode()
+        result = 31 * result + this.handler.hashCode()
+        result = 31 * result + this.common.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelThreadEventHandlerInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var threadId: SceUid = SceUid(),
+    public var mask: Int = 0,
+    public var handler: SceKernelThreadEventHandler = SceKernelThreadEventHandler { _, _, _ -> 0 },
+    public var common: COpaquePointer? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelThreadEventHandlerInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.threadId != other.threadId) return false
+        if (this.mask != other.mask) return false
+        if (this.handler != other.handler) return false
+        if (this.common != other.common) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.threadId.hashCode()
+        result = 31 * result + this.mask.hashCode()
+        result = 31 * result + this.handler.hashCode()
+        result = 31 * result + this.common.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelAlarmInfo(
+    public var size: Int = 0,
+    public var schedule: SceKernelSysClock = SceKernelSysClock(),
+    public var handler: SceKernelAlarmHandler = SceKernelAlarmHandler { _ -> 0u },
+    public var common: COpaquePointer? = null,
+)
+
+public data class SceKernelSystemStatus(
+    public var size: Int = 0,
+    public var status: UInt = 0u,
+    public var idleClocks: SceKernelSysClock = SceKernelSysClock(),
+    public var comesOutOfIdleCount: UInt = 0u,
+    public var threadSwitchCount: UInt = 0u,
+    public var vfpuSwitchCount: UInt = 0u,
+)
+
+public data class SceKernelMppInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var attr: UInt = 0u,
+    public var bufSize: Int = 0,
+    public var freeSize: Int = 0,
+    public var numSendWaitThreads: Int = 0,
+    public var numReceiveWaitThreads: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelMppInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.attr != other.attr) return false
+        if (this.bufSize != other.bufSize) return false
+        if (this.freeSize != other.freeSize) return false
+        if (this.numSendWaitThreads != other.numSendWaitThreads) return false
+        if (this.numReceiveWaitThreads != other.numReceiveWaitThreads) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.attr.hashCode()
+        result = 31 * result + this.bufSize.hashCode()
+        result = 31 * result + this.freeSize.hashCode()
+        result = 31 * result + this.numSendWaitThreads.hashCode()
+        result = 31 * result + this.numReceiveWaitThreads.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelVplOptParam(public var size: Int = 0)
+
+public data class SceKernelVplInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var attr: UInt = 0u,
+    public var poolSize: Int = 0,
+    public var freeSize: Int = 0,
+    public var numWaitThreads: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelVplInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.attr != other.attr) return false
+        if (this.poolSize != other.poolSize) return false
+        if (this.freeSize != other.freeSize) return false
+        if (this.numWaitThreads != other.numWaitThreads) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.attr.hashCode()
+        result = 31 * result + this.poolSize.hashCode()
+        result = 31 * result + this.freeSize.hashCode()
+        result = 31 * result + this.numWaitThreads.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelFplOptParam(public var size: Int = 0)
+
+public data class SceKernelFplInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var attr: UInt = 0u,
+    public var blockSize: Int = 0,
+    public var numBlocks: Int = 0,
+    public var freeBlocks: Int = 0,
+    public var numWaitThreads: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelFplInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.attr != other.attr) return false
+        if (this.blockSize != other.blockSize) return false
+        if (this.numBlocks != other.numBlocks) return false
+        if (this.freeBlocks != other.freeBlocks) return false
+        if (this.numWaitThreads != other.numWaitThreads) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.attr.hashCode()
+        result = 31 * result + this.blockSize.hashCode()
+        result = 31 * result + this.numBlocks.hashCode()
+        result = 31 * result + this.freeBlocks.hashCode()
+        result = 31 * result + this.numWaitThreads.hashCode()
+        return result
+    }
+}
+
+public data class SceKernelVTimerOptParam(public var size: Int = 0)
+
+public data class SceKernelCallbackInfo(
+    public var size: Int = 0,
+    public var name: UByteArray = UByteArray(32),
+    public var threadId: SceUid = SceUid(),
+    public var callback: SceKernelCallbackFunction = SceKernelCallbackFunction { _, _, _ -> 0 },
+    public var common: COpaquePointer? = null,
+    public var notifyCount: Int = 0,
+    public var notifyArg: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelCallbackInfo) return false
+        if (this.size != other.size) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.threadId != other.threadId) return false
+        if (this.callback != other.callback) return false
+        if (this.common != other.common) return false
+        if (this.notifyCount != other.notifyCount) return false
+        if (this.notifyArg != other.notifyArg) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.threadId.hashCode()
+        result = 31 * result + this.callback.hashCode()
+        result = 31 * result + this.common.hashCode()
+        result = 31 * result + this.notifyCount.hashCode()
+        result = 31 * result + this.notifyArg.hashCode()
+        return result
+    }
+}
+
+public data class UsbCamSetupStillParam(
+    public var size: Int = 0,
+    public var resolution: UsbCamResolution = UsbCamResolution.entries.first(),
+    public var jpegSize: Int = 0,
+    public var reverseFlags: Int = 0,
+    public var delay: UsbCamDelay = UsbCamDelay.entries.first(),
+    public var compLevel: Int = 0,
+)
+
+public data class UsbCamSetupStillExParam(
+    public var size: Int = 0,
+    public var unk: UInt = 0u,
+    public var resolution: UsbCamResolutionEx = UsbCamResolutionEx.entries.first(),
+    public var jpegSize: Int = 0,
+    public var compLevel: Int = 0,
+    public var unk2: UInt = 0u,
+    public var unk3: UInt = 0u,
+    public var flip: Int = 0,
+    public var mirror: Int = 0,
+    public var delay: UsbCamDelay = UsbCamDelay.entries.first(),
+    public var unk4: UIntArray = UIntArray(5),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UsbCamSetupStillExParam) return false
+        if (this.size != other.size) return false
+        if (this.unk != other.unk) return false
+        if (this.resolution != other.resolution) return false
+        if (this.jpegSize != other.jpegSize) return false
+        if (this.compLevel != other.compLevel) return false
+        if (this.unk2 != other.unk2) return false
+        if (this.unk3 != other.unk3) return false
+        if (this.flip != other.flip) return false
+        if (this.mirror != other.mirror) return false
+        if (this.delay != other.delay) return false
+        if (!this.unk4.contentEquals(other.unk4)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.unk.hashCode()
+        result = 31 * result + this.resolution.hashCode()
+        result = 31 * result + this.jpegSize.hashCode()
+        result = 31 * result + this.compLevel.hashCode()
+        result = 31 * result + this.unk2.hashCode()
+        result = 31 * result + this.unk3.hashCode()
+        result = 31 * result + this.flip.hashCode()
+        result = 31 * result + this.mirror.hashCode()
+        result = 31 * result + this.delay.hashCode()
+        result = 31 * result + this.unk4.contentHashCode()
+        return result
+    }
+}
+
+public data class UsbCamSetupVideoParam(
+    public var size: Int = 0,
+    public var resolution: UsbCamResolution = UsbCamResolution.entries.first(),
+    public var framerate: UsbCamFrameRate = UsbCamFrameRate.entries.first(),
+    public var whiteBalance: UsbCamWb = UsbCamWb.entries.first(),
+    public var saturation: Int = 0,
+    public var brightness: Int = 0,
+    public var contrast: Int = 0,
+    public var sharpness: Int = 0,
+    public var effectMode: UsbCamEffectMode = UsbCamEffectMode.entries.first(),
+    public var frameSize: Int = 0,
+    public var unk: UInt = 0u,
+    public var evlEvel: UsbCamEvLevel = UsbCamEvLevel.entries.first(),
+)
+
+public class UsbCamSetupVideoExParam(
+    public var size: Int = 0,
+    public var unk: UInt = 0u,
+    public var resolution: UsbCamResolutionEx = UsbCamResolutionEx.entries.first(),
+    public var framerate: UsbCamFrameRate = UsbCamFrameRate.entries.first(),
+    public var unk2: UInt = 0u,
+    public var unk3: UInt = 0u,
+    public var whiteBalance: UsbCamWb = UsbCamWb.entries.first(),
+    public var saturation: Int = 0,
+    public var brightness: Int = 0,
+    public var contrast: Int = 0,
+    public var sharpness: Int = 0,
+    public var unk4: UInt = 0u,
+    public var unk5: UInt = 0u,
+    public var unk6: UIntArray = UIntArray(3),
+    public var effectMode: UsbCamEffectMode = UsbCamEffectMode.entries.first(),
+    public var unk7: UInt = 0u,
+    public var unk8: UInt = 0u,
+    public var unk9: UInt = 0u,
+    public var unk10: UInt = 0u,
+    public var unk11: UInt = 0u,
+    public var frameSize: Int = 0,
+    public var unk12: UInt = 0u,
+    public var evLevel: UsbCamEvLevel = UsbCamEvLevel.entries.first(),
+)
+
+public data class ScePspDateTime(
+    public var year: UShort = 0u,
+    public var month: UShort = 0u,
+    public var day: UShort = 0u,
+    public var hour: UShort = 0u,
+    public var minutes: UShort = 0u,
+    public var seconds: UShort = 0u,
+    public var microseconds: UInt = 0u,
+)
+
+public data class SceIoStat(
+    public var stMode: Int = 0,
+    public var stAttr: Int = 0,
+    public var stSize: Long = 0L,
+    public var stCtime: ScePspDateTime = ScePspDateTime(),
+    public var stAtime: ScePspDateTime = ScePspDateTime(),
+    public var stMtime: ScePspDateTime = ScePspDateTime(),
+    public var stPrivate: UIntArray = UIntArray(6),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceIoStat) return false
+        if (this.stMode != other.stMode) return false
+        if (this.stAttr != other.stAttr) return false
+        if (this.stSize != other.stSize) return false
+        if (this.stCtime != other.stCtime) return false
+        if (this.stAtime != other.stAtime) return false
+        if (this.stMtime != other.stMtime) return false
+        if (!this.stPrivate.contentEquals(other.stPrivate)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.stMode.hashCode()
+        result = 31 * result + this.stAttr.hashCode()
+        result = 31 * result + this.stSize.hashCode()
+        result = 31 * result + this.stCtime.hashCode()
+        result = 31 * result + this.stAtime.hashCode()
+        result = 31 * result + this.stMtime.hashCode()
+        result = 31 * result + this.stPrivate.contentHashCode()
+        return result
+    }
+}
+
+public data class UmdInfo(public var size: UInt = 0u, public var type: UmdType = UmdType.entries.first())
+
+public data class SceMpegRingbuffer(
+    public var packets: Int = 0,
+    public var unk0: UInt = 0u,
+    public var unk1: UInt = 0u,
+    public var unk2: UInt = 0u,
+    public var unk3: UInt = 0u,
+    public var data: COpaquePointer? = null,
+    public var callback: SceMpegRingbufferCb = null,
+    public var cbParam: COpaquePointer? = null,
+    public var unk4: UInt = 0u,
+    public var unk5: UInt = 0u,
+    public var sceMpeg: COpaquePointer? = null,
+)
+
+public data class SceMpegAu(
+    public var ptsMsb: UInt = 0u,
+    public var pts: UInt = 0u,
+    public var dtsMsb: UInt = 0u,
+    public var dts: UInt = 0u,
+    public var esBuffer: UInt = 0u,
+    public var auSize: UInt = 0u,
+)
+
+public data class SceMpegAvcMode(public var unk0: Int = 0, public var pixelFormat: DisplayPixelFormat = DisplayPixelFormat.entries.first())
+
+public data class SceMpegLLI(
+    public var src: COpaquePointer? = null,
+    public var dst: COpaquePointer? = null,
+    public var next: COpaquePointer? = null,
+    public var size: Int = 0,
+)
+
+public data class SceMpegYCrCbBuffer(
+    public var frameBufferHeight16: Int = 0,
+    public var frameBufferWidth16: Int = 0,
+    public var unknown: Int = 0,
+    public var unknown2: Int = 0,
+    public var yBuffer: COpaquePointer? = null,
+    public var yBuffer2: COpaquePointer? = null,
+    public var crBuffer: COpaquePointer? = null,
+    public var cbBuffer: COpaquePointer? = null,
+    public var crBuffer2: COpaquePointer? = null,
+    public var cbBuffer2: COpaquePointer? = null,
+    public var frameHeight: Int = 0,
+    public var frameWidth: Int = 0,
+    public var frameBufferWidth: Int = 0,
+    public var unknown3: IntArray = IntArray(11),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceMpegYCrCbBuffer) return false
+        if (this.frameBufferHeight16 != other.frameBufferHeight16) return false
+        if (this.frameBufferWidth16 != other.frameBufferWidth16) return false
+        if (this.unknown != other.unknown) return false
+        if (this.unknown2 != other.unknown2) return false
+        if (this.yBuffer != other.yBuffer) return false
+        if (this.yBuffer2 != other.yBuffer2) return false
+        if (this.crBuffer != other.crBuffer) return false
+        if (this.cbBuffer != other.cbBuffer) return false
+        if (this.crBuffer2 != other.crBuffer2) return false
+        if (this.cbBuffer2 != other.cbBuffer2) return false
+        if (this.frameHeight != other.frameHeight) return false
+        if (this.frameWidth != other.frameWidth) return false
+        if (this.frameBufferWidth != other.frameBufferWidth) return false
+        if (!this.unknown3.contentEquals(other.unknown3)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.frameBufferHeight16.hashCode()
+        result = 31 * result + this.frameBufferWidth16.hashCode()
+        result = 31 * result + this.unknown.hashCode()
+        result = 31 * result + this.unknown2.hashCode()
+        result = 31 * result + this.yBuffer.hashCode()
+        result = 31 * result + this.yBuffer2.hashCode()
+        result = 31 * result + this.crBuffer.hashCode()
+        result = 31 * result + this.cbBuffer.hashCode()
+        result = 31 * result + this.crBuffer2.hashCode()
+        result = 31 * result + this.cbBuffer2.hashCode()
+        result = 31 * result + this.frameHeight.hashCode()
+        result = 31 * result + this.frameWidth.hashCode()
+        result = 31 * result + this.frameBufferWidth.hashCode()
+        result = 31 * result + this.unknown3.contentHashCode()
+        return result
+    }
+}
+
+public data class ScePspSRect(
+    public var x: Short = 0,
+    public var y: Short = 0,
+    public var w: Short = 0,
+    public var h: Short = 0,
+)
+
+public data class ScePspIRect(
+    public var x: Int = 0,
+    public var y: Int = 0,
+    public var w: Int = 0,
+    public var h: Int = 0,
+)
+
+public data class ScePspL64Rect(
+    public var x: ULong = 0uL,
+    public var y: ULong = 0uL,
+    public var w: ULong = 0uL,
+    public var h: ULong = 0uL,
+)
+
+public data class ScePspSVector2(public var x: Short = 0, public var y: Short = 0)
+
+public data class ScePspIVector2(public var x: Int = 0, public var y: Int = 0)
+
+public data class ScePspL64Vector2(public var x: ULong = 0uL, public var y: ULong = 0uL)
+
+public data class ScePspSVector3(
+    public var x: Short = 0,
+    public var y: Short = 0,
+    public var z: Short = 0,
+)
+
+public data class ScePspIVector3(
+    public var x: Int = 0,
+    public var y: Int = 0,
+    public var z: Int = 0,
+)
+
+public data class ScePspL64Vector3(
+    public var x: ULong = 0uL,
+    public var y: ULong = 0uL,
+    public var z: ULong = 0uL,
+)
+
+public data class ScePspSVector4(
+    public var x: Short = 0,
+    public var y: Short = 0,
+    public var z: Short = 0,
+    public var w: Short = 0,
+)
+
+public data class ScePspIVector4(
+    public var x: Int = 0,
+    public var y: Int = 0,
+    public var z: Int = 0,
+    public var w: Int = 0,
+)
+
+public data class ScePspL64Vector4(
+    public var x: ULong = 0uL,
+    public var y: ULong = 0uL,
+    public var z: ULong = 0uL,
+    public var w: ULong = 0uL,
+)
+
+public data class ScePspIMatrix2(public var x: ScePspIVector2 = ScePspIVector2(), public var y: ScePspIVector2 = ScePspIVector2())
+
+public data class ScePspIMatrix3(
+    public var x: ScePspIVector3 = ScePspIVector3(),
+    public var y: ScePspIVector3 = ScePspIVector3(),
+    public var z: ScePspIVector3 = ScePspIVector3(),
+)
+
+public data class ScePspIMatrix4(
+    public var x: ScePspIVector4 = ScePspIVector4(),
+    public var y: ScePspIVector4 = ScePspIVector4(),
+    public var z: ScePspIVector4 = ScePspIVector4(),
+    public var w: ScePspIVector4 = ScePspIVector4(),
+)
+
+public data class ScePspIMatrix4Unaligned(
+    public var x: ScePspIVector4 = ScePspIVector4(),
+    public var y: ScePspIVector4 = ScePspIVector4(),
+    public var z: ScePspIVector4 = ScePspIVector4(),
+    public var w: ScePspIVector4 = ScePspIVector4(),
+)
+
+public data class SceMp3InitArg(
+    public var mp3StreamStart: UInt = 0u,
+    public var unk1: UInt = 0u,
+    public var mp3StreamEnd: UInt = 0u,
+    public var unk2: UInt = 0u,
+    public var mp3Buf: COpaquePointer? = null,
+    public var mp3BufSize: Int = 0,
+    public var pcmBuf: COpaquePointer? = null,
+    public var pcmBufSize: Int = 0,
+)
+
+public data class OpenPSID(public var data: UByteArray = UByteArray(16)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is OpenPSID) return false
+        if (!this.data.contentEquals(other.data)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.data.contentHashCode()
+    }
+}
+
+public data class UtilityDialogCommon(
+    public var size: UInt = 0u,
+    public var language: SystemParamLanguage = SystemParamLanguage.entries.first(),
+    public var buttonAccept: UtilityDialogButtonAccept = UtilityDialogButtonAccept.entries.first(),
+    public var graphicsThread: Int = 0,
+    public var accessThread: Int = 0,
+    public var fontThread: Int = 0,
+    public var soundThread: Int = 0,
+    public var result: Int = 0,
+    public var reserved: IntArray = IntArray(4),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UtilityDialogCommon) return false
+        if (this.size != other.size) return false
+        if (this.language != other.language) return false
+        if (this.buttonAccept != other.buttonAccept) return false
+        if (this.graphicsThread != other.graphicsThread) return false
+        if (this.accessThread != other.accessThread) return false
+        if (this.fontThread != other.fontThread) return false
+        if (this.soundThread != other.soundThread) return false
+        if (this.result != other.result) return false
+        if (!this.reserved.contentEquals(other.reserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.size.hashCode()
+        result = 31 * result + this.language.hashCode()
+        result = 31 * result + this.buttonAccept.hashCode()
+        result = 31 * result + this.graphicsThread.hashCode()
+        result = 31 * result + this.accessThread.hashCode()
+        result = 31 * result + this.fontThread.hashCode()
+        result = 31 * result + this.soundThread.hashCode()
+        result = 31 * result + this.result.hashCode()
+        result = 31 * result + this.reserved.contentHashCode()
+        return result
+    }
+}
+
+public data class UtilityNetconfAdhoc(public var name: UByteArray = UByteArray(8), public var timeout: UInt = 0u) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UtilityNetconfAdhoc) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.timeout != other.timeout) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.name.contentHashCode()
+        result = 31 * result + this.timeout.hashCode()
+        return result
+    }
+}
+
+public data class UtilityNetconfData(
+    public var base: UtilityDialogCommon = UtilityDialogCommon(),
+    public var action: UtilityNetconfAction = UtilityNetconfAction.entries.first(),
+    public var adhocparam: UtilityNetconfAdhoc? = null,
+    public var hotspot: Int = 0,
+    public var hotspotConnected: Int = 0,
+    public var wifisp: Int = 0,
+)
+
+public data class UtilitySavedataFileData(
+    public var buf: COpaquePointer? = null,
+    public var bufSize: Int = 0,
+    public var size: Int = 0,
+    public var unknown: Int = 0,
+)
+
+public data class UtilitySavedataListSaveNewData(public var icon0: UtilitySavedataFileData = UtilitySavedataFileData(), public var title: COpaquePointer? = null)
+
+public data class UtilityGameSharingParams(
+    public var base: UtilityDialogCommon = UtilityDialogCommon(),
+    public var unknown1: Int = 0,
+    public var unknown2: Int = 0,
+    public var name: UByteArray = UByteArray(8),
+    public var unknown3: Int = 0,
+    public var unknown4: Int = 0,
+    public var unknown5: Int = 0,
+    public var result: Int = 0,
+    public var filepath: COpaquePointer? = null,
+    public var mode: UtilityGameSharingMode = UtilityGameSharingMode.entries.first(),
+    public var datatype: UtilityGameSharingDataType = UtilityGameSharingDataType.entries.first(),
+    public var data: COpaquePointer? = null,
+    public var datasize: UInt = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UtilityGameSharingParams) return false
+        if (this.base != other.base) return false
+        if (this.unknown1 != other.unknown1) return false
+        if (this.unknown2 != other.unknown2) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.unknown3 != other.unknown3) return false
+        if (this.unknown4 != other.unknown4) return false
+        if (this.unknown5 != other.unknown5) return false
+        if (this.result != other.result) return false
+        if (this.filepath != other.filepath) return false
+        if (this.mode != other.mode) return false
+        if (this.datatype != other.datatype) return false
+        if (this.data != other.data) return false
+        if (this.datasize != other.datasize) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.base.hashCode()
+        result = 31 * result + this.unknown1.hashCode()
+        result = 31 * result + this.unknown2.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.unknown3.hashCode()
+        result = 31 * result + this.unknown4.hashCode()
+        result = 31 * result + this.unknown5.hashCode()
+        result = 31 * result + this.result.hashCode()
+        result = 31 * result + this.filepath.hashCode()
+        result = 31 * result + this.mode.hashCode()
+        result = 31 * result + this.datatype.hashCode()
+        result = 31 * result + this.data.hashCode()
+        result = 31 * result + this.datasize.hashCode()
+        return result
+    }
+}
+
+public class UtilityHtmlViewerParam(
+    public var base: UtilityDialogCommon = UtilityDialogCommon(),
+    public var memaddr: COpaquePointer? = null,
+    public var memsize: UInt = 0u,
+    public var unknown1: Int = 0,
+    public var unknown2: Int = 0,
+    public var initialurl: COpaquePointer? = null,
+    public var numtabs: UInt = 0u,
+    public var interfacemode: UtilityHtmlViewerInterfaceMode = UtilityHtmlViewerInterfaceMode.entries.first(),
+    public var options: Int = 0,
+    public var dldirname: COpaquePointer? = null,
+    public var dlfilename: COpaquePointer? = null,
+    public var uldirname: COpaquePointer? = null,
+    public var ulfilename: COpaquePointer? = null,
+    public var cookiemode: UtilityHtmlViewerCookieMode = UtilityHtmlViewerCookieMode.entries.first(),
+    public var unknown3: UInt = 0u,
+    public var homeurl: COpaquePointer? = null,
+    public var textsize: UtilityHtmlViewerTextSize = UtilityHtmlViewerTextSize.entries.first(),
+    public var displaymode: UtilityHtmlViewerDisplayMode = UtilityHtmlViewerDisplayMode.entries.first(),
+    public var connectmode: UtilityHtmlViewerConnectMode = UtilityHtmlViewerConnectMode.entries.first(),
+    public var disconnectmode: UtilityHtmlViewerDisconnectMode = UtilityHtmlViewerDisconnectMode.entries.first(),
+    public var memused: UInt = 0u,
+    public var unknown4: IntArray = IntArray(10),
+)
+
+public data class SceUtilityOskData(
+    public var unk00: Int = 0,
+    public var unk04: Int = 0,
+    public var language: SceUtilityOskInputLanguage = SceUtilityOskInputLanguage.entries.first(),
+    public var unk12: Int = 0,
+    public var inputtype: SceUtilityOskInputType = SceUtilityOskInputType.entries.first(),
+    public var lines: Int = 0,
+    public var unk24: Int = 0,
+    public var desc: UShort? = null,
+    public var intext: UShort? = null,
+    public var outtextlength: Int = 0,
+    public var outtext: UShort? = null,
+    public var result: SceUtilityOskResult = SceUtilityOskResult.entries.first(),
+    public var outtextlimit: Int = 0,
+)
+
+public data class SceUtilityOskParams(
+    public var base: UtilityDialogCommon = UtilityDialogCommon(),
+    public var datacount: Int = 0,
+    public var data: SceUtilityOskData? = null,
+    public var state: SceUtilityOskState = SceUtilityOskState.entries.first(),
+    public var unk60: Int = 0,
+)
+
+public data class SceNetMallocStat(
+    public var pool: Int = 0,
+    public var maximum: Int = 0,
+    public var free: Int = 0,
+)
+
+public data class SceNetAdhocctlAdhocId(
+    public var unknown: Int = 0,
+    public var adhocId: UByteArray = UByteArray(9),
+    public var unk: UByteArray = UByteArray(3),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceNetAdhocctlAdhocId) return false
+        if (this.unknown != other.unknown) return false
+        if (!this.adhocId.contentEquals(other.adhocId)) return false
+        if (!this.unk.contentEquals(other.unk)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.unknown.hashCode()
+        result = 31 * result + this.adhocId.contentHashCode()
+        result = 31 * result + this.unk.contentHashCode()
+        return result
+    }
+}
+
+public data class SceNetAdhocctlScanInfo(
+    public var next: SceNetAdhocctlScanInfo? = null,
+    public var channel: Int = 0,
+    public var name: UByteArray = UByteArray(8),
+    public var bssid: UByteArray = UByteArray(6),
+    public var unknown: UByteArray = UByteArray(2),
+    public var unknown2: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceNetAdhocctlScanInfo) return false
+        if (this.next != other.next) return false
+        if (this.channel != other.channel) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (!this.bssid.contentEquals(other.bssid)) return false
+        if (!this.unknown.contentEquals(other.unknown)) return false
+        if (this.unknown2 != other.unknown2) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.next.hashCode()
+        result = 31 * result + this.channel.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.bssid.contentHashCode()
+        result = 31 * result + this.unknown.contentHashCode()
+        result = 31 * result + this.unknown2.hashCode()
+        return result
+    }
+}
+
+public data class SceNetAdhocctlGameModeInfo(public var count: Int = 0, public var macs: List<UByteArray> = List(16) { UByteArray(0) })
+
+public data class SceNetAdhocPtpStat(
+    public var next: SceNetAdhocPtpStat? = null,
+    public var ptpId: Int = 0,
+    public var mac: UByteArray = UByteArray(6),
+    public var peermac: UByteArray = UByteArray(6),
+    public var port: UShort = 0u,
+    public var peerport: UShort = 0u,
+    public var sentData: UInt = 0u,
+    public var rcvdData: UInt = 0u,
+    public var state: ScePspnetAdhocPtpState = ScePspnetAdhocPtpState.entries.first(),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceNetAdhocPtpStat) return false
+        if (this.next != other.next) return false
+        if (this.ptpId != other.ptpId) return false
+        if (!this.mac.contentEquals(other.mac)) return false
+        if (!this.peermac.contentEquals(other.peermac)) return false
+        if (this.port != other.port) return false
+        if (this.peerport != other.peerport) return false
+        if (this.sentData != other.sentData) return false
+        if (this.rcvdData != other.rcvdData) return false
+        if (this.state != other.state) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.next.hashCode()
+        result = 31 * result + this.ptpId.hashCode()
+        result = 31 * result + this.mac.contentHashCode()
+        result = 31 * result + this.peermac.contentHashCode()
+        result = 31 * result + this.port.hashCode()
+        result = 31 * result + this.peerport.hashCode()
+        result = 31 * result + this.sentData.hashCode()
+        result = 31 * result + this.rcvdData.hashCode()
+        result = 31 * result + this.state.hashCode()
+        return result
+    }
+}
+
+public data class SceNetAdhocPdpStat(
+    public var next: SceNetAdhocPdpStat? = null,
+    public var pdpId: Int = 0,
+    public var mac: UByteArray = UByteArray(6),
+    public var port: UShort = 0u,
+    public var rcvdData: UInt = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceNetAdhocPdpStat) return false
+        if (this.next != other.next) return false
+        if (this.pdpId != other.pdpId) return false
+        if (!this.mac.contentEquals(other.mac)) return false
+        if (this.port != other.port) return false
+        if (this.rcvdData != other.rcvdData) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.next.hashCode()
+        result = 31 * result + this.pdpId.hashCode()
+        result = 31 * result + this.mac.contentHashCode()
+        result = 31 * result + this.port.hashCode()
+        result = 31 * result + this.rcvdData.hashCode()
+        return result
+    }
+}
+
+public data class AdhocPoolStat(
+    public var size: Int = 0,
+    public var maxsize: Int = 0,
+    public var freesize: Int = 0,
+)
+
+public data class GeContext(public var context: UIntArray = UIntArray(512)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is GeContext) return false
+        if (!this.context.contentEquals(other.context)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.context.contentHashCode()
+    }
+}
+
+public data class SceKernelUtilsSha1Context(
+    public var h: UIntArray = UIntArray(5),
+    public var usRemains: UShort = 0u,
+    public var usComputed: UShort = 0u,
+    public var ullTotalLen: ULong = 0uL,
+    public var buf: UByteArray = UByteArray(64),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelUtilsSha1Context) return false
+        if (!this.h.contentEquals(other.h)) return false
+        if (this.usRemains != other.usRemains) return false
+        if (this.usComputed != other.usComputed) return false
+        if (this.ullTotalLen != other.ullTotalLen) return false
+        if (!this.buf.contentEquals(other.buf)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.h.contentHashCode()
+        result = 31 * result + this.usRemains.hashCode()
+        result = 31 * result + this.usComputed.hashCode()
+        result = 31 * result + this.ullTotalLen.hashCode()
+        result = 31 * result + this.buf.contentHashCode()
+        return result
+    }
+}
+
+public data class SceKernelUtilsMt19937Context(public var count: UInt = 0u, public var state: UIntArray = UIntArray(624)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelUtilsMt19937Context) return false
+        if (this.count != other.count) return false
+        if (!this.state.contentEquals(other.state)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.count.hashCode()
+        result = 31 * result + this.state.contentHashCode()
+        return result
+    }
+}
+
+public data class SceKernelUtilsMd5Context(
+    public var h: UIntArray = UIntArray(4),
+    public var pad: UInt = 0u,
+    public var usRemains: UShort = 0u,
+    public var usComputed: UShort = 0u,
+    public var ullTotalLen: ULong = 0uL,
+    public var buf: UByteArray = UByteArray(64),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceKernelUtilsMd5Context) return false
+        if (!this.h.contentEquals(other.h)) return false
+        if (this.pad != other.pad) return false
+        if (this.usRemains != other.usRemains) return false
+        if (this.usComputed != other.usComputed) return false
+        if (this.ullTotalLen != other.ullTotalLen) return false
+        if (!this.buf.contentEquals(other.buf)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.h.contentHashCode()
+        result = 31 * result + this.pad.hashCode()
+        result = 31 * result + this.usRemains.hashCode()
+        result = 31 * result + this.usComputed.hashCode()
+        result = 31 * result + this.ullTotalLen.hashCode()
+        result = 31 * result + this.buf.contentHashCode()
+        return result
+    }
+}
+
+public data class SceIoDirent(
+    public var dStat: SceIoStat = SceIoStat(),
+    public var dName: UByteArray = UByteArray(256),
+    public var dPrivate: COpaquePointer? = null,
+    public var dummy: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceIoDirent) return false
+        if (this.dStat != other.dStat) return false
+        if (!this.dName.contentEquals(other.dName)) return false
+        if (this.dPrivate != other.dPrivate) return false
+        if (this.dummy != other.dummy) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dStat.hashCode()
+        result = 31 * result + this.dName.contentHashCode()
+        result = 31 * result + this.dPrivate.hashCode()
+        result = 31 * result + this.dummy.hashCode()
+        return result
+    }
+}
+
+public data class ScePspFRect(
+    public var x: Float = 0.0f,
+    public var y: Float = 0.0f,
+    public var w: Float = 0.0f,
+    public var h: Float = 0.0f,
+)
+
+public data class ScePspFVector3(
+    public var x: Float = 0.0f,
+    public var y: Float = 0.0f,
+    public var z: Float = 0.0f,
+)
+
+public data class ScePspFVector4(
+    public var x: Float = 0.0f,
+    public var y: Float = 0.0f,
+    public var z: Float = 0.0f,
+    public var w: Float = 0.0f,
+)
+
+public data class ScePspFVector4Unaligned(
+    public var x: Float = 0.0f,
+    public var y: Float = 0.0f,
+    public var z: Float = 0.0f,
+    public var w: Float = 0.0f,
+)
+
+public data class ScePspFVector2(public var x: Float = 0.0f, public var y: Float = 0.0f)
+
+public data class ScePspFMatrix2(public var x: ScePspFVector2 = ScePspFVector2(), public var y: ScePspFVector2 = ScePspFVector2())
+
+public data class ScePspFMatrix3(
+    public var x: ScePspFVector3 = ScePspFVector3(),
+    public var y: ScePspFVector3 = ScePspFVector3(),
+    public var z: ScePspFVector3 = ScePspFVector3(),
+)
+
+public data class ScePspFMatrix4(
+    public var x: ScePspFVector4 = ScePspFVector4(),
+    public var y: ScePspFVector4 = ScePspFVector4(),
+    public var z: ScePspFVector4 = ScePspFVector4(),
+    public var w: ScePspFVector4 = ScePspFVector4(),
+)
+
+public data class ScePspFMatrix4Unaligned(
+    public var x: ScePspFVector4 = ScePspFVector4(),
+    public var y: ScePspFVector4 = ScePspFVector4(),
+    public var z: ScePspFVector4 = ScePspFVector4(),
+    public var w: ScePspFVector4 = ScePspFVector4(),
+)
+
+public data class ScePspVector3(
+    public var fv: ScePspFVector3 = ScePspFVector3(),
+    public var iv: ScePspIVector3 = ScePspIVector3(),
+    public var f: FloatArray = FloatArray(3),
+    public var i: IntArray = IntArray(3),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ScePspVector3) return false
+        if (this.fv != other.fv) return false
+        if (this.iv != other.iv) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (!this.i.contentEquals(other.i)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fv.hashCode()
+        result = 31 * result + this.iv.hashCode()
+        result = 31 * result + this.f.contentHashCode()
+        result = 31 * result + this.i.contentHashCode()
+        return result
+    }
+}
+
+public data class ScePspVector4(
+    public var fv: ScePspFVector4 = ScePspFVector4(),
+    public var iv: ScePspIVector4 = ScePspIVector4(),
+    public var qw: U128 = U128(),
+    public var f: FloatArray = FloatArray(4),
+    public var i: IntArray = IntArray(4),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ScePspVector4) return false
+        if (this.fv != other.fv) return false
+        if (this.iv != other.iv) return false
+        if (this.qw != other.qw) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (!this.i.contentEquals(other.i)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fv.hashCode()
+        result = 31 * result + this.iv.hashCode()
+        result = 31 * result + this.qw.hashCode()
+        result = 31 * result + this.f.contentHashCode()
+        result = 31 * result + this.i.contentHashCode()
+        return result
+    }
+}
+
+public data class ScePspMatrix2(
+    public var fm: ScePspFMatrix2 = ScePspFMatrix2(),
+    public var im: ScePspIMatrix2 = ScePspIMatrix2(),
+    public var fv: List<ScePspFVector2> = List(2) { ScePspFVector2() },
+    public var iv: List<ScePspIVector2> = List(2) { ScePspIVector2() },
+    public var v: List<ScePspVector2> = List(2) { ScePspVector2() },
+    public var f: List<FloatArray> = List(2) { FloatArray(0) },
+    public var i: List<IntArray> = List(2) { IntArray(0) },
+)
+
+public data class ScePspMatrix3(
+    public var fm: ScePspFMatrix3 = ScePspFMatrix3(),
+    public var im: ScePspIMatrix3 = ScePspIMatrix3(),
+    public var fv: List<ScePspFVector3> = List(3) { ScePspFVector3() },
+    public var iv: List<ScePspIVector3> = List(3) { ScePspIVector3() },
+    public var v: List<ScePspVector3> = List(3) { ScePspVector3() },
+    public var f: List<FloatArray> = List(3) { FloatArray(0) },
+    public var i: List<IntArray> = List(3) { IntArray(0) },
+)
+
+public data class ScePspVector2(
+    public var fv: ScePspFVector2 = ScePspFVector2(),
+    public var iv: ScePspIVector2 = ScePspIVector2(),
+    public var f: FloatArray = FloatArray(2),
+    public var i: IntArray = IntArray(2),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ScePspVector2) return false
+        if (this.fv != other.fv) return false
+        if (this.iv != other.iv) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (!this.i.contentEquals(other.i)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fv.hashCode()
+        result = 31 * result + this.iv.hashCode()
+        result = 31 * result + this.f.contentHashCode()
+        result = 31 * result + this.i.contentHashCode()
+        return result
+    }
+}
+
+public data class ScePspMatrix4(
+    public var fm: ScePspFMatrix4 = ScePspFMatrix4(),
+    public var im: ScePspIMatrix4 = ScePspIMatrix4(),
+    public var fv: List<ScePspFVector4> = List(4) { ScePspFVector4() },
+    public var iv: List<ScePspIVector4> = List(4) { ScePspIVector4() },
+    public var v: List<ScePspVector4> = List(4) { ScePspVector4() },
+    public var f: List<FloatArray> = List(4) { FloatArray(0) },
+    public var i: List<IntArray> = List(4) { IntArray(0) },
+)
+
+public data class Key(
+    public var keyType: KeyType = KeyType.entries.first(),
+    public var name: UByteArray = UByteArray(256),
+    public var nameLen: UInt = 0u,
+    public var unk2: UInt = 0u,
+    public var unk3: UInt = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Key) return false
+        if (this.keyType != other.keyType) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.nameLen != other.nameLen) return false
+        if (this.unk2 != other.unk2) return false
+        if (this.unk3 != other.unk3) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.keyType.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.nameLen.hashCode()
+        result = 31 * result + this.unk2.hashCode()
+        result = 31 * result + this.unk3.hashCode()
+        return result
+    }
+}
+
+public data class UtilityMsgDialogParams(
+    public var base: UtilityDialogCommon = UtilityDialogCommon(),
+    public var unknown: Int = 0,
+    public var mode: UtilityMsgDialogMode = UtilityMsgDialogMode.entries.first(),
+    public var errorValue: UInt = 0u,
+    public var message: UByteArray = UByteArray(512),
+    public var options: Int = 0,
+    public var buttonPressed: UtilityMsgDialogPressed = UtilityMsgDialogPressed.entries.first(),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UtilityMsgDialogParams) return false
+        if (this.base != other.base) return false
+        if (this.unknown != other.unknown) return false
+        if (this.mode != other.mode) return false
+        if (this.errorValue != other.errorValue) return false
+        if (!this.message.contentEquals(other.message)) return false
+        if (this.options != other.options) return false
+        if (this.buttonPressed != other.buttonPressed) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.base.hashCode()
+        result = 31 * result + this.unknown.hashCode()
+        result = 31 * result + this.mode.hashCode()
+        result = 31 * result + this.errorValue.hashCode()
+        result = 31 * result + this.message.contentHashCode()
+        result = 31 * result + this.options.hashCode()
+        result = 31 * result + this.buttonPressed.hashCode()
+        return result
+    }
+}
+
+public data class UtilityNetData(public var asUint: UInt = 0u, public var asString: UByteArray = UByteArray(128)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UtilityNetData) return false
+        if (this.asUint != other.asUint) return false
+        if (!this.asString.contentEquals(other.asString)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.asUint.hashCode()
+        result = 31 * result + this.asString.contentHashCode()
+        return result
+    }
+}
+
+public data class UtilitySavedataSFOParam(
+    public var title: UByteArray = UByteArray(128),
+    public var savedataTitle: UByteArray = UByteArray(128),
+    public var detail: UByteArray = UByteArray(1024),
+    public var parentalLevel: UByte = 0u,
+    public var unknown: UByteArray = UByteArray(3),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UtilitySavedataSFOParam) return false
+        if (!this.title.contentEquals(other.title)) return false
+        if (!this.savedataTitle.contentEquals(other.savedataTitle)) return false
+        if (!this.detail.contentEquals(other.detail)) return false
+        if (this.parentalLevel != other.parentalLevel) return false
+        if (!this.unknown.contentEquals(other.unknown)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.title.contentHashCode()
+        result = 31 * result + this.savedataTitle.contentHashCode()
+        result = 31 * result + this.detail.contentHashCode()
+        result = 31 * result + this.parentalLevel.hashCode()
+        result = 31 * result + this.unknown.contentHashCode()
+        return result
+    }
+}
+
+public class SceUtilitySavedataParam(
+    public var base: UtilityDialogCommon = UtilityDialogCommon(),
+    public var mode: UtilitySavedataMode = UtilitySavedataMode.entries.first(),
+    public var unknown1: Int = 0,
+    public var overwrite: Int = 0,
+    public var gameName: UByteArray = UByteArray(13),
+    public var reserved: UByteArray = UByteArray(3),
+    public var saveName: UByteArray = UByteArray(20),
+    public var saveNameList: UByteArray? = null,
+    public var fileName: UByteArray = UByteArray(13),
+    public var reserved1: UByteArray = UByteArray(3),
+    public var dataBuf: COpaquePointer? = null,
+    public var dataBufSize: Int = 0,
+    public var dataSize: Int = 0,
+    public var sfoParam: UtilitySavedataSFOParam = UtilitySavedataSFOParam(),
+    public var icon0FileData: UtilitySavedataFileData = UtilitySavedataFileData(),
+    public var icon1FileData: UtilitySavedataFileData = UtilitySavedataFileData(),
+    public var pic1FileData: UtilitySavedataFileData = UtilitySavedataFileData(),
+    public var snd0FileData: UtilitySavedataFileData = UtilitySavedataFileData(),
+    public var newData: UtilitySavedataListSaveNewData? = null,
+    public var focus: UtilitySavedataFocus = UtilitySavedataFocus.entries.first(),
+    public var unknown2: IntArray = IntArray(4),
+    public var key: UByteArray = UByteArray(16),
+    public var unknown3: UByteArray = UByteArray(20),
+)
+
+public data class SceNetAdhocctlPeerInfo(
+    public var next: SceNetAdhocctlPeerInfo? = null,
+    public var nickname: UByteArray = UByteArray(128),
+    public var mac: UByteArray = UByteArray(6),
+    public var unknown: UByteArray = UByteArray(6),
+    public var timestamp: UInt = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceNetAdhocctlPeerInfo) return false
+        if (this.next != other.next) return false
+        if (!this.nickname.contentEquals(other.nickname)) return false
+        if (!this.mac.contentEquals(other.mac)) return false
+        if (!this.unknown.contentEquals(other.unknown)) return false
+        if (this.timestamp != other.timestamp) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.next.hashCode()
+        result = 31 * result + this.nickname.contentHashCode()
+        result = 31 * result + this.mac.contentHashCode()
+        result = 31 * result + this.unknown.contentHashCode()
+        result = 31 * result + this.timestamp.hashCode()
+        return result
+    }
+}
+
+public data class SceNetAdhocctlParams(
+    public var channel: Int = 0,
+    public var name: UByteArray = UByteArray(8),
+    public var bssid: UByteArray = UByteArray(6),
+    public var nickname: UByteArray = UByteArray(128),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceNetAdhocctlParams) return false
+        if (this.channel != other.channel) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (!this.bssid.contentEquals(other.bssid)) return false
+        if (!this.nickname.contentEquals(other.nickname)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.channel.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.bssid.contentHashCode()
+        result = 31 * result + this.nickname.contentHashCode()
+        return result
+    }
+}
+
+public class SceNetApctlInfo(
+    public var name: UByteArray = UByteArray(64),
+    public var bssid: UByteArray = UByteArray(6),
+    public var ssid: UByteArray = UByteArray(32),
+    public var ssidLength: UInt = 0u,
+    public var securityType: UInt = 0u,
+    public var strength: UByte = 0u,
+    public var channel: UByte = 0u,
+    public var powerSave: UByte = 0u,
+    public var ip: UByteArray = UByteArray(16),
+    public var subNetMask: UByteArray = UByteArray(16),
+    public var gateway: UByteArray = UByteArray(16),
+    public var primaryDns: UByteArray = UByteArray(16),
+    public var secondaryDns: UByteArray = UByteArray(16),
+    public var useProxy: UInt = 0u,
+    public var proxyUrl: UByteArray = UByteArray(128),
+    public var proxyPort: UShort = 0u,
+    public var eapType: UInt = 0u,
+    public var startBrowser: UInt = 0u,
+    public var wifisp: UInt = 0u,
+)
+
+public val INT_MIN: CInt = -2147483648.toInt()
 
 public val INT_MAX: CInt = 2147483647
 
@@ -2291,11 +3148,11 @@ public val USB_CAM_MIRROR: Int = 0x100
 
 public val THREAD_ATTR_VFPU: Int = 0x00004000
 
-public val THREAD_ATTR_USER: Int = 0x80000000
+public val THREAD_ATTR_USER: Int = 0x80000000.toInt()
 
-public val THREAD_ATTR_USBWLAN: Int = 0xa0000000
+public val THREAD_ATTR_USBWLAN: Int = 0xa0000000.toInt()
 
-public val THREAD_ATTR_VSH: Int = 0xc0000000
+public val THREAD_ATTR_VSH: Int = 0xc0000000.toInt()
 
 public val THREAD_ATTR_SCRATCH_SRAM: Int = 0x00008000
 
@@ -2311,7 +3168,7 @@ public val EVENT_WAIT_OR: Int = 1
 
 public val EVENT_WAIT_CLEAR: Int = 0x20
 
-public val POWER_INFO_POWER_SWITCH: Int = 0x80000000
+public val POWER_INFO_POWER_SWITCH: Int = 0x80000000.toInt()
 
 public val POWER_INFO_HOLD_SWITCH: Int = 0x40000000
 
@@ -2417,7 +3274,7 @@ public val VOL_DOWN: Int = 0x20
 
 public val HOLD: Int = 0x80
 
-public val GU_PI: Float = 3.141593
+public val GU_PI: Float = 3.141593f
 
 public val GU_TEXTURE_8BIT: Int = 1
 
@@ -2507,7 +3364,7 @@ public val GU_SPECULAR: Int = 4
 
 public val GU_UNKNOWN_LIGHT_COMPONENT: Int = 8
 
-public val SYSTEM_REGISTRY: List<UByte> = "/system".encodeToByteArray()
+public val SYSTEM_REGISTRY: UByteArray = "/system".encodeToByteArray().toUByteArray()
 
 public val REG_KEYNAME_SIZE: UInt = 27u
 

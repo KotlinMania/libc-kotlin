@@ -7,8 +7,7 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.solid.strlen
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
@@ -20,6 +19,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.SockFilter
 import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.SockaddrUn
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
+import io.github.kotlinmania.libc.unix.strlen
 
 public fun interface CloneCbCallback {
     public operator fun invoke(arg0: COpaquePointer?): CInt
@@ -39,7 +39,7 @@ public fun futexOp(op: CInt, oparg: CInt, cmp: CInt, cmparg: CInt): CInt {
 //
 // * musl has 64-bit versions only so aliases the LFS64 symbols to the standard ones
 public fun sctpPrIndex(policy: CInt): CInt {
-    return policy shr (4 - 1)
+    return policy shr (4 - 1).toInt()
 }
 
 public fun sctpPrPolicy(policy: CInt): CInt {
@@ -53,7 +53,7 @@ public fun sctpPrSetPolicy(flags: CInt, policy: CInt) {
 }
 
 public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return null
+    return (((ee)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as Sockaddr?)
 }
 
 public fun tpacketAlign(x: Int): Int {
@@ -89,23 +89,15 @@ public fun bpfMiscop(code: U32): U32 {
 }
 
 public fun bpfStmt(code: U16, k: U32): SockFilter {
-    return Any(code = code, jt = 0, jf = 0, k = k)
+    return SockFilter(code = code, jt = 0u, jf = 0u, k = k)
 }
 
 public fun bpfJump(code: U16, k: U32, jt: U8, jf: U8): SockFilter {
-    return Any(code = code, jt = jt, jf = jf, k = k)
+    return SockFilter(code = code, jt = jt, jf = jf, k = k)
 }
 
 public fun sunLen(s: SockaddrUn): Int {
-    return run {
-        val unused: Any?
-        val data = null
-        val ptr = data
-        val fptr = addrOf(ptr.sunPath)
-        val off = ((((fptr.toInt())).toLong() - (ptr.toInt()).toLong()).takeIf { it in Int.MIN_VALUE..Int.MAX_VALUE }?.toInt())!!
-        check(off <= sizeOf<SockaddrUn>())
-        off
-    } + strlen(s.sunPath.decodeToString().substringBefore('\u0000')).toInt()
+    return 0uL + strlen(s.sunPath.decodeToString().substringBefore('\u0000')).toInt()
 }
 
 public fun sctpPrTtlEnabled(policy: CInt): Boolean {

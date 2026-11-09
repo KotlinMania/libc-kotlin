@@ -30,7 +30,7 @@ public actual fun pthreadExit(retval: COpaquePointer?): Nothing {
 }
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadSelf() as String).toLong().toUInt()() else 0u
+    if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadSelf() as String).toLong().toUInt() else 0u
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
     if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadEqual(t1.toLong().toString(), t2.toLong().toString()) as Int) else 0

@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
@@ -19,181 +20,356 @@ public fun interface SigactionSaHandlerCallback {
 // supports multicast
 // The order of the `aiAddr` field in this struct is crucial
 // for converting between the Rust and C types.
-public open class Addrinfo(
-    public var aiFlags: CInt,
-    public var aiFamily: CInt,
-    public var aiSocktype: CInt,
-    public var aiProtocol: CInt,
-    public var aiAddrlen: SocklenT,
-    public var aiAddr: Sockaddr?,
-    public var aiCanonname: COpaquePointer?,
-    public var aiNext: Addrinfo?,
+public data class Addrinfo(
+    public var aiFlags: CInt = 0,
+    public var aiFamily: CInt = 0,
+    public var aiSocktype: CInt = 0,
+    public var aiProtocol: CInt = 0,
+    public var aiAddrlen: SocklenT = 0u,
+    public var aiAddr: Sockaddr? = null,
+    public var aiCanonname: COpaquePointer? = null,
+    public var aiNext: Addrinfo? = null,
 )
 
-public open class IpMreq(public var imrMultiaddr: InAddr, public var imrInterface: InAddr)
+public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
 
-public open class InAddr(public var sAddr: InAddrT)
+public data class InAddr(public var sAddr: InAddrT = 0u)
 
-public open class Lconv(
-    public var decimalPoint: COpaquePointer?,
-    public var thousandsSep: COpaquePointer?,
-    public var grouping: COpaquePointer?,
-    public var intCurrSymbol: COpaquePointer?,
-    public var currencySymbol: COpaquePointer?,
-    public var monDecimalPoint: COpaquePointer?,
-    public var monThousandsSep: COpaquePointer?,
-    public var monGrouping: COpaquePointer?,
-    public var positiveSign: COpaquePointer?,
-    public var negativeSign: COpaquePointer?,
-    public var intFracDigits: CChar,
-    public var fracDigits: CChar,
-    public var pCsPrecedes: CChar,
-    public var pSepBySpace: CChar,
-    public var nCsPrecedes: CChar,
-    public var nSepBySpace: CChar,
-    public var pSignPosn: CChar,
-    public var nSignPosn: CChar,
-    public var intNCsPrecedes: CChar,
-    public var intNSepBySpace: CChar,
-    public var intNSignPosn: CChar,
-    public var intPCsPrecedes: CChar,
-    public var intPSepBySpace: CChar,
-    public var intPSignPosn: CChar,
+public class Lconv(
+    public var decimalPoint: COpaquePointer? = null,
+    public var thousandsSep: COpaquePointer? = null,
+    public var grouping: COpaquePointer? = null,
+    public var intCurrSymbol: COpaquePointer? = null,
+    public var currencySymbol: COpaquePointer? = null,
+    public var monDecimalPoint: COpaquePointer? = null,
+    public var monThousandsSep: COpaquePointer? = null,
+    public var monGrouping: COpaquePointer? = null,
+    public var positiveSign: COpaquePointer? = null,
+    public var negativeSign: COpaquePointer? = null,
+    public var intFracDigits: CChar = 0u,
+    public var fracDigits: CChar = 0u,
+    public var pCsPrecedes: CChar = 0u,
+    public var pSepBySpace: CChar = 0u,
+    public var nCsPrecedes: CChar = 0u,
+    public var nSepBySpace: CChar = 0u,
+    public var pSignPosn: CChar = 0u,
+    public var nSignPosn: CChar = 0u,
+    public var intNCsPrecedes: CChar = 0u,
+    public var intNSepBySpace: CChar = 0u,
+    public var intNSignPosn: CChar = 0u,
+    public var intPCsPrecedes: CChar = 0u,
+    public var intPSepBySpace: CChar = 0u,
+    public var intPSignPosn: CChar = 0u,
 )
 
-public open class Tm(
-    public var tmSec: CInt,
-    public var tmMin: CInt,
-    public var tmHour: CInt,
-    public var tmMday: CInt,
-    public var tmMon: CInt,
-    public var tmYear: CInt,
-    public var tmWday: CInt,
-    public var tmYday: CInt,
-    public var tmIsdst: CInt,
+public data class Tm(
+    public var tmSec: CInt = 0,
+    public var tmMin: CInt = 0,
+    public var tmHour: CInt = 0,
+    public var tmMday: CInt = 0,
+    public var tmMon: CInt = 0,
+    public var tmYear: CInt = 0,
+    public var tmWday: CInt = 0,
+    public var tmYday: CInt = 0,
+    public var tmIsdst: CInt = 0,
 )
 
-public open class Statvfs(
-    public var fBsize: CUlong,
-    public var fFrsize: CUlong,
-    public var fBlocks: FsblkcntT,
-    public var fBfree: FsblkcntT,
-    public var fBavail: FsblkcntT,
-    public var fFiles: FsfilcntT,
-    public var fFfree: FsfilcntT,
-    public var fFavail: FsfilcntT,
-    public var fFsid: CUlong,
-    public var fFlag: CUlong,
-    public var fNamemax: CUlong,
+public data class Statvfs(
+    public var fBsize: CUlong = 0uL,
+    public var fFrsize: CUlong = 0uL,
+    public var fBlocks: FsblkcntT = 0uL,
+    public var fBfree: FsblkcntT = 0uL,
+    public var fBavail: FsblkcntT = 0uL,
+    public var fFiles: FsfilcntT = 0u,
+    public var fFfree: FsfilcntT = 0u,
+    public var fFavail: FsfilcntT = 0u,
+    public var fFsid: CUlong = 0uL,
+    public var fFlag: CUlong = 0uL,
+    public var fNamemax: CUlong = 0uL,
 )
 
-public open class Sigaction(
-    public var saHandler: SigactionSaHandlerCallback,
-    public var saMask: SigsetT,
-    public var saFlags: CInt,
+public data class Sigaction(
+    public var saHandler: SigactionSaHandlerCallback = SigactionSaHandlerCallback { _ ->  },
+    public var saMask: SigsetT = SigsetT(),
+    public var saFlags: CInt = 0,
 )
 
-public open class StackT(
-    public var ssSp: COpaquePointer?,
-    public var ssFlags: CInt,
-    public var ssSize: Int,
+public data class StackT(
+    public var ssSp: COpaquePointer? = null,
+    public var ssFlags: CInt = 0,
+    public var ssSize: Int = 0,
 )
 
-public open class FdSet(
+public data class FdSet(
     // Unverified
-    public var fdsBits: List<CUlong>,
+    public var fdsBits: ULongArray = ULongArray((FD_SETSIZE.toInt() / ULONG_SIZE).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FdSet) return false
+        if (!this.fdsBits.contentEquals(other.fdsBits)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.fdsBits.contentHashCode()
+    }
+}
+
+public data class Passwd(
+    // Unverified
+    public var pwName: COpaquePointer? = null,
+    public var pwPasswd: COpaquePointer? = null,
+    public var pwUid: UidT = 0u,
+    public var pwGid: GidT = 0u,
+    public var pwGecos: COpaquePointer? = null,
+    public var pwDir: COpaquePointer? = null,
+    public var pwShell: COpaquePointer? = null,
 )
 
-public open class Passwd(
+public data class Termios(
     // Unverified
-    public var pwName: COpaquePointer?,
-    public var pwPasswd: COpaquePointer?,
-    public var pwUid: UidT,
-    public var pwGid: GidT,
-    public var pwGecos: COpaquePointer?,
-    public var pwDir: COpaquePointer?,
-    public var pwShell: COpaquePointer?,
+    public var cIflag: TcflagT = 0u,
+    public var cOflag: TcflagT = 0u,
+    public var cCflag: TcflagT = 0u,
+    public var cLflag: TcflagT = 0u,
+    public var cLine: CcT = 0u,
+    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cIspeed: UInt = 0u,
+    public var cOspeed: UInt = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Termios) return false
+        if (this.cIflag != other.cIflag) return false
+        if (this.cOflag != other.cOflag) return false
+        if (this.cCflag != other.cCflag) return false
+        if (this.cLflag != other.cLflag) return false
+        if (this.cLine != other.cLine) return false
+        if (!this.cCc.contentEquals(other.cCc)) return false
+        if (this.cIspeed != other.cIspeed) return false
+        if (this.cOspeed != other.cOspeed) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.cIflag.hashCode()
+        result = 31 * result + this.cOflag.hashCode()
+        result = 31 * result + this.cCflag.hashCode()
+        result = 31 * result + this.cLflag.hashCode()
+        result = 31 * result + this.cLine.hashCode()
+        result = 31 * result + this.cCc.contentHashCode()
+        result = 31 * result + this.cIspeed.hashCode()
+        result = 31 * result + this.cOspeed.hashCode()
+        return result
+    }
+}
+
+public data class SemT(
+    // Unverified
+    public var size: UByteArray = UByteArray(16),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SemT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
+
+public data class DlInfo(
+    // Unverified
+    public var dliFname: COpaquePointer? = null,
+    public var dliFbase: COpaquePointer? = null,
+    public var dliSname: COpaquePointer? = null,
+    public var dliSaddr: COpaquePointer? = null,
 )
 
-public open class Termios(
+public data class Utsname(
     // Unverified
-    public var cIflag: TcflagT,
-    public var cOflag: TcflagT,
-    public var cCflag: TcflagT,
-    public var cLflag: TcflagT,
-    public var cLine: CcT,
-    public var cCc: List<CcT>,
-    public var cIspeed: UInt,
-    public var cOspeed: UInt,
-)
+    public var sysname: UByteArray = UByteArray(65),
+    public var nodename: UByteArray = UByteArray(65),
+    public var release: UByteArray = UByteArray(65),
+    public var version: UByteArray = UByteArray(65),
+    public var machine: UByteArray = UByteArray(65),
+    public var domainname: UByteArray = UByteArray(65),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Utsname) return false
+        if (!this.sysname.contentEquals(other.sysname)) return false
+        if (!this.nodename.contentEquals(other.nodename)) return false
+        if (!this.release.contentEquals(other.release)) return false
+        if (!this.version.contentEquals(other.version)) return false
+        if (!this.machine.contentEquals(other.machine)) return false
+        if (!this.domainname.contentEquals(other.domainname)) return false
+        return true
+    }
 
-public open class SemT(
-    // Unverified
-    public var size: List<CChar>,
-)
+    override fun hashCode(): Int {
+        var result = this.sysname.contentHashCode()
+        result = 31 * result + this.nodename.contentHashCode()
+        result = 31 * result + this.release.contentHashCode()
+        result = 31 * result + this.version.contentHashCode()
+        result = 31 * result + this.machine.contentHashCode()
+        result = 31 * result + this.domainname.contentHashCode()
+        return result
+    }
+}
 
-public open class DlInfo(
+public data class CpuSetT(
     // Unverified
-    public var dliFname: COpaquePointer?,
-    public var dliFbase: COpaquePointer?,
-    public var dliSname: COpaquePointer?,
-    public var dliSaddr: COpaquePointer?,
-)
+    public var bits: UIntArray = UIntArray(32),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CpuSetT) return false
+        if (!this.bits.contentEquals(other.bits)) return false
+        return true
+    }
 
-public open class Utsname(
-    // Unverified
-    public var sysname: List<CChar>,
-    public var nodename: List<CChar>,
-    public var release: List<CChar>,
-    public var version: List<CChar>,
-    public var machine: List<CChar>,
-    public var domainname: List<CChar>,
-)
+    override fun hashCode(): Int {
+        return this.bits.contentHashCode()
+    }
+}
 
-public open class CpuSetT(
+public data class PthreadAttrT(
     // Unverified
-    public var bits: List<UInt>,
-)
+    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_ATTR_T).toInt()),
+    public var isInitialized: Int = 0,
+    public var stackaddr: COpaquePointer? = null,
+    public var stacksize: Int = 0,
+    public var contentionscope: Int = 0,
+    public var inheritsched: Int = 0,
+    public var schedpolicy: Int = 0,
+    public var schedparam: Int = 0,
+    public var detachstate: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadAttrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        if (this.isInitialized != other.isInitialized) return false
+        if (this.stackaddr != other.stackaddr) return false
+        if (this.stacksize != other.stacksize) return false
+        if (this.contentionscope != other.contentionscope) return false
+        if (this.inheritsched != other.inheritsched) return false
+        if (this.schedpolicy != other.schedpolicy) return false
+        if (this.schedparam != other.schedparam) return false
+        if (this.detachstate != other.detachstate) return false
+        return true
+    }
 
-public open class PthreadAttrT(
-    // Unverified
-    public var size: List<UByte>,
-    public var isInitialized: Int,
-    public var stackaddr: COpaquePointer?,
-    public var stacksize: Int,
-    public var contentionscope: Int,
-    public var inheritsched: Int,
-    public var schedpolicy: Int,
-    public var schedparam: Int,
-    public var detachstate: Int,
-)
+    override fun hashCode(): Int {
+        var result = this.size.contentHashCode()
+        result = 31 * result + this.isInitialized.hashCode()
+        result = 31 * result + this.stackaddr.hashCode()
+        result = 31 * result + this.stacksize.hashCode()
+        result = 31 * result + this.contentionscope.hashCode()
+        result = 31 * result + this.inheritsched.hashCode()
+        result = 31 * result + this.schedpolicy.hashCode()
+        result = 31 * result + this.schedparam.hashCode()
+        result = 31 * result + this.detachstate.hashCode()
+        return result
+    }
+}
 
-public open class PthreadRwlockattrT(
+public data class PthreadRwlockattrT(
     // Unverified
-    public var size: List<UByte>,
-)
+    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCKATTR_T).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadRwlockattrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class PthreadMutexT(
-    // Unverified
-    public var size: List<UByte>,
-)
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
 
-public open class PthreadRwlockT(
+public data class PthreadMutexT(
     // Unverified
-    public var size: List<UByte>,
-)
+    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadMutexT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class PthreadMutexattrT(
-    // Unverified
-    public var size: List<UByte>,
-)
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
 
-public open class PthreadCondT(
+public data class PthreadRwlockT(
     // Unverified
-    public var size: List<UByte>,
-)
+    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadRwlockT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class PthreadCondattrT(
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
+
+public data class PthreadMutexattrT(
     // Unverified
-    public var size: List<UByte>,
-)
+    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEXATTR_T).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadMutexattrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
+
+public data class PthreadCondT(
+    // Unverified
+    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadCondT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
+
+public data class PthreadCondattrT(
+    // Unverified
+    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_CONDATTR_T).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadCondattrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}

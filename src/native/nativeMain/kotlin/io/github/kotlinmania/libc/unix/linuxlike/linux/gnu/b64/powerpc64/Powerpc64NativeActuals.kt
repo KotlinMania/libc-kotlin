@@ -21,5 +21,5 @@ public actual fun setcontext(ucp: COpaquePointer?): CInt =
 public actual fun swapcontext(oucp: COpaquePointer?, ucp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.powerpc64.cinterop.libc_unix_linuxlike_linux_gnu_b64_powerpc64_swapcontext(oucp?.value?.toCPointer<ByteVar>(), ucp?.value?.toCPointer<ByteVar>())
 
-public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt) {
+public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
 }

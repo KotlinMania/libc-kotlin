@@ -25,7 +25,7 @@ public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaqueP
 public actual fun clockGetcpuclockid(pid: PidT, clockId: COpaquePointer?): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semClose(sem: COpaquePointer?): CInt =

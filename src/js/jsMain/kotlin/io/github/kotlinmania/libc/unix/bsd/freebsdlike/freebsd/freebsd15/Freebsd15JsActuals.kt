@@ -27,7 +27,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon != null) {
-        _unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd15_freelocale(loc.toLong().toString())
+        _unixBsdFreebsdlikeFreebsdFreebsd15NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd15_freelocale((loc?.value ?: 0L).toString())
     }
 }
 

@@ -1088,8 +1088,6 @@ public val EFD_NONBLOCK: CInt = 0x80
 
 public val F_GETLK: CInt = 33
 
-public val F_GETLK1: CInt = 14
-
 public val F_GETOWN: CInt = 23
 
 public val F_SETOWN: CInt = 24

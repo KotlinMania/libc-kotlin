@@ -109,8 +109,10 @@ public typealias PosixSpawnattrT = COpaquePointer?
 
 public typealias PosixSpawnFileActionsT = COpaquePointer?
 
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class UcredT {
+public class UcredT(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

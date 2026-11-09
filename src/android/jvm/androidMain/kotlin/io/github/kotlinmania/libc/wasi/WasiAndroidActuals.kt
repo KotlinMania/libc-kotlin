@@ -208,15 +208,6 @@ private object WasiJniBridge {
     external fun libc_wasi_nanosleep(a: Long, b: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_clockGetres(a: Int, b: Long): Int
-
-    @JvmStatic
-    external fun libc_wasi_clockGettime(a: Int, b: Long): Int
-
-    @JvmStatic
-    external fun libc_wasi_clockNanosleep(a: Int, a2: Int, b: Long, c: Long): Int
-
-    @JvmStatic
     external fun libc_wasi_isalnum(c: Int): Int
 
     @JvmStatic
@@ -1059,13 +1050,13 @@ public actual fun nanosleep(a: COpaquePointer?, b: COpaquePointer?): CInt =
     WasiJniBridge.libc_wasi_nanosleep((a?.value ?: 0L), (b?.value ?: 0L))
 
 public actual fun clockGetres(a: ClockidT, b: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_clockGetres(a, (b?.value ?: 0L))
+    0
 
 public actual fun clockGettime(a: ClockidT, b: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_clockGettime(a, (b?.value ?: 0L))
+    0
 
 public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: COpaquePointer?, c: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_clockNanosleep(a, a2, (b?.value ?: 0L), (c?.value ?: 0L))
+    0
 
 public actual fun isalnum(c: CInt): CInt =
     WasiJniBridge.libc_wasi_isalnum(c)
@@ -1230,25 +1221,25 @@ public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT)
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
     WasiJniBridge.libc_wasi_memset((dest?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -1275,13 +1266,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     WasiJniBridge.libc_wasi_fileno((stream?.handle ?: 0L))
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     WasiJniBridge.libc_wasi_creat(path, mode.toInt())
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -1310,7 +1301,7 @@ public actual fun seekdir(dirp: DIR?, loc: CLong) {
 public actual fun telldir(dirp: DIR?): CLong =
     WasiJniBridge.libc_wasi_telldir((dirp?.handle ?: 0L))
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
@@ -1430,7 +1421,7 @@ public actual fun timegm(tm: COpaquePointer?): TimeT =
 public actual fun sysconf(name: CInt): CLong =
     WasiJniBridge.libc_wasi_sysconf(name)
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
@@ -1485,17 +1476,17 @@ public actual fun labs(i: CLong): CLong =
     WasiJniBridge.libc_wasi_labs(i)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    WasiJniBridge.libc_wasi_duplocale(base.toLong()).toULong()()
+    WasiJniBridge.libc_wasi_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun freelocale(loc: LocaleT) {
-    WasiJniBridge.libc_wasi_freelocale(loc.toLong())
+    WasiJniBridge.libc_wasi_freelocale((loc?.value ?: 0L))
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    WasiJniBridge.libc_wasi_newlocale(mask, locale, base.toLong()).toULong()()
+    WasiJniBridge.libc_wasi_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    WasiJniBridge.libc_wasi_uselocale(loc.toLong()).toULong()()
+    WasiJniBridge.libc_wasi_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun schedYield(): CInt =
     WasiJniBridge.libc_wasi_schedYield()
@@ -1510,7 +1501,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     WasiJniBridge.libc_wasi_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_nlLanginfoL(item, loc.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    WasiJniBridge.libc_wasi_nlLanginfoL(item, (loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
     WasiJniBridge.libc_wasi_select(nfds, (readfds?.value ?: 0L), (writefds?.value ?: 0L), (errorfds?.value ?: 0L), (timeout?.value ?: 0L))
@@ -1616,16 +1607,16 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
     WasiJniBridge.libc_wasi_realpath(pathname, (resolved?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun pthreadSelf(): PthreadT =
-    WasiJniBridge.libc_wasi_pthreadSelf().toULong()()
+    WasiJniBridge.libc_wasi_pthreadSelf().let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     WasiJniBridge.libc_wasi_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    WasiJniBridge.libc_wasi_pthreadEqual(t1.toLong(), t2.toLong())
+    WasiJniBridge.libc_wasi_pthreadEqual((t1?.value ?: 0L), (t2?.value ?: 0L))
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadJoin(native.toLong(), (value?.value ?: 0L))
+    WasiJniBridge.libc_wasi_pthreadJoin((native?.value ?: 0L), (value?.value ?: 0L))
 
 public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
     WasiJniBridge.libc_wasi_pthreadAttrInit((attr?.value ?: 0L))
@@ -1643,7 +1634,7 @@ public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt):
     WasiJniBridge.libc_wasi_pthreadAttrSetdetachstate((attr?.value ?: 0L), state)
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    WasiJniBridge.libc_wasi_pthreadDetach(thread.toLong())
+    WasiJniBridge.libc_wasi_pthreadDetach((thread?.value ?: 0L))
 
 public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     WasiJniBridge.libc_wasi_pthreadKeyCreate((key?.value ?: 0L), 0L)

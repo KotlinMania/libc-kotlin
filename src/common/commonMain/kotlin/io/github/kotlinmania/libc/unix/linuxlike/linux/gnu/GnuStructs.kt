@@ -1,7 +1,7 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
@@ -29,6 +29,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.U32
 import io.github.kotlinmania.libc.unix.linuxlike.linux.U8
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.NCCS
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.S64
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.U64
 
@@ -59,289 +60,474 @@ public class DebugStruct(
 // Most `* _SUPER_MAGIC` constants are defined at the `linuxLike` level; the
 // following are only available on newer Linux versions than the versions
 // currently used in CI in some configurations, so we define them here.
-public open class Aiocb(
-    public var aioFildes: CInt,
-    public var aioLioOpcode: CInt,
-    public var aioReqprio: CInt,
-    public var aioBuf: COpaquePointer?,
-    public var aioNbytes: SizeT,
-    public var aioSigevent: Sigevent,
-    public var nextPrio: Aiocb?,
-    public var absPrio: CInt,
-    public var policy: CInt,
-    public var errorCode: CInt,
-    public var returnValue: SsizeT,
-    public var aioOffset: OffT,
-    public var glibcReserved: List<CChar>,
+public data class Aiocb(
+    public var aioFildes: CInt = 0,
+    public var aioLioOpcode: CInt = 0,
+    public var aioReqprio: CInt = 0,
+    public var aioBuf: COpaquePointer? = null,
+    public var aioNbytes: SizeT = 0uL,
+    public var aioSigevent: Sigevent = Sigevent(),
+    public var nextPrio: Aiocb? = null,
+    public var absPrio: CInt = 0,
+    public var policy: CInt = 0,
+    public var errorCode: CInt = 0,
+    public var returnValue: SsizeT = 0L,
+    public var aioOffset: OffT = 0L,
+    public var glibcReserved: UByteArray = UByteArray(32),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Aiocb) return false
+        if (this.aioFildes != other.aioFildes) return false
+        if (this.aioLioOpcode != other.aioLioOpcode) return false
+        if (this.aioReqprio != other.aioReqprio) return false
+        if (this.aioBuf != other.aioBuf) return false
+        if (this.aioNbytes != other.aioNbytes) return false
+        if (this.aioSigevent != other.aioSigevent) return false
+        if (this.nextPrio != other.nextPrio) return false
+        if (this.absPrio != other.absPrio) return false
+        if (this.policy != other.policy) return false
+        if (this.errorCode != other.errorCode) return false
+        if (this.returnValue != other.returnValue) return false
+        if (this.aioOffset != other.aioOffset) return false
+        if (!this.glibcReserved.contentEquals(other.glibcReserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.aioFildes.hashCode()
+        result = 31 * result + this.aioLioOpcode.hashCode()
+        result = 31 * result + this.aioReqprio.hashCode()
+        result = 31 * result + this.aioBuf.hashCode()
+        result = 31 * result + this.aioNbytes.hashCode()
+        result = 31 * result + this.aioSigevent.hashCode()
+        result = 31 * result + this.nextPrio.hashCode()
+        result = 31 * result + this.absPrio.hashCode()
+        result = 31 * result + this.policy.hashCode()
+        result = 31 * result + this.errorCode.hashCode()
+        result = 31 * result + this.returnValue.hashCode()
+        result = 31 * result + this.aioOffset.hashCode()
+        result = 31 * result + this.glibcReserved.contentHashCode()
+        return result
+    }
+}
+
+public data class ExitStatus(public var eTermination: CShort = 0, public var eExit: CShort = 0)
+
+public data class Timeval(public var tvSec: Int = 0, public var tvUsec: Int = 0)
+
+public data class Glob64T(
+    public var glPathc: SizeT = 0uL,
+    public var glPathv: COpaquePointer? = null,
+    public var glOffs: SizeT = 0uL,
+    public var glFlags: CInt = 0,
+    public var unused1: COpaquePointer? = null,
+    public var unused2: COpaquePointer? = null,
+    public var unused3: COpaquePointer? = null,
+    public var unused4: COpaquePointer? = null,
+    public var unused5: COpaquePointer? = null,
 )
 
-public open class ExitStatus(public var eTermination: CShort, public var eExit: CShort)
-
-public open class Timeval(public var tvSec: Int, public var tvUsec: Int)
-
-public open class Glob64T(
-    public var glPathc: SizeT,
-    public var glPathv: COpaquePointer?,
-    public var glOffs: SizeT,
-    public var glFlags: CInt,
-    public var unused1: COpaquePointer?,
-    public var unused2: COpaquePointer?,
-    public var unused3: COpaquePointer?,
-    public var unused4: COpaquePointer?,
-    public var unused5: COpaquePointer?,
+public data class Msghdr(
+    public var msgName: COpaquePointer? = null,
+    public var msgNamelen: SocklenT = 0u,
+    public var msgIov: Iovec? = null,
+    public var msgIovlen: SizeT = 0uL,
+    public var msgControl: COpaquePointer? = null,
+    public var msgControllen: SizeT = 0uL,
+    public var msgFlags: CInt = 0,
 )
 
-public open class Msghdr(
-    public var msgName: COpaquePointer?,
-    public var msgNamelen: SocklenT,
-    public var msgIov: Iovec?,
-    public var msgIovlen: SizeT,
-    public var msgControl: COpaquePointer?,
-    public var msgControllen: SizeT,
-    public var msgFlags: CInt,
+public data class Cmsghdr(
+    public var cmsgLen: SizeT = 0uL,
+    public var cmsgLevel: CInt = 0,
+    public var cmsgType: CInt = 0,
 )
 
-public open class Cmsghdr(
-    public var cmsgLen: SizeT,
-    public var cmsgLevel: CInt,
-    public var cmsgType: CInt,
+public data class Termios(
+    public var cIflag: TcflagT = 0u,
+    public var cOflag: TcflagT = 0u,
+    public var cCflag: TcflagT = 0u,
+    public var cLflag: TcflagT = 0u,
+    public var cLine: CcT = 0u,
+    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cIspeed: SpeedT = 0u,
+    public var cOspeed: SpeedT = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Termios) return false
+        if (this.cIflag != other.cIflag) return false
+        if (this.cOflag != other.cOflag) return false
+        if (this.cCflag != other.cCflag) return false
+        if (this.cLflag != other.cLflag) return false
+        if (this.cLine != other.cLine) return false
+        if (!this.cCc.contentEquals(other.cCc)) return false
+        if (this.cIspeed != other.cIspeed) return false
+        if (this.cOspeed != other.cOspeed) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.cIflag.hashCode()
+        result = 31 * result + this.cOflag.hashCode()
+        result = 31 * result + this.cCflag.hashCode()
+        result = 31 * result + this.cLflag.hashCode()
+        result = 31 * result + this.cLine.hashCode()
+        result = 31 * result + this.cCc.contentHashCode()
+        result = 31 * result + this.cIspeed.hashCode()
+        result = 31 * result + this.cOspeed.hashCode()
+        return result
+    }
+}
+
+public data class Mallinfo(
+    public var arena: CInt = 0,
+    public var ordblks: CInt = 0,
+    public var smblks: CInt = 0,
+    public var hblks: CInt = 0,
+    public var hblkhd: CInt = 0,
+    public var usmblks: CInt = 0,
+    public var fsmblks: CInt = 0,
+    public var uordblks: CInt = 0,
+    public var fordblks: CInt = 0,
+    public var keepcost: CInt = 0,
 )
 
-public open class Termios(
-    public var cIflag: TcflagT,
-    public var cOflag: TcflagT,
-    public var cCflag: TcflagT,
-    public var cLflag: TcflagT,
-    public var cLine: CcT,
-    public var cCc: List<CcT>,
-    public var cIspeed: SpeedT,
-    public var cOspeed: SpeedT,
+public data class Mallinfo2(
+    public var arena: SizeT = 0uL,
+    public var ordblks: SizeT = 0uL,
+    public var smblks: SizeT = 0uL,
+    public var hblks: SizeT = 0uL,
+    public var hblkhd: SizeT = 0uL,
+    public var usmblks: SizeT = 0uL,
+    public var fsmblks: SizeT = 0uL,
+    public var uordblks: SizeT = 0uL,
+    public var fordblks: SizeT = 0uL,
+    public var keepcost: SizeT = 0uL,
 )
 
-public open class Mallinfo(
-    public var arena: CInt,
-    public var ordblks: CInt,
-    public var smblks: CInt,
-    public var hblks: CInt,
-    public var hblkhd: CInt,
-    public var usmblks: CInt,
-    public var fsmblks: CInt,
-    public var uordblks: CInt,
-    public var fordblks: CInt,
-    public var keepcost: CInt,
+public data class Ntptimeval(
+    public var time: Timeval = Timeval(),
+    public var maxerror: CLong = 0L,
+    public var esterror: CLong = 0L,
+    public var tai: CLong = 0L,
+    public var glibcReserved1: CLong = 0L,
+    public var glibcReserved2: CLong = 0L,
+    public var glibcReserved3: CLong = 0L,
+    public var glibcReserved4: CLong = 0L,
 )
 
-public open class Mallinfo2(
-    public var arena: SizeT,
-    public var ordblks: SizeT,
-    public var smblks: SizeT,
-    public var hblks: SizeT,
-    public var hblkhd: SizeT,
-    public var usmblks: SizeT,
-    public var fsmblks: SizeT,
-    public var uordblks: SizeT,
-    public var fordblks: SizeT,
-    public var keepcost: SizeT,
+public data class RegexT(
+    public var buffer: COpaquePointer? = null,
+    public var allocated: SizeT = 0uL,
+    public var used: SizeT = 0uL,
+    public var syntax: CUlong = 0uL,
+    public var fastmap: COpaquePointer? = null,
+    public var translate: COpaquePointer? = null,
+    public var reNsub: SizeT = 0uL,
+    public var bitfield: UByte = 0u,
 )
 
-public open class Ntptimeval(
-    public var time: Timeval,
-    public var maxerror: CLong,
-    public var esterror: CLong,
-    public var tai: CLong,
-    public var glibcReserved1: CLong,
-    public var glibcReserved2: CLong,
-    public var glibcReserved3: CLong,
-    public var glibcReserved4: CLong,
+public data class Elf64Chdr(
+    public var chType: Elf64Word = 0u,
+    public var chReserved: Elf64Word = 0u,
+    public var chSize: Elf64Xword = 0uL,
+    public var chAddralign: Elf64Xword = 0uL,
 )
 
-public open class RegexT(
-    public var buffer: COpaquePointer?,
-    public var allocated: SizeT,
-    public var used: SizeT,
-    public var syntax: CUlong,
-    public var fastmap: COpaquePointer?,
-    public var translate: COpaquePointer?,
-    public var reNsub: SizeT,
-    public var bitfield: UByte,
+public data class Elf32Chdr(
+    public var chType: Elf32Word = 0u,
+    public var chSize: Elf32Word = 0u,
+    public var chAddralign: Elf32Word = 0u,
 )
 
-public open class Elf64Chdr(
-    public var chType: Elf64Word,
-    public var chReserved: Elf64Word,
-    public var chSize: Elf64Xword,
-    public var chAddralign: Elf64Xword,
+public data class Seminfo(
+    public var semmap: CInt = 0,
+    public var semmni: CInt = 0,
+    public var semmns: CInt = 0,
+    public var semmnu: CInt = 0,
+    public var semmsl: CInt = 0,
+    public var semopm: CInt = 0,
+    public var semume: CInt = 0,
+    public var semusz: CInt = 0,
+    public var semvmx: CInt = 0,
+    public var semaem: CInt = 0,
 )
 
-public open class Elf32Chdr(
-    public var chType: Elf32Word,
-    public var chSize: Elf32Word,
-    public var chAddralign: Elf32Word,
+public data class PtracePeeksiginfoArgs(
+    public var off: U64 = 0uL,
+    public var flags: U32 = 0u,
+    public var nr: S32 = 0,
 )
 
-public open class Seminfo(
-    public var semmap: CInt,
-    public var semmni: CInt,
-    public var semmns: CInt,
-    public var semmnu: CInt,
-    public var semmsl: CInt,
-    public var semopm: CInt,
-    public var semume: CInt,
-    public var semusz: CInt,
-    public var semvmx: CInt,
-    public var semaem: CInt,
+public data class CAnonymousPtraceSyscallInfoEntry(public var nr: U64 = 0uL, public var args: ULongArray = ULongArray(6)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousPtraceSyscallInfoEntry) return false
+        if (this.nr != other.nr) return false
+        if (!this.args.contentEquals(other.args)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.nr.hashCode()
+        result = 31 * result + this.args.contentHashCode()
+        return result
+    }
+}
+
+public data class CAnonymousPtraceSyscallInfoExit(public var sval: S64 = 0L, public var isError: U8 = 0u)
+
+public data class CAnonymousPtraceSyscallInfoSeccomp(
+    public var nr: U64 = 0uL,
+    public var args: ULongArray = ULongArray(6),
+    public var retData: U32 = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousPtraceSyscallInfoSeccomp) return false
+        if (this.nr != other.nr) return false
+        if (!this.args.contentEquals(other.args)) return false
+        if (this.retData != other.retData) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.nr.hashCode()
+        result = 31 * result + this.args.contentHashCode()
+        result = 31 * result + this.retData.hashCode()
+        return result
+    }
+}
+
+public data class PtraceSyscallInfo(
+    public var op: U8 = 0u,
+    public var pad: UByteArray = UByteArray(3),
+    public var arch: U32 = 0u,
+    public var instructionPointer: U64 = 0uL,
+    public var stackPointer: U64 = 0uL,
+    public var u: CAnonymousPtraceSyscallInfoData = CAnonymousPtraceSyscallInfoData(),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PtraceSyscallInfo) return false
+        if (this.op != other.op) return false
+        if (!this.pad.contentEquals(other.pad)) return false
+        if (this.arch != other.arch) return false
+        if (this.instructionPointer != other.instructionPointer) return false
+        if (this.stackPointer != other.stackPointer) return false
+        if (this.u != other.u) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.op.hashCode()
+        result = 31 * result + this.pad.contentHashCode()
+        result = 31 * result + this.arch.hashCode()
+        result = 31 * result + this.instructionPointer.hashCode()
+        result = 31 * result + this.stackPointer.hashCode()
+        result = 31 * result + this.u.hashCode()
+        return result
+    }
+}
+
+public data class PtraceSudConfig(
+    public var mode: U64 = 0uL,
+    public var selector: U64 = 0uL,
+    public var offset: U64 = 0uL,
+    public var len: U64 = 0uL,
 )
 
-public open class PtracePeeksiginfoArgs(
-    public var off: U64,
-    public var flags: U32,
-    public var nr: S32,
-)
-
-public open class CAnonymousPtraceSyscallInfoEntry(public var nr: U64, public var args: List<U64>)
-
-public open class CAnonymousPtraceSyscallInfoExit(public var sval: S64, public var isError: U8)
-
-public open class CAnonymousPtraceSyscallInfoSeccomp(
-    public var nr: U64,
-    public var args: List<U64>,
-    public var retData: U32,
-)
-
-public open class PtraceSyscallInfo(
-    public var op: U8,
-    public var pad: List<U8>,
-    public var arch: U32,
-    public var instructionPointer: U64,
-    public var stackPointer: U64,
-    public var u: CAnonymousPtraceSyscallInfoData,
-)
-
-public open class PtraceSudConfig(
-    public var mode: U64,
-    public var selector: U64,
-    public var offset: U64,
-    public var len: U64,
-)
-
-public open class Iocb(
-    public var aioData: U64,
-    public var aioKey: U32,
-    public var aioRwFlags: KernelRwfT,
-    public var aioLioOpcode: U16,
-    public var aioReqprio: S16,
-    public var aioFildes: U32,
-    public var aioBuf: U64,
-    public var aioNbytes: U64,
-    public var aioOffset: S64,
-    public var aioReserved2: U64,
-    public var aioFlags: U32,
-    public var aioResfd: U32,
+public data class Iocb(
+    public var aioData: U64 = 0uL,
+    public var aioKey: U32 = 0u,
+    public var aioRwFlags: KernelRwfT = 0,
+    public var aioLioOpcode: U16 = 0u,
+    public var aioReqprio: S16 = 0,
+    public var aioFildes: U32 = 0u,
+    public var aioBuf: U64 = 0uL,
+    public var aioNbytes: U64 = 0uL,
+    public var aioOffset: S64 = 0L,
+    public var aioReserved2: U64 = 0uL,
+    public var aioFlags: U32 = 0u,
+    public var aioResfd: U32 = 0u,
 )
 
 // netinet/tcp.h
-public open class TcpInfo(
-    public var tcpiState: UByte,
-    public var tcpiCaState: UByte,
-    public var tcpiRetransmits: UByte,
-    public var tcpiProbes: UByte,
-    public var tcpiBackoff: UByte,
-    public var tcpiOptions: UByte,
+public class TcpInfo(
+    public var tcpiState: UByte = 0u,
+    public var tcpiCaState: UByte = 0u,
+    public var tcpiRetransmits: UByte = 0u,
+    public var tcpiProbes: UByte = 0u,
+    public var tcpiBackoff: UByte = 0u,
+    public var tcpiOptions: UByte = 0u,
     /**
      * This contains the bitfields `tcpiSndWscale` and `tcpiRcvWscale`.
      * Each is 4 bits.
      */
-    public var tcpiSndRcvWscale: UByte,
-    public var tcpiRto: UInt,
-    public var tcpiAto: UInt,
-    public var tcpiSndMss: UInt,
-    public var tcpiRcvMss: UInt,
-    public var tcpiUnacked: UInt,
-    public var tcpiSacked: UInt,
-    public var tcpiLost: UInt,
-    public var tcpiRetrans: UInt,
-    public var tcpiFackets: UInt,
-    public var tcpiLastDataSent: UInt,
-    public var tcpiLastAckSent: UInt,
-    public var tcpiLastDataRecv: UInt,
-    public var tcpiLastAckRecv: UInt,
-    public var tcpiPmtu: UInt,
-    public var tcpiRcvSsthresh: UInt,
-    public var tcpiRtt: UInt,
-    public var tcpiRttvar: UInt,
-    public var tcpiSndSsthresh: UInt,
-    public var tcpiSndCwnd: UInt,
-    public var tcpiAdvmss: UInt,
-    public var tcpiReordering: UInt,
-    public var tcpiRcvRtt: UInt,
-    public var tcpiRcvSpace: UInt,
-    public var tcpiTotalRetrans: UInt,
+    public var tcpiSndRcvWscale: UByte = 0u,
+    public var tcpiRto: UInt = 0u,
+    public var tcpiAto: UInt = 0u,
+    public var tcpiSndMss: UInt = 0u,
+    public var tcpiRcvMss: UInt = 0u,
+    public var tcpiUnacked: UInt = 0u,
+    public var tcpiSacked: UInt = 0u,
+    public var tcpiLost: UInt = 0u,
+    public var tcpiRetrans: UInt = 0u,
+    public var tcpiFackets: UInt = 0u,
+    public var tcpiLastDataSent: UInt = 0u,
+    public var tcpiLastAckSent: UInt = 0u,
+    public var tcpiLastDataRecv: UInt = 0u,
+    public var tcpiLastAckRecv: UInt = 0u,
+    public var tcpiPmtu: UInt = 0u,
+    public var tcpiRcvSsthresh: UInt = 0u,
+    public var tcpiRtt: UInt = 0u,
+    public var tcpiRttvar: UInt = 0u,
+    public var tcpiSndSsthresh: UInt = 0u,
+    public var tcpiSndCwnd: UInt = 0u,
+    public var tcpiAdvmss: UInt = 0u,
+    public var tcpiReordering: UInt = 0u,
+    public var tcpiRcvRtt: UInt = 0u,
+    public var tcpiRcvSpace: UInt = 0u,
+    public var tcpiTotalRetrans: UInt = 0u,
 )
 
-public open class FanotifyEventInfoPidfd(public var hdr: FanotifyEventInfoHeader, public var pidfd: S32)
+public data class FanotifyEventInfoPidfd(public var hdr: FanotifyEventInfoHeader = FanotifyEventInfoHeader(), public var pidfd: S32 = 0)
 
-public open class FanotifyEventInfoError(
-    public var hdr: FanotifyEventInfoHeader,
-    public var error: S32,
-    public var errorCount: U32,
+public data class FanotifyEventInfoError(
+    public var hdr: FanotifyEventInfoHeader = FanotifyEventInfoHeader(),
+    public var error: S32 = 0,
+    public var errorCount: U32 = 0u,
 )
 
-public open class SemT(public var size: List<CChar>)
+public data class SemT(public var size: UByteArray = UByteArray(32)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SemT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class MbstateT(public var count: CInt, public var wchb: List<CChar>)
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
 
-public open class Fpos64T(public var pos: Off64T, public var state: MbstateT)
+public data class MbstateT(public var count: CInt = 0, public var wchb: UByteArray = UByteArray(4)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MbstateT) return false
+        if (this.count != other.count) return false
+        if (!this.wchb.contentEquals(other.wchb)) return false
+        return true
+    }
 
-public open class FposT(public var pos: OffT, public var state: MbstateT)
+    override fun hashCode(): Int {
+        var result = this.count.hashCode()
+        result = 31 * result + this.wchb.contentHashCode()
+        return result
+    }
+}
+
+public data class Fpos64T(public var pos: Off64T = 0L, public var state: MbstateT = MbstateT())
+
+public data class FposT(public var pos: OffT = 0L, public var state: MbstateT = MbstateT())
 
 // linux x32 compatibility
 // See https://sourceware.org/bugzilla/showBug.cgi?id=16437
-public open class Timespec(
-    public var tvSec: TimeT,
-    public var tvNsec: CLong,
-    public var pad: Int,
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CLong = 0L,
+    public var pad: Int = 0,
 )
 
-public open class Utmpx(
-    public var utType: CShort,
-    public var utPid: PidT,
-    public var utLine: List<CChar>,
-    public var utId: List<CChar>,
-    public var utUser: List<CChar>,
-    public var utHost: List<CChar>,
-    public var utExit: ExitStatus,
-    public var utSession: CLong,
-    public var utTv: Timeval,
-    public var utAddrV6: List<Int>,
-    public var glibcReserved: List<CChar>,
+public data class Utmpx(
+    public var utType: CShort = 0,
+    public var utPid: PidT = 0,
+    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
+    public var utId: UByteArray = UByteArray(4),
+    public var utUser: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
+    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utExit: ExitStatus = ExitStatus(),
+    public var utSession: CLong = 0L,
+    public var utTv: Timeval = Timeval(),
+    public var utAddrV6: IntArray = IntArray(4),
+    public var glibcReserved: UByteArray = UByteArray(20),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Utmpx) return false
+        if (this.utType != other.utType) return false
+        if (this.utPid != other.utPid) return false
+        if (!this.utLine.contentEquals(other.utLine)) return false
+        if (!this.utId.contentEquals(other.utId)) return false
+        if (!this.utUser.contentEquals(other.utUser)) return false
+        if (!this.utHost.contentEquals(other.utHost)) return false
+        if (this.utExit != other.utExit) return false
+        if (this.utSession != other.utSession) return false
+        if (this.utTv != other.utTv) return false
+        if (!this.utAddrV6.contentEquals(other.utAddrV6)) return false
+        if (!this.glibcReserved.contentEquals(other.glibcReserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.utType.hashCode()
+        result = 31 * result + this.utPid.hashCode()
+        result = 31 * result + this.utLine.contentHashCode()
+        result = 31 * result + this.utId.contentHashCode()
+        result = 31 * result + this.utUser.contentHashCode()
+        result = 31 * result + this.utHost.contentHashCode()
+        result = 31 * result + this.utExit.hashCode()
+        result = 31 * result + this.utSession.hashCode()
+        result = 31 * result + this.utTv.hashCode()
+        result = 31 * result + this.utAddrV6.contentHashCode()
+        result = 31 * result + this.glibcReserved.contentHashCode()
+        return result
+    }
+}
+
+public data class SifieldsSigchld(
+    public var siPid: PidT = 0,
+    public var siUid: UidT = 0u,
+    public var siStatus: CInt = 0,
+    public var siUtime: CLong = 0L,
+    public var siStime: CLong = 0L,
 )
 
-public open class SifieldsSigchld(
-    public var siPid: PidT,
-    public var siUid: UidT,
-    public var siStatus: CInt,
-    public var siUtime: CLong,
-    public var siStime: CLong,
-)
-
-public open class Sifields(public var alignPointer: COpaquePointer?? = null, public var sigchld: SifieldsSigchld? = null) {
-    public open fun fmt(f: StringBuilder) {
+public data class Sifields(public var alignPointer: COpaquePointer? = null, public var sigchld: SifieldsSigchld = SifieldsSigchld()) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "sifields").finishNonExhaustive()
     }
 }
 
-public open class SiginfoF(public var siginfoBase: List<CInt>, public var sifields: Sifields)
+public data class SiginfoF(public var siginfoBase: IntArray = IntArray(3), public var sifields: Sifields = Sifields()) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SiginfoF) return false
+        if (!this.siginfoBase.contentEquals(other.siginfoBase)) return false
+        if (this.sifields != other.sifields) return false
+        return true
+    }
 
-public open class CAnonymousPtraceSyscallInfoData(
-    public var entry: CAnonymousPtraceSyscallInfoEntry? = null,
-    public var exit: CAnonymousPtraceSyscallInfoExit? = null,
-    public var seccomp: CAnonymousPtraceSyscallInfoSeccomp? = null,
+    override fun hashCode(): Int {
+        var result = this.siginfoBase.contentHashCode()
+        result = 31 * result + this.sifields.hashCode()
+        return result
+    }
+}
+
+public data class CAnonymousPtraceSyscallInfoData(
+    public var entry: CAnonymousPtraceSyscallInfoEntry = CAnonymousPtraceSyscallInfoEntry(),
+    public var exit: CAnonymousPtraceSyscallInfoExit = CAnonymousPtraceSyscallInfoExit(),
+    public var seccomp: CAnonymousPtraceSyscallInfoSeccomp = CAnonymousPtraceSyscallInfoSeccomp(),
 ) {
-    public open fun fmt(f: StringBuilder) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ptrace_syscall_info_data").finishNonExhaustive()
     }
 
-    public open fun eq(other: CAnonymousPtraceSyscallInfoData): Boolean {
+    public fun eq(other: CAnonymousPtraceSyscallInfoData): Boolean {
         return this.entry == other.entry || this.exit == other.exit || this.seccomp == other.seccomp
     }
 

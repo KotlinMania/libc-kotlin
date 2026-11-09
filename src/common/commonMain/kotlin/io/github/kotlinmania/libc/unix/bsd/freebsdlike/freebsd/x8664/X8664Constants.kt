@@ -6,7 +6,7 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
 
-internal val ALIGNBYTES: Int = sizeOf<CLong>() - 1
+internal val ALIGNBYTES: Int = 8 - 1
 
 public val BIOCSRTIMEOUT: CUlong = 0x8010426duL
 

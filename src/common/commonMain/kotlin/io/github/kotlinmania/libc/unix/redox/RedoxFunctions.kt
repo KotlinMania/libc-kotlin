@@ -5,7 +5,7 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 
@@ -15,40 +15,40 @@ public fun interface PthreadCreateStartCallback {
 
 // intentionally not public, only used for fdSet
 public fun cmsgAlign(len: SizeT): SizeT {
-    return (len + sizeOf<SizeT>() - 1uL) and (sizeOf<SizeT>() - 1uL).inv()
+    return (len + 8uL.toULong() - 1uL) and ((8 - 1).inv()).toULong()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return (CMSG_ALIGN(sizeOf<Cmsghdr>()) + length.toInt()).toUInt()
+    return (cmsgAlign(8uL.toULong()) + (length.toInt()).toULong()).toUInt()
 }
 
 public fun cmsgSpace(len: CUint): CUint {
-    return (CMSG_ALIGN(len.toULong()) + CMSG_ALIGN(sizeOf<Cmsghdr>())).toUInt()
+    return (cmsgAlign(len.toULong()) + cmsgAlign(8uL.toULong())).toUInt()
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    return (set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size))) != 0
+    return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1 shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
 }
 
 public fun fdZero(set: FdSet?) {
-    for (slot in set!!.fdsBits.iterMut()) {
-        slot = 0
+    for (idx in (set!!.fdsBits).indices) {
+        (set!!.fdsBits)[idx] = 0uL
     }
 }
 
@@ -87,7 +87,7 @@ public fun wcoredump(status: CInt): Boolean {
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
     val minor1 = minor.toULong()
-    var dev = 0
+    var dev = 0uL
     dev = dev or ((major1 and 0x00000fffuL) shl 8)
     dev = dev or ((major1 and 0xfffff000uL) shl 32)
     dev = dev or ((minor1 and 0x000000ffuL) shl 0)
@@ -96,14 +96,14 @@ public fun makedev(major: CUint, minor: CUint): DevT {
 }
 
 public fun major(dev: DevT): CUint {
-    var major = 0
+    var major = 0uL
     major = major or ((dev and 0x00000000000fff00uL) shr 8)
     major = major or ((dev and 0xfffff00000000000uL) shr 32)
     return major.toUInt()
 }
 
 public fun minor(dev: DevT): CUint {
-    var minor = 0
+    var minor = 0uL
     minor = minor or ((dev and 0x00000000000000ffuL) shr 0)
     minor = minor or ((dev and 0x00000ffffff00000uL) shr 12)
     return minor.toUInt()

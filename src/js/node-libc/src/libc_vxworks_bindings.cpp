@@ -8540,34 +8540,6 @@ static Napi::Value libc_vxworks_kill_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigqueue_2_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    int32_t rtpId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t signo = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* pValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t sigCode = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, int32_t);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sigqueue")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sigqueue")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "_sigqueue"));
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(rtpId, signo, pValue, sigCode) : -1;
-    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
-}
-
 static Napi::Value libc_vxworks_taskKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t taskId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
@@ -9557,7 +9529,6 @@ static void register_vxworks_napi(Napi::Env env, Napi::Object exports) {
     exports.Set("libc_vxworks_sigismember", Napi::Function::New(env, libc_vxworks_sigismember_napi));
     exports.Set("libc_vxworks_pthreadSigmask", Napi::Function::New(env, libc_vxworks_pthreadSigmask_napi));
     exports.Set("libc_vxworks_kill", Napi::Function::New(env, libc_vxworks_kill_napi));
-    exports.Set("libc_vxworks_sigqueue_2", Napi::Function::New(env, libc_vxworks_sigqueue_2_napi));
     exports.Set("libc_vxworks_taskKill", Napi::Function::New(env, libc_vxworks_taskKill_napi));
     exports.Set("libc_vxworks_raise", Napi::Function::New(env, libc_vxworks_raise_napi));
     exports.Set("libc_vxworks_taskIdSelf", Napi::Function::New(env, libc_vxworks_taskIdSelf_napi));

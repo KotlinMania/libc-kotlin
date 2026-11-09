@@ -1,4 +1,5 @@
 // port-lint: source unix/solarish/solaris.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.solarish.solaris
 
 import io.github.kotlinmania.libc.*
@@ -10,12 +11,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.NET_MAC_AWARE
-import io.github.kotlinmania.libc.NET_MAC_AWARE_INHERIT
-import io.github.kotlinmania.libc.PRIV_AWARE_RESET
-import io.github.kotlinmania.libc.PRIV_DEBUG
-import io.github.kotlinmania.libc.PRIV_PFEXEC
-import io.github.kotlinmania.libc.PRIV_XPOLICY
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.Timeval
@@ -23,7 +18,13 @@ import io.github.kotlinmania.libc.unix.UintptrT
 import io.github.kotlinmania.libc.unix.solarish.AioResultT
 import io.github.kotlinmania.libc.unix.solarish.ExitStatus
 import io.github.kotlinmania.libc.unix.solarish.IpcPerm
+import io.github.kotlinmania.libc.unix.solarish.NET_MAC_AWARE
+import io.github.kotlinmania.libc.unix.solarish.NET_MAC_AWARE_INHERIT
 import io.github.kotlinmania.libc.unix.solarish.OffT
+import io.github.kotlinmania.libc.unix.solarish.PRIV_AWARE_RESET
+import io.github.kotlinmania.libc.unix.solarish.PRIV_DEBUG
+import io.github.kotlinmania.libc.unix.solarish.PRIV_PFEXEC
+import io.github.kotlinmania.libc.unix.solarish.PRIV_XPOLICY
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
 import io.github.kotlinmania.libc.unix.solarish.ShmattT
 import io.github.kotlinmania.libc.unix.solarish.Sigevent
@@ -40,74 +41,194 @@ public typealias DoorIdT = CUlonglong
 
 public typealias LgrpAffinityT = CUint
 
-public sealed class LgrpRsrcT(public val value: UInt) {
-    public data object LgrpRsrcCpu : LgrpRsrcT(0u)
-    public data object LgrpRsrcMem : LgrpRsrcT(1u)
-    public data object LgrpRsrcTypes : LgrpRsrcT(2u)
+public enum class LgrpRsrcT(public val value: UInt) {
+    LGRP_RSRC_CPU(0u),
+    LGRP_RSRC_MEM(1u),
+    LGRP_RSRC_TYPES(2u),
 }
 
-public open class Aiocb(
-    public var aioFildes: CInt,
-    public var aioBuf: COpaquePointer?,
-    public var aioNbytes: SizeT,
-    public var aioOffset: OffT,
-    public var aioReqprio: CInt,
-    public var aioSigevent: Sigevent,
-    public var aioLioOpcode: CInt,
-    public var aioResultp: AioResultT,
-    public var aioState: CChar,
-    public var aioReturned: CChar,
-    public var aioPad1: List<CChar>,
-    public var aioFlags: CInt,
-)
+public data class Aiocb(
+    public var aioFildes: CInt = 0,
+    public var aioBuf: COpaquePointer? = null,
+    public var aioNbytes: SizeT = 0uL,
+    public var aioOffset: OffT = 0L,
+    public var aioReqprio: CInt = 0,
+    public var aioSigevent: Sigevent = Sigevent(),
+    public var aioLioOpcode: CInt = 0,
+    public var aioResultp: AioResultT = AioResultT(),
+    public var aioState: CChar = 0u,
+    public var aioReturned: CChar = 0u,
+    public var aioPad1: UByteArray = UByteArray(2),
+    public var aioFlags: CInt = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Aiocb) return false
+        if (this.aioFildes != other.aioFildes) return false
+        if (this.aioBuf != other.aioBuf) return false
+        if (this.aioNbytes != other.aioNbytes) return false
+        if (this.aioOffset != other.aioOffset) return false
+        if (this.aioReqprio != other.aioReqprio) return false
+        if (this.aioSigevent != other.aioSigevent) return false
+        if (this.aioLioOpcode != other.aioLioOpcode) return false
+        if (this.aioResultp != other.aioResultp) return false
+        if (this.aioState != other.aioState) return false
+        if (this.aioReturned != other.aioReturned) return false
+        if (!this.aioPad1.contentEquals(other.aioPad1)) return false
+        if (this.aioFlags != other.aioFlags) return false
+        return true
+    }
 
-public open class ShmidDs(
-    public var shmPerm: IpcPerm,
-    public var shmSegsz: SizeT,
-    public var shmFlags: UintptrT,
-    public var shmLkcnt: CUshort,
-    public var shmLpid: PidT,
-    public var shmCpid: PidT,
-    public var shmNattch: ShmattT,
-    public var shmCnattch: CUlong,
-    public var shmAtime: TimeT,
-    public var shmDtime: TimeT,
-    public var shmCtime: TimeT,
-    public var shmAmp: COpaquePointer?,
-    public var shmGransize: ULong,
-    public var shmAllocated: ULong,
-    public var shmPad4: List<Long>,
-)
+    override fun hashCode(): Int {
+        var result = this.aioFildes.hashCode()
+        result = 31 * result + this.aioBuf.hashCode()
+        result = 31 * result + this.aioNbytes.hashCode()
+        result = 31 * result + this.aioOffset.hashCode()
+        result = 31 * result + this.aioReqprio.hashCode()
+        result = 31 * result + this.aioSigevent.hashCode()
+        result = 31 * result + this.aioLioOpcode.hashCode()
+        result = 31 * result + this.aioResultp.hashCode()
+        result = 31 * result + this.aioState.hashCode()
+        result = 31 * result + this.aioReturned.hashCode()
+        result = 31 * result + this.aioPad1.contentHashCode()
+        result = 31 * result + this.aioFlags.hashCode()
+        return result
+    }
+}
 
-public open class XrsT(public var xrsId: CUlong, public var xrsPtr: COpaquePointer?)
+public data class ShmidDs(
+    public var shmPerm: IpcPerm = IpcPerm(),
+    public var shmSegsz: SizeT = 0uL,
+    public var shmFlags: UintptrT = 0uL,
+    public var shmLkcnt: CUshort = 0u,
+    public var shmLpid: PidT = 0,
+    public var shmCpid: PidT = 0,
+    public var shmNattch: ShmattT = 0uL,
+    public var shmCnattch: CUlong = 0uL,
+    public var shmAtime: TimeT = 0L,
+    public var shmDtime: TimeT = 0L,
+    public var shmCtime: TimeT = 0L,
+    public var shmAmp: COpaquePointer? = null,
+    public var shmGransize: ULong = 0uL,
+    public var shmAllocated: ULong = 0uL,
+    public var shmPad4: LongArray = LongArray(1),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ShmidDs) return false
+        if (this.shmPerm != other.shmPerm) return false
+        if (this.shmSegsz != other.shmSegsz) return false
+        if (this.shmFlags != other.shmFlags) return false
+        if (this.shmLkcnt != other.shmLkcnt) return false
+        if (this.shmLpid != other.shmLpid) return false
+        if (this.shmCpid != other.shmCpid) return false
+        if (this.shmNattch != other.shmNattch) return false
+        if (this.shmCnattch != other.shmCnattch) return false
+        if (this.shmAtime != other.shmAtime) return false
+        if (this.shmDtime != other.shmDtime) return false
+        if (this.shmCtime != other.shmCtime) return false
+        if (this.shmAmp != other.shmAmp) return false
+        if (this.shmGransize != other.shmGransize) return false
+        if (this.shmAllocated != other.shmAllocated) return false
+        if (!this.shmPad4.contentEquals(other.shmPad4)) return false
+        return true
+    }
 
-public open class Utmpx(
-    public var utUser: List<CChar>,
-    public var utId: List<CChar>,
-    public var utLine: List<CChar>,
-    public var utPid: PidT,
-    public var utType: CShort,
-    public var utExit: ExitStatus,
-    public var utTv: Timeval,
-    public var utSession: CInt,
-    public var pad: List<CInt>,
-    public var utSyslen: CShort,
-    public var utHost: List<CChar>,
-)
+    override fun hashCode(): Int {
+        var result = this.shmPerm.hashCode()
+        result = 31 * result + this.shmSegsz.hashCode()
+        result = 31 * result + this.shmFlags.hashCode()
+        result = 31 * result + this.shmLkcnt.hashCode()
+        result = 31 * result + this.shmLpid.hashCode()
+        result = 31 * result + this.shmCpid.hashCode()
+        result = 31 * result + this.shmNattch.hashCode()
+        result = 31 * result + this.shmCnattch.hashCode()
+        result = 31 * result + this.shmAtime.hashCode()
+        result = 31 * result + this.shmDtime.hashCode()
+        result = 31 * result + this.shmCtime.hashCode()
+        result = 31 * result + this.shmAmp.hashCode()
+        result = 31 * result + this.shmGransize.hashCode()
+        result = 31 * result + this.shmAllocated.hashCode()
+        result = 31 * result + this.shmPad4.contentHashCode()
+        return result
+    }
+}
 
-public open class DoorDescTDDataDDesc(public var dDescriptor: CInt, public var dId: DoorIdT)
+public data class XrsT(public var xrsId: CUlong = 0uL, public var xrsPtr: COpaquePointer? = null)
 
-public open class DoorDescTDData(public var dDesc: DoorDescTDDataDDesc? = null, public var dResv: List<CInt>? = null)
+public data class Utmpx(
+    public var utUser: UByteArray = UByteArray((UTMP_USER_LEN).toInt()),
+    public var utId: UByteArray = UByteArray((UTMP_ID_LEN).toInt()),
+    public var utLine: UByteArray = UByteArray((UTMP_LINE_LEN).toInt()),
+    public var utPid: PidT = 0,
+    public var utType: CShort = 0,
+    public var utExit: ExitStatus = ExitStatus(),
+    public var utTv: Timeval = Timeval(),
+    public var utSession: CInt = 0,
+    public var pad: IntArray = IntArray(5),
+    public var utSyslen: CShort = 0,
+    public var utHost: UByteArray = UByteArray(257),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Utmpx) return false
+        if (!this.utUser.contentEquals(other.utUser)) return false
+        if (!this.utId.contentEquals(other.utId)) return false
+        if (!this.utLine.contentEquals(other.utLine)) return false
+        if (this.utPid != other.utPid) return false
+        if (this.utType != other.utType) return false
+        if (this.utExit != other.utExit) return false
+        if (this.utTv != other.utTv) return false
+        if (this.utSession != other.utSession) return false
+        if (!this.pad.contentEquals(other.pad)) return false
+        if (this.utSyslen != other.utSyslen) return false
+        if (!this.utHost.contentEquals(other.utHost)) return false
+        return true
+    }
 
-public open class DoorDescT(public var dAttributes: DoorAttrT, public var dData: DoorDescTDData)
+    override fun hashCode(): Int {
+        var result = this.utUser.contentHashCode()
+        result = 31 * result + this.utId.contentHashCode()
+        result = 31 * result + this.utLine.contentHashCode()
+        result = 31 * result + this.utPid.hashCode()
+        result = 31 * result + this.utType.hashCode()
+        result = 31 * result + this.utExit.hashCode()
+        result = 31 * result + this.utTv.hashCode()
+        result = 31 * result + this.utSession.hashCode()
+        result = 31 * result + this.pad.contentHashCode()
+        result = 31 * result + this.utSyslen.hashCode()
+        result = 31 * result + this.utHost.contentHashCode()
+        return result
+    }
+}
 
-public open class DoorArgT(
-    public var dataPtr: COpaquePointer?,
-    public var dataSize: SizeT,
-    public var descPtr: DoorDescT?,
-    public var decNum: CUint,
-    public var rbuf: COpaquePointer?,
-    public var rsize: SizeT,
+public data class DoorDescTDDataDDesc(public var dDescriptor: CInt = 0, public var dId: DoorIdT = 0uL)
+
+public data class DoorDescTDData(public var dDesc: DoorDescTDDataDDesc = DoorDescTDDataDDesc(), public var dResv: IntArray = IntArray(5)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DoorDescTDData) return false
+        if (this.dDesc != other.dDesc) return false
+        if (!this.dResv.contentEquals(other.dResv)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dDesc.hashCode()
+        result = 31 * result + this.dResv.contentHashCode()
+        return result
+    }
+}
+
+public data class DoorDescT(public var dAttributes: DoorAttrT = 0u, public var dData: DoorDescTDData = DoorDescTDData())
+
+public data class DoorArgT(
+    public var dataPtr: COpaquePointer? = null,
+    public var dataSize: SizeT = 0uL,
+    public var descPtr: DoorDescT? = null,
+    public var decNum: CUint = 0u,
+    public var rbuf: COpaquePointer? = null,
+    public var rsize: SizeT = 0uL,
 )
 
 // Note(solaris): O_DIRECT and SIGINFO are NOT available on Solaris.

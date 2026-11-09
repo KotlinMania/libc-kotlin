@@ -4,6 +4,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64.CpuSimpleLockNvT
 
 public typealias BlksizeT = Int
@@ -53,13 +54,14 @@ public typealias Elf64Xword = ULong
 
 public typealias IconvT = COpaquePointer?
 
-public sealed class FaeAction {
-    public data object FaeOpen : FaeAction()
-    public data object FaeDup2 : FaeAction()
-    public data object FaeClose : FaeAction()
+public enum class FaeAction(public val value: UInt) {
+    FAE_OPEN(0u),
+    FAE_DUP2(1u),
+    FAE_CLOSE(2u),
 }
 
-public sealed class Cpuset {
+public class Cpuset(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
 public typealias ElfAddr = Elf64Addr

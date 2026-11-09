@@ -10,10 +10,10 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
 import io.github.kotlinmania.libc.unix.linuxlike.SpeedT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.SocklenT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.aarch64.MAP_ANON
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.aarch64.O_DIRECTORY
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.aarch64.O_NONBLOCK
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.x8664.MAP_ANON
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.x8664.SIGSYS
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.aarch64.SIGSYS
 
 // include/sys/mman.h
 //
@@ -78,8 +78,6 @@ public val SFD_CLOEXEC: CInt = 0x080000
 
 public val NCCS: Int = 32
 
-public val NCCS1: Int = 19
-
 public val O_TRUNC: CInt = 512
 
 public val O_NOATIME: CInt = 262144
@@ -130,7 +128,7 @@ public val F_UNLCK: CInt = 2
 
 public val SA_NODEFER: CInt = 0x40000000
 
-public val SA_RESETHAND: CInt = 0x80000000
+public val SA_RESETHAND: CInt = 0x80000000.toInt()
 
 public val SA_RESTART: CInt = 0x10000000
 
@@ -446,7 +444,3 @@ public val UT_NAMESIZE: Int = 32
 public val POSIX_FADV_DONTNEED: CInt = 6
 
 public val POSIX_FADV_NOREUSE: CInt = 7
-
-public val POSIX_FADV_DONTNEED1: CInt = 4
-
-public val POSIX_FADV_NOREUSE1: CInt = 5

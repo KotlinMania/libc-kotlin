@@ -1688,86 +1688,6 @@ static Napi::Value libc_wasi_nanosleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_clockGetres_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    typedef int32_t (*km_fn_t)(int32_t, void*);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "clock_getres")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "clock_getres")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_getres"));
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(a, b) : -1;
-    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
-}
-
-static Napi::Value libc_wasi_clockGettime_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    typedef int32_t (*km_fn_t)(int32_t, void*);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "clock_gettime")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "clock_gettime")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_gettime"));
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(a, b) : -1;
-    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
-}
-
-static Napi::Value libc_wasi_clockNanosleep_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* c = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "clock_nanosleep")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "clock_nanosleep")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_nanosleep"));
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(a, a2, b, c) : -1;
-    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
-}
-
 static Napi::Value libc_wasi_isalnum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
@@ -7487,9 +7407,6 @@ static void register_wasi_napi(Napi::Env env, Napi::Object exports) {
     exports.Set("libc_wasi_asctimeR", Napi::Function::New(env, libc_wasi_asctimeR_napi));
     exports.Set("libc_wasi_ctimeR", Napi::Function::New(env, libc_wasi_ctimeR_napi));
     exports.Set("libc_wasi_nanosleep", Napi::Function::New(env, libc_wasi_nanosleep_napi));
-    exports.Set("libc_wasi_clockGetres", Napi::Function::New(env, libc_wasi_clockGetres_napi));
-    exports.Set("libc_wasi_clockGettime", Napi::Function::New(env, libc_wasi_clockGettime_napi));
-    exports.Set("libc_wasi_clockNanosleep", Napi::Function::New(env, libc_wasi_clockNanosleep_napi));
     exports.Set("libc_wasi_isalnum", Napi::Function::New(env, libc_wasi_isalnum_napi));
     exports.Set("libc_wasi_isalpha", Napi::Function::New(env, libc_wasi_isalpha_napi));
     exports.Set("libc_wasi_iscntrl", Napi::Function::New(env, libc_wasi_iscntrl_napi));

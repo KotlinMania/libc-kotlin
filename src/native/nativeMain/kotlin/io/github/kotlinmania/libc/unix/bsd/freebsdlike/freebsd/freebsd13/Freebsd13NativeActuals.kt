@@ -24,7 +24,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd13.cinterop.libc_unix_bsd_freebsdlike_freebsd_freebsd13_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd13.cinterop.libc_unix_bsd_freebsdlike_freebsd_freebsd13_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd13.cinterop.libc_unix_bsd_freebsdlike_freebsd_freebsd13_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =

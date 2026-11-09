@@ -139,8 +139,10 @@ public typealias CpuidT = CUlong
 
 public typealias PsetidT = CInt
 
-public sealed class FILE {
+public class FILE(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class FposT {
+public class FposT(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

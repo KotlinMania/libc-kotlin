@@ -1523,7 +1523,7 @@ public val PF_MCE_EARLY: CInt = 0x08000000
 
 public val PF_MEMALLOC_PIN: CInt = 0x10000000
 
-public val PF_SUSPEND_TASK: CInt = 0x80000000
+public val PF_SUSPEND_TASK: CInt = 0x80000000.toInt()
 
 public val KLOG_CLOSE: CInt = 0
 
@@ -1613,5 +1613,3 @@ public val TRAP_PERF: CInt = 6
 // following are only available on newer Linux versions than the versions
 // currently used in CI in some configurations, so we define them here.
 public val XFS_SUPER_MAGIC: CLong = 0x58465342L
-
-public val XFS_SUPER_MAGIC1: CUint = 0x58465342u

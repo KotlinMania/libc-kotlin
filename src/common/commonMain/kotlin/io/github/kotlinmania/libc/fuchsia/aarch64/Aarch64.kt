@@ -1,10 +1,10 @@
 // port-lint: source fuchsia/aarch64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.fuchsia.aarch64
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
@@ -27,60 +27,60 @@ public typealias NlinkT = CUlong
 
 public typealias BlksizeT = CLong
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad0: CUlong,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var pad1: CInt,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CUint>,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0uL,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad0: CUlong = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var pad1: CInt = 0,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: UIntArray = UIntArray(2),
 )
 
-public open class Stat64(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad0: CUlong,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var pad1: CInt,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CUint>,
+public class Stat64(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0uL,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad0: CUlong = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var pad1: CInt = 0,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: UIntArray = UIntArray(2),
 )
 
-public open class IpcPerm(
-    public var ipcPermKey: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: ModeT,
-    public var seq: CUshort,
-    public var unused1: CUlong,
-    public var unused2: CUlong,
+public data class IpcPerm(
+    public var ipcPermKey: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CUshort = 0u,
+    public var unused1: CUlong = 0uL,
+    public var unused2: CUlong = 0uL,
 )
 
 // From https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/thirdParty/ulib/musl/include/bits/signal.h;l=20-21;drc=0827b18ab9540c46f8037f407d17ea15a79e9ba7

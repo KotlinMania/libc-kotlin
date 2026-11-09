@@ -17,6 +17,7 @@ import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
 import io.github.kotlinmania.libc.unix.linuxlike.KeyT
+import io.github.kotlinmania.libc.unix.linuxlike.io
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
@@ -25,7 +26,7 @@ import kotlinx.cinterop.toLong
 public actual fun getspnamR(name: String?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_getspnamR(name, spbuf?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, spbufp?.value?.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -80,7 +81,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
@@ -204,7 +205,7 @@ public actual fun sync() {
 public actual fun syncfs(fd: CInt): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_syncfs(fd)
 
-public actual fun syscall(num: CLong): CLong =
+public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -264,7 +265,7 @@ public actual fun personality(persona: CUlong): CInt =
 public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =

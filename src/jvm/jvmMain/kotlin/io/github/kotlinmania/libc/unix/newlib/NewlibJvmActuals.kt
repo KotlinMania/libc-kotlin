@@ -170,7 +170,7 @@ public actual fun clockGetres(clockId: ClockidT, res: COpaquePointer?): CInt =
 public actual fun closesocket(sockfd: CInt): CInt =
     UnixNewlibJniBridge.libc_unix_newlib_closesocket(sockfd)
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: COpaquePointer?, addrLen: COpaquePointer?): Long =
@@ -206,7 +206,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     UnixNewlibJniBridge.libc_unix_newlib_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

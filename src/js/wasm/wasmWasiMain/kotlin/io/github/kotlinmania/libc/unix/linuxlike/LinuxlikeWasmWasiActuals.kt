@@ -19,7 +19,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.IdtypeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 
-public actual fun ioctl(fd: CInt, request: Ioctl): CInt =
+public actual fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun libcCurrentSigrtmax(): CInt =
@@ -241,10 +241,10 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     null
 
-public actual fun open64(path: String?, oflag: CInt): CInt =
+public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat64(fd: CInt, path: String?, oflag: CInt): CInt =
+public actual fun openat64(fd: CInt, path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =

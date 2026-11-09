@@ -4,6 +4,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -12,7 +13,8 @@ import io.github.kotlinmania.libc.CUshort
 
 // Dummy functions, these don't really exist in VxWorks.
 // wait.h macros
-public sealed class DIR {
+public class DIR(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
 public typealias IntmaxT = Long
@@ -143,22 +145,25 @@ public typealias SaFamilyT = CUchar
 // mqueue.h
 public typealias MqdT = CInt
 
-public sealed class VxSemaphore {
+public class VxSemaphore(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class Nfsstat(public val value: Int) {
-    public data object NfserrRemote : Nfsstat(71)
-    public data object NfserrWflush : Nfsstat(99)
-    public data object NfserrBadhandle : Nfsstat(10001)
-    public data object NfserrNotSync : Nfsstat(10002)
-    public data object NfserrBadCookie : Nfsstat(10003)
-    public data object NfserrToosmall : Nfsstat(10005)
-    public data object NfserrBadtype : Nfsstat(10007)
-    public data object NfserrJukebox : Nfsstat(10008)
+public enum class Nfsstat(public val value: UInt) {
+    NFSERR_REMOTE(71u),
+    NFSERR_WFLUSH(99u),
+    NFSERR_BADHANDLE(10001u),
+    NFSERR_NOT_SYNC(10002u),
+    NFSERR_BAD_COOKIE(10003u),
+    NFSERR_TOOSMALL(10005u),
+    NFSERR_BADTYPE(10007u),
+    NFSERR_JUKEBOX(10008u),
 }
 
-public sealed class FILE {
+public class FILE(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class FposT {
+public class FposT(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

@@ -15,7 +15,7 @@ public actual fun errno(): COpaquePointer? =
 public actual fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
     io.github.kotlinmania.libc.unix.nuttx.cinterop.libc_unix_nuttx_bind(sockfd, addr?.value?.toCPointer<ByteVar>(), addrlen)
 
-public actual fun ioctl(fd: Int, request: Int): Int =
+public actual fun ioctl(fd: Int, request: Int, vararg variadicArgs: Long): Int =
     0
 
 public actual fun dirfd(dirp: DIR?): Int =

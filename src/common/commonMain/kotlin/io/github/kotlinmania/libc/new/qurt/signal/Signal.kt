@@ -122,27 +122,27 @@ public val SA_SIGINFO: CInt = 1
 public typealias SighandlerT = SizeT
 
 // Signal structures based on QuRT SDK headers
-public open class Sigval(public var sivalInt: CInt, public var sivalPtr: COpaquePointer?)
+public data class Sigval(public var sivalInt: CInt = 0, public var sivalPtr: COpaquePointer? = null)
 
-public open class Sigevent(
-    public var sigevNotify: CInt,
-    public var sigevSigno: CInt,
-    public var sigevValue: Sigval,
-    public var sigevNotifyFunction: SigeventSigevNotifyFunctionCallback?,
-    public var sigevNotifyAttributes: PthreadAttrT?,
+public data class Sigevent(
+    public var sigevNotify: CInt = 0,
+    public var sigevSigno: CInt = 0,
+    public var sigevValue: Sigval = Sigval(),
+    public var sigevNotifyFunction: SigeventSigevNotifyFunctionCallback? = null,
+    public var sigevNotifyAttributes: PthreadAttrT? = null,
 )
 
-public open class SiginfoT(
-    public var siSigno: CInt,
-    public var siCode: CInt,
-    public var siValue: Sigval,
+public data class SiginfoT(
+    public var siSigno: CInt = 0,
+    public var siCode: CInt = 0,
+    public var siValue: Sigval = Sigval(),
 )
 
-public open class Sigaction(
-    public var saHandler: SigactionSaHandlerCallback?,
-    public var saMask: SigsetT,
-    public var saFlags: CInt,
-    public var saSigaction: SigactionSaSigactionCallback?,
+public data class Sigaction(
+    public var saHandler: SigactionSaHandlerCallback? = null,
+    public var saMask: SigsetT = 0uL,
+    public var saFlags: CInt = 0,
+    public var saSigaction: SigactionSaSigactionCallback? = null,
 )
 
 public expect fun signal(sig: CInt, handler: SighandlerT): SighandlerT

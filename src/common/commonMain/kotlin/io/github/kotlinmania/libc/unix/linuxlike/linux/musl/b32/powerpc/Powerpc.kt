@@ -1,4 +1,5 @@
 // port-lint: source unix/linux_like/linux/musl/b32/powerpc.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.powerpc
 
 import io.github.kotlinmania.libc.*
@@ -22,6 +23,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.BlkcntT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.InoT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.MsglenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.MsgqnumT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.NCCS
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.BlksizeT
@@ -31,110 +33,136 @@ public typealias WcharT = Int
 
 public typealias Stat64 = Stat
 
-public open class Termios(
-    public var cIflag: TcflagT,
-    public var cOflag: TcflagT,
-    public var cCflag: TcflagT,
-    public var cLflag: TcflagT,
-    public var cCc: List<CcT>,
-    public var cLine: CcT,
-    public var cIspeed: SpeedT,
-    public var cOspeed: SpeedT,
+public data class Termios(
+    public var cIflag: TcflagT = 0u,
+    public var cOflag: TcflagT = 0u,
+    public var cCflag: TcflagT = 0u,
+    public var cLflag: TcflagT = 0u,
+    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cLine: CcT = 0u,
+    public var cIspeed: SpeedT = 0u,
+    public var cOspeed: SpeedT = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Termios) return false
+        if (this.cIflag != other.cIflag) return false
+        if (this.cOflag != other.cOflag) return false
+        if (this.cCflag != other.cCflag) return false
+        if (this.cLflag != other.cLflag) return false
+        if (!this.cCc.contentEquals(other.cCc)) return false
+        if (this.cLine != other.cLine) return false
+        if (this.cIspeed != other.cIspeed) return false
+        if (this.cOspeed != other.cOspeed) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.cIflag.hashCode()
+        result = 31 * result + this.cOflag.hashCode()
+        result = 31 * result + this.cCflag.hashCode()
+        result = 31 * result + this.cLflag.hashCode()
+        result = 31 * result + this.cCc.contentHashCode()
+        result = 31 * result + this.cLine.hashCode()
+        result = 31 * result + this.cIspeed.hashCode()
+        result = 31 * result + this.cOspeed.hashCode()
+        return result
+    }
+}
+
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var stRdevPadding: CShort = 0,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtim32: CAnonymousTimespec32 = CAnonymousTimespec32(),
+    public var stMtim32: CAnonymousTimespec32 = CAnonymousTimespec32(),
+    public var stCtim32: CAnonymousTimespec32 = CAnonymousTimespec32(),
+    public var unused: LongArray = LongArray(2),
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var pad0: UInt = 0u,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var pad1: UInt = 0u,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var pad2: UInt = 0u,
 )
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var stRdevPadding: CShort,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var stBlocks: BlkcntT,
-    public var stAtim32: CAnonymousTimespec32,
-    public var stMtim32: CAnonymousTimespec32,
-    public var stCtim32: CAnonymousTimespec32,
-    public var unused: List<CLong>,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var pad0: UInt,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var pad1: UInt,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var pad2: UInt,
+public data class CAnonymousTimespec32(public var tvSec: CLong = 0L, public var tvNsec: CLong = 0L)
+
+public data class StackT(
+    public var ssSp: COpaquePointer? = null,
+    public var ssFlags: CInt = 0,
+    public var ssSize: SizeT = 0uL,
 )
 
-public open class CAnonymousTimespec32(public var tvSec: CLong, public var tvNsec: CLong)
-
-public open class StackT(
-    public var ssSp: COpaquePointer?,
-    public var ssFlags: CInt,
-    public var ssSize: SizeT,
+public data class IpcPerm(
+    public var key: KeyT = 0,
+    public var ipcPermKey: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CInt = 0,
+    public var pad1: CInt = 0,
+    public var pad2: CLonglong = 0L,
+    public var pad3: CLonglong = 0L,
 )
 
-public open class IpcPerm(
-    public var key: KeyT,
-    public var ipcPermKey: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: ModeT,
-    public var seq: CInt,
-    public var pad1: CInt,
-    public var pad2: CLonglong,
-    public var pad3: CLonglong,
+public class ShmidDs(
+    public var shmPerm: IpcPerm = IpcPerm(),
+    public var shmAtimeHi: CUlong = 0uL,
+    public var shmAtimeLo: CUlong = 0uL,
+    public var shmDtimeHi: CUlong = 0uL,
+    public var shmDtimeLo: CUlong = 0uL,
+    public var shmCtimeHi: CUlong = 0uL,
+    public var shmCtimeLo: CUlong = 0uL,
+    public var unused1: CInt = 0,
+    public var shmAtime: TimeT = 0L,
+    public var unused2: CInt = 0,
+    public var shmDtime: TimeT = 0L,
+    public var unused3: CInt = 0,
+    public var shmCtime: TimeT = 0L,
+    public var unused4: CInt = 0,
+    public var pad1: CUlong = 0uL,
+    public var shmSegsz: SizeT = 0uL,
+    public var shmCpid: PidT = 0,
+    public var shmLpid: PidT = 0,
+    public var shmNattch: CUlong = 0uL,
+    public var pad2: CUlong = 0uL,
 )
 
-public open class ShmidDs(
-    public var shmPerm: IpcPerm,
-    public var shmAtimeHi: CUlong,
-    public var shmAtimeLo: CUlong,
-    public var shmDtimeHi: CUlong,
-    public var shmDtimeLo: CUlong,
-    public var shmCtimeHi: CUlong,
-    public var shmCtimeLo: CUlong,
-    public var unused1: CInt,
-    public var shmAtime: TimeT,
-    public var unused2: CInt,
-    public var shmDtime: TimeT,
-    public var unused3: CInt,
-    public var shmCtime: TimeT,
-    public var unused4: CInt,
-    public var pad1: CUlong,
-    public var shmSegsz: SizeT,
-    public var shmCpid: PidT,
-    public var shmLpid: PidT,
-    public var shmNattch: CUlong,
-    public var pad2: CUlong,
-)
-
-public open class MsqidDs(
-    public var msgPerm: IpcPerm,
-    public var msgStimeHi: CUlong,
-    public var msgStimeLo: CUlong,
-    public var msgRtimeHi: CUlong,
-    public var msgRtimeLo: CUlong,
-    public var msgCtimeHi: CUlong,
-    public var msgCtimeLo: CUlong,
-    public var unused1: CInt,
-    public var msgStime: TimeT,
-    public var unused2: CInt,
-    public var msgRtime: TimeT,
-    public var unused3: CInt,
-    public var msgCtime: TimeT,
-    public var msgCbytes: CUlong,
-    public var msgQnum: MsgqnumT,
-    public var msgQbytes: MsglenT,
-    public var msgLspid: PidT,
-    public var msgLrpid: PidT,
-    public var pad1: CUlong,
-    public var pad2: CUlong,
+public class MsqidDs(
+    public var msgPerm: IpcPerm = IpcPerm(),
+    public var msgStimeHi: CUlong = 0uL,
+    public var msgStimeLo: CUlong = 0uL,
+    public var msgRtimeHi: CUlong = 0uL,
+    public var msgRtimeLo: CUlong = 0uL,
+    public var msgCtimeHi: CUlong = 0uL,
+    public var msgCtimeLo: CUlong = 0uL,
+    public var unused1: CInt = 0,
+    public var msgStime: TimeT = 0L,
+    public var unused2: CInt = 0,
+    public var msgRtime: TimeT = 0L,
+    public var unused3: CInt = 0,
+    public var msgCtime: TimeT = 0L,
+    public var msgCbytes: CUlong = 0uL,
+    public var msgQnum: MsgqnumT = 0uL,
+    public var msgQbytes: MsglenT = 0uL,
+    public var msgLspid: PidT = 0,
+    public var msgLrpid: PidT = 0,
+    public var pad1: CUlong = 0uL,
+    public var pad2: CUlong = 0uL,
 )
 
 public val MADV_SOFT_OFFLINE: CInt = 101

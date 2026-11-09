@@ -9,73 +9,73 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 
 // stat.h
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stMode: CShort,
-    public var stNlink: CShort,
-    public var stUid: CShort,
-    public var stGid: CShort,
-    public var stRdev: DevT,
-    public var stSize: OffT,
-    public var stAtime: TimeT,
-    public var stMtime: TimeT,
-    public var stCtime: TimeT,
-    public var stBlksize: BlksizeT,
+public data class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stMode: CShort = 0,
+    public var stNlink: CShort = 0,
+    public var stUid: CShort = 0,
+    public var stGid: CShort = 0,
+    public var stRdev: DevT = 0uL,
+    public var stSize: OffT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stBlksize: BlksizeT = 0,
 )
 
 // time.h
-public open class Tm(
-    public var tmSec: CInt,
-    public var tmMin: CInt,
-    public var tmHour: CInt,
-    public var tmMday: CInt,
-    public var tmMon: CInt,
-    public var tmYear: CInt,
-    public var tmWday: CInt,
-    public var tmYday: CInt,
-    public var tmIsdst: CInt,
-    public var tmGmtoff: CLong,
-    public var tmZone: COpaquePointer?,
+public data class Tm(
+    public var tmSec: CInt = 0,
+    public var tmMin: CInt = 0,
+    public var tmHour: CInt = 0,
+    public var tmMday: CInt = 0,
+    public var tmMon: CInt = 0,
+    public var tmYear: CInt = 0,
+    public var tmWday: CInt = 0,
+    public var tmYday: CInt = 0,
+    public var tmIsdst: CInt = 0,
+    public var tmGmtoff: CLong = 0L,
+    public var tmZone: COpaquePointer? = null,
 )
 
 // stdlib.h
-public open class QdivT(public var quot: QuadT, public var rem: QuadT)
+public data class QdivT(public var quot: QuadT = 0L, public var rem: QuadT = 0L)
 
-public open class LldivT(public var quot: CLonglong, public var rem: CLonglong)
+public data class LldivT(public var quot: CLonglong = 0L, public var rem: CLonglong = 0L)
 
-public open class DivT(public var quot: CInt, public var rem: CInt)
+public data class DivT(public var quot: CInt = 0, public var rem: CInt = 0)
 
-public open class LdivT(public var quot: CLong, public var rem: CLong)
+public data class LdivT(public var quot: CLong = 0L, public var rem: CLong = 0L)
 
 // locale.h
-public open class Lconv(
-    public var decimalPoint: COpaquePointer?,
-    public var thousandsSep: COpaquePointer?,
-    public var grouping: COpaquePointer?,
-    public var intCurrSymbol: COpaquePointer?,
-    public var currencySymbol: COpaquePointer?,
-    public var monDecimalPoint: COpaquePointer?,
-    public var monThousandsSep: COpaquePointer?,
-    public var monGrouping: COpaquePointer?,
-    public var positiveSign: COpaquePointer?,
-    public var negativeSign: COpaquePointer?,
-    public var intFracDigits: CChar,
-    public var fracDigits: CChar,
-    public var pCsPrecedes: CChar,
-    public var pSepBySpace: CChar,
-    public var nCsPrecedes: CChar,
-    public var nSepBySpace: CChar,
-    public var pSignPosn: CChar,
-    public var nSignPosn: CChar,
-    public var intPCsPrecedes: CChar,
-    public var intNCsPrecedes: CChar,
-    public var intPSepBySpace: CChar,
-    public var intNSepBySpace: CChar,
-    public var intPSignPosn: CChar,
-    public var intNSignPosn: CChar,
+public class Lconv(
+    public var decimalPoint: COpaquePointer? = null,
+    public var thousandsSep: COpaquePointer? = null,
+    public var grouping: COpaquePointer? = null,
+    public var intCurrSymbol: COpaquePointer? = null,
+    public var currencySymbol: COpaquePointer? = null,
+    public var monDecimalPoint: COpaquePointer? = null,
+    public var monThousandsSep: COpaquePointer? = null,
+    public var monGrouping: COpaquePointer? = null,
+    public var positiveSign: COpaquePointer? = null,
+    public var negativeSign: COpaquePointer? = null,
+    public var intFracDigits: CChar = 0u,
+    public var fracDigits: CChar = 0u,
+    public var pCsPrecedes: CChar = 0u,
+    public var pSepBySpace: CChar = 0u,
+    public var nCsPrecedes: CChar = 0u,
+    public var nSepBySpace: CChar = 0u,
+    public var pSignPosn: CChar = 0u,
+    public var nSignPosn: CChar = 0u,
+    public var intPCsPrecedes: CChar = 0u,
+    public var intNCsPrecedes: CChar = 0u,
+    public var intPSepBySpace: CChar = 0u,
+    public var intNSepBySpace: CChar = 0u,
+    public var intPSignPosn: CChar = 0u,
+    public var intNSignPosn: CChar = 0u,
 )
 
-public open class Iovec(public var iovBase: COpaquePointer?, public var iovLen: SizeT)
+public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
 
-public open class Timeval(public var tvSec: CLong, public var tvUsec: CLong)
+public data class Timeval(public var tvSec: CLong = 0L, public var tvUsec: CLong = 0L)

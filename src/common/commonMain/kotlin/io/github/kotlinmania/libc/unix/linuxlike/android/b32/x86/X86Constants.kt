@@ -913,6 +913,3 @@ public val AT_SYSINFO: CUlong = 32uL
 public val AT_SYSINFO_EHDR: CUlong = 33uL
 
 public val AT_VECTOR_SIZE_ARCH: CUlong = 3uL
-
-// socketcall values from linux/net.h (only the needed ones, and not public)
-public val SYS_ACCEPT41: CInt = 18

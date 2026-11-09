@@ -6,8 +6,8 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
@@ -38,23 +38,23 @@ public fun interface DlIteratePhdrCallbackCallback {
 // currently used in CI in some configurations, so we define them here.
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val next = null
-    val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt() > max) {
-        nullMut<Cmsghdr>()
+        null
     } else {
-        (next as Cmsghdr?)
+        ((next as Any?) as Cmsghdr?)
     }
 }
 
 public fun cpuAllocSize(count: CInt): SizeT {
-    val dummy: CpuSetT = null
+    val dummy: CpuSetT? = null
     val sizeInBits = 8 * 8
-    return ((count.toULong() + sizeInBits - 1uL) / 8uL).toULong()
+    return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL).toULong()
 }
 
 public fun cpuZero(cpuset: CpuSetT) {
-    for (slot in cpuset.bits.iterMut()) {
-        slot = 0
+    for (idx in cpuset.bits.indices) {
+        cpuset.bits[idx] = 0uL
     }
 }
 
@@ -62,7 +62,7 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1 shl offset)
+    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset.toInt())
     Unit
 }
 
@@ -70,27 +70,27 @@ public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1 shl offset).inv()
+    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset.toInt()).inv()
     Unit
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    return 0 != (cpuset.bits[idx] and (1 shl offset))
+    return 0uL != (cpuset.bits[idx] and (1uL shl offset.toInt()))
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits[0 until (size / sizeOfMask)].iter()) {
-        s += i.countOnes()
+    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+        s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
 public fun cpuCount(cpuset: CpuSetT): CInt {
-    return CPU_COUNT_S(sizeOf<CpuSetT>(), cpuset)
+    return cpuCountS(8, cpuset)
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
@@ -102,7 +102,7 @@ public fun nlaAlign(len: CInt): CInt {
 }
 
 public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return null
+    return (((ee)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as Sockaddr?)
 }
 
 public fun makedev(ma: CUint, mi: CUint): DevT {

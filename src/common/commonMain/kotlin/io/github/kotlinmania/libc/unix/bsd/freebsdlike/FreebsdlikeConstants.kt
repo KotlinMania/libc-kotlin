@@ -9,20 +9,20 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.bsd.POLLERR
+import io.github.kotlinmania.libc.unix.bsd.POLLHUP
+import io.github.kotlinmania.libc.unix.bsd.POLLIN
+import io.github.kotlinmania.libc.unix.bsd.POLLNVAL
+import io.github.kotlinmania.libc.unix.bsd.POLLOUT
+import io.github.kotlinmania.libc.unix.bsd.POLLPRI
+import io.github.kotlinmania.libc.unix.bsd.POLLRDBAND
+import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
+import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.SemT
-import io.github.kotlinmania.libc.unix.cygwin.POLLRDBAND
-import io.github.kotlinmania.libc.unix.cygwin.POLLRDNORM
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.POLLWRBAND
-import io.github.kotlinmania.libc.unix.newlib.aarch64.POLLERR
-import io.github.kotlinmania.libc.unix.newlib.aarch64.POLLHUP
-import io.github.kotlinmania.libc.unix.newlib.aarch64.POLLIN
-import io.github.kotlinmania.libc.unix.newlib.aarch64.POLLNVAL
-import io.github.kotlinmania.libc.unix.newlib.aarch64.POLLOUT
-import io.github.kotlinmania.libc.unix.newlib.aarch64.POLLPRI
 
 // Non-public helper constant
-public val SIZEOF_LONG: Int = sizeOf<CLong>()
+public val SIZEOF_LONG: Int = 8
 
 public val AIO_LISTIO_MAX: CInt = 16
 
@@ -338,7 +338,7 @@ public val MAP_ANON: CInt = 0x1000
 
 public val MAP_ANONYMOUS: CInt = MAP_ANON
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MCL_CURRENT: CInt = 0x0001
 
@@ -350,7 +350,7 @@ public val MNT_NOATIME: CInt = 0x10000000
 
 public val MNT_NOCLUSTERR: CInt = 0x40000000
 
-public val MNT_NOCLUSTERW: CInt = 0x80000000
+public val MNT_NOCLUSTERW: CInt = 0x80000000.toInt()
 
 public val MNT_NOSYMFOLLOW: CInt = 0x00400000
 
@@ -562,7 +562,7 @@ public val ENOLINK: CInt = 91
 
 public val EPROTO: CInt = 92
 
-public val POLLSTANDARD: CShort = (POLLIN or POLLPRI or POLLOUT or POLLRDNORM or POLLRDBAND or POLLWRBAND or POLLERR or POLLHUP or POLLNVAL).toShort()
+public val POLLSTANDARD: CShort = (((((((((((((((POLLIN.toInt() or POLLPRI.toInt()).toShort()).toInt() or POLLOUT.toInt()).toShort()).toInt() or POLLRDNORM.toInt()).toShort()).toInt() or POLLRDBAND.toInt()).toShort()).toInt() or POLLWRBAND.toInt()).toShort()).toInt() or POLLERR.toInt()).toShort()).toInt() or POLLHUP.toInt()).toShort()).toInt() or POLLNVAL.toInt()).toShort()
 
 public val AI_PASSIVE: CInt = 0x00000001
 

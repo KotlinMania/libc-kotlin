@@ -1,8 +1,8 @@
 // port-lint: source new/netbsd/net/if_.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.new.netbsd.net.ifbranch
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
@@ -11,7 +11,7 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.new.qurt.Timespec
 import io.github.kotlinmania.libc.unix.IFNAMSIZ
-import io.github.kotlinmania.libc.unix.bsd.apple.SockaddrStorage
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
 import io.github.kotlinmania.libc.unix.newlib.aarch64.Sockaddr
 
 // Header: `net / if.h`
@@ -19,26 +19,26 @@ import io.github.kotlinmania.libc.unix.newlib.aarch64.Sockaddr
 // <https://github.com/NetBSD/src/tree/trunk/sys/timex.h>
 
 // supports multicast
-public open class IfData(
-    public var ifiType: CUchar,
-    public var ifiAddrlen: CUchar,
-    public var ifiHdrlen: CUchar,
-    public var ifiLinkState: CInt,
-    public var ifiMtu: ULong,
-    public var ifiMetric: ULong,
-    public var ifiBaudrate: ULong,
-    public var ifiIpackets: ULong,
-    public var ifiIerrors: ULong,
-    public var ifiOpackets: ULong,
-    public var ifiOerrors: ULong,
-    public var ifiCollisions: ULong,
-    public var ifiIbytes: ULong,
-    public var ifiObytes: ULong,
-    public var ifiImcasts: ULong,
-    public var ifiOmcasts: ULong,
-    public var ifiIqdrops: ULong,
-    public var ifiNoproto: ULong,
-    public var ifiLastchange: Timespec,
+public class IfData(
+    public var ifiType: CUchar = 0u,
+    public var ifiAddrlen: CUchar = 0u,
+    public var ifiHdrlen: CUchar = 0u,
+    public var ifiLinkState: CInt = 0,
+    public var ifiMtu: ULong = 0uL,
+    public var ifiMetric: ULong = 0uL,
+    public var ifiBaudrate: ULong = 0uL,
+    public var ifiIpackets: ULong = 0uL,
+    public var ifiIerrors: ULong = 0uL,
+    public var ifiOpackets: ULong = 0uL,
+    public var ifiOerrors: ULong = 0uL,
+    public var ifiCollisions: ULong = 0uL,
+    public var ifiIbytes: ULong = 0uL,
+    public var ifiObytes: ULong = 0uL,
+    public var ifiImcasts: ULong = 0uL,
+    public var ifiOmcasts: ULong = 0uL,
+    public var ifiIqdrops: ULong = 0uL,
+    public var ifiNoproto: ULong = 0uL,
+    public var ifiLastchange: Timespec = Timespec(),
 )
 
 public val LINK_STATE_UNKNOWN: CInt = 0
@@ -94,36 +94,50 @@ public val IFF_LINK2: CInt = 0x4000
 // per link layer defined bit
 public val IFF_MULTICAST: CInt = 0x8000
 
-public open class IfMsghdr(
-    public var ifmMsglen: CUshort,
-    public var ifmVersion: CUchar,
-    public var ifmType: CUchar,
-    public var ifmAddrs: CInt,
-    public var ifmFlags: CInt,
-    public var ifmIndex: CUshort,
-    public var ifmData: IfData,
+public data class IfMsghdr(
+    public var ifmMsglen: CUshort = 0u,
+    public var ifmVersion: CUchar = 0u,
+    public var ifmType: CUchar = 0u,
+    public var ifmAddrs: CInt = 0,
+    public var ifmFlags: CInt = 0,
+    public var ifmIndex: CUshort = 0u,
+    public var ifmData: IfData = IfData(),
 )
 
-public open class Ifreq(public var ifrName: List<CChar>, public var ifrIfru: CAnonymousIfrIfru)
+public data class Ifreq(public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Ifreq) return false
+        if (!this.ifrName.contentEquals(other.ifrName)) return false
+        if (this.ifrIfru != other.ifrIfru) return false
+        return true
+    }
 
-public open class CAnonymousIfrIfru(
-    public var ifruAddr: Sockaddr? = null,
-    public var ifruDstaddr: Sockaddr? = null,
-    public var ifruBroadaddr: Sockaddr? = null,
-    public var space: SockaddrStorage? = null,
-    public var ifruFlags: CShort? = null,
-    public var ifruAddrflags: CInt? = null,
-    public var ifruMetrics: CInt? = null,
-    public var ifruMtu: CInt? = null,
-    public var ifruDlt: CInt? = null,
-    public var ifruValue: CUint? = null,
-    public var ifruData: COpaquePointer?? = null,
+    override fun hashCode(): Int {
+        var result = this.ifrName.contentHashCode()
+        result = 31 * result + this.ifrIfru.hashCode()
+        return result
+    }
+}
+
+public data class CAnonymousIfrIfru(
+    public var ifruAddr: Sockaddr = Sockaddr(),
+    public var ifruDstaddr: Sockaddr = Sockaddr(),
+    public var ifruBroadaddr: Sockaddr = Sockaddr(),
+    public var space: SockaddrStorage = SockaddrStorage(),
+    public var ifruFlags: CShort = 0,
+    public var ifruAddrflags: CInt = 0,
+    public var ifruMetrics: CInt = 0,
+    public var ifruMtu: CInt = 0,
+    public var ifruDlt: CInt = 0,
+    public var ifruValue: CUint = 0u,
+    public var ifruData: COpaquePointer? = null,
     // buf and buflen are deprecated but they contribute to union size
-    public var ifruB: CAnonymousIfrIfruIfruB? = null,
+    public var ifruB: CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(),
 )
 
-public open class CAnonymousIfrIfruIfruB(public var bBuflen: UInt, public var bBuf: COpaquePointer?)
+public data class CAnonymousIfrIfruIfruB(public var bBuflen: UInt = 0u, public var bBuf: COpaquePointer? = null)
 
-public open class Ifconf(public var ifcLen: CInt, public var ifcIfcu: CAnonymousIfcIfcu)
+public data class Ifconf(public var ifcLen: CInt = 0, public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu())
 
-public open class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer?? = null, public var ifcuReq: Ifreq?? = null)
+public data class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer? = null, public var ifcuReq: Ifreq? = null)

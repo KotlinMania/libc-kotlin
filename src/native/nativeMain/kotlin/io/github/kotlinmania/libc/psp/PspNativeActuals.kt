@@ -270,10 +270,10 @@ public actual fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): In
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeListUpdateStallAddr(qid, stall?.value?.toCPointer<ByteVar>())
 
 public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
-    null as GeListState
+    GeListState.entries.first()
 
 public actual fun sceGeDrawSync(syncType: Int): GeListState =
-    null as GeListState
+    GeListState.entries.first()
 
 public actual fun sceGeBreak(mode: Int, pParam: COpaquePointer?): Int =
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeBreak(mode, pParam?.value?.toCPointer<ByteVar>())
@@ -298,7 +298,7 @@ public actual fun sceKernelLoadExec(file: COpaquePointer?, param: COpaquePointer
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelLoadExec(file?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
 
 public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): COpaquePointer? =
     null
@@ -421,16 +421,16 @@ public actual fun sceKernelIsCpuIntrEnable(): Int =
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelIsCpuIntrEnable()
 
 public actual fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: COpaquePointer?, option: COpaquePointer?): Int =
     0
@@ -463,19 +463,19 @@ public actual fun sceKernelVolatileMemUnlock(unk: Int): Int =
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelVolatileMemUnlock(unk)
 
 public actual fun sceKernelStdin(): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelStdout(): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelStderr(): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
-    null as SceKernelIdListType
+    SceKernelIdListType.entries.first()
 
 public actual fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelDeleteThread(thid: SceUid): Int =
     0
@@ -571,7 +571,7 @@ public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: COpaquePoi
     0
 
 public actual fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
     0
@@ -592,7 +592,7 @@ public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: COpaquePointer?
     0
 
 public actual fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
     0
@@ -616,7 +616,7 @@ public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: COpaquePo
     0
 
 public actual fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelDeleteMbx(mbxId: SceUid): Int =
     0
@@ -640,10 +640,10 @@ public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: COpaquePointer?):
     0
 
 public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelSetSysClockAlarm(clock: COpaquePointer?, handler: COpaquePointer?, common: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelCancelAlarm(alarmId: SceUid): Int =
     0
@@ -652,7 +652,7 @@ public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: COpaquePointe
     0
 
 public actual fun sceKernelCreateCallback(name: COpaquePointer?, func: SceKernelCallbackFunction, arg: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: COpaquePointer?): Int =
     0
@@ -679,7 +679,7 @@ public actual fun sceKernelReferSystemStatus(status: COpaquePointer?): Int =
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelReferSystemStatus(status?.value?.toCPointer<ByteVar>())
 
 public actual fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelDeleteMsgPipe(uid: SceUid): Int =
     0
@@ -709,7 +709,7 @@ public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: COpaquePointer?
     0
 
 public actual fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelDeleteVpl(uid: SceUid): Int =
     0
@@ -778,7 +778,7 @@ public actual fun sceKernelGetSystemTimeLow(): UInt =
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetSystemTimeLow()
 
 public actual fun sceKernelCreateVTimer(name: COpaquePointer?, opt: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelDeleteVTimer(uid: SceUid): Int =
     0
@@ -820,7 +820,7 @@ public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: COpaquePointer?)
     0
 
 public actual fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int =
     0
@@ -1180,10 +1180,10 @@ public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: COpaquePointer?, pUt
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcFormatRFC2822LocalTime(pszDateTime?.value?.toCPointer<ByteVar>(), pUtc?.value?.toCPointer<ByteVar>())
 
 public actual fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceIoClose(fd: SceUid): Int =
     0
@@ -1231,7 +1231,7 @@ public actual fun sceIoRename(oldname: COpaquePointer?, newname: COpaquePointer?
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoRename(oldname?.value?.toCPointer<ByteVar>(), newname?.value?.toCPointer<ByteVar>())
 
 public actual fun sceIoDopen(dirname: COpaquePointer?): SceUid =
-    null as SceUid
+    SceUid()
 
 public actual fun sceIoDread(fd: SceUid, dir: COpaquePointer?): Int =
     0
@@ -1383,7 +1383,7 @@ public actual fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: COpaqueP
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegQueryStreamSize(buffer?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
 
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
-    null as SceMpegStream
+    SceMpegStream()
 
 public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) {
 }
@@ -1545,7 +1545,7 @@ public actual fun sceGuSwapBuffers(): COpaquePointer? =
     io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuSwapBuffers()?.let { COpaquePointer(it.toLong()) }
 
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
-    null as GeListState
+    GeListState.entries.first()
 
 public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
 }

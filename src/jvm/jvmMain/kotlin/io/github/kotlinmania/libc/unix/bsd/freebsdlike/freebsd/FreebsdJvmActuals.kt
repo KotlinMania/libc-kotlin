@@ -852,7 +852,7 @@ public actual fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: COpaquePointe
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioWaitcomplete((iocbp?.value ?: 0L), (timeout?.value ?: 0L))
 
 public actual fun mqGetfdNp(mqd: MqdT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp(mqd.toLong())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp((mqd?.value ?: 0L))
 
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_waitid(idtype.toInt(), id, (infop?.value ?: 0L), options)
@@ -878,7 +878,7 @@ public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_semget(key, nsems, semflg)
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
@@ -1014,7 +1014,7 @@ public actual fun mount(type: String?, dir: String?, flags: CInt, data: COpaqueP
 public actual fun nmount(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_nmount((iov?.value ?: 0L), niov.toInt(), flags)
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun rfork(flags: CInt): CInt =
@@ -1053,19 +1053,19 @@ public actual fun capIoctlsGet(fd: CInt, cmds: COpaquePointer?, maxcmds: ULong):
 public actual fun capIoctlsLimit(fd: CInt, cmds: COpaquePointer?, ncmds: ULong): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd, (cmds?.value ?: 0L), ncmds.toLong())
 
-public actual fun capRightsInit(version: CInt, rights: COpaquePointer?): COpaquePointer? =
+public actual fun capRightsInit(version: CInt, rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version, fd, (rightsp?.value ?: 0L))
 
-public actual fun capRightsSet(rights: COpaquePointer?): COpaquePointer? =
+public actual fun capRightsSet(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
     null
 
-public actual fun capRightsClear(rights: COpaquePointer?): COpaquePointer? =
+public actual fun capRightsClear(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
     null
 
-public actual fun capRightsIsSet(rights: COpaquePointer?): Boolean =
+public actual fun capRightsIsSet(rights: COpaquePointer?, vararg variadicArgs: Long): Boolean =
     false
 
 public actual fun capRightsIsValid(rights: COpaquePointer?): Boolean =
@@ -1185,7 +1185,7 @@ public actual fun fdatasync(fd: CInt): CInt =
 public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux, (buf?.value ?: 0L), buflen)
 
-public actual fun setproctitleFast(fmt: String?) {
+public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
@@ -1355,10 +1355,10 @@ public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flag
 public actual fun humanizeNumber(buf: COpaquePointer?, len: SizeT, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_humanizeNumber((buf?.value ?: 0L), len.toLong(), number, suffix, scale, flags)
 
-public actual fun flopen(path: String?, flags: CInt): CInt =
+public actual fun flopen(path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun flopenat(fd: CInt, path: String?, flags: CInt): CInt =
+public actual fun flopenat(fd: CInt, path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getlocalbase(): COpaquePointer? =
@@ -1466,16 +1466,16 @@ public actual fun timerCreate(clockId: ClockidT, evp: COpaquePointer?, timerid: 
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerCreate(clockId, (evp?.value ?: 0L), (timerid?.value ?: 0L))
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerDelete(timerid.toLong())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerDelete((timerid?.value ?: 0L))
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun(timerid.toLong())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun((timerid?.value ?: 0L))
 
 public actual fun timerGettime(timerid: TimerT, value: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerGettime(timerid.toLong(), (value?.value ?: 0L))
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerGettime((timerid?.value ?: 0L), (value?.value ?: 0L))
 
 public actual fun timerSettime(timerid: TimerT, flags: CInt, value: COpaquePointer?, ovalue: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerSettime(timerid.toLong(), flags, (value?.value ?: 0L), (ovalue?.value ?: 0L))
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerSettime((timerid?.value ?: 0L), flags, (value?.value ?: 0L), (ovalue?.value ?: 0L))
 
 public actual fun devstatGetnumdevs(kd: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_devstatGetnumdevs((kd?.value ?: 0L))

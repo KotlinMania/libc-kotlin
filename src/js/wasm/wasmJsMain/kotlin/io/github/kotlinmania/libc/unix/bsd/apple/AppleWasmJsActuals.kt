@@ -2,7 +2,6 @@
 
 package io.github.kotlinmania.libc.unix.bsd.apple
 
-import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
@@ -140,13 +139,13 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     0
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     0
 
-public actual fun shmOpen(name: String?, oflag: CInt): CInt =
+public actual fun shmOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ftok(pathname: String?, projId: CInt): KeyT =
@@ -585,9 +584,9 @@ public actual fun strtonum(numstr: String?, minval: CLonglong, maxval: CLonglong
     0L
 
 public actual fun mstats(): Mstats =
-    null as Mstats
+    Mstats()
 
-public actual fun mallocPrintf(format: String?) {
+public actual fun mallocPrintf(format: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun mallocZoneCheck(zone: COpaquePointer?): BooleanT =

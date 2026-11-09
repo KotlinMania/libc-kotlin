@@ -55,7 +55,7 @@ public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
 public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
@@ -115,7 +115,7 @@ public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: COpaquePointer?): CInt =
     0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -595,16 +595,16 @@ public actual fun fstatvfs(fildes: CInt, buf: COpaquePointer?): CInt =
 public actual fun fstatvfs64(fildes: CInt, buf: COpaquePointer?): CInt =
     0
 
-public actual fun open(file: String?, oflag: CInt): CInt =
+public actual fun open(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun open64(file: String?, oflag: CInt): CInt =
+public actual fun open64(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat(fd: CInt, file: String?, oflag: CInt): CInt =
+public actual fun openat(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat64(fd: CInt, file: String?, oflag: CInt): CInt =
+public actual fun openat64(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fopen64(filename: String?, mode: String?): FILE? =
@@ -796,7 +796,7 @@ public actual fun errnoLocation(): COpaquePointer? =
 public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     null
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -923,10 +923,10 @@ public actual fun mallopt(param: CInt, value: CInt): CInt =
     0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallinfo2(): Mallinfo2 =
-    null as Mallinfo2
+    Mallinfo2()
 
 public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
     0

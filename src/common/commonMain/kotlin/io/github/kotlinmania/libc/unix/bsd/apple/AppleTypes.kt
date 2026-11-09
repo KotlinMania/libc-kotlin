@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
@@ -62,7 +63,7 @@ public typealias MachMsgTypeNumberT = NaturalT
 
 public typealias KernReturnT = CInt
 
-public typealias UuidT = List<UByte>
+public typealias UuidT = UByteArray
 
 public typealias TaskInfoT = COpaquePointer?
 
@@ -286,52 +287,45 @@ public typealias CopyfileCallbackT = CopyfileCallbackTFn?
 
 public typealias AttrgroupT = UInt
 
-public typealias VolCapabilitiesSetT = List<UInt>
+public typealias VolCapabilitiesSetT = UIntArray
 
 public typealias MachTimebaseInfoDataT = MachTimebaseInfo
 
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class SysdirSearchPathDirectoryT(public val value: UInt) {
-    public data object SysdirDirectoryApplication : SysdirSearchPathDirectoryT(1u)
-    public data object SysdirDirectoryDemoApplication : SysdirSearchPathDirectoryT(2u)
-    public data object SysdirDirectoryDeveloperApplication : SysdirSearchPathDirectoryT(3u)
-    public data object SysdirDirectoryAdminApplication : SysdirSearchPathDirectoryT(4u)
-    public data object SysdirDirectoryLibrary : SysdirSearchPathDirectoryT(5u)
-    public data object SysdirDirectoryDeveloper : SysdirSearchPathDirectoryT(6u)
-    public data object SysdirDirectoryUser : SysdirSearchPathDirectoryT(7u)
-    public data object SysdirDirectoryDocumentation : SysdirSearchPathDirectoryT(8u)
-    public data object SysdirDirectoryDocument : SysdirSearchPathDirectoryT(9u)
-    public data object SysdirDirectoryCoreservice : SysdirSearchPathDirectoryT(10u)
-    public data object SysdirDirectoryAutosavedInformation : SysdirSearchPathDirectoryT(11u)
-    public data object SysdirDirectoryDesktop : SysdirSearchPathDirectoryT(12u)
-    public data object SysdirDirectoryCaches : SysdirSearchPathDirectoryT(13u)
-    public data object SysdirDirectoryApplicationSupport : SysdirSearchPathDirectoryT(14u)
-    public data object SysdirDirectoryDownloads : SysdirSearchPathDirectoryT(15u)
-    public data object SysdirDirectoryInputMethods : SysdirSearchPathDirectoryT(16u)
-    public data object SysdirDirectoryMovies : SysdirSearchPathDirectoryT(17u)
-    public data object SysdirDirectoryMusic : SysdirSearchPathDirectoryT(18u)
-    public data object SysdirDirectoryPictures : SysdirSearchPathDirectoryT(19u)
-    public data object SysdirDirectoryPrinterDescription : SysdirSearchPathDirectoryT(20u)
-    public data object SysdirDirectorySharedPublic : SysdirSearchPathDirectoryT(21u)
-    public data object SysdirDirectoryPreferencePanes : SysdirSearchPathDirectoryT(22u)
-    public data object SysdirDirectoryAllApplications : SysdirSearchPathDirectoryT(100u)
-    public data object SysdirDirectoryAllLibraries : SysdirSearchPathDirectoryT(101u)
-
-    public open fun clone(): SysdirSearchPathDirectoryT {
-        return this
-    }
+public enum class SysdirSearchPathDirectoryT(public val value: UInt) {
+    SYSDIR_DIRECTORY_APPLICATION(1u),
+    SYSDIR_DIRECTORY_DEMO_APPLICATION(2u),
+    SYSDIR_DIRECTORY_DEVELOPER_APPLICATION(3u),
+    SYSDIR_DIRECTORY_ADMIN_APPLICATION(4u),
+    SYSDIR_DIRECTORY_LIBRARY(5u),
+    SYSDIR_DIRECTORY_DEVELOPER(6u),
+    SYSDIR_DIRECTORY_USER(7u),
+    SYSDIR_DIRECTORY_DOCUMENTATION(8u),
+    SYSDIR_DIRECTORY_DOCUMENT(9u),
+    SYSDIR_DIRECTORY_CORESERVICE(10u),
+    SYSDIR_DIRECTORY_AUTOSAVED_INFORMATION(11u),
+    SYSDIR_DIRECTORY_DESKTOP(12u),
+    SYSDIR_DIRECTORY_CACHES(13u),
+    SYSDIR_DIRECTORY_APPLICATION_SUPPORT(14u),
+    SYSDIR_DIRECTORY_DOWNLOADS(15u),
+    SYSDIR_DIRECTORY_INPUT_METHODS(16u),
+    SYSDIR_DIRECTORY_MOVIES(17u),
+    SYSDIR_DIRECTORY_MUSIC(18u),
+    SYSDIR_DIRECTORY_PICTURES(19u),
+    SYSDIR_DIRECTORY_PRINTER_DESCRIPTION(20u),
+    SYSDIR_DIRECTORY_SHARED_PUBLIC(21u),
+    SYSDIR_DIRECTORY_PREFERENCE_PANES(22u),
+    SYSDIR_DIRECTORY_ALL_APPLICATIONS(100u),
+    SYSDIR_DIRECTORY_ALL_LIBRARIES(101u),
 }
 
-public sealed class SysdirSearchPathDomainMaskT(public val value: UInt) {
-    public data object SysdirDomainMaskUser : SysdirSearchPathDomainMaskT((1u shl 0))
-    public data object SysdirDomainMaskLocal : SysdirSearchPathDomainMaskT((1u shl 1))
-    public data object SysdirDomainMaskNetwork : SysdirSearchPathDomainMaskT((1u shl 2))
-    public data object SysdirDomainMaskSystem : SysdirSearchPathDomainMaskT((1u shl 3))
-    public data object SysdirDomainMaskAll : SysdirSearchPathDomainMaskT(0x0ffffu)
-
-    public open fun clone(): SysdirSearchPathDomainMaskT {
-        return this
-    }
+public enum class SysdirSearchPathDomainMaskT(public val value: UInt) {
+    SYSDIR_DOMAIN_MASK_USER((1u shl 0)),
+    SYSDIR_DOMAIN_MASK_LOCAL((1u shl 1)),
+    SYSDIR_DOMAIN_MASK_NETWORK((1u shl 2)),
+    SYSDIR_DOMAIN_MASK_SYSTEM((1u shl 3)),
+    SYSDIR_DOMAIN_MASK_ALL(0x0ffffu),
 }

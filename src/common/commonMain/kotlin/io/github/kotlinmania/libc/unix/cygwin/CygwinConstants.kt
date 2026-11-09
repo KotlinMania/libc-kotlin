@@ -54,7 +54,7 @@ public val SA_ONSTACK: CInt = 0x20000000
 
 public val SA_NODEFER: CInt = 0x40000000
 
-public val SA_RESETHAND: CInt = 0x80000000
+public val SA_RESETHAND: CInt = 0x80000000.toInt()
 
 public val MINSIGSTKSZ: SizeT = 8192uL
 
@@ -235,9 +235,9 @@ public val IFNAMSIZ: SizeT = IF_NAMESIZE
 
 public val FIONREAD: CInt = 0x4008667f
 
-public val FIONBIO: CInt = 0x8004667e
+public val FIONBIO: CInt = 0x8004667e.toInt()
 
-public val FIOASYNC: CInt = 0x8008667d
+public val FIOASYNC: CInt = 0x8008667d.toInt()
 
 public val FIOCLEX: CInt = 0
 
@@ -852,7 +852,7 @@ public val LC_TIME_MASK: CInt = 1 shl 5
 
 public val LC_MESSAGES_MASK: CInt = 1 shl 6
 
-public val LC_GLOBAL_LOCALE: LocaleT = (-1).toULong()
+public val LC_GLOBAL_LOCALE: LocaleT = ((-1 as Any?) as LocaleT)
 
 public val SEM_FAILED: COpaquePointer? = null
 
@@ -1220,7 +1220,7 @@ public val MAP_ANONYMOUS: CInt = MAP_ANON
 
 public val MAP_NORESERVE: CInt = 0x4000
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MS_ASYNC: CInt = 1
 

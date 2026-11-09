@@ -9,15 +9,6 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_MONOTONIC_FAST
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_REALTIME_FAST
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.CLOCK_UPTIME
 
-public val RTM_VERSION: CInt = 5
-
-public val RTAX_MAX: CInt = 8
-
-// sys/signal.h
-public val SIGTHR: CInt = 32
-
-public val SIGLWP: CInt = SIGTHR
-
 public val SIGLIBRT: CInt = 33
 
 // netinet/sctp.h

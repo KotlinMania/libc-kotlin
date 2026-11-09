@@ -1,4 +1,5 @@
 // port-lint: source unix/haiku/bsd.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
@@ -36,37 +37,61 @@ public typealias StringList = Stringlist
 
 // stringlist.h (utility library)
 // Note: this is kept because it was previously introduced
-public open class Stringlist(
-    public var slStr: COpaquePointer?,
-    public var slMax: SizeT,
-    public var slCur: SizeT,
+public data class Stringlist(
+    public var slStr: COpaquePointer? = null,
+    public var slMax: SizeT = 0uL,
+    public var slCur: SizeT = 0uL,
 )
 
 // sys/event.h
-public open class Kevent(
-    public var ident: UintptrT,
-    public var filter: CShort,
-    public var flags: CUshort,
-    public var fflags: CUint,
-    public var data: Long,
-    public var udata: COpaquePointer?,
-    public var ext: List<ULong>,
-)
+public data class Kevent(
+    public var ident: UintptrT = 0uL,
+    public var filter: CShort = 0,
+    public var flags: CUshort = 0u,
+    public var fflags: CUint = 0u,
+    public var data: Long = 0L,
+    public var udata: COpaquePointer? = null,
+    public var ext: ULongArray = ULongArray(4),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Kevent) return false
+        if (this.ident != other.ident) return false
+        if (this.filter != other.filter) return false
+        if (this.flags != other.flags) return false
+        if (this.fflags != other.fflags) return false
+        if (this.data != other.data) return false
+        if (this.udata != other.udata) return false
+        if (!this.ext.contentEquals(other.ext)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ident.hashCode()
+        result = 31 * result + this.filter.hashCode()
+        result = 31 * result + this.flags.hashCode()
+        result = 31 * result + this.fflags.hashCode()
+        result = 31 * result + this.data.hashCode()
+        result = 31 * result + this.udata.hashCode()
+        result = 31 * result + this.ext.contentHashCode()
+        return result
+    }
+}
 
 // sys/linkElf.h
-public open class DlPhdrInfo(
-    public var dlpiAddr: ElfAddr,
-    public var dlpiName: COpaquePointer?,
-    public var dlpiPhdr: ElfPhdr?,
-    public var dlpiPhnum: ElfHalf,
+public data class DlPhdrInfo(
+    public var dlpiAddr: ElfAddr = 0uL,
+    public var dlpiName: COpaquePointer? = null,
+    public var dlpiPhdr: ElfPhdr? = null,
+    public var dlpiPhnum: ElfHalf = 0u,
 )
 
 // sys/event.h
-public val EVFILT_READ: Short = -1
+public val EVFILT_READ: Short = (-1).toShort()
 
-public val EVFILT_WRITE: Short = -2
+public val EVFILT_WRITE: Short = (-2).toShort()
 
-public val EVFILT_PROC: Short = -5
+public val EVFILT_PROC: Short = (-5).toShort()
 
 public val EV_ADD: UShort = 0x0001u
 

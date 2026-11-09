@@ -249,13 +249,13 @@ public actual fun nanosleep(a: COpaquePointer?, b: COpaquePointer?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_nanosleep((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun clockGetres(a: ClockidT, b: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_clockGetres(a, (b?.value ?: 0L).toString()) as Int) else 0
+    0
 
 public actual fun clockGettime(a: ClockidT, b: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_clockGettime(a, (b?.value ?: 0L).toString()) as Int) else 0
+    0
 
 public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: COpaquePointer?, c: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_clockNanosleep(a, a2, (b?.value ?: 0L).toString(), (c?.value ?: 0L).toString()) as Int) else 0
+    0
 
 public actual fun isalnum(c: CInt): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isalnum(c) as Int) else 0
@@ -422,25 +422,25 @@ public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT)
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_memset((dest?.value ?: 0L).toString(), c, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -467,13 +467,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fileno((stream?.handle ?: 0L).toString()) as Int) else 0
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_creat(path, mode.toInt()) as Int) else 0
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -506,7 +506,7 @@ public actual fun seekdir(dirp: DIR?, loc: CLong) {
 public actual fun telldir(dirp: DIR?): CLong =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_telldir((dirp?.handle ?: 0L).toString()) as String).toLong() else 0L
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
@@ -626,7 +626,7 @@ public actual fun timegm(tm: COpaquePointer?): TimeT =
 public actual fun sysconf(name: CInt): CLong =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_sysconf(name) as String).toLong() else 0L
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
@@ -681,19 +681,19 @@ public actual fun labs(i: CLong): CLong =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_labs(i.toString()) as String).toLong() else 0L
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_freelocale(loc.toLong().toString())
+        _wasiNapiAddon.libc_wasi_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun schedYield(): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_schedYield() as Int) else 0
@@ -708,7 +708,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_nlLanginfo(item) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_nlLanginfoL(item, loc.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_nlLanginfoL(item, (loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_select(nfds, (readfds?.value ?: 0L).toString(), (writefds?.value ?: 0L).toString(), (errorfds?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) as Int) else 0
@@ -816,16 +816,16 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_realpath(pathname, (resolved?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadSelf() as String).toLong().toULong()() else null
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadSelf() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadEqual(t1.toLong().toString(), t2.toLong().toString()) as Int) else 0
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadEqual((t1?.value ?: 0L).toString(), (t2?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadJoin(native.toLong().toString(), (value?.value ?: 0L).toString()) as Int) else 0
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadJoin((native?.value ?: 0L).toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadAttrInit((attr?.value ?: 0L).toString()) as Int) else 0
@@ -843,7 +843,7 @@ public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt):
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadAttrSetdetachstate((attr?.value ?: 0L).toString(), state) as Int) else 0
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadDetach(thread.toLong().toString()) as Int) else 0
+    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadDetach((thread?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0

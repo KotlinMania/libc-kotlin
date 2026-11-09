@@ -96,32 +96,32 @@ public val TIME_WAIT: CInt = 4
 
 public val TIME_ERROR: CInt = 5
 
-public open class Ntptimeval(
-    public var time: Timespec,
-    public var maxerror: CLong,
-    public var esterror: CLong,
-    public var tai: CLong,
-    public var timeState: CInt,
+public data class Ntptimeval(
+    public var time: Timespec = Timespec(),
+    public var maxerror: CLong = 0L,
+    public var esterror: CLong = 0L,
+    public var tai: CLong = 0L,
+    public var timeState: CInt = 0,
 )
 
-public open class Timex(
-    public var modes: CUint,
-    public var offset: CLong,
-    public var freq: CLong,
-    public var maxerror: CLong,
-    public var esterror: CLong,
-    public var status: CInt,
-    public var constant: CLong,
-    public var precision: CLong,
-    public var tolerance: CLong,
-    public var ppsfreq: CLong,
-    public var jitter: CLong,
-    public var shift: CInt,
-    public var stabil: CLong,
-    public var jitcnt: CLong,
-    public var calcnt: CLong,
-    public var errcnt: CLong,
-    public var stbcnt: CLong,
+public class Timex(
+    public var modes: CUint = 0u,
+    public var offset: CLong = 0L,
+    public var freq: CLong = 0L,
+    public var maxerror: CLong = 0L,
+    public var esterror: CLong = 0L,
+    public var status: CInt = 0,
+    public var constant: CLong = 0L,
+    public var precision: CLong = 0L,
+    public var tolerance: CLong = 0L,
+    public var ppsfreq: CLong = 0L,
+    public var jitter: CLong = 0L,
+    public var shift: CInt = 0,
+    public var stabil: CLong = 0L,
+    public var jitcnt: CLong = 0L,
+    public var calcnt: CLong = 0L,
+    public var errcnt: CLong = 0L,
+    public var stbcnt: CLong = 0L,
 )
 
 public expect fun ntpGettime(buf: COpaquePointer?): CInt

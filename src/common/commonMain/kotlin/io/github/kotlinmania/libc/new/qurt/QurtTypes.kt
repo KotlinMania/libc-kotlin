@@ -94,7 +94,8 @@ public typealias FdSet = CUlong
 
 // Standard C library types
 // Division result types and structures
-public sealed class FILE {
+public class FILE(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
 public typealias FposT = CLong

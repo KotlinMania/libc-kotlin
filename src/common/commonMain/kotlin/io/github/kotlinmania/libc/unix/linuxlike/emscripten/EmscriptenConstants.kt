@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
 
 import io.github.kotlinmania.libc.*
@@ -14,8 +15,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
 import io.github.kotlinmania.libc.unix.linuxlike.KeyT
 import io.github.kotlinmania.libc.unix.linuxlike.SpeedT
 import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.FIONREAD
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SIGSYS
 
 public val MADV_SOFT_OFFLINE: CInt = 101
 
@@ -469,6 +468,8 @@ public val SC_THREAD_ROBUST_PRIO_INHERIT: CInt = 247
 
 public val SC_THREAD_ROBUST_PRIO_PROTECT: CInt = 248
 
+public val RLIM_INFINITY: RlimT = 0uL.inv()
+
 public val RLIM_SAVED_MAX: RlimT = RLIM_INFINITY
 
 public val RLIM_SAVED_CUR: RlimT = RLIM_INFINITY
@@ -547,11 +548,17 @@ public val RTLD_NODELETE: CInt = 0x1000
 
 public val RTLD_NOW: CInt = 0x2
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(size = List(SIZEOF_PTHREAD_MUTEX_T) { 0u })
+public val SIZEOF_PTHREAD_MUTEX_T: Int = 24
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(size = List(SIZEOF_PTHREAD_COND_T) { 0u })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(size = List(SIZEOF_PTHREAD_RWLOCK_T) { 0u })
+public val SIZEOF_PTHREAD_COND_T: Int = 48
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()) { 0u.toUByte() })
+
+public val SIZEOF_PTHREAD_RWLOCK_T: Int = 32
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()) { 0u.toUByte() })
 
 public val PTHREAD_MUTEX_NORMAL: CInt = 0
 
@@ -564,8 +571,6 @@ public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 public val PTHREAD_PROCESS_PRIVATE: CInt = 0
 
 public val PTHREAD_PROCESS_SHARED: CInt = 1
-
-public val SIZEOF_PTHREAD_COND_T: Int = 48
 
 public val SCHED_OTHER: CInt = 0
 
@@ -987,7 +992,7 @@ public val EL2NSYNC: CInt = 156
 
 public val SA_NODEFER: CInt = 0x40000000
 
-public val SA_RESETHAND: CInt = 0x80000000
+public val SA_RESETHAND: CInt = 0x80000000.toInt()
 
 public val SA_RESTART: CInt = 0x10000000
 
@@ -1007,6 +1012,8 @@ public val O_SEARCH: CInt = 2097152
 
 public val O_ACCMODE: CInt = 2097155
 
+public val O_NONBLOCK: CInt = 2048
+
 public val O_NDELAY: CInt = O_NONBLOCK
 
 public val NI_MAXHOST: SocklenT = 255u
@@ -1019,13 +1026,15 @@ public val POSIX_FADV_NOREUSE: CInt = 5
 
 public val POSIX_MADV_DONTNEED: CInt = 4
 
-public val RLIM_INFINITY: RlimT = 0uL.inv()
-
 public val RLIMIT_NLIMITS: CInt = 16
 
 public val RLIM_NLIMITS: CInt = RLIMIT_NLIMITS
 
+public val MAP_ANON: CInt = 0x0020
+
 public val MAP_ANONYMOUS: CInt = MAP_ANON
+
+public val SIGSYS: CInt = 31
 
 public val SIGUNUSED: CInt = SIGSYS
 
@@ -1042,6 +1051,8 @@ public val TCSANOW: CInt = 0
 public val TCSADRAIN: CInt = 1
 
 public val TCSAFLUSH: CInt = 2
+
+public val FIONREAD: CInt = 0x541B
 
 public val TIOCINQ: CInt = FIONREAD
 
@@ -1233,10 +1244,6 @@ public val SO_PEEK_OFF: CInt = 42
 
 public val SO_BUSY_POLL: CInt = 46
 
-public val SIZEOF_PTHREAD_RWLOCK_T: Int = 32
-
-public val SIZEOF_PTHREAD_MUTEX_T: Int = 24
-
 public val O_DIRECT: CInt = 0x4000
 
 public val O_DIRECTORY: CInt = 0x10000
@@ -1287,8 +1294,6 @@ public val O_EXCL: CInt = 128
 
 public val O_NOCTTY: CInt = 256
 
-public val O_NONBLOCK: CInt = 2048
-
 public val O_SYNC: CInt = 1052672
 
 public val O_RSYNC: CInt = 1052672
@@ -1296,8 +1301,6 @@ public val O_RSYNC: CInt = 1052672
 public val O_DSYNC: CInt = 4096
 
 public val SOCK_NONBLOCK: CInt = 2048
-
-public val MAP_ANON: CInt = 0x0020
 
 public val MAP_GROWSDOWN: CInt = 0x0100
 
@@ -1398,8 +1401,6 @@ public val SIGTSTP: CInt = 20
 public val SIGURG: CInt = 23
 
 public val SIGIO: CInt = 29
-
-public val SIGSYS: CInt = 31
 
 public val SIGSTKFLT: CInt = 16
 
@@ -1502,8 +1503,6 @@ public val TIOCMBIS: CInt = 0x5416
 public val TIOCMBIC: CInt = 0x5417
 
 public val TIOCMSET: CInt = 0x5418
-
-public val FIONREAD: CInt = 0x541B
 
 public val TIOCCONS: CInt = 0x541D
 

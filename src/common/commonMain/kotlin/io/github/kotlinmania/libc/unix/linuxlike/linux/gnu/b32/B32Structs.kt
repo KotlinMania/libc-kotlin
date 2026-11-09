@@ -1,7 +1,7 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
@@ -15,113 +15,209 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.csky.IpcPerm
 
-public open class Stat(
-    public var stDev: DevT,
-    public var pad1: CUint,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad2: CUint,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var atimePad: CInt,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var mtimePad: CInt,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var ctimePad: CInt,
-    public var glibcReserved4: CLong,
-    public var glibcReserved5: CLong,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var pad1: CUint = 0u,
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad2: CUint = 0u,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var atimePad: CInt = 0,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var mtimePad: CInt = 0,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var ctimePad: CInt = 0,
+    public var glibcReserved4: CLong = 0L,
+    public var glibcReserved5: CLong = 0L,
 )
 
-public open class Statvfs(
-    public var fBsize: CUlong,
-    public var fFrsize: CUlong,
-    public var fBlocks: FsblkcntT,
-    public var fBfree: FsblkcntT,
-    public var fBavail: FsblkcntT,
-    public var fFiles: FsfilcntT,
-    public var fFfree: FsfilcntT,
-    public var fFavail: FsfilcntT,
-    public var fFsid: CUlong,
-    public var fUnused: CInt,
-    public var fFlag: CUlong,
-    public var fNamemax: CUlong,
-    public var fSpare: List<CInt>,
+public data class Statvfs(
+    public var fBsize: CUlong = 0uL,
+    public var fFrsize: CUlong = 0uL,
+    public var fBlocks: FsblkcntT = 0uL,
+    public var fBfree: FsblkcntT = 0uL,
+    public var fBavail: FsblkcntT = 0uL,
+    public var fFiles: FsfilcntT = 0uL,
+    public var fFfree: FsfilcntT = 0uL,
+    public var fFavail: FsfilcntT = 0uL,
+    public var fFsid: CUlong = 0uL,
+    public var fUnused: CInt = 0,
+    public var fFlag: CUlong = 0uL,
+    public var fNamemax: CUlong = 0uL,
+    public var fSpare: IntArray = IntArray(6),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statvfs) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fFavail != other.fFavail) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fUnused != other.fUnused) return false
+        if (this.fFlag != other.fFlag) return false
+        if (this.fNamemax != other.fNamemax) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fBsize.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fFavail.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fUnused.hashCode()
+        result = 31 * result + this.fFlag.hashCode()
+        result = 31 * result + this.fNamemax.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class PthreadAttrT(public var size: UIntArray = UIntArray(9)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadAttrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
+
+public data class SigsetT(public var value: ULongArray = ULongArray(32)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SigsetT) return false
+        if (!this.value.contentEquals(other.value)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.value.contentHashCode()
+    }
+}
+
+public data class Sysinfo(
+    public var uptime: CLong = 0L,
+    public var loads: ULongArray = ULongArray(3),
+    public var totalram: CUlong = 0uL,
+    public var freeram: CUlong = 0uL,
+    public var sharedram: CUlong = 0uL,
+    public var bufferram: CUlong = 0uL,
+    public var totalswap: CUlong = 0uL,
+    public var freeswap: CUlong = 0uL,
+    public var procs: CUshort = 0u,
+    public var pad: CUshort = 0u,
+    public var totalhigh: CUlong = 0uL,
+    public var freehigh: CUlong = 0uL,
+    public var memUnit: CUint = 0u,
+    public var f: UByteArray = UByteArray(8),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Sysinfo) return false
+        if (this.uptime != other.uptime) return false
+        if (!this.loads.contentEquals(other.loads)) return false
+        if (this.totalram != other.totalram) return false
+        if (this.freeram != other.freeram) return false
+        if (this.sharedram != other.sharedram) return false
+        if (this.bufferram != other.bufferram) return false
+        if (this.totalswap != other.totalswap) return false
+        if (this.freeswap != other.freeswap) return false
+        if (this.procs != other.procs) return false
+        if (this.pad != other.pad) return false
+        if (this.totalhigh != other.totalhigh) return false
+        if (this.freehigh != other.freehigh) return false
+        if (this.memUnit != other.memUnit) return false
+        if (!this.f.contentEquals(other.f)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.uptime.hashCode()
+        result = 31 * result + this.loads.contentHashCode()
+        result = 31 * result + this.totalram.hashCode()
+        result = 31 * result + this.freeram.hashCode()
+        result = 31 * result + this.sharedram.hashCode()
+        result = 31 * result + this.bufferram.hashCode()
+        result = 31 * result + this.totalswap.hashCode()
+        result = 31 * result + this.freeswap.hashCode()
+        result = 31 * result + this.procs.hashCode()
+        result = 31 * result + this.pad.hashCode()
+        result = 31 * result + this.totalhigh.hashCode()
+        result = 31 * result + this.freehigh.hashCode()
+        result = 31 * result + this.memUnit.hashCode()
+        result = 31 * result + this.f.contentHashCode()
+        return result
+    }
+}
+
+public data class SemidDs(
+    public var semPerm: IpcPerm = IpcPerm(),
+    public var semOtime: TimeT = 0L,
+    public var reserved: SyscallUlongT = 0uL,
+    public var semCtime: TimeT = 0L,
+    public var reserved2: SyscallUlongT = 0uL,
+    public var semNsems: SyscallUlongT = 0uL,
+    public var glibcReserved3: SyscallUlongT = 0uL,
+    public var glibcReserved4: SyscallUlongT = 0uL,
 )
 
-public open class PthreadAttrT(public var size: List<UInt>)
-
-public open class SigsetT(public var value: List<CUlong>)
-
-public open class Sysinfo(
-    public var uptime: CLong,
-    public var loads: List<CUlong>,
-    public var totalram: CUlong,
-    public var freeram: CUlong,
-    public var sharedram: CUlong,
-    public var bufferram: CUlong,
-    public var totalswap: CUlong,
-    public var freeswap: CUlong,
-    public var procs: CUshort,
-    public var pad: CUshort,
-    public var totalhigh: CUlong,
-    public var freehigh: CUlong,
-    public var memUnit: CUint,
-    public var f: List<CChar>,
-)
-
-public open class SemidDs(
-    public var semPerm: IpcPerm,
-    public var semOtime: TimeT,
-    public var reserved: SyscallUlongT,
-    public var semCtime: TimeT,
-    public var reserved2: SyscallUlongT,
-    public var semNsems: SyscallUlongT,
-    public var glibcReserved3: SyscallUlongT,
-    public var glibcReserved4: SyscallUlongT,
-)
-
-public open class Timex(
-    public var modes: CUint,
-    public var pad1: CInt,
-    public var offset: CLonglong,
-    public var freq: CLonglong,
-    public var maxerror: CLonglong,
-    public var esterror: CLonglong,
-    public var status: CInt,
-    public var pad2: CInt,
-    public var constant: CLonglong,
-    public var precision: CLonglong,
-    public var tolerance: CLonglong,
-    public var time: Timeval,
-    public var tick: CLonglong,
-    public var ppsfreq: CLonglong,
-    public var jitter: CLonglong,
-    public var shift: CInt,
-    public var pad3: CInt,
-    public var stabil: CLonglong,
-    public var jitcnt: CLonglong,
-    public var calcnt: CLonglong,
-    public var errcnt: CLonglong,
-    public var stbcnt: CLonglong,
-    public var tai: CInt,
-    public var unused1: Int,
-    public var unused2: Int,
-    public var unused3: Int,
-    public var unused4: Int,
-    public var unused5: Int,
-    public var unused6: Int,
-    public var unused7: Int,
-    public var unused8: Int,
-    public var unused9: Int,
-    public var unused10: Int,
-    public var unused11: Int,
+public class Timex(
+    public var modes: CUint = 0u,
+    public var pad1: CInt = 0,
+    public var offset: CLonglong = 0L,
+    public var freq: CLonglong = 0L,
+    public var maxerror: CLonglong = 0L,
+    public var esterror: CLonglong = 0L,
+    public var status: CInt = 0,
+    public var pad2: CInt = 0,
+    public var constant: CLonglong = 0L,
+    public var precision: CLonglong = 0L,
+    public var tolerance: CLonglong = 0L,
+    public var time: Timeval = Timeval(),
+    public var tick: CLonglong = 0L,
+    public var ppsfreq: CLonglong = 0L,
+    public var jitter: CLonglong = 0L,
+    public var shift: CInt = 0,
+    public var pad3: CInt = 0,
+    public var stabil: CLonglong = 0L,
+    public var jitcnt: CLonglong = 0L,
+    public var calcnt: CLonglong = 0L,
+    public var errcnt: CLonglong = 0L,
+    public var stbcnt: CLonglong = 0L,
+    public var tai: CInt = 0,
+    public var unused1: Int = 0,
+    public var unused2: Int = 0,
+    public var unused3: Int = 0,
+    public var unused4: Int = 0,
+    public var unused5: Int = 0,
+    public var unused6: Int = 0,
+    public var unused7: Int = 0,
+    public var unused8: Int = 0,
+    public var unused9: Int = 0,
+    public var unused10: Int = 0,
+    public var unused11: Int = 0,
 )

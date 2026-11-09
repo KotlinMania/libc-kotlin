@@ -3,12 +3,11 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.arm
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.PT_FIRSTMACH
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 
 public typealias CpuSimpleLockNvT = CInt
 
-internal val ALIGNBYTES: Int = sizeOf<CLonglong>() - 1
+internal val ALIGNBYTES: Int = 8 - 1
 
 public val PT_GETREGS: CInt = PT_FIRSTMACH + 1
 

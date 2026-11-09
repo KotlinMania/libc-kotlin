@@ -39,7 +39,7 @@ public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadKill(thread?.value?.toCPointer<ByteVar>(), sig)
 
 public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_sigtimedwait(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
@@ -187,17 +187,17 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_ppoll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout?.value?.toCPointer<ByteVar>(), sigmask?.value?.toCPointer<ByteVar>())
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
@@ -205,7 +205,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
 public actual fun semDestroy(sem: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_semDestroy(sem?.value?.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semClose(sem: COpaquePointer?): CInt =
@@ -347,10 +347,10 @@ public actual fun flsll(value: CLonglong): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_flsll(value)
 
 public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_strcasecmpL(s1, s2, loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_strcasecmpL(s1, s2, loc?.value?.toCPointer<ByteVar>())
 
 public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_strncasecmpL(s1, s2, n, loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_strncasecmpL(s1, s2, n, loc?.value?.toCPointer<ByteVar>())
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_timingsafeBcmp(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>(), len)
@@ -483,7 +483,7 @@ public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaqueP
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadAttrGetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadCancel(thread.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadCancel(thread?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadCondattrGetclock(attr?.value?.toCPointer<ByteVar>(), clockId?.value?.toCPointer<ByteVar>())
@@ -522,10 +522,10 @@ public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, 
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetcpuclockid(thread.toLong().toCPointer<ByteVar>(), clkId?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetcpuclockid(thread?.value?.toCPointer<ByteVar>(), clkId?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetschedparam(native?.value?.toCPointer<ByteVar>(), policy?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadMutexTimedlock(lock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
@@ -564,30 +564,30 @@ public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadRwlockattrSetpshared(attr?.value?.toCPointer<ByteVar>(), value)
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetschedparam(native?.value?.toCPointer<ByteVar>(), policy, param?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetschedprio(native.toLong().toCPointer<ByteVar>(), priority)
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetschedprio(native?.value?.toCPointer<ByteVar>(), priority)
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetaffinityNp(thread.toLong().toCPointer<ByteVar>(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetaffinityNp(thread?.value?.toCPointer<ByteVar>(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetattrNp(native: PthreadT, attr: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetattrNp(native.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetattrNp(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), len)
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadGetnameNp(thread?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), len)
 
 public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetaffinityNp(thread.toLong().toCPointer<ByteVar>(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetaffinityNp(thread?.value?.toCPointer<ByteVar>(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetnameNp(thread.toLong().toCPointer<ByteVar>(), name)
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadSetnameNp(thread?.value?.toCPointer<ByteVar>(), name)
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =

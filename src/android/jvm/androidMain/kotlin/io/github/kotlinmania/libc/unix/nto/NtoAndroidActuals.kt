@@ -28,12 +28,6 @@ private object UnixNtoJniBridge {
     external fun libc_unix_nto_recvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_nto_sendmmsg_2(sockfd: Int, msgvec: Long, vlen: Long, flags: Int): Long
-
-    @JvmStatic
-    external fun libc_unix_nto_recvmmsg_2(sockfd: Int, msgvec: Long, vlen: Long, flags: Int, timeout: Long): Long
-
-    @JvmStatic
     external fun libc_unix_nto_semDestroy(sem: Long): Int
 
     @JvmStatic
@@ -626,9 +620,6 @@ private object UnixNtoJniBridge {
 
     @JvmStatic
     external fun libc_unix_nto_myThreadExit(valuePtr: Long)
-
-    @JvmStatic
-    external fun libc_unix_nto_cxaAtexit(cb: Long, arg: Long, dso: Long): Int
 }
 
 private var _ffi_static_SYSPAGE_PTR: COpaquePointer? = null
@@ -637,9 +628,6 @@ public actual var SYSPAGE_PTR: COpaquePointer?
     set(value) {
         _ffi_static_SYSPAGE_PTR = value
     }
-
-public actual val DSO_HANDLE: COpaquePointer?
-    get() = null
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
     UnixNtoJniBridge.libc_unix_nto_sendmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags.toInt())
@@ -1010,7 +998,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -1160,11 +1148,11 @@ public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
 public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
     UnixNtoJniBridge.libc_unix_nto_ctermid((s?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun getpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufsize: CInt, result: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_getpwentR((pwd?.value ?: 0L), (buf?.value ?: 0L), bufsize, (result?.value ?: 0L))
@@ -1209,7 +1197,7 @@ public actual fun regfree(preg: COpaquePointer?) {
 public actual fun dirfd(dirp: DIR?): CInt =
     UnixNtoJniBridge.libc_unix_nto_dirfd((dirp?.handle ?: 0L))
 
-public actual fun dircntl(dir: DIR?, cmd: CInt): CInt =
+public actual fun dircntl(dir: DIR?, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
@@ -1242,7 +1230,7 @@ public actual fun mqGetattr(mqdes: MqdT, mqstat: COpaquePointer?): CInt =
 public actual fun mqNotify(mqdes: MqdT, notification: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_mqNotify(mqdes.toLong(), (notification?.value ?: 0L))
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
@@ -1269,6 +1257,3 @@ public actual fun getErrnoPtr(): COpaquePointer? =
 public actual fun myThreadExit(valuePtr: COpaquePointer?) {
     UnixNtoJniBridge.libc_unix_nto_myThreadExit((valuePtr?.value ?: 0L))
 }
-
-public actual fun cxaAtexit(cb: FnCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt =
-    UnixNtoJniBridge.libc_unix_nto_cxaAtexit(0L, (arg?.value ?: 0L), (dso?.value ?: 0L))

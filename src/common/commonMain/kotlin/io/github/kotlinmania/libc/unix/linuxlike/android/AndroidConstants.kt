@@ -10,12 +10,12 @@ import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.INT_MAX
 import io.github.kotlinmania.libc.unix.INT_MIN
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.aix.LC_MESSAGES_MASK
-import io.github.kotlinmania.libc.unix.aix.LC_MONETARY_MASK
-import io.github.kotlinmania.libc.unix.aix.LC_NUMERIC_MASK
-import io.github.kotlinmania.libc.unix.aix.LC_TIME_MASK
-import io.github.kotlinmania.libc.unix.bsd.apple.LC_COLLATE_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_CTYPE_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MESSAGES_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_MONETARY_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_NUMERIC_MASK
+import io.github.kotlinmania.libc.unix.linuxlike.LC_TIME_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.SpeedT
 import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.aarch64.O_DIRECTORY
@@ -68,6 +68,8 @@ public val EPOLL_CLOEXEC: CInt = 0x80000
 public val EFD_SEMAPHORE: CInt = 0x1
 
 public val EFD_CLOEXEC: CInt = O_CLOEXEC
+
+public val O_NONBLOCK: CInt = 2048
 
 public val EFD_NONBLOCK: CInt = O_NONBLOCK
 
@@ -938,8 +940,6 @@ public val O_EXCL: CInt = 128
 
 public val O_NOCTTY: CInt = 256
 
-public val O_NONBLOCK: CInt = 2048
-
 public val O_SYNC: CInt = 0x101000
 
 public val O_ASYNC: CInt = 0x2000
@@ -1102,7 +1102,7 @@ public val TCSETSW: CInt = 0x5403
 
 public val TCSETSF: CInt = 0x5404
 
-public val TCGETS2: CInt = 0x802c542a
+public val TCGETS2: CInt = 0x802c542a.toInt()
 
 public val TCSETS2: CInt = 0x402c542b
 
@@ -1200,13 +1200,13 @@ public val AI_NUMERICHOST: CInt = 0x00000004
 
 public val AI_NUMERICSERV: CInt = 0x00000008
 
+public val AI_ADDRCONFIG: CInt = 0x00000400
+
 public val AI_MASK: CInt = AI_PASSIVE or AI_CANONNAME or AI_NUMERICHOST or AI_NUMERICSERV or AI_ADDRCONFIG
 
 public val AI_ALL: CInt = 0x00000100
 
 public val AI_V4MAPPED_CFG: CInt = 0x00000200
-
-public val AI_ADDRCONFIG: CInt = 0x00000400
 
 public val AI_V4MAPPED: CInt = 0x00000800
 
@@ -1217,7 +1217,7 @@ public val KEXEC_ON_CRASH: CInt = 0x00000001
 
 public val KEXEC_PRESERVE_CONTEXT: CInt = 0x00000002
 
-public val KEXEC_ARCH_MASK: CInt = 0xffff0000
+public val KEXEC_ARCH_MASK: CInt = 0xffff0000.toInt()
 
 public val KEXEC_FILE_UNLOAD: CInt = 0x00000001
 
@@ -1225,7 +1225,7 @@ public val KEXEC_FILE_ON_CRASH: CInt = 0x00000002
 
 public val KEXEC_FILE_NO_INITRAMFS: CInt = 0x00000004
 
-public val LINUX_REBOOT_MAGIC1: CInt = 0xfee1dead
+public val LINUX_REBOOT_MAGIC1: CInt = 0xfee1dead.toInt()
 
 public val LINUX_REBOOT_MAGIC2: CInt = 672274793
 
@@ -1237,17 +1237,17 @@ public val LINUX_REBOOT_MAGIC2C: CInt = 537993216
 
 public val LINUX_REBOOT_CMD_RESTART: CInt = 0x01234567
 
-public val LINUX_REBOOT_CMD_HALT: CInt = 0xCDEF0123
+public val LINUX_REBOOT_CMD_HALT: CInt = 0xCDEF0123.toInt()
 
-public val LINUX_REBOOT_CMD_CAD_ON: CInt = 0x89ABCDEF
+public val LINUX_REBOOT_CMD_CAD_ON: CInt = 0x89ABCDEF.toInt()
 
 public val LINUX_REBOOT_CMD_CAD_OFF: CInt = 0x00000000
 
 public val LINUX_REBOOT_CMD_POWER_OFF: CInt = 0x4321FEDC
 
-public val LINUX_REBOOT_CMD_RESTART2: CInt = 0xA1B2C3D4
+public val LINUX_REBOOT_CMD_RESTART2: CInt = 0xA1B2C3D4.toInt()
 
-public val LINUX_REBOOT_CMD_SW_SUSPEND: CInt = 0xD000FCE2
+public val LINUX_REBOOT_CMD_SW_SUSPEND: CInt = 0xD000FCE2.toInt()
 
 public val LINUX_REBOOT_CMD_KEXEC: CInt = 0x45584543
 
@@ -2178,7 +2178,7 @@ public val NF_VERDICT_MASK: CInt = 0x000000ff
 
 public val NF_VERDICT_FLAG_QUEUE_BYPASS: CInt = 0x00008000
 
-public val NF_VERDICT_QMASK: CInt = 0xffff0000
+public val NF_VERDICT_QMASK: CInt = 0xffff0000.toInt()
 
 public val NF_VERDICT_QBITS: CInt = 16
 

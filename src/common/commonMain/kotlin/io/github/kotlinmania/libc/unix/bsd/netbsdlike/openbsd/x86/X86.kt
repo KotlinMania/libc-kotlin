@@ -2,8 +2,7 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.x86
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CInt
 
-internal val ALIGNBYTES: Int = sizeOf<CInt>() - 1
+internal val ALIGNBYTES: Int = 8 - 1
 
 public val MAX_PAGE_SHIFT: UInt = 12u

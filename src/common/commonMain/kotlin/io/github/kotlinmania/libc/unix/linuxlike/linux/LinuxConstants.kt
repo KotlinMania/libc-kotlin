@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
@@ -6,19 +7,16 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.IO
-import io.github.kotlinmania.libc.IOR
-import io.github.kotlinmania.libc.IOW
-import io.github.kotlinmania.libc.IOWR
-import io.github.kotlinmania.libc.pthreadCondT
-import io.github.kotlinmania.libc.pthreadMutexT
-import io.github.kotlinmania.libc.pthreadRwlockT
+import io.github.kotlinmania.libc.new.linuxuapi.linux.netlink.NLMSG_MIN_TYPE
+import io.github.kotlinmania.libc.new.linuxuapi.linux.netlink.NLMSG_OVERRUN
 import io.github.kotlinmania.libc.unix.INT_MAX
 import io.github.kotlinmania.libc.unix.INT_MIN
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.IPC_STAT
-import io.github.kotlinmania.libc.unix.linuxlike.SockaddrLl
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.NLMSG_MIN_TYPE
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.NLMSG_OVERRUN
+import io.github.kotlinmania.libc.unix.linuxlike.IPC_STAT
+import io.github.kotlinmania.libc.unix.linuxlike.SIZEOF_PTHREAD_COND_T
+import io.github.kotlinmania.libc.unix.linuxlike.io
+import io.github.kotlinmania.libc.unix.linuxlike.ior
+import io.github.kotlinmania.libc.unix.linuxlike.iow
+import io.github.kotlinmania.libc.unix.linuxlike.iowr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.ENODATA
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.O_CLOEXEC
@@ -27,7 +25,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.O_NONBLOC
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.U64
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.notx32.SIZEOF_PTHREAD_MUTEX_T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.notx32.SIZEOF_PTHREAD_RWLOCK_T
-import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.SIZEOF_PTHREAD_COND_T
 
 // linux/cnProc.h
 // These functions are not available on OpenHarmony
@@ -285,11 +282,11 @@ public val MPOL_F_RELATIVE_NODES: CInt = 1 shl 14
 
 public val MPOL_F_STATIC_NODES: CInt = 1 shl 15
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = pthreadMutexT(size = List(SIZEOF_PTHREAD_MUTEX_T) { 0u })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = pthreadCondT(size = List(SIZEOF_PTHREAD_COND_T) { 0u })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthreadRwlockT(size = List(SIZEOF_PTHREAD_RWLOCK_T) { 0u })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()) { 0u.toUByte() })
 
 public val RENAME_NOREPLACE: CUint = 1u
 
@@ -368,31 +365,31 @@ public val MREMAP_DONTUNMAP: CInt = 4
 // linux/nsfs.h
 public val NSIO: CUint = 0xb7u
 
-public val NS_GET_USERNS: Ioctl = IO(NSIO, 0x1)
+public val NS_GET_USERNS: Ioctl = io(NSIO, 0x1u)
 
-public val NS_GET_PARENT: Ioctl = IO(NSIO, 0x2)
+public val NS_GET_PARENT: Ioctl = io(NSIO, 0x2u)
 
-public val NS_GET_NSTYPE: Ioctl = IO(NSIO, 0x3)
+public val NS_GET_NSTYPE: Ioctl = io(NSIO, 0x3u)
 
-public val NS_GET_OWNER_UID: Ioctl = IO(NSIO, 0x4)
+public val NS_GET_OWNER_UID: Ioctl = io(NSIO, 0x4u)
 
-public val NS_GET_MNTNS_ID: Ioctl = IOR<U64>(NSIO, 0x5)
+public val NS_GET_MNTNS_ID: Ioctl = ior<U64>(NSIO, 0x5u)
 
-public val NS_GET_PID_FROM_PIDNS: Ioctl = IOR<CInt>(NSIO, 0x6)
+public val NS_GET_PID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x6u)
 
-public val NS_GET_TGID_FROM_PIDNS: Ioctl = IOR<CInt>(NSIO, 0x7)
+public val NS_GET_TGID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x7u)
 
-public val NS_GET_PID_IN_PIDNS: Ioctl = IOR<CInt>(NSIO, 0x8)
+public val NS_GET_PID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x8u)
 
-public val NS_GET_TGID_IN_PIDNS: Ioctl = IOR<CInt>(NSIO, 0x9)
+public val NS_GET_TGID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x9u)
 
 public val MNT_NS_INFO_SIZE_VER0: Ioctl = 16uL
 
-public val NS_MNT_GET_INFO: Ioctl = IOR<MntNsInfo>(NSIO, 10)
+public val NS_MNT_GET_INFO: Ioctl = ior<MntNsInfo>(NSIO, 10u)
 
-public val NS_MNT_GET_NEXT: Ioctl = IOR<MntNsInfo>(NSIO, 11)
+public val NS_MNT_GET_NEXT: Ioctl = ior<MntNsInfo>(NSIO, 11u)
 
-public val NS_MNT_GET_PREV: Ioctl = IOR<MntNsInfo>(NSIO, 12)
+public val NS_MNT_GET_PREV: Ioctl = ior<MntNsInfo>(NSIO, 12u)
 
 // linux/pidfd.h
 public val PIDFD_NONBLOCK: CUint = O_NONBLOCK.toUInt()
@@ -417,27 +414,27 @@ public val PIDFD_INFO_SIZE_VER0: CUint = 64u
 
 public val PIDFS_IOCTL_MAGIC: CUint = 0xFFu
 
-public val PIDFD_GET_CGROUP_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 1)
+public val PIDFD_GET_CGROUP_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 1u)
 
-public val PIDFD_GET_IPC_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 2)
+public val PIDFD_GET_IPC_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 2u)
 
-public val PIDFD_GET_MNT_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 3)
+public val PIDFD_GET_MNT_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 3u)
 
-public val PIDFD_GET_NET_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 4)
+public val PIDFD_GET_NET_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 4u)
 
-public val PIDFD_GET_PID_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 5)
+public val PIDFD_GET_PID_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 5u)
 
-public val PIDFD_GET_PID_FOR_CHILDREN_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 6)
+public val PIDFD_GET_PID_FOR_CHILDREN_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 6u)
 
-public val PIDFD_GET_TIME_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 7)
+public val PIDFD_GET_TIME_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 7u)
 
-public val PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 8)
+public val PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 8u)
 
-public val PIDFD_GET_USER_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 9)
+public val PIDFD_GET_USER_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 9u)
 
-public val PIDFD_GET_UTS_NAMESPACE: Ioctl = IO(PIDFS_IOCTL_MAGIC, 10)
+public val PIDFD_GET_UTS_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 10u)
 
-public val PIDFD_GET_INFO: Ioctl = IOWR<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11)
+public val PIDFD_GET_INFO: Ioctl = iowr<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11u)
 
 public val PR_SET_MDWE: CInt = 65
 
@@ -1294,11 +1291,11 @@ public val TP_FT_REQ_FILL_RXHASH: U32 = 1u
 
 public val TPACKET_ALIGNMENT: Int = 16
 
-public val TPACKET_HDRLEN: Int = ((sizeOf<TpacketHdr>() + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>()
+public val TPACKET_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
 
-public val TPACKET2_HDRLEN: Int = ((sizeOf<Tpacket2Hdr>() + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>()
+public val TPACKET2_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
 
-public val TPACKET3_HDRLEN: Int = ((sizeOf<Tpacket3Hdr>() + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>()
+public val TPACKET3_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
 
 // linux/netfilter.h
 public val NF_DROP: CInt = 0
@@ -1319,7 +1316,7 @@ public val NF_VERDICT_MASK: CInt = 0x000000ff
 
 public val NF_VERDICT_FLAG_QUEUE_BYPASS: CInt = 0x00008000
 
-public val NF_VERDICT_QMASK: CInt = 0xffff0000
+public val NF_VERDICT_QMASK: CInt = 0xffff0000.toInt()
 
 public val NF_VERDICT_QBITS: CInt = 16
 
@@ -2411,7 +2408,7 @@ public val PROC_EVENT_NONZERO_EXIT: ProcCnEvent = 0x20000000
 
 public val PROC_EVENT_COREDUMP: ProcCnEvent = 0x40000000
 
-public val PROC_EVENT_EXIT: ProcCnEvent = 0x80000000
+public val PROC_EVENT_EXIT: ProcCnEvent = 0x80000000.toInt()
 
 // linux/connector.h
 public val CN_IDX_PROC: CUint = 0x1u
@@ -2544,41 +2541,41 @@ public val PTP_MAX_SAMPLES: CUint = 25u
 // Maximum allowed offset measurement samples.
 public val PTP_CLK_MAGIC: UInt = 61u.toUInt()
 
-public val PTP_CLOCK_GETCAPS: Ioctl = IOR<PtpClockCaps>(PTP_CLK_MAGIC, 1)
+public val PTP_CLOCK_GETCAPS: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 1u)
 
-public val PTP_EXTTS_REQUEST: Ioctl = IOW<PtpExttsRequest>(PTP_CLK_MAGIC, 2)
+public val PTP_EXTTS_REQUEST: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 2u)
 
-public val PTP_PEROUT_REQUEST: Ioctl = IOW<PtpPeroutRequest>(PTP_CLK_MAGIC, 3)
+public val PTP_PEROUT_REQUEST: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 3u)
 
-public val PTP_ENABLE_PPS: Ioctl = IOW<CInt>(PTP_CLK_MAGIC, 4)
+public val PTP_ENABLE_PPS: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 4u)
 
-public val PTP_SYS_OFFSET: Ioctl = IOW<PtpSysOffset>(PTP_CLK_MAGIC, 5)
+public val PTP_SYS_OFFSET: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 5u)
 
-public val PTP_PIN_GETFUNC: Ioctl = IOWR<PtpPinDesc>(PTP_CLK_MAGIC, 6)
+public val PTP_PIN_GETFUNC: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 6u)
 
-public val PTP_PIN_SETFUNC: Ioctl = IOW<PtpPinDesc>(PTP_CLK_MAGIC, 7)
+public val PTP_PIN_SETFUNC: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 7u)
 
-public val PTP_SYS_OFFSET_PRECISE: Ioctl = IOWR<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 8)
+public val PTP_SYS_OFFSET_PRECISE: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 8u)
 
-public val PTP_SYS_OFFSET_EXTENDED: Ioctl = IOWR<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 9)
+public val PTP_SYS_OFFSET_EXTENDED: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 9u)
 
-public val PTP_CLOCK_GETCAPS2: Ioctl = IOR<PtpClockCaps>(PTP_CLK_MAGIC, 10)
+public val PTP_CLOCK_GETCAPS2: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 10u)
 
-public val PTP_EXTTS_REQUEST2: Ioctl = IOW<PtpExttsRequest>(PTP_CLK_MAGIC, 11)
+public val PTP_EXTTS_REQUEST2: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 11u)
 
-public val PTP_PEROUT_REQUEST2: Ioctl = IOW<PtpPeroutRequest>(PTP_CLK_MAGIC, 12)
+public val PTP_PEROUT_REQUEST2: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 12u)
 
-public val PTP_ENABLE_PPS2: Ioctl = IOW<CInt>(PTP_CLK_MAGIC, 13)
+public val PTP_ENABLE_PPS2: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 13u)
 
-public val PTP_SYS_OFFSET2: Ioctl = IOW<PtpSysOffset>(PTP_CLK_MAGIC, 14)
+public val PTP_SYS_OFFSET2: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 14u)
 
-public val PTP_PIN_GETFUNC2: Ioctl = IOWR<PtpPinDesc>(PTP_CLK_MAGIC, 15)
+public val PTP_PIN_GETFUNC2: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 15u)
 
-public val PTP_PIN_SETFUNC2: Ioctl = IOW<PtpPinDesc>(PTP_CLK_MAGIC, 16)
+public val PTP_PIN_SETFUNC2: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 16u)
 
-public val PTP_SYS_OFFSET_PRECISE2: Ioctl = IOWR<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 17)
+public val PTP_SYS_OFFSET_PRECISE2: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 17u)
 
-public val PTP_SYS_OFFSET_EXTENDED2: Ioctl = IOWR<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 18)
+public val PTP_SYS_OFFSET_EXTENDED2: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 18u)
 
 // enum ptpPinFunction
 public val PTP_PF_NONE: CUint = 0u

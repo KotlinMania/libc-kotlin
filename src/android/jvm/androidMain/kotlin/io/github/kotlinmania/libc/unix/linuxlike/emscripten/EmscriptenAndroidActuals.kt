@@ -210,7 +210,7 @@ public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
     UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_dup3(oldfd, newfd, flags)
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_nlLanginfoL(item, locale.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_nlLanginfoL(item, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt =
     UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_accept4(fd, (addr?.value ?: 0L), (len?.value ?: 0L), flg)
@@ -224,7 +224,7 @@ public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_mkfifoat(dirfd, pathname, mode.toInt())
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
@@ -272,7 +272,7 @@ public actual fun sync() {
     UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_sync()
 }
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =

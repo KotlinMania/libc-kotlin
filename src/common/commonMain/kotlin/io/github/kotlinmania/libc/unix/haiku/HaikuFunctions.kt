@@ -4,14 +4,12 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.CMSG_FIRSTHDR
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.IntptrT
 import io.github.kotlinmania.libc.unix.LocaleT
@@ -38,37 +36,37 @@ public fun interface LsearchComparCallback {
 }
 
 public fun cmsgAlign(len: Int): Int {
-    return len + sizeOf<Int>() - 1 and (sizeOf<Int>() - 1).inv()
+    return len + 8 - 1 and (8 - 1).inv()
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= sizeOf<Cmsghdr>()) {
-        (mhdr!!.msgControl as Cmsghdr?)
+    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+        null
     } else {
-        nullMut<Cmsghdr>()
+        null
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (CMSG_ALIGN(sizeOf<Cmsghdr>()).toInt()).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (CMSG_ALIGN(length.toInt()) + CMSG_ALIGN(sizeOf<Cmsghdr>())).toUInt()
+    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return CMSG_ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return cmsgAlign(8).toUInt() + length
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
-        return CMSG_FIRSTHDR(mhdr)
+        return cmsgFirsthdr(mhdr)
     }
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + CMSG_ALIGN((cmsg!!.cmsgLen).toInt()) + CMSG_ALIGN(sizeOf<Cmsghdr>())
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (next > max) {
-        nullMut<Cmsghdr>()
+        null
     } else {
         null
     }
@@ -77,26 +75,26 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1u shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    return (set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size))) != 0
+    return (set!!.fdsBits[fd1 / size] and (1u shl (fd1 % size))) != 0u
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1 shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1u shl (fd1 % size))
     return
 }
 
 public fun fdZero(set: FdSet?) {
-    for (slot in set!!.fdsBits.iterMut()) {
-        slot = 0
+    for (idx in (set!!.fdsBits).indices) {
+        (set!!.fdsBits)[idx] = 0u
     }
 }
 

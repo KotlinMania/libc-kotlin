@@ -12,9 +12,6 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.errnoGet
-import io.github.kotlinmania.libc.errnoSet
-import io.github.kotlinmania.libc.unix.newlib.memalign
 import io.github.kotlinmania.libc.vxworks.aarch64.WcharT
 
 private object VxworksJniBridge {
@@ -986,9 +983,6 @@ private object VxworksJniBridge {
     external fun libc_vxworks_kill(pid: Int, signo: Int): Int
 
     @JvmStatic
-    external fun libc_vxworks_sigqueue_2(rtpId: Int, signo: Int, pValue: Long, sigCode: Int): Int
-
-    @JvmStatic
     external fun libc_vxworks_taskKill(taskId: Int, signo: Int): Int
 
     @JvmStatic
@@ -1390,25 +1384,25 @@ public actual fun getservbyname(name: String?, proto: String?): COpaquePointer? 
 public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt =
     VxworksJniBridge.libc_vxworks_fchownat(dirfd, pathname, owner.toShort(), group.toShort(), flags)
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -1641,7 +1635,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     VxworksJniBridge.libc_vxworks_setlogmask(maskpri)
 
-public actual fun syslog(priority: CInt, message: String?) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: FILE?): SsizeT =
@@ -1758,7 +1752,7 @@ public actual fun readdirR(pDir: DIR?, entry: COpaquePointer?, result: COpaquePo
 public actual fun readdir(pDir: DIR?): COpaquePointer? =
     VxworksJniBridge.libc_vxworks_readdir((pDir?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
@@ -1849,7 +1843,7 @@ public actual fun pthreadJoin(thread: PthreadT, status: COpaquePointer?): CInt =
     VxworksJniBridge.libc_vxworks_pthreadJoin(thread.toLong(), (status?.value ?: 0L))
 
 public actual fun pthreadSelf(): PthreadT =
-    VxworksJniBridge.libc_vxworks_pthreadSelf().toULong()()
+    VxworksJniBridge.libc_vxworks_pthreadSelf().toULong()
 
 public actual fun clockGettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
     VxworksJniBridge.libc_vxworks_clockGettime(clockId, (tp?.value ?: 0L))
@@ -1914,10 +1908,10 @@ public actual fun shutdown(s: CInt, how: CInt): CInt =
 public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
     VxworksJniBridge.libc_vxworks_socket(domain, type, protocol)
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun gaiStrerror(errcode: CInt): COpaquePointer? =
@@ -2077,9 +2071,6 @@ public actual fun kill(pid: PidT, signo: CInt): CInt =
 public actual fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt =
     0
 
-public actual fun sigqueue(rtpId: RtpId, signo: CInt, pValue: COpaquePointer?, sigCode: CInt): CInt =
-    VxworksJniBridge.libc_vxworks_sigqueue_2(rtpId, signo, (pValue?.value ?: 0L), sigCode)
-
 public actual fun taskKill(taskId: TaskId, signo: CInt): CInt =
     VxworksJniBridge.libc_vxworks_taskKill(taskId, signo)
 
@@ -2125,7 +2116,7 @@ public actual fun randUBytes(buf: COpaquePointer?, length: CInt): CInt =
 public actual fun randSecure(): CInt =
     VxworksJniBridge.libc_vxworks_randSecure()
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =

@@ -485,11 +485,11 @@ public val VM_FLAGS_RETURN_DATA_ADDR: CInt = 0x100000
 
 public val VM_FLAGS_RETURN_4K_DATA_ADDR: CInt = 0x800000
 
-public val VM_FLAGS_ALIAS_MASK: CInt = 0xFF000000
+public val VM_FLAGS_ALIAS_MASK: CInt = 0xFF000000.toInt()
 
-public val VM_FLAGS_USER_ALLOCATE: CInt = 0xff07401f
+public val VM_FLAGS_USER_ALLOCATE: CInt = 0xff07401f.toInt()
 
-public val VM_FLAGS_USER_MAP: CInt = 0xff97401f
+public val VM_FLAGS_USER_MAP: CInt = 0xff97401f.toInt()
 
 public val VM_FLAGS_USER_REMAP: CInt = VM_FLAGS_FIXED or VM_FLAGS_ANYWHERE or VM_FLAGS_RANDOM_ADDR or VM_FLAGS_OVERWRITE or VM_FLAGS_RETURN_DATA_ADDR or VM_FLAGS_RESILIENT_CODESIGN
 
@@ -639,7 +639,7 @@ public val VM_MEMORY_APPLICATION_SPECIFIC_1: CInt = 240
 
 public val VM_MEMORY_APPLICATION_SPECIFIC_16: CInt = 255
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MCL_CURRENT: CInt = 0x0001
 
@@ -1256,8 +1256,6 @@ public val SC_XOPEN_XCU_VERSION: CInt = 121
 public val SC_PHYS_PAGES: CInt = 200
 
 public val PTHREAD_STACK_MIN: SizeT = 16384uL
-
-public val PTHREAD_STACK_MIN1: SizeT = 8192uL
 
 public val RLIMIT_CPU: CInt = 0
 
@@ -2544,7 +2542,7 @@ public val CS_DARWIN_USER_TEMP_DIR: CInt = 65537
 
 public val CS_DARWIN_USER_CACHE_DIR: CInt = 65538
 
-public val OS_UNFAIR_LOCK_INIT: OsUnfairLock = Any(osUnfairLockOpaque = 0)
+public val OS_UNFAIR_LOCK_INIT: OsUnfairLock = OsUnfairLock(osUnfairLockOpaque = 0u)
 
 public val OS_LOG_TYPE_DEFAULT: OsLogTypeT = 0x00u
 
@@ -2570,27 +2568,27 @@ public val FD_SETSIZE: Int = 1024
 
 public val ST_NOSUID: CUlong = 2uL
 
-public val EVFILT_READ: Short = -1
+public val EVFILT_READ: Short = (-1).toShort()
 
-public val EVFILT_WRITE: Short = -2
+public val EVFILT_WRITE: Short = (-2).toShort()
 
-public val EVFILT_AIO: Short = -3
+public val EVFILT_AIO: Short = (-3).toShort()
 
-public val EVFILT_VNODE: Short = -4
+public val EVFILT_VNODE: Short = (-4).toShort()
 
-public val EVFILT_PROC: Short = -5
+public val EVFILT_PROC: Short = (-5).toShort()
 
-public val EVFILT_SIGNAL: Short = -6
+public val EVFILT_SIGNAL: Short = (-6).toShort()
 
-public val EVFILT_TIMER: Short = -7
+public val EVFILT_TIMER: Short = (-7).toShort()
 
-public val EVFILT_MACHPORT: Short = -8
+public val EVFILT_MACHPORT: Short = (-8).toShort()
 
-public val EVFILT_FS: Short = -9
+public val EVFILT_FS: Short = (-9).toShort()
 
-public val EVFILT_USER: Short = -10
+public val EVFILT_USER: Short = (-10).toShort()
 
-public val EVFILT_VM: Short = -12
+public val EVFILT_VM: Short = (-12).toShort()
 
 public val EV_ADD: UShort = 0x1u
 
@@ -2836,7 +2834,7 @@ public val CTLTYPE_OPAQUE: CInt = 5
 
 public val CTLTYPE_STRUCT: CInt = CTLTYPE_OPAQUE
 
-public val CTLFLAG_RD: CInt = 0x80000000
+public val CTLFLAG_RD: CInt = 0x80000000.toInt()
 
 public val CTLFLAG_WR: CInt = 0x40000000
 
@@ -3366,16 +3364,18 @@ public val AI_NUMERICHOST: CInt = 0x00000004
 
 public val AI_NUMERICSERV: CInt = 0x00001000
 
+public val AI_ADDRCONFIG: CInt = 0x00000400
+
 public val AI_MASK: CInt = AI_PASSIVE or AI_CANONNAME or AI_NUMERICHOST or AI_NUMERICSERV or AI_ADDRCONFIG
 
 public val AI_ALL: CInt = 0x00000100
 
 public val AI_V4MAPPED_CFG: CInt = 0x00000200
 
-public val AI_ADDRCONFIG: CInt = 0x00000400
-
 public val AI_V4MAPPED: CInt = 0x00000800
 
 public val AI_DEFAULT: CInt = AI_V4MAPPED_CFG or AI_ADDRCONFIG
 
 public val AI_UNUSABLE: CInt = 0x10000000
+
+public val SIGEV_NONE: CInt = 0

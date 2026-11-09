@@ -9,10 +9,10 @@ import io.github.kotlinmania.libc.new.apple.xnu.mach.i386.structs.DarwinX86Threa
 //
 // <https://github.com/apple-oss-distributions/xnu/blob/main/bsd/i386/_mcontext.h>
 
-public open class DarwinMcontext64(
-    public var es: DarwinX86ExceptionState64,
-    public var ss: DarwinX86ThreadState64,
-    public var fs: DarwinX86FloatState64,
+public data class DarwinMcontext64(
+    public var es: DarwinX86ExceptionState64 = DarwinX86ExceptionState64(),
+    public var ss: DarwinX86ThreadState64 = DarwinX86ThreadState64(),
+    public var fs: DarwinX86FloatState64 = DarwinX86FloatState64(),
 )
 
 public typealias McontextT = DarwinMcontext64?

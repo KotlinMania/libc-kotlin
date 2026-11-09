@@ -1,10 +1,11 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 
-public val INT_MIN: CInt = -2147483648
+public val INT_MIN: CInt = -2147483648.toInt()
 
 public val INT_MAX: CInt = 2147483647
 
@@ -136,9 +137,9 @@ public val INADDR_BROADCAST: InAddrT = 4294967295u
 
 public val INADDR_NONE: InAddrT = 4294967295u
 
-public val IN6ADDR_LOOPBACK_INIT: In6Addr = Any(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1))
+public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 1u))
 
-public val IN6ADDR_ANY_INIT: In6Addr = Any(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u))
 
 public val ARPOP_REQUEST: UShort = 1u
 
@@ -154,22 +155,10 @@ public val ATF_USETRAILERS: CInt = 0x10
 
 public val FNM_PERIOD: CInt = 1 shl 1
 
-public val FNM_PERIOD1: CInt = 1 shl 2
-
 public val FNM_NOMATCH: CInt = 1
 
 public val FNM_CASEFOLD: CInt = 1 shl 3
 
-public val FNM_CASEFOLD1: CInt = 1 shl 4
-
 public val FNM_PATHNAME: CInt = 1 shl 1
 
-public val FNM_PATHNAME1: CInt = 1 shl 0
-
 public val FNM_NOESCAPE: CInt = 1 shl 0
-
-public val FNM_NOESCAPE1: CInt = 1 shl 2
-
-public val FNM_NOESCAPE2: CInt = 1 shl 3
-
-public val FNM_NOESCAPE3: CInt = 1 shl 1

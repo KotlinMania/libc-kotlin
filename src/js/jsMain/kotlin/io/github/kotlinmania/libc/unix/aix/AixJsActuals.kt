@@ -27,7 +27,7 @@ public actual fun thrKill(id: ThreadT, sig: CInt): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_thrKill(id.toLong().toString(), sig) as Int) else 0
 
 public actual fun thrSelf(): ThreadT =
-    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_thrSelf() as String).toLong().toUInt()() else 0u
+    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_thrSelf() as String).toLong().toUInt() else 0u
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
@@ -309,7 +309,7 @@ public actual fun drand48(): CDouble =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_drand48() as Double) else 0.0
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_duplocale(arg1.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_duplocale((arg1?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun endgrent() {
     if (_unixAixNapiAddon != null) {
@@ -376,7 +376,7 @@ public actual fun fopen64(filename: String?, mode: String?): FILE? =
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixAixNapiAddon != null) {
-        _unixAixNapiAddon.libc_unix_aix_freelocale(loc.toLong().toString())
+        _unixAixNapiAddon.libc_unix_aix_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
@@ -533,7 +533,7 @@ public actual fun ifNameindex(): COpaquePointer? =
 public actual fun initgroups(name: String?, basegid: GidT): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_initgroups(name, basegid.toInt()) as Int) else 0
 
-public actual fun ioctl(fildes: CInt, request: CInt): CInt =
+public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun jrand48(xseed: COpaquePointer?): CLong =
@@ -551,7 +551,7 @@ public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaq
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_lioListio(mode, (aiocbList?.value ?: 0L).toString(), nent, (sevp?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint): CInt =
+public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: SizeT): CInt =
@@ -575,11 +575,11 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_madvise((addr?.value ?: 0L).toString(), len.toString(), advice) as Int) else 0
 
-public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt) {
+public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
 }
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_mallopt(param, value) as Int) else 0
@@ -614,7 +614,7 @@ public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_mqNotify(mqd.toLong().toString(), (notification?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
@@ -654,18 +654,18 @@ public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_msync((addr?.value ?: 0L).toString(), len.toString(), flags) as Int) else 0
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_nlLanginfo(item) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_nlLanginfoL(item, loc.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_nlLanginfoL(item, (loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nrand48(xseed: COpaquePointer?): CLong =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_nrand48((xseed?.value ?: 0L).toString()) as String).toLong() else 0L
 
-public actual fun open64(path: String?, oflag: CInt): CInt =
+public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun pollsetCreate(maxfd: CInt): PollsetT =
@@ -869,7 +869,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) as Int) else 0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
@@ -878,7 +878,7 @@ public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): 
 public actual fun semUnlink(name: String?): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_semUnlink(name) as Int) else 0
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
@@ -1020,7 +1020,7 @@ public actual fun statx(path: String?, buf: COpaquePointer?, length: CInt, comma
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_statx(path, (buf?.value ?: 0L).toString(), length, command) as Int) else 0
 
 public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
-    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_strcasecmpL(string1, string2, locale.toLong().toString()) as Int) else 0
+    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_strcasecmpL(string1, string2, (locale?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_strerrorR(errnum, (buf?.value ?: 0L).toString(), buflen.toString()) as Int) else 0
@@ -1029,7 +1029,7 @@ public actual fun strftime(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, ar
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_strftime((arg1?.value ?: 0L).toString(), arg2.toString(), arg3, (arg4?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun strncasecmpL(string1: String?, string2: String?, length: SizeT, locale: LocaleT): CInt =
-    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_strncasecmpL(string1, string2, length.toString(), locale.toLong().toString()) as Int) else 0
+    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_strncasecmpL(string1, string2, length.toString(), (locale?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_strptime(s, format, (tm?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
@@ -1083,7 +1083,7 @@ public actual fun updwtmp(file: String?, u: COpaquePointer?) {
 }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun utmpname(file: String?): CInt =
     if (_unixAixNapiAddon != null) (_unixAixNapiAddon.libc_unix_aix_utmpname(file) as Int) else 0

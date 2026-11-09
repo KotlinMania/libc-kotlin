@@ -125,7 +125,7 @@ public actual fun duplocale(base: LocaleT): LocaleT =
 public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
 }
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {

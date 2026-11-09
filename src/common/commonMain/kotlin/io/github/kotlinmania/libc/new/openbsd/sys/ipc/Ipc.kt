@@ -12,12 +12,12 @@ import io.github.kotlinmania.libc.unix.bsd.apple.KeyT
 //
 // <https://github.com/openbsd/src/blob/master/sys/sys/ipc.h>
 
-public open class IpcPerm(
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var mode: ModeT,
-    public var seq: CUshort,
-    public var key: KeyT,
+public data class IpcPerm(
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CUshort = 0u,
+    public var key: KeyT = 0,
 )

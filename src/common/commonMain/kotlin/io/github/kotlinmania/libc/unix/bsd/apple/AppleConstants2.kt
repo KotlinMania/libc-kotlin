@@ -6,8 +6,6 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUshort
 
-public val SIGEV_NONE: CInt = 0
-
 public val SIGEV_SIGNAL: CInt = 1
 
 public val SIGEV_THREAD: CInt = 3
@@ -31,8 +29,6 @@ public val LIO_WAIT: CInt = 2
 public val LIO_NOWAIT: CInt = 1
 
 public val WEXITED: CInt = 0x00000004
-
-public val WSTOPPED: CInt = 0x00000008
 
 public val WCONTINUED: CInt = 0x00000010
 
@@ -163,7 +159,7 @@ public val PROC_PIDPATHINFO_MAXSIZE: CInt = 4096
 
 public val PROC_PIDLISTFDS: CInt = 1
 
-public val PROC_PIDLISTFD_SIZE: CInt = sizeOf<ProcFdinfo>().toInt()
+public val PROC_PIDLISTFD_SIZE: CInt = 8.toInt()
 
 public val PROX_FDTYPE_ATALK: CInt = 0
 
@@ -358,8 +354,6 @@ public val SHM_RDONLY: CInt = 0x1000
 public val SHM_RND: CInt = 0x2000
 
 public val SHMLBA: CInt = 16 * 1024
-
-public val SHMLBA1: CInt = 4096
 
 public val SHM_R: CInt = IPC_R
 
@@ -1031,31 +1025,31 @@ public val VMADDR_CID_HOST: CUint = 2u
 
 public val VMADDR_PORT_ANY: CUint = 0xFFFFFFFFu
 
-public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadExtendedPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadTimeConstraintPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadPrecedencePolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadAffinityPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadBackgroundPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadLatencyQosPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadThroughputQosPolicyDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadBasicInfoDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadIdentifierInfoDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (sizeOf<ThreadExtendedInfoDataT>() / sizeOf<IntegerT>()).toUInt()
+public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
-public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (sizeOf<TaskThreadTimesInfoDataT>() / sizeOf<NaturalT>()).toUInt()
+public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (8 / 8).toUInt()
 
-public val MACH_TASK_BASIC_INFO_COUNT: UInt = (sizeOf<MachTaskBasicInfoDataT>() / sizeOf<NaturalT>()).toUInt()
+public val MACH_TASK_BASIC_INFO_COUNT: UInt = (8 / 8).toUInt()
 
-public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (sizeOf<VmStatistics64DataT>() / sizeOf<IntegerT>()).toUInt()
+public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
 
 // bsd/net/ifMib.h
 /**

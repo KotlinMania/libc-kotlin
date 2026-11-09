@@ -44,7 +44,7 @@ public val FOPEN_MAX: CUint = 20u
 public val EOK: CInt = 0
 
 // Semaphore constants
-public val SEM_FAILED: CUint? = 0.toUInt()
+public val SEM_FAILED: CUint? = null
 
 // Page size constants (hexagon-specific)
 public val PAGESIZE: SizeT = 4096uL

@@ -11,8 +11,6 @@ extern "C" {
 
 int32_t libc_unix_nto_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags);
 int32_t libc_unix_nto_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout);
-int64_t libc_unix_nto_sendmmsg_2(int32_t sockfd, void* msgvec, uint64_t vlen, int32_t flags);
-int64_t libc_unix_nto_recvmmsg_2(int32_t sockfd, void* msgvec, uint64_t vlen, int32_t flags, void* timeout);
 int32_t libc_unix_nto_semDestroy(void* sem);
 int32_t libc_unix_nto_semInit(void* sem, int32_t pshared, uint32_t value);
 int32_t libc_unix_nto_fdatasync(int32_t fd);
@@ -211,7 +209,6 @@ int32_t libc_unix_nto_mqTimedsend(void* arg_0_mqdes, const char* arg_1_msg_ptr, 
 int32_t libc_unix_nto_mqUnlink(const char* arg_0_name);
 void* libc_unix_nto_getErrnoPtr(void);
 void libc_unix_nto_myThreadExit(void* value_ptr);
-int32_t libc_unix_nto_cxaAtexit(void* cb, void* arg_1_arg, void* arg_2_dso);
 
 #ifdef __cplusplus
 }

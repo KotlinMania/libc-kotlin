@@ -116,10 +116,10 @@ public actual fun llabs(j: CLonglong): CLonglong =
     if (_newQurtStdlibNapiAddon != null) (_newQurtStdlibNapiAddon.libc_new_qurt_stdlib_llabs(j.toString()) as String).toLong() else 0L
 
 public actual fun div(numer: CInt, denom: CInt): DivT =
-    null as DivT
+    DivT()
 
 public actual fun ldiv(numer: CLong, denom: CLong): LdivT =
-    null as LdivT
+    LdivT()
 
 public actual fun lldiv(numer: CLonglong, denom: CLonglong): LldivT =
-    null as LldivT
+    LldivT()

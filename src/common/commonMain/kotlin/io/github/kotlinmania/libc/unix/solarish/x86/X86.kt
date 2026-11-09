@@ -22,22 +22,22 @@ public typealias Elf32Lword = CUlonglong
 
 public typealias Elf32Phdr = CAnonymousElf32Phdr
 
-public open class CAnonymousElf32Phdr(
-    public var pType: Elf32Word,
-    public var pOffset: Elf32Off,
-    public var pVaddr: Elf32Addr,
-    public var pPaddr: Elf32Addr,
-    public var pFilesz: Elf32Word,
-    public var pMemsz: Elf32Word,
-    public var pFlags: Elf32Word,
-    public var pAlign: Elf32Word,
+public data class CAnonymousElf32Phdr(
+    public var pType: Elf32Word = 0uL,
+    public var pOffset: Elf32Off = 0uL,
+    public var pVaddr: Elf32Addr = 0uL,
+    public var pPaddr: Elf32Addr = 0uL,
+    public var pFilesz: Elf32Word = 0uL,
+    public var pMemsz: Elf32Word = 0uL,
+    public var pFlags: Elf32Word = 0uL,
+    public var pAlign: Elf32Word = 0uL,
 )
 
-public open class DlPhdrInfo(
-    public var dlpiAddr: Elf32Addr,
-    public var dlpiName: COpaquePointer?,
-    public var dlpiPhdr: CAnonymousElf32Phdr?,
-    public var dlpiPhnum: Elf32Half,
-    public var dlpiAdds: CUlonglong,
-    public var dlpiSubs: CUlonglong,
+public data class DlPhdrInfo(
+    public var dlpiAddr: Elf32Addr = 0uL,
+    public var dlpiName: COpaquePointer? = null,
+    public var dlpiPhdr: CAnonymousElf32Phdr? = null,
+    public var dlpiPhnum: Elf32Half = 0u,
+    public var dlpiAdds: CUlonglong = 0uL,
+    public var dlpiSubs: CUlonglong = 0uL,
 )

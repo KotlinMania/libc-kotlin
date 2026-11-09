@@ -5,7 +5,7 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 
-public val INT_MIN: CInt = -2147483648
+public val INT_MIN: CInt = -2147483648.toInt()
 
 public val INT_MAX: CInt = 2147483647
 
@@ -63,13 +63,13 @@ public val S_IFCHR: CShort = 8192
 
 public val S_IFDIR: CShort = 16384
 
-public val S_IFMT: CShort = 57344
+public val S_IFMT: CShort = 57344.toShort()
 
 public val S_IFIFO: CShort = 4096
 
 public val S_IFBLK: CShort = 24576
 
-public val S_IFREG: CShort = 32768
+public val S_IFREG: CShort = 32768.toShort()
 
 public val LC_ALL: CInt = 0
 

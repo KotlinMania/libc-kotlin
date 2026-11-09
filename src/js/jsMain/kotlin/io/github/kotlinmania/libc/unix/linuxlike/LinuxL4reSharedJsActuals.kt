@@ -181,7 +181,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun errnoLocation(): COpaquePointer? =
     if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_errnoLocation() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
@@ -215,7 +215,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_nlLanginfo(item) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item, locale.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item, (locale?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity(pid, cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) as Int) else 0
@@ -235,7 +235,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt
 public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
     if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_mount(src, target, fstype, flags.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun prctl(option: CInt): CInt =
+public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
@@ -265,7 +265,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun initgroups(user: String?, group: GidT): CInt =
     if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_initgroups(user, group.toInt()) as Int) else 0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -338,16 +338,16 @@ public actual fun timerCreate(clockid: ClockidT, sevp: COpaquePointer?, timerid:
     if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerCreate(clockid, (sevp?.value ?: 0L).toString(), (timerid?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerDelete(timerid.toLong().toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerDelete((timerid?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun(timerid.toLong().toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun((timerid?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerGettime(timerid: TimerT, currValue: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerGettime(timerid.toLong().toString(), (currValue?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerGettime((timerid?.value ?: 0L).toString(), (currValue?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerSettime(timerid.toLong().toString(), flags, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_timerSettime((timerid?.value ?: 0L).toString(), flags, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     if (_unixLinuxlikeLinuxL4reSharedNapiAddon != null) (_unixLinuxlikeLinuxL4reSharedNapiAddon.libc_unix_linuxlike_linux_l4re_shared_memmem((haystack?.value ?: 0L).toString(), haystacklen.toString(), (needle?.value ?: 0L).toString(), needlelen.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null

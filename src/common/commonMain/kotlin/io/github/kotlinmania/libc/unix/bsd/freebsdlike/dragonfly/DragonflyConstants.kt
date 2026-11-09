@@ -320,41 +320,41 @@ public val CTL_P1003_1B_TIMER_MAX: CInt = 25
 
 public val CTL_P1003_1B_MAXID: CInt = 26
 
-public val CPUCTL_RSMSR: CInt = 0xc0106301
+public val CPUCTL_RSMSR: CInt = 0xc0106301.toInt()
 
-public val CPUCTL_WRMSR: CInt = 0xc0106302
+public val CPUCTL_WRMSR: CInt = 0xc0106302.toInt()
 
-public val CPUCTL_CPUID: CInt = 0xc0106303
+public val CPUCTL_CPUID: CInt = 0xc0106303.toInt()
 
-public val CPUCTL_UPDATE: CInt = 0xc0106304
+public val CPUCTL_UPDATE: CInt = 0xc0106304.toInt()
 
-public val CPUCTL_MSRSBIT: CInt = 0xc0106305
+public val CPUCTL_MSRSBIT: CInt = 0xc0106305.toInt()
 
-public val CPUCTL_MSRCBIT: CInt = 0xc0106306
+public val CPUCTL_MSRCBIT: CInt = 0xc0106306.toInt()
 
-public val CPUCTL_CPUID_COUNT: CInt = 0xc0106307
+public val CPUCTL_CPUID_COUNT: CInt = 0xc0106307.toInt()
 
-public val CPU_SETSIZE: SizeT = sizeOf<CpumaskT>() * 8uL
+public val CPU_SETSIZE: SizeT = 8 * 8
 
-public val EVFILT_READ: Short = -1
+public val EVFILT_READ: Short = (-1).toShort()
 
-public val EVFILT_WRITE: Short = -2
+public val EVFILT_WRITE: Short = (-2).toShort()
 
-public val EVFILT_AIO: Short = -3
+public val EVFILT_AIO: Short = (-3).toShort()
 
-public val EVFILT_VNODE: Short = -4
+public val EVFILT_VNODE: Short = (-4).toShort()
 
-public val EVFILT_PROC: Short = -5
+public val EVFILT_PROC: Short = (-5).toShort()
 
-public val EVFILT_SIGNAL: Short = -6
+public val EVFILT_SIGNAL: Short = (-6).toShort()
 
-public val EVFILT_TIMER: Short = -7
+public val EVFILT_TIMER: Short = (-7).toShort()
 
-public val EVFILT_EXCEPT: Short = -8
+public val EVFILT_EXCEPT: Short = (-8).toShort()
 
-public val EVFILT_USER: Short = -9
+public val EVFILT_USER: Short = (-9).toShort()
 
-public val EVFILT_FS: Short = -10
+public val EVFILT_FS: Short = (-10).toShort()
 
 public val EV_ADD: UShort = 0x1u
 
@@ -1089,7 +1089,7 @@ public val MSG_FBLOCKING: CInt = 0x00010000
 
 public val MSG_FNONBLOCKING: CInt = 0x00020000
 
-public val MSG_FMASK: CInt = 0xFFFF0000
+public val MSG_FMASK: CInt = 0xFFFF0000.toInt()
 
 // sys/mount.h
 public val MNT_NODEV: CInt = 0x00000010
@@ -1179,7 +1179,7 @@ public val TIOCREMOTE: CUlong = 0x80047469uL
 public val TIOCTIMESTAMP: CUlong = 0x40107459uL
 
 // Constants used by "at" family of system calls.
-public val AT_FDCWD: CInt = 0xFFFAFDCD
+public val AT_FDCWD: CInt = 0xFFFAFDCD.toInt()
 
 // invalid file descriptor
 public val AT_SYMLINK_NOFOLLOW: CInt = 1

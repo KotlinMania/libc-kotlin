@@ -27,7 +27,7 @@ public actual fun thrKill(id: ThreadT, sig: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_thrKill(id.toLong().toCPointer<ByteVar>(), sig)
 
 public actual fun thrSelf(): ThreadT =
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_thrSelf()?.toLong() ?: 0L
+    (io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_thrSelf()?.toLong() ?: 0L).toUInt()
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
@@ -303,7 +303,7 @@ public actual fun drand48(): CDouble =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_drand48()
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_duplocale(arg1.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_duplocale(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun endgrent() {
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_endgrent()
@@ -361,7 +361,7 @@ public actual fun fopen64(filename: String?, mode: String?): FILE? =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fopen64(filename, mode)?.let { FILE(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
@@ -511,7 +511,7 @@ public actual fun ifNameindex(): COpaquePointer? =
 public actual fun initgroups(name: String?, basegid: GidT): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_initgroups(name, basegid)
 
-public actual fun ioctl(fildes: CInt, request: CInt): CInt =
+public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun jrand48(xseed: COpaquePointer?): CLong =
@@ -527,7 +527,7 @@ public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaq
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lioListio(mode, aiocbList?.value?.toCPointer<ByteVar>(), nent, sevp?.value?.toCPointer<ByteVar>())
 
-public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint): CInt =
+public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: SizeT): CInt =
@@ -551,11 +551,11 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
 
-public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt) {
+public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
 }
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mallopt(param, value)
@@ -590,7 +590,7 @@ public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqNotify(mqd.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
@@ -630,18 +630,18 @@ public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nlLanginfoL(item, loc.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nlLanginfoL(item, loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nrand48(xseed: COpaquePointer?): CLong =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nrand48(xseed?.value?.toCPointer<ByteVar>())
 
-public actual fun open64(path: String?, oflag: CInt): CInt =
+public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun pollsetCreate(maxfd: CInt): PollsetT =
@@ -841,7 +841,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
@@ -850,7 +850,7 @@ public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): 
 public actual fun semUnlink(name: String?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semUnlink(name)
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
@@ -980,7 +980,7 @@ public actual fun statx(path: String?, buf: COpaquePointer?, length: CInt, comma
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_statx(path, buf?.value?.toCPointer<ByteVar>(), length, command)
 
 public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strcasecmpL(string1, string2, locale.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strcasecmpL(string1, string2, locale?.value?.toCPointer<ByteVar>())
 
 public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
@@ -989,7 +989,7 @@ public actual fun strftime(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, ar
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strftime(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.value?.toCPointer<ByteVar>())
 
 public actual fun strncasecmpL(string1: String?, string2: String?, length: SizeT, locale: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strncasecmpL(string1, string2, length, locale.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strncasecmpL(string1, string2, length, locale?.value?.toCPointer<ByteVar>())
 
 public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strptime(s, format, tm?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
@@ -1039,7 +1039,7 @@ public actual fun updwtmp(file: String?, u: COpaquePointer?) {
 }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun utmpname(file: String?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_utmpname(file)

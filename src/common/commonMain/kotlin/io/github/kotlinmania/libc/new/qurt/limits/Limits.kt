@@ -24,7 +24,7 @@ public val CHAR_MIN: CChar = 0u
 
 public val SCHAR_MAX: CSchar = 127
 
-public val SCHAR_MIN: CSchar = -128
+public val SCHAR_MIN: CSchar = (-128).toByte()
 
 public val UCHAR_MAX: CUchar = 255u
 

@@ -75,7 +75,7 @@ public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_dup3(oldfd, newfd, flags)
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_nlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_nlLanginfoL(item, locale?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_accept4(fd, addr?.value?.toCPointer<ByteVar>(), len?.value?.toCPointer<ByteVar>(), flg)
@@ -89,7 +89,7 @@ public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
 public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_mkfifoat(dirfd, pathname, mode)
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
@@ -137,7 +137,7 @@ public actual fun sync() {
     io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_sync()
 }
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =

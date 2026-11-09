@@ -330,7 +330,6 @@ int32_t libc_vxworks_sigdelset(void* set, int32_t signum);
 int32_t libc_vxworks_sigismember(void* set, int32_t signum);
 int32_t libc_vxworks_pthreadSigmask(int32_t arg_0_how, void* arg_1_set, void* arg_2_oset);
 int32_t libc_vxworks_kill(int32_t arg_0_pid, int32_t arg_1_signo);
-int32_t libc_vxworks_sigqueue_2(int32_t rtpId, int32_t signo, void* pValue, int32_t sigCode);
 int32_t libc_vxworks_taskKill(int32_t taskId, int32_t signo);
 int32_t libc_vxworks_raise(int32_t arg_0_signo);
 int32_t libc_vxworks_taskIdSelf(void);

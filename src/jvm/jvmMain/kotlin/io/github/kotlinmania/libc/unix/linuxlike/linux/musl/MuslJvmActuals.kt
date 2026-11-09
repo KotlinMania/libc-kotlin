@@ -138,7 +138,7 @@ public actual fun prlimit(pid: PidT, resource: CInt, newLimit: COpaquePointer?, 
 public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
 
-public actual fun ptrace(request: CInt): CLong =
+public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
@@ -232,7 +232,7 @@ public actual fun utmpxname(file: String?): CInt =
     UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_utmpxname(file)
 
 public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_pthreadTryjoinNp(thread.toLong(), (retval?.value ?: 0L))
+    UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_pthreadTryjoinNp((thread?.value ?: 0L), (retval?.value ?: 0L))
 
 public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp(thread.toLong(), (retval?.value ?: 0L), (abstime?.value ?: 0L))
+    UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp((thread?.value ?: 0L), (retval?.value ?: 0L), (abstime?.value ?: 0L))

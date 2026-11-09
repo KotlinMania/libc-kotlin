@@ -14,7 +14,7 @@ public val SA_NODEFER: CInt = 0x40000000
 
 public val SA_ONSTACK: CInt = 0x08000000
 
-public val SA_RESETHAND: CInt = 0x80000000
+public val SA_RESETHAND: CInt = 0x80000000.toInt()
 
 public val SA_RESTART: CInt = 0x10000000
 
@@ -30,11 +30,11 @@ public val PTRACE_GETFPREGS: CInt = 14
 
 public val PTRACE_SETFPREGS: CInt = 15
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(value = 0u)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(value = 0u)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(lock = PTHREAD_MUTEX_INITIALIZER, cond = PTHREAD_COND_INITIALIZER, numLocks = 0u, writerThreadId = 0u, pendingReaders = 0u, pendingWriters = 0u, attr = 0u, reserved = 0u)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(lock = PTHREAD_MUTEX_INITIALIZER, cond = PTHREAD_COND_INITIALIZER, numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0, reserved = 0)
 
 public val PTHREAD_STACK_MIN: SizeT = 4096uL * 2uL
 

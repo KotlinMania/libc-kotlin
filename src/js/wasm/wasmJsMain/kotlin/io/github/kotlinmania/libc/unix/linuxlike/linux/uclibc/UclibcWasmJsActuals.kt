@@ -21,7 +21,7 @@ public actual fun pthreadRwlockattrGetkindNp(attr: COpaquePointer?, value: COpaq
 public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt): CInt =
     0
 
-public actual fun ptrace(request: CUint): CLong =
+public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =

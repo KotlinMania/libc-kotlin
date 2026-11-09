@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
@@ -177,17 +178,6 @@ public val PDP_ENDIAN: Int = 3412
 public val BYTE_ORDER: Int = 1234
 
 public val FLOAT_WORD_ORDER: Int = 1234
-
-public val LITTLE_ENDIAN1: Int = 1234
-
-public val BIG_ENDIAN1: Int = 4321
-
-public val PDP_ENDIAN1: Int = 3412
-
-public val BYTE_ORDER1: Int = 1234
-
-// sys/select.h
-public val FD_SETSIZE1: Int = 256
 
 public val SIZEOF_PTHREAD_MUTEX_T: Int = 32
 
@@ -583,23 +573,23 @@ public val IPOPT_MEASUREMENT: UByte = 0x40u
 
 public val IPOPT_RESERVED2: UByte = 0x60u
 
-public val IPOPT_END: UByte = (0u or IPOPT_CONTROL).toUByte()
+public val IPOPT_END: UByte = (0u.toUByte() or IPOPT_CONTROL).toUByte()
 
-public val IPOPT_NOOP: UByte = (1u or IPOPT_CONTROL).toUByte()
+public val IPOPT_NOOP: UByte = (1u.toUByte() or IPOPT_CONTROL).toUByte()
 
-public val IPOPT_SEC: UByte = (2u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SEC: UByte = (2u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_LSRR: UByte = (3u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_LSRR: UByte = (3u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_TIMESTAMP: UByte = (4u or IPOPT_MEASUREMENT).toUByte()
+public val IPOPT_TIMESTAMP: UByte = (4u.toUByte() or IPOPT_MEASUREMENT).toUByte()
 
-public val IPOPT_RR: UByte = (7u or IPOPT_CONTROL).toUByte()
+public val IPOPT_RR: UByte = (7u.toUByte() or IPOPT_CONTROL).toUByte()
 
-public val IPOPT_SID: UByte = (8u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SID: UByte = (8u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_SSRR: UByte = (9u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SSRR: UByte = (9u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_RA: UByte = (20u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_RA: UByte = (20u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
 public val IPVERSION: UByte = 4u
 
@@ -858,17 +848,17 @@ public val SEM_VALUE_MAX: CInt = 2147483647
 public val MAXNAMLEN: Int = 255
 
 // netdb.h
-public val PATH_HEQUIV: List<UByte> = "/etc/hosts.equiv\u0000".encodeToByteArray()
+public val PATH_HEQUIV: UByteArray = "/etc/hosts.equiv\u0000".encodeToByteArray().toUByteArray()
 
-public val PATH_HOSTS: List<UByte> = "/etc/hosts\u0000".encodeToByteArray()
+public val PATH_HOSTS: UByteArray = "/etc/hosts\u0000".encodeToByteArray().toUByteArray()
 
-public val PATH_NETWORKS: List<UByte> = "/etc/networks\u0000".encodeToByteArray()
+public val PATH_NETWORKS: UByteArray = "/etc/networks\u0000".encodeToByteArray().toUByteArray()
 
-public val PATH_NSSWITCH_CONF: List<UByte> = "/etc/nsswitch.conf\u0000".encodeToByteArray()
+public val PATH_NSSWITCH_CONF: UByteArray = "/etc/nsswitch.conf\u0000".encodeToByteArray().toUByteArray()
 
-public val PATH_PROTOCOLS: List<UByte> = "/etc/protocols\u0000".encodeToByteArray()
+public val PATH_PROTOCOLS: UByteArray = "/etc/protocols\u0000".encodeToByteArray().toUByteArray()
 
-public val PATH_SERVICES: List<UByte> = "/etc/services\u0000".encodeToByteArray()
+public val PATH_SERVICES: UByteArray = "/etc/services\u0000".encodeToByteArray().toUByteArray()
 
 public val HOST_NOT_FOUND: CInt = 1
 
@@ -886,7 +876,7 @@ public val NO_ADDRESS: CInt = 4
 
 public val IPPORT_RESERVED: CInt = 1024
 
-public val SCOPE_DELIMITER: UByte = 37u
+public val SCOPE_DELIMITER: UByte = 37u.toUByte()
 
 public val GAI_WAIT: CInt = 0
 
@@ -1028,32 +1018,6 @@ public val LC_TELEPHONE: Int = 10
 public val LC_MEASUREMENT: Int = 11
 
 public val LC_IDENTIFICATION: Int = 12
-
-public val LC_CTYPE1: CInt = 0
-
-public val LC_NUMERIC1: CInt = 1
-
-public val LC_TIME1: CInt = 2
-
-public val LC_COLLATE1: CInt = 3
-
-public val LC_MONETARY1: CInt = 4
-
-public val LC_MESSAGES1: CInt = 5
-
-public val LC_ALL1: CInt = 6
-
-public val LC_PAPER1: CInt = 7
-
-public val LC_NAME1: CInt = 8
-
-public val LC_ADDRESS1: CInt = 9
-
-public val LC_TELEPHONE1: CInt = 10
-
-public val LC_MEASUREMENT1: CInt = 11
-
-public val LC_IDENTIFICATION1: CInt = 12
 
 public val LC_CTYPE_MASK: CInt = 1
 
@@ -1354,19 +1318,11 @@ public val ECHOKE: TcflagT = 1u
 
 public val ECHOE: TcflagT = 2u
 
-public val ECHOE1: TcflagT = 2u
-
 public val ECHOK: TcflagT = 4u
-
-public val ECHOK1: TcflagT = 4u
 
 public val ECHO: TcflagT = 8u
 
-public val ECHO1: TcflagT = 8u
-
 public val ECHONL: TcflagT = 16u
-
-public val ECHONL1: TcflagT = 16u
 
 public val ECHOPRT: TcflagT = 32u
 
@@ -1374,23 +1330,15 @@ public val ECHOCTL: TcflagT = 64u
 
 public val ISIG: TcflagT = 128u
 
-public val ISIG1: TcflagT = 128u
-
 public val ICANON: TcflagT = 256u
-
-public val ICANON1: TcflagT = 256u
 
 public val ALTWERASE: TcflagT = 512u
 
 public val IEXTEN: TcflagT = 1024u
 
-public val IEXTEN1: TcflagT = 1024u
-
 public val EXTPROC: TcflagT = 2048u
 
 public val TOSTOP: TcflagT = 4194304u
-
-public val TOSTOP1: TcflagT = 4194304u
 
 public val FLUSHO: TcflagT = 8388608u
 
@@ -1399,8 +1347,6 @@ public val NOKERNINFO: TcflagT = 33554432u
 public val PENDIN: TcflagT = 536870912u
 
 public val NOFLSH: TcflagT = 2147483648u
-
-public val NOFLSH1: TcflagT = 2147483648u
 
 public val VEOF: Int = 0
 
@@ -1544,7 +1490,7 @@ public val TTYDEF_CFLAG: TcflagT = 23040u
 
 public val TTYDEF_SPEED: TcflagT = 9600u
 
-public val CEOL: UByte = 0u
+public val CEOL: UByte = 0u.toUByte()
 
 public val CERASE: UByte = 127u
 
@@ -1554,7 +1500,7 @@ public val CQUIT: UByte = 28u
 
 public val CTIME: UByte = 0u
 
-public val CBRK: UByte = 0u
+public val CBRK: UByte = 0u.toUByte()
 
 // dlfcn.h
 public val RTLD_DEFAULT: COpaquePointer? = null
@@ -1661,8 +1607,6 @@ public val SIGRTMIN: Int = 32
 public val SIGRTMAX: Int = 32
 
 public val NSIG: Int = 33
-
-public val NSIG1: Int = 33
 
 // bits/sigaction.h
 public val SA_ONSTACK: CInt = 1
@@ -1798,8 +1742,6 @@ public val DBG_BRKPNT_FAULT: CInt = 2
 
 public val NGREG: Int = 19
 
-public val NGREG1: Int = 19
-
 // bits/sigstack.h
 public val MINSIGSTKSZ: Int = 8192
 
@@ -1882,28 +1824,6 @@ public val UTIME_NOW: CLong = -1L
 
 public val UTIME_OMIT: CLong = -2L
 
-public val S_IFMT1: ModeT = 61440u
-
-public val S_IFDIR1: ModeT = 16384u
-
-public val S_IFCHR1: ModeT = 8192u
-
-public val S_IFBLK1: ModeT = 24576u
-
-public val S_IFREG1: ModeT = 32768u
-
-public val S_IFIFO1: ModeT = 4096u
-
-public val S_IFLNK1: ModeT = 40960u
-
-public val S_IFSOCK1: ModeT = 49152u
-
-public val S_ISUID1: ModeT = 2048u
-
-public val S_ISGID1: ModeT = 1024u
-
-public val S_ISVTX1: ModeT = 512u
-
 public val S_IRUSR: ModeT = 256u
 
 public val S_IWUSR: ModeT = 128u
@@ -1911,12 +1831,6 @@ public val S_IWUSR: ModeT = 128u
 public val S_IXUSR: ModeT = 64u
 
 public val S_IRWXU: ModeT = 448u
-
-public val S_IREAD1: ModeT = 256u
-
-public val S_IWRITE1: ModeT = 128u
-
-public val S_IEXEC1: ModeT = 64u
 
 public val S_IRGRP: ModeT = 32u
 
@@ -2649,8 +2563,6 @@ public val BITS_TYPES_STRUCT_SCHED_PARAM: Int = 1
 
 public val CPU_SETSIZE: Int = 1024
 
-public val CPU_SETSIZE1: Int = 1024
-
 // pthread.h
 public val PTHREAD_SPINLOCK_INITIALIZER: CInt = 0
 
@@ -2748,11 +2660,11 @@ public val TCP_REPAIR_OFF: CInt = 0
 public val TCP_REPAIR_OFF_NO_WP: CInt = -1
 
 // stdint.h
-public val INT8_MIN: Byte = -128
+public val INT8_MIN: Byte = (-128).toByte()
 
-public val INT16_MIN: Short = -32768
+public val INT16_MIN: Short = (-32768).toShort()
 
-public val INT32_MIN: Int = -2147483648
+public val INT32_MIN: Int = -2147483648.toInt()
 
 public val INT8_MAX: Byte = 127
 
@@ -2766,11 +2678,11 @@ public val UINT16_MAX: UShort = 65535u
 
 public val UINT32_MAX: UInt = 4294967295u
 
-public val INT_LEAST8_MIN: IntLeast8T = -128
+public val INT_LEAST8_MIN: IntLeast8T = (-128).toByte()
 
-public val INT_LEAST16_MIN: IntLeast16T = -32768
+public val INT_LEAST16_MIN: IntLeast16T = (-32768).toShort()
 
-public val INT_LEAST32_MIN: IntLeast32T = -2147483648
+public val INT_LEAST32_MIN: IntLeast32T = -2147483648.toInt()
 
 public val INT_LEAST8_MAX: IntLeast8T = 127
 
@@ -2784,7 +2696,7 @@ public val UINT_LEAST16_MAX: UintLeast16T = 65535u
 
 public val UINT_LEAST32_MAX: UintLeast32T = 4294967295u
 
-public val INT_FAST8_MIN: IntFast8T = -128
+public val INT_FAST8_MIN: IntFast8T = (-128).toByte()
 
 public val INT_FAST16_MIN: IntFast16T = -2147483648L
 
@@ -2806,17 +2718,17 @@ public val INTPTR_MIN: IntptrT = -2147483648L
 
 public val INTPTR_MAX: IntptrT = 2147483647L
 
-public val UINTPTR_MAX: Int = 4294967295
+public val UINTPTR_MAX: Int = 4294967295.toInt()
 
 public val PTRDIFF_MIN: PtrdiffT = -2147483648L
 
 public val PTRDIFF_MAX: PtrdiffT = 2147483647L
 
-public val SIG_ATOMIC_MIN: SigAtomicT = -2147483648
+public val SIG_ATOMIC_MIN: SigAtomicT = -2147483648.toInt()
 
 public val SIG_ATOMIC_MAX: SigAtomicT = 2147483647
 
-public val SIZE_MAX: Int = 4294967295
+public val SIZE_MAX: Int = 4294967295.toInt()
 
 public val WINT_MIN: WintT = 0u
 
@@ -2966,9 +2878,6 @@ public val TCP_MSS_DEFAULT: Int = 536
 
 public val TCP_MSS_DESIRED: Int = 1220
 
-// sys/wait.h
-public val WCOREFLAG1: CInt = 128
-
 public val WAIT_ANY: PidT = -1
 
 public val WAIT_MYPGRP: PidT = 0
@@ -3017,7 +2926,7 @@ public val MAP_32BIT: CInt = 4096
 
 public val MAP_EXCL: CInt = 16384
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MADV_NORMAL: CInt = 0
 
@@ -3052,3 +2961,98 @@ public val MREMAP_FIXED: CInt = 2
 public val MCL_CURRENT: CInt = 0x0001
 
 public val MCL_FUTURE: CInt = 0x0002
+
+// sys/xattr.h
+public val XATTR_CREATE: CInt = 0x1
+
+public val XATTR_REPLACE: CInt = 0x2
+
+// spawn.h
+public val POSIX_SPAWN_USEVFORK: CInt = 64
+
+public val POSIX_SPAWN_SETSID: CInt = 128
+
+// sys/syslog.h
+public val LOG_CRON: CInt = 9 shl 3
+
+public val LOG_AUTHPRIV: CInt = 10 shl 3
+
+public val LOG_FTP: CInt = 11 shl 3
+
+public val LOG_PERROR: CInt = 0x20
+
+// net/if.h
+public val IFF_UP: CInt = 0x1
+
+public val IFF_BROADCAST: CInt = 0x2
+
+public val IFF_DEBUG: CInt = 0x4
+
+public val IFF_LOOPBACK: CInt = 0x8
+
+public val IFF_POINTOPOINT: CInt = 0x10
+
+public val IFF_NOTRAILERS: CInt = 0x20
+
+public val IFF_RUNNING: CInt = 0x40
+
+public val IFF_NOARP: CInt = 0x80
+
+public val IFF_PROMISC: CInt = 0x100
+
+public val IFF_ALLMULTI: CInt = 0x200
+
+public val IFF_MASTER: CInt = 0x400
+
+public val IFF_SLAVE: CInt = 0x800
+
+public val IFF_MULTICAST: CInt = 0x1000
+
+public val IFF_PORTSEL: CInt = 0x2000
+
+public val IFF_AUTOMEDIA: CInt = 0x4000
+
+public val IFF_DYNAMIC: CInt = 0x8000
+
+// random.h
+public val GRND_NONBLOCK: CUint = 1u
+
+public val GRND_RANDOM: CUint = 2u
+
+public val GRND_INSECURE: CUint = 4u
+
+public val PC_LINK_MAX: CInt = 0
+
+public val PC_MAX_CANON: CInt = 1
+
+public val PC_MAX_INPUT: CInt = 2
+
+public val PC_NAME_MAX: CInt = 3
+
+public val PC_PATH_MAX: CInt = 4
+
+public val PC_PIPE_BUF: CInt = 5
+
+public val PC_CHOWN_RESTRICTED: CInt = 6
+
+public val PC_NO_TRUNC: CInt = 7
+
+public val PC_VDISABLE: CInt = 8
+
+public val PC_SYNC_IO: CInt = 9
+
+public val PC_ASYNC_IO: CInt = 10
+
+public val PC_PRIO_IO: CInt = 11
+
+public val PC_SOCK_MAXBUF: CInt = 12
+
+public val PC_FILESIZEBITS: CInt = 13
+
+public val PC_REC_INCR_XFER_SIZE: CInt = 14
+
+public val PC_REC_MAX_XFER_SIZE: CInt = 15
+
+public val PC_REC_MIN_XFER_SIZE: CInt = 16
+
+public val PC_REC_XFER_ALIGN: CInt = 17

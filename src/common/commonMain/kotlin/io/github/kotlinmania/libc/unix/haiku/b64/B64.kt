@@ -15,13 +15,13 @@ public typealias ElfHalf = Elf64Half
 
 public typealias ElfPhdr = Elf64Phdr
 
-public open class Elf64Phdr(
-    public var pType: Elf64Word,
-    public var pFlags: Elf64Word,
-    public var pOffset: Elf64Off,
-    public var pVaddr: Elf64Addr,
-    public var pPaddr: Elf64Addr,
-    public var pFilesz: Elf64Xword,
-    public var pMemsz: Elf64Xword,
-    public var pAlign: Elf64Xword,
+public data class Elf64Phdr(
+    public var pType: Elf64Word = 0u,
+    public var pFlags: Elf64Word = 0u,
+    public var pOffset: Elf64Off = 0uL,
+    public var pVaddr: Elf64Addr = 0uL,
+    public var pPaddr: Elf64Addr = 0uL,
+    public var pFilesz: Elf64Xword = 0uL,
+    public var pMemsz: Elf64Xword = 0uL,
+    public var pAlign: Elf64Xword = 0uL,
 )

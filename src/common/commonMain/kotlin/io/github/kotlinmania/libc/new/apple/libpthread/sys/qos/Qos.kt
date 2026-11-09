@@ -7,15 +7,11 @@ import io.github.kotlinmania.libc.*
 //
 // <https://github.com/apple-oss-distributions/libpthread/blob/main/include/sys/qos.h>
 
-public sealed class QosClassT(public val value: UInt) {
-    public data object QosClassUserInteractive : QosClassT(0x21u)
-    public data object QosClassUserInitiated : QosClassT(0x19u)
-    public data object QosClassDefault : QosClassT(0x15u)
-    public data object QosClassUtility : QosClassT(0x11u)
-    public data object QosClassBackground : QosClassT(0x09u)
-    public data object QosClassUnspecified : QosClassT(0x00u)
-
-    public open fun clone(): QosClassT {
-        return this
-    }
+public enum class QosClassT(public val value: UInt) {
+    QOS_CLASS_USER_INTERACTIVE(0x21u),
+    QOS_CLASS_USER_INITIATED(0x19u),
+    QOS_CLASS_DEFAULT(0x15u),
+    QOS_CLASS_UTILITY(0x11u),
+    QOS_CLASS_BACKGROUND(0x09u),
+    QOS_CLASS_UNSPECIFIED(0x00u),
 }

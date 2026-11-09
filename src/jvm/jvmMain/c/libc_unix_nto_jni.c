@@ -68,56 +68,6 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1sendmmsg_12(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jlong vlen, jint flags) {
-    (void)km_env;
-    (void)km_clazz;
-    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sendmmsg");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sendmmsg");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendmmsg");
-    }
-#endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint64_t)vlen, (int32_t)flags) : -1;
-    return (jlong)km_res;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1recvmmsg_12(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jlong vlen, jint flags, jlong timeout) {
-    (void)km_env;
-    (void)km_clazz;
-    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "recvmmsg");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "recvmmsg");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "recvmmsg");
-    }
-#endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint64_t)vlen, (int32_t)flags, (void*)(uintptr_t)timeout) : -1;
-    return (jlong)km_res;
-}
-
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1semDestroy(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
@@ -5118,30 +5068,5 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
     }
 #endif
     if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)value_ptr);
-}
-
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1cxaAtexit(JNIEnv* km_env, jclass km_clazz, jlong cb, jlong arg_1_arg, jlong arg_2_dso) {
-    (void)km_env;
-    (void)km_clazz;
-    typedef int32_t (*km_fn_t)(void*, void*, void*);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__cxa_atexit");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__cxa_atexit");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cxa_atexit");
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)arg_1_arg, (void*)(uintptr_t)arg_2_dso) : -1;
-    return (jint)km_res;
 }
 

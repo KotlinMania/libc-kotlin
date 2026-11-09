@@ -1,10 +1,14 @@
 // port-lint: source new/apple/libpthread/pthread_/pthread.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread.pthread
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.new.apple.libpthread.pthread.pthreadimpl.PTHREAD_COND_SIG_INIT
+import io.github.kotlinmania.libc.new.apple.libpthread.pthread.pthreadimpl.PTHREAD_MUTEX_SIG_INIT
 import io.github.kotlinmania.libc.new.apple.libpthread.pthread.pthreadimpl.PTHREAD_ONCE_SIG_INIT
+import io.github.kotlinmania.libc.new.apple.libpthread.pthread.pthreadimpl.PTHREAD_RWLOCK_SIG_INIT
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PTHREAD_COND_SIZE
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PTHREAD_MUTEX_SIZE
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PTHREAD_ONCE_SIZE
@@ -13,7 +17,6 @@ import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadMutexT
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadOnceT
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadRwlockT
-import io.github.kotlinmania.libc.pthreadOnceT
 
 // Header: `pthread.h` or `pthread / pthread.h`
 //
@@ -59,10 +62,10 @@ public val PTHREAD_MUTEX_RECURSIVE: CInt = 2
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(sig = pthreadRwlockSigInit, opaque = List(PTHREAD_RWLOCK_SIZE) { 0u })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(sig = PTHREAD_RWLOCK_SIG_INIT, opaque = UByteArray((PTHREAD_RWLOCK_SIZE).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(sig = pthreadMutexSigInit, opaque = List(PTHREAD_MUTEX_SIZE) { 0u })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(sig = PTHREAD_MUTEX_SIG_INIT, opaque = UByteArray((PTHREAD_MUTEX_SIZE).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(sig = pthreadCondSigInit, opaque = List(PTHREAD_COND_SIZE) { 0u })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(sig = PTHREAD_COND_SIG_INIT, opaque = UByteArray((PTHREAD_COND_SIZE).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_ONCE_INIT: PthreadOnceT = pthreadOnceT(sig = PTHREAD_ONCE_SIG_INIT, opaque = List(PTHREAD_ONCE_SIZE) { 0 })
+public val PTHREAD_ONCE_INIT: PthreadOnceT = PthreadOnceT(sig = PTHREAD_ONCE_SIG_INIT, opaque = ByteArray((PTHREAD_ONCE_SIZE).toInt()) { 0.toByte() })

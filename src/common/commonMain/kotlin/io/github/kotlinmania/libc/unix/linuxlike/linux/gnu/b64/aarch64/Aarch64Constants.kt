@@ -40,6 +40,8 @@ public val O_NOATIME: CInt = 262144
 
 public val O_PATH: CInt = 2097152
 
+public val O_DIRECTORY: CInt = 0x4000
+
 public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 
 public val MADV_SOFT_OFFLINE: CInt = 101
@@ -348,7 +350,7 @@ public val EDOTDOT: CInt = 73
 
 public val SA_NODEFER: CInt = 0x40000000
 
-public val SA_RESETHAND: CInt = 0x80000000
+public val SA_RESETHAND: CInt = 0x80000000.toInt()
 
 public val SA_RESTART: CInt = 0x10000000
 
@@ -359,8 +361,6 @@ public val EPOLL_CLOEXEC: CInt = 0x80000
 public val EFD_CLOEXEC: CInt = 0x80000
 
 public val O_DIRECT: CInt = 0x10000
-
-public val O_DIRECTORY: CInt = 0x4000
 
 public val O_NOFOLLOW: CInt = 0x8000
 

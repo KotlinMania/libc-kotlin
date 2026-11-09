@@ -4,8 +4,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.IO
-import io.github.kotlinmania.libc.MSG_FIN
+import io.github.kotlinmania.libc.unix.linuxlike.MSG_FIN
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.U64
@@ -389,7 +388,7 @@ public val FUTEX_OWNER_DIED: UInt = 0x40000000u
 
 public val FUTEX_TID_MASK: UInt = 0x3fffffffu
 
-public val FUTEX_BITSET_MATCH_ANY: CInt = 0xffffffff
+public val FUTEX_BITSET_MATCH_ANY: CInt = 0xffffffff.toInt()
 
 public val FUTEX_OP_SET: CInt = 0
 
@@ -420,7 +419,7 @@ public val KEXEC_ON_CRASH: CInt = 0x00000001
 
 public val KEXEC_PRESERVE_CONTEXT: CInt = 0x00000002
 
-public val KEXEC_ARCH_MASK: CInt = 0xffff0000
+public val KEXEC_ARCH_MASK: CInt = 0xffff0000.toInt()
 
 public val KEXEC_FILE_UNLOAD: CInt = 0x00000001
 
@@ -429,7 +428,7 @@ public val KEXEC_FILE_ON_CRASH: CInt = 0x00000002
 public val KEXEC_FILE_NO_INITRAMFS: CInt = 0x00000004
 
 // linux/reboot.h
-public val LINUX_REBOOT_MAGIC1: CInt = 0xfee1dead
+public val LINUX_REBOOT_MAGIC1: CInt = 0xfee1dead.toInt()
 
 public val LINUX_REBOOT_MAGIC2: CInt = 672274793
 
@@ -441,17 +440,17 @@ public val LINUX_REBOOT_MAGIC2C: CInt = 537993216
 
 public val LINUX_REBOOT_CMD_RESTART: CInt = 0x01234567
 
-public val LINUX_REBOOT_CMD_HALT: CInt = 0xCDEF0123
+public val LINUX_REBOOT_CMD_HALT: CInt = 0xCDEF0123.toInt()
 
-public val LINUX_REBOOT_CMD_CAD_ON: CInt = 0x89ABCDEF
+public val LINUX_REBOOT_CMD_CAD_ON: CInt = 0x89ABCDEF.toInt()
 
 public val LINUX_REBOOT_CMD_CAD_OFF: CInt = 0x00000000
 
 public val LINUX_REBOOT_CMD_POWER_OFF: CInt = 0x4321FEDC
 
-public val LINUX_REBOOT_CMD_RESTART2: CInt = 0xA1B2C3D4
+public val LINUX_REBOOT_CMD_RESTART2: CInt = 0xA1B2C3D4.toInt()
 
-public val LINUX_REBOOT_CMD_SW_SUSPEND: CInt = 0xD000FCE2
+public val LINUX_REBOOT_CMD_SW_SUSPEND: CInt = 0xD000FCE2.toInt()
 
 public val LINUX_REBOOT_CMD_KEXEC: CInt = 0x45584543
 
@@ -1045,17 +1044,17 @@ public val PF_MEMALLOC_PIN: CInt = 0x10000000
  */
 public val PF_BLOCK_TS: CInt = 0x20000000
 
-/**
- * This thread called `freezeProcesses()` and should not be frozen.
- */
-public val PF_SUSPEND_TASK: CInt = PF_SUSPEND_TASK_UINT.toInt()
-
 // The used value is the highest possible bit fitting on 32 bits, so directly
 // defining it as a signed integer causes the compiler to report an overflow.
 // Use instead a private intermediary that assuringly has the correct type and
 // cast it where necessary to the wanted final type, which preserves the
 // desired information as-is in terms of integer representation.
 public val PF_SUSPEND_TASK_UINT: CUint = 0x80000000u
+
+/**
+ * This thread called `freezeProcesses()` and should not be frozen.
+ */
+public val PF_SUSPEND_TASK: CInt = PF_SUSPEND_TASK_UINT.toInt()
 
 public val CLONE_PIDFD: CInt = 0x1000
 

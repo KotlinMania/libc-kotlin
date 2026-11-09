@@ -409,5 +409,3 @@ public val RLIM_NLIMITS: RlimitResourceT = 16u
 public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
 
 public val RLIM_INFINITY: RlimT = 0uL.inv()
-
-public val RLIM_INFINITY1: RlimT = 0x7fffffffuL

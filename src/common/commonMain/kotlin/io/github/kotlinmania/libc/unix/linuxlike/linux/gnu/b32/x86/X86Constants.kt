@@ -253,8 +253,6 @@ public val SOCK_DGRAM: CInt = 2
 
 public val F_GETLK: CInt = 12
 
-public val F_GETLK1: CInt = 5
-
 public val F_GETOWN: CInt = 9
 
 public val F_SETOWN: CInt = 8

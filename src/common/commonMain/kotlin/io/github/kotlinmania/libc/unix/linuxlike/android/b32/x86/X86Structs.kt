@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32.x86
 
 import io.github.kotlinmania.libc.*
@@ -30,49 +31,81 @@ public class DebugStruct(
     }
 }
 
-public open class LibcFpreg(public var significand: List<UShort>, public var exponent: UShort)
+public data class LibcFpreg(public var significand: UShortArray = UShortArray(4), public var exponent: UShort = 0u) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is LibcFpreg) return false
+        if (!this.significand.contentEquals(other.significand)) return false
+        if (this.exponent != other.exponent) return false
+        return true
+    }
 
-public open class LibcFpstate(
-    public var cw: CUlong,
-    public var sw: CUlong,
-    public var tag: CUlong,
-    public var ipoff: CUlong,
-    public var cssel: CUlong,
-    public var dataoff: CUlong,
-    public var datasel: CUlong,
-    public var st: List<LibcFpreg>,
-    public var status: CUlong,
+    override fun hashCode(): Int {
+        var result = this.significand.contentHashCode()
+        result = 31 * result + this.exponent.hashCode()
+        return result
+    }
+}
+
+public data class LibcFpstate(
+    public var cw: CUlong = 0uL,
+    public var sw: CUlong = 0uL,
+    public var tag: CUlong = 0uL,
+    public var ipoff: CUlong = 0uL,
+    public var cssel: CUlong = 0uL,
+    public var dataoff: CUlong = 0uL,
+    public var datasel: CUlong = 0uL,
+    public var st: List<LibcFpreg> = List(8) { LibcFpreg() },
+    public var status: CUlong = 0uL,
 )
 
-public open class McontextT(
-    public var gregs: List<GregT>,
-    public var fpregs: LibcFpstate?,
-    public var oldmask: CUlong,
-    public var cr2: CUlong,
-)
+public data class McontextT(
+    public var gregs: IntArray = IntArray(19),
+    public var fpregs: LibcFpstate? = null,
+    public var oldmask: CUlong = 0uL,
+    public var cr2: CUlong = 0uL,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
+        if (this.fpregs != other.fpregs) return false
+        if (this.oldmask != other.oldmask) return false
+        if (this.cr2 != other.cr2) return false
+        return true
+    }
 
-public open class CAnonymousUcSigmaskWithPadding(
-    public var ucSigmask: SigsetT,
+    override fun hashCode(): Int {
+        var result = this.gregs.contentHashCode()
+        result = 31 * result + this.fpregs.hashCode()
+        result = 31 * result + this.oldmask.hashCode()
+        result = 31 * result + this.cr2.hashCode()
+        return result
+    }
+}
+
+public data class CAnonymousUcSigmaskWithPadding(
+    public var ucSigmask: SigsetT = 0uL,
     // Android has a wrong (smaller) sigsetT on x86.
-    public var paddingRtSigset: UInt,
+    public var paddingRtSigset: UInt = 0u,
 )
 
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucStack: StackT,
-    public var ucMcontext: McontextT,
-    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask,
-    public var paddingRtSigset: UInt,
-    public var fpregsMem: LibcFpstate,
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucStack: StackT = StackT(),
+    public var ucMcontext: McontextT = McontextT(),
+    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = CAnonymousUcSigmask(),
+    public var paddingRtSigset: UInt = 0u,
+    public var fpregsMem: LibcFpstate = LibcFpstate(),
 )
 
-public open class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskWithPadding? = null, public var ucSigmask64: Sigset64T? = null) {
-    public open fun fmt(f: StringBuilder) {
+public data class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskWithPadding = CAnonymousUcSigmaskWithPadding(), public var ucSigmask64: Sigset64T = Sigset64T()) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_uc_sigmask").finishNonExhaustive()
     }
 
-    public open fun eq(other: CAnonymousUcSigmask): Boolean {
+    public fun eq(other: CAnonymousUcSigmask): Boolean {
         return this.ucSigmask == other.ucSigmask
     }
 
@@ -83,4 +116,15 @@ public open class CAnonymousUcSigmask(public var ucSigmask: CAnonymousUcSigmaskW
     }
 }
 
-public open class MaxAlignT(public var priv: List<Double>)
+public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(2)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MaxAlignT) return false
+        if (!this.priv.contentEquals(other.priv)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.priv.contentHashCode()
+    }
+}

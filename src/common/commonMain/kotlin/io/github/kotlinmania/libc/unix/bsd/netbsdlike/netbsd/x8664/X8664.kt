@@ -1,14 +1,13 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/x86_64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.x8664
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
 
 public typealias CGregT = ULong
@@ -16,23 +15,39 @@ public typealias CGregT = ULong
 public typealias CpuSimpleLockNvT = CUchar
 
 // Note(alignment): Type is `__aligned(8)`
-public typealias FpregsetT = List<CChar>
+public typealias FpregsetT = UByteArray
 
-public open class McontextT(
-    public var gregs: List<CGregT>,
-    public var mcTlsbase: CGregT,
-    public var fpregs: FpregsetT,
+public data class McontextT(
+    public var gregs: ULongArray = ULongArray(26),
+    public var mcTlsbase: CGregT = 0uL,
+    public var fpregs: FpregsetT = UByteArray(512),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
+        if (this.mcTlsbase != other.mcTlsbase) return false
+        if (this.fpregs != other.fpregs) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.gregs.contentHashCode()
+        result = 31 * result + this.mcTlsbase.hashCode()
+        result = 31 * result + this.fpregs.hashCode()
+        return result
+    }
+}
+
+public data class UcontextT(
+    public var ucFlags: CUint = 0u,
+    public var ucLink: UcontextT? = null,
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var ucStack: StackT = StackT(),
+    public var ucMcontext: McontextT = McontextT(),
 )
 
-public open class UcontextT(
-    public var ucFlags: CUint,
-    public var ucLink: UcontextT?,
-    public var ucSigmask: SigsetT,
-    public var ucStack: StackT,
-    public var ucMcontext: McontextT,
-)
-
-internal val ALIGNBYTES: Int = sizeOf<CLong>() - 1
+internal val ALIGNBYTES: Int = 8 - 1
 
 public val PT_STEP: CInt = PT_FIRSTMACH + 0
 

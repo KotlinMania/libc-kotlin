@@ -17,9 +17,6 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.major
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.makedev
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.minor
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpRsrcT
 
@@ -95,7 +92,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
 public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_setgroups(ngroups, (ptr?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun ioctl(fildes: CInt, request: CInt): CInt =
+public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -138,22 +135,22 @@ public actual fun fdatasync(fd: CInt): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_fdatasync(fd) as Int) else 0
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_nlLanginfoL(item, locale.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_nlLanginfoL(item, (locale?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixSolarishNapiAddon != null) {
-        _unixSolarishNapiAddon.libc_unix_solarish_freelocale(loc.toLong().toString())
+        _unixSolarishNapiAddon.libc_unix_solarish_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun getprogname(): COpaquePointer? =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_getprogname() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
@@ -389,32 +386,32 @@ public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun accept4(fd: CInt, address: COpaquePointer?, addressLen: COpaquePointer?, flags: CInt): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_accept4(fd, (address?.value ?: 0L).toString(), (addressLen?.value ?: 0L).toString(), flags) as Int) else 0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     null
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqClose(mqd.toLong().toString()) as Int) else 0
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqClose((mqd?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqUnlink(name: String?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqUnlink(name) as Int) else 0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqReceive(mqd.toLong().toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString()) as String).toLong() else 0L
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqReceive((mqd?.value ?: 0L).toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqTimedreceive(mqd.toLong().toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString(), (absTimeout?.value ?: 0L).toString()) as String).toLong() else 0L
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqTimedreceive((mqd?.value ?: 0L).toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString(), (absTimeout?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqSend(mqd.toLong().toString(), msgPtr, msgLen.toString(), msgPrio.toInt()) as Int) else 0
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqSend((mqd?.value ?: 0L).toString(), msgPtr, msgLen.toString(), msgPrio.toInt()) as Int) else 0
 
 public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqTimedsend(mqd.toLong().toString(), msgPtr, msgLen.toString(), msgPrio.toInt(), (absTimeout?.value ?: 0L).toString()) as Int) else 0
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqTimedsend((mqd?.value ?: 0L).toString(), msgPtr, msgLen.toString(), msgPrio.toInt(), (absTimeout?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqGetattr(mqd.toLong().toString(), (attr?.value ?: 0L).toString()) as Int) else 0
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqGetattr((mqd?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqSetattr(mqd.toLong().toString(), (newattr?.value ?: 0L).toString(), (oldattr?.value ?: 0L).toString()) as Int) else 0
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_mqSetattr((mqd?.value ?: 0L).toString(), (newattr?.value ?: 0L).toString(), (oldattr?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun portCreate(): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_portCreate() as Int) else 0
@@ -456,12 +453,12 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_getgrnamR(name, (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun thrSelf(): ThreadT =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_thrSelf() as String).toLong().toUInt()() else 0u
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_thrSelf() as String).toLong().toUInt() else 0u
 
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_pthreadSigmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -843,7 +840,7 @@ public actual fun strftime(s: COpaquePointer?, maxsize: SizeT, format: String?, 
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_strftime((s?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun strftimeL(s: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?, loc: LocaleT): SizeT =
-    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_strftimeL((s?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString(), loc.toLong().toString()) as String).toULong() else 0uL
+    if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_strftimeL((s?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString(), (loc?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun sendfile(outFd: CInt, inFd: CInt, off: COpaquePointer?, len: SizeT): SsizeT =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_sendfile(outFd, inFd, (off?.value ?: 0L).toString(), len.toString()) as String).toLong() else 0L

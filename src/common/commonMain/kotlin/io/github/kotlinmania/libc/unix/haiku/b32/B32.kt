@@ -14,13 +14,13 @@ public typealias ElfHalf = Elf32Half
 
 public typealias ElfPhdr = Elf32Phdr
 
-public open class Elf32Phdr(
-    public var pType: Elf32Word,
-    public var pOffset: Elf32Off,
-    public var pVaddr: Elf32Addr,
-    public var pPaddr: Elf32Addr,
-    public var pFilesz: Elf32Word,
-    public var pMemsz: Elf32Word,
-    public var pFlags: Elf32Word,
-    public var pAlign: Elf32Word,
+public data class Elf32Phdr(
+    public var pType: Elf32Word = 0u,
+    public var pOffset: Elf32Off = 0u,
+    public var pVaddr: Elf32Addr = 0u,
+    public var pPaddr: Elf32Addr = 0u,
+    public var pFilesz: Elf32Word = 0u,
+    public var pMemsz: Elf32Word = 0u,
+    public var pFlags: Elf32Word = 0u,
+    public var pAlign: Elf32Word = 0u,
 )

@@ -34,15 +34,18 @@ public typealias DevT = UInt
 
 public typealias InoT = UShort
 
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
 public typealias Time64T = Long
 
 public typealias Socket = UintptrT
 
-public sealed class FILE {
+public class FILE(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class FposT {
+public class FposT(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

@@ -6,13 +6,11 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.bsd.IPTOS_ECN_MASK
 
 public fun interface PthreadCreateFCallback {
     public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
@@ -35,53 +33,53 @@ public fun interface DlIteratePhdrCallbackCallback {
 }
 
 public fun cmsgAlign(len: Int): Int {
-    return (len + sizeOf<Int>() - 1) and (sizeOf<Int>() - 1).inv()
+    return (len + 8 - 1) and (8 - 1).inv()
 }
 
 // structs
 // functions
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= sizeOf<Cmsghdr>()) {
-        (if (mhdr!!.msgControl == null) null else Cmsghdr())
+    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
     } else {
-        nullMut<Cmsghdr>()
+        null
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (CMSG_ALIGN(sizeOf<Cmsghdr>()).toInt()).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (CMSG_ALIGN(length.toInt()) + CMSG_ALIGN(sizeOf<Cmsghdr>())).toUInt()
+    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return CMSG_ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return cmsgAlign(8).toUInt() + length
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    if (((cmsg!!.cmsgLen).toInt()) < sizeOf<Cmsghdr>()) {
-        return nullMut<Cmsghdr>()
+    if (((cmsg!!.cmsgLen).toInt()) < 8) {
+        return null
     }
     val next = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt() > max || ((next)?.hashCode()?.toLong() ?: 0L).toInt() + CMSG_ALIGN((next!!.cmsgLen).toInt()) > max) {
-        nullMut<Cmsghdr>()
+    return if (((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt() > max || ((next)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((next!!.cmsgLen).toInt()) > max) {
+        null
     } else {
-        (if (next == null) null else Cmsghdr())
+        ((next as Any?) as Cmsghdr?)
     }
 }
 
 public fun cpuAllocSize(count: CInt): SizeT {
-    val dummy: CpuSetT = null
+    val dummy: CpuSetT? = null
     val sizeInBits = 8 * 8
-    return ((count.toULong() + sizeInBits - 1uL) / 8uL).toULong()
+    return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL).toULong()
 }
 
 public fun cpuZero(cpuset: CpuSetT) {
-    for (slot in cpuset.bits.iterMut()) {
-        slot = 0
+    for (idx in cpuset.bits.indices) {
+        cpuset.bits[idx] = 0uL
     }
 }
 
@@ -89,33 +87,33 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
+    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset.toInt())
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
+    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset.toInt()).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    return 0uL != (cpuset.bits[idx] and (1uL shl offset))
+    return 0uL != (cpuset.bits[idx] and (1uL shl offset.toInt()))
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits[0 until (size / sizeOfMask)].iter()) {
-        s += i.countOnes()
+    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+        s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
 public fun cpuCount(cpuset: CpuSetT): CInt {
-    return CPU_COUNT_S(sizeOf<CpuSetT>(), cpuset)
+    return cpuCountS(8, cpuset)
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
@@ -133,26 +131,26 @@ public fun iptosPrec(tos: UByte): UByte {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1L shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    return (set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size))) != 0
+    return (set!!.fdsBits[fd1 / size] and (1L shl (fd1 % size))) != 0L
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1 shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1L shl (fd1 % size))
     return
 }
 
 public fun fdZero(set: FdSet?) {
-    for (slot in set!!.fdsBits.iterMut()) {
-        slot = 0
+    for (idx in (set!!.fdsBits).indices) {
+        (set!!.fdsBits)[idx] = 0L
     }
 }
 
@@ -873,7 +871,7 @@ public expect fun gnuGetLibcVersion(): COpaquePointer?
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
     val minor1 = minor.toULong()
-    var dev = 0
+    var dev = 0uL
     dev = dev or (major1 shl 8)
     dev = dev or minor1
     return dev

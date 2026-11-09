@@ -4,6 +4,12 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CShort
 
+public val EISCONN: CInt = 106
+
+public val ENOTCONN: CInt = 107
+
+public val ESHUTDOWN: CInt = 108
+
 public val ETOOMANYREFS: CInt = 109
 
 public val ETIMEDOUT: CInt = 110
@@ -96,8 +102,6 @@ public val SO_SNDTIMEO: CInt = 21
 
 public val SO_BINDTODEVICE: CInt = 25
 
-public val SO_TIMESTAMP: CInt = 29
-
 public val SO_ACCEPTCONN: CInt = 30
 
 public val SO_SNDBUFFORCE: CInt = 32
@@ -161,8 +165,6 @@ public val SIGTSTP: CInt = 20
 public val SIGURG: CInt = 23
 
 public val SIGIO: CInt = 29
-
-public val SIGSYS: CInt = 31
 
 public val SIGSTKFLT: CInt = 16
 
@@ -259,8 +261,6 @@ public val TIOCMBIS: CInt = 0x5416
 public val TIOCMBIC: CInt = 0x5417
 
 public val TIOCMSET: CInt = 0x5418
-
-public val FIONREAD: CInt = 0x541B
 
 public val TIOCCONS: CInt = 0x541D
 

@@ -76,7 +76,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: COpaquePo
 public actual fun schedGetcpu(): CInt =
     0
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
@@ -104,7 +104,7 @@ public actual fun updlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): C
     0
 
 public actual fun getutxuser(name: String?): Utmpx =
-    null as Utmpx
+    Utmpx()
 
 public actual fun utmpxname(file: String?): CInt =
     0

@@ -750,7 +750,7 @@ public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_sigaltstack((ss?.value ?: 0L), (oss?.value ?: 0L))
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadKill(thread.toLong(), sig)
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadKill((thread?.value ?: 0L), sig)
 
 public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_sigtimedwait((set?.value ?: 0L), (info?.value ?: 0L), (timeout?.value ?: 0L))
@@ -898,17 +898,17 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
     UnixCygwinJniBridge.libc_unix_cygwin_ppoll((fds?.value ?: 0L), nfds.toInt(), (timeout?.value ?: 0L), (sigmask?.value ?: 0L))
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixCygwinJniBridge.libc_unix_cygwin_newlocale(mask, locale, base.toLong()).toULong()()
+    UnixCygwinJniBridge.libc_unix_cygwin_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixCygwinJniBridge.libc_unix_cygwin_freelocale(loc.toLong())
+    UnixCygwinJniBridge.libc_unix_cygwin_freelocale((loc?.value ?: 0L))
 }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixCygwinJniBridge.libc_unix_cygwin_duplocale(base.toLong()).toULong()()
+    UnixCygwinJniBridge.libc_unix_cygwin_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixCygwinJniBridge.libc_unix_cygwin_uselocale(loc.toLong()).toULong()()
+    UnixCygwinJniBridge.libc_unix_cygwin_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_semInit((sem?.value ?: 0L), pshared, value.toInt())
@@ -916,7 +916,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
 public actual fun semDestroy(sem: COpaquePointer?): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_semDestroy((sem?.value ?: 0L))
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semClose(sem: COpaquePointer?): CInt =
@@ -1058,10 +1058,10 @@ public actual fun flsll(value: CLonglong): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_flsll(value)
 
 public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_strcasecmpL(s1, s2, loc.toLong())
+    UnixCygwinJniBridge.libc_unix_cygwin_strcasecmpL(s1, s2, (loc?.value ?: 0L))
 
 public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_strncasecmpL(s1, s2, n.toLong(), loc.toLong())
+    UnixCygwinJniBridge.libc_unix_cygwin_strncasecmpL(s1, s2, n.toLong(), (loc?.value ?: 0L))
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_timingsafeBcmp((a?.value ?: 0L), (b?.value ?: 0L), len.toLong())
@@ -1194,7 +1194,7 @@ public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaqueP
     UnixCygwinJniBridge.libc_unix_cygwin_pthreadAttrGetstack((attr?.value ?: 0L), (stackaddr?.value ?: 0L), (stacksize?.value ?: 0L))
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCancel(thread.toLong())
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCancel((thread?.value ?: 0L))
 
 public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_pthreadCondattrGetclock((attr?.value ?: 0L), (clockId?.value ?: 0L))
@@ -1233,10 +1233,10 @@ public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, 
     UnixCygwinJniBridge.libc_unix_cygwin_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetcpuclockid(thread.toLong(), (clkId?.value ?: 0L))
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetcpuclockid((thread?.value ?: 0L), (clkId?.value ?: 0L))
 
 public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetschedparam(native.toLong(), (policy?.value ?: 0L), (param?.value ?: 0L))
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetschedparam((native?.value ?: 0L), (policy?.value ?: 0L), (param?.value ?: 0L))
 
 public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
     UnixCygwinJniBridge.libc_unix_cygwin_pthreadMutexTimedlock((lock?.value ?: 0L), (abstime?.value ?: 0L))
@@ -1275,30 +1275,30 @@ public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt
     UnixCygwinJniBridge.libc_unix_cygwin_pthreadRwlockattrSetpshared((attr?.value ?: 0L), value)
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetschedparam(native.toLong(), policy, (param?.value ?: 0L))
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetschedparam((native?.value ?: 0L), policy, (param?.value ?: 0L))
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetschedprio(native.toLong(), priority)
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetschedprio((native?.value ?: 0L), priority)
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetaffinityNp(thread.toLong(), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetaffinityNp((thread?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
 
 public actual fun pthreadGetattrNp(native: PthreadT, attr: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetattrNp(native.toLong(), (attr?.value ?: 0L))
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetattrNp((native?.value ?: 0L), (attr?.value ?: 0L))
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetnameNp(thread.toLong(), (name?.value ?: 0L), len.toLong())
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetnameNp((thread?.value ?: 0L), (name?.value ?: 0L), len.toLong())
 
 public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetaffinityNp(thread.toLong(), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetaffinityNp((thread?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetnameNp(thread.toLong(), name)
+    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetnameNp((thread?.value ?: 0L), name)
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =

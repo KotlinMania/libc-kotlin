@@ -319,25 +319,25 @@ public actual fun getpwnam(name: String?): COpaquePointer? =
 public actual fun getpwuid(uid: UidT): COpaquePointer? =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_getpwuid(uid.toInt()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -400,13 +400,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_fileno((stream?.handle ?: 0L).toString()) as Int) else 0
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_creat(path, mode.toInt()) as Int) else 0
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -427,7 +427,7 @@ public actual fun rewinddir(dirp: DIR?) {
     }
 }
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
@@ -484,13 +484,13 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_dup2(src, dst) as Int) else 0
 
-public actual fun execl(path: String?, arg0: String?): CInt =
+public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execle(path: String?, arg0: String?): CInt =
+public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execlp(file: String?, arg0: String?): CInt =
+public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
@@ -689,7 +689,7 @@ public actual fun times(buf: COpaquePointer?): ClockT =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_times((buf?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadSelf() as String).toLong().toULong()() else 0uL
+    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadSelf() as String).toLong().toULong() else 0uL
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadJoin(native.toLong().toString(), (value?.value ?: 0L).toString()) as Int) else 0
@@ -1052,7 +1052,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_setlogmask(maskpri) as Int) else 0
 
-public actual fun syslog(priority: CInt, message: String?) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun grantpt(fd: CInt): CInt =
@@ -1116,19 +1116,19 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, 
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_utimensat(dirfd, path, (times?.value ?: 0L).toString(), flag) as Int) else 0
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_fuchsiaNapiAddon != null) {
-        _fuchsiaNapiAddon.libc_fuchsia_freelocale(loc.toLong().toString())
+        _fuchsiaNapiAddon.libc_fuchsia_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun fdopendir(fd: CInt): DIR? =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_fdopendir(fd) as String).toLong().let { if (it == 0L) null else DIR(it) } else null
@@ -1187,7 +1187,7 @@ public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePoi
 public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_fexecve(fd, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
@@ -1232,7 +1232,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_semop(semid, (sops?.value ?: 0L).toString(), nsops.toString()) as Int) else 0
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
@@ -1299,7 +1299,7 @@ public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_sigwaitinfo((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_nlLanginfoL(item, locale.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_nlLanginfoL(item, (locale?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_getnameinfo((sa?.value ?: 0L).toString(), salen.toInt(), (host?.value ?: 0L).toString(), hostlen.toInt(), (serv?.value ?: 0L).toString(), servlen.toInt(), flags) as Int) else 0
@@ -1415,7 +1415,7 @@ public actual fun sync() {
     }
 }
 
-public actual fun syscall(num: CLong): CLong =
+public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -1475,7 +1475,7 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
 public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadMutexTimedlock((lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -1529,7 +1529,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadSigmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

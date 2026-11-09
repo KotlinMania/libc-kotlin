@@ -1,4 +1,5 @@
 // port-lint: source unix/linux_like/linux/musl/b64/mips64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.mips64
 
 import io.github.kotlinmania.libc.*
@@ -38,79 +39,147 @@ public typealias BlksizeT = Long
 
 public typealias Stat64 = Stat
 
-public open class Stat(
-    public var stDev: DevT,
-    public var pad1: List<CInt>,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad2: List<CUint>,
-    public var stSize: OffT,
-    public var pad3: CInt,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var stBlksize: BlksizeT,
-    public var pad4: CUint,
-    public var stBlocks: BlkcntT,
-    public var pad5: List<CInt>,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var pad1: IntArray = IntArray(3),
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad2: UIntArray = UIntArray(2),
+    public var stSize: OffT = 0L,
+    public var pad3: CInt = 0,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var pad4: CUint = 0u,
+    public var stBlocks: BlkcntT = 0L,
+    public var pad5: IntArray = IntArray(14),
 )
 
-public open class StackT(
-    public var ssSp: COpaquePointer?,
-    public var ssSize: SizeT,
-    public var ssFlags: CInt,
+public data class StackT(
+    public var ssSp: COpaquePointer? = null,
+    public var ssSize: SizeT = 0uL,
+    public var ssFlags: CInt = 0,
 )
 
-public open class IpcPerm(
-    public var key: KeyT,
-    public var ipcPermKey: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: ModeT,
-    public var seq: CInt,
-    public var pad1: CInt,
-    public var unused1: CUlong,
-    public var unused2: CUlong,
+public data class IpcPerm(
+    public var key: KeyT = 0,
+    public var ipcPermKey: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CInt = 0,
+    public var pad1: CInt = 0,
+    public var unused1: CUlong = 0uL,
+    public var unused2: CUlong = 0uL,
 )
 
-public open class Statfs(
-    public var fType: CUlong,
-    public var fBsize: CUlong,
-    public var fFrsize: CUlong,
-    public var fBlocks: FsblkcntT,
-    public var fBfree: FsblkcntT,
-    public var fFiles: FsfilcntT,
-    public var fFfree: FsfilcntT,
-    public var fBavail: FsblkcntT,
-    public var fFsid: FsidT,
-    public var fNamelen: CUlong,
-    public var fFlags: CUlong,
-    public var fSpare: List<CUlong>,
-)
+public data class Statfs(
+    public var fType: CUlong = 0uL,
+    public var fBsize: CUlong = 0uL,
+    public var fFrsize: CUlong = 0uL,
+    public var fBlocks: FsblkcntT = 0uL,
+    public var fBfree: FsblkcntT = 0uL,
+    public var fFiles: FsfilcntT = 0uL,
+    public var fFfree: FsfilcntT = 0uL,
+    public var fBavail: FsblkcntT = 0uL,
+    public var fFsid: FsidT = FsidT(),
+    public var fNamelen: CUlong = 0uL,
+    public var fFlags: CUlong = 0uL,
+    public var fSpare: ULongArray = ULongArray(5),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statfs) return false
+        if (this.fType != other.fType) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fNamelen != other.fNamelen) return false
+        if (this.fFlags != other.fFlags) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
 
-public open class Statfs64(
-    public var fType: CUlong,
-    public var fBsize: CUlong,
-    public var fFrsize: CUlong,
-    public var fBlocks: Fsblkcnt64T,
-    public var fBfree: Fsblkcnt64T,
-    public var fFiles: Fsfilcnt64T,
-    public var fFfree: Fsfilcnt64T,
-    public var fBavail: Fsblkcnt64T,
-    public var fFsid: FsidT,
-    public var fNamelen: CUlong,
-    public var fFlags: CUlong,
-    public var fSpare: List<CUlong>,
-)
+    override fun hashCode(): Int {
+        var result = this.fType.hashCode()
+        result = 31 * result + this.fBsize.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fNamelen.hashCode()
+        result = 31 * result + this.fFlags.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
+
+public data class Statfs64(
+    public var fType: CUlong = 0uL,
+    public var fBsize: CUlong = 0uL,
+    public var fFrsize: CUlong = 0uL,
+    public var fBlocks: Fsblkcnt64T = 0uL,
+    public var fBfree: Fsblkcnt64T = 0uL,
+    public var fFiles: Fsfilcnt64T = 0uL,
+    public var fFfree: Fsfilcnt64T = 0uL,
+    public var fBavail: Fsblkcnt64T = 0uL,
+    public var fFsid: FsidT = FsidT(),
+    public var fNamelen: CUlong = 0uL,
+    public var fFlags: CUlong = 0uL,
+    public var fSpare: ULongArray = ULongArray(5),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Statfs64) return false
+        if (this.fType != other.fType) return false
+        if (this.fBsize != other.fBsize) return false
+        if (this.fFrsize != other.fFrsize) return false
+        if (this.fBlocks != other.fBlocks) return false
+        if (this.fBfree != other.fBfree) return false
+        if (this.fFiles != other.fFiles) return false
+        if (this.fFfree != other.fFfree) return false
+        if (this.fBavail != other.fBavail) return false
+        if (this.fFsid != other.fFsid) return false
+        if (this.fNamelen != other.fNamelen) return false
+        if (this.fFlags != other.fFlags) return false
+        if (!this.fSpare.contentEquals(other.fSpare)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fType.hashCode()
+        result = 31 * result + this.fBsize.hashCode()
+        result = 31 * result + this.fFrsize.hashCode()
+        result = 31 * result + this.fBlocks.hashCode()
+        result = 31 * result + this.fBfree.hashCode()
+        result = 31 * result + this.fFiles.hashCode()
+        result = 31 * result + this.fFfree.hashCode()
+        result = 31 * result + this.fBavail.hashCode()
+        result = 31 * result + this.fFsid.hashCode()
+        result = 31 * result + this.fNamelen.hashCode()
+        result = 31 * result + this.fFlags.hashCode()
+        result = 31 * result + this.fSpare.contentHashCode()
+        return result
+    }
+}
 
 public val SIGSTKSZ: SizeT = 8192uL
 

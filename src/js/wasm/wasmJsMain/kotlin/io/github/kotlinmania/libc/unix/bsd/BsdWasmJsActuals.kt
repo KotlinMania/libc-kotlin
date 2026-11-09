@@ -50,7 +50,7 @@ public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
 public actual fun setlogin(name: String?): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun kqueue(): CInt =
@@ -59,7 +59,7 @@ public actual fun kqueue(): CInt =
 public actual fun unmount(target: String?, arg: CInt): CInt =
     0
 
-public actual fun syscall(num: CInt): CInt =
+public actual fun syscall(num: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getpwent(): COpaquePointer? =
@@ -170,7 +170,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

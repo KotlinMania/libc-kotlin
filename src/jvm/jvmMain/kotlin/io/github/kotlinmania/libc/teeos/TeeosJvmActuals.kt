@@ -11,7 +11,6 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.new.qurt.errno.errnoLocation
 
 private object TeeosJniBridge {
     init {
@@ -223,7 +222,7 @@ private object TeeosJniBridge {
     external fun libc_teeos_gettimeofday(tv: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_teeos_strftime(restrict: Long, sz: Long, restrict: String?, restrict: Long): Long
+    external fun libc_teeos_strftime(restrict: Long, sz: Long, restrict_2: String?, restrict_3: Long): Long
 
     @JvmStatic
     external fun libc_teeos_time(t: Long): Long
@@ -471,7 +470,7 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePoint
     TeeosJniBridge.libc_teeos_memset((dest?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun pthreadSelf(): PthreadT =
-    TeeosJniBridge.libc_teeos_pthreadSelf().toULong()()
+    TeeosJniBridge.libc_teeos_pthreadSelf().toULong()
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
     TeeosJniBridge.libc_teeos_pthreadJoin(native.toLong(), (value?.value ?: 0L))
@@ -601,16 +600,16 @@ public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePo
 public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
     TeeosJniBridge.libc_teeos_pthreadGetaffinityNp(td.toLong(), size.toLong(), (set?.value ?: 0L))
 
-public actual fun printf(fmt: String?): CInt =
+public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(fmt: String?): CInt =
+public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, fmt: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
@@ -654,8 +653,8 @@ public actual fun getpid(): PidT =
 public actual fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
     TeeosJniBridge.libc_teeos_gettimeofday((tv?.value ?: 0L), (tz?.value ?: 0L))
 
-public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict: String?, restrict: COpaquePointer?): SizeT =
-    TeeosJniBridge.libc_teeos_strftime((restrict?.value ?: 0L), sz.toLong(), restrict, (restrict?.value ?: 0L)).toULong()
+public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT =
+    TeeosJniBridge.libc_teeos_strftime((restrict?.value ?: 0L), sz.toLong(), restrict_2, (restrict_3?.value ?: 0L)).toULong()
 
 public actual fun time(t: COpaquePointer?): TimeT =
     TeeosJniBridge.libc_teeos_time((t?.value ?: 0L))
@@ -672,7 +671,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, valp: COpaquePointer?): CInt
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     TeeosJniBridge.libc_teeos_semInit((sem?.value ?: 0L), pshared, value.toInt())
 
-public actual fun semOpen(name: String?, flags: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semPost(sem: COpaquePointer?): CInt =
@@ -848,7 +847,7 @@ public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: Size
     TeeosJniBridge.libc_teeos_bsearch((key?.value ?: 0L), (base?.value ?: 0L), nel.toLong(), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun div(num: CInt, den: CInt): DivT =
-    null as DivT
+    DivT()
 
 public actual fun ecvt(x: CDouble, n: CInt, dp: COpaquePointer?, sign: COpaquePointer?): COpaquePointer? =
     TeeosJniBridge.libc_teeos_ecvt(x, n, (dp?.value ?: 0L), (sign?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }

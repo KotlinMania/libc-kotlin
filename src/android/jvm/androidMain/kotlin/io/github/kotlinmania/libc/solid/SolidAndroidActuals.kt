@@ -934,7 +934,7 @@ public actual fun fgets(arg1: COpaquePointer?, arg2: CInt, arg3: FILE?): COpaque
 public actual fun fopen(arg1: String?, arg2: String?): FILE? =
     SolidJniBridge.libc_solid_fopen(arg1, arg2).let { if (it == 0L) null else FILE(it) }
 
-public actual fun fprintf(arg1: FILE?, arg2: String?): CInt =
+public actual fun fprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fputc(arg1: CInt, arg2: FILE?): CInt =
@@ -949,7 +949,7 @@ public actual fun fread(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: F
 public actual fun freopen(arg1: String?, arg2: String?, arg3: FILE?): FILE? =
     SolidJniBridge.libc_solid_freopen(arg1, arg2, (arg3?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
 
-public actual fun fscanf(arg1: FILE?, arg2: String?): CInt =
+public actual fun fscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fseek(arg1: FILE?, arg2: CLong, arg3: CInt): CInt =
@@ -971,7 +971,7 @@ public actual fun perror(arg1: String?) {
     SolidJniBridge.libc_solid_perror(arg1)
 }
 
-public actual fun printf(arg1: String?): CInt =
+public actual fun printf(arg1: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun putc(arg1: CInt, arg2: FILE?): CInt =
@@ -990,7 +990,7 @@ public actual fun rewind(arg1: FILE?) {
     SolidJniBridge.libc_solid_rewind((arg1?.handle ?: 0L))
 }
 
-public actual fun scanf(arg1: String?): CInt =
+public actual fun scanf(arg1: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun setbuf(arg1: FILE?, arg2: COpaquePointer?) {
@@ -1000,7 +1000,7 @@ public actual fun setbuf(arg1: FILE?, arg2: COpaquePointer?) {
 public actual fun setvbuf(arg1: FILE?, arg2: COpaquePointer?, arg3: CInt, arg4: SizeT): CInt =
     SolidJniBridge.libc_solid_setvbuf((arg1?.handle ?: 0L), (arg2?.value ?: 0L), arg3, arg4.toLong())
 
-public actual fun sscanf(arg1: String?, arg2: String?): CInt =
+public actual fun sscanf(arg1: String?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun tmpfile(): FILE? =
@@ -1018,7 +1018,7 @@ public actual fun vprintf(arg1: String?, arg2: VaList): CInt =
 public actual fun gets(arg1: COpaquePointer?): COpaquePointer? =
     SolidJniBridge.libc_solid_gets((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun sprintf(arg1: COpaquePointer?, arg2: String?): CInt =
+public actual fun sprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun tmpnam(arg1: String?): COpaquePointer? =
@@ -1030,28 +1030,28 @@ public actual fun vsprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): 
 public actual fun rename(arg1: String?, arg2: String?): CInt =
     SolidJniBridge.libc_solid_rename(arg1, arg2)
 
-public actual fun asiprintf(arg1: COpaquePointer?, arg2: String?): CInt =
+public actual fun asiprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fiprintf(arg1: FILE?, arg2: String?): CInt =
+public actual fun fiprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fiscanf(arg1: FILE?, arg2: String?): CInt =
+public actual fun fiscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun iprintf(arg1: String?): CInt =
+public actual fun iprintf(arg1: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun iscanf(arg1: String?): CInt =
+public actual fun iscanf(arg1: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun siprintf(arg1: COpaquePointer?, arg2: String?): CInt =
+public actual fun siprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun siscanf(arg1: COpaquePointer?, arg2: String?): CInt =
+public actual fun siscanf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?): CInt =
+public actual fun sniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun vasiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
@@ -1081,7 +1081,7 @@ public actual fun vsniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, 
 public actual fun vdiprintf(arg1: CInt, arg2: String?, arg3: VaList): CInt =
     SolidJniBridge.libc_solid_vdiprintf(arg1, arg2, (arg3?.value ?: 0L))
 
-public actual fun diprintf(arg1: CInt, arg2: String?): CInt =
+public actual fun diprintf(arg1: CInt, arg2: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fgetpos(arg1: FILE?, arg2: COpaquePointer?): CInt =
@@ -1119,7 +1119,7 @@ public actual fun putcUnlocked(arg1: CInt, arg2: FILE?): CInt =
 public actual fun putcharUnlocked(arg1: CInt): CInt =
     SolidJniBridge.libc_solid_putcharUnlocked(arg1)
 
-public actual fun snprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?): CInt =
+public actual fun snprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun vsnprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: VaList): CInt =
@@ -1205,7 +1205,7 @@ public actual fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
     SolidJniBridge.libc_solid_calloc(arg1.toLong(), arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun div(arg1: CInt, arg2: CInt): DivT =
-    null as DivT
+    DivT()
 
 public actual fun free(arg1: COpaquePointer?) {
     SolidJniBridge.libc_solid_free((arg1?.value ?: 0L))
@@ -1218,7 +1218,7 @@ public actual fun labs(arg1: CLong): CLong =
     SolidJniBridge.libc_solid_labs(arg1)
 
 public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
-    null as LdivT
+    LdivT()
 
 public actual fun malloc(arg1: SizeT): COpaquePointer? =
     SolidJniBridge.libc_solid_malloc(arg1.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
@@ -1328,7 +1328,7 @@ public actual fun llabs(arg1: CLonglong): CLonglong =
     SolidJniBridge.libc_solid_llabs(arg1)
 
 public actual fun lldiv(arg1: CLonglong, arg2: CLonglong): LldivT =
-    null as LldivT
+    LldivT()
 
 public actual fun strtoll(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CLonglong =
     SolidJniBridge.libc_solid_strtoll(arg1, (arg2?.value ?: 0L), arg3)
@@ -1399,7 +1399,7 @@ public actual fun l64aR(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): CInt =
     SolidJniBridge.libc_solid_l64aR(arg1, (arg2?.value ?: 0L), arg3)
 
 public actual fun qdiv(arg1: QuadT, arg2: QuadT): QdivT =
-    null as QdivT
+    QdivT()
 
 public actual fun strtolL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CLong =
     SolidJniBridge.libc_solid_strtolL(arg1, (arg2?.value ?: 0L), arg3, arg4.toLong())
@@ -1664,7 +1664,7 @@ public actual fun chmod(arg1: String?, arg2: ModeT): CInt =
 public actual fun mkdir(arg1: String?, arg2: ModeT): CInt =
     SolidJniBridge.libc_solid_mkdir(arg1, arg2.toInt())
 
-public actual fun open(arg1: String?, arg2: CInt): CInt =
+public actual fun open(arg1: String?, arg2: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(arg1: String?, arg2: CInt): CInt =
@@ -1712,7 +1712,7 @@ public actual fun getopt(arg1: CInt, arg2: COpaquePointer?, arg3: String?): CInt
 public actual fun getsubopt(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: COpaquePointer?): CInt =
     SolidJniBridge.libc_solid_getsubopt((arg1?.value ?: 0L), (arg2?.value ?: 0L), (arg3?.value ?: 0L))
 
-public actual fun fcntl(arg1: CInt, arg2: CInt): CInt =
+public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getpid(): PidT =
@@ -1731,7 +1731,7 @@ public actual fun setlocale(arg1: CInt, arg2: String?): COpaquePointer? =
     SolidJniBridge.libc_solid_setlocale(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    SolidJniBridge.libc_solid_duplocale(arg1.toLong()).toULong()()
+    SolidJniBridge.libc_solid_duplocale(arg1.toLong()).toULong()
 
 public actual fun freelocale(arg1: LocaleT) {
     SolidJniBridge.libc_solid_freelocale(arg1.toLong())
@@ -1741,7 +1741,7 @@ public actual fun localeconvL(arg1: LocaleT): COpaquePointer? =
     SolidJniBridge.libc_solid_localeconvL(arg1.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun newlocale(arg1: CInt, arg2: String?, arg3: LocaleT): LocaleT =
-    SolidJniBridge.libc_solid_newlocale(arg1, arg2, arg3.toLong()).toULong()()
+    SolidJniBridge.libc_solid_newlocale(arg1, arg2, arg3.toLong()).toULong()
 
 public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     SolidJniBridge.libc_solid_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }

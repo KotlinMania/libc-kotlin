@@ -12,10 +12,10 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun isalnum(c: CInt): CInt =
@@ -375,10 +375,10 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     0
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun wopen(path: COpaquePointer?, oflag: CInt): CInt =
+public actual fun wopen(path: COpaquePointer?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: CInt): CInt =
@@ -399,28 +399,28 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     0
 
-public actual fun execl(path: String?, arg0: String?): IntptrT =
+public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun execle(path: String?, arg0: String?): IntptrT =
+public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun execlp(path: String?, arg0: String?): IntptrT =
+public actual fun execlp(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun execlpe(path: String?, arg0: String?): IntptrT =
+public actual fun execlpe(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =

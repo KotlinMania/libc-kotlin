@@ -2,15 +2,16 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CMSG_FIRSTHDR
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.solid.CpuidT
-import io.github.kotlinmania.libc.solid.FILE
-import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.CpuidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.DevT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.MqdT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.TimerT
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.IntmaxT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -22,13 +23,10 @@ import io.github.kotlinmania.libc.unix.bsd.Msghdr
 import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.LwpidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.TimerT
+import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.IOCPARM_MASK
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64.ALIGNBYTES
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.DevT
 
 public fun interface DlIteratePhdrCallbackCallback {
     public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
@@ -66,33 +64,33 @@ public fun align(p: Int): Int {
     return (p + ALIGNBYTES) and ALIGNBYTES.inv()
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (ALIGN(sizeOf<Cmsghdr>())).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (align(8)).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return align(8).toUInt() + length
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
-        return CMSG_FIRSTHDR(mhdr)
+        return cmsgFirsthdr(mhdr)
     }
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + ALIGN((cmsg!!.cmsgLen).toInt()) + ALIGN(sizeOf<Cmsghdr>())
-    val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + align((cmsg!!.cmsgLen).toInt()) + align(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (next > max) {
-        nullMut<Cmsghdr>()
+        null
     } else {
         null
     }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (ALIGN(sizeOf<Cmsghdr>()) + ALIGN(length.toInt())).toUInt()
+    return (align(8) + align(length.toInt())).toUInt()
 }
 
 public fun dirfd(dirp: DIR?): CInt {
-    return (((dirp)?.hashCode()?.toLong() ?: 0L).toInt())
+    return (((dirp as Any?) as CInt?))!!
 }
 
 public fun sockcredsize(ngrps: Int): Int {
@@ -101,7 +99,7 @@ public fun sockcredsize(ngrps: Int): Int {
     } else {
         0
     }
-    return sizeOf<Sockcred>() + sizeOf<GidT>() * ngrps1
+    return 8 + 8 * ngrps1
 }
 
 public fun protMprotect(x: CInt): CInt {
@@ -129,12 +127,12 @@ public fun wifcontinued(status: CInt): Boolean {
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {
-    val major1 = major.toInt()
-    val minor1 = minor.toInt()
-    var dev = 0
-    dev = dev or ((major1 shl 8) and 0x000ff00)
-    dev = dev or ((minor1 shl 12) and 0xfff00000)
-    dev = dev or (minor1 and 0xff)
+    val major1 = major.toULong()
+    val minor1 = minor.toULong()
+    var dev = 0uL
+    dev = dev or ((major1 shl 8) and 0x000ff00uL)
+    dev = dev or ((minor1 shl 12) and 0xfff00000uL)
+    dev = dev or (minor1 and 0xffuL)
     return dev
 }
 
@@ -143,7 +141,7 @@ public fun major(dev: DevT): CInt {
 }
 
 public fun minor(dev: DevT): CInt {
-    var res = 0
+    var res = 0u
     res = res or (((dev.toUInt()) and 0xfff00000u) shr 12)
     res = res or ((dev.toUInt()) and 0x000000ffu)
     return res.toInt()

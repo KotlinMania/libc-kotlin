@@ -11,7 +11,6 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.new.qurt.errno.errnoLocation
 
 private val _teeosNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
@@ -56,7 +55,7 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePoint
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_memset((dest?.value ?: 0L).toString(), c, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_pthreadSelf() as String).toLong().toULong()() else 0uL
+    if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_pthreadSelf() as String).toLong().toULong() else 0uL
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_pthreadJoin(native.toLong().toString(), (value?.value ?: 0L).toString()) as Int) else 0
@@ -188,16 +187,16 @@ public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePo
 public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_pthreadGetaffinityNp(td.toLong().toString(), size.toString(), (set?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun printf(fmt: String?): CInt =
+public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(fmt: String?): CInt =
+public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, fmt: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
@@ -243,8 +242,8 @@ public actual fun getpid(): PidT =
 public actual fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_gettimeofday((tv?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict: String?, restrict: COpaquePointer?): SizeT =
-    if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_strftime((restrict?.value ?: 0L).toString(), sz.toString(), restrict, (restrict?.value ?: 0L).toString()) as String).toULong() else 0uL
+public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT =
+    if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_strftime((restrict?.value ?: 0L).toString(), sz.toString(), restrict_2, (restrict_3?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun time(t: COpaquePointer?): TimeT =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_time((t?.value ?: 0L).toString()) as String).toLong() else 0L
@@ -261,7 +260,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, valp: COpaquePointer?): CInt
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) as Int) else 0
 
-public actual fun semOpen(name: String?, flags: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semPost(sem: COpaquePointer?): CInt =
@@ -439,7 +438,7 @@ public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: Size
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_bsearch((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), nel.toString(), width.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun div(num: CInt, den: CInt): DivT =
-    null as DivT
+    DivT()
 
 public actual fun ecvt(x: CDouble, n: CInt, dp: COpaquePointer?, sign: COpaquePointer?): COpaquePointer? =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_ecvt(x, n, (dp?.value ?: 0L).toString(), (sign?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null

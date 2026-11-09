@@ -40,9 +40,9 @@ public val FDSET_SIZE: Int = 10
 
 public val SIGSET_SIZE: Int = 8
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(value = List(PTHREAD_COND_SIZE) { 0u })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = IntArray((PTHREAD_COND_SIZE).toInt()) { 0 })
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(value = List(PTHREAD_MUTEX_SIZE) { 0u })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = IntArray((PTHREAD_MUTEX_SIZE).toInt()) { 0 })
 
 // dlfcn.h
 public val RTLD_DEFAULT: COpaquePointer? = null

@@ -1,8 +1,8 @@
 // port-lint: source hermit.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 
@@ -40,85 +40,172 @@ public typealias SocklenT = UInt
 
 public typealias TimeT = Long
 
-public open class Addrinfo(
-    public var aiFlags: Int,
-    public var aiFamily: Int,
-    public var aiSocktype: Int,
-    public var aiProtocol: Int,
-    public var aiAddrlen: SocklenT,
-    public var aiCanonname: COpaquePointer?,
-    public var aiAddr: Sockaddr?,
-    public var aiNext: Addrinfo?,
+public data class Addrinfo(
+    public var aiFlags: Int = 0,
+    public var aiFamily: Int = 0,
+    public var aiSocktype: Int = 0,
+    public var aiProtocol: Int = 0,
+    public var aiAddrlen: SocklenT = 0u,
+    public var aiCanonname: COpaquePointer? = null,
+    public var aiAddr: Sockaddr? = null,
+    public var aiNext: Addrinfo? = null,
 )
 
-public open class Dirent64(
-    public var dIno: ULong,
-    public var dOff: Long,
-    public var dReclen: UShort,
-    public var dType: UByte,
-    public var dName: List<CChar>,
+public data class Dirent64(
+    public var dIno: ULong = 0uL,
+    public var dOff: Long = 0L,
+    public var dReclen: UShort = 0u,
+    public var dType: UByte = 0u,
+    public var dName: UByteArray = UByteArray(256),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Dirent64) return false
+        if (this.dIno != other.dIno) return false
+        if (this.dOff != other.dOff) return false
+        if (this.dReclen != other.dReclen) return false
+        if (this.dType != other.dType) return false
+        if (!this.dName.contentEquals(other.dName)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dIno.hashCode()
+        result = 31 * result + this.dOff.hashCode()
+        result = 31 * result + this.dReclen.hashCode()
+        result = 31 * result + this.dType.hashCode()
+        result = 31 * result + this.dName.contentHashCode()
+        return result
+    }
+}
+
+public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is In6Addr) return false
+        if (!this.s6Addr.contentEquals(other.s6Addr)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.s6Addr.contentHashCode()
+    }
+}
+
+public data class InAddr(public var sAddr: InAddrT = 0u)
+
+public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: Int = 0)
+
+public data class Pollfd(
+    public var fd: Int = 0,
+    public var events: Short = 0,
+    public var revents: Short = 0,
 )
 
-public open class In6Addr(public var s6Addr: List<UByte>)
+public data class Sockaddr(
+    public var saLen: UByte = 0u,
+    public var saFamily: SaFamilyT = 0u,
+    public var saData: UByteArray = UByteArray(14),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Sockaddr) return false
+        if (this.saLen != other.saLen) return false
+        if (this.saFamily != other.saFamily) return false
+        if (!this.saData.contentEquals(other.saData)) return false
+        return true
+    }
 
-public open class InAddr(public var sAddr: InAddrT)
+    override fun hashCode(): Int {
+        var result = this.saLen.hashCode()
+        result = 31 * result + this.saFamily.hashCode()
+        result = 31 * result + this.saData.contentHashCode()
+        return result
+    }
+}
 
-public open class Iovec(public var iovBase: COpaquePointer?, public var iovLen: Int)
+public data class SockaddrIn(
+    public var sinLen: UByte = 0u,
+    public var sinFamily: SaFamilyT = 0u,
+    public var sinPort: InPortT = 0u,
+    public var sinAddr: InAddr = InAddr(),
+    public var sinZero: UByteArray = UByteArray(8),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SockaddrIn) return false
+        if (this.sinLen != other.sinLen) return false
+        if (this.sinFamily != other.sinFamily) return false
+        if (this.sinPort != other.sinPort) return false
+        if (this.sinAddr != other.sinAddr) return false
+        if (!this.sinZero.contentEquals(other.sinZero)) return false
+        return true
+    }
 
-public open class Pollfd(
-    public var fd: Int,
-    public var events: Short,
-    public var revents: Short,
+    override fun hashCode(): Int {
+        var result = this.sinLen.hashCode()
+        result = 31 * result + this.sinFamily.hashCode()
+        result = 31 * result + this.sinPort.hashCode()
+        result = 31 * result + this.sinAddr.hashCode()
+        result = 31 * result + this.sinZero.contentHashCode()
+        return result
+    }
+}
+
+public data class SockaddrIn6(
+    public var sin6Len: UByte = 0u,
+    public var sin6Family: SaFamilyT = 0u,
+    public var sin6Port: InPortT = 0u,
+    public var sin6Flowinfo: UInt = 0u,
+    public var sin6Addr: In6Addr = In6Addr(),
+    public var sin6ScopeId: UInt = 0u,
 )
 
-public open class Sockaddr(
-    public var saLen: UByte,
-    public var saFamily: SaFamilyT,
-    public var saData: List<CChar>,
+public data class SockaddrStorage(
+    public var ssLen: UByte = 0u,
+    public var ssFamily: SaFamilyT = 0u,
+    public var ssPad1: UByteArray = UByteArray(6),
+    public var ssAlign: Long = 0L,
+    public var ssPad2: UByteArray = UByteArray(112),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SockaddrStorage) return false
+        if (this.ssLen != other.ssLen) return false
+        if (this.ssFamily != other.ssFamily) return false
+        if (!this.ssPad1.contentEquals(other.ssPad1)) return false
+        if (this.ssAlign != other.ssAlign) return false
+        if (!this.ssPad2.contentEquals(other.ssPad2)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ssLen.hashCode()
+        result = 31 * result + this.ssFamily.hashCode()
+        result = 31 * result + this.ssPad1.contentHashCode()
+        result = 31 * result + this.ssAlign.hashCode()
+        result = 31 * result + this.ssPad2.contentHashCode()
+        return result
+    }
+}
+
+public data class Stat(
+    public var stDev: ULong = 0uL,
+    public var stIno: ULong = 0uL,
+    public var stNlink: ULong = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stUid: UInt = 0u,
+    public var stGid: UInt = 0u,
+    public var stRdev: ULong = 0uL,
+    public var stSize: Long = 0L,
+    public var stBlksize: Long = 0L,
+    public var stBlocks: Long = 0L,
+    public var stAtim: Timespec = Timespec(),
+    public var stMtim: Timespec = Timespec(),
+    public var stCtim: Timespec = Timespec(),
 )
 
-public open class SockaddrIn(
-    public var sinLen: UByte,
-    public var sinFamily: SaFamilyT,
-    public var sinPort: InPortT,
-    public var sinAddr: InAddr,
-    public var sinZero: List<CChar>,
-)
-
-public open class SockaddrIn6(
-    public var sin6Len: UByte,
-    public var sin6Family: SaFamilyT,
-    public var sin6Port: InPortT,
-    public var sin6Flowinfo: UInt,
-    public var sin6Addr: In6Addr,
-    public var sin6ScopeId: UInt,
-)
-
-public open class SockaddrStorage(
-    public var ssLen: UByte,
-    public var ssFamily: SaFamilyT,
-    public var ssPad1: List<UByte>,
-    public var ssAlign: Long,
-    public var ssPad2: List<UByte>,
-)
-
-public open class Stat(
-    public var stDev: ULong,
-    public var stIno: ULong,
-    public var stNlink: ULong,
-    public var stMode: ModeT,
-    public var stUid: UInt,
-    public var stGid: UInt,
-    public var stRdev: ULong,
-    public var stSize: Long,
-    public var stBlksize: Long,
-    public var stBlocks: Long,
-    public var stAtim: Timespec,
-    public var stMtim: Timespec,
-    public var stCtim: Timespec,
-)
-
-public open class Timespec(public var tvSec: TimeT, public var tvNsec: Int)
+public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: Int = 0)
 
 public val AF_UNSPEC: Int = 0
 
@@ -190,7 +277,7 @@ public val F_SETFL: Int = 4
 
 public val FD_CLOEXEC: Int = 1
 
-public val FIONBIO: Int = 0x8008667e
+public val FIONBIO: Int = 0x8008667e.toInt()
 
 public val FUTEX_RELATIVE_TIMEOUT: UInt = 1u
 

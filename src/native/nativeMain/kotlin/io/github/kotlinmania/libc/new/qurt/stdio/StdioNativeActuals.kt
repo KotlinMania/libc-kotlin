@@ -58,16 +58,16 @@ public actual fun gets(s: COpaquePointer?): COpaquePointer? =
 public actual fun puts(s: String?): CInt =
     io.github.kotlinmania.libc.new.qurt.stdio.cinterop.libc_new_qurt_stdio_puts(s)
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun vprintf(format: String?, ap: VaList): CInt =
@@ -82,13 +82,13 @@ public actual fun vsprintf(s: COpaquePointer?, format: String?, ap: VaList): CIn
 public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, format: String?, ap: VaList): CInt =
     io.github.kotlinmania.libc.new.qurt.stdio.cinterop.libc_new_qurt_stdio_vsnprintf(s?.value?.toCPointer<ByteVar>(), n, format, ap?.value?.toCPointer<ByteVar>())
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =

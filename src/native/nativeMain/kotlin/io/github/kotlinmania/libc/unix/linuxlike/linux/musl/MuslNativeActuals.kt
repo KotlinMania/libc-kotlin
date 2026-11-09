@@ -30,7 +30,7 @@ public actual fun prlimit(pid: PidT, resource: CInt, newLimit: COpaquePointer?, 
 public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
 
-public actual fun ptrace(request: CInt): CLong =
+public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
@@ -124,7 +124,7 @@ public actual fun utmpxname(file: String?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_utmpxname(file)
 
 public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pthreadTryjoinNp(thread.toLong().toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pthreadTryjoinNp(thread?.value?.toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp(thread.toLong().toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp(thread?.value?.toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())

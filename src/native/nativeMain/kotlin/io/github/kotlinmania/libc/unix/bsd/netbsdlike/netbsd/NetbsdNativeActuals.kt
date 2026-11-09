@@ -8,7 +8,10 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.solid.CpuidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.CpuidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.MqdT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.TimerT
 import io.github.kotlinmania.libc.unix.IntmaxT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -18,9 +21,6 @@ import io.github.kotlinmania.libc.unix.UintmaxT
 import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.LwpidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.TimerT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
@@ -119,7 +119,7 @@ public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: SizeT,
 public actual fun mount(src: String?, target: String?, flags: CInt, data: COpaquePointer?, size: SizeT): CInt =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_mount(src, target, flags, data?.value?.toCPointer<ByteVar>(), size)
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -212,17 +212,17 @@ public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_sigwaitinfo(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>())
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun localeconvL(loc: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_localeconvL(loc.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_localeconvL(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_settimeofday(tv?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
@@ -279,7 +279,7 @@ public actual fun explicitMemset(b: COpaquePointer?, c: CInt, len: SizeT) {
 public actual fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>(), len)
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun mremap(oldp: COpaquePointer?, oldsize: SizeT, newp: COpaquePointer?, newsize: SizeT, flags: CInt): COpaquePointer? =
@@ -377,7 +377,7 @@ public actual fun getgrentR(grp: COpaquePointer?, buf: COpaquePointer?, buflen: 
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_getgrentR(grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
 
 public actual fun efopen(p: String?, m: String?): FILE =
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_efopen(p, m)?.let { FILE(it.toLong()) }
+    FILE(io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_efopen(p, m)?.toLong() ?: 0L)
 
 public actual fun emalloc(n: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_emalloc(n)?.let { COpaquePointer(it.toLong()) }
@@ -410,10 +410,10 @@ public actual fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): 
 public actual fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_estrtou(nptr, base, lo, hi)
 
-public actual fun easprintf(string: COpaquePointer?, fmt: String?): CInt =
+public actual fun easprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun evasprintf(string: COpaquePointer?, fmt: String?): CInt =
+public actual fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback? =

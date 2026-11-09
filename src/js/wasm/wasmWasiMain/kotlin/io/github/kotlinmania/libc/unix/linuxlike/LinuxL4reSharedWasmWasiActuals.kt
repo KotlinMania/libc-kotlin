@@ -151,7 +151,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun errnoLocation(): COpaquePointer? =
     null
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
@@ -199,7 +199,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt
 public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
     0
 
-public actual fun prctl(option: CInt): CInt =
+public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
@@ -229,7 +229,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun initgroups(user: String?, group: GidT): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

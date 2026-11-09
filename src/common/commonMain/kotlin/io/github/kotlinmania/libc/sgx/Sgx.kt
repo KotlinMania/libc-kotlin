@@ -20,6 +20,6 @@ public typealias UintptrT = ULong
 
 public typealias SsizeT = Long
 
-public val INT_MIN: CInt = -2147483648
+public val INT_MIN: CInt = -2147483648.toInt()
 
 public val INT_MAX: CInt = 2147483647

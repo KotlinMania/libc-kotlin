@@ -25,7 +25,7 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun ioctl(fd: CInt, request: Ioctl): CInt =
+public actual fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun libcCurrentSigrtmax(): CInt =
@@ -95,17 +95,17 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, 
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_utimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flag)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_mknodat(dirfd, pathname, mode, dev)
@@ -187,7 +187,7 @@ public actual fun strftime(s: COpaquePointer?, max: SizeT, format: String?, tm: 
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_strftime(s?.value?.toCPointer<ByteVar>(), max, format, tm?.value?.toCPointer<ByteVar>())
 
 public actual fun strftimeL(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?, locale: LocaleT): SizeT =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_strftimeL(s?.value?.toCPointer<ByteVar>(), max, format, tm?.value?.toCPointer<ByteVar>(), locale.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_strftimeL(s?.value?.toCPointer<ByteVar>(), max, format, tm?.value?.toCPointer<ByteVar>(), locale?.value?.toCPointer<ByteVar>())
 
 public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_strptime(s, format, tm?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
@@ -250,10 +250,10 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_mmap64(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun open64(path: String?, oflag: CInt): CInt =
+public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat64(fd: CInt, path: String?, oflag: CInt): CInt =
+public actual fun openat64(fd: CInt, path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =

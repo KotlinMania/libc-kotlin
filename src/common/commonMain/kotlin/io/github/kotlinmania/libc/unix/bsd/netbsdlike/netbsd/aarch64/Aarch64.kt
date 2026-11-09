@@ -1,4 +1,5 @@
 // port-lint: source unix/bsd/netbsdlike/netbsd/aarch64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64
 
 import io.github.kotlinmania.libc.*
@@ -6,59 +7,83 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.U128
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
 
 public typealias GregT = ULong
 
 public typealias CpuSimpleLockNvT = CUchar
 
-public open class Fregset(
-    public var qregs: List<CAnonymousFreg>,
-    public var fpcr: UInt,
-    public var fpsr: UInt,
+public data class Fregset(
+    public var qregs: List<CAnonymousFreg> = List(32) { CAnonymousFreg() },
+    public var fpcr: UInt = 0u,
+    public var fpsr: UInt = 0u,
 )
 
-public open class McontextT(
-    public var gregs: List<GregT>,
-    public var fregs: Fregset,
-    public var spare: List<GregT>,
-)
-
-public open class UcontextT(
-    public var ucFlags: CUint,
-    public var ucLink: UcontextT?,
-    public var ucSigmask: SigsetT,
-    public var ucStack: StackT,
-    public var ucMcontext: McontextT,
-)
-
-public open class CAnonymousFreg(
-    public var b8: List<UByte>? = null,
-    public var h16: List<UShort>? = null,
-    public var s32: List<UInt>? = null,
-    public var d64: List<ULong>? = null,
-    public var q128: List<U128>? = null,
+public data class McontextT(
+    public var gregs: ULongArray = ULongArray(32),
+    public var fregs: Fregset = Fregset(),
+    public var spare: ULongArray = ULongArray(8),
 ) {
-    public open fun eq(other: CAnonymousFreg): Boolean {
-        return this.b8 == other.b8 || this.h16 == other.h16 || this.s32 == other.s32 || this.d64 == other.d64 || this.q128 == other.q128
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
+        if (this.fregs != other.fregs) return false
+        if (!this.spare.contentEquals(other.spare)) return false
+        return true
     }
 
-    public override fun hashCode(): Int {
-        var state = 0
-        run {
-            state = 31 * state + (this.b8).hashCode()
-            state = 31 * state + (this.h16).hashCode()
-            state = 31 * state + (this.s32).hashCode()
-            state = 31 * state + (this.d64).hashCode()
-            state = 31 * state + (this.q128).hashCode()
-        }
-        return state
+    override fun hashCode(): Int {
+        var result = this.gregs.contentHashCode()
+        result = 31 * result + this.fregs.hashCode()
+        result = 31 * result + this.spare.contentHashCode()
+        return result
     }
 }
 
-internal val ALIGNBYTES: Int = sizeOf<CInt>() - 1
+public data class UcontextT(
+    public var ucFlags: CUint = 0u,
+    public var ucLink: UcontextT? = null,
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var ucStack: StackT = StackT(),
+    public var ucMcontext: McontextT = McontextT(),
+)
+
+public data class CAnonymousFreg(
+    public var b8: UByteArray = UByteArray(16),
+    public var h16: UShortArray = UShortArray(8),
+    public var s32: UIntArray = UIntArray(4),
+    public var d64: ULongArray = ULongArray(2),
+    public var q128: List<U128> = List(1) { U128() },
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousFreg) return false
+        if (!this.b8.contentEquals(other.b8)) return false
+        if (!this.h16.contentEquals(other.h16)) return false
+        if (!this.s32.contentEquals(other.s32)) return false
+        if (!this.d64.contentEquals(other.d64)) return false
+        if (this.q128 != other.q128) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.b8.contentHashCode()
+        result = 31 * result + this.h16.contentHashCode()
+        result = 31 * result + this.s32.contentHashCode()
+        result = 31 * result + this.d64.contentHashCode()
+        result = 31 * result + this.q128.hashCode()
+        return result
+    }
+
+    public fun eq(other: CAnonymousFreg): Boolean {
+        return this.b8 == other.b8 || this.h16 == other.h16 || this.s32 == other.s32 || this.d64 == other.d64 || this.q128 == other.q128
+    }
+}
+
+internal val ALIGNBYTES: Int = 8 - 1
 
 public val PT_GETREGS: CInt = PT_FIRSTMACH + 0
 

@@ -364,8 +364,6 @@ public val BLKPBSZGET: Ioctl = 0x127BuL
 
 public val FIOQSIZE: Ioctl = 0x545EuL
 
-public val FIOQSIZE1: Ioctl = 0x5460uL
-
 public val TIOCM_LE: CInt = 0x001
 
 public val TIOCM_DTR: CInt = 0x002
@@ -428,46 +426,8 @@ public val RLIMIT_RTPRIO: RlimitResourceT = 14u
 
 public val RLIMIT_RTTIME: RlimitResourceT = 15u
 
-public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
-
-public val RLIMIT_CPU1: CInt = 0
-
-public val RLIMIT_FSIZE1: CInt = 1
-
-public val RLIMIT_DATA1: CInt = 2
-
-public val RLIMIT_STACK1: CInt = 3
-
-public val RLIMIT_CORE1: CInt = 4
-
-public val RLIMIT_RSS1: CInt = 5
-
-public val RLIMIT_NPROC1: CInt = 6
-
-public val RLIMIT_NOFILE1: CInt = 7
-
-public val RLIMIT_MEMLOCK1: CInt = 8
-
-public val RLIMIT_AS1: CInt = 9
-
-public val RLIMIT_LOCKS1: CInt = 10
-
-public val RLIMIT_SIGPENDING1: CInt = 11
-
-public val RLIMIT_MSGQUEUE1: CInt = 12
-
-public val RLIMIT_NICE1: CInt = 13
-
-public val RLIMIT_RTPRIO1: CInt = 14
-
-public val RLIMIT_RTTIME1: CInt = 15
-
 public val RLIM_NLIMITS: CInt = 16
 
-public val RLIMIT_NLIMITS1: CInt = RLIM_NLIMITS
-
-public val RLIM_NLIMITS1: RlimitResourceT = 16u
-
-public val RLIM_NLIMITS2: RlimitResourceT = 15u
+public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS.toUInt()
 
 public val RLIM_INFINITY: RlimT = 0uL.inv()

@@ -25,7 +25,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 private val _unixLinuxlikeNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
 
-public actual fun ioctl(fd: CInt, request: Ioctl): CInt =
+public actual fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun libcCurrentSigrtmax(): CInt =
@@ -95,19 +95,19 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, 
     if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_utimensat(dirfd, path, (times?.value ?: 0L).toString(), flag) as Int) else 0
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixLinuxlikeNapiAddon != null) {
-        _unixLinuxlikeNapiAddon.libc_unix_linuxlike_freelocale(loc.toLong().toString())
+        _unixLinuxlikeNapiAddon.libc_unix_linuxlike_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
     if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_mknodat(dirfd, pathname, mode.toInt(), dev.toString()) as Int) else 0
@@ -191,7 +191,7 @@ public actual fun strftime(s: COpaquePointer?, max: SizeT, format: String?, tm: 
     if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_strftime((s?.value ?: 0L).toString(), max.toString(), format, (tm?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun strftimeL(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?, locale: LocaleT): SizeT =
-    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_strftimeL((s?.value ?: 0L).toString(), max.toString(), format, (tm?.value ?: 0L).toString(), locale.toLong().toString()) as String).toULong() else 0uL
+    if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_strftimeL((s?.value ?: 0L).toString(), max.toString(), format, (tm?.value ?: 0L).toString(), (locale?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
     if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_strptime(s, format, (tm?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
@@ -256,10 +256,10 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     if (_unixLinuxlikeNapiAddon != null) (_unixLinuxlikeNapiAddon.libc_unix_linuxlike_mmap64((addr?.value ?: 0L).toString(), len.toString(), prot, flags, fd, offset.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun open64(path: String?, oflag: CInt): CInt =
+public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat64(fd: CInt, path: String?, oflag: CInt): CInt =
+public actual fun openat64(fd: CInt, path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =

@@ -62,7 +62,7 @@ public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
 public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
@@ -122,7 +122,7 @@ public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_lioListio(mode, aiocbList?.value?.toCPointer<ByteVar>(), nitems, sevp?.value?.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -612,16 +612,16 @@ public actual fun fstatvfs(fildes: CInt, buf: COpaquePointer?): CInt =
 public actual fun fstatvfs64(fildes: CInt, buf: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_fstatvfs64(fildes, buf?.value?.toCPointer<ByteVar>())
 
-public actual fun open(file: String?, oflag: CInt): CInt =
+public actual fun open(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun open64(file: String?, oflag: CInt): CInt =
+public actual fun open64(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat(fd: CInt, file: String?, oflag: CInt): CInt =
+public actual fun openat(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat64(fd: CInt, file: String?, oflag: CInt): CInt =
+public actual fun openat64(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fopen64(filename: String?, mode: String?): FILE? =
@@ -814,7 +814,7 @@ public actual fun errnoLocation(): COpaquePointer? =
 public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mmap64(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -946,10 +946,10 @@ public actual fun mallopt(param: CInt, value: CInt): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mallopt(param, value)
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallinfo2(): Mallinfo2 =
-    null as Mallinfo2
+    Mallinfo2()
 
 public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mallocInfo(options, stream?.handle?.toCPointer<ByteVar>())
@@ -1060,23 +1060,23 @@ public actual fun dladdr1(addr: COpaquePointer?, info: COpaquePointer?, extraInf
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_dladdr1(addr?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), extraInfo?.value?.toCPointer<ByteVar>(), flags)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_nlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_nlLanginfoL(item, locale?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())

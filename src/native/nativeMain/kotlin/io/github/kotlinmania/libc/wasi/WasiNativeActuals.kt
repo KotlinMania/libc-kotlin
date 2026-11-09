@@ -231,13 +231,13 @@ public actual fun nanosleep(a: COpaquePointer?, b: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_nanosleep(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>())
 
 public actual fun clockGetres(a: ClockidT, b: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_clockGetres(a, b?.value?.toCPointer<ByteVar>())
+    0
 
 public actual fun clockGettime(a: ClockidT, b: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_clockGettime(a, b?.value?.toCPointer<ByteVar>())
+    0
 
 public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: COpaquePointer?, c: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_clockNanosleep(a, a2, b?.value?.toCPointer<ByteVar>(), c?.value?.toCPointer<ByteVar>())
+    0
 
 public actual fun isalnum(c: CInt): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isalnum(c)
@@ -402,25 +402,25 @@ public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT)
 public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -447,13 +447,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fileno(stream?.handle?.toCPointer<ByteVar>())
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_creat(path, mode)
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -482,7 +482,7 @@ public actual fun seekdir(dirp: DIR?, loc: CLong) {
 public actual fun telldir(dirp: DIR?): CLong =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_telldir(dirp?.handle?.toCPointer<ByteVar>())
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
@@ -602,7 +602,7 @@ public actual fun timegm(tm: COpaquePointer?): TimeT =
 public actual fun sysconf(name: CInt): CLong =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sysconf(name)
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
@@ -657,17 +657,17 @@ public actual fun labs(i: CLong): CLong =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_labs(i)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun schedYield(): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_schedYield()
@@ -682,7 +682,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_nlLanginfoL(item, loc.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_nlLanginfoL(item, loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_select(nfds, readfds?.value?.toCPointer<ByteVar>(), writefds?.value?.toCPointer<ByteVar>(), errorfds?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
@@ -788,16 +788,16 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_realpath(pathname, resolved?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun pthreadSelf(): PthreadT =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadSelf()?.toLong() ?: 0L
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadSelf()?.let { COpaquePointer(it.toLong()) }
 
 public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadEqual(t1.toLong().toCPointer<ByteVar>(), t2.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadEqual(t1?.value?.toCPointer<ByteVar>(), t2?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadJoin(native.toLong().toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadJoin(native?.value?.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadAttrInit(attr?.value?.toCPointer<ByteVar>())
@@ -815,7 +815,7 @@ public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt):
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadAttrSetdetachstate(attr?.value?.toCPointer<ByteVar>(), state)
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadDetach(thread.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadDetach(thread?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())

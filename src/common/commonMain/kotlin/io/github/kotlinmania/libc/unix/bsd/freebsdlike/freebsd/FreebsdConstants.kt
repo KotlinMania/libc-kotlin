@@ -29,11 +29,11 @@ public val CAP_RIGHTS_VERSION_00: Int = 0
 
 public val CAP_RIGHTS_VERSION: Int = CAP_RIGHTS_VERSION_00
 
-public val CAP_READ: ULong = ((1uL shl (57 + (0))) or (0x0000000000000001uL))
+public val CAP_READ: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000001uL))
 
-public val CAP_WRITE: ULong = ((1uL shl (57 + (0))) or (0x0000000000000002uL))
+public val CAP_WRITE: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000002uL))
 
-public val CAP_SEEK_TELL: ULong = ((1uL shl (57 + (0))) or (0x0000000000000004uL))
+public val CAP_SEEK_TELL: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000004uL))
 
 public val CAP_SEEK: ULong = CAP_SEEK_TELL or 0x0000000000000008uL
 
@@ -41,7 +41,7 @@ public val CAP_PREAD: ULong = CAP_SEEK or CAP_READ
 
 public val CAP_PWRITE: ULong = CAP_SEEK or CAP_WRITE
 
-public val CAP_MMAP: ULong = ((1uL shl (57 + (0))) or (0x0000000000000010uL))
+public val CAP_MMAP: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000010uL))
 
 public val CAP_MMAP_R: ULong = CAP_MMAP or CAP_SEEK or CAP_READ
 
@@ -57,45 +57,45 @@ public val CAP_MMAP_WX: ULong = CAP_MMAP_W or CAP_MMAP_X
 
 public val CAP_MMAP_RWX: ULong = CAP_MMAP_R or CAP_MMAP_W or CAP_MMAP_X
 
-public val CAP_CREATE: ULong = ((1uL shl (57 + (0))) or (0x0000000000000040uL))
+public val CAP_CREATE: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000040uL))
 
-public val CAP_FEXECVE: ULong = ((1uL shl (57 + (0))) or (0x0000000000000080uL))
+public val CAP_FEXECVE: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000080uL))
 
-public val CAP_FSYNC: ULong = ((1uL shl (57 + (0))) or (0x0000000000000100uL))
+public val CAP_FSYNC: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000100uL))
 
-public val CAP_FTRUNCATE: ULong = ((1uL shl (57 + (0))) or (0x0000000000000200uL))
+public val CAP_FTRUNCATE: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000200uL))
 
-public val CAP_LOOKUP: ULong = ((1uL shl (57 + (0))) or (0x0000000000000400uL))
+public val CAP_LOOKUP: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000400uL))
 
-public val CAP_FCHDIR: ULong = ((1uL shl (57 + (0))) or (0x0000000000000800uL))
+public val CAP_FCHDIR: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000000800uL))
 
-public val CAP_FCHFLAGS: ULong = ((1uL shl (57 + (0))) or (0x0000000000001000uL))
+public val CAP_FCHFLAGS: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000001000uL))
 
 public val CAP_CHFLAGSAT: ULong = CAP_FCHFLAGS or CAP_LOOKUP
 
-public val CAP_FCHMOD: ULong = ((1uL shl (57 + (0))) or (0x0000000000002000uL))
+public val CAP_FCHMOD: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000002000uL))
 
 public val CAP_FCHMODAT: ULong = CAP_FCHMOD or CAP_LOOKUP
 
-public val CAP_FCHOWN: ULong = ((1uL shl (57 + (0))) or (0x0000000000004000uL))
+public val CAP_FCHOWN: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000004000uL))
 
 public val CAP_FCHOWNAT: ULong = CAP_FCHOWN or CAP_LOOKUP
 
-public val CAP_FCNTL: ULong = ((1uL shl (57 + (0))) or (0x0000000000008000uL))
+public val CAP_FCNTL: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000008000uL))
 
-public val CAP_FLOCK: ULong = ((1uL shl (57 + (0))) or (0x0000000000010000uL))
+public val CAP_FLOCK: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000010000uL))
 
-public val CAP_FPATHCONF: ULong = ((1uL shl (57 + (0))) or (0x0000000000020000uL))
+public val CAP_FPATHCONF: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000020000uL))
 
-public val CAP_FSCK: ULong = ((1uL shl (57 + (0))) or (0x0000000000040000uL))
+public val CAP_FSCK: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000040000uL))
 
-public val CAP_FSTAT: ULong = ((1uL shl (57 + (0))) or (0x0000000000080000uL))
+public val CAP_FSTAT: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000080000uL))
 
 public val CAP_FSTATAT: ULong = CAP_FSTAT or CAP_LOOKUP
 
-public val CAP_FSTATFS: ULong = ((1uL shl (57 + (0))) or (0x0000000000100000uL))
+public val CAP_FSTATFS: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000100000uL))
 
-public val CAP_FUTIMES: ULong = ((1uL shl (57 + (0))) or (0x0000000000200000uL))
+public val CAP_FUTIMES: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000000200000uL))
 
 public val CAP_FUTIMESAT: ULong = CAP_FUTIMES or CAP_LOOKUP
 
@@ -115,29 +115,29 @@ public val CAP_SYMLINKAT: ULong = CAP_LOOKUP or 0x0000000008000000uL
 
 public val CAP_UNLINKAT: ULong = CAP_LOOKUP or 0x0000000010000000uL
 
-public val CAP_ACCEPT: ULong = ((1uL shl (57 + (0))) or (0x0000000020000000uL))
+public val CAP_ACCEPT: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000020000000uL))
 
-public val CAP_BIND: ULong = ((1uL shl (57 + (0))) or (0x0000000040000000uL))
+public val CAP_BIND: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000040000000uL))
 
-public val CAP_CONNECT: ULong = ((1uL shl (57 + (0))) or (0x0000000080000000uL))
+public val CAP_CONNECT: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000080000000uL))
 
-public val CAP_GETPEERNAME: ULong = ((1uL shl (57 + (0))) or (0x0000000100000000uL))
+public val CAP_GETPEERNAME: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000100000000uL))
 
-public val CAP_GETSOCKNAME: ULong = ((1uL shl (57 + (0))) or (0x0000000200000000uL))
+public val CAP_GETSOCKNAME: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000200000000uL))
 
-public val CAP_GETSOCKOPT: ULong = ((1uL shl (57 + (0))) or (0x0000000400000000uL))
+public val CAP_GETSOCKOPT: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000400000000uL))
 
-public val CAP_LISTEN: ULong = ((1uL shl (57 + (0))) or (0x0000000800000000uL))
+public val CAP_LISTEN: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000000800000000uL))
 
-public val CAP_PEELOFF: ULong = ((1uL shl (57 + (0))) or (0x0000001000000000uL))
+public val CAP_PEELOFF: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000001000000000uL))
 
 public val CAP_RECV: ULong = CAP_READ
 
 public val CAP_SEND: ULong = CAP_WRITE
 
-public val CAP_SETSOCKOPT: ULong = ((1uL shl (57 + (0))) or (0x0000002000000000uL))
+public val CAP_SETSOCKOPT: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000002000000000uL))
 
-public val CAP_SHUTDOWN: ULong = ((1uL shl (57 + (0))) or (0x0000004000000000uL))
+public val CAP_SHUTDOWN: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000004000000000uL))
 
 public val CAP_BINDAT: ULong = CAP_LOOKUP or 0x0000008000000000uL
 
@@ -151,61 +151,61 @@ public val CAP_SOCK_CLIENT: ULong = CAP_CONNECT or CAP_GETPEERNAME or CAP_GETSOC
 
 public val CAP_SOCK_SERVER: ULong = CAP_ACCEPT or CAP_BIND or CAP_GETPEERNAME or CAP_GETSOCKNAME or CAP_GETSOCKOPT or CAP_LISTEN or CAP_PEELOFF or CAP_RECV or CAP_SEND or CAP_SETSOCKOPT or CAP_SHUTDOWN
 
-public val CAP_ALL0: ULong = ((1uL shl (57 + (0))) or (0x000007FFFFFFFFFFuL))
+public val CAP_ALL0: ULong = ((1uL shl (57 + (0)).toInt()) or (0x000007FFFFFFFFFFuL))
 
-public val CAP_UNUSED0_44: ULong = ((1uL shl (57 + (0))) or (0x0000080000000000uL))
+public val CAP_UNUSED0_44: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0000080000000000uL))
 
-public val CAP_UNUSED0_57: ULong = ((1uL shl (57 + (0))) or (0x0100000000000000uL))
+public val CAP_UNUSED0_57: ULong = ((1uL shl (57 + (0)).toInt()) or (0x0100000000000000uL))
 
-public val CAP_MAC_GET: ULong = ((1uL shl (57 + (1))) or (0x0000000000000001uL))
+public val CAP_MAC_GET: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000001uL))
 
-public val CAP_MAC_SET: ULong = ((1uL shl (57 + (1))) or (0x0000000000000002uL))
+public val CAP_MAC_SET: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000002uL))
 
-public val CAP_SEM_GETVALUE: ULong = ((1uL shl (57 + (1))) or (0x0000000000000004uL))
+public val CAP_SEM_GETVALUE: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000004uL))
 
-public val CAP_SEM_POST: ULong = ((1uL shl (57 + (1))) or (0x0000000000000008uL))
+public val CAP_SEM_POST: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000008uL))
 
-public val CAP_SEM_WAIT: ULong = ((1uL shl (57 + (1))) or (0x0000000000000010uL))
+public val CAP_SEM_WAIT: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000010uL))
 
-public val CAP_EVENT: ULong = ((1uL shl (57 + (1))) or (0x0000000000000020uL))
+public val CAP_EVENT: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000020uL))
 
-public val CAP_KQUEUE_EVENT: ULong = ((1uL shl (57 + (1))) or (0x0000000000000040uL))
+public val CAP_KQUEUE_EVENT: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000040uL))
 
-public val CAP_IOCTL: ULong = ((1uL shl (57 + (1))) or (0x0000000000000080uL))
+public val CAP_IOCTL: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000080uL))
 
-public val CAP_TTYHOOK: ULong = ((1uL shl (57 + (1))) or (0x0000000000000100uL))
+public val CAP_TTYHOOK: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000100uL))
 
-public val CAP_PDGETPID: ULong = ((1uL shl (57 + (1))) or (0x0000000000000200uL))
+public val CAP_PDGETPID: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000200uL))
 
-public val CAP_PDWAIT: ULong = ((1uL shl (57 + (1))) or (0x0000000000000400uL))
+public val CAP_PDWAIT: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000400uL))
 
-public val CAP_PDKILL: ULong = ((1uL shl (57 + (1))) or (0x0000000000000800uL))
+public val CAP_PDKILL: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000000800uL))
 
-public val CAP_EXTATTR_DELETE: ULong = ((1uL shl (57 + (1))) or (0x0000000000001000uL))
+public val CAP_EXTATTR_DELETE: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000001000uL))
 
-public val CAP_EXTATTR_GET: ULong = ((1uL shl (57 + (1))) or (0x0000000000002000uL))
+public val CAP_EXTATTR_GET: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000002000uL))
 
-public val CAP_EXTATTR_LIST: ULong = ((1uL shl (57 + (1))) or (0x0000000000004000uL))
+public val CAP_EXTATTR_LIST: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000004000uL))
 
-public val CAP_EXTATTR_SET: ULong = ((1uL shl (57 + (1))) or (0x0000000000008000uL))
+public val CAP_EXTATTR_SET: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000008000uL))
 
-public val CAP_ACL_CHECK: ULong = ((1uL shl (57 + (1))) or (0x0000000000010000uL))
+public val CAP_ACL_CHECK: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000010000uL))
 
-public val CAP_ACL_DELETE: ULong = ((1uL shl (57 + (1))) or (0x0000000000020000uL))
+public val CAP_ACL_DELETE: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000020000uL))
 
-public val CAP_ACL_GET: ULong = ((1uL shl (57 + (1))) or (0x0000000000040000uL))
+public val CAP_ACL_GET: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000040000uL))
 
-public val CAP_ACL_SET: ULong = ((1uL shl (57 + (1))) or (0x0000000000080000uL))
+public val CAP_ACL_SET: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000080000uL))
 
-public val CAP_KQUEUE_CHANGE: ULong = ((1uL shl (57 + (1))) or (0x0000000000100000uL))
+public val CAP_KQUEUE_CHANGE: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000100000uL))
 
 public val CAP_KQUEUE: ULong = CAP_KQUEUE_EVENT or CAP_KQUEUE_CHANGE
 
-public val CAP_ALL1: ULong = ((1uL shl (57 + (1))) or (0x00000000001FFFFFuL))
+public val CAP_ALL1: ULong = ((1uL shl (57 + (1)).toInt()) or (0x00000000001FFFFFuL))
 
-public val CAP_UNUSED1_22: ULong = ((1uL shl (57 + (1))) or (0x0000000000200000uL))
+public val CAP_UNUSED1_22: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0000000000200000uL))
 
-public val CAP_UNUSED1_57: ULong = ((1uL shl (57 + (1))) or (0x0100000000000000uL))
+public val CAP_UNUSED1_57: ULong = ((1uL shl (57 + (1)).toInt()) or (0x0100000000000000uL))
 
 public val CAP_FCNTL_GETFL: UInt = 1u shl 3
 
@@ -222,8 +222,6 @@ public val DEVSTAT_NAME_LEN: CInt = 16
 
 // sys/cpuset.h
 public val CPU_SETSIZE: CInt = 1024
-
-public val CPU_SETSIZE1: CInt = 256
 
 public val SIGEV_THREAD_ID: CInt = 4
 
@@ -361,31 +359,31 @@ public val POLLINIGNEOF: CShort = 0x2000
 
 public val POLLRDHUP: CShort = 0x4000
 
-public val EVFILT_READ: Short = -1
+public val EVFILT_READ: Short = (-1).toShort()
 
-public val EVFILT_WRITE: Short = -2
+public val EVFILT_WRITE: Short = (-2).toShort()
 
-public val EVFILT_AIO: Short = -3
+public val EVFILT_AIO: Short = (-3).toShort()
 
-public val EVFILT_VNODE: Short = -4
+public val EVFILT_VNODE: Short = (-4).toShort()
 
-public val EVFILT_PROC: Short = -5
+public val EVFILT_PROC: Short = (-5).toShort()
 
-public val EVFILT_SIGNAL: Short = -6
+public val EVFILT_SIGNAL: Short = (-6).toShort()
 
-public val EVFILT_TIMER: Short = -7
+public val EVFILT_TIMER: Short = (-7).toShort()
 
-public val EVFILT_PROCDESC: Short = -8
+public val EVFILT_PROCDESC: Short = (-8).toShort()
 
-public val EVFILT_FS: Short = -9
+public val EVFILT_FS: Short = (-9).toShort()
 
-public val EVFILT_LIO: Short = -10
+public val EVFILT_LIO: Short = (-10).toShort()
 
-public val EVFILT_USER: Short = -11
+public val EVFILT_USER: Short = (-11).toShort()
 
-public val EVFILT_SENDFILE: Short = -12
+public val EVFILT_SENDFILE: Short = (-12).toShort()
 
-public val EVFILT_EMPTY: Short = -13
+public val EVFILT_EMPTY: Short = (-13).toShort()
 
 public val EV_ADD: UShort = 0x1u
 
@@ -546,7 +544,7 @@ public val CTLTYPE_S32: CInt = 0xe
 
 public val CTLTYPE_U32: CInt = 0xf
 
-public val CTLFLAG_RD: CInt = 0x80000000
+public val CTLFLAG_RD: CInt = 0x80000000.toInt()
 
 public val CTLFLAG_WR: CInt = 0x40000000
 
@@ -982,7 +980,7 @@ public val SO_DOMAIN: CInt = 0x1019
 
 public val SO_SPLICE: CInt = 0x1023
 
-public val SO_VENDOR: CInt = 0x80000000
+public val SO_VENDOR: CInt = 0x80000000.toInt()
 
 public val SO_TS_REALTIME_MICRO: CInt = 0
 
@@ -1180,7 +1178,7 @@ public val PROC_ASLR_FORCE_DISABLE: CInt = 2
 
 public val PROC_ASLR_NOFORCE: CInt = 3
 
-public val PROC_ASLR_ACTIVE: CInt = 0x80000000
+public val PROC_ASLR_ACTIVE: CInt = 0x80000000.toInt()
 
 public val PROC_PROTMAX_FORCE_ENABLE: CInt = 1
 
@@ -1188,7 +1186,7 @@ public val PROC_PROTMAX_FORCE_DISABLE: CInt = 2
 
 public val PROC_PROTMAX_NOFORCE: CInt = 3
 
-public val PROC_PROTMAX_ACTIVE: CInt = 0x80000000
+public val PROC_PROTMAX_ACTIVE: CInt = 0x80000000.toInt()
 
 public val PROC_STACKGAP_ENABLE: CInt = 0x0001
 
@@ -1206,7 +1204,7 @@ public val PROC_WX_MAPPINGS_PERMIT: CInt = 0x0001
 
 public val PROC_WX_MAPPINGS_DISALLOW_EXEC: CInt = 0x0002
 
-public val PROC_WXORX_ENFORCE: CInt = 0x80000000
+public val PROC_WXORX_ENFORCE: CInt = 0x80000000.toInt()
 
 public val AF_SLOW: CInt = 33
 
@@ -1528,7 +1526,7 @@ public val IFCAP_VXLAN_HWTSO: CInt = 0x40000000
 /**
  * can do TLS with rate limiting
  */
-public val IFCAP_TXTLS_RTLMT: CInt = 0x80000000
+public val IFCAP_TXTLS_RTLMT: CInt = 0x80000000.toInt()
 
 public val IFCAP_HWCSUM_IPV6: CInt = IFCAP_RXCSUM_IPV6 or IFCAP_TXCSUM_IPV6
 
@@ -2684,7 +2682,7 @@ public val RFLINUXTHPN: CInt = 65536
 
 public val RFTSIGZMB: CInt = 524288
 
-public val RFSPAWN: CInt = 2147483648
+public val RFSPAWN: CInt = 2147483648.toInt()
 
 // For eventfd
 public val EFD_SEMAPHORE: CInt = 0x1
@@ -2727,8 +2725,6 @@ public val KI_NGROUPS: Int = 16
 
 public val KI_NSPARE_INT: Int = 4
 
-public val KI_NSPARE_INT1: Int = 2
-
 public val KI_NSPARE_LONG: Int = 12
 
 /**
@@ -2740,7 +2736,7 @@ public val KI_CRF_CAPABILITY_MODE: Int = 0x00000001
  * Steal a bit from kiCrFlags to indicate that the cred had more than
  * KI_NGROUPS groups.
  */
-public val KI_CRF_GRP_OVERFLOW: Int = 0x80000000
+public val KI_CRF_GRP_OVERFLOW: Int = 0x80000000.toInt()
 
 /**
  * controlling tty vnode active
@@ -2935,6 +2931,8 @@ public val PRI_MAX: CInt = 255
 
 public val PRI_MIN_ITHD: CInt = PRI_MIN
 
+public val PRI_MIN_REALTIME: CInt = 48
+
 public val PRI_MAX_ITHD: CInt = PRI_MIN_REALTIME - 1
 
 public val PI_REALTIME: CInt = PRI_MIN_ITHD + 0
@@ -2951,11 +2949,11 @@ public val PI_DULL: CInt = PRI_MIN_ITHD + 20
 
 public val PI_SOFT: CInt = PRI_MIN_ITHD + 24
 
-public val PRI_MIN_REALTIME: CInt = 48
+public val PRI_MIN_KERN: CInt = 80
 
 public val PRI_MAX_REALTIME: CInt = PRI_MIN_KERN - 1
 
-public val PRI_MIN_KERN: CInt = 80
+public val PRI_MIN_TIMESHARE: CInt = 120
 
 public val PRI_MAX_KERN: CInt = PRI_MIN_TIMESHARE - 1
 
@@ -2979,13 +2977,11 @@ public val PLOCK: CInt = PRI_MIN_KERN + 32
 
 public val PPAUSE: CInt = PRI_MIN_KERN + 36
 
-public val PRI_MIN_TIMESHARE: CInt = 120
+public val PRI_MIN_IDLE: CInt = 224
 
 public val PRI_MAX_TIMESHARE: CInt = PRI_MIN_IDLE - 1
 
 public val PUSER: CInt = PRI_MIN_TIMESHARE
-
-public val PRI_MIN_IDLE: CInt = 224
 
 public val PRI_MAX_IDLE: CInt = PRI_MAX
 
@@ -2995,8 +2991,6 @@ public val NZERO: CInt = 0
 public val RUSAGE_THREAD: CInt = 1
 
 public val ARG_MAX: CInt = 256 * 1024
-
-public val ARG_MAX1: CInt = 2 * 256 * 1024
 
 public val CHILD_MAX: CInt = 40
 
@@ -3026,9 +3020,19 @@ public val MAXUPRC: CInt = CHILD_MAX
 public val NCARGS: CInt = ARG_MAX
 
 /**
+ * max supplemental group id's
+ */
+public val NGROUPS_MAX: CInt = 1023
+
+/**
  *  / * max number groups
  */
 public val NGROUPS: CInt = NGROUPS_MAX + 1
+
+/**
+ * max open files per process
+ */
+public val OPEN_MAX: CInt = 64
 
 /**
  * max open files per process
@@ -3061,16 +3065,6 @@ public val MAX_INPUT: CInt = 255
 public val NAME_MAX: CInt = 255
 
 public val MAXSYMLINKS: CInt = 32
-
-/**
- * max supplemental group id's
- */
-public val NGROUPS_MAX: CInt = 1023
-
-/**
- * max open files per process
- */
-public val OPEN_MAX: CInt = 64
 
 public val POSIX_ARG_MAX: CInt = 4096
 
@@ -3370,7 +3364,7 @@ public val P_SWAPPINGOUT: CInt = 0x20000000
 
 public val P_SWAPPINGIN: CInt = 0x40000000
 
-public val P_PPTRACE: CInt = 0x80000000
+public val P_PPTRACE: CInt = 0x80000000.toInt()
 
 public val P_STOPPED: CInt = P_STOPPED_SIG or P_STOPPED_SINGLE or P_STOPPED_TRACE
 
@@ -3410,13 +3404,13 @@ public val SWAIT: CChar = 6u
 
 public val SLOCK: CChar = 7u
 
-public val P_MAGIC: CInt = 0xbeefface
+public val P_MAGIC: CInt = 0xbeefface.toInt()
 
 public val TDP_SIGFASTBLOCK: CInt = 0x00000100
 
 public val TDP_UIOHELD: CInt = 0x10000000
 
-public val TDP_SIGFASTPENDING: CInt = 0x80000000
+public val TDP_SIGFASTPENDING: CInt = 0x80000000.toInt()
 
 public val TDP2_COMPAT32RB: CInt = 0x00000002
 
@@ -3546,11 +3540,6 @@ public val MFSNAMELEN: CInt = 16
  * Size of on/from name bufs.
  */
 public val MNAMELEN: CInt = 88
-
-/**
- * Size of on/from name bufs.
- */
-public val MNAMELEN1: CInt = 1024
 
 /**
  * Using journaled soft updates.
@@ -3868,3 +3857,12 @@ public val CPU_WHICH_JAIL: CInt = 5
 public val RTF_LLDATA: CInt = 0x400
 
 public val RTF_FIXEDMTU: CInt = 0x80000
+
+public val RTM_VERSION: CInt = 5
+
+public val RTAX_MAX: CInt = 8
+
+// sys/signal.h
+public val SIGTHR: CInt = 32
+
+public val SIGLWP: CInt = SIGTHR

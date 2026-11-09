@@ -79,10 +79,10 @@ public actual fun syncfs(fd: CInt): CInt =
     io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_syncfs(fd)
 
 public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_strcasecmpL(s1, s2, loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_strcasecmpL(s1, s2, loc?.value?.toCPointer<ByteVar>())
 
 public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_strncasecmpL(s1, s2, n, loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_strncasecmpL(s1, s2, n, loc?.value?.toCPointer<ByteVar>())
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_timerfdCreate(clockid, flags)

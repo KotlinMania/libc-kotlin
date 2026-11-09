@@ -5,7 +5,7 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
@@ -17,21 +17,21 @@ public fun interface GlobErrfuncCallback {
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    if (((cmsg!!.cmsgLen).toInt()) < sizeOf<Cmsghdr>()) {
-        return nullMut<Cmsghdr>()
+    if (((cmsg!!.cmsgLen).toInt()) < 8) {
+        return null
     }
     val next = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt() >= max) {
-        nullMut<Cmsghdr>()
+        null
     } else {
-        (next as Cmsghdr?)
+        ((next as Any?) as Cmsghdr?)
     }
 }
 
 public fun cpuZero(cpuset: CpuSetT) {
-    for (slot in cpuset.bits.iterMut()) {
-        slot = 0
+    for (idx in cpuset.bits.indices) {
+        cpuset.bits[idx] = 0u
     }
 }
 
@@ -39,7 +39,7 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1u shl offset)
+    cpuset.bits[idx] = cpuset.bits[idx] or (1u shl offset.toInt())
     Unit
 }
 
@@ -47,14 +47,14 @@ public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1u shl offset).inv()
+    cpuset.bits[idx] = cpuset.bits[idx] and (1u shl offset.toInt()).inv()
     Unit
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    return 0u != (cpuset.bits[idx] and (1u shl offset))
+    return 0u != (cpuset.bits[idx] and (1u shl offset.toInt()))
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
@@ -64,7 +64,7 @@ public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toUInt()
     val minor1 = minor.toUInt()
-    var dev = 0
+    var dev = 0u
     dev = dev or ((major1 and 0xfffff000u) shl 31 shl 1)
     dev = dev or ((major1 and 0x00000fffu) shl 8)
     dev = dev or ((minor1 and 0xffffff00u) shl 12)
@@ -76,7 +76,7 @@ public fun major(dev: DevT): CUint {
     // see
     // https://github.com/emscripten-core/emscripten/blob/
     // main/system/lib/libc/musl/include/sys/sysmacros.h
-    var major = 0
+    var major = 0u
     major = major or ((dev shr 31 shr 1) and 0xfffff000u)
     major = major or ((dev shr 8) and 0x00000fffu)
     return major.toUInt()
@@ -86,7 +86,7 @@ public fun minor(dev: DevT): CUint {
     // see
     // https://github.com/emscripten-core/emscripten/blob/
     // main/system/lib/libc/musl/include/sys/sysmacros.h
-    var minor = 0
+    var minor = 0u
     minor = minor or ((dev shr 12) and 0xffffff00u)
     minor = minor or (dev and 0x000000ffu)
     return minor.toUInt()

@@ -30,7 +30,7 @@ public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaqueP
 public actual fun clockGetcpuclockid(pid: PidT, clockId: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_clockGetcpuclockid(pid, clockId?.value?.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semClose(sem: COpaquePointer?): CInt =

@@ -342,7 +342,7 @@ public val EDOTDOT: CInt = 73
 
 public val SA_NODEFER: CInt = 1073741824
 
-public val SA_RESETHAND: CInt = -2147483648
+public val SA_RESETHAND: CInt = -2147483648.toInt()
 
 public val SA_RESTART: CInt = 268435456
 
@@ -628,19 +628,19 @@ public val REG_S2: Int = 18
 
 public val REG_NARGS: Int = 8
 
-public val COMPAT_HWCAP_ISA_I: CUlong = 1uL shl (73u - 65u)
+public val COMPAT_HWCAP_ISA_I: CUlong = 1uL shl (73u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_M: CUlong = 1uL shl (77u - 65u)
+public val COMPAT_HWCAP_ISA_M: CUlong = 1uL shl (77u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_A: CUlong = 1uL shl (65u - 65u)
+public val COMPAT_HWCAP_ISA_A: CUlong = 1uL shl (65u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_F: CUlong = 1uL shl (70u - 65u)
+public val COMPAT_HWCAP_ISA_F: CUlong = 1uL shl (70u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_D: CUlong = 1uL shl (68u - 65u)
+public val COMPAT_HWCAP_ISA_D: CUlong = 1uL shl (68u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_C: CUlong = 1uL shl (67u - 65u)
+public val COMPAT_HWCAP_ISA_C: CUlong = 1uL shl (67u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_V: CUlong = 1uL shl (86u - 65u)
+public val COMPAT_HWCAP_ISA_V: CUlong = 1uL shl (86u - 65u).toInt()
 
 public val SYS_READ: CLong = 63L
 

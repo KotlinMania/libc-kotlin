@@ -2,9 +2,7 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -18,52 +16,52 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KeyT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
 
 public fun cmsgAlign(n: Int): Int {
-    return (n + (sizeOf<CLong>() - 1)) and (sizeOf<CLong>() - 1).inv()
+    return (n + (8 - 1)) and (8 - 1).inv()
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (CMSG_ALIGN(sizeOf<Cmsghdr>()).toInt()).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return (CMSG_ALIGN(sizeOf<Cmsghdr>()) + length.toInt()).toUInt()
+    return (cmsgAlign(8) + length.toInt()).toUInt()
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + CMSG_ALIGN((cmsg!!.cmsgLen).toInt()) + CMSG_ALIGN(sizeOf<Cmsghdr>())
-    val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (next <= max) {
         null
     } else {
-        nullMut<Cmsghdr>()
+        null
     }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (CMSG_ALIGN(sizeOf<Cmsghdr>()) + CMSG_ALIGN(length.toInt())).toUInt()
+    return (cmsgAlign(8) + cmsgAlign(length.toInt())).toUInt()
 }
 
 public fun cpuZero(cpuset: CpuSetT) {
-    for (slot in cpuset.ary.iterMut()) {
-        slot = 0
+    for (idx in cpuset.ary.indices) {
+        cpuset.ary[idx] = 0uL
     }
 }
 
 public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val (idx, offset) = Pair((cpu shr 6) and 3, cpu and 63)
-    cpuset.ary[idx] = cpuset.ary[idx] or (1 shl offset)
+    cpuset.ary[idx] = cpuset.ary[idx] or (1uL shl offset.toInt())
     Unit
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val (idx, offset) = Pair((cpu shr 6) and 3, cpu and 63)
-    cpuset.ary[idx] = cpuset.ary[idx] and (1 shl offset).inv()
+    cpuset.ary[idx] = cpuset.ary[idx] and (1uL shl offset.toInt()).inv()
     Unit
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val (idx, offset) = Pair((cpu shr 6) and 3, cpu and 63)
-    return 0 != cpuset.ary[idx] and (1 shl offset)
+    return 0uL != cpuset.ary[idx] and (1uL shl offset.toInt())
 }
 
 public fun wifsignaled(status: CInt): Boolean {
@@ -73,7 +71,7 @@ public fun wifsignaled(status: CInt): Boolean {
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toUInt()
     val minor1 = minor.toUInt()
-    var dev = 0
+    var dev = 0u
     dev = dev or (major1 shl 8)
     dev = dev or minor1
     return dev

@@ -9,7 +9,6 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.new.qurt.errno.errnoLocation
 
 public fun interface PthreadKeyCreateDtorCallback {
     public operator fun invoke(arg0: COpaquePointer?)
@@ -179,7 +178,7 @@ public expect fun getpid(): PidT
 // time
 public expect fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt
 
-public expect fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict: String?, restrict: COpaquePointer?): SizeT
+public expect fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT
 
 public expect fun time(t: COpaquePointer?): TimeT
 
@@ -332,18 +331,18 @@ public expect fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong
 public expect fun wcstod(s: COpaquePointer?, p: COpaquePointer?): CDouble
 
 public fun errno(): CInt {
-    return errnoLocation()
+    return (errnoLocation()?.rawValue ?: 0L).toInt()
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits[0 until (size / sizeOfMask)].iter()) {
-        s += i.countOnes()
+    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+        s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
 public fun cpuCount(cpuset: CpuSetT): CInt {
-    return CPU_COUNT_S(sizeOf<CpuSetT>(), cpuset)
+    return cpuCountS(8, cpuset)
 }

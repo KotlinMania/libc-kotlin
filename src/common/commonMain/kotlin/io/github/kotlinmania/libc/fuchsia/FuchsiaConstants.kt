@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
@@ -7,13 +8,9 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.FIONREAD
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.ENODATA
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.O_NONBLOCK
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SIGSYS
 
 // PUB_CONST
-public val INT_MIN: CInt = -2147483648
+public val INT_MIN: CInt = -2147483648.toInt()
 
 public val INT_MAX: CInt = 2147483647
 
@@ -382,7 +379,7 @@ public val MAP_PRIVATE: CInt = 0x0002
 
 public val MAP_FIXED: CInt = 0x0010
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 // MS_ flags for msync(2)
 public val MS_ASYNC: CInt = 0x0001
@@ -828,6 +825,8 @@ public val MSG_FASTOPEN: CInt = 0x20000000
 
 public val MSG_CMSG_CLOEXEC: CInt = 0x40000000
 
+public val SO_TIMESTAMP: CInt = 29
+
 public val SCM_TIMESTAMP: CInt = SO_TIMESTAMP
 
 public val SOCK_RAW: CInt = 3
@@ -946,7 +945,7 @@ public val EPOLLERR: CInt = 0x8
 
 public val EPOLLHUP: CInt = 0x10
 
-public val EPOLLET: CInt = 0x80000000
+public val EPOLLET: CInt = 0x80000000.toInt()
 
 public val EPOLL_CTL_ADD: CInt = 1
 
@@ -1116,7 +1115,7 @@ public val CLONE_NEWPID: CInt = 0x20000000
 
 public val CLONE_NEWNET: CInt = 0x40000000
 
-public val CLONE_IO: CInt = 0x80000000
+public val CLONE_IO: CInt = 0x80000000.toInt()
 
 public val CLONE_NEWCGROUP: CInt = 0x02000000
 
@@ -1176,7 +1175,7 @@ public val WNOTHREAD: CInt = 0x20000000
 
 public val WALL: CInt = 0x40000000
 
-public val WCLONE: CInt = 0x80000000
+public val WCLONE: CInt = 0x80000000.toInt()
 
 public val SPLICE_F_MOVE: CUint = 0x01u
 
@@ -1714,6 +1713,8 @@ public val SC_THREAD_ROBUST_PRIO_INHERIT: CInt = 247
 
 public val SC_THREAD_ROBUST_PRIO_PROTECT: CInt = 248
 
+public val RLIM_INFINITY: RlimT = 0uL.inv()
+
 public val RLIM_SAVED_MAX: RlimT = RLIM_INFINITY
 
 public val RLIM_SAVED_CUR: RlimT = RLIM_INFINITY
@@ -1798,11 +1799,17 @@ public val RTLD_NOW: CInt = 0x2
 
 public val TCP_MD5SIG: CInt = 14
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(size = List(SIZEOF_PTHREAD_MUTEX_T) { 0u })
+public val SIZEOF_PTHREAD_MUTEX_T: Int = 40
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(size = List(SIZEOF_PTHREAD_COND_T) { 0u })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(size = List(SIZEOF_PTHREAD_RWLOCK_T) { 0u })
+public val SIZEOF_PTHREAD_COND_T: Int = 48
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()) { 0u.toUByte() })
+
+public val SIZEOF_PTHREAD_RWLOCK_T: Int = 56
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()) { 0u.toUByte() })
 
 public val PTHREAD_MUTEX_NORMAL: CInt = 0
 
@@ -1815,8 +1822,6 @@ public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 public val PTHREAD_PROCESS_PRIVATE: CInt = 0
 
 public val PTHREAD_PROCESS_SHARED: CInt = 1
-
-public val SIZEOF_PTHREAD_COND_T: Int = 48
 
 public val RENAME_NOREPLACE: CInt = 1
 
@@ -2318,7 +2323,11 @@ public val ITIMER_VIRTUAL: CInt = 1
 
 public val ITIMER_PROF: CInt = 2
 
+public val O_CLOEXEC: CInt = 0x00000100
+
 public val TFD_CLOEXEC: CInt = O_CLOEXEC
+
+public val O_NONBLOCK: CInt = 0x00000010
 
 public val TFD_NONBLOCK: CInt = O_NONBLOCK
 
@@ -2341,6 +2350,8 @@ public val FALLOC_FL_ZERO_RANGE: CInt = 0x10
 public val FALLOC_FL_INSERT_RANGE: CInt = 0x20
 
 public val FALLOC_FL_UNSHARE_RANGE: CInt = 0x40
+
+public val ENODATA: CInt = 61
 
 // On Linux, libc doesn't define this constant, libattr does instead.
 // We still define it for Linux as it's defined by libc on other platforms,
@@ -2553,15 +2564,11 @@ public val O_TRUNC: CInt = 0x00040000
 
 public val O_NOATIME: CInt = 0x00002000
 
-public val O_CLOEXEC: CInt = 0x00000100
-
 public val O_TMPFILE: CInt = 0x00004000
 
 public val EBFONT: CInt = 59
 
 public val ENOSTR: CInt = 60
-
-public val ENODATA: CInt = 61
 
 public val ETIME: CInt = 62
 
@@ -2587,7 +2594,7 @@ public val EDOTDOT: CInt = 73
 
 public val SA_NODEFER: CInt = 0x40000000
 
-public val SA_RESETHAND: CInt = 0x80000000
+public val SA_RESETHAND: CInt = 0x80000000.toInt()
 
 public val SA_RESTART: CInt = 0x10000000
 
@@ -2623,13 +2630,13 @@ public val POSIX_FADV_NOREUSE: CInt = 5
 
 public val POSIX_MADV_DONTNEED: CInt = 4
 
-public val RLIM_INFINITY: RlimT = 0uL.inv()
-
 public val RLIMIT_RTTIME: CInt = 15
 
 public val RLIMIT_NLIMITS: CInt = 16
 
 public val RLIM_NLIMITS: CInt = RLIMIT_NLIMITS
+
+public val MAP_ANON: CInt = 0x0020
 
 public val MAP_ANONYMOUS: CInt = MAP_ANON
 
@@ -2656,6 +2663,8 @@ public val TCP_REPAIR_OPTIONS: CInt = 22
 public val TCP_FASTOPEN: CInt = 23
 
 public val TCP_TIMESTAMP: CInt = 24
+
+public val SIGSYS: CInt = 31
 
 public val SIGUNUSED: CInt = SIGSYS
 
@@ -2736,6 +2745,8 @@ public val TCSANOW: CInt = 0
 public val TCSADRAIN: CInt = 1
 
 public val TCSAFLUSH: CInt = 2
+
+public val FIONREAD: CInt = 0x541B
 
 public val TIOCINQ: CInt = FIONREAD
 
@@ -2915,10 +2926,6 @@ public val B3500000: SpeedT = 4110u
 
 public val B4000000: SpeedT = 4111u
 
-public val SIZEOF_PTHREAD_RWLOCK_T: Int = 56
-
-public val SIZEOF_PTHREAD_MUTEX_T: Int = 40
-
 public val O_ASYNC: CInt = 0x00000400
 
 public val FIOCLEX: CInt = 0x5451
@@ -2943,19 +2950,15 @@ public val O_EXCL: CInt = 0x00020000
 
 public val O_NOCTTY: CInt = 0x00000200
 
-public val O_NONBLOCK: CInt = 0x00000010
+public val O_DSYNC: CInt = 0x00000020
 
 public val O_SYNC: CInt = 0x00000040 or O_DSYNC
 
 public val O_RSYNC: CInt = O_SYNC
 
-public val O_DSYNC: CInt = 0x00000020
-
 public val SOCK_CLOEXEC: CInt = 524288
 
 public val SOCK_NONBLOCK: CInt = 2048
-
-public val MAP_ANON: CInt = 0x0020
 
 public val MAP_GROWSDOWN: CInt = 0x0100
 
@@ -3094,9 +3097,3 @@ public val ECONNABORTED: CInt = 103
 public val ECONNRESET: CInt = 104
 
 public val ENOBUFS: CInt = 105
-
-public val EISCONN: CInt = 106
-
-public val ENOTCONN: CInt = 107
-
-public val ESHUTDOWN: CInt = 108

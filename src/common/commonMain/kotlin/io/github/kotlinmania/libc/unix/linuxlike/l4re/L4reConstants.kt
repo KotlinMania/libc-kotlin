@@ -44,9 +44,9 @@ public val RLIMIT_RTPRIO: RlimitResourceT = 14
 
 public val RLIMIT_RTTIME: RlimitResourceT = 15
 
-public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
-
 public val RLIM_NLIMITS: RlimitResourceT = 16
+
+public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
 
 public val SOL_SOCKET: CInt = 1
 

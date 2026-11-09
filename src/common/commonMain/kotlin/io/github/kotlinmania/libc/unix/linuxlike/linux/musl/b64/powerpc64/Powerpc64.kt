@@ -1,4 +1,5 @@
 // port-lint: source unix/linux_like/linux/musl/b64/powerpc64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.powerpc64
 
 import io.github.kotlinmania.libc.*
@@ -18,6 +19,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.DevT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.BlkcntT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.InoT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.NCCS
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.TimeT
 
@@ -33,61 +35,115 @@ public typealias BlksizeT = CLong
 
 public typealias Stat64 = Stat
 
-public open class Termios(
-    public var cIflag: TcflagT,
-    public var cOflag: TcflagT,
-    public var cCflag: TcflagT,
-    public var cLflag: TcflagT,
-    public var cCc: List<CcT>,
-    public var cLine: CcT,
-    public var cIspeed: SpeedT,
-    public var cOspeed: SpeedT,
+public data class Termios(
+    public var cIflag: TcflagT = 0u,
+    public var cOflag: TcflagT = 0u,
+    public var cCflag: TcflagT = 0u,
+    public var cLflag: TcflagT = 0u,
+    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cLine: CcT = 0u,
+    public var cIspeed: SpeedT = 0u,
+    public var cOspeed: SpeedT = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Termios) return false
+        if (this.cIflag != other.cIflag) return false
+        if (this.cOflag != other.cOflag) return false
+        if (this.cCflag != other.cCflag) return false
+        if (this.cLflag != other.cLflag) return false
+        if (!this.cCc.contentEquals(other.cCc)) return false
+        if (this.cLine != other.cLine) return false
+        if (this.cIspeed != other.cIspeed) return false
+        if (this.cOspeed != other.cOspeed) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.cIflag.hashCode()
+        result = 31 * result + this.cOflag.hashCode()
+        result = 31 * result + this.cCflag.hashCode()
+        result = 31 * result + this.cLflag.hashCode()
+        result = 31 * result + this.cCc.contentHashCode()
+        result = 31 * result + this.cLine.hashCode()
+        result = 31 * result + this.cIspeed.hashCode()
+        result = 31 * result + this.cOspeed.hashCode()
+        return result
+    }
+}
+
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stNlink: NlinkT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var pad0: CInt = 0,
+    public var stRdev: DevT = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: LongArray = LongArray(3),
 )
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stNlink: NlinkT,
-    public var stMode: ModeT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var pad0: CInt,
-    public var stRdev: DevT,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CLong>,
-)
+public data class ShmidDs(
+    public var shmPerm: IpcPerm = IpcPerm(),
+    public var shmAtime: TimeT = 0L,
+    public var shmDtime: TimeT = 0L,
+    public var shmCtime: TimeT = 0L,
+    public var shmSegsz: SizeT = 0uL,
+    public var shmCpid: PidT = 0,
+    public var shmLpid: PidT = 0,
+    public var shmNattch: CUlong = 0uL,
+    public var unused: ULongArray = ULongArray(2),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ShmidDs) return false
+        if (this.shmPerm != other.shmPerm) return false
+        if (this.shmAtime != other.shmAtime) return false
+        if (this.shmDtime != other.shmDtime) return false
+        if (this.shmCtime != other.shmCtime) return false
+        if (this.shmSegsz != other.shmSegsz) return false
+        if (this.shmCpid != other.shmCpid) return false
+        if (this.shmLpid != other.shmLpid) return false
+        if (this.shmNattch != other.shmNattch) return false
+        if (!this.unused.contentEquals(other.unused)) return false
+        return true
+    }
 
-public open class ShmidDs(
-    public var shmPerm: IpcPerm,
-    public var shmAtime: TimeT,
-    public var shmDtime: TimeT,
-    public var shmCtime: TimeT,
-    public var shmSegsz: SizeT,
-    public var shmCpid: PidT,
-    public var shmLpid: PidT,
-    public var shmNattch: CUlong,
-    public var unused: List<CUlong>,
-)
+    override fun hashCode(): Int {
+        var result = this.shmPerm.hashCode()
+        result = 31 * result + this.shmAtime.hashCode()
+        result = 31 * result + this.shmDtime.hashCode()
+        result = 31 * result + this.shmCtime.hashCode()
+        result = 31 * result + this.shmSegsz.hashCode()
+        result = 31 * result + this.shmCpid.hashCode()
+        result = 31 * result + this.shmLpid.hashCode()
+        result = 31 * result + this.shmNattch.hashCode()
+        result = 31 * result + this.unused.contentHashCode()
+        return result
+    }
+}
 
-public open class IpcPerm(
-    public var key: KeyT,
-    public var ipcPermKey: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: ModeT,
-    public var seq: CInt,
-    public var unused1: CLong,
-    public var unused2: CLong,
+public data class IpcPerm(
+    public var key: KeyT = 0,
+    public var ipcPermKey: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CInt = 0,
+    public var unused1: CLong = 0L,
+    public var unused2: CLong = 0L,
 )
 
 public val MADV_SOFT_OFFLINE: CInt = 101

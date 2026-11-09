@@ -56,29 +56,29 @@ public expect fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt
 public expect fun getauxval(type: CUlong): CUlong
 
 public fun SiginfoT.siAddr(): COpaquePointer? {
-    open class SiginfoSigfault(
-        public var siSigno: CInt,
-        public var siErrno: CInt,
-        public var siCode: CInt,
-        public var siAddr: COpaquePointer?,
+    data class SiginfoSigfault(
+        public var siSigno: CInt = 0,
+        public var siErrno: CInt = 0,
+        public var siCode: CInt = 0,
+        public var siAddr: COpaquePointer? = null,
     )
-    return (((this as SiginfoT?) as SiginfoSigfault?)).siAddr
+    return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoSigfault?))!!.siAddr
 }
 
 public fun SiginfoT.siValue(): Sigval {
-    open class SiginfoSiValue(
-        public var siSigno: CInt,
-        public var siErrno: CInt,
-        public var siCode: CInt,
-        public var siTimerid: CInt,
-        public var siOverrun: CInt,
-        public var siValue: Sigval,
+    data class SiginfoSiValue(
+        public var siSigno: CInt = 0,
+        public var siErrno: CInt = 0,
+        public var siCode: CInt = 0,
+        public var siTimerid: CInt = 0,
+        public var siOverrun: CInt = 0,
+        public var siValue: Sigval = Sigval(),
     )
-    return (((this as SiginfoT?) as SiginfoSiValue?)).siValue
+    return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoSiValue?))!!.siValue
 }
 
 public fun SiginfoT.sifields(): Sifields {
-    return (((this as SiginfoT?) as SiginfoF?)).sifields
+    return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoF?))!!.sifields
 }
 
 public fun SiginfoT.siPid(): PidT {

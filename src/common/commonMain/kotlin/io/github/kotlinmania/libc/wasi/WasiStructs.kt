@@ -1,137 +1,251 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 
-public open class MaxAlignT(public var priv: List<Double>)
+public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(4)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MaxAlignT) return false
+        if (!this.priv.contentEquals(other.priv)) return false
+        return true
+    }
 
-public open class ClockidT(public var value: COpaquePointer?) {
+    override fun hashCode(): Int {
+        return this.priv.contentHashCode()
+    }
+}
+
+public data class ClockidT(public var value: COpaquePointer? = null) {
     public var field0: COpaquePointer?
         get() = value
         set(v) { value = v }
 }
 
-public open class FposT(public var data: List<UByte>)
+public data class FposT(public var data: UByteArray = UByteArray(16)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FposT) return false
+        if (!this.data.contentEquals(other.data)) return false
+        return true
+    }
 
-public open class Tm(
-    public var tmSec: CInt,
-    public var tmMin: CInt,
-    public var tmHour: CInt,
-    public var tmMday: CInt,
-    public var tmMon: CInt,
-    public var tmYear: CInt,
-    public var tmWday: CInt,
-    public var tmYday: CInt,
-    public var tmIsdst: CInt,
-    public var tmGmtoff: CInt,
-    public var tmZone: COpaquePointer?,
-    public var tmNsec: CInt,
+    override fun hashCode(): Int {
+        return this.data.contentHashCode()
+    }
+}
+
+public data class Tm(
+    public var tmSec: CInt = 0,
+    public var tmMin: CInt = 0,
+    public var tmHour: CInt = 0,
+    public var tmMday: CInt = 0,
+    public var tmMon: CInt = 0,
+    public var tmYear: CInt = 0,
+    public var tmWday: CInt = 0,
+    public var tmYday: CInt = 0,
+    public var tmIsdst: CInt = 0,
+    public var tmGmtoff: CInt = 0,
+    public var tmZone: COpaquePointer? = null,
+    public var tmNsec: CInt = 0,
 )
 
-public open class Timeval(public var tvSec: TimeT, public var tvUsec: SusecondsT)
+public data class Timeval(public var tvSec: TimeT = 0L, public var tvUsec: SusecondsT = 0L)
 
-public open class Timespec(public var tvSec: TimeT, public var tvNsec: CLong)
+public data class Timespec(public var tvSec: TimeT = 0L, public var tvNsec: CLong = 0L)
 
-public open class Tms(
-    public var tmsUtime: ClockT,
-    public var tmsStime: ClockT,
-    public var tmsCutime: ClockT,
-    public var tmsCstime: ClockT,
+public data class Tms(
+    public var tmsUtime: ClockT = 0L,
+    public var tmsStime: ClockT = 0L,
+    public var tmsCutime: ClockT = 0L,
+    public var tmsCstime: ClockT = 0L,
 )
 
-public open class Itimerspec(public var itInterval: Timespec, public var itValue: Timespec)
+public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
 
-public open class Iovec(public var iovBase: COpaquePointer?, public var iovLen: SizeT)
+public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
 
-public open class Lconv(
-    public var decimalPoint: COpaquePointer?,
-    public var thousandsSep: COpaquePointer?,
-    public var grouping: COpaquePointer?,
-    public var intCurrSymbol: COpaquePointer?,
-    public var currencySymbol: COpaquePointer?,
-    public var monDecimalPoint: COpaquePointer?,
-    public var monThousandsSep: COpaquePointer?,
-    public var monGrouping: COpaquePointer?,
-    public var positiveSign: COpaquePointer?,
-    public var negativeSign: COpaquePointer?,
-    public var intFracDigits: CChar,
-    public var fracDigits: CChar,
-    public var pCsPrecedes: CChar,
-    public var pSepBySpace: CChar,
-    public var nCsPrecedes: CChar,
-    public var nSepBySpace: CChar,
-    public var pSignPosn: CChar,
-    public var nSignPosn: CChar,
-    public var intPCsPrecedes: CChar,
-    public var intPSepBySpace: CChar,
-    public var intNCsPrecedes: CChar,
-    public var intNSepBySpace: CChar,
-    public var intPSignPosn: CChar,
-    public var intNSignPosn: CChar,
+public class Lconv(
+    public var decimalPoint: COpaquePointer? = null,
+    public var thousandsSep: COpaquePointer? = null,
+    public var grouping: COpaquePointer? = null,
+    public var intCurrSymbol: COpaquePointer? = null,
+    public var currencySymbol: COpaquePointer? = null,
+    public var monDecimalPoint: COpaquePointer? = null,
+    public var monThousandsSep: COpaquePointer? = null,
+    public var monGrouping: COpaquePointer? = null,
+    public var positiveSign: COpaquePointer? = null,
+    public var negativeSign: COpaquePointer? = null,
+    public var intFracDigits: CChar = 0u,
+    public var fracDigits: CChar = 0u,
+    public var pCsPrecedes: CChar = 0u,
+    public var pSepBySpace: CChar = 0u,
+    public var nCsPrecedes: CChar = 0u,
+    public var nSepBySpace: CChar = 0u,
+    public var pSignPosn: CChar = 0u,
+    public var nSignPosn: CChar = 0u,
+    public var intPCsPrecedes: CChar = 0u,
+    public var intPSepBySpace: CChar = 0u,
+    public var intNCsPrecedes: CChar = 0u,
+    public var intNSepBySpace: CChar = 0u,
+    public var intPSignPosn: CChar = 0u,
+    public var intNSignPosn: CChar = 0u,
 )
 
-public open class Pollfd(
-    public var fd: CInt,
-    public var events: CShort,
-    public var revents: CShort,
+public data class Pollfd(
+    public var fd: CInt = 0,
+    public var events: CShort = 0,
+    public var revents: CShort = 0,
 )
 
-public open class Rusage(public var ruUtime: Timeval, public var ruStime: Timeval)
+public data class Rusage(public var ruUtime: Timeval = Timeval(), public var ruStime: Timeval = Timeval())
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stNlink: NlinkT,
-    public var stMode: ModeT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var pad0: CUint,
-    public var stRdev: DevT,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var stBlocks: BlkcntT,
-    public var stAtim: Timespec,
-    public var stMtim: Timespec,
-    public var stCtim: Timespec,
-    public var reserved: List<CLonglong>,
-)
+public data class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stNlink: NlinkT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var pad0: CUint = 0u,
+    public var stRdev: DevT = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtim: Timespec = Timespec(),
+    public var stMtim: Timespec = Timespec(),
+    public var stCtim: Timespec = Timespec(),
+    public var reserved: LongArray = LongArray(3),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Stat) return false
+        if (this.stDev != other.stDev) return false
+        if (this.stIno != other.stIno) return false
+        if (this.stNlink != other.stNlink) return false
+        if (this.stMode != other.stMode) return false
+        if (this.stUid != other.stUid) return false
+        if (this.stGid != other.stGid) return false
+        if (this.pad0 != other.pad0) return false
+        if (this.stRdev != other.stRdev) return false
+        if (this.stSize != other.stSize) return false
+        if (this.stBlksize != other.stBlksize) return false
+        if (this.stBlocks != other.stBlocks) return false
+        if (this.stAtim != other.stAtim) return false
+        if (this.stMtim != other.stMtim) return false
+        if (this.stCtim != other.stCtim) return false
+        if (!this.reserved.contentEquals(other.reserved)) return false
+        return true
+    }
 
-public open class FdSet(public var nfds: Int, public var fds: List<CInt>)
+    override fun hashCode(): Int {
+        var result = this.stDev.hashCode()
+        result = 31 * result + this.stIno.hashCode()
+        result = 31 * result + this.stNlink.hashCode()
+        result = 31 * result + this.stMode.hashCode()
+        result = 31 * result + this.stUid.hashCode()
+        result = 31 * result + this.stGid.hashCode()
+        result = 31 * result + this.pad0.hashCode()
+        result = 31 * result + this.stRdev.hashCode()
+        result = 31 * result + this.stSize.hashCode()
+        result = 31 * result + this.stBlksize.hashCode()
+        result = 31 * result + this.stBlocks.hashCode()
+        result = 31 * result + this.stAtim.hashCode()
+        result = 31 * result + this.stMtim.hashCode()
+        result = 31 * result + this.stCtim.hashCode()
+        result = 31 * result + this.reserved.contentHashCode()
+        return result
+    }
+}
 
-public open class PthreadAttrT(public var size: List<CLong>)
+public data class FdSet(public var nfds: Int = 0, public var fds: IntArray = IntArray(FD_SETSIZE.toInt())) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FdSet) return false
+        if (this.nfds != other.nfds) return false
+        if (!this.fds.contentEquals(other.fds)) return false
+        return true
+    }
 
-public open class PthreadMutexattrT(public var attr: CUint)
+    override fun hashCode(): Int {
+        var result = this.nfds.hashCode()
+        result = 31 * result + this.fds.contentHashCode()
+        return result
+    }
+}
 
-public open class PthreadCondattrT(public var attr: CUint)
+public data class PthreadAttrT(public var size: LongArray = LongArray(9)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadAttrT) return false
+        if (!this.size.contentEquals(other.size)) return false
+        return true
+    }
 
-public open class PthreadBarrierattrT(public var attr: CUint)
+    override fun hashCode(): Int {
+        return this.size.contentHashCode()
+    }
+}
 
-public open class PthreadRwlockattrT(public var attr: List<CUint>)
+public data class PthreadMutexattrT(public var attr: CUint = 0u)
 
-public open class PthreadCondT(public var size: List<COpaquePointer?>)
+public data class PthreadCondattrT(public var attr: CUint = 0u)
 
-public open class PthreadMutexT(public var size: List<COpaquePointer?>)
+public data class PthreadBarrierattrT(public var attr: CUint = 0u)
 
-public open class PthreadRwlockT(public var size: List<COpaquePointer?>)
+public data class PthreadRwlockattrT(public var attr: UIntArray = UIntArray(2)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadRwlockattrT) return false
+        if (!this.attr.contentEquals(other.attr)) return false
+        return true
+    }
 
-public open class PthreadBarrierT(public var size: List<COpaquePointer?>)
+    override fun hashCode(): Int {
+        return this.attr.contentHashCode()
+    }
+}
+
+public data class PthreadCondT(public var size: List<COpaquePointer?> = List(12) { null })
+
+public data class PthreadMutexT(public var size: List<COpaquePointer?> = List(6) { null })
+
+public data class PthreadRwlockT(public var size: List<COpaquePointer?> = List(8) { null })
+
+public data class PthreadBarrierT(public var size: List<COpaquePointer?> = List(5) { null })
 
 // Declare dirent outside of s! so that it doesn't implement Copy, Eq, Hash,
 // etc., since it contains a flexible array member with a dynamic size.
-public open class Dirent(
-    public var dIno: InoT,
-    public var dType: CUchar,
+public data class Dirent(
+    public var dIno: InoT = 0uL,
+    public var dType: CUchar = 0u,
     /**
      * dName is declared in WASI libc as a flexible array member, which
      * can't be directly expressed in Rust. As an imperfect workaround,
      * declare it as a zero-length array instead.
      */
-    public var dName: List<CChar>,
-)
+    public var dName: UByteArray = UByteArray(0),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Dirent) return false
+        if (this.dIno != other.dIno) return false
+        if (this.dType != other.dType) return false
+        if (!this.dName.contentEquals(other.dName)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dIno.hashCode()
+        result = 31 * result + this.dType.hashCode()
+        result = 31 * result + this.dName.contentHashCode()
+        return result
+    }
+}

@@ -4,13 +4,11 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.CMSG_FIRSTHDR
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.IntptrT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -22,40 +20,41 @@ import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
 import io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64.BooleanT
+import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 
 public fun interface QsortRComparCallback {
     public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
 }
 
 public fun darwinAlign32(p: Int): Int {
-    val DARWIN_ALIGNBYTES32: Int = sizeOf<UInt>() - 1
+    val DARWIN_ALIGNBYTES32: Int = 8 - 1
     return (p + DARWIN_ALIGNBYTES32) and DARWIN_ALIGNBYTES32.inv()
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
-        return CMSG_FIRSTHDR(mhdr)
+        return cmsgFirsthdr(mhdr)
     }
     val cmsgLen = (cmsg!!.cmsgLen).toInt()
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + DARWIN_ALIGN32(cmsgLen)
-    val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (next + DARWIN_ALIGN32(sizeOf<Cmsghdr>()) > max) {
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + darwinAlign32(cmsgLen)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
+    return if (next + darwinAlign32(8) > max) {
         null
     } else {
         null
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (DARWIN_ALIGN32(sizeOf<Cmsghdr>())).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (darwinAlign32(8)).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (DARWIN_ALIGN32(sizeOf<Cmsghdr>()) + DARWIN_ALIGN32(length.toInt())).toUInt()
+    return (darwinAlign32(8) + darwinAlign32(length.toInt())).toUInt()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return (DARWIN_ALIGN32(sizeOf<Cmsghdr>()) + length.toInt()).toUInt()
+    return (darwinAlign32(8) + length.toInt()).toUInt()
 }
 
 public fun vmMakeTag(id: UByte): UInt {
@@ -71,15 +70,15 @@ public fun wstatus(status: CInt): CInt {
 }
 
 public fun wifcontinued(status: CInt): Boolean {
-    return WSTATUS(status) == WSTOPPED && WSTOPSIG(status) == 0x13
+    return wstatus(status) == WSTOPPED && wstopsig(status) == 0x13
 }
 
 public fun wifsignaled(status: CInt): Boolean {
-    return WSTATUS(status) != WSTOPPED && WSTATUS(status) != 0
+    return wstatus(status) != WSTOPPED && wstatus(status) != 0
 }
 
 public fun wifstopped(status: CInt): Boolean {
-    return WSTATUS(status) == WSTOPPED && WSTOPSIG(status) != 0x13
+    return wstatus(status) == WSTOPPED && wstopsig(status) != 0x13
 }
 
 public fun makedev(major: Int, minor: Int): DevT {

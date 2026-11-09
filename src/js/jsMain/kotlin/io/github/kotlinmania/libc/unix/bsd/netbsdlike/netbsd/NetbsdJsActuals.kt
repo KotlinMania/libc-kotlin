@@ -8,7 +8,10 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.solid.CpuidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.CpuidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.MqdT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.TimerT
 import io.github.kotlinmania.libc.unix.IntmaxT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -18,9 +21,6 @@ import io.github.kotlinmania.libc.unix.UintmaxT
 import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.LwpidT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.MqdT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.TimerT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 
 private val _unixBsdNetbsdlikeNetbsdNapiAddon: dynamic =
@@ -119,7 +119,7 @@ public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: SizeT,
 public actual fun mount(src: String?, target: String?, flags: CInt, data: COpaquePointer?, size: SizeT): CInt =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_mount(src, target, flags, (data?.value ?: 0L).toString(), size.toString()) as Int) else 0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -216,19 +216,19 @@ public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_sigwaitinfo((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) {
-        _unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_freelocale(loc.toLong().toString())
+        _unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun localeconvL(loc: LocaleT): COpaquePointer? =
-    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_localeconvL(loc.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_localeconvL((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_settimeofday((tv?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) as Int) else 0
@@ -287,7 +287,7 @@ public actual fun explicitMemset(b: COpaquePointer?, c: CInt, len: SizeT) {
 public actual fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString(), len.toString()) as Int) else 0
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun mremap(oldp: COpaquePointer?, oldsize: SizeT, newp: COpaquePointer?, newsize: SizeT, flags: CInt): COpaquePointer? =
@@ -387,7 +387,7 @@ public actual fun getgrentR(grp: COpaquePointer?, buf: COpaquePointer?, buflen: 
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_getgrentR((grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun efopen(p: String?, m: String?): FILE =
-    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) FILE((_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_efopen(p, m) as String).toLong()) else null as FILE
+    if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) FILE((_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_efopen(p, m) as String).toLong()) else FILE()
 
 public actual fun emalloc(n: SizeT): COpaquePointer? =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_emalloc(n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
@@ -422,10 +422,10 @@ public actual fun estrtoi(nptr: String?, base: CInt, lo: IntmaxT, hi: IntmaxT): 
 public actual fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT): UintmaxT =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_estrtou(nptr, base, lo.toString(), hi.toString()) as String).toULong() else 0uL
 
-public actual fun easprintf(string: COpaquePointer?, fmt: String?): CInt =
+public actual fun easprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun evasprintf(string: COpaquePointer?, fmt: String?): CInt =
+public actual fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback? =

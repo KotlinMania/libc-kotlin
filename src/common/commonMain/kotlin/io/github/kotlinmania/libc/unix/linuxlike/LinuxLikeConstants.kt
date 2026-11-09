@@ -8,12 +8,9 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.IFF_TAP
-import io.github.kotlinmania.libc.IFF_TUN
+import io.github.kotlinmania.libc.unix.linuxlike.android.SO_TIMESTAMP
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.IdtypeT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.Rlim64T
-import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.SO_TIMESTAMP
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.O_CLOEXEC
 
@@ -208,8 +205,6 @@ public val XATTR_REPLACE: CInt = 0x2
 
 public val RLIM64_INFINITY: CUlonglong = 0uL.inv()
 
-public val RLIM64_INFINITY1: Rlim64T = 0uL.inv()
-
 public val LC_CTYPE: CInt = 0
 
 public val LC_NUMERIC: CInt = 1
@@ -236,20 +231,6 @@ public val LC_IDENTIFICATION: CInt = 11
 
 public val LC_ALL: CInt = 12
 
-public val LC_CTYPE1: CInt = 0
-
-public val LC_NUMERIC1: CInt = 1
-
-public val LC_TIME1: CInt = 2
-
-public val LC_COLLATE1: CInt = 3
-
-public val LC_MONETARY1: CInt = 4
-
-public val LC_MESSAGES1: CInt = 5
-
-public val LC_ALL1: CInt = 6
-
 public val LC_CTYPE_MASK: CInt = 1 shl LC_CTYPE
 
 public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC
@@ -271,7 +252,7 @@ public val MAP_PRIVATE: CInt = 0x0002
 
 public val MAP_FIXED: CInt = 0x0010
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 // MS_ flags for msync(2)
 public val MS_ASYNC: CInt = 0x0001
@@ -1160,7 +1141,7 @@ public val EPOLLWAKEUP: CInt = 0x20000000
 
 public val EPOLLONESHOT: CInt = 0x40000000
 
-public val EPOLLET: CInt = 0x80000000
+public val EPOLLET: CInt = 0x80000000.toInt()
 
 public val EPOLL_CTL_ADD: CInt = 1
 
@@ -1334,7 +1315,7 @@ public val CLONE_NEWPID: CInt = 0x20000000
 
 public val CLONE_NEWNET: CInt = 0x40000000
 
-public val CLONE_IO: CInt = 0x80000000
+public val CLONE_IO: CInt = 0x80000000.toInt()
 
 public val WNOHANG: CInt = 0x00000001
 
@@ -1409,7 +1390,7 @@ public val WNOTHREAD: CInt = 0x20000000
 
 public val WALL: CInt = 0x40000000
 
-public val WCLONE: CInt = 0x80000000
+public val WCLONE: CInt = 0x80000000.toInt()
 
 public val SPLICE_F_MOVE: CUint = 0x01u
 
@@ -1469,12 +1450,6 @@ public val SI_TIMER: CInt = -2
 public val SI_MESGQ: CInt = -3
 
 public val SI_ASYNCIO: CInt = -4
-
-public val SI_TIMER1: CInt = -3
-
-public val SI_MESGQ1: CInt = -4
-
-public val SI_ASYNCIO1: CInt = -2
 
 public val SI_SIGIO: CInt = -5
 
@@ -1554,8 +1529,6 @@ public val POLLRDBAND: CShort = 0x080
 
 public val POLLRDHUP: CShort = 0x2000
 
-public val POLLRDHUP1: CShort = 0x800
-
 public val IPTOS_LOWDELAY: UByte = 0x10u
 
 public val IPTOS_THROUGHPUT: UByte = 0x08u
@@ -1602,23 +1575,23 @@ public val IPOPT_MEASUREMENT: UByte = 0x40u
 
 public val IPOPT_RESERVED2: UByte = 0x60u
 
-public val IPOPT_END: UByte = (0u or IPOPT_CONTROL).toUByte()
+public val IPOPT_END: UByte = (0u.toUByte() or IPOPT_CONTROL).toUByte()
 
-public val IPOPT_NOOP: UByte = (1u or IPOPT_CONTROL).toUByte()
+public val IPOPT_NOOP: UByte = (1u.toUByte() or IPOPT_CONTROL).toUByte()
 
-public val IPOPT_SEC: UByte = (2u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SEC: UByte = (2u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_LSRR: UByte = (3u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_LSRR: UByte = (3u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_TIMESTAMP: UByte = (4u or IPOPT_MEASUREMENT).toUByte()
+public val IPOPT_TIMESTAMP: UByte = (4u.toUByte() or IPOPT_MEASUREMENT).toUByte()
 
-public val IPOPT_RR: UByte = (7u or IPOPT_CONTROL).toUByte()
+public val IPOPT_RR: UByte = (7u.toUByte() or IPOPT_CONTROL).toUByte()
 
-public val IPOPT_SID: UByte = (8u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SID: UByte = (8u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_SSRR: UByte = (9u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SSRR: UByte = (9u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
-public val IPOPT_RA: UByte = (20u or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_RA: UByte = (20u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
 
 public val IPVERSION: UByte = 4u
 
@@ -1848,82 +1821,82 @@ public val TUN_FLT_ALLMULTI: CInt = 0x0001
 // Ioctl operation codes
 public val T_TYPE: UInt = 84u.toUInt()
 
-public val TUNSETNOCSUM: Ioctl = IOW<CInt>(T_TYPE, 200)
+public val TUNSETNOCSUM: Ioctl = iow<CInt>(T_TYPE, 200u)
 
-public val TUNSETDEBUG: Ioctl = IOW<CInt>(T_TYPE, 201)
+public val TUNSETDEBUG: Ioctl = iow<CInt>(T_TYPE, 201u)
 
-public val TUNSETIFF: Ioctl = IOW<CInt>(T_TYPE, 202)
+public val TUNSETIFF: Ioctl = iow<CInt>(T_TYPE, 202u)
 
-public val TUNSETPERSIST: Ioctl = IOW<CInt>(T_TYPE, 203)
+public val TUNSETPERSIST: Ioctl = iow<CInt>(T_TYPE, 203u)
 
-public val TUNSETOWNER: Ioctl = IOW<CInt>(T_TYPE, 204)
+public val TUNSETOWNER: Ioctl = iow<CInt>(T_TYPE, 204u)
 
-public val TUNSETLINK: Ioctl = IOW<CInt>(T_TYPE, 205)
+public val TUNSETLINK: Ioctl = iow<CInt>(T_TYPE, 205u)
 
-public val TUNSETGROUP: Ioctl = IOW<CInt>(T_TYPE, 206)
+public val TUNSETGROUP: Ioctl = iow<CInt>(T_TYPE, 206u)
 
-public val TUNGETFEATURES: Ioctl = IOR<CInt>(T_TYPE, 207)
+public val TUNGETFEATURES: Ioctl = ior<CInt>(T_TYPE, 207u)
 
-public val TUNSETOFFLOAD: Ioctl = IOW<CInt>(T_TYPE, 208)
+public val TUNSETOFFLOAD: Ioctl = iow<CInt>(T_TYPE, 208u)
 
-public val TUNSETTXFILTER: Ioctl = IOW<CInt>(T_TYPE, 209)
+public val TUNSETTXFILTER: Ioctl = iow<CInt>(T_TYPE, 209u)
 
-public val TUNGETIFF: Ioctl = IOR<CInt>(T_TYPE, 210)
+public val TUNGETIFF: Ioctl = ior<CInt>(T_TYPE, 210u)
 
-public val TUNGETSNDBUF: Ioctl = IOR<CInt>(T_TYPE, 211)
+public val TUNGETSNDBUF: Ioctl = ior<CInt>(T_TYPE, 211u)
 
-public val TUNSETSNDBUF: Ioctl = IOW<CInt>(T_TYPE, 212)
+public val TUNSETSNDBUF: Ioctl = iow<CInt>(T_TYPE, 212u)
 
-public val TUNATTACHFILTER: Ioctl = IOW<SockFprog>(T_TYPE, 213)
+public val TUNATTACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 213u)
 
-public val TUNDETACHFILTER: Ioctl = IOW<SockFprog>(T_TYPE, 214)
+public val TUNDETACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 214u)
 
-public val TUNGETVNETHDRSZ: Ioctl = IOR<CInt>(T_TYPE, 215)
+public val TUNGETVNETHDRSZ: Ioctl = ior<CInt>(T_TYPE, 215u)
 
-public val TUNSETVNETHDRSZ: Ioctl = IOW<CInt>(T_TYPE, 216)
+public val TUNSETVNETHDRSZ: Ioctl = iow<CInt>(T_TYPE, 216u)
 
-public val TUNSETQUEUE: Ioctl = IOW<CInt>(T_TYPE, 217)
+public val TUNSETQUEUE: Ioctl = iow<CInt>(T_TYPE, 217u)
 
-public val TUNSETIFINDEX: Ioctl = IOW<CInt>(T_TYPE, 218)
+public val TUNSETIFINDEX: Ioctl = iow<CInt>(T_TYPE, 218u)
 
-public val TUNGETFILTER: Ioctl = IOR<SockFprog>(T_TYPE, 219)
+public val TUNGETFILTER: Ioctl = ior<SockFprog>(T_TYPE, 219u)
 
-public val TUNSETVNETLE: Ioctl = IOW<CInt>(T_TYPE, 220)
+public val TUNSETVNETLE: Ioctl = iow<CInt>(T_TYPE, 220u)
 
-public val TUNGETVNETLE: Ioctl = IOR<CInt>(T_TYPE, 221)
+public val TUNGETVNETLE: Ioctl = ior<CInt>(T_TYPE, 221u)
 
-public val TUNSETVNETBE: Ioctl = IOW<CInt>(T_TYPE, 222)
+public val TUNSETVNETBE: Ioctl = iow<CInt>(T_TYPE, 222u)
 
-public val TUNGETVNETBE: Ioctl = IOR<CInt>(T_TYPE, 223)
+public val TUNGETVNETBE: Ioctl = ior<CInt>(T_TYPE, 223u)
 
-public val TUNSETSTEERINGEBPF: Ioctl = IOR<CInt>(T_TYPE, 224)
+public val TUNSETSTEERINGEBPF: Ioctl = ior<CInt>(T_TYPE, 224u)
 
-public val TUNSETFILTEREBPF: Ioctl = IOR<CInt>(T_TYPE, 225)
+public val TUNSETFILTEREBPF: Ioctl = ior<CInt>(T_TYPE, 225u)
 
-public val TUNSETCARRIER: Ioctl = IOW<CInt>(T_TYPE, 226)
+public val TUNSETCARRIER: Ioctl = iow<CInt>(T_TYPE, 226u)
 
-public val TUNGETDEVNETNS: Ioctl = IO(T_TYPE, 227)
+public val TUNGETDEVNETNS: Ioctl = io(T_TYPE, 227u)
 
 // linux/fs.h
-public val FS_IOC_GETFLAGS: Ioctl = IOR<CLong>('f'.toUInt(), 1)
+public val FS_IOC_GETFLAGS: Ioctl = ior<CLong>('f'.code.toUInt(), 1u)
 
-public val FS_IOC_SETFLAGS: Ioctl = IOW<CLong>('f'.toUInt(), 2)
+public val FS_IOC_SETFLAGS: Ioctl = iow<CLong>('f'.code.toUInt(), 2u)
 
-public val FS_IOC_GETVERSION: Ioctl = IOR<CLong>('v'.toUInt(), 1)
+public val FS_IOC_GETVERSION: Ioctl = ior<CLong>('v'.code.toUInt(), 1u)
 
-public val FS_IOC_SETVERSION: Ioctl = IOW<CLong>('v'.toUInt(), 2)
+public val FS_IOC_SETVERSION: Ioctl = iow<CLong>('v'.code.toUInt(), 2u)
 
-public val FS_IOC32_GETFLAGS: Ioctl = IOR<CInt>('f'.toUInt(), 1)
+public val FS_IOC32_GETFLAGS: Ioctl = ior<CInt>('f'.code.toUInt(), 1u)
 
-public val FS_IOC32_SETFLAGS: Ioctl = IOW<CInt>('f'.toUInt(), 2)
+public val FS_IOC32_SETFLAGS: Ioctl = iow<CInt>('f'.code.toUInt(), 2u)
 
-public val FS_IOC32_GETVERSION: Ioctl = IOR<CInt>('v'.toUInt(), 1)
+public val FS_IOC32_GETVERSION: Ioctl = ior<CInt>('v'.code.toUInt(), 1u)
 
-public val FS_IOC32_SETVERSION: Ioctl = IOW<CInt>('v'.toUInt(), 2)
+public val FS_IOC32_SETVERSION: Ioctl = iow<CInt>('v'.code.toUInt(), 2u)
 
-public val FICLONE: Ioctl = IOW<CInt>(0x94, 9)
+public val FICLONE: Ioctl = iow<CInt>(0x94u, 9u)
 
-public val FICLONERANGE: Ioctl = IOW<FileCloneRange>(0x94, 13)
+public val FICLONERANGE: Ioctl = iow<FileCloneRange>(0x94u, 13u)
 
 public val ADFS_SUPER_MAGIC: CLong = 0x0000adf5L
 
@@ -2031,112 +2004,6 @@ public val XENFS_SUPER_MAGIC: CLong = 0xabba1974L
 
 public val NSFS_MAGIC: CLong = 0x6e736673L
 
-public val ADFS_SUPER_MAGIC1: CUint = 0x0000adf5u
-
-public val AFFS_SUPER_MAGIC1: CUint = 0x0000adffu
-
-public val AFS_SUPER_MAGIC1: CUint = 0x5346414fu
-
-public val AUTOFS_SUPER_MAGIC1: CUint = 0x0187u
-
-public val BPF_FS_MAGIC1: CUint = 0xcafe4a11u
-
-public val BTRFS_SUPER_MAGIC1: CUint = 0x9123683eu
-
-public val CGROUP2_SUPER_MAGIC1: CUint = 0x63677270u
-
-public val CGROUP_SUPER_MAGIC1: CUint = 0x27e0ebu
-
-public val CODA_SUPER_MAGIC1: CUint = 0x73757245u
-
-public val CRAMFS_MAGIC1: CUint = 0x28cd3d45u
-
-public val DEBUGFS_MAGIC1: CUint = 0x64626720u
-
-public val DEVPTS_SUPER_MAGIC1: CUint = 0x1cd1u
-
-public val ECRYPTFS_SUPER_MAGIC1: CUint = 0xf15fu
-
-public val EFS_SUPER_MAGIC1: CUint = 0x00414a53u
-
-public val EXT2_SUPER_MAGIC1: CUint = 0x0000ef53u
-
-public val EXT3_SUPER_MAGIC1: CUint = 0x0000ef53u
-
-public val EXT4_SUPER_MAGIC1: CUint = 0x0000ef53u
-
-public val F2FS_SUPER_MAGIC1: CUint = 0xf2f52010u
-
-public val FUSE_SUPER_MAGIC1: CUint = 0x65735546u
-
-public val FUTEXFS_SUPER_MAGIC1: CUint = 0xbad1deau
-
-public val HOSTFS_SUPER_MAGIC1: CUint = 0x00c0ffeeu
-
-public val HPFS_SUPER_MAGIC1: CUint = 0xf995e849u
-
-public val HUGETLBFS_MAGIC1: CUint = 0x958458f6u
-
-public val ISOFS_SUPER_MAGIC1: CUint = 0x00009660u
-
-public val JFFS2_SUPER_MAGIC1: CUint = 0x000072b6u
-
-public val MINIX2_SUPER_MAGIC21: CUint = 0x00002478u
-
-public val MINIX2_SUPER_MAGIC1: CUint = 0x00002468u
-
-public val MINIX3_SUPER_MAGIC1: CUint = 0x4d5au
-
-public val MINIX_SUPER_MAGIC21: CUint = 0x0000138fu
-
-public val MINIX_SUPER_MAGIC1: CUint = 0x0000137fu
-
-public val MSDOS_SUPER_MAGIC1: CUint = 0x00004d44u
-
-public val NCP_SUPER_MAGIC1: CUint = 0x0000564cu
-
-public val NFS_SUPER_MAGIC1: CUint = 0x00006969u
-
-public val NILFS_SUPER_MAGIC1: CUint = 0x3434u
-
-public val OCFS2_SUPER_MAGIC1: CUint = 0x7461636fu
-
-public val OPENPROM_SUPER_MAGIC1: CUint = 0x00009fa1u
-
-public val OVERLAYFS_SUPER_MAGIC1: CUint = 0x794c7630u
-
-public val PROC_SUPER_MAGIC1: CUint = 0x00009fa0u
-
-public val QNX4_SUPER_MAGIC1: CUint = 0x0000002fu
-
-public val QNX6_SUPER_MAGIC1: CUint = 0x68191122u
-
-public val RDTGROUP_SUPER_MAGIC1: CUint = 0x7655821u
-
-public val REISERFS_SUPER_MAGIC1: CUint = 0x52654973u
-
-public val SECURITYFS_MAGIC1: CUint = 0x73636673u
-
-public val SELINUX_MAGIC1: CUint = 0xf97cff8cu
-
-public val SMACK_MAGIC1: CUint = 0x43415d53u
-
-public val SMB_SUPER_MAGIC1: CUint = 0x0000517bu
-
-public val SYSFS_MAGIC1: CUint = 0x62656572u
-
-public val TMPFS_MAGIC1: CUint = 0x01021994u
-
-public val TRACEFS_MAGIC1: CUint = 0x74726163u
-
-public val UDF_SUPER_MAGIC1: CUint = 0x15013346u
-
-public val USBDEVICE_SUPER_MAGIC1: CUint = 0x00009fa2u
-
-public val XENFS_SUPER_MAGIC1: CUint = 0xabba1974u
-
-public val NSFS_MAGIC1: CUint = 0x6e736673u
-
 public val AT_STATX_SYNC_TYPE: CInt = 0x6000
 
 public val AT_STATX_SYNC_AS_STAT: CInt = 0x0000
@@ -2177,7 +2044,7 @@ public val STATX_MNT_ID: CUint = 0x1000u
 
 public val STATX_DIOALIGN: CUint = 0x2000u
 
-public val STATX__RESERVED: CInt = 0x80000000
+public val STATX__RESERVED: CInt = 0x80000000.toInt()
 
 public val STATX_ATTR_COMPRESSED: CInt = 0x0004
 
@@ -2213,17 +2080,6 @@ public val IOC_NONE: UInt = 1u
 public val IOC_READ: UInt = 2u
 
 public val IOC_WRITE: UInt = 4u
-
-// https://github.com/torvalds/linux/blob/b311c1b497e51a628aa89e7cb954481e5f9dced2/include/uapi/asm-generic/ioctl.h
-public val IOC_SIZEBITS1: UInt = 14u
-
-public val IOC_DIRBITS1: UInt = 2u
-
-public val IOC_NONE1: UInt = 0u
-
-public val IOC_WRITE1: UInt = 1u
-
-public val IOC_READ1: UInt = 2u
 
 public val IOC_NRMASK: UInt = (1u shl IOC_NRBITS.toInt()) - 1u
 

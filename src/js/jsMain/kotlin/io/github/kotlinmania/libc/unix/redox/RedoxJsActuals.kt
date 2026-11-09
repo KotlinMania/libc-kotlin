@@ -114,10 +114,10 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     if (_unixRedoxNapiAddon != null) (_unixRedoxNapiAddon.libc_unix_redox_pthreadSigmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    if (_unixRedoxNapiAddon != null) (_unixRedoxNapiAddon.libc_unix_redox_pthreadCancel(thread.toLong().toString()) as Int) else 0
+    if (_unixRedoxNapiAddon != null) (_unixRedoxNapiAddon.libc_unix_redox_pthreadCancel((thread?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    if (_unixRedoxNapiAddon != null) (_unixRedoxNapiAddon.libc_unix_redox_pthreadKill(thread.toLong().toString(), sig) as Int) else 0
+    if (_unixRedoxNapiAddon != null) (_unixRedoxNapiAddon.libc_unix_redox_pthreadKill((thread?.value ?: 0L).toString(), sig) as Int) else 0
 
 public actual fun sigtimedwait(set: COpaquePointer?, sig: COpaquePointer?, timeout: COpaquePointer?): CInt =
     if (_unixRedoxNapiAddon != null) (_unixRedoxNapiAddon.libc_unix_redox_sigtimedwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) as Int) else 0
@@ -164,7 +164,7 @@ public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt
 public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
     if (_unixRedoxNapiAddon != null) (_unixRedoxNapiAddon.libc_unix_redox_epollCtl(epfd, op, fd, (event?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =

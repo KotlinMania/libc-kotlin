@@ -1754,25 +1754,25 @@ public actual fun getpwnam(name: String?): COpaquePointer? =
 public actual fun getpwuid(uid: UidT): COpaquePointer? =
     FuchsiaJniBridge.libc_fuchsia_getpwuid(uid.toInt()).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -1835,13 +1835,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     FuchsiaJniBridge.libc_fuchsia_fileno((stream?.handle ?: 0L))
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     FuchsiaJniBridge.libc_fuchsia_creat(path, mode.toInt())
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -1860,7 +1860,7 @@ public actual fun rewinddir(dirp: DIR?) {
     FuchsiaJniBridge.libc_fuchsia_rewinddir((dirp?.handle ?: 0L))
 }
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
@@ -1917,13 +1917,13 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     FuchsiaJniBridge.libc_fuchsia_dup2(src, dst)
 
-public actual fun execl(path: String?, arg0: String?): CInt =
+public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execle(path: String?, arg0: String?): CInt =
+public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execlp(file: String?, arg0: String?): CInt =
+public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
@@ -2122,7 +2122,7 @@ public actual fun times(buf: COpaquePointer?): ClockT =
     FuchsiaJniBridge.libc_fuchsia_times((buf?.value ?: 0L))
 
 public actual fun pthreadSelf(): PthreadT =
-    FuchsiaJniBridge.libc_fuchsia_pthreadSelf().toULong()()
+    FuchsiaJniBridge.libc_fuchsia_pthreadSelf().toULong()
 
 public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_pthreadJoin(native.toLong(), (value?.value ?: 0L))
@@ -2475,7 +2475,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     FuchsiaJniBridge.libc_fuchsia_setlogmask(maskpri)
 
-public actual fun syslog(priority: CInt, message: String?) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun grantpt(fd: CInt): CInt =
@@ -2539,17 +2539,17 @@ public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, 
     FuchsiaJniBridge.libc_fuchsia_utimensat(dirfd, path, (times?.value ?: 0L), flag)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    FuchsiaJniBridge.libc_fuchsia_duplocale(base.toLong()).toULong()()
+    FuchsiaJniBridge.libc_fuchsia_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun freelocale(loc: LocaleT) {
-    FuchsiaJniBridge.libc_fuchsia_freelocale(loc.toLong())
+    FuchsiaJniBridge.libc_fuchsia_freelocale((loc?.value ?: 0L))
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    FuchsiaJniBridge.libc_fuchsia_newlocale(mask, locale, base.toLong()).toULong()()
+    FuchsiaJniBridge.libc_fuchsia_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    FuchsiaJniBridge.libc_fuchsia_uselocale(loc.toLong()).toULong()()
+    FuchsiaJniBridge.libc_fuchsia_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun fdopendir(fd: CInt): DIR? =
     FuchsiaJniBridge.libc_fuchsia_fdopendir(fd).let { if (it == 0L) null else DIR(it) }
@@ -2608,7 +2608,7 @@ public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePoi
 public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_fexecve(fd, (argv?.value ?: 0L), (envp?.value ?: 0L))
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
@@ -2649,7 +2649,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     FuchsiaJniBridge.libc_fuchsia_semop(semid, (sops?.value ?: 0L), nsops.toLong())
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
@@ -2716,7 +2716,7 @@ public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
     FuchsiaJniBridge.libc_fuchsia_sigwaitinfo((set?.value ?: 0L), (info?.value ?: 0L))
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    FuchsiaJniBridge.libc_fuchsia_nlLanginfoL(item, locale.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    FuchsiaJniBridge.libc_fuchsia_nlLanginfoL(item, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
     FuchsiaJniBridge.libc_fuchsia_getnameinfo((sa?.value ?: 0L), salen.toInt(), (host?.value ?: 0L), hostlen.toInt(), (serv?.value ?: 0L), servlen.toInt(), flags)
@@ -2822,7 +2822,7 @@ public actual fun sync() {
     FuchsiaJniBridge.libc_fuchsia_sync()
 }
 
-public actual fun syscall(num: CLong): CLong =
+public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -2882,7 +2882,7 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
 public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_pthreadMutexTimedlock((lock?.value ?: 0L), (abstime?.value ?: 0L))
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -2936,7 +2936,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

@@ -8,7 +8,7 @@ public actual fun errno(): COpaquePointer? =
 public actual fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
     0
 
-public actual fun ioctl(fd: Int, request: Int): Int =
+public actual fun ioctl(fd: Int, request: Int, vararg variadicArgs: Long): Int =
     0
 
 public actual fun dirfd(dirp: DIR?): Int =

@@ -4,12 +4,9 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.CMSG_FIRSTHDR
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
@@ -18,7 +15,7 @@ import io.github.kotlinmania.libc.unix.bsd.Msghdr
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SaFamilyT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.Utsname
+import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KeyT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
@@ -41,29 +38,29 @@ public fun align(p: Int): Int {
 }
 
 // sys/cpuset.h
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (ALIGN(sizeOf<Cmsghdr>())).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (align(8)).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return align(8).toUInt() + length
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
-        return CMSG_FIRSTHDR(mhdr)
+        return cmsgFirsthdr(mhdr)
     }
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + ALIGN((cmsg!!.cmsgLen).toInt()) + ALIGN(sizeOf<Cmsghdr>())
-    val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + align((cmsg!!.cmsgLen).toInt()) + align(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (next > max) {
-        nullMut<Cmsghdr>()
+        null
     } else {
         null
     }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (ALIGN(sizeOf<Cmsghdr>()) + ALIGN(length.toInt())).toUInt()
+    return (align(8) + align(length.toInt())).toUInt()
 }
 
 public fun mallocxAlign(lg: CUint): CInt {
@@ -84,49 +81,49 @@ public fun sockcredsize(ngrps: Int): Int {
     } else {
         0
     }
-    return sizeOf<Sockcred>() + sizeOf<GidT>() * ngrps1
+    return 8 + 8 * ngrps1
 }
 
-public fun uname(buf: Utsname?): CInt {
-    return xuname(256, (buf)?.let { COpaquePointer(it.hashCode().toLong()) })
+public fun uname(buf: COpaquePointer?): CInt {
+    return xuname(256, buf)
 }
 
 public fun cpuZero(cpuset: CpusetT) {
-    for (slot in cpuset.bits.iterMut()) {
-        slot = 0
+    for (idx in cpuset.bits.indices) {
+        cpuset.bits[idx] = 0L
     }
 }
 
 public fun cpuFill(cpuset: CpusetT) {
-    for (slot in cpuset.bits.iterMut()) {
-        slot = 0.inv()
+    for (idx in cpuset.bits.indices) {
+        cpuset.bits[idx] = 0L.inv()
     }
 }
 
 public fun cpuSet(cpu: Int, cpuset: CpusetT) {
-    val bitsetBits = 8 * sizeOf<CLong>()
+    val bitsetBits = 8 * 8
     val (idx, offset) = Pair(cpu / bitsetBits, cpu % bitsetBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1 shl offset)
+    cpuset.bits[idx] = cpuset.bits[idx] or (1L shl offset.toInt())
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpusetT) {
-    val bitsetBits = 8 * sizeOf<CLong>()
+    val bitsetBits = 8 * 8
     val (idx, offset) = Pair(cpu / bitsetBits, cpu % bitsetBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1 shl offset).inv()
+    cpuset.bits[idx] = cpuset.bits[idx] and (1L shl offset.toInt()).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpusetT): Boolean {
-    val bitsetBits = 8 * sizeOf<CLong>()
+    val bitsetBits = 8 * 8
     val (idx, offset) = Pair(cpu / bitsetBits, cpu % bitsetBits)
-    return 0 != cpuset.bits[idx] and (1 shl offset)
+    return 0L != cpuset.bits[idx] and (1L shl offset.toInt())
 }
 
 public fun cpuCount(cpuset: CpusetT): CInt {
     var s: UInt = 0u
-    val cpusetSize = sizeOf<CpusetT>()
-    val bitsetSize = sizeOf<CLong>()
-    for (i in cpuset.bits[0 until (cpusetSize / bitsetSize)].iter()) {
-        s += i.countOnes()
+    val cpusetSize = 8
+    val bitsetSize = 8
+    for (i in cpuset.bits.slice(0 until (cpusetSize / bitsetSize))) {
+        s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
@@ -137,7 +134,7 @@ public fun sockcred2size(ngrps: Int): Int {
     } else {
         0
     }
-    return sizeOf<Sockcred2>() + sizeOf<GidT>() * ngrps1
+    return 8 + 8 * ngrps1
 }
 
 public fun protMax(x: CInt): CInt {
@@ -153,7 +150,7 @@ public fun wifsignaled(status: CInt): Boolean {
 }
 
 public fun invalidSinfoFlag(x: CInt): Boolean {
-    return (x) and 0xfffffff0 and (SCTP_EOF or SCTP_ABORT or SCTP_UNORDERED or SCTP_ADDR_OVER or SCTP_SENDALL or SCTP_EOR or SCTP_SACK_IMMEDIATELY).inv() != 0
+    return (x) and 0xfffffff0.toInt() and (SCTP_EOF or SCTP_ABORT or SCTP_UNORDERED or SCTP_ADDR_OVER or SCTP_SENDALL or SCTP_EOR or SCTP_SACK_IMMEDIATELY).inv() != 0
 }
 
 public fun prSctpPolicy(x: CInt): CInt {
@@ -161,27 +158,27 @@ public fun prSctpPolicy(x: CInt): CInt {
 }
 
 public fun prSctpEnabled(x: CInt): Boolean {
-    return PR_SCTP_POLICY(x) != SCTP_PR_SCTP_NONE && PR_SCTP_POLICY(x) != SCTP_PR_SCTP_ALL
+    return prSctpPolicy(x) != SCTP_PR_SCTP_NONE && prSctpPolicy(x) != SCTP_PR_SCTP_ALL
 }
 
 public fun prSctpTtlEnabled(x: CInt): Boolean {
-    return PR_SCTP_POLICY(x) == SCTP_PR_SCTP_TTL
+    return prSctpPolicy(x) == SCTP_PR_SCTP_TTL
 }
 
 public fun prSctpBufEnabled(x: CInt): Boolean {
-    return PR_SCTP_POLICY(x) == SCTP_PR_SCTP_BUF
+    return prSctpPolicy(x) == SCTP_PR_SCTP_BUF
 }
 
 public fun prSctpRtxEnabled(x: CInt): Boolean {
-    return PR_SCTP_POLICY(x) == SCTP_PR_SCTP_RTX
+    return prSctpPolicy(x) == SCTP_PR_SCTP_RTX
 }
 
 public fun prSctpInvalidPolicy(x: CInt): Boolean {
-    return PR_SCTP_POLICY(x) > SCTP_PR_SCTP_MAX
+    return prSctpPolicy(x) > SCTP_PR_SCTP_MAX
 }
 
 public fun prSctpValidPolicy(x: CInt): Boolean {
-    return PR_SCTP_POLICY(x) <= SCTP_PR_SCTP_MAX
+    return prSctpPolicy(x) <= SCTP_PR_SCTP_MAX
 }
 
 public expect fun fhlink(fhp: COpaquePointer?, to: String?): CInt

@@ -4,12 +4,10 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.CMSG_FIRSTHDR
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -19,6 +17,7 @@ import io.github.kotlinmania.libc.unix.bsd.Cmsghdr
 import io.github.kotlinmania.libc.unix.bsd.Msghdr
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
+import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.IOCPARM_MASK
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.aarch64.ALIGNBYTES
 
@@ -51,29 +50,29 @@ public fun align(p: Int): Int {
     return (p + ALIGNBYTES) and ALIGNBYTES.inv()
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (ALIGN(sizeOf<Cmsghdr>()).toInt()).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (align(8).toInt()).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return align(8).toUInt() + length
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
-        return CMSG_FIRSTHDR(mhdr)
+        return cmsgFirsthdr(mhdr)
     }
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + ALIGN((cmsg!!.cmsgLen).toInt()) + ALIGN(sizeOf<Cmsghdr>())
-    val max = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + align((cmsg!!.cmsgLen).toInt()) + align(8)
+    val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (next > max) {
-        nullMut<Cmsghdr>()
+        null
     } else {
         null
     }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (ALIGN(sizeOf<Cmsghdr>()) + ALIGN(length.toInt())).toUInt()
+    return (align(8) + align(length.toInt())).toUInt()
 }
 
 public fun wstopsig(status: CInt): CInt {
@@ -108,7 +107,7 @@ public fun major(dev: DevT): CUint {
 
 public fun minor(dev: DevT): CUint {
     val dev1 = dev.toUInt()
-    var res = 0
+    var res = 0u
     res = res or ((dev1) and 0xffu)
     res = res or (((dev1) and 0xffff0000u) shr 8)
     return res

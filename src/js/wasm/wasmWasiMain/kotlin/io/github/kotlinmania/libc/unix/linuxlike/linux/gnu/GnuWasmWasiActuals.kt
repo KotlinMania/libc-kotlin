@@ -148,7 +148,7 @@ public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCa
 public actual fun globfree64(pglob: COpaquePointer?) {
 }
 
-public actual fun ptrace(request: CUint): CLong =
+public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -179,10 +179,10 @@ public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, 
     0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallinfo2(): Mallinfo2 =
-    null as Mallinfo2
+    Mallinfo2()
 
 public actual fun mallocStats() {
 }

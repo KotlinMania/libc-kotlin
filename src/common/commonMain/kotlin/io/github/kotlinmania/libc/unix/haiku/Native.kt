@@ -1,14 +1,15 @@
 // port-lint: source unix/haiku/native.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.types.CEnumRepr
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
@@ -399,232 +400,500 @@ public val B_CPU_VENDOR_SUN: CpuVendor = B_CPU_VENDOR_HYGON + 1
 public val B_CPU_VENDOR_FUJITSU: CpuVendor = B_CPU_VENDOR_SUN + 1
 
 // kernel/OS.h
-public open class AreaInfo(
-    public var area: AreaId,
-    public var name: List<CChar>,
-    public var size: Int,
-    public var lock: UInt,
-    public var protection: UInt,
-    public var team: TeamId,
-    public var ramSize: UInt,
-    public var copyCount: UInt,
-    public var inCount: UInt,
-    public var outCount: UInt,
-    public var address: COpaquePointer?,
-)
-
-public open class PortInfo(
-    public var port: PortId,
-    public var team: TeamId,
-    public var name: List<CChar>,
-    public var capacity: Int,
-    public var queueCount: Int,
-    public var totalCount: Int,
-)
-
-public open class PortMessageInfo(
-    public var size: SizeT,
-    public var sender: UidT,
-    public var senderGroup: GidT,
-    public var senderTeam: TeamId,
-)
-
-public open class TeamInfo(
-    public var team: TeamId,
-    public var threadCount: Int,
-    public var imageCount: Int,
-    public var areaCount: Int,
-    public var debuggerNubThread: ThreadId,
-    public var debuggerNubPort: PortId,
-    public var argc: Int,
-    public var args: List<CChar>,
-    public var uid: UidT,
-    public var gid: GidT,
-)
-
-public open class SemInfo(
-    public var sem: SemId,
-    public var team: TeamId,
-    public var name: List<CChar>,
-    public var count: Int,
-    public var latestHolder: ThreadId,
-)
-
-public open class TeamUsageInfo(public var userTime: BigtimeT, public var kernelTime: BigtimeT)
-
-public open class ThreadInfo(
-    public var thread: ThreadId,
-    public var team: TeamId,
-    public var name: List<CChar>,
-    public var state: ThreadState,
-    public var priority: Int,
-    public var sem: SemId,
-    public var userTime: BigtimeT,
-    public var kernelTime: BigtimeT,
-    public var stackBase: COpaquePointer?,
-    public var stackEnd: COpaquePointer?,
-)
-
-public open class CpuInfo(
-    public var activeTime: BigtimeT,
-    public var enabled: Boolean,
-    public var currentFrequency: ULong,
-)
-
-public open class SystemInfo(
-    public var bootTime: BigtimeT,
-    public var cpuCount: UInt,
-    public var maxPages: ULong,
-    public var usedPages: ULong,
-    public var cachedPages: ULong,
-    public var blockCachePages: ULong,
-    public var ignoredPages: ULong,
-    public var neededMemory: ULong,
-    public var freeMemory: ULong,
-    public var maxSwapPages: ULong,
-    public var freeSwapPages: ULong,
-    public var pageFaults: UInt,
-    public var maxSems: UInt,
-    public var usedSems: UInt,
-    public var maxPorts: UInt,
-    public var usedPorts: UInt,
-    public var maxThreads: UInt,
-    public var usedThreads: UInt,
-    public var maxTeams: UInt,
-    public var usedTeams: UInt,
-    public var kernelName: List<CChar>,
-    public var kernelBuildDate: List<CChar>,
-    public var kernelBuildTime: List<CChar>,
-    public var kernelVersion: Long,
-    public var abi: UInt,
-)
-
-public open class ObjectWaitInfo(
-    public var obj: Int,
-    public var type: UShort,
-    public var events: UShort,
-)
-
-public open class CpuTopologyRootInfo(public var platform: CpuPlatform)
-
-public open class CpuTopologyPackageInfo(public var vendor: CpuVendor, public var cacheLineSize: UInt)
-
-public open class CpuTopologyCoreInfo(public var model: UInt, public var defaultFrequency: ULong)
-
-// kernel/fsAttr.h
-public open class AttrInfo(public var type: UInt, public var size: OffT)
-
-// kernel/fsIndex.h
-public open class IndexInfo(
-    public var type: UInt,
-    public var size: OffT,
-    public var modificationTime: TimeT,
-    public var creationTime: TimeT,
-    public var uid: UidT,
-    public var gid: GidT,
-)
-
-// kernel/fsInfo.h
-public open class FsInfo(
-    public var dev: DevT,
-    public var root: InoT,
-    public var flags: UInt,
-    public var blockSize: OffT,
-    public var ioSize: OffT,
-    public var totalBlocks: OffT,
-    public var freeBlocks: OffT,
-    public var totalNodes: OffT,
-    public var freeNodes: OffT,
-    public var deviceName: List<CChar>,
-    public var volumeName: List<CChar>,
-    public var fshName: List<CChar>,
-)
-
-public open class ImageInfo(
-    public var id: ImageId,
-    public var imageType: CInt,
-    public var sequence: Int,
-    public var initOrder: Int,
-    // Note(1.0): these should be made optional
-    public var initRoutine: ImageInfoInitRoutineCallback,
-    public var termRoutine: ImageInfoInitRoutineCallback,
-    public var device: DevT,
-    public var node: InoT,
-    public var name: List<CChar>,
-    public var text: COpaquePointer?,
-    public var data: COpaquePointer?,
-    public var textSize: Int,
-    public var dataSize: Int,
-    public var apiVersion: Int,
-    public var abi: Int,
-)
-
-public open class CAnonymousEax0(public var maxEax: UInt, public var vendorId: List<CChar>)
-
-public open class CAnonymousEax1(
-    public var stepping: UInt,
-    public var model: UInt,
-    public var family: UInt,
-    public var tpe: UInt,
-    public var reserved0: UInt,
-    public var extendedModel: UInt,
-    public var extendedFamily: UInt,
-    public var reserved1: UInt,
-    public var brandIndex: UInt,
-    public var clflush: UInt,
-    public var logicalCpus: UInt,
-    public var apicId: UInt,
-    public var features: UInt,
-    public var extendedFeatures: UInt,
-)
-
-public open class CAnonymousEax2(public var callNum: UByte, public var cacheDescriptors: List<UByte>)
-
-public open class CAnonymousEax3(
-    public var reserved: List<UInt>,
-    public var serialNumberHigh: UInt,
-    public var serialNumberLow: UInt,
-)
-
-public open class CAnonymousRegs(
-    public var eax: UInt,
-    public var ebx: UInt,
-    public var edx: UInt,
-    public var ecx: UInt,
-)
-
-public open class CpuTopologyNodeInfo(
-    public var id: UInt,
-    public var type: TopologyLevelType,
-    public var level: UInt,
-    public var data: CAnonymousCpuTopologyInfoData,
-)
-
-public open class CpuidInfo(
-    public var eax0: CAnonymousEax0? = null,
-    public var eax1: CAnonymousEax1? = null,
-    public var eax2: CAnonymousEax2? = null,
-    public var eax3: CAnonymousEax3? = null,
-    public var asChars: List<CChar>? = null,
-    public var regs: CAnonymousRegs? = null,
+public data class AreaInfo(
+    public var area: AreaId = 0,
+    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var size: Int = 0,
+    public var lock: UInt = 0u,
+    public var protection: UInt = 0u,
+    public var team: TeamId = 0,
+    public var ramSize: UInt = 0u,
+    public var copyCount: UInt = 0u,
+    public var inCount: UInt = 0u,
+    public var outCount: UInt = 0u,
+    public var address: COpaquePointer? = null,
 ) {
-    public open fun eq(other: CpuidInfo): Boolean {
-        return this.eax0 == other.eax0 || this.eax1 == other.eax1 || this.eax2 == other.eax2 || this.eax3 == other.eax3 || this.asChars == other.asChars || this.regs == other.regs
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AreaInfo) return false
+        if (this.area != other.area) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.size != other.size) return false
+        if (this.lock != other.lock) return false
+        if (this.protection != other.protection) return false
+        if (this.team != other.team) return false
+        if (this.ramSize != other.ramSize) return false
+        if (this.copyCount != other.copyCount) return false
+        if (this.inCount != other.inCount) return false
+        if (this.outCount != other.outCount) return false
+        if (this.address != other.address) return false
+        return true
     }
 
-    public override fun hashCode(): Int {
-        var state = 0
-        error("traits")
-        return state
+    override fun hashCode(): Int {
+        var result = this.area.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.size.hashCode()
+        result = 31 * result + this.lock.hashCode()
+        result = 31 * result + this.protection.hashCode()
+        result = 31 * result + this.team.hashCode()
+        result = 31 * result + this.ramSize.hashCode()
+        result = 31 * result + this.copyCount.hashCode()
+        result = 31 * result + this.inCount.hashCode()
+        result = 31 * result + this.outCount.hashCode()
+        result = 31 * result + this.address.hashCode()
+        return result
     }
 }
 
-public open class CAnonymousCpuTopologyInfoData(
-    public var root: CpuTopologyRootInfo? = null,
-    public var pkg: CpuTopologyPackageInfo? = null,
-    public var core: CpuTopologyCoreInfo? = null,
+public data class PortInfo(
+    public var port: PortId = 0,
+    public var team: TeamId = 0,
+    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var capacity: Int = 0,
+    public var queueCount: Int = 0,
+    public var totalCount: Int = 0,
 ) {
-    public open fun eq(other: CAnonymousCpuTopologyInfoData): Boolean {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PortInfo) return false
+        if (this.port != other.port) return false
+        if (this.team != other.team) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.capacity != other.capacity) return false
+        if (this.queueCount != other.queueCount) return false
+        if (this.totalCount != other.totalCount) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.port.hashCode()
+        result = 31 * result + this.team.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.capacity.hashCode()
+        result = 31 * result + this.queueCount.hashCode()
+        result = 31 * result + this.totalCount.hashCode()
+        return result
+    }
+}
+
+public data class PortMessageInfo(
+    public var size: SizeT = 0uL,
+    public var sender: UidT = 0u,
+    public var senderGroup: GidT = 0u,
+    public var senderTeam: TeamId = 0,
+)
+
+public data class TeamInfo(
+    public var team: TeamId = 0,
+    public var threadCount: Int = 0,
+    public var imageCount: Int = 0,
+    public var areaCount: Int = 0,
+    public var debuggerNubThread: ThreadId = 0,
+    public var debuggerNubPort: PortId = 0,
+    public var argc: Int = 0,
+    public var args: UByteArray = UByteArray(64),
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is TeamInfo) return false
+        if (this.team != other.team) return false
+        if (this.threadCount != other.threadCount) return false
+        if (this.imageCount != other.imageCount) return false
+        if (this.areaCount != other.areaCount) return false
+        if (this.debuggerNubThread != other.debuggerNubThread) return false
+        if (this.debuggerNubPort != other.debuggerNubPort) return false
+        if (this.argc != other.argc) return false
+        if (!this.args.contentEquals(other.args)) return false
+        if (this.uid != other.uid) return false
+        if (this.gid != other.gid) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.team.hashCode()
+        result = 31 * result + this.threadCount.hashCode()
+        result = 31 * result + this.imageCount.hashCode()
+        result = 31 * result + this.areaCount.hashCode()
+        result = 31 * result + this.debuggerNubThread.hashCode()
+        result = 31 * result + this.debuggerNubPort.hashCode()
+        result = 31 * result + this.argc.hashCode()
+        result = 31 * result + this.args.contentHashCode()
+        result = 31 * result + this.uid.hashCode()
+        result = 31 * result + this.gid.hashCode()
+        return result
+    }
+}
+
+public data class SemInfo(
+    public var sem: SemId = 0,
+    public var team: TeamId = 0,
+    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var count: Int = 0,
+    public var latestHolder: ThreadId = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SemInfo) return false
+        if (this.sem != other.sem) return false
+        if (this.team != other.team) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.count != other.count) return false
+        if (this.latestHolder != other.latestHolder) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.sem.hashCode()
+        result = 31 * result + this.team.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.count.hashCode()
+        result = 31 * result + this.latestHolder.hashCode()
+        return result
+    }
+}
+
+public data class TeamUsageInfo(public var userTime: BigtimeT = 0L, public var kernelTime: BigtimeT = 0L)
+
+public data class ThreadInfo(
+    public var thread: ThreadId = 0,
+    public var team: TeamId = 0,
+    public var name: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var state: ThreadState = 0u,
+    public var priority: Int = 0,
+    public var sem: SemId = 0,
+    public var userTime: BigtimeT = 0L,
+    public var kernelTime: BigtimeT = 0L,
+    public var stackBase: COpaquePointer? = null,
+    public var stackEnd: COpaquePointer? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ThreadInfo) return false
+        if (this.thread != other.thread) return false
+        if (this.team != other.team) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.state != other.state) return false
+        if (this.priority != other.priority) return false
+        if (this.sem != other.sem) return false
+        if (this.userTime != other.userTime) return false
+        if (this.kernelTime != other.kernelTime) return false
+        if (this.stackBase != other.stackBase) return false
+        if (this.stackEnd != other.stackEnd) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.thread.hashCode()
+        result = 31 * result + this.team.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.state.hashCode()
+        result = 31 * result + this.priority.hashCode()
+        result = 31 * result + this.sem.hashCode()
+        result = 31 * result + this.userTime.hashCode()
+        result = 31 * result + this.kernelTime.hashCode()
+        result = 31 * result + this.stackBase.hashCode()
+        result = 31 * result + this.stackEnd.hashCode()
+        return result
+    }
+}
+
+public data class CpuInfo(
+    public var activeTime: BigtimeT = 0L,
+    public var enabled: Boolean = false,
+    public var currentFrequency: ULong = 0uL,
+)
+
+public class SystemInfo(
+    public var bootTime: BigtimeT = 0L,
+    public var cpuCount: UInt = 0u,
+    public var maxPages: ULong = 0uL,
+    public var usedPages: ULong = 0uL,
+    public var cachedPages: ULong = 0uL,
+    public var blockCachePages: ULong = 0uL,
+    public var ignoredPages: ULong = 0uL,
+    public var neededMemory: ULong = 0uL,
+    public var freeMemory: ULong = 0uL,
+    public var maxSwapPages: ULong = 0uL,
+    public var freeSwapPages: ULong = 0uL,
+    public var pageFaults: UInt = 0u,
+    public var maxSems: UInt = 0u,
+    public var usedSems: UInt = 0u,
+    public var maxPorts: UInt = 0u,
+    public var usedPorts: UInt = 0u,
+    public var maxThreads: UInt = 0u,
+    public var usedThreads: UInt = 0u,
+    public var maxTeams: UInt = 0u,
+    public var usedTeams: UInt = 0u,
+    public var kernelName: UByteArray = UByteArray((B_FILE_NAME_LENGTH).toInt()),
+    public var kernelBuildDate: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var kernelBuildTime: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+    public var kernelVersion: Long = 0L,
+    public var abi: UInt = 0u,
+)
+
+public data class ObjectWaitInfo(
+    public var obj: Int = 0,
+    public var type: UShort = 0u,
+    public var events: UShort = 0u,
+)
+
+public data class CpuTopologyRootInfo(public var platform: CpuPlatform = 0u)
+
+public data class CpuTopologyPackageInfo(public var vendor: CpuVendor = 0u, public var cacheLineSize: UInt = 0u)
+
+public data class CpuTopologyCoreInfo(public var model: UInt = 0u, public var defaultFrequency: ULong = 0uL)
+
+// kernel/fsAttr.h
+public data class AttrInfo(public var type: UInt = 0u, public var size: OffT = 0L)
+
+// kernel/fsIndex.h
+public data class IndexInfo(
+    public var type: UInt = 0u,
+    public var size: OffT = 0L,
+    public var modificationTime: TimeT = 0L,
+    public var creationTime: TimeT = 0L,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+)
+
+// kernel/fsInfo.h
+public data class FsInfo(
+    public var dev: DevT = 0,
+    public var root: InoT = 0L,
+    public var flags: UInt = 0u,
+    public var blockSize: OffT = 0L,
+    public var ioSize: OffT = 0L,
+    public var totalBlocks: OffT = 0L,
+    public var freeBlocks: OffT = 0L,
+    public var totalNodes: OffT = 0L,
+    public var freeNodes: OffT = 0L,
+    public var deviceName: UByteArray = UByteArray(128),
+    public var volumeName: UByteArray = UByteArray((B_FILE_NAME_LENGTH).toInt()),
+    public var fshName: UByteArray = UByteArray((B_OS_NAME_LENGTH).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FsInfo) return false
+        if (this.dev != other.dev) return false
+        if (this.root != other.root) return false
+        if (this.flags != other.flags) return false
+        if (this.blockSize != other.blockSize) return false
+        if (this.ioSize != other.ioSize) return false
+        if (this.totalBlocks != other.totalBlocks) return false
+        if (this.freeBlocks != other.freeBlocks) return false
+        if (this.totalNodes != other.totalNodes) return false
+        if (this.freeNodes != other.freeNodes) return false
+        if (!this.deviceName.contentEquals(other.deviceName)) return false
+        if (!this.volumeName.contentEquals(other.volumeName)) return false
+        if (!this.fshName.contentEquals(other.fshName)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dev.hashCode()
+        result = 31 * result + this.root.hashCode()
+        result = 31 * result + this.flags.hashCode()
+        result = 31 * result + this.blockSize.hashCode()
+        result = 31 * result + this.ioSize.hashCode()
+        result = 31 * result + this.totalBlocks.hashCode()
+        result = 31 * result + this.freeBlocks.hashCode()
+        result = 31 * result + this.totalNodes.hashCode()
+        result = 31 * result + this.freeNodes.hashCode()
+        result = 31 * result + this.deviceName.contentHashCode()
+        result = 31 * result + this.volumeName.contentHashCode()
+        result = 31 * result + this.fshName.contentHashCode()
+        return result
+    }
+}
+
+public data class ImageInfo(
+    public var id: ImageId = 0,
+    public var imageType: CInt = 0,
+    public var sequence: Int = 0,
+    public var initOrder: Int = 0,
+    // Note(1.0): these should be made optional
+    public var initRoutine: ImageInfoInitRoutineCallback = ImageInfoInitRoutineCallback {},
+    public var termRoutine: ImageInfoInitRoutineCallback = ImageInfoInitRoutineCallback {},
+    public var device: DevT = 0,
+    public var node: InoT = 0L,
+    public var name: UByteArray = UByteArray(PATH_MAX.toInt()),
+    public var text: COpaquePointer? = null,
+    public var data: COpaquePointer? = null,
+    public var textSize: Int = 0,
+    public var dataSize: Int = 0,
+    public var apiVersion: Int = 0,
+    public var abi: Int = 0,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ImageInfo) return false
+        if (this.id != other.id) return false
+        if (this.imageType != other.imageType) return false
+        if (this.sequence != other.sequence) return false
+        if (this.initOrder != other.initOrder) return false
+        if (this.initRoutine != other.initRoutine) return false
+        if (this.termRoutine != other.termRoutine) return false
+        if (this.device != other.device) return false
+        if (this.node != other.node) return false
+        if (!this.name.contentEquals(other.name)) return false
+        if (this.text != other.text) return false
+        if (this.data != other.data) return false
+        if (this.textSize != other.textSize) return false
+        if (this.dataSize != other.dataSize) return false
+        if (this.apiVersion != other.apiVersion) return false
+        if (this.abi != other.abi) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.id.hashCode()
+        result = 31 * result + this.imageType.hashCode()
+        result = 31 * result + this.sequence.hashCode()
+        result = 31 * result + this.initOrder.hashCode()
+        result = 31 * result + this.initRoutine.hashCode()
+        result = 31 * result + this.termRoutine.hashCode()
+        result = 31 * result + this.device.hashCode()
+        result = 31 * result + this.node.hashCode()
+        result = 31 * result + this.name.contentHashCode()
+        result = 31 * result + this.text.hashCode()
+        result = 31 * result + this.data.hashCode()
+        result = 31 * result + this.textSize.hashCode()
+        result = 31 * result + this.dataSize.hashCode()
+        result = 31 * result + this.apiVersion.hashCode()
+        result = 31 * result + this.abi.hashCode()
+        return result
+    }
+}
+
+public data class CAnonymousEax0(public var maxEax: UInt = 0u, public var vendorId: UByteArray = UByteArray(12)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousEax0) return false
+        if (this.maxEax != other.maxEax) return false
+        if (!this.vendorId.contentEquals(other.vendorId)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.maxEax.hashCode()
+        result = 31 * result + this.vendorId.contentHashCode()
+        return result
+    }
+}
+
+public data class CAnonymousEax1(
+    public var stepping: UInt = 0u,
+    public var model: UInt = 0u,
+    public var family: UInt = 0u,
+    public var tpe: UInt = 0u,
+    public var reserved0: UInt = 0u,
+    public var extendedModel: UInt = 0u,
+    public var extendedFamily: UInt = 0u,
+    public var reserved1: UInt = 0u,
+    public var brandIndex: UInt = 0u,
+    public var clflush: UInt = 0u,
+    public var logicalCpus: UInt = 0u,
+    public var apicId: UInt = 0u,
+    public var features: UInt = 0u,
+    public var extendedFeatures: UInt = 0u,
+)
+
+public data class CAnonymousEax2(public var callNum: UByte = 0u, public var cacheDescriptors: UByteArray = UByteArray(15)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousEax2) return false
+        if (this.callNum != other.callNum) return false
+        if (!this.cacheDescriptors.contentEquals(other.cacheDescriptors)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.callNum.hashCode()
+        result = 31 * result + this.cacheDescriptors.contentHashCode()
+        return result
+    }
+}
+
+public data class CAnonymousEax3(
+    public var reserved: UIntArray = UIntArray(2),
+    public var serialNumberHigh: UInt = 0u,
+    public var serialNumberLow: UInt = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousEax3) return false
+        if (!this.reserved.contentEquals(other.reserved)) return false
+        if (this.serialNumberHigh != other.serialNumberHigh) return false
+        if (this.serialNumberLow != other.serialNumberLow) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.reserved.contentHashCode()
+        result = 31 * result + this.serialNumberHigh.hashCode()
+        result = 31 * result + this.serialNumberLow.hashCode()
+        return result
+    }
+}
+
+public data class CAnonymousRegs(
+    public var eax: UInt = 0u,
+    public var ebx: UInt = 0u,
+    public var edx: UInt = 0u,
+    public var ecx: UInt = 0u,
+)
+
+public data class CpuTopologyNodeInfo(
+    public var id: UInt = 0u,
+    public var type: TopologyLevelType = 0u,
+    public var level: UInt = 0u,
+    public var data: CAnonymousCpuTopologyInfoData = CAnonymousCpuTopologyInfoData(),
+)
+
+public data class CpuidInfo(
+    public var eax0: CAnonymousEax0 = CAnonymousEax0(),
+    public var eax1: CAnonymousEax1 = CAnonymousEax1(),
+    public var eax2: CAnonymousEax2 = CAnonymousEax2(),
+    public var eax3: CAnonymousEax3 = CAnonymousEax3(),
+    public var asChars: UByteArray = UByteArray(16),
+    public var regs: CAnonymousRegs = CAnonymousRegs(),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CpuidInfo) return false
+        if (this.eax0 != other.eax0) return false
+        if (this.eax1 != other.eax1) return false
+        if (this.eax2 != other.eax2) return false
+        if (this.eax3 != other.eax3) return false
+        if (!this.asChars.contentEquals(other.asChars)) return false
+        if (this.regs != other.regs) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.eax0.hashCode()
+        result = 31 * result + this.eax1.hashCode()
+        result = 31 * result + this.eax2.hashCode()
+        result = 31 * result + this.eax3.hashCode()
+        result = 31 * result + this.asChars.contentHashCode()
+        result = 31 * result + this.regs.hashCode()
+        return result
+    }
+
+    public fun eq(other: CpuidInfo): Boolean {
+        return this.eax0 == other.eax0 || this.eax1 == other.eax1 || this.eax2 == other.eax2 || this.eax3 == other.eax3 || this.asChars == other.asChars || this.regs == other.regs
+    }
+}
+
+public data class CAnonymousCpuTopologyInfoData(
+    public var root: CpuTopologyRootInfo = CpuTopologyRootInfo(),
+    public var pkg: CpuTopologyPackageInfo = CpuTopologyPackageInfo(),
+    public var core: CpuTopologyCoreInfo = CpuTopologyCoreInfo(),
+) {
+    public fun eq(other: CAnonymousCpuTopologyInfoData): Boolean {
         return this.root == other.root || this.pkg == other.pkg || this.core == other.core
     }
 
@@ -640,7 +909,7 @@ public val B_OS_NAME_LENGTH: Int = 32
 
 public val B_PAGE_SIZE: Int = 4096
 
-public val B_INFINITE_TIMEOUT: Int = 9223372036854775807
+public val B_INFINITE_TIMEOUT: Int = 9223372036854775807L.toInt()
 
 public val B_RELATIVE_TIMEOUT: UInt = 0x8u
 
@@ -1214,107 +1483,107 @@ public val B_NO_TRANSLATOR: StatusT = B_TRANSLATION_ERROR_BASE + 1
 public val B_ILLEGAL_DATA: StatusT = B_TRANSLATION_ERROR_BASE + 2
 
 // support/TypeConstants.h
-public val B_AFFINE_TRANSFORM_TYPE: UInt = (('A'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('X'.toUInt())
+public val B_AFFINE_TRANSFORM_TYPE: UInt = (('A'.code.toUInt()) shl 24) + (('M'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('X'.code.toUInt())
 
-public val B_ALIGNMENT_TYPE: UInt = (('A'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('G'.toUInt()) shl 8) + ('N'.toUInt())
+public val B_ALIGNMENT_TYPE: UInt = (('A'.code.toUInt()) shl 24) + (('L'.code.toUInt()) shl 16) + (('G'.code.toUInt()) shl 8) + ('N'.code.toUInt())
 
-public val B_ANY_TYPE: UInt = (('A'.toUInt()) shl 24) + (('N'.toUInt()) shl 16) + (('Y'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_ANY_TYPE: UInt = (('A'.code.toUInt()) shl 24) + (('N'.code.toUInt()) shl 16) + (('Y'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_ATOM_TYPE: UInt = (('A'.toUInt()) shl 24) + (('T'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('M'.toUInt())
+public val B_ATOM_TYPE: UInt = (('A'.code.toUInt()) shl 24) + (('T'.code.toUInt()) shl 16) + (('O'.code.toUInt()) shl 8) + ('M'.code.toUInt())
 
-public val B_ATOMREF_TYPE: UInt = (('A'.toUInt()) shl 24) + (('T'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('R'.toUInt())
+public val B_ATOMREF_TYPE: UInt = (('A'.code.toUInt()) shl 24) + (('T'.code.toUInt()) shl 16) + (('M'.code.toUInt()) shl 8) + ('R'.code.toUInt())
 
-public val B_BOOL_TYPE: UInt = (('B'.toUInt()) shl 24) + (('O'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('L'.toUInt())
+public val B_BOOL_TYPE: UInt = (('B'.code.toUInt()) shl 24) + (('O'.code.toUInt()) shl 16) + (('O'.code.toUInt()) shl 8) + ('L'.code.toUInt())
 
-public val B_CHAR_TYPE: UInt = (('C'.toUInt()) shl 24) + (('H'.toUInt()) shl 16) + (('A'.toUInt()) shl 8) + ('R'.toUInt())
+public val B_CHAR_TYPE: UInt = (('C'.code.toUInt()) shl 24) + (('H'.code.toUInt()) shl 16) + (('A'.code.toUInt()) shl 8) + ('R'.code.toUInt())
 
-public val B_COLOR_8_BIT_TYPE: UInt = (('C'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('R'.toUInt()) shl 8) + ('B'.toUInt())
+public val B_COLOR_8_BIT_TYPE: UInt = (('C'.code.toUInt()) shl 24) + (('L'.code.toUInt()) shl 16) + (('R'.code.toUInt()) shl 8) + ('B'.code.toUInt())
 
-public val B_DOUBLE_TYPE: UInt = (('D'.toUInt()) shl 24) + (('B'.toUInt()) shl 16) + (('L'.toUInt()) shl 8) + ('E'.toUInt())
+public val B_DOUBLE_TYPE: UInt = (('D'.code.toUInt()) shl 24) + (('B'.code.toUInt()) shl 16) + (('L'.code.toUInt()) shl 8) + ('E'.code.toUInt())
 
-public val B_FLOAT_TYPE: UInt = (('F'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_FLOAT_TYPE: UInt = (('F'.code.toUInt()) shl 24) + (('L'.code.toUInt()) shl 16) + (('O'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_GRAYSCALE_8_BIT_TYPE: UInt = (('G'.toUInt()) shl 24) + (('R'.toUInt()) shl 16) + (('Y'.toUInt()) shl 8) + ('B'.toUInt())
+public val B_GRAYSCALE_8_BIT_TYPE: UInt = (('G'.code.toUInt()) shl 24) + (('R'.code.toUInt()) shl 16) + (('Y'.code.toUInt()) shl 8) + ('B'.code.toUInt())
 
-public val B_INT16_TYPE: UInt = (('S'.toUInt()) shl 24) + (('H'.toUInt()) shl 16) + (('R'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_INT16_TYPE: UInt = (('S'.code.toUInt()) shl 24) + (('H'.code.toUInt()) shl 16) + (('R'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_INT32_TYPE: UInt = (('L'.toUInt()) shl 24) + (('O'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+public val B_INT32_TYPE: UInt = (('L'.code.toUInt()) shl 24) + (('O'.code.toUInt()) shl 16) + (('N'.code.toUInt()) shl 8) + ('G'.code.toUInt())
 
-public val B_INT64_TYPE: UInt = (('L'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+public val B_INT64_TYPE: UInt = (('L'.code.toUInt()) shl 24) + (('L'.code.toUInt()) shl 16) + (('N'.code.toUInt()) shl 8) + ('G'.code.toUInt())
 
-public val B_INT8_TYPE: UInt = (('B'.toUInt()) shl 24) + (('Y'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('E'.toUInt())
+public val B_INT8_TYPE: UInt = (('B'.code.toUInt()) shl 24) + (('Y'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('E'.code.toUInt())
 
-public val B_LARGE_ICON_TYPE: UInt = (('I'.toUInt()) shl 24) + (('C'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('N'.toUInt())
+public val B_LARGE_ICON_TYPE: UInt = (('I'.code.toUInt()) shl 24) + (('C'.code.toUInt()) shl 16) + (('O'.code.toUInt()) shl 8) + ('N'.code.toUInt())
 
-public val B_MEDIA_PARAMETER_GROUP_TYPE: UInt = (('B'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('G'.toUInt())
+public val B_MEDIA_PARAMETER_GROUP_TYPE: UInt = (('B'.code.toUInt()) shl 24) + (('M'.code.toUInt()) shl 16) + (('C'.code.toUInt()) shl 8) + ('G'.code.toUInt())
 
-public val B_MEDIA_PARAMETER_TYPE: UInt = (('B'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_MEDIA_PARAMETER_TYPE: UInt = (('B'.code.toUInt()) shl 24) + (('M'.code.toUInt()) shl 16) + (('C'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_MEDIA_PARAMETER_WEB_TYPE: UInt = (('B'.toUInt()) shl 24) + (('M'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('W'.toUInt())
+public val B_MEDIA_PARAMETER_WEB_TYPE: UInt = (('B'.code.toUInt()) shl 24) + (('M'.code.toUInt()) shl 16) + (('C'.code.toUInt()) shl 8) + ('W'.code.toUInt())
 
-public val B_MESSAGE_TYPE: UInt = (('M'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('G'.toUInt()) shl 8) + ('G'.toUInt())
+public val B_MESSAGE_TYPE: UInt = (('M'.code.toUInt()) shl 24) + (('S'.code.toUInt()) shl 16) + (('G'.code.toUInt()) shl 8) + ('G'.code.toUInt())
 
-public val B_MESSENGER_TYPE: UInt = (('M'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+public val B_MESSENGER_TYPE: UInt = (('M'.code.toUInt()) shl 24) + (('S'.code.toUInt()) shl 16) + (('N'.code.toUInt()) shl 8) + ('G'.code.toUInt())
 
-public val B_MIME_TYPE: UInt = (('M'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('E'.toUInt())
+public val B_MIME_TYPE: UInt = (('M'.code.toUInt()) shl 24) + (('I'.code.toUInt()) shl 16) + (('M'.code.toUInt()) shl 8) + ('E'.code.toUInt())
 
-public val B_MINI_ICON_TYPE: UInt = (('M'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('N'.toUInt())
+public val B_MINI_ICON_TYPE: UInt = (('M'.code.toUInt()) shl 24) + (('I'.code.toUInt()) shl 16) + (('C'.code.toUInt()) shl 8) + ('N'.code.toUInt())
 
-public val B_MONOCHROME_1_BIT_TYPE: UInt = (('M'.toUInt()) shl 24) + (('N'.toUInt()) shl 16) + (('O'.toUInt()) shl 8) + ('B'.toUInt())
+public val B_MONOCHROME_1_BIT_TYPE: UInt = (('M'.code.toUInt()) shl 24) + (('N'.code.toUInt()) shl 16) + (('O'.code.toUInt()) shl 8) + ('B'.code.toUInt())
 
-public val B_OBJECT_TYPE: UInt = (('O'.toUInt()) shl 24) + (('P'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+public val B_OBJECT_TYPE: UInt = (('O'.code.toUInt()) shl 24) + (('P'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('R'.code.toUInt())
 
-public val B_OFF_T_TYPE: UInt = (('O'.toUInt()) shl 24) + (('F'.toUInt()) shl 16) + (('F'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_OFF_T_TYPE: UInt = (('O'.code.toUInt()) shl 24) + (('F'.code.toUInt()) shl 16) + (('F'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_PATTERN_TYPE: UInt = (('P'.toUInt()) shl 24) + (('A'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('N'.toUInt())
+public val B_PATTERN_TYPE: UInt = (('P'.code.toUInt()) shl 24) + (('A'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('N'.code.toUInt())
 
-public val B_POINTER_TYPE: UInt = (('P'.toUInt()) shl 24) + (('N'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+public val B_POINTER_TYPE: UInt = (('P'.code.toUInt()) shl 24) + (('N'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('R'.code.toUInt())
 
-public val B_POINT_TYPE: UInt = (('B'.toUInt()) shl 24) + (('P'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_POINT_TYPE: UInt = (('B'.code.toUInt()) shl 24) + (('P'.code.toUInt()) shl 16) + (('N'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_PROPERTY_INFO_TYPE: UInt = (('S'.toUInt()) shl 24) + (('C'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('D'.toUInt())
+public val B_PROPERTY_INFO_TYPE: UInt = (('S'.code.toUInt()) shl 24) + (('C'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('D'.code.toUInt())
 
-public val B_RAW_TYPE: UInt = (('R'.toUInt()) shl 24) + (('A'.toUInt()) shl 16) + (('W'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_RAW_TYPE: UInt = (('R'.code.toUInt()) shl 24) + (('A'.code.toUInt()) shl 16) + (('W'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_RECT_TYPE: UInt = (('R'.toUInt()) shl 24) + (('E'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_RECT_TYPE: UInt = (('R'.code.toUInt()) shl 24) + (('E'.code.toUInt()) shl 16) + (('C'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_REF_TYPE: UInt = (('R'.toUInt()) shl 24) + (('R'.toUInt()) shl 16) + (('E'.toUInt()) shl 8) + ('F'.toUInt())
+public val B_REF_TYPE: UInt = (('R'.code.toUInt()) shl 24) + (('R'.code.toUInt()) shl 16) + (('E'.code.toUInt()) shl 8) + ('F'.code.toUInt())
 
-public val B_RGB_32_BIT_TYPE: UInt = (('R'.toUInt()) shl 24) + (('G'.toUInt()) shl 16) + (('B'.toUInt()) shl 8) + ('B'.toUInt())
+public val B_RGB_32_BIT_TYPE: UInt = (('R'.code.toUInt()) shl 24) + (('G'.code.toUInt()) shl 16) + (('B'.code.toUInt()) shl 8) + ('B'.code.toUInt())
 
-public val B_RGB_COLOR_TYPE: UInt = (('R'.toUInt()) shl 24) + (('G'.toUInt()) shl 16) + (('B'.toUInt()) shl 8) + ('C'.toUInt())
+public val B_RGB_COLOR_TYPE: UInt = (('R'.code.toUInt()) shl 24) + (('G'.code.toUInt()) shl 16) + (('B'.code.toUInt()) shl 8) + ('C'.code.toUInt())
 
-public val B_SIZE_TYPE: UInt = (('S'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('Z'.toUInt()) shl 8) + ('E'.toUInt())
+public val B_SIZE_TYPE: UInt = (('S'.code.toUInt()) shl 24) + (('I'.code.toUInt()) shl 16) + (('Z'.code.toUInt()) shl 8) + ('E'.code.toUInt())
 
-public val B_SIZE_T_TYPE: UInt = (('S'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('Z'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_SIZE_T_TYPE: UInt = (('S'.code.toUInt()) shl 24) + (('I'.code.toUInt()) shl 16) + (('Z'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_SSIZE_T_TYPE: UInt = (('S'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('Z'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_SSIZE_T_TYPE: UInt = (('S'.code.toUInt()) shl 24) + (('S'.code.toUInt()) shl 16) + (('Z'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_STRING_TYPE: UInt = (('C'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+public val B_STRING_TYPE: UInt = (('C'.code.toUInt()) shl 24) + (('S'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('R'.code.toUInt())
 
-public val B_STRING_LIST_TYPE: UInt = (('S'.toUInt()) shl 24) + (('T'.toUInt()) shl 16) + (('R'.toUInt()) shl 8) + ('L'.toUInt())
+public val B_STRING_LIST_TYPE: UInt = (('S'.code.toUInt()) shl 24) + (('T'.code.toUInt()) shl 16) + (('R'.code.toUInt()) shl 8) + ('L'.code.toUInt())
 
-public val B_TIME_TYPE: UInt = (('T'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('E'.toUInt())
+public val B_TIME_TYPE: UInt = (('T'.code.toUInt()) shl 24) + (('I'.code.toUInt()) shl 16) + (('M'.code.toUInt()) shl 8) + ('E'.code.toUInt())
 
-public val B_UINT16_TYPE: UInt = (('U'.toUInt()) shl 24) + (('S'.toUInt()) shl 16) + (('H'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_UINT16_TYPE: UInt = (('U'.code.toUInt()) shl 24) + (('S'.code.toUInt()) shl 16) + (('H'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_UINT32_TYPE: UInt = (('U'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('N'.toUInt()) shl 8) + ('G'.toUInt())
+public val B_UINT32_TYPE: UInt = (('U'.code.toUInt()) shl 24) + (('L'.code.toUInt()) shl 16) + (('N'.code.toUInt()) shl 8) + ('G'.code.toUInt())
 
-public val B_UINT64_TYPE: UInt = (('U'.toUInt()) shl 24) + (('L'.toUInt()) shl 16) + (('L'.toUInt()) shl 8) + ('G'.toUInt())
+public val B_UINT64_TYPE: UInt = (('U'.code.toUInt()) shl 24) + (('L'.code.toUInt()) shl 16) + (('L'.code.toUInt()) shl 8) + ('G'.code.toUInt())
 
-public val B_UINT8_TYPE: UInt = (('U'.toUInt()) shl 24) + (('B'.toUInt()) shl 16) + (('Y'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_UINT8_TYPE: UInt = (('U'.code.toUInt()) shl 24) + (('B'.code.toUInt()) shl 16) + (('Y'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_VECTOR_ICON_TYPE: UInt = (('V'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('C'.toUInt()) shl 8) + ('N'.toUInt())
+public val B_VECTOR_ICON_TYPE: UInt = (('V'.code.toUInt()) shl 24) + (('I'.code.toUInt()) shl 16) + (('C'.code.toUInt()) shl 8) + ('N'.code.toUInt())
 
-public val B_XATTR_TYPE: UInt = (('X'.toUInt()) shl 24) + (('A'.toUInt()) shl 16) + (('T'.toUInt()) shl 8) + ('R'.toUInt())
+public val B_XATTR_TYPE: UInt = (('X'.code.toUInt()) shl 24) + (('A'.code.toUInt()) shl 16) + (('T'.code.toUInt()) shl 8) + ('R'.code.toUInt())
 
-public val B_NETWORK_ADDRESS_TYPE: UInt = (('N'.toUInt()) shl 24) + (('W'.toUInt()) shl 16) + (('A'.toUInt()) shl 8) + ('D'.toUInt())
+public val B_NETWORK_ADDRESS_TYPE: UInt = (('N'.code.toUInt()) shl 24) + (('W'.code.toUInt()) shl 16) + (('A'.code.toUInt()) shl 8) + ('D'.code.toUInt())
 
-public val B_MIME_STRING_TYPE: UInt = (('M'.toUInt()) shl 24) + (('I'.toUInt()) shl 16) + (('M'.toUInt()) shl 8) + ('S'.toUInt())
+public val B_MIME_STRING_TYPE: UInt = (('M'.code.toUInt()) shl 24) + (('I'.code.toUInt()) shl 16) + (('M'.code.toUInt()) shl 8) + ('S'.code.toUInt())
 
-public val B_ASCII_TYPE: UInt = (('T'.toUInt()) shl 24) + (('E'.toUInt()) shl 16) + (('X'.toUInt()) shl 8) + ('T'.toUInt())
+public val B_ASCII_TYPE: UInt = (('T'.code.toUInt()) shl 24) + (('E'.code.toUInt()) shl 16) + (('X'.code.toUInt()) shl 8) + ('T'.code.toUInt())
 
-public val B_APP_IMAGE_SYMBOL: COpaquePointer? = nullVal()
+public val B_APP_IMAGE_SYMBOL: COpaquePointer? = null
 
 // kernel/OS.h
 public expect fun createArea(name: String?, startAddress: COpaquePointer?, addressSpec: UInt, size: ULong, lock: UInt, protection: UInt): AreaId
@@ -1578,62 +1847,62 @@ public expect fun getCpuid(info: COpaquePointer?, eaxRegister: UInt, cpuNum: UIn
 
 // The following functions are defined as macros in C/C++
 public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: CpuInfo?): StatusT {
-    return getCpuInfoEtc(firstCPU, cpuCount, info, sizeOf<CpuInfo>().toULong())
+    return getCpuInfoEtc(firstCPU, cpuCount, info, 8.toULong())
 }
 
 public fun getAreaInfo(id: AreaId, info: AreaInfo?): StatusT {
-    return getAreaInfo(id, info, sizeOf<AreaInfo>().toInt())
+    return getAreaInfo(id, info, 8.toInt())
 }
 
 public fun getNextAreaInfo(team: TeamId, cookie: Int?, info: AreaInfo?): StatusT {
-    return getNextAreaInfo(team, cookie, info, sizeOf<AreaInfo>().toInt())
+    return getNextAreaInfo(team, cookie, info, 8.toInt())
 }
 
 public fun getPortInfo(port: PortId, buf: PortInfo?): StatusT {
-    return getPortInfo(port, buf, sizeOf<PortInfo>().toULong())
+    return getPortInfo(port, buf, 8.toULong())
 }
 
 public fun getNextPortInfo(port: PortId, cookie: Int?, portInfo: PortInfo?): StatusT {
-    return getNextPortInfo(port, cookie, portInfo, sizeOf<PortInfo>().toULong())
+    return getNextPortInfo(port, cookie, portInfo, 8.toULong())
 }
 
 public fun getPortMessageInfoEtc(port: PortId, info: PortMessageInfo?, flags: UInt, timeout: BigtimeT): StatusT {
-    return getPortMessageInfoEtc(port, info, sizeOf<PortMessageInfo>().toULong(), flags, timeout)
+    return getPortMessageInfoEtc(port, info, 8.toULong(), flags, timeout)
 }
 
 public fun getSemInfo(id: SemId, info: SemInfo?): StatusT {
-    return getSemInfo(id, info, sizeOf<SemInfo>().toULong())
+    return getSemInfo(id, info, 8.toULong())
 }
 
 public fun getNextSemInfo(team: TeamId, cookie: Int?, info: SemInfo?): StatusT {
-    return getNextSemInfo(team, cookie, info, sizeOf<SemInfo>().toULong())
+    return getNextSemInfo(team, cookie, info, 8.toULong())
 }
 
 public fun getTeamInfo(team: TeamId, info: TeamInfo?): StatusT {
-    return getTeamInfo(team, info, sizeOf<TeamInfo>().toULong())
+    return getTeamInfo(team, info, 8.toULong())
 }
 
 public fun getNextTeamInfo(cookie: Int?, info: TeamInfo?): StatusT {
-    return getNextTeamInfo(cookie, info, sizeOf<TeamInfo>().toULong())
+    return getNextTeamInfo(cookie, info, 8.toULong())
 }
 
 public fun getTeamUsageInfo(team: TeamId, who: Int, info: TeamUsageInfo?): StatusT {
-    return getTeamUsageInfo(team, who, info, sizeOf<TeamUsageInfo>().toULong())
+    return getTeamUsageInfo(team, who, info, 8.toULong())
 }
 
 public fun getThreadInfo(id: ThreadId, info: ThreadInfo?): StatusT {
-    return getThreadInfo(id, info, sizeOf<ThreadInfo>().toULong())
+    return getThreadInfo(id, info, 8.toULong())
 }
 
 public fun getNextThreadInfo(team: TeamId, cookie: Int?, info: ThreadInfo?): StatusT {
-    return getNextThreadInfo(team, cookie, info, sizeOf<ThreadInfo>().toULong())
+    return getNextThreadInfo(team, cookie, info, 8.toULong())
 }
 
 // kernel/image.h
 public fun getImageInfo(image: ImageId, info: ImageInfo?): StatusT {
-    return getImageInfo(image, info, sizeOf<ImageInfo>().toULong())
+    return getImageInfo(image, info, 8.toULong())
 }
 
 public fun getNextImageInfo(team: TeamId, cookie: Int?, info: ImageInfo?): StatusT {
-    return getNextImageInfo(team, cookie, info, sizeOf<ImageInfo>().toULong())
+    return getNextImageInfo(team, cookie, info, 8.toULong())
 }

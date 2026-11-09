@@ -45,7 +45,7 @@ public val MAP_TRYFIXED: CInt = 0x0400
 
 public val MAP_WIRED: CInt = 0x0800
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 // Memory sync constants
 public val MS_ASYNC: CInt = 0x01

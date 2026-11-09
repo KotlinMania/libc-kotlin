@@ -3,14 +3,11 @@ package io.github.kotlinmania.libc.unix.solarish
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.CMSG_FIRSTHDR
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.new.qurt.unistd.sysconf
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -18,11 +15,9 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.major
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.makedev
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.minor
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpRsrcT
+import io.github.kotlinmania.libc.unix.sysconf
 
 public fun interface PthreadCreateFCallback {
     public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
@@ -48,37 +43,37 @@ public fun cmsgDataAlign(p: Int): Int {
     return (p + CMSG_DATA_ALIGNMENT - 1) and (CMSG_DATA_ALIGNMENT - 1).inv()
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return CMSG_DATA_ALIGN(((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt()).toUByte()
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return COpaquePointer(cmsgDataAlign(((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt()).toLong())
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return CMSG_DATA_ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return cmsgDataAlign(8).toUInt() + length
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if (((mhdr!!.msgControllen).toInt()) < sizeOf<Cmsghdr>()) {
-        nullMut<Cmsghdr>()
+    return if (((mhdr!!.msgControllen).toInt()) < 8) {
+        null
     } else {
-        (mhdr!!.msgControl as Cmsghdr?)
+        null
     }
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if ((cmsg == null)) {
-        return CMSG_FIRSTHDR(mhdr)
+        return cmsgFirsthdr(mhdr)
     }
-    val next = CMSG_HDR_ALIGN(((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + (cmsg!!.cmsgLen).toInt() + sizeOf<Cmsghdr>())
+    val next = cmsgHdrAlign(((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + (cmsg!!.cmsgLen).toInt() + 8)
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (next > max) {
-        nullMut<Cmsghdr>()
+        null
     } else {
         null
     }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return CMSG_HDR_ALIGN(sizeOf<Cmsghdr>().toInt() + length.toInt()).toUInt()
+    return cmsgHdrAlign(8.toInt() + length.toInt()).toUInt()
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
@@ -102,8 +97,8 @@ public fun fdSet(fd: CInt, set: FdSet?) {
 }
 
 public fun fdZero(set: FdSet?) {
-    for (slot in set!!.fdsBits.iterMut()) {
-        slot = 0
+    for (idx in (set!!.fdsBits).indices) {
+        (set!!.fdsBits)[idx] = 0L
     }
 }
 

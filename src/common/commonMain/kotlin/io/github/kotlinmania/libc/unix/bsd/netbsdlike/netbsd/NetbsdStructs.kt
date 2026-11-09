@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
 
 import io.github.kotlinmania.libc.*
@@ -10,6 +11,10 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.new.netbsd.sys.ipc.IpcPerm
+import io.github.kotlinmania.libc.new.netbsd.sys.types.DevT
+import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.InAddrT
 import io.github.kotlinmania.libc.unix.InPortT
@@ -21,18 +26,16 @@ import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
 import io.github.kotlinmania.libc.unix.bsd.BlkcntT
 import io.github.kotlinmania.libc.unix.bsd.OffT
+import io.github.kotlinmania.libc.unix.bsd.PATH_MAX
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SaFamilyT
 import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.LwpidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.InoT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ModeT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.NlinkT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.SchedParam
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TimeT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.DevT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.IpcPerm
 
 public class DebugStruct(
     private val out: StringBuilder,
@@ -58,650 +61,997 @@ public class DebugStruct(
     }
 }
 
-public open class Aiocb(
-    public var aioOffset: OffT,
-    public var aioBuf: COpaquePointer?,
-    public var aioNbytes: SizeT,
-    public var aioFildes: CInt,
-    public var aioLioOpcode: CInt,
-    public var aioReqprio: CInt,
-    public var aioSigevent: Sigevent,
-    public var state: CInt,
-    public var errno: CInt,
-    public var retval: SsizeT,
+public data class Aiocb(
+    public var aioOffset: OffT = 0L,
+    public var aioBuf: COpaquePointer? = null,
+    public var aioNbytes: SizeT = 0uL,
+    public var aioFildes: CInt = 0,
+    public var aioLioOpcode: CInt = 0,
+    public var aioReqprio: CInt = 0,
+    public var aioSigevent: Sigevent = Sigevent(),
+    public var state: CInt = 0,
+    public var errno: CInt = 0,
+    public var retval: SsizeT = 0L,
 )
 
-public open class GlobT(
-    public var glPathc: SizeT,
-    public var glMatchc: SizeT,
-    public var glOffs: SizeT,
-    public var glFlags: CInt,
-    public var glPathv: COpaquePointer?,
-    public var unused3: COpaquePointer?,
-    public var unused4: COpaquePointer?,
-    public var unused5: COpaquePointer?,
-    public var unused6: COpaquePointer?,
-    public var unused7: COpaquePointer?,
-    public var unused8: COpaquePointer?,
+public data class GlobT(
+    public var glPathc: SizeT = 0uL,
+    public var glMatchc: SizeT = 0uL,
+    public var glOffs: SizeT = 0uL,
+    public var glFlags: CInt = 0,
+    public var glPathv: COpaquePointer? = null,
+    public var unused3: COpaquePointer? = null,
+    public var unused4: COpaquePointer? = null,
+    public var unused5: COpaquePointer? = null,
+    public var unused6: COpaquePointer? = null,
+    public var unused7: COpaquePointer? = null,
+    public var unused8: COpaquePointer? = null,
 )
 
-public open class Tm(
-    public var tmSec: CInt,
-    public var tmMin: CInt,
-    public var tmHour: CInt,
-    public var tmMday: CInt,
-    public var tmMon: CInt,
-    public var tmYear: CInt,
-    public var tmWday: CInt,
-    public var tmYday: CInt,
-    public var tmIsdst: CInt,
-    public var tmGmtoff: CLong,
-    public var tmZone: COpaquePointer?,
+public data class Tm(
+    public var tmSec: CInt = 0,
+    public var tmMin: CInt = 0,
+    public var tmHour: CInt = 0,
+    public var tmMday: CInt = 0,
+    public var tmMon: CInt = 0,
+    public var tmYear: CInt = 0,
+    public var tmWday: CInt = 0,
+    public var tmYday: CInt = 0,
+    public var tmIsdst: CInt = 0,
+    public var tmGmtoff: CLong = 0L,
+    public var tmZone: COpaquePointer? = null,
 )
 
-public open class MqAttr(
-    public var mqFlags: CLong,
-    public var mqMaxmsg: CLong,
-    public var mqMsgsize: CLong,
-    public var mqCurmsgs: CLong,
+public data class MqAttr(
+    public var mqFlags: CLong = 0L,
+    public var mqMaxmsg: CLong = 0L,
+    public var mqMsgsize: CLong = 0L,
+    public var mqCurmsgs: CLong = 0L,
 )
 
-public open class SigsetT(public var bits: List<UInt>)
-
-public open class Stat(
-    public var stDev: DevT,
-    public var stMode: ModeT,
-    public var stIno: InoT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var stAtime: TimeT,
-    public var stAtimensec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimensec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimensec: CLong,
-    public var stBirthtime: TimeT,
-    public var stBirthtimensec: CLong,
-    public var stSize: OffT,
-    public var stBlocks: BlkcntT,
-    public var stBlksize: BlksizeT,
-    public var stFlags: UInt,
-    public var stGen: UInt,
-    public var stSpare: List<UInt>,
-)
-
-public open class Addrinfo(
-    public var aiFlags: CInt,
-    public var aiFamily: CInt,
-    public var aiSocktype: CInt,
-    public var aiProtocol: CInt,
-    public var aiAddrlen: SocklenT,
-    public var aiCanonname: COpaquePointer?,
-    public var aiAddr: Sockaddr?,
-    public var aiNext: Addrinfo?,
-)
-
-public open class SiginfoT(
-    public var siSigno: CInt,
-    public var siCode: CInt,
-    public var siErrno: CInt,
-    public var pad1: CInt,
-    public var siAddr: COpaquePointer?,
-    public var pad2: List<ULong>,
-) {
-    public open fun siAddr(): COpaquePointer? {
-        return this.siAddr
+public data class SigsetT(public var bits: UIntArray = UIntArray(4)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SigsetT) return false
+        if (!this.bits.contentEquals(other.bits)) return false
+        return true
     }
 
-    public open fun siCode(): CInt {
-        return this.siCode
-    }
-
-    public open fun siErrno(): CInt {
-        return this.siErrno
-    }
-
-    public open fun siPid(): PidT {
-        open class SiginfoTimer(
-            public var siSigno: CInt,
-            public var siErrno: CInt,
-            public var siCode: CInt,
-            public var pad1: CInt,
-            public var pid: PidT,
-        )
-        return (((this as SiginfoT?) as SiginfoTimer?)).pid
-    }
-
-    public open fun siUid(): UidT {
-        open class SiginfoTimer(
-            public var siSigno: CInt,
-            public var siErrno: CInt,
-            public var siCode: CInt,
-            public var pad1: CInt,
-            public var pid: PidT,
-            public var uid: UidT,
-        )
-        return (((this as SiginfoT?) as SiginfoTimer?)).uid
-    }
-
-    public open fun siValue(): Sigval {
-        open class SiginfoTimer(
-            public var siSigno: CInt,
-            public var siErrno: CInt,
-            public var siCode: CInt,
-            public var pad1: CInt,
-            public var pid: PidT,
-            public var uid: UidT,
-            public var value: Sigval,
-        )
-        return (((this as SiginfoT?) as SiginfoTimer?)).value
-    }
-
-    public open fun siStatus(): CInt {
-        open class SiginfoTimer(
-            public var siSigno: CInt,
-            public var siErrno: CInt,
-            public var siCode: CInt,
-            public var pad1: CInt,
-            public var pid: PidT,
-            public var uid: UidT,
-            public var status: CInt,
-        )
-        return (((this as SiginfoT?) as SiginfoTimer?)).status
+    override fun hashCode(): Int {
+        return this.bits.contentHashCode()
     }
 }
 
-public open class PthreadAttrT(
-    public var ptaMagic: CUint,
-    public var ptaFlags: CInt,
-    public var ptaPrivate: COpaquePointer?,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stIno: InoT = 0uL,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var stAtime: TimeT = 0L,
+    public var stAtimensec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimensec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimensec: CLong = 0L,
+    public var stBirthtime: TimeT = 0L,
+    public var stBirthtimensec: CLong = 0L,
+    public var stSize: OffT = 0L,
+    public var stBlocks: BlkcntT = 0L,
+    public var stBlksize: BlksizeT = 0,
+    public var stFlags: UInt = 0u,
+    public var stGen: UInt = 0u,
+    public var stSpare: UIntArray = UIntArray(2),
 )
 
-public open class PthreadMutexT(
-    public var ptmMagic: CUint,
-    public var ptmErrorcheck: PthreadSpinT,
-    public var ptmPad1: List<UByte>,
+public data class Addrinfo(
+    public var aiFlags: CInt = 0,
+    public var aiFamily: CInt = 0,
+    public var aiSocktype: CInt = 0,
+    public var aiProtocol: CInt = 0,
+    public var aiAddrlen: SocklenT = 0u,
+    public var aiCanonname: COpaquePointer? = null,
+    public var aiAddr: Sockaddr? = null,
+    public var aiNext: Addrinfo? = null,
+)
+
+public data class SiginfoT(
+    public var siSigno: CInt = 0,
+    public var siCode: CInt = 0,
+    public var siErrno: CInt = 0,
+    public var pad1: CInt = 0,
+    public var siAddr: COpaquePointer? = null,
+    public var pad2: ULongArray = ULongArray(13),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SiginfoT) return false
+        if (this.siSigno != other.siSigno) return false
+        if (this.siCode != other.siCode) return false
+        if (this.siErrno != other.siErrno) return false
+        if (this.pad1 != other.pad1) return false
+        if (this.siAddr != other.siAddr) return false
+        if (!this.pad2.contentEquals(other.pad2)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.siSigno.hashCode()
+        result = 31 * result + this.siCode.hashCode()
+        result = 31 * result + this.siErrno.hashCode()
+        result = 31 * result + this.pad1.hashCode()
+        result = 31 * result + this.siAddr.hashCode()
+        result = 31 * result + this.pad2.contentHashCode()
+        return result
+    }
+
+    public fun siAddr(): COpaquePointer? {
+        return this.siAddr
+    }
+
+    public fun siCode(): CInt {
+        return this.siCode
+    }
+
+    public fun siErrno(): CInt {
+        return this.siErrno
+    }
+
+    public fun siPid(): PidT {
+        data class SiginfoTimer(
+            public var siSigno: CInt = 0,
+            public var siErrno: CInt = 0,
+            public var siCode: CInt = 0,
+            public var pad1: CInt = 0,
+            public var pid: PidT = 0,
+        )
+        return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoTimer?))!!.pid
+    }
+
+    public fun siUid(): UidT {
+        data class SiginfoTimer(
+            public var siSigno: CInt = 0,
+            public var siErrno: CInt = 0,
+            public var siCode: CInt = 0,
+            public var pad1: CInt = 0,
+            public var pid: PidT = 0,
+            public var uid: UidT = 0u,
+        )
+        return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoTimer?))!!.uid
+    }
+
+    public fun siValue(): Sigval {
+        data class SiginfoTimer(
+            public var siSigno: CInt = 0,
+            public var siErrno: CInt = 0,
+            public var siCode: CInt = 0,
+            public var pad1: CInt = 0,
+            public var pid: PidT = 0,
+            public var uid: UidT = 0u,
+            public var value: Sigval = Sigval(),
+        )
+        return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoTimer?))!!.value
+    }
+
+    public fun siStatus(): CInt {
+        data class SiginfoTimer(
+            public var siSigno: CInt = 0,
+            public var siErrno: CInt = 0,
+            public var siCode: CInt = 0,
+            public var pad1: CInt = 0,
+            public var pid: PidT = 0,
+            public var uid: UidT = 0u,
+            public var status: CInt = 0,
+        )
+        return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoTimer?))!!.status
+    }
+}
+
+public data class PthreadAttrT(
+    public var ptaMagic: CUint = 0u,
+    public var ptaFlags: CInt = 0,
+    public var ptaPrivate: COpaquePointer? = null,
+)
+
+public data class PthreadMutexT(
+    public var ptmMagic: CUint = 0u,
+    public var ptmErrorcheck: PthreadSpinT = 0u,
+    public var ptmPad1: UByteArray = UByteArray(3),
     // actually a union with a non-unused, 0-initialized field
-    public var ptmUnused: PthreadSpinT,
-    public var ptmPad2: List<UByte>,
-    public var ptmOwner: PthreadT,
-    public var ptmWaiters: COpaquePointer?,
-    public var ptmRecursed: CUint,
-    public var ptmSpare2: COpaquePointer?,
+    public var ptmUnused: PthreadSpinT = 0u,
+    public var ptmPad2: UByteArray = UByteArray(3),
+    public var ptmOwner: PthreadT = 0uL,
+    public var ptmWaiters: COpaquePointer? = null,
+    public var ptmRecursed: CUint = 0u,
+    public var ptmSpare2: COpaquePointer? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadMutexT) return false
+        if (this.ptmMagic != other.ptmMagic) return false
+        if (this.ptmErrorcheck != other.ptmErrorcheck) return false
+        if (!this.ptmPad1.contentEquals(other.ptmPad1)) return false
+        if (this.ptmUnused != other.ptmUnused) return false
+        if (!this.ptmPad2.contentEquals(other.ptmPad2)) return false
+        if (this.ptmOwner != other.ptmOwner) return false
+        if (this.ptmWaiters != other.ptmWaiters) return false
+        if (this.ptmRecursed != other.ptmRecursed) return false
+        if (this.ptmSpare2 != other.ptmSpare2) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ptmMagic.hashCode()
+        result = 31 * result + this.ptmErrorcheck.hashCode()
+        result = 31 * result + this.ptmPad1.contentHashCode()
+        result = 31 * result + this.ptmUnused.hashCode()
+        result = 31 * result + this.ptmPad2.contentHashCode()
+        result = 31 * result + this.ptmOwner.hashCode()
+        result = 31 * result + this.ptmWaiters.hashCode()
+        result = 31 * result + this.ptmRecursed.hashCode()
+        result = 31 * result + this.ptmSpare2.hashCode()
+        return result
+    }
+}
+
+public data class PthreadMutexattrT(public var ptmaMagic: CUint = 0u, public var ptmaPrivate: COpaquePointer? = null)
+
+public data class PthreadRwlockattrT(public var ptraMagic: CUint = 0u, public var ptraPrivate: COpaquePointer? = null)
+
+public data class PthreadCondT(
+    public var ptcMagic: CUint = 0u,
+    public var ptcLock: PthreadSpinT = 0u,
+    public var ptcWaitersFirst: COpaquePointer? = null,
+    public var ptcWaitersLast: COpaquePointer? = null,
+    public var ptcMutex: PthreadMutexT? = null,
+    public var ptcPrivate: COpaquePointer? = null,
 )
 
-public open class PthreadMutexattrT(public var ptmaMagic: CUint, public var ptmaPrivate: COpaquePointer?)
+public data class PthreadCondattrT(public var ptcaMagic: CUint = 0u, public var ptcaPrivate: COpaquePointer? = null)
 
-public open class PthreadRwlockattrT(public var ptraMagic: CUint, public var ptraPrivate: COpaquePointer?)
-
-public open class PthreadCondT(
-    public var ptcMagic: CUint,
-    public var ptcLock: PthreadSpinT,
-    public var ptcWaitersFirst: COpaquePointer?,
-    public var ptcWaitersLast: COpaquePointer?,
-    public var ptcMutex: PthreadMutexT?,
-    public var ptcPrivate: COpaquePointer?,
+public data class PthreadRwlockT(
+    public var ptrMagic: CUint = 0u,
+    public var ptrInterlock: PthreadSpinT = 0u,
+    public var ptrRblockedFirst: COpaquePointer? = null,
+    public var ptrRblockedLast: COpaquePointer? = null,
+    public var ptrWblockedFirst: COpaquePointer? = null,
+    public var ptrWblockedLast: COpaquePointer? = null,
+    public var ptrNreaders: CUint = 0u,
+    public var ptrOwner: PthreadT = 0uL,
+    public var ptrPrivate: COpaquePointer? = null,
 )
 
-public open class PthreadCondattrT(public var ptcaMagic: CUint, public var ptcaPrivate: COpaquePointer?)
-
-public open class PthreadRwlockT(
-    public var ptrMagic: CUint,
-    public var ptrInterlock: PthreadSpinT,
-    public var ptrRblockedFirst: COpaquePointer?,
-    public var ptrRblockedLast: COpaquePointer?,
-    public var ptrWblockedFirst: COpaquePointer?,
-    public var ptrWblockedLast: COpaquePointer?,
-    public var ptrNreaders: CUint,
-    public var ptrOwner: PthreadT,
-    public var ptrPrivate: COpaquePointer?,
+public data class PthreadSpinlockT(
+    public var ptsMagic: CUint = 0u,
+    public var ptsSpin: PthreadSpinT = 0u,
+    public var ptsFlags: CInt = 0,
 )
 
-public open class PthreadSpinlockT(
-    public var ptsMagic: CUint,
-    public var ptsSpin: PthreadSpinT,
-    public var ptsFlags: CInt,
+public data class Kevent(
+    public var ident: UintptrT = 0uL,
+    public var filter: UInt = 0u,
+    public var flags: UInt = 0u,
+    public var fflags: UInt = 0u,
+    public var data: Long = 0L,
+    public var udata: COpaquePointer? = null,
 )
 
-public open class Kevent(
-    public var ident: UintptrT,
-    public var filter: UInt,
-    public var flags: UInt,
-    public var fflags: UInt,
-    public var data: Long,
-    public var udata: COpaquePointer?,
+public data class Dqblk(
+    public var dqbBhardlimit: UInt = 0u,
+    public var dqbBsoftlimit: UInt = 0u,
+    public var dqbCurblocks: UInt = 0u,
+    public var dqbIhardlimit: UInt = 0u,
+    public var dqbIsoftlimit: UInt = 0u,
+    public var dqbCurinodes: UInt = 0u,
+    public var dqbBtime: Int = 0,
+    public var dqbItime: Int = 0,
 )
 
-public open class Dqblk(
-    public var dqbBhardlimit: UInt,
-    public var dqbBsoftlimit: UInt,
-    public var dqbCurblocks: UInt,
-    public var dqbIhardlimit: UInt,
-    public var dqbIsoftlimit: UInt,
-    public var dqbCurinodes: UInt,
-    public var dqbBtime: Int,
-    public var dqbItime: Int,
+public data class DlInfo(
+    public var dliFname: COpaquePointer? = null,
+    public var dliFbase: COpaquePointer? = null,
+    public var dliSname: COpaquePointer? = null,
+    public var dliSaddr: COpaquePointer? = null,
 )
 
-public open class DlInfo(
-    public var dliFname: COpaquePointer?,
-    public var dliFbase: COpaquePointer?,
-    public var dliSname: COpaquePointer?,
-    public var dliSaddr: COpaquePointer?,
+public class Lconv(
+    public var decimalPoint: COpaquePointer? = null,
+    public var thousandsSep: COpaquePointer? = null,
+    public var grouping: COpaquePointer? = null,
+    public var intCurrSymbol: COpaquePointer? = null,
+    public var currencySymbol: COpaquePointer? = null,
+    public var monDecimalPoint: COpaquePointer? = null,
+    public var monThousandsSep: COpaquePointer? = null,
+    public var monGrouping: COpaquePointer? = null,
+    public var positiveSign: COpaquePointer? = null,
+    public var negativeSign: COpaquePointer? = null,
+    public var intFracDigits: CChar = 0u,
+    public var fracDigits: CChar = 0u,
+    public var pCsPrecedes: CChar = 0u,
+    public var pSepBySpace: CChar = 0u,
+    public var nCsPrecedes: CChar = 0u,
+    public var nSepBySpace: CChar = 0u,
+    public var pSignPosn: CChar = 0u,
+    public var nSignPosn: CChar = 0u,
+    public var intPCsPrecedes: CChar = 0u,
+    public var intNCsPrecedes: CChar = 0u,
+    public var intPSepBySpace: CChar = 0u,
+    public var intNSepBySpace: CChar = 0u,
+    public var intPSignPosn: CChar = 0u,
+    public var intNSignPosn: CChar = 0u,
 )
 
-public open class Lconv(
-    public var decimalPoint: COpaquePointer?,
-    public var thousandsSep: COpaquePointer?,
-    public var grouping: COpaquePointer?,
-    public var intCurrSymbol: COpaquePointer?,
-    public var currencySymbol: COpaquePointer?,
-    public var monDecimalPoint: COpaquePointer?,
-    public var monThousandsSep: COpaquePointer?,
-    public var monGrouping: COpaquePointer?,
-    public var positiveSign: COpaquePointer?,
-    public var negativeSign: COpaquePointer?,
-    public var intFracDigits: CChar,
-    public var fracDigits: CChar,
-    public var pCsPrecedes: CChar,
-    public var pSepBySpace: CChar,
-    public var nCsPrecedes: CChar,
-    public var nSepBySpace: CChar,
-    public var pSignPosn: CChar,
-    public var nSignPosn: CChar,
-    public var intPCsPrecedes: CChar,
-    public var intNCsPrecedes: CChar,
-    public var intPSepBySpace: CChar,
-    public var intNSepBySpace: CChar,
-    public var intPSignPosn: CChar,
-    public var intNSignPosn: CChar,
+public data class Sockcred(
+    public var scPid: PidT = 0,
+    public var scUid: UidT = 0u,
+    public var scEuid: UidT = 0u,
+    public var scGid: GidT = 0u,
+    public var scEgid: GidT = 0u,
+    public var scNgroups: CInt = 0,
+    public var scGroups: UShortArray = UShortArray(1),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Sockcred) return false
+        if (this.scPid != other.scPid) return false
+        if (this.scUid != other.scUid) return false
+        if (this.scEuid != other.scEuid) return false
+        if (this.scGid != other.scGid) return false
+        if (this.scEgid != other.scEgid) return false
+        if (this.scNgroups != other.scNgroups) return false
+        if (!this.scGroups.contentEquals(other.scGroups)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.scPid.hashCode()
+        result = 31 * result + this.scUid.hashCode()
+        result = 31 * result + this.scEuid.hashCode()
+        result = 31 * result + this.scGid.hashCode()
+        result = 31 * result + this.scEgid.hashCode()
+        result = 31 * result + this.scNgroups.hashCode()
+        result = 31 * result + this.scGroups.contentHashCode()
+        return result
+    }
+}
+
+public data class Uucred(
+    public var crUnused: CUshort = 0u,
+    public var crUid: UidT = 0u,
+    public var crGid: GidT = 0u,
+    public var crNgroups: CShort = 0,
+    public var crGroups: UShortArray = UShortArray(NGROUPS_MAX.toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Uucred) return false
+        if (this.crUnused != other.crUnused) return false
+        if (this.crUid != other.crUid) return false
+        if (this.crGid != other.crGid) return false
+        if (this.crNgroups != other.crNgroups) return false
+        if (!this.crGroups.contentEquals(other.crGroups)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.crUnused.hashCode()
+        result = 31 * result + this.crUid.hashCode()
+        result = 31 * result + this.crGid.hashCode()
+        result = 31 * result + this.crNgroups.hashCode()
+        result = 31 * result + this.crGroups.contentHashCode()
+        return result
+    }
+}
+
+public data class Unpcbid(
+    public var unpPid: PidT = 0,
+    public var unpEuid: UidT = 0u,
+    public var unpEgid: GidT = 0u,
 )
 
-public open class Sockcred(
-    public var scPid: PidT,
-    public var scUid: UidT,
-    public var scEuid: UidT,
-    public var scGid: GidT,
-    public var scEgid: GidT,
-    public var scNgroups: CInt,
-    public var scGroups: List<GidT>,
-)
+public data class SockaddrDl(
+    public var sdlLen: CUchar = 0u,
+    public var sdlFamily: CUchar = 0u,
+    public var sdlIndex: CUshort = 0u,
+    public var sdlType: UByte = 0u,
+    public var sdlNlen: UByte = 0u,
+    public var sdlAlen: UByte = 0u,
+    public var sdlSlen: UByte = 0u,
+    public var sdlData: UByteArray = UByteArray(24),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SockaddrDl) return false
+        if (this.sdlLen != other.sdlLen) return false
+        if (this.sdlFamily != other.sdlFamily) return false
+        if (this.sdlIndex != other.sdlIndex) return false
+        if (this.sdlType != other.sdlType) return false
+        if (this.sdlNlen != other.sdlNlen) return false
+        if (this.sdlAlen != other.sdlAlen) return false
+        if (this.sdlSlen != other.sdlSlen) return false
+        if (!this.sdlData.contentEquals(other.sdlData)) return false
+        return true
+    }
 
-public open class Uucred(
-    public var crUnused: CUshort,
-    public var crUid: UidT,
-    public var crGid: GidT,
-    public var crNgroups: CShort,
-    public var crGroups: List<GidT>,
-)
+    override fun hashCode(): Int {
+        var result = this.sdlLen.hashCode()
+        result = 31 * result + this.sdlFamily.hashCode()
+        result = 31 * result + this.sdlIndex.hashCode()
+        result = 31 * result + this.sdlType.hashCode()
+        result = 31 * result + this.sdlNlen.hashCode()
+        result = 31 * result + this.sdlAlen.hashCode()
+        result = 31 * result + this.sdlSlen.hashCode()
+        result = 31 * result + this.sdlData.contentHashCode()
+        return result
+    }
+}
 
-public open class Unpcbid(
-    public var unpPid: PidT,
-    public var unpEuid: UidT,
-    public var unpEgid: GidT,
-)
-
-public open class SockaddrDl(
-    public var sdlLen: CUchar,
-    public var sdlFamily: CUchar,
-    public var sdlIndex: CUshort,
-    public var sdlType: UByte,
-    public var sdlNlen: UByte,
-    public var sdlAlen: UByte,
-    public var sdlSlen: UByte,
-    public var sdlData: List<CChar>,
-)
-
-public open class ShmidDs(
-    public var shmPerm: IpcPerm,
-    public var shmSegsz: SizeT,
-    public var shmLpid: PidT,
-    public var shmCpid: PidT,
-    public var shmNattch: ShmattT,
-    public var shmAtime: TimeT,
-    public var shmDtime: TimeT,
-    public var shmCtime: TimeT,
-    public var shmInternal: COpaquePointer?,
+public data class ShmidDs(
+    public var shmPerm: IpcPerm = IpcPerm(),
+    public var shmSegsz: SizeT = 0uL,
+    public var shmLpid: PidT = 0,
+    public var shmCpid: PidT = 0,
+    public var shmNattch: ShmattT = 0u,
+    public var shmAtime: TimeT = 0L,
+    public var shmDtime: TimeT = 0L,
+    public var shmCtime: TimeT = 0L,
+    public var shmInternal: COpaquePointer? = null,
 )
 
 // elf.h
-public open class Elf32Phdr(
-    public var pType: Elf32Word,
-    public var pOffset: Elf32Off,
-    public var pVaddr: Elf32Addr,
-    public var pPaddr: Elf32Addr,
-    public var pFilesz: Elf32Word,
-    public var pMemsz: Elf32Word,
-    public var pFlags: Elf32Word,
-    public var pAlign: Elf32Word,
+public data class Elf32Phdr(
+    public var pType: Elf32Word = 0u,
+    public var pOffset: Elf32Off = 0u,
+    public var pVaddr: Elf32Addr = 0u,
+    public var pPaddr: Elf32Addr = 0u,
+    public var pFilesz: Elf32Word = 0u,
+    public var pMemsz: Elf32Word = 0u,
+    public var pFlags: Elf32Word = 0u,
+    public var pAlign: Elf32Word = 0u,
 )
 
-public open class Elf64Phdr(
-    public var pType: Elf64Word,
-    public var pFlags: Elf64Word,
-    public var pOffset: Elf64Off,
-    public var pVaddr: Elf64Addr,
-    public var pPaddr: Elf64Addr,
-    public var pFilesz: Elf64Xword,
-    public var pMemsz: Elf64Xword,
-    public var pAlign: Elf64Xword,
+public data class Elf64Phdr(
+    public var pType: Elf64Word = 0u,
+    public var pFlags: Elf64Word = 0u,
+    public var pOffset: Elf64Off = 0uL,
+    public var pVaddr: Elf64Addr = 0uL,
+    public var pPaddr: Elf64Addr = 0uL,
+    public var pFilesz: Elf64Xword = 0uL,
+    public var pMemsz: Elf64Xword = 0uL,
+    public var pAlign: Elf64Xword = 0uL,
 )
 
-public open class Aux32Info(public var aType: Elf32Word, public var aV: Elf32Word)
+public data class Aux32Info(public var aType: Elf32Word = 0u, public var aV: Elf32Word = 0u)
 
-public open class Aux64Info(public var aType: Elf64Word, public var aV: Elf64Xword)
+public data class Aux64Info(public var aType: Elf64Word = 0u, public var aV: Elf64Xword = 0uL)
 
 // link.h
-public open class DlPhdrInfo(
-    public var dlpiAddr: ElfAddr,
-    public var dlpiName: COpaquePointer?,
-    public var dlpiPhdr: Elf64Phdr?,
-    public var dlpiPhnum: ElfHalf,
-    public var dlpiAdds: CUlonglong,
-    public var dlpiSubs: CUlonglong,
-    public var dlpiTlsModid: Int,
-    public var dlpiTlsData: COpaquePointer?,
+public data class DlPhdrInfo(
+    public var dlpiAddr: ElfAddr = 0u,
+    public var dlpiName: COpaquePointer? = null,
+    public var dlpiPhdr: Elf64Phdr? = null,
+    public var dlpiPhnum: ElfHalf = 0u,
+    public var dlpiAdds: CUlonglong = 0uL,
+    public var dlpiSubs: CUlonglong = 0uL,
+    public var dlpiTlsModid: Int = 0,
+    public var dlpiTlsData: COpaquePointer? = null,
 )
 
-public open class AcceptFilterArg(public var afName: List<CChar>, public var afArg: List<CChar>)
+public data class AcceptFilterArg(public var afName: UByteArray = UByteArray(16), public var afArg: UByteArray = UByteArray((256 - 16).toInt())) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AcceptFilterArg) return false
+        if (!this.afName.contentEquals(other.afName)) return false
+        if (!this.afArg.contentEquals(other.afArg)) return false
+        return true
+    }
 
-public open class KiSigsetT(public var bits: List<UInt>)
+    override fun hashCode(): Int {
+        var result = this.afName.contentHashCode()
+        result = 31 * result + this.afArg.contentHashCode()
+        return result
+    }
+}
 
-public open class KinfoProc2(
-    public var pForw: ULong,
-    public var pBack: ULong,
-    public var pPaddr: ULong,
-    public var pAddr: ULong,
-    public var pFd: ULong,
-    public var pCwdi: ULong,
-    public var pStats: ULong,
-    public var pLimit: ULong,
-    public var pVmspace: ULong,
-    public var pSigacts: ULong,
-    public var pSess: ULong,
-    public var pTsess: ULong,
-    public var pRu: ULong,
-    public var pEflag: Int,
-    public var pExitsig: Int,
-    public var pFlag: Int,
-    public var pPid: Int,
-    public var pPpid: Int,
-    public var pSid: Int,
-    public var pPgid: Int,
-    public var pTpgid: Int,
-    public var pUid: UInt,
-    public var pRuid: UInt,
-    public var pGid: UInt,
-    public var pRgid: UInt,
-    public var pGroups: List<UInt>,
-    public var pNgroups: Short,
-    public var pJobc: Short,
-    public var pTdev: UInt,
-    public var pEstcpu: UInt,
-    public var pRtimeSec: UInt,
-    public var pRtimeUsec: UInt,
-    public var pCpticks: Int,
-    public var pPctcpu: UInt,
-    public var pSwtime: UInt,
-    public var pSlptime: UInt,
-    public var pSchedflags: Int,
-    public var pUticks: ULong,
-    public var pSticks: ULong,
-    public var pIticks: ULong,
-    public var pTracep: ULong,
-    public var pTraceflag: Int,
-    public var pHoldcnt: Int,
-    public var pSiglist: KiSigsetT,
-    public var pSigmask: KiSigsetT,
-    public var pSigignore: KiSigsetT,
-    public var pSigcatch: KiSigsetT,
-    public var pStat: Byte,
-    public var pPriority: UByte,
-    public var pUsrpri: UByte,
-    public var pNice: UByte,
-    public var pXstat: UShort,
-    public var pAcflag: UShort,
-    public var pComm: List<CChar>,
-    public var pWmesg: List<CChar>,
-    public var pWchan: ULong,
-    public var pLogin: List<CChar>,
-    public var pVmRssize: Int,
-    public var pVmTsize: Int,
-    public var pVmDsize: Int,
-    public var pVmSsize: Int,
-    public var pUvalid: Long,
-    public var pUstartSec: UInt,
-    public var pUstartUsec: UInt,
-    public var pUutimeSec: UInt,
-    public var pUutimeUsec: UInt,
-    public var pUstimeSec: UInt,
-    public var pUstimeUsec: UInt,
-    public var pUruMaxrss: ULong,
-    public var pUruIxrss: ULong,
-    public var pUruIdrss: ULong,
-    public var pUruIsrss: ULong,
-    public var pUruMinflt: ULong,
-    public var pUruMajflt: ULong,
-    public var pUruNswap: ULong,
-    public var pUruInblock: ULong,
-    public var pUruOublock: ULong,
-    public var pUruMsgsnd: ULong,
-    public var pUruMsgrcv: ULong,
-    public var pUruNsignals: ULong,
-    public var pUruNvcsw: ULong,
-    public var pUruNivcsw: ULong,
-    public var pUctimeSec: UInt,
-    public var pUctimeUsec: UInt,
-    public var pCpuid: ULong,
-    public var pRealflag: ULong,
-    public var pNlwps: ULong,
-    public var pNrlwps: ULong,
-    public var pRealstat: ULong,
-    public var pSvuid: UInt,
-    public var pSvgid: UInt,
-    public var pEname: List<CChar>,
-    public var pVmVsize: Long,
-    public var pVmMsize: Long,
+public data class KiSigsetT(public var bits: UIntArray = UIntArray(4)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is KiSigsetT) return false
+        if (!this.bits.contentEquals(other.bits)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.bits.contentHashCode()
+    }
+}
+
+public class KinfoProc2 {
+    public var pForw: ULong = 0uL
+
+    public var pBack: ULong = 0uL
+
+    public var pPaddr: ULong = 0uL
+
+    public var pAddr: ULong = 0uL
+
+    public var pFd: ULong = 0uL
+
+    public var pCwdi: ULong = 0uL
+
+    public var pStats: ULong = 0uL
+
+    public var pLimit: ULong = 0uL
+
+    public var pVmspace: ULong = 0uL
+
+    public var pSigacts: ULong = 0uL
+
+    public var pSess: ULong = 0uL
+
+    public var pTsess: ULong = 0uL
+
+    public var pRu: ULong = 0uL
+
+    public var pEflag: Int = 0
+
+    public var pExitsig: Int = 0
+
+    public var pFlag: Int = 0
+
+    public var pPid: Int = 0
+
+    public var pPpid: Int = 0
+
+    public var pSid: Int = 0
+
+    public var pPgid: Int = 0
+
+    public var pTpgid: Int = 0
+
+    public var pUid: UInt = 0u
+
+    public var pRuid: UInt = 0u
+
+    public var pGid: UInt = 0u
+
+    public var pRgid: UInt = 0u
+
+    public var pGroups: UIntArray = UIntArray(KI_NGROUPS.toInt())
+
+    public var pNgroups: Short = 0
+
+    public var pJobc: Short = 0
+
+    public var pTdev: UInt = 0u
+
+    public var pEstcpu: UInt = 0u
+
+    public var pRtimeSec: UInt = 0u
+
+    public var pRtimeUsec: UInt = 0u
+
+    public var pCpticks: Int = 0
+
+    public var pPctcpu: UInt = 0u
+
+    public var pSwtime: UInt = 0u
+
+    public var pSlptime: UInt = 0u
+
+    public var pSchedflags: Int = 0
+
+    public var pUticks: ULong = 0uL
+
+    public var pSticks: ULong = 0uL
+
+    public var pIticks: ULong = 0uL
+
+    public var pTracep: ULong = 0uL
+
+    public var pTraceflag: Int = 0
+
+    public var pHoldcnt: Int = 0
+
+    public var pSiglist: KiSigsetT = KiSigsetT()
+
+    public var pSigmask: KiSigsetT = KiSigsetT()
+
+    public var pSigignore: KiSigsetT = KiSigsetT()
+
+    public var pSigcatch: KiSigsetT = KiSigsetT()
+
+    public var pStat: Byte = 0
+
+    public var pPriority: UByte = 0u
+
+    public var pUsrpri: UByte = 0u
+
+    public var pNice: UByte = 0u
+
+    public var pXstat: UShort = 0u
+
+    public var pAcflag: UShort = 0u
+
+    public var pComm: UByteArray = UByteArray(KI_MAXCOMLEN.toInt())
+
+    public var pWmesg: UByteArray = UByteArray(KI_WMESGLEN.toInt())
+
+    public var pWchan: ULong = 0uL
+
+    public var pLogin: UByteArray = UByteArray(KI_MAXLOGNAME.toInt())
+
+    public var pVmRssize: Int = 0
+
+    public var pVmTsize: Int = 0
+
+    public var pVmDsize: Int = 0
+
+    public var pVmSsize: Int = 0
+
+    public var pUvalid: Long = 0L
+
+    public var pUstartSec: UInt = 0u
+
+    public var pUstartUsec: UInt = 0u
+
+    public var pUutimeSec: UInt = 0u
+
+    public var pUutimeUsec: UInt = 0u
+
+    public var pUstimeSec: UInt = 0u
+
+    public var pUstimeUsec: UInt = 0u
+
+    public var pUruMaxrss: ULong = 0uL
+
+    public var pUruIxrss: ULong = 0uL
+
+    public var pUruIdrss: ULong = 0uL
+
+    public var pUruIsrss: ULong = 0uL
+
+    public var pUruMinflt: ULong = 0uL
+
+    public var pUruMajflt: ULong = 0uL
+
+    public var pUruNswap: ULong = 0uL
+
+    public var pUruInblock: ULong = 0uL
+
+    public var pUruOublock: ULong = 0uL
+
+    public var pUruMsgsnd: ULong = 0uL
+
+    public var pUruMsgrcv: ULong = 0uL
+
+    public var pUruNsignals: ULong = 0uL
+
+    public var pUruNvcsw: ULong = 0uL
+
+    public var pUruNivcsw: ULong = 0uL
+
+    public var pUctimeSec: UInt = 0u
+
+    public var pUctimeUsec: UInt = 0u
+
+    public var pCpuid: ULong = 0uL
+
+    public var pRealflag: ULong = 0uL
+
+    public var pNlwps: ULong = 0uL
+
+    public var pNrlwps: ULong = 0uL
+
+    public var pRealstat: ULong = 0uL
+
+    public var pSvuid: UInt = 0u
+
+    public var pSvgid: UInt = 0u
+
+    public var pEname: UByteArray = UByteArray(KI_MAXEMULLEN.toInt())
+
+    public var pVmVsize: Long = 0L
+
+    public var pVmMsize: Long = 0L
+}
+
+public class KinfoLwp(
+    public var lForw: ULong = 0uL,
+    public var lBack: ULong = 0uL,
+    public var lLaddr: ULong = 0uL,
+    public var lAddr: ULong = 0uL,
+    public var lLid: Int = 0,
+    public var lFlag: Int = 0,
+    public var lSwtime: UInt = 0u,
+    public var lSlptime: UInt = 0u,
+    public var lSchedflags: Int = 0,
+    public var lHoldcnt: Int = 0,
+    public var lPriority: UByte = 0u,
+    public var lUsrpri: UByte = 0u,
+    public var lStat: Byte = 0,
+    public var lPad1: Byte = 0,
+    public var lPad2: Int = 0,
+    public var lWmesg: UByteArray = UByteArray(KI_WMESGLEN.toInt()),
+    public var lWchan: ULong = 0uL,
+    public var lCpuid: ULong = 0uL,
+    public var lRtimeSec: UInt = 0u,
+    public var lRtimeUsec: UInt = 0u,
+    public var lCpticks: UInt = 0u,
+    public var lPctcpu: UInt = 0u,
+    public var lPid: UInt = 0u,
+    public var lName: UByteArray = UByteArray(KI_LNAMELEN.toInt()),
 )
 
-public open class KinfoLwp(
-    public var lForw: ULong,
-    public var lBack: ULong,
-    public var lLaddr: ULong,
-    public var lAddr: ULong,
-    public var lLid: Int,
-    public var lFlag: Int,
-    public var lSwtime: UInt,
-    public var lSlptime: UInt,
-    public var lSchedflags: Int,
-    public var lHoldcnt: Int,
-    public var lPriority: UByte,
-    public var lUsrpri: UByte,
-    public var lStat: Byte,
-    public var lPad1: Byte,
-    public var lPad2: Int,
-    public var lWmesg: List<CChar>,
-    public var lWchan: ULong,
-    public var lCpuid: ULong,
-    public var lRtimeSec: UInt,
-    public var lRtimeUsec: UInt,
-    public var lCpticks: UInt,
-    public var lPctcpu: UInt,
-    public var lPid: UInt,
-    public var lName: List<CChar>,
+public class KinfoVmentry(
+    public var kveStart: ULong = 0uL,
+    public var kveEnd: ULong = 0uL,
+    public var kveOffset: ULong = 0uL,
+    public var kveType: UInt = 0u,
+    public var kveFlags: UInt = 0u,
+    public var kveCount: UInt = 0u,
+    public var kveWiredCount: UInt = 0u,
+    public var kveAdvice: UInt = 0u,
+    public var kveAttributes: UInt = 0u,
+    public var kveProtection: UInt = 0u,
+    public var kveMaxProtection: UInt = 0u,
+    public var kveRefCount: UInt = 0u,
+    public var kveInheritance: UInt = 0u,
+    public var kveVnFileid: ULong = 0uL,
+    public var kveVnSize: ULong = 0uL,
+    public var kveVnFsid: ULong = 0uL,
+    public var kveVnRdev: ULong = 0uL,
+    public var kveVnType: UInt = 0u,
+    public var kveVnMode: UInt = 0u,
+    public var kvePath: UByteArray = UByteArray(PATH_MAX.toInt()),
 )
 
-public open class KinfoVmentry(
-    public var kveStart: ULong,
-    public var kveEnd: ULong,
-    public var kveOffset: ULong,
-    public var kveType: UInt,
-    public var kveFlags: UInt,
-    public var kveCount: UInt,
-    public var kveWiredCount: UInt,
-    public var kveAdvice: UInt,
-    public var kveAttributes: UInt,
-    public var kveProtection: UInt,
-    public var kveMaxProtection: UInt,
-    public var kveRefCount: UInt,
-    public var kveInheritance: UInt,
-    public var kveVnFileid: ULong,
-    public var kveVnSize: ULong,
-    public var kveVnFsid: ULong,
-    public var kveVnRdev: ULong,
-    public var kveVnType: UInt,
-    public var kveVnMode: UInt,
-    public var kvePath: List<CChar>,
+public data class CAnonymousPosixSpawnFaeOpen(
+    public var path: COpaquePointer? = null,
+    public var oflag: CInt = 0,
+    public var mode: ModeT = 0u,
 )
 
-public open class CAnonymousPosixSpawnFaeOpen(
-    public var path: COpaquePointer?,
-    public var oflag: CInt,
-    public var mode: ModeT,
+public data class CAnonymousPosixSpawnFaeDup2(public var newfildes: CInt = 0)
+
+public data class PosixSpawnattrT(
+    public var saFlags: CShort = 0,
+    public var saPgroup: PidT = 0,
+    public var saSchedparam: SchedParam = SchedParam(),
+    public var saSchedpolicy: CInt = 0,
+    public var saSigdefault: SigsetT = SigsetT(),
+    public var saSigmask: SigsetT = SigsetT(),
 )
 
-public open class CAnonymousPosixSpawnFaeDup2(public var newfildes: CInt)
-
-public open class PosixSpawnattrT(
-    public var saFlags: CShort,
-    public var saPgroup: PidT,
-    public var saSchedparam: SchedParam,
-    public var saSchedpolicy: CInt,
-    public var saSigdefault: SigsetT,
-    public var saSigmask: SigsetT,
+public data class PosixSpawnFileActionsEntryT(
+    public var faeAction: FaeAction = FaeAction.entries.first(),
+    public var faeFildes: CInt = 0,
+    public var faeData: CAnonymousPosixSpawnFae = CAnonymousPosixSpawnFae(),
 )
 
-public open class PosixSpawnFileActionsEntryT(
-    public var faeAction: FaeAction,
-    public var faeFildes: CInt,
-    public var faeData: CAnonymousPosixSpawnFae,
+public data class PosixSpawnFileActionsT(
+    public var size: CUint = 0u,
+    public var len: CUint = 0u,
+    public var fae: PosixSpawnFileActionsEntryT? = null,
 )
 
-public open class PosixSpawnFileActionsT(
-    public var size: CUint,
-    public var len: CUint,
-    public var fae: PosixSpawnFileActionsEntryT?,
+public data class PtraceLwpinfo(public var plLwpid: LwpidT = 0, public var plEvent: CInt = 0)
+
+public data class PtraceLwpstatus(
+    public var plLwpid: LwpidT = 0,
+    public var plSigpend: SigsetT = SigsetT(),
+    public var plSigmask: SigsetT = SigsetT(),
+    public var plName: UByteArray = UByteArray(20),
+    public var plPrivate: COpaquePointer? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PtraceLwpstatus) return false
+        if (this.plLwpid != other.plLwpid) return false
+        if (this.plSigpend != other.plSigpend) return false
+        if (this.plSigmask != other.plSigmask) return false
+        if (!this.plName.contentEquals(other.plName)) return false
+        if (this.plPrivate != other.plPrivate) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.plLwpid.hashCode()
+        result = 31 * result + this.plSigpend.hashCode()
+        result = 31 * result + this.plSigmask.hashCode()
+        result = 31 * result + this.plName.contentHashCode()
+        result = 31 * result + this.plPrivate.hashCode()
+        return result
+    }
+}
+
+public data class PtraceSiginfo(public var psiSiginfo: SiginfoT = SiginfoT(), public var psiLwpid: LwpidT = 0)
+
+public data class PtraceEvent(public var peSetEvent: CInt = 0)
+
+public data class Sysctldesc(
+    public var descrNum: Int = 0,
+    public var descrVer: UInt = 0u,
+    public var descrLen: UInt = 0u,
+    public var descrStr: UByteArray = UByteArray(1),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Sysctldesc) return false
+        if (this.descrNum != other.descrNum) return false
+        if (this.descrVer != other.descrVer) return false
+        if (this.descrLen != other.descrLen) return false
+        if (!this.descrStr.contentEquals(other.descrStr)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.descrNum.hashCode()
+        result = 31 * result + this.descrVer.hashCode()
+        result = 31 * result + this.descrLen.hashCode()
+        result = 31 * result + this.descrStr.contentHashCode()
+        return result
+    }
+}
+
+public class TcpInfo(
+    public var tcpiState: UByte = 0u,
+    public var tcpiCaState: UByte = 0u,
+    public var tcpiRetransmits: UByte = 0u,
+    public var tcpiProbes: UByte = 0u,
+    public var tcpiBackoff: UByte = 0u,
+    public var tcpiOptions: UByte = 0u,
+    public var tcpSndWscale: UByte = 0u,
+    public var tcpRcvWscale: UByte = 0u,
+    public var tcpiRto: UInt = 0u,
+    public var tcpiAto: UInt = 0u,
+    public var tcpiSndMss: UInt = 0u,
+    public var tcpiRcvMss: UInt = 0u,
+    public var tcpiUnacked: UInt = 0u,
+    public var tcpiSacked: UInt = 0u,
+    public var tcpiLost: UInt = 0u,
+    public var tcpiRetrans: UInt = 0u,
+    public var tcpiFackets: UInt = 0u,
+    public var tcpiLastDataSent: UInt = 0u,
+    public var tcpiLastAckSent: UInt = 0u,
+    public var tcpiLastDataRecv: UInt = 0u,
+    public var tcpiLastAckRecv: UInt = 0u,
+    public var tcpiPmtu: UInt = 0u,
+    public var tcpiRcvSsthresh: UInt = 0u,
+    public var tcpiRtt: UInt = 0u,
+    public var tcpiRttvar: UInt = 0u,
+    public var tcpiSndSsthresh: UInt = 0u,
+    public var tcpiSndCwnd: UInt = 0u,
+    public var tcpiAdvmss: UInt = 0u,
+    public var tcpiReordering: UInt = 0u,
+    public var tcpiRcvRtt: UInt = 0u,
+    public var tcpiRcvSpace: UInt = 0u,
+    public var tcpiSndWnd: UInt = 0u,
+    public var tcpiSndBwnd: UInt = 0u,
+    public var tcpiSndNxt: UInt = 0u,
+    public var tcpiRcvNxt: UInt = 0u,
+    public var tcpiToeTid: UInt = 0u,
+    public var tcpiSndRexmitpack: UInt = 0u,
+    public var tcpiRcvOoopack: UInt = 0u,
+    public var tcpiSndZerowin: UInt = 0u,
+    public var tcpiPad: UIntArray = UIntArray(26),
 )
 
-public open class PtraceLwpinfo(public var plLwpid: LwpidT, public var plEvent: CInt)
+public data class InPktinfo(public var ipiAddr: InAddr = InAddr(), public var ipiIfindex: CUint = 0u)
 
-public open class PtraceLwpstatus(
-    public var plLwpid: LwpidT,
-    public var plSigpend: SigsetT,
-    public var plSigmask: SigsetT,
-    public var plName: List<CChar>,
-    public var plPrivate: COpaquePointer?,
+public data class Arphdr(
+    public var arHrd: UShort = 0u,
+    public var arPro: UShort = 0u,
+    public var arHln: UByte = 0u,
+    public var arPln: UByte = 0u,
+    public var arOp: UShort = 0u,
 )
 
-public open class PtraceSiginfo(public var psiSiginfo: SiginfoT, public var psiLwpid: LwpidT)
+public data class InAddr(public var sAddr: InAddrT = 0u)
 
-public open class PtraceEvent(public var peSetEvent: CInt)
+public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
 
-public open class Sysctldesc(
-    public var descrNum: Int,
-    public var descrVer: UInt,
-    public var descrLen: UInt,
-    public var descrStr: List<CChar>,
-)
+public data class SockaddrIn(
+    public var sinLen: UByte = 0u,
+    public var sinFamily: SaFamilyT = 0u,
+    public var sinPort: InPortT = 0u,
+    public var sinAddr: InAddr = InAddr(),
+    public var sinZero: ByteArray = ByteArray(8),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SockaddrIn) return false
+        if (this.sinLen != other.sinLen) return false
+        if (this.sinFamily != other.sinFamily) return false
+        if (this.sinPort != other.sinPort) return false
+        if (this.sinAddr != other.sinAddr) return false
+        if (!this.sinZero.contentEquals(other.sinZero)) return false
+        return true
+    }
 
-public open class TcpInfo(
-    public var tcpiState: UByte,
-    public var tcpiCaState: UByte,
-    public var tcpiRetransmits: UByte,
-    public var tcpiProbes: UByte,
-    public var tcpiBackoff: UByte,
-    public var tcpiOptions: UByte,
-    public var tcpSndWscale: UByte,
-    public var tcpRcvWscale: UByte,
-    public var tcpiRto: UInt,
-    public var tcpiAto: UInt,
-    public var tcpiSndMss: UInt,
-    public var tcpiRcvMss: UInt,
-    public var tcpiUnacked: UInt,
-    public var tcpiSacked: UInt,
-    public var tcpiLost: UInt,
-    public var tcpiRetrans: UInt,
-    public var tcpiFackets: UInt,
-    public var tcpiLastDataSent: UInt,
-    public var tcpiLastAckSent: UInt,
-    public var tcpiLastDataRecv: UInt,
-    public var tcpiLastAckRecv: UInt,
-    public var tcpiPmtu: UInt,
-    public var tcpiRcvSsthresh: UInt,
-    public var tcpiRtt: UInt,
-    public var tcpiRttvar: UInt,
-    public var tcpiSndSsthresh: UInt,
-    public var tcpiSndCwnd: UInt,
-    public var tcpiAdvmss: UInt,
-    public var tcpiReordering: UInt,
-    public var tcpiRcvRtt: UInt,
-    public var tcpiRcvSpace: UInt,
-    public var tcpiSndWnd: UInt,
-    public var tcpiSndBwnd: UInt,
-    public var tcpiSndNxt: UInt,
-    public var tcpiRcvNxt: UInt,
-    public var tcpiToeTid: UInt,
-    public var tcpiSndRexmitpack: UInt,
-    public var tcpiRcvOoopack: UInt,
-    public var tcpiSndZerowin: UInt,
-    public var tcpiPad: List<UInt>,
-)
+    override fun hashCode(): Int {
+        var result = this.sinLen.hashCode()
+        result = 31 * result + this.sinFamily.hashCode()
+        result = 31 * result + this.sinPort.hashCode()
+        result = 31 * result + this.sinAddr.hashCode()
+        result = 31 * result + this.sinZero.contentHashCode()
+        return result
+    }
+}
 
-public open class InPktinfo(public var ipiAddr: InAddr, public var ipiIfindex: CUint)
+public data class Dirent(
+    public var dFileno: InoT = 0uL,
+    public var dReclen: UShort = 0u,
+    public var dNamlen: UShort = 0u,
+    public var dType: UByte = 0u,
+    public var dName: UByteArray = UByteArray(512),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Dirent) return false
+        if (this.dFileno != other.dFileno) return false
+        if (this.dReclen != other.dReclen) return false
+        if (this.dNamlen != other.dNamlen) return false
+        if (this.dType != other.dType) return false
+        if (!this.dName.contentEquals(other.dName)) return false
+        return true
+    }
 
-public open class Arphdr(
-    public var arHrd: UShort,
-    public var arPro: UShort,
-    public var arHln: UByte,
-    public var arPln: UByte,
-    public var arOp: UShort,
-)
+    override fun hashCode(): Int {
+        var result = this.dFileno.hashCode()
+        result = 31 * result + this.dReclen.hashCode()
+        result = 31 * result + this.dNamlen.hashCode()
+        result = 31 * result + this.dType.hashCode()
+        result = 31 * result + this.dName.contentHashCode()
+        return result
+    }
+}
 
-public open class InAddr(public var sAddr: InAddrT)
+public data class SockaddrStorage(
+    public var ssLen: UByte = 0u,
+    public var ssFamily: SaFamilyT = 0u,
+    public var ssPad1: UByteArray = UByteArray(6),
+    public var ssPad2: Long = 0L,
+    public var ssPad3: UByteArray = UByteArray(112),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SockaddrStorage) return false
+        if (this.ssLen != other.ssLen) return false
+        if (this.ssFamily != other.ssFamily) return false
+        if (!this.ssPad1.contentEquals(other.ssPad1)) return false
+        if (this.ssPad2 != other.ssPad2) return false
+        if (!this.ssPad3.contentEquals(other.ssPad3)) return false
+        return true
+    }
 
-public open class IpMreq(public var imrMultiaddr: InAddr, public var imrInterface: InAddr)
+    override fun hashCode(): Int {
+        var result = this.ssLen.hashCode()
+        result = 31 * result + this.ssFamily.hashCode()
+        result = 31 * result + this.ssPad1.contentHashCode()
+        result = 31 * result + this.ssPad2.hashCode()
+        result = 31 * result + this.ssPad3.contentHashCode()
+        return result
+    }
+}
 
-public open class SockaddrIn(
-    public var sinLen: UByte,
-    public var sinFamily: SaFamilyT,
-    public var sinPort: InPortT,
-    public var sinAddr: InAddr,
-    public var sinZero: List<Byte>,
-)
-
-public open class Dirent(
-    public var dFileno: InoT,
-    public var dReclen: UShort,
-    public var dNamlen: UShort,
-    public var dType: UByte,
-    public var dName: List<CChar>,
-)
-
-public open class SockaddrStorage(
-    public var ssLen: UByte,
-    public var ssFamily: SaFamilyT,
-    public var ssPad1: List<UByte>,
-    public var ssPad2: Long,
-    public var ssPad3: List<UByte>,
-)
-
-public open class Sigevent(
-    public var sigevNotify: CInt,
-    public var sigevSigno: CInt,
-    public var sigevValue: Sigval,
-    public var unused1: COpaquePointer?,
+public data class Sigevent(
+    public var sigevNotify: CInt = 0,
+    public var sigevSigno: CInt = 0,
+    public var sigevValue: Sigval = Sigval(),
+    public var unused1: COpaquePointer? = null,
     // actually a function pointer
-    public var sigevNotifyAttributes: COpaquePointer?,
+    public var sigevNotifyAttributes: COpaquePointer? = null,
 )
 
-public open class CAnonymousPosixSpawnFae(public var open: CAnonymousPosixSpawnFaeOpen? = null, public var dup2: CAnonymousPosixSpawnFaeDup2? = null) {
-    public open fun fmt(f: StringBuilder) {
+public data class CAnonymousPosixSpawnFae(public var open: CAnonymousPosixSpawnFaeOpen = CAnonymousPosixSpawnFaeOpen(), public var dup2: CAnonymousPosixSpawnFaeDup2 = CAnonymousPosixSpawnFaeDup2()) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_posix_spawn_fae").finishNonExhaustive()
     }
 
-    public open fun eq(other: CAnonymousPosixSpawnFae): Boolean {
+    public fun eq(other: CAnonymousPosixSpawnFae): Boolean {
         return this.open == other.open || this.dup2 == other.dup2
     }
 

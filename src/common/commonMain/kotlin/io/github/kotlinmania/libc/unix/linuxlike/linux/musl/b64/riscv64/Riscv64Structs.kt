@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.riscv64
 
 import io.github.kotlinmania.libc.*
@@ -43,82 +44,140 @@ public class DebugStruct(
     }
 }
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var pad1: DevT,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var pad2: CInt,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CInt>,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var pad1: DevT = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0,
+    public var pad2: CInt = 0,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: IntArray = IntArray(2),
 )
 
-public open class IpcPerm(
-    public var key: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: CUshort,
-    public var pad1: CUshort,
-    public var seq: CUshort,
-    public var pad2: CUshort,
-    public var unused1: CUlong,
-    public var unused2: CUlong,
+public data class IpcPerm(
+    public var key: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: CUshort = 0u,
+    public var pad1: CUshort = 0u,
+    public var seq: CUshort = 0u,
+    public var pad2: CUshort = 0u,
+    public var unused1: CUlong = 0uL,
+    public var unused2: CUlong = 0uL,
 )
 
-public open class CloneArgs(
-    public var flags: CUlonglong,
-    public var pidfd: CUlonglong,
-    public var childTid: CUlonglong,
-    public var parentTid: CUlonglong,
-    public var exitSignal: CUlonglong,
-    public var stack: CUlonglong,
-    public var stackSize: CUlonglong,
-    public var tls: CUlonglong,
-    public var setTid: CUlonglong,
-    public var setTidSize: CUlonglong,
-    public var cgroup: CUlonglong,
+public data class CloneArgs(
+    public var flags: CUlonglong = 0uL,
+    public var pidfd: CUlonglong = 0uL,
+    public var childTid: CUlonglong = 0uL,
+    public var parentTid: CUlonglong = 0uL,
+    public var exitSignal: CUlonglong = 0uL,
+    public var stack: CUlonglong = 0uL,
+    public var stackSize: CUlonglong = 0uL,
+    public var tls: CUlonglong = 0uL,
+    public var setTid: CUlonglong = 0uL,
+    public var setTidSize: CUlonglong = 0uL,
+    public var cgroup: CUlonglong = 0uL,
 )
 
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucStack: StackT,
-    public var ucSigmask: SigsetT,
-    public var ucMcontext: McontextT,
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucStack: StackT = StackT(),
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var ucMcontext: McontextT = McontextT(),
 )
 
-public open class McontextT(public var gregs: List<CUlong>, public var fpregs: RiscvMcFpState)
+public data class McontextT(public var gregs: ULongArray = ULongArray(32), public var fpregs: RiscvMcFpState = RiscvMcFpState()) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
+        if (this.fpregs != other.fpregs) return false
+        return true
+    }
 
-public open class RiscvMcFpState(
-    public var f: RiscvMcFExtState? = null,
-    public var d: RiscvMcDExtState? = null,
-    public var q: RiscvMcQExtState? = null,
+    override fun hashCode(): Int {
+        var result = this.gregs.contentHashCode()
+        result = 31 * result + this.fpregs.hashCode()
+        return result
+    }
+}
+
+public data class RiscvMcFpState(
+    public var f: RiscvMcFExtState = RiscvMcFExtState(),
+    public var d: RiscvMcDExtState = RiscvMcDExtState(),
+    public var q: RiscvMcQExtState = RiscvMcQExtState(),
 ) {
-    public open fun fmt(f: StringBuilder) {
+    public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__riscv_mc_fp_state").finishNonExhaustive()
     }
 }
 
-public open class RiscvMcFExtState(public var f: List<CUint>, public var fcsr: CUint)
+public data class RiscvMcFExtState(public var f: UIntArray = UIntArray(32), public var fcsr: CUint = 0u) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RiscvMcFExtState) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (this.fcsr != other.fcsr) return false
+        return true
+    }
 
-public open class RiscvMcDExtState(public var f: List<CUlonglong>, public var fcsr: CUint)
+    override fun hashCode(): Int {
+        var result = this.f.contentHashCode()
+        result = 31 * result + this.fcsr.hashCode()
+        return result
+    }
+}
 
-public open class RiscvMcQExtState(
-    public var f: List<CUlonglong>,
-    public var fcsr: CUint,
-    public var glibcReserved: List<CUint>,
-)
+public data class RiscvMcDExtState(public var f: ULongArray = ULongArray(32), public var fcsr: CUint = 0u) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RiscvMcDExtState) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (this.fcsr != other.fcsr) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.f.contentHashCode()
+        result = 31 * result + this.fcsr.hashCode()
+        return result
+    }
+}
+
+public data class RiscvMcQExtState(
+    public var f: ULongArray = ULongArray(64),
+    public var fcsr: CUint = 0u,
+    public var glibcReserved: UIntArray = UIntArray(3),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RiscvMcQExtState) return false
+        if (!this.f.contentEquals(other.f)) return false
+        if (this.fcsr != other.fcsr) return false
+        if (!this.glibcReserved.contentEquals(other.glibcReserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.f.contentHashCode()
+        result = 31 * result + this.fcsr.hashCode()
+        result = 31 * result + this.glibcReserved.contentHashCode()
+        return result
+    }
+}

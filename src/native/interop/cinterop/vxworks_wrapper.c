@@ -5242,32 +5242,6 @@ int32_t libc_vxworks_kill(int32_t arg_0_pid, int32_t arg_1_signo) {
 #endif
 }
 
-int32_t libc_vxworks_sigqueue_2(int32_t rtpId, int32_t signo, void* pValue, int32_t sigCode) {
-    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, int32_t);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sigqueue");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sigqueue");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_sigqueue");
-    }
-#endif
-    if (km_fn_ptr != NULL) {
-        return km_fn_ptr(rtpId, signo, pValue, sigCode);
-    }
-    errno = ENOSYS;
-    return -1;
-}
-
 int32_t libc_vxworks_taskKill(int32_t taskId, int32_t signo) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;

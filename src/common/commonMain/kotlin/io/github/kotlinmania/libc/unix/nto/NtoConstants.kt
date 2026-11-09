@@ -9,10 +9,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.linuxlike.S_IRUSR
-import io.github.kotlinmania.libc.unix.linuxlike.S_IWUSR
-import io.github.kotlinmania.libc.unix.linuxlike.S_IXUSR
-import io.github.kotlinmania.libc.unix.newlib.aarch64.POLLOUT
 
 public val SYSNAME_SIZE: Int = 256 + 1
 
@@ -124,7 +120,7 @@ public val MAP_PRIVATE: CInt = 2
 
 public val MAP_FIXED: CInt = 0x10
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MS_ASYNC: CInt = 1
 
@@ -232,7 +228,7 @@ public val IFF_ACCEPTRTADV: CInt = 0x40000000
 
 public val IFF_IP6FORWARDING: CInt = 0x20000000
 
-public val IFF_SHIM: CInt = 0x80000000
+public val IFF_SHIM: CInt = 0x80000000.toInt()
 
 public val KERN_ARND: CInt = 81
 
@@ -284,80 +280,6 @@ public val USER_MAXID: CInt = 22
 
 public val SO_OVERFLOWED: CInt = 0x1009
 
-public val SCM_CREDS1: CInt = 0x03
-
-public val AF_INET61: CInt = 28
-
-public val AF_BLUETOOTH1: CInt = 36
-
-public val PSEUDO_AF_KEY1: CInt = 27
-
-public val MSG_NOSIGNAL1: CInt = 0x20000
-
-public val MSG_WAITFORONE1: CInt = 0x00080000
-
-public val IPPROTO_DIVERT1: CInt = 258
-
-public val RTF_BROADCAST1: UInt = 0x400000u
-
-public val UDP_ENCAP1: CInt = 1
-
-public val HW_MACHINE_ARCH1: CInt = 11
-
-public val AF_ARP1: CInt = 35
-
-public val AF_IEEE802111: CInt = 37
-
-public val AF_NATM1: CInt = 29
-
-public val BIOCGDLTLIST1: CUlong = 0xffffffffc0104279uL
-
-public val BIOCGETIF1: CInt = 0x4020426b
-
-public val BIOCGSEESENT1: CInt = 0x40044276
-
-public val BIOCGSTATS1: CInt = 0x4008426f
-
-public val BIOCSDLT1: CInt = 0x80044278
-
-public val BIOCSETIF1: CInt = 0x8020426c
-
-public val BIOCSSEESENT1: CInt = 0x80044277
-
-public val KERN_ARND1: CInt = 37
-
-public val KERN_IOV_MAX1: CInt = 35
-
-public val KERN_LOGSIGEXIT1: CInt = 34
-
-public val KERN_PROC_ARGS1: CInt = 7
-
-public val KERN_PROC_ENV1: CInt = 35
-
-public val KERN_PROC_GID1: CInt = 11
-
-public val KERN_PROC_RGID1: CInt = 10
-
-public val LOCAL_CONNWAIT1: CInt = 4
-
-public val LOCAL_CREDS1: CInt = 2
-
-public val MSG_NOTIFICATION1: CInt = 0x00002000
-
-public val NET_RT_IFLIST1: CInt = 3
-
-public val NI_NUMERICSCOPE1: CInt = 0x00000020
-
-public val PF_ARP1: CInt = AF_ARP
-
-public val PF_NATM1: CInt = AF_NATM
-
-public val PSEUDO_AF_HDRCMPLT1: CInt = 31
-
-public val SIOCGIFADDR1: CInt = 0xc0206921
-
-public val SO_SETFIB1: CInt = 0x1014
-
 public val MAP_TYPE: CInt = 0x3
 
 public val IFF_UP: CInt = 0x00000001
@@ -382,9 +304,9 @@ public val IFF_MULTICAST: CInt = 0x00008000
 
 public val AF_UNSPEC: CInt = 0
 
-public val AF_UNIX: CInt = AF_LOCAL
-
 public val AF_LOCAL: CInt = 1
+
+public val AF_UNIX: CInt = AF_LOCAL
 
 public val AF_INET: CInt = 2
 
@@ -400,9 +322,9 @@ public val AF_ISDN: CInt = 26
 
 public val PF_UNSPEC: CInt = AF_UNSPEC
 
-public val PF_UNIX: CInt = PF_LOCAL
-
 public val PF_LOCAL: CInt = AF_LOCAL
+
+public val PF_UNIX: CInt = PF_LOCAL
 
 public val PF_INET: CInt = AF_INET
 
@@ -740,7 +662,11 @@ public val UTIME_OMIT: CLong = 0x40000002L
 
 public val UTIME_NOW: CLong = 0x40000001L
 
-public val POLLIN: CShort = (POLLRDNORM or POLLRDBAND).toShort()
+public val POLLRDNORM: CShort = 0x0001
+
+public val POLLRDBAND: CShort = 0x0004
+
+public val POLLIN: CShort = (POLLRDNORM.toInt() or POLLRDBAND.toInt()).toShort()
 
 public val POLLPRI: CShort = 0x0008
 
@@ -751,10 +677,6 @@ public val POLLERR: CShort = 0x0020
 public val POLLHUP: CShort = 0x0040
 
 public val POLLNVAL: CShort = 0x1000
-
-public val POLLRDNORM: CShort = 0x0001
-
-public val POLLRDBAND: CShort = 0x0004
 
 public val IPTOS_LOWDELAY: UByte = 0x10u
 
@@ -884,13 +806,13 @@ public val TIOCM_SR: CInt = 0x0400
 
 public val TIOCM_CTS: CInt = 0x1000
 
-public val TIOCM_CAR: CInt = TIOCM_CD
-
 public val TIOCM_CD: CInt = 0x8000
 
-public val TIOCM_RNG: CInt = TIOCM_RI
+public val TIOCM_CAR: CInt = TIOCM_CD
 
 public val TIOCM_RI: CInt = 0x4000
+
+public val TIOCM_RNG: CInt = TIOCM_RI
 
 public val TIOCM_DSR: CInt = 0x2000
 
@@ -1102,6 +1024,8 @@ public val REG_BADRPT: CInt = 13
 // errno.h
 public val EOK: CInt = 0
 
+public val EAGAIN: CInt = 11
+
 public val EWOULDBLOCK: CInt = EAGAIN
 
 public val EPERM: CInt = 1
@@ -1123,8 +1047,6 @@ public val ENOEXEC: CInt = 8
 public val EBADF: CInt = 9
 
 public val ECHILD: CInt = 10
-
-public val EAGAIN: CInt = 11
 
 public val ENOMEM: CInt = 12
 
@@ -1416,6 +1338,8 @@ public val PC_SYMLINK_MAX: CInt = 17
 
 public val PC_2_SYMLINKS: CInt = 20
 
+public val SC_PAGESIZE: CInt = 11
+
 public val SC_PAGE_SIZE: CInt = SC_PAGESIZE
 
 public val SC_ARG_MAX: CInt = 1
@@ -1435,8 +1359,6 @@ public val SC_SAVED_IDS: CInt = 7
 public val SC_VERSION: CInt = 8
 
 public val SC_PASS_MAX: CInt = 9
-
-public val SC_PAGESIZE: CInt = 11
 
 public val SC_XOPEN_VERSION: CInt = 12
 
@@ -1790,9 +1712,15 @@ public val GLOB_ABORTED: CInt = 2
 
 public val GLOB_NOMATCH: CInt = 3
 
+public val S_IXUSR: ModeT = 64u
+
 public val S_IEXEC: ModeT = S_IXUSR
 
+public val S_IWUSR: ModeT = 128u
+
 public val S_IWRITE: ModeT = S_IWUSR
+
+public val S_IRUSR: ModeT = 256u
 
 public val S_IREAD: ModeT = S_IRUSR
 
@@ -1827,12 +1755,6 @@ public val S_IWGRP: ModeT = 16u
 public val S_IRGRP: ModeT = 32u
 
 public val S_IRWXG: ModeT = 56u
-
-public val S_IXUSR: ModeT = 64u
-
-public val S_IWUSR: ModeT = 128u
-
-public val S_IRUSR: ModeT = 256u
 
 public val S_IRWXU: ModeT = 448u
 
@@ -1912,6 +1834,8 @@ public val O_EXEC: CInt = 3
 
 public val O_ASYNC: CInt = 65536
 
+public val O_NONBLOCK: CInt = 128
+
 public val O_NDELAY: CInt = O_NONBLOCK
 
 public val O_TRUNC: CInt = 512
@@ -1929,8 +1853,6 @@ public val O_CREAT: CInt = 256
 public val O_EXCL: CInt = 1024
 
 public val O_NOCTTY: CInt = 2048
-
-public val O_NONBLOCK: CInt = 128
 
 public val O_SYNC: CInt = 32
 
@@ -1996,11 +1918,11 @@ public val SIGTSTP: CInt = 24
 
 public val SIGURG: CInt = 21
 
+public val SIGPOLL: CInt = 22
+
 public val SIGIO: CInt = SIGPOLL
 
 public val SIGSYS: CInt = 12
-
-public val SIGPOLL: CInt = 22
 
 public val SIGPWR: CInt = 19
 
@@ -2032,9 +1954,9 @@ public val F_UNLCK: CInt = 3
 
 public val NCCS: Int = 40
 
-public val MAP_ANON: CInt = MAP_ANONYMOUS
-
 public val MAP_ANONYMOUS: CInt = 0x00080000
+
+public val MAP_ANON: CInt = MAP_ANONYMOUS
 
 public val MCL_CURRENT: CInt = 0x000000001
 
@@ -2360,7 +2282,7 @@ public val BIOCSRTIMEOUT: CInt = -2146418067
 
 public val BIOCVERSION: CInt = 1074020977
 
-public val BPF_ALIGNMENT: Int = sizeOf<CLong>()
+public val BPF_ALIGNMENT: Int = 8
 
 public val CHAR_BIT: Int = 8
 
@@ -2678,7 +2600,7 @@ public val SIGEV_THREAD: CInt = 135
 
 public val SO_USELOOPBACK: CInt = 0x0040
 
-public val SS_ALIGNSIZE: Int = sizeOf<Long>()
+public val SS_ALIGNSIZE: Int = 8
 
 public val SS_MAXSIZE: Int = 128
 
@@ -2872,8 +2794,8 @@ public val PTHREAD_PROCESS_SHARED: CInt = 0x01
 
 public val PTHREAD_KEYS_MAX: Int = 128
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(u = 0x80000000u, owner = 0xffffffffu)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x80000000u, owner = 0xffffffff.toInt())
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffbu)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffbu)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(active = 0u, blockedwriters = 0u, blockedreaders = 0u, heavy = 0u, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = (-2).toUInt(), spare = 0u)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = (-2).toUInt(), spare = 0u)

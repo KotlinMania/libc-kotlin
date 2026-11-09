@@ -74,19 +74,20 @@ public typealias VmMapEntryT = COpaquePointer?
 
 public typealias Pmap = CAnonymousPmap
 
-public sealed class Sem {
+public class Sem(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class Lwpstat(public val value: UInt) {
-    public data object Lsrun : Lwpstat(1u)
-    public data object Lsstop : Lwpstat(2u)
-    public data object Lssleep : Lwpstat(3u)
+public enum class Lwpstat(public val value: UInt) {
+    LSRUN(1u),
+    LSSTOP(2u),
+    LSSLEEP(3u),
 }
 
-public sealed class Procstat(public val value: UInt) {
-    public data object Sidl : Procstat(1u)
-    public data object Sactive : Procstat(2u)
-    public data object Sstop : Procstat(3u)
-    public data object Szomb : Procstat(4u)
-    public data object Score : Procstat(5u)
+public enum class Procstat(public val value: UInt) {
+    SIDL(1u),
+    SACTIVE(2u),
+    SSTOP(3u),
+    SZOMB(4u),
+    SCORE(5u),
 }

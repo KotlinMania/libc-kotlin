@@ -1,4 +1,5 @@
 // port-lint: source unix/solarish/x86_64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.solarish.x8664
 
 import io.github.kotlinmania.libc.*
@@ -34,64 +35,78 @@ public typealias Elf64Lword = CUlong
 
 public typealias Elf64Phdr = CAnonymousElf64Phdr
 
-public open class CAnonymousFpchipState(
-    public var cw: UShort,
-    public var sw: UShort,
-    public var fctw: UByte,
-    public var fxRsvd: UByte,
-    public var fop: UShort,
-    public var rip: ULong,
-    public var rdp: ULong,
-    public var mxcsr: UInt,
-    public var mxcsrMask: UInt,
-    public var st: List<Upad128T>,
-    public var xmm: List<Upad128T>,
-    public var fxIgn: List<Upad128T>,
-    public var status: UInt,
-    public var xstatus: UInt,
+public data class CAnonymousFpchipState(
+    public var cw: UShort = 0u,
+    public var sw: UShort = 0u,
+    public var fctw: UByte = 0u,
+    public var fxRsvd: UByte = 0u,
+    public var fop: UShort = 0u,
+    public var rip: ULong = 0uL,
+    public var rdp: ULong = 0uL,
+    public var mxcsr: UInt = 0u,
+    public var mxcsrMask: UInt = 0u,
+    public var st: List<Upad128T> = List(8) { Upad128T() },
+    public var xmm: List<Upad128T> = List(16) { Upad128T() },
+    public var fxIgn: List<Upad128T> = List(6) { Upad128T() },
+    public var status: UInt = 0u,
+    public var xstatus: UInt = 0u,
 )
 
-public open class CAnonymousElf64Phdr(
-    public var pType: Elf64Word,
-    public var pFlags: Elf64Word,
-    public var pOffset: Elf64Off,
-    public var pVaddr: Elf64Addr,
-    public var pPaddr: Elf64Addr,
-    public var pFilesz: Elf64Xword,
-    public var pMemsz: Elf64Xword,
-    public var pAlign: Elf64Xword,
+public data class CAnonymousElf64Phdr(
+    public var pType: Elf64Word = 0u,
+    public var pFlags: Elf64Word = 0u,
+    public var pOffset: Elf64Off = 0uL,
+    public var pVaddr: Elf64Addr = 0uL,
+    public var pPaddr: Elf64Addr = 0uL,
+    public var pFilesz: Elf64Xword = 0uL,
+    public var pMemsz: Elf64Xword = 0uL,
+    public var pAlign: Elf64Xword = 0uL,
 )
 
-public open class DlPhdrInfo(
-    public var dlpiAddr: Elf64Addr,
-    public var dlpiName: COpaquePointer?,
-    public var dlpiPhdr: CAnonymousElf64Phdr?,
-    public var dlpiPhnum: Elf64Half,
-    public var dlpiAdds: CUlonglong,
-    public var dlpiSubs: CUlonglong,
-    public var dlpiTlsModid: CUlong,
-    public var dlpiTlsData: COpaquePointer?,
+public data class DlPhdrInfo(
+    public var dlpiAddr: Elf64Addr = 0uL,
+    public var dlpiName: COpaquePointer? = null,
+    public var dlpiPhdr: CAnonymousElf64Phdr? = null,
+    public var dlpiPhnum: Elf64Half = 0u,
+    public var dlpiAdds: CUlonglong = 0uL,
+    public var dlpiSubs: CUlonglong = 0uL,
+    public var dlpiTlsModid: CUlong = 0uL,
+    public var dlpiTlsData: COpaquePointer? = null,
 )
 
-public open class FpregsetT(public var fpRegSet: CAnonymousFpRegSet)
+public data class FpregsetT(public var fpRegSet: CAnonymousFpRegSet = CAnonymousFpRegSet())
 
-public open class McontextT(public var gregs: List<GregT>, public var fpregs: FpregsetT)
+public data class McontextT(public var gregs: LongArray = LongArray(28), public var fpregs: FpregsetT = FpregsetT()) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.gregs.contentEquals(other.gregs)) return false
+        if (this.fpregs != other.fpregs) return false
+        return true
+    }
 
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucSigmask: SigsetT,
-    public var ucStack: StackT,
-    public var ucMcontext: McontextT,
-    public var ucBrandData: List<COpaquePointer?>,
-    public var ucXsave: CLong,
-    public var ucFiller: CLong,
-    public var ucXrs: XrsT,
-    public var ucLwpid: CUint,
+    override fun hashCode(): Int {
+        var result = this.gregs.contentHashCode()
+        result = 31 * result + this.fpregs.hashCode()
+        return result
+    }
+}
+
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var ucStack: StackT = StackT(),
+    public var ucMcontext: McontextT = McontextT(),
+    public var ucBrandData: List<COpaquePointer?> = List(3) { null },
+    public var ucXsave: CLong = 0L,
+    public var ucFiller: CLong = 0L,
+    public var ucXrs: XrsT = XrsT(),
+    public var ucLwpid: CUint = 0u,
 )
 
-public open class CAnonymousFpRegSet(public var fpchipState: CAnonymousFpchipState? = null, public var fFpregs: List<List<UInt>>? = null) {
-    public open fun eq(other: CAnonymousFpRegSet): Boolean {
+public data class CAnonymousFpRegSet(public var fpchipState: CAnonymousFpchipState = CAnonymousFpchipState(), public var fFpregs: List<UIntArray> = List(10) { UIntArray(0) }) {
+    public fun eq(other: CAnonymousFpRegSet): Boolean {
         return this.fpchipState == other.fpchipState || this.fFpregs.iter().zip(other.fFpregs.iter()).all({ (a, b) -> a == b })
     }
 

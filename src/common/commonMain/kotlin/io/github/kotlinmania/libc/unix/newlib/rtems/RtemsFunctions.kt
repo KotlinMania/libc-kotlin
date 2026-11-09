@@ -17,7 +17,7 @@ public fun wifstopped(status: CInt): Boolean {
 
 public fun wstopsig(status: CInt): CInt {
     // (status >> 8) & 0xff
-    return WEXITSTATUS(status)
+    return wexitstatus(status)
 }
 
 public fun wifsignaled(status: CInt): Boolean {

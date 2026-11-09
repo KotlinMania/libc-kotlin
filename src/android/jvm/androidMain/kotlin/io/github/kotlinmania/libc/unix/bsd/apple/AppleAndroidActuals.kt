@@ -919,13 +919,13 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_semget(key, nsems, semflg)
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_semop(semid, (sops?.value ?: 0L), nsops.toLong())
 
-public actual fun shmOpen(name: String?, oflag: CInt): CInt =
+public actual fun shmOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ftok(pathname: String?, projId: CInt): KeyT =
@@ -989,7 +989,7 @@ public actual fun pthreadMachThreadNp(thread: PthreadT): MachPortT =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_pthreadMachThreadNp(thread.toLong()).toUInt()
 
 public actual fun pthreadFromMachThreadNp(port: MachPortT): PthreadT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_pthreadFromMachThreadNp(port.toInt()).toULong()()
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_pthreadFromMachThreadNp(port.toInt()).toULong()
 
 public actual fun pthreadGetStackaddrNp(thread: PthreadT): COpaquePointer? =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_pthreadGetStackaddrNp(thread.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
@@ -1070,13 +1070,13 @@ public actual fun osSignpostEnabled(log: OsLogT): Boolean =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_osSignpostEnabled((log?.value ?: 0L))
 
 public actual fun threadPolicySet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: MachMsgTypeNumberT): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_threadPolicySet(thread.toLong(), flavor.toInt(), policyInfo.toLong(), count.toInt())
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_threadPolicySet(thread.toLong(), flavor.toInt(), (policyInfo?.value ?: 0L), count.toInt())
 
 public actual fun threadPolicyGet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: COpaquePointer?, getDefault: COpaquePointer?): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_threadPolicyGet(thread.toLong(), flavor.toInt(), policyInfo.toLong(), (count?.value ?: 0L), (getDefault?.value ?: 0L))
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_threadPolicyGet(thread.toLong(), flavor.toInt(), (policyInfo?.value ?: 0L), (count?.value ?: 0L), (getDefault?.value ?: 0L))
 
 public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, threadInfoOut: ThreadInfoT, threadInfoOutCnt: COpaquePointer?): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_threadInfo(targetAct.toInt(), flavor.toInt(), threadInfoOut.toLong(), (threadInfoOutCnt?.value ?: 0L))
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_threadInfo(targetAct.toInt(), flavor.toInt(), (threadInfoOut?.value ?: 0L), (threadInfoOutCnt?.value ?: 0L))
 
 public actual fun error(): COpaquePointer? =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_error().let { if (it == 0L) null else COpaquePointer(it) }
@@ -1147,22 +1147,22 @@ public actual fun loginTty(fd: CInt): CInt =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_loginTty(fd)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_duplocale(base.toLong()).toULong()()
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun freelocale(loc: LocaleT): CInt =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_freelocale(loc.toLong())
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_freelocale((loc?.value ?: 0L))
 
 public actual fun localeconvL(loc: LocaleT): COpaquePointer? =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_localeconvL(loc.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_localeconvL((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_newlocale(mask, locale, base.toLong()).toULong()()
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_uselocale(loc.toLong()).toULong()()
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun querylocale(mask: CInt, loc: LocaleT): COpaquePointer? =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_querylocale(mask, loc.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_querylocale(mask, (loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_getpriority(which, who.toInt())
@@ -1375,9 +1375,9 @@ public actual fun strtonum(numstr: String?, minval: CLonglong, maxval: CLonglong
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_strtonum(numstr, minval, maxval, (errstrp?.value ?: 0L))
 
 public actual fun mstats(): Mstats =
-    null as Mstats
+    Mstats()
 
-public actual fun mallocPrintf(format: String?) {
+public actual fun mallocPrintf(format: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun mallocZoneCheck(zone: COpaquePointer?): BooleanT =
@@ -1513,7 +1513,7 @@ public actual fun vmDeallocate(targetTask: VmMapT, address: VmAddressT, size: Vm
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_vmDeallocate(targetTask.toLong(), address.toLong(), size.toLong())
 
 public actual fun hostStatistics64(hostPriv: HostT, flavor: HostFlavorT, hostInfo64Out: HostInfo64T, hostInfo64OutCnt: COpaquePointer?): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_hostStatistics64(hostPriv.toInt(), flavor, hostInfo64Out.toLong(), (hostInfo64OutCnt?.value ?: 0L))
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_hostStatistics64(hostPriv.toInt(), flavor, (hostInfo64Out?.value ?: 0L), (hostInfo64OutCnt?.value ?: 0L))
 
 public actual fun hostProcessorInfo(host: HostT, flavor: ProcessorFlavorT, outProcessorCount: COpaquePointer?, outProcessorInfo: COpaquePointer?, outProcessorInfoCnt: COpaquePointer?): KernReturnT =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_hostProcessorInfo(host.toInt(), flavor, (outProcessorCount?.value ?: 0L), (outProcessorInfo?.value ?: 0L), (outProcessorInfoCnt?.value ?: 0L))
@@ -1522,10 +1522,10 @@ public actual fun taskForPid(host: MachPortT, pid: PidT, task: COpaquePointer?):
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskForPid(host.toInt(), pid, (task?.value ?: 0L))
 
 public actual fun taskInfo(host: MachPortT, flavor: TaskFlavorT, taskInfoOut: TaskInfoT, taskInfoCount: COpaquePointer?): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskInfo(host.toInt(), flavor.toInt(), taskInfoOut.toLong(), (taskInfoCount?.value ?: 0L))
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskInfo(host.toInt(), flavor.toInt(), (taskInfoOut?.value ?: 0L), (taskInfoCount?.value ?: 0L))
 
 public actual fun taskCreate(targetTask: TaskT, ledgers: LedgerArrayT, ledgersCnt: MachMsgTypeNumberT, inheritMemory: BooleanT, childTask: COpaquePointer?): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskCreate(targetTask.toInt(), ledgers.toLong(), ledgersCnt.toInt(), inheritMemory, (childTask?.value ?: 0L))
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskCreate(targetTask.toInt(), (ledgers?.value ?: 0L), ledgersCnt.toInt(), inheritMemory, (childTask?.value ?: 0L))
 
 public actual fun taskTerminate(targetTask: TaskT): KernReturnT =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskTerminate(targetTask.toInt())
@@ -1534,7 +1534,7 @@ public actual fun taskThreads(targetTask: TaskInspectT, actList: COpaquePointer?
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskThreads(targetTask.toInt(), (actList?.value ?: 0L), (actListCnt?.value ?: 0L))
 
 public actual fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: COpaquePointer?): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_hostStatistics(hostPriv.toInt(), flavor, hostInfoOut.toLong(), (hostInfoOutCnt?.value ?: 0L))
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_hostStatistics(hostPriv.toInt(), flavor, (hostInfoOut?.value ?: 0L), (hostInfoOutCnt?.value ?: 0L))
 
 public actual fun sysdirStartSearchPathEnumeration(dir: SysdirSearchPathDirectoryT, domainMask: SysdirSearchPathDomainMaskT): SysdirSearchPathEnumerationState =
     0u
@@ -1598,7 +1598,7 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: 
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun taskSetInfo(targetTask: TaskT, flavor: TaskFlavorT, taskInfoIn: TaskInfoT, taskInfoInCnt: MachMsgTypeNumberT): KernReturnT =
-    UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskSetInfo(targetTask.toInt(), flavor.toInt(), taskInfoIn.toLong(), taskInfoInCnt.toInt())
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_taskSetInfo(targetTask.toInt(), flavor.toInt(), (taskInfoIn?.value ?: 0L), taskInfoInCnt.toInt())
 
 public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_iconvOpen(tocode, fromcode).let { if (it == 0L) null else COpaquePointer(it) }

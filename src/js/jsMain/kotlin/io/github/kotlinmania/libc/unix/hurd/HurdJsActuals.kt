@@ -62,7 +62,7 @@ public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
 public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_sigaltstack((ss?.value ?: 0L).toString(), (oss?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
@@ -122,7 +122,7 @@ public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_lioListio(mode, (aiocbList?.value ?: 0L).toString(), nitems, (sevp?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -632,16 +632,16 @@ public actual fun fstatvfs(fildes: CInt, buf: COpaquePointer?): CInt =
 public actual fun fstatvfs64(fildes: CInt, buf: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_fstatvfs64(fildes, (buf?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun open(file: String?, oflag: CInt): CInt =
+public actual fun open(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun open64(file: String?, oflag: CInt): CInt =
+public actual fun open64(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat(fd: CInt, file: String?, oflag: CInt): CInt =
+public actual fun openat(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun openat64(fd: CInt, file: String?, oflag: CInt): CInt =
+public actual fun openat64(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fopen64(filename: String?, mode: String?): FILE? =
@@ -836,7 +836,7 @@ public actual fun errnoLocation(): COpaquePointer? =
 public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_mmap64((addr?.value ?: 0L).toString(), len.toString(), prot, flags, fd, offset.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -978,10 +978,10 @@ public actual fun mallopt(param: CInt, value: CInt): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_mallopt(param, value) as Int) else 0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallinfo2(): Mallinfo2 =
-    null as Mallinfo2
+    Mallinfo2()
 
 public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_mallocInfo(options, (stream?.handle ?: 0L).toString()) as Int) else 0
@@ -1098,25 +1098,25 @@ public actual fun dladdr1(addr: COpaquePointer?, info: COpaquePointer?, extraInf
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_dladdr1((addr?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (extraInfo?.value ?: 0L).toString(), flags) as Int) else 0
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixHurdNapiAddon != null) {
-        _unixHurdNapiAddon.libc_unix_hurd_freelocale(loc.toLong().toString())
+        _unixHurdNapiAddon.libc_unix_hurd_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_nlLanginfo(item) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_nlLanginfoL(item, locale.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_nlLanginfoL(item, (locale?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0

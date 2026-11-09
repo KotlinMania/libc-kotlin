@@ -354,9 +354,9 @@ public val SC_IOV_MAX: CInt = 60
 public val SC_SYMLOOP_MAX: CInt = 173
 
 // Note(msrv): `addrOf(EXTERN_STATIC)` is now safe; remove `unchecked` when MSRV >= 1.82
-public var CLOCK_MONOTONIC: ClockidT = clockidT(addrOf(CLOCK_MONOTONIC))
+public var CLOCK_MONOTONIC: ClockidT = ClockidT(null)
 
-public var CLOCK_REALTIME: ClockidT = clockidT(addrOf(CLOCK_REALTIME))
+public var CLOCK_REALTIME: ClockidT = ClockidT(null)
 
 public val ABDAY_1: NlItem = 0x20000
 

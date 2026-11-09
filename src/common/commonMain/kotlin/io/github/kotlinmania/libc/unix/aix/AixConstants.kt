@@ -84,9 +84,15 @@ public val F_GETFL: CInt = 3
 
 public val F_SETFL: CInt = 4
 
+public val F_GETLK64: CInt = 11
+
 public val F_GETLK: CInt = F_GETLK64
 
+public val F_SETLK64: CInt = 12
+
 public val F_SETLK: CInt = F_SETLK64
+
+public val F_SETLKW64: CInt = 13
 
 public val F_SETLKW: CInt = F_SETLKW64
 
@@ -95,12 +101,6 @@ public val F_GETOWN: CInt = 8
 public val F_SETOWN: CInt = 9
 
 public val F_CLOSEM: CInt = 10
-
-public val F_GETLK64: CInt = 11
-
-public val F_SETLK64: CInt = 12
-
-public val F_SETLKW64: CInt = 13
 
 public val F_DUP2FD: CInt = 14
 
@@ -273,7 +273,7 @@ public val YESEXPR: NlItem = 61
 public val NOEXPR: NlItem = 62
 
 // locale.h
-public val LC_GLOBAL_LOCALE: LocaleT = (-1).toULong()
+public val LC_GLOBAL_LOCALE: LocaleT = ((-1 as Any?) as LocaleT)
 
 public val LC_COLLATE: CInt = 0
 
@@ -378,7 +378,7 @@ public val IPV6_FLOWINFO_PRIFLOW: CInt = 0x0fffffff
 
 public val IPV6_FLOWINFO_SRFLAG: CInt = 0x10000000
 
-public val IPV6_FLOWINFO_VERSION: CInt = 0xf0000000
+public val IPV6_FLOWINFO_VERSION: CInt = 0xf0000000.toInt()
 
 public val IPV6_HOPLIMIT: CInt = 40
 
@@ -445,13 +445,13 @@ public val DLT_ATM: CInt = 0x25
 
 public val DLT_IPOIB: CInt = 0xc7
 
-public val BIOCSETF: CInt = 0x80104267
+public val BIOCSETF: CInt = 0x80104267.toInt()
 
 public val BIOCGRTIMEOUT: CInt = 0x4010426e
 
 public val BIOCGBLEN: CInt = 0x40044266
 
-public val BIOCSBLEN: CInt = 0xc0044266
+public val BIOCSBLEN: CInt = 0xc0044266.toInt()
 
 public val BIOCFLUSH: CInt = 0x20004268
 
@@ -459,11 +459,11 @@ public val BIOCPROMISC: CInt = 0x20004269
 
 public val BIOCGDLT: CInt = 0x4004426a
 
-public val BIOCSRTIMEOUT: CInt = 0x8010426d
+public val BIOCSRTIMEOUT: CInt = 0x8010426d.toInt()
 
 public val BIOCGSTATS: CInt = 0x4008426f
 
-public val BIOCIMMEDIATE: CInt = 0x80044270
+public val BIOCIMMEDIATE: CInt = 0x80044270.toInt()
 
 public val BIOCVERSION: CInt = 0x40044271
 
@@ -471,7 +471,7 @@ public val BIOCSDEVNO: CInt = 0x20004272
 
 public val BIOCGETIF: CInt = 0x4020426b
 
-public val BIOCSETIF: CInt = 0x8020426c
+public val BIOCSETIF: CInt = 0x8020426c.toInt()
 
 public val BPF_ABS: CInt = 32
 
@@ -986,6 +986,8 @@ public val PTHREAD_PROCESS_SHARED: CInt = 0
 
 public val PTHREAD_PROCESS_PRIVATE: CUshort = 1u
 
+public val PAGESIZE: CInt = 4096
+
 public val PTHREAD_STACK_MIN: SizeT = PAGESIZE.toULong() * 4uL
 
 public val PTHREAD_MUTEX_NORMAL: CInt = 5
@@ -1458,23 +1460,23 @@ public val FIONCLEX: CInt = 0x20006602
 
 public val FIONREAD: CInt = 0x4004667f
 
-public val FIONBIO: CInt = 0x8004667e
+public val FIONBIO: CInt = 0x8004667e.toInt()
 
-public val FIOASYNC: CInt = 0x8004667d
+public val FIOASYNC: CInt = 0x8004667d.toInt()
 
-public val FIOSETOWN: CInt = 0x8004667c
+public val FIOSETOWN: CInt = 0x8004667c.toInt()
 
 public val FIOGETOWN: CInt = 0x4004667b
 
 public val TIOCGETD: CInt = 0x40047400
 
-public val TIOCSETD: CInt = 0x80047401
+public val TIOCSETD: CInt = 0x80047401.toInt()
 
 public val TIOCHPCL: CInt = 0x20007402
 
 public val TIOCMODG: CInt = 0x40047403
 
-public val TIOCMODS: CInt = 0x80047404
+public val TIOCMODS: CInt = 0x80047404.toInt()
 
 public val TIOCM_LE: CInt = 0x1
 
@@ -1500,17 +1502,17 @@ public val TIOCM_DSR: CInt = 0x100
 
 public val TIOCGETP: CInt = 0x40067408
 
-public val TIOCSETP: CInt = 0x80067409
+public val TIOCSETP: CInt = 0x80067409.toInt()
 
-public val TIOCSETN: CInt = 0x8006740a
+public val TIOCSETN: CInt = 0x8006740a.toInt()
 
 public val TIOCEXCL: CInt = 0x2000740d
 
 public val TIOCNXCL: CInt = 0x2000740e
 
-public val TIOCFLUSH: CInt = 0x80047410
+public val TIOCFLUSH: CInt = 0x80047410.toInt()
 
-public val TIOCSETC: CInt = 0x80067411
+public val TIOCSETC: CInt = 0x80067411.toInt()
 
 public val TIOCGETC: CInt = 0x40067412
 
@@ -1524,59 +1526,59 @@ public val MDMBUF: CInt = 0x800000
 
 public val XTABS: CInt = 0xc00
 
-public val SIOCADDMULTI: CInt = 0x80206931
+public val SIOCADDMULTI: CInt = 0x80206931.toInt()
 
-public val SIOCADDRT: CInt = 0x8038720a
+public val SIOCADDRT: CInt = 0x8038720a.toInt()
 
-public val SIOCDARP: CInt = 0x804c6920
+public val SIOCDARP: CInt = 0x804c6920.toInt()
 
-public val SIOCDELMULTI: CInt = 0x80206932
+public val SIOCDELMULTI: CInt = 0x80206932.toInt()
 
-public val SIOCDELRT: CInt = 0x8038720b
+public val SIOCDELRT: CInt = 0x8038720b.toInt()
 
-public val SIOCDIFADDR: CInt = 0x80286919
+public val SIOCDIFADDR: CInt = 0x80286919.toInt()
 
-public val SIOCGARP: CInt = 0xc04c6926
+public val SIOCGARP: CInt = 0xc04c6926.toInt()
 
-public val SIOCGIFADDR: CInt = 0xc0286921
+public val SIOCGIFADDR: CInt = 0xc0286921.toInt()
 
-public val SIOCGIFBRDADDR: CInt = 0xc0286923
+public val SIOCGIFBRDADDR: CInt = 0xc0286923.toInt()
 
-public val SIOCGIFCONF: CInt = 0xc0106945
+public val SIOCGIFCONF: CInt = 0xc0106945.toInt()
 
-public val SIOCGIFDSTADDR: CInt = 0xc0286922
+public val SIOCGIFDSTADDR: CInt = 0xc0286922.toInt()
 
-public val SIOCGIFFLAGS: CInt = 0xc0286911
+public val SIOCGIFFLAGS: CInt = 0xc0286911.toInt()
 
-public val SIOCGIFHWADDR: CInt = 0xc0546995
+public val SIOCGIFHWADDR: CInt = 0xc0546995.toInt()
 
-public val SIOCGIFMETRIC: CInt = 0xc0286917
+public val SIOCGIFMETRIC: CInt = 0xc0286917.toInt()
 
-public val SIOCGIFMTU: CInt = 0xc0286956
+public val SIOCGIFMTU: CInt = 0xc0286956.toInt()
 
-public val SIOCGIFNETMASK: CInt = 0xc0286925
+public val SIOCGIFNETMASK: CInt = 0xc0286925.toInt()
 
-public val SIOCSARP: CInt = 0x804c691e
+public val SIOCSARP: CInt = 0x804c691e.toInt()
 
-public val SIOCSIFADDR: CInt = 0x8028690c
+public val SIOCSIFADDR: CInt = 0x8028690c.toInt()
 
-public val SIOCSIFBRDADDR: CInt = 0x80286913
+public val SIOCSIFBRDADDR: CInt = 0x80286913.toInt()
 
-public val SIOCSIFDSTADDR: CInt = 0x8028690e
+public val SIOCSIFDSTADDR: CInt = 0x8028690e.toInt()
 
-public val SIOCSIFFLAGS: CInt = 0x80286910
+public val SIOCSIFFLAGS: CInt = 0x80286910.toInt()
 
-public val SIOCSIFMETRIC: CInt = 0x80286918
+public val SIOCSIFMETRIC: CInt = 0x80286918.toInt()
 
-public val SIOCSIFMTU: CInt = 0x80286958
+public val SIOCSIFMTU: CInt = 0x80286958.toInt()
 
-public val SIOCSIFNETMASK: CInt = 0x80286916
+public val SIOCSIFNETMASK: CInt = 0x80286916.toInt()
 
-public val TIOCUCNTL: CInt = 0x80047466
+public val TIOCUCNTL: CInt = 0x80047466.toInt()
 
-public val TIOCCONS: CInt = 0x80047462
+public val TIOCCONS: CInt = 0x80047462.toInt()
 
-public val TIOCPKT: CInt = 0x80047470
+public val TIOCPKT: CInt = 0x80047470.toInt()
 
 public val TIOCPKT_DATA: CInt = 0
 
@@ -1640,8 +1642,6 @@ public val L_GETXINFO: CInt = 8
 
 // sys/limits.h
 public val PATH_MAX: CInt = 1023
-
-public val PAGESIZE: CInt = 4096
 
 public val IOV_MAX: CInt = 16
 
@@ -1712,7 +1712,7 @@ public val MAP_ANON: CInt = 0x10
 
 public val MAP_ANONYMOUS: CInt = 0x10
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MAP_TYPE: CInt = 0xf0
 
@@ -1829,7 +1829,7 @@ public val POLLHUP: CShort = 0x2000
 
 public val POLLMSG: CShort = 0x0080
 
-public val POLLSYNC: CShort = 0x8000
+public val POLLSYNC: CShort = 0x8000.toShort()
 
 public val POLLNVAL: CShort = POLLSYNC
 
@@ -2057,7 +2057,7 @@ public val SHMLBA: CInt = 0x10000000
 
 public val SHMLBA_EXTSHM: CInt = 0x1000
 
-public val SHM_SHMAT: CInt = 0x80000000
+public val SHM_SHMAT: CInt = 0x80000000.toInt()
 
 public val SHM_RDONLY: CInt = 4096
 
@@ -2065,7 +2065,7 @@ public val SHM_RND: CInt = 8192
 
 public val SHM_PIN: CInt = 2048
 
-public val SHM_LGPAGE: CInt = 2147483648
+public val SHM_LGPAGE: CInt = 2147483648.toInt()
 
 public val SHM_MAP: CInt = 2048
 
@@ -2154,9 +2154,9 @@ public val SIGWINCH: CInt = 28
 
 public val SIGURG: CInt = 16
 
-public val SIGPOLL: CInt = SIGIO
-
 public val SIGIO: CInt = 23
+
+public val SIGPOLL: CInt = SIGIO
 
 public val SIGSTOP: CInt = 17
 
@@ -2780,6 +2780,8 @@ public val CSTART: TcflagT = 17u
 
 public val CSTOP: TcflagT = 19u
 
+public val TIOC: CInt = 0x5400
+
 public val TCGETA: CInt = TIOC or 5
 
 public val TCSETA: CInt = TIOC or 6
@@ -2822,17 +2824,15 @@ public val TCIOFF: CInt = 2
 
 public val TCION: CInt = 3
 
-public val TIOC: CInt = 0x5400
-
 public val TIOCGWINSZ: CInt = 0x40087468
 
-public val TIOCSWINSZ: CInt = 0x80087467
+public val TIOCSWINSZ: CInt = 0x80087467.toInt()
 
-public val TIOCLBIS: CInt = 0x8004747f
+public val TIOCLBIS: CInt = 0x8004747f.toInt()
 
-public val TIOCLBIC: CInt = 0x8004747e
+public val TIOCLBIC: CInt = 0x8004747e.toInt()
 
-public val TIOCLSET: CInt = 0x8004747d
+public val TIOCLSET: CInt = 0x8004747d.toInt()
 
 public val TIOCLGET: CInt = 0x4004747c
 
@@ -2844,7 +2844,7 @@ public val TIOCSDTR: CInt = 0x20007479
 
 public val TIOCCDTR: CInt = 0x20007478
 
-public val TIOCSLTC: CInt = 0x80067475
+public val TIOCSLTC: CInt = 0x80067475.toInt()
 
 public val TIOCGLTC: CInt = 0x40067474
 
@@ -2858,21 +2858,21 @@ public val TIOCSTART: CInt = 0x2000746e
 
 public val TIOCGPGRP: CInt = 0x40047477
 
-public val TIOCSPGRP: CInt = 0x80047476
+public val TIOCSPGRP: CInt = 0x80047476.toInt()
 
 public val TIOCGSID: CInt = 0x40047448
 
-public val TIOCSTI: CInt = 0x80017472
+public val TIOCSTI: CInt = 0x80017472.toInt()
 
-public val TIOCMSET: CInt = 0x8004746d
+public val TIOCMSET: CInt = 0x8004746d.toInt()
 
-public val TIOCMBIS: CInt = 0x8004746c
+public val TIOCMBIS: CInt = 0x8004746c.toInt()
 
-public val TIOCMBIC: CInt = 0x8004746b
+public val TIOCMBIC: CInt = 0x8004746b.toInt()
 
 public val TIOCMGET: CInt = 0x4004746a
 
-public val TIOCREMOTE: CInt = 0x80047469
+public val TIOCREMOTE: CInt = 0x80047469.toInt()
 
 // sys/user.h
 public val MAXCOMLEN: CInt = 32
@@ -2903,9 +2903,9 @@ public val WCONTINUED: CInt = 0x01000000
 
 public val WNOWAIT: CInt = 0x10
 
-public val WSTOPPED: CInt = W_STOPPED
-
 public val W_STOPPED: CInt = 0x00000040
+
+public val WSTOPPED: CInt = W_STOPPED
 
 public val W_SLWTED: CInt = 0x0000007c
 

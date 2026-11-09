@@ -1,8 +1,8 @@
 // port-lint: source new/netbsd/utmp_.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
@@ -17,18 +17,52 @@ public val UT_LINESIZE: Int = 8
 
 public val UT_HOSTSIZE: Int = 16
 
-public open class Lastlog(
-    public var llTime: TimeT,
-    public var llLine: List<CChar>,
-    public var llHost: List<CChar>,
-)
+public data class Lastlog(
+    public var llTime: TimeT = 0L,
+    public var llLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
+    public var llHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Lastlog) return false
+        if (this.llTime != other.llTime) return false
+        if (!this.llLine.contentEquals(other.llLine)) return false
+        if (!this.llHost.contentEquals(other.llHost)) return false
+        return true
+    }
 
-public open class Utmp(
-    public var utLine: List<CChar>,
-    public var utName: List<CChar>,
-    public var utHost: List<CChar>,
-    public var utTime: TimeT,
-)
+    override fun hashCode(): Int {
+        var result = this.llTime.hashCode()
+        result = 31 * result + this.llLine.contentHashCode()
+        result = 31 * result + this.llHost.contentHashCode()
+        return result
+    }
+}
+
+public data class Utmp(
+    public var utLine: UByteArray = UByteArray((UT_LINESIZE).toInt()),
+    public var utName: UByteArray = UByteArray((UT_NAMESIZE).toInt()),
+    public var utHost: UByteArray = UByteArray((UT_HOSTSIZE).toInt()),
+    public var utTime: TimeT = 0L,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Utmp) return false
+        if (!this.utLine.contentEquals(other.utLine)) return false
+        if (!this.utName.contentEquals(other.utName)) return false
+        if (!this.utHost.contentEquals(other.utHost)) return false
+        if (this.utTime != other.utTime) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.utLine.contentHashCode()
+        result = 31 * result + this.utName.contentHashCode()
+        result = 31 * result + this.utHost.contentHashCode()
+        result = 31 * result + this.utTime.hashCode()
+        return result
+    }
+}
 
 public expect fun utmpname(file: String?): CInt
 

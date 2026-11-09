@@ -143,7 +143,7 @@ public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt
 public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =

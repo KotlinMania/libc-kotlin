@@ -259,7 +259,7 @@ public typealias SpeedT = CInt
 
 public typealias GregT = CInt
 
-public typealias GregsetT = List<GregT>
+public typealias GregsetT = IntArray
 
 public typealias IoctlDir = CUint
 
@@ -289,8 +289,10 @@ public typealias IconvT = COpaquePointer?
 
 // structs
 // functions
-public sealed class Fpos64T {
+public class Fpos64T(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

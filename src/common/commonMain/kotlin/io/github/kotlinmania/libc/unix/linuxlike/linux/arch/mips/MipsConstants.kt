@@ -53,10 +53,6 @@ public val SO_SNDTIMEO_OLD: CInt = 0x1005
 
 public val SO_RCVTIMEO_OLD: CInt = 0x1006
 
-public val SO_SNDTIMEO1: CInt = SO_SNDTIMEO_OLD
-
-public val SO_RCVTIMEO1: CInt = SO_RCVTIMEO_OLD
-
 public val SO_ACCEPTCONN: CInt = 0x1009
 
 public val SO_PROTOCOL: CInt = 0x1028
@@ -168,12 +164,6 @@ public val SO_TIMESTAMP_OLD: CInt = 29
 public val SO_TIMESTAMPNS_OLD: CInt = 35
 
 public val SO_TIMESTAMPING_OLD: CInt = 37
-
-public val SO_TIMESTAMP1: CInt = SO_TIMESTAMP_OLD
-
-public val SO_TIMESTAMPNS1: CInt = SO_TIMESTAMPNS_OLD
-
-public val SO_TIMESTAMPING1: CInt = SO_TIMESTAMPING_OLD
 
 // pub const SO_DETACH_REUSEPORT_BPF: cInt = 68;
 public val SO_PREFER_BUSY_POLL: CInt = 69
@@ -433,52 +423,8 @@ public val RLIMIT_RTPRIO: RlimitResourceT = 14u
 
 public val RLIMIT_RTTIME: RlimitResourceT = 15u
 
-public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS
-
-public val RLIMIT_CPU1: CInt = 0
-
-public val RLIMIT_FSIZE1: CInt = 1
-
-public val RLIMIT_DATA1: CInt = 2
-
-public val RLIMIT_STACK1: CInt = 3
-
-public val RLIMIT_CORE1: CInt = 4
-
-public val RLIMIT_NOFILE1: CInt = 5
-
-public val RLIMIT_AS1: CInt = 6
-
-public val RLIMIT_RSS1: CInt = 7
-
-public val RLIMIT_NPROC1: CInt = 8
-
-public val RLIMIT_MEMLOCK1: CInt = 9
-
-public val RLIMIT_LOCKS1: CInt = 10
-
-public val RLIMIT_SIGPENDING1: CInt = 11
-
-public val RLIMIT_MSGQUEUE1: CInt = 12
-
-public val RLIMIT_NICE1: CInt = 13
-
-public val RLIMIT_RTPRIO1: CInt = 14
-
-public val RLIMIT_RTTIME1: CInt = 15
-
 public val RLIM_NLIMITS: CInt = 16
 
-public val RLIMIT_NLIMITS1: CInt = RLIM_NLIMITS
+public val RLIMIT_NLIMITS: RlimitResourceT = RLIM_NLIMITS.toUInt()
 
 public val RLIM_INFINITY: RlimT = 0uL.inv()
-
-public val RLIM_NLIMITS1: RlimitResourceT = 16u
-
-public val RLIM_NLIMITS2: RlimitResourceT = 15u
-
-public val RLIM_INFINITY1: RlimT = 0uL.inv()
-
-public val RLIM_INFINITY2: RlimT = 0uL.inv()
-
-public val RLIM_INFINITY3: RlimT = 0x7fffffffuL

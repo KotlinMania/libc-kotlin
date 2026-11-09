@@ -3,9 +3,8 @@ package io.github.kotlinmania.libc.unix.linuxlike
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.DIR
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.IntptrT
 import io.github.kotlinmania.libc.unix.LocaleT
@@ -13,7 +12,6 @@ import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.bsd.IPTOS_ECN_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
@@ -47,79 +45,79 @@ public fun ioc(dir: UInt, ty: UInt, nr: UInt, size: Int): Ioctl {
  * Build an ioctl number for an argumentless ioctl.
  */
 public fun io(ty: UInt, nr: UInt): Ioctl {
-    return IOC(IOC_NONE, ty, nr, 0)
+    return ioc(IOC_NONE, ty, nr, 0)
 }
 
 /**
  * Build an ioctl number for an read-only ioctl.
  */
 public fun <T> ior(ty: UInt, nr: UInt): Ioctl {
-    return IOC(IOC_READ, ty, nr, sizeOf<T>())
+    return ioc(IOC_READ, ty, nr, 8)
 }
 
 /**
  * Build an ioctl number for an write-only ioctl.
  */
 public fun <T> iow(ty: UInt, nr: UInt): Ioctl {
-    return IOC(IOC_WRITE, ty, nr, sizeOf<T>())
+    return ioc(IOC_WRITE, ty, nr, 8)
 }
 
 /**
  * Build an ioctl number for a read-write ioctl.
  */
 public fun <T> iowr(ty: UInt, nr: UInt): Ioctl {
-    return IOC(IOC_READ or IOC_WRITE, ty, nr, sizeOf<T>())
+    return ioc(IOC_READ or IOC_WRITE, ty, nr, 8)
 }
 
 public expect fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt
 
 public fun cmsgAlign(len: Int): Int {
-    return (len + sizeOf<Int>() - 1) and (sizeOf<Int>() - 1).inv()
+    return (len + 8 - 1) and (8 - 1).inv()
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= sizeOf<Cmsghdr>()) {
-        (if (mhdr!!.msgControl == null) null else Cmsghdr())
+    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+        ((mhdr!!.msgControl as Any?) as Cmsghdr?)
     } else {
-        nullMut<Cmsghdr>()
+        null
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toUByte()
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as COpaquePointer?)
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (CMSG_ALIGN(length.toInt()) + CMSG_ALIGN(sizeOf<Cmsghdr>())).toUInt()
+    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return CMSG_ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return cmsgAlign(8).toUInt() + length
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    return (set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size))) != 0
+    return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1 shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
 }
 
 public fun fdZero(set: FdSet?) {
     for (idx in (set!!.fdsBits).indices) {
-        (set!!.fdsBits)[idx] = 0
+        (set!!.fdsBits)[idx] = 0uL
     }
 }
 

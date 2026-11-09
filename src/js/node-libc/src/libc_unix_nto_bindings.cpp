@@ -108,63 +108,6 @@ static Napi::Value libc_unix_nto_recvmmsg_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_sendmmsg_2_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t vlen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sendmmsg")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sendmmsg")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sendmmsg"));
-    }
-#endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sockfd, msgvec, vlen, flags) : -1;
-    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
-}
-
-static Napi::Value libc_unix_nto_recvmmsg_2_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t vlen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
-    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "recvmmsg")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "recvmmsg")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "recvmmsg"));
-    }
-#endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sockfd, msgvec, vlen, flags, timeout) : -1;
-    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
-}
-
 static Napi::Value libc_unix_nto_semDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
@@ -5420,38 +5363,9 @@ static Napi::Value libc_unix_nto_myThreadExit_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_nto_cxaAtexit_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    void* cb = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_dso = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    typedef int32_t (*km_fn_t)(void*, void*, void*);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "__cxa_atexit")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "__cxa_atexit")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__cxa_atexit"));
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(cb, arg_1_arg, arg_2_dso) : -1;
-    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
-}
-
 static void register_unix_nto_napi(Napi::Env env, Napi::Object exports) {
     exports.Set("libc_unix_nto_sendmmsg", Napi::Function::New(env, libc_unix_nto_sendmmsg_napi));
     exports.Set("libc_unix_nto_recvmmsg", Napi::Function::New(env, libc_unix_nto_recvmmsg_napi));
-    exports.Set("libc_unix_nto_sendmmsg_2", Napi::Function::New(env, libc_unix_nto_sendmmsg_2_napi));
-    exports.Set("libc_unix_nto_recvmmsg_2", Napi::Function::New(env, libc_unix_nto_recvmmsg_2_napi));
     exports.Set("libc_unix_nto_semDestroy", Napi::Function::New(env, libc_unix_nto_semDestroy_napi));
     exports.Set("libc_unix_nto_semInit", Napi::Function::New(env, libc_unix_nto_semInit_napi));
     exports.Set("libc_unix_nto_fdatasync", Napi::Function::New(env, libc_unix_nto_fdatasync_napi));
@@ -5650,7 +5564,6 @@ static void register_unix_nto_napi(Napi::Env env, Napi::Object exports) {
     exports.Set("libc_unix_nto_mqUnlink", Napi::Function::New(env, libc_unix_nto_mqUnlink_napi));
     exports.Set("libc_unix_nto_getErrnoPtr", Napi::Function::New(env, libc_unix_nto_getErrnoPtr_napi));
     exports.Set("libc_unix_nto_myThreadExit", Napi::Function::New(env, libc_unix_nto_myThreadExit_napi));
-    exports.Set("libc_unix_nto_cxaAtexit", Napi::Function::New(env, libc_unix_nto_cxaAtexit_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_nto_napi, nullptr };

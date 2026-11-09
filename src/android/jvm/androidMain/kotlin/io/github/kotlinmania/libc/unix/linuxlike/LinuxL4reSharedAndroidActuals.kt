@@ -474,7 +474,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun errnoLocation(): COpaquePointer? =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_errnoLocation().let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
@@ -504,7 +504,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item, locale.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity(pid, cpusetsize.toLong(), (cpuset?.value ?: 0L))
@@ -524,7 +524,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt
 public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_mount(src, target, fstype, flags.toLong(), (data?.value ?: 0L))
 
-public actual fun prctl(option: CInt): CInt =
+public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
@@ -554,7 +554,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun initgroups(user: String?, group: GidT): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_initgroups(user, group.toShort())
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -625,16 +625,16 @@ public actual fun timerCreate(clockid: ClockidT, sevp: COpaquePointer?, timerid:
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerCreate(clockid, (sevp?.value ?: 0L), (timerid?.value ?: 0L))
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerDelete(timerid.toLong())
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerDelete((timerid?.value ?: 0L))
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun(timerid.toLong())
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun((timerid?.value ?: 0L))
 
 public actual fun timerGettime(timerid: TimerT, currValue: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerGettime(timerid.toLong(), (currValue?.value ?: 0L))
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerGettime((timerid?.value ?: 0L), (currValue?.value ?: 0L))
 
 public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerSettime(timerid.toLong(), flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerSettime((timerid?.value ?: 0L), flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
 
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }

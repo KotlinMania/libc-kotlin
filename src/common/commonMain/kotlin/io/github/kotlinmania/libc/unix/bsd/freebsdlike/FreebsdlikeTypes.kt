@@ -85,5 +85,6 @@ public typealias ElfHalf = Elf64Half
 
 public typealias ElfPhdr = Elf64Phdr
 
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

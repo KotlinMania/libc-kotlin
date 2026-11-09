@@ -1,14 +1,14 @@
 // port-lint: source new/netbsd/utmpx_.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.new.netbsd.utmpx
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.PidT
 import io.github.kotlinmania.libc.new.qurt.Timeval
 import io.github.kotlinmania.libc.new.qurt.UidT
-import io.github.kotlinmania.libc.unix.bsd.apple.SockaddrStorage
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
 
 // Header: `utmpx.h`
 //
@@ -57,29 +57,79 @@ public val UTX_PADSIZE: Int = if (true) {
     40
 }
 
-public open class Utmpx(
-    public var utName: List<CChar>,
-    public var utId: List<CChar>,
-    public var utLine: List<CChar>,
-    public var utHost: List<CChar>,
-    public var utSession: UShort,
-    public var utType: UShort,
-    public var utPid: PidT,
-    public var utExit: ExitStatus,
+public data class Utmpx(
+    public var utName: UByteArray = UByteArray((UTX_USERSIZE).toInt()),
+    public var utId: UByteArray = UByteArray((UTX_IDSIZE).toInt()),
+    public var utLine: UByteArray = UByteArray((UTX_LINESIZE).toInt()),
+    public var utHost: UByteArray = UByteArray((UTX_HOSTSIZE).toInt()),
+    public var utSession: UShort = 0u,
+    public var utType: UShort = 0u,
+    public var utPid: PidT = 0,
+    public var utExit: ExitStatus = ExitStatus(),
     // Note(netbsd): when anonymous struct are supported
-    public var utSs: SockaddrStorage,
-    public var utTv: Timeval,
-    public var utPad: List<UByte>,
-)
+    public var utSs: SockaddrStorage = SockaddrStorage(),
+    public var utTv: Timeval = Timeval(),
+    public var utPad: UByteArray = UByteArray((UTX_PADSIZE).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Utmpx) return false
+        if (!this.utName.contentEquals(other.utName)) return false
+        if (!this.utId.contentEquals(other.utId)) return false
+        if (!this.utLine.contentEquals(other.utLine)) return false
+        if (!this.utHost.contentEquals(other.utHost)) return false
+        if (this.utSession != other.utSession) return false
+        if (this.utType != other.utType) return false
+        if (this.utPid != other.utPid) return false
+        if (this.utExit != other.utExit) return false
+        if (this.utSs != other.utSs) return false
+        if (this.utTv != other.utTv) return false
+        if (!this.utPad.contentEquals(other.utPad)) return false
+        return true
+    }
 
-public open class ExitStatus(public var eTermination: UShort, public var eExit: UShort)
+    override fun hashCode(): Int {
+        var result = this.utName.contentHashCode()
+        result = 31 * result + this.utId.contentHashCode()
+        result = 31 * result + this.utLine.contentHashCode()
+        result = 31 * result + this.utHost.contentHashCode()
+        result = 31 * result + this.utSession.hashCode()
+        result = 31 * result + this.utType.hashCode()
+        result = 31 * result + this.utPid.hashCode()
+        result = 31 * result + this.utExit.hashCode()
+        result = 31 * result + this.utSs.hashCode()
+        result = 31 * result + this.utTv.hashCode()
+        result = 31 * result + this.utPad.contentHashCode()
+        return result
+    }
+}
 
-public open class Lastlogx(
-    public var llTv: Timeval,
-    public var llLine: List<CChar>,
-    public var llHost: List<CChar>,
-    public var llSs: SockaddrStorage,
-)
+public data class ExitStatus(public var eTermination: UShort = 0u, public var eExit: UShort = 0u)
+
+public data class Lastlogx(
+    public var llTv: Timeval = Timeval(),
+    public var llLine: UByteArray = UByteArray((UTX_LINESIZE).toInt()),
+    public var llHost: UByteArray = UByteArray((UTX_HOSTSIZE).toInt()),
+    public var llSs: SockaddrStorage = SockaddrStorage(),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Lastlogx) return false
+        if (this.llTv != other.llTv) return false
+        if (!this.llLine.contentEquals(other.llLine)) return false
+        if (!this.llHost.contentEquals(other.llHost)) return false
+        if (this.llSs != other.llSs) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.llTv.hashCode()
+        result = 31 * result + this.llLine.contentHashCode()
+        result = 31 * result + this.llHost.contentHashCode()
+        result = 31 * result + this.llSs.hashCode()
+        return result
+    }
+}
 
 public expect fun setutxent()
 

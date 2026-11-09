@@ -41,7 +41,7 @@ public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, optio
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_waitid(idtype, id, infop?.value?.toCPointer<ByteVar>(), options)
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun lwpRtprio(function: CInt, pid: PidT, lwpid: LwpidT, rtp: COpaquePointer?): CInt =
@@ -83,7 +83,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: COpaquePo
 public actual fun schedGetcpu(): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu()
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
@@ -111,7 +111,7 @@ public actual fun updlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): C
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_updlastlogx(fname, uid, ll?.value?.toCPointer<ByteVar>())
 
 public actual fun getutxuser(name: String?): Utmpx =
-    null as Utmpx
+    Utmpx()
 
 public actual fun utmpxname(file: String?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_utmpxname(file)
@@ -172,7 +172,7 @@ public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {
 }
 
 public actual fun kvmVmMapEntryFirst(kvm: COpaquePointer?, map: VmMapT, entry: VmMapEntryT): VmMapEntryT =
-    io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst(kvm?.value?.toCPointer<ByteVar>(), map.toLong().toCPointer<ByteVar>(), entry?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst(kvm?.value?.toCPointer<ByteVar>(), map?.value?.toCPointer<ByteVar>(), entry?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun kvmVmMapEntryNext(kvm: COpaquePointer?, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext(kvm?.value?.toCPointer<ByteVar>(), map?.value?.toCPointer<ByteVar>(), entry?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }

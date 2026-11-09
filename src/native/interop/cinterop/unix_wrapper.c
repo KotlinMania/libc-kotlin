@@ -4247,16 +4247,6 @@ int32_t libc_unix_usleep(uint32_t secs) {
 #endif
 }
 
-int32_t libc_unix_usleep_2(uint32_t secs) {
-#if !defined(_WIN32)
-    return (int32_t)usleep(secs);
-#else
-    (void)secs;
-    errno = ENOSYS;
-    return -1;
-#endif
-}
-
 int64_t libc_unix_send(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
     return (int64_t)send(arg_0_socket, buf, len, flags);
 }

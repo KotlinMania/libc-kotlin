@@ -1,4 +1,5 @@
 // port-lint: source unix/hurd/b32.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.hurd.b32
 
 import io.github.kotlinmania.libc.*
@@ -75,52 +76,90 @@ public typealias ElfShdr = Elf32Shdr
 
 public typealias ElfSym = Elf32Sym
 
-public open class Elf32Ehdr(
-    public var eIdent: List<CUchar>,
-    public var eType: Elf32Half,
-    public var eMachine: Elf32Half,
-    public var eVersion: Elf32Word,
-    public var eEntry: Elf32Addr,
-    public var ePhoff: Elf32Off,
-    public var eShoff: Elf32Off,
-    public var eFlags: Elf32Word,
-    public var eEhsize: Elf32Half,
-    public var ePhentsize: Elf32Half,
-    public var ePhnum: Elf32Half,
-    public var eShentsize: Elf32Half,
-    public var eShnum: Elf32Half,
-    public var eShstrndx: Elf32Half,
+public data class Elf32Ehdr(
+    public var eIdent: UByteArray = UByteArray(16),
+    public var eType: Elf32Half = 0u,
+    public var eMachine: Elf32Half = 0u,
+    public var eVersion: Elf32Word = 0u,
+    public var eEntry: Elf32Addr = 0u,
+    public var ePhoff: Elf32Off = 0u,
+    public var eShoff: Elf32Off = 0u,
+    public var eFlags: Elf32Word = 0u,
+    public var eEhsize: Elf32Half = 0u,
+    public var ePhentsize: Elf32Half = 0u,
+    public var ePhnum: Elf32Half = 0u,
+    public var eShentsize: Elf32Half = 0u,
+    public var eShnum: Elf32Half = 0u,
+    public var eShstrndx: Elf32Half = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Elf32Ehdr) return false
+        if (!this.eIdent.contentEquals(other.eIdent)) return false
+        if (this.eType != other.eType) return false
+        if (this.eMachine != other.eMachine) return false
+        if (this.eVersion != other.eVersion) return false
+        if (this.eEntry != other.eEntry) return false
+        if (this.ePhoff != other.ePhoff) return false
+        if (this.eShoff != other.eShoff) return false
+        if (this.eFlags != other.eFlags) return false
+        if (this.eEhsize != other.eEhsize) return false
+        if (this.ePhentsize != other.ePhentsize) return false
+        if (this.ePhnum != other.ePhnum) return false
+        if (this.eShentsize != other.eShentsize) return false
+        if (this.eShnum != other.eShnum) return false
+        if (this.eShstrndx != other.eShstrndx) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.eIdent.contentHashCode()
+        result = 31 * result + this.eType.hashCode()
+        result = 31 * result + this.eMachine.hashCode()
+        result = 31 * result + this.eVersion.hashCode()
+        result = 31 * result + this.eEntry.hashCode()
+        result = 31 * result + this.ePhoff.hashCode()
+        result = 31 * result + this.eShoff.hashCode()
+        result = 31 * result + this.eFlags.hashCode()
+        result = 31 * result + this.eEhsize.hashCode()
+        result = 31 * result + this.ePhentsize.hashCode()
+        result = 31 * result + this.ePhnum.hashCode()
+        result = 31 * result + this.eShentsize.hashCode()
+        result = 31 * result + this.eShnum.hashCode()
+        result = 31 * result + this.eShstrndx.hashCode()
+        return result
+    }
+}
+
+public data class Elf32Shdr(
+    public var shName: Elf32Word = 0u,
+    public var shType: Elf32Word = 0u,
+    public var shFlags: Elf32Word = 0u,
+    public var shAddr: Elf32Addr = 0u,
+    public var shOffset: Elf32Off = 0u,
+    public var shSize: Elf32Word = 0u,
+    public var shLink: Elf32Word = 0u,
+    public var shInfo: Elf32Word = 0u,
+    public var shAddralign: Elf32Word = 0u,
+    public var shEntsize: Elf32Word = 0u,
 )
 
-public open class Elf32Shdr(
-    public var shName: Elf32Word,
-    public var shType: Elf32Word,
-    public var shFlags: Elf32Word,
-    public var shAddr: Elf32Addr,
-    public var shOffset: Elf32Off,
-    public var shSize: Elf32Word,
-    public var shLink: Elf32Word,
-    public var shInfo: Elf32Word,
-    public var shAddralign: Elf32Word,
-    public var shEntsize: Elf32Word,
+public data class Elf32Sym(
+    public var stName: Elf32Word = 0u,
+    public var stValue: Elf32Addr = 0u,
+    public var stSize: Elf32Word = 0u,
+    public var stInfo: CUchar = 0u,
+    public var stOther: CUchar = 0u,
+    public var stShndx: Elf32Section = 0u,
 )
 
-public open class Elf32Sym(
-    public var stName: Elf32Word,
-    public var stValue: Elf32Addr,
-    public var stSize: Elf32Word,
-    public var stInfo: CUchar,
-    public var stOther: CUchar,
-    public var stShndx: Elf32Section,
-)
-
-public open class Elf32Phdr(
-    public var pType: Elf32Word,
-    public var pOffset: Elf32Off,
-    public var pVaddr: Elf32Addr,
-    public var pPaddr: Elf32Addr,
-    public var pFilesz: Elf32Word,
-    public var pMemsz: Elf32Word,
-    public var pFlags: Elf32Word,
-    public var pAlign: Elf32Word,
+public data class Elf32Phdr(
+    public var pType: Elf32Word = 0u,
+    public var pOffset: Elf32Off = 0u,
+    public var pVaddr: Elf32Addr = 0u,
+    public var pPaddr: Elf32Addr = 0u,
+    public var pFilesz: Elf32Word = 0u,
+    public var pMemsz: Elf32Word = 0u,
+    public var pFlags: Elf32Word = 0u,
+    public var pAlign: Elf32Word = 0u,
 )

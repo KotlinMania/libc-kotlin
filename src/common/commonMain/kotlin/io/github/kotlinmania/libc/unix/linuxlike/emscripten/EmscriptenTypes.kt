@@ -77,5 +77,6 @@ public typealias Statvfs64 = Statvfs
 
 public typealias Dirent64 = Dirent
 
-public sealed class Fpos64T {
+public class Fpos64T(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

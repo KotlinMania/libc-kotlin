@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
@@ -6,9 +7,6 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.pthreadCondT
-import io.github.kotlinmania.libc.pthreadMutexT
-import io.github.kotlinmania.libc.pthreadRwlockT
 import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.SizeT
 
@@ -523,7 +521,7 @@ public val O_SYMLINK: CInt = 0x40000000
 
 // Negative to allow it to be used as int
 // Note(redox): Fix negative values missing from includes
-public val O_NOFOLLOW: CInt = -0x80000000
+public val O_NOFOLLOW: CInt = -0x80000000.toInt()
 
 public val O_NOCTTY: CInt = 0x00000200
 
@@ -679,11 +677,11 @@ public val PTHREAD_MUTEX_ROBUST: CInt = 0
 
 public val PTHREAD_MUTEX_STALLED: CInt = 1
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = pthreadMutexT(bytes = List(PTHREAD_MUTEX_SIZE) { 0u })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(bytes = UByteArray((PTHREAD_MUTEX_SIZE).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = pthreadCondT(bytes = List(PTHREAD_COND_SIZE) { 0u })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(bytes = UByteArray((PTHREAD_COND_SIZE).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = pthreadRwlockT(bytes = List(PTHREAD_RWLOCK_SIZE) { 0u })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(bytes = UByteArray((PTHREAD_RWLOCK_SIZE).toInt()) { 0u.toUByte() })
 
 public val PTHREAD_STACK_MIN: SizeT = 4096uL
 
@@ -925,7 +923,7 @@ public val MAP_ANONYMOUS: CInt = MAP_ANON
 
 public val MAP_FIXED: CInt = 0x0004
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as Any?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as Any?)
 
 public val MS_ASYNC: CInt = 0x0001
 
@@ -1310,7 +1308,7 @@ public val WNOTHREAD: CInt = 0x20000000
 
 public val WALL: CInt = 0x40000000
 
-public val WCLONE: CInt = 0x80000000
+public val WCLONE: CInt = 0x80000000.toInt()
 
 // time.h
 public val CLOCK_REALTIME: CInt = 1

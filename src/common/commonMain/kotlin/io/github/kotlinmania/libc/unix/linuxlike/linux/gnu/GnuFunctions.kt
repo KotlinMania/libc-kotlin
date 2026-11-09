@@ -6,7 +6,7 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
@@ -229,29 +229,29 @@ public expect fun mempcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT)
 public expect fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt
 
 public fun SiginfoT.siAddr(): COpaquePointer? {
-    open class SiginfoSigfault(
-        public var siSigno: CInt,
-        public var siErrno: CInt,
-        public var siCode: CInt,
-        public var siAddr: COpaquePointer?,
+    data class SiginfoSigfault(
+        public var siSigno: CInt = 0,
+        public var siErrno: CInt = 0,
+        public var siCode: CInt = 0,
+        public var siAddr: COpaquePointer? = null,
     )
-    return (if (((this as SiginfoT?)) == null) null else SiginfoSigfault()).siAddr
+    return (((((this as Any?) as SiginfoT?)) as Any?) as SiginfoSigfault?)!!.siAddr
 }
 
 public fun SiginfoT.siValue(): Sigval {
-    open class SiginfoTimer(
-        public var siSigno: CInt,
-        public var siErrno: CInt,
-        public var siCode: CInt,
-        public var siTid: CInt,
-        public var siOverrun: CInt,
-        public var siSigval: Sigval,
+    data class SiginfoTimer(
+        public var siSigno: CInt = 0,
+        public var siErrno: CInt = 0,
+        public var siCode: CInt = 0,
+        public var siTid: CInt = 0,
+        public var siOverrun: CInt = 0,
+        public var siSigval: Sigval = Sigval(),
     )
-    return (if (((this as SiginfoT?)) == null) null else SiginfoTimer()).siSigval
+    return (((((this as Any?) as SiginfoT?)) as Any?) as SiginfoTimer?)!!.siSigval
 }
 
 public fun SiginfoT.sifields(): Sifields {
-    return (if (((this as SiginfoT?)) == null) null else SiginfoF()).sifields
+    return (((((this as Any?) as SiginfoT?)) as Any?) as SiginfoF?)!!.sifields
 }
 
 public fun SiginfoT.siPid(): PidT {

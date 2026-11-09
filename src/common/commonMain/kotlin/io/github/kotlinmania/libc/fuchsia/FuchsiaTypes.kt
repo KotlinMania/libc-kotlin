@@ -140,17 +140,22 @@ public typealias RlimT = CUlonglong
 // PUB_STRUCT
 // intentionally not public, only used for fdSet
 // END_PUB_CONST
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class DIR {
+public class DIR(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class Fpos64T {
+public class Fpos64T(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class FILE {
+public class FILE(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public sealed class FposT {
+public class FposT(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }

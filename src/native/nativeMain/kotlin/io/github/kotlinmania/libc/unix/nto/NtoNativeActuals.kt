@@ -26,9 +26,6 @@ public actual var SYSPAGE_PTR: COpaquePointer?
         _ffi_static_SYSPAGE_PTR = value
     }
 
-public actual val DSO_HANDLE: COpaquePointer?
-    get() = null
-
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sendmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags)
 
@@ -398,7 +395,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -548,11 +545,11 @@ public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
 public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ctermid(s?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun getpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufsize: CInt, result: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getpwentR(pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), bufsize, result?.value?.toCPointer<ByteVar>())
@@ -597,7 +594,7 @@ public actual fun regfree(preg: COpaquePointer?) {
 public actual fun dirfd(dirp: DIR?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_dirfd(dirp?.handle?.toCPointer<ByteVar>())
 
-public actual fun dircntl(dir: DIR?, cmd: CInt): CInt =
+public actual fun dircntl(dir: DIR?, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
@@ -630,7 +627,7 @@ public actual fun mqGetattr(mqdes: MqdT, mqstat: COpaquePointer?): CInt =
 public actual fun mqNotify(mqdes: MqdT, notification: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqNotify(mqdes.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
@@ -657,6 +654,3 @@ public actual fun getErrnoPtr(): COpaquePointer? =
 public actual fun myThreadExit(valuePtr: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_myThreadExit(valuePtr?.value?.toCPointer<ByteVar>())
 }
-
-public actual fun cxaAtexit(cb: FnCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_cxaAtexit(0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>(), dso?.value?.toCPointer<ByteVar>())

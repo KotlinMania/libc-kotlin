@@ -44,7 +44,7 @@ public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, optio
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixBsdFreebsdlikeDragonflyNapiAddon != null) {
-        _unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_freelocale(loc.toLong().toString())
+        _unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
@@ -87,7 +87,7 @@ public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, mask: COpaquePo
 public actual fun schedGetcpu(): CInt =
     if (_unixBsdFreebsdlikeDragonflyNapiAddon != null) (_unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu() as Int) else 0
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
@@ -115,7 +115,7 @@ public actual fun updlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): C
     if (_unixBsdFreebsdlikeDragonflyNapiAddon != null) (_unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_updlastlogx(fname, uid.toInt(), (ll?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun getutxuser(name: String?): Utmpx =
-    null as Utmpx
+    Utmpx()
 
 public actual fun utmpxname(file: String?): CInt =
     if (_unixBsdFreebsdlikeDragonflyNapiAddon != null) (_unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_utmpxname(file) as Int) else 0
@@ -178,7 +178,7 @@ public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {
 }
 
 public actual fun kvmVmMapEntryFirst(kvm: COpaquePointer?, map: VmMapT, entry: VmMapEntryT): VmMapEntryT =
-    if (_unixBsdFreebsdlikeDragonflyNapiAddon != null) (_unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst((kvm?.value ?: 0L).toString(), map.toLong().toString(), (entry?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdFreebsdlikeDragonflyNapiAddon != null) (_unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst((kvm?.value ?: 0L).toString(), (map?.value ?: 0L).toString(), (entry?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun kvmVmMapEntryNext(kvm: COpaquePointer?, map: VmMapEntryT, entry: VmMapEntryT): VmMapEntryT =
     if (_unixBsdFreebsdlikeDragonflyNapiAddon != null) (_unixBsdFreebsdlikeDragonflyNapiAddon.libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext((kvm?.value ?: 0L).toString(), (map?.value ?: 0L).toString(), (entry?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null

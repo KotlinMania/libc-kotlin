@@ -55,19 +55,19 @@ public val NETLINK_INET_DIAG: CInt = NETLINK_SOCK_DIAG
 
 public val MAX_LINKS: CInt = 32
 
-public open class SockaddrNl(
-    public var nlFamily: SaFamilyT,
-    public var nlPad: CUshort,
-    public var nlPid: UInt,
-    public var nlGroups: UInt,
+public data class SockaddrNl(
+    public var nlFamily: SaFamilyT = 0u,
+    public var nlPad: CUshort = 0u,
+    public var nlPid: UInt = 0u,
+    public var nlGroups: UInt = 0u,
 )
 
-public open class Nlmsghdr(
-    public var nlmsgLen: UInt,
-    public var nlmsgType: UShort,
-    public var nlmsgFlags: UShort,
-    public var nlmsgSeq: UInt,
-    public var nlmsgPid: UInt,
+public data class Nlmsghdr(
+    public var nlmsgLen: UInt = 0u,
+    public var nlmsgType: UShort = 0u,
+    public var nlmsgFlags: UShort = 0u,
+    public var nlmsgSeq: UInt = 0u,
+    public var nlmsgPid: UInt = 0u,
 )
 
 public val NLM_F_REQUEST: CInt = 1
@@ -114,7 +114,7 @@ public val NLMSG_OVERRUN: CInt = 0x4
 
 public val NLMSG_MIN_TYPE: CInt = 0x10
 
-public open class Nlmsgerr(public var error: CInt, public var msg: Nlmsghdr)
+public data class Nlmsgerr(public var error: CInt = 0, public var msg: Nlmsghdr = Nlmsghdr())
 
 public val NETLINK_ADD_MEMBERSHIP: CInt = 1
 
@@ -140,25 +140,25 @@ public val NETLINK_EXT_ACK: CInt = 11
 
 public val NETLINK_GET_STRICT_CHK: CInt = 12
 
-public open class NlPktinfo(public var group: UInt)
+public data class NlPktinfo(public var group: UInt = 0u)
 
-public open class NlMmapReq(
-    public var nmBlockSize: CUint,
-    public var nmBlockNr: CUint,
-    public var nmFrameSize: CUint,
-    public var nmFrameNr: CUint,
+public data class NlMmapReq(
+    public var nmBlockSize: CUint = 0u,
+    public var nmBlockNr: CUint = 0u,
+    public var nmFrameSize: CUint = 0u,
+    public var nmFrameNr: CUint = 0u,
 )
 
-public open class NlMmapHdr(
-    public var nmStatus: CUint,
-    public var nmLen: CUint,
-    public var nmGroup: UInt,
-    public var nmPid: UInt,
-    public var nmUid: UInt,
-    public var nmGid: UInt,
+public data class NlMmapHdr(
+    public var nmStatus: CUint = 0u,
+    public var nmLen: CUint = 0u,
+    public var nmGroup: UInt = 0u,
+    public var nmPid: UInt = 0u,
+    public var nmUid: UInt = 0u,
+    public var nmGid: UInt = 0u,
 )
 
-public open class Nlattr(public var nlaLen: UShort, public var nlaType: UShort)
+public data class Nlattr(public var nlaLen: UShort = 0u, public var nlaType: UShort = 0u)
 
 public val NLA_F_NESTED: CInt = 1 shl 15
 

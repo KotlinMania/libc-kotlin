@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
@@ -11,7 +12,6 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PTHREAD_MUTEX_NORMAL
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 
 public val SIGINFO_DATA_SIZE: Int = 60
@@ -188,11 +188,11 @@ public val FIONCLEX: CInt = 0x20006602
 
 public val FIONREAD: CInt = 0x4004667f
 
-public val FIONBIO: CInt = 0x8004667e
+public val FIONBIO: CInt = 0x8004667e.toInt()
 
-public val FIOASYNC: CInt = 0x8004667d
+public val FIOASYNC: CInt = 0x8004667d.toInt()
 
-public val FIOSETOWN: CInt = 0x8004667c
+public val FIOSETOWN: CInt = 0x8004667c.toInt()
 
 public val FIOGETOWN: CInt = 0x4004667b
 
@@ -530,7 +530,7 @@ public val WCONTINUED: CInt = 0x08
 
 public val WNOWAIT: CInt = 0x80
 
-public val AT_FDCWD: CInt = 0xffd19553
+public val AT_FDCWD: CInt = 0xffd19553.toInt()
 
 public val AT_SYMLINK_NOFOLLOW: CInt = 0x1000
 
@@ -624,7 +624,7 @@ public val MAP_TEXT: CInt = 0x400
 
 public val MAP_INITDATA: CInt = 0x800
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 public val MCL_CURRENT: CInt = 0x0001
 
@@ -1468,7 +1468,7 @@ public val IFF_STANDBY: CInt = 0x0020000000
 public val IFF_INACTIVE: CInt = 0x0040000000
 
 // Functioning but not used
-public val IFF_OFFLINE: CInt = 0x0080000000
+public val IFF_OFFLINE: CInt = 0x0080000000.toInt()
 
 // Interface is offline
 // If CoS marking is supported
@@ -1915,11 +1915,11 @@ public val NCCS: Int = 19
 
 public val LOG_CRON: CInt = 15 shl 3
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(pthreadMutexFlag1 = 0u, pthreadMutexFlag2 = 0u, pthreadMutexCeiling = 0u, pthreadMutexType = PTHREAD_PROCESS_PRIVATE, pthreadMutexMagic = MUTEX_MAGIC, pthreadMutexLock = 0u, pthreadMutexData = 0u)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(pthreadMutexFlag1 = 0u, pthreadMutexFlag2 = 0u, pthreadMutexCeiling = 0u, pthreadMutexType = PTHREAD_PROCESS_PRIVATE, pthreadMutexMagic = MUTEX_MAGIC, pthreadMutexLock = 0uL, pthreadMutexData = 0uL)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(pthreadCondFlag = List(4u) { 0u }, pthreadCondType = PTHREAD_PROCESS_PRIVATE, pthreadCondMagic = COND_MAGIC, pthreadCondData = 0u)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(pthreadCondFlag = UByteArray(4) { 0u.toUByte() }, pthreadCondType = PTHREAD_PROCESS_PRIVATE, pthreadCondMagic = COND_MAGIC, pthreadCondData = 0uL)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(pthreadRwlockReaders = 0u, pthreadRwlockType = PTHREAD_PROCESS_PRIVATE, pthreadRwlockMagic = RWL_MAGIC, pthreadRwlockMutex = PTHREAD_MUTEX_INITIALIZER, pthreadRwlockReadercv = PTHREAD_COND_INITIALIZER, pthreadRwlockWritercv = PTHREAD_COND_INITIALIZER)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(pthreadRwlockReaders = 0, pthreadRwlockType = PTHREAD_PROCESS_PRIVATE, pthreadRwlockMagic = RWL_MAGIC, pthreadRwlockMutex = PTHREAD_MUTEX_INITIALIZER, pthreadRwlockReadercv = PTHREAD_COND_INITIALIZER, pthreadRwlockWritercv = PTHREAD_COND_INITIALIZER)
 
 public val PTHREAD_MUTEX_NORMAL: CInt = 0
 
@@ -1997,9 +1997,9 @@ public val ACCOUNTING: CShort = 9
 
 public val DOWN_TIME: CShort = 10
 
-public val TIOC: CInt = ('T'.toInt()) shl 8
+public val TIOC: CInt = TIOC
 
-public val T_IOC: CInt = ('t'.toInt()) shl 8
+public val T_IOC: CInt = ('t'.code.toInt()) shl 8
 
 public val TCGETA: CInt = TIOC or 1
 
@@ -2044,8 +2044,6 @@ public val TCOON: CInt = 1
 public val TCIOFF: CInt = 2
 
 public val TCION: CInt = 3
-
-public val TIOC1: CInt = TIOC
 
 public val TIOCKBON: CInt = TIOC or 8
 
@@ -2465,13 +2463,13 @@ public val MAXPHASE: CInt = 512000
 
 public val MAXFREQ: CInt = 512 * SCALE_USEC
 
+public val PPS_AVG: CInt = 2
+
 public val MAXTIME: CInt = 200 shl PPS_AVG
 
 public val MINSEC: CInt = 16
 
 public val MAXSEC: CInt = 1200
-
-public val PPS_AVG: CInt = 2
 
 public val PPS_SHIFT: CInt = 2
 
@@ -2664,9 +2662,7 @@ public val AT_SUN_HWCAP: CUint = 2009u
 // and 4 bytes everywhere else:
 public val CMSG_HDR_ALIGNMENT: Int = 8
 
-public val CMSG_HDR_ALIGNMENT1: Int = 4
-
-public val CMSG_DATA_ALIGNMENT: Int = sizeOf<CInt>()
+public val CMSG_DATA_ALIGNMENT: Int = 8
 
 public val NEWDEV: CInt = 1
 

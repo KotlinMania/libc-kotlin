@@ -63,7 +63,7 @@ public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
 public actual fun setlogin(name: String?): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_setlogin(name) as Int) else 0
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun kqueue(): CInt =
@@ -72,7 +72,7 @@ public actual fun kqueue(): CInt =
 public actual fun unmount(target: String?, arg: CInt): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_unmount(target, arg) as Int) else 0
 
-public actual fun syscall(num: CInt): CInt =
+public actual fun syscall(num: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getpwent(): COpaquePointer? =
@@ -207,7 +207,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_pthreadSigmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -331,7 +331,7 @@ public actual fun strftime(buf: COpaquePointer?, maxsize: SizeT, format: String?
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_strftime((buf?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun strftimeL(buf: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?, locale: LocaleT): SizeT =
-    if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_strftimeL((buf?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString(), locale.toLong().toString()) as String).toULong() else 0uL
+    if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_strftimeL((buf?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString(), (locale?.value ?: 0L).toString()) as String).toULong() else 0uL
 
 public actual fun devname(dev: DevT, modeT: ModeT): COpaquePointer? =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_devname(dev, modeT.toInt()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null

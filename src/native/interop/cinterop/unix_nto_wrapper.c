@@ -76,58 +76,6 @@ int32_t libc_unix_nto_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint
     return -1;
 }
 
-int64_t libc_unix_nto_sendmmsg_2(int32_t sockfd, void* msgvec, uint64_t vlen, int32_t flags) {
-    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sendmmsg");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sendmmsg");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendmmsg");
-    }
-#endif
-    if (km_fn_ptr != NULL) {
-        return km_fn_ptr(sockfd, msgvec, vlen, flags);
-    }
-    errno = ENOSYS;
-    return -1;
-}
-
-int64_t libc_unix_nto_recvmmsg_2(int32_t sockfd, void* msgvec, uint64_t vlen, int32_t flags, void* timeout) {
-    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "recvmmsg");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "recvmmsg");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "recvmmsg");
-    }
-#endif
-    if (km_fn_ptr != NULL) {
-        return km_fn_ptr(sockfd, msgvec, vlen, flags, timeout);
-    }
-    errno = ENOSYS;
-    return -1;
-}
-
 int32_t libc_unix_nto_semDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
@@ -5136,31 +5084,5 @@ void libc_unix_nto_myThreadExit(void* value_ptr) {
         return;
     }
     errno = ENOSYS;
-}
-
-int32_t libc_unix_nto_cxaAtexit(void* cb, void* arg_1_arg, void* arg_2_dso) {
-    typedef int32_t (*km_fn_t)(void*, void*, void*);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__cxa_atexit");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__cxa_atexit");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cxa_atexit");
-    }
-#endif
-    if (km_fn_ptr != NULL) {
-        return km_fn_ptr(cb, arg_1_arg, arg_2_dso);
-    }
-    errno = ENOSYS;
-    return -1;
 }
 

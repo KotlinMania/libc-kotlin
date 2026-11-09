@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.*
@@ -40,11 +41,11 @@ public val TIMER_ABSTIME: CInt = 0x1
 public val TIMER_RELTIME: CInt = 0x0
 
 // PTHREAD STUFF
-public val PTHREAD_INITIALIZED_OBJ: CInt = 0xF70990EF
+public val PTHREAD_INITIALIZED_OBJ: CInt = 0xF70990EF.toInt()
 
 public val PTHREAD_DESTROYED_OBJ: CInt = -1
 
-public val PTHREAD_VALID_OBJ: CInt = 0xEC542A37
+public val PTHREAD_VALID_OBJ: CInt = 0xEC542A37.toInt()
 
 public val PTHREAD_INVALID_OBJ: CInt = -1
 
@@ -326,25 +327,25 @@ public val S_NFS_LIB_NFSERR_DQUOT: CInt = EDQUOT
 
 public val S_NFS_LIB_NFSERR_STALE: CInt = ESTALE
 
-public val S_NFS_LIB_NFSERR_WFLUSH: CInt = M_NFS_STAT or NFSERR_WFLUSH.toInt()
+public val S_NFS_LIB_NFSERR_WFLUSH: CInt = M_NFS_STAT or nfsstat.NFSERR_WFLUSH.value.toInt()
 
-public val S_NFS_LIB_NFSERR_REMOTE: CInt = M_NFS_STAT or NFSERR_REMOTE.toInt()
+public val S_NFS_LIB_NFSERR_REMOTE: CInt = M_NFS_STAT or nfsstat.NFSERR_REMOTE.value.toInt()
 
-public val S_NFS_LIB_NFSERR_BADHANDLE: CInt = M_NFS_STAT or NFSERR_BADHANDLE.toInt()
+public val S_NFS_LIB_NFSERR_BADHANDLE: CInt = M_NFS_STAT or nfsstat.NFSERR_BADHANDLE.value.toInt()
 
-public val S_NFS_LIB_NFSERR_NOT_SYNC: CInt = M_NFS_STAT or NFSERR_NOT_SYNC.toInt()
+public val S_NFS_LIB_NFSERR_NOT_SYNC: CInt = M_NFS_STAT or nfsstat.NFSERR_NOT_SYNC.value.toInt()
 
-public val S_NFS_LIB_NFSERR_BAD_COOKIE: CInt = M_NFS_STAT or NFSERR_BAD_COOKIE.toInt()
+public val S_NFS_LIB_NFSERR_BAD_COOKIE: CInt = M_NFS_STAT or nfsstat.NFSERR_BAD_COOKIE.value.toInt()
 
 public val S_NFS_LIB_NFSERR_NOTSUPP: CInt = EOPNOTSUPP
 
-public val S_NFS_LIB_NFSERR_TOOSMALL: CInt = M_NFS_STAT or NFSERR_TOOSMALL.toInt()
+public val S_NFS_LIB_NFSERR_TOOSMALL: CInt = M_NFS_STAT or nfsstat.NFSERR_TOOSMALL.value.toInt()
 
 public val S_NFS_LIB_NFSERR_SERVERFAULT: CInt = EIO
 
-public val S_NFS_LIB_NFSERR_BADTYPE: CInt = M_NFS_STAT or NFSERR_BADTYPE.toInt()
+public val S_NFS_LIB_NFSERR_BADTYPE: CInt = M_NFS_STAT or nfsstat.NFSERR_BADTYPE.value.toInt()
 
-public val S_NFS_LIB_NFSERR_JUKEBOX: CInt = M_NFS_STAT or NFSERR_JUKEBOX.toInt()
+public val S_NFS_LIB_NFSERR_JUKEBOX: CInt = M_NFS_STAT or nfsstat.NFSERR_JUKEBOX.value.toInt()
 
 // internal offset values for below constants
 public val TASK_ERROR_BASE: CInt = 0x00030000
@@ -423,9 +424,9 @@ public val INADDR_BROADCAST: InAddrT = 4294967295u
 public val INADDR_NONE: InAddrT = 4294967295u
 
 // netinet6/in6.h
-public val IN6ADDR_LOOPBACK_INIT: In6Addr = Any(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1))
+public val IN6ADDR_LOOPBACK_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 1u))
 
-public val IN6ADDR_ANY_INIT: In6Addr = Any(s6Addr = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+public val IN6ADDR_ANY_INIT: In6Addr = In6Addr(s6Addr = ubyteArrayOf(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u))
 
 // udp.h
 public val IPPROTO_UDP: CInt = 17
@@ -576,11 +577,11 @@ public val SOCK_PACKET: CInt = 10
 
 public val SS_MAXSIZE: Int = 128
 
-public val SS_ALIGNSIZE: Int = sizeOf<UInt>()
+public val SS_ALIGNSIZE: Int = 8
 
-public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - sizeOf<CUchar>() - sizeOf<SaFamilyT>()
+public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - 8 - 8
 
-public val SS_PAD2SIZE: Int = SS_MAXSIZE - sizeOf<CUchar>() - sizeOf<SaFamilyT>() - SS_PAD1SIZE - SS_ALIGNSIZE
+public val SS_PAD2SIZE: Int = SS_MAXSIZE - 8 - 8 - SS_PAD1SIZE - SS_ALIGNSIZE
 
 public val MSG_OOB: CInt = 0x0001
 
@@ -866,7 +867,9 @@ public val FIOSQUEEZE: CInt = 15
 
 public val FIOGETNAME: CInt = 18
 
-public val FIONBIO: CInt = 0x90040010
+public val FIONBIO: CInt = 0x90040010.toInt()
+
+public val PARM_PATH_MAX: CInt = 1024
 
 // limits.h
 public val PATH_MAX: CInt = PARM_PATH_MAX
@@ -1118,8 +1121,6 @@ public val AT_SYMLINK_FOLLOW: CInt = 0x400
 // vxParams.h definitions
 public val PARM_NAME_MAX: CInt = 255
 
-public val PARM_PATH_MAX: CInt = 1024
-
 // WAIT STUFF
 public val WNOHANG: CInt = 0x01
 
@@ -1127,17 +1128,17 @@ public val WUNTRACED: CInt = 0x02
 
 public val WCONTINUED: CInt = 0x04
 
-public val PTHREAD_MUTEXATTR_INITIALIZER: PthreadMutexattrT = Any(mutexAttrStatus = PTHREAD_INITIALIZED_OBJ, mutexAttrProtocol = PTHREAD_PRIO_NONE, mutexAttrPrioceiling = 0u, mutexAttrType = PTHREAD_MUTEX_DEFAULT, mutexAttrPshared = 1u)
+public val PTHREAD_MUTEXATTR_INITIALIZER: PthreadMutexattrT = PthreadMutexattrT(mutexAttrStatus = PTHREAD_INITIALIZED_OBJ, mutexAttrProtocol = PTHREAD_PRIO_NONE, mutexAttrPrioceiling = 0, mutexAttrType = PTHREAD_MUTEX_DEFAULT, mutexAttrPshared = 1)
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(mutexSemId = null, mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0u, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = List(PTHREAD_SHARED_SEM_NAME_MAX) { 0u })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = null, mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_CONDATTR_INITIALIZER: PthreadCondattrT = Any(condAttrStatus = 0xf70990efu, condAttrPshared = 1u, condAttrClockId = CLOCK_REALTIME)
+public val PTHREAD_CONDATTR_INITIALIZER: PthreadCondattrT = PthreadCondattrT(condAttrStatus = 0xf70990ef.toInt(), condAttrPshared = 1, condAttrClockId = CLOCK_REALTIME)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(condSemId = null, condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0u, condMutex = null, condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = List(PTHREAD_SHARED_SEM_NAME_MAX) { 0u })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(condSemId = null, condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0, condMutex = null, condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCKATTR_INITIALIZER: PthreadRwlockattrT = Any(rwlockAttrStatus = PTHREAD_INITIALIZED_OBJ, rwlockAttrPshared = 1u, rwlockAttrMaxReaders = 0u, rwlockAttrConformOpt = 1u)
+public val PTHREAD_RWLOCKATTR_INITIALIZER: PthreadRwlockattrT = PthreadRwlockattrT(rwlockAttrStatus = PTHREAD_INITIALIZED_OBJ, rwlockAttrPshared = 1, rwlockAttrMaxReaders = 0u, rwlockAttrConformOpt = 1u)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(rwlockSemId = null, rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = List(PTHREAD_SHARED_SEM_NAME_MAX) { 0u })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwlockSemId = null, rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = UByteArray((PTHREAD_SHARED_SEM_NAME_MAX).toInt()) { 0u.toUByte() })
 
 public val SEEK_SET: CInt = 0
 
@@ -1231,9 +1232,9 @@ public val MS_ASYNC: CInt = 0x0002
 
 public val MS_INVALIDATE: CInt = 0x0004
 
-public val MAP_FAILED: COpaquePointer? = (0.inv() as COpaquePointer?)
+public val MAP_FAILED: COpaquePointer? = ((0.inv() as Any?) as COpaquePointer?)
 
 // sys/ttycom.h
-public val TIOCGWINSZ: CInt = 0x1740087468
+public val TIOCGWINSZ: CInt = 0x1740087468L.toInt()
 
 public val TIOCSWINSZ: CInt = -0x7ff78b99

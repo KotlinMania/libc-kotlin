@@ -13,9 +13,6 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.major
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.makedev
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.minor
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpRsrcT
 
@@ -82,7 +79,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
 public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
     0
 
-public actual fun ioctl(fildes: CInt, request: CInt): CInt =
+public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -355,7 +352,7 @@ public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun accept4(fd: CInt, address: COpaquePointer?, addressLen: COpaquePointer?, flags: CInt): CInt =
     0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     null
 
 public actual fun mqClose(mqd: MqdT): CInt =
@@ -427,7 +424,7 @@ public actual fun thrSelf(): ThreadT =
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

@@ -2,7 +2,6 @@
 
 package io.github.kotlinmania.libc.unix.nto
 
-import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CShort
@@ -19,9 +18,6 @@ public actual var SYSPAGE_PTR: COpaquePointer?
     set(value) {
         _ffi_static_SYSPAGE_PTR = value
     }
-
-public actual val DSO_HANDLE: COpaquePointer?
-    get() = null
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
     0
@@ -380,7 +376,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -530,11 +526,11 @@ public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
 public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
     null
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun getpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufsize: CInt, result: COpaquePointer?): CInt =
     0
@@ -578,7 +574,7 @@ public actual fun regfree(preg: COpaquePointer?) {
 public actual fun dirfd(dirp: DIR?): CInt =
     0
 
-public actual fun dircntl(dir: DIR?, cmd: CInt): CInt =
+public actual fun dircntl(dir: DIR?, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
@@ -611,7 +607,7 @@ public actual fun mqGetattr(mqdes: MqdT, mqstat: COpaquePointer?): CInt =
 public actual fun mqNotify(mqdes: MqdT, notification: COpaquePointer?): CInt =
     0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
@@ -637,6 +633,3 @@ public actual fun getErrnoPtr(): COpaquePointer? =
 
 public actual fun myThreadExit(valuePtr: COpaquePointer?) {
 }
-
-public actual fun cxaAtexit(cb: FnCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt =
-    0

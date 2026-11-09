@@ -123,19 +123,19 @@ public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: 
     if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) {
-        _unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_freelocale(loc.toLong().toString())
+        _unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
     if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) {
@@ -143,7 +143,7 @@ public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
     }
 }
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {

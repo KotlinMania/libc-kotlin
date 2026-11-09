@@ -43,7 +43,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
     UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_mprotect((addr?.value ?: 0L), len.toLong(), prot)
 
 public actual fun freelocale(loc: LocaleT): CInt =
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_freelocale(loc.toLong())
+    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_freelocale((loc?.value ?: 0L))
 
 public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_msgrcv(msqid, (msgp?.value ?: 0L), msgsz.toLong(), msgtyp, msgflg)

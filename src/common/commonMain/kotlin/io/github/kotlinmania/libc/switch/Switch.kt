@@ -23,6 +23,6 @@ public typealias OffT = Long
 
 public typealias WcharT = UInt
 
-public val INT_MIN: CInt = -2147483648
+public val INT_MIN: CInt = -2147483648.toInt()
 
 public val INT_MAX: CInt = 2147483647

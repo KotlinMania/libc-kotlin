@@ -11,9 +11,6 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.errnoGet
-import io.github.kotlinmania.libc.errnoSet
-import io.github.kotlinmania.libc.unix.newlib.memalign
 import io.github.kotlinmania.libc.vxworks.aarch64.WcharT
 
 public actual fun isalnum(c: CInt): CInt =
@@ -334,25 +331,25 @@ public actual fun getservbyname(name: String?, proto: String?): COpaquePointer? 
 public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt =
     0
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -580,7 +577,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     0
 
-public actual fun syslog(priority: CInt, message: String?) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: FILE?): SsizeT =
@@ -697,7 +694,7 @@ public actual fun readdirR(pDir: DIR?, entry: COpaquePointer?, result: COpaquePo
 public actual fun readdir(pDir: DIR?): COpaquePointer? =
     null
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
@@ -853,10 +850,10 @@ public actual fun shutdown(s: CInt, how: CInt): CInt =
 public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun gaiStrerror(errcode: CInt): COpaquePointer? =
@@ -1015,9 +1012,6 @@ public actual fun kill(pid: PidT, signo: CInt): CInt =
 public actual fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt =
     0
 
-public actual fun sigqueue(rtpId: RtpId, signo: CInt, pValue: COpaquePointer?, sigCode: CInt): CInt =
-    0
-
 public actual fun taskKill(taskId: TaskId, signo: CInt): CInt =
     0
 
@@ -1063,7 +1057,7 @@ public actual fun randUBytes(buf: COpaquePointer?, length: CInt): CInt =
 public actual fun randSecure(): CInt =
     0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqClose(mqd: MqdT): CInt =

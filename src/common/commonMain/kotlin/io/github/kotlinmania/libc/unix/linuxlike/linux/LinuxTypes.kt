@@ -8,6 +8,7 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.types.CEnumRepr
 
 public typealias DevT = ULong
 
@@ -63,10 +64,10 @@ public typealias EventfdT = ULong
 // LFS64 extensions
 //
 // * musl has 64-bit versions only so aliases the LFS64 symbols to the standard ones
-public sealed class TpacketVersions {
-    public data object TpacketV1 : TpacketVersions()
-    public data object TpacketV2 : TpacketVersions()
-    public data object TpacketV3 : TpacketVersions()
+public enum class TpacketVersions(public val value: UInt) {
+    TPACKET_V1(0u),
+    TPACKET_V2(1u),
+    TPACKET_V3(2u),
 }
 
 public typealias PidType = CEnumRepr

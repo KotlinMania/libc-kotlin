@@ -1,11 +1,10 @@
 // port-lint: source wasi/p2.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.wasi.p2
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.wasi.SizeT
@@ -19,44 +18,83 @@ public typealias InAddrT = CUint
 
 public typealias SocklenT = CUint
 
-public open class Sockaddr(public var saFamily: SaFamilyT, public var saData: List<CChar>)
+public data class Sockaddr(public var saFamily: SaFamilyT = 0u, public var saData: UByteArray = UByteArray(0)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Sockaddr) return false
+        if (this.saFamily != other.saFamily) return false
+        if (!this.saData.contentEquals(other.saData)) return false
+        return true
+    }
 
-public open class InAddr(public var sAddr: InAddrT)
+    override fun hashCode(): Int {
+        var result = this.saFamily.hashCode()
+        result = 31 * result + this.saData.contentHashCode()
+        return result
+    }
+}
 
-public open class SockaddrIn(
-    public var sinFamily: SaFamilyT,
-    public var sinPort: InPortT,
-    public var sinAddr: InAddr,
+public data class InAddr(public var sAddr: InAddrT = 0u)
+
+public data class SockaddrIn(
+    public var sinFamily: SaFamilyT = 0u,
+    public var sinPort: InPortT = 0u,
+    public var sinAddr: InAddr = InAddr(),
 )
 
-public open class In6Addr(public var s6Addr: List<CUchar>)
+public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is In6Addr) return false
+        if (!this.s6Addr.contentEquals(other.s6Addr)) return false
+        return true
+    }
 
-public open class SockaddrIn6(
-    public var sin6Family: SaFamilyT,
-    public var sin6Port: InPortT,
-    public var sin6Flowinfo: CUint,
-    public var sin6Addr: In6Addr,
-    public var sin6ScopeId: CUint,
+    override fun hashCode(): Int {
+        return this.s6Addr.contentHashCode()
+    }
+}
+
+public data class SockaddrIn6(
+    public var sin6Family: SaFamilyT = 0u,
+    public var sin6Port: InPortT = 0u,
+    public var sin6Flowinfo: CUint = 0u,
+    public var sin6Addr: In6Addr = In6Addr(),
+    public var sin6ScopeId: CUint = 0u,
 )
 
-public open class SockaddrStorage(public var ssFamily: SaFamilyT, public var ssData: List<CChar>)
+public data class SockaddrStorage(public var ssFamily: SaFamilyT = 0u, public var ssData: UByteArray = UByteArray(32)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SockaddrStorage) return false
+        if (this.ssFamily != other.ssFamily) return false
+        if (!this.ssData.contentEquals(other.ssData)) return false
+        return true
+    }
 
-public open class Addrinfo(
-    public var aiFlags: CInt,
-    public var aiFamily: CInt,
-    public var aiSocktype: CInt,
-    public var aiProtocol: CInt,
-    public var aiAddrlen: SocklenT,
-    public var aiAddr: Sockaddr?,
-    public var aiCanonname: COpaquePointer?,
-    public var aiNext: Addrinfo?,
+    override fun hashCode(): Int {
+        var result = this.ssFamily.hashCode()
+        result = 31 * result + this.ssData.contentHashCode()
+        return result
+    }
+}
+
+public data class Addrinfo(
+    public var aiFlags: CInt = 0,
+    public var aiFamily: CInt = 0,
+    public var aiSocktype: CInt = 0,
+    public var aiProtocol: CInt = 0,
+    public var aiAddrlen: SocklenT = 0u,
+    public var aiAddr: Sockaddr? = null,
+    public var aiCanonname: COpaquePointer? = null,
+    public var aiNext: Addrinfo? = null,
 )
 
-public open class IpMreq(public var imrMultiaddr: InAddr, public var imrInterface: InAddr)
+public data class IpMreq(public var imrMultiaddr: InAddr = InAddr(), public var imrInterface: InAddr = InAddr())
 
-public open class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr, public var ipv6mrInterface: CUint)
+public data class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr = In6Addr(), public var ipv6mrInterface: CUint = 0u)
 
-public open class Linger(public var lOnoff: CInt, public var lLinger: CInt)
+public data class Linger(public var lOnoff: CInt = 0, public var lLinger: CInt = 0)
 
 public val SHUT_RD: CInt = 1 shl 0
 

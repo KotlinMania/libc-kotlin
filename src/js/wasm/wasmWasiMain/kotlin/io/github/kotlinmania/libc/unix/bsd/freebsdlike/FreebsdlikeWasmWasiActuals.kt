@@ -462,7 +462,7 @@ public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =

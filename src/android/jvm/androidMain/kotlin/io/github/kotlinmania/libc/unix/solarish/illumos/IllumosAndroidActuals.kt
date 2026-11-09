@@ -158,10 +158,10 @@ public actual fun syncfs(fd: CInt): CInt =
     UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_syncfs(fd)
 
 public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_strcasecmpL(s1, s2, loc.toLong())
+    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_strcasecmpL(s1, s2, (loc?.value ?: 0L))
 
 public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_strncasecmpL(s1, s2, n.toLong(), loc.toLong())
+    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_strncasecmpL(s1, s2, n.toLong(), (loc?.value ?: 0L))
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
     UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_timerfdCreate(clockid, flags)

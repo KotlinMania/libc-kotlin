@@ -17,9 +17,6 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.major
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.makedev
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.minor
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpRsrcT
 
@@ -877,7 +874,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
 public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_setgroups(ngroups, (ptr?.value ?: 0L))
 
-public actual fun ioctl(fildes: CInt, request: CInt): CInt =
+public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -916,20 +913,20 @@ public actual fun fdatasync(fd: CInt): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_fdatasync(fd)
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    UnixSolarishJniBridge.libc_unix_solarish_nlLanginfoL(item, locale.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixSolarishJniBridge.libc_unix_solarish_nlLanginfoL(item, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixSolarishJniBridge.libc_unix_solarish_duplocale(base.toLong()).toULong()()
+    UnixSolarishJniBridge.libc_unix_solarish_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixSolarishJniBridge.libc_unix_solarish_freelocale(loc.toLong())
+    UnixSolarishJniBridge.libc_unix_solarish_freelocale((loc?.value ?: 0L))
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixSolarishJniBridge.libc_unix_solarish_newlocale(mask, locale, base.toLong()).toULong()()
+    UnixSolarishJniBridge.libc_unix_solarish_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixSolarishJniBridge.libc_unix_solarish_uselocale(loc.toLong()).toULong()()
+    UnixSolarishJniBridge.libc_unix_solarish_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getprogname(): COpaquePointer? =
     UnixSolarishJniBridge.libc_unix_solarish_getprogname().let { if (it == 0L) null else COpaquePointer(it) }
@@ -1157,32 +1154,32 @@ public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun accept4(fd: CInt, address: COpaquePointer?, addressLen: COpaquePointer?, flags: CInt): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_accept4(fd, (address?.value ?: 0L), (addressLen?.value ?: 0L), flags)
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     null
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    UnixSolarishJniBridge.libc_unix_solarish_mqClose(mqd.toLong())
+    UnixSolarishJniBridge.libc_unix_solarish_mqClose((mqd?.value ?: 0L))
 
 public actual fun mqUnlink(name: String?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_mqUnlink(name)
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    UnixSolarishJniBridge.libc_unix_solarish_mqReceive(mqd.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))
+    UnixSolarishJniBridge.libc_unix_solarish_mqReceive((mqd?.value ?: 0L), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))
 
 public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    UnixSolarishJniBridge.libc_unix_solarish_mqTimedreceive(mqd.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L), (absTimeout?.value ?: 0L))
+    UnixSolarishJniBridge.libc_unix_solarish_mqTimedreceive((mqd?.value ?: 0L), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L), (absTimeout?.value ?: 0L))
 
 public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    UnixSolarishJniBridge.libc_unix_solarish_mqSend(mqd.toLong(), msgPtr, msgLen.toLong(), msgPrio.toInt())
+    UnixSolarishJniBridge.libc_unix_solarish_mqSend((mqd?.value ?: 0L), msgPtr, msgLen.toLong(), msgPrio.toInt())
 
 public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    UnixSolarishJniBridge.libc_unix_solarish_mqTimedsend(mqd.toLong(), msgPtr, msgLen.toLong(), msgPrio.toInt(), (absTimeout?.value ?: 0L))
+    UnixSolarishJniBridge.libc_unix_solarish_mqTimedsend((mqd?.value ?: 0L), msgPtr, msgLen.toLong(), msgPrio.toInt(), (absTimeout?.value ?: 0L))
 
 public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    UnixSolarishJniBridge.libc_unix_solarish_mqGetattr(mqd.toLong(), (attr?.value ?: 0L))
+    UnixSolarishJniBridge.libc_unix_solarish_mqGetattr((mqd?.value ?: 0L), (attr?.value ?: 0L))
 
 public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    UnixSolarishJniBridge.libc_unix_solarish_mqSetattr(mqd.toLong(), (newattr?.value ?: 0L), (oldattr?.value ?: 0L))
+    UnixSolarishJniBridge.libc_unix_solarish_mqSetattr((mqd?.value ?: 0L), (newattr?.value ?: 0L), (oldattr?.value ?: 0L))
 
 public actual fun portCreate(): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_portCreate()
@@ -1224,12 +1221,12 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
     UnixSolarishJniBridge.libc_unix_solarish_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
 
 public actual fun thrSelf(): ThreadT =
-    UnixSolarishJniBridge.libc_unix_solarish_thrSelf().toUInt()()
+    UnixSolarishJniBridge.libc_unix_solarish_thrSelf().toUInt()
 
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -1583,7 +1580,7 @@ public actual fun strftime(s: COpaquePointer?, maxsize: SizeT, format: String?, 
     UnixSolarishJniBridge.libc_unix_solarish_strftime((s?.value ?: 0L), maxsize.toLong(), format, (timeptr?.value ?: 0L)).toULong()
 
 public actual fun strftimeL(s: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?, loc: LocaleT): SizeT =
-    UnixSolarishJniBridge.libc_unix_solarish_strftimeL((s?.value ?: 0L), maxsize.toLong(), format, (timeptr?.value ?: 0L), loc.toLong()).toULong()
+    UnixSolarishJniBridge.libc_unix_solarish_strftimeL((s?.value ?: 0L), maxsize.toLong(), format, (timeptr?.value ?: 0L), (loc?.value ?: 0L)).toULong()
 
 public actual fun sendfile(outFd: CInt, inFd: CInt, off: COpaquePointer?, len: SizeT): SsizeT =
     UnixSolarishJniBridge.libc_unix_solarish_sendfile(outFd, inFd, (off?.value ?: 0L), len.toLong())

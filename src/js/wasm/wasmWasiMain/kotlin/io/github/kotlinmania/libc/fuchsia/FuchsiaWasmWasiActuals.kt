@@ -292,25 +292,25 @@ public actual fun getpwnam(name: String?): COpaquePointer? =
 public actual fun getpwuid(uid: UidT): COpaquePointer? =
     null
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?): CInt =
+public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sprintf(s: COpaquePointer?, format: String?): CInt =
+public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fscanf(stream: FILE?, format: String?): CInt =
+public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun scanf(format: String?): CInt =
+public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun sscanf(s: String?, format: String?): CInt =
+public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getcharUnlocked(): CInt =
@@ -373,13 +373,13 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     0
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     0
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun opendir(dirname: String?): DIR? =
@@ -397,7 +397,7 @@ public actual fun closedir(dirp: DIR?): CInt =
 public actual fun rewinddir(dirp: DIR?) {
 }
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
+public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
@@ -454,13 +454,13 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     0
 
-public actual fun execl(path: String?, arg0: String?): CInt =
+public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execle(path: String?, arg0: String?): CInt =
+public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun execlp(file: String?, arg0: String?): CInt =
+public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
@@ -1006,7 +1006,7 @@ public actual fun closelog() {
 public actual fun setlogmask(maskpri: CInt): CInt =
     0
 
-public actual fun syslog(priority: CInt, message: String?) {
+public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun grantpt(fd: CInt): CInt =
@@ -1138,7 +1138,7 @@ public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePoi
 public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
@@ -1177,7 +1177,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     0
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
@@ -1345,7 +1345,7 @@ public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, f
 public actual fun sync() {
 }
 
-public actual fun syscall(num: CLong): CLong =
+public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -1405,7 +1405,7 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
 public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
     0
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -1459,7 +1459,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =

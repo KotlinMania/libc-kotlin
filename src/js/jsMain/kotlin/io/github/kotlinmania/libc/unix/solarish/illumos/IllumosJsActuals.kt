@@ -80,10 +80,10 @@ public actual fun syncfs(fd: CInt): CInt =
     if (_unixSolarishIllumosNapiAddon != null) (_unixSolarishIllumosNapiAddon.libc_unix_solarish_illumos_syncfs(fd) as Int) else 0
 
 public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    if (_unixSolarishIllumosNapiAddon != null) (_unixSolarishIllumosNapiAddon.libc_unix_solarish_illumos_strcasecmpL(s1, s2, loc.toLong().toString()) as Int) else 0
+    if (_unixSolarishIllumosNapiAddon != null) (_unixSolarishIllumosNapiAddon.libc_unix_solarish_illumos_strcasecmpL(s1, s2, (loc?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    if (_unixSolarishIllumosNapiAddon != null) (_unixSolarishIllumosNapiAddon.libc_unix_solarish_illumos_strncasecmpL(s1, s2, n.toString(), loc.toLong().toString()) as Int) else 0
+    if (_unixSolarishIllumosNapiAddon != null) (_unixSolarishIllumosNapiAddon.libc_unix_solarish_illumos_strncasecmpL(s1, s2, n.toString(), (loc?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
     if (_unixSolarishIllumosNapiAddon != null) (_unixSolarishIllumosNapiAddon.libc_unix_solarish_illumos_timerfdCreate(clockid, flags) as Int) else 0

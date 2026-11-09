@@ -1,4 +1,5 @@
 // port-lint: source fuchsia/x86_64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.fuchsia.x8664
 
 import io.github.kotlinmania.libc.*
@@ -29,70 +30,103 @@ public typealias BlksizeT = CLong
 
 public typealias U64 = CUlonglong
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stIno: InoT,
-    public var stNlink: NlinkT,
-    public var stMode: ModeT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var pad0: CInt,
-    public var stRdev: DevT,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var stBlocks: BlkcntT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var unused: List<CLong>,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stIno: InoT = 0uL,
+    public var stNlink: NlinkT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var pad0: CInt = 0,
+    public var stRdev: DevT = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var unused: LongArray = LongArray(3),
 )
 
-public open class Stat64(
-    public var stDev: DevT,
-    public var stIno: Ino64T,
-    public var stNlink: NlinkT,
-    public var stMode: ModeT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var pad0: CInt,
-    public var stRdev: DevT,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var stBlocks: Blkcnt64T,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var reserved: List<CLong>,
+public class Stat64(
+    public var stDev: DevT = 0uL,
+    public var stIno: Ino64T = 0uL,
+    public var stNlink: NlinkT = 0uL,
+    public var stMode: ModeT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var pad0: CInt = 0,
+    public var stRdev: DevT = 0uL,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var stBlocks: Blkcnt64T = 0L,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var reserved: LongArray = LongArray(3),
 )
 
-public open class McontextT(public var private: List<ULong>)
+public data class McontextT(public var private: ULongArray = ULongArray(32)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.private.contentEquals(other.private)) return false
+        return true
+    }
 
-public open class IpcPerm(
-    public var ipcPermKey: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: ModeT,
-    public var seq: CInt,
-    public var unused1: CLong,
-    public var unused2: CLong,
+    override fun hashCode(): Int {
+        return this.private.contentHashCode()
+    }
+}
+
+public data class IpcPerm(
+    public var ipcPermKey: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CInt = 0,
+    public var unused1: CLong = 0L,
+    public var unused2: CLong = 0L,
 )
 
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucStack: StackT,
-    public var ucMcontext: McontextT,
-    public var ucSigmask: SigsetT,
-    public var private: List<UByte>,
-)
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucStack: StackT = StackT(),
+    public var ucMcontext: McontextT = McontextT(),
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var private: UByteArray = UByteArray(512),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucFlags != other.ucFlags) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        if (this.ucSigmask != other.ucSigmask) return false
+        if (!this.private.contentEquals(other.private)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ucFlags.hashCode()
+        result = 31 * result + this.ucLink.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        result = 31 * result + this.ucSigmask.hashCode()
+        result = 31 * result + this.private.contentHashCode()
+        return result
+    }
+}
 
 // offsets in userRegsStructs, from sys/reg.h
 public val R15: CInt = 0

@@ -148,13 +148,13 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_semget(key, nsems, semflg)
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
 
-public actual fun shmOpen(name: String?, oflag: CInt): CInt =
+public actual fun shmOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ftok(pathname: String?, projId: CInt): KeyT =
@@ -218,7 +218,7 @@ public actual fun pthreadMachThreadNp(thread: PthreadT): MachPortT =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_pthreadMachThreadNp(thread.toLong().toCPointer<ByteVar>())
 
 public actual fun pthreadFromMachThreadNp(port: MachPortT): PthreadT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_pthreadFromMachThreadNp(port)?.toLong() ?: 0L
+    (io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_pthreadFromMachThreadNp(port)?.toLong() ?: 0L).toULong()
 
 public actual fun pthreadGetStackaddrNp(thread: PthreadT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_pthreadGetStackaddrNp(thread.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
@@ -299,13 +299,13 @@ public actual fun osSignpostEnabled(log: OsLogT): Boolean =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_osSignpostEnabled(log?.value?.toCPointer<ByteVar>())
 
 public actual fun threadPolicySet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: MachMsgTypeNumberT): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_threadPolicySet(thread.toLong().toCPointer<ByteVar>(), flavor, policyInfo.toLong().toCPointer<ByteVar>(), count)
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_threadPolicySet(thread.toLong().toCPointer<ByteVar>(), flavor, policyInfo?.value?.toCPointer<ByteVar>(), count)
 
 public actual fun threadPolicyGet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: COpaquePointer?, getDefault: COpaquePointer?): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_threadPolicyGet(thread.toLong().toCPointer<ByteVar>(), flavor, policyInfo.toLong().toCPointer<ByteVar>(), count?.value?.toCPointer<ByteVar>(), getDefault?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_threadPolicyGet(thread.toLong().toCPointer<ByteVar>(), flavor, policyInfo?.value?.toCPointer<ByteVar>(), count?.value?.toCPointer<ByteVar>(), getDefault?.value?.toCPointer<ByteVar>())
 
 public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, threadInfoOut: ThreadInfoT, threadInfoOutCnt: COpaquePointer?): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_threadInfo(targetAct, flavor, threadInfoOut.toLong().toCPointer<ByteVar>(), threadInfoOutCnt?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_threadInfo(targetAct, flavor, threadInfoOut?.value?.toCPointer<ByteVar>(), threadInfoOutCnt?.value?.toCPointer<ByteVar>())
 
 public actual fun error(): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_error()?.let { COpaquePointer(it.toLong()) }
@@ -376,22 +376,22 @@ public actual fun loginTty(fd: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_loginTty(fd)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_freelocale(loc?.value?.toCPointer<ByteVar>())
 
 public actual fun localeconvL(loc: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_localeconvL(loc.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_localeconvL(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun querylocale(mask: CInt, loc: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_querylocale(mask, loc.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_querylocale(mask, loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_getpriority(which, who)
@@ -604,9 +604,9 @@ public actual fun strtonum(numstr: String?, minval: CLonglong, maxval: CLonglong
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_strtonum(numstr, minval, maxval, errstrp?.value?.toCPointer<ByteVar>())
 
 public actual fun mstats(): Mstats =
-    null as Mstats
+    Mstats()
 
-public actual fun mallocPrintf(format: String?) {
+public actual fun mallocPrintf(format: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun mallocZoneCheck(zone: COpaquePointer?): BooleanT =
@@ -742,7 +742,7 @@ public actual fun vmDeallocate(targetTask: VmMapT, address: VmAddressT, size: Vm
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_vmDeallocate(targetTask.toLong().toCPointer<ByteVar>(), address, size)
 
 public actual fun hostStatistics64(hostPriv: HostT, flavor: HostFlavorT, hostInfo64Out: HostInfo64T, hostInfo64OutCnt: COpaquePointer?): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_hostStatistics64(hostPriv, flavor, hostInfo64Out.toLong().toCPointer<ByteVar>(), hostInfo64OutCnt?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_hostStatistics64(hostPriv, flavor, hostInfo64Out?.value?.toCPointer<ByteVar>(), hostInfo64OutCnt?.value?.toCPointer<ByteVar>())
 
 public actual fun hostProcessorInfo(host: HostT, flavor: ProcessorFlavorT, outProcessorCount: COpaquePointer?, outProcessorInfo: COpaquePointer?, outProcessorInfoCnt: COpaquePointer?): KernReturnT =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_hostProcessorInfo(host, flavor, outProcessorCount?.value?.toCPointer<ByteVar>(), outProcessorInfo?.value?.toCPointer<ByteVar>(), outProcessorInfoCnt?.value?.toCPointer<ByteVar>())
@@ -751,10 +751,10 @@ public actual fun taskForPid(host: MachPortT, pid: PidT, task: COpaquePointer?):
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskForPid(host, pid, task?.value?.toCPointer<ByteVar>())
 
 public actual fun taskInfo(host: MachPortT, flavor: TaskFlavorT, taskInfoOut: TaskInfoT, taskInfoCount: COpaquePointer?): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskInfo(host, flavor, taskInfoOut.toLong().toCPointer<ByteVar>(), taskInfoCount?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskInfo(host, flavor, taskInfoOut?.value?.toCPointer<ByteVar>(), taskInfoCount?.value?.toCPointer<ByteVar>())
 
 public actual fun taskCreate(targetTask: TaskT, ledgers: LedgerArrayT, ledgersCnt: MachMsgTypeNumberT, inheritMemory: BooleanT, childTask: COpaquePointer?): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskCreate(targetTask, ledgers.toLong().toCPointer<ByteVar>(), ledgersCnt, inheritMemory, childTask?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskCreate(targetTask, ledgers?.value?.toCPointer<ByteVar>(), ledgersCnt, inheritMemory, childTask?.value?.toCPointer<ByteVar>())
 
 public actual fun taskTerminate(targetTask: TaskT): KernReturnT =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskTerminate(targetTask)
@@ -763,7 +763,7 @@ public actual fun taskThreads(targetTask: TaskInspectT, actList: COpaquePointer?
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskThreads(targetTask, actList?.value?.toCPointer<ByteVar>(), actListCnt?.value?.toCPointer<ByteVar>())
 
 public actual fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: COpaquePointer?): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_hostStatistics(hostPriv, flavor, hostInfoOut.toLong().toCPointer<ByteVar>(), hostInfoOutCnt?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_hostStatistics(hostPriv, flavor, hostInfoOut?.value?.toCPointer<ByteVar>(), hostInfoOutCnt?.value?.toCPointer<ByteVar>())
 
 public actual fun sysdirStartSearchPathEnumeration(dir: SysdirSearchPathDirectoryT, domainMask: SysdirSearchPathDomainMaskT): SysdirSearchPathEnumerationState =
     0u
@@ -827,7 +827,7 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: 
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun taskSetInfo(targetTask: TaskT, flavor: TaskFlavorT, taskInfoIn: TaskInfoT, taskInfoInCnt: MachMsgTypeNumberT): KernReturnT =
-    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskSetInfo(targetTask, flavor, taskInfoIn.toLong().toCPointer<ByteVar>(), taskInfoInCnt)
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_taskSetInfo(targetTask, flavor, taskInfoIn?.value?.toCPointer<ByteVar>(), taskInfoInCnt)
 
 public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_iconvOpen(tocode, fromcode)?.let { COpaquePointer(it.toLong()) }

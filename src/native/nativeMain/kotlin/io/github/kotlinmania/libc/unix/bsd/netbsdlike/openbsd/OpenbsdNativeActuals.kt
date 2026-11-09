@@ -119,23 +119,23 @@ public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: 
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_explicitBzero(s?.value?.toCPointer<ByteVar>(), len)
 }
 
-public actual fun setproctitle(fmt: String?) {
+public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {

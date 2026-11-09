@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.x86
 
 import io.github.kotlinmania.libc.*
@@ -23,126 +24,206 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.BlksizeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.NlinkT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.SigsetT
 
-public open class Stat(
-    public var stDev: DevT,
-    public var stDevPadding: CInt,
-    public var stInoTruncated: CLong,
-    public var stMode: ModeT,
-    public var stNlink: NlinkT,
-    public var stUid: UidT,
-    public var stGid: GidT,
-    public var stRdev: DevT,
-    public var stRdevPadding: CInt,
-    public var stSize: OffT,
-    public var stBlksize: BlksizeT,
-    public var stBlocks: BlkcntT,
-    public var stAtim32: CAnonymousTimespec32,
-    public var stMtim32: CAnonymousTimespec32,
-    public var stCtim32: CAnonymousTimespec32,
-    public var stIno: InoT,
-    public var stAtime: TimeT,
-    public var stAtimeNsec: CLong,
-    public var pad0: UInt,
-    public var stMtime: TimeT,
-    public var stMtimeNsec: CLong,
-    public var pad1: UInt,
-    public var stCtime: TimeT,
-    public var stCtimeNsec: CLong,
-    public var pad2: UInt,
+public class Stat(
+    public var stDev: DevT = 0uL,
+    public var stDevPadding: CInt = 0,
+    public var stInoTruncated: CLong = 0L,
+    public var stMode: ModeT = 0u,
+    public var stNlink: NlinkT = 0u,
+    public var stUid: UidT = 0u,
+    public var stGid: GidT = 0u,
+    public var stRdev: DevT = 0uL,
+    public var stRdevPadding: CInt = 0,
+    public var stSize: OffT = 0L,
+    public var stBlksize: BlksizeT = 0L,
+    public var stBlocks: BlkcntT = 0L,
+    public var stAtim32: CAnonymousTimespec32 = CAnonymousTimespec32(),
+    public var stMtim32: CAnonymousTimespec32 = CAnonymousTimespec32(),
+    public var stCtim32: CAnonymousTimespec32 = CAnonymousTimespec32(),
+    public var stIno: InoT = 0uL,
+    public var stAtime: TimeT = 0L,
+    public var stAtimeNsec: CLong = 0L,
+    public var pad0: UInt = 0u,
+    public var stMtime: TimeT = 0L,
+    public var stMtimeNsec: CLong = 0L,
+    public var pad1: UInt = 0u,
+    public var stCtime: TimeT = 0L,
+    public var stCtimeNsec: CLong = 0L,
+    public var pad2: UInt = 0u,
 )
 
-public open class CAnonymousTimespec32(public var tvSec: CLong, public var tvNsec: CLong)
+public data class CAnonymousTimespec32(public var tvSec: CLong = 0L, public var tvNsec: CLong = 0L)
 
-public open class McontextT(public var private: List<UInt>)
+public data class McontextT(public var private: UIntArray = UIntArray(22)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is McontextT) return false
+        if (!this.private.contentEquals(other.private)) return false
+        return true
+    }
 
-public open class StackT(
-    public var ssSp: COpaquePointer?,
-    public var ssFlags: CInt,
-    public var ssSize: SizeT,
+    override fun hashCode(): Int {
+        return this.private.contentHashCode()
+    }
+}
+
+public data class StackT(
+    public var ssSp: COpaquePointer? = null,
+    public var ssFlags: CInt = 0,
+    public var ssSize: SizeT = 0uL,
 )
 
-public open class IpcPerm(
-    public var key: KeyT,
-    public var ipcPermKey: KeyT,
-    public var uid: UidT,
-    public var gid: GidT,
-    public var cuid: UidT,
-    public var cgid: GidT,
-    public var mode: ModeT,
-    public var seq: CInt,
-    public var unused1: CLong,
-    public var unused2: CLong,
+public data class IpcPerm(
+    public var key: KeyT = 0,
+    public var ipcPermKey: KeyT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
+    public var cuid: UidT = 0u,
+    public var cgid: GidT = 0u,
+    public var mode: ModeT = 0u,
+    public var seq: CInt = 0,
+    public var unused1: CLong = 0L,
+    public var unused2: CLong = 0L,
 )
 
-public open class ShmidDs(
-    public var shmPerm: IpcPerm,
-    public var shmSegsz: SizeT,
-    public var shmAtimeLo: CUlong,
-    public var shmAtimeHi: CUlong,
-    public var shmDtimeLo: CUlong,
-    public var shmDtimeHi: CUlong,
-    public var msgCtimeLo: CUlong,
-    public var msgCtimeHi: CUlong,
-    public var shmAtime: TimeT,
-    public var unused1: CInt,
-    public var shmDtime: TimeT,
-    public var unused2: CInt,
-    public var shmCtime: TimeT,
-    public var unused3: CInt,
-    public var shmCpid: PidT,
-    public var shmLpid: PidT,
-    public var shmNattch: CUlong,
-    public var pad1: CUlong,
-    public var pad2: CUlong,
-    public var pad3: CUlong,
+public class ShmidDs(
+    public var shmPerm: IpcPerm = IpcPerm(),
+    public var shmSegsz: SizeT = 0uL,
+    public var shmAtimeLo: CUlong = 0uL,
+    public var shmAtimeHi: CUlong = 0uL,
+    public var shmDtimeLo: CUlong = 0uL,
+    public var shmDtimeHi: CUlong = 0uL,
+    public var msgCtimeLo: CUlong = 0uL,
+    public var msgCtimeHi: CUlong = 0uL,
+    public var shmAtime: TimeT = 0L,
+    public var unused1: CInt = 0,
+    public var shmDtime: TimeT = 0L,
+    public var unused2: CInt = 0,
+    public var shmCtime: TimeT = 0L,
+    public var unused3: CInt = 0,
+    public var shmCpid: PidT = 0,
+    public var shmLpid: PidT = 0,
+    public var shmNattch: CUlong = 0uL,
+    public var pad1: CUlong = 0uL,
+    public var pad2: CUlong = 0uL,
+    public var pad3: CUlong = 0uL,
 )
 
-public open class MsqidDs(
-    public var msgPerm: IpcPerm,
-    public var msgStimeLo: CUlong,
-    public var msgStimeHi: CUlong,
-    public var msgRtimeLo: CUlong,
-    public var msgRtimeHi: CUlong,
-    public var msgCtimeLo: CUlong,
-    public var msgCtimeHi: CUlong,
-    public var msgStime: TimeT,
-    public var unused1: CInt,
-    public var msgRtime: TimeT,
-    public var unused2: CInt,
-    public var msgCtime: TimeT,
-    public var unused3: CInt,
-    public var msgCbytes: CUlong,
-    public var msgQnum: MsgqnumT,
-    public var msgQbytes: MsglenT,
-    public var msgLspid: PidT,
-    public var msgLrpid: PidT,
-    public var pad1: CUlong,
-    public var pad2: CUlong,
+public class MsqidDs(
+    public var msgPerm: IpcPerm = IpcPerm(),
+    public var msgStimeLo: CUlong = 0uL,
+    public var msgStimeHi: CUlong = 0uL,
+    public var msgRtimeLo: CUlong = 0uL,
+    public var msgRtimeHi: CUlong = 0uL,
+    public var msgCtimeLo: CUlong = 0uL,
+    public var msgCtimeHi: CUlong = 0uL,
+    public var msgStime: TimeT = 0L,
+    public var unused1: CInt = 0,
+    public var msgRtime: TimeT = 0L,
+    public var unused2: CInt = 0,
+    public var msgCtime: TimeT = 0L,
+    public var unused3: CInt = 0,
+    public var msgCbytes: CUlong = 0uL,
+    public var msgQnum: MsgqnumT = 0uL,
+    public var msgQbytes: MsglenT = 0uL,
+    public var msgLspid: PidT = 0,
+    public var msgLrpid: PidT = 0,
+    public var pad1: CUlong = 0uL,
+    public var pad2: CUlong = 0uL,
 )
 
-public open class UserFpxregsStruct(
-    public var cwd: CUshort,
-    public var swd: CUshort,
-    public var twd: CUshort,
-    public var fop: CUshort,
-    public var fip: CLong,
-    public var fcs: CLong,
-    public var foo: CLong,
-    public var fos: CLong,
-    public var mxcsr: CLong,
-    public var reserved: CLong,
-    public var stSpace: List<CLong>,
-    public var xmmSpace: List<CLong>,
-    public var padding: List<CLong>,
-)
+public data class UserFpxregsStruct(
+    public var cwd: CUshort = 0u,
+    public var swd: CUshort = 0u,
+    public var twd: CUshort = 0u,
+    public var fop: CUshort = 0u,
+    public var fip: CLong = 0L,
+    public var fcs: CLong = 0L,
+    public var foo: CLong = 0L,
+    public var fos: CLong = 0L,
+    public var mxcsr: CLong = 0L,
+    public var reserved: CLong = 0L,
+    public var stSpace: LongArray = LongArray(32),
+    public var xmmSpace: LongArray = LongArray(32),
+    public var padding: LongArray = LongArray(56),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UserFpxregsStruct) return false
+        if (this.cwd != other.cwd) return false
+        if (this.swd != other.swd) return false
+        if (this.twd != other.twd) return false
+        if (this.fop != other.fop) return false
+        if (this.fip != other.fip) return false
+        if (this.fcs != other.fcs) return false
+        if (this.foo != other.foo) return false
+        if (this.fos != other.fos) return false
+        if (this.mxcsr != other.mxcsr) return false
+        if (this.reserved != other.reserved) return false
+        if (!this.stSpace.contentEquals(other.stSpace)) return false
+        if (!this.xmmSpace.contentEquals(other.xmmSpace)) return false
+        if (!this.padding.contentEquals(other.padding)) return false
+        return true
+    }
 
-public open class UcontextT(
-    public var ucFlags: CUlong,
-    public var ucLink: UcontextT?,
-    public var ucStack: StackT,
-    public var ucMcontext: McontextT,
-    public var ucSigmask: SigsetT,
-    public var private: List<UByte>,
-)
+    override fun hashCode(): Int {
+        var result = this.cwd.hashCode()
+        result = 31 * result + this.swd.hashCode()
+        result = 31 * result + this.twd.hashCode()
+        result = 31 * result + this.fop.hashCode()
+        result = 31 * result + this.fip.hashCode()
+        result = 31 * result + this.fcs.hashCode()
+        result = 31 * result + this.foo.hashCode()
+        result = 31 * result + this.fos.hashCode()
+        result = 31 * result + this.mxcsr.hashCode()
+        result = 31 * result + this.reserved.hashCode()
+        result = 31 * result + this.stSpace.contentHashCode()
+        result = 31 * result + this.xmmSpace.contentHashCode()
+        result = 31 * result + this.padding.contentHashCode()
+        return result
+    }
+}
 
-public open class MaxAlignT(public var priv: List<Double>)
+public data class UcontextT(
+    public var ucFlags: CUlong = 0uL,
+    public var ucLink: UcontextT? = null,
+    public var ucStack: StackT = StackT(),
+    public var ucMcontext: McontextT = McontextT(),
+    public var ucSigmask: SigsetT = SigsetT(),
+    public var private: UByteArray = UByteArray(112),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucFlags != other.ucFlags) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        if (this.ucSigmask != other.ucSigmask) return false
+        if (!this.private.contentEquals(other.private)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ucFlags.hashCode()
+        result = 31 * result + this.ucLink.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        result = 31 * result + this.ucSigmask.hashCode()
+        result = 31 * result + this.private.contentHashCode()
+        return result
+    }
+}
+
+public data class MaxAlignT(public var priv: DoubleArray = DoubleArray(3)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MaxAlignT) return false
+        if (!this.priv.contentEquals(other.priv)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.priv.contentHashCode()
+    }
+}

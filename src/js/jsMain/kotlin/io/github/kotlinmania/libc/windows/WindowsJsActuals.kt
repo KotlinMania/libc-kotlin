@@ -16,10 +16,10 @@ import io.github.kotlinmania.libc.CUlonglong
 private val _windowsNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
 
-public actual fun printf(format: String?): CInt =
+public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun fprintf(stream: FILE?, format: String?): CInt =
+public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun isalnum(c: CInt): CInt =
@@ -411,10 +411,10 @@ public actual fun fdopen(fd: CInt, mode: String?): FILE? =
 public actual fun fileno(stream: FILE?): CInt =
     if (_windowsNapiAddon != null) (_windowsNapiAddon.libc_windows_fileno((stream?.handle ?: 0L).toString()) as Int) else 0
 
-public actual fun open(path: String?, oflag: CInt): CInt =
+public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun wopen(path: COpaquePointer?, oflag: CInt): CInt =
+public actual fun wopen(path: COpaquePointer?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(path: String?, mode: CInt): CInt =
@@ -435,28 +435,28 @@ public actual fun dup(fd: CInt): CInt =
 public actual fun dup2(src: CInt, dst: CInt): CInt =
     if (_windowsNapiAddon != null) (_windowsNapiAddon.libc_windows_dup2(src, dst) as Int) else 0
 
-public actual fun execl(path: String?, arg0: String?): IntptrT =
+public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun execle(path: String?, arg0: String?): IntptrT =
+public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun execlp(path: String?, arg0: String?): IntptrT =
+public actual fun execlp(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun execlpe(path: String?, arg0: String?): IntptrT =
+public actual fun execlpe(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
     0L
 
-public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?): IntptrT =
+public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
     0L
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =

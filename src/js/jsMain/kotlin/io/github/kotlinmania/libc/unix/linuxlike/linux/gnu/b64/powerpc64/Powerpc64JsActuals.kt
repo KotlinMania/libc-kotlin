@@ -22,5 +22,5 @@ public actual fun setcontext(ucp: COpaquePointer?): CInt =
 public actual fun swapcontext(oucp: COpaquePointer?, ucp: COpaquePointer?): CInt =
     if (_unixLinuxlikeLinuxGnuB64Powerpc64NapiAddon != null) (_unixLinuxlikeLinuxGnuB64Powerpc64NapiAddon.libc_unix_linuxlike_linux_gnu_b64_powerpc64_swapcontext((oucp?.value ?: 0L).toString(), (ucp?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt) {
+public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
 }

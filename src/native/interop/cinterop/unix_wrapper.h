@@ -289,7 +289,6 @@ void* libc_unix_getprotobyname(const char* name);
 void* libc_unix_getprotobynumber(int32_t proto);
 int32_t libc_unix_chroot(const char* name);
 int32_t libc_unix_usleep(uint32_t secs);
-int32_t libc_unix_usleep_2(uint32_t secs);
 int64_t libc_unix_send(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags);
 int64_t libc_unix_recv(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags);
 int32_t libc_unix_putenv(char* string);

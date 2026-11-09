@@ -16,7 +16,7 @@ public fun interface QsortRComparCallback {
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
     val minor1 = minor.toULong()
-    var dev = 0
+    var dev = 0uL
     dev = dev or (((major1 and 0xffffff00uL).toULong()) shl 32)
     dev = dev or (((major1 and 0x000000ffuL).toULong()) shl 8)
     dev = dev or (((minor1 and 0x0000ff00uL).toULong()) shl 24)

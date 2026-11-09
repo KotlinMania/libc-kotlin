@@ -165,7 +165,7 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun errnoLocation(): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_errnoLocation()?.let { COpaquePointer(it.toLong()) }
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt): COpaquePointer? =
+public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
@@ -195,7 +195,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item, locale?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
@@ -215,7 +215,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt
 public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_mount(src, target, fstype, flags, data?.value?.toCPointer<ByteVar>())
 
-public actual fun prctl(option: CInt): CInt =
+public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
@@ -245,7 +245,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun initgroups(user: String?, group: GidT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_initgroups(user, group)
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -316,16 +316,16 @@ public actual fun timerCreate(clockid: ClockidT, sevp: COpaquePointer?, timerid:
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerCreate(clockid, sevp?.value?.toCPointer<ByteVar>(), timerid?.value?.toCPointer<ByteVar>())
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerDelete(timerid.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerDelete(timerid?.value?.toCPointer<ByteVar>())
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun(timerid.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun(timerid?.value?.toCPointer<ByteVar>())
 
 public actual fun timerGettime(timerid: TimerT, currValue: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerGettime(timerid.toLong().toCPointer<ByteVar>(), currValue?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerGettime(timerid?.value?.toCPointer<ByteVar>(), currValue?.value?.toCPointer<ByteVar>())
 
 public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerSettime(timerid.toLong().toCPointer<ByteVar>(), flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_timerSettime(timerid?.value?.toCPointer<ByteVar>(), flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
 
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }

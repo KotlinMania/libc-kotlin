@@ -15,11 +15,11 @@ private object NewQurtFcntlJniBridge {
     external fun libc_new_qurt_fcntl_creat(pathname: String?, mode: Int): Int
 }
 
-public actual fun open(pathname: String?, flags: CInt): CInt =
+public actual fun open(pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun creat(pathname: String?, mode: ModeT): CInt =
     NewQurtFcntlJniBridge.libc_new_qurt_fcntl_creat(pathname, mode.toInt())
 
-public actual fun fcntl(fd: CInt, cmd: CInt): CInt =
+public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0

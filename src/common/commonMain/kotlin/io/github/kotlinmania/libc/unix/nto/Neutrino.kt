@@ -1,4 +1,5 @@
 // port-lint: source unix/nto/neutrino.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
@@ -41,74 +42,120 @@ public fun interface InterruptAttachHandlerCallback {
 
 public typealias NtoJobT = SyncT
 
-public open class SyspageEntryInfo(public var entryOff: UShort, public var entrySize: UShort)
+public data class SyspageEntryInfo(public var entryOff: UShort = 0u, public var entrySize: UShort = 0u)
 
-public open class SyspageArrayInfo(
-    public var entryOff: UShort,
-    public var entrySize: UShort,
-    public var elementSize: UShort,
+public data class SyspageArrayInfo(
+    public var entryOff: UShort = 0u,
+    public var entrySize: UShort = 0u,
+    public var elementSize: UShort = 0u,
 )
 
-public open class Intrspin(public var value: CUint)
+public data class Intrspin(public var value: CUint = 0u)
 
-public open class IovT(
-    public var iovBase: COpaquePointer?,
+public data class IovT(
+    public var iovBase: COpaquePointer? = null,
     // union
-    public var iovLen: SizeT,
+    public var iovLen: SizeT = 0uL,
 )
 
-public open class Itimer(public var nsec: ULong, public var intervalNsec: ULong)
+public data class Itimer(public var nsec: ULong = 0uL, public var intervalNsec: ULong = 0uL)
 
-public open class MsgInfo64(
-    public var nd: UInt,
-    public var srcnd: UInt,
-    public var pid: PidT,
-    public var tid: Int,
-    public var chid: Int,
-    public var scoid: Int,
-    public var coid: Int,
-    public var priority: Short,
-    public var flags: Short,
-    public var msglen: Int,
-    public var srcmsglen: Int,
-    public var dstmsglen: Int,
-    public var typeId: UInt,
-    public var reserved: UInt,
+public data class MsgInfo64(
+    public var nd: UInt = 0u,
+    public var srcnd: UInt = 0u,
+    public var pid: PidT = 0,
+    public var tid: Int = 0,
+    public var chid: Int = 0,
+    public var scoid: Int = 0,
+    public var coid: Int = 0,
+    public var priority: Short = 0,
+    public var flags: Short = 0,
+    public var msglen: Int = 0,
+    public var srcmsglen: Int = 0,
+    public var dstmsglen: Int = 0,
+    public var typeId: UInt = 0u,
+    public var reserved: UInt = 0u,
 )
 
-public open class CredInfo(
-    public var ruid: UidT,
-    public var euid: UidT,
-    public var suid: UidT,
-    public var rgid: GidT,
-    public var egid: GidT,
-    public var sgid: GidT,
-    public var ngroups: UInt,
-    public var grouplist: List<GidT>,
+public data class CredInfo(
+    public var ruid: UidT = 0u,
+    public var euid: UidT = 0u,
+    public var suid: UidT = 0u,
+    public var rgid: GidT = 0u,
+    public var egid: GidT = 0u,
+    public var sgid: GidT = 0u,
+    public var ngroups: UInt = 0u,
+    public var grouplist: UShortArray = UShortArray(8),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CredInfo) return false
+        if (this.ruid != other.ruid) return false
+        if (this.euid != other.euid) return false
+        if (this.suid != other.suid) return false
+        if (this.rgid != other.rgid) return false
+        if (this.egid != other.egid) return false
+        if (this.sgid != other.sgid) return false
+        if (this.ngroups != other.ngroups) return false
+        if (!this.grouplist.contentEquals(other.grouplist)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ruid.hashCode()
+        result = 31 * result + this.euid.hashCode()
+        result = 31 * result + this.suid.hashCode()
+        result = 31 * result + this.rgid.hashCode()
+        result = 31 * result + this.egid.hashCode()
+        result = 31 * result + this.sgid.hashCode()
+        result = 31 * result + this.ngroups.hashCode()
+        result = 31 * result + this.grouplist.contentHashCode()
+        return result
+    }
+}
+
+public data class ClientInfo(
+    public var nd: UInt = 0u,
+    public var pid: PidT = 0,
+    public var sid: PidT = 0,
+    public var flags: UInt = 0u,
+    public var cred: CredInfo = CredInfo(),
 )
 
-public open class ClientInfo(
-    public var nd: UInt,
-    public var pid: PidT,
-    public var sid: PidT,
-    public var flags: UInt,
-    public var cred: CredInfo,
+public data class ClientAble(
+    public var ability: UInt = 0u,
+    public var flags: UInt = 0u,
+    public var rangeLo: ULong = 0uL,
+    public var rangeHi: ULong = 0uL,
 )
 
-public open class ClientAble(
-    public var ability: UInt,
-    public var flags: UInt,
-    public var rangeLo: ULong,
-    public var rangeHi: ULong,
-)
+public data class NtoChannelConfig(
+    public var event: Sigevent = Sigevent(),
+    public var numPulses: CUint = 0u,
+    public var rearmThreshold: CUint = 0u,
+    public var options: CUint = 0u,
+    public var reserved: UIntArray = UIntArray(3),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is NtoChannelConfig) return false
+        if (this.event != other.event) return false
+        if (this.numPulses != other.numPulses) return false
+        if (this.rearmThreshold != other.rearmThreshold) return false
+        if (this.options != other.options) return false
+        if (!this.reserved.contentEquals(other.reserved)) return false
+        return true
+    }
 
-public open class NtoChannelConfig(
-    public var event: Sigevent,
-    public var numPulses: CUint,
-    public var rearmThreshold: CUint,
-    public var options: CUint,
-    public var reserved: List<CUint>,
-)
+    override fun hashCode(): Int {
+        var result = this.event.hashCode()
+        result = 31 * result + this.numPulses.hashCode()
+        result = 31 * result + this.rearmThreshold.hashCode()
+        result = 31 * result + this.options.hashCode()
+        result = 31 * result + this.reserved.contentHashCode()
+        return result
+    }
+}
 
 // Note: The following structures are defined in a header file which doesn't
 // appear as part of the default headers found in a standard installation
@@ -156,116 +203,138 @@ public open class NtoChannelConfig(
 // reserves: Padding<[cUint; 3]>,
 // pub sendq: [crate::_asyncmsg_put_header; 1], // flexarray
 // }
-public open class CAnonymousStructEv(public var event: Sigevent, public var coid: CInt)
+public data class CAnonymousStructEv(public var event: Sigevent = Sigevent(), public var coid: CInt = 0)
 
-public open class ChannelConnectAttr(
+public data class ChannelConnectAttr(
     // union
-    public var ev: CAnonymousStructEv,
+    public var ev: CAnonymousStructEv = CAnonymousStructEv(),
 )
 
-public open class SighandlerInfo(
-    public var siginfo: SiginfoT,
-    public var handler: SighandlerInfoHandlerCallback?,
-    public var context: COpaquePointer?,
+public data class SighandlerInfo(
+    public var siginfo: SiginfoT = SiginfoT(),
+    public var handler: SighandlerInfoHandlerCallback? = null,
+    public var context: COpaquePointer? = null,
 )
 
-public open class CAnonymousStructTime(public var length: CUint, public var scale: CUint)
+public data class CAnonymousStructTime(public var length: CUint = 0u, public var scale: CUint = 0u)
 
-public open class IdleHook(
-    public var hookSize: CUint,
-    public var cmd: CUint,
-    public var mode: CUint,
-    public var latency: CUint,
-    public var nextFire: ULong,
-    public var currTime: ULong,
-    public var todAdjust: ULong,
-    public var resp: CUint,
-    public var time: CAnonymousStructTime,
-    public var trigger: Sigevent,
-    public var intrs: CUint?,
-    public var blockStackSize: CUint,
+public data class IdleHook(
+    public var hookSize: CUint = 0u,
+    public var cmd: CUint = 0u,
+    public var mode: CUint = 0u,
+    public var latency: CUint = 0u,
+    public var nextFire: ULong = 0uL,
+    public var currTime: ULong = 0uL,
+    public var todAdjust: ULong = 0uL,
+    public var resp: CUint = 0u,
+    public var time: CAnonymousStructTime = CAnonymousStructTime(),
+    public var trigger: Sigevent = Sigevent(),
+    public var intrs: CUint? = null,
+    public var blockStackSize: CUint = 0u,
 )
 
-public open class Clockadjust(public var tickCount: UInt, public var tickNsecInc: Int)
+public data class Clockadjust(public var tickCount: UInt = 0u, public var tickNsecInc: Int = 0)
 
-public open class QtimeEntry(
-    public var cyclesPerSec: ULong,
-    public var nsecTodAdjust: ULong,
+public class QtimeEntry(
+    public var cyclesPerSec: ULong = 0uL,
+    public var nsecTodAdjust: ULong = 0uL,
     // volatile
-    public var nsec: ULong,
+    public var nsec: ULong = 0uL,
     // volatile
-    public var nsecInc: UInt,
-    public var bootTime: UInt,
-    public var adjust: Clockadjust,
-    public var timerRate: UInt,
-    public var timerScale: Int,
-    public var timerLoad: UInt,
-    public var intr: Int,
-    public var epoch: UInt,
-    public var flags: UInt,
-    public var rrIntervalMul: UInt,
-    public var timerLoadHi: UInt,
-    public var nsecStable: ULong,
+    public var nsecInc: UInt = 0u,
+    public var bootTime: UInt = 0u,
+    public var adjust: Clockadjust = Clockadjust(),
+    public var timerRate: UInt = 0u,
+    public var timerScale: Int = 0,
+    public var timerLoad: UInt = 0u,
+    public var intr: Int = 0,
+    public var epoch: UInt = 0u,
+    public var flags: UInt = 0u,
+    public var rrIntervalMul: UInt = 0u,
+    public var timerLoadHi: UInt = 0u,
+    public var nsecStable: ULong = 0uL,
     // volatile
-    public var timerLoadMax: ULong,
-    public var timerProgTime: UInt,
-    public var spare: List<UInt>,
+    public var timerLoadMax: ULong = 0uL,
+    public var timerProgTime: UInt = 0u,
+    public var spare: UIntArray = UIntArray(7),
 )
 
-public open class SchedInfo(
-    public var priorityMin: CInt,
-    public var priorityMax: CInt,
-    public var interval: ULong,
-    public var priorityPriv: CInt,
-    public var reserved: List<CInt>,
+public data class SchedInfo(
+    public var priorityMin: CInt = 0,
+    public var priorityMax: CInt = 0,
+    public var interval: ULong = 0uL,
+    public var priorityPriv: CInt = 0,
+    public var reserved: IntArray = IntArray(11),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SchedInfo) return false
+        if (this.priorityMin != other.priorityMin) return false
+        if (this.priorityMax != other.priorityMax) return false
+        if (this.interval != other.interval) return false
+        if (this.priorityPriv != other.priorityPriv) return false
+        if (!this.reserved.contentEquals(other.reserved)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.priorityMin.hashCode()
+        result = 31 * result + this.priorityMax.hashCode()
+        result = 31 * result + this.interval.hashCode()
+        result = 31 * result + this.priorityPriv.hashCode()
+        result = 31 * result + this.reserved.contentHashCode()
+        return result
+    }
+}
+
+public data class TimerInfo(
+    public var itime: Itimer = Itimer(),
+    public var otime: Itimer = Itimer(),
+    public var flags: UInt = 0u,
+    public var tid: Int = 0,
+    public var notify: Int = 0,
+    public var clockid: ClockidT = 0,
+    public var overruns: UInt = 0u,
+    public var event: Sigevent = Sigevent(),
 )
 
-public open class TimerInfo(
-    public var itime: Itimer,
-    public var otime: Itimer,
-    public var flags: UInt,
-    public var tid: Int,
-    public var notify: Int,
-    public var clockid: ClockidT,
-    public var overruns: UInt,
-    public var event: Sigevent,
-)
+public data class Clockperiod(public var nsec: UInt = 0u, public var fract: Int = 0)
 
-public open class Clockperiod(public var nsec: UInt, public var fract: Int)
-
-public open class SyspageEntry(
-    public var size: UShort,
-    public var totalSize: UShort,
-    public var type: UShort,
-    public var numCpu: UShort,
-    public var systemPrivate: SyspageEntryInfo,
-    public var oldAsinfo: SyspageEntryInfo,
-    public var mangleNameToCauseCompilationErrsMeminfo: SyspageEntryInfo,
-    public var hwinfo: SyspageEntryInfo,
-    public var oldCpuinfo: SyspageEntryInfo,
-    public var oldCacheattr: SyspageEntryInfo,
-    public var qtime: SyspageEntryInfo,
-    public var callout: SyspageEntryInfo,
-    public var callin: SyspageEntryInfo,
-    public var typedStrings: SyspageEntryInfo,
-    public var strings: SyspageEntryInfo,
-    public var oldIntrinfo: SyspageEntryInfo,
-    public var smp: SyspageEntryInfo,
-    public var pminfo: SyspageEntryInfo,
-    public var oldMdriver: SyspageEntryInfo,
-    public var spare0: List<UInt>,
-    public var reserved: List<UByte>,
+public class SyspageEntry(
+    public var size: UShort = 0u,
+    public var totalSize: UShort = 0u,
+    public var type: UShort = 0u,
+    public var numCpu: UShort = 0u,
+    public var systemPrivate: SyspageEntryInfo = SyspageEntryInfo(),
+    public var oldAsinfo: SyspageEntryInfo = SyspageEntryInfo(),
+    public var mangleNameToCauseCompilationErrsMeminfo: SyspageEntryInfo = SyspageEntryInfo(),
+    public var hwinfo: SyspageEntryInfo = SyspageEntryInfo(),
+    public var oldCpuinfo: SyspageEntryInfo = SyspageEntryInfo(),
+    public var oldCacheattr: SyspageEntryInfo = SyspageEntryInfo(),
+    public var qtime: SyspageEntryInfo = SyspageEntryInfo(),
+    public var callout: SyspageEntryInfo = SyspageEntryInfo(),
+    public var callin: SyspageEntryInfo = SyspageEntryInfo(),
+    public var typedStrings: SyspageEntryInfo = SyspageEntryInfo(),
+    public var strings: SyspageEntryInfo = SyspageEntryInfo(),
+    public var oldIntrinfo: SyspageEntryInfo = SyspageEntryInfo(),
+    public var smp: SyspageEntryInfo = SyspageEntryInfo(),
+    public var pminfo: SyspageEntryInfo = SyspageEntryInfo(),
+    public var oldMdriver: SyspageEntryInfo = SyspageEntryInfo(),
+    public var spare0: UIntArray = UIntArray(1),
+    public var reserved: UByteArray = UByteArray(160),
     // anonymous union with architecture dependent structs
-    public var newAsinfo: SyspageArrayInfo,
-    public var newCpuinfo: SyspageArrayInfo,
-    public var newCacheattr: SyspageArrayInfo,
-    public var newIntrinfo: SyspageArrayInfo,
-    public var newMdriver: SyspageArrayInfo,
+    public var newAsinfo: SyspageArrayInfo = SyspageArrayInfo(),
+    public var newCpuinfo: SyspageArrayInfo = SyspageArrayInfo(),
+    public var newCacheattr: SyspageArrayInfo = SyspageArrayInfo(),
+    public var newIntrinfo: SyspageArrayInfo = SyspageArrayInfo(),
+    public var newMdriver: SyspageArrayInfo = SyspageArrayInfo(),
 )
 
 public val SYSMGR_PID: UInt = 1u
 
 public val SYSMGR_CHID: UInt = 1u
+
+public val NTO_SIDE_CHANNEL: UInt = 1073741824u
 
 public val SYSMGR_COID: UInt = NTO_SIDE_CHANNEL
 
@@ -624,8 +693,6 @@ public val NTO_COF_REG_EVENTS: UInt = 8192u
 public val NTO_COF_UNREG_EVENTS: UInt = 16384u
 
 public val NTO_COF_MASK: UInt = 65535u
-
-public val NTO_SIDE_CHANNEL: UInt = 1073741824u
 
 public val NTO_CONNECTION_SCOID: UInt = 65536u
 

@@ -1,4 +1,5 @@
 // port-lint: source unix/hurd/b64.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.hurd.b64
 
 import io.github.kotlinmania.libc.*
@@ -76,52 +77,90 @@ public typealias ElfShdr = Elf64Shdr
 
 public typealias ElfSym = Elf64Sym
 
-public open class Elf64Ehdr(
-    public var eIdent: List<CUchar>,
-    public var eType: Elf64Half,
-    public var eMachine: Elf64Half,
-    public var eVersion: Elf64Word,
-    public var eEntry: Elf64Addr,
-    public var ePhoff: Elf64Off,
-    public var eShoff: Elf64Off,
-    public var eFlags: Elf64Word,
-    public var eEhsize: Elf64Half,
-    public var ePhentsize: Elf64Half,
-    public var ePhnum: Elf64Half,
-    public var eShentsize: Elf64Half,
-    public var eShnum: Elf64Half,
-    public var eShstrndx: Elf64Half,
+public data class Elf64Ehdr(
+    public var eIdent: UByteArray = UByteArray(16),
+    public var eType: Elf64Half = 0u,
+    public var eMachine: Elf64Half = 0u,
+    public var eVersion: Elf64Word = 0u,
+    public var eEntry: Elf64Addr = 0uL,
+    public var ePhoff: Elf64Off = 0uL,
+    public var eShoff: Elf64Off = 0uL,
+    public var eFlags: Elf64Word = 0u,
+    public var eEhsize: Elf64Half = 0u,
+    public var ePhentsize: Elf64Half = 0u,
+    public var ePhnum: Elf64Half = 0u,
+    public var eShentsize: Elf64Half = 0u,
+    public var eShnum: Elf64Half = 0u,
+    public var eShstrndx: Elf64Half = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Elf64Ehdr) return false
+        if (!this.eIdent.contentEquals(other.eIdent)) return false
+        if (this.eType != other.eType) return false
+        if (this.eMachine != other.eMachine) return false
+        if (this.eVersion != other.eVersion) return false
+        if (this.eEntry != other.eEntry) return false
+        if (this.ePhoff != other.ePhoff) return false
+        if (this.eShoff != other.eShoff) return false
+        if (this.eFlags != other.eFlags) return false
+        if (this.eEhsize != other.eEhsize) return false
+        if (this.ePhentsize != other.ePhentsize) return false
+        if (this.ePhnum != other.ePhnum) return false
+        if (this.eShentsize != other.eShentsize) return false
+        if (this.eShnum != other.eShnum) return false
+        if (this.eShstrndx != other.eShstrndx) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.eIdent.contentHashCode()
+        result = 31 * result + this.eType.hashCode()
+        result = 31 * result + this.eMachine.hashCode()
+        result = 31 * result + this.eVersion.hashCode()
+        result = 31 * result + this.eEntry.hashCode()
+        result = 31 * result + this.ePhoff.hashCode()
+        result = 31 * result + this.eShoff.hashCode()
+        result = 31 * result + this.eFlags.hashCode()
+        result = 31 * result + this.eEhsize.hashCode()
+        result = 31 * result + this.ePhentsize.hashCode()
+        result = 31 * result + this.ePhnum.hashCode()
+        result = 31 * result + this.eShentsize.hashCode()
+        result = 31 * result + this.eShnum.hashCode()
+        result = 31 * result + this.eShstrndx.hashCode()
+        return result
+    }
+}
+
+public data class Elf64Shdr(
+    public var shName: Elf64Word = 0u,
+    public var shType: Elf64Word = 0u,
+    public var shFlags: Elf64Xword = 0uL,
+    public var shAddr: Elf64Addr = 0uL,
+    public var shOffset: Elf64Off = 0uL,
+    public var shSize: Elf64Xword = 0uL,
+    public var shLink: Elf64Word = 0u,
+    public var shInfo: Elf64Word = 0u,
+    public var shAddralign: Elf64Xword = 0uL,
+    public var shEntsize: Elf64Xword = 0uL,
 )
 
-public open class Elf64Shdr(
-    public var shName: Elf64Word,
-    public var shType: Elf64Word,
-    public var shFlags: Elf64Xword,
-    public var shAddr: Elf64Addr,
-    public var shOffset: Elf64Off,
-    public var shSize: Elf64Xword,
-    public var shLink: Elf64Word,
-    public var shInfo: Elf64Word,
-    public var shAddralign: Elf64Xword,
-    public var shEntsize: Elf64Xword,
+public data class Elf64Sym(
+    public var stName: Elf64Word = 0u,
+    public var stInfo: CUchar = 0u,
+    public var stOther: CUchar = 0u,
+    public var stShndx: Elf64Section = 0u,
+    public var stValue: Elf64Addr = 0uL,
+    public var stSize: Elf64Xword = 0uL,
 )
 
-public open class Elf64Sym(
-    public var stName: Elf64Word,
-    public var stInfo: CUchar,
-    public var stOther: CUchar,
-    public var stShndx: Elf64Section,
-    public var stValue: Elf64Addr,
-    public var stSize: Elf64Xword,
-)
-
-public open class Elf64Phdr(
-    public var pType: Elf64Word,
-    public var pFlags: Elf64Word,
-    public var pOffset: Elf64Off,
-    public var pVaddr: Elf64Addr,
-    public var pPaddr: Elf64Addr,
-    public var pFilesz: Elf64Xword,
-    public var pMemsz: Elf64Xword,
-    public var pAlign: Elf64Xword,
+public data class Elf64Phdr(
+    public var pType: Elf64Word = 0u,
+    public var pFlags: Elf64Word = 0u,
+    public var pOffset: Elf64Off = 0uL,
+    public var pVaddr: Elf64Addr = 0uL,
+    public var pPaddr: Elf64Addr = 0uL,
+    public var pFilesz: Elf64Xword = 0uL,
+    public var pMemsz: Elf64Xword = 0uL,
+    public var pAlign: Elf64Xword = 0uL,
 )

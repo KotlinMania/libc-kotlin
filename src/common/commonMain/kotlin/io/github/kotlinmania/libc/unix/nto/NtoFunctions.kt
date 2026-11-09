@@ -5,20 +5,14 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.bsd.IPTOS_ECN_MASK
-
-public fun interface FnCallback {
-    public operator fun invoke()
-}
 
 public fun interface PthreadCreateFCallback {
     public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
@@ -29,7 +23,7 @@ public fun interface DlIteratePhdrCallbackCallback {
 }
 
 public fun cmsgAlign(len: Int): Int {
-    return len + sizeOf<Int>() - 1 and (sizeOf<Int>() - 1).inv()
+    return len + 8 - 1 and (8 - 1).inv()
 }
 
 public fun align(p: Int, b: Int): Int {
@@ -47,69 +41,69 @@ public fun align(p: Int, b: Int): Int {
 // - targetEnv = "nto71Iosock": QNX 7.1 with the optional new stack
 // - targetEnv = "nto80": QNX 8.0
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
-    return if ((mhdr!!.msgControllen).toInt() >= sizeOf<Cmsghdr>()) {
-        (mhdr!!.msgControl as Cmsghdr?)
-    } else {
-        nullMut<Cmsghdr>()
-    }
-}
-
-public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    val msg = CMSG_ALIGN((cmsg!!.cmsgLen).toInt())
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + msg + CMSG_ALIGN(sizeOf<Cmsghdr>())
-    return if (next > ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()) {
-        nullMut<Cmsghdr>()
+    return if ((mhdr!!.msgControllen).toInt() >= 8) {
+        null
     } else {
         null
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (CMSG_ALIGN(sizeOf<Cmsghdr>()).toInt()).toLong()) }
+public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
+    val msg = cmsgAlign((cmsg!!.cmsgLen).toInt())
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + msg + cmsgAlign(8)
+    return if (next > ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()) {
+        null
+    } else {
+        null
+    }
+}
+
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return CMSG_ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return cmsgAlign(8).toUInt() + length
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (CMSG_ALIGN(sizeOf<Cmsghdr>()) + CMSG_ALIGN(length.toInt())).toUInt()
+    return (cmsgAlign(8) + cmsgAlign(length.toInt())).toUInt()
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1u shl (fd1 % size)).inv()
     return
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    return (set!!.fdsBits[fd1 / size] and (1 shl (fd1 % size))) != 0
+    return (set!!.fdsBits[fd1 / size] and (1u shl (fd1 % size))) != 0u
 }
 
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1 shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1u shl (fd1 % size))
     return
 }
 
 public fun fdZero(set: FdSet?) {
-    for (slot in set!!.fdsBits.iterMut()) {
-        slot = 0
+    for (idx in (set!!.fdsBits).indices) {
+        (set!!.fdsBits)[idx] = 0u
     }
 }
 
 public fun dextraFirst(d: Dirent?): DirentExtra? {
-    val f = (((d).dName) as COpaquePointer?)
+    val f = ((((d).dName) as Any?) as COpaquePointer?)
     val s = ((d)?.hashCode()?.toLong() ?: 0L).toInt()
     return null
 }
 
 public fun dextraValid(x: DirentExtra?, d: Dirent?): Boolean {
-    val sz = ((x)?.hashCode()?.toLong() ?: 0L).toInt() - ((d)?.hashCode()?.toLong() ?: 0L).toInt() + sizeOf<DirentExtra>()
+    val sz = ((x)?.hashCode()?.toLong() ?: 0L).toInt() - ((d)?.hashCode()?.toLong() ?: 0L).toInt() + 8
     val rsz = (d!!.dReclen).toInt()
     return if (sz > rsz || sz + (x!!.dDatalen).toInt() > rsz) {
         false
@@ -128,7 +122,7 @@ public fun sockcredsize(ngrps: Int): Int {
     } else {
         0
     }
-    return sizeOf<Sockcred>() + sizeOf<GidT>() * ngrps1
+    return 8 + 8 * ngrps1
 }
 
 public fun wifstopped(status: CInt): Boolean {
@@ -182,10 +176,6 @@ public fun minor(dev: DevT): CUint {
 public expect fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt
 
 public expect fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint, timeout: COpaquePointer?): CInt
-
-public expect fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: SizeT, flags: CInt): SsizeT
-
-public expect fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: SizeT, flags: CInt, timeout: COpaquePointer?): SsizeT
 
 // Network related functions are provided by libsocket and regex
 // functions are provided by libregex.
@@ -605,8 +595,8 @@ public expect fun myThreadExit(valuePtr: COpaquePointer?)
 // Models the implementation in stdlib.h.  Ctest will fail if trying to use the
 // default symbol from libc
 public fun atexit(cb: FnCallback): CInt {
-    public expect val DSO_HANDLE: COpaquePointer?
+    val DSO_HANDLE: COpaquePointer? = null
 
-    public expect fun cxaAtexit(cb: FnCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt
+    fun cxaAtexit(cb: FnCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt = 0
     return cxaAtexit(cb, null, DSO_HANDLE)
 }

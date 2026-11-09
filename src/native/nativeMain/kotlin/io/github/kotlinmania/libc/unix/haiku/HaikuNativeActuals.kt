@@ -177,7 +177,7 @@ public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
 public actual fun initgroups(name: String?, basegid: GidT): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_initgroups(name, basegid)
 
-public actual fun ioctl(fd: CInt, request: CUlong): CInt =
+public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -302,7 +302,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -423,7 +423,7 @@ public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgfl
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_semget(key, nsems, semflg)
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
@@ -554,10 +554,10 @@ public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: Strin
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_getoptLong(argc, argv?.value?.toCPointer<ByteVar>(), optstring, longopts?.value?.toCPointer<ByteVar>(), longindex?.value?.toCPointer<ByteVar>())
 
 public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_strcasecmpL(string1, string2, locale.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_strcasecmpL(string1, string2, locale?.value?.toCPointer<ByteVar>())
 
 public actual fun strncasecmpL(string1: String?, string2: String?, length: SizeT, locale: LocaleT): CInt =
-    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_strncasecmpL(string1, string2, length, locale.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_strncasecmpL(string1, string2, length, locale?.value?.toCPointer<ByteVar>())
 
 public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_getentropy(buf?.value?.toCPointer<ByteVar>(), buflen)

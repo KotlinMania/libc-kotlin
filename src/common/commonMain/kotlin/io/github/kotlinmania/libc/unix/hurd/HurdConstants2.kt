@@ -8,101 +8,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
 
-// sys/xattr.h
-public val XATTR_CREATE: CInt = 0x1
-
-public val XATTR_REPLACE: CInt = 0x2
-
-// spawn.h
-public val POSIX_SPAWN_USEVFORK: CInt = 64
-
-public val POSIX_SPAWN_SETSID: CInt = 128
-
-// sys/syslog.h
-public val LOG_CRON: CInt = 9 shl 3
-
-public val LOG_AUTHPRIV: CInt = 10 shl 3
-
-public val LOG_FTP: CInt = 11 shl 3
-
-public val LOG_PERROR: CInt = 0x20
-
-// net/if.h
-public val IFF_UP: CInt = 0x1
-
-public val IFF_BROADCAST: CInt = 0x2
-
-public val IFF_DEBUG: CInt = 0x4
-
-public val IFF_LOOPBACK: CInt = 0x8
-
-public val IFF_POINTOPOINT: CInt = 0x10
-
-public val IFF_NOTRAILERS: CInt = 0x20
-
-public val IFF_RUNNING: CInt = 0x40
-
-public val IFF_NOARP: CInt = 0x80
-
-public val IFF_PROMISC: CInt = 0x100
-
-public val IFF_ALLMULTI: CInt = 0x200
-
-public val IFF_MASTER: CInt = 0x400
-
-public val IFF_SLAVE: CInt = 0x800
-
-public val IFF_MULTICAST: CInt = 0x1000
-
-public val IFF_PORTSEL: CInt = 0x2000
-
-public val IFF_AUTOMEDIA: CInt = 0x4000
-
-public val IFF_DYNAMIC: CInt = 0x8000
-
-// random.h
-public val GRND_NONBLOCK: CUint = 1u
-
-public val GRND_RANDOM: CUint = 2u
-
-public val GRND_INSECURE: CUint = 4u
-
-public val PC_LINK_MAX: CInt = 0
-
-public val PC_MAX_CANON: CInt = 1
-
-public val PC_MAX_INPUT: CInt = 2
-
-public val PC_NAME_MAX: CInt = 3
-
-public val PC_PATH_MAX: CInt = 4
-
-public val PC_PIPE_BUF: CInt = 5
-
-public val PC_CHOWN_RESTRICTED: CInt = 6
-
-public val PC_NO_TRUNC: CInt = 7
-
-public val PC_VDISABLE: CInt = 8
-
-public val PC_SYNC_IO: CInt = 9
-
-public val PC_ASYNC_IO: CInt = 10
-
-public val PC_PRIO_IO: CInt = 11
-
-public val PC_SOCK_MAXBUF: CInt = 12
-
-public val PC_FILESIZEBITS: CInt = 13
-
-public val PC_REC_INCR_XFER_SIZE: CInt = 14
-
-public val PC_REC_MAX_XFER_SIZE: CInt = 15
-
-public val PC_REC_MIN_XFER_SIZE: CInt = 16
-
-public val PC_REC_XFER_ALIGN: CInt = 17
-
 public val PC_ALLOC_SIZE_MIN: CInt = 18
 
 public val PC_SYMLINK_MAX: CInt = 19
@@ -1201,11 +1106,11 @@ public val SHUT_WR: CInt = 1
 
 public val SHUT_RDWR: CInt = 2
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(lock = 0u, ownerId = 0u, cnt = 0u, shpid = 0u, type = PTHREAD_MUTEX_TIMED.toInt(), flags = 0u, reserved1 = 0u, reserved2 = 0u)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(lock = 0, ownerId = 0u, cnt = 0u, shpid = 0, type = PTHREAD_MUTEX_TIMED.toInt(), flags = 0u, reserved1 = 0u, reserved2 = 0u)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(lock = PTHREAD_SPIN_LOCK_INITIALIZER, queue = null, attr = null, wrefs = 0u, data = null)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(lock = PTHREAD_SPIN_LOCK_INITIALIZER, queue = null, attr = null, wrefs = 0u, data = null)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(held = PTHREAD_SPIN_LOCK_INITIALIZER, lock = PTHREAD_SPIN_LOCK_INITIALIZER, readers = 0u, readerqueue = null, writerqueue = null, attr = null, data = null)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(held = PTHREAD_SPIN_LOCK_INITIALIZER, lock = PTHREAD_SPIN_LOCK_INITIALIZER, readers = 0, readerqueue = null, writerqueue = null, attr = null, data = null)
 
 public val PTHREAD_STACK_MIN: SizeT = 0uL
 

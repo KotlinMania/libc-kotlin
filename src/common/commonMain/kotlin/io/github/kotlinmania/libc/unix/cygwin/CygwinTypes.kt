@@ -59,7 +59,8 @@ public typealias SusecondsT = CLong
 
 public typealias UsecondsT = CUlong
 
-public sealed class Timezone {
+public class Timezone(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
 public typealias SigsetT = CUlong
@@ -113,7 +114,8 @@ public typealias NfdsT = CUint
 
 public typealias SemT = COpaquePointer?
 
-public sealed class Sem {
+public class Sem(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
 public typealias TcflagT = CUint

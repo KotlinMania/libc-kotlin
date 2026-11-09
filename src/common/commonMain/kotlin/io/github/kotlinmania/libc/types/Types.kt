@@ -1,8 +1,6 @@
 // port-lint: source types.rs
 package io.github.kotlinmania.libc.types
 
-import io.github.kotlinmania.fmt.Formatter
-import io.github.kotlinmania.fmt.Result
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 
@@ -15,17 +13,17 @@ import io.github.kotlinmania.libc.CInt
  * A transparent wrapper over `MaybeUninit<T>` to represent uninitialized padding
  * while providing `Default`.
  */
-internal open class Padding<T>(public var value: T?) {
+internal class Padding<T>(public var value: T? = null) {
     public var field0: T?
         get() = value
         set(v) { value = v }
 
-    public open fun fmt(f: Formatter): Result {
+    public fun fmt(f: StringBuilder) {
         // Taken frmo `MaybeUninit`s debug implementation
         // NB: there is no `.padFmt` so we can't use a simpler `formatArgs("Padding<{..}>").
-        val fullName = typeName<Padding<T>>()
+        val fullName = "Padding"
         val prefixLen = (fullName.indexOf("Padding").takeIf { it >= 0 })!!
-        return f.append(fullName[prefixLen until fullName.size])
+        f.append(fullName.substring(prefixLen))
     }
 
     /**
@@ -39,7 +37,7 @@ internal open class Padding<T>(public var value: T?) {
     /**
      * Padding fields are all equal, regardless of what is inside them, so they do not affect anything.
      */
-    public open fun eq(other: Padding<T>): Boolean {
+    public fun eq(other: Padding<T>): Boolean {
         return true
     }
 
@@ -48,10 +46,6 @@ internal open class Padding<T>(public var value: T?) {
      */
 
     public companion object {
-        public fun <T> default(): Padding<T> {
-            return Padding(null)
-        }
-
         // Note: Change this into zeroed() and use MaybeUninit::zeroed()
         // when we depend on rustc 1.75.0.
         /**
@@ -68,4 +62,4 @@ internal open class Padding<T>(public var value: T?) {
 /**
  * The default repr type used for C style enums in Rust.
  */
-internal typealias CEnumRepr = CInt
+public typealias CEnumRepr = CInt

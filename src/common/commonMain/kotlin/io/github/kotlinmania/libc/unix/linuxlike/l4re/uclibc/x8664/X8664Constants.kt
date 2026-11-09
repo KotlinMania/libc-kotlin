@@ -404,6 +404,8 @@ public val O_DIRECT: CInt = 16384
 
 public val O_DIRECTORY: CInt = 65536
 
+public val O_SYNC: CInt = 4096
+
 public val O_DSYNC: CInt = O_SYNC
 
 public val O_EXCL: CInt = 0x80
@@ -411,6 +413,8 @@ public val O_EXCL: CInt = 0x80
 public val O_FSYNC: CInt = O_SYNC
 
 public val O_LARGEFILE: CInt = 0
+
+public val O_NONBLOCK: CInt = 0x800
 
 public val O_NDELAY: CInt = O_NONBLOCK
 
@@ -420,13 +424,9 @@ public val O_NOCTTY: CInt = 0x100
 
 public val O_NOFOLLOW: CInt = 131072
 
-public val O_NONBLOCK: CInt = 0x800
-
 public val O_PATH: CInt = 2097152
 
 public val O_RSYNC: CInt = O_SYNC
-
-public val O_SYNC: CInt = 4096
 
 public val O_TRUNC: CInt = 0x200
 

@@ -19,17 +19,17 @@ public val SIGSTKSZ: SizeT = 8192uL
 public val MINSIGSTKSZ: SizeT = 2048uL
 
 // From NDK's asm/hwcap.h
-public val COMPAT_HWCAP_ISA_I: CUlong = 1uL shl (73u - 65u)
+public val COMPAT_HWCAP_ISA_I: CUlong = 1uL shl (73u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_M: CUlong = 1uL shl (77u - 65u)
+public val COMPAT_HWCAP_ISA_M: CUlong = 1uL shl (77u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_A: CUlong = 1uL shl (65u - 65u)
+public val COMPAT_HWCAP_ISA_A: CUlong = 1uL shl (65u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_F: CUlong = 1uL shl (70u - 65u)
+public val COMPAT_HWCAP_ISA_F: CUlong = 1uL shl (70u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_D: CUlong = 1uL shl (68u - 65u)
+public val COMPAT_HWCAP_ISA_D: CUlong = 1uL shl (68u - 65u).toInt()
 
-public val COMPAT_HWCAP_ISA_C: CUlong = 1uL shl (67u - 65u)
+public val COMPAT_HWCAP_ISA_C: CUlong = 1uL shl (67u - 65u).toInt()
 
 public val SYS_IO_SETUP: CLong = 0L
 

@@ -39,7 +39,7 @@ public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_sigaltstack((ss?.value ?: 0L).toString(), (oss?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadKill(thread.toLong().toString(), sig) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadKill((thread?.value ?: 0L).toString(), sig) as Int) else 0
 
 public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_sigtimedwait((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) as Int) else 0
@@ -195,19 +195,19 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_ppoll((fds?.value ?: 0L).toString(), nfds.toInt(), (timeout?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixCygwinNapiAddon != null) {
-        _unixCygwinNapiAddon.libc_unix_cygwin_freelocale(loc.toLong().toString())
+        _unixCygwinNapiAddon.libc_unix_cygwin_freelocale((loc?.value ?: 0L).toString())
     }
 }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) as Int) else 0
@@ -215,7 +215,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
 public actual fun semDestroy(sem: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_semDestroy((sem?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semClose(sem: COpaquePointer?): CInt =
@@ -369,10 +369,10 @@ public actual fun flsll(value: CLonglong): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_flsll(value.toString()) as Int) else 0
 
 public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_strcasecmpL(s1, s2, loc.toLong().toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_strcasecmpL(s1, s2, (loc?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_strncasecmpL(s1, s2, n.toString(), loc.toLong().toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_strncasecmpL(s1, s2, n.toString(), (loc?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_timingsafeBcmp((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString(), len.toString()) as Int) else 0
@@ -507,7 +507,7 @@ public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaqueP
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadAttrGetstack((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString(), (stacksize?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadCancel(thread.toLong().toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadCancel((thread?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadCondattrGetclock((attr?.value ?: 0L).toString(), (clockId?.value ?: 0L).toString()) as Int) else 0
@@ -546,10 +546,10 @@ public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, 
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetcpuclockid(thread.toLong().toString(), (clkId?.value ?: 0L).toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetcpuclockid((thread?.value ?: 0L).toString(), (clkId?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetschedparam(native.toLong().toString(), (policy?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetschedparam((native?.value ?: 0L).toString(), (policy?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadMutexTimedlock((lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) as Int) else 0
@@ -588,30 +588,30 @@ public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadRwlockattrSetpshared((attr?.value ?: 0L).toString(), value) as Int) else 0
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetschedparam(native.toLong().toString(), policy, (param?.value ?: 0L).toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetschedparam((native?.value ?: 0L).toString(), policy, (param?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetschedprio(native.toLong().toString(), priority) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetschedprio((native?.value ?: 0L).toString(), priority) as Int) else 0
 
 public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetaffinityNp(thread.toLong().toString(), cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetaffinityNp((thread?.value ?: 0L).toString(), cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadGetattrNp(native: PthreadT, attr: COpaquePointer?): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetattrNp(native.toLong().toString(), (attr?.value ?: 0L).toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetattrNp((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetnameNp(thread.toLong().toString(), (name?.value ?: 0L).toString(), len.toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadGetnameNp((thread?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), len.toString()) as Int) else 0
 
 public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetaffinityNp(thread.toLong().toString(), cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetaffinityNp((thread?.value ?: 0L).toString(), cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetnameNp(thread.toLong().toString(), name) as Int) else 0
+    if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadSetnameNp((thread?.value ?: 0L).toString(), name) as Int) else 0
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
-public actual fun ioctl(fd: CInt, request: CInt): CInt =
+public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =

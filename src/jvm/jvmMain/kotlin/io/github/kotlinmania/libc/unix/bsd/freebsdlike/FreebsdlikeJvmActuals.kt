@@ -581,7 +581,7 @@ public actual fun dirfd(dirp: DIR?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_dirfd((dirp?.handle ?: 0L))
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_duplocale(base.toLong()).toULong()()
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun endutxent() {
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_endutxent()
@@ -657,10 +657,10 @@ public actual fun mincore(addr: COpaquePointer?, len: SizeT, vec: COpaquePointer
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mincore((addr?.value ?: 0L), len.toLong(), (vec?.value ?: 0L))
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_newlocale(mask, locale, base.toLong()).toULong()()
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_nlLanginfoL(item, locale.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_nlLanginfoL(item, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_pipe2((fds?.value ?: 0L), flags)
@@ -773,7 +773,7 @@ public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: 
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
 
 public actual fun querylocale(mask: CInt, loc: LocaleT): COpaquePointer? =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_querylocale(mask, loc.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_querylocale(mask, (loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun rtprio(function: CInt, pid: PidT, rtp: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_rtprio(function, pid, (rtp?.value ?: 0L))
@@ -843,7 +843,7 @@ public actual fun sysctlnametomib(name: String?, mibp: COpaquePointer?, sizep: C
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_sysctlnametomib(name, (mibp?.value ?: 0L), (sizep?.value ?: 0L))
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_uselocale(loc.toLong()).toULong()()
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_utimensat(dirfd, path, (times?.value ?: 0L), flag)
@@ -985,7 +985,7 @@ public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqNotify(mqd.toLong(), (notification?.value ?: 0L))
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =

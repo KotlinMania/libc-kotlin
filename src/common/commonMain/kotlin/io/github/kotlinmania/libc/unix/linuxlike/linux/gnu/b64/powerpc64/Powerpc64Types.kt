@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.powerpc64
 
 import io.github.kotlinmania.libc.*
@@ -16,6 +17,6 @@ public typealias U64 = CUlong
 
 public typealias S64 = CLong
 
-public typealias GregsetT = List<CUlong>
+public typealias GregsetT = ULongArray
 
-public typealias FpregsetT = List<CUlong>
+public typealias FpregsetT = ULongArray

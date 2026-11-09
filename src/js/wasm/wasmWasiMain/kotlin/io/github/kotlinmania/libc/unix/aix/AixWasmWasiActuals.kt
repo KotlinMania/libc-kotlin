@@ -493,7 +493,7 @@ public actual fun ifNameindex(): COpaquePointer? =
 public actual fun initgroups(name: String?, basegid: GidT): CInt =
     0
 
-public actual fun ioctl(fildes: CInt, request: CInt): CInt =
+public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun jrand48(xseed: COpaquePointer?): CLong =
@@ -508,7 +508,7 @@ public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaq
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
     0
 
-public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint): CInt =
+public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: SizeT): CInt =
@@ -532,11 +532,11 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     0
 
-public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt) {
+public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
 }
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
     0
@@ -571,7 +571,7 @@ public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
 public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     0
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     0
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
@@ -622,7 +622,7 @@ public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
 public actual fun nrand48(xseed: COpaquePointer?): CLong =
     0L
 
-public actual fun open64(path: String?, oflag: CInt): CInt =
+public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun pollsetCreate(maxfd: CInt): PollsetT =
@@ -820,7 +820,7 @@ public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt
 public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
     0
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
@@ -829,7 +829,7 @@ public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): 
 public actual fun semUnlink(name: String?): CInt =
     0
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =

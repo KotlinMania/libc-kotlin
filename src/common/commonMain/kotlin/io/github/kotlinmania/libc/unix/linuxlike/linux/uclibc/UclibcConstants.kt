@@ -5,10 +5,10 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.MS_I_VERSION
-import io.github.kotlinmania.libc.MS_MANDLOCK
-import io.github.kotlinmania.libc.MS_RDONLY
-import io.github.kotlinmania.libc.MS_SYNCHRONOUS
+import io.github.kotlinmania.libc.unix.linuxlike.MS_I_VERSION
+import io.github.kotlinmania.libc.unix.linuxlike.MS_MANDLOCK
+import io.github.kotlinmania.libc.unix.linuxlike.MS_RDONLY
+import io.github.kotlinmania.libc.unix.linuxlike.MS_SYNCHRONOUS
 import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.NlItem
 import io.github.kotlinmania.libc.unix.linuxlike.linux.SocklenT
@@ -247,6 +247,8 @@ public val SOMAXCONN: CInt = 128
 
 public val ST_RELATIME: CUlong = 4096uL
 
+public val PF_NFC: CInt = 39
+
 public val AF_NFC: CInt = PF_NFC
 
 public val BUFSIZ: CInt = 4096
@@ -318,8 +320,6 @@ public val NI_MAXHOST: SocklenT = 1025u
 public val O_TMPFILE: CInt = 4194304 or O_DIRECTORY
 
 public val PACKET_MR_UNICAST: CInt = 3
-
-public val PF_NFC: CInt = 39
 
 public val PF_VSOCK: CInt = 40
 

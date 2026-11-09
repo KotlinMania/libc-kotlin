@@ -160,7 +160,7 @@ public actual fun globfree64(pglob: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_globfree64(pglob?.value?.toCPointer<ByteVar>())
 }
 
-public actual fun ptrace(request: CUint): CLong =
+public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
     0L
 
 public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
@@ -191,10 +191,10 @@ public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, 
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(thread.toLong().toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
 
 public actual fun mallinfo(): Mallinfo =
-    null as Mallinfo
+    Mallinfo()
 
 public actual fun mallinfo2(): Mallinfo2 =
-    null as Mallinfo2
+    Mallinfo2()
 
 public actual fun mallocStats() {
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_mallocStats()

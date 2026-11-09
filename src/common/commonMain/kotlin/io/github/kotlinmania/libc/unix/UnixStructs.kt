@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
@@ -11,99 +12,110 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.RlimT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SusecondsT
 
-public open class Group(
-    public var grName: COpaquePointer?,
-    public var grPasswd: COpaquePointer?,
-    public var grGid: GidT,
-    public var grMem: COpaquePointer?,
+public data class Group(
+    public var grName: COpaquePointer? = null,
+    public var grPasswd: COpaquePointer? = null,
+    public var grGid: GidT = 0u,
+    public var grMem: COpaquePointer? = null,
 )
 
-public open class Utimbuf(public var actime: TimeT, public var modtime: TimeT)
+public data class Utimbuf(public var actime: TimeT = 0L, public var modtime: TimeT = 0L)
 
-public open class Timeval(public var tvSec: TimeT, public var tvUsec: SusecondsT)
+public data class Timeval(public var tvSec: TimeT = 0L, public var tvUsec: SusecondsT = 0L)
 
-public open class Timespec(
-    public var tvSec: TimeT,
-    public var tvNsec: CLong,
-    public var pad0: UInt,
+public data class Timespec(
+    public var tvSec: TimeT = 0L,
+    public var tvNsec: CLong = 0L,
+    public var pad0: UInt = 0u,
 )
 
-public open class Rlimit(public var rlimCur: RlimT, public var rlimMax: RlimT)
+public data class Rlimit(public var rlimCur: RlimT = 0uL, public var rlimMax: RlimT = 0uL)
 
-public open class Rusage(
-    public var ruUtime: Timeval,
-    public var ruStime: Timeval,
-    public var ruMaxrss: CLong,
-    public var ruIxrss: CLong,
-    public var ruIdrss: CLong,
-    public var ruIsrss: CLong,
-    public var ruMinflt: CLong,
-    public var ruMajflt: CLong,
-    public var ruNswap: CLong,
-    public var ruInblock: CLong,
-    public var ruOublock: CLong,
-    public var ruMsgsnd: CLong,
-    public var ruMsgrcv: CLong,
-    public var ruNsignals: CLong,
-    public var ruNvcsw: CLong,
-    public var ruNivcsw: CLong,
-    public var reserved: List<CLong>,
+public class Rusage(
+    public var ruUtime: Timeval = Timeval(),
+    public var ruStime: Timeval = Timeval(),
+    public var ruMaxrss: CLong = 0L,
+    public var ruIxrss: CLong = 0L,
+    public var ruIdrss: CLong = 0L,
+    public var ruIsrss: CLong = 0L,
+    public var ruMinflt: CLong = 0L,
+    public var ruMajflt: CLong = 0L,
+    public var ruNswap: CLong = 0L,
+    public var ruInblock: CLong = 0L,
+    public var ruOublock: CLong = 0L,
+    public var ruMsgsnd: CLong = 0L,
+    public var ruMsgrcv: CLong = 0L,
+    public var ruNsignals: CLong = 0L,
+    public var ruNvcsw: CLong = 0L,
+    public var ruNivcsw: CLong = 0L,
+    public var reserved: LongArray = LongArray(16),
 )
 
-public open class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr, public var ipv6mrInterface: CInt)
+public data class Ipv6Mreq(public var ipv6mrMultiaddr: In6Addr = In6Addr(), public var ipv6mrInterface: CInt = 0)
 
-public open class Hostent(
-    public var hName: COpaquePointer?,
-    public var hAliases: COpaquePointer?,
-    public var hAddrtype: CInt,
-    public var hLength: CInt,
-    public var hAddrList: COpaquePointer?,
+public data class Hostent(
+    public var hName: COpaquePointer? = null,
+    public var hAliases: COpaquePointer? = null,
+    public var hAddrtype: CInt = 0,
+    public var hLength: CInt = 0,
+    public var hAddrList: COpaquePointer? = null,
 )
 
-public open class Iovec(public var iovBase: COpaquePointer?, public var iovLen: SizeT)
+public data class Iovec(public var iovBase: COpaquePointer? = null, public var iovLen: SizeT = 0uL)
 
-public open class Pollfd(
-    public var fd: CInt,
-    public var events: CShort,
-    public var revents: CShort,
+public data class Pollfd(
+    public var fd: CInt = 0,
+    public var events: CShort = 0,
+    public var revents: CShort = 0,
 )
 
-public open class Winsize(
-    public var wsRow: CUshort,
-    public var wsCol: CUshort,
-    public var wsXpixel: CUshort,
-    public var wsYpixel: CUshort,
+public data class Winsize(
+    public var wsRow: CUshort = 0u,
+    public var wsCol: CUshort = 0u,
+    public var wsXpixel: CUshort = 0u,
+    public var wsYpixel: CUshort = 0u,
 )
 
-public open class Linger(public var lOnoff: CInt, public var lLinger: CInt)
+public data class Linger(public var lOnoff: CInt = 0, public var lLinger: CInt = 0)
 
-public open class Sigval(
+public data class Sigval(
     // Actually a union of an int and a void*
-    public var sivalPtr: COpaquePointer?,
+    public var sivalPtr: COpaquePointer? = null,
 )
 
 // <sys/time.h>
-public open class Itimerval(public var itInterval: Timeval, public var itValue: Timeval)
+public data class Itimerval(public var itInterval: Timeval = Timeval(), public var itValue: Timeval = Timeval())
 
 // <sys/times.h>
-public open class Tms(
-    public var tmsUtime: ClockT,
-    public var tmsStime: ClockT,
-    public var tmsCutime: ClockT,
-    public var tmsCstime: ClockT,
+public data class Tms(
+    public var tmsUtime: ClockT = 0L,
+    public var tmsStime: ClockT = 0L,
+    public var tmsCutime: ClockT = 0L,
+    public var tmsCstime: ClockT = 0L,
 )
 
-public open class Servent(
-    public var sName: COpaquePointer?,
-    public var sAliases: COpaquePointer?,
-    public var sPort: CShort,
-    public var sProto: COpaquePointer?,
+public data class Servent(
+    public var sName: COpaquePointer? = null,
+    public var sAliases: COpaquePointer? = null,
+    public var sPort: CShort = 0,
+    public var sProto: COpaquePointer? = null,
 )
 
-public open class Protoent(
-    public var pName: COpaquePointer?,
-    public var pAliases: COpaquePointer?,
-    public var pProto: CInt,
+public data class Protoent(
+    public var pName: COpaquePointer? = null,
+    public var pAliases: COpaquePointer? = null,
+    public var pProto: CInt = 0,
 )
 
-public open class In6Addr(public var s6Addr: List<UByte>)
+public data class In6Addr(public var s6Addr: UByteArray = UByteArray(16)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is In6Addr) return false
+        if (!this.s6Addr.contentEquals(other.s6Addr)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.s6Addr.contentHashCode()
+    }
+}

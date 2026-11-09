@@ -7215,31 +7215,6 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1usleep_12(JNIEnv* km_env, jclass km_clazz, jint secs) {
-    (void)km_env;
-    (void)km_clazz;
-    typedef int32_t (*km_fn_t)(uint32_t);
-    static km_fn_t km_fn_ptr = NULL;
-#ifdef _WIN32
-    if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "usleep");
-        if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "usleep");
-        }
-    }
-#else
-    if (km_fn_ptr == NULL) {
-        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "usleep");
-    }
-#endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)secs) : -1;
-    return (jint)km_res;
-}
-
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_UnixJniBridge_libc_1unix_1send(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong buf, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;

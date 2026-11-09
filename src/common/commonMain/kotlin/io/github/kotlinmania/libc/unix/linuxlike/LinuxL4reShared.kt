@@ -1,8 +1,8 @@
 // port-lint: source unix/linux_like/linux_l4re_shared.rs
+@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
@@ -13,12 +13,11 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.DIR
-import io.github.kotlinmania.libc.FILE
-import io.github.kotlinmania.libc.IPTOS_TOS_MASK
-import io.github.kotlinmania.libc.unix.CMSG_ALIGN
 import io.github.kotlinmania.libc.unix.CcT
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.IFNAMSIZ
 import io.github.kotlinmania.libc.unix.In6Addr
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
@@ -26,6 +25,7 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.linuxlike.android.RLIM_INFINITY
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
@@ -35,7 +35,6 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.NfdsT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.NlItem
 import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadOnceT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.Rlim64T
-import io.github.kotlinmania.libc.unix.linuxlike.linux.arch.generic.RLIM_INFINITY
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.InoT
@@ -43,6 +42,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.RlimT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.RegoffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SemT
+import io.github.kotlinmania.libc.unix.redox.cmsgAlign
 
 public fun interface GlobErrfuncCallback {
     public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
@@ -96,293 +96,522 @@ public typealias Elf64Rela = CAnonymousElf64Rela
 
 public typealias IconvT = COpaquePointer?
 
-public sealed class Fpos64T {
+public class Fpos64T(public val handle: Long = -1L) {
+    public val ptr: Long get() = handle
 }
 
-public open class GlobT(
-    public var glPathc: SizeT,
-    public var glPathv: COpaquePointer?,
-    public var glOffs: SizeT,
-    public var glFlags: CInt,
-    public var unused1: COpaquePointer?,
-    public var unused2: COpaquePointer?,
-    public var unused3: COpaquePointer?,
-    public var unused4: COpaquePointer?,
-    public var unused5: COpaquePointer?,
+public data class GlobT(
+    public var glPathc: SizeT = 0uL,
+    public var glPathv: COpaquePointer? = null,
+    public var glOffs: SizeT = 0uL,
+    public var glFlags: CInt = 0,
+    public var unused1: COpaquePointer? = null,
+    public var unused2: COpaquePointer? = null,
+    public var unused3: COpaquePointer? = null,
+    public var unused4: COpaquePointer? = null,
+    public var unused5: COpaquePointer? = null,
 )
 
-public open class Passwd(
-    public var pwName: COpaquePointer?,
-    public var pwPasswd: COpaquePointer?,
-    public var pwUid: UidT,
-    public var pwGid: GidT,
-    public var pwGecos: COpaquePointer?,
-    public var pwDir: COpaquePointer?,
-    public var pwShell: COpaquePointer?,
+public data class Passwd(
+    public var pwName: COpaquePointer? = null,
+    public var pwPasswd: COpaquePointer? = null,
+    public var pwUid: UidT = 0u,
+    public var pwGid: GidT = 0u,
+    public var pwGecos: COpaquePointer? = null,
+    public var pwDir: COpaquePointer? = null,
+    public var pwShell: COpaquePointer? = null,
 )
 
-public open class Spwd(
-    public var spNamp: COpaquePointer?,
-    public var spPwdp: COpaquePointer?,
-    public var spLstchg: CLong,
-    public var spMin: CLong,
-    public var spMax: CLong,
-    public var spWarn: CLong,
-    public var spInact: CLong,
-    public var spExpire: CLong,
-    public var spFlag: CUlong,
+public data class Spwd(
+    public var spNamp: COpaquePointer? = null,
+    public var spPwdp: COpaquePointer? = null,
+    public var spLstchg: CLong = 0L,
+    public var spMin: CLong = 0L,
+    public var spMax: CLong = 0L,
+    public var spWarn: CLong = 0L,
+    public var spInact: CLong = 0L,
+    public var spExpire: CLong = 0L,
+    public var spFlag: CUlong = 0uL,
 )
 
-public open class Itimerspec(public var itInterval: Timespec, public var itValue: Timespec)
+public data class Itimerspec(public var itInterval: Timespec = Timespec(), public var itValue: Timespec = Timespec())
 
-public open class FsidT(public var value: List<CInt>)
+public data class FsidT(public var value: IntArray = IntArray(2)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FsidT) return false
+        if (!this.value.contentEquals(other.value)) return false
+        return true
+    }
 
-public open class PacketMreq(
-    public var mrIfindex: CInt,
-    public var mrType: CUshort,
-    public var mrAlen: CUshort,
-    public var mrAddress: List<CUchar>,
+    override fun hashCode(): Int {
+        return this.value.contentHashCode()
+    }
+}
+
+public data class PacketMreq(
+    public var mrIfindex: CInt = 0,
+    public var mrType: CUshort = 0u,
+    public var mrAlen: CUshort = 0u,
+    public var mrAddress: UByteArray = UByteArray(8),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PacketMreq) return false
+        if (this.mrIfindex != other.mrIfindex) return false
+        if (this.mrType != other.mrType) return false
+        if (this.mrAlen != other.mrAlen) return false
+        if (!this.mrAddress.contentEquals(other.mrAddress)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.mrIfindex.hashCode()
+        result = 31 * result + this.mrType.hashCode()
+        result = 31 * result + this.mrAlen.hashCode()
+        result = 31 * result + this.mrAddress.contentHashCode()
+        return result
+    }
+}
+
+public data class CpuSetT(public var bits: ULongArray = ULongArray(16)) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CpuSetT) return false
+        if (!this.bits.contentEquals(other.bits)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.bits.contentHashCode()
+    }
+}
+
+public data class Sembuf(
+    public var semNum: CUshort = 0u,
+    public var semOp: CShort = 0,
+    public var semFlg: CShort = 0,
 )
 
-public open class CpuSetT(public var bits: List<ULong>)
-
-public open class Sembuf(
-    public var semNum: CUshort,
-    public var semOp: CShort,
-    public var semFlg: CShort,
-)
-
-public open class DlPhdrInfo(
-    public var dlpiAddr: Elf64Addr,
-    public var dlpiName: COpaquePointer?,
-    public var dlpiPhdr: Elf64Phdr?,
-    public var dlpiPhnum: Elf64Half,
+public data class DlPhdrInfo(
+    public var dlpiAddr: Elf64Addr = 0uL,
+    public var dlpiName: COpaquePointer? = null,
+    public var dlpiPhdr: Elf64Phdr? = null,
+    public var dlpiPhnum: Elf64Half = 0u,
     // As of uClibc 1.0.36, the following fields are
     // gated behind a "#if 0" block which always evaluates
     // to false. So I'm just removing these, and if uClibc changes
     // the #if block in the future to include the following fields, these
     // will probably need including here. tsidea, skrap
     // QNX (NTO) platform does not define these fields
-    public var dlpiAdds: CUlonglong,
-    public var dlpiSubs: CUlonglong,
-    public var dlpiTlsModid: SizeT,
-    public var dlpiTlsData: COpaquePointer?,
+    public var dlpiAdds: CUlonglong = 0uL,
+    public var dlpiSubs: CUlonglong = 0uL,
+    public var dlpiTlsModid: SizeT = 0uL,
+    public var dlpiTlsData: COpaquePointer? = null,
 )
 
-public open class Elf32Ehdr(
-    public var eIdent: List<CUchar>,
-    public var eType: Elf32Half,
-    public var eMachine: Elf32Half,
-    public var eVersion: Elf32Word,
-    public var eEntry: Elf32Addr,
-    public var ePhoff: Elf32Off,
-    public var eShoff: Elf32Off,
-    public var eFlags: Elf32Word,
-    public var eEhsize: Elf32Half,
-    public var ePhentsize: Elf32Half,
-    public var ePhnum: Elf32Half,
-    public var eShentsize: Elf32Half,
-    public var eShnum: Elf32Half,
-    public var eShstrndx: Elf32Half,
+public data class Elf32Ehdr(
+    public var eIdent: UByteArray = UByteArray(16),
+    public var eType: Elf32Half = 0u,
+    public var eMachine: Elf32Half = 0u,
+    public var eVersion: Elf32Word = 0u,
+    public var eEntry: Elf32Addr = 0u,
+    public var ePhoff: Elf32Off = 0u,
+    public var eShoff: Elf32Off = 0u,
+    public var eFlags: Elf32Word = 0u,
+    public var eEhsize: Elf32Half = 0u,
+    public var ePhentsize: Elf32Half = 0u,
+    public var ePhnum: Elf32Half = 0u,
+    public var eShentsize: Elf32Half = 0u,
+    public var eShnum: Elf32Half = 0u,
+    public var eShstrndx: Elf32Half = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Elf32Ehdr) return false
+        if (!this.eIdent.contentEquals(other.eIdent)) return false
+        if (this.eType != other.eType) return false
+        if (this.eMachine != other.eMachine) return false
+        if (this.eVersion != other.eVersion) return false
+        if (this.eEntry != other.eEntry) return false
+        if (this.ePhoff != other.ePhoff) return false
+        if (this.eShoff != other.eShoff) return false
+        if (this.eFlags != other.eFlags) return false
+        if (this.eEhsize != other.eEhsize) return false
+        if (this.ePhentsize != other.ePhentsize) return false
+        if (this.ePhnum != other.ePhnum) return false
+        if (this.eShentsize != other.eShentsize) return false
+        if (this.eShnum != other.eShnum) return false
+        if (this.eShstrndx != other.eShstrndx) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.eIdent.contentHashCode()
+        result = 31 * result + this.eType.hashCode()
+        result = 31 * result + this.eMachine.hashCode()
+        result = 31 * result + this.eVersion.hashCode()
+        result = 31 * result + this.eEntry.hashCode()
+        result = 31 * result + this.ePhoff.hashCode()
+        result = 31 * result + this.eShoff.hashCode()
+        result = 31 * result + this.eFlags.hashCode()
+        result = 31 * result + this.eEhsize.hashCode()
+        result = 31 * result + this.ePhentsize.hashCode()
+        result = 31 * result + this.ePhnum.hashCode()
+        result = 31 * result + this.eShentsize.hashCode()
+        result = 31 * result + this.eShnum.hashCode()
+        result = 31 * result + this.eShstrndx.hashCode()
+        return result
+    }
+}
+
+public data class Elf64Ehdr(
+    public var eIdent: UByteArray = UByteArray(16),
+    public var eType: Elf64Half = 0u,
+    public var eMachine: Elf64Half = 0u,
+    public var eVersion: Elf64Word = 0u,
+    public var eEntry: Elf64Addr = 0uL,
+    public var ePhoff: Elf64Off = 0uL,
+    public var eShoff: Elf64Off = 0uL,
+    public var eFlags: Elf64Word = 0u,
+    public var eEhsize: Elf64Half = 0u,
+    public var ePhentsize: Elf64Half = 0u,
+    public var ePhnum: Elf64Half = 0u,
+    public var eShentsize: Elf64Half = 0u,
+    public var eShnum: Elf64Half = 0u,
+    public var eShstrndx: Elf64Half = 0u,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Elf64Ehdr) return false
+        if (!this.eIdent.contentEquals(other.eIdent)) return false
+        if (this.eType != other.eType) return false
+        if (this.eMachine != other.eMachine) return false
+        if (this.eVersion != other.eVersion) return false
+        if (this.eEntry != other.eEntry) return false
+        if (this.ePhoff != other.ePhoff) return false
+        if (this.eShoff != other.eShoff) return false
+        if (this.eFlags != other.eFlags) return false
+        if (this.eEhsize != other.eEhsize) return false
+        if (this.ePhentsize != other.ePhentsize) return false
+        if (this.ePhnum != other.ePhnum) return false
+        if (this.eShentsize != other.eShentsize) return false
+        if (this.eShnum != other.eShnum) return false
+        if (this.eShstrndx != other.eShstrndx) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.eIdent.contentHashCode()
+        result = 31 * result + this.eType.hashCode()
+        result = 31 * result + this.eMachine.hashCode()
+        result = 31 * result + this.eVersion.hashCode()
+        result = 31 * result + this.eEntry.hashCode()
+        result = 31 * result + this.ePhoff.hashCode()
+        result = 31 * result + this.eShoff.hashCode()
+        result = 31 * result + this.eFlags.hashCode()
+        result = 31 * result + this.eEhsize.hashCode()
+        result = 31 * result + this.ePhentsize.hashCode()
+        result = 31 * result + this.ePhnum.hashCode()
+        result = 31 * result + this.eShentsize.hashCode()
+        result = 31 * result + this.eShnum.hashCode()
+        result = 31 * result + this.eShstrndx.hashCode()
+        return result
+    }
+}
+
+public data class Elf32Sym(
+    public var stName: Elf32Word = 0u,
+    public var stValue: Elf32Addr = 0u,
+    public var stSize: Elf32Word = 0u,
+    public var stInfo: CUchar = 0u,
+    public var stOther: CUchar = 0u,
+    public var stShndx: Elf32Section = 0u,
 )
 
-public open class Elf64Ehdr(
-    public var eIdent: List<CUchar>,
-    public var eType: Elf64Half,
-    public var eMachine: Elf64Half,
-    public var eVersion: Elf64Word,
-    public var eEntry: Elf64Addr,
-    public var ePhoff: Elf64Off,
-    public var eShoff: Elf64Off,
-    public var eFlags: Elf64Word,
-    public var eEhsize: Elf64Half,
-    public var ePhentsize: Elf64Half,
-    public var ePhnum: Elf64Half,
-    public var eShentsize: Elf64Half,
-    public var eShnum: Elf64Half,
-    public var eShstrndx: Elf64Half,
+public data class Elf64Sym(
+    public var stName: Elf64Word = 0u,
+    public var stInfo: CUchar = 0u,
+    public var stOther: CUchar = 0u,
+    public var stShndx: Elf64Section = 0u,
+    public var stValue: Elf64Addr = 0uL,
+    public var stSize: Elf64Xword = 0uL,
 )
 
-public open class Elf32Sym(
-    public var stName: Elf32Word,
-    public var stValue: Elf32Addr,
-    public var stSize: Elf32Word,
-    public var stInfo: CUchar,
-    public var stOther: CUchar,
-    public var stShndx: Elf32Section,
+public data class Elf32Phdr(
+    public var pType: Elf32Word = 0u,
+    public var pOffset: Elf32Off = 0u,
+    public var pVaddr: Elf32Addr = 0u,
+    public var pPaddr: Elf32Addr = 0u,
+    public var pFilesz: Elf32Word = 0u,
+    public var pMemsz: Elf32Word = 0u,
+    public var pFlags: Elf32Word = 0u,
+    public var pAlign: Elf32Word = 0u,
 )
 
-public open class Elf64Sym(
-    public var stName: Elf64Word,
-    public var stInfo: CUchar,
-    public var stOther: CUchar,
-    public var stShndx: Elf64Section,
-    public var stValue: Elf64Addr,
-    public var stSize: Elf64Xword,
+public data class Elf64Phdr(
+    public var pType: Elf64Word = 0u,
+    public var pFlags: Elf64Word = 0u,
+    public var pOffset: Elf64Off = 0uL,
+    public var pVaddr: Elf64Addr = 0uL,
+    public var pPaddr: Elf64Addr = 0uL,
+    public var pFilesz: Elf64Xword = 0uL,
+    public var pMemsz: Elf64Xword = 0uL,
+    public var pAlign: Elf64Xword = 0uL,
 )
 
-public open class Elf32Phdr(
-    public var pType: Elf32Word,
-    public var pOffset: Elf32Off,
-    public var pVaddr: Elf32Addr,
-    public var pPaddr: Elf32Addr,
-    public var pFilesz: Elf32Word,
-    public var pMemsz: Elf32Word,
-    public var pFlags: Elf32Word,
-    public var pAlign: Elf32Word,
+public data class Elf32Shdr(
+    public var shName: Elf32Word = 0u,
+    public var shType: Elf32Word = 0u,
+    public var shFlags: Elf32Word = 0u,
+    public var shAddr: Elf32Addr = 0u,
+    public var shOffset: Elf32Off = 0u,
+    public var shSize: Elf32Word = 0u,
+    public var shLink: Elf32Word = 0u,
+    public var shInfo: Elf32Word = 0u,
+    public var shAddralign: Elf32Word = 0u,
+    public var shEntsize: Elf32Word = 0u,
 )
 
-public open class Elf64Phdr(
-    public var pType: Elf64Word,
-    public var pFlags: Elf64Word,
-    public var pOffset: Elf64Off,
-    public var pVaddr: Elf64Addr,
-    public var pPaddr: Elf64Addr,
-    public var pFilesz: Elf64Xword,
-    public var pMemsz: Elf64Xword,
-    public var pAlign: Elf64Xword,
+public data class Elf64Shdr(
+    public var shName: Elf64Word = 0u,
+    public var shType: Elf64Word = 0u,
+    public var shFlags: Elf64Xword = 0uL,
+    public var shAddr: Elf64Addr = 0uL,
+    public var shOffset: Elf64Off = 0uL,
+    public var shSize: Elf64Xword = 0uL,
+    public var shLink: Elf64Word = 0u,
+    public var shInfo: Elf64Word = 0u,
+    public var shAddralign: Elf64Xword = 0uL,
+    public var shEntsize: Elf64Xword = 0uL,
 )
 
-public open class Elf32Shdr(
-    public var shName: Elf32Word,
-    public var shType: Elf32Word,
-    public var shFlags: Elf32Word,
-    public var shAddr: Elf32Addr,
-    public var shOffset: Elf32Off,
-    public var shSize: Elf32Word,
-    public var shLink: Elf32Word,
-    public var shInfo: Elf32Word,
-    public var shAddralign: Elf32Word,
-    public var shEntsize: Elf32Word,
+public data class CAnonymousElf32Rel(public var rOffset: Elf32Addr = 0u, public var rInfo: Elf32Word = 0u)
+
+public data class CAnonymousElf64Rel(public var rOffset: Elf64Addr = 0uL, public var rInfo: Elf64Xword = 0uL)
+
+public data class Ucred(
+    public var pid: PidT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
 )
 
-public open class Elf64Shdr(
-    public var shName: Elf64Word,
-    public var shType: Elf64Word,
-    public var shFlags: Elf64Xword,
-    public var shAddr: Elf64Addr,
-    public var shOffset: Elf64Off,
-    public var shSize: Elf64Xword,
-    public var shLink: Elf64Word,
-    public var shInfo: Elf64Word,
-    public var shAddralign: Elf64Xword,
-    public var shEntsize: Elf64Xword,
+public data class Mntent(
+    public var mntFsname: COpaquePointer? = null,
+    public var mntDir: COpaquePointer? = null,
+    public var mntType: COpaquePointer? = null,
+    public var mntOpts: COpaquePointer? = null,
+    public var mntFreq: CInt = 0,
+    public var mntPassno: CInt = 0,
 )
 
-public open class CAnonymousElf32Rel(public var rOffset: Elf32Addr, public var rInfo: Elf32Word)
+public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
 
-public open class CAnonymousElf64Rel(public var rOffset: Elf64Addr, public var rInfo: Elf64Xword)
+public data class ArpdRequest(
+    public var req: CUshort = 0u,
+    public var ip: UInt = 0u,
+    public var dev: CUlong = 0uL,
+    public var stamp: CUlong = 0uL,
+    public var updated: CUlong = 0uL,
+    public var ha: UByteArray = UByteArray((MAX_ADDR_LEN).toInt()),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ArpdRequest) return false
+        if (this.req != other.req) return false
+        if (this.ip != other.ip) return false
+        if (this.dev != other.dev) return false
+        if (this.stamp != other.stamp) return false
+        if (this.updated != other.updated) return false
+        if (!this.ha.contentEquals(other.ha)) return false
+        return true
+    }
 
-public open class Ucred(
-    public var pid: PidT,
-    public var uid: UidT,
-    public var gid: GidT,
+    override fun hashCode(): Int {
+        var result = this.req.hashCode()
+        result = 31 * result + this.ip.hashCode()
+        result = 31 * result + this.dev.hashCode()
+        result = 31 * result + this.stamp.hashCode()
+        result = 31 * result + this.updated.hashCode()
+        result = 31 * result + this.ha.contentHashCode()
+        return result
+    }
+}
+
+public data class RegmatchT(public var rmSo: RegoffT = 0L, public var rmEo: RegoffT = 0L)
+
+public data class Option(
+    public var name: COpaquePointer? = null,
+    public var hasArg: CInt = 0,
+    public var flag: CInt? = null,
+    public var value: CInt = 0,
 )
 
-public open class Mntent(
-    public var mntFsname: COpaquePointer?,
-    public var mntDir: COpaquePointer?,
-    public var mntType: COpaquePointer?,
-    public var mntOpts: COpaquePointer?,
-    public var mntFreq: CInt,
-    public var mntPassno: CInt,
+public data class Rlimit64(public var rlimCur: Rlim64T = 0uL, public var rlimMax: Rlim64T = 0uL)
+
+public data class CAnonymousIfruMap(
+    public var memStart: CUlong = 0uL,
+    public var memEnd: CUlong = 0uL,
+    public var baseAddr: CUshort = 0u,
+    public var irq: CUchar = 0u,
+    public var dma: CUchar = 0u,
+    public var port: CUchar = 0u,
 )
 
-public open class In6Pktinfo(public var ipi6Addr: In6Addr, public var ipi6Ifindex: CUint)
+public data class Dirent(
+    public var dIno: InoT = 0uL,
+    public var dOff: OffT = 0L,
+    public var dReclen: CUshort = 0u,
+    public var dType: CUchar = 0u,
+    public var dName: UByteArray = UByteArray(256),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Dirent) return false
+        if (this.dIno != other.dIno) return false
+        if (this.dOff != other.dOff) return false
+        if (this.dReclen != other.dReclen) return false
+        if (this.dType != other.dType) return false
+        if (!this.dName.contentEquals(other.dName)) return false
+        return true
+    }
 
-public open class ArpdRequest(
-    public var req: CUshort,
-    public var ip: UInt,
-    public var dev: CUlong,
-    public var stamp: CUlong,
-    public var updated: CUlong,
-    public var ha: List<CUchar>,
+    override fun hashCode(): Int {
+        var result = this.dIno.hashCode()
+        result = 31 * result + this.dOff.hashCode()
+        result = 31 * result + this.dReclen.hashCode()
+        result = 31 * result + this.dType.hashCode()
+        result = 31 * result + this.dName.contentHashCode()
+        return result
+    }
+}
+
+public data class Dirent64(
+    public var dIno: Ino64T = 0uL,
+    public var dOff: Off64T = 0L,
+    public var dReclen: CUshort = 0u,
+    public var dType: CUchar = 0u,
+    public var dName: UByteArray = UByteArray(256),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Dirent64) return false
+        if (this.dIno != other.dIno) return false
+        if (this.dOff != other.dOff) return false
+        if (this.dReclen != other.dReclen) return false
+        if (this.dType != other.dType) return false
+        if (!this.dName.contentEquals(other.dName)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dIno.hashCode()
+        result = 31 * result + this.dOff.hashCode()
+        result = 31 * result + this.dReclen.hashCode()
+        result = 31 * result + this.dType.hashCode()
+        result = 31 * result + this.dName.contentHashCode()
+        return result
+    }
+}
+
+public data class CAnonymousElf32Rela(
+    public var rOffset: Elf32Addr = 0u,
+    public var rInfo: Elf32Word = 0u,
+    public var rAddend: Elf32Sword = 0,
 )
 
-public open class RegmatchT(public var rmSo: RegoffT, public var rmEo: RegoffT)
-
-public open class Option(
-    public var name: COpaquePointer?,
-    public var hasArg: CInt,
-    public var flag: CInt?,
-    public var value: CInt,
+public data class CAnonymousElf64Rela(
+    public var rOffset: Elf64Addr = 0uL,
+    public var rInfo: Elf64Xword = 0uL,
+    public var rAddend: Elf64Sxword = 0L,
 )
 
-public open class Rlimit64(public var rlimCur: Rlim64T, public var rlimMax: Rlim64T)
+public data class CAnonymousIfrIfru(
+    public var ifruAddr: Sockaddr = Sockaddr(),
+    public var ifruDstaddr: Sockaddr = Sockaddr(),
+    public var ifruBroadaddr: Sockaddr = Sockaddr(),
+    public var ifruNetmask: Sockaddr = Sockaddr(),
+    public var ifruHwaddr: Sockaddr = Sockaddr(),
+    public var ifruFlags: CShort = 0,
+    public var ifruIfindex: CInt = 0,
+    public var ifruMetric: CInt = 0,
+    public var ifruMtu: CInt = 0,
+    public var ifruMap: CAnonymousIfruMap = CAnonymousIfruMap(),
+    public var ifruSlave: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifruNewname: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifruData: COpaquePointer? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousIfrIfru) return false
+        if (this.ifruAddr != other.ifruAddr) return false
+        if (this.ifruDstaddr != other.ifruDstaddr) return false
+        if (this.ifruBroadaddr != other.ifruBroadaddr) return false
+        if (this.ifruNetmask != other.ifruNetmask) return false
+        if (this.ifruHwaddr != other.ifruHwaddr) return false
+        if (this.ifruFlags != other.ifruFlags) return false
+        if (this.ifruIfindex != other.ifruIfindex) return false
+        if (this.ifruMetric != other.ifruMetric) return false
+        if (this.ifruMtu != other.ifruMtu) return false
+        if (this.ifruMap != other.ifruMap) return false
+        if (!this.ifruSlave.contentEquals(other.ifruSlave)) return false
+        if (!this.ifruNewname.contentEquals(other.ifruNewname)) return false
+        if (this.ifruData != other.ifruData) return false
+        return true
+    }
 
-public open class CAnonymousIfruMap(
-    public var memStart: CUlong,
-    public var memEnd: CUlong,
-    public var baseAddr: CUshort,
-    public var irq: CUchar,
-    public var dma: CUchar,
-    public var port: CUchar,
-)
+    override fun hashCode(): Int {
+        var result = this.ifruAddr.hashCode()
+        result = 31 * result + this.ifruDstaddr.hashCode()
+        result = 31 * result + this.ifruBroadaddr.hashCode()
+        result = 31 * result + this.ifruNetmask.hashCode()
+        result = 31 * result + this.ifruHwaddr.hashCode()
+        result = 31 * result + this.ifruFlags.hashCode()
+        result = 31 * result + this.ifruIfindex.hashCode()
+        result = 31 * result + this.ifruMetric.hashCode()
+        result = 31 * result + this.ifruMtu.hashCode()
+        result = 31 * result + this.ifruMap.hashCode()
+        result = 31 * result + this.ifruSlave.contentHashCode()
+        result = 31 * result + this.ifruNewname.contentHashCode()
+        result = 31 * result + this.ifruData.hashCode()
+        return result
+    }
+}
 
-public open class Dirent(
-    public var dIno: InoT,
-    public var dOff: OffT,
-    public var dReclen: CUshort,
-    public var dType: CUchar,
-    public var dName: List<CChar>,
-)
-
-public open class Dirent64(
-    public var dIno: Ino64T,
-    public var dOff: Off64T,
-    public var dReclen: CUshort,
-    public var dType: CUchar,
-    public var dName: List<CChar>,
-)
-
-public open class CAnonymousElf32Rela(
-    public var rOffset: Elf32Addr,
-    public var rInfo: Elf32Word,
-    public var rAddend: Elf32Sword,
-)
-
-public open class CAnonymousElf64Rela(
-    public var rOffset: Elf64Addr,
-    public var rInfo: Elf64Xword,
-    public var rAddend: Elf64Sxword,
-)
-
-public open class CAnonymousIfrIfru(
-    public var ifruAddr: Sockaddr? = null,
-    public var ifruDstaddr: Sockaddr? = null,
-    public var ifruBroadaddr: Sockaddr? = null,
-    public var ifruNetmask: Sockaddr? = null,
-    public var ifruHwaddr: Sockaddr? = null,
-    public var ifruFlags: CShort? = null,
-    public var ifruIfindex: CInt? = null,
-    public var ifruMetric: CInt? = null,
-    public var ifruMtu: CInt? = null,
-    public var ifruMap: CAnonymousIfruMap? = null,
-    public var ifruSlave: List<CChar>? = null,
-    public var ifruNewname: List<CChar>? = null,
-    public var ifruData: COpaquePointer?? = null,
-)
-
-public open class Ifreq(
+public data class Ifreq(
     /**
      * interface name, e.g. "en0"
      */
-    public var ifrName: List<CChar>,
-    public var ifrIfru: CAnonymousIfrIfru,
-)
+    public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Ifreq) return false
+        if (!this.ifrName.contentEquals(other.ifrName)) return false
+        if (this.ifrIfru != other.ifrIfru) return false
+        return true
+    }
 
-public open class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer?? = null, public var ifcuReq: Ifreq?? = null)
+    override fun hashCode(): Int {
+        var result = this.ifrName.contentHashCode()
+        result = 31 * result + this.ifrIfru.hashCode()
+        return result
+    }
+}
+
+public data class CAnonymousIfcIfcu(public var ifcuBuf: COpaquePointer? = null, public var ifcuReq: Ifreq? = null)
 
 /**
  * Structure used in SIOCGIFCONF request.  Used to retrieve interface configuration for
  * machine (useful for programs which must know all networks accessible).
  */
-public open class Ifconf(
+public data class Ifconf(
     /**
      * Size of buffer
      */
-    public var ifcLen: CInt,
-    public var ifcIfcu: CAnonymousIfcIfcu,
+    public var ifcLen: CInt = 0,
+    public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu(),
 )
 
 public val DATE_BASE: NlItem = 0x20000
@@ -2247,34 +2476,34 @@ public val NT_PRFPXREG: CInt = 20
 public val MS_NOUSER: CUlong = 0xffffffff80000000uL
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    if (((cmsg!!.cmsgLen).toInt()) < sizeOf<Cmsghdr>()) {
-        return nullMut<Cmsghdr>()
+    if (((cmsg!!.cmsgLen).toInt()) < 8) {
+        return null
     }
     // Note(msrv): `.wrappingByteAdd()` stabilized in 1.75
-    val nextCmsg = (if (null.wrappingAdd(CMSG_ALIGN((cmsg!!.cmsgLen).toInt())) == null) null else Cmsghdr())
+    val nextCmsg = ((null.wrappingAdd(cmsgAlign(((cmsg!!.cmsgLen).toInt()).toULong())) as Any?) as Cmsghdr?)
     // In case the addition wrapped. `nextAddr> maxAddr`
     // would otherwise not work as intended.
     if ((nextCmsg.toInt()) < (((cmsg)?.hashCode()?.toLong() ?: 0L).toInt())) {
         return null
     }
-    var maxAddr = (mhdr!!.msgControl).toInt() + (mhdr!!.msgControllen).toInt()
+    var maxAddr = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     if (false) {
         // musl and some of its descendants do `>= maxAddr`
         // comparisons in the if statement below.
         // https://www.openwall.com/lists/musl/2025/12/27/1
         maxAddr -= 1
     }
-    return if (nextCmsg.toInt() + sizeOf<Cmsghdr>() > maxAddr) {
-        nullMut<Cmsghdr>()
+    return if (nextCmsg.toInt() + 8 > maxAddr) {
+        null
     } else {
-        (nextCmsg as Cmsghdr?)
+        ((nextCmsg as Any?) as Cmsghdr?)
     }
 }
 
 public fun cpuAllocSize(count: CInt): SizeT {
-    val dummy: CpuSetT = null
+    val dummy: CpuSetT? = null
     val sizeInBits = 8 * 8
-    return ((count.toULong() + sizeInBits - 1uL) / 8uL).toULong()
+    return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL).toULong()
 }
 
 public fun cpuZero(cpuset: CpuSetT) {
@@ -2287,33 +2516,33 @@ public fun cpuSet(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset)
+    cpuset.bits[idx] = cpuset.bits[idx] or (1uL shl offset.toInt())
 }
 
 public fun cpuClr(cpu: Int, cpuset: CpuSetT) {
     val sizeInBits = 8 * 8
     // 32, 64 etc
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset).inv()
+    cpuset.bits[idx] = cpuset.bits[idx] and (1uL shl offset.toInt()).inv()
 }
 
 public fun cpuIsset(cpu: Int, cpuset: CpuSetT): Boolean {
     val sizeInBits = 8 * 8
     val (idx, offset) = Pair(cpu / sizeInBits, cpu % sizeInBits)
-    return 0uL != (cpuset.bits[idx] and (1uL shl offset))
+    return 0uL != (cpuset.bits[idx] and (1uL shl offset.toInt()))
 }
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
     val sizeOfMask = 8
-    for (i in cpuset.bits[0 until (size / sizeOfMask)]) {
-        s += i.countOnes()
+    for (i in cpuset.bits.slice(0 until (size / sizeOfMask))) {
+        s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
 public fun cpuCount(cpuset: CpuSetT): CInt {
-    return CPU_COUNT_S(sizeOf<CpuSetT>(), cpuset)
+    return cpuCountS(8, cpuset)
 }
 
 public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
@@ -2367,7 +2596,7 @@ public fun elf64RInfo(sym: Elf64Xword, t: Elf64Xword): Elf64Xword {
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
     val minor1 = minor.toULong()
-    var dev = 0
+    var dev = 0uL
     dev = dev or ((major1 and 0x00000fffuL) shl 8)
     dev = dev or ((major1 and 0xfffff000uL) shl 32)
     dev = dev or ((minor1 and 0x000000ffuL) shl 0)
@@ -2376,14 +2605,14 @@ public fun makedev(major: CUint, minor: CUint): DevT {
 }
 
 public fun major(dev: DevT): CUint {
-    var major = 0
+    var major = 0uL
     major = major or ((dev and 0x00000000000fff00uL) shr 8)
     major = major or ((dev and 0xfffff00000000000uL) shr 32)
     return major.toUInt()
 }
 
 public fun minor(dev: DevT): CUint {
-    var minor = 0
+    var minor = 0uL
     minor = minor or ((dev and 0x00000000000000ffuL) shr 0)
     minor = minor or ((dev and 0x00000ffffff00000uL) shr 12)
     return minor.toUInt()

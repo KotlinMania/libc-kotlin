@@ -17,9 +17,6 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.major
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.makedev
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.minor
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpRsrcT
 import kotlinx.cinterop.ByteVar
@@ -91,7 +88,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
 public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_setgroups(ngroups, ptr?.value?.toCPointer<ByteVar>())
 
-public actual fun ioctl(fildes: CInt, request: CInt): CInt =
+public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
@@ -130,20 +127,20 @@ public actual fun fdatasync(fd: CInt): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_fdatasync(fd)
 
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_nlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_nlLanginfoL(item, locale?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_duplocale(base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun freelocale(loc: LocaleT) {
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_freelocale(loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_freelocale(loc?.value?.toCPointer<ByteVar>())
 }
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_newlocale(mask, locale, base.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_uselocale(loc.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getprogname(): COpaquePointer? =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_getprogname()?.let { COpaquePointer(it.toLong()) }
@@ -371,32 +368,32 @@ public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun accept4(fd: CInt, address: COpaquePointer?, addressLen: COpaquePointer?, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_accept4(fd, address?.value?.toCPointer<ByteVar>(), addressLen?.value?.toCPointer<ByteVar>(), flags)
 
-public actual fun mqOpen(name: String?, oflag: CInt): MqdT =
+public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
     null
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqClose(mqd.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqClose(mqd?.value?.toCPointer<ByteVar>())
 
 public actual fun mqUnlink(name: String?): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqUnlink(name)
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqReceive(mqd?.value?.toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
 
 public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqTimedreceive(mqd?.value?.toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
 
 public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqSend(mqd?.value?.toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
 
 public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqTimedsend(mqd?.value?.toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
 
 public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqGetattr(mqd?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
 
 public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr?.value?.toCPointer<ByteVar>(), oldattr?.value?.toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqSetattr(mqd?.value?.toCPointer<ByteVar>(), newattr?.value?.toCPointer<ByteVar>(), oldattr?.value?.toCPointer<ByteVar>())
 
 public actual fun portCreate(): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_portCreate()
@@ -438,12 +435,12 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
 
 public actual fun thrSelf(): ThreadT =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_thrSelf()?.toLong() ?: 0L
+    (io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_thrSelf()?.toLong() ?: 0L).toUInt()
 
 public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt): COpaquePointer? =
+public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
@@ -797,7 +794,7 @@ public actual fun strftime(s: COpaquePointer?, maxsize: SizeT, format: String?, 
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_strftime(s?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>())
 
 public actual fun strftimeL(s: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?, loc: LocaleT): SizeT =
-    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_strftimeL(s?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>(), loc.toLong().toCPointer<ByteVar>())
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_strftimeL(s?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>(), loc?.value?.toCPointer<ByteVar>())
 
 public actual fun sendfile(outFd: CInt, inFd: CInt, off: COpaquePointer?, len: SizeT): SsizeT =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_sendfile(outFd, inFd, off?.value?.toCPointer<ByteVar>(), len)

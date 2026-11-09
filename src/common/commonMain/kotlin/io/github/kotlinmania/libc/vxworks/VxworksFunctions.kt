@@ -7,13 +7,9 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.errnoGet
-import io.github.kotlinmania.libc.errnoSet
-import io.github.kotlinmania.libc.unix.newlib.memalign
 import io.github.kotlinmania.libc.vxworks.aarch64.WcharT
 
 public fun interface AtexitCbCallback {
@@ -31,37 +27,37 @@ public fun interface PthreadKeyCreateDtorCallback {
 // Dummy functions, these don't really exist in VxWorks.
 // wait.h macros
 public fun cmsgAlign(len: Int): Int {
-    return len + sizeOf<Int>() - 1 and (sizeOf<Int>() - 1).inv()
+    return len + 8 - 1 and (8 - 1).inv()
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + CMSG_ALIGN((cmsg!!.cmsgLen).toInt()) + CMSG_ALIGN(sizeOf<Cmsghdr>())
+    val next = ((cmsg)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((cmsg!!.cmsgLen).toInt()) + cmsgAlign(8)
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (next <= max) {
         null
     } else {
-        nullMut<Cmsghdr>()
+        null
     }
 }
 
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
     return if ((mhdr!!.msgControllen).toInt() > 0) {
-        (mhdr!!.msgControl as Cmsghdr?)
+        null
     } else {
-        nullMut<Cmsghdr>()
+        null
     }
 }
 
-public fun cmsgData(cmsg: Cmsghdr?): CUchar? {
-    return ((((cmsg)?.hashCode()?.toLong() ?: 0L).toUByte()))?.let { COpaquePointer(it.hashCode().toLong() + (CMSG_ALIGN(sizeOf<Cmsghdr>()).toInt()).toLong()) }
+public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
+    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) }))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8).toInt()).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return (CMSG_ALIGN(length.toInt()) + CMSG_ALIGN(sizeOf<Cmsghdr>())).toUInt()
+    return (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return CMSG_ALIGN(sizeOf<Cmsghdr>()).toUInt() + length
+    return cmsgAlign(8).toUInt() + length
 }
 
 public expect fun isalnum(c: CInt): CInt
@@ -876,9 +872,6 @@ public expect fun kill(pid: PidT, signo: CInt): CInt
 // signal.h for user
 public expect fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt
 
-// signal.h for user
-public expect fun sigqueue(rtpId: RtpId, signo: CInt, pValue: COpaquePointer?, sigCode: CInt): CInt
-
 // signal.h
 public expect fun taskKill(taskId: TaskId, signo: CInt): CInt
 
@@ -981,7 +974,7 @@ public fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CI
     var memptr = memptr
     // check to see if align is a power of 2 and if align is a multiple
     // of sizeof(void *)
-    if ((align and align - 1uL != 0uL) || (align.toInt() % sizeOf<SizeT>() != 0)) {
+    if ((align and align - 1uL != 0uL) || (align.toInt() % 8 != 0)) {
         return EINVAL
     }
     return run {

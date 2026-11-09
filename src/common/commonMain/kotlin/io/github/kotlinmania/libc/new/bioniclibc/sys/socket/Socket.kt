@@ -15,26 +15,26 @@ import io.github.kotlinmania.libc.unix.Iovec
 
 // Header: `sys / socket.h`
 
-public open class Msghdr(
-    public var msgName: COpaquePointer?,
-    public var msgNamelen: SocklenT,
-    public var msgIov: Iovec?,
-    public var msgIovlen: SizeT,
-    public var msgControl: COpaquePointer?,
-    public var msgControllen: SizeT,
-    public var msgFlags: CInt,
+public data class Msghdr(
+    public var msgName: COpaquePointer? = null,
+    public var msgNamelen: SocklenT = 0u,
+    public var msgIov: Iovec? = null,
+    public var msgIovlen: SizeT = 0uL,
+    public var msgControl: COpaquePointer? = null,
+    public var msgControllen: SizeT = 0uL,
+    public var msgFlags: CInt = 0,
 )
 
-public open class Cmsghdr(
-    public var cmsgLen: SizeT,
-    public var cmsgLevel: CInt,
-    public var cmsgType: CInt,
+public data class Cmsghdr(
+    public var cmsgLen: SizeT = 0uL,
+    public var cmsgLevel: CInt = 0,
+    public var cmsgType: CInt = 0,
 )
 
-public open class Ucred(
-    public var pid: PidT,
-    public var uid: UidT,
-    public var gid: GidT,
+public data class Ucred(
+    public var pid: PidT = 0,
+    public var uid: UidT = 0u,
+    public var gid: GidT = 0u,
 )
 
 public expect fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt

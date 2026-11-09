@@ -154,13 +154,13 @@ public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_semget(key, nsems, semflg) as Int) else 0
 
-public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt): CInt =
+public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_semop(semid, (sops?.value ?: 0L).toString(), nsops.toString()) as Int) else 0
 
-public actual fun shmOpen(name: String?, oflag: CInt): CInt =
+public actual fun shmOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun ftok(pathname: String?, projId: CInt): KeyT =
@@ -224,7 +224,7 @@ public actual fun pthreadMachThreadNp(thread: PthreadT): MachPortT =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_pthreadMachThreadNp(thread.toLong().toString()) as Int).toUInt() else 0u
 
 public actual fun pthreadFromMachThreadNp(port: MachPortT): PthreadT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_pthreadFromMachThreadNp(port.toInt()) as String).toLong().toULong()() else 0uL
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_pthreadFromMachThreadNp(port.toInt()) as String).toLong().toULong() else 0uL
 
 public actual fun pthreadGetStackaddrNp(thread: PthreadT): COpaquePointer? =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_pthreadGetStackaddrNp(thread.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
@@ -317,13 +317,13 @@ public actual fun osSignpostEnabled(log: OsLogT): Boolean =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_osSignpostEnabled((log?.value ?: 0L).toString()) as Boolean) else false
 
 public actual fun threadPolicySet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: MachMsgTypeNumberT): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_threadPolicySet(thread.toLong().toString(), flavor.toInt(), policyInfo.toLong().toString(), count.toInt()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_threadPolicySet(thread.toLong().toString(), flavor.toInt(), (policyInfo?.value ?: 0L).toString(), count.toInt()) as Int) else 0
 
 public actual fun threadPolicyGet(thread: ThreadT, flavor: ThreadPolicyFlavorT, policyInfo: ThreadPolicyT, count: COpaquePointer?, getDefault: COpaquePointer?): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_threadPolicyGet(thread.toLong().toString(), flavor.toInt(), policyInfo.toLong().toString(), (count?.value ?: 0L).toString(), (getDefault?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_threadPolicyGet(thread.toLong().toString(), flavor.toInt(), (policyInfo?.value ?: 0L).toString(), (count?.value ?: 0L).toString(), (getDefault?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun threadInfo(targetAct: ThreadInspectT, flavor: ThreadFlavorT, threadInfoOut: ThreadInfoT, threadInfoOutCnt: COpaquePointer?): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_threadInfo(targetAct.toInt(), flavor.toInt(), threadInfoOut.toLong().toString(), (threadInfoOutCnt?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_threadInfo(targetAct.toInt(), flavor.toInt(), (threadInfoOut?.value ?: 0L).toString(), (threadInfoOutCnt?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun error(): COpaquePointer? =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_error() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
@@ -398,22 +398,22 @@ public actual fun loginTty(fd: CInt): CInt =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_loginTty(fd) as Int) else 0
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_duplocale(base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun freelocale(loc: LocaleT): CInt =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_freelocale(loc.toLong().toString()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_freelocale((loc?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun localeconvL(loc: LocaleT): COpaquePointer? =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_localeconvL(loc.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_localeconvL((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_newlocale(mask, locale, base.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_uselocale(loc.toLong().toString()) as String).toLong().toULong()() else null
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun querylocale(mask: CInt, loc: LocaleT): COpaquePointer? =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_querylocale(mask, loc.toLong().toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_querylocale(mask, (loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_getpriority(which, who.toInt()) as Int) else 0
@@ -632,9 +632,9 @@ public actual fun strtonum(numstr: String?, minval: CLonglong, maxval: CLonglong
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_strtonum(numstr, minval.toString(), maxval.toString(), (errstrp?.value ?: 0L).toString()) as String).toLong() else 0L
 
 public actual fun mstats(): Mstats =
-    null as Mstats
+    Mstats()
 
-public actual fun mallocPrintf(format: String?) {
+public actual fun mallocPrintf(format: String?, vararg variadicArgs: Long) {
 }
 
 public actual fun mallocZoneCheck(zone: COpaquePointer?): BooleanT =
@@ -782,7 +782,7 @@ public actual fun vmDeallocate(targetTask: VmMapT, address: VmAddressT, size: Vm
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_vmDeallocate(targetTask.toLong().toString(), address.toString(), size.toString()) as Int) else 0
 
 public actual fun hostStatistics64(hostPriv: HostT, flavor: HostFlavorT, hostInfo64Out: HostInfo64T, hostInfo64OutCnt: COpaquePointer?): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_hostStatistics64(hostPriv.toInt(), flavor, hostInfo64Out.toLong().toString(), (hostInfo64OutCnt?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_hostStatistics64(hostPriv.toInt(), flavor, (hostInfo64Out?.value ?: 0L).toString(), (hostInfo64OutCnt?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun hostProcessorInfo(host: HostT, flavor: ProcessorFlavorT, outProcessorCount: COpaquePointer?, outProcessorInfo: COpaquePointer?, outProcessorInfoCnt: COpaquePointer?): KernReturnT =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_hostProcessorInfo(host.toInt(), flavor, (outProcessorCount?.value ?: 0L).toString(), (outProcessorInfo?.value ?: 0L).toString(), (outProcessorInfoCnt?.value ?: 0L).toString()) as Int) else 0
@@ -791,10 +791,10 @@ public actual fun taskForPid(host: MachPortT, pid: PidT, task: COpaquePointer?):
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskForPid(host.toInt(), pid, (task?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun taskInfo(host: MachPortT, flavor: TaskFlavorT, taskInfoOut: TaskInfoT, taskInfoCount: COpaquePointer?): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskInfo(host.toInt(), flavor.toInt(), taskInfoOut.toLong().toString(), (taskInfoCount?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskInfo(host.toInt(), flavor.toInt(), (taskInfoOut?.value ?: 0L).toString(), (taskInfoCount?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun taskCreate(targetTask: TaskT, ledgers: LedgerArrayT, ledgersCnt: MachMsgTypeNumberT, inheritMemory: BooleanT, childTask: COpaquePointer?): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskCreate(targetTask.toInt(), ledgers.toLong().toString(), ledgersCnt.toInt(), inheritMemory, (childTask?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskCreate(targetTask.toInt(), (ledgers?.value ?: 0L).toString(), ledgersCnt.toInt(), inheritMemory, (childTask?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun taskTerminate(targetTask: TaskT): KernReturnT =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskTerminate(targetTask.toInt()) as Int) else 0
@@ -803,7 +803,7 @@ public actual fun taskThreads(targetTask: TaskInspectT, actList: COpaquePointer?
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskThreads(targetTask.toInt(), (actList?.value ?: 0L).toString(), (actListCnt?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun hostStatistics(hostPriv: HostT, flavor: HostFlavorT, hostInfoOut: HostInfoT, hostInfoOutCnt: COpaquePointer?): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_hostStatistics(hostPriv.toInt(), flavor, hostInfoOut.toLong().toString(), (hostInfoOutCnt?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_hostStatistics(hostPriv.toInt(), flavor, (hostInfoOut?.value ?: 0L).toString(), (hostInfoOutCnt?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun sysdirStartSearchPathEnumeration(dir: SysdirSearchPathDirectoryT, domainMask: SysdirSearchPathDomainMaskT): SysdirSearchPathEnumerationState =
     0u
@@ -869,7 +869,7 @@ public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: 
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_memmem((haystack?.value ?: 0L).toString(), haystacklen.toString(), (needle?.value ?: 0L).toString(), needlelen.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun taskSetInfo(targetTask: TaskT, flavor: TaskFlavorT, taskInfoIn: TaskInfoT, taskInfoInCnt: MachMsgTypeNumberT): KernReturnT =
-    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskSetInfo(targetTask.toInt(), flavor.toInt(), taskInfoIn.toLong().toString(), taskInfoInCnt.toInt()) as Int) else 0
+    if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_taskSetInfo(targetTask.toInt(), flavor.toInt(), (taskInfoIn?.value ?: 0L).toString(), taskInfoInCnt.toInt()) as Int) else 0
 
 public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_iconvOpen(tocode, fromcode) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
