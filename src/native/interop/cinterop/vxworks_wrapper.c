@@ -25,7 +25,6 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/mman.h>
-#include <pthread.h>
 #include <poll.h>
 #include <sys/socket.h>
 #endif
@@ -340,7 +339,29 @@ int32_t libc_vxworks_atexit(void* cb) {
 }
 
 int32_t libc_vxworks_system(const char* s) {
-    return (int32_t)system(s);
+    typedef int32_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "system");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "system");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "system");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s);
+    }
+    errno = ENOSYS;
+    return -1;
 }
 
 char* libc_vxworks_getenv(const char* s) {
@@ -704,14 +725,29 @@ void* libc_vxworks_memset(void* dest, int32_t c, uint64_t n) {
 }
 
 void* libc_vxworks_alignedAlloc(uint64_t alignment, uint64_t size) {
-#if !defined(_WIN32)
-    return (void*)aligned_alloc(alignment, size);
+    typedef void* (*km_fn_t)(uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aligned_alloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aligned_alloc");
+        }
+    }
 #else
-    (void)alignment;
-    (void)size;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aligned_alloc");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(alignment, size);
+    }
     errno = ENOSYS;
     return NULL;
-#endif
 }
 
 int32_t libc_vxworks_uname(void* buf) {
@@ -1743,14 +1779,29 @@ int32_t libc_vxworks_pthreadAttrSetdetachstate(void* attr, int32_t state) {
 }
 
 int32_t libc_vxworks_pthreadEqual(void* t1, void* t2) {
-#if !defined(_WIN32)
-    return (int32_t)pthread_equal(t1, t2);
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_equal");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_equal");
+        }
+    }
 #else
-    (void)t1;
-    (void)t2;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_equal");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(t1, t2);
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 int32_t libc_vxworks_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
@@ -3215,13 +3266,29 @@ int32_t libc_vxworks_pthreadAttrDestroy(void* thread) {
 }
 
 int32_t libc_vxworks_pthreadDetach(void* thread) {
-#if !defined(_WIN32)
-    return (int32_t)pthread_detach(thread);
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_detach");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_detach");
+        }
+    }
 #else
-    (void)thread;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_detach");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(thread);
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 int32_t libc_vxworks_pthreadAtfork(void* prepare, void* parent, void* child) {
@@ -4027,23 +4094,55 @@ int32_t libc_vxworks_pthreadAttrGetname(void* attr, void* name) {
 }
 
 int32_t libc_vxworks_pthreadJoin(void* thread, void* status) {
-#if !defined(_WIN32)
-    return (int32_t)pthread_join(thread, status);
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_join");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_join");
+        }
+    }
 #else
-    (void)thread;
-    (void)status;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_join");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(thread, status);
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 void* libc_vxworks_pthreadSelf(void) {
-#if !defined(_WIN32)
-    return (void*)pthread_self();
+    typedef void* (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_self");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_self");
+        }
+    }
 #else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_self");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
     errno = ENOSYS;
     return NULL;
-#endif
 }
 
 int32_t libc_vxworks_clockGettime(int32_t clock_id, void* tp) {

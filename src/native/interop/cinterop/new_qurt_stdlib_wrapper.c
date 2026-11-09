@@ -196,7 +196,29 @@ int32_t libc_new_qurt_stdlib_abs(int32_t j) {
 }
 
 int64_t libc_new_qurt_stdlib_labs(int64_t j) {
-    return (int64_t)labs(j);
+    typedef int64_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "labs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "labs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "labs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(j);
+    }
+    errno = ENOSYS;
+    return -1;
 }
 
 int64_t libc_new_qurt_stdlib_llabs(int64_t j) {

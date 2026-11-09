@@ -1408,7 +1408,29 @@ char* libc_solid_getenv(const char* arg1) {
 }
 
 int64_t libc_solid_labs(int64_t arg1) {
-    return (int64_t)labs(arg1);
+    typedef int64_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "labs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "labs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "labs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(arg1);
+    }
+    errno = ENOSYS;
+    return -1;
 }
 
 void* libc_solid_malloc(uint64_t arg1) {
@@ -2128,14 +2150,29 @@ uint64_t libc_solid_strtoull(const char* arg1, void* arg2, int32_t arg3) {
 }
 
 void* libc_solid_alignedAlloc(uint64_t arg1, uint64_t arg2) {
-#if !defined(_WIN32)
-    return (void*)aligned_alloc(arg1, arg2);
+    typedef void* (*km_fn_t)(uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aligned_alloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aligned_alloc");
+        }
+    }
 #else
-    (void)arg1;
-    (void)arg2;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aligned_alloc");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(arg1, arg2);
+    }
     errno = ENOSYS;
     return NULL;
-#endif
 }
 
 int32_t libc_solid_atQuickExit(void* arg1) {

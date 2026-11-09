@@ -695,14 +695,29 @@ int32_t libc_new_common_posix_pthread_pthreadGetschedparam(void* native, void* p
 }
 
 int32_t libc_new_common_posix_pthread_pthreadKill(void* thread, int32_t sig) {
-#if !defined(_WIN32)
-    return (int32_t)pthread_kill(thread, sig);
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_kill");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_kill");
+        }
+    }
 #else
-    (void)thread;
-    (void)sig;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_kill");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(thread, sig);
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexConsistent(void* mutex) {

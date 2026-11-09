@@ -3,17 +3,10 @@
 #endif
 #include "new_qurt_wrapper.h"
 #include <errno.h>
-#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#ifdef _WIN32
-#include <io.h>
-#include <process.h>
-#include <direct.h>
-#endif
 #if !defined(_WIN32)
 #include <dirent.h>
-#include <unistd.h>
 #endif
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -214,14 +207,29 @@ int32_t libc_new_qurt_semUnlink(const char* name) {
 }
 
 void* libc_new_qurt_alignedAlloc(uint64_t alignment, uint64_t size) {
-#if !defined(_WIN32)
-    return (void*)aligned_alloc(alignment, size);
+    typedef void* (*km_fn_t)(uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aligned_alloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aligned_alloc");
+        }
+    }
 #else
-    (void)alignment;
-    (void)size;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aligned_alloc");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(alignment, size);
+    }
     errno = ENOSYS;
     return NULL;
-#endif
 }
 
 uint64_t libc_new_qurt_strlen(const char* s) {
@@ -313,12 +321,29 @@ void* libc_new_qurt_memset(void* s, int32_t c, uint64_t n) {
 }
 
 int32_t libc_new_qurt_fork(void) {
-#if !defined(_WIN32)
-    return (int32_t)fork();
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fork");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fork");
+        }
+    }
 #else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fork");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 int32_t libc_new_qurt_execve(const char* filename, void* argv, void* envp) {

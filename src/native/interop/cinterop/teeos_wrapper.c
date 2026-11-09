@@ -15,7 +15,6 @@
 #include <direct.h>
 #endif
 #if !defined(_WIN32)
-#include <pthread.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #endif
@@ -44,14 +43,29 @@ void* libc_teeos_realloc(void* p, uint64_t size) {
 }
 
 void* libc_teeos_alignedAlloc(uint64_t align, uint64_t len) {
-#if !defined(_WIN32)
-    return (void*)aligned_alloc(align, len);
+    typedef void* (*km_fn_t)(uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aligned_alloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aligned_alloc");
+        }
+    }
 #else
-    (void)align;
-    (void)len;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aligned_alloc");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(align, len);
+    }
     errno = ENOSYS;
     return NULL;
-#endif
 }
 
 void libc_teeos_free(void* p) {
@@ -131,23 +145,55 @@ void* libc_teeos_memset(void* dest, int32_t c, uint64_t n) {
 }
 
 void* libc_teeos_pthreadSelf(void) {
-#if !defined(_WIN32)
-    return (void*)pthread_self();
+    typedef void* (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_self");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_self");
+        }
+    }
 #else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_self");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
     errno = ENOSYS;
     return NULL;
-#endif
 }
 
 int32_t libc_teeos_pthreadJoin(void* native, void* value) {
-#if !defined(_WIN32)
-    return (int32_t)pthread_join(native, value);
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_join");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_join");
+        }
+    }
 #else
-    (void)native;
-    (void)value;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_join");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(native, value);
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 void libc_teeos_pthreadExit(void* value) {
@@ -1087,14 +1133,29 @@ int32_t libc_teeos_pthreadOnce(void* pot, void* f) {
 }
 
 int32_t libc_teeos_pthreadEqual(void* p1, void* p2) {
-#if !defined(_WIN32)
-    return (int32_t)pthread_equal(p1, p2);
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_equal");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_equal");
+        }
+    }
 #else
-    (void)p1;
-    (void)p2;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_equal");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(p1, p2);
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 int32_t libc_teeos_pthreadMutexattrSetprotocol(void* a, int32_t protocol) {

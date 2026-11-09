@@ -10,7 +10,6 @@
 #endif
 #if !defined(_WIN32)
 #include <sys/socket.h>
-#include <pthread.h>
 #endif
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -159,7 +158,29 @@ int32_t libc_unix_newlib_abs(int32_t i) {
 }
 
 int64_t libc_unix_newlib_labs(int64_t i) {
-    return (int64_t)labs(i);
+    typedef int64_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "labs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "labs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "labs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(i);
+    }
+    errno = ENOSYS;
+    return -1;
 }
 
 int32_t libc_unix_newlib_rand(void) {
@@ -569,14 +590,29 @@ void* libc_unix_newlib_getgrnam(const char* name) {
 }
 
 int32_t libc_unix_newlib_pthreadKill(void* thread, int32_t sig) {
-#if !defined(_WIN32)
-    return (int32_t)pthread_kill(thread, sig);
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_kill");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_kill");
+        }
+    }
 #else
-    (void)thread;
-    (void)sig;
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_kill");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(thread, sig);
+    }
     errno = ENOSYS;
     return -1;
-#endif
 }
 
 int32_t libc_unix_newlib_semUnlink(const char* name) {
