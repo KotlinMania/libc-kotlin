@@ -98,7 +98,7 @@ public actual fun ifFreenameindex(ptr: COpaquePointer?) {
 public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
     0
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
     0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -203,7 +203,7 @@ public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
     0
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -215,7 +215,7 @@ public actual fun popen(command: String?, mode: String?): FILE? =
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     0
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt =
     0
 
 public actual fun acct(filename: String?): CInt =

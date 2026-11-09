@@ -816,7 +816,7 @@ public actual fun freadlink(fd: CInt, buf: COpaquePointer?, size: SizeT): CInt =
 public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_execvP(file, searchPath, argv?.value?.toCPointer<ByteVar>())
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback1?) {
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_qsortR(base?.value?.toCPointer<ByteVar>(), num, size, arg?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 }
 

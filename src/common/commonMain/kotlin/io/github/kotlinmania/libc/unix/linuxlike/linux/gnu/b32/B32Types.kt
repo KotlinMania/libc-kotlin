@@ -2,6 +2,7 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 

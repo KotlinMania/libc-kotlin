@@ -208,7 +208,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(cb: AtexitCbCallback): CInt =
+public actual fun atexit(cb: FnCallback): CInt =
     if (_vxworksNapiAddon != null) (_vxworksNapiAddon.libc_vxworks_atexit(0L.toString()) as Int) else 0
 
 public actual fun system(s: String?): CInt =
@@ -692,7 +692,7 @@ public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePo
 public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
     if (_vxworksNapiAddon != null) (_vxworksNapiAddon.libc_vxworks_pthreadAttrInit((attr?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: FnCallback1, value: COpaquePointer?): CInt =
     if (_vxworksNapiAddon != null) (_vxworksNapiAddon.libc_vxworks_pthreadCreate((pThread?.value ?: 0L).toString(), (pAttr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
@@ -713,7 +713,7 @@ public actual fun pthreadAttrDestroy(thread: COpaquePointer?): CInt =
 public actual fun pthreadDetach(thread: PthreadT): CInt =
     if (_vxworksNapiAddon != null) (_vxworksNapiAddon.libc_vxworks_pthreadDetach(thread.toLong().toString()) as Int) else 0
 
-public actual fun pthreadAtfork(prepare: AtexitCbCallback?, parent: AtexitCbCallback?, child: AtexitCbCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
     if (_vxworksNapiAddon != null) (_vxworksNapiAddon.libc_vxworks_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
@@ -800,7 +800,7 @@ public actual fun pthreadRwlockTimedwrlock(attr: COpaquePointer?, host: COpaqueP
 public actual fun pthreadRwlockUnlock(attr: COpaquePointer?): CInt =
     if (_vxworksNapiAddon != null) (_vxworksNapiAddon.libc_vxworks_pthreadRwlockUnlock((attr?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt =
     if (_vxworksNapiAddon != null) (_vxworksNapiAddon.libc_vxworks_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =

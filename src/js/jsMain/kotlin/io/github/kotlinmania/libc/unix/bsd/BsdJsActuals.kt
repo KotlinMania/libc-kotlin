@@ -123,7 +123,7 @@ public actual fun ifFreenameindex(ptr: COpaquePointer?) {
 public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_getpeereid(socket, (euid?.value ?: 0L).toString(), (egid?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -237,7 +237,7 @@ public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -249,7 +249,7 @@ public actual fun popen(command: String?, mode: String?): FILE? =
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_faccessat(dirfd, pathname, mode, flags) as Int) else 0
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt =
     if (_unixBsdNapiAddon != null) (_unixBsdNapiAddon.libc_unix_bsd_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun acct(filename: String?): CInt =

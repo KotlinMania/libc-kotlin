@@ -21,23 +21,11 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
 
-public fun interface CloneCbCallback {
-    public operator fun invoke(arg0: COpaquePointer?): CInt
-}
-
-public fun interface SystemPropertyForeachCallbackCallback {
-    public operator fun invoke(pi: COpaquePointer?, cookie: COpaquePointer?)
-}
-
-public fun interface DlIteratePhdrCallbackCallback {
-    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
-}
-
 // Most `* _SUPER_MAGIC` constants are defined at the `linuxLike` level; the
 // following are only available on newer Linux versions than the versions
 // currently used in CI in some configurations, so we define them here.
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
-    val next = null
+    val next: Cmsghdr? = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (((((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }))?.rawValue ?: 0L).toInt() > max) {
         null
@@ -102,7 +90,7 @@ public fun nlaAlign(len: CInt): CInt {
 }
 
 public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return null
+    return (((ee)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as Sockaddr?)
 }
 
 public fun makedev(ma: CUint, mi: CUint): DevT {
@@ -286,7 +274,7 @@ public expect fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt
 
 public expect fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt
 
-public expect fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt
+public expect fun clone(cb: FnCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt
 
 public expect fun schedGetscheduler(pid: PidT): CInt
 
@@ -385,13 +373,13 @@ public expect fun systemPropertyFind(name: String?): COpaquePointer?
 
 public expect fun systemPropertyFindNth(n: CUint): COpaquePointer?
 
-public expect fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: COpaquePointer?): CInt
+public expect fun systemPropertyForeach(callback: FnCallback1, cookie: COpaquePointer?): CInt
 
 // #include <link.h>
 /**
  * Only available in API Version 21+
  */
-public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: FnCallback2?, data: COpaquePointer?): CInt
 
 public expect fun arc4random(): UInt
 

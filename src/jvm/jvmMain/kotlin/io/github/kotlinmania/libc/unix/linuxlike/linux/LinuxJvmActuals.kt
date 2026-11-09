@@ -630,7 +630,7 @@ public actual fun personality(persona: CUlong): CInt =
 public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_schedGetparam(pid, (param?.value ?: 0L))
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: FnCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =

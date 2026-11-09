@@ -73,10 +73,10 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     0
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?) {
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?): COpaquePointer? =
     null
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
@@ -727,7 +727,7 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun schedYield(): CInt =
     0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback1?): CInt =
     0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -1111,7 +1111,7 @@ public actual fun fmemopen(buf: COpaquePointer?, size: SizeT, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: COpaquePointer?): FILE? =
     null
 
-public actual fun atexit(cb: AtexitCbCallback): CInt =
+public actual fun atexit(cb: FnCallback2): CInt =
     0
 
 public actual fun cfmakeraw(termios: COpaquePointer?): CInt =

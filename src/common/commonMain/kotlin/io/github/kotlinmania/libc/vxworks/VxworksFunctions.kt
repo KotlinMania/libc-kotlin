@@ -12,18 +12,6 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.vxworks.aarch64.WcharT
 
-public fun interface AtexitCbCallback {
-    public operator fun invoke()
-}
-
-public fun interface PthreadCreateStartRoutineCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
-public fun interface PthreadKeyCreateDtorCallback {
-    public operator fun invoke(arg0: COpaquePointer?)
-}
-
 // Dummy functions, these don't really exist in VxWorks.
 // wait.h macros
 public fun cmsgAlign(len: Int): Int {
@@ -174,7 +162,7 @@ public expect fun abort(): Nothing
 
 public expect fun exit(status: CInt): Nothing
 
-public expect fun atexit(cb: AtexitCbCallback): CInt
+public expect fun atexit(cb: FnCallback): CInt
 
 public expect fun system(s: String?): CInt
 
@@ -509,7 +497,7 @@ public expect fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePo
 public expect fun pthreadAttrInit(attr: COpaquePointer?): CInt
 
 // pthread.h
-public expect fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: FnCallback1, value: COpaquePointer?): CInt
 
 // pthread.h
 public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt
@@ -530,7 +518,7 @@ public expect fun pthreadAttrDestroy(thread: COpaquePointer?): CInt
 public expect fun pthreadDetach(thread: PthreadT): CInt
 
 // int pthreadAtfork (void (*)(void), void (*)(void), void (*)(void));
-public expect fun pthreadAtfork(prepare: AtexitCbCallback?, parent: AtexitCbCallback?, child: AtexitCbCallback?): CInt
+public expect fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt
 
 // stat.h
 public expect fun fstat(fildes: CInt, buf: COpaquePointer?): CInt
@@ -618,7 +606,7 @@ public expect fun pthreadRwlockTimedwrlock(attr: COpaquePointer?, host: COpaqueP
 public expect fun pthreadRwlockUnlock(attr: COpaquePointer?): CInt
 
 // pthread.h
-public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt
+public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt
 
 // pthread.h
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt

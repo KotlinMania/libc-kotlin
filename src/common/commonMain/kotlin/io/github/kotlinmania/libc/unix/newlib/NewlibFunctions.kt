@@ -11,10 +11,6 @@ import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.UidT
 
-public fun interface PthreadAtforkPrepareCallback {
-    public operator fun invoke()
-}
-
 // supports multicast
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
@@ -111,7 +107,7 @@ public expect fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 
 public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt
+public expect fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt
 
 public expect fun getgrgid(gid: GidT): COpaquePointer?
 

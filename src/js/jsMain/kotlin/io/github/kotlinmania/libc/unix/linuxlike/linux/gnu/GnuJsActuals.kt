@@ -31,7 +31,7 @@ public actual fun sgetspentR(s: String?, spbuf: COpaquePointer?, buf: COpaquePoi
 public actual fun getspentR(spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
     if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getspentR((spbuf?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (spbufp?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?) {
     if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
         _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString(), (arg?.value ?: 0L).toString())
     }
@@ -163,7 +163,7 @@ public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CIn
     }
 }
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
     if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_glob64(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree64(pglob: COpaquePointer?) {

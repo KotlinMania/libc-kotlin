@@ -88,7 +88,7 @@ public actual fun pthreadAttrSettee(attr: COpaquePointer?, ca: CInt, taskId: CIn
 public actual fun schedYield(): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_schedYield() as Int) else 0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback?): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -148,7 +148,7 @@ public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePoint
 public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_pthreadMutexattrSetrobust((attr?.value ?: 0L).toString(), robustness) as Int) else 0
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
     if (_teeosNapiAddon != null) (_teeosNapiAddon.libc_teeos_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =

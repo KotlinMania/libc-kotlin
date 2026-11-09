@@ -295,7 +295,7 @@ public actual fun utrace(label: String?, addr: COpaquePointer?, len: SizeT): CIn
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
     UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
@@ -339,10 +339,10 @@ public actual fun lcong48Deterministic(p: COpaquePointer?) {
     UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic((p?.value ?: 0L))
 }
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
     UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_lsearch((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
     UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_lfind((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun hcreate(nelt: SizeT): CInt =

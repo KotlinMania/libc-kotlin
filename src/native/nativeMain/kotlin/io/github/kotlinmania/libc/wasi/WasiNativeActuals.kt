@@ -167,10 +167,10 @@ public actual fun srand(a: CUint) {
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_srand(a)
 }
 
-public actual fun atexit(a: AtexitACallback): CInt =
+public actual fun atexit(a: FnCallback): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atexit(0L.toCPointer<ByteVar>())
 
-public actual fun atQuickExit(a: AtexitACallback): CInt =
+public actual fun atQuickExit(a: FnCallback): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atQuickExit(0L.toCPointer<ByteVar>())
 
 public actual fun quickExit(a: CInt): Nothing {
@@ -790,7 +790,7 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
 public actual fun pthreadSelf(): PthreadT =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadSelf()?.let { COpaquePointer(it.toLong()) }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
@@ -817,7 +817,7 @@ public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt):
 public actual fun pthreadDetach(thread: PthreadT): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadDetach(thread?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =

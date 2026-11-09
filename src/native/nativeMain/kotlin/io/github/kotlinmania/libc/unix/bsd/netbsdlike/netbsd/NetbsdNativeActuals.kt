@@ -239,7 +239,7 @@ public actual fun lwpSelf(): LwpidT =
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun dlauxinfo(): COpaquePointer? =
@@ -342,7 +342,7 @@ public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
 public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_timerfdSettime(fd, flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback1?, arg: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_qsortR(base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 }
 
@@ -416,7 +416,7 @@ public actual fun easprintf(string: COpaquePointer?, fmt: String?, vararg variad
 public actual fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback? =
+public actual fun esetfunc(cb: FnCallback2?): FnCallback2? =
     null
 
 public actual fun securePath(path: String?): CInt =

@@ -73,10 +73,10 @@ public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
 public actual fun getnameinfo(addr: COpaquePointer?, addrlen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_getnameinfo(addr?.value?.toCPointer<ByteVar>(), addrlen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
 
-public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
     io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: PthreadCreateStartCallback, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: FnCallback1, arg: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.redox.cinterop.libc_unix_redox_pthreadCreate(tid?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =

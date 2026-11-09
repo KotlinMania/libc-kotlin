@@ -1180,7 +1180,7 @@ public actual fun abort(): Nothing {
 public actual fun abs(arg1: CInt): CInt =
     SolidJniBridge.libc_solid_abs(arg1)
 
-public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
+public actual fun atexit(arg1: FnCallback?): CInt =
     SolidJniBridge.libc_solid_atexit(0L)
 
 public actual fun atoi(arg1: String?): CInt =
@@ -1198,7 +1198,7 @@ public actual fun ltoa(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): COpaqueP
 public actual fun ultoa(arg1: CUlong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
     SolidJniBridge.libc_solid_ultoa(arg1.toLong(), (arg2?.value ?: 0L), arg3).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): COpaquePointer? =
+public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: FnCallback1?): COpaquePointer? =
     SolidJniBridge.libc_solid_bsearch((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong(), arg4.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
@@ -1223,7 +1223,7 @@ public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
 public actual fun malloc(arg1: SizeT): COpaquePointer? =
     SolidJniBridge.libc_solid_malloc(arg1.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
+public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?) {
     SolidJniBridge.libc_solid_qsort((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), 0L)
 }
 
@@ -1339,7 +1339,7 @@ public actual fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CU
 public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
     SolidJniBridge.libc_solid_alignedAlloc(arg1.toLong(), arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
+public actual fun atQuickExit(arg1: FnCallback?): CInt =
     SolidJniBridge.libc_solid_atQuickExit(0L)
 
 public actual fun quickExit(arg1: CInt) {
@@ -1361,10 +1361,10 @@ public actual fun dehumanizeNumber(arg1: String?, arg2: COpaquePointer?): CInt =
 public actual fun getenvR(arg1: String?, arg2: COpaquePointer?, arg3: SizeT): CInt =
     SolidJniBridge.libc_solid_getenvR(arg1, (arg2?.value ?: 0L), arg3.toLong())
 
-public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
     SolidJniBridge.libc_solid_heapsort((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), 0L)
 
-public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
     SolidJniBridge.libc_solid_mergesort((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), 0L)
 
 public actual fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =

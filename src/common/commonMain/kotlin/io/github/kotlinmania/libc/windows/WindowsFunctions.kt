@@ -11,18 +11,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 
-public fun interface QsortComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
-}
-
-public fun interface QsortSComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
-public fun interface AtexitCbCallback {
-    public operator fun invoke()
-}
-
 // Special handling for all print and scan type functions because of https://github.com/rust-lang/libc/issues/2860
 public expect fun printf(format: String?, vararg variadicArgs: Long): CInt
 
@@ -56,9 +44,9 @@ public expect fun tolower(c: CInt): CInt
 
 public expect fun toupper(c: CInt): CInt
 
-public expect fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?)
+public expect fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?)
 
-public expect fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: COpaquePointer?)
+public expect fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback1?, arg: COpaquePointer?)
 
 public expect fun fopen(filename: String?, mode: String?): FILE?
 
@@ -148,7 +136,7 @@ public expect fun abort(): Nothing
 
 public expect fun exit(status: CInt): Nothing
 
-public expect fun atexit(cb: AtexitCbCallback): CInt
+public expect fun atexit(cb: FnCallback2): CInt
 
 public expect fun system(s: String?): CInt
 

@@ -12,10 +12,6 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpulevelT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpuwhichT
 
-public fun interface QsortRComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toULong()
     val minor1 = minor.toULong()
@@ -51,6 +47,6 @@ public expect fun dirname(path: COpaquePointer?): COpaquePointer?
 
 public expect fun basename(path: COpaquePointer?): COpaquePointer?
 
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?)
+public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?)
 
 public expect fun kvmKerndisp(kd: COpaquePointer?): KssizeT

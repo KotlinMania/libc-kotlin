@@ -28,18 +28,6 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.IOCPARM_MASK
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64.ALIGNBYTES
 
-public fun interface DlIteratePhdrCallbackCallback {
-    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
-}
-
-public fun interface QsortRComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
-public fun interface EsetfuncCbCallback {
-    public operator fun invoke(arg0: CInt, arg1: COpaquePointer?)
-}
-
 public fun iocparmLen(x: UInt): UInt {
     return (x shr IOCPARM_SHIFT.toInt()) and IOCPARM_MASK
 }
@@ -288,7 +276,7 @@ public expect fun lwpSelf(): LwpidT
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer?
 
 // link.h
-public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt
 
 // dlfcn.h
 public expect fun dlauxinfo(): COpaquePointer?
@@ -359,7 +347,7 @@ public expect fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt
 
 public expect fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt
 
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?)
+public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback1?, arg: COpaquePointer?)
 
 public expect fun aioRead(aiocbp: COpaquePointer?): CInt
 
@@ -407,7 +395,7 @@ public expect fun easprintf(string: COpaquePointer?, fmt: String?, vararg variad
 
 public expect fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt
 
-public expect fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback?
+public expect fun esetfunc(cb: FnCallback2?): FnCallback2?
 
 public expect fun securePath(path: String?): CInt
 

@@ -9,10 +9,6 @@ import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 
-public fun interface PthreadCreateStartCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
 // intentionally not public, only used for fdSet
 public fun cmsgAlign(len: SizeT): SizeT {
     return (len + 8uL - 1uL) and (8uL - 1uL).inv()
@@ -154,9 +150,9 @@ public expect fun memalign(align: SizeT, size: SizeT): COpaquePointer?
 public expect fun getnameinfo(addr: COpaquePointer?, addrlen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt
 
 // pthread.h
-public expect fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt
+public expect fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt
 
-public expect fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: PthreadCreateStartCallback, arg: COpaquePointer?): CInt
+public expect fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: FnCallback1, arg: COpaquePointer?): CInt
 
 public expect fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt
 

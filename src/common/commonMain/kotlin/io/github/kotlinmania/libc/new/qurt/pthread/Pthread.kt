@@ -16,15 +16,15 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 //
 // QuRT provides a subset of POSIX pthread functionality optimized for real-time systems.
 
-public fun interface PthreadCreateStartRoutineCallback {
+public fun interface FnCallback {
     public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
 }
 
-public fun interface PthreadKeyCreateDestructorCallback {
+public fun interface FnCallback1 {
     public operator fun invoke(arg0: COpaquePointer?)
 }
 
-public fun interface PthreadOnceInitRoutineCallback {
+public fun interface FnCallback2 {
     public operator fun invoke()
 }
 
@@ -74,7 +74,7 @@ public val PTHREAD_INHERIT_SCHED: CInt = 0
 public val PTHREAD_EXPLICIT_SCHED: CInt = 1
 
 // Thread management
-public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt
+public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): CInt
 
 public expect fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt
 
@@ -140,7 +140,7 @@ public expect fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt
 public expect fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt
 
 // Thread-local storage
-public expect fun pthreadKeyCreate(key: COpaquePointer?, destructor: PthreadKeyCreateDestructorCallback?): CInt
+public expect fun pthreadKeyCreate(key: COpaquePointer?, destructor: FnCallback1?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 
@@ -149,7 +149,7 @@ public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer?
 public expect fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt
 
 // One-time initialization
-public expect fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadOnceInitRoutineCallback): CInt
+public expect fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback2): CInt
 
 // GNU extensions
 public expect fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt

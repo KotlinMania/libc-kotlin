@@ -36,7 +36,7 @@ public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
 public actual fun basename(path: COpaquePointer?): COpaquePointer? =
     null
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback?) {
 }
 
 public actual fun kvmKerndisp(kd: COpaquePointer?): KssizeT =

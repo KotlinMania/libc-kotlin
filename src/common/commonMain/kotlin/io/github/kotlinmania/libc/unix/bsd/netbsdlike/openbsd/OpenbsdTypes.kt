@@ -1,10 +1,20 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.UintptrT
+
+public fun interface FnCallback {
+    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
+}
+
+public fun interface FnCallback1 {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
+}
 
 public typealias ClockT = Long
 

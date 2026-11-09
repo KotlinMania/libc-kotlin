@@ -19,18 +19,6 @@ import io.github.kotlinmania.libc.unix.bsd.apple.DevT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.NlItem
 
-public fun interface GlobErrfuncCallback {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
-}
-
-public fun interface PthreadAtforkPrepareCallback {
-    public operator fun invoke()
-}
-
-public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
     return if ((mhdr!!.msgControllen).toInt() >= 8) {
         ((mhdr!!.msgControl as Any?) as Cmsghdr?)
@@ -137,7 +125,7 @@ public expect fun ifFreenameindex(ptr: COpaquePointer?)
 
 public expect fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
@@ -207,7 +195,7 @@ public expect fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 
 public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt
+public expect fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt
 
 public expect fun getgrgid(gid: GidT): COpaquePointer?
 
@@ -215,7 +203,7 @@ public expect fun popen(command: String?, mode: String?): FILE?
 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt
 
 public expect fun acct(filename: String?): CInt
 

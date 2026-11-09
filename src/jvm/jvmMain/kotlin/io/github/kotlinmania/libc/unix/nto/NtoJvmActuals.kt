@@ -839,7 +839,7 @@ public actual fun ifFreenameindex(ptr: COpaquePointer?) {
     UnixNtoJniBridge.libc_unix_nto_ifFreenameindex((ptr?.value ?: 0L))
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -1025,7 +1025,7 @@ public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
     UnixNtoJniBridge.libc_unix_nto_pthreadAtfork(0L, 0L, 0L)
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -1043,7 +1043,7 @@ public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robustness: C
 public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
     UnixNtoJniBridge.libc_unix_nto_pthreadMutexattrSetrobust((attr?.value ?: 0L), robustness)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
@@ -1175,7 +1175,7 @@ public actual fun setrlimit(resource: CInt, rlp: COpaquePointer?): CInt =
 public actual fun lioListio(mode: CInt, list: COpaquePointer?, nent: CInt, sig: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_lioListio(mode, (list?.value ?: 0L), nent, (sig?.value ?: 0L))
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback3?, data: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt =

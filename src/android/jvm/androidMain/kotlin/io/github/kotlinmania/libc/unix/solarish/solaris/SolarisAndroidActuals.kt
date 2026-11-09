@@ -58,7 +58,7 @@ public actual fun doorCall(d: CInt, params: COpaquePointer?): CInt =
 public actual fun doorReturn(dataPtr: COpaquePointer?, dataSize: SizeT, descPtr: COpaquePointer?, numDesc: CUint): CInt =
     UnixSolarishSolarisJniBridge.libc_unix_solarish_solaris_doorReturn((dataPtr?.value ?: 0L), dataSize.toLong(), (descPtr?.value ?: 0L), numDesc.toInt())
 
-public actual fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt =
+public actual fun doorCreate(serverProcedure: FnCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt =
     UnixSolarishSolarisJniBridge.libc_unix_solarish_solaris_doorCreate(0L, (cookie?.value ?: 0L), attributes.toInt())
 
 public actual fun fattach(fildes: CInt, path: String?): CInt =

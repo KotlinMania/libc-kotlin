@@ -10,14 +10,6 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.solid.aarch64.WcharT
 
-public fun interface AtexitArg1Callback {
-    public operator fun invoke()
-}
-
-public fun interface BsearchArg5Callback {
-    public operator fun invoke(arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
 // ctype.h
 public expect fun isalnum(c: CInt): CInt
 
@@ -225,7 +217,7 @@ public expect fun abort(): Nothing
 
 public expect fun abs(arg1: CInt): CInt
 
-public expect fun atexit(arg1: AtexitArg1Callback?): CInt
+public expect fun atexit(arg1: FnCallback?): CInt
 
 public expect fun atoi(arg1: String?): CInt
 
@@ -237,7 +229,7 @@ public expect fun ltoa(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): COpaqueP
 
 public expect fun ultoa(arg1: CUlong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer?
 
-public expect fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): COpaquePointer?
+public expect fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: FnCallback1?): COpaquePointer?
 
 public expect fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer?
 
@@ -253,7 +245,7 @@ public expect fun ldiv(arg1: CLong, arg2: CLong): LdivT
 
 public expect fun malloc(arg1: SizeT): COpaquePointer?
 
-public expect fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?)
+public expect fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?)
 
 public expect fun rand(): CInt
 
@@ -327,7 +319,7 @@ public expect fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CU
 
 public expect fun alignedAlloc(arg1: SizeT, arg2: SizeT): COpaquePointer?
 
-public expect fun atQuickExit(arg1: AtexitArg1Callback?): CInt
+public expect fun atQuickExit(arg1: FnCallback?): CInt
 
 public expect fun quickExit(arg1: CInt)
 
@@ -341,9 +333,9 @@ public expect fun dehumanizeNumber(arg1: String?, arg2: COpaquePointer?): CInt
 
 public expect fun getenvR(arg1: String?, arg2: COpaquePointer?, arg3: SizeT): CInt
 
-public expect fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt
+public expect fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt
 
-public expect fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt
+public expect fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt
 
 public expect fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt
 

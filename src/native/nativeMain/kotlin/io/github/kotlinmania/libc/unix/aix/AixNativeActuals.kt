@@ -29,7 +29,7 @@ public actual fun thrKill(id: ThreadT, sig: CInt): CInt =
 public actual fun thrSelf(): ThreadT =
     (io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_thrSelf()?.toLong() ?: 0L).toUInt()
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadAttrGetdetachstate(attr: COpaquePointer?, detachstate: COpaquePointer?): CInt =
@@ -105,7 +105,7 @@ public actual fun pthreadCleanupPop(execute: CInt) {
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCleanupPop(execute)
 }
 
-public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: COpaquePointer?) {
+public actual fun pthreadCleanupPush(routine: FnCallback1?, arg: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCleanupPush(0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 }
 
@@ -121,7 +121,7 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCondattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback2, arg: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCreate(thread?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetconcurrency(): CInt =
@@ -175,7 +175,7 @@ public actual fun pthreadMutexSetprioceiling(mutex: COpaquePointer?, prioceiling
 public actual fun pthreadMutexTimedlock(mutex: COpaquePointer?, abstime: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexTimedlock(mutex?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadOnce(onceControl?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
@@ -481,7 +481,7 @@ public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
 public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getutxline(ut?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -521,7 +521,7 @@ public actual fun lcong48(p: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lcong48(p?.value?.toCPointer<ByteVar>())
 }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lfind(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
@@ -539,7 +539,7 @@ public actual fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt =
 public actual fun lrand48(): CLong =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lrand48()
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
@@ -551,7 +551,7 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
 
-public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long) {
 }
 
 public actual fun mallinfo(): Mallinfo =

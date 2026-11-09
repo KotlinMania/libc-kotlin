@@ -960,7 +960,7 @@ public actual fun ifFreenameindex(ptr: COpaquePointer?) {
     UnixSolarishJniBridge.libc_unix_solarish_ifFreenameindex((ptr?.value ?: 0L))
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
@@ -990,7 +990,7 @@ public actual fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_waitid(idtype.toInt(), id, (infop?.value ?: 0L), options)
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -1274,7 +1274,7 @@ public actual fun nativeGetgrentR(grp: COpaquePointer?, buf: COpaquePointer?, bu
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_pthreadAtfork(0L, 0L, 0L)
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -1489,7 +1489,7 @@ public actual fun sysinfo(command: CInt, buf: COpaquePointer?, count: CLong): CI
 public actual fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_faccessat(fd, path, amode, flag)
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback3?, data: COpaquePointer?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun getpagesize(): CInt =

@@ -21,14 +21,6 @@ import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.IOCPARM_MASK
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.aarch64.ALIGNBYTES
 
-public fun interface DlIteratePhdrCallbackCallback {
-    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
-}
-
-public fun interface LsearchComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
-}
-
 // sys/ioccom.h
 public fun iocparmLen(x: UInt): UInt {
     return (x shr 16) and IOCPARM_MASK
@@ -176,7 +168,7 @@ public expect fun utrace(label: String?, addr: COpaquePointer?, len: SizeT): CIn
 public expect fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer?
 
 // #include <link.h>
-public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt
 
 public expect fun uselocale(loc: LocaleT): LocaleT
 
@@ -203,9 +195,9 @@ public expect fun seed48Deterministic(xseed: COpaquePointer?): COpaquePointer?
 
 public expect fun lcong48Deterministic(p: COpaquePointer?)
 
-public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer?
+public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer?
 
-public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer?
+public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer?
 
 public expect fun hcreate(nelt: SizeT): CInt
 

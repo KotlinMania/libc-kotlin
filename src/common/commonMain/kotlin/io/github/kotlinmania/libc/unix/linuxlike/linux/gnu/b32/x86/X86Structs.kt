@@ -32,15 +32,11 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.ShmattT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.TimeT
 
-public fun interface SigactionSaRestorerCallback {
-    public operator fun invoke()
-}
-
 public data class Sigaction(
     public var saSigaction: SighandlerT = 0uL,
     public var saMask: SigsetT = SigsetT(),
     public var saFlags: CInt = 0,
-    public var saRestorer: SigactionSaRestorerCallback? = null,
+    public var saRestorer: FnCallback? = null,
 )
 
 public data class Statfs(

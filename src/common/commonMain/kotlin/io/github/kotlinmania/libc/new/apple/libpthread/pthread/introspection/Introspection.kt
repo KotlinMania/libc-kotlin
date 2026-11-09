@@ -13,6 +13,10 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 //
 // <https://github.com/apple-oss-distributions/libpthread/blob/main/include/pthread/introspection.h>
 
+public fun interface FnCallback {
+    public operator fun invoke(event: CUint, thread: PthreadT, addr: COpaquePointer?, size: SizeT)
+}
+
 public val PTHREAD_INTROSPECTION_THREAD_CREATE: CUint = 1u
 
 public val PTHREAD_INTROSPECTION_THREAD_START: CUint = PTHREAD_INTROSPECTION_THREAD_CREATE + 1u

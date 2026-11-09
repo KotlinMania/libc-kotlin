@@ -15,10 +15,6 @@ import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.fuchsia.aarch64.IpcPerm
 import io.github.kotlinmania.libc.fuchsia.aarch64.U64
 
-public fun interface SigactionSaRestorerCallback {
-    public operator fun invoke()
-}
-
 public fun interface SigeventSigevNotifyFunctionCallback {
     public operator fun invoke(arg0: Sigval)
 }
@@ -200,7 +196,7 @@ public data class Sigaction(
     public var saSigaction: SighandlerT = 0uL,
     public var saMask: SigsetT = SigsetT(),
     public var saFlags: CInt = 0,
-    public var saRestorer: SigactionSaRestorerCallback? = null,
+    public var saRestorer: FnCallback? = null,
 )
 
 public data class Termios(

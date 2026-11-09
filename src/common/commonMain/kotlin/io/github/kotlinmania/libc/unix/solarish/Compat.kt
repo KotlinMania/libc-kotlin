@@ -93,13 +93,13 @@ public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: T
         return bail(fdm, -1)
     }
     // Check if the STREAMS modules are already pushed:
-    val setup = ioctl(fds, I_FIND, LDTERM)
+    val setup = ioctl(fds, I_FIND, ((LDTERM)?.hashCode()?.toLong() ?: 0L))
     if (setup < 0) {
         return bail(fdm, fds)
     } else if (setup == 0) {
         // The line discipline is not present, so push the appropriate STREAMS
         // modules for the subordinate device:
-        if (ioctl(fds, I_PUSH, PTEM) < 0 || ioctl(fds, I_PUSH, LDTERM) < 0) {
+        if (ioctl(fds, I_PUSH, ((PTEM)?.hashCode()?.toLong() ?: 0L)) < 0 || ioctl(fds, I_PUSH, ((LDTERM)?.hashCode()?.toLong() ?: 0L)) < 0) {
             return bail(fdm, fds)
         }
     }
@@ -108,7 +108,7 @@ public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: T
         return bail(fdm, fds)
     }
     // If provided, set the window size:
-    if (!(winp == null) && ioctl(fds, TIOCSWINSZ, ((winp)?.let { COpaquePointer(it.hashCode().toLong()) })) < 0) {
+    if (!(winp == null) && ioctl(fds, TIOCSWINSZ, ((winp)?.hashCode()?.toLong() ?: 0L)) < 0) {
         return bail(fdm, fds)
     }
     // If the caller wants the name of the subordinate device, copy it out.
@@ -145,7 +145,7 @@ public fun forkpty(amain: CInt?, name: COpaquePointer?, termp: Termios?, winp: W
     // terminal.  This will fail (with ENOTTY) if we are not the leader in
     // our own session, so we call setsid() first.  Finally, arrange for
     // the pseudo-terminal to occupy the standard I/O descriptors.
-    if (setsid() < 0 || ioctl(fds, TIOCSCTTY, 0) < 0 || dup2(fds, 0) < 0 || dup2(fds, 1) < 0 || dup2(fds, 2) < 0) {
+    if (setsid() < 0 || ioctl(fds, TIOCSCTTY, ((0)?.hashCode()?.toLong() ?: 0L)) < 0 || dup2(fds, 0) < 0 || dup2(fds, 1) < 0 || dup2(fds, 2) < 0) {
         // At this stage there are no particularly good ways to handle failure.
         // Exit as abruptly as possible, using _exit() to avoid messing with any
         // state still shared with the parent process.

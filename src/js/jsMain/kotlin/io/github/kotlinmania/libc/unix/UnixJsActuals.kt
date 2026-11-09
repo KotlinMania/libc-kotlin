@@ -76,13 +76,13 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_toupper(c) as Int) else 0
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?) {
     if (_unixNapiAddon != null) {
         _unixNapiAddon.libc_unix_qsort((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString())
     }
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?): COpaquePointer? =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_bsearch((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
@@ -763,7 +763,7 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun schedYield(): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_schedYield() as Int) else 0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback1?): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -1162,7 +1162,7 @@ public actual fun fmemopen(buf: COpaquePointer?, size: SizeT, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: COpaquePointer?): FILE? =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_openMemstream((ptr?.value ?: 0L).toString(), (sizeloc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else FILE(it) } else null
 
-public actual fun atexit(cb: AtexitCbCallback): CInt =
+public actual fun atexit(cb: FnCallback2): CInt =
     if (_unixNapiAddon != null) (_unixNapiAddon.libc_unix_atexit(0L.toString()) as Int) else 0
 
 public actual fun cfmakeraw(termios: COpaquePointer?): CInt =

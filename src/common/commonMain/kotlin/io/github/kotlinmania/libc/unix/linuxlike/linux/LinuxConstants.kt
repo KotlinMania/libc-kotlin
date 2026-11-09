@@ -3,12 +3,14 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.new.linuxuapi.linux.netlink.NLMSG_MIN_TYPE
 import io.github.kotlinmania.libc.new.linuxuapi.linux.netlink.NLMSG_OVERRUN
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.INT_MAX
 import io.github.kotlinmania.libc.unix.INT_MIN
 import io.github.kotlinmania.libc.unix.linuxlike.IPC_STAT

@@ -9,8 +9,8 @@ import io.github.kotlinmania.libc.COpaquePointer
 //
 // <https://github.com/apple-oss-distributions/libpthread/blob/main/include/pthread/pthreadSpis.h>
 
-public fun interface PthreadCreateFromMachThreadFCallback {
+public fun interface FnCallback {
     public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
 }
 
-public expect fun pthreadCreateFromMachThread(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFromMachThreadFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreateFromMachThread(thread: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt

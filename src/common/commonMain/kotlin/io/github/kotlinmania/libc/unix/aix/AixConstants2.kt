@@ -2,7 +2,10 @@ package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 
 public val CR1: TcflagT = 0x00000100u
 

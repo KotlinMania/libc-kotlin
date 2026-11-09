@@ -8,6 +8,7 @@ import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.CcT
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 
@@ -1967,7 +1968,7 @@ public val SCHED_FIFO: CInt = 1
 
 public val SCHED_RR: CInt = 2
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = ((21 as Any?) as PthreadCondT)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = COpaquePointer(21.toLong())
 
 public val PTHREAD_CREATE_DETACHED: CInt = 1
 
@@ -1981,17 +1982,17 @@ public val PTHREAD_MUTEX_NORMAL: CInt = 2
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = ((18 as Any?) as PthreadMutexT)
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = COpaquePointer(18.toLong())
 
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = ((20 as Any?) as PthreadMutexT)
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = COpaquePointer(20.toLong())
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = ((19 as Any?) as PthreadMutexT)
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = COpaquePointer(19.toLong())
 
 public val PTHREAD_PROCESS_SHARED: CInt = 1
 
 public val PTHREAD_PROCESS_PRIVATE: CInt = 0
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = ((22 as Any?) as PthreadRwlockT)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = COpaquePointer(22.toLong())
 
 public val LITTLE_ENDIAN: CInt = 1234
 

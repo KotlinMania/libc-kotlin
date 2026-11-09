@@ -352,7 +352,7 @@ public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
 public actual fun ntpGettime(buf: COpaquePointer?): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_ntpGettime((buf?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
     if (_unixBsdFreebsdlikeNapiAddon != null) (_unixBsdFreebsdlikeNapiAddon.libc_unix_bsd_freebsdlike_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =

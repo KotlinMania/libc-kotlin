@@ -11,6 +11,18 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
 
+public fun interface FnCallback {
+    public operator fun invoke()
+}
+
+public fun interface FnCallback1 {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface FnCallback2 {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
 // Dummy functions, these don't really exist in VxWorks.
 // wait.h macros
 public class DIR(public val handle: Long = -1L) {

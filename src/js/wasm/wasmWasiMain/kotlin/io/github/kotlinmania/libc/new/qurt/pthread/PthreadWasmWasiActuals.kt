@@ -10,7 +10,7 @@ import io.github.kotlinmania.libc.new.qurt.PthreadKeyT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt =
@@ -100,7 +100,7 @@ public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
     0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: PthreadKeyCreateDestructorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: FnCallback1?): CInt =
     0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -112,7 +112,7 @@ public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadOnceInitRoutineCallback): CInt =
+public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback2): CInt =
     0
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =

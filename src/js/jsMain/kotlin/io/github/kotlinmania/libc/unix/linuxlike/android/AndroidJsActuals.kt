@@ -287,7 +287,7 @@ public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_ppoll((fds?.value ?: 0L).toString(), nfds.toInt(), (timeout?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: FnCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -437,10 +437,10 @@ public actual fun systemPropertyFind(name: String?): COpaquePointer? =
 public actual fun systemPropertyFindNth(n: CUint): COpaquePointer? =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_systemPropertyFindNth(n.toInt()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: COpaquePointer?): CInt =
+public actual fun systemPropertyForeach(callback: FnCallback1, cookie: COpaquePointer?): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_systemPropertyForeach(0L.toString(), (cookie?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback2?, data: COpaquePointer?): CInt =
     if (_unixLinuxlikeAndroidNapiAddon != null) (_unixLinuxlikeAndroidNapiAddon.libc_unix_linuxlike_android_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun arc4random(): UInt =

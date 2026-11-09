@@ -10,14 +10,6 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 
-public fun interface PthreadKeyCreateDtorCallback {
-    public operator fun invoke(arg0: COpaquePointer?)
-}
-
-public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
 // ---- ALLOC -----------------------------------------------------------------------------
 public expect fun calloc(nobj: SizeT, size: SizeT): COpaquePointer?
 
@@ -67,7 +59,7 @@ public expect fun pthreadAttrSettee(attr: COpaquePointer?, ca: CInt, taskId: CIn
 // C-TA API do not include this interface, but TA can use.
 public expect fun schedYield(): CInt
 
-public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt
+public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 
@@ -107,7 +99,7 @@ public expect fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePoint
 
 public expect fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt
 
 public expect fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt
 

@@ -10,6 +10,20 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
+
+public fun interface FnCallback {
+    public operator fun invoke(arg0: COpaquePointer?): CInt
+}
+
+public fun interface FnCallback1 {
+    public operator fun invoke(pi: COpaquePointer?, cookie: COpaquePointer?)
+}
+
+public fun interface FnCallback2 {
+    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
+}
 
 // Most `* _SUPER_MAGIC` constants are defined at the `linuxLike` level; the
 // following are only available on newer Linux versions than the versions

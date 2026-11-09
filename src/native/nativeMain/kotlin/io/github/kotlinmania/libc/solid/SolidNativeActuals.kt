@@ -373,7 +373,7 @@ public actual fun abort(): Nothing {
 public actual fun abs(arg1: CInt): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_abs(arg1)
 
-public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
+public actual fun atexit(arg1: FnCallback?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_atexit(0L.toCPointer<ByteVar>())
 
 public actual fun atoi(arg1: String?): CInt =
@@ -391,7 +391,7 @@ public actual fun ltoa(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): COpaqueP
 public actual fun ultoa(arg1: CUlong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_ultoa(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): COpaquePointer? =
+public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: FnCallback1?): COpaquePointer? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_bsearch(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3, arg4, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
@@ -416,7 +416,7 @@ public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
 public actual fun malloc(arg1: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_malloc(arg1)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
+public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?) {
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_qsort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 }
 
@@ -532,7 +532,7 @@ public actual fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CU
 public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_alignedAlloc(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
+public actual fun atQuickExit(arg1: FnCallback?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_atQuickExit(0L.toCPointer<ByteVar>())
 
 public actual fun quickExit(arg1: CInt) {
@@ -554,10 +554,10 @@ public actual fun dehumanizeNumber(arg1: String?, arg2: COpaquePointer?): CInt =
 public actual fun getenvR(arg1: String?, arg2: COpaquePointer?, arg3: SizeT): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_getenvR(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
 
-public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_heapsort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 
-public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_mergesort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 
 public actual fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =

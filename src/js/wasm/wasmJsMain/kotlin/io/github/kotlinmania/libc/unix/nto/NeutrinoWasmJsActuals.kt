@@ -285,10 +285,10 @@ public actual fun signalReturn(info: COpaquePointer?): CInt =
 public actual fun signalFault(sigcode: CUint, regs: COpaquePointer?, refaddr: ULong): CInt =
     0
 
-public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
+public actual fun signalAction(pid: PidT, sigstub: FnCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
     0
 
-public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
+public actual fun signalActionR(pid: PidT, sigstub: FnCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
     0
 
 public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
@@ -315,10 +315,10 @@ public actual fun signalWaitinfoMask(set: COpaquePointer?, info: COpaquePointer?
 public actual fun signalWaitinfoMaskR(set: COpaquePointer?, info: COpaquePointer?, mask: COpaquePointer?): CInt =
     0
 
-public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
+public actual fun threadCreate(pid: PidT, func: FnCallback1, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
     0
 
-public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
+public actual fun threadCreateR(pid: PidT, func: FnCallback1, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
     0
 
 public actual fun threadDestroy(tid: CInt, priority: CInt, status: COpaquePointer?): CInt =
@@ -339,10 +339,10 @@ public actual fun threadJoin(tid: CInt, status: COpaquePointer?): CInt =
 public actual fun threadJoinR(tid: CInt, status: COpaquePointer?): CInt =
     0
 
-public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
+public actual fun threadCancel(tid: CInt, canstub: FnCallback): CInt =
     0
 
-public actual fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
+public actual fun threadCancelR(tid: CInt, canstub: FnCallback): CInt =
     0
 
 public actual fun threadCtl(cmd: CInt, data: COpaquePointer?): CInt =
@@ -357,13 +357,13 @@ public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePoi
 public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt =
     0
 
-public actual fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt =
+public actual fun interruptHookTrace(handler: FnCallback2?, flags: CUint): CInt =
     0
 
-public actual fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, flags: CUint): CInt =
+public actual fun interruptHookIdle(handler: FnCallback3?, flags: CUint): CInt =
     0
 
-public actual fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt =
+public actual fun interruptHookIdle2(handler: FnCallback4?, flags: CUint): CInt =
     0
 
 public actual fun interruptHookOverdriveEvent(event: COpaquePointer?, flags: CUint): CInt =
@@ -375,16 +375,16 @@ public actual fun interruptAttachEvent(intr: CInt, event: COpaquePointer?, flags
 public actual fun interruptAttachEventR(intr: CInt, event: COpaquePointer?, flags: CUint): CInt =
     0
 
-public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttach(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     0
 
-public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachR(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     0
 
-public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArray(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     0
 
-public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArrayR(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     0
 
 public actual fun interruptDetach(id: CInt): CInt =

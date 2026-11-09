@@ -109,7 +109,7 @@ public actual fun utrace(label: String?, addr: COpaquePointer?, len: SizeT): CIn
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     null
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
     0
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
@@ -148,10 +148,10 @@ public actual fun seed48Deterministic(xseed: COpaquePointer?): COpaquePointer? =
 public actual fun lcong48Deterministic(p: COpaquePointer?) {
 }
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
     null
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
     null
 
 public actual fun hcreate(nelt: SizeT): CInt =

@@ -133,7 +133,7 @@ private object NewQurtPthreadJniBridge {
     external fun libc_new_qurt_pthread_posixMemalign(memptr: Long, alignment: Long, size: Long): Int
 }
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): CInt =
     NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadCreate((thread?.value ?: 0L), (attr?.value ?: 0L), 0L, (arg?.value ?: 0L))
 
 public actual fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt =
@@ -225,7 +225,7 @@ public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
     NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadCondattrSetclock((attr?.value ?: 0L), clockId)
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: PthreadKeyCreateDestructorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: FnCallback1?): CInt =
     NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadKeyCreate((key?.value ?: 0L), 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -237,7 +237,7 @@ public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
     NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadSetspecific(key, (value?.value ?: 0L))
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadOnceInitRoutineCallback): CInt =
+public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback2): CInt =
     NewQurtPthreadJniBridge.libc_new_qurt_pthread_pthreadOnce((onceControl?.value ?: 0L), 0L)
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =

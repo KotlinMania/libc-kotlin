@@ -986,10 +986,10 @@ public actual fun srand(a: CUint) {
     WasiJniBridge.libc_wasi_srand(a.toInt())
 }
 
-public actual fun atexit(a: AtexitACallback): CInt =
+public actual fun atexit(a: FnCallback): CInt =
     WasiJniBridge.libc_wasi_atexit(0L)
 
-public actual fun atQuickExit(a: AtexitACallback): CInt =
+public actual fun atQuickExit(a: FnCallback): CInt =
     WasiJniBridge.libc_wasi_atQuickExit(0L)
 
 public actual fun quickExit(a: CInt): Nothing {
@@ -1609,7 +1609,7 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
 public actual fun pthreadSelf(): PthreadT =
     WasiJniBridge.libc_wasi_pthreadSelf().let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
     WasiJniBridge.libc_wasi_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
@@ -1636,7 +1636,7 @@ public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt):
 public actual fun pthreadDetach(thread: PthreadT): CInt =
     WasiJniBridge.libc_wasi_pthreadDetach((thread?.value ?: 0L))
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt =
     WasiJniBridge.libc_wasi_pthreadKeyCreate((key?.value ?: 0L), 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =

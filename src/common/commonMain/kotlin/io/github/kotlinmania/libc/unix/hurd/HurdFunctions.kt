@@ -12,26 +12,6 @@ import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.SizeT
 
-public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
-public fun interface PthreadOnceRoutineCallback {
-    public operator fun invoke()
-}
-
-public fun interface QsortRComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
-public fun interface GlobErrfuncCallback {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
-}
-
-public fun interface DlIteratePhdrCallbackCallback {
-    public operator fun invoke(info: COpaquePointer?, size: SizeT, data: COpaquePointer?): CInt
-}
-
 public fun cmsgAlign(len: Int): Int {
     return (len + 8 - 1) and (8 - 1).inv()
 }
@@ -62,7 +42,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (((cmsg!!.cmsgLen).toInt()) < 8) {
         return null
     }
-    val next = null
+    val next: Cmsghdr? = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
     return if (((((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }))?.rawValue ?: 0L).toInt() > max || ((next)?.hashCode()?.toLong() ?: 0L).toInt() + cmsgAlign((next!!.cmsgLen).toInt()) > max) {
         null
@@ -391,7 +371,7 @@ public expect fun endmntent(streamp: FILE?): CInt
 
 public expect fun hasmntopt(mnt: COpaquePointer?, opt: String?): COpaquePointer?
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadKill(threadid: PthreadT, signo: CInt): CInt
 
@@ -425,7 +405,7 @@ public expect fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpa
 
 public expect fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt
 
-public expect fun pthreadOnce(control: COpaquePointer?, routine: PthreadOnceRoutineCallback): CInt
+public expect fun pthreadOnce(control: COpaquePointer?, routine: FnCallback1): CInt
 
 public expect fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt
 
@@ -451,7 +431,7 @@ public expect fun pthreadSpinTrylock(lock: COpaquePointer?): CInt
 
 public expect fun pthreadSpinUnlock(lock: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: PthreadOnceRoutineCallback?, parent: PthreadOnceRoutineCallback?, child: PthreadOnceRoutineCallback?): CInt
+public expect fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt
 
 public expect fun pthreadSigmask(how: CInt, newmask: COpaquePointer?, oldmask: COpaquePointer?): CInt
 
@@ -760,7 +740,7 @@ public expect fun seed48(xseed: COpaquePointer?): COpaquePointer?
 
 public expect fun lcong48(p: COpaquePointer?)
 
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?)
+public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback2?, arg: COpaquePointer?)
 
 public expect fun brk(addr: COpaquePointer?): CInt
 
@@ -800,11 +780,11 @@ public expect fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaque
 
 public expect fun regfree(preg: COpaquePointer?)
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
-public expect fun glob64(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
+public expect fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree64(pglob: COpaquePointer?)
 
@@ -862,7 +842,7 @@ public expect fun nlLanginfo(item: NlItem): COpaquePointer?
 
 public expect fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer?
 
-public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: FnCallback4?, data: COpaquePointer?): CInt
 
 public expect fun gnuGetLibcRelease(): COpaquePointer?
 

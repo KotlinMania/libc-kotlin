@@ -144,7 +144,7 @@ public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
 public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_clockGetcpuclockid(pid, clkId?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_pthreadCreate(thread?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
@@ -213,7 +213,7 @@ public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_waitid(idtype, id, infop?.value?.toCPointer<ByteVar>(), options)
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -345,7 +345,7 @@ public actual fun setgrent() {
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -435,10 +435,10 @@ public actual fun ftok(pathname: String?, projId: CInt): KeyT =
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_memrchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_lsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_lfind(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun hcreate(nelt: SizeT): CInt =

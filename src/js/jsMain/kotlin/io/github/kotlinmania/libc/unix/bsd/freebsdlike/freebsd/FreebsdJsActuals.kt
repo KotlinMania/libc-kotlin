@@ -395,7 +395,7 @@ public actual fun flsl(value: CLong): CInt =
 public actual fun flsll(value: CLonglong): CInt =
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) (_unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_flsll(value.toString()) as Int) else 0
 
-public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?) {
+public actual fun mallocStatsPrint(writeCb: FnCallback, cbopaque: COpaquePointer?, opt: String?) {
     if (_unixBsdFreebsdlikeFreebsdNapiAddon != null) {
         _unixBsdFreebsdlikeFreebsdNapiAddon.libc_unix_bsd_freebsdlike_freebsd_mallocStatsPrint(0L.toString(), (cbopaque?.value ?: 0L).toString(), opt)
     }

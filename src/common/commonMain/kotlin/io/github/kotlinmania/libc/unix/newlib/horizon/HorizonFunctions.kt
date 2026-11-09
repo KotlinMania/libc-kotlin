@@ -10,10 +10,6 @@ import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
 import io.github.kotlinmania.libc.unix.newlib.PthreadT
 
-public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
 // Horizon OS works doesn't or can't hold any of this information
 public fun wifstopped(status: CInt): Boolean {
     return false
@@ -47,7 +43,7 @@ public fun wcoredump(status: CInt): Boolean {
     return false
 }
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt
 

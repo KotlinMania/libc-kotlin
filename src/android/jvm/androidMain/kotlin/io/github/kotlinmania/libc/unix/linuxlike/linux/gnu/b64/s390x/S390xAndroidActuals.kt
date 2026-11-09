@@ -34,7 +34,7 @@ public actual fun getcontext(ucp: COpaquePointer?): CInt =
 public actual fun setcontext(ucp: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxGnuB64S390xJniBridge.libc_unix_linuxlike_linux_gnu_b64_s390x_setcontext((ucp?.value ?: 0L))
 
-public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long) {
 }
 
 public actual fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt =

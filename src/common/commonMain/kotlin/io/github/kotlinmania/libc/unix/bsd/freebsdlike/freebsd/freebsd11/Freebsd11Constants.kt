@@ -2,6 +2,7 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 
 public val ELAST: CInt = 96
 

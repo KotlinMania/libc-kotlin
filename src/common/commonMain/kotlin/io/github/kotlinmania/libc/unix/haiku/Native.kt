@@ -16,12 +16,16 @@ import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.haiku.b64.TimeT
 
-public fun interface ImageInfoInitRoutineCallback {
-    public operator fun invoke()
+public fun interface FnCallback {
+    public operator fun invoke(arg0: COpaquePointer?): StatusT
 }
 
-public fun interface OnExitThreadCallbackCallback {
+public fun interface FnCallback1 {
     public operator fun invoke(arg0: COpaquePointer?)
+}
+
+public fun interface ImageInfoInitRoutineCallback {
+    public operator fun invoke()
 }
 
 // support/SupportDefs.h
@@ -1684,7 +1688,7 @@ public expect fun exitThread(status: StatusT)
 
 public expect fun waitForThread(thread: ThreadId, returnValue: COpaquePointer?): StatusT
 
-public expect fun onExitThread(callback: OnExitThreadCallbackCallback, data: COpaquePointer?): StatusT
+public expect fun onExitThread(callback: FnCallback1, data: COpaquePointer?): StatusT
 
 public expect fun findThread(name: String?): ThreadId
 
@@ -1851,11 +1855,11 @@ public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: COpaquePointer?): St
 }
 
 public fun getAreaInfo(id: AreaId, info: COpaquePointer?): StatusT {
-    return getAreaInfo(id, info, 8.toInt())
+    return getAreaInfo(id, info, (8.toInt()).toULong())
 }
 
 public fun getNextAreaInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextAreaInfo(team, cookie, info, 8.toInt())
+    return getNextAreaInfo(team, cookie, info, (8.toInt()).toULong())
 }
 
 public fun getPortInfo(port: PortId, buf: COpaquePointer?): StatusT {

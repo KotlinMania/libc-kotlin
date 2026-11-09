@@ -13,7 +13,7 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 private val _newQurtPthreadNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): CInt =
     if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadCreate((thread?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (arg?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt =
@@ -107,7 +107,7 @@ public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
     if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadCondattrSetclock((attr?.value ?: 0L).toString(), clockId) as Int) else 0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: PthreadKeyCreateDestructorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: FnCallback1?): CInt =
     if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -119,7 +119,7 @@ public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
     if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadSetspecific(key, (value?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadOnceInitRoutineCallback): CInt =
+public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback2): CInt =
     if (_newQurtPthreadNapiAddon != null) (_newQurtPthreadNapiAddon.libc_new_qurt_pthread_pthreadOnce((onceControl?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =

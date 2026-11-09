@@ -9,6 +9,10 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 
+public fun interface FnCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
 public typealias WcharT = CUint
 
 public typealias URegisterT = CUint

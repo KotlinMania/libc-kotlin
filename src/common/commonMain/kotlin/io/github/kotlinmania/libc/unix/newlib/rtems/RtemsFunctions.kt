@@ -7,10 +7,6 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
 
-public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
 public fun wifstopped(status: CInt): Boolean {
     return (status and 0xff) == 0x7f
 }
@@ -50,7 +46,7 @@ public expect fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT
 
 public expect fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt
 

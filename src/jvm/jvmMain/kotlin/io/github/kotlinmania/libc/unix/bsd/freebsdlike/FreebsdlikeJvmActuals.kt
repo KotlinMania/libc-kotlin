@@ -854,7 +854,7 @@ public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
 public actual fun ntpGettime(buf: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_ntpGettime((buf?.value ?: 0L))
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =

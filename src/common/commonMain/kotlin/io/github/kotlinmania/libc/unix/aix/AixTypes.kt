@@ -10,6 +10,28 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
+
+public fun interface FnCallback {
+    public operator fun invoke()
+}
+
+public fun interface FnCallback1 {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
+public fun interface FnCallback2 {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface FnCallback3 {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
+public fun interface FnCallback4 {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
+}
 
 public typealias CaddrT = COpaquePointer?
 

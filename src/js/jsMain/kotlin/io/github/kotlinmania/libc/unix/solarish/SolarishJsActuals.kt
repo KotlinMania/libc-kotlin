@@ -188,7 +188,7 @@ public actual fun ifFreenameindex(ptr: COpaquePointer?) {
     }
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
@@ -218,7 +218,7 @@ public actual fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_waitid(idtype.toInt(), id, (infop?.value ?: 0L).toString(), options) as Int) else 0
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -506,7 +506,7 @@ public actual fun nativeGetgrentR(grp: COpaquePointer?, buf: COpaquePointer?, bu
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -743,7 +743,7 @@ public actual fun sysinfo(command: CInt, buf: COpaquePointer?, count: CLong): CI
 public actual fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_faccessat(fd, path, amode, flag) as Int) else 0
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback3?, data: COpaquePointer?): CInt =
     if (_unixSolarishNapiAddon != null) (_unixSolarishNapiAddon.libc_unix_solarish_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun getpagesize(): CInt =

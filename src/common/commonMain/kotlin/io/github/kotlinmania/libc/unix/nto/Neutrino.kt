@@ -12,32 +12,32 @@ import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.UidT
 
-public fun interface SighandlerInfoHandlerCallback {
-    public operator fun invoke(value: CInt)
-}
-
-public fun interface SignalActionSigstubCallback {
+public fun interface FnCallback {
     public operator fun invoke()
 }
 
-public fun interface ThreadCreateFuncCallback {
+public fun interface FnCallback1 {
     public operator fun invoke(arg: COpaquePointer?): COpaquePointer?
 }
 
-public fun interface InterruptHookTraceHandlerCallback {
+public fun interface FnCallback2 {
     public operator fun invoke(arg1: CInt): COpaquePointer?
 }
 
-public fun interface InterruptHookIdleHandlerCallback {
+public fun interface FnCallback3 {
     public operator fun invoke(arg1: COpaquePointer?, arg2: COpaquePointer?)
 }
 
-public fun interface InterruptHookIdle2HandlerCallback {
+public fun interface FnCallback4 {
     public operator fun invoke(arg1: CUint, arg2: COpaquePointer?, arg3: COpaquePointer?)
 }
 
-public fun interface InterruptAttachHandlerCallback {
+public fun interface FnCallback5 {
     public operator fun invoke(area: COpaquePointer?, id: CInt): COpaquePointer?
+}
+
+public fun interface SighandlerInfoHandlerCallback {
+    public operator fun invoke(value: CInt)
 }
 
 public typealias NtoJobT = SyncT
@@ -991,9 +991,9 @@ public expect fun signalReturn(info: COpaquePointer?): CInt
 
 public expect fun signalFault(sigcode: CUint, regs: COpaquePointer?, refaddr: ULong): CInt
 
-public expect fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt
+public expect fun signalAction(pid: PidT, sigstub: FnCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt
 
-public expect fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt
+public expect fun signalActionR(pid: PidT, sigstub: FnCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt
 
 public expect fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt
 
@@ -1011,9 +1011,9 @@ public expect fun signalWaitinfoMask(set: COpaquePointer?, info: COpaquePointer?
 
 public expect fun signalWaitinfoMaskR(set: COpaquePointer?, info: COpaquePointer?, mask: COpaquePointer?): CInt
 
-public expect fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun threadCreate(pid: PidT, func: FnCallback1, arg: COpaquePointer?, attr: COpaquePointer?): CInt
 
-public expect fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun threadCreateR(pid: PidT, func: FnCallback1, arg: COpaquePointer?, attr: COpaquePointer?): CInt
 
 public expect fun threadDestroy(tid: CInt, priority: CInt, status: COpaquePointer?): CInt
 
@@ -1027,9 +1027,9 @@ public expect fun threadJoin(tid: CInt, status: COpaquePointer?): CInt
 
 public expect fun threadJoinR(tid: CInt, status: COpaquePointer?): CInt
 
-public expect fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt
+public expect fun threadCancel(tid: CInt, canstub: FnCallback): CInt
 
-public expect fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt
+public expect fun threadCancelR(tid: CInt, canstub: FnCallback): CInt
 
 public expect fun threadCtl(cmd: CInt, data: COpaquePointer?): CInt
 
@@ -1039,11 +1039,11 @@ public expect fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePoi
 
 public expect fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt
 
-public expect fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt
+public expect fun interruptHookTrace(handler: FnCallback2?, flags: CUint): CInt
 
-public expect fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, flags: CUint): CInt
+public expect fun interruptHookIdle(handler: FnCallback3?, flags: CUint): CInt
 
-public expect fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt
+public expect fun interruptHookIdle2(handler: FnCallback4?, flags: CUint): CInt
 
 public expect fun interruptHookOverdriveEvent(event: COpaquePointer?, flags: CUint): CInt
 
@@ -1051,13 +1051,13 @@ public expect fun interruptAttachEvent(intr: CInt, event: COpaquePointer?, flags
 
 public expect fun interruptAttachEventR(intr: CInt, event: COpaquePointer?, flags: CUint): CInt
 
-public expect fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttach(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachR(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachArray(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachArray(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachArrayR(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
 
 public expect fun interruptDetach(id: CInt): CInt
 

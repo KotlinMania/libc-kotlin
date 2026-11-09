@@ -20,7 +20,7 @@ public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
     io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =

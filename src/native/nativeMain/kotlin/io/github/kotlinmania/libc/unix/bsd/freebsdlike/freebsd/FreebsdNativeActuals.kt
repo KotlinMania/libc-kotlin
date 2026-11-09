@@ -393,7 +393,7 @@ public actual fun flsl(value: CLong): CInt =
 public actual fun flsll(value: CLonglong): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_flsll(value)
 
-public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?) {
+public actual fun mallocStatsPrint(writeCb: FnCallback, cbopaque: COpaquePointer?, opt: String?) {
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mallocStatsPrint(0L.toCPointer<ByteVar>(), cbopaque?.value?.toCPointer<ByteVar>(), opt)
 }
 

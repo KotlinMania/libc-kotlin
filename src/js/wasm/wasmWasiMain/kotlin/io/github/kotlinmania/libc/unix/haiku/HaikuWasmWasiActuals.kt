@@ -134,7 +134,7 @@ public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
 public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
@@ -203,7 +203,7 @@ public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     0
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
     0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -329,7 +329,7 @@ public actual fun setgrent() {
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt =
     0
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -416,10 +416,10 @@ public actual fun ftok(pathname: String?, projId: CInt): KeyT =
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
     null
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer? =
     null
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer? =
     null
 
 public actual fun hcreate(nelt: SizeT): CInt =

@@ -30,6 +30,6 @@ public actual fun dirname(path: String?): COpaquePointer? =
 public actual fun basename(path: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.cinterop.libc_unix_bsd_freebsdlike_freebsd_freebsd11_basename(path)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback?) {
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.cinterop.libc_unix_bsd_freebsdlike_freebsd_freebsd11_qsortR(base?.value?.toCPointer<ByteVar>(), num, size, arg?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 }

@@ -76,11 +76,11 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_toupper(c)
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?) {
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_qsort(base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>())
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_bsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
@@ -743,7 +743,7 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun schedYield(): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_schedYield()
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback1?): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -1132,7 +1132,7 @@ public actual fun fmemopen(buf: COpaquePointer?, size: SizeT, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: COpaquePointer?): FILE? =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_openMemstream(ptr?.value?.toCPointer<ByteVar>(), sizeloc?.value?.toCPointer<ByteVar>())?.let { FILE(it.toLong()) }
 
-public actual fun atexit(cb: AtexitCbCallback): CInt =
+public actual fun atexit(cb: FnCallback2): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_atexit(0L.toCPointer<ByteVar>())
 
 public actual fun cfmakeraw(termios: COpaquePointer?): CInt =

@@ -8,10 +8,6 @@ import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
 import io.github.kotlinmania.libc.unix.newlib.PthreadT
 
-public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
 public expect fun futimens(fd: CInt, times: COpaquePointer?): CInt
 
 public expect fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT
@@ -22,7 +18,7 @@ public expect fun sendmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT
 
 public expect fun recvmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt
 

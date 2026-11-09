@@ -22,10 +22,6 @@ import io.github.kotlinmania.libc.unix.bsd.SocklenT
 import io.github.kotlinmania.libc.unix.bsd.apple.b64.aarch64.BooleanT
 import io.github.kotlinmania.libc.unix.bsd.cmsgFirsthdr
 
-public fun interface QsortRComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
 public fun darwinAlign32(p: Int): Int {
     val DARWIN_ALIGNBYTES32: Int = 8 - 1
     return (p + DARWIN_ALIGNBYTES32) and DARWIN_ALIGNBYTES32.inv()
@@ -628,7 +624,7 @@ public expect fun freadlink(fd: CInt, buf: COpaquePointer?, size: SizeT): CInt
 
 public expect fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt
 
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?)
+public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback1?)
 
 public fun machTaskSelf(): MachPortT {
     return MACH_TASK_SELF

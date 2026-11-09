@@ -25,10 +25,6 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PROT_WRITE
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.ALIGNBYTES
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
 
-public fun interface MallocStatsPrintWriteCbCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?)
-}
-
 public fun mapAligned(a: CInt): CInt {
     return a shl 24
 }
@@ -428,7 +424,7 @@ public expect fun flsl(value: CLong): CInt
 
 public expect fun flsll(value: CLonglong): CInt
 
-public expect fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?)
+public expect fun mallocStatsPrint(writeCb: FnCallback, cbopaque: COpaquePointer?, opt: String?)
 
 public expect fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt
 

@@ -31,7 +31,7 @@ import io.github.kotlinmania.libc.unix.solarish.Sigevent
 import io.github.kotlinmania.libc.unix.solarish.Termios
 import io.github.kotlinmania.libc.unix.solarish.TimeT
 
-public fun interface DoorCreateServerProcedureCallback {
+public fun interface FnCallback {
     public operator fun invoke(cookie: COpaquePointer?, argp: COpaquePointer?, argSize: SizeT, dp: COpaquePointer?, nDesc: CUint)
 }
 
@@ -297,7 +297,7 @@ public expect fun doorCall(d: CInt, params: COpaquePointer?): CInt
 
 public expect fun doorReturn(dataPtr: COpaquePointer?, dataSize: SizeT, descPtr: COpaquePointer?, numDesc: CUint): CInt
 
-public expect fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt
+public expect fun doorCreate(serverProcedure: FnCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt
 
 public expect fun fattach(fildes: CInt, path: String?): CInt
 

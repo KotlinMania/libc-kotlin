@@ -181,10 +181,10 @@ public actual fun srand(a: CUint) {
     }
 }
 
-public actual fun atexit(a: AtexitACallback): CInt =
+public actual fun atexit(a: FnCallback): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atexit(0L.toString()) as Int) else 0
 
-public actual fun atQuickExit(a: AtexitACallback): CInt =
+public actual fun atQuickExit(a: FnCallback): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atQuickExit(0L.toString()) as Int) else 0
 
 public actual fun quickExit(a: CInt): Nothing {
@@ -818,7 +818,7 @@ public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
 public actual fun pthreadSelf(): PthreadT =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadSelf() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
@@ -845,7 +845,7 @@ public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt):
 public actual fun pthreadDetach(thread: PthreadT): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadDetach((thread?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt =
     if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =

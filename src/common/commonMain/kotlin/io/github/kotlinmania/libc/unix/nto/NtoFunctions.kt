@@ -14,14 +14,6 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 
-public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
-public fun interface DlIteratePhdrCallbackCallback {
-    public operator fun invoke(info: COpaquePointer?, size: SizeT, data: COpaquePointer?): CInt
-}
-
 public fun cmsgAlign(len: Int): Int {
     return len + 8 - 1 and (8 - 1).inv()
 }
@@ -97,7 +89,7 @@ public fun fdZero(set: FdSet?) {
 }
 
 public fun dextraFirst(d: Dirent?): DirentExtra? {
-    val f = ((((d)!!.dName) as Any?) as DirentExtra?)
+    val f = ((((d)!!.dName) as Any?) as COpaquePointer?)
     val s = ((d)?.hashCode()?.toLong() ?: 0L).toInt()
     return null
 }
@@ -311,7 +303,7 @@ public expect fun ifNameindex(): COpaquePointer?
 
 public expect fun ifFreenameindex(ptr: COpaquePointer?)
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
@@ -433,7 +425,7 @@ public expect fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 
 public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt
+public expect fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt
 
 public expect fun getgrgid(gid: GidT): COpaquePointer?
 
@@ -445,7 +437,7 @@ public expect fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robustness: C
 
 public expect fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt
 
 public expect fun getitimer(which: CInt, currValue: COpaquePointer?): CInt
 
@@ -533,7 +525,7 @@ public expect fun setrlimit(resource: CInt, rlp: COpaquePointer?): CInt
 
 public expect fun lioListio(mode: CInt, list: COpaquePointer?, nent: CInt, sig: COpaquePointer?): CInt
 
-public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: FnCallback3?, data: COpaquePointer?): CInt
 
 public expect fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt
 
@@ -594,9 +586,9 @@ public expect fun myThreadExit(valuePtr: COpaquePointer?)
 
 // Models the implementation in stdlib.h.  Ctest will fail if trying to use the
 // default symbol from libc
-public fun atexit(cb: FnCallback): CInt {
+public fun atexit(cb: FnCallback1): CInt {
     val DSO_HANDLE: COpaquePointer? = null
 
-    fun cxaAtexit(cb: FnCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt = 0
+    fun cxaAtexit(cb: FnCallback1, arg: COpaquePointer?, dso: COpaquePointer?): CInt = 0
     return cxaAtexit(cb, null, DSO_HANDLE)
 }

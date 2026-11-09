@@ -2,6 +2,7 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b32
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.Timeval

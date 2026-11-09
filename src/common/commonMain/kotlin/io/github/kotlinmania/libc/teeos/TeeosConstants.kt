@@ -3,6 +3,7 @@ package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 
 // fcntl
 public val O_CREAT: UInt = 64u

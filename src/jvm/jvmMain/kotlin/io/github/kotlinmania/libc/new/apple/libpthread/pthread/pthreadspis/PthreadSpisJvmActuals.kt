@@ -15,5 +15,5 @@ private object NewAppleLibpthreadPthreadPthreadspisPthreadSpisJniBridge {
     external fun libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pthreadCreateFromMachThread(thread: Long, attr: Long, f: Long, value: Long): Int
 }
 
-public actual fun pthreadCreateFromMachThread(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFromMachThreadFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreateFromMachThread(thread: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
     NewAppleLibpthreadPthreadPthreadspisPthreadSpisJniBridge.libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pthreadCreateFromMachThread((thread?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))

@@ -51,7 +51,7 @@ public fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt 
 }
 
 public fun fgetpos64(stream: FILE?, pos: COpaquePointer?): CInt {
-    return fgetpos(stream, ((pos)?.rawValue ?: 0L).toInt())
+    return fgetpos(stream, pos)
 }
 
 public fun fopen64(pathname: String?, mode: String?): FILE? {
@@ -67,23 +67,23 @@ public fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt {
 }
 
 public fun fsetpos64(stream: FILE?, pos: COpaquePointer?): CInt {
-    return fsetpos(stream, ((pos)?.rawValue ?: 0L).toInt())
+    return fsetpos(stream, pos)
 }
 
 public fun fstat64(fildes: CInt, buf: COpaquePointer?): CInt {
-    return fstat(fildes, ((buf)?.rawValue ?: 0L).toInt())
+    return fstat(fildes, buf)
 }
 
 public fun fstatat64(fd: CInt, path: String?, buf: COpaquePointer?, flag: CInt): CInt {
-    return fstatat(fd, path, ((buf)?.rawValue ?: 0L).toInt(), flag)
+    return fstatat(fd, path, buf, flag)
 }
 
 public fun fstatfs64(fd: CInt, buf: COpaquePointer?): CInt {
-    return fstatfs(fd, ((buf)?.rawValue ?: 0L).toInt())
+    return fstatfs(fd, buf)
 }
 
 public fun fstatvfs64(fd: CInt, buf: COpaquePointer?): CInt {
-    return fstatvfs(fd, ((buf)?.rawValue ?: 0L).toInt())
+    return fstatvfs(fd, buf)
 }
 
 public fun ftello64(stream: FILE?): Off64T {
@@ -95,7 +95,7 @@ public fun ftruncate64(fd: CInt, length: Off64T): CInt {
 }
 
 public fun getrlimit64(resource: CInt, rlim: COpaquePointer?): CInt {
-    return getrlimit(resource, ((rlim)?.rawValue ?: 0L).toInt())
+    return getrlimit(resource, rlim)
 }
 
 public fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T {
@@ -103,7 +103,7 @@ public fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T {
 }
 
 public fun lstat64(path: String?, buf: COpaquePointer?): CInt {
-    return lstat(path, ((buf)?.rawValue ?: 0L).toInt())
+    return lstat(path, buf)
 }
 
 public fun mmap64(addr: COpaquePointer?, length: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer? {
@@ -127,7 +127,7 @@ public fun preadv64(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T
 }
 
 public fun prlimit64(pid: PidT, resource: CInt, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt {
-    return prlimit(pid, resource, ((newLimit)?.rawValue ?: 0L).toInt(), ((oldLimit)?.rawValue ?: 0L).toInt())
+    return prlimit(pid, resource, newLimit, oldLimit)
 }
 
 public fun pwrite64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT {
@@ -143,7 +143,7 @@ public fun readdir64(dirp: DIR?): COpaquePointer? {
 }
 
 public fun readdir64R(dirp: DIR?, entry: COpaquePointer?, result: COpaquePointer?): CInt {
-    return readdirR(dirp, ((entry)?.rawValue ?: 0L).toInt(), ((result)?.rawValue ?: 0L).toInt())
+    return readdirR(dirp, entry, result)
 }
 
 public fun sendfile64(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: SizeT): SsizeT {
@@ -151,19 +151,19 @@ public fun sendfile64(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: S
 }
 
 public fun setrlimit64(resource: CInt, rlim: COpaquePointer?): CInt {
-    return setrlimit(resource, ((rlim)?.rawValue ?: 0L).toInt())
+    return setrlimit(resource, rlim)
 }
 
 public fun stat64(pathname: String?, statbuf: COpaquePointer?): CInt {
-    return stat(pathname, ((statbuf)?.rawValue ?: 0L).toInt())
+    return stat(pathname, statbuf)
 }
 
 public fun statfs64(pathname: String?, buf: COpaquePointer?): CInt {
-    return statfs(pathname, ((buf)?.rawValue ?: 0L).toInt())
+    return statfs(pathname, buf)
 }
 
 public fun statvfs64(path: String?, buf: COpaquePointer?): CInt {
-    return statvfs(path, ((buf)?.rawValue ?: 0L).toInt())
+    return statvfs(path, buf)
 }
 
 public fun tmpfile64(): FILE? {

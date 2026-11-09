@@ -18,11 +18,11 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 
 // Header: `stdlib.h`
 
-public fun interface AtexitFunctionCallback {
+public fun interface FnCallback {
     public operator fun invoke()
 }
 
-public fun interface QsortComparCallback {
+public fun interface FnCallback1 {
     public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
 }
 
@@ -48,7 +48,7 @@ public expect fun abort(): Nothing
 
 public expect fun exit(status: CInt): Nothing
 
-public expect fun atexit(function: AtexitFunctionCallback): CInt
+public expect fun atexit(function: FnCallback): CInt
 
 // Environment
 public expect fun getenv(name: String?): COpaquePointer?
@@ -82,9 +82,9 @@ public expect fun rand(): CInt
 public expect fun srand(seed: CUint)
 
 // Searching and sorting
-public expect fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback)
+public expect fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1)
 
-public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): COpaquePointer?
+public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1): COpaquePointer?
 
 // Integer arithmetic
 public expect fun abs(j: CInt): CInt

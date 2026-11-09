@@ -320,7 +320,7 @@ public actual fun srand48(seed: CLong) {
     }
 }
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?) {
     if (_unixCygwinNapiAddon != null) {
         _unixCygwinNapiAddon.libc_unix_cygwin_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString(), (arg?.value ?: 0L).toString())
     }
@@ -434,7 +434,7 @@ public actual fun getpagesize(): CInt =
 public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_getpeereid(socket, (euid?.value ?: 0L).toString(), (egid?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
+public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
@@ -542,7 +542,7 @@ public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
 public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadBarrierWait((barrier?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt =
     if (_unixCygwinNapiAddon != null) (_unixCygwinNapiAddon.libc_unix_cygwin_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =

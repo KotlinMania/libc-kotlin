@@ -17,7 +17,7 @@ public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
     0L
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =

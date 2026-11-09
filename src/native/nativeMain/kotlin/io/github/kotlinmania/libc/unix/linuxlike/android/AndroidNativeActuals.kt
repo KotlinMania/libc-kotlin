@@ -277,7 +277,7 @@ public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_ppoll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout?.value?.toCPointer<ByteVar>(), sigmask?.value?.toCPointer<ByteVar>())
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: FnCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -423,10 +423,10 @@ public actual fun systemPropertyFind(name: String?): COpaquePointer? =
 public actual fun systemPropertyFindNth(n: CUint): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_systemPropertyFindNth(n)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: COpaquePointer?): CInt =
+public actual fun systemPropertyForeach(callback: FnCallback1, cookie: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_systemPropertyForeach(0L.toCPointer<ByteVar>(), cookie?.value?.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback2?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun arc4random(): UInt =

@@ -43,7 +43,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(function: AtexitFunctionCallback): CInt =
+public actual fun atexit(function: FnCallback): CInt =
     io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libc_new_qurt_stdlib_atexit(0L.toCPointer<ByteVar>())
 
 public actual fun getenv(name: String?): COpaquePointer? =
@@ -89,11 +89,11 @@ public actual fun srand(seed: CUint) {
     io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libc_new_qurt_stdlib_srand(seed)
 }
 
-public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
+public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1) {
     io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libc_new_qurt_stdlib_qsort(base?.value?.toCPointer<ByteVar>(), nmemb, size, 0L.toCPointer<ByteVar>())
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1): COpaquePointer? =
     io.github.kotlinmania.libc.new.qurt.stdlib.cinterop.libc_new_qurt_stdlib_bsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nmemb, size, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun abs(j: CInt): CInt =

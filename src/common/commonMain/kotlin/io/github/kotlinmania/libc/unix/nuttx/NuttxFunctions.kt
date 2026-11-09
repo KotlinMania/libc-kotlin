@@ -4,10 +4,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.DIR
 
-public fun interface PthreadCreateStartRoutineCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
 public expect fun errno(): COpaquePointer?
 
 public expect fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int
@@ -18,7 +14,7 @@ public expect fun dirfd(dirp: DIR?): Int
 
 public expect fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: COpaquePointer?, addrlen: COpaquePointer?): Int
 
-public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): Int
+public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): Int
 
 public expect fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int
 

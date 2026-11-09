@@ -7,6 +7,8 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.SizeT
 
 public val EXIT_FAILURE: CInt = 1
@@ -1087,7 +1089,7 @@ public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0u, 
 
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(flags = 0u, unused = 0, mutex = null, waiterCount = 0, lock = 0)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(flags = 0u, owner = -1, lockSem = 0, lockCount = 0, readerCount = 0, writerCount = 0, waiters = List(2) { ((0 as Any?) as List<COpaquePointer?>) })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(flags = 0u, owner = -1, lockSem = 0, lockCount = 0, readerCount = 0, writerCount = 0, waiters = List(2) { null })
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = 0
 

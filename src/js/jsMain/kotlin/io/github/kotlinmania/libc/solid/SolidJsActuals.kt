@@ -389,7 +389,7 @@ public actual fun abort(): Nothing {
 public actual fun abs(arg1: CInt): CInt =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_abs(arg1) as Int) else 0
 
-public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
+public actual fun atexit(arg1: FnCallback?): CInt =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_atexit(0L.toString()) as Int) else 0
 
 public actual fun atoi(arg1: String?): CInt =
@@ -407,7 +407,7 @@ public actual fun ltoa(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): COpaqueP
 public actual fun ultoa(arg1: CUlong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_ultoa(arg1.toString(), (arg2?.value ?: 0L).toString(), arg3) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): COpaquePointer? =
+public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: FnCallback1?): COpaquePointer? =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_bsearch((arg1?.value ?: 0L).toString(), (arg2?.value ?: 0L).toString(), arg3.toString(), arg4.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
@@ -434,7 +434,7 @@ public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
 public actual fun malloc(arg1: SizeT): COpaquePointer? =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_malloc(arg1.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
+public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?) {
     if (_solidNapiAddon != null) {
         _solidNapiAddon.libc_solid_qsort((arg1?.value ?: 0L).toString(), arg2.toString(), arg3.toString(), 0L.toString())
     }
@@ -560,7 +560,7 @@ public actual fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CU
 public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_alignedAlloc(arg1.toString(), arg2.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
+public actual fun atQuickExit(arg1: FnCallback?): CInt =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_atQuickExit(0L.toString()) as Int) else 0
 
 public actual fun quickExit(arg1: CInt) {
@@ -584,10 +584,10 @@ public actual fun dehumanizeNumber(arg1: String?, arg2: COpaquePointer?): CInt =
 public actual fun getenvR(arg1: String?, arg2: COpaquePointer?, arg3: SizeT): CInt =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_getenvR(arg1, (arg2?.value ?: 0L).toString(), arg3.toString()) as Int) else 0
 
-public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_heapsort((arg1?.value ?: 0L).toString(), arg2.toString(), arg3.toString(), 0L.toString()) as Int) else 0
 
-public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
     if (_solidNapiAddon != null) (_solidNapiAddon.libc_solid_mergesort((arg1?.value ?: 0L).toString(), arg2.toString(), arg3.toString(), 0L.toString()) as Int) else 0
 
 public actual fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =

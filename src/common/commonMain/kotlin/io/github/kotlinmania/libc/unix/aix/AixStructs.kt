@@ -16,6 +16,8 @@ import io.github.kotlinmania.libc.Int64T
 import io.github.kotlinmania.libc.Uint16T
 import io.github.kotlinmania.libc.Uint32T
 import io.github.kotlinmania.libc.Uint64T
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.In6Addr
 import io.github.kotlinmania.libc.unix.InAddrT

@@ -115,7 +115,7 @@ public actual fun utrace(label: String?, addr: COpaquePointer?, len: SizeT): CIn
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
@@ -159,10 +159,10 @@ public actual fun lcong48Deterministic(p: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic(p?.value?.toCPointer<ByteVar>())
 }
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_lsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_lfind(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun hcreate(nelt: SizeT): CInt =

@@ -12,11 +12,34 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.Int64T
 import io.github.kotlinmania.libc.Uint64T
+import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.Sigval
+import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.hurd.b64.SquadType
 import io.github.kotlinmania.libc.unix.hurd.b64.SwordType
 import io.github.kotlinmania.libc.unix.hurd.b64.UquadType
 import io.github.kotlinmania.libc.unix.hurd.b64.UwordType
+
+public fun interface FnCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface FnCallback1 {
+    public operator fun invoke()
+}
+
+public fun interface FnCallback2 {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
+}
+
+public fun interface FnCallback3 {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
+public fun interface FnCallback4 {
+    public operator fun invoke(info: COpaquePointer?, size: SizeT, data: COpaquePointer?): CInt
+}
 
 // types
 public typealias S16Type = CShort

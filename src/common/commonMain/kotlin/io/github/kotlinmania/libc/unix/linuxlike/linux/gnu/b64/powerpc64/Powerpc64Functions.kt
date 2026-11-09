@@ -13,4 +13,4 @@ public expect fun setcontext(ucp: COpaquePointer?): CInt
 
 public expect fun swapcontext(oucp: COpaquePointer?, ucp: COpaquePointer?): CInt
 
-public expect fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long)
+public expect fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long)

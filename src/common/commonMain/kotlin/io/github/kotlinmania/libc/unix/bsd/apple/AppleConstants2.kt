@@ -3,8 +3,10 @@ package io.github.kotlinmania.libc.unix.bsd.apple
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.unix.DIR
 
 public val SIGEV_SIGNAL: CInt = 1
 

@@ -3,6 +3,7 @@ package io.github.kotlinmania.libc.unix.newlib
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 
 // supports multicast

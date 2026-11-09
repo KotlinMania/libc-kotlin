@@ -37,7 +37,7 @@ public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
 public actual fun basename(path: COpaquePointer?): COpaquePointer? =
     if (_unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd12_basename((path?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback?) {
     if (_unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon != null) {
         _unixBsdFreebsdlikeFreebsdFreebsd12NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd12_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), (arg?.value ?: 0L).toString(), 0L.toString())
     }

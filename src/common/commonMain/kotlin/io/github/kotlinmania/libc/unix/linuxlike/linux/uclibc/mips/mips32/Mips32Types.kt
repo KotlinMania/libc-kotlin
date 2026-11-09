@@ -1,9 +1,15 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+
+public fun interface FnCallback {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
 
 public typealias ClockT = Int
 

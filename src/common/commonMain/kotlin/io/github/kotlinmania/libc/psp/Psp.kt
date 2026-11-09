@@ -13,6 +13,66 @@ import io.github.kotlinmania.libc.U128
 // by the linker. Crates that use these definitions must, somewhere in the
 // crate graph, include a Note provider crate such as the `psp` crate.
 
+public fun interface FnCallback {
+    public operator fun invoke(args: ULong, argp: COpaquePointer?): Int
+}
+
+public fun interface FnCallback1 {
+    public operator fun invoke(common: COpaquePointer?): UInt
+}
+
+public fun interface FnCallback2 {
+    public operator fun invoke(arg1: Int, arg2: Int, arg: COpaquePointer?): Int
+}
+
+public fun interface FnCallback3 {
+    public operator fun invoke(uid: SceUid, arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: COpaquePointer?): UInt
+}
+
+public fun interface FnCallback4 {
+    public operator fun invoke(uid: SceUid, arg1: Long, arg2: Long, arg3: COpaquePointer?): UInt
+}
+
+public fun interface FnCallback5 {
+    public operator fun invoke(mask: Int, thid: SceUid, common: COpaquePointer?): Int
+}
+
+public fun interface FnCallback6 {
+    public operator fun invoke(data: COpaquePointer?, numPackets: Int, param: COpaquePointer?): Int
+}
+
+public fun interface FnCallback7 {
+    public operator fun invoke(id: Int, arg: COpaquePointer?)
+}
+
+public fun interface FnCallback8 {
+    public operator fun invoke(flag: Int, error: Int, unknown: COpaquePointer?)
+}
+
+public fun interface FnCallback9 {
+    public operator fun invoke(matchingId: Int, event: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?)
+}
+
+public fun interface FnCallback10 {
+    public operator fun invoke(oldState: Int, newState: Int, event: Int, error: Int, pArg: COpaquePointer?)
+}
+
+public fun interface FnCallback11 {
+    public operator fun invoke(request: Int, authType: HttpAuthType, realm: COpaquePointer?, username: COpaquePointer?, password: COpaquePointer?, needEntity: Int, entityBody: COpaquePointer?, entitySize: COpaquePointer?, save: COpaquePointer?): Int
+}
+
+public fun interface FnCallback12 {
+    public operator fun invoke(size: ULong): COpaquePointer?
+}
+
+public fun interface FnCallback13 {
+    public operator fun invoke(p: COpaquePointer?)
+}
+
+public fun interface FnCallback14 {
+    public operator fun invoke(p: COpaquePointer?, size: ULong): COpaquePointer?
+}
+
 public typealias IntmaxT = Long
 
 public typealias UintmaxT = ULong
@@ -1399,9 +1459,9 @@ public data class GeStack(public var stack: UIntArray = UIntArray(8)) {
 }
 
 public data class GeCallbackData(
-    public var signalFunc: GuCallbackFn? = null,
+    public var signalFunc: FnCallback7? = null,
     public var signalArg: COpaquePointer? = null,
-    public var finishFunc: GuCallbackFn? = null,
+    public var finishFunc: FnCallback7? = null,
     public var finishArg: COpaquePointer? = null,
 )
 

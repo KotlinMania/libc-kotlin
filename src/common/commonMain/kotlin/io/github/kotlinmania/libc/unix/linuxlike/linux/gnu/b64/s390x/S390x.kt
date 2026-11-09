@@ -37,7 +37,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
 
 // s390x
 
-public fun interface SigactionSaRestorerCallback {
+public fun interface FnCallback {
     public operator fun invoke()
 }
 
@@ -59,7 +59,7 @@ public data class Sigaction(
     public var saSigaction: SighandlerT = 0uL,
     public var glibcReserved0: CInt = 0,
     public var saFlags: CInt = 0,
-    public var saRestorer: SigactionSaRestorerCallback? = null,
+    public var saRestorer: FnCallback? = null,
     public var saMask: SigsetT = SigsetT(),
 )
 
@@ -1750,6 +1750,6 @@ public expect fun getcontext(ucp: COpaquePointer?): CInt
 
 public expect fun setcontext(ucp: COpaquePointer?): CInt
 
-public expect fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long)
+public expect fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long)
 
 public expect fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt

@@ -13,6 +13,7 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.I128
+import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.In6Addr
 import io.github.kotlinmania.libc.unix.InAddrT
@@ -29,10 +30,6 @@ import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.nto.aarch64.McontextT
 import io.github.kotlinmania.libc.unix.nto.aarch64.StackT
 import io.github.kotlinmania.libc.unix.nto.aarch64.TimeT
-
-public fun interface GlobTGlErrfuncCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: CInt): CInt
-}
 
 public fun interface ThreadAttrExitfuncCallback {
     public operator fun invoke(fake: COpaquePointer?)
@@ -407,7 +404,7 @@ public data class GlobT(
     public var glPathv: COpaquePointer? = null,
     public var glOffs: SizeT = 0uL,
     public var glFlags: CInt = 0,
-    public var glErrfunc: GlobTGlErrfuncCallback = GlobTGlErrfuncCallback { _, _ -> 0 },
+    public var glErrfunc: FnCallback = FnCallback { _, _ -> 0 },
     public var unused1: COpaquePointer? = null,
     public var unused2: COpaquePointer? = null,
     public var unused3: COpaquePointer? = null,

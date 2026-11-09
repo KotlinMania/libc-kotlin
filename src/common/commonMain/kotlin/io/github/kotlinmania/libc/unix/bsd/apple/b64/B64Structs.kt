@@ -1,6 +1,7 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b64
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUshort
 

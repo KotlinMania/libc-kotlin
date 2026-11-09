@@ -7,6 +7,18 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 
+public fun interface FnCallback {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
+public fun interface FnCallback1 {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface FnCallback2 {
+    public operator fun invoke(x: COpaquePointer?, y: COpaquePointer?): CInt
+}
+
 public typealias CBool = Int
 
 public typealias IntmaxT = Long

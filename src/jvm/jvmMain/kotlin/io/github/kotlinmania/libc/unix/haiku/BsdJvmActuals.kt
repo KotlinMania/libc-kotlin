@@ -149,7 +149,7 @@ public actual fun kqueue(): CInt =
 public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
     UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_kevent(kq, (changelist?.value ?: 0L), nchanges, (eventlist?.value ?: 0L), nevents, (timeout?.value ?: 0L))
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
     UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
