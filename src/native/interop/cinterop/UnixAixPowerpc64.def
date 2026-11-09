@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.aix.powerpc64.cinterop
+headers = unix_aix_powerpc64_wrapper.h
+headerFilter = unix_aix_powerpc64_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_aix_powerpc64_wrapper.a

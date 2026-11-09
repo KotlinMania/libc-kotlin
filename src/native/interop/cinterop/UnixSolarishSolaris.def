@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.solarish.solaris.cinterop
+headers = unix_solarish_solaris_wrapper.h
+headerFilter = unix_solarish_solaris_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_solarish_solaris_wrapper.a

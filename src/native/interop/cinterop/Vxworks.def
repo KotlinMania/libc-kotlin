@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.vxworks.cinterop
+headers = vxworks_wrapper.h
+headerFilter = vxworks_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = vxworks_wrapper.a

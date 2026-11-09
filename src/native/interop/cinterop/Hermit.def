@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.hermit.cinterop
+headers = hermit_wrapper.h
+headerFilter = hermit_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = hermit_wrapper.a

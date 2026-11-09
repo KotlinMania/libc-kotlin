@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.trusty.cinterop
+headers = trusty_wrapper.h
+headerFilter = trusty_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = trusty_wrapper.a

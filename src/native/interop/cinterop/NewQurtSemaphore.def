@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.new.qurt.semaphore.cinterop
+headers = new_qurt_semaphore_wrapper.h
+headerFilter = new_qurt_semaphore_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_qurt_semaphore_wrapper.a

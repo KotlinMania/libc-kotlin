@@ -1,0 +1,691 @@
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#include <jni.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <errno.h>
+#ifdef _WIN32
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#else
+#include <dlfcn.h>
+#ifndef RTLD_DEFAULT
+#define RTLD_DEFAULT ((void*)0)
+#endif
+#endif
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1malloc(JNIEnv* km_env, jclass km_clazz, jlong size) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void* (*km_fn_t)(uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "malloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "malloc");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "malloc");
+    }
+#endif
+    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)size) : NULL;
+    return (jlong)(uintptr_t)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1calloc(JNIEnv* km_env, jclass km_clazz, jlong nmemb, jlong size) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void* (*km_fn_t)(uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "calloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "calloc");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "calloc");
+    }
+#endif
+    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)nmemb, (uint64_t)size) : NULL;
+    return (jlong)(uintptr_t)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1realloc(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void* (*km_fn_t)(void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "realloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "realloc");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "realloc");
+    }
+#endif
+    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)size) : NULL;
+    return (jlong)(uintptr_t)km_res;
+}
+
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1free(JNIEnv* km_env, jclass km_clazz, jlong ptr) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "free");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "free");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "free");
+    }
+#endif
+    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)ptr);
+}
+
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1abort(JNIEnv* km_env, jclass km_clazz) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "abort");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "abort");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "abort");
+    }
+#endif
+    if (km_fn_ptr != NULL) km_fn_ptr();
+}
+
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1exit(JNIEnv* km_env, jclass km_clazz, jint status) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "exit");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "exit");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "exit");
+    }
+#endif
+    if (km_fn_ptr != NULL) km_fn_ptr((int32_t)status);
+}
+
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1atexit(JNIEnv* km_env, jclass km_clazz, jlong function) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "atexit");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "atexit");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "atexit");
+    }
+#endif
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)function) : -1;
+    return (jint)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1getenv(JNIEnv* km_env, jclass km_clazz, jstring name) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
+    typedef char* (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getenv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getenv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getenv");
+    }
+#endif
+    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf) : NULL;
+    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
+    return (jlong)(uintptr_t)km_res;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1setenv(JNIEnv* km_env, jclass km_clazz, jstring name, jstring value, jint overwrite) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
+    const char* value_utf = (value != NULL) ? (*km_env)->GetStringUTFChars(km_env, value, NULL) : NULL;
+    typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setenv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setenv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setenv");
+    }
+#endif
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, value_utf, (int32_t)overwrite) : -1;
+    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
+    if (value != NULL && value_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, value, value_utf);
+    return (jint)km_res;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1unsetenv(JNIEnv* km_env, jclass km_clazz, jstring name) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
+    typedef int32_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "unsetenv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "unsetenv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "unsetenv");
+    }
+#endif
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf) : -1;
+    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
+    return (jint)km_res;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1atoi(JNIEnv* km_env, jclass km_clazz, jstring nptr) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef int32_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "atoi");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "atoi");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "atoi");
+    }
+#endif
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf) : -1;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jint)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1atol(JNIEnv* km_env, jclass km_clazz, jstring nptr) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef int64_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "atol");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "atol");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "atol");
+    }
+#endif
+    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf) : -1;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jlong)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1atoll(JNIEnv* km_env, jclass km_clazz, jstring nptr) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef int64_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "atoll");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "atoll");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "atoll");
+    }
+#endif
+    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf) : -1;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jlong)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1strtol(JNIEnv* km_env, jclass km_clazz, jstring nptr, jlong endptr, jint base) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "strtol");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "strtol");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtol");
+    }
+#endif
+    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf, (void*)(uintptr_t)endptr, (int32_t)base) : -1;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jlong)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1strtoul(JNIEnv* km_env, jclass km_clazz, jstring nptr, jlong endptr, jint base) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "strtoul");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "strtoul");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtoul");
+    }
+#endif
+    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf, (void*)(uintptr_t)endptr, (int32_t)base) : 0;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jlong)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1strtoll(JNIEnv* km_env, jclass km_clazz, jstring nptr, jlong endptr, jint base) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "strtoll");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "strtoll");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtoll");
+    }
+#endif
+    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf, (void*)(uintptr_t)endptr, (int32_t)base) : -1;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jlong)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1strtoull(JNIEnv* km_env, jclass km_clazz, jstring nptr, jlong endptr, jint base) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "strtoull");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "strtoull");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtoull");
+    }
+#endif
+    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf, (void*)(uintptr_t)endptr, (int32_t)base) : 0;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jlong)km_res;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1strtod(JNIEnv* km_env, jclass km_clazz, jstring nptr, jlong endptr) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef double (*km_fn_t)(const char*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "strtod");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "strtod");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtod");
+    }
+#endif
+    double km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf, (void*)(uintptr_t)endptr) : 0.0;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jdouble)km_res;
+}
+
+JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1strtof(JNIEnv* km_env, jclass km_clazz, jstring nptr, jlong endptr) {
+    (void)km_env;
+    (void)km_clazz;
+    const char* nptr_utf = (nptr != NULL) ? (*km_env)->GetStringUTFChars(km_env, nptr, NULL) : NULL;
+    typedef float (*km_fn_t)(const char*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "strtof");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "strtof");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtof");
+    }
+#endif
+    float km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf, (void*)(uintptr_t)endptr) : 0.0f;
+    if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
+    return (jfloat)km_res;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1rand(JNIEnv* km_env, jclass km_clazz) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "rand");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "rand");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rand");
+    }
+#endif
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    return (jint)km_res;
+}
+
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1srand(JNIEnv* km_env, jclass km_clazz, jint seed) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void (*km_fn_t)(uint32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "srand");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "srand");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "srand");
+    }
+#endif
+    if (km_fn_ptr != NULL) km_fn_ptr((uint32_t)seed);
+}
+
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1qsort(JNIEnv* km_env, jclass km_clazz, jlong base, jlong nmemb, jlong size, jlong compar) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "qsort");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "qsort");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "qsort");
+    }
+#endif
+    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)base, (uint64_t)nmemb, (uint64_t)size, (void*)(uintptr_t)compar);
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1bsearch(JNIEnv* km_env, jclass km_clazz, jlong key, jlong base, jlong nmemb, jlong size, jlong compar) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef void* (*km_fn_t)(void*, void*, uint64_t, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "bsearch");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "bsearch");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "bsearch");
+    }
+#endif
+    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)key, (void*)(uintptr_t)base, (uint64_t)nmemb, (uint64_t)size, (void*)(uintptr_t)compar) : NULL;
+    return (jlong)(uintptr_t)km_res;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1abs(JNIEnv* km_env, jclass km_clazz, jint j) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "abs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "abs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "abs");
+    }
+#endif
+    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)j) : -1;
+    return (jint)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1labs(JNIEnv* km_env, jclass km_clazz, jlong j) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef int64_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "labs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "labs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "labs");
+    }
+#endif
+    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)j) : -1;
+    return (jlong)km_res;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_stdlib_NewQurtStdlibJniBridge_libc_1new_1qurt_1stdlib_1llabs(JNIEnv* km_env, jclass km_clazz, jlong j) {
+    (void)km_env;
+    (void)km_clazz;
+    typedef int64_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "llabs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "llabs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "llabs");
+    }
+#endif
+    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)j) : -1;
+    return (jlong)km_res;
+}
+

@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.wasi.p2.cinterop
+headers = wasi_p2_wrapper.h
+headerFilter = wasi_p2_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = wasi_p2_wrapper.a

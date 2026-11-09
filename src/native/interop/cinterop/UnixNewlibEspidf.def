@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.newlib.espidf.cinterop
+headers = unix_newlib_espidf_wrapper.h
+headerFilter = unix_newlib_espidf_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_newlib_espidf_wrapper.a

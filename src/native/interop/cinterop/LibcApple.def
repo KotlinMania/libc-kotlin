@@ -1,6 +1,0 @@
-package = io.github.kotlinmania.libc.cinterop
-headers = apple_mod_wrapper.h bsd_mod_wrapper.h bsd_wrapper.h dlfcn_wrapper.h errno_wrapper.h fcntl_wrapper.h introspection_wrapper.h mman_wrapper.h pthread_spis_wrapper.h pthread_wrapper.h qos_wrapper.h sched_wrapper.h semaphore_wrapper.h signal_wrapper.h socket_wrapper.h spawn_wrapper.h stack_np_wrapper.h stat_wrapper.h stdio_wrapper.h stdlib_wrapper.h time_wrapper.h timex_wrapper.h unistd_wrapper.h utmp_wrapper.h utmpx_wrapper.h unix_mod_wrapper.h
-compilerOpts = -Isrc/native/interop/cinterop
-linkerOpts = -liconv
-staticLibraries = libc_wrapper.a
-staticLibraryHeaders = apple_mod_wrapper.h bsd_mod_wrapper.h bsd_wrapper.h dlfcn_wrapper.h errno_wrapper.h fcntl_wrapper.h introspection_wrapper.h mman_wrapper.h pthread_spis_wrapper.h pthread_wrapper.h qos_wrapper.h sched_wrapper.h semaphore_wrapper.h signal_wrapper.h socket_wrapper.h spawn_wrapper.h stack_np_wrapper.h stat_wrapper.h stdio_wrapper.h stdlib_wrapper.h time_wrapper.h timex_wrapper.h unistd_wrapper.h utmp_wrapper.h utmpx_wrapper.h unix_mod_wrapper.h

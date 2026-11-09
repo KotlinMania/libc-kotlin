@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.unix.haiku.cinterop
+headers = unix_haiku_bsd_wrapper.h
+headerFilter = unix_haiku_bsd_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_haiku_bsd_wrapper.a
+linkerOpts = -lbsd

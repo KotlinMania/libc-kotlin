@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.wasm32.wali.cinterop
+headers = unix_linuxlike_linux_musl_b64_wasm32_wali_wrapper.h
+headerFilter = unix_linuxlike_linux_musl_b64_wasm32_wali_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_linuxlike_linux_musl_b64_wasm32_wali_wrapper.a

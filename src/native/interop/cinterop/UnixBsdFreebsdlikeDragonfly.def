@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly.cinterop
+headers = unix_bsd_freebsdlike_dragonfly_wrapper.h
+headerFilter = unix_bsd_freebsdlike_dragonfly_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_bsd_freebsdlike_dragonfly_wrapper.a
+linkerOpts = -lrt -lkvm

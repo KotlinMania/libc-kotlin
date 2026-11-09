@@ -10,20 +10,20 @@ extern "C" {
 #endif
 
 void* libc_hermit_alloc(uint64_t size, uint64_t align);
-void* libc_hermit_alloc_zeroed(uint64_t size, uint64_t align);
+void* libc_hermit_allocZeroed(uint64_t size, uint64_t align);
 void* libc_hermit_realloc(void* ptr, uint64_t size, uint64_t align, uint64_t new_size);
 void libc_hermit_dealloc(void* ptr, uint64_t size, uint64_t align);
 void libc_hermit_exit(int32_t status);
 void libc_hermit_abort(void);
 int32_t libc_hermit_errno(void);
-int32_t libc_hermit_clock_gettime(int32_t clockid, void* tp);
+int32_t libc_hermit_clockGettime(int32_t clockid, void* tp);
 int32_t libc_hermit_nanosleep(void* req);
-uint64_t libc_hermit_available_parallelism(void);
-int32_t libc_hermit_futex_wait(void* address, uint32_t expected, void* timeout, uint32_t flags);
-int32_t libc_hermit_futex_wake(void* address, int32_t count);
-int32_t libc_hermit_stat(const char* path, void* stat);
-int32_t libc_hermit_fstat(int32_t fd, void* stat);
-int32_t libc_hermit_lstat(const char* path, void* stat);
+uint64_t libc_hermit_availableParallelism(void);
+int32_t libc_hermit_futexWait(void* address, uint32_t expected, void* timeout, uint32_t flags);
+int32_t libc_hermit_futexWake(void* address, int32_t count);
+int32_t libc_hermit_stat(const char* path, void* arg_1_stat);
+int32_t libc_hermit_fstat(int32_t fd, void* arg_1_stat);
+int32_t libc_hermit_lstat(const char* path, void* arg_1_stat);
 int32_t libc_hermit_open(const char* path, int32_t flags, uint32_t mode);
 int32_t libc_hermit_unlink(const char* path);
 int32_t libc_hermit_mkdir(const char* path, uint32_t mode);

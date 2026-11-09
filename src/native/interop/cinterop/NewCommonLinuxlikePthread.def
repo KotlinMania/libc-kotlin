@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.new.common.linuxlike.pthread.cinterop
+headers = new_common_linuxlike_pthread_wrapper.h
+headerFilter = new_common_linuxlike_pthread_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_common_linuxlike_pthread_wrapper.a

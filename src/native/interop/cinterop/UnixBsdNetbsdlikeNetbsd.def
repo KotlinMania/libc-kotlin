@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop
+headers = unix_bsd_netbsdlike_netbsd_wrapper.h
+headerFilter = unix_bsd_netbsdlike_netbsd_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_bsd_netbsdlike_netbsd_wrapper.a
+linkerOpts = -lrt -lutil -lexecinfo

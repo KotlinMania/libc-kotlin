@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.cinterop
+headers = unix_linuxlike_linux_gnu_b64_aarch64_wrapper.h
+headerFilter = unix_linuxlike_linux_gnu_b64_aarch64_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_linuxlike_linux_gnu_b64_aarch64_wrapper.a

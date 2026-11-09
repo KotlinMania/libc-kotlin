@@ -1,0 +1,45 @@
+package io.github.kotlinmania.libc.unix.linuxlike.android.b64
+
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.SizeT
+
+// These constants must be of the same type of sigaction.saFlags
+public val SA_NOCLDSTOP: CInt = 0x00000001
+
+public val SA_NOCLDWAIT: CInt = 0x00000002
+
+public val SA_NODEFER: CInt = 0x40000000
+
+public val SA_ONSTACK: CInt = 0x08000000
+
+public val SA_RESETHAND: CInt = 0x80000000
+
+public val SA_RESTART: CInt = 0x10000000
+
+public val SA_SIGINFO: CInt = 0x00000004
+
+public val RTLD_GLOBAL: CInt = 0x00100
+
+public val RTLD_NOW: CInt = 2
+
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = Any(value = 0u, reserved = 0u)
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = Any(value = 0u, reserved = 0u)
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = Any(numLocks = 0u, writerThreadId = 0u, pendingReaders = 0u, pendingWriters = 0u, attr = 0u, reserved = 0u)
+
+public val PTHREAD_STACK_MIN: SizeT = 4096uL * 4uL
+
+public val CPU_SETSIZE: SizeT = 1024uL
+
+public val CPU_BITS: SizeT = 64uL
+
+public val UT_LINESIZE: Int = 32
+
+public val UT_NAMESIZE: Int = 32
+
+public val UT_HOSTSIZE: Int = 256

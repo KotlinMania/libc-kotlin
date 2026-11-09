@@ -1,12 +1,13 @@
 package io.github.kotlinmania.libc
 
-import io.github.kotlinmania.libc.calloc
-import io.github.kotlinmania.libc.free
-import io.github.kotlinmania.libc.malloc
-import io.github.kotlinmania.libc.realloc
-import io.github.kotlinmania.libc.vxworks.memcmp
-import io.github.kotlinmania.libc.vxworks.memcpy
-import io.github.kotlinmania.libc.vxworks.memset
+import io.github.kotlinmania.libc.unix.calloc
+import io.github.kotlinmania.libc.unix.free
+import io.github.kotlinmania.libc.unix.malloc
+import io.github.kotlinmania.libc.unix.memcmp
+import io.github.kotlinmania.libc.unix.memcpy
+import io.github.kotlinmania.libc.unix.memset
+import io.github.kotlinmania.libc.unix.realloc
+import io.github.kotlinmania.libc.unix.strlen
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull

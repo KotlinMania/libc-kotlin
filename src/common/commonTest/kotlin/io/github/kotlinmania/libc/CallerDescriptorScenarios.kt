@@ -1,26 +1,27 @@
 package io.github.kotlinmania.libc
 
-import io.github.kotlinmania.libc.calloc
-import io.github.kotlinmania.libc.free
-import io.github.kotlinmania.libc.malloc
-import io.github.kotlinmania.libc.realloc
+import io.github.kotlinmania.libc.unix.calloc
 import io.github.kotlinmania.libc.unix.close
 import io.github.kotlinmania.libc.unix.dup
 import io.github.kotlinmania.libc.unix.fcntl
+import io.github.kotlinmania.libc.unix.free
 import io.github.kotlinmania.libc.unix.getpid
 import io.github.kotlinmania.libc.unix.getuid
 import io.github.kotlinmania.libc.unix.kill
 import io.github.kotlinmania.libc.unix.lseek
+import io.github.kotlinmania.libc.unix.malloc
+import io.github.kotlinmania.libc.unix.memcmp
+import io.github.kotlinmania.libc.unix.memcpy
+import io.github.kotlinmania.libc.unix.memset
 import io.github.kotlinmania.libc.unix.open
 import io.github.kotlinmania.libc.unix.read
+import io.github.kotlinmania.libc.unix.realloc
+import io.github.kotlinmania.libc.unix.socket
 import io.github.kotlinmania.libc.unix.socketpair
 import io.github.kotlinmania.libc.unix.strerror
 import io.github.kotlinmania.libc.unix.sysconf
 import io.github.kotlinmania.libc.unix.unlink
 import io.github.kotlinmania.libc.unix.write
-import io.github.kotlinmania.libc.vxworks.memcmp
-import io.github.kotlinmania.libc.vxworks.memcpy
-import io.github.kotlinmania.libc.vxworks.memset
 import kotlin.random.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -40,7 +41,7 @@ internal fun verifyCallerDescriptorIo(directory: String = ".") {
     var fd = -1
     try {
         assertEquals(source, assertNotNull(memset(source, 0xAB, 64uL)))
-        fd = open(path, O_RDWR or O_CREAT or O_TRUNC, 0x180)
+        fd = open(path, O_RDWR or O_CREAT or O_TRUNC, 0x180L)
         assertTrue(fd >= 0, "open failed for $path")
         assertEquals(64L, write(fd, source, 64uL))
         lseek(fd, 0L, 0)
@@ -49,7 +50,7 @@ internal fun verifyCallerDescriptorIo(directory: String = ".") {
         // fcntl: get flags, set FD_CLOEXEC, verify
         val original = fcntl(fd, F_GETFD)
         assertTrue(original >= 0)
-        assertEquals(0, fcntl(fd, F_SETFD, original or FD_CLOEXEC))
+        assertEquals(0, fcntl(fd, F_SETFD, (original or FD_CLOEXEC).toLong()))
         assertTrue((fcntl(fd, F_GETFD) and FD_CLOEXEC) != 0)
         // dup: duplicate fd
         val duped = dup(fd)
@@ -108,13 +109,21 @@ internal fun verifyCallerSysconf() {
  * Socket scenarios: callers (filedescriptor, socket2, tokio) use socketpair.
  */
 internal fun verifyCallerSockets() {
-    val fds = IntArray(2)
-    assertEquals(0, socketpair(AF_UNIX, SOCK_STREAM, 0, fds))
-    assertTrue(fds[0] >= 0)
-    assertTrue(fds[1] >= 0)
-    assertNotEquals(fds[0], fds[1])
-    assertEquals(0, close(fds[0]))
-    assertEquals(0, close(fds[1]))
+    val fds = assertNotNull(calloc(2uL, 4uL))
+    val zero = assertNotNull(calloc(2uL, 4uL))
+    try {
+        val baseFd = socket(AF_UNIX, SOCK_STREAM, 0)
+        assertTrue(baseFd >= 0)
+        assertEquals(0, close(baseFd))
+        assertEquals(0, socketpair(AF_UNIX, SOCK_STREAM, 0, fds))
+        assertNotEquals(0, memcmp(fds, zero, 8uL))
+        assertNotEquals(0, memcmp(fds, COpaquePointer(fds.value + 4L), 4uL))
+        close(baseFd)
+        close(baseFd + 1)
+    } finally {
+        free(fds)
+        free(zero)
+    }
 }
 
 // macOS constant values (host platform for tests)

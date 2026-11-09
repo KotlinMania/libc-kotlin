@@ -1,0 +1,186 @@
+#ifndef LIBC_UNIX_BSD_FREEBSDLIKE_UNIX_BSD_FREEBSDLIKE_WRAPPER_H
+#define LIBC_UNIX_BSD_FREEBSDLIKE_UNIX_BSD_FREEBSDLIKE_WRAPPER_H
+
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int32_t libc_unix_bsd_freebsdlike_semDestroy(void* sem);
+int32_t libc_unix_bsd_freebsdlike_semInit(void* sem, int32_t pshared, uint32_t value);
+int32_t libc_unix_bsd_freebsdlike_daemon(int32_t nochdir, int32_t noclose);
+int32_t libc_unix_bsd_freebsdlike_gettimeofday(void* tp, void* tz);
+int32_t libc_unix_bsd_freebsdlike_accept4(int32_t s, void* addr, void* addrlen, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_chflags(const char* path, uint64_t flags);
+int32_t libc_unix_bsd_freebsdlike_chflagsat(int32_t fd, const char* path, uint64_t flags, int32_t atflag);
+int32_t libc_unix_bsd_freebsdlike_clockNanosleep(uint64_t clk_id, int32_t flags, void* rqtp, void* rmtp);
+int32_t libc_unix_bsd_freebsdlike_clockGetres(uint64_t clk_id, void* tp);
+int32_t libc_unix_bsd_freebsdlike_clockGettime(uint64_t clk_id, void* tp);
+int32_t libc_unix_bsd_freebsdlike_clockSettime(uint64_t clk_id, void* tp);
+int32_t libc_unix_bsd_freebsdlike_clockGetcpuclockid(int32_t pid, void* clk_id);
+int32_t libc_unix_bsd_freebsdlike_pthreadGetcpuclockid(void* thread, void* clk_id);
+int32_t libc_unix_bsd_freebsdlike_dirfd(void* dirp);
+void* libc_unix_bsd_freebsdlike_duplocale(void* base);
+void libc_unix_bsd_freebsdlike_endutxent(void);
+int32_t libc_unix_bsd_freebsdlike_fchflags(int32_t fd, uint64_t flags);
+int32_t libc_unix_bsd_freebsdlike_fexecve(int32_t fd, void* argv, void* envp);
+int32_t libc_unix_bsd_freebsdlike_futimens(int32_t fd, void* times);
+int32_t libc_unix_bsd_freebsdlike_getdomainname(char* name, int32_t len);
+int32_t libc_unix_bsd_freebsdlike_getgrentR(void* grp, char* buf, uint64_t buflen, void* result);
+int32_t libc_unix_bsd_freebsdlike_getpwentR(void* pwd, char* buf, uint64_t buflen, void* result);
+int32_t libc_unix_bsd_freebsdlike_getgrouplist(const char* name, uint16_t basegid, void* groups, void* ngroups);
+int32_t libc_unix_bsd_freebsdlike_getnameinfo(void* sa, uint32_t salen, char* host, uint64_t hostlen, char* serv, uint64_t servlen, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_getpriority(int32_t which, int32_t who);
+int32_t libc_unix_bsd_freebsdlike_getresgid(void* rgid, void* egid, void* sgid);
+int32_t libc_unix_bsd_freebsdlike_getresuid(void* ruid, void* euid, void* suid);
+void* libc_unix_bsd_freebsdlike_getutxent(void);
+void* libc_unix_bsd_freebsdlike_getutxid(void* ut);
+void* libc_unix_bsd_freebsdlike_getutxline(void* ut);
+int32_t libc_unix_bsd_freebsdlike_initgroups(const char* name, uint16_t basegid);
+int32_t libc_unix_bsd_freebsdlike_kevent(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, void* timeout);
+int32_t libc_unix_bsd_freebsdlike_lchflags(const char* path, uint64_t flags);
+int32_t libc_unix_bsd_freebsdlike_lutimes(const char* file, void* times);
+void* libc_unix_bsd_freebsdlike_memrchr(void* cx, int32_t c, uint64_t n);
+int32_t libc_unix_bsd_freebsdlike_mkfifoat(int32_t dirfd, const char* pathname, uint16_t mode);
+int32_t libc_unix_bsd_freebsdlike_mknodat(int32_t dirfd, const char* pathname, uint16_t mode, uint32_t dev);
+uint64_t libc_unix_bsd_freebsdlike_mallocUsableSize(void* ptr);
+int32_t libc_unix_bsd_freebsdlike_mincore(void* addr, uint64_t len, char* vec);
+void* libc_unix_bsd_freebsdlike_newlocale(int32_t mask, const char* locale, void* base);
+char* libc_unix_bsd_freebsdlike_nlLanginfoL(int32_t item, void* locale);
+int32_t libc_unix_bsd_freebsdlike_pipe2(void* fds, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_posixFallocate(int32_t fd, int64_t offset, int64_t len);
+int32_t libc_unix_bsd_freebsdlike_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise);
+int32_t libc_unix_bsd_freebsdlike_ppoll(void* fds, uint32_t nfds, void* timeout, void* sigmask);
+int64_t libc_unix_bsd_freebsdlike_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset);
+int32_t libc_unix_bsd_freebsdlike_pthreadAttrGetNp(void* tid, void* attr);
+int32_t libc_unix_bsd_freebsdlike_pthreadAttrGetguardsize(void* attr, void* guardsize);
+int32_t libc_unix_bsd_freebsdlike_pthreadAttrSetguardsize(void* attr, uint64_t guardsize);
+int32_t libc_unix_bsd_freebsdlike_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize);
+int32_t libc_unix_bsd_freebsdlike_pthreadCondattrGetclock(void* attr, void* clock_id);
+int32_t libc_unix_bsd_freebsdlike_pthreadCondattrGetpshared(void* attr, void* pshared);
+int32_t libc_unix_bsd_freebsdlike_pthreadCondattrSetclock(void* attr, uint64_t clock_id);
+int32_t libc_unix_bsd_freebsdlike_pthreadCondattrSetpshared(void* attr, int32_t pshared);
+int32_t libc_unix_bsd_freebsdlike_pthreadMainNp(void);
+int32_t libc_unix_bsd_freebsdlike_pthreadMutexTimedlock(void* lock, void* abstime);
+int32_t libc_unix_bsd_freebsdlike_pthreadMutexattrGetpshared(void* attr, void* pshared);
+int32_t libc_unix_bsd_freebsdlike_pthreadMutexattrSetpshared(void* attr, int32_t pshared);
+int32_t libc_unix_bsd_freebsdlike_pthreadRwlockattrGetpshared(void* attr, void* val);
+int32_t libc_unix_bsd_freebsdlike_pthreadRwlockattrSetpshared(void* attr, int32_t val);
+int32_t libc_unix_bsd_freebsdlike_pthreadBarrierattrInit(void* attr);
+int32_t libc_unix_bsd_freebsdlike_pthreadBarrierattrDestroy(void* attr);
+int32_t libc_unix_bsd_freebsdlike_pthreadBarrierattrGetpshared(void* attr, void* shared);
+int32_t libc_unix_bsd_freebsdlike_pthreadBarrierattrSetpshared(void* attr, int32_t shared);
+int32_t libc_unix_bsd_freebsdlike_pthreadBarrierInit(void* barrier, void* attr, uint32_t count);
+int32_t libc_unix_bsd_freebsdlike_pthreadBarrierDestroy(void* barrier);
+int32_t libc_unix_bsd_freebsdlike_pthreadBarrierWait(void* barrier);
+void libc_unix_bsd_freebsdlike_pthreadGetNameNp(void* tid, char* name, uint64_t len);
+void libc_unix_bsd_freebsdlike_pthreadSetNameNp(void* tid, const char* name);
+int32_t libc_unix_bsd_freebsdlike_pthreadGetnameNp(void* thread, char* buffer, uint64_t length);
+int32_t libc_unix_bsd_freebsdlike_pthreadSetnameNp(void* thread, const char* name);
+int32_t libc_unix_bsd_freebsdlike_pthreadSetschedparam(void* native, int32_t policy, void* param);
+int32_t libc_unix_bsd_freebsdlike_pthreadGetschedparam(void* native, void* policy, void* param);
+int32_t libc_unix_bsd_freebsdlike_ptrace(int32_t request, int32_t pid, char* addr, int32_t data);
+int32_t libc_unix_bsd_freebsdlike_utrace(void* addr, uint64_t len);
+void* libc_unix_bsd_freebsdlike_pututxline(void* ut);
+int64_t libc_unix_bsd_freebsdlike_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset);
+const char* libc_unix_bsd_freebsdlike_querylocale(int32_t mask, void* loc);
+int32_t libc_unix_bsd_freebsdlike_rtprio(int32_t function, int32_t pid, void* rtp);
+int32_t libc_unix_bsd_freebsdlike_schedRrGetInterval(int32_t pid, void* t);
+int32_t libc_unix_bsd_freebsdlike_schedGetparam(int32_t pid, void* param);
+int32_t libc_unix_bsd_freebsdlike_schedSetparam(int32_t pid, void* param);
+int32_t libc_unix_bsd_freebsdlike_schedGetscheduler(int32_t pid);
+int32_t libc_unix_bsd_freebsdlike_schedSetscheduler(int32_t pid, int32_t policy, void* param);
+int32_t libc_unix_bsd_freebsdlike_semGetvalue(void* sem, void* sval);
+int32_t libc_unix_bsd_freebsdlike_semTimedwait(void* sem, void* abstime);
+int32_t libc_unix_bsd_freebsdlike_sendfile(int32_t fd, int32_t s, int64_t offset, uint64_t nbytes, void* hdtr, void* sbytes, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_setdomainname(const char* name, int32_t len);
+int32_t libc_unix_bsd_freebsdlike_sethostname(const char* name, int32_t len);
+int32_t libc_unix_bsd_freebsdlike_setpriority(int32_t which, int32_t who, int32_t prio);
+int32_t libc_unix_bsd_freebsdlike_setresgid(uint16_t rgid, uint16_t egid, uint16_t sgid);
+int32_t libc_unix_bsd_freebsdlike_setresuid(uint16_t ruid, uint16_t euid, uint16_t suid);
+int32_t libc_unix_bsd_freebsdlike_settimeofday(void* tv, void* tz);
+void libc_unix_bsd_freebsdlike_setutxent(void);
+int32_t libc_unix_bsd_freebsdlike_shmOpen(const char* name, int32_t oflag, uint16_t mode);
+int32_t libc_unix_bsd_freebsdlike_sigtimedwait(void* set, void* info, void* timeout);
+int32_t libc_unix_bsd_freebsdlike_sigwaitinfo(void* set, void* info);
+int32_t libc_unix_bsd_freebsdlike_sysctl(void* name, uint32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
+int32_t libc_unix_bsd_freebsdlike_sysctlbyname(const char* name, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
+int32_t libc_unix_bsd_freebsdlike_sysctlnametomib(const char* name, void* mibp, void* sizep);
+void* libc_unix_bsd_freebsdlike_uselocale(void* loc);
+int32_t libc_unix_bsd_freebsdlike_utimensat(int32_t dirfd, const char* path, void* times, int32_t flag);
+int32_t libc_unix_bsd_freebsdlike_ntpAdjtime(void* buf);
+int32_t libc_unix_bsd_freebsdlike_ntpGettime(void* buf);
+int32_t libc_unix_bsd_freebsdlike_dlIteratePhdr(void* callback, void* data);
+void* libc_unix_bsd_freebsdlike_iconvOpen(const char* tocode, const char* fromcode);
+uint64_t libc_unix_bsd_freebsdlike_iconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft);
+int32_t libc_unix_bsd_freebsdlike_iconvClose(void* cd);
+void libc_unix_bsd_freebsdlike_explicitBzero(void* s, uint64_t len);
+int32_t libc_unix_bsd_freebsdlike_memsetS(void* s, uint64_t smax, int32_t c, uint64_t n);
+int64_t libc_unix_bsd_freebsdlike_gethostid(void);
+void libc_unix_bsd_freebsdlike_sethostid(int64_t hostid);
+int32_t libc_unix_bsd_freebsdlike_eui64Aton(const char* a, void* e);
+int32_t libc_unix_bsd_freebsdlike_eui64Ntoa(void* id, char* a, uint64_t len);
+int32_t libc_unix_bsd_freebsdlike_eui64Ntohost(char* hostname, uint64_t len, void* id);
+int32_t libc_unix_bsd_freebsdlike_eui64Hostton(const char* hostname, void* id);
+int32_t libc_unix_bsd_freebsdlike_eaccess(const char* path, int32_t mode);
+int32_t libc_unix_bsd_freebsdlike_kenv(int32_t action, const char* name, char* value, int32_t len);
+int32_t libc_unix_bsd_freebsdlike_reboot(int32_t howto);
+int32_t libc_unix_bsd_freebsdlike_exect(const char* path, void* argv, void* envp);
+int32_t libc_unix_bsd_freebsdlike_execvP(const char* file, const char* search_path, void* argv);
+int32_t libc_unix_bsd_freebsdlike_mkostemp(char* arg_0_template, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_mkostemps(char* arg_0_template, int32_t suffixlen, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_posixSpawn(void* pid, const char* path, void* file_actions, void* attrp, void* argv, void* envp);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnp(void* pid, const char* file, void* file_actions, void* attrp, void* argv, void* envp);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrInit(void* attr);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrDestroy(void* attr);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrGetsigdefault(void* attr, void* arg_1_default);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrSetsigdefault(void* attr, void* arg_1_default);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrGetsigmask(void* attr, void* arg_1_default);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrSetsigmask(void* attr, void* arg_1_default);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrGetflags(void* attr, void* flags);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrSetflags(void* attr, int16_t flags);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrGetpgroup(void* attr, void* flags);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrSetpgroup(void* attr, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrGetschedpolicy(void* attr, void* flags);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrSetschedpolicy(void* attr, int32_t flags);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrGetschedparam(void* attr, void* param);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnattrSetschedparam(void* attr, void* param);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnFileActionsInit(void* actions);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnFileActionsDestroy(void* actions);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnFileActionsAddopen(void* actions, int32_t fd, const char* path, int32_t oflag, uint16_t mode);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnFileActionsAddclose(void* actions, int32_t fd);
+int32_t libc_unix_bsd_freebsdlike_posixSpawnFileActionsAdddup2(void* actions, int32_t fd, int32_t newfd);
+int32_t libc_unix_bsd_freebsdlike_mqClose(void* mqd);
+int32_t libc_unix_bsd_freebsdlike_mqGetattr(void* mqd, void* attr);
+int32_t libc_unix_bsd_freebsdlike_mqNotify(void* mqd, void* notification);
+int64_t libc_unix_bsd_freebsdlike_mqReceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio);
+int32_t libc_unix_bsd_freebsdlike_mqSend(void* mqd, const char* msg_ptr, uint64_t msg_len, uint32_t msg_prio);
+int32_t libc_unix_bsd_freebsdlike_mqSetattr(void* mqd, void* newattr, void* oldattr);
+int64_t libc_unix_bsd_freebsdlike_mqTimedreceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio, void* abs_timeout);
+int32_t libc_unix_bsd_freebsdlike_mqTimedsend(void* mqd, const char* msg_ptr, uint64_t msg_len, uint32_t msg_prio, void* abs_timeout);
+int32_t libc_unix_bsd_freebsdlike_mqUnlink(const char* name);
+int64_t libc_unix_bsd_freebsdlike_getrandom(void* buf, uint64_t buflen, uint32_t flags);
+int32_t libc_unix_bsd_freebsdlike_getentropy(void* buf, uint64_t buflen);
+int32_t libc_unix_bsd_freebsdlike_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp);
+int32_t libc_unix_bsd_freebsdlike_forkpty(void* amaster, char* name, void* termp, void* winp);
+int32_t libc_unix_bsd_freebsdlike_loginTty(int32_t fd);
+char* libc_unix_bsd_freebsdlike_fparseln(void* stream, void* len, void* lineno, const char* delim, int32_t flags);
+uint64_t libc_unix_bsd_freebsdlike_backtrace(void* addrlist, uint64_t len);
+void* libc_unix_bsd_freebsdlike_backtraceSymbols(void* addrlist, uint64_t len);
+int32_t libc_unix_bsd_freebsdlike_backtraceSymbolsFd(void* addrlist, uint64_t len, int32_t fd);
+void* libc_unix_bsd_freebsdlike_kvmOpen(const char* execfile, const char* corefile, const char* swapfile, int32_t flags, const char* errstr);
+int32_t libc_unix_bsd_freebsdlike_kvmClose(void* kd);
+void* libc_unix_bsd_freebsdlike_kvmGetprocs(void* kd, int32_t op, int32_t arg, void* cnt);
+int32_t libc_unix_bsd_freebsdlike_kvmGetloadavg(void* kd, void* loadavg, int32_t nelem);
+void* libc_unix_bsd_freebsdlike_kvmOpenfiles(const char* execfile, const char* corefile, const char* swapfile, int32_t flags, char* errbuf);
+int64_t libc_unix_bsd_freebsdlike_kvmRead(void* kd, uint64_t addr, void* buf, uint64_t nbytes);
+int64_t libc_unix_bsd_freebsdlike_kvmWrite(void* kd, uint64_t addr, void* buf, uint64_t nbytes);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LIBC_UNIX_BSD_FREEBSDLIKE_UNIX_BSD_FREEBSDLIKE_WRAPPER_H */

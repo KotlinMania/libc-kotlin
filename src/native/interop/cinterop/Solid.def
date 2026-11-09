@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.solid.cinterop
+headers = solid_wrapper.h
+headerFilter = solid_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = solid_wrapper.a

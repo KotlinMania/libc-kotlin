@@ -1,0 +1,183 @@
+#ifndef LIBC_WINDOWS_WINDOWS_WRAPPER_H
+#define LIBC_WINDOWS_WINDOWS_WRAPPER_H
+
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int32_t libc_windows_isalnum(int32_t c);
+int32_t libc_windows_isalpha(int32_t c);
+int32_t libc_windows_iscntrl(int32_t c);
+int32_t libc_windows_isdigit(int32_t c);
+int32_t libc_windows_isgraph(int32_t c);
+int32_t libc_windows_islower(int32_t c);
+int32_t libc_windows_isprint(int32_t c);
+int32_t libc_windows_ispunct(int32_t c);
+int32_t libc_windows_isspace(int32_t c);
+int32_t libc_windows_isupper(int32_t c);
+int32_t libc_windows_isxdigit(int32_t c);
+int32_t libc_windows_isblank(int32_t c);
+int32_t libc_windows_tolower(int32_t c);
+int32_t libc_windows_toupper(int32_t c);
+void libc_windows_qsort(void* base, uint64_t num, uint64_t size, void* compar);
+void libc_windows_qsortS(void* base, uint64_t num, uint64_t size, void* compar, void* arg);
+void* libc_windows_fopen(const char* filename, const char* mode);
+void* libc_windows_freopen(const char* filename, const char* mode, void* file);
+int32_t libc_windows_fflush(void* file);
+int32_t libc_windows_fclose(void* file);
+int32_t libc_windows_remove(const char* filename);
+int32_t libc_windows_rename(const char* oldname, const char* newname);
+void* libc_windows_tmpfile(void);
+int32_t libc_windows_setvbuf(void* stream, char* buffer, int32_t mode, uint64_t size);
+void libc_windows_setbuf(void* stream, char* buf);
+int32_t libc_windows_getchar(void);
+int32_t libc_windows_putchar(int32_t c);
+int32_t libc_windows_fgetc(void* stream);
+char* libc_windows_fgets(char* buf, int32_t n, void* stream);
+int32_t libc_windows_fputc(int32_t c, void* stream);
+int32_t libc_windows_fputs(const char* s, void* stream);
+int32_t libc_windows_puts(const char* s);
+int32_t libc_windows_ungetc(int32_t c, void* stream);
+uint64_t libc_windows_fread(void* ptr, uint64_t size, uint64_t nobj, void* stream);
+uint64_t libc_windows_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream);
+int32_t libc_windows_fseek(void* stream, int64_t offset, int32_t whence);
+int64_t libc_windows_ftell(void* stream);
+void libc_windows_rewind(void* stream);
+int32_t libc_windows_fgetpos(void* stream, void* ptr);
+int32_t libc_windows_fsetpos(void* stream, void* ptr);
+int32_t libc_windows_feof(void* stream);
+int32_t libc_windows_ferror(void* stream);
+void libc_windows_perror(const char* s);
+double libc_windows_atof(const char* s);
+int32_t libc_windows_atoi(const char* s);
+int64_t libc_windows_atol(const char* s);
+int64_t libc_windows_atoll(const char* s);
+double libc_windows_strtod(const char* s, void* endp);
+float libc_windows_strtof(const char* s, void* endp);
+int64_t libc_windows_strtol(const char* s, void* endp, int32_t base);
+int64_t libc_windows_strtoll(const char* s, void* endp, int32_t base);
+uint64_t libc_windows_strtoul(const char* s, void* endp, int32_t base);
+uint64_t libc_windows_strtoull(const char* s, void* endp, int32_t base);
+void* libc_windows_calloc(uint64_t nobj, uint64_t size);
+void* libc_windows_malloc(uint64_t size);
+uint64_t libc_windows_msize(void* p);
+void* libc_windows_realloc(void* p, uint64_t size);
+void libc_windows_free(void* p);
+void libc_windows_abort(void);
+void libc_windows_exit(int32_t status);
+int32_t libc_windows_atexit(void* cb);
+int32_t libc_windows_system(const char* s);
+char* libc_windows_getenv(const char* s);
+char* libc_windows_strcpy(char* dst, const char* src);
+char* libc_windows_strncpy(char* dst, const char* src, uint64_t n);
+char* libc_windows_strcat(char* s, const char* ct);
+char* libc_windows_strncat(char* s, const char* ct, uint64_t n);
+int32_t libc_windows_strcmp(const char* cs, const char* ct);
+int32_t libc_windows_strncmp(const char* cs, const char* ct, uint64_t n);
+int32_t libc_windows_strcoll(const char* cs, const char* ct);
+char* libc_windows_strchr(const char* cs, int32_t c);
+char* libc_windows_strrchr(const char* cs, int32_t c);
+uint64_t libc_windows_strspn(const char* cs, const char* ct);
+uint64_t libc_windows_strcspn(const char* cs, const char* ct);
+char* libc_windows_strdup(const char* cs);
+char* libc_windows_strpbrk(const char* cs, const char* ct);
+char* libc_windows_strstr(const char* cs, const char* ct);
+uint64_t libc_windows_strlen(const char* cs);
+uint64_t libc_windows_strnlen(const char* cs, uint64_t maxlen);
+char* libc_windows_strerror(int32_t n);
+char* libc_windows_strtok(char* s, const char* t);
+uint64_t libc_windows_strxfrm(char* s, const char* ct, uint64_t n);
+uint64_t libc_windows_wcslen(void* buf);
+uint64_t libc_windows_wcsnlen(void* str, uint64_t numberOfElements);
+uint64_t libc_windows_wcstombs(char* dest, void* src, uint64_t n);
+void* libc_windows_memchr(void* cx, int32_t c, uint64_t n);
+int32_t libc_windows_memcmp(void* cx, void* ct, uint64_t n);
+void* libc_windows_memcpy(void* dest, void* src, uint64_t n);
+void* libc_windows_memmove(void* dest, void* src, uint64_t n);
+void* libc_windows_memset(void* dest, int32_t c, uint64_t n);
+int32_t libc_windows_abs(int32_t i);
+int64_t libc_windows_labs(int64_t i);
+int32_t libc_windows_rand(void);
+void libc_windows_srand(uint32_t seed);
+uint64_t libc_windows_signal(int32_t signum, uint64_t handler);
+int32_t libc_windows_raise(int32_t signum);
+int32_t libc_windows_clock(void);
+char* libc_windows_ctime(void* sourceTime);
+double libc_windows_difftime(int64_t timeEnd, int64_t timeStart);
+int32_t libc_windows_gmtimeS(void* destTime, void* srcTime);
+int32_t libc_windows_getDaylight(void* hours);
+int32_t libc_windows_getDstbias(void* seconds);
+int32_t libc_windows_getTimezone(void* seconds);
+int32_t libc_windows_getTzname(void* p_return_value, char* time_zone_name, uint64_t size_in_bytes, int32_t arg_3_index);
+int32_t libc_windows_localtimeS(void* tmDest, void* sourceTime);
+int64_t libc_windows_time(void* destTime);
+void libc_windows_tzset(void);
+int32_t libc_windows_chmod(const char* path, int32_t mode);
+int32_t libc_windows_wchmod(void* path, int32_t mode);
+int32_t libc_windows_mkdir(const char* path);
+int32_t libc_windows_wrmdir(void* path);
+int32_t libc_windows_fstat(int32_t fildes, void* buf);
+int32_t libc_windows_stat(const char* path, void* buf);
+int32_t libc_windows_wstat(void* path, void* buf);
+int32_t libc_windows_wutime(void* file, void* buf);
+void* libc_windows_popen(const char* command, const char* mode);
+int32_t libc_windows_pclose(void* stream);
+void* libc_windows_fdopen(int32_t fd, const char* mode);
+int32_t libc_windows_fileno(void* stream);
+int32_t libc_windows_creat(const char* path, int32_t mode);
+int32_t libc_windows_access(const char* path, int32_t amode);
+int32_t libc_windows_chdir(const char* dir);
+int32_t libc_windows_close(int32_t fd);
+int32_t libc_windows_dup(int32_t fd);
+int32_t libc_windows_dup2(int32_t src, int32_t dst);
+int64_t libc_windows_execv(const char* prog, void* argv);
+int32_t libc_windows_execve(const char* prog, void* argv, void* envp);
+int32_t libc_windows_execvp(const char* c, void* argv);
+int32_t libc_windows_execvpe(const char* c, void* argv, void* envp);
+int64_t libc_windows_wexecv(void* prog, void* argv);
+int64_t libc_windows_wexecve(void* prog, void* argv, void* envp);
+int64_t libc_windows_wexecvp(void* c, void* argv);
+int64_t libc_windows_wexecvpe(void* c, void* argv, void* envp);
+char* libc_windows_getcwd(char* buf, int32_t size);
+int32_t libc_windows_getpid(void);
+int32_t libc_windows_isatty(int32_t fd);
+int64_t libc_windows_lseek(int32_t fd, int64_t offset, int32_t origin);
+int64_t libc_windows_lseek64(int32_t fd, int64_t offset, int32_t origin);
+int32_t libc_windows_pipe(void* fds, uint32_t psize, int32_t textmode);
+int32_t libc_windows_read(int32_t fd, void* buf, uint32_t count);
+int32_t libc_windows_rmdir(const char* path);
+int32_t libc_windows_unlink(const char* c);
+int32_t libc_windows_write(int32_t fd, void* buf, uint32_t count);
+int32_t libc_windows_commit(int32_t fd);
+int64_t libc_windows_getOsfhandle(int32_t fd);
+int32_t libc_windows_openOsfhandle(int64_t osfhandle, int32_t flags);
+char* libc_windows_setlocale(int32_t category, const char* locale);
+void* libc_windows_wsetlocale(int32_t category, void* locale);
+void* libc_windows_alignedMalloc(uint64_t size, uint64_t alignment);
+void libc_windows_alignedFree(void* ptr);
+void* libc_windows_alignedRealloc(void* memblock, uint64_t size, uint64_t alignment);
+int32_t libc_windows_putenv(const char* envstring);
+int32_t libc_windows_wputenv(void* envstring);
+int32_t libc_windows_putenvS(const char* envstring, const char* value_string);
+int32_t libc_windows_wputenvS(void* envstring, void* value_string);
+int32_t libc_windows_listen(uint64_t s, int32_t backlog);
+uint64_t libc_windows_accept(uint64_t s, void* addr, void* addrlen);
+int32_t libc_windows_bind(uint64_t s, void* name, int32_t namelen);
+int32_t libc_windows_connect(uint64_t s, void* name, int32_t namelen);
+int32_t libc_windows_getpeername(uint64_t s, void* name, void* nameln);
+int32_t libc_windows_getsockname(uint64_t s, void* name, void* nameln);
+int32_t libc_windows_getsockopt(uint64_t s, int32_t level, int32_t optname, char* optval, void* optlen);
+int32_t libc_windows_recvfrom(uint64_t s, char* buf, int32_t len, int32_t flags, void* from, void* fromlen);
+int32_t libc_windows_sendto(uint64_t s, const char* buf, int32_t len, int32_t flags, void* to, int32_t tolen);
+int32_t libc_windows_setsockopt(uint64_t s, int32_t level, int32_t optname, const char* optval, int32_t optlen);
+uint64_t libc_windows_socket(int32_t af, int32_t socket_type, int32_t protocol);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LIBC_WINDOWS_WINDOWS_WRAPPER_H */

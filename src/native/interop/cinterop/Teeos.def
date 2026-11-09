@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.teeos.cinterop
+headers = teeos_wrapper.h
+headerFilter = teeos_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = teeos_wrapper.a

@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.redox.cinterop
+headers = unix_redox_wrapper.h
+headerFilter = unix_redox_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_redox_wrapper.a

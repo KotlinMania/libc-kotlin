@@ -1,0 +1,604 @@
+package io.github.kotlinmania.libc.unix.bsd
+
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CShort
+import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.CcT
+import io.github.kotlinmania.libc.unix.bsd.apple.TcflagT
+
+public val LC_ALL: CInt = 0
+
+public val LC_COLLATE: CInt = 1
+
+public val LC_CTYPE: CInt = 2
+
+public val LC_MONETARY: CInt = 3
+
+public val LC_NUMERIC: CInt = 4
+
+public val LC_TIME: CInt = 5
+
+public val LC_MESSAGES: CInt = 6
+
+public val FIOCLEX: CUlong = 0x20006601uL
+
+public val FIONCLEX: CUlong = 0x20006602uL
+
+public val FIONREAD: CUlong = 0x4004667fuL
+
+public val FIONBIO: CUlong = 0x8004667euL
+
+public val FIOASYNC: CUlong = 0x8004667duL
+
+public val FIOSETOWN: CUlong = 0x8004667cuL
+
+public val FIOGETOWN: CUlong = 0x4004667buL
+
+public val PATH_MAX: CInt = 1024
+
+public val MAXPATHLEN: CInt = PATH_MAX
+
+public val IOV_MAX: CInt = 1024
+
+public val SA_ONSTACK: CInt = 0x0001
+
+public val SA_SIGINFO: CInt = 0x0040
+
+public val SA_RESTART: CInt = 0x0002
+
+public val SA_RESETHAND: CInt = 0x0004
+
+public val SA_NOCLDSTOP: CInt = 0x0008
+
+public val SA_NODEFER: CInt = 0x0010
+
+public val SA_NOCLDWAIT: CInt = 0x0020
+
+public val SS_ONSTACK: CInt = 1
+
+public val SS_DISABLE: CInt = 4
+
+public val SIGCHLD: CInt = 20
+
+public val SIGBUS: CInt = 10
+
+public val SIGUSR1: CInt = 30
+
+public val SIGUSR2: CInt = 31
+
+public val SIGCONT: CInt = 19
+
+public val SIGSTOP: CInt = 17
+
+public val SIGTSTP: CInt = 18
+
+public val SIGURG: CInt = 16
+
+public val SIGIO: CInt = 23
+
+public val SIGSYS: CInt = 12
+
+public val SIGTTIN: CInt = 21
+
+public val SIGTTOU: CInt = 22
+
+public val SIGXCPU: CInt = 24
+
+public val SIGXFSZ: CInt = 25
+
+public val SIGVTALRM: CInt = 26
+
+public val SIGPROF: CInt = 27
+
+public val SIGWINCH: CInt = 28
+
+public val SIGINFO: CInt = 29
+
+public val SIG_SETMASK: CInt = 3
+
+public val SIG_BLOCK: CInt = 0x1
+
+public val SIG_UNBLOCK: CInt = 0x2
+
+public val IP_TOS: CInt = 3
+
+public val IP_MULTICAST_IF: CInt = 9
+
+public val IP_MULTICAST_TTL: CInt = 10
+
+public val IP_MULTICAST_LOOP: CInt = 11
+
+public val IPV6_UNICAST_HOPS: CInt = 4
+
+public val IPV6_MULTICAST_IF: CInt = 9
+
+public val IPV6_MULTICAST_HOPS: CInt = 10
+
+public val IPV6_MULTICAST_LOOP: CInt = 11
+
+public val IPV6_V6ONLY: CInt = 27
+
+public val IPV6_DONTFRAG: CInt = 62
+
+public val IPTOS_ECN_NOTECT: UByte = 0x00u
+
+public val IPTOS_ECN_MASK: UByte = 0x03u
+
+public val IPTOS_ECN_ECT1: UByte = 0x01u
+
+public val IPTOS_ECN_ECT0: UByte = 0x02u
+
+public val IPTOS_ECN_CE: UByte = 0x03u
+
+public val ST_RDONLY: CUlong = 1uL
+
+public val SCM_RIGHTS: CInt = 0x01
+
+public val NCCS: Int = 20
+
+public val O_ACCMODE: CInt = 0x3
+
+public val O_RDONLY: CInt = 0
+
+public val O_WRONLY: CInt = 1
+
+public val O_RDWR: CInt = 2
+
+public val O_APPEND: CInt = 8
+
+public val O_CREAT: CInt = 512
+
+public val O_TRUNC: CInt = 1024
+
+public val O_EXCL: CInt = 2048
+
+public val O_ASYNC: CInt = 0x40
+
+public val O_SYNC: CInt = 0x80
+
+public val O_NONBLOCK: CInt = 0x4
+
+public val O_NOFOLLOW: CInt = 0x100
+
+public val O_SHLOCK: CInt = 0x10
+
+public val O_EXLOCK: CInt = 0x20
+
+public val O_FSYNC: CInt = O_SYNC
+
+public val O_NDELAY: CInt = O_NONBLOCK
+
+public val F_GETOWN: CInt = 5
+
+public val F_SETOWN: CInt = 6
+
+public val F_RDLCK: CShort = 1
+
+public val F_UNLCK: CShort = 2
+
+public val F_WRLCK: CShort = 3
+
+public val MNT_RDONLY: CInt = 0x00000001
+
+public val MNT_SYNCHRONOUS: CInt = 0x00000002
+
+public val MNT_NOEXEC: CInt = 0x00000004
+
+public val MNT_NOSUID: CInt = 0x00000008
+
+public val MNT_ASYNC: CInt = 0x00000040
+
+public val MNT_EXPORTED: CInt = 0x00000100
+
+public val MNT_UPDATE: CInt = 0x00010000
+
+public val MNT_RELOAD: CInt = 0x00040000
+
+public val MNT_FORCE: CInt = 0x00080000
+
+public val Q_SYNC: CInt = 0x600
+
+public val Q_QUOTAON: CInt = 0x100
+
+public val Q_QUOTAOFF: CInt = 0x200
+
+public val TCIOFF: CInt = 3
+
+public val TCION: CInt = 4
+
+public val TCOOFF: CInt = 1
+
+public val TCOON: CInt = 2
+
+public val TCIFLUSH: CInt = 1
+
+public val TCOFLUSH: CInt = 2
+
+public val TCIOFLUSH: CInt = 3
+
+public val TCSANOW: CInt = 0
+
+public val TCSADRAIN: CInt = 1
+
+public val TCSAFLUSH: CInt = 2
+
+public val VEOF: Int = 0
+
+public val VEOL: Int = 1
+
+public val VEOL2: Int = 2
+
+public val VERASE: Int = 3
+
+public val VWERASE: Int = 4
+
+public val VKILL: Int = 5
+
+public val VREPRINT: Int = 6
+
+public val VINTR: Int = 8
+
+public val VQUIT: Int = 9
+
+public val VSUSP: Int = 10
+
+public val VDSUSP: Int = 11
+
+public val VSTART: Int = 12
+
+public val VSTOP: Int = 13
+
+public val VLNEXT: Int = 14
+
+public val VDISCARD: Int = 15
+
+public val VMIN: Int = 16
+
+public val VTIME: Int = 17
+
+public val VSTATUS: Int = 18
+
+public val POSIX_VDISABLE: CcT = 0xffu
+
+public val IGNBRK: TcflagT = 0x00000001uL
+
+public val BRKINT: TcflagT = 0x00000002uL
+
+public val IGNPAR: TcflagT = 0x00000004uL
+
+public val PARMRK: TcflagT = 0x00000008uL
+
+public val INPCK: TcflagT = 0x00000010uL
+
+public val ISTRIP: TcflagT = 0x00000020uL
+
+public val INLCR: TcflagT = 0x00000040uL
+
+public val IGNCR: TcflagT = 0x00000080uL
+
+public val ICRNL: TcflagT = 0x00000100uL
+
+public val IXON: TcflagT = 0x00000200uL
+
+public val IXOFF: TcflagT = 0x00000400uL
+
+public val IXANY: TcflagT = 0x00000800uL
+
+public val IMAXBEL: TcflagT = 0x00002000uL
+
+public val OPOST: TcflagT = 0x1uL
+
+public val ONLCR: TcflagT = 0x2uL
+
+public val OXTABS: TcflagT = 0x4uL
+
+public val ONOEOT: TcflagT = 0x8uL
+
+public val CIGNORE: TcflagT = 0x00000001uL
+
+public val CSIZE: TcflagT = 0x00000300uL
+
+public val CS5: TcflagT = 0x00000000uL
+
+public val CS6: TcflagT = 0x00000100uL
+
+public val CS7: TcflagT = 0x00000200uL
+
+public val CS8: TcflagT = 0x00000300uL
+
+public val CSTOPB: TcflagT = 0x00000400uL
+
+public val CREAD: TcflagT = 0x00000800uL
+
+public val PARENB: TcflagT = 0x00001000uL
+
+public val PARODD: TcflagT = 0x00002000uL
+
+public val HUPCL: TcflagT = 0x00004000uL
+
+public val CLOCAL: TcflagT = 0x00008000uL
+
+public val ECHOKE: TcflagT = 0x00000001uL
+
+public val ECHOE: TcflagT = 0x00000002uL
+
+public val ECHOK: TcflagT = 0x00000004uL
+
+public val ECHO: TcflagT = 0x00000008uL
+
+public val ECHONL: TcflagT = 0x00000010uL
+
+public val ECHOPRT: TcflagT = 0x00000020uL
+
+public val ECHOCTL: TcflagT = 0x00000040uL
+
+public val ISIG: TcflagT = 0x00000080uL
+
+public val ICANON: TcflagT = 0x00000100uL
+
+public val ALTWERASE: TcflagT = 0x00000200uL
+
+public val IEXTEN: TcflagT = 0x00000400uL
+
+public val EXTPROC: TcflagT = 0x00000800uL
+
+public val TOSTOP: TcflagT = 0x00400000uL
+
+public val FLUSHO: TcflagT = 0x00800000uL
+
+public val NOKERNINFO: TcflagT = 0x02000000uL
+
+public val PENDIN: TcflagT = 0x20000000uL
+
+public val NOFLSH: TcflagT = 0x80000000uL
+
+public val MDMBUF: TcflagT = 0x00100000uL
+
+public val WNOHANG: CInt = 0x00000001
+
+public val WUNTRACED: CInt = 0x00000002
+
+public val RTLD_LAZY: CInt = 0x1
+
+public val RTLD_NOW: CInt = 0x2
+
+public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1).toLong())
+
+public val RTLD_DEFAULT: COpaquePointer? = COpaquePointer((-2).toLong())
+
+public val RTLD_SELF: COpaquePointer? = COpaquePointer((-3).toLong())
+
+public val LOG_CRON: CInt = 9 shl 3
+
+public val LOG_AUTHPRIV: CInt = 10 shl 3
+
+public val LOG_FTP: CInt = 11 shl 3
+
+public val LOG_PERROR: CInt = 0x20
+
+public val TCP_NODELAY: CInt = 1
+
+public val TCP_MAXSEG: CInt = 2
+
+public val PIPE_BUF: Int = 512
+
+// siCode values for SIGBUS signal
+public val BUS_ADRALN: CInt = 1
+
+public val BUS_ADRERR: CInt = 2
+
+public val BUS_OBJERR: CInt = 3
+
+// siCode values for SIGCHLD signal
+public val CLD_EXITED: CInt = 1
+
+public val CLD_KILLED: CInt = 2
+
+public val CLD_DUMPED: CInt = 3
+
+public val CLD_TRAPPED: CInt = 4
+
+public val CLD_STOPPED: CInt = 5
+
+public val CLD_CONTINUED: CInt = 6
+
+public val POLLIN: CShort = 0x1
+
+public val POLLPRI: CShort = 0x2
+
+public val POLLOUT: CShort = 0x4
+
+public val POLLERR: CShort = 0x8
+
+public val POLLHUP: CShort = 0x10
+
+public val POLLNVAL: CShort = 0x20
+
+public val POLLRDNORM: CShort = 0x040
+
+public val POLLWRNORM: CShort = 0x004
+
+public val POLLRDBAND: CShort = 0x080
+
+public val POLLWRBAND: CShort = 0x100
+
+public val BIOCGBLEN: CUlong = 0x40044266uL
+
+public val BIOCSBLEN: CUlong = 0xc0044266uL
+
+public val BIOCFLUSH: CUint = 0x20004268u
+
+public val BIOCPROMISC: CUint = 0x20004269u
+
+public val BIOCGDLT: CUlong = 0x4004426auL
+
+public val BIOCGETIF: CUlong = 0x4020426buL
+
+public val BIOCSETIF: CUlong = 0x8020426cuL
+
+public val BIOCGSTATS: CUlong = 0x4008426fuL
+
+public val BIOCIMMEDIATE: CUlong = 0x80044270uL
+
+public val BIOCVERSION: CUlong = 0x40044271uL
+
+public val BIOCGHDRCMPLT: CUlong = 0x40044274uL
+
+public val BIOCSHDRCMPLT: CUlong = 0x80044275uL
+
+public val SIOCGIFADDR: CUlong = 0xc0206921uL
+
+public val REG_BASIC: CInt = 0
+
+public val REG_EXTENDED: CInt = 1
+
+public val REG_ICASE: CInt = 2
+
+public val REG_NOSUB: CInt = 4
+
+public val REG_NEWLINE: CInt = 8
+
+public val REG_NOSPEC: CInt = 16
+
+public val REG_PEND: CInt = 32
+
+public val REG_DUMP: CInt = 128
+
+public val REG_NOMATCH: CInt = 1
+
+public val REG_BADPAT: CInt = 2
+
+public val REG_ECOLLATE: CInt = 3
+
+public val REG_ECTYPE: CInt = 4
+
+public val REG_EESCAPE: CInt = 5
+
+public val REG_ESUBREG: CInt = 6
+
+public val REG_EBRACK: CInt = 7
+
+public val REG_EPAREN: CInt = 8
+
+public val REG_EBRACE: CInt = 9
+
+public val REG_BADBR: CInt = 10
+
+public val REG_ERANGE: CInt = 11
+
+public val REG_ESPACE: CInt = 12
+
+public val REG_BADRPT: CInt = 13
+
+public val REG_EMPTY: CInt = 14
+
+public val REG_ASSERT: CInt = 15
+
+public val REG_INVARG: CInt = 16
+
+public val REG_ATOI: CInt = 255
+
+public val REG_ITOA: CInt = 256
+
+public val REG_NOTBOL: CInt = 1
+
+public val REG_NOTEOL: CInt = 2
+
+public val REG_STARTEND: CInt = 4
+
+public val REG_TRACE: CInt = 256
+
+public val REG_LARGE: CInt = 512
+
+public val REG_BACKR: CInt = 1024
+
+public val TIOCCBRK: CUint = 0x2000747au
+
+public val TIOCSBRK: CUint = 0x2000747bu
+
+public val PRIO_PROCESS: CInt = 0
+
+public val PRIO_PGRP: CInt = 1
+
+public val PRIO_USER: CInt = 2
+
+public val ITIMER_REAL: CInt = 0
+
+public val ITIMER_VIRTUAL: CInt = 1
+
+public val ITIMER_PROF: CInt = 2
+
+// net/route.h
+public val RTF_UP: CInt = 0x1
+
+public val RTF_GATEWAY: CInt = 0x2
+
+public val RTF_HOST: CInt = 0x4
+
+public val RTF_REJECT: CInt = 0x8
+
+public val RTF_DYNAMIC: CInt = 0x10
+
+public val RTF_MODIFIED: CInt = 0x20
+
+public val RTF_DONE: CInt = 0x40
+
+public val RTF_STATIC: CInt = 0x800
+
+public val RTF_BLACKHOLE: CInt = 0x1000
+
+public val RTF_PROTO2: CInt = 0x4000
+
+public val RTF_PROTO1: CInt = 0x8000
+
+// Message types
+public val RTM_ADD: CInt = 0x1
+
+public val RTM_DELETE: CInt = 0x2
+
+public val RTM_CHANGE: CInt = 0x3
+
+public val RTM_GET: CInt = 0x4
+
+public val RTM_LOSING: CInt = 0x5
+
+public val RTM_REDIRECT: CInt = 0x6
+
+public val RTM_MISS: CInt = 0x7
+
+// Bitmask values for rtmAddrs.
+public val RTA_DST: CInt = 0x1
+
+public val RTA_GATEWAY: CInt = 0x2
+
+public val RTA_NETMASK: CInt = 0x4
+
+public val RTA_GENMASK: CInt = 0x8
+
+public val RTA_IFP: CInt = 0x10
+
+public val RTA_IFA: CInt = 0x20
+
+public val RTA_AUTHOR: CInt = 0x40
+
+public val RTA_BRD: CInt = 0x80
+
+// Index offsets for sockaddr array for alternate internal encoding.
+public val RTAX_DST: CInt = 0
+
+public val RTAX_GATEWAY: CInt = 1
+
+public val RTAX_NETMASK: CInt = 2
+
+public val RTAX_GENMASK: CInt = 3
+
+public val RTAX_IFP: CInt = 4
+
+public val RTAX_IFA: CInt = 5
+
+public val RTAX_AUTHOR: CInt = 6
+
+public val RTAX_BRD: CInt = 7
