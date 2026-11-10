@@ -3,3 +3,4 @@ headers = windows_wrapper.h
 headerFilter = windows_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = windows_wrapper.a
+linkerOpts.mingw = -lws2_32

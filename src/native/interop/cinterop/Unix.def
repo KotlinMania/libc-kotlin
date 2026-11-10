@@ -3,3 +3,4 @@ headers = unix_wrapper.h
 headerFilter = unix_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_wrapper.a
+linkerOpts.mingw = -lws2_32

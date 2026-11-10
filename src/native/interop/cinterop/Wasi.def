@@ -3,3 +3,4 @@ headers = wasi_wrapper.h
 headerFilter = wasi_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = wasi_wrapper.a
+linkerOpts.mingw = -lws2_32

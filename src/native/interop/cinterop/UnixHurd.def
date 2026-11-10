@@ -3,3 +3,4 @@ headers = unix_hurd_wrapper.h
 headerFilter = unix_hurd_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_hurd_wrapper.a
+linkerOpts.mingw = -lws2_32

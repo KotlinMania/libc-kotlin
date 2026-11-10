@@ -3,3 +3,4 @@ headers = unix_redox_wrapper.h
 headerFilter = unix_redox_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_redox_wrapper.a
+linkerOpts.mingw = -lws2_32
