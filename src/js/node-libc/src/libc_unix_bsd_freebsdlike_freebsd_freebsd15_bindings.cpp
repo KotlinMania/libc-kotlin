@@ -73,7 +73,11 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_setgrent_napi(con
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setgrent"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -102,7 +106,13 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_mprotect_napi(con
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mprotect"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(addr, len, prot) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(addr, len, prot);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -129,7 +139,11 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_freelocale_napi(c
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "freelocale"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(loc);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(loc);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -160,7 +174,13 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_msgrcv_napi(const
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "msgrcv"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(msqid, msgp, msgsz, msgtyp, msgflg) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(msqid, msgp, msgsz, msgtyp, msgflg);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -192,7 +212,13 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_cpusetGetdomain_n
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "cpuset_getdomain"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(level, which, id, setsize, mask, policy) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(level, which, id, setsize, mask, policy);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -224,7 +250,13 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_cpusetSetdomain_n
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "cpuset_setdomain"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(level, which, id, setsize, mask, policy) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(level, which, id, setsize, mask, policy);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -251,7 +283,13 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_dirname_napi(cons
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dirname"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(path) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(path);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -278,7 +316,13 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_basename_napi(con
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "basename"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(path) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(path);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -309,7 +353,11 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_qsortR_napi(const
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "qsort_r"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(base, num, size, compar, arg);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(base, num, size, compar, arg);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -334,9 +382,36 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd15_kvmKerndisp_napi(
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "kvm_kerndisp"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_kvm = nullptr;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_kvm, "kvm_kerndisp"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_kvm = nullptr;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_kvm, "kvm_kerndisp"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(kd) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 

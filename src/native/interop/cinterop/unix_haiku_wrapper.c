@@ -1039,7 +1039,7 @@ int32_t libc_unix_haiku_pthreadCreate(void* thread, void* attr, void* f, void* v
         return km_fn_ptr(thread, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadAttrGetguardsize(void* attr, void* guardsize) {
@@ -1067,7 +1067,7 @@ int32_t libc_unix_haiku_pthreadAttrGetguardsize(void* attr, void* guardsize) {
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
@@ -1095,7 +1095,7 @@ int32_t libc_unix_haiku_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) 
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -1123,7 +1123,7 @@ int32_t libc_unix_haiku_pthreadAttrGetstack(void* attr, void* stackaddr, void* s
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadCondattrGetclock(void* attr, void* clock_id) {
@@ -1151,7 +1151,7 @@ int32_t libc_unix_haiku_pthreadCondattrGetclock(void* attr, void* clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
@@ -1179,7 +1179,7 @@ int32_t libc_unix_haiku_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_haiku_valloc(uint64_t numBytes) {
@@ -1449,7 +1449,7 @@ int32_t libc_unix_haiku_pthreadMutexTimedlock(void* lock, void* abstime) {
         return km_fn_ptr(lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadSpinInit(void* lock, int32_t pshared) {
@@ -1477,7 +1477,7 @@ int32_t libc_unix_haiku_pthreadSpinInit(void* lock, int32_t pshared) {
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadSpinDestroy(void* lock) {
@@ -1505,7 +1505,7 @@ int32_t libc_unix_haiku_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadSpinLock(void* lock) {
@@ -1533,7 +1533,7 @@ int32_t libc_unix_haiku_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadSpinTrylock(void* lock) {
@@ -1561,7 +1561,7 @@ int32_t libc_unix_haiku_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadSpinUnlock(void* lock) {
@@ -1589,7 +1589,7 @@ int32_t libc_unix_haiku_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_waitid(int32_t idtype, int32_t id, void* infop, int32_t options) {
@@ -2365,7 +2365,7 @@ int32_t libc_unix_haiku_pthreadSigmask(int32_t how, void* set, void* oldset) {
         return km_fn_ptr(how, set, oldset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_haiku_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
@@ -2455,7 +2455,7 @@ int32_t libc_unix_haiku_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_semUnlink(const char* name) {
@@ -2763,7 +2763,7 @@ int32_t libc_unix_haiku_pthreadAtfork(void* prepare, void* parent, void* child) 
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_haiku_getgrgid(uint16_t gid) {
@@ -4695,6 +4695,27 @@ void* libc_unix_haiku_memmem(void* source, uint64_t sourceLength, void* search, 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memmem");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("/usr/lib/libgnu.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "memmem");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("libgnu.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "memmem");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4723,13 +4744,34 @@ int32_t libc_unix_haiku_pthreadGetattrNp(void* thread, void* attr) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getattr_np");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("/usr/lib/libgnu.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "pthread_getattr_np");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("libgnu.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "pthread_getattr_np");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
         return km_fn_ptr(thread, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadGetnameNp(void* thread, char* buffer, uint64_t length) {
@@ -4751,13 +4793,34 @@ int32_t libc_unix_haiku_pthreadGetnameNp(void* thread, char* buffer, uint64_t le
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getname_np");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("/usr/lib/libgnu.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "pthread_getname_np");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("libgnu.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "pthread_getname_np");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
         return km_fn_ptr(thread, buffer, length);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_haiku_pthreadSetnameNp(void* thread, const char* name) {
@@ -4779,12 +4842,33 @@ int32_t libc_unix_haiku_pthreadSetnameNp(void* thread, const char* name) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_setname_np");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("/usr/lib/libgnu.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "pthread_setname_np");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_gnu = NULL;
+            static bool km_h_gnu_init = false;
+            if (!km_h_gnu_init) {
+                km_h_gnu_init = true;
+                km_h_gnu = dlopen("libgnu.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_gnu != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_gnu, "pthread_setname_np");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
         return km_fn_ptr(thread, name);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

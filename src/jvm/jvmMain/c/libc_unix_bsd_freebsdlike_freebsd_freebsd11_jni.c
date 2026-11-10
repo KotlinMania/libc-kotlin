@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -41,7 +42,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setgrent");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -68,7 +75,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mprotect");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)prot) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)prot);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -95,7 +108,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freelocale");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)loc) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)loc);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -122,7 +141,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msgrcv");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)msqid, (void*)(uintptr_t)msgp, (uint64_t)msgsz, (int64_t)msgtyp, (int32_t)msgflg) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)msqid, (void*)(uintptr_t)msgp, (uint64_t)msgsz, (int64_t)msgtyp, (int32_t)msgflg);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -150,7 +175,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dirname");
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -179,7 +210,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "basename");
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -207,6 +244,10 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "qsort_r@FBSD_1.0");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)base, (uint64_t)num, (uint64_t)size, (void*)(uintptr_t)arg, (void*)(uintptr_t)compar);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)base, (uint64_t)num, (uint64_t)size, (void*)(uintptr_t)arg, (void*)(uintptr_t)compar);
+    } else {
+        errno = ENOSYS;
+    }
 }
 

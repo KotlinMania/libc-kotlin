@@ -76,7 +76,13 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetaffinityNp_napi(c
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getaffinity_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, cpusetsize, cpuset) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, cpusetsize, cpuset);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -104,7 +110,13 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetattrNp_napi(const
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getattr_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, attr);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -133,7 +145,13 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetnameNp_napi(const
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getname_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, name, len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, name, len);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -162,7 +180,13 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadSetaffinityNp_napi(c
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_setaffinity_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, cpusetsize, cpuset) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, cpusetsize, cpuset);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -192,7 +216,13 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadSetnameNp_napi(const
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_setname_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, name) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, name);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 

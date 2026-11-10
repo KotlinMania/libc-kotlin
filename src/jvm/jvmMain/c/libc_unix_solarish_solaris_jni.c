@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -41,7 +42,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fexecve");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -68,7 +75,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mincore");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (char*)(uintptr_t)vec) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (char*)(uintptr_t)vec);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -95,7 +108,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "door_call");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)d, (void*)(uintptr_t)params) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)d, (void*)(uintptr_t)params);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -122,7 +141,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "door_return");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)data_ptr, (uint64_t)data_size, (void*)(uintptr_t)desc_ptr, (uint32_t)num_desc) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)data_ptr, (uint64_t)data_size, (void*)(uintptr_t)desc_ptr, (uint32_t)num_desc);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -149,7 +174,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "door_create");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)server_procedure, (void*)(uintptr_t)cookie, (uint32_t)attributes) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)server_procedure, (void*)(uintptr_t)cookie, (uint32_t)attributes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -177,7 +208,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fattach");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fildes, path_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fildes, path_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -205,7 +242,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getattr_np");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)attr);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -233,7 +276,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "euidaccess");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)amode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)amode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -261,7 +310,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openpty");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)amain, (void*)(uintptr_t)asubord, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)amain, (void*)(uintptr_t)asubord, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -288,7 +343,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_solaris_Uni
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "forkpty");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)amain, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)amain, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 

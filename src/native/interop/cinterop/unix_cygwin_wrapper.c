@@ -106,7 +106,7 @@ int32_t libc_unix_cygwin_pthreadSigmask(int32_t how, void* set, void* oldset) {
         return km_fn_ptr(how, set, oldset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_sigsuspend(void* mask) {
@@ -190,7 +190,7 @@ int32_t libc_unix_cygwin_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_sigtimedwait(void* set, void* info, void* timeout) {
@@ -3404,7 +3404,7 @@ int32_t libc_unix_cygwin_pthreadAtfork(void* prepare, void* parent, void* child)
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pipe2(void* fds, int32_t flags) {
@@ -3934,7 +3934,7 @@ int32_t libc_unix_cygwin_pthreadAttrGetguardsize(void* attr, void* guardsize) {
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadAttrGetschedparam(void* attr, void* param) {
@@ -3962,7 +3962,7 @@ int32_t libc_unix_cygwin_pthreadAttrGetschedparam(void* attr, void* param) {
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadAttrSetschedparam(void* attr, void* param) {
@@ -3990,7 +3990,7 @@ int32_t libc_unix_cygwin_pthreadAttrSetschedparam(void* attr, void* param) {
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -4018,7 +4018,7 @@ int32_t libc_unix_cygwin_pthreadAttrGetstack(void* attr, void* stackaddr, void* 
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadCancel(void* thread) {
@@ -4046,7 +4046,7 @@ int32_t libc_unix_cygwin_pthreadCancel(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadCondattrGetclock(void* attr, void* clock_id) {
@@ -4074,7 +4074,7 @@ int32_t libc_unix_cygwin_pthreadCondattrGetclock(void* attr, void* clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadCondattrGetpshared(void* attr, void* pshared) {
@@ -4102,7 +4102,7 @@ int32_t libc_unix_cygwin_pthreadCondattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
@@ -4130,7 +4130,7 @@ int32_t libc_unix_cygwin_pthreadCondattrSetclock(void* attr, uint64_t clock_id) 
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
@@ -4158,7 +4158,7 @@ int32_t libc_unix_cygwin_pthreadCondattrSetpshared(void* attr, int32_t pshared) 
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadBarrierattrInit(void* attr) {
@@ -4186,7 +4186,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadBarrierattrSetpshared(void* attr, int32_t shared) {
@@ -4214,7 +4214,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrSetpshared(void* attr, int32_t shared
         return km_fn_ptr(attr, shared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadBarrierattrGetpshared(void* attr, void* shared) {
@@ -4242,7 +4242,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrGetpshared(void* attr, void* shared) 
         return km_fn_ptr(attr, shared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadBarrierattrDestroy(void* attr) {
@@ -4270,7 +4270,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
@@ -4298,7 +4298,7 @@ int32_t libc_unix_cygwin_pthreadBarrierInit(void* barrier, void* attr, uint32_t 
         return km_fn_ptr(barrier, attr, count);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadBarrierDestroy(void* barrier) {
@@ -4326,7 +4326,7 @@ int32_t libc_unix_cygwin_pthreadBarrierDestroy(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadBarrierWait(void* barrier) {
@@ -4354,7 +4354,7 @@ int32_t libc_unix_cygwin_pthreadBarrierWait(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadCreate(void* native, void* attr, void* f, void* value) {
@@ -4382,7 +4382,7 @@ int32_t libc_unix_cygwin_pthreadCreate(void* native, void* attr, void* f, void* 
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadGetcpuclockid(void* thread, void* clk_id) {
@@ -4410,7 +4410,7 @@ int32_t libc_unix_cygwin_pthreadGetcpuclockid(void* thread, void* clk_id) {
         return km_fn_ptr(thread, clk_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadGetschedparam(void* native, void* policy, void* param) {
@@ -4438,7 +4438,7 @@ int32_t libc_unix_cygwin_pthreadGetschedparam(void* native, void* policy, void* 
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadMutexTimedlock(void* lock, void* abstime) {
@@ -4466,7 +4466,7 @@ int32_t libc_unix_cygwin_pthreadMutexTimedlock(void* lock, void* abstime) {
         return km_fn_ptr(lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadMutexattrGetprotocol(void* attr, void* protocol) {
@@ -4494,7 +4494,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrGetprotocol(void* attr, void* protocol)
         return km_fn_ptr(attr, protocol);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadMutexattrGetpshared(void* attr, void* pshared) {
@@ -4522,7 +4522,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadMutexattrSetprotocol(void* attr, int32_t protocol) {
@@ -4550,7 +4550,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrSetprotocol(void* attr, int32_t protoco
         return km_fn_ptr(attr, protocol);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
@@ -4578,7 +4578,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrSetpshared(void* attr, int32_t pshared)
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSpinDestroy(void* lock) {
@@ -4606,7 +4606,7 @@ int32_t libc_unix_cygwin_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSpinInit(void* lock, int32_t pshared) {
@@ -4634,7 +4634,7 @@ int32_t libc_unix_cygwin_pthreadSpinInit(void* lock, int32_t pshared) {
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSpinLock(void* lock) {
@@ -4662,7 +4662,7 @@ int32_t libc_unix_cygwin_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSpinTrylock(void* lock) {
@@ -4690,7 +4690,7 @@ int32_t libc_unix_cygwin_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSpinUnlock(void* lock) {
@@ -4718,7 +4718,7 @@ int32_t libc_unix_cygwin_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadRwlockattrGetpshared(void* attr, void* val) {
@@ -4746,7 +4746,7 @@ int32_t libc_unix_cygwin_pthreadRwlockattrGetpshared(void* attr, void* val) {
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
@@ -4774,7 +4774,7 @@ int32_t libc_unix_cygwin_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSetschedparam(void* native, int32_t policy, void* param) {
@@ -4802,7 +4802,7 @@ int32_t libc_unix_cygwin_pthreadSetschedparam(void* native, int32_t policy, void
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSetschedprio(void* native, int32_t priority) {
@@ -4830,7 +4830,7 @@ int32_t libc_unix_cygwin_pthreadSetschedprio(void* native, int32_t priority) {
         return km_fn_ptr(native, priority);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadGetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
@@ -4858,7 +4858,7 @@ int32_t libc_unix_cygwin_pthreadGetaffinityNp(void* thread, uint64_t cpusetsize,
         return km_fn_ptr(thread, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadGetattrNp(void* native, void* attr) {
@@ -4886,7 +4886,7 @@ int32_t libc_unix_cygwin_pthreadGetattrNp(void* native, void* attr) {
         return km_fn_ptr(native, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
@@ -4914,7 +4914,7 @@ int32_t libc_unix_cygwin_pthreadGetnameNp(void* thread, char* name, uint64_t len
         return km_fn_ptr(thread, name, len);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
@@ -4942,7 +4942,7 @@ int32_t libc_unix_cygwin_pthreadSetaffinityNp(void* thread, uint64_t cpusetsize,
         return km_fn_ptr(thread, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_pthreadSetnameNp(void* thread, const char* name) {
@@ -4970,7 +4970,7 @@ int32_t libc_unix_cygwin_pthreadSetnameNp(void* thread, const char* name) {
         return km_fn_ptr(thread, name);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_cygwin_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {

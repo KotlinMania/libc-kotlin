@@ -75,7 +75,13 @@ static Napi::Value libc_unix_newlib_vita_futimens_napi(const Napi::CallbackInfo&
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "futimens"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, times) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, times);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -104,7 +110,13 @@ static Napi::Value libc_unix_newlib_vita_writev_napi(const Napi::CallbackInfo& k
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "writev"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, iov, iovcnt) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, iov, iovcnt);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -133,7 +145,13 @@ static Napi::Value libc_unix_newlib_vita_readv_napi(const Napi::CallbackInfo& km
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "readv"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, iov, iovcnt) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, iov, iovcnt);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -162,7 +180,13 @@ static Napi::Value libc_unix_newlib_vita_sendmsg_napi(const Napi::CallbackInfo& 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sendmsg"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(s, msg, flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(s, msg, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -191,7 +215,13 @@ static Napi::Value libc_unix_newlib_vita_recvmsg_napi(const Napi::CallbackInfo& 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "recvmsg"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(s, msg, flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(s, msg, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -221,7 +251,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadCreate_napi(const Napi::Callback
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_create"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, attr, f, value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, attr, f, value);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -249,7 +285,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrGetschedparam_napi(const Nap
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_attr_getschedparam"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -277,7 +319,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrSetschedparam_napi(const Nap
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_attr_setschedparam"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -305,7 +353,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrGetprocessoridNp_napi(const 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_attr_getprocessorid_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, processor_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, processor_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -333,7 +387,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrSetprocessoridNp_napi(const 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_attr_setprocessorid_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, processor_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, processor_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -362,7 +422,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadGetschedparam_napi(const Napi::C
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getschedparam"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, policy, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, policy, param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -391,7 +457,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadSetschedparam_napi(const Napi::C
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_setschedparam"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, policy, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, policy, param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -419,7 +491,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadCondattrGetclock_napi(const Napi
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_condattr_getclock"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, clock_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, clock_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -447,7 +525,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadCondattrSetclock_napi(const Napi
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_condattr_setclock"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, clock_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, clock_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -473,7 +557,13 @@ static Napi::Value libc_unix_newlib_vita_pthreadGetprocessoridNp_napi(const Napi
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getprocessorid_np"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -501,7 +591,13 @@ static Napi::Value libc_unix_newlib_vita_getentropy_napi(const Napi::CallbackInf
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getentropy"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(buf, buflen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(buf, buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -529,7 +625,13 @@ static Napi::Value libc_unix_newlib_vita_pipe2_napi(const Napi::CallbackInfo& km
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pipe2"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fds, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fds, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 

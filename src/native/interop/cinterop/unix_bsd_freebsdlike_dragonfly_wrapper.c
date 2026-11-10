@@ -389,7 +389,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinInit(void* lock, int32_t 
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy(void* lock) {
@@ -417,7 +417,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock(void* lock) {
@@ -445,7 +445,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock(void* lock) {
@@ -473,7 +473,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock(void* lock) {
@@ -501,7 +501,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* mask) {
@@ -1397,6 +1397,27 @@ void* libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst(void* kvm, void* ma
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_vm_map_entry_first");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_vm_map_entry_first");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_vm_map_entry_first");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1425,6 +1446,27 @@ void* libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext(void* kvm, void* map
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_vm_map_entry_next");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_vm_map_entry_next");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_vm_map_entry_next");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

@@ -75,7 +75,13 @@ static Napi::Value libc_unix_linuxlike_android_b64_systemPropertyWait_napi(const
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__system_property_wait"));
     }
 #endif
-    bool km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pi, arg_1_old_serial, arg_2_new_serial_ptr, arg_3_relative_timeout) : false;
+    bool km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pi, arg_1_old_serial, arg_2_new_serial_ptr, arg_3_relative_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = false;
+    }
     return Napi::Boolean::New(km_env, km_res);
 }
 

@@ -180,7 +180,7 @@ int32_t libc_unix_newlib_vita_pthreadCreate(void* native, void* attr, void* f, v
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadAttrGetschedparam(void* attr, void* param) {
@@ -208,7 +208,7 @@ int32_t libc_unix_newlib_vita_pthreadAttrGetschedparam(void* attr, void* param) 
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadAttrSetschedparam(void* attr, void* param) {
@@ -236,7 +236,7 @@ int32_t libc_unix_newlib_vita_pthreadAttrSetschedparam(void* attr, void* param) 
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadAttrGetprocessoridNp(void* attr, void* processor_id) {
@@ -264,7 +264,7 @@ int32_t libc_unix_newlib_vita_pthreadAttrGetprocessoridNp(void* attr, void* proc
         return km_fn_ptr(attr, processor_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadAttrSetprocessoridNp(void* attr, int32_t processor_id) {
@@ -292,7 +292,7 @@ int32_t libc_unix_newlib_vita_pthreadAttrSetprocessoridNp(void* attr, int32_t pr
         return km_fn_ptr(attr, processor_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadGetschedparam(void* native, void* policy, void* param) {
@@ -320,7 +320,7 @@ int32_t libc_unix_newlib_vita_pthreadGetschedparam(void* native, void* policy, v
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadSetschedparam(void* native, int32_t policy, void* param) {
@@ -348,7 +348,7 @@ int32_t libc_unix_newlib_vita_pthreadSetschedparam(void* native, int32_t policy,
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadCondattrGetclock(void* attr, void* clock_id) {
@@ -376,7 +376,7 @@ int32_t libc_unix_newlib_vita_pthreadCondattrGetclock(void* attr, void* clock_id
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
@@ -404,7 +404,7 @@ int32_t libc_unix_newlib_vita_pthreadCondattrSetclock(void* attr, uint64_t clock
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_pthreadGetprocessoridNp(void) {
@@ -432,7 +432,7 @@ int32_t libc_unix_newlib_vita_pthreadGetprocessoridNp(void) {
         return km_fn_ptr();
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_vita_getentropy(void* buf, uint64_t buflen) {

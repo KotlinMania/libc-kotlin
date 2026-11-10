@@ -2759,6 +2759,11 @@ void* libc_unix_linuxlike_linux_l4re_shared_freopen64(const char* filename, cons
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freopen64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freopen");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2787,6 +2792,11 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_fseeko64(void* stream, int64_t off
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fseeko64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fseeko");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2815,6 +2825,11 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_fsetpos64(void* stream, void* ptr)
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fsetpos64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fsetpos");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2843,6 +2858,11 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_ftello64(void* stream) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftello64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftello");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

@@ -3,9 +3,9 @@
 #endif
 #include "unix_wrapper.h"
 #include <errno.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -3279,7 +3279,7 @@ int32_t libc_unix_pthreadJoin(void* native, void* value) {
         return km_fn_ptr(native, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_unix_pthreadExit(void* value) {
@@ -3335,7 +3335,7 @@ int32_t libc_unix_pthreadAttrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadAttrDestroy(void* attr) {
@@ -3363,7 +3363,7 @@ int32_t libc_unix_pthreadAttrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadAttrGetstacksize(void* attr, void* stacksize) {
@@ -3391,7 +3391,7 @@ int32_t libc_unix_pthreadAttrGetstacksize(void* attr, void* stacksize) {
         return km_fn_ptr(attr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
@@ -3419,7 +3419,7 @@ int32_t libc_unix_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
         return km_fn_ptr(attr, stack_size);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadAttrSetdetachstate(void* attr, int32_t state) {
@@ -3447,7 +3447,7 @@ int32_t libc_unix_pthreadAttrSetdetachstate(void* attr, int32_t state) {
         return km_fn_ptr(attr, state);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadDetach(void* thread) {
@@ -3475,7 +3475,7 @@ int32_t libc_unix_pthreadDetach(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_schedYield(void) {
@@ -3531,7 +3531,7 @@ int32_t libc_unix_pthreadKeyCreate(void* key, void* dtor) {
         return km_fn_ptr(key, dtor);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadKeyDelete(int32_t key) {
@@ -3559,7 +3559,7 @@ int32_t libc_unix_pthreadKeyDelete(int32_t key) {
         return km_fn_ptr(key);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_pthreadGetspecific(int32_t key) {
@@ -3615,7 +3615,7 @@ int32_t libc_unix_pthreadSetspecific(int32_t key, void* value) {
         return km_fn_ptr(key, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexInit(void* lock, void* attr) {
@@ -3643,7 +3643,7 @@ int32_t libc_unix_pthreadMutexInit(void* lock, void* attr) {
         return km_fn_ptr(lock, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexDestroy(void* lock) {
@@ -3671,7 +3671,7 @@ int32_t libc_unix_pthreadMutexDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexLock(void* lock) {
@@ -3699,7 +3699,7 @@ int32_t libc_unix_pthreadMutexLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexTrylock(void* lock) {
@@ -3727,7 +3727,7 @@ int32_t libc_unix_pthreadMutexTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexUnlock(void* lock) {
@@ -3755,7 +3755,7 @@ int32_t libc_unix_pthreadMutexUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexattrInit(void* attr) {
@@ -3783,7 +3783,7 @@ int32_t libc_unix_pthreadMutexattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexattrDestroy(void* attr) {
@@ -3811,7 +3811,7 @@ int32_t libc_unix_pthreadMutexattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
@@ -3839,7 +3839,7 @@ int32_t libc_unix_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
         return km_fn_ptr(attr, arg_1_type);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondInit(void* cond, void* attr) {
@@ -3867,7 +3867,7 @@ int32_t libc_unix_pthreadCondInit(void* cond, void* attr) {
         return km_fn_ptr(cond, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondWait(void* cond, void* lock) {
@@ -3895,7 +3895,7 @@ int32_t libc_unix_pthreadCondWait(void* cond, void* lock) {
         return km_fn_ptr(cond, lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
@@ -3923,7 +3923,7 @@ int32_t libc_unix_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
         return km_fn_ptr(cond, lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondSignal(void* cond) {
@@ -3951,7 +3951,7 @@ int32_t libc_unix_pthreadCondSignal(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondBroadcast(void* cond) {
@@ -3979,7 +3979,7 @@ int32_t libc_unix_pthreadCondBroadcast(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondDestroy(void* cond) {
@@ -4007,7 +4007,7 @@ int32_t libc_unix_pthreadCondDestroy(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondattrInit(void* attr) {
@@ -4035,7 +4035,7 @@ int32_t libc_unix_pthreadCondattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadCondattrDestroy(void* attr) {
@@ -4063,7 +4063,7 @@ int32_t libc_unix_pthreadCondattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockInit(void* lock, void* attr) {
@@ -4091,7 +4091,7 @@ int32_t libc_unix_pthreadRwlockInit(void* lock, void* attr) {
         return km_fn_ptr(lock, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockDestroy(void* lock) {
@@ -4119,7 +4119,7 @@ int32_t libc_unix_pthreadRwlockDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockRdlock(void* lock) {
@@ -4147,7 +4147,7 @@ int32_t libc_unix_pthreadRwlockRdlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockTryrdlock(void* lock) {
@@ -4175,7 +4175,7 @@ int32_t libc_unix_pthreadRwlockTryrdlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockWrlock(void* lock) {
@@ -4203,7 +4203,7 @@ int32_t libc_unix_pthreadRwlockWrlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockTrywrlock(void* lock) {
@@ -4231,7 +4231,7 @@ int32_t libc_unix_pthreadRwlockTrywrlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockUnlock(void* lock) {
@@ -4259,7 +4259,7 @@ int32_t libc_unix_pthreadRwlockUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockattrInit(void* attr) {
@@ -4287,7 +4287,7 @@ int32_t libc_unix_pthreadRwlockattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_pthreadRwlockattrDestroy(void* attr) {
@@ -4315,7 +4315,7 @@ int32_t libc_unix_pthreadRwlockattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {

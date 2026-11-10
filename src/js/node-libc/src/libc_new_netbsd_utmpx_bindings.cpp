@@ -71,9 +71,34 @@ static Napi::Value libc_new_netbsd_utmpx_setutxent_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setutxent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "setutxent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "setutxent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -97,9 +122,34 @@ static Napi::Value libc_new_netbsd_utmpx_endutxent_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "endutxent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "endutxent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "endutxent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -121,9 +171,36 @@ static Napi::Value libc_new_netbsd_utmpx_getutxent_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__getutxent50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutxent50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutxent50"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -146,9 +223,36 @@ static Napi::Value libc_new_netbsd_utmpx_getutxid_napi(const Napi::CallbackInfo&
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__getutxid50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutxid50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutxid50"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(ut) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(ut);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -171,9 +275,36 @@ static Napi::Value libc_new_netbsd_utmpx_getutxline_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__getutxline50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutxline50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutxline50"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(ut) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(ut);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -196,9 +327,36 @@ static Napi::Value libc_new_netbsd_utmpx_pututxline_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__pututxline50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__pututxline50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__pututxline50"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(ut) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(ut);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -224,9 +382,36 @@ static Napi::Value libc_new_netbsd_utmpx_updwtmpx_napi(const Napi::CallbackInfo&
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__updwtmpx50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__updwtmpx50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__updwtmpx50"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(file, ut) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(file, ut);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -253,9 +438,36 @@ static Napi::Value libc_new_netbsd_utmpx_getlastlogx_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__getlastlogx50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getlastlogx50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getlastlogx50"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fname, uid, ll) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fname, uid, ll);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -282,9 +494,36 @@ static Napi::Value libc_new_netbsd_utmpx_updlastlogx_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__updlastlogx50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__updlastlogx50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__updlastlogx50"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fname, uid, ll) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fname, uid, ll);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -308,9 +547,34 @@ static Napi::Value libc_new_netbsd_utmpx_getutmp_napi(const Napi::CallbackInfo& 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__getutmp50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutmp50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutmp50"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(ux, u);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(ux, u);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -334,9 +598,34 @@ static Napi::Value libc_new_netbsd_utmpx_getutmpx_napi(const Napi::CallbackInfo&
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__getutmpx50"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutmpx50"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "__getutmpx50"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(u, ux);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(u, ux);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -363,9 +652,36 @@ static Napi::Value libc_new_netbsd_utmpx_utmpxname_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "utmpxname"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "utmpxname"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_util = nullptr;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "utmpxname"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(file) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(file);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 

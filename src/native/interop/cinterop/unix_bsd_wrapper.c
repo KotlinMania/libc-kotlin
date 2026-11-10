@@ -1310,7 +1310,7 @@ int32_t libc_unix_bsd_pthreadSigmask(int32_t how, void* set, void* oldset) {
         return km_fn_ptr(how, set, oldset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_bsd_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
@@ -1400,7 +1400,7 @@ int32_t libc_unix_bsd_pthreadCancel(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_pthreadKill(void* thread, int32_t sig) {
@@ -1428,7 +1428,7 @@ int32_t libc_unix_bsd_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_schedGetPriorityMin(int32_t policy) {
@@ -1624,7 +1624,7 @@ int32_t libc_unix_bsd_pthreadAtfork(void* prepare, void* parent, void* child) {
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_bsd_getgrgid(uint16_t gid) {
@@ -1736,7 +1736,7 @@ int32_t libc_unix_bsd_pthreadCreate(void* native, void* attr, void* f, void* val
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_acct(const char* filename) {

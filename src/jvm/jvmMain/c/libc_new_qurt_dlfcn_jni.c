@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -42,7 +43,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_dlfcn_NewQurtDl
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dlopen");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(filename_utf, (int32_t)flag) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(filename_utf, (int32_t)flag);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (filename != NULL && filename_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, filename, filename_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -70,7 +77,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_dlfcn_NewQurtDlf
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dlclose");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)handle) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)handle);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -98,7 +111,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_dlfcn_NewQurtDl
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dlsym");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)handle, symbol_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)handle, symbol_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (symbol != NULL && symbol_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, symbol, symbol_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -126,7 +145,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_dlfcn_NewQurtDl
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dlerror");
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 

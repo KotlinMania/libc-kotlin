@@ -103,7 +103,7 @@ int32_t libc_new_qurt_pthreadAttrGetstack(void* attr, void* stackaddr, void* sta
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_qurt_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
@@ -131,7 +131,7 @@ int32_t libc_new_qurt_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t 
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_qurt_clockGetcpuclockid(int32_t pid, void* clock_id) {

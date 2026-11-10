@@ -124,7 +124,7 @@ int32_t libc_unix_newlib_rtems_pthreadCreate(void* native, void* attr, void* f, 
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_rtems_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
@@ -152,7 +152,7 @@ int32_t libc_unix_newlib_rtems_pthreadCondattrSetclock(void* attr, uint64_t cloc
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_rtems_getentropy(void* buf, uint64_t buflen) {

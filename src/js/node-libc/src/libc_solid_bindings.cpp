@@ -392,7 +392,13 @@ static Napi::Value libc_solid_isalnum_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isalnum"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -419,7 +425,13 @@ static Napi::Value libc_solid_isalpha_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isalpha"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -446,7 +458,13 @@ static Napi::Value libc_solid_iscntrl_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "iscntrl"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -473,7 +491,13 @@ static Napi::Value libc_solid_isdigit_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isdigit"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -500,7 +524,13 @@ static Napi::Value libc_solid_isgraph_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isgraph"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -527,7 +557,13 @@ static Napi::Value libc_solid_islower_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "islower"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -554,7 +590,13 @@ static Napi::Value libc_solid_isprint_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isprint"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -581,7 +623,13 @@ static Napi::Value libc_solid_ispunct_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ispunct"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -608,7 +656,13 @@ static Napi::Value libc_solid_isspace_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isspace"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -635,7 +689,13 @@ static Napi::Value libc_solid_isupper_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isupper"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -662,7 +722,13 @@ static Napi::Value libc_solid_isxdigit_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isxdigit"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -689,7 +755,13 @@ static Napi::Value libc_solid_isblank_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "isblank"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -716,7 +788,13 @@ static Napi::Value libc_solid_tolower_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "tolower"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -743,7 +821,13 @@ static Napi::Value libc_solid_toupper_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "toupper"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(c) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(c);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -768,7 +852,13 @@ static Napi::Value libc_solid_getStdioFile_napi(const Napi::CallbackInfo& km_inf
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__get_stdio_file"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fileno) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fileno);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -795,7 +885,11 @@ static Napi::Value libc_solid_clearerr_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clearerr"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -822,7 +916,13 @@ static Napi::Value libc_solid_fclose_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fclose"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -849,7 +949,13 @@ static Napi::Value libc_solid_feof_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "feof"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -876,7 +982,13 @@ static Napi::Value libc_solid_ferror_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ferror"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -903,7 +1015,13 @@ static Napi::Value libc_solid_fflush_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fflush"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -930,7 +1048,13 @@ static Napi::Value libc_solid_fgetc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fgetc"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -959,7 +1083,13 @@ static Napi::Value libc_solid_fgets_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fgets"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -991,7 +1121,13 @@ static Napi::Value libc_solid_fopen_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fopen"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1035,6 +1171,8 @@ static Napi::Value libc_solid_fprintf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -1063,7 +1201,13 @@ static Napi::Value libc_solid_fputc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fputc"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1093,7 +1237,13 @@ static Napi::Value libc_solid_fputs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fputs"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1123,7 +1273,13 @@ static Napi::Value libc_solid_fread_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fread"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -1156,7 +1312,13 @@ static Napi::Value libc_solid_freopen_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "freopen"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1200,6 +1362,8 @@ static Napi::Value libc_solid_fscanf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -1229,7 +1393,13 @@ static Napi::Value libc_solid_fseek_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fseek"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1256,7 +1426,13 @@ static Napi::Value libc_solid_ftell_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ftell"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -1286,7 +1462,13 @@ static Napi::Value libc_solid_fwrite_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fwrite"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -1313,7 +1495,13 @@ static Napi::Value libc_solid_getc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getc"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1339,7 +1527,13 @@ static Napi::Value libc_solid_getchar_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getchar"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1368,7 +1562,11 @@ static Napi::Value libc_solid_perror_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "perror"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1411,6 +1609,8 @@ static Napi::Value libc_solid_printf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -1439,7 +1639,13 @@ static Napi::Value libc_solid_putc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "putc"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1466,7 +1672,13 @@ static Napi::Value libc_solid_putchar_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "putchar"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1495,7 +1707,13 @@ static Napi::Value libc_solid_puts_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "puts"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1524,7 +1742,13 @@ static Napi::Value libc_solid_remove_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "remove"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1551,7 +1775,11 @@ static Napi::Value libc_solid_rewind_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rewind"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1594,6 +1822,8 @@ static Napi::Value libc_solid_scanf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -1622,7 +1852,11 @@ static Napi::Value libc_solid_setbuf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setbuf"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1, arg2);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1652,7 +1886,13 @@ static Napi::Value libc_solid_setvbuf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setvbuf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1698,6 +1938,8 @@ static Napi::Value libc_solid_sscanf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -1724,7 +1966,13 @@ static Napi::Value libc_solid_tmpfile_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "tmpfile"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1752,7 +2000,13 @@ static Napi::Value libc_solid_ungetc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ungetc"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1783,7 +2037,13 @@ static Napi::Value libc_solid_vfprintf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vfprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1813,7 +2073,13 @@ static Napi::Value libc_solid_vprintf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1840,7 +2106,13 @@ static Napi::Value libc_solid_gets_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "gets"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1884,6 +2156,8 @@ static Napi::Value libc_solid_sprintf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -1913,7 +2187,13 @@ static Napi::Value libc_solid_tmpnam_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "tmpnam"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1944,7 +2224,13 @@ static Napi::Value libc_solid_vsprintf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vsprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1976,7 +2262,13 @@ static Napi::Value libc_solid_rename_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rename"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2020,6 +2312,8 @@ static Napi::Value libc_solid_asiprintf_napi(const Napi::CallbackInfo& km_info) 
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2064,6 +2358,8 @@ static Napi::Value libc_solid_fiprintf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2108,6 +2404,8 @@ static Napi::Value libc_solid_fiscanf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2151,6 +2449,8 @@ static Napi::Value libc_solid_iprintf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2194,6 +2494,8 @@ static Napi::Value libc_solid_iscanf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2238,6 +2540,8 @@ static Napi::Value libc_solid_siprintf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2282,6 +2586,8 @@ static Napi::Value libc_solid_siscanf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2327,6 +2633,8 @@ static Napi::Value libc_solid_sniprintf_napi(const Napi::CallbackInfo& km_info) 
             case 3: km_res = km_fn_ptr(arg1, arg2, arg3, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, arg3, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2358,7 +2666,13 @@ static Napi::Value libc_solid_vasiprintf_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vasiprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2389,7 +2703,13 @@ static Napi::Value libc_solid_vfiprintf_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vfiprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2420,7 +2740,13 @@ static Napi::Value libc_solid_vfiscanf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vfiscanf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2450,7 +2776,13 @@ static Napi::Value libc_solid_viprintf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "viprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2480,7 +2812,13 @@ static Napi::Value libc_solid_viscanf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "viscanf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2511,7 +2849,13 @@ static Napi::Value libc_solid_vsiprintf_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vsiprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2544,7 +2888,13 @@ static Napi::Value libc_solid_vsiscanf_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vsiscanf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2576,7 +2926,13 @@ static Napi::Value libc_solid_vsniprintf_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vsniprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2607,7 +2963,13 @@ static Napi::Value libc_solid_vdiprintf_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vdiprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2651,6 +3013,8 @@ static Napi::Value libc_solid_diprintf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -2679,7 +3043,13 @@ static Napi::Value libc_solid_fgetpos_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fgetpos"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2707,7 +3077,13 @@ static Napi::Value libc_solid_fsetpos_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fsetpos"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2737,7 +3113,13 @@ static Napi::Value libc_solid_fdopen_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fdopen"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -2764,7 +3146,13 @@ static Napi::Value libc_solid_fileno_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fileno"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2791,7 +3179,11 @@ static Napi::Value libc_solid_flockfile_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "flockfile"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -2818,7 +3210,13 @@ static Napi::Value libc_solid_ftrylockfile_napi(const Napi::CallbackInfo& km_inf
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ftrylockfile"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2845,7 +3243,11 @@ static Napi::Value libc_solid_funlockfile_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "funlockfile"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -2872,7 +3274,13 @@ static Napi::Value libc_solid_getcUnlocked_napi(const Napi::CallbackInfo& km_inf
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getc_unlocked"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2898,7 +3306,13 @@ static Napi::Value libc_solid_getcharUnlocked_napi(const Napi::CallbackInfo& km_
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getchar_unlocked"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2926,7 +3340,13 @@ static Napi::Value libc_solid_putcUnlocked_napi(const Napi::CallbackInfo& km_inf
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "putc_unlocked"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2953,7 +3373,13 @@ static Napi::Value libc_solid_putcharUnlocked_napi(const Napi::CallbackInfo& km_
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "putchar_unlocked"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2998,6 +3424,8 @@ static Napi::Value libc_solid_snprintf_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, arg3, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, arg3, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -3030,7 +3458,13 @@ static Napi::Value libc_solid_vsnprintf_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "vsnprintf"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3057,7 +3491,13 @@ static Napi::Value libc_solid_getw_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getw"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3085,7 +3525,13 @@ static Napi::Value libc_solid_putw_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "putw"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3117,7 +3563,13 @@ static Napi::Value libc_solid_tempnam_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "tempnam"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3146,7 +3598,13 @@ static Napi::Value libc_solid_fseeko_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fseeko"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(stream, offset, whence) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(stream, offset, whence);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3173,7 +3631,13 @@ static Napi::Value libc_solid_ftello_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ftello"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(stream) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(stream);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -3202,7 +3666,13 @@ static Napi::Value libc_solid_atof_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "atof"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3232,7 +3702,13 @@ static Napi::Value libc_solid_strtod_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtod"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3258,7 +3734,13 @@ static Napi::Value libc_solid_drand48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "drand48"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3285,7 +3767,13 @@ static Napi::Value libc_solid_erand48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "erand48"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3315,7 +3803,13 @@ static Napi::Value libc_solid_strtof_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtof"));
     }
 #endif
-    float km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0.0f;
+    float km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0f;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3345,7 +3839,13 @@ static Napi::Value libc_solid_strtold_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtold"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3376,7 +3876,13 @@ static Napi::Value libc_solid_strtodL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtod_l"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3407,7 +3913,13 @@ static Napi::Value libc_solid_strtofL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtof_l"));
     }
 #endif
-    float km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0.0f;
+    float km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0f;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3438,7 +3950,13 @@ static Napi::Value libc_solid_strtoldL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtold_l"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -3463,7 +3981,11 @@ static Napi::Value libc_solid_exit_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "_Exit"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -3489,7 +4011,11 @@ static Napi::Value libc_solid_abort_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "abort"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -3516,13 +4042,27 @@ static Napi::Value libc_solid_abs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "abs"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
 static Napi::Value libc_solid_atexit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    if (arg1 == nullptr) {
+        errno = EINVAL;
+        return Napi::Number::New(km_env, static_cast<int32_t>(-1));
+    }
+#ifdef __ANDROID__
+    int32_t km_res = static_cast<int32_t>(std::atexit(reinterpret_cast<void (*)()>(reinterpret_cast<uintptr_t>(arg1))));
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+#else
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3543,8 +4083,15 @@ static Napi::Value libc_solid_atexit_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "atexit"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+#endif
 }
 
 static Napi::Value libc_solid_atoi_napi(const Napi::CallbackInfo& km_info) {
@@ -3572,7 +4119,13 @@ static Napi::Value libc_solid_atoi_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "atoi"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3601,7 +4154,13 @@ static Napi::Value libc_solid_atol_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "atol"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -3630,7 +4189,13 @@ static Napi::Value libc_solid_itoa_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "itoa"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3659,7 +4224,13 @@ static Napi::Value libc_solid_ltoa_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ltoa"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3688,7 +4259,13 @@ static Napi::Value libc_solid_ultoa_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ultoa"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3719,7 +4296,13 @@ static Napi::Value libc_solid_bsearch_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "bsearch"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4, arg5) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4, arg5);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3747,7 +4330,13 @@ static Napi::Value libc_solid_calloc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "calloc"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3774,7 +4363,11 @@ static Napi::Value libc_solid_free_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "free"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -3803,7 +4396,13 @@ static Napi::Value libc_solid_getenv_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getenv"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3830,7 +4429,13 @@ static Napi::Value libc_solid_labs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "labs"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -3857,7 +4462,13 @@ static Napi::Value libc_solid_malloc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "malloc"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3887,7 +4498,11 @@ static Napi::Value libc_solid_qsort_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "qsort"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1, arg2, arg3, arg4);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -3913,7 +4528,13 @@ static Napi::Value libc_solid_rand_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rand"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3941,7 +4562,13 @@ static Napi::Value libc_solid_realloc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "realloc"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3968,7 +4595,11 @@ static Napi::Value libc_solid_srand_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "srand"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -3999,7 +4630,13 @@ static Napi::Value libc_solid_strtol_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtol"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4030,7 +4667,13 @@ static Napi::Value libc_solid_strtoul_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoul"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -4060,7 +4703,13 @@ static Napi::Value libc_solid_mblen_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mblen"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4091,7 +4740,13 @@ static Napi::Value libc_solid_mbstowcs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mbstowcs"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -4119,7 +4774,13 @@ static Napi::Value libc_solid_wctomb_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "wctomb"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4150,7 +4811,13 @@ static Napi::Value libc_solid_mbtowc_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mbtowc"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4179,7 +4846,13 @@ static Napi::Value libc_solid_wcstombs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "wcstombs"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -4206,7 +4879,13 @@ static Napi::Value libc_solid_randR_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rand_r"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4233,7 +4912,13 @@ static Napi::Value libc_solid_jrand48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "jrand48"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4260,7 +4945,11 @@ static Napi::Value libc_solid_lcong48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "lcong48"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -4286,7 +4975,13 @@ static Napi::Value libc_solid_lrand48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "lrand48"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4312,7 +5007,13 @@ static Napi::Value libc_solid_mrand48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mrand48"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4339,7 +5040,13 @@ static Napi::Value libc_solid_nrand48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "nrand48"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4366,7 +5073,13 @@ static Napi::Value libc_solid_seed48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "seed48"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4393,7 +5106,11 @@ static Napi::Value libc_solid_srand48_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "srand48"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -4420,7 +5137,13 @@ static Napi::Value libc_solid_putenv_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "putenv"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4449,7 +5172,13 @@ static Napi::Value libc_solid_a64l_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "a64l"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4476,7 +5205,13 @@ static Napi::Value libc_solid_l64a_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "l64a"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4502,7 +5237,13 @@ static Napi::Value libc_solid_random_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "random"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4529,7 +5270,13 @@ static Napi::Value libc_solid_setstate_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setstate"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4558,7 +5305,13 @@ static Napi::Value libc_solid_initstate_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "initstate"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4585,7 +5338,11 @@ static Napi::Value libc_solid_srandom_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "srandom"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -4613,7 +5370,13 @@ static Napi::Value libc_solid_mkostemp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkostemp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4642,7 +5405,13 @@ static Napi::Value libc_solid_mkostemps_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkostemps"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4669,7 +5438,13 @@ static Napi::Value libc_solid_mkdtemp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkdtemp"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4696,7 +5471,13 @@ static Napi::Value libc_solid_mkstemp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkstemp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4723,7 +5504,13 @@ static Napi::Value libc_solid_mktemp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mktemp"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4752,7 +5539,13 @@ static Napi::Value libc_solid_atoll_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "atoll"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4779,7 +5572,13 @@ static Napi::Value libc_solid_llabs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "llabs"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4810,7 +5609,13 @@ static Napi::Value libc_solid_strtoll_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoll"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -4841,7 +5646,13 @@ static Napi::Value libc_solid_strtoull_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoull"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -4869,7 +5680,13 @@ static Napi::Value libc_solid_alignedAlloc_napi(const Napi::CallbackInfo& km_inf
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aligned_alloc"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4896,7 +5713,13 @@ static Napi::Value libc_solid_atQuickExit_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "at_quick_exit"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4923,7 +5746,11 @@ static Napi::Value libc_solid_quickExit_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "quick_exit"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -4956,7 +5783,13 @@ static Napi::Value libc_solid_setenv_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setenv"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4985,7 +5818,13 @@ static Napi::Value libc_solid_unsetenv_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "unsetenv"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5019,7 +5858,13 @@ static Napi::Value libc_solid_humanizeNumber_napi(const Napi::CallbackInfo& km_i
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "humanize_number"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4, arg5, arg6) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4, arg5, arg6);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5049,7 +5894,13 @@ static Napi::Value libc_solid_dehumanizeNumber_napi(const Napi::CallbackInfo& km
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dehumanize_number"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5080,7 +5931,13 @@ static Napi::Value libc_solid_getenvR_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getenv_r"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5110,7 +5967,13 @@ static Napi::Value libc_solid_heapsort_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "heapsort"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5140,7 +6003,13 @@ static Napi::Value libc_solid_mergesort_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mergesort"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5170,7 +6039,13 @@ static Napi::Value libc_solid_radixsort_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "radixsort"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5200,7 +6075,13 @@ static Napi::Value libc_solid_sradixsort_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sradixsort"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5226,7 +6107,13 @@ static Napi::Value libc_solid_getprogname_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getprogname"));
     }
 #endif
-    const char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    const char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -5255,7 +6142,11 @@ static Napi::Value libc_solid_setprogname_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setprogname"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -5282,7 +6173,13 @@ static Napi::Value libc_solid_qabs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "qabs"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5313,7 +6210,13 @@ static Napi::Value libc_solid_strtoq_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoq"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5344,7 +6247,13 @@ static Napi::Value libc_solid_strtouq_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtouq"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5378,7 +6287,13 @@ static Napi::Value libc_solid_strsuftoll_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strsuftoll"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5414,7 +6329,13 @@ static Napi::Value libc_solid_strsuftollx_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strsuftollx"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4, arg5, arg6) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4, arg5, arg6);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5443,7 +6364,13 @@ static Napi::Value libc_solid_l64aR_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "l64a_r"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5475,7 +6402,13 @@ static Napi::Value libc_solid_strtolL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtol_l"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5507,7 +6440,13 @@ static Napi::Value libc_solid_strtoulL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoul_l"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5539,7 +6478,13 @@ static Napi::Value libc_solid_strtollL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoll_l"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5571,7 +6516,13 @@ static Napi::Value libc_solid_strtoullL_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoull_l"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5603,7 +6554,13 @@ static Napi::Value libc_solid_strtoqL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtoq_l"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5635,7 +6592,13 @@ static Napi::Value libc_solid_strtouqL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtouq_l"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5660,7 +6623,13 @@ static Napi::Value libc_solid_mbCurMaxL_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "_mb_cur_max_l"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5691,7 +6660,13 @@ static Napi::Value libc_solid_mblenL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mblen_l"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5723,7 +6698,13 @@ static Napi::Value libc_solid_mbstowcsL_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mbstowcs_l"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5752,7 +6733,13 @@ static Napi::Value libc_solid_wctombL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "wctomb_l"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5784,7 +6771,13 @@ static Napi::Value libc_solid_mbtowcL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mbtowc_l"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5814,7 +6807,13 @@ static Napi::Value libc_solid_wcstombsL_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "wcstombs_l"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5843,7 +6842,13 @@ static Napi::Value libc_solid_memchr_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memchr"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -5872,7 +6877,13 @@ static Napi::Value libc_solid_memcmp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memcmp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5901,7 +6912,13 @@ static Napi::Value libc_solid_memcpy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memcpy"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -5930,7 +6947,13 @@ static Napi::Value libc_solid_memmove_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memmove"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -5959,7 +6982,13 @@ static Napi::Value libc_solid_memset_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memset"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -5989,7 +7018,13 @@ static Napi::Value libc_solid_strcat_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcat"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6019,7 +7054,13 @@ static Napi::Value libc_solid_strchr_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strchr"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6051,7 +7092,13 @@ static Napi::Value libc_solid_strcmp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcmp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -6083,7 +7130,13 @@ static Napi::Value libc_solid_strcoll_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcoll"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -6113,7 +7166,13 @@ static Napi::Value libc_solid_strcpy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcpy"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6145,7 +7204,13 @@ static Napi::Value libc_solid_strcspn_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcspn"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -6172,7 +7237,13 @@ static Napi::Value libc_solid_strerror_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strerror"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6201,7 +7272,13 @@ static Napi::Value libc_solid_strlen_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strlen"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -6232,7 +7309,13 @@ static Napi::Value libc_solid_strncat_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strncat"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6265,7 +7348,13 @@ static Napi::Value libc_solid_strncmp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strncmp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -6296,7 +7385,13 @@ static Napi::Value libc_solid_strncpy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strncpy"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6328,7 +7423,13 @@ static Napi::Value libc_solid_strpbrk_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strpbrk"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6358,7 +7459,13 @@ static Napi::Value libc_solid_strrchr_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strrchr"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6390,7 +7497,13 @@ static Napi::Value libc_solid_strspn_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strspn"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -6422,7 +7535,13 @@ static Napi::Value libc_solid_strstr_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strstr"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6452,7 +7571,13 @@ static Napi::Value libc_solid_strtok_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtok"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6483,7 +7608,13 @@ static Napi::Value libc_solid_strtokR_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtok_r"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6512,7 +7643,13 @@ static Napi::Value libc_solid_strerrorR_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strerror_r"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -6543,7 +7680,13 @@ static Napi::Value libc_solid_strxfrm_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strxfrm"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -6573,7 +7716,13 @@ static Napi::Value libc_solid_memccpy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memccpy"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6602,7 +7751,13 @@ static Napi::Value libc_solid_strdup_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strdup"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6632,7 +7787,13 @@ static Napi::Value libc_solid_stpcpy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "stpcpy"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6663,7 +7824,13 @@ static Napi::Value libc_solid_stpncpy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "stpncpy"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6693,7 +7860,13 @@ static Napi::Value libc_solid_strnlen_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strnlen"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -6723,7 +7896,13 @@ static Napi::Value libc_solid_memmem_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memmem"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6755,7 +7934,13 @@ static Napi::Value libc_solid_strcasestr_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcasestr"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6786,7 +7971,13 @@ static Napi::Value libc_solid_strlcat_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strlcat"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -6817,7 +8008,13 @@ static Napi::Value libc_solid_strlcpy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strlcpy"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -6847,7 +8044,13 @@ static Napi::Value libc_solid_strsep_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strsep"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6878,7 +8081,13 @@ static Napi::Value libc_solid_stresep_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "stresep"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6908,7 +8117,13 @@ static Napi::Value libc_solid_strndup_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strndup"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6937,7 +8152,13 @@ static Napi::Value libc_solid_memrchr_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memrchr"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6966,7 +8187,13 @@ static Napi::Value libc_solid_explicitMemset_napi(const Napi::CallbackInfo& km_i
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "explicit_memset"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -6995,7 +8222,13 @@ static Napi::Value libc_solid_consttimeMemequal_napi(const Napi::CallbackInfo& k
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "consttime_memequal"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7028,7 +8261,13 @@ static Napi::Value libc_solid_strcollL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcoll_l"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7060,7 +8299,13 @@ static Napi::Value libc_solid_strxfrmL_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strxfrm_l"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -7088,7 +8333,13 @@ static Napi::Value libc_solid_strerrorL_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strerror_l"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7117,7 +8368,13 @@ static Napi::Value libc_solid_bcmp_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "bcmp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7146,7 +8403,11 @@ static Napi::Value libc_solid_bcopy_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "bcopy"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1, arg2, arg3);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -7174,7 +8435,11 @@ static Napi::Value libc_solid_bzero_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "bzero"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1, arg2);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -7201,7 +8466,13 @@ static Napi::Value libc_solid_ffs_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ffs"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7228,7 +8499,13 @@ static Napi::Value libc_solid_popcount_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popcount"));
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7255,7 +8532,13 @@ static Napi::Value libc_solid_popcountl_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popcountl"));
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7282,7 +8565,13 @@ static Napi::Value libc_solid_popcountll_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popcountll"));
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7309,7 +8598,13 @@ static Napi::Value libc_solid_popcount32_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popcount32"));
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7334,9 +8629,20 @@ static Napi::Value libc_solid_popcount64_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popcount64"));
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == nullptr) {
+            km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popcount"));
+        }
+#endif
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7366,7 +8672,13 @@ static Napi::Value libc_solid_rindex_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rindex"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7398,7 +8710,13 @@ static Napi::Value libc_solid_strcasecmp_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strcasecmp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7431,7 +8749,13 @@ static Napi::Value libc_solid_strncasecmp_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strncasecmp"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7459,7 +8783,13 @@ static Napi::Value libc_solid_signal_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "signal"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -7486,7 +8816,13 @@ static Napi::Value libc_solid_raise_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "raise"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7513,7 +8849,13 @@ static Napi::Value libc_solid_asctime_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "asctime"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7539,7 +8881,13 @@ static Napi::Value libc_solid_clock_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock"));
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7566,7 +8914,13 @@ static Napi::Value libc_solid_ctime_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ctime"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7594,7 +8948,13 @@ static Napi::Value libc_solid_difftime_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "difftime"));
     }
 #endif
-    double km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : 0.0;
+    double km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = 0.0;
+    }
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
@@ -7621,7 +8981,13 @@ static Napi::Value libc_solid_gmtime_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "gmtime"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7648,7 +9014,13 @@ static Napi::Value libc_solid_localtime_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "localtime"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7675,7 +9047,13 @@ static Napi::Value libc_solid_time_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "time"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -7702,7 +9080,13 @@ static Napi::Value libc_solid_mktime_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mktime"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -7734,7 +9118,13 @@ static Napi::Value libc_solid_strftime_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strftime"));
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3, arg4) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3, arg4);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -7764,7 +9154,13 @@ static Napi::Value libc_solid_utime_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "utime"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7792,7 +9188,13 @@ static Napi::Value libc_solid_asctimeR_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "asctime_r"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7820,7 +9222,13 @@ static Napi::Value libc_solid_ctimeR_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ctime_r"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7848,7 +9256,13 @@ static Napi::Value libc_solid_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "gmtime_r"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7876,7 +9290,13 @@ static Napi::Value libc_solid_localtimeR_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "localtime_r"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -7906,7 +9326,13 @@ static Napi::Value libc_solid_stat_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "stat"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7936,7 +9362,13 @@ static Napi::Value libc_solid_lstat_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "lstat"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7964,7 +9396,13 @@ static Napi::Value libc_solid_fstat_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fstat"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -7994,7 +9432,13 @@ static Napi::Value libc_solid_chmod_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "chmod"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8024,7 +9468,13 @@ static Napi::Value libc_solid_mkdir_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkdir"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8068,6 +9518,8 @@ static Napi::Value libc_solid_open_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -8098,7 +9550,13 @@ static Napi::Value libc_solid_creat_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "creat"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8125,7 +9583,13 @@ static Napi::Value libc_solid_close_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "close"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8154,7 +9618,13 @@ static Napi::Value libc_solid_read_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "read"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8183,7 +9653,13 @@ static Napi::Value libc_solid_write_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "write"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8212,7 +9688,13 @@ static Napi::Value libc_solid_unlink_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "unlink"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8239,7 +9721,13 @@ static Napi::Value libc_solid_tell_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "tell"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -8266,7 +9754,13 @@ static Napi::Value libc_solid_dup_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dup"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8294,7 +9788,13 @@ static Napi::Value libc_solid_dup2_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dup2"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8324,7 +9824,13 @@ static Napi::Value libc_solid_access_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "access"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8353,7 +9859,13 @@ static Napi::Value libc_solid_rmdir_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rmdir"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8382,7 +9894,13 @@ static Napi::Value libc_solid_chdir_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "chdir"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8409,7 +9927,13 @@ static Napi::Value libc_solid_getwd_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getwd"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8437,7 +9961,13 @@ static Napi::Value libc_solid_getcwd_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getcwd"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8468,7 +9998,13 @@ static Napi::Value libc_solid_getopt_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getopt"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8497,7 +10033,13 @@ static Napi::Value libc_solid_getsubopt_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getsubopt"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8539,6 +10081,8 @@ static Napi::Value libc_solid_fcntl_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg1, arg2, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -8565,7 +10109,13 @@ static Napi::Value libc_solid_getpid_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpid"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8592,7 +10142,13 @@ static Napi::Value libc_solid_sleep_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sleep"));
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8619,7 +10175,13 @@ static Napi::Value libc_solid_usleep_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "usleep"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -8645,7 +10207,13 @@ static Napi::Value libc_solid_localeconv_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "localeconv"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8675,7 +10243,13 @@ static Napi::Value libc_solid_setlocale_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setlocale"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8702,7 +10276,13 @@ static Napi::Value libc_solid_duplocale_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "duplocale"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8729,7 +10309,11 @@ static Napi::Value libc_solid_freelocale_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "freelocale"));
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg1);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -8756,7 +10340,13 @@ static Napi::Value libc_solid_localeconvL_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "localeconv_l"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8787,7 +10377,13 @@ static Napi::Value libc_solid_newlocale_napi(const Napi::CallbackInfo& km_info) 
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "newlocale"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8814,7 +10410,13 @@ static Napi::Value libc_solid_nlLanginfo_napi(const Napi::CallbackInfo& km_info)
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "nl_langinfo"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(item) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(item);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8842,7 +10444,13 @@ static Napi::Value libc_solid_nlLanginfoL_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "nl_langinfo_l"));
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(item, locale) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(item, locale);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8870,7 +10478,13 @@ static Napi::Value libc_solid_memalign_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memalign"));
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(align, size) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(align, size);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -8899,7 +10513,13 @@ static Napi::Value libc_solid_lseek_napi(const Napi::CallbackInfo& km_info) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "lseek"));
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg1, arg2, arg3) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg1, arg2, arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 

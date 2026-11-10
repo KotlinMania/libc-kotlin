@@ -208,7 +208,7 @@ int32_t libc_unix_solarish_solaris_pthreadGetattrNp(void* thread, void* attr) {
         return km_fn_ptr(thread, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_solaris_euidaccess(const char* path, int32_t amode) {

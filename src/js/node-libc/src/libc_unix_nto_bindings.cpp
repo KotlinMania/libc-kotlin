@@ -126,7 +126,13 @@ static Napi::Value libc_unix_nto_sendmmsg_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sendmmsg"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sockfd, msgvec, vlen, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sockfd, msgvec, vlen, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -157,7 +163,13 @@ static Napi::Value libc_unix_nto_recvmmsg_napi(const Napi::CallbackInfo& km_info
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "recvmmsg"));
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sockfd, msgvec, vlen, flags, timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sockfd, msgvec, vlen, flags, timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -182,9 +194,36 @@ static Napi::Value libc_unix_nto_semDestroy_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_destroy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_destroy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_destroy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sem) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -211,9 +250,36 @@ static Napi::Value libc_unix_nto_semInit_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_init"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sem, pshared, value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem, pshared, value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -238,9 +304,36 @@ static Napi::Value libc_unix_nto_fdatasync_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fdatasync"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "fdatasync"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "fdatasync"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -266,9 +359,36 @@ static Napi::Value libc_unix_nto_getpriority_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpriority"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpriority"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpriority"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(which, who) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(which, who);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -295,9 +415,36 @@ static Napi::Value libc_unix_nto_setpriority_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setpriority"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setpriority"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setpriority"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(which, who, prio) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(which, who, prio);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -326,9 +473,36 @@ static Napi::Value libc_unix_nto_mkfifoat_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkfifoat"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkfifoat"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkfifoat"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(dirfd, pathname, mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(dirfd, pathname, mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -358,9 +532,36 @@ static Napi::Value libc_unix_nto_mknodat_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mknodat"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mknodat"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mknodat"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_fd, pathname, mode, dev) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_fd, pathname, mode, dev);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -386,9 +587,36 @@ static Napi::Value libc_unix_nto_clockGetres_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_getres"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_getres"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_getres"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(clk_id, tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(clk_id, tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -414,9 +642,36 @@ static Napi::Value libc_unix_nto_clockGettime_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_gettime"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_gettime"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_gettime"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(clk_id, tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(clk_id, tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -442,9 +697,36 @@ static Napi::Value libc_unix_nto_clockSettime_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_settime"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_settime"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_settime"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(clk_id, tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(clk_id, tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -470,9 +752,36 @@ static Napi::Value libc_unix_nto_clockGetcpuclockid_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_getcpuclockid"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_getcpuclockid"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_getcpuclockid"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, clk_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, clk_id);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -499,9 +808,36 @@ static Napi::Value libc_unix_nto_pthreadAttrGetstack_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_attr_getstack"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_attr_getstack"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_attr_getstack"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, stackaddr, stacksize) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, stackaddr, stacksize);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -527,9 +863,36 @@ static Napi::Value libc_unix_nto_memalign_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memalign"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "memalign"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "memalign"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(align, size) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(align, size);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -555,9 +918,36 @@ static Napi::Value libc_unix_nto_setgroups_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setgroups"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setgroups"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setgroups"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(ngroups, ptr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(ngroups, ptr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -585,9 +975,36 @@ static Napi::Value libc_unix_nto_posixFadvise_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_fadvise"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_fadvise"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_fadvise"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, offset, len, advise) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, offset, len, advise);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -613,9 +1030,36 @@ static Napi::Value libc_unix_nto_futimens_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "futimens"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "futimens"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "futimens"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, times) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, times);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -640,9 +1084,36 @@ static Napi::Value libc_unix_nto_nlLanginfo_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "nl_langinfo"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "nl_langinfo"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "nl_langinfo"));
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(item) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(item);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -672,9 +1143,36 @@ static Napi::Value libc_unix_nto_utimensat_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "utimensat"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "utimensat"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "utimensat"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(dirfd, path, times, flag) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(dirfd, path, times, flag);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -700,9 +1198,36 @@ static Napi::Value libc_unix_nto_pthreadCondattrGetclock_napi(const Napi::Callba
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_condattr_getclock"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_getclock"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_getclock"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, clock_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, clock_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -728,9 +1253,36 @@ static Napi::Value libc_unix_nto_pthreadCondattrSetclock_napi(const Napi::Callba
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_condattr_setclock"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_setclock"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_setclock"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, clock_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, clock_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -756,9 +1308,36 @@ static Napi::Value libc_unix_nto_pthreadCondattrSetpshared_napi(const Napi::Call
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_condattr_setpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_setpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_setpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -784,9 +1363,36 @@ static Napi::Value libc_unix_nto_pthreadMutexattrSetpshared_napi(const Napi::Cal
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_mutexattr_setpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_setpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_setpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -812,9 +1418,36 @@ static Napi::Value libc_unix_nto_pthreadRwlockattrGetpshared_napi(const Napi::Ca
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_rwlockattr_getpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_rwlockattr_getpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_rwlockattr_getpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, val) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, val);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -840,9 +1473,36 @@ static Napi::Value libc_unix_nto_pthreadRwlockattrSetpshared_napi(const Napi::Ca
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_rwlockattr_setpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_rwlockattr_setpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_rwlockattr_setpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, val) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, val);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -869,9 +1529,36 @@ static Napi::Value libc_unix_nto_ptsnameR_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ptsname_r"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ptsname_r"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ptsname_r"));
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, buf, buflen) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, buf, buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -895,9 +1582,36 @@ static Napi::Value libc_unix_nto_clearenv_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clearenv"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clearenv"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clearenv"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -925,9 +1639,36 @@ static Napi::Value libc_unix_nto_waitid_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "waitid"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "waitid"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "waitid"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(idtype, id, infop, options) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(idtype, id, infop, options);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -955,9 +1696,36 @@ static Napi::Value libc_unix_nto_wait4_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "wait4"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "wait4"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "wait4"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, status, options, rusage) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, status, options, rusage);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -986,9 +1754,36 @@ static Napi::Value libc_unix_nto_execvpe_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "execvpe"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "execvpe"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "execvpe"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(file, argv, envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(file, argv, envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1013,9 +1808,36 @@ static Napi::Value libc_unix_nto_getifaddrs_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getifaddrs"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getifaddrs"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getifaddrs"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(ifap) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(ifap);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1040,9 +1862,34 @@ static Napi::Value libc_unix_nto_freeifaddrs_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "freeifaddrs"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "freeifaddrs"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "freeifaddrs"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(ifa);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(ifa);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1069,9 +1916,36 @@ static Napi::Value libc_unix_nto_bind_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "bind"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "bind"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "bind"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_socket, address, address_len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1098,9 +1972,36 @@ static Napi::Value libc_unix_nto_writev_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "writev"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "writev"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "writev"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, iov, iovcnt) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, iov, iovcnt);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -1127,9 +2028,36 @@ static Napi::Value libc_unix_nto_readv_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "readv"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "readv"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "readv"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, iov, iovcnt) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, iov, iovcnt);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -1156,9 +2084,36 @@ static Napi::Value libc_unix_nto_sendmsg_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sendmsg"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sendmsg"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sendmsg"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, msg, flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, msg, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -1185,9 +2140,36 @@ static Napi::Value libc_unix_nto_recvmsg_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "recvmsg"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "recvmsg"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "recvmsg"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, msg, flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, msg, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -1216,9 +2198,36 @@ static Napi::Value libc_unix_nto_openpty_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "openpty"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "openpty"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "openpty"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(amaster, aslave, name, termp, winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(amaster, aslave, name, termp, winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1246,9 +2255,36 @@ static Napi::Value libc_unix_nto_forkpty_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "forkpty"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "forkpty"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "forkpty"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(amaster, name, termp, winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(amaster, name, termp, winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1273,9 +2309,36 @@ static Napi::Value libc_unix_nto_loginTty_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "login_tty"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "login_tty"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "login_tty"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1300,9 +2363,36 @@ static Napi::Value libc_unix_nto_uname_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "uname"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "uname"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "uname"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1329,9 +2419,36 @@ static Napi::Value libc_unix_nto_getpeereid_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpeereid"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpeereid"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpeereid"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_socket, euid, egid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_socket, euid, egid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1358,9 +2475,36 @@ static Napi::Value libc_unix_nto_strerrorR_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strerror_r"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "strerror_r"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "strerror_r"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(errnum, buf, buflen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(errnum, buf, buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1385,9 +2529,36 @@ static Napi::Value libc_unix_nto_abs_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "abs"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "abs"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "abs"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(i) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(i);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1412,9 +2583,36 @@ static Napi::Value libc_unix_nto_labs_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "labs"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "labs"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "labs"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(i) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(i);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -1438,9 +2636,36 @@ static Napi::Value libc_unix_nto_rand_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rand"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "rand"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "rand"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1465,9 +2690,34 @@ static Napi::Value libc_unix_nto_srand_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "srand"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "srand"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "srand"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(seed);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(seed);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1491,9 +2741,34 @@ static Napi::Value libc_unix_nto_setpwent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setpwent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setpwent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setpwent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1517,9 +2792,34 @@ static Napi::Value libc_unix_nto_endpwent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "endpwent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "endpwent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "endpwent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1543,9 +2843,36 @@ static Napi::Value libc_unix_nto_getpwent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpwent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwent"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1569,9 +2896,34 @@ static Napi::Value libc_unix_nto_setgrent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setgrent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setgrent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setgrent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1595,9 +2947,34 @@ static Napi::Value libc_unix_nto_endgrent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "endgrent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "endgrent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "endgrent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1621,9 +2998,36 @@ static Napi::Value libc_unix_nto_getgrent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrent"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1647,9 +3051,34 @@ static Napi::Value libc_unix_nto_setspent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setspent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setspent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setspent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1673,9 +3102,34 @@ static Napi::Value libc_unix_nto_endspent_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "endspent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "endspent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "endspent"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -1704,9 +3158,36 @@ static Napi::Value libc_unix_nto_shmOpen_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "shm_open"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "shm_open"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "shm_open"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name, oflag, mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, oflag, mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1734,9 +3215,36 @@ static Napi::Value libc_unix_nto_ftok_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ftok"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ftok"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ftok"));
+        }
+#endif
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pathname, proj_id) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pathname, proj_id);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1763,9 +3271,36 @@ static Napi::Value libc_unix_nto_mprotect_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mprotect"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mprotect"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mprotect"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(addr, len, prot) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(addr, len, prot);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1792,9 +3327,36 @@ static Napi::Value libc_unix_nto_posixFallocate_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_fallocate"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_fallocate"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_fallocate"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, offset, len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, offset, len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1820,9 +3382,36 @@ static Napi::Value libc_unix_nto_mkostemp_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkostemp"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkostemp"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkostemp"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_template, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_template, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1849,9 +3438,36 @@ static Napi::Value libc_unix_nto_mkostemps_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkostemps"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkostemps"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkostemps"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_template, suffixlen, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_template, suffixlen, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1878,9 +3494,36 @@ static Napi::Value libc_unix_nto_sigtimedwait_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sigtimedwait"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigtimedwait"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigtimedwait"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(set, info, timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(set, info, timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1906,9 +3549,36 @@ static Napi::Value libc_unix_nto_sigwaitinfo_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sigwaitinfo"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigwaitinfo"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigwaitinfo"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(set, info) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(set, info);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1934,9 +3604,36 @@ static Napi::Value libc_unix_nto_pthreadSetschedprio_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_setschedprio"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_setschedprio"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_setschedprio"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, priority) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, priority);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -1960,9 +3657,36 @@ static Napi::Value libc_unix_nto_ifNameindex_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "if_nameindex"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "if_nameindex"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "if_nameindex"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -1987,9 +3711,34 @@ static Napi::Value libc_unix_nto_ifFreenameindex_napi(const Napi::CallbackInfo& 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "if_freenameindex"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "if_freenameindex"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "if_freenameindex"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(ptr);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(ptr);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -2019,9 +3768,36 @@ static Napi::Value libc_unix_nto_glob_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "glob"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "glob"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "glob"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pattern, flags, errfunc, pglob) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pattern, flags, errfunc, pglob);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2046,9 +3822,34 @@ static Napi::Value libc_unix_nto_globfree_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "globfree"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "globfree"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "globfree"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(pglob);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(pglob);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -2075,9 +3876,36 @@ static Napi::Value libc_unix_nto_posixMadvise_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_madvise"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_madvise"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_madvise"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(addr, len, advice) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(addr, len, advice);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2104,9 +3932,36 @@ static Napi::Value libc_unix_nto_shmUnlink_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "shm_unlink"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "shm_unlink"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "shm_unlink"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2132,9 +3987,34 @@ static Napi::Value libc_unix_nto_seekdir_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "seekdir"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "seekdir"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "seekdir"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(dirp, loc);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(dirp, loc);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -2159,9 +4039,36 @@ static Napi::Value libc_unix_nto_telldir_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "telldir"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "telldir"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "telldir"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(dirp) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(dirp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -2188,9 +4095,36 @@ static Napi::Value libc_unix_nto_msync_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "msync"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "msync"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "msync"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(addr, len, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(addr, len, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2220,9 +4154,36 @@ static Napi::Value libc_unix_nto_recvfrom_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "recvfrom"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "recvfrom"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "recvfrom"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -2248,9 +4209,36 @@ static Napi::Value libc_unix_nto_mkstemps_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkstemps"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkstemps"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mkstemps"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_template, suffixlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_template, suffixlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2276,9 +4264,36 @@ static Napi::Value libc_unix_nto_getdomainname_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getdomainname"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getdomainname"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getdomainname"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name, len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2306,9 +4321,36 @@ static Napi::Value libc_unix_nto_setdomainname_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setdomainname"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setdomainname"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setdomainname"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name, len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2332,9 +4374,34 @@ static Napi::Value libc_unix_nto_sync_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sync"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sync"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sync"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr();
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -2361,9 +4428,36 @@ static Napi::Value libc_unix_nto_pthreadGetschedparam_napi(const Napi::CallbackI
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getschedparam"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_getschedparam"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_getschedparam"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, policy, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, policy, param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2391,9 +4485,36 @@ static Napi::Value libc_unix_nto_umount_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "umount"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "umount"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "umount"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(target, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(target, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2418,9 +4539,36 @@ static Napi::Value libc_unix_nto_schedGetPriorityMax_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sched_get_priority_max"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_get_priority_max"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_get_priority_max"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(policy) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(policy);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2446,9 +4594,36 @@ static Napi::Value libc_unix_nto_settimeofday_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "settimeofday"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "settimeofday"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "settimeofday"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(tv, tz) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(tv, tz);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2474,9 +4649,36 @@ static Napi::Value libc_unix_nto_schedRrGetInterval_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sched_rr_get_interval"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_rr_get_interval"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_rr_get_interval"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2502,9 +4704,36 @@ static Napi::Value libc_unix_nto_semTimedwait_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_timedwait"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_timedwait"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_timedwait"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sem, abstime) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem, abstime);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2530,9 +4759,36 @@ static Napi::Value libc_unix_nto_semGetvalue_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_getvalue"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_getvalue"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_getvalue"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sem, sval) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem, sval);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2558,9 +4814,36 @@ static Napi::Value libc_unix_nto_schedSetparam_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sched_setparam"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_setparam"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_setparam"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2596,9 +4879,36 @@ static Napi::Value libc_unix_nto_mount_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mount"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mount"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mount"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(special_device, mount_directory, flags, mount_type, mount_data, mount_datalen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(special_device, mount_directory, flags, mount_type, mount_data, mount_datalen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2624,9 +4934,36 @@ static Napi::Value libc_unix_nto_schedGetparam_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sched_getparam"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_getparam"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_getparam"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2651,9 +4988,36 @@ static Napi::Value libc_unix_nto_pthreadMutexConsistent_napi(const Napi::Callbac
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_mutex_consistent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutex_consistent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutex_consistent"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(mutex) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(mutex);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2679,9 +5043,36 @@ static Napi::Value libc_unix_nto_pthreadMutexTimedlock_napi(const Napi::Callback
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_mutex_timedlock"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutex_timedlock"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutex_timedlock"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(lock, abstime) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(lock, abstime);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2707,9 +5098,36 @@ static Napi::Value libc_unix_nto_pthreadSpinInit_napi(const Napi::CallbackInfo& 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_spin_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_init"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(lock, pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(lock, pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2734,9 +5152,36 @@ static Napi::Value libc_unix_nto_pthreadSpinDestroy_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_spin_destroy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_destroy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_destroy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2761,9 +5206,36 @@ static Napi::Value libc_unix_nto_pthreadSpinLock_napi(const Napi::CallbackInfo& 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_spin_lock"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_lock"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_lock"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2788,9 +5260,36 @@ static Napi::Value libc_unix_nto_pthreadSpinTrylock_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_spin_trylock"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_trylock"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_trylock"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2815,9 +5314,36 @@ static Napi::Value libc_unix_nto_pthreadSpinUnlock_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_spin_unlock"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_unlock"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_spin_unlock"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2842,9 +5368,36 @@ static Napi::Value libc_unix_nto_pthreadBarrierattrInit_napi(const Napi::Callbac
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_barrierattr_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_init"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_attr);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2869,9 +5422,36 @@ static Napi::Value libc_unix_nto_pthreadBarrierattrDestroy_napi(const Napi::Call
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_barrierattr_destroy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_destroy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_destroy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_attr);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2897,9 +5477,36 @@ static Napi::Value libc_unix_nto_pthreadBarrierattrGetpshared_napi(const Napi::C
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_barrierattr_getpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_getpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_getpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_attr, arg_1_pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_attr, arg_1_pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2925,9 +5532,36 @@ static Napi::Value libc_unix_nto_pthreadBarrierattrSetpshared_napi(const Napi::C
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_barrierattr_setpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_setpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrierattr_setpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_attr, arg_1_pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_attr, arg_1_pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2954,9 +5588,36 @@ static Napi::Value libc_unix_nto_pthreadBarrierInit_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_barrier_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrier_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrier_init"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_barrier, arg_1_attr, arg_2_count) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_barrier, arg_1_attr, arg_2_count);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -2981,9 +5642,36 @@ static Napi::Value libc_unix_nto_pthreadBarrierDestroy_napi(const Napi::Callback
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_barrier_destroy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrier_destroy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrier_destroy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_barrier) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_barrier);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3008,9 +5696,36 @@ static Napi::Value libc_unix_nto_pthreadBarrierWait_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_barrier_wait"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrier_wait"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_barrier_wait"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_barrier) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_barrier);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3035,9 +5750,36 @@ static Napi::Value libc_unix_nto_schedGetscheduler_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sched_getscheduler"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_getscheduler"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_getscheduler"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3065,9 +5807,36 @@ static Napi::Value libc_unix_nto_clockNanosleep_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_nanosleep"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_nanosleep"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "clock_nanosleep"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(clk_id, flags, rqtp, rmtp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(clk_id, flags, rqtp, rmtp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3093,9 +5862,36 @@ static Napi::Value libc_unix_nto_pthreadAttrGetguardsize_napi(const Napi::Callba
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_attr_getguardsize"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_attr_getguardsize"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_attr_getguardsize"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, guardsize) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, guardsize);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3121,9 +5917,36 @@ static Napi::Value libc_unix_nto_pthreadAttrSetguardsize_napi(const Napi::Callba
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_attr_setguardsize"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_attr_setguardsize"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_attr_setguardsize"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, guardsize) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, guardsize);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3151,9 +5974,36 @@ static Napi::Value libc_unix_nto_sethostname_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sethostname"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sethostname"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sethostname"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name, len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3178,9 +6028,36 @@ static Napi::Value libc_unix_nto_schedGetPriorityMin_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sched_get_priority_min"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_get_priority_min"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_get_priority_min"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(policy) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(policy);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3206,9 +6083,36 @@ static Napi::Value libc_unix_nto_pthreadCondattrGetpshared_napi(const Napi::Call
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_condattr_getpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_getpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_condattr_getpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3235,9 +6139,36 @@ static Napi::Value libc_unix_nto_pthreadSetschedparam_napi(const Napi::CallbackI
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_setschedparam"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_setschedparam"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_setschedparam"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, policy, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, policy, param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3264,9 +6195,36 @@ static Napi::Value libc_unix_nto_schedSetscheduler_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sched_setscheduler"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_setscheduler"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sched_setscheduler"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, policy, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, policy, param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3291,9 +6249,36 @@ static Napi::Value libc_unix_nto_sigsuspend_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sigsuspend"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigsuspend"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigsuspend"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(mask) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(mask);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3322,9 +6307,36 @@ static Napi::Value libc_unix_nto_getgrgidR_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrgid_r"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrgid_r"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrgid_r"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(gid, grp, buf, buflen, result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(gid, grp, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3349,9 +6361,36 @@ static Napi::Value libc_unix_nto_semClose_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_close"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_close"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_close"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sem) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3375,9 +6414,36 @@ static Napi::Value libc_unix_nto_getdtablesize_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getdtablesize"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getdtablesize"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getdtablesize"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3408,9 +6474,36 @@ static Napi::Value libc_unix_nto_getgrnamR_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrnam_r"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrnam_r"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrnam_r"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name, grp, buf, buflen, result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, grp, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3438,9 +6531,36 @@ static Napi::Value libc_unix_nto_initgroups_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "initgroups"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "initgroups"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "initgroups"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(user, group) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(user, group);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3467,9 +6587,36 @@ static Napi::Value libc_unix_nto_pthreadSigmask_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_sigmask"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_sigmask"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_sigmask"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(how, set, oldset) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(how, set, oldset);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3502,9 +6649,30 @@ static Napi::Value libc_unix_nto_semOpen_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_open"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_open"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_open"));
+        }
+#endif
     }
 #endif
-    void* km_res = NULL;
+    void* km_res = nullptr;
     if (km_fn_ptr != nullptr) {
         switch (km_vac) {
             case 0: km_res = km_fn_ptr(name, oflag); break;
@@ -3513,6 +6681,8 @@ static Napi::Value libc_unix_nto_semOpen_napi(const Napi::CallbackInfo& km_info)
             case 3: km_res = km_fn_ptr(name, oflag, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(name, oflag, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
@@ -3540,9 +6710,36 @@ static Napi::Value libc_unix_nto_getgrnam_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrnam"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrnam"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrnam"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3567,9 +6764,36 @@ static Napi::Value libc_unix_nto_pthreadCancel_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_cancel"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_cancel"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_cancel"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3595,9 +6819,36 @@ static Napi::Value libc_unix_nto_pthreadKill_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_kill"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_kill"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_kill"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, sig);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3624,9 +6875,36 @@ static Napi::Value libc_unix_nto_semUnlink_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_unlink"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_unlink"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sem_unlink"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3652,9 +6930,36 @@ static Napi::Value libc_unix_nto_daemon_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "daemon"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "daemon"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "daemon"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(nochdir, noclose) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(nochdir, noclose);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3685,9 +6990,36 @@ static Napi::Value libc_unix_nto_getpwnamR_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpwnam_r"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwnam_r"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwnam_r"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(name, pwd, buf, buflen, result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, pwd, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3716,9 +7048,36 @@ static Napi::Value libc_unix_nto_getpwuidR_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpwuid_r"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwuid_r"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwuid_r"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(uid, pwd, buf, buflen, result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(uid, pwd, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3744,9 +7103,36 @@ static Napi::Value libc_unix_nto_sigwait_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sigwait"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigwait"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sigwait"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(set, sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(set, sig);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3773,9 +7159,36 @@ static Napi::Value libc_unix_nto_pthreadAtfork_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_atfork"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_atfork"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_atfork"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(prepare, parent, child) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(prepare, parent, child);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3800,9 +7213,36 @@ static Napi::Value libc_unix_nto_getgrgid_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrgid"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrgid"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrgid"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(gid) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(gid);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -3832,9 +7272,36 @@ static Napi::Value libc_unix_nto_getgrouplist_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrouplist"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrouplist"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getgrouplist"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(user, group, groups, ngroups) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(user, group, groups, ngroups);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3860,9 +7327,36 @@ static Napi::Value libc_unix_nto_pthreadMutexattrGetpshared_napi(const Napi::Cal
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_mutexattr_getpshared"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_getpshared"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_getpshared"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3888,9 +7382,36 @@ static Napi::Value libc_unix_nto_pthreadMutexattrGetrobust_napi(const Napi::Call
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_mutexattr_getrobust"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_getrobust"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_getrobust"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, robustness) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, robustness);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3916,9 +7437,36 @@ static Napi::Value libc_unix_nto_pthreadMutexattrSetrobust_napi(const Napi::Call
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_mutexattr_setrobust"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_setrobust"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_mutexattr_setrobust"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, robustness) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, robustness);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3946,9 +7494,36 @@ static Napi::Value libc_unix_nto_pthreadCreate_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_create"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_create"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_create"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(native, attr, f, value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(native, attr, f, value);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -3974,9 +7549,36 @@ static Napi::Value libc_unix_nto_getitimer_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getitimer"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getitimer"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getitimer"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(which, curr_value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(which, curr_value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4003,9 +7605,36 @@ static Napi::Value libc_unix_nto_setitimer_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setitimer"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setitimer"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setitimer"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(which, value, ovalue) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(which, value, ovalue);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4037,9 +7666,36 @@ static Napi::Value libc_unix_nto_posixSpawn_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawn"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, path, file_actions, attrp, argv, envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, path, file_actions, attrp, argv, envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4071,9 +7727,36 @@ static Napi::Value libc_unix_nto_posixSpawnp_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnp"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnp"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnp"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, file, file_actions, attrp, argv, envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, file, file_actions, attrp, argv, envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4098,9 +7781,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrInit_napi(const Napi::CallbackInf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_init"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4125,9 +7835,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrDestroy_napi(const Napi::Callback
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_destroy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_destroy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_destroy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4153,9 +7890,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrGetsigdefault_napi(const Napi::Ca
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_getsigdefault"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getsigdefault"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getsigdefault"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4181,9 +7945,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrSetsigdefault_napi(const Napi::Ca
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_setsigdefault"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setsigdefault"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setsigdefault"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4209,9 +8000,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrGetsigmask_napi(const Napi::Callb
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_getsigmask"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getsigmask"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getsigmask"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4237,9 +8055,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrSetsigmask_napi(const Napi::Callb
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_setsigmask"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setsigmask"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setsigmask"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4265,9 +8110,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrGetflags_napi(const Napi::Callbac
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_getflags"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getflags"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getflags"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4293,9 +8165,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrSetflags_napi(const Napi::Callbac
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_setflags"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setflags"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setflags"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4321,9 +8220,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrGetpgroup_napi(const Napi::Callba
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_getpgroup"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getpgroup"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getpgroup"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4349,9 +8275,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrSetpgroup_napi(const Napi::Callba
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_setpgroup"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setpgroup"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setpgroup"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4377,9 +8330,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrGetschedpolicy_napi(const Napi::C
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_getschedpolicy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getschedpolicy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getschedpolicy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4405,9 +8385,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrSetschedpolicy_napi(const Napi::C
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_setschedpolicy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setschedpolicy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setschedpolicy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4433,9 +8440,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrGetschedparam_napi(const Napi::Ca
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_getschedparam"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getschedparam"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_getschedparam"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4461,9 +8495,36 @@ static Napi::Value libc_unix_nto_posixSpawnattrSetschedparam_napi(const Napi::Ca
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawnattr_setschedparam"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setschedparam"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawnattr_setschedparam"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(attr, param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(attr, param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4488,9 +8549,36 @@ static Napi::Value libc_unix_nto_posixSpawnFileActionsInit_napi(const Napi::Call
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_init"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(actions) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(actions);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4515,9 +8603,36 @@ static Napi::Value libc_unix_nto_posixSpawnFileActionsDestroy_napi(const Napi::C
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_destroy"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_destroy"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_destroy"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(actions) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(actions);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4548,9 +8663,36 @@ static Napi::Value libc_unix_nto_posixSpawnFileActionsAddopen_napi(const Napi::C
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_addopen"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_addopen"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_addopen"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(actions, fd, path, oflag, mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(actions, fd, path, oflag, mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4576,9 +8718,36 @@ static Napi::Value libc_unix_nto_posixSpawnFileActionsAddclose_napi(const Napi::
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_addclose"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_addclose"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_addclose"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(actions, fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(actions, fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4605,9 +8774,36 @@ static Napi::Value libc_unix_nto_posixSpawnFileActionsAdddup2_napi(const Napi::C
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_adddup2"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_adddup2"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "posix_spawn_file_actions_adddup2"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(actions, fd, newfd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(actions, fd, newfd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4637,9 +8833,36 @@ static Napi::Value libc_unix_nto_popen_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popen"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "popen"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "popen"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(command, mode) : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(command, mode);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4669,9 +8892,36 @@ static Napi::Value libc_unix_nto_faccessat_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "faccessat"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "faccessat"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "faccessat"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(dirfd, pathname, mode, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(dirfd, pathname, mode, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4697,9 +8947,36 @@ static Napi::Value libc_unix_nto_inotifyRmWatch_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "inotify_rm_watch"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "inotify_rm_watch"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "inotify_rm_watch"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, wd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, wd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4723,9 +9000,36 @@ static Napi::Value libc_unix_nto_inotifyInit_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "inotify_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "inotify_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "inotify_init"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4754,9 +9058,36 @@ static Napi::Value libc_unix_nto_inotifyAddWatch_napi(const Napi::CallbackInfo& 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "inotify_add_watch"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "inotify_add_watch"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "inotify_add_watch"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, path, mask) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, path, mask);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4780,9 +9111,36 @@ static Napi::Value libc_unix_nto_gettid_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "gettid"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "gettid"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "gettid"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4808,9 +9166,36 @@ static Napi::Value libc_unix_nto_pthreadGetcpuclockid_napi(const Napi::CallbackI
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getcpuclockid"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_getcpuclockid"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_getcpuclockid"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, clk_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, clk_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4841,9 +9226,36 @@ static Napi::Value libc_unix_nto_getnameinfo_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getnameinfo"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getnameinfo"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getnameinfo"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sa, salen, host, hostlen, serv, servlen, flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sa, salen, host, hostlen, serv, servlen, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4869,9 +9281,36 @@ static Napi::Value libc_unix_nto_mallopt_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mallopt"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mallopt"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mallopt"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(param, value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(param, value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4897,9 +9336,36 @@ static Napi::Value libc_unix_nto_gettimeofday_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "gettimeofday"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "gettimeofday"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "gettimeofday"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(tp, tz) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(tp, tz);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -4924,9 +9390,36 @@ static Napi::Value libc_unix_nto_ctermid_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ctermid"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ctermid"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ctermid"));
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(s) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(s);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -4957,6 +9450,27 @@ static Napi::Value libc_unix_nto_ioctl_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ioctl"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ioctl"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "ioctl"));
+        }
+#endif
     }
 #endif
     int32_t km_res = -1;
@@ -4968,6 +9482,8 @@ static Napi::Value libc_unix_nto_ioctl_napi(const Napi::CallbackInfo& km_info) {
             case 3: km_res = km_fn_ptr(fd, request, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(fd, request, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -4996,9 +9512,36 @@ static Napi::Value libc_unix_nto_getpwentR_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpwent_r"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwent_r"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getpwent_r"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pwd, buf, arg_2_bufsize, arg_3_result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pwd, buf, arg_2_bufsize, arg_3_result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5025,9 +9568,36 @@ static Napi::Value libc_unix_nto_pthreadGetnameNp_napi(const Napi::CallbackInfo&
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_getname_np"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_getname_np"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_getname_np"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, name, len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, name, len);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5055,9 +9625,36 @@ static Napi::Value libc_unix_nto_pthreadSetnameNp_napi(const Napi::CallbackInfo&
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_setname_np"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_setname_np"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "pthread_setname_np"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(thread, name) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, name);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5087,9 +9684,36 @@ static Napi::Value libc_unix_nto_sysctl_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sysctl"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sysctl"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "sysctl"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg0, arg1, arg2, arg3, arg4, arg5) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg0, arg1, arg2, arg3, arg4, arg5);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5115,9 +9739,36 @@ static Napi::Value libc_unix_nto_getrlimit_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getrlimit"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getrlimit"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "getrlimit"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(resource, rlim) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(resource, rlim);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5143,9 +9794,36 @@ static Napi::Value libc_unix_nto_setrlimit_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setrlimit"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setrlimit"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "setrlimit"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(resource, rlp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(resource, rlp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5173,9 +9851,36 @@ static Napi::Value libc_unix_nto_lioListio_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "lio_listio"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "lio_listio"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "lio_listio"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mode, arg_1_list, arg_2_nent, arg_3_sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mode, arg_1_list, arg_2_nent, arg_3_sig);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5201,9 +9906,36 @@ static Napi::Value libc_unix_nto_dlIteratePhdr_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dl_iterate_phdr"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "dl_iterate_phdr"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "dl_iterate_phdr"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(callback, data) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(callback, data);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5231,9 +9963,36 @@ static Napi::Value libc_unix_nto_memsetS_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memset_s"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "memset_s"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "memset_s"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(s, smax, c, n) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(s, smax, c, n);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5262,9 +10021,36 @@ static Napi::Value libc_unix_nto_regcomp_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "regcomp"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regcomp"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regcomp"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_preg, arg_1_pattern, arg_2_cflags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_preg, arg_1_pattern, arg_2_cflags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5295,9 +10081,36 @@ static Napi::Value libc_unix_nto_regexec_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "regexec"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regexec"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regexec"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_preg, arg_1_str, arg_2_nmatch, arg_3_pmatch, arg_4_eflags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_preg, arg_1_str, arg_2_nmatch, arg_3_pmatch, arg_4_eflags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5325,9 +10138,36 @@ static Napi::Value libc_unix_nto_regerror_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "regerror"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regerror"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regerror"));
+        }
+#endif
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_errcode, arg_1_preg, arg_2_errbuf, arg_3_errbuf_size) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_errcode, arg_1_preg, arg_2_errbuf, arg_3_errbuf_size);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
@@ -5352,9 +10192,34 @@ static Napi::Value libc_unix_nto_regfree_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "regfree"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regfree"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "regfree"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(arg_0_preg);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(arg_0_preg);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -5379,9 +10244,36 @@ static Napi::Value libc_unix_nto_dirfd_napi(const Napi::CallbackInfo& km_info) {
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dirfd"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "dirfd"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "dirfd"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_dirp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_dirp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5412,6 +10304,27 @@ static Napi::Value libc_unix_nto_dircntl_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dircntl"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "dircntl"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "dircntl"));
+        }
+#endif
     }
 #endif
     int32_t km_res = -1;
@@ -5423,6 +10336,8 @@ static Napi::Value libc_unix_nto_dircntl_napi(const Napi::CallbackInfo& km_info)
             case 3: km_res = km_fn_ptr(dir, cmd, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(dir, cmd, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
@@ -5449,9 +10364,36 @@ static Napi::Value libc_unix_nto_aioCancel_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aio_cancel"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_cancel"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_cancel"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_fd, arg_1_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_fd, arg_1_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5476,9 +10418,36 @@ static Napi::Value libc_unix_nto_aioError_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aio_error"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_error"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_error"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5504,9 +10473,36 @@ static Napi::Value libc_unix_nto_aioFsync_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aio_fsync"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_fsync"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_fsync"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_operation, arg_1_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_operation, arg_1_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5531,9 +10527,36 @@ static Napi::Value libc_unix_nto_aioRead_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aio_read"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_read"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_read"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5558,9 +10581,36 @@ static Napi::Value libc_unix_nto_aioReturn_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aio_return"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_return"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_return"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_aiocpb) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_aiocpb);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5587,9 +10637,36 @@ static Napi::Value libc_unix_nto_aioSuspend_napi(const Napi::CallbackInfo& km_in
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aio_suspend"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_suspend"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_suspend"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_list, arg_1_nent, arg_2_timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_list, arg_1_nent, arg_2_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5614,9 +10691,36 @@ static Napi::Value libc_unix_nto_aioWrite_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "aio_write"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_write"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "aio_write"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_aiocpb) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_aiocpb);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5641,9 +10745,36 @@ static Napi::Value libc_unix_nto_mqClose_napi(const Napi::CallbackInfo& km_info)
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_close"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_close"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_close"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5669,9 +10800,36 @@ static Napi::Value libc_unix_nto_mqGetattr_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_getattr"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_getattr"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_getattr"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes, arg_1_mqstat) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes, arg_1_mqstat);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5697,9 +10855,36 @@ static Napi::Value libc_unix_nto_mqNotify_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_notify"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_notify"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_notify"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes, arg_1_notification) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes, arg_1_notification);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5732,9 +10917,30 @@ static Napi::Value libc_unix_nto_mqOpen_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_open"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_open"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_open"));
+        }
+#endif
     }
 #endif
-    void* km_res = NULL;
+    void* km_res = nullptr;
     if (km_fn_ptr != nullptr) {
         switch (km_vac) {
             case 0: km_res = km_fn_ptr(arg_0_name, arg_1_oflag); break;
@@ -5743,6 +10949,8 @@ static Napi::Value libc_unix_nto_mqOpen_napi(const Napi::CallbackInfo& km_info) 
             case 3: km_res = km_fn_ptr(arg_0_name, arg_1_oflag, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
             default: km_res = km_fn_ptr(arg_0_name, arg_1_oflag, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
@@ -5771,9 +10979,36 @@ static Napi::Value libc_unix_nto_mqReceive_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_receive"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_receive"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_receive"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5803,9 +11038,36 @@ static Napi::Value libc_unix_nto_mqSend_napi(const Napi::CallbackInfo& km_info) 
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_send"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_send"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_send"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5832,9 +11094,36 @@ static Napi::Value libc_unix_nto_mqSetattr_napi(const Napi::CallbackInfo& km_inf
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_setattr"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_setattr"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_setattr"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes, arg_1_mqstat, arg_2_omqstat) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes, arg_1_mqstat, arg_2_omqstat);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5863,9 +11152,36 @@ static Napi::Value libc_unix_nto_mqTimedreceive_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_timedreceive"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_timedreceive"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_timedreceive"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio, arg_4_abs_timeout) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio, arg_4_abs_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -5896,9 +11212,36 @@ static Napi::Value libc_unix_nto_mqTimedsend_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_timedsend"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_timedsend"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_timedsend"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio, arg_4_abs_timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_mqdes, arg_1_msg_ptr, arg_2_msg_len, arg_3_msg_prio, arg_4_abs_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5925,9 +11268,36 @@ static Napi::Value libc_unix_nto_mqUnlink_napi(const Napi::CallbackInfo& km_info
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mq_unlink"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_unlink"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "mq_unlink"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_name) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_name);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -5949,9 +11319,36 @@ static Napi::Value libc_unix_nto_getErrnoPtr_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__get_errno_ptr"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "__get_errno_ptr"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "__get_errno_ptr"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -5974,9 +11371,34 @@ static Napi::Value libc_unix_nto_myThreadExit_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "__my_thread_exit"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "__my_thread_exit"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_socket = nullptr;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_socket, "__my_thread_exit"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(value_ptr);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(value_ptr);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 

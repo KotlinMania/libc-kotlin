@@ -143,7 +143,7 @@ int32_t libc_unix_nuttx_pthreadCreate(void* thread, void* attr, void* start_rout
         return km_fn_ptr(thread, attr, start_routine, arg);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_nuttx_clockGettime(int32_t clockid, void* tp) {
@@ -227,7 +227,7 @@ int32_t libc_unix_nuttx_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_nuttx_pthreadSetnameNp(void* thread, const char* name) {
@@ -255,7 +255,7 @@ int32_t libc_unix_nuttx_pthreadSetnameNp(void* thread, const char* name) {
         return km_fn_ptr(thread, name);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_nuttx_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
@@ -283,7 +283,7 @@ int32_t libc_unix_nuttx_pthreadGetnameNp(void* thread, char* name, uint64_t len)
         return km_fn_ptr(thread, name, len);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int64_t libc_unix_nuttx_getrandom(void* buf, uint64_t buflen, uint32_t flags) {

@@ -44,6 +44,13 @@ void libc_new_qurt_stdlib_exit(int32_t status) {
 }
 
 int32_t libc_new_qurt_stdlib_atexit(void* function) {
+    if (function == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+#ifdef __ANDROID__
+    return (int32_t)atexit((void (*)(void))(uintptr_t)function);
+#else
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -69,6 +76,7 @@ int32_t libc_new_qurt_stdlib_atexit(void* function) {
     }
     errno = ENOSYS;
     return -1;
+#endif
 }
 
 char* libc_new_qurt_stdlib_getenv(const char* name) {

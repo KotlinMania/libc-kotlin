@@ -1310,7 +1310,7 @@ int32_t libc_unix_solarish_pthreadCreate(void* native, void* attr, void* f, void
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -1338,7 +1338,7 @@ int32_t libc_unix_solarish_pthreadAttrGetstack(void* attr, void* stackaddr, void
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_pthreadCondattrGetclock(void* attr, void* clock_id) {
@@ -1366,7 +1366,7 @@ int32_t libc_unix_solarish_pthreadCondattrGetclock(void* attr, void* clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
@@ -1394,7 +1394,7 @@ int32_t libc_unix_solarish_pthreadCondattrSetclock(void* attr, int32_t clock_id)
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_semTimedwait(void* sem, void* abstime) {
@@ -1478,7 +1478,7 @@ int32_t libc_unix_solarish_pthreadMutexTimedlock(void* lock, void* abstime) {
         return km_fn_ptr(lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_pthreadGetnameNp(void* tid, char* name, uint64_t len) {
@@ -1506,7 +1506,7 @@ int32_t libc_unix_solarish_pthreadGetnameNp(void* tid, char* name, uint64_t len)
         return km_fn_ptr(tid, name, len);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_pthreadSetnameNp(void* tid, const char* name) {
@@ -1534,7 +1534,7 @@ int32_t libc_unix_solarish_pthreadSetnameNp(void* tid, const char* name) {
         return km_fn_ptr(tid, name);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_waitid(uint32_t idtype, int32_t id, void* infop, int32_t options) {
@@ -3706,7 +3706,7 @@ int32_t libc_unix_solarish_pthreadSigmask(int32_t how, void* set, void* oldset) 
         return km_fn_ptr(how, set, oldset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_solarish_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
@@ -3796,7 +3796,7 @@ int32_t libc_unix_solarish_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_schedGetPriorityMin(int32_t policy) {
@@ -4188,7 +4188,7 @@ int32_t libc_unix_solarish_pthreadAtfork(void* prepare, void* parent, void* chil
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_unix_solarish_getgrgid(uint16_t gid) {
@@ -6896,6 +6896,27 @@ int64_t libc_unix_solarish_sendfile(int32_t out_fd, int32_t in_fd, void* off, ui
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfile");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_sendfile = NULL;
+            static bool km_h_sendfile_init = false;
+            if (!km_h_sendfile_init) {
+                km_h_sendfile_init = true;
+                km_h_sendfile = dlopen("/usr/lib/libsendfile.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_sendfile != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_sendfile, "sendfile");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_sendfile = NULL;
+            static bool km_h_sendfile_init = false;
+            if (!km_h_sendfile_init) {
+                km_h_sendfile_init = true;
+                km_h_sendfile = dlopen("libsendfile.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_sendfile != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_sendfile, "sendfile");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6924,6 +6945,27 @@ int64_t libc_unix_solarish_sendfilev(int32_t fildes, void* vec, int32_t sfvcnt, 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfilev");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_sendfile = NULL;
+            static bool km_h_sendfile_init = false;
+            if (!km_h_sendfile_init) {
+                km_h_sendfile_init = true;
+                km_h_sendfile = dlopen("/usr/lib/libsendfile.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_sendfile != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_sendfile, "sendfilev");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_sendfile = NULL;
+            static bool km_h_sendfile_init = false;
+            if (!km_h_sendfile_init) {
+                km_h_sendfile_init = true;
+                km_h_sendfile = dlopen("libsendfile.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_sendfile != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_sendfile, "sendfilev");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6952,6 +6994,27 @@ uint64_t libc_unix_solarish_lgrpInit(uint32_t view) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_init");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6980,6 +7043,27 @@ int32_t libc_unix_solarish_lgrpFini(uint64_t cookie) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_fini");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_fini");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_fini");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7008,6 +7092,27 @@ int32_t libc_unix_solarish_lgrpAffinityGet(uint32_t idtype, int32_t id, int32_t 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_affinity_get");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_affinity_get");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_affinity_get");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7036,6 +7141,27 @@ int32_t libc_unix_solarish_lgrpAffinitySet(uint32_t idtype, int32_t id, int32_t 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_affinity_set");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_affinity_set");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_affinity_set");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7064,6 +7190,27 @@ int32_t libc_unix_solarish_lgrpCpus(uint64_t cookie, int32_t lgrp, void* cpuids,
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_cpus");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_cpus");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_cpus");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7092,6 +7239,27 @@ int64_t libc_unix_solarish_lgrpMemSize(uint64_t cookie, int32_t lgrp, uint32_t t
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_mem_size");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_mem_size");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_mem_size");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7120,6 +7288,27 @@ int32_t libc_unix_solarish_lgrpNlgrps(uint64_t cookie) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_nlgrps");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_nlgrps");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_nlgrps");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7148,6 +7337,27 @@ uint32_t libc_unix_solarish_lgrpView(uint64_t cookie) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_view");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_view");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_view");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7176,6 +7386,27 @@ int32_t libc_unix_solarish_lgrpHome(uint32_t idtype, int32_t id) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_home");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_home");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_home");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7204,6 +7435,27 @@ int32_t libc_unix_solarish_lgrpVersion(int32_t version) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_version");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_version");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_version");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7232,6 +7484,27 @@ int32_t libc_unix_solarish_lgrpResources(uint64_t cookie, int32_t lgrp, void* lg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_resources");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_resources");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_resources");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7260,6 +7533,27 @@ int32_t libc_unix_solarish_lgrpRoot(uint64_t cookie) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgrp_root");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("/usr/lib/liblgrp.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_root");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_lgrp = NULL;
+            static bool km_h_lgrp_init = false;
+            if (!km_h_lgrp_init) {
+                km_h_lgrp_init = true;
+                km_h_lgrp = dlopen("liblgrp.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_lgrp != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_lgrp, "lgrp_root");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

@@ -1500,7 +1500,7 @@ int32_t libc_unix_bsd_apple_pthreadCondTimedwaitRelativeNp(void* cond, void* loc
         return km_fn_ptr(cond, lock, timeout);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadAttrGetscope(void* attr, void* contentionscope) {
@@ -1528,7 +1528,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrGetscope(void* attr, void* contentionscop
         return km_fn_ptr(attr, contentionscope);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadAttrGetstackaddr(void* attr, void* stackaddr) {
@@ -1556,7 +1556,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrGetstackaddr(void* attr, void* stackaddr)
         return km_fn_ptr(attr, stackaddr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadAttrGetdetachstate(void* attr, void* detachstate) {
@@ -1584,7 +1584,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrGetdetachstate(void* attr, void* detachst
         return km_fn_ptr(attr, detachstate);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadAttrSetscope(void* attr, int32_t contentionscope) {
@@ -1612,7 +1612,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrSetscope(void* attr, int32_t contentionsc
         return km_fn_ptr(attr, contentionscope);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadAttrSetstackaddr(void* attr, void* stackaddr) {
@@ -1640,7 +1640,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrSetstackaddr(void* attr, void* stackaddr)
         return km_fn_ptr(attr, stackaddr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadSetnameNp(const char* name) {
@@ -1668,7 +1668,7 @@ int32_t libc_unix_bsd_apple_pthreadSetnameNp(const char* name) {
         return km_fn_ptr(name);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
@@ -1696,7 +1696,7 @@ int32_t libc_unix_bsd_apple_pthreadGetnameNp(void* thread, char* name, uint64_t 
         return km_fn_ptr(thread, name, len);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 uint32_t libc_unix_bsd_apple_pthreadMachThreadNp(void* thread) {
@@ -1836,7 +1836,7 @@ int32_t libc_unix_bsd_apple_pthreadMainNp(void) {
         return km_fn_ptr();
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadThreadidNp(void* thread, void* thread_id) {
@@ -1864,7 +1864,7 @@ int32_t libc_unix_bsd_apple_pthreadThreadidNp(void* thread, void* thread_id) {
         return km_fn_ptr(thread, thread_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_unix_bsd_apple_pthreadJitWriteProtectNp(int32_t enabled) {
@@ -1920,7 +1920,7 @@ int32_t libc_unix_bsd_apple_pthreadJitWriteProtectSupportedNp(void) {
         return km_fn_ptr();
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp(void* callback, void* ctx) {
@@ -1948,7 +1948,7 @@ int32_t libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp(void* callback, void* 
         return km_fn_ptr(callback, ctx);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_unix_bsd_apple_pthreadJitWriteFreezeCallbacksNp(void) {
@@ -2004,7 +2004,7 @@ int32_t libc_unix_bsd_apple_pthreadCpuNumberNp(void* cpu_number_out) {
         return km_fn_ptr(cpu_number_out);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_apple_osSyncWaitOnAddress(void* addr, uint64_t value, uint64_t size, uint32_t flags) {
@@ -2795,6 +2795,11 @@ int32_t libc_unix_bsd_apple_kevent64(int32_t kq, void* changelist, int32_t nchan
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kevent64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kevent");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6423,6 +6428,11 @@ int32_t libc_unix_bsd_apple_hostStatistics64(uint32_t host_priv, int32_t flavor,
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "host_statistics64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "host_statistics");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7210,7 +7220,21 @@ void* libc_unix_bsd_apple_iconvOpen(const char* tocode, const char* fromcode) {
 #ifdef __APPLE__
         if (km_fn_ptr == NULL) {
             static void* km_h_iconv = NULL;
-            if (km_h_iconv == NULL) km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("libiconv.so", RTLD_LAZY | RTLD_LOCAL);
+            }
             if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_open");
         }
 #endif
@@ -7245,7 +7269,21 @@ uint64_t libc_unix_bsd_apple_iconv(void* cd, void* inbuf, void* inbytesleft, voi
 #ifdef __APPLE__
         if (km_fn_ptr == NULL) {
             static void* km_h_iconv = NULL;
-            if (km_h_iconv == NULL) km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("libiconv.so", RTLD_LAZY | RTLD_LOCAL);
+            }
             if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv");
         }
 #endif
@@ -7280,7 +7318,21 @@ int32_t libc_unix_bsd_apple_iconvClose(void* cd) {
 #ifdef __APPLE__
         if (km_fn_ptr == NULL) {
             static void* km_h_iconv = NULL;
-            if (km_h_iconv == NULL) km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("libiconv.so", RTLD_LAZY | RTLD_LOCAL);
+            }
             if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_close");
         }
 #endif

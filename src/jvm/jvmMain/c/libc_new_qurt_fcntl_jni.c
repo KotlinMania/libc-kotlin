@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -51,6 +52,8 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcn
             case 3: km_res = km_fn_ptr(pathname_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr(pathname_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
@@ -80,7 +83,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "creat");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(pathname_utf, (uint32_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(pathname_utf, (uint32_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -117,6 +126,8 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcn
             case 3: km_res = km_fn_ptr((int32_t)fd, (int32_t)cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((int32_t)fd, (int32_t)cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jint)km_res;
 }

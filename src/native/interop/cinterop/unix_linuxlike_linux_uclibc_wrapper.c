@@ -68,7 +68,7 @@ int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrGetkindNp(void* attr, 
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(void* attr, int32_t val) {
@@ -96,7 +96,7 @@ int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(void* attr, 
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int64_t libc_unix_linuxlike_linux_uclibc_ptrace(uint32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
@@ -404,6 +404,11 @@ int32_t libc_unix_linuxlike_linux_uclibc_getrlimit64(uint64_t resource, void* rl
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -432,6 +437,11 @@ int32_t libc_unix_linuxlike_linux_uclibc_setrlimit64(uint64_t resource, void* rl
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

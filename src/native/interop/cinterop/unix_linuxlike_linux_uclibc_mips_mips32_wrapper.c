@@ -34,6 +34,27 @@ int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl(void* name, int32_t 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sysctl");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "sysctl");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "sysctl");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -62,6 +83,32 @@ int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64(const char* pattern,
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "glob64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "glob");
+        }
+#endif
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "glob64");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "glob64");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -90,6 +137,32 @@ void libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64(void* pglob) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "globfree64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "globfree");
+        }
+#endif
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "globfree64");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "globfree64");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -118,13 +191,34 @@ int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaffinityNp(vo
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_attr_getaffinity_np");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pthread_attr_getaffinity_np");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pthread_attr_getaffinity_np");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
         return km_fn_ptr(attr, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
@@ -146,12 +240,33 @@ int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp(vo
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_attr_setaffinity_np");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pthread_attr_setaffinity_np");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pthread_attr_setaffinity_np");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
         return km_fn_ptr(attr, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

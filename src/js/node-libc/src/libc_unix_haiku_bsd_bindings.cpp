@@ -73,9 +73,36 @@ static Napi::Value libc_unix_haiku_bsd_daemon_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "daemon"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "daemon"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "daemon"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(nochdir, noclose) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(nochdir, noclose);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -99,9 +126,36 @@ static Napi::Value libc_unix_haiku_bsd_getprogname_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getprogname"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "getprogname"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "getprogname"));
+        }
+#endif
     }
 #endif
-    const char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    const char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -128,9 +182,34 @@ static Napi::Value libc_unix_haiku_bsd_setprogname_napi(const Napi::CallbackInfo
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setprogname"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "setprogname"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "setprogname"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(progname);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(progname);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -154,9 +233,36 @@ static Napi::Value libc_unix_haiku_bsd_arc4random_napi(const Napi::CallbackInfo&
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "arc4random"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "arc4random"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "arc4random"));
+        }
+#endif
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -181,9 +287,36 @@ static Napi::Value libc_unix_haiku_bsd_arc4randomUniform_napi(const Napi::Callba
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "arc4random_uniform"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "arc4random_uniform"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "arc4random_uniform"));
+        }
+#endif
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(upper_bound) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(upper_bound);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -209,9 +342,34 @@ static Napi::Value libc_unix_haiku_bsd_arc4randomBuf_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "arc4random_buf"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "arc4random_buf"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "arc4random_buf"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(buf, n);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(buf, n);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -237,9 +395,36 @@ static Napi::Value libc_unix_haiku_bsd_mkstemps_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "mkstemps"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "mkstemps"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "mkstemps"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_template, suffixlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_template, suffixlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -269,9 +454,36 @@ static Napi::Value libc_unix_haiku_bsd_strtonum_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strtonum"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "strtonum"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "strtonum"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(nptr, minval, maxval, errstr) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(nptr, minval, maxval, errstr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -300,9 +512,36 @@ static Napi::Value libc_unix_haiku_bsd_openpty_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "openpty"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "openpty"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "openpty"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(amaster, aslave, name, termp, winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(amaster, aslave, name, termp, winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -327,9 +566,36 @@ static Napi::Value libc_unix_haiku_bsd_loginTty_napi(const Napi::CallbackInfo& k
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "login_tty"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "login_tty"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "login_tty"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(arg_0_fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(arg_0_fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -357,9 +623,36 @@ static Napi::Value libc_unix_haiku_bsd_forkpty_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "forkpty"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "forkpty"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "forkpty"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(amaster, name, termp, winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(amaster, name, termp, winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -387,9 +680,36 @@ static Napi::Value libc_unix_haiku_bsd_strsep_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strsep"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "strsep"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "strsep"));
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(string, delimiters) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(string, delimiters);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -415,9 +735,34 @@ static Napi::Value libc_unix_haiku_bsd_explicitBzero_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "explicit_bzero"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "explicit_bzero"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "explicit_bzero"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(buf, len);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(buf, len);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -441,9 +786,36 @@ static Napi::Value libc_unix_haiku_bsd_slInit_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sl_init"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_init"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_init"));
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -469,9 +841,36 @@ static Napi::Value libc_unix_haiku_bsd_slAdd_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sl_add"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_add"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_add"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sl, n) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sl, n);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -497,9 +896,34 @@ static Napi::Value libc_unix_haiku_bsd_slFree_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sl_free"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_free"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_free"));
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != nullptr) km_fn_ptr(sl, i);
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(sl, i);
+    } else {
+        errno = ENOSYS;
+    }
     return km_env.Undefined();
 }
 
@@ -525,9 +949,36 @@ static Napi::Value libc_unix_haiku_bsd_slFind_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sl_find"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_find"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "sl_find"));
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(sl, n) : NULL;
+    char* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sl, n);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
@@ -551,9 +1002,36 @@ static Napi::Value libc_unix_haiku_bsd_kqueue_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "kqueue"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "kqueue"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "kqueue"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -583,9 +1061,36 @@ static Napi::Value libc_unix_haiku_bsd_kevent_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "kevent"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "kevent"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "kevent"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(kq, changelist, nchanges, eventlist, nevents, timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(kq, changelist, nchanges, eventlist, nevents, timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -611,9 +1116,36 @@ static Napi::Value libc_unix_haiku_bsd_dlIteratePhdr_napi(const Napi::CallbackIn
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "dl_iterate_phdr"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "dl_iterate_phdr"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "dl_iterate_phdr"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(callback, data) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(callback, data);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -641,9 +1173,36 @@ static Napi::Value libc_unix_haiku_bsd_lutimes_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "lutimes"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "lutimes"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "lutimes"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(file, times) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(file, times);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
@@ -671,9 +1230,36 @@ static Napi::Value libc_unix_haiku_bsd_preadv_napi(const Napi::CallbackInfo& km_
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "preadv"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "preadv"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "preadv"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, iov, iovcnt, offset) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, iov, iovcnt, offset);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -701,9 +1287,36 @@ static Napi::Value libc_unix_haiku_bsd_pwritev_napi(const Napi::CallbackInfo& km
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pwritev"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "pwritev"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "pwritev"));
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(fd, iov, iovcnt, offset) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, iov, iovcnt, offset);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
@@ -731,9 +1344,36 @@ static Napi::Value libc_unix_haiku_bsd_wait4_napi(const Napi::CallbackInfo& km_i
 #else
     if (km_fn_ptr == nullptr) {
         km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "wait4"));
+#ifdef __APPLE__
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "wait4"));
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == nullptr) {
+            static void* km_h_bsd = nullptr;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_bsd, "wait4"));
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != nullptr) ? km_fn_ptr(pid, status, options, rusage) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(pid, status, options, rusage);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 

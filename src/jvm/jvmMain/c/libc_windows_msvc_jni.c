@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -41,7 +42,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJ
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_stricmp");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(s1_utf, s2_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(s1_utf, s2_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (s1 != NULL && s1_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s1, s1_utf);
     if (s2 != NULL && s2_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s2, s2_utf);
     return (jint)km_res;
@@ -70,7 +77,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJ
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_strnicmp");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(s1_utf, s2_utf, (uint64_t)n) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(s1_utf, s2_utf, (uint64_t)n);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (s1 != NULL && s1_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s1, s1_utf);
     if (s2 != NULL && s2_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s2, s2_utf);
     return (jint)km_res;
@@ -97,7 +110,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvc
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_memccpy");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)dest, (void*)(uintptr_t)src, (int32_t)c, (uint64_t)count) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)dest, (void*)(uintptr_t)src, (int32_t)c, (uint64_t)count);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 

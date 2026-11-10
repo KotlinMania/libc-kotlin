@@ -513,6 +513,13 @@ void libc_wasi_srand(uint32_t a) {
 }
 
 int32_t libc_wasi_atexit(void* a) {
+    if (a == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+#ifdef __ANDROID__
+    return (int32_t)atexit((void (*)(void))(uintptr_t)a);
+#else
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -538,6 +545,7 @@ int32_t libc_wasi_atexit(void* a) {
     }
     errno = ENOSYS;
     return -1;
+#endif
 }
 
 int32_t libc_wasi_atQuickExit(void* a) {
@@ -4092,7 +4100,7 @@ int32_t libc_wasi_pthreadCreate(void* native, void* attr, void* f, void* value) 
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadEqual(void* t1, void* t2) {
@@ -4148,7 +4156,7 @@ int32_t libc_wasi_pthreadJoin(void* native, void* value) {
         return km_fn_ptr(native, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadAttrInit(void* attr) {
@@ -4176,7 +4184,7 @@ int32_t libc_wasi_pthreadAttrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadAttrDestroy(void* attr) {
@@ -4204,7 +4212,7 @@ int32_t libc_wasi_pthreadAttrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadAttrGetstacksize(void* attr, void* stacksize) {
@@ -4232,7 +4240,7 @@ int32_t libc_wasi_pthreadAttrGetstacksize(void* attr, void* stacksize) {
         return km_fn_ptr(attr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
@@ -4260,7 +4268,7 @@ int32_t libc_wasi_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
         return km_fn_ptr(attr, stack_size);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadAttrSetdetachstate(void* attr, int32_t state) {
@@ -4288,7 +4296,7 @@ int32_t libc_wasi_pthreadAttrSetdetachstate(void* attr, int32_t state) {
         return km_fn_ptr(attr, state);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadDetach(void* thread) {
@@ -4316,7 +4324,7 @@ int32_t libc_wasi_pthreadDetach(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadKeyCreate(void* key, void* dtor) {
@@ -4344,7 +4352,7 @@ int32_t libc_wasi_pthreadKeyCreate(void* key, void* dtor) {
         return km_fn_ptr(key, dtor);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadKeyDelete(uint32_t key) {
@@ -4372,7 +4380,7 @@ int32_t libc_wasi_pthreadKeyDelete(uint32_t key) {
         return km_fn_ptr(key);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_wasi_pthreadGetspecific(uint32_t key) {
@@ -4428,7 +4436,7 @@ int32_t libc_wasi_pthreadSetspecific(uint32_t key, void* value) {
         return km_fn_ptr(key, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexInit(void* lock, void* attr) {
@@ -4456,7 +4464,7 @@ int32_t libc_wasi_pthreadMutexInit(void* lock, void* attr) {
         return km_fn_ptr(lock, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexDestroy(void* lock) {
@@ -4484,7 +4492,7 @@ int32_t libc_wasi_pthreadMutexDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexLock(void* lock) {
@@ -4512,7 +4520,7 @@ int32_t libc_wasi_pthreadMutexLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexTrylock(void* lock) {
@@ -4540,7 +4548,7 @@ int32_t libc_wasi_pthreadMutexTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexUnlock(void* lock) {
@@ -4568,7 +4576,7 @@ int32_t libc_wasi_pthreadMutexUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexattrInit(void* attr) {
@@ -4596,7 +4604,7 @@ int32_t libc_wasi_pthreadMutexattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexattrDestroy(void* attr) {
@@ -4624,7 +4632,7 @@ int32_t libc_wasi_pthreadMutexattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
@@ -4652,7 +4660,7 @@ int32_t libc_wasi_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
         return km_fn_ptr(attr, arg_1_type);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondInit(void* cond, void* attr) {
@@ -4680,7 +4688,7 @@ int32_t libc_wasi_pthreadCondInit(void* cond, void* attr) {
         return km_fn_ptr(cond, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondWait(void* cond, void* lock) {
@@ -4708,7 +4716,7 @@ int32_t libc_wasi_pthreadCondWait(void* cond, void* lock) {
         return km_fn_ptr(cond, lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
@@ -4736,7 +4744,7 @@ int32_t libc_wasi_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
         return km_fn_ptr(cond, lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondSignal(void* cond) {
@@ -4764,7 +4772,7 @@ int32_t libc_wasi_pthreadCondSignal(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondBroadcast(void* cond) {
@@ -4792,7 +4800,7 @@ int32_t libc_wasi_pthreadCondBroadcast(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondDestroy(void* cond) {
@@ -4820,7 +4828,7 @@ int32_t libc_wasi_pthreadCondDestroy(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondattrInit(void* attr) {
@@ -4848,7 +4856,7 @@ int32_t libc_wasi_pthreadCondattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadCondattrDestroy(void* attr) {
@@ -4876,7 +4884,7 @@ int32_t libc_wasi_pthreadCondattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockInit(void* lock, void* attr) {
@@ -4904,7 +4912,7 @@ int32_t libc_wasi_pthreadRwlockInit(void* lock, void* attr) {
         return km_fn_ptr(lock, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockDestroy(void* lock) {
@@ -4932,7 +4940,7 @@ int32_t libc_wasi_pthreadRwlockDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockRdlock(void* lock) {
@@ -4960,7 +4968,7 @@ int32_t libc_wasi_pthreadRwlockRdlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockTryrdlock(void* lock) {
@@ -4988,7 +4996,7 @@ int32_t libc_wasi_pthreadRwlockTryrdlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockWrlock(void* lock) {
@@ -5016,7 +5024,7 @@ int32_t libc_wasi_pthreadRwlockWrlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockTrywrlock(void* lock) {
@@ -5044,7 +5052,7 @@ int32_t libc_wasi_pthreadRwlockTrywrlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockUnlock(void* lock) {
@@ -5072,7 +5080,7 @@ int32_t libc_wasi_pthreadRwlockUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockattrInit(void* attr) {
@@ -5100,7 +5108,7 @@ int32_t libc_wasi_pthreadRwlockattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_wasi_pthreadRwlockattrDestroy(void* attr) {
@@ -5128,6 +5136,6 @@ int32_t libc_wasi_pthreadRwlockattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

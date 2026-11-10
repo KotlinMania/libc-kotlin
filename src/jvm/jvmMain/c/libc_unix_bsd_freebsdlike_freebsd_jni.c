@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -42,7 +43,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhlink");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)fhp, to_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, to_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (to != NULL && to_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, to, to_utf);
     return (jint)km_res;
 }
@@ -71,7 +78,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhlinkat");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)fhp, (int32_t)tofd, to_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (int32_t)tofd, to_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (to != NULL && to_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, to, to_utf);
     return (jint)km_res;
 }
@@ -99,7 +112,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhreadlink");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)fhp, (char*)(uintptr_t)buf, (uint64_t)bufsize) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (char*)(uintptr_t)buf, (uint64_t)bufsize);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -126,7 +145,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getfhat");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (char*)(uintptr_t)path, (void*)(uintptr_t)fhp, (int32_t)flag) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (char*)(uintptr_t)path, (void*)(uintptr_t)fhp, (int32_t)flag);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -151,7 +176,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__error");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -178,7 +209,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_cancel");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -205,7 +242,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_error");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -232,7 +275,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_fsync");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)op, (void*)(uintptr_t)aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)op, (void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -259,7 +308,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_read");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -286,7 +341,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_readv");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -313,7 +374,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_return");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)aiocbp) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -340,7 +407,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_suspend");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -367,7 +440,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_write");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -394,7 +473,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_writev");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -421,7 +506,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "copy_file_range");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)infd, (void*)(uintptr_t)inoffp, (int32_t)outfd, (void*)(uintptr_t)outoffp, (uint64_t)len, (uint32_t)flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)infd, (void*)(uintptr_t)inoffp, (int32_t)outfd, (void*)(uintptr_t)outoffp, (uint64_t)len, (uint32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -448,7 +539,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devname_r");
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)dev, (uint16_t)mode, (char*)(uintptr_t)buf, (int32_t)len) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)dev, (uint16_t)mode, (char*)(uintptr_t)buf, (int32_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -476,7 +573,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_delete_fd");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jint)km_res;
 }
@@ -506,7 +609,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_delete_file");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jint)km_res;
@@ -537,7 +646,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_delete_link");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jint)km_res;
@@ -567,7 +682,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_get_fd");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
@@ -597,7 +718,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_get_file");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
@@ -628,7 +755,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_get_link");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
@@ -657,7 +790,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_list_fd");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -685,7 +824,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_list_file");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)km_res;
 }
@@ -714,7 +859,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_list_link");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)km_res;
 }
@@ -743,7 +894,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_set_fd");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
@@ -773,7 +930,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_set_file");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
@@ -804,7 +967,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_set_link");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
@@ -833,7 +1002,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fspacectl");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)cmd, (void*)(uintptr_t)rqsr, (int32_t)flags, (void*)(uintptr_t)rmsr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)cmd, (void*)(uintptr_t)rqsr, (int32_t)flags, (void*)(uintptr_t)rmsr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -860,7 +1035,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)jail) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)jail);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -887,7 +1068,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_attach");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)jid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)jid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -914,7 +1101,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_remove");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)jid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)jid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -941,7 +1134,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_get");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)iov, (uint32_t)niov, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)iov, (uint32_t)niov, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -968,7 +1167,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_set");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)iov, (uint32_t)niov, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)iov, (uint32_t)niov, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -995,7 +1200,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lio_listio");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)mode, (void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)sevp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)mode, (void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)sevp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1023,7 +1234,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getutxuser");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(user_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(user_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (user != NULL && user_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, user, user_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -1052,7 +1269,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setutxdb");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_type, file_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_type, file_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (file != NULL && file_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, file, file_utf);
     return (jint)km_res;
 }
@@ -1080,7 +1303,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_waitcomplete");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)iocbp, (void*)(uintptr_t)timeout) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)iocbp, (void*)(uintptr_t)timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -1107,7 +1336,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_getfd_np");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mqd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mqd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1134,7 +1369,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "waitid");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)idtype, (int64_t)id, (void*)(uintptr_t)infop, (int32_t)options) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)idtype, (int64_t)id, (void*)(uintptr_t)infop, (int32_t)options);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1161,7 +1402,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ptsname_r");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (char*)(uintptr_t)buf, (uint64_t)buflen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (char*)(uintptr_t)buf, (uint64_t)buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1189,7 +1436,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftok");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(pathname_utf, (int32_t)proj_id) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(pathname_utf, (int32_t)proj_id);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jlong)km_res;
 }
@@ -1217,7 +1470,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmget");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)key, (uint64_t)size, (int32_t)shmflg) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)key, (uint64_t)size, (int32_t)shmflg);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1244,7 +1503,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmat");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)shmid, (void*)(uintptr_t)shmaddr, (int32_t)shmflg) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)shmid, (void*)(uintptr_t)shmaddr, (int32_t)shmflg);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -1271,7 +1536,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmdt");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)shmaddr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)shmaddr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1298,7 +1569,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmctl");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)shmid, (int32_t)cmd, (void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)shmid, (int32_t)cmd, (void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1325,7 +1602,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "semget");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)key, (int32_t)nsems, (int32_t)semflg) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)key, (int32_t)nsems, (int32_t)semflg);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1361,6 +1644,8 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
             case 3: km_res = km_fn_ptr((int32_t)semid, (int32_t)semnum, (int32_t)cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((int32_t)semid, (int32_t)semnum, (int32_t)cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jint)km_res;
 }
@@ -1388,7 +1673,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "semop");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)semid, (void*)(uintptr_t)sops, (uint64_t)nsops) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)semid, (void*)(uintptr_t)sops, (uint64_t)nsops);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1415,7 +1706,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msgctl");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)msqid, (int32_t)cmd, (void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)msqid, (int32_t)cmd, (void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1442,7 +1739,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msgget");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)key, (int32_t)msgflg) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)key, (int32_t)msgflg);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1469,7 +1772,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msgsnd");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)msqid, (void*)(uintptr_t)msgp, (uint64_t)msgsz, (int32_t)msgflg) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)msqid, (void*)(uintptr_t)msgp, (uint64_t)msgsz, (int32_t)msgflg);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1496,7 +1805,11 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cfmakesane");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)termios);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)termios);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pdfork(JNIEnv* km_env, jclass km_clazz, jlong fdp, jint flags) {
@@ -1522,7 +1835,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pdfork");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)fdp, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)fdp, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1549,7 +1868,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pdgetpid");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)pidp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)pidp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1576,7 +1901,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pdkill");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)signum) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)signum);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1603,7 +1934,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rtprio_thread");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)function, (int32_t)lwpid, (void*)(uintptr_t)rtp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)function, (int32_t)lwpid, (void*)(uintptr_t)rtp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1630,7 +1967,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "uuidgen");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)store, (int32_t)count) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)store, (int32_t)count);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1657,7 +2000,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_kill");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)id, (int32_t)sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)id, (int32_t)sig);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1684,7 +2033,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_kill2");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (int64_t)id, (int32_t)sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (int64_t)id, (int32_t)sig);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1711,7 +2066,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_self");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)tid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)tid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1738,7 +2099,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getthreadid_np");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -1765,7 +2132,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getaffinity_np");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)td, (uint64_t)cpusetsize, (void*)(uintptr_t)cpusetp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)td, (uint64_t)cpusetsize, (void*)(uintptr_t)cpusetp);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -1792,7 +2165,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_setaffinity_np");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)td, (uint64_t)cpusetsize, (void*)(uintptr_t)cpusetp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)td, (uint64_t)cpusetsize, (void*)(uintptr_t)cpusetp);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -1819,7 +2198,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_getaffinity");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (uint64_t)cpusetsz, (void*)(uintptr_t)cpuset) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (uint64_t)cpusetsz, (void*)(uintptr_t)cpuset);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1846,7 +2231,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_setaffinity");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (uint64_t)cpusetsz, (void*)(uintptr_t)cpuset) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (uint64_t)cpusetsz, (void*)(uintptr_t)cpuset);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1873,7 +2264,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_getcpu");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1900,7 +2297,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutex_consistent");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mutex) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mutex);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -1927,7 +2330,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_getrobust");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)robust) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)robust);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -1954,7 +2363,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_setrobust");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)robust) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)robust);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -1981,7 +2396,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_init");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock, (int32_t)pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock, (int32_t)pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2008,7 +2429,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_destroy");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2035,7 +2462,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_lock");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2062,7 +2495,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_trylock");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2089,7 +2528,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_unlock");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2116,7 +2561,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_timedjoin_np");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)retval, (void*)(uintptr_t)abstime) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)retval, (void*)(uintptr_t)abstime);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2144,7 +2595,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -2172,7 +2629,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2199,7 +2662,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dup3");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)src, (int32_t)dst, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)src, (int32_t)dst, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2224,7 +2693,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__xuname");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)nmln, (void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)nmln, (void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2251,7 +2726,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendmmsg");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint64_t)vlen, (int32_t)flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint64_t)vlen, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -2278,7 +2759,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "recvmmsg");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint64_t)vlen, (int32_t)flags, (void*)(uintptr_t)timeout) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint64_t)vlen, (int32_t)flags, (void*)(uintptr_t)timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -2305,7 +2792,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memmem");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)haystack, (uint64_t)haystacklen, (void*)(uintptr_t)needle, (uint64_t)needlelen) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)haystack, (uint64_t)haystacklen, (void*)(uintptr_t)needle, (uint64_t)needlelen);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -2332,7 +2825,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhopen");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)fhp, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2359,7 +2858,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhstat");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)fhp, (void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2386,7 +2891,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhstatfs");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)fhp, (void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2414,7 +2925,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getfh");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (void*)(uintptr_t)fhp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (void*)(uintptr_t)fhp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -2443,7 +2960,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgetfh");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (void*)(uintptr_t)fhp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (void*)(uintptr_t)fhp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -2471,7 +2994,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getfsstat");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)buf, (int64_t)bufsize, (int32_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)buf, (int64_t)bufsize, (int32_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2498,7 +3027,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getmntinfo");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mntbufp, (int32_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mntbufp, (int32_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2527,7 +3062,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mount");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(type__utf, dir_utf, (int32_t)flags, (void*)(uintptr_t)data) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(type__utf, dir_utf, (int32_t)flags, (void*)(uintptr_t)data);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (type_ != NULL && type__utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, type_, type__utf);
     if (dir != NULL && dir_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, dir, dir_utf);
     return (jint)km_res;
@@ -2556,7 +3097,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "nmount");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)iov, (uint32_t)niov, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)iov, (uint32_t)niov, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2592,6 +3139,8 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
             case 3: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
 }
@@ -2619,7 +3168,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rfork");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2646,7 +3201,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_getaffinity");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)level, (int32_t)which, (int64_t)id, (uint64_t)setsize, (void*)(uintptr_t)mask) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)level, (int32_t)which, (int64_t)id, (uint64_t)setsize, (void*)(uintptr_t)mask);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2673,7 +3234,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_setaffinity");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)level, (int32_t)which, (int64_t)id, (uint64_t)setsize, (void*)(uintptr_t)mask) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)level, (int32_t)which, (int64_t)id, (uint64_t)setsize, (void*)(uintptr_t)mask);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2700,7 +3267,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)setid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)setid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2727,7 +3300,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_getid");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)level, (int32_t)which, (int64_t)id, (void*)(uintptr_t)setid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)level, (int32_t)which, (int64_t)id, (void*)(uintptr_t)setid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2754,7 +3333,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_setid");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)which, (int64_t)id, (int32_t)setid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)which, (int64_t)id, (int32_t)setid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2781,7 +3366,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_enter");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2808,7 +3399,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_getmode");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)modep) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)modep);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2835,7 +3432,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_fcntls_get");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)fcntlrightsp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)fcntlrightsp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2862,7 +3465,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_fcntls_limit");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (uint32_t)fcntlrights) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (uint32_t)fcntlrights);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2889,7 +3498,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_ioctls_get");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)cmds, (uint64_t)maxcmds) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)cmds, (uint64_t)maxcmds);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -2916,7 +3531,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_ioctls_limit");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)cmds, (uint64_t)ncmds) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)cmds, (uint64_t)ncmds);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2950,6 +3571,8 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
             case 3: km_res = km_fn_ptr((int32_t)version, (void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((int32_t)version, (void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jlong)(uintptr_t)km_res;
 }
@@ -2975,7 +3598,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cap_rights_get");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)version, (int32_t)fd, (void*)(uintptr_t)rightsp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)version, (int32_t)fd, (void*)(uintptr_t)rightsp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3009,6 +3638,8 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
             case 3: km_res = km_fn_ptr((void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jlong)(uintptr_t)km_res;
 }
@@ -3043,6 +3674,8 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
             case 3: km_res = km_fn_ptr((void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jlong)(uintptr_t)km_res;
 }
@@ -3077,6 +3710,8 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
             case 3: km_res = km_fn_ptr((void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((void*)(uintptr_t)rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jboolean)km_res;
 }
@@ -3104,7 +3739,13 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_is_valid");
     }
 #endif
-    bool km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)rights) : false;
+    bool km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)rights);
+    } else {
+        errno = ENOSYS;
+        km_res = false;
+    }
     return (jboolean)km_res;
 }
 
@@ -3131,7 +3772,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_limit");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)rights) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)rights);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3158,7 +3805,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_merge");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)dst, (void*)(uintptr_t)src) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)dst, (void*)(uintptr_t)src);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -3185,7 +3838,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_remove");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)dst, (void*)(uintptr_t)src) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)dst, (void*)(uintptr_t)src);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -3212,7 +3871,13 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_contains");
     }
 #endif
-    bool km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)big, (void*)(uintptr_t)little) : false;
+    bool km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)big, (void*)(uintptr_t)little);
+    } else {
+        errno = ENOSYS;
+        km_res = false;
+    }
     return (jboolean)km_res;
 }
 
@@ -3239,7 +3904,13 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_sandboxed");
     }
 #endif
-    bool km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : false;
+    bool km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = false;
+    }
     return (jboolean)km_res;
 }
 
@@ -3266,7 +3937,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "reallocarray");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)nmemb, (uint64_t)size) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)nmemb, (uint64_t)size);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -3293,7 +3970,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ffs");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3320,7 +4003,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ffsl");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3347,7 +4036,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ffsll");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3374,7 +4069,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fls");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3401,7 +4102,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flsl");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3428,7 +4135,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flsll");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3456,7 +4169,11 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "malloc_stats_print");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)write_cb, (void*)(uintptr_t)cbopaque, opt_utf);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)write_cb, (void*)(uintptr_t)cbopaque, opt_utf);
+    } else {
+        errno = ENOSYS;
+    }
     if (opt != NULL && opt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, opt, opt_utf);
 }
 
@@ -3484,7 +4201,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallctl");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (void*)(uintptr_t)oldp, (void*)(uintptr_t)oldlenp, (void*)(uintptr_t)newp, (uint64_t)newlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)oldp, (void*)(uintptr_t)oldlenp, (void*)(uintptr_t)newp, (uint64_t)newlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -3513,7 +4236,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallctlnametomib");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (void*)(uintptr_t)mibp, (void*)(uintptr_t)miplen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)mibp, (void*)(uintptr_t)miplen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -3541,7 +4270,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallctlbymib");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mib, (uint64_t)mible, (void*)(uintptr_t)oldp, (void*)(uintptr_t)oldlenp, (void*)(uintptr_t)newp, (uint64_t)newlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mib, (uint64_t)mible, (void*)(uintptr_t)oldp, (void*)(uintptr_t)oldlenp, (void*)(uintptr_t)newp, (uint64_t)newlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3568,7 +4303,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallocx");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)size, (int32_t)flags) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint64_t)size, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -3595,7 +4336,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rallocx");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)size, (int32_t)flags) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)size, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -3622,7 +4369,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "xallocx");
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)size, (uint64_t)extra, (int32_t)flags) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)size, (uint64_t)extra, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jlong)km_res;
 }
 
@@ -3649,7 +4402,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sallocx");
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)flags) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jlong)km_res;
 }
 
@@ -3676,7 +4435,11 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dallocx");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)flags);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sdallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size, jint flags) {
@@ -3702,7 +4465,11 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sdallocx");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)size, (int32_t)flags);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)ptr, (uint64_t)size, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1nallocx(JNIEnv* km_env, jclass km_clazz, jlong size, jint flags) {
@@ -3728,7 +4495,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "nallocx");
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)size, (int32_t)flags) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint64_t)size, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jlong)km_res;
 }
 
@@ -3755,7 +4528,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procctl");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)idtype, (int64_t)id, (int32_t)cmd, (void*)(uintptr_t)data) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)idtype, (int64_t)id, (int32_t)cmd, (void*)(uintptr_t)data);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3782,7 +4561,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpagesize");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3809,7 +4594,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpagesizes");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)pagesize, (int32_t)nelem) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)pagesize, (int32_t)nelem);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3836,7 +4627,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_getcpuclockid2");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)arg1, (int32_t)arg2, (void*)(uintptr_t)arg3) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)arg1, (int32_t)arg2, (void*)(uintptr_t)arg3);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3864,7 +4661,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strchrnul");
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(s_utf, (int32_t)c) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(s_utf, (int32_t)c);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -3893,7 +4696,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shm_create_largepage");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (int32_t)flags, (int32_t)psind, (int32_t)alloc_policy, (uint16_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (int32_t)flags, (int32_t)psind, (int32_t)alloc_policy, (uint16_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -3923,7 +4732,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shm_rename");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_from_utf, path_to_utf, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_from_utf, path_to_utf, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path_from != NULL && path_from_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path_from, path_from_utf);
     if (path_to != NULL && path_to_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path_to, path_to_utf);
     return (jint)km_res;
@@ -3953,7 +4768,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memfd_create");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (uint32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (uint32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -3981,7 +4802,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setaudit");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)auditinfo) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)auditinfo);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4008,7 +4835,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "eventfd");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)initval, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)initval, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4035,7 +4868,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "eventfd_read");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4062,7 +4901,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "eventfd_write");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (uint64_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (uint64_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4089,7 +4934,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fdatasync");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4116,7 +4967,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "elf_aux_info");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)aux, (void*)(uintptr_t)buf, (int32_t)buflen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)aux, (void*)(uintptr_t)buf, (int32_t)buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4152,6 +5009,8 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
             case 3: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
 }
@@ -4179,7 +5038,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timingsafe_bcmp");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)a, (void*)(uintptr_t)b, (uint64_t)len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)a, (void*)(uintptr_t)b, (uint64_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4206,7 +5071,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timingsafe_memcmp");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)a, (void*)(uintptr_t)b, (uint64_t)len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)a, (void*)(uintptr_t)b, (uint64_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4231,7 +5102,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_umtx_op");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)obj, (int32_t)op, (uint64_t)val, (void*)(uintptr_t)uaddr, (void*)(uintptr_t)uaddr2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)obj, (int32_t)op, (uint64_t)val, (void*)(uintptr_t)uaddr, (void*)(uintptr_t)uaddr2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4258,7 +5135,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_peeloff");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)s, (uint32_t)id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)s, (uint32_t)id);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4285,7 +5168,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_bindx");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)s, (void*)(uintptr_t)addrs, (int32_t)num, (int32_t)tpe) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)addrs, (int32_t)num, (int32_t)tpe);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4312,7 +5201,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_connectx");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)s, (void*)(uintptr_t)addrs, (int32_t)addrcnt, (void*)(uintptr_t)id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)addrs, (int32_t)addrcnt, (void*)(uintptr_t)id);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4339,7 +5234,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_getaddrlen");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint8_t)family) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint8_t)family);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4366,7 +5267,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_getpaddrs");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)s, (uint32_t)asocid, (void*)(uintptr_t)addrs) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)s, (uint32_t)asocid, (void*)(uintptr_t)addrs);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4393,7 +5300,11 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_freepaddrs");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)addrs);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)addrs);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpGetladdrs(JNIEnv* km_env, jclass km_clazz, jint s, jint asocid, jlong addrs) {
@@ -4419,7 +5330,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_getladdrs");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)s, (uint32_t)asocid, (void*)(uintptr_t)addrs) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)s, (uint32_t)asocid, (void*)(uintptr_t)addrs);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4446,7 +5363,11 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_freeladdrs");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)addrs);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)addrs);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpOptInfo(JNIEnv* km_env, jclass km_clazz, jint s, jint id, jint opt, jlong arg, jlong size) {
@@ -4472,7 +5393,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_opt_info");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)s, (uint32_t)id, (int32_t)opt, (void*)(uintptr_t)arg, (void*)(uintptr_t)size) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)s, (uint32_t)id, (int32_t)opt, (void*)(uintptr_t)arg, (void*)(uintptr_t)size);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4499,7 +5426,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_sendv");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (void*)(uintptr_t)addrs, (int32_t)addrcnt, (void*)(uintptr_t)info, (uint32_t)infolen, (uint32_t)infotype, (int32_t)flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)sd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (void*)(uintptr_t)addrs, (int32_t)addrcnt, (void*)(uintptr_t)info, (uint32_t)infolen, (uint32_t)infotype, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -4526,7 +5459,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_recvv");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (void*)(uintptr_t)from, (void*)(uintptr_t)fromlen, (void*)(uintptr_t)info, (void*)(uintptr_t)infolen, (void*)(uintptr_t)infotype, (void*)(uintptr_t)flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)sd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (void*)(uintptr_t)from, (void*)(uintptr_t)fromlen, (void*)(uintptr_t)info, (void*)(uintptr_t)infolen, (void*)(uintptr_t)infotype, (void*)(uintptr_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -4553,7 +5492,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timerfd_create");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clockid, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)clockid, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4580,7 +5525,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timerfd_gettime");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)curr_value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)curr_value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4607,7 +5558,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timerfd_settime");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)new_value, (void*)(uintptr_t)old_value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)new_value, (void*)(uintptr_t)old_value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4634,7 +5591,11 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "closefrom");
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((int32_t)lowfd);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((int32_t)lowfd);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1closeRange(JNIEnv* km_env, jclass km_clazz, jint lowfd, jint highfd, jint flags) {
@@ -4660,7 +5621,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "close_range");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)lowfd, (uint32_t)highfd, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)lowfd, (uint32_t)highfd, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4688,7 +5655,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "execvpe");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(file_utf, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(file_utf, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (file != NULL && file_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, file, file_utf);
     return (jint)km_res;
 }
@@ -4716,7 +5689,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kcmp");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid1, (int32_t)pid2, (int32_t)type_, (uint64_t)idx1, (uint64_t)idx2) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid1, (int32_t)pid2, (int32_t)type_, (uint64_t)idx1, (uint64_t)idx2);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4745,7 +5724,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dlvsym");
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)handle, symbol_utf, version_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)handle, symbol_utf, version_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (symbol != NULL && symbol_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, symbol, symbol_utf);
     if (version != NULL && version_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, version, version_utf);
     return (jlong)(uintptr_t)km_res;
@@ -4772,9 +5757,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_strerror");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_strerror");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_strerror");
+        }
+#endif
     }
 #endif
-    const char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)error) : NULL;
+    const char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)error);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -4799,9 +5811,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_alloc");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_alloc");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_alloc");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -4826,9 +5865,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_first");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_first");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_first");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)list) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)list);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -4853,9 +5919,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_next");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_next");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_next");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mtp) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mtp);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -4881,9 +5974,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_find");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_find");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_find");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)list, (int32_t)allocator, name_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)list, (int32_t)allocator, name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -4909,9 +6029,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_free");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_free");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_free");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)list);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)list);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatMtlGeterror(JNIEnv* km_env, jclass km_clazz, jlong list) {
@@ -4935,9 +6080,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_geterror");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_geterror");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_geterror");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)list) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)list);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4962,9 +6134,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_get_name");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_get_name");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_get_name");
+        }
+#endif
     }
 #endif
-    const char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mtp) : NULL;
+    const char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mtp);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -4989,9 +6188,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_dpcpu_setcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_dpcpu_setcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_dpcpu_setcpu");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (uint32_t)cpu) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (uint32_t)cpu);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5016,9 +6242,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getargv");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)p, (int32_t)nchr) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)p, (int32_t)nchr);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5043,9 +6296,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getcptime");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getcptime");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getcptime");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)cp_time) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)cp_time);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5070,9 +6350,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getenvv");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)p, (int32_t)nchr) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)p, (int32_t)nchr);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5097,9 +6404,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_geterr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_geterr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_geterr");
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5124,9 +6458,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getmaxcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getmaxcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getmaxcpu");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5151,9 +6512,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getncpus");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getncpus");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getncpus");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5178,9 +6566,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getpcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getpcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getpcpu");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (int32_t)cpu) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (int32_t)cpu);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5205,9 +6620,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_counter_u64_fetch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_counter_u64_fetch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_counter_u64_fetch");
+        }
+#endif
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (uint64_t)base) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (uint64_t)base);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jlong)km_res;
 }
 
@@ -5232,9 +6674,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getswapinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getswapinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getswapinfo");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)info, (int32_t)maxswap, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)info, (int32_t)maxswap, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5259,9 +6728,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_native");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_native");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_native");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5286,9 +6782,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_nlist");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)nl) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)nl);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5313,9 +6836,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_nlist2");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist2");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist2");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)nl) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)nl);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5340,9 +6890,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_read_zpcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read_zpcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read_zpcpu");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (uint64_t)base, (void*)(uintptr_t)buf, (uint64_t)size, (int32_t)cpu) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (uint64_t)base, (void*)(uintptr_t)buf, (uint64_t)size, (int32_t)cpu);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -5367,9 +6944,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_read2");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read2");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read2");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd, (uint64_t)addr, (void*)(uintptr_t)buf, (uint64_t)nbytes) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (uint64_t)addr, (void*)(uintptr_t)buf, (uint64_t)nbytes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -5394,9 +6998,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_namespace_to_string");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_namespace_to_string");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_namespace_to_string");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)attrnamespace, (void*)(uintptr_t)string) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)attrnamespace, (void*)(uintptr_t)string);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5422,9 +7053,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_string_to_namespace");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_string_to_namespace");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_string_to_namespace");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(string_utf, (void*)(uintptr_t)attrnamespace) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(string_utf, (void*)(uintptr_t)attrnamespace);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (string != NULL && string_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, string, string_utf);
     return (jint)km_res;
 }
@@ -5450,9 +7108,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "realhostname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)host, (uint64_t)hsize, (void*)(uintptr_t)ip) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)host, (uint64_t)hsize, (void*)(uintptr_t)ip);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5477,9 +7162,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "realhostname_sa");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname_sa");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname_sa");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)host, (uint64_t)hsize, (void*)(uintptr_t)addr, (int32_t)addrlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)host, (uint64_t)hsize, (void*)(uintptr_t)addr, (int32_t)addrlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5505,9 +7217,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kld_isloaded");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_isloaded");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_isloaded");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -5534,9 +7273,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kld_load");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_load");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_load");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -5562,9 +7328,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kinfo_getvmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kinfo_getvmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kinfo_getvmmap");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (void*)(uintptr_t)cntp) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)cntp);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5590,9 +7383,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "hexdump");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "hexdump");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "hexdump");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)length, hdr_utf, (int32_t)flags);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)length, hdr_utf, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+    }
     if (hdr != NULL && hdr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, hdr, hdr_utf);
 }
 
@@ -5618,9 +7436,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "humanize_number");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "humanize_number");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "humanize_number");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)buf, (uint64_t)len, (int64_t)number, suffix_utf, (int32_t)scale, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)buf, (uint64_t)len, (int64_t)number, suffix_utf, (int32_t)scale, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (suffix != NULL && suffix_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, suffix, suffix_utf);
     return (jint)km_res;
 }
@@ -5647,6 +7492,27 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flopen");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopen");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopen");
+        }
+#endif
     }
 #endif
     int32_t km_res = -1;
@@ -5658,6 +7524,8 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
             case 3: km_res = km_fn_ptr(path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr(path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
@@ -5685,6 +7553,27 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flopenat");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopenat");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopenat");
+        }
+#endif
     }
 #endif
     int32_t km_res = -1;
@@ -5696,6 +7585,8 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
             case 3: km_res = km_fn_ptr((int32_t)fd, path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((int32_t)fd, path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
@@ -5722,9 +7613,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getlocalbase");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "getlocalbase");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "getlocalbase");
+        }
+#endif
     }
 #endif
-    const char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    const char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5750,9 +7668,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_open");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(path_utf, (uint16_t)mode, (void*)(uintptr_t)pidptr) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(path_utf, (uint16_t)mode, (void*)(uintptr_t)pidptr);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -5778,9 +7723,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_write");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_write");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_write");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)path) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)path);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5805,9 +7777,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_close");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)path) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)path);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5832,9 +7831,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_remove");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_remove");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_remove");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)path) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)path);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5859,9 +7885,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_fileno");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_fileno");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_fileno");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)path) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)path);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5886,9 +7939,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_sysctl");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_sysctl");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_sysctl");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5913,9 +7993,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getfiles");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getfiles");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getfiles");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (int32_t)mmapped) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (int32_t)mmapped);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5940,9 +8047,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freefiles");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freefiles");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freefiles");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)head);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)head);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetprocs(JNIEnv* km_env, jclass km_clazz, jlong procstat, jint what, jint arg, jlong count) {
@@ -5966,9 +8098,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getprocs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getprocs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getprocs");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (int32_t)what, (int32_t)arg, (void*)(uintptr_t)count) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (int32_t)what, (int32_t)arg, (void*)(uintptr_t)count);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5993,9 +8152,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeprocs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeprocs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeprocs");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)p);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)p);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetvmmap(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong count) {
@@ -6019,9 +8203,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getvmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getvmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getvmmap");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)count) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)count);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -6046,9 +8257,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freevmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freevmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freevmmap");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)vmmap);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)vmmap);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatClose(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
@@ -6072,9 +8308,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_close");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreeargv(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
@@ -6098,9 +8359,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeargv");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreeenvv(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
@@ -6124,9 +8410,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeenvv");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreegroups(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong groups) {
@@ -6150,9 +8461,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freegroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freegroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freegroups");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)groups);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)groups);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreeptlwpinfo(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong pl) {
@@ -6176,9 +8512,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeptlwpinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeptlwpinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeptlwpinfo");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)pl);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)pl);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetargv(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong nchr) {
@@ -6202,9 +8563,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getargv");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (uint64_t)nchr) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (uint64_t)nchr);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -6229,9 +8617,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getenvv");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (uint64_t)nchr) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (uint64_t)nchr);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -6256,9 +8671,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getgroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getgroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getgroups");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)count) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)count);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -6283,9 +8725,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getosrel");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getosrel");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getosrel");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)osrelp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)osrelp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6310,9 +8779,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getpathname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getpathname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getpathname");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (char*)(uintptr_t)pathname, (uint64_t)maxlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (char*)(uintptr_t)pathname, (uint64_t)maxlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6337,9 +8833,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getrlimit");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getrlimit");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getrlimit");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (int32_t)which, (void*)(uintptr_t)rlimit) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (int32_t)which, (void*)(uintptr_t)rlimit);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6364,9 +8887,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getumask");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getumask");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getumask");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)maskp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)procstat, (void*)(uintptr_t)kp, (void*)(uintptr_t)maskp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6392,9 +8942,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_core");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_core");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_core");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(filename_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(filename_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (filename != NULL && filename_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, filename, filename_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -6422,9 +8999,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_kvm");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_kvm");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_kvm");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nlistf_utf, memf_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(nlistf_utf, memf_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (nlistf != NULL && nlistf_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nlistf, nlistf_utf);
     if (memf != NULL && memf_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, memf, memf_utf);
     return (jlong)(uintptr_t)km_res;
@@ -6451,9 +9055,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_socket_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_socket_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_socket_info");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)sock, (char*)(uintptr_t)errbuf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)sock, (char*)(uintptr_t)errbuf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6478,9 +9109,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_vnode_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_vnode_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_vnode_info");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)vn, (char*)(uintptr_t)errbuf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)vn, (char*)(uintptr_t)errbuf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6505,9 +9163,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_pts_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_pts_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_pts_info");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)pts, (char*)(uintptr_t)errbuf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)pts, (char*)(uintptr_t)errbuf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6532,9 +9217,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_shm_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_shm_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_shm_info");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)shm, (char*)(uintptr_t)errbuf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)shm, (char*)(uintptr_t)errbuf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6561,7 +9273,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_create");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clock_id, (void*)(uintptr_t)evp, (void*)(uintptr_t)timerid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)clock_id, (void*)(uintptr_t)evp, (void*)(uintptr_t)timerid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6588,7 +9306,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_delete");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)timerid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)timerid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6615,7 +9339,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_getoverrun");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)timerid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)timerid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6642,7 +9372,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_gettime");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)timerid, (void*)(uintptr_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)timerid, (void*)(uintptr_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6669,7 +9405,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_settime");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)timerid, (int32_t)flags, (void*)(uintptr_t)value, (void*)(uintptr_t)ovalue) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)timerid, (int32_t)flags, (void*)(uintptr_t)value, (void*)(uintptr_t)ovalue);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6694,9 +9436,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getnumdevs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getnumdevs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getnumdevs");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6721,9 +9490,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getgeneration");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getgeneration");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getgeneration");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -6748,9 +9544,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getversion");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getversion");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getversion");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6775,9 +9598,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_checkversion");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_checkversion");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_checkversion");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)kd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)kd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -6802,9 +9652,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_buildmatch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_buildmatch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_buildmatch");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)match_str, (void*)(uintptr_t)matches, (void*)(uintptr_t)num_matches) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)match_str, (void*)(uintptr_t)matches, (void*)(uintptr_t)num_matches);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 

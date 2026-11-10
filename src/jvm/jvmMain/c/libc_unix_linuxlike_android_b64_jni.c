@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -39,7 +40,13 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_androi
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__system_property_wait");
     }
 #endif
-    bool km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)pi, (uint32_t)arg_1_old_serial, (void*)(uintptr_t)arg_2_new_serial_ptr, (void*)(uintptr_t)arg_3_relative_timeout) : false;
+    bool km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)pi, (uint32_t)arg_1_old_serial, (void*)(uintptr_t)arg_2_new_serial_ptr, (void*)(uintptr_t)arg_3_relative_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = false;
+    }
     return (jboolean)km_res;
 }
 

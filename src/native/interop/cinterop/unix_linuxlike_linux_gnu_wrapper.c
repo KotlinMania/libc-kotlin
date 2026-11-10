@@ -202,6 +202,11 @@ int32_t libc_unix_linuxlike_linux_gnu_getrlimit64(uint32_t resource, void* rlim)
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -230,6 +235,11 @@ int32_t libc_unix_linuxlike_linux_gnu_setrlimit64(uint32_t resource, void* rlim)
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -342,6 +352,11 @@ int32_t libc_unix_linuxlike_linux_gnu_prlimit64(int32_t pid, uint32_t resource, 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "prlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "prlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1210,6 +1225,11 @@ int32_t libc_unix_linuxlike_linux_gnu_glob64(const char* pattern, int32_t flags,
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "glob64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "glob");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1238,6 +1258,11 @@ void libc_unix_linuxlike_linux_gnu_globfree64(void* pglob) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "globfree64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "globfree");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1306,7 +1331,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp(void* attr, uint6
         return km_fn_ptr(attr, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
@@ -1334,7 +1359,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp(void* attr, uint6
         return km_fn_ptr(attr, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_gnu_getpriority(uint32_t which, uint32_t who) {
@@ -1418,7 +1443,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadRwlockattrGetkindNp(void* attr, voi
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_gnu_pthreadRwlockattrSetkindNp(void* attr, int32_t val) {
@@ -1446,7 +1471,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadRwlockattrSetkindNp(void* attr, int
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_gnu_pthreadTryjoinNp(void* thread, void* retval) {
@@ -1474,7 +1499,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadTryjoinNp(void* thread, void* retva
         return km_fn_ptr(thread, retval);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(void* thread, void* retval, void* abstime) {
@@ -1502,7 +1527,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(void* thread, void* ret
         return km_fn_ptr(thread, retval, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_unix_linuxlike_linux_gnu_mallocStats(void) {

@@ -43,7 +43,7 @@ int32_t libc_new_common_posix_pthread_pthreadAtfork(void* prepare, void* parent,
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrGetguardsize(void* attr, void* guardsize) {
@@ -71,7 +71,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrGetguardsize(void* attr, void* 
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrGetinheritsched(void* attr, void* inheritsched) {
@@ -99,7 +99,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrGetinheritsched(void* attr, voi
         return km_fn_ptr(attr, inheritsched);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrGetschedparam(void* attr, void* param) {
@@ -127,7 +127,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrGetschedparam(void* attr, void*
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrGetschedpolicy(void* attr, void* policy) {
@@ -155,7 +155,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrGetschedpolicy(void* attr, void
         return km_fn_ptr(attr, policy);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -183,7 +183,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrGetstack(void* attr, void* stac
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
@@ -211,7 +211,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrSetguardsize(void* attr, uint64
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrSetinheritsched(void* attr, int32_t inheritsched) {
@@ -239,7 +239,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrSetinheritsched(void* attr, int
         return km_fn_ptr(attr, inheritsched);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrSetschedparam(void* attr, void* param) {
@@ -267,7 +267,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrSetschedparam(void* attr, void*
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrSetschedpolicy(void* attr, int32_t policy) {
@@ -295,7 +295,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrSetschedpolicy(void* attr, int3
         return km_fn_ptr(attr, policy);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
@@ -323,7 +323,7 @@ int32_t libc_new_common_posix_pthread_pthreadAttrSetstack(void* attr, void* stac
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadBarrierDestroy(void* barrier) {
@@ -351,7 +351,7 @@ int32_t libc_new_common_posix_pthread_pthreadBarrierDestroy(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
@@ -407,7 +407,7 @@ int32_t libc_new_common_posix_pthread_pthreadBarrierWait(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadBarrierattrDestroy(void* attr) {
@@ -435,7 +435,7 @@ int32_t libc_new_common_posix_pthread_pthreadBarrierattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadBarrierattrGetpshared(void* attr, void* shared) {
@@ -463,7 +463,7 @@ int32_t libc_new_common_posix_pthread_pthreadBarrierattrGetpshared(void* attr, v
         return km_fn_ptr(attr, shared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadBarrierattrInit(void* attr) {
@@ -491,7 +491,7 @@ int32_t libc_new_common_posix_pthread_pthreadBarrierattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadBarrierattrSetpshared(void* attr, int32_t shared) {
@@ -519,7 +519,7 @@ int32_t libc_new_common_posix_pthread_pthreadBarrierattrSetpshared(void* attr, i
         return km_fn_ptr(attr, shared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadCancel(void* thread) {
@@ -575,7 +575,7 @@ int32_t libc_new_common_posix_pthread_pthreadCondattrGetclock(void* attr, void* 
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadCondattrGetpshared(void* attr, void* pshared) {
@@ -603,7 +603,7 @@ int32_t libc_new_common_posix_pthread_pthreadCondattrGetpshared(void* attr, void
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
@@ -631,7 +631,7 @@ int32_t libc_new_common_posix_pthread_pthreadCondattrSetclock(void* attr, int32_
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
@@ -659,7 +659,7 @@ int32_t libc_new_common_posix_pthread_pthreadCondattrSetpshared(void* attr, int3
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadCreate(void* native, void* attr, void* f, void* value) {
@@ -687,7 +687,7 @@ int32_t libc_new_common_posix_pthread_pthreadCreate(void* native, void* attr, vo
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadGetcpuclockid(void* thread, void* clk_id) {
@@ -715,7 +715,7 @@ int32_t libc_new_common_posix_pthread_pthreadGetcpuclockid(void* thread, void* c
         return km_fn_ptr(thread, clk_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadGetschedparam(void* native, void* policy, void* param) {
@@ -743,7 +743,7 @@ int32_t libc_new_common_posix_pthread_pthreadGetschedparam(void* native, void* p
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadKill(void* thread, int32_t sig) {
@@ -771,7 +771,7 @@ int32_t libc_new_common_posix_pthread_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexConsistent(void* mutex) {
@@ -799,7 +799,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexConsistent(void* mutex) {
         return km_fn_ptr(mutex);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexTimedlock(void* lock, void* abstime) {
@@ -827,7 +827,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexTimedlock(void* lock, void* ab
         return km_fn_ptr(lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexattrGetprotocol(void* attr, void* protocol) {
@@ -855,7 +855,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexattrGetprotocol(void* attr, vo
         return km_fn_ptr(attr, protocol);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexattrGetpshared(void* attr, void* pshared) {
@@ -883,7 +883,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexattrGetpshared(void* attr, voi
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexattrGetrobust(void* attr, void* robustness) {
@@ -911,7 +911,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexattrGetrobust(void* attr, void
         return km_fn_ptr(attr, robustness);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexattrSetprotocol(void* attr, int32_t protocol) {
@@ -939,7 +939,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexattrSetprotocol(void* attr, in
         return km_fn_ptr(attr, protocol);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
@@ -967,7 +967,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexattrSetpshared(void* attr, int
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadMutexattrSetrobust(void* attr, int32_t robustness) {
@@ -995,7 +995,7 @@ int32_t libc_new_common_posix_pthread_pthreadMutexattrSetrobust(void* attr, int3
         return km_fn_ptr(attr, robustness);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadRwlockattrGetpshared(void* attr, void* val) {
@@ -1023,7 +1023,7 @@ int32_t libc_new_common_posix_pthread_pthreadRwlockattrGetpshared(void* attr, vo
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
@@ -1051,7 +1051,7 @@ int32_t libc_new_common_posix_pthread_pthreadRwlockattrSetpshared(void* attr, in
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadOnce(void* control, void* routine) {
@@ -1079,7 +1079,7 @@ int32_t libc_new_common_posix_pthread_pthreadOnce(void* control, void* routine) 
         return km_fn_ptr(control, routine);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSetschedparam(void* native, int32_t policy, void* param) {
@@ -1107,7 +1107,7 @@ int32_t libc_new_common_posix_pthread_pthreadSetschedparam(void* native, int32_t
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSetschedprio(void* native, int32_t priority) {
@@ -1135,7 +1135,7 @@ int32_t libc_new_common_posix_pthread_pthreadSetschedprio(void* native, int32_t 
         return km_fn_ptr(native, priority);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSigmask(int32_t how, void* set, void* oldset) {
@@ -1163,7 +1163,7 @@ int32_t libc_new_common_posix_pthread_pthreadSigmask(int32_t how, void* set, voi
         return km_fn_ptr(how, set, oldset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSpinDestroy(void* lock) {
@@ -1191,7 +1191,7 @@ int32_t libc_new_common_posix_pthread_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSpinInit(void* lock, int32_t pshared) {
@@ -1219,7 +1219,7 @@ int32_t libc_new_common_posix_pthread_pthreadSpinInit(void* lock, int32_t pshare
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSpinLock(void* lock) {
@@ -1247,7 +1247,7 @@ int32_t libc_new_common_posix_pthread_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSpinTrylock(void* lock) {
@@ -1275,7 +1275,7 @@ int32_t libc_new_common_posix_pthread_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_posix_pthread_pthreadSpinUnlock(void* lock) {
@@ -1303,6 +1303,6 @@ int32_t libc_new_common_posix_pthread_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

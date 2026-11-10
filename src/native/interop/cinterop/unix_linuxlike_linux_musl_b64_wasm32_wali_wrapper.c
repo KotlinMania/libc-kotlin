@@ -510,6 +510,11 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPread64(int32_t
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_pread64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_pread");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -538,6 +543,11 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPwrite64(int32_
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_pwrite64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_pwrite");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3086,6 +3096,11 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents64(int3
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_getdents64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_getdents");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3870,6 +3885,11 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrlimit64(int32
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_prlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "SYS_prlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

@@ -557,6 +557,11 @@ int64_t libc_unix_hurd_pread64(int32_t fd, void* buf, uint64_t count, int64_t of
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pread64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pread");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -585,6 +590,11 @@ int64_t libc_unix_hurd_pwrite64(int32_t fd, void* buf, uint64_t count, int64_t o
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwrite64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwrite");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -725,6 +735,11 @@ int64_t libc_unix_hurd_preadv64(int32_t fd, void* iov, int32_t iovcnt, int64_t o
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "preadv64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "preadv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -753,6 +768,11 @@ int64_t libc_unix_hurd_pwritev64(int32_t fd, void* iov, int32_t iovcnt, int64_t 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwritev64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwritev");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1291,6 +1311,11 @@ int64_t libc_unix_hurd_lseek64(int32_t arg_0_fd, int64_t arg_1_offset, int32_t a
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lseek64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lseek");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1323,6 +1348,11 @@ int32_t libc_unix_hurd_fgetpos64(void* stream, void* ptr) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fgetpos64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fgetpos");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1351,6 +1381,11 @@ int32_t libc_unix_hurd_fseeko64(void* stream, int64_t offset, int32_t whence) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fseeko64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fseeko");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1379,6 +1414,11 @@ int32_t libc_unix_hurd_fsetpos64(void* stream, void* ptr) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fsetpos64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fsetpos");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1407,6 +1447,11 @@ int64_t libc_unix_hurd_ftello64(void* stream) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftello64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftello");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1583,6 +1628,11 @@ int64_t libc_unix_hurd_sendfile64(int32_t out_fd, int32_t in_fd, void* offset, u
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfile64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfile");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3273,7 +3323,7 @@ int32_t libc_unix_hurd_pthreadCreate(void* native, void* attr, void* f, void* va
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadKill(void* arg_0_threadid, int32_t arg_1_signo) {
@@ -3301,7 +3351,7 @@ int32_t libc_unix_hurd_pthreadKill(void* arg_0_threadid, int32_t arg_1_signo) {
         return km_fn_ptr(arg_0_threadid, arg_1_signo);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadCancel(void* thread) {
@@ -3329,7 +3379,7 @@ int32_t libc_unix_hurd_pthreadCancel(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadEqual(void* arg_0_t1, void* arg_1_t2) {
@@ -3383,7 +3433,7 @@ int32_t libc_unix_hurd_pthreadGetattrNp(void* arg_0_thr, void* arg_1_attr) {
         return km_fn_ptr(arg_0_thr, arg_1_attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadAttrGetguardsize(void* arg_0_attr, void* arg_1_guardsize) {
@@ -3411,7 +3461,7 @@ int32_t libc_unix_hurd_pthreadAttrGetguardsize(void* arg_0_attr, void* arg_1_gua
         return km_fn_ptr(arg_0_attr, arg_1_guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
@@ -3439,7 +3489,7 @@ int32_t libc_unix_hurd_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadAttrGetstack(void* arg_0_attr, void* arg_1_stackaddr, void* arg_2_stacksize) {
@@ -3467,7 +3517,7 @@ int32_t libc_unix_hurd_pthreadAttrGetstack(void* arg_0_attr, void* arg_1_stackad
         return km_fn_ptr(arg_0_attr, arg_1_stackaddr, arg_2_stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadMutexattrGetpshared(void* attr, void* pshared) {
@@ -3495,7 +3545,7 @@ int32_t libc_unix_hurd_pthreadMutexattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
@@ -3523,7 +3573,7 @@ int32_t libc_unix_hurd_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadMutexTimedlock(void* lock, void* abstime) {
@@ -3551,7 +3601,7 @@ int32_t libc_unix_hurd_pthreadMutexTimedlock(void* lock, void* abstime) {
         return km_fn_ptr(lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadRwlockattrGetpshared(void* attr, void* val) {
@@ -3579,7 +3629,7 @@ int32_t libc_unix_hurd_pthreadRwlockattrGetpshared(void* attr, void* val) {
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
@@ -3607,7 +3657,7 @@ int32_t libc_unix_hurd_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
         return km_fn_ptr(attr, val);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadCondattrGetclock(void* attr, void* clock_id) {
@@ -3635,7 +3685,7 @@ int32_t libc_unix_hurd_pthreadCondattrGetclock(void* attr, void* clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadCondattrSetclock(void* arg_0_attr, int32_t arg_1_clock_id) {
@@ -3663,7 +3713,7 @@ int32_t libc_unix_hurd_pthreadCondattrSetclock(void* arg_0_attr, int32_t arg_1_c
         return km_fn_ptr(arg_0_attr, arg_1_clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadCondattrGetpshared(void* attr, void* pshared) {
@@ -3691,7 +3741,7 @@ int32_t libc_unix_hurd_pthreadCondattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
@@ -3719,7 +3769,7 @@ int32_t libc_unix_hurd_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadOnce(void* control, void* routine) {
@@ -3747,7 +3797,7 @@ int32_t libc_unix_hurd_pthreadOnce(void* control, void* routine) {
         return km_fn_ptr(control, routine);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadBarrierattrInit(void* attr) {
@@ -3775,7 +3825,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadBarrierattrDestroy(void* attr) {
@@ -3803,7 +3853,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadBarrierattrGetpshared(void* attr, void* shared) {
@@ -3831,7 +3881,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrGetpshared(void* attr, void* shared) {
         return km_fn_ptr(attr, shared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadBarrierattrSetpshared(void* attr, int32_t shared) {
@@ -3859,7 +3909,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrSetpshared(void* attr, int32_t shared) 
         return km_fn_ptr(attr, shared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
@@ -3887,7 +3937,7 @@ int32_t libc_unix_hurd_pthreadBarrierInit(void* barrier, void* attr, uint32_t co
         return km_fn_ptr(barrier, attr, count);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadBarrierDestroy(void* barrier) {
@@ -3915,7 +3965,7 @@ int32_t libc_unix_hurd_pthreadBarrierDestroy(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadBarrierWait(void* barrier) {
@@ -3943,7 +3993,7 @@ int32_t libc_unix_hurd_pthreadBarrierWait(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadSpinInit(void* lock, int32_t pshared) {
@@ -3971,7 +4021,7 @@ int32_t libc_unix_hurd_pthreadSpinInit(void* lock, int32_t pshared) {
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadSpinDestroy(void* lock) {
@@ -3999,7 +4049,7 @@ int32_t libc_unix_hurd_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadSpinLock(void* lock) {
@@ -4027,7 +4077,7 @@ int32_t libc_unix_hurd_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadSpinTrylock(void* lock) {
@@ -4055,7 +4105,7 @@ int32_t libc_unix_hurd_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadSpinUnlock(void* lock) {
@@ -4083,7 +4133,7 @@ int32_t libc_unix_hurd_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadAtfork(void* prepare, void* parent, void* child) {
@@ -4111,7 +4161,7 @@ int32_t libc_unix_hurd_pthreadAtfork(void* prepare, void* parent, void* child) {
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadSigmask(int32_t arg_0_how, void* arg_1_newmask, void* arg_2_oldmask) {
@@ -4139,7 +4189,7 @@ int32_t libc_unix_hurd_pthreadSigmask(int32_t arg_0_how, void* arg_1_newmask, vo
         return km_fn_ptr(arg_0_how, arg_1_newmask, arg_2_oldmask);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_schedGetparam(int32_t pid, void* param) {
@@ -4279,7 +4329,7 @@ int32_t libc_unix_hurd_pthreadGetschedparam(void* native, void* policy, void* pa
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadSetschedparam(void* native, int32_t policy, void* param) {
@@ -4307,7 +4357,7 @@ int32_t libc_unix_hurd_pthreadSetschedparam(void* native, int32_t policy, void* 
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_pthreadGetcpuclockid(void* thread, void* clk_id) {
@@ -4335,7 +4385,7 @@ int32_t libc_unix_hurd_pthreadGetcpuclockid(void* thread, void* clk_id) {
         return km_fn_ptr(thread, clk_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_hurd_semInit(void* sem, int32_t pshared, uint32_t value) {
@@ -4897,6 +4947,11 @@ int32_t libc_unix_hurd_fstat64(int32_t arg_0_fd, void* arg_1_buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4953,6 +5008,11 @@ int32_t libc_unix_hurd_fstatat64(int32_t arg_0_fd, const char* arg_1_file, void*
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5020,6 +5080,11 @@ int32_t libc_unix_hurd_ftruncate64(int32_t arg_0_fd, int64_t arg_1_length) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftruncate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftruncate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5048,6 +5113,11 @@ int32_t libc_unix_hurd_truncate64(const char* arg_0_file, int64_t arg_1_length) 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "truncate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "truncate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5087,6 +5157,11 @@ int32_t libc_unix_hurd_lstat64(const char* arg_0_file, void* arg_1_buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5143,6 +5218,11 @@ int32_t libc_unix_hurd_statfs64(const char* arg_0_file, void* arg_1_buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5199,6 +5279,11 @@ int32_t libc_unix_hurd_fstatfs64(int32_t arg_0_fildes, void* arg_1_buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5255,6 +5340,11 @@ int32_t libc_unix_hurd_statvfs64(const char* arg_0_file, void* arg_1_buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statvfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statvfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5311,6 +5401,11 @@ int32_t libc_unix_hurd_fstatvfs64(int32_t arg_0_fildes, void* arg_1_buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatvfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatvfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5373,6 +5468,11 @@ int32_t libc_unix_hurd_open64(const char* arg_0_file, int32_t arg_1_oflag, int32
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "open64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "open");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5441,6 +5541,11 @@ int32_t libc_unix_hurd_openat64(int32_t arg_0_fd, const char* arg_1_file, int32_
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5475,6 +5580,11 @@ void* libc_unix_hurd_fopen64(const char* filename, const char* mode) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fopen64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fopen");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5503,6 +5613,11 @@ void* libc_unix_hurd_freopen64(const char* filename, const char* mode, void* fil
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freopen64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freopen");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5531,6 +5646,11 @@ int32_t libc_unix_hurd_creat64(const char* path, uint32_t mode) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "creat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "creat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5643,6 +5763,11 @@ void* libc_unix_hurd_tmpfile64(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "tmpfile64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "tmpfile");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6907,6 +7032,11 @@ int32_t libc_unix_hurd_stat64(const char* arg_0_file, void* arg_1_buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "stat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "stat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6945,6 +7075,11 @@ void* libc_unix_hurd_readdir64(void* dirp) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "readdir64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "readdir");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7165,6 +7300,11 @@ void* libc_unix_hurd_mmap64(void* arg_0_addr, uint64_t arg_1_len, int32_t arg_2_
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mmap64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mmap");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7335,6 +7475,11 @@ int32_t libc_unix_hurd_fallocate64(int32_t fd, int32_t mode, int64_t offset, int
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fallocate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fallocate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7391,6 +7536,11 @@ int32_t libc_unix_hurd_posixFallocate64(int32_t fd, int64_t offset, int64_t len)
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7447,6 +7597,11 @@ int32_t libc_unix_hurd_posixFadvise64(int32_t fd, int64_t offset, int64_t len, i
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fadvise64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fadvise");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7559,6 +7714,11 @@ int32_t libc_unix_hurd_getrlimit64(uint32_t resource, void* rlim) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7615,6 +7775,11 @@ int32_t libc_unix_hurd_setrlimit64(uint32_t resource, void* rlim) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -8691,6 +8856,11 @@ int32_t libc_unix_hurd_glob64(const char* pattern, int32_t flags, void* errfunc,
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "glob64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "glob");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -8719,6 +8889,11 @@ void libc_unix_hurd_globfree64(void* pglob) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "globfree64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "globfree");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

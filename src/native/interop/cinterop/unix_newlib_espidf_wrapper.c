@@ -40,7 +40,7 @@ int32_t libc_unix_newlib_espidf_pthreadCreate(void* native, void* attr, void* f,
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int64_t libc_unix_newlib_espidf_getrandom(void* buf, uint64_t buflen, uint32_t flags) {

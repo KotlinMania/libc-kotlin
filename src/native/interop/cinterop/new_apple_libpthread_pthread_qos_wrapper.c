@@ -43,7 +43,7 @@ int32_t libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp(void* att
         return km_fn_ptr(attr, arg_1_class, priority);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp(void* thread, void* arg_1_class, void* priority) {
@@ -71,6 +71,6 @@ int32_t libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp(void* thread,
         return km_fn_ptr(thread, arg_1_class, priority);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

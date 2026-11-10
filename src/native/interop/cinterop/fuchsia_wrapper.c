@@ -3,9 +3,9 @@
 #endif
 #include "fuchsia_wrapper.h"
 #include <errno.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -318,6 +318,13 @@ void libc_fuchsia_exit(int32_t status) {
 }
 
 int32_t libc_fuchsia_atexit(void* cb) {
+    if (cb == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+#ifdef __ANDROID__
+    return (int32_t)atexit((void (*)(void))(uintptr_t)cb);
+#else
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -343,6 +350,7 @@ int32_t libc_fuchsia_atexit(void* cb) {
     }
     errno = ENOSYS;
     return -1;
+#endif
 }
 
 int32_t libc_fuchsia_system(const char* s) {
@@ -3075,7 +3083,7 @@ int32_t libc_fuchsia_pthreadJoin(void* native, void* value) {
         return km_fn_ptr(native, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_fuchsia_pthreadExit(void* value) {
@@ -3131,7 +3139,7 @@ int32_t libc_fuchsia_pthreadAttrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadAttrDestroy(void* attr) {
@@ -3159,7 +3167,7 @@ int32_t libc_fuchsia_pthreadAttrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadAttrGetstacksize(void* attr, void* stacksize) {
@@ -3187,7 +3195,7 @@ int32_t libc_fuchsia_pthreadAttrGetstacksize(void* attr, void* stacksize) {
         return km_fn_ptr(attr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
@@ -3215,7 +3223,7 @@ int32_t libc_fuchsia_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
         return km_fn_ptr(attr, stack_size);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadAttrSetdetachstate(void* attr, int32_t state) {
@@ -3243,7 +3251,7 @@ int32_t libc_fuchsia_pthreadAttrSetdetachstate(void* attr, int32_t state) {
         return km_fn_ptr(attr, state);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadDetach(void* thread) {
@@ -3271,7 +3279,7 @@ int32_t libc_fuchsia_pthreadDetach(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_schedYield(void) {
@@ -3327,7 +3335,7 @@ int32_t libc_fuchsia_pthreadKeyCreate(void* key, void* dtor) {
         return km_fn_ptr(key, dtor);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadKeyDelete(uint32_t key) {
@@ -3355,7 +3363,7 @@ int32_t libc_fuchsia_pthreadKeyDelete(uint32_t key) {
         return km_fn_ptr(key);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_fuchsia_pthreadGetspecific(uint32_t key) {
@@ -3411,7 +3419,7 @@ int32_t libc_fuchsia_pthreadSetspecific(uint32_t key, void* value) {
         return km_fn_ptr(key, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexInit(void* lock, void* attr) {
@@ -3439,7 +3447,7 @@ int32_t libc_fuchsia_pthreadMutexInit(void* lock, void* attr) {
         return km_fn_ptr(lock, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexDestroy(void* lock) {
@@ -3467,7 +3475,7 @@ int32_t libc_fuchsia_pthreadMutexDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexLock(void* lock) {
@@ -3495,7 +3503,7 @@ int32_t libc_fuchsia_pthreadMutexLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexTrylock(void* lock) {
@@ -3523,7 +3531,7 @@ int32_t libc_fuchsia_pthreadMutexTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexUnlock(void* lock) {
@@ -3551,7 +3559,7 @@ int32_t libc_fuchsia_pthreadMutexUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexattrInit(void* attr) {
@@ -3579,7 +3587,7 @@ int32_t libc_fuchsia_pthreadMutexattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexattrDestroy(void* attr) {
@@ -3607,7 +3615,7 @@ int32_t libc_fuchsia_pthreadMutexattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
@@ -3635,7 +3643,7 @@ int32_t libc_fuchsia_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
         return km_fn_ptr(attr, arg_1_type);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondInit(void* cond, void* attr) {
@@ -3663,7 +3671,7 @@ int32_t libc_fuchsia_pthreadCondInit(void* cond, void* attr) {
         return km_fn_ptr(cond, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondWait(void* cond, void* lock) {
@@ -3691,7 +3699,7 @@ int32_t libc_fuchsia_pthreadCondWait(void* cond, void* lock) {
         return km_fn_ptr(cond, lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
@@ -3719,7 +3727,7 @@ int32_t libc_fuchsia_pthreadCondTimedwait(void* cond, void* lock, void* abstime)
         return km_fn_ptr(cond, lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondSignal(void* cond) {
@@ -3747,7 +3755,7 @@ int32_t libc_fuchsia_pthreadCondSignal(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondBroadcast(void* cond) {
@@ -3775,7 +3783,7 @@ int32_t libc_fuchsia_pthreadCondBroadcast(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondDestroy(void* cond) {
@@ -3803,7 +3811,7 @@ int32_t libc_fuchsia_pthreadCondDestroy(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondattrInit(void* attr) {
@@ -3831,7 +3839,7 @@ int32_t libc_fuchsia_pthreadCondattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondattrDestroy(void* attr) {
@@ -3859,7 +3867,7 @@ int32_t libc_fuchsia_pthreadCondattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockInit(void* lock, void* attr) {
@@ -3887,7 +3895,7 @@ int32_t libc_fuchsia_pthreadRwlockInit(void* lock, void* attr) {
         return km_fn_ptr(lock, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockDestroy(void* lock) {
@@ -3915,7 +3923,7 @@ int32_t libc_fuchsia_pthreadRwlockDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockRdlock(void* lock) {
@@ -3943,7 +3951,7 @@ int32_t libc_fuchsia_pthreadRwlockRdlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockTryrdlock(void* lock) {
@@ -3971,7 +3979,7 @@ int32_t libc_fuchsia_pthreadRwlockTryrdlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockWrlock(void* lock) {
@@ -3999,7 +4007,7 @@ int32_t libc_fuchsia_pthreadRwlockWrlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockTrywrlock(void* lock) {
@@ -4027,7 +4035,7 @@ int32_t libc_fuchsia_pthreadRwlockTrywrlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockUnlock(void* lock) {
@@ -4055,7 +4063,7 @@ int32_t libc_fuchsia_pthreadRwlockUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockattrInit(void* attr) {
@@ -4083,7 +4091,7 @@ int32_t libc_fuchsia_pthreadRwlockattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadRwlockattrDestroy(void* attr) {
@@ -4111,7 +4119,7 @@ int32_t libc_fuchsia_pthreadRwlockattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
@@ -4139,7 +4147,7 @@ int32_t libc_fuchsia_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
         return km_fn_ptr(thread, name, len);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadSetnameNp(void* thread, const char* name) {
@@ -4167,7 +4175,7 @@ int32_t libc_fuchsia_pthreadSetnameNp(void* thread, const char* name) {
         return km_fn_ptr(thread, name);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
@@ -6169,7 +6177,7 @@ int32_t libc_fuchsia_pthreadGetattrNp(void* native, void* attr) {
         return km_fn_ptr(native, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -6197,7 +6205,7 @@ int32_t libc_fuchsia_pthreadAttrGetstack(void* attr, void* stackaddr, void* stac
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_fuchsia_memalign(uint64_t align, uint64_t size) {
@@ -6645,7 +6653,7 @@ int32_t libc_fuchsia_pthreadCondattrGetclock(void* attr, void* clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
@@ -6673,7 +6681,7 @@ int32_t libc_fuchsia_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_accept4(int32_t fd, void* addr, void* len, int32_t flg) {
@@ -9521,7 +9529,7 @@ int32_t libc_fuchsia_pthreadMutexTimedlock(void* lock, void* abstime) {
         return km_fn_ptr(lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_clone(void* cb, void* child_stack, int32_t flags, void* arg, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
@@ -9639,7 +9647,7 @@ int32_t libc_fuchsia_pthreadAttrGetguardsize(void* attr, void* guardsize) {
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
@@ -9667,7 +9675,7 @@ int32_t libc_fuchsia_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_sethostname(const char* name, uint64_t len) {
@@ -10031,7 +10039,7 @@ int32_t libc_fuchsia_pthreadSigmask(int32_t how, void* set, void* oldset) {
         return km_fn_ptr(how, set, oldset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_fuchsia_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
@@ -10121,7 +10129,7 @@ int32_t libc_fuchsia_pthreadCancel(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_pthreadKill(void* thread, int32_t sig) {
@@ -10149,7 +10157,7 @@ int32_t libc_fuchsia_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_semUnlink(const char* name) {
@@ -10317,7 +10325,7 @@ int32_t libc_fuchsia_pthreadAtfork(void* prepare, void* parent, void* child) {
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_fuchsia_getgrgid(uint32_t gid) {
@@ -10541,7 +10549,7 @@ int32_t libc_fuchsia_pthreadCreate(void* native, void* attr, void* f, void* valu
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_fuchsia_dlIteratePhdr(void* callback, void* data) {

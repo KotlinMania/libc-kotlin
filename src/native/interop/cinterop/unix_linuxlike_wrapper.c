@@ -1760,6 +1760,11 @@ int32_t libc_unix_linuxlike_fstatfs64(int32_t fd, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1788,6 +1793,11 @@ int32_t libc_unix_linuxlike_statvfs64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statvfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statvfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1816,6 +1826,11 @@ int32_t libc_unix_linuxlike_fstatvfs64(int32_t fd, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatvfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatvfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1844,6 +1859,11 @@ int32_t libc_unix_linuxlike_statfs64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1872,6 +1892,11 @@ int32_t libc_unix_linuxlike_creat64(const char* path, uint32_t mode) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "creat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "creat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1900,6 +1925,11 @@ int32_t libc_unix_linuxlike_fstat64(int32_t fildes, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1928,6 +1958,11 @@ int32_t libc_unix_linuxlike_fstatat64(int32_t dirfd, const char* pathname, void*
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1956,6 +1991,11 @@ int32_t libc_unix_linuxlike_ftruncate64(int32_t fd, int64_t length) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftruncate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftruncate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1984,6 +2024,11 @@ int64_t libc_unix_linuxlike_lseek64(int32_t fd, int64_t offset, int32_t whence) 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lseek64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lseek");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2012,6 +2057,11 @@ int32_t libc_unix_linuxlike_lstat64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2040,6 +2090,11 @@ void* libc_unix_linuxlike_mmap64(void* addr, uint64_t len, int32_t prot, int32_t
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mmap64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mmap");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2068,6 +2123,11 @@ int32_t libc_unix_linuxlike_open64(const char* path, int32_t oflag, int32_t km_v
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "open64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "open");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2102,6 +2162,11 @@ int32_t libc_unix_linuxlike_openat64(int32_t fd, const char* path, int32_t oflag
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2136,6 +2201,11 @@ int32_t libc_unix_linuxlike_posixFadvise64(int32_t fd, int64_t offset, int64_t l
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fadvise64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fadvise");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2164,6 +2234,11 @@ int64_t libc_unix_linuxlike_pread64(int32_t fd, void* buf, uint64_t count, int64
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pread64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pread");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2192,6 +2267,11 @@ int64_t libc_unix_linuxlike_pwrite64(int32_t fd, void* buf, uint64_t count, int6
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwrite64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwrite");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2220,6 +2300,11 @@ void* libc_unix_linuxlike_readdir64(void* dirp) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "readdir64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "readdir");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2276,6 +2361,11 @@ int32_t libc_unix_linuxlike_stat64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "stat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "stat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2304,6 +2394,11 @@ int32_t libc_unix_linuxlike_truncate64(const char* path, int64_t length) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "truncate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "truncate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2332,6 +2427,11 @@ int64_t libc_unix_linuxlike_preadv64(int32_t fd, void* iov, int32_t iovcnt, int6
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "preadv64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "preadv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2360,6 +2460,11 @@ int64_t libc_unix_linuxlike_pwritev64(int32_t fd, void* iov, int32_t iovcnt, int
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwritev64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwritev");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

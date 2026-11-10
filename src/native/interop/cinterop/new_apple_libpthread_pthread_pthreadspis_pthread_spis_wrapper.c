@@ -43,6 +43,6 @@ int32_t libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pthreadCreate
         return km_fn_ptr(thread, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

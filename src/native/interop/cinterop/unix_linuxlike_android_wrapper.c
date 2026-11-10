@@ -124,6 +124,11 @@ int32_t libc_unix_linuxlike_android_getrlimit64(int32_t resource, void* rlim) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -152,6 +157,11 @@ int32_t libc_unix_linuxlike_android_setrlimit64(int32_t resource, void* rlim) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -264,6 +274,11 @@ int32_t libc_unix_linuxlike_android_prlimit64(int32_t pid, int32_t resource, voi
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "prlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "prlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -988,6 +1003,11 @@ int32_t libc_unix_linuxlike_android_fallocate64(int32_t fd, int32_t mode, int64_
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fallocate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fallocate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1044,6 +1064,11 @@ int32_t libc_unix_linuxlike_android_posixFallocate64(int32_t fd, int64_t offset,
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2536,6 +2561,11 @@ int64_t libc_unix_linuxlike_android_sendfile64(int32_t out_fd, int32_t in_fd, vo
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfile64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfile");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

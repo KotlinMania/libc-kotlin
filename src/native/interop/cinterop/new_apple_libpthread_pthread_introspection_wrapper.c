@@ -71,7 +71,7 @@ int32_t libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSets
         return km_fn_ptr(thread, key, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionGetspecificNp(void* thread, uint64_t key) {

@@ -3,9 +3,9 @@
 #endif
 #include "windows_wrapper.h"
 #include <errno.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <signal.h>
 #include <time.h>
@@ -456,6 +456,13 @@ void libc_windows_exit(int32_t status) {
 }
 
 int32_t libc_windows_atexit(void* cb) {
+    if (cb == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+#ifdef __ANDROID__
+    return (int32_t)atexit((void (*)(void))(uintptr_t)cb);
+#else
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -481,6 +488,7 @@ int32_t libc_windows_atexit(void* cb) {
     }
     errno = ENOSYS;
     return -1;
+#endif
 }
 
 int32_t libc_windows_system(const char* s) {
@@ -952,6 +960,11 @@ int64_t libc_windows_time(void* destTime) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_time64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_time");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1108,6 +1121,11 @@ int32_t libc_windows_fstat(int32_t fildes, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_fstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_fstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1134,6 +1152,11 @@ int32_t libc_windows_stat(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_stat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_stat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1160,6 +1183,11 @@ int32_t libc_windows_wstat(void* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_wstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_wstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1186,6 +1214,11 @@ int32_t libc_windows_wutime(void* file, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_wutime64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_wutime");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2104,6 +2137,11 @@ int64_t libc_windows_lseek64(int32_t fd, int64_t offset, int32_t origin) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_lseeki64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_lseeki");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

@@ -40,7 +40,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadGetaffinityNp(void* thread, uin
         return km_fn_ptr(thread, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_linuxlike_pthread_pthreadGetattrNp(void* native, void* attr) {
@@ -68,7 +68,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadGetattrNp(void* native, void* a
         return km_fn_ptr(native, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_linuxlike_pthread_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
@@ -96,7 +96,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadGetnameNp(void* thread, char* n
         return km_fn_ptr(thread, name, len);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_linuxlike_pthread_pthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
@@ -124,7 +124,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadSetaffinityNp(void* thread, uin
         return km_fn_ptr(thread, cpusetsize, cpuset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_new_common_linuxlike_pthread_pthreadSetnameNp(void* thread, const char* name) {
@@ -152,6 +152,6 @@ int32_t libc_new_common_linuxlike_pthread_pthreadSetnameNp(void* thread, const c
         return km_fn_ptr(thread, name);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

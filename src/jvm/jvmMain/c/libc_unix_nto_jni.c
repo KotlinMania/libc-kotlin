@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -90,7 +91,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendmmsg");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint32_t)vlen, (uint32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint32_t)vlen, (uint32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -117,7 +124,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "recvmmsg");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint32_t)vlen, (uint32_t)flags, (void*)(uintptr_t)timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)sockfd, (void*)(uintptr_t)msgvec, (uint32_t)vlen, (uint32_t)flags, (void*)(uintptr_t)timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -142,9 +155,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sem_destroy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_destroy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_destroy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sem) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sem);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -169,9 +209,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sem_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_init");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sem, (int32_t)pshared, (uint32_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sem, (int32_t)pshared, (uint32_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -196,9 +263,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fdatasync");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "fdatasync");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "fdatasync");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -223,9 +317,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpriority");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpriority");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpriority");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)which, (int32_t)who) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)which, (int32_t)who);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -250,9 +371,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setpriority");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setpriority");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setpriority");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)which, (int32_t)who, (int32_t)prio) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)which, (int32_t)who, (int32_t)prio);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -278,9 +426,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mkfifoat");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkfifoat");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkfifoat");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)dirfd, pathname_utf, (uint32_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)dirfd, pathname_utf, (uint32_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -307,9 +482,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mknodat");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mknodat");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mknodat");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_fd, pathname_utf, (uint32_t)mode, (uint32_t)dev) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_fd, pathname_utf, (uint32_t)mode, (uint32_t)dev);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -335,9 +537,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_getres");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_getres");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_getres");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -362,9 +591,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_gettime");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_gettime");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_gettime");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -389,9 +645,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_settime");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_settime");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_settime");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -416,9 +699,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_getcpuclockid");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_getcpuclockid");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_getcpuclockid");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (void*)(uintptr_t)clk_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)clk_id);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -443,9 +753,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_attr_getstack");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_attr_getstack");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_attr_getstack");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)stackaddr, (void*)(uintptr_t)stacksize) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)stackaddr, (void*)(uintptr_t)stacksize);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -470,9 +807,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memalign");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "memalign");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "memalign");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint64_t)align, (uint64_t)size) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint64_t)align, (uint64_t)size);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -497,9 +861,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setgroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setgroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setgroups");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)ngroups, (void*)(uintptr_t)ptr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)ngroups, (void*)(uintptr_t)ptr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -524,9 +915,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fadvise");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_fadvise");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_fadvise");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int64_t)offset, (int64_t)len, (int32_t)advise) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int64_t)offset, (int64_t)len, (int32_t)advise);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -551,9 +969,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "futimens");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "futimens");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "futimens");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)times) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)times);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -578,9 +1023,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "nl_langinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "nl_langinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "nl_langinfo");
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)item) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)item);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -606,9 +1078,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "utimensat");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "utimensat");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "utimensat");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)dirfd, path_utf, (void*)(uintptr_t)times, (int32_t)flag) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)dirfd, path_utf, (void*)(uintptr_t)times, (int32_t)flag);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -634,9 +1133,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_condattr_getclock");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_getclock");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_getclock");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)clock_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)clock_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -661,9 +1187,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_condattr_setclock");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_setclock");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_setclock");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)clock_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)clock_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -688,9 +1241,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_condattr_setpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_setpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_setpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -715,9 +1295,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_setpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_setpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_setpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -742,9 +1349,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_rwlockattr_getpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_rwlockattr_getpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_rwlockattr_getpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)val) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)val);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -769,9 +1403,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_rwlockattr_setpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_rwlockattr_setpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_rwlockattr_setpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)val) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)val);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -796,9 +1457,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ptsname_r");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ptsname_r");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ptsname_r");
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (char*)(uintptr_t)buf, (uint64_t)buflen) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (char*)(uintptr_t)buf, (uint64_t)buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -823,9 +1511,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clearenv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clearenv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clearenv");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -850,9 +1565,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "waitid");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "waitid");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "waitid");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)idtype, (int32_t)id, (void*)(uintptr_t)infop, (int32_t)options) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)idtype, (int32_t)id, (void*)(uintptr_t)infop, (int32_t)options);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -877,9 +1619,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "wait4");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "wait4");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "wait4");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (void*)(uintptr_t)status, (int32_t)options, (void*)(uintptr_t)rusage) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)status, (int32_t)options, (void*)(uintptr_t)rusage);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -905,9 +1674,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "execvpe");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "execvpe");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "execvpe");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(file_utf, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(file_utf, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (file != NULL && file_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, file, file_utf);
     return (jint)km_res;
 }
@@ -933,9 +1729,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getifaddrs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getifaddrs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getifaddrs");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)ifap) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)ifap);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -960,9 +1783,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freeifaddrs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "freeifaddrs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "freeifaddrs");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)ifa);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)ifa);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1bind(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong address, jint address_len) {
@@ -986,9 +1834,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "bind");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "bind");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "bind");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)address, (uint32_t)address_len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)address, (uint32_t)address_len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1013,9 +1888,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "writev");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "writev");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "writev");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -1040,9 +1942,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "readv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "readv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "readv");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -1067,9 +1996,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendmsg");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sendmsg");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sendmsg");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)msg, (int32_t)flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)msg, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -1094,9 +2050,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "recvmsg");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "recvmsg");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "recvmsg");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)msg, (int32_t)flags) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)msg, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -1121,9 +2104,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openpty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "openpty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "openpty");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)amaster, (void*)(uintptr_t)aslave, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)amaster, (void*)(uintptr_t)aslave, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1148,9 +2158,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "forkpty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "forkpty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "forkpty");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)amaster, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)amaster, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1175,9 +2212,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "login_tty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "login_tty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "login_tty");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1202,9 +2266,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "uname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "uname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "uname");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)buf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1229,9 +2320,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpeereid");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpeereid");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpeereid");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)euid, (void*)(uintptr_t)egid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)euid, (void*)(uintptr_t)egid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1256,9 +2374,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strerror_r");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "strerror_r");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "strerror_r");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)errnum, (char*)(uintptr_t)buf, (uint64_t)buflen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)errnum, (char*)(uintptr_t)buf, (uint64_t)buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1283,9 +2428,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "abs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "abs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "abs");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)i) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)i);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1310,9 +2482,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "labs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "labs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "labs");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int64_t)i) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int64_t)i);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -1337,9 +2536,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rand");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "rand");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "rand");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1364,9 +2590,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "srand");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "srand");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "srand");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((uint32_t)seed);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((uint32_t)seed);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1setpwent(JNIEnv* km_env, jclass km_clazz) {
@@ -1390,9 +2641,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setpwent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setpwent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setpwent");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr();
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1endpwent(JNIEnv* km_env, jclass km_clazz) {
@@ -1416,9 +2692,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "endpwent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "endpwent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "endpwent");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr();
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1getpwent(JNIEnv* km_env, jclass km_clazz) {
@@ -1442,9 +2743,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpwent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwent");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -1469,9 +2797,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setgrent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setgrent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setgrent");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr();
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1endgrent(JNIEnv* km_env, jclass km_clazz) {
@@ -1495,9 +2848,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "endgrent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "endgrent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "endgrent");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr();
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1getgrent(JNIEnv* km_env, jclass km_clazz) {
@@ -1521,9 +2899,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getgrent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrent");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -1548,9 +2953,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setspent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setspent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setspent");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr();
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1endspent(JNIEnv* km_env, jclass km_clazz) {
@@ -1574,9 +3004,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "endspent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "endspent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "endspent");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr();
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1shmOpen(JNIEnv* km_env, jclass km_clazz, jstring name, jint oflag, jint mode) {
@@ -1601,9 +3056,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shm_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "shm_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "shm_open");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (int32_t)oflag, (uint32_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (int32_t)oflag, (uint32_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -1630,9 +3112,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftok");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ftok");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ftok");
+        }
+#endif
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(pathname_utf, (int32_t)proj_id) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(pathname_utf, (int32_t)proj_id);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -1658,9 +3167,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mprotect");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mprotect");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mprotect");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)prot) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)prot);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1685,9 +3221,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_fallocate");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_fallocate");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int64_t)offset, (int64_t)len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int64_t)offset, (int64_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1712,9 +3275,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mkostemp");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkostemp");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkostemp");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1739,9 +3329,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mkostemps");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkostemps");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkostemps");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)suffixlen, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)suffixlen, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1766,9 +3383,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sigtimedwait");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigtimedwait");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigtimedwait");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)set, (void*)(uintptr_t)info, (void*)(uintptr_t)timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)set, (void*)(uintptr_t)info, (void*)(uintptr_t)timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1793,9 +3437,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sigwaitinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigwaitinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigwaitinfo");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)set, (void*)(uintptr_t)info) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)set, (void*)(uintptr_t)info);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1820,9 +3491,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_setschedprio");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_setschedprio");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_setschedprio");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)native, (int32_t)priority) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)native, (int32_t)priority);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -1847,9 +3545,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "if_nameindex");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "if_nameindex");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "if_nameindex");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -1874,9 +3599,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "if_freenameindex");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "if_freenameindex");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "if_freenameindex");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)ptr);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)ptr);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1glob(JNIEnv* km_env, jclass km_clazz, jstring pattern, jint flags, jlong errfunc, jlong pglob) {
@@ -1901,9 +3651,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "glob");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "glob");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "glob");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(pattern_utf, (int32_t)flags, (void*)(uintptr_t)errfunc, (void*)(uintptr_t)pglob) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(pattern_utf, (int32_t)flags, (void*)(uintptr_t)errfunc, (void*)(uintptr_t)pglob);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pattern != NULL && pattern_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pattern, pattern_utf);
     return (jint)km_res;
 }
@@ -1929,9 +3706,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "globfree");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "globfree");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "globfree");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)pglob);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)pglob);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1posixMadvise(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint advice) {
@@ -1955,9 +3757,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_madvise");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_madvise");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_madvise");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)advice) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)advice);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -1983,9 +3812,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shm_unlink");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "shm_unlink");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "shm_unlink");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -2011,9 +3867,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "seekdir");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "seekdir");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "seekdir");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)dirp, (int64_t)loc);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)dirp, (int64_t)loc);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1telldir(JNIEnv* km_env, jclass km_clazz, jlong dirp) {
@@ -2037,9 +3918,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "telldir");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "telldir");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "telldir");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)dirp) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)dirp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -2064,9 +3972,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msync");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "msync");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "msync");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2091,9 +4026,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "recvfrom");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "recvfrom");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "recvfrom");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)buf, (uint64_t)len, (int32_t)flags, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)buf, (uint64_t)len, (int32_t)flags, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -2118,9 +4080,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mkstemps");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkstemps");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mkstemps");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)suffixlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)suffixlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2145,9 +4134,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getdomainname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getdomainname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getdomainname");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)name, (uint64_t)len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)name, (uint64_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2173,9 +4189,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setdomainname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setdomainname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setdomainname");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (uint64_t)len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (uint64_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -2201,9 +4244,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sync");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sync");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sync");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr();
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1pthreadGetschedparam(JNIEnv* km_env, jclass km_clazz, jlong native, jlong policy, jlong param) {
@@ -2227,9 +4295,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getschedparam");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_getschedparam");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_getschedparam");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)native, (void*)(uintptr_t)policy, (void*)(uintptr_t)param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)native, (void*)(uintptr_t)policy, (void*)(uintptr_t)param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2255,9 +4350,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "umount");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "umount");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "umount");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(target_utf, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(target_utf, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (target != NULL && target_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, target, target_utf);
     return (jint)km_res;
 }
@@ -2283,9 +4405,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_get_priority_max");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_get_priority_max");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_get_priority_max");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)policy) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)policy);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2310,9 +4459,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "settimeofday");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "settimeofday");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "settimeofday");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)tv, (void*)(uintptr_t)tz) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)tv, (void*)(uintptr_t)tz);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2337,9 +4513,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_rr_get_interval");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_rr_get_interval");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_rr_get_interval");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (void*)(uintptr_t)tp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2364,9 +4567,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sem_timedwait");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_timedwait");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_timedwait");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sem, (void*)(uintptr_t)abstime) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sem, (void*)(uintptr_t)abstime);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2391,9 +4621,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sem_getvalue");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_getvalue");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_getvalue");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sem, (void*)(uintptr_t)sval) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sem, (void*)(uintptr_t)sval);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2418,9 +4675,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_setparam");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_setparam");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_setparam");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (void*)(uintptr_t)param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2448,9 +4732,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mount");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mount");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mount");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(special_device_utf, mount_directory_utf, (int32_t)flags, mount_type_utf, (void*)(uintptr_t)mount_data, (int32_t)mount_datalen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(special_device_utf, mount_directory_utf, (int32_t)flags, mount_type_utf, (void*)(uintptr_t)mount_data, (int32_t)mount_datalen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (special_device != NULL && special_device_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, special_device, special_device_utf);
     if (mount_directory != NULL && mount_directory_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, mount_directory, mount_directory_utf);
     if (mount_type != NULL && mount_type_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, mount_type, mount_type_utf);
@@ -2478,9 +4789,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_getparam");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_getparam");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_getparam");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (void*)(uintptr_t)param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2505,9 +4843,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutex_consistent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutex_consistent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutex_consistent");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mutex) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mutex);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2532,9 +4897,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutex_timedlock");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutex_timedlock");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutex_timedlock");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock, (void*)(uintptr_t)abstime) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock, (void*)(uintptr_t)abstime);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2559,9 +4951,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_init");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock, (int32_t)pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock, (int32_t)pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2586,9 +5005,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_destroy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_destroy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_destroy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2613,9 +5059,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_lock");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_lock");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_lock");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2640,9 +5113,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_trylock");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_trylock");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_trylock");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2667,9 +5167,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_unlock");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_unlock");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_spin_unlock");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)lock) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)lock);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2694,9 +5221,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_barrierattr_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_init");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_attr);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2721,9 +5275,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_barrierattr_destroy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_destroy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_destroy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_attr);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2748,9 +5329,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_barrierattr_getpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_getpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_getpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_attr, (void*)(uintptr_t)arg_1_pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_attr, (void*)(uintptr_t)arg_1_pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2775,9 +5383,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_barrierattr_setpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_setpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrierattr_setpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_attr, (int32_t)arg_1_pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_attr, (int32_t)arg_1_pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2802,9 +5437,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_barrier_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrier_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrier_init");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_barrier, (void*)(uintptr_t)arg_1_attr, (uint32_t)arg_2_count) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_barrier, (void*)(uintptr_t)arg_1_attr, (uint32_t)arg_2_count);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2829,9 +5491,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_barrier_destroy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrier_destroy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrier_destroy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_barrier) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_barrier);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2856,9 +5545,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_barrier_wait");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrier_wait");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_barrier_wait");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_barrier) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_barrier);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2883,9 +5599,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_getscheduler");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_getscheduler");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_getscheduler");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2910,9 +5653,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_nanosleep");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_nanosleep");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "clock_nanosleep");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)clk_id, (int32_t)flags, (void*)(uintptr_t)rqtp, (void*)(uintptr_t)rmtp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)clk_id, (int32_t)flags, (void*)(uintptr_t)rqtp, (void*)(uintptr_t)rmtp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -2937,9 +5707,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_attr_getguardsize");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_attr_getguardsize");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_attr_getguardsize");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)guardsize) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)guardsize);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2964,9 +5761,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_attr_setguardsize");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_attr_setguardsize");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_attr_setguardsize");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (uint64_t)guardsize) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (uint64_t)guardsize);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -2992,9 +5816,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sethostname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sethostname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sethostname");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (uint64_t)len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (uint64_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -3020,9 +5871,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_get_priority_min");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_get_priority_min");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_get_priority_min");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)policy) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)policy);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3047,9 +5925,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_condattr_getpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_getpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_condattr_getpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3074,9 +5979,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_setschedparam");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_setschedparam");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_setschedparam");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)native, (int32_t)policy, (void*)(uintptr_t)param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)native, (int32_t)policy, (void*)(uintptr_t)param);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3101,9 +6033,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_setscheduler");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_setscheduler");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sched_setscheduler");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (int32_t)policy, (void*)(uintptr_t)param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (int32_t)policy, (void*)(uintptr_t)param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3128,9 +6087,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sigsuspend");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigsuspend");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigsuspend");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)mask) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)mask);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3155,9 +6141,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getgrgid_r");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrgid_r");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrgid_r");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint16_t)gid, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint16_t)gid, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3182,9 +6195,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sem_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_close");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sem) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sem);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3209,9 +6249,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getdtablesize");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getdtablesize");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getdtablesize");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3237,9 +6304,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getgrnam_r");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrnam_r");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrnam_r");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -3266,9 +6360,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "initgroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "initgroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "initgroups");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(user_utf, (uint16_t)group) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(user_utf, (uint16_t)group);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (user != NULL && user_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, user, user_utf);
     return (jint)km_res;
 }
@@ -3294,9 +6415,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_sigmask");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_sigmask");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_sigmask");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)how, (void*)(uintptr_t)set, (void*)(uintptr_t)oldset) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)how, (void*)(uintptr_t)set, (void*)(uintptr_t)oldset);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3322,6 +6470,27 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sem_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_open");
+        }
+#endif
     }
 #endif
     void* km_res = NULL;
@@ -3333,6 +6502,8 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
             case 3: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
@@ -3360,9 +6531,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getgrnam");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrnam");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrnam");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -3388,9 +6586,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_cancel");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_cancel");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_cancel");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)thread) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)thread);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3415,9 +6640,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_kill");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_kill");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_kill");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)thread, (int32_t)sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (int32_t)sig);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3443,9 +6695,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sem_unlink");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_unlink");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sem_unlink");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -3471,9 +6750,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "daemon");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "daemon");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "daemon");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)nochdir, (int32_t)noclose) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)nochdir, (int32_t)noclose);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3499,9 +6805,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpwnam_r");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwnam_r");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwnam_r");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(name_utf, (void*)(uintptr_t)pwd, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)pwd, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -3527,9 +6860,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpwuid_r");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwuid_r");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwuid_r");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint16_t)uid, (void*)(uintptr_t)pwd, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint16_t)uid, (void*)(uintptr_t)pwd, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3554,9 +6914,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sigwait");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigwait");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sigwait");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)set, (void*)(uintptr_t)sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)set, (void*)(uintptr_t)sig);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3581,9 +6968,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_atfork");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_atfork");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_atfork");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)prepare, (void*)(uintptr_t)parent, (void*)(uintptr_t)child) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)prepare, (void*)(uintptr_t)parent, (void*)(uintptr_t)child);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3608,9 +7022,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getgrgid");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrgid");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrgid");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint16_t)gid) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint16_t)gid);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -3636,9 +7077,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getgrouplist");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrouplist");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getgrouplist");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(user_utf, (uint16_t)group, (void*)(uintptr_t)groups, (void*)(uintptr_t)ngroups) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(user_utf, (uint16_t)group, (void*)(uintptr_t)groups, (void*)(uintptr_t)ngroups);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (user != NULL && user_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, user, user_utf);
     return (jint)km_res;
 }
@@ -3664,9 +7132,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_getpshared");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_getpshared");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_getpshared");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)pshared) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)pshared);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3691,9 +7186,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_getrobust");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_getrobust");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_getrobust");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)robustness) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)robustness);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3718,9 +7240,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_setrobust");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_setrobust");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_mutexattr_setrobust");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)robustness) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)robustness);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3745,9 +7294,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_create");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_create");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_create");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)native, (void*)(uintptr_t)attr, (void*)(uintptr_t)f, (void*)(uintptr_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)native, (void*)(uintptr_t)attr, (void*)(uintptr_t)f, (void*)(uintptr_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -3772,9 +7348,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getitimer");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getitimer");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getitimer");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)which, (void*)(uintptr_t)curr_value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)which, (void*)(uintptr_t)curr_value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3799,9 +7402,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setitimer");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setitimer");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setitimer");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)which, (void*)(uintptr_t)value, (void*)(uintptr_t)ovalue) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)which, (void*)(uintptr_t)value, (void*)(uintptr_t)ovalue);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3827,9 +7457,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawn");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)pid, path_utf, (void*)(uintptr_t)file_actions, (void*)(uintptr_t)attrp, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)pid, path_utf, (void*)(uintptr_t)file_actions, (void*)(uintptr_t)attrp, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -3856,9 +7513,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnp");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnp");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnp");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)pid, file_utf, (void*)(uintptr_t)file_actions, (void*)(uintptr_t)attrp, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)pid, file_utf, (void*)(uintptr_t)file_actions, (void*)(uintptr_t)attrp, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (file != NULL && file_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, file, file_utf);
     return (jint)km_res;
 }
@@ -3884,9 +7568,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_init");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3911,9 +7622,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_destroy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_destroy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_destroy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3938,9 +7676,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_getsigdefault");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getsigdefault");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getsigdefault");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3965,9 +7730,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_setsigdefault");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setsigdefault");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setsigdefault");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -3992,9 +7784,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_getsigmask");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getsigmask");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getsigmask");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4019,9 +7838,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_setsigmask");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setsigmask");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setsigmask");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_default);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4046,9 +7892,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_getflags");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getflags");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getflags");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4073,9 +7946,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_setflags");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setflags");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setflags");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int16_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int16_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4100,9 +8000,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_getpgroup");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getpgroup");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getpgroup");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4127,9 +8054,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_setpgroup");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setpgroup");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setpgroup");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4154,9 +8108,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_getschedpolicy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getschedpolicy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getschedpolicy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4181,9 +8162,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_setschedpolicy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setschedpolicy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setschedpolicy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4208,9 +8216,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_getschedparam");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getschedparam");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_getschedparam");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4235,9 +8270,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawnattr_setschedparam");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setschedparam");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawnattr_setschedparam");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)param) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)param);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4262,9 +8324,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_init");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)actions) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)actions);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4289,9 +8378,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_destroy");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_destroy");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_destroy");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)actions) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)actions);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4317,9 +8433,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_addopen");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_addopen");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_addopen");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)actions, (int32_t)fd, path_utf, (int32_t)oflag, (uint32_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)actions, (int32_t)fd, path_utf, (int32_t)oflag, (uint32_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -4345,9 +8488,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_addclose");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_addclose");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_addclose");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)actions, (int32_t)fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)actions, (int32_t)fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4372,9 +8542,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_spawn_file_actions_adddup2");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_adddup2");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "posix_spawn_file_actions_adddup2");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)actions, (int32_t)fd, (int32_t)newfd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)actions, (int32_t)fd, (int32_t)newfd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4401,9 +8598,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "popen");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "popen");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "popen");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr(command_utf, mode_utf) : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(command_utf, mode_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (command != NULL && command_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, command, command_utf);
     if (mode != NULL && mode_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, mode, mode_utf);
     return (jlong)(uintptr_t)km_res;
@@ -4431,9 +8655,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "faccessat");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "faccessat");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "faccessat");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)dirfd, pathname_utf, (int32_t)mode, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)dirfd, pathname_utf, (int32_t)mode, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -4459,9 +8710,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "inotify_rm_watch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "inotify_rm_watch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "inotify_rm_watch");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int32_t)wd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)wd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4486,9 +8764,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "inotify_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "inotify_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "inotify_init");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4514,9 +8819,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "inotify_add_watch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "inotify_add_watch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "inotify_add_watch");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, path_utf, (uint32_t)mask) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, path_utf, (uint32_t)mask);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
@@ -4542,9 +8874,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "gettid");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "gettid");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "gettid");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4569,9 +8928,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getcpuclockid");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_getcpuclockid");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_getcpuclockid");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)clk_id) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)clk_id);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -4596,9 +8982,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getnameinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getnameinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getnameinfo");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sa, (uint32_t)salen, (char*)(uintptr_t)host, (uint32_t)hostlen, (char*)(uintptr_t)serv, (uint32_t)servlen, (int32_t)flags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sa, (uint32_t)salen, (char*)(uintptr_t)host, (uint32_t)hostlen, (char*)(uintptr_t)serv, (uint32_t)servlen, (int32_t)flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4623,9 +9036,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallopt");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mallopt");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mallopt");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)param, (int64_t)value) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)param, (int64_t)value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4650,9 +9090,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "gettimeofday");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "gettimeofday");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "gettimeofday");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)tp, (void*)(uintptr_t)tz) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)tp, (void*)(uintptr_t)tz);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4677,9 +9144,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ctermid");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ctermid");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ctermid");
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)s) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)s);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -4704,6 +9198,27 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ioctl");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ioctl");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "ioctl");
+        }
+#endif
     }
 #endif
     int32_t km_res = -1;
@@ -4715,6 +9230,8 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
             case 3: km_res = km_fn_ptr((int32_t)fd, (int32_t)request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((int32_t)fd, (int32_t)request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jint)km_res;
 }
@@ -4740,9 +9257,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpwent_r");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwent_r");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getpwent_r");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)pwd, (char*)(uintptr_t)buf, (int32_t)arg_2_bufsize, (void*)(uintptr_t)arg_3_result) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)pwd, (char*)(uintptr_t)buf, (int32_t)arg_2_bufsize, (void*)(uintptr_t)arg_3_result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4767,9 +9311,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getname_np");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_getname_np");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_getname_np");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)thread, (char*)(uintptr_t)name, (int32_t)len) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (char*)(uintptr_t)name, (int32_t)len);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     return (jint)km_res;
 }
 
@@ -4795,9 +9366,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_setname_np");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_setname_np");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "pthread_setname_np");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)thread, name_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
     if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
@@ -4823,9 +9421,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sysctl");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sysctl");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "sysctl");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg0, (uint32_t)arg1, (void*)(uintptr_t)arg2, (void*)(uintptr_t)arg3, (void*)(uintptr_t)arg4, (uint64_t)arg5) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg0, (uint32_t)arg1, (void*)(uintptr_t)arg2, (void*)(uintptr_t)arg3, (void*)(uintptr_t)arg4, (uint64_t)arg5);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4850,9 +9475,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getrlimit");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "getrlimit");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)resource, (void*)(uintptr_t)rlim) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)resource, (void*)(uintptr_t)rlim);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4877,9 +9529,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setrlimit");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "setrlimit");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)resource, (void*)(uintptr_t)rlp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)resource, (void*)(uintptr_t)rlp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4904,9 +9583,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lio_listio");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "lio_listio");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "lio_listio");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_mode, (void*)(uintptr_t)arg_1_list, (int32_t)arg_2_nent, (void*)(uintptr_t)arg_3_sig) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_mode, (void*)(uintptr_t)arg_1_list, (int32_t)arg_2_nent, (void*)(uintptr_t)arg_3_sig);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4931,9 +9637,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dl_iterate_phdr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "dl_iterate_phdr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "dl_iterate_phdr");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)callback, (void*)(uintptr_t)data) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)callback, (void*)(uintptr_t)data);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4958,9 +9691,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memset_s");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "memset_s");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "memset_s");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)s, (uint64_t)smax, (int32_t)c, (uint64_t)n) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)s, (uint64_t)smax, (int32_t)c, (uint64_t)n);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -4986,9 +9746,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "regcomp");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regcomp");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regcomp");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_preg, arg_1_pattern_utf, (int32_t)arg_2_cflags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_preg, arg_1_pattern_utf, (int32_t)arg_2_cflags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (arg_1_pattern != NULL && arg_1_pattern_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_1_pattern, arg_1_pattern_utf);
     return (jint)km_res;
 }
@@ -5015,9 +9802,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "regexec");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regexec");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regexec");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_preg, arg_1_str_utf, (uint64_t)arg_2_nmatch, (void*)(uintptr_t)arg_3_pmatch, (int32_t)arg_4_eflags) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_preg, arg_1_str_utf, (uint64_t)arg_2_nmatch, (void*)(uintptr_t)arg_3_pmatch, (int32_t)arg_4_eflags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (arg_1_str != NULL && arg_1_str_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_1_str, arg_1_str_utf);
     return (jint)km_res;
 }
@@ -5043,9 +9857,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "regerror");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regerror");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regerror");
+        }
+#endif
     }
 #endif
-    uint64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_errcode, (void*)(uintptr_t)arg_1_preg, (char*)(uintptr_t)arg_2_errbuf, (uint64_t)arg_3_errbuf_size) : 0;
+    uint64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_errcode, (void*)(uintptr_t)arg_1_preg, (char*)(uintptr_t)arg_2_errbuf, (uint64_t)arg_3_errbuf_size);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jlong)km_res;
 }
 
@@ -5070,9 +9911,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "regfree");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regfree");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "regfree");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)arg_0_preg);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)arg_0_preg);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge_libc_1unix_1nto_1dirfd(JNIEnv* km_env, jclass km_clazz, jlong arg_0_dirp) {
@@ -5096,9 +9962,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dirfd");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "dirfd");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "dirfd");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_dirp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_dirp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5123,6 +10016,27 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dircntl");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "dircntl");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "dircntl");
+        }
+#endif
     }
 #endif
     int32_t km_res = -1;
@@ -5134,6 +10048,8 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
             case 3: km_res = km_fn_ptr((void*)(uintptr_t)dir, (int32_t)cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr((void*)(uintptr_t)dir, (int32_t)cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     return (jint)km_res;
 }
@@ -5159,9 +10075,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_cancel");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_cancel");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_cancel");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_fd, (void*)(uintptr_t)arg_1_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_fd, (void*)(uintptr_t)arg_1_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5186,9 +10129,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_error");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_error");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_error");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5213,9 +10183,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_fsync");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_fsync");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_fsync");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_operation, (void*)(uintptr_t)arg_1_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_operation, (void*)(uintptr_t)arg_1_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5240,9 +10237,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_read");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_read");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_read");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_aiocbp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_aiocbp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5267,9 +10291,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_return");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_return");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_return");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_aiocpb) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_aiocpb);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -5294,9 +10345,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_suspend");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_suspend");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_suspend");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_list, (int32_t)arg_1_nent, (void*)(uintptr_t)arg_2_timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_list, (int32_t)arg_1_nent, (void*)(uintptr_t)arg_2_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5321,9 +10399,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_write");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_write");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "aio_write");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_aiocpb) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_aiocpb);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5348,9 +10453,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_close");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5375,9 +10507,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_getattr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_getattr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_getattr");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (void*)(uintptr_t)arg_1_mqstat) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (void*)(uintptr_t)arg_1_mqstat);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5402,9 +10561,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_notify");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_notify");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_notify");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (void*)(uintptr_t)arg_1_notification) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (void*)(uintptr_t)arg_1_notification);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5430,6 +10616,27 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_open");
+        }
+#endif
     }
 #endif
     void* km_res = NULL;
@@ -5441,6 +10648,8 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
             case 3: km_res = km_fn_ptr(arg_0_name_utf, (int32_t)arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
             default: km_res = km_fn_ptr(arg_0_name_utf, (int32_t)arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
+    } else {
+        errno = ENOSYS;
     }
     if (arg_0_name != NULL && arg_0_name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_0_name, arg_0_name_utf);
     return (jlong)(uintptr_t)km_res;
@@ -5467,9 +10676,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_receive");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_receive");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_receive");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (char*)(uintptr_t)arg_1_msg_ptr, (uint64_t)arg_2_msg_len, (void*)(uintptr_t)arg_3_msg_prio) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (char*)(uintptr_t)arg_1_msg_ptr, (uint64_t)arg_2_msg_len, (void*)(uintptr_t)arg_3_msg_prio);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -5495,9 +10731,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_send");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_send");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_send");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, arg_1_msg_ptr_utf, (uint64_t)arg_2_msg_len, (uint32_t)arg_3_msg_prio) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, arg_1_msg_ptr_utf, (uint64_t)arg_2_msg_len, (uint32_t)arg_3_msg_prio);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (arg_1_msg_ptr != NULL && arg_1_msg_ptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_1_msg_ptr, arg_1_msg_ptr_utf);
     return (jint)km_res;
 }
@@ -5523,9 +10786,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_setattr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_setattr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_setattr");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (void*)(uintptr_t)arg_1_mqstat, (void*)(uintptr_t)arg_2_omqstat) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (void*)(uintptr_t)arg_1_mqstat, (void*)(uintptr_t)arg_2_omqstat);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -5550,9 +10840,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_timedreceive");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_timedreceive");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_timedreceive");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (char*)(uintptr_t)arg_1_msg_ptr, (uint64_t)arg_2_msg_len, (void*)(uintptr_t)arg_3_msg_prio, (void*)(uintptr_t)arg_4_abs_timeout) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, (char*)(uintptr_t)arg_1_msg_ptr, (uint64_t)arg_2_msg_len, (void*)(uintptr_t)arg_3_msg_prio, (void*)(uintptr_t)arg_4_abs_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -5578,9 +10895,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_timedsend");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_timedsend");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_timedsend");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, arg_1_msg_ptr_utf, (uint64_t)arg_2_msg_len, (uint32_t)arg_3_msg_prio, (void*)(uintptr_t)arg_4_abs_timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_mqdes, arg_1_msg_ptr_utf, (uint64_t)arg_2_msg_len, (uint32_t)arg_3_msg_prio, (void*)(uintptr_t)arg_4_abs_timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (arg_1_msg_ptr != NULL && arg_1_msg_ptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_1_msg_ptr, arg_1_msg_ptr_utf);
     return (jint)km_res;
 }
@@ -5607,9 +10951,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_unlink");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_unlink");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "mq_unlink");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(arg_0_name_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(arg_0_name_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (arg_0_name != NULL && arg_0_name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_0_name, arg_0_name_utf);
     return (jint)km_res;
 }
@@ -5633,9 +11004,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridg
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__get_errno_ptr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "__get_errno_ptr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "__get_errno_ptr");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -5658,8 +11056,33 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_nto_UnixNtoJniBridge
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__my_thread_exit");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("/usr/lib/libsocket.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "__my_thread_exit");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_socket = NULL;
+            static bool km_h_socket_init = false;
+            if (!km_h_socket_init) {
+                km_h_socket_init = true;
+                km_h_socket = dlopen("libsocket.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_socket != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_socket, "__my_thread_exit");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)value_ptr);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)value_ptr);
+    } else {
+        errno = ENOSYS;
+    }
 }
 

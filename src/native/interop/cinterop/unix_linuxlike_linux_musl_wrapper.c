@@ -998,7 +998,7 @@ int32_t libc_unix_linuxlike_linux_musl_pthreadTryjoinNp(void* thread, void* retv
         return km_fn_ptr(thread, retval);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp(void* thread, void* retval, void* abstime) {
@@ -1026,6 +1026,6 @@ int32_t libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp(void* thread, void* re
         return km_fn_ptr(thread, retval, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 

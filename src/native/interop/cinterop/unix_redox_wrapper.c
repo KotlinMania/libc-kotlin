@@ -582,7 +582,7 @@ int32_t libc_unix_redox_pthreadAtfork(void* prepare, void* parent, void* child) 
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_redox_pthreadCreate(void* tid, void* attr, void* start, void* arg) {
@@ -610,7 +610,7 @@ int32_t libc_unix_redox_pthreadCreate(void* tid, void* attr, void* start, void* 
         return km_fn_ptr(tid, attr, start, arg);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_redox_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
@@ -638,7 +638,7 @@ int32_t libc_unix_redox_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_redox_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
@@ -834,7 +834,7 @@ int32_t libc_unix_redox_pthreadSigmask(int32_t how, void* set, void* oldset) {
         return km_fn_ptr(how, set, oldset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_redox_pthreadCancel(void* thread) {
@@ -862,7 +862,7 @@ int32_t libc_unix_redox_pthreadCancel(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_redox_pthreadKill(void* thread, int32_t sig) {
@@ -890,7 +890,7 @@ int32_t libc_unix_redox_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_redox_sigtimedwait(void* set, void* sig, void* timeout) {

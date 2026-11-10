@@ -465,7 +465,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize(void* attr, voi
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
@@ -493,7 +493,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize(void* attr, uin
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -521,7 +521,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack(void* attr, void* s
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp(void) {
@@ -549,7 +549,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp(void) {
         return km_fn_ptr();
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp(void* tid, char* name, uint64_t len) {
@@ -633,7 +633,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp(void* thread, void* s
         return km_fn_ptr(thread, sinfo);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_netbsdlike_openbsd_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
@@ -1585,6 +1585,27 @@ uint64_t libc_unix_bsd_netbsdlike_openbsd_backtrace(void* addrlist, uint64_t len
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "backtrace");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("/usr/lib/libexecinfo.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("libexecinfo.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1613,6 +1634,27 @@ void* libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols(void* addrlist, uint64_t
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "backtrace_symbols");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("/usr/lib/libexecinfo.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace_symbols");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("libexecinfo.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace_symbols");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1641,6 +1683,27 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd(void* addrlist, uint
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "backtrace_symbols_fd");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("/usr/lib/libexecinfo.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace_symbols_fd");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("libexecinfo.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace_symbols_fd");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1669,6 +1732,27 @@ void* libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt(void* addrlist, uint6
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "backtrace_symbols_fmt");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("/usr/lib/libexecinfo.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace_symbols_fmt");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_execinfo = NULL;
+            static bool km_h_execinfo_init = false;
+            if (!km_h_execinfo_init) {
+                km_h_execinfo_init = true;
+                km_h_execinfo = dlopen("libexecinfo.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_execinfo != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_execinfo, "backtrace_symbols_fmt");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

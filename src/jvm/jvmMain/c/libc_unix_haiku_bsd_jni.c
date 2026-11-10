@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -39,9 +40,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "daemon");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "daemon");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "daemon");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)nochdir, (int32_t)noclose) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)nochdir, (int32_t)noclose);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -66,9 +94,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJ
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getprogname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "getprogname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "getprogname");
+        }
+#endif
     }
 #endif
-    const char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    const char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -94,9 +149,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setprogname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "setprogname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "setprogname");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr(progname_utf);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(progname_utf);
+    } else {
+        errno = ENOSYS;
+    }
     if (progname != NULL && progname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, progname, progname_utf);
 }
 
@@ -121,9 +201,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "arc4random");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random");
+        }
+#endif
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jint)km_res;
 }
 
@@ -148,9 +255,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "arc4random_uniform");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_uniform");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_uniform");
+        }
+#endif
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)upper_bound) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)upper_bound);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jint)km_res;
 }
 
@@ -175,9 +309,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "arc4random_buf");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_buf");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_buf");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)buf, (uint64_t)n);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)buf, (uint64_t)n);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJniBridge_libc_1unix_1haiku_1bsd_1mkstemps(JNIEnv* km_env, jclass km_clazz, jlong arg_0_template, jint suffixlen) {
@@ -201,9 +360,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mkstemps");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "mkstemps");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "mkstemps");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)suffixlen) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)arg_0_template, (int32_t)suffixlen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -229,9 +415,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJ
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtonum");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strtonum");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strtonum");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(nptr_utf, (int64_t)minval, (int64_t)maxval, (void*)(uintptr_t)errstr) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(nptr_utf, (int64_t)minval, (int64_t)maxval, (void*)(uintptr_t)errstr);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (nptr != NULL && nptr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nptr, nptr_utf);
     return (jlong)km_res;
 }
@@ -257,9 +470,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openpty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "openpty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "openpty");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)amaster, (void*)(uintptr_t)aslave, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)amaster, (void*)(uintptr_t)aslave, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -284,9 +524,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "login_tty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "login_tty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "login_tty");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)arg_0_fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)arg_0_fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -311,9 +578,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "forkpty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "forkpty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "forkpty");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)amaster, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)amaster, (char*)(uintptr_t)name, (void*)(uintptr_t)termp, (void*)(uintptr_t)winp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -339,9 +633,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJ
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strsep");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strsep");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strsep");
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)string, delimiters_utf) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)string, delimiters_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     if (delimiters != NULL && delimiters_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, delimiters, delimiters_utf);
     return (jlong)(uintptr_t)km_res;
 }
@@ -367,9 +688,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "explicit_bzero");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "explicit_bzero");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "explicit_bzero");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)buf, (uint64_t)len);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)buf, (uint64_t)len);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJniBridge_libc_1unix_1haiku_1bsd_1slInit(JNIEnv* km_env, jclass km_clazz) {
@@ -393,9 +739,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJ
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_init");
+        }
+#endif
     }
 #endif
-    void* km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : NULL;
+    void* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -420,9 +793,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_add");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_add");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_add");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sl, (char*)(uintptr_t)n) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sl, (char*)(uintptr_t)n);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -447,9 +847,34 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_free");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_free");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_free");
+        }
+#endif
     }
 #endif
-    if (km_fn_ptr != NULL) km_fn_ptr((void*)(uintptr_t)sl, (int32_t)i);
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr((void*)(uintptr_t)sl, (int32_t)i);
+    } else {
+        errno = ENOSYS;
+    }
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJniBridge_libc_1unix_1haiku_1bsd_1slFind(JNIEnv* km_env, jclass km_clazz, jlong sl, jlong n) {
@@ -473,9 +898,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJ
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_find");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_find");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_find");
+        }
+#endif
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)sl, (char*)(uintptr_t)n) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)sl, (char*)(uintptr_t)n);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -500,9 +952,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kqueue");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "kqueue");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "kqueue");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -527,9 +1006,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kevent");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "kevent");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "kevent");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)kq, (void*)(uintptr_t)changelist, (int32_t)nchanges, (void*)(uintptr_t)eventlist, (int32_t)nevents, (void*)(uintptr_t)timeout) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)kq, (void*)(uintptr_t)changelist, (int32_t)nchanges, (void*)(uintptr_t)eventlist, (int32_t)nevents, (void*)(uintptr_t)timeout);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -554,9 +1060,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dl_iterate_phdr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "dl_iterate_phdr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "dl_iterate_phdr");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((void*)(uintptr_t)callback, (void*)(uintptr_t)data) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((void*)(uintptr_t)callback, (void*)(uintptr_t)data);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -582,9 +1115,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lutimes");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "lutimes");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "lutimes");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(file_utf, (void*)(uintptr_t)times) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(file_utf, (void*)(uintptr_t)times);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (file != NULL && file_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, file, file_utf);
     return (jint)km_res;
 }
@@ -610,9 +1170,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJ
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "preadv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "preadv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "preadv");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (int64_t)offset) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (int64_t)offset);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -637,9 +1224,36 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJ
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwritev");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "pwritev");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "pwritev");
+        }
+#endif
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (int64_t)offset) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (int32_t)iovcnt, (int64_t)offset);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -664,9 +1278,36 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_haiku_UnixHaikuBsdJn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "wait4");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "wait4");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "wait4");
+        }
+#endif
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)pid, (void*)(uintptr_t)status, (int32_t)options, (void*)(uintptr_t)rusage) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)status, (int32_t)options, (void*)(uintptr_t)rusage);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 

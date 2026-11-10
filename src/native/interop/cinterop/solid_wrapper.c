@@ -3,9 +3,9 @@
 #endif
 #include "solid_wrapper.h"
 #include <errno.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <signal.h>
 #include <time.h>
@@ -2184,6 +2184,13 @@ int32_t libc_solid_abs(int32_t arg1) {
 }
 
 int32_t libc_solid_atexit(void* arg1) {
+    if (arg1 == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+#ifdef __ANDROID__
+    return (int32_t)atexit((void (*)(void))(uintptr_t)arg1);
+#else
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2209,6 +2216,7 @@ int32_t libc_solid_atexit(void* arg1) {
     }
     errno = ENOSYS;
     return -1;
+#endif
 }
 
 int32_t libc_solid_atoi(const char* arg1) {
@@ -4825,6 +4833,11 @@ uint32_t libc_solid_popcount64(uint64_t arg1) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "popcount64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "popcount");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

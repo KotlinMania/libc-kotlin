@@ -44,6 +44,27 @@ int32_t libc_unix_aix_thrKill(void* id, int32_t sig) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_kill");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_thread = NULL;
+            static bool km_h_thread_init = false;
+            if (!km_h_thread_init) {
+                km_h_thread_init = true;
+                km_h_thread = dlopen("/usr/lib/libthread.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_thread != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_thread, "thr_kill");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_thread = NULL;
+            static bool km_h_thread_init = false;
+            if (!km_h_thread_init) {
+                km_h_thread_init = true;
+                km_h_thread = dlopen("libthread.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_thread != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_thread, "thr_kill");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -72,6 +93,27 @@ void* libc_unix_aix_thrSelf(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_self");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_thread = NULL;
+            static bool km_h_thread_init = false;
+            if (!km_h_thread_init) {
+                km_h_thread_init = true;
+                km_h_thread = dlopen("/usr/lib/libthread.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_thread != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_thread, "thr_self");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_thread = NULL;
+            static bool km_h_thread_init = false;
+            if (!km_h_thread_init) {
+                km_h_thread_init = true;
+                km_h_thread = dlopen("libthread.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_thread != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_thread, "thr_self");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -106,7 +148,7 @@ int32_t libc_unix_aix_pthreadAtfork(void* prepare, void* parent, void* child) {
         return km_fn_ptr(prepare, parent, child);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetdetachstate(void* attr, void* detachstate) {
@@ -134,7 +176,7 @@ int32_t libc_unix_aix_pthreadAttrGetdetachstate(void* attr, void* detachstate) {
         return km_fn_ptr(attr, detachstate);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetguardsize(void* attr, void* guardsize) {
@@ -162,7 +204,7 @@ int32_t libc_unix_aix_pthreadAttrGetguardsize(void* attr, void* guardsize) {
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetinheritsched(void* attr, void* inheritsched) {
@@ -190,7 +232,7 @@ int32_t libc_unix_aix_pthreadAttrGetinheritsched(void* attr, void* inheritsched)
         return km_fn_ptr(attr, inheritsched);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetschedparam(void* attr, void* param) {
@@ -218,7 +260,7 @@ int32_t libc_unix_aix_pthreadAttrGetschedparam(void* attr, void* param) {
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetstackaddr(void* attr, void* stackaddr) {
@@ -246,7 +288,7 @@ int32_t libc_unix_aix_pthreadAttrGetstackaddr(void* attr, void* stackaddr) {
         return km_fn_ptr(attr, stackaddr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetschedpolicy(void* attr, void* policy) {
@@ -274,7 +316,7 @@ int32_t libc_unix_aix_pthreadAttrGetschedpolicy(void* attr, void* policy) {
         return km_fn_ptr(attr, policy);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetscope(void* attr, void* contentionscope) {
@@ -302,7 +344,7 @@ int32_t libc_unix_aix_pthreadAttrGetscope(void* attr, void* contentionscope) {
         return km_fn_ptr(attr, contentionscope);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -330,7 +372,7 @@ int32_t libc_unix_aix_pthreadAttrGetstack(void* attr, void* stackaddr, void* sta
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
@@ -358,7 +400,7 @@ int32_t libc_unix_aix_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
         return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrSetinheritsched(void* attr, int32_t inheritsched) {
@@ -386,7 +428,7 @@ int32_t libc_unix_aix_pthreadAttrSetinheritsched(void* attr, int32_t inheritsche
         return km_fn_ptr(attr, inheritsched);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrSetschedparam(void* attr, void* param) {
@@ -414,7 +456,7 @@ int32_t libc_unix_aix_pthreadAttrSetschedparam(void* attr, void* param) {
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrSetschedpolicy(void* attr, int32_t policy) {
@@ -442,7 +484,7 @@ int32_t libc_unix_aix_pthreadAttrSetschedpolicy(void* attr, int32_t policy) {
         return km_fn_ptr(attr, policy);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrSetscope(void* attr, int32_t contentionscope) {
@@ -470,7 +512,7 @@ int32_t libc_unix_aix_pthreadAttrSetscope(void* attr, int32_t contentionscope) {
         return km_fn_ptr(attr, contentionscope);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
@@ -498,7 +540,7 @@ int32_t libc_unix_aix_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t 
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadAttrSetstackaddr(void* attr, void* stackaddr) {
@@ -526,7 +568,7 @@ int32_t libc_unix_aix_pthreadAttrSetstackaddr(void* attr, void* stackaddr) {
         return km_fn_ptr(attr, stackaddr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadBarrierattrDestroy(void* attr) {
@@ -554,7 +596,7 @@ int32_t libc_unix_aix_pthreadBarrierattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadBarrierattrGetpshared(void* attr, void* pshared) {
@@ -582,7 +624,7 @@ int32_t libc_unix_aix_pthreadBarrierattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadBarrierattrInit(void* attr) {
@@ -610,7 +652,7 @@ int32_t libc_unix_aix_pthreadBarrierattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadBarrierattrSetpshared(void* attr, int32_t pshared) {
@@ -638,7 +680,7 @@ int32_t libc_unix_aix_pthreadBarrierattrSetpshared(void* attr, int32_t pshared) 
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadBarrierDestroy(void* barrier) {
@@ -666,7 +708,7 @@ int32_t libc_unix_aix_pthreadBarrierDestroy(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
@@ -694,7 +736,7 @@ int32_t libc_unix_aix_pthreadBarrierInit(void* barrier, void* attr, uint32_t cou
         return km_fn_ptr(barrier, attr, count);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadBarrierWait(void* barrier) {
@@ -722,7 +764,7 @@ int32_t libc_unix_aix_pthreadBarrierWait(void* barrier) {
         return km_fn_ptr(barrier);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadCancel(void* thread) {
@@ -750,7 +792,7 @@ int32_t libc_unix_aix_pthreadCancel(void* thread) {
         return km_fn_ptr(thread);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_unix_aix_pthreadCleanupPop(int32_t execute) {
@@ -834,7 +876,7 @@ int32_t libc_unix_aix_pthreadCondattrGetclock(void* attr, void* clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadCondattrGetpshared(void* attr, void* pshared) {
@@ -862,7 +904,7 @@ int32_t libc_unix_aix_pthreadCondattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadCondattrSetclock(void* attr, int64_t clock_id) {
@@ -890,7 +932,7 @@ int32_t libc_unix_aix_pthreadCondattrSetclock(void* attr, int64_t clock_id) {
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
@@ -918,7 +960,7 @@ int32_t libc_unix_aix_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadCreate(void* thread, void* attr, void* start_routine, void* arg) {
@@ -946,7 +988,7 @@ int32_t libc_unix_aix_pthreadCreate(void* thread, void* attr, void* start_routin
         return km_fn_ptr(thread, attr, start_routine, arg);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadGetconcurrency(void) {
@@ -974,7 +1016,7 @@ int32_t libc_unix_aix_pthreadGetconcurrency(void) {
         return km_fn_ptr();
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadGetcpuclockid(void* thread_id, void* clock_id) {
@@ -1002,7 +1044,7 @@ int32_t libc_unix_aix_pthreadGetcpuclockid(void* thread_id, void* clock_id) {
         return km_fn_ptr(thread_id, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadGetschedparam(void* thread, void* policy, void* param) {
@@ -1030,7 +1072,7 @@ int32_t libc_unix_aix_pthreadGetschedparam(void* thread, void* policy, void* par
         return km_fn_ptr(thread, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadKill(void* thread, int32_t sig) {
@@ -1058,7 +1100,7 @@ int32_t libc_unix_aix_pthreadKill(void* thread, int32_t sig) {
         return km_fn_ptr(thread, sig);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrGetprioceiling(void* attr, void* prioceiling) {
@@ -1086,7 +1128,7 @@ int32_t libc_unix_aix_pthreadMutexattrGetprioceiling(void* attr, void* prioceili
         return km_fn_ptr(attr, prioceiling);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrGetprotocol(void* attr, void* protocol) {
@@ -1114,7 +1156,7 @@ int32_t libc_unix_aix_pthreadMutexattrGetprotocol(void* attr, void* protocol) {
         return km_fn_ptr(attr, protocol);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrGetpshared(void* attr, void* pshared) {
@@ -1142,7 +1184,7 @@ int32_t libc_unix_aix_pthreadMutexattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrGetrobust(void* attr, void* robust) {
@@ -1170,7 +1212,7 @@ int32_t libc_unix_aix_pthreadMutexattrGetrobust(void* attr, void* robust) {
         return km_fn_ptr(attr, robust);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrGettype(void* attr, void* arg_1_type) {
@@ -1198,7 +1240,7 @@ int32_t libc_unix_aix_pthreadMutexattrGettype(void* attr, void* arg_1_type) {
         return km_fn_ptr(attr, arg_1_type);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrSetprioceiling(void* attr, int32_t prioceiling) {
@@ -1226,7 +1268,7 @@ int32_t libc_unix_aix_pthreadMutexattrSetprioceiling(void* attr, int32_t priocei
         return km_fn_ptr(attr, prioceiling);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrSetprotocol(void* attr, int32_t protocol) {
@@ -1254,7 +1296,7 @@ int32_t libc_unix_aix_pthreadMutexattrSetprotocol(void* attr, int32_t protocol) 
         return km_fn_ptr(attr, protocol);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
@@ -1282,7 +1324,7 @@ int32_t libc_unix_aix_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexattrSetrobust(void* attr, int32_t robust) {
@@ -1310,7 +1352,7 @@ int32_t libc_unix_aix_pthreadMutexattrSetrobust(void* attr, int32_t robust) {
         return km_fn_ptr(attr, robust);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexConsistent(void* mutex) {
@@ -1338,7 +1380,7 @@ int32_t libc_unix_aix_pthreadMutexConsistent(void* mutex) {
         return km_fn_ptr(mutex);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexGetprioceiling(void* mutex, void* prioceiling) {
@@ -1366,7 +1408,7 @@ int32_t libc_unix_aix_pthreadMutexGetprioceiling(void* mutex, void* prioceiling)
         return km_fn_ptr(mutex, prioceiling);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexSetprioceiling(void* mutex, int32_t prioceiling, void* old_ceiling) {
@@ -1394,7 +1436,7 @@ int32_t libc_unix_aix_pthreadMutexSetprioceiling(void* mutex, int32_t prioceilin
         return km_fn_ptr(mutex, prioceiling, old_ceiling);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadMutexTimedlock(void* mutex, void* abstime) {
@@ -1422,7 +1464,7 @@ int32_t libc_unix_aix_pthreadMutexTimedlock(void* mutex, void* abstime) {
         return km_fn_ptr(mutex, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadOnce(void* once_control, void* init_routine) {
@@ -1450,7 +1492,7 @@ int32_t libc_unix_aix_pthreadOnce(void* once_control, void* init_routine) {
         return km_fn_ptr(once_control, init_routine);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadRwlockattrGetpshared(void* attr, void* pshared) {
@@ -1478,7 +1520,7 @@ int32_t libc_unix_aix_pthreadRwlockattrGetpshared(void* attr, void* pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadRwlockattrSetpshared(void* attr, int32_t pshared) {
@@ -1506,7 +1548,7 @@ int32_t libc_unix_aix_pthreadRwlockattrSetpshared(void* attr, int32_t pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadRwlockTimedrdlock(void* rwlock, void* abstime) {
@@ -1534,7 +1576,7 @@ int32_t libc_unix_aix_pthreadRwlockTimedrdlock(void* rwlock, void* abstime) {
         return km_fn_ptr(rwlock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadRwlockTimedwrlock(void* rwlock, void* abstime) {
@@ -1562,7 +1604,7 @@ int32_t libc_unix_aix_pthreadRwlockTimedwrlock(void* rwlock, void* abstime) {
         return km_fn_ptr(rwlock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSetcancelstate(int32_t state, void* oldstate) {
@@ -1590,7 +1632,7 @@ int32_t libc_unix_aix_pthreadSetcancelstate(int32_t state, void* oldstate) {
         return km_fn_ptr(state, oldstate);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSetcanceltype(int32_t arg_0_type, void* oldtype) {
@@ -1618,7 +1660,7 @@ int32_t libc_unix_aix_pthreadSetcanceltype(int32_t arg_0_type, void* oldtype) {
         return km_fn_ptr(arg_0_type, oldtype);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSetconcurrency(int32_t new_level) {
@@ -1646,7 +1688,7 @@ int32_t libc_unix_aix_pthreadSetconcurrency(int32_t new_level) {
         return km_fn_ptr(new_level);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSetschedparam(void* thread, int32_t policy, void* param) {
@@ -1674,7 +1716,7 @@ int32_t libc_unix_aix_pthreadSetschedparam(void* thread, int32_t policy, void* p
         return km_fn_ptr(thread, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSetschedprio(void* thread, int32_t prio) {
@@ -1702,7 +1744,7 @@ int32_t libc_unix_aix_pthreadSetschedprio(void* thread, int32_t prio) {
         return km_fn_ptr(thread, prio);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSigmask(int32_t how, void* set, void* oset) {
@@ -1730,7 +1772,7 @@ int32_t libc_unix_aix_pthreadSigmask(int32_t how, void* set, void* oset) {
         return km_fn_ptr(how, set, oset);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSpinDestroy(void* lock) {
@@ -1758,7 +1800,7 @@ int32_t libc_unix_aix_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSpinInit(void* lock, int32_t pshared) {
@@ -1786,7 +1828,7 @@ int32_t libc_unix_aix_pthreadSpinInit(void* lock, int32_t pshared) {
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSpinLock(void* lock) {
@@ -1814,7 +1856,7 @@ int32_t libc_unix_aix_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSpinTrylock(void* lock) {
@@ -1842,7 +1884,7 @@ int32_t libc_unix_aix_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_aix_pthreadSpinUnlock(void* lock) {
@@ -1870,7 +1912,7 @@ int32_t libc_unix_aix_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_unix_aix_pthreadTestcancel(void) {
@@ -1920,6 +1962,27 @@ uint64_t libc_unix_aix_iconv(void* cd, void* inbuf, void* inbytesleft, void* out
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "iconv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("libiconv.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1948,6 +2011,27 @@ int32_t libc_unix_aix_iconvClose(void* cd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "iconv_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("libiconv.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_close");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -1976,6 +2060,27 @@ void* libc_unix_aix_iconvOpen(const char* tocode, const char* fromcode) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "iconv_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("/usr/lib/libiconv.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_iconv = NULL;
+            static bool km_h_iconv_init = false;
+            if (!km_h_iconv_init) {
+                km_h_iconv_init = true;
+                km_h_iconv = dlopen("libiconv.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_iconv != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_iconv, "iconv_open");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -2442,6 +2547,11 @@ int32_t libc_unix_aix_creat64(const char* path, uint32_t mode) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "creat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "creat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3002,6 +3112,11 @@ int32_t libc_unix_aix_fgetpos64(void* stream, void* ptr) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fgetpos64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fgetpos");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3058,6 +3173,11 @@ void* libc_unix_aix_fopen64(const char* filename, const char* mode) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fopen64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fopen");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3114,6 +3234,11 @@ void* libc_unix_aix_freopen64(const char* filename, const char* mode, void* file
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freopen64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "freopen");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3142,6 +3267,11 @@ int32_t libc_unix_aix_fseeko64(void* stream, int64_t offset, int32_t whence) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fseeko64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fseeko");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3170,6 +3300,11 @@ int32_t libc_unix_aix_fsetpos64(void* stream, void* ptr) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fsetpos64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fsetpos");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3198,6 +3333,11 @@ int32_t libc_unix_aix_fstat64(int32_t fildes, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3254,6 +3394,11 @@ int32_t libc_unix_aix_fstatfs64(int32_t fd, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3282,6 +3427,11 @@ int32_t libc_unix_aix_fstatvfs64(int32_t fd, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatvfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatvfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3310,6 +3460,11 @@ int64_t libc_unix_aix_ftello64(void* stream) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftello64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftello");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3366,6 +3521,11 @@ int32_t libc_unix_aix_ftruncate64(int32_t fd, int64_t length) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftruncate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftruncate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3946,6 +4106,11 @@ int32_t libc_unix_aix_getrlimit64(int32_t resource, void* rlim) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4712,6 +4877,11 @@ int64_t libc_unix_aix_lseek64(int32_t fd, int64_t offset, int32_t whence) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lseek64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lseek");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4740,6 +4910,11 @@ int32_t libc_unix_aix_lstat64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lstat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lstat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5588,6 +5763,11 @@ int32_t libc_unix_aix_open64(const char* path, int32_t oflag, int32_t km_vac, in
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "open64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "open");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5818,6 +5998,11 @@ int32_t libc_unix_aix_posixFadvise64(int32_t fd, int64_t offset, int64_t len, in
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fadvise64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fadvise");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5874,6 +6059,11 @@ int32_t libc_unix_aix_posixFallocate64(int32_t fd, int64_t offset, int64_t len) 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6518,6 +6708,11 @@ int64_t libc_unix_aix_pread64(int32_t fd, void* buf, uint64_t count, int64_t off
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pread64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pread");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6574,6 +6769,11 @@ int32_t libc_unix_aix_ptrace64(int32_t request, int64_t id, int64_t addr, int32_
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ptrace64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ptrace");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6658,6 +6858,11 @@ int64_t libc_unix_aix_pwrite64(int32_t fd, void* buf, uint64_t count, int64_t of
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwrite64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwrite");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -7962,6 +8167,11 @@ int32_t libc_unix_aix_setrlimit64(int32_t resource, void* rlim) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -8470,6 +8680,11 @@ int32_t libc_unix_aix_stat64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "stat64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "stat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -8554,6 +8769,11 @@ int32_t libc_unix_aix_statfs64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -8582,6 +8802,11 @@ int32_t libc_unix_aix_statvfs64(const char* path, void* buf) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statvfs64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statvfs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -9062,6 +9287,11 @@ int32_t libc_unix_aix_truncate64(const char* path, int64_t length) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "truncate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "truncate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

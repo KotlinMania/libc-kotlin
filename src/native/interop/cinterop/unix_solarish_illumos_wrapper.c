@@ -229,7 +229,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrGetNp(void* thread, void* attr) {
         return km_fn_ptr(thread, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_illumos_pthreadAttrGetstackaddr(void* attr, void* stackaddr) {
@@ -257,7 +257,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrGetstackaddr(void* attr, void* sta
         return km_fn_ptr(attr, stackaddr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_illumos_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
@@ -285,7 +285,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrSetstack(void* attr, void* stackad
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_illumos_pthreadAttrSetstackaddr(void* attr, void* stackaddr) {
@@ -313,7 +313,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrSetstackaddr(void* attr, void* sta
         return km_fn_ptr(attr, stackaddr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_solarish_illumos_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advice) {

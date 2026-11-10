@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <errno.h>
 #ifdef _WIN32
 #ifndef WIN32_LEAN_AND_MEAN
@@ -42,7 +43,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "access");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(pathname_utf, (int32_t)mode) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(pathname_utf, (int32_t)mode);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -70,7 +77,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "close");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -97,7 +110,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtU
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lseek");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int64_t)offset, (int32_t)whence) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int64_t)offset, (int32_t)whence);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 
@@ -124,7 +143,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "read");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)buf, (uint64_t)count) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)buf, (uint64_t)count);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -151,7 +176,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "write");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (void*)(uintptr_t)buf, (uint64_t)count) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)buf, (uint64_t)count);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -178,7 +209,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftruncate");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)fd, (int64_t)length) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)fd, (int64_t)length);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -206,7 +243,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "unlink");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(pathname_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(pathname_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -234,7 +277,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtU
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getcwd");
     }
 #endif
-    char* km_res = (km_fn_ptr != NULL) ? km_fn_ptr((char*)(uintptr_t)buf, (uint64_t)size) : NULL;
+    char* km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((char*)(uintptr_t)buf, (uint64_t)size);
+    } else {
+        errno = ENOSYS;
+        km_res = NULL;
+    }
     return (jlong)(uintptr_t)km_res;
 }
 
@@ -262,7 +311,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rmdir");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr(pathname_utf) : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr(pathname_utf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
@@ -290,7 +345,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpid");
     }
 #endif
-    int32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr() : -1;
+    int32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jint)km_res;
 }
 
@@ -317,7 +378,13 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtUn
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sleep");
     }
 #endif
-    uint32_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((uint32_t)seconds) : 0;
+    uint32_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((uint32_t)seconds);
+    } else {
+        errno = ENOSYS;
+        km_res = 0;
+    }
     return (jint)km_res;
 }
 
@@ -344,7 +411,13 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_unistd_NewQurtU
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sysconf");
     }
 #endif
-    int64_t km_res = (km_fn_ptr != NULL) ? km_fn_ptr((int32_t)name) : -1;
+    int64_t km_res;
+    if (km_fn_ptr != NULL) {
+        km_res = km_fn_ptr((int32_t)name);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
     return (jlong)km_res;
 }
 

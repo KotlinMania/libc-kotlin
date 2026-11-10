@@ -3327,6 +3327,11 @@ int32_t libc_unix_linuxlike_linux_fallocate64(int32_t fd, int32_t mode, int64_t 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fallocate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fallocate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3355,6 +3360,11 @@ int32_t libc_unix_linuxlike_linux_fgetpos64(void* stream, void* ptr) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fgetpos64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fgetpos");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3383,6 +3393,11 @@ void* libc_unix_linuxlike_linux_fopen64(const char* filename, const char* mode) 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fopen64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fopen");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3411,6 +3426,11 @@ int32_t libc_unix_linuxlike_linux_posixFallocate64(int32_t fd, int64_t offset, i
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "posix_fallocate");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3439,6 +3459,11 @@ int64_t libc_unix_linuxlike_linux_sendfile64(int32_t out_fd, int32_t in_fd, void
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfile64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendfile");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -3467,6 +3492,11 @@ void* libc_unix_linuxlike_linux_tmpfile64(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "tmpfile64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "tmpfile");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

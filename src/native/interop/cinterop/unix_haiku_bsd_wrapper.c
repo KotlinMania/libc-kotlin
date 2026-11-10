@@ -37,6 +37,27 @@ int32_t libc_unix_haiku_bsd_daemon(int32_t nochdir, int32_t noclose) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "daemon");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "daemon");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "daemon");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -65,6 +86,27 @@ const char* libc_unix_haiku_bsd_getprogname(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getprogname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "getprogname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "getprogname");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -93,6 +135,27 @@ void libc_unix_haiku_bsd_setprogname(const char* progname) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setprogname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "setprogname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "setprogname");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -121,6 +184,27 @@ uint32_t libc_unix_haiku_bsd_arc4random(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "arc4random");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -149,6 +233,27 @@ uint32_t libc_unix_haiku_bsd_arc4randomUniform(uint32_t upper_bound) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "arc4random_uniform");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_uniform");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_uniform");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -177,6 +282,27 @@ void libc_unix_haiku_bsd_arc4randomBuf(void* buf, uint64_t n) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "arc4random_buf");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_buf");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "arc4random_buf");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -205,6 +331,27 @@ int32_t libc_unix_haiku_bsd_mkstemps(char* arg_0_template, int32_t suffixlen) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mkstemps");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "mkstemps");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "mkstemps");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -233,6 +380,27 @@ int64_t libc_unix_haiku_bsd_strtonum(const char* nptr, int64_t minval, int64_t m
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strtonum");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strtonum");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strtonum");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -261,6 +429,27 @@ int32_t libc_unix_haiku_bsd_openpty(void* amaster, void* aslave, char* name, voi
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "openpty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "openpty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "openpty");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -289,6 +478,27 @@ int32_t libc_unix_haiku_bsd_loginTty(int32_t arg_0_fd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "login_tty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "login_tty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "login_tty");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -317,6 +527,27 @@ int32_t libc_unix_haiku_bsd_forkpty(void* amaster, char* name, void* termp, void
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "forkpty");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "forkpty");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "forkpty");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -345,6 +576,27 @@ char* libc_unix_haiku_bsd_strsep(void* string, const char* delimiters) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strsep");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strsep");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "strsep");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -373,6 +625,27 @@ void libc_unix_haiku_bsd_explicitBzero(void* buf, uint64_t len) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "explicit_bzero");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "explicit_bzero");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "explicit_bzero");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -401,6 +674,27 @@ void* libc_unix_haiku_bsd_slInit(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_init");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_init");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_init");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -429,6 +723,27 @@ int32_t libc_unix_haiku_bsd_slAdd(void* sl, char* n) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_add");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_add");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_add");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -457,6 +772,27 @@ void libc_unix_haiku_bsd_slFree(void* sl, int32_t i) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_free");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_free");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_free");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -485,6 +821,27 @@ char* libc_unix_haiku_bsd_slFind(void* sl, char* n) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sl_find");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_find");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "sl_find");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -537,6 +894,27 @@ int32_t libc_unix_haiku_bsd_dlIteratePhdr(void* callback, void* data) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dl_iterate_phdr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "dl_iterate_phdr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "dl_iterate_phdr");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -565,6 +943,27 @@ int32_t libc_unix_haiku_bsd_lutimes(const char* file, void* times) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lutimes");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "lutimes");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "lutimes");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -593,6 +992,27 @@ int64_t libc_unix_haiku_bsd_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "preadv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "preadv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "preadv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -621,6 +1041,27 @@ int64_t libc_unix_haiku_bsd_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pwritev");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "pwritev");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "pwritev");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -649,6 +1090,27 @@ int32_t libc_unix_haiku_bsd_wait4(int32_t pid, void* status, int32_t options, vo
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "wait4");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("/usr/lib/libbsd.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "wait4");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_bsd = NULL;
+            static bool km_h_bsd_init = false;
+            if (!km_h_bsd_init) {
+                km_h_bsd_init = true;
+                km_h_bsd = dlopen("libbsd.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_bsd != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_bsd, "wait4");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

@@ -203,7 +203,7 @@ int32_t libc_teeos_pthreadJoin(void* native, void* value) {
         return km_fn_ptr(native, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void libc_teeos_pthreadExit(void* value) {
@@ -259,7 +259,7 @@ int32_t libc_teeos_pthreadAttrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadAttrDestroy(void* attr) {
@@ -287,7 +287,7 @@ int32_t libc_teeos_pthreadAttrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
@@ -315,7 +315,7 @@ int32_t libc_teeos_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacks
         return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
@@ -343,7 +343,7 @@ int32_t libc_teeos_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
         return km_fn_ptr(attr, stack_size);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadAttrGetstacksize(void* attr, void* size) {
@@ -371,7 +371,7 @@ int32_t libc_teeos_pthreadAttrGetstacksize(void* attr, void* size) {
         return km_fn_ptr(attr, size);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadAttrSettee(void* attr, int32_t ca, int32_t task_id, int32_t shadow) {
@@ -399,7 +399,7 @@ int32_t libc_teeos_pthreadAttrSettee(void* attr, int32_t ca, int32_t task_id, in
         return km_fn_ptr(attr, ca, task_id, shadow);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_schedYield(void) {
@@ -455,7 +455,7 @@ int32_t libc_teeos_pthreadKeyCreate(void* key, void* dtor) {
         return km_fn_ptr(key, dtor);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadKeyDelete(uint32_t key) {
@@ -483,7 +483,7 @@ int32_t libc_teeos_pthreadKeyDelete(uint32_t key) {
         return km_fn_ptr(key);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 void* libc_teeos_pthreadGetspecific(uint32_t key) {
@@ -539,7 +539,7 @@ int32_t libc_teeos_pthreadSetspecific(uint32_t key, void* value) {
         return km_fn_ptr(key, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexDestroy(void* lock) {
@@ -567,7 +567,7 @@ int32_t libc_teeos_pthreadMutexDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexInit(void* lock, void* attr) {
@@ -595,7 +595,7 @@ int32_t libc_teeos_pthreadMutexInit(void* lock, void* attr) {
         return km_fn_ptr(lock, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexLock(void* lock) {
@@ -623,7 +623,7 @@ int32_t libc_teeos_pthreadMutexLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexTrylock(void* lock) {
@@ -651,7 +651,7 @@ int32_t libc_teeos_pthreadMutexTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexUnlock(void* lock) {
@@ -679,7 +679,7 @@ int32_t libc_teeos_pthreadMutexUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexattrDestroy(void* attr) {
@@ -707,7 +707,7 @@ int32_t libc_teeos_pthreadMutexattrDestroy(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexattrInit(void* attr) {
@@ -735,7 +735,7 @@ int32_t libc_teeos_pthreadMutexattrInit(void* attr) {
         return km_fn_ptr(attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
@@ -763,7 +763,7 @@ int32_t libc_teeos_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
         return km_fn_ptr(attr, arg_1_type);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
@@ -791,7 +791,7 @@ int32_t libc_teeos_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
         return km_fn_ptr(attr, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadCondBroadcast(void* cond) {
@@ -819,7 +819,7 @@ int32_t libc_teeos_pthreadCondBroadcast(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadCondDestroy(void* cond) {
@@ -847,7 +847,7 @@ int32_t libc_teeos_pthreadCondDestroy(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadCondInit(void* cond, void* attr) {
@@ -875,7 +875,7 @@ int32_t libc_teeos_pthreadCondInit(void* cond, void* attr) {
         return km_fn_ptr(cond, attr);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadCondSignal(void* cond) {
@@ -903,7 +903,7 @@ int32_t libc_teeos_pthreadCondSignal(void* cond) {
         return km_fn_ptr(cond);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadCondWait(void* cond, void* lock) {
@@ -931,7 +931,7 @@ int32_t libc_teeos_pthreadCondWait(void* cond, void* lock) {
         return km_fn_ptr(cond, lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
@@ -959,7 +959,7 @@ int32_t libc_teeos_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
         return km_fn_ptr(cond, lock, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadMutexattrSetrobust(void* attr, int32_t robustness) {
@@ -987,7 +987,7 @@ int32_t libc_teeos_pthreadMutexattrSetrobust(void* attr, int32_t robustness) {
         return km_fn_ptr(attr, robustness);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadCreate(void* native, void* attr, void* f, void* value) {
@@ -1015,7 +1015,7 @@ int32_t libc_teeos_pthreadCreate(void* native, void* attr, void* f, void* value)
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadSpinInit(void* lock, int32_t pshared) {
@@ -1043,7 +1043,7 @@ int32_t libc_teeos_pthreadSpinInit(void* lock, int32_t pshared) {
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadSpinDestroy(void* lock) {
@@ -1071,7 +1071,7 @@ int32_t libc_teeos_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadSpinLock(void* lock) {
@@ -1099,7 +1099,7 @@ int32_t libc_teeos_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadSpinTrylock(void* lock) {
@@ -1127,7 +1127,7 @@ int32_t libc_teeos_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadSpinUnlock(void* lock) {
@@ -1155,7 +1155,7 @@ int32_t libc_teeos_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadSetschedprio(void* native, int32_t priority) {
@@ -1183,7 +1183,7 @@ int32_t libc_teeos_pthreadSetschedprio(void* native, int32_t priority) {
         return km_fn_ptr(native, priority);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadOnce(void* pot, void* f) {
@@ -1211,7 +1211,7 @@ int32_t libc_teeos_pthreadOnce(void* pot, void* f) {
         return km_fn_ptr(pot, f);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadEqual(void* p1, void* p2) {
@@ -1267,7 +1267,7 @@ int32_t libc_teeos_pthreadMutexattrSetprotocol(void* a, int32_t protocol) {
         return km_fn_ptr(a, protocol);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadAttrSetstack(void* attr, void* stack, uint64_t size) {
@@ -1295,7 +1295,7 @@ int32_t libc_teeos_pthreadAttrSetstack(void* attr, void* stack, uint64_t size) {
         return km_fn_ptr(attr, stack, size);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadSetaffinityNp(void* td, uint64_t size, void* set) {
@@ -1323,7 +1323,7 @@ int32_t libc_teeos_pthreadSetaffinityNp(void* td, uint64_t size, void* set) {
         return km_fn_ptr(td, size, set);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_pthreadGetaffinityNp(void* td, uint64_t size, void* set) {
@@ -1351,7 +1351,7 @@ int32_t libc_teeos_pthreadGetaffinityNp(void* td, uint64_t size, void* set) {
         return km_fn_ptr(td, size, set);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_teeos_printf(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {

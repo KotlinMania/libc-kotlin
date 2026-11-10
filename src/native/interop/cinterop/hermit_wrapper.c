@@ -762,6 +762,11 @@ int64_t libc_hermit_getdents64(int32_t fd, void* dirp, uint64_t count) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sys_getdents64");
+#if defined(__ANDROID__) && defined(__LP64__)
+        if (km_fn_ptr == NULL) {
+            km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sys_getdents");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

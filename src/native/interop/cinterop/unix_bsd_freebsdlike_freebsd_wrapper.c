@@ -1752,7 +1752,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadGetthreadidNp(void) {
         return km_fn_ptr();
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadGetaffinityNp(void* td, uint64_t cpusetsize, void* cpusetp) {
@@ -1780,7 +1780,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadGetaffinityNp(void* td, uint64_
         return km_fn_ptr(td, cpusetsize, cpusetp);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSetaffinityNp(void* td, uint64_t cpusetsize, void* cpusetp) {
@@ -1808,7 +1808,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSetaffinityNp(void* td, uint64_
         return km_fn_ptr(td, cpusetsize, cpusetp);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_schedGetaffinity(int32_t pid, uint64_t cpusetsz, void* cpuset) {
@@ -1920,7 +1920,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadMutexConsistent(void* mutex) {
         return km_fn_ptr(mutex);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrGetrobust(void* attr, void* robust) {
@@ -1948,7 +1948,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrGetrobust(void* attr, 
         return km_fn_ptr(attr, robust);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrSetrobust(void* attr, int32_t robust) {
@@ -1976,7 +1976,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrSetrobust(void* attr, 
         return km_fn_ptr(attr, robust);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinInit(void* lock, int32_t pshared) {
@@ -2004,7 +2004,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinInit(void* lock, int32_t ps
         return km_fn_ptr(lock, pshared);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinDestroy(void* lock) {
@@ -2032,7 +2032,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinDestroy(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinLock(void* lock) {
@@ -2060,7 +2060,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinLock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinTrylock(void* lock) {
@@ -2088,7 +2088,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinTrylock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinUnlock(void* lock) {
@@ -2116,7 +2116,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadSpinUnlock(void* lock) {
         return km_fn_ptr(lock);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadTimedjoinNp(void* thread, void* retval, void* abstime) {
@@ -2144,7 +2144,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pthreadTimedjoinNp(void* thread, void*
         return km_fn_ptr(thread, retval, abstime);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_bsd_freebsdlike_freebsd_statfs(const char* path, void* buf) {
@@ -4848,6 +4848,27 @@ const char* libc_unix_bsd_freebsdlike_freebsd_memstatStrerror(int32_t error) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_strerror");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_strerror");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_strerror");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4876,6 +4897,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_memstatMtlAlloc(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_alloc");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_alloc");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_alloc");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4904,6 +4946,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_memstatMtlFirst(void* list) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_first");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_first");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_first");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4932,6 +4995,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_memstatMtlNext(void* mtp) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_next");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_next");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_next");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4960,6 +5044,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_memstatMtlFind(void* list, int32_t alloc
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_find");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_find");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_find");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -4988,6 +5093,27 @@ void libc_unix_bsd_freebsdlike_freebsd_memstatMtlFree(void* list) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_free");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_free");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_free");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5016,6 +5142,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_memstatMtlGeterror(void* list) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_geterror");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_geterror");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_geterror");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5044,6 +5191,27 @@ const char* libc_unix_bsd_freebsdlike_freebsd_memstatGetName(void* mtp) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_get_name");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_get_name");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_get_name");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5072,6 +5240,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmDpcpuSetcpu(void* kd, uint32_t cpu)
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_dpcpu_setcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_dpcpu_setcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_dpcpu_setcpu");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5100,6 +5289,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_kvmGetargv(void* kd, void* p, int32_t nc
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getargv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5128,6 +5338,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmGetcptime(void* kd, void* cp_time) 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getcptime");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getcptime");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getcptime");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5156,6 +5387,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_kvmGetenvv(void* kd, void* p, int32_t nc
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getenvv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5184,6 +5436,27 @@ char* libc_unix_bsd_freebsdlike_freebsd_kvmGeterr(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_geterr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_geterr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_geterr");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5212,6 +5485,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmGetmaxcpu(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getmaxcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getmaxcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getmaxcpu");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5240,6 +5534,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmGetncpus(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getncpus");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getncpus");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getncpus");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5268,6 +5583,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_kvmGetpcpu(void* kd, int32_t cpu) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getpcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getpcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getpcpu");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5296,6 +5632,27 @@ uint64_t libc_unix_bsd_freebsdlike_freebsd_kvmCounterU64Fetch(void* kd, uint64_t
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_counter_u64_fetch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_counter_u64_fetch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_counter_u64_fetch");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5324,6 +5681,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmGetswapinfo(void* kd, void* info, i
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getswapinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getswapinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getswapinfo");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5352,6 +5730,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmNative(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_native");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_native");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_native");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5380,6 +5779,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmNlist(void* kd, void* nl) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_nlist");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5408,6 +5828,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kvmNlist2(void* kd, void* nl) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_nlist2");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist2");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist2");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5436,6 +5877,27 @@ int64_t libc_unix_bsd_freebsdlike_freebsd_kvmReadZpcpu(void* kd, uint64_t base, 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_read_zpcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read_zpcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read_zpcpu");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5464,6 +5926,27 @@ int64_t libc_unix_bsd_freebsdlike_freebsd_kvmRead2(void* kd, uint64_t addr, void
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_read2");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read2");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read2");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5492,6 +5975,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_extattrNamespaceToString(int32_t attrn
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_namespace_to_string");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_namespace_to_string");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_namespace_to_string");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5520,6 +6024,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_extattrStringToNamespace(const char* s
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_string_to_namespace");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_string_to_namespace");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_string_to_namespace");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5548,6 +6073,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_realhostname(char* host, uint64_t hsiz
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "realhostname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5576,6 +6122,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_realhostnameSa(char* host, uint64_t hs
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "realhostname_sa");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname_sa");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname_sa");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5604,6 +6171,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kldIsloaded(const char* name) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kld_isloaded");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_isloaded");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_isloaded");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5632,6 +6220,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_kldLoad(const char* name) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kld_load");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_load");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_load");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5660,6 +6269,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_kinfoGetvmmap(int32_t pid, void* cntp) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kinfo_getvmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kinfo_getvmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kinfo_getvmmap");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5688,6 +6318,27 @@ void libc_unix_bsd_freebsdlike_freebsd_hexdump(void* ptr, int32_t length, const 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "hexdump");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "hexdump");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "hexdump");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5716,6 +6367,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_humanizeNumber(char* buf, uint64_t len
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "humanize_number");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "humanize_number");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "humanize_number");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5744,6 +6416,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_flopen(const char* path, int32_t flags
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flopen");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopen");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopen");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5778,6 +6471,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_flopenat(int32_t fd, const char* path,
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flopenat");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopenat");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopenat");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5812,6 +6526,27 @@ const char* libc_unix_bsd_freebsdlike_freebsd_getlocalbase(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getlocalbase");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "getlocalbase");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "getlocalbase");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5840,6 +6575,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_pidfileOpen(const char* path, uint16_t m
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_open");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5868,6 +6624,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pidfileWrite(void* path) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_write");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_write");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_write");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5896,6 +6673,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pidfileClose(void* path) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_close");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5924,6 +6722,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pidfileRemove(void* path) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_remove");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_remove");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_remove");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5952,6 +6771,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_pidfileFileno(void* path) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_fileno");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_fileno");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_fileno");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -5980,6 +6820,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatOpenSysctl(void) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_sysctl");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_sysctl");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_sysctl");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6008,6 +6869,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatGetfiles(void* procstat, void* k
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getfiles");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getfiles");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getfiles");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6036,6 +6918,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatFreefiles(void* procstat, void* h
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freefiles");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freefiles");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freefiles");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6064,6 +6967,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatGetprocs(void* procstat, int32_t
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getprocs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getprocs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getprocs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6092,6 +7016,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatFreeprocs(void* procstat, void* p
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeprocs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeprocs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeprocs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6120,6 +7065,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatGetvmmap(void* procstat, void* k
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getvmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getvmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getvmmap");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6148,6 +7114,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatFreevmmap(void* procstat, void* v
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freevmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freevmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freevmmap");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6176,6 +7163,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatClose(void* procstat) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_close");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6204,6 +7212,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatFreeargv(void* procstat) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeargv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6232,6 +7261,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatFreeenvv(void* procstat) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeenvv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6260,6 +7310,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatFreegroups(void* procstat, void* 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freegroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freegroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freegroups");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6288,6 +7359,27 @@ void libc_unix_bsd_freebsdlike_freebsd_procstatFreeptlwpinfo(void* procstat, voi
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeptlwpinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeptlwpinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeptlwpinfo");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6316,6 +7408,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatGetargv(void* procstat, void* kp
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getargv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6344,6 +7457,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatGetenvv(void* procstat, void* kp
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getenvv");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6372,6 +7506,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatGetgroups(void* procstat, void* 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getgroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getgroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getgroups");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6400,6 +7555,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetosrel(void* procstat, void*
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getosrel");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getosrel");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getosrel");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6428,6 +7604,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetpathname(void* procstat, vo
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getpathname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getpathname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getpathname");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6456,6 +7653,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetrlimit(void* procstat, void
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getrlimit");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getrlimit");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getrlimit");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6484,6 +7702,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetumask(void* procstat, void*
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getumask");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getumask");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getumask");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6512,6 +7751,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatOpenCore(const char* filename) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_core");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_core");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_core");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6540,6 +7800,27 @@ void* libc_unix_bsd_freebsdlike_freebsd_procstatOpenKvm(const char* nlistf, cons
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_kvm");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_kvm");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_kvm");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6568,6 +7849,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetSocketInfo(void* proc_, voi
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_socket_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_socket_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_socket_info");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6596,6 +7898,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetVnodeInfo(void* proc_, void
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_vnode_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_vnode_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_vnode_info");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6624,6 +7947,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetPtsInfo(void* proc_, void* 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_pts_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_pts_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_pts_info");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6652,6 +7996,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_procstatGetShmInfo(void* proc_, void* 
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_shm_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_shm_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_shm_info");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6820,6 +8185,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_devstatGetnumdevs(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getnumdevs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getnumdevs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getnumdevs");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6848,6 +8234,27 @@ int64_t libc_unix_bsd_freebsdlike_freebsd_devstatGetgeneration(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getgeneration");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getgeneration");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getgeneration");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6876,6 +8283,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_devstatGetversion(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getversion");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getversion");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getversion");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6904,6 +8332,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_devstatCheckversion(void* kd) {
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_checkversion");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_checkversion");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_checkversion");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {
@@ -6932,6 +8381,27 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_devstatBuildmatch(char* match_str, voi
 #else
     if (km_fn_ptr == NULL) {
         km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_buildmatch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_buildmatch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_buildmatch");
+        }
+#endif
     }
 #endif
     if (km_fn_ptr != NULL) {

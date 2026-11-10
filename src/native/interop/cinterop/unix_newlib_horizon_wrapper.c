@@ -40,7 +40,7 @@ int32_t libc_unix_newlib_horizon_pthreadCreate(void* native, void* attr, void* f
         return km_fn_ptr(native, attr, f, value);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadAttrGetschedparam(void* attr, void* param) {
@@ -68,7 +68,7 @@ int32_t libc_unix_newlib_horizon_pthreadAttrGetschedparam(void* attr, void* para
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadAttrSetschedparam(void* attr, void* param) {
@@ -96,7 +96,7 @@ int32_t libc_unix_newlib_horizon_pthreadAttrSetschedparam(void* attr, void* para
         return km_fn_ptr(attr, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp(void* attr, void* processor_id) {
@@ -124,7 +124,7 @@ int32_t libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp(void* attr, void* p
         return km_fn_ptr(attr, processor_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp(void* attr, int32_t processor_id) {
@@ -152,7 +152,7 @@ int32_t libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp(void* attr, int32_t
         return km_fn_ptr(attr, processor_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadGetschedparam(void* native, void* policy, void* param) {
@@ -180,7 +180,7 @@ int32_t libc_unix_newlib_horizon_pthreadGetschedparam(void* native, void* policy
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadSetschedparam(void* native, int32_t policy, void* param) {
@@ -208,7 +208,7 @@ int32_t libc_unix_newlib_horizon_pthreadSetschedparam(void* native, int32_t poli
         return km_fn_ptr(native, policy, param);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadCondattrGetclock(void* attr, void* clock_id) {
@@ -236,7 +236,7 @@ int32_t libc_unix_newlib_horizon_pthreadCondattrGetclock(void* attr, void* clock
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
@@ -264,7 +264,7 @@ int32_t libc_unix_newlib_horizon_pthreadCondattrSetclock(void* attr, uint64_t cl
         return km_fn_ptr(attr, clock_id);
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int32_t libc_unix_newlib_horizon_pthreadGetprocessoridNp(void) {
@@ -292,7 +292,7 @@ int32_t libc_unix_newlib_horizon_pthreadGetprocessoridNp(void) {
         return km_fn_ptr();
     }
     errno = ENOSYS;
-    return -1;
+    return ENOSYS;
 }
 
 int64_t libc_unix_newlib_horizon_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
