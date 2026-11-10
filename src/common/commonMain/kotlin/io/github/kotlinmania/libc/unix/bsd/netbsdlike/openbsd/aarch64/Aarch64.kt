@@ -46,6 +46,6 @@ public data class Sigcontext(
     }
 }
 
-internal val ALIGNBYTES: Int = 8 - 1
-
 public val MAX_PAGE_SHIFT: UInt = 12u
+
+internal val ALIGNBYTES: Int = 8 - 1

@@ -35,8 +35,6 @@ public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0)
 
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(lock = PTHREAD_MUTEX_INITIALIZER, cond = PTHREAD_COND_INITIALIZER, numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0, reserved = UByteArray(0))
-
 public val PTHREAD_STACK_MIN: SizeT = 4096uL * 2uL
 
 public val CPU_SETSIZE: SizeT = 32uL
@@ -52,3 +50,5 @@ public val UT_HOSTSIZE: Int = 16
 public val SIGSTKSZ: SizeT = 8192uL
 
 public val MINSIGSTKSZ: SizeT = 2048uL
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(lock = PTHREAD_MUTEX_INITIALIZER, cond = PTHREAD_COND_INITIALIZER, numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0, reserved = UByteArray(0))

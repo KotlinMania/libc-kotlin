@@ -6,8 +6,6 @@ import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
 
-internal val ALIGNBYTES: Int = 8 - 1
-
 public val BIOCSRTIMEOUT: CUlong = 0x8010426duL
 
 public val BIOCGRTIMEOUT: CUlong = 0x4010426euL
@@ -36,3 +34,5 @@ public val MC_FPOWNED_PCB: CLong = 0x20002L
 public val KINFO_FILE_SIZE: CInt = 1392
 
 public val TIOCTIMESTAMP: CUlong = 0x40107459uL
+
+internal val ALIGNBYTES: Int = 8 - 1

@@ -154,18 +154,14 @@ public data class CanxlFrame(
     }
 }
 
-public val CAN_MTU: Int = 8
-
-public val CANFD_MTU: Int = 8
-
-public val CANXL_MTU: Int = 8
-
 // Note(offsetOf): use `core.mem.offsetOf !` once that is available
 // https://github.com/rust-lang/rfcs/pull/3308
 // pub const CANXL_HDR_SIZE: Int = core::mem::offsetOf(canxlFrame, data);
 public val CANXL_HDR_SIZE: Int = 12
 
 public val CANXL_MIN_MTU: Int = CANXL_HDR_SIZE + 64
+
+public val CANXL_MTU: Int = 8
 
 public val CANXL_MAX_MTU: Int = CANXL_MTU
 
@@ -187,6 +183,10 @@ public val CAN_NPROTO: CInt = 8
 
 public val SOL_CAN_BASE: CInt = 100
 
+public val CAN_INV_FILTER: CanidT = 0x20000000u
+
+public val CAN_MTU: Int = 8
+
 public data class SockaddrCan(
     public var canFamily: SaFamilyT = 0u,
     public var canIfindex: CInt = 0,
@@ -205,4 +205,4 @@ public data class CAnonymousSockaddrCanJ1939(
 
 public data class CanFilter(public var canId: CanidT = 0u, public var canMask: CanidT = 0u)
 
-public val CAN_INV_FILTER: CanidT = 0x20000000u
+public val CANFD_MTU: Int = 8

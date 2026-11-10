@@ -1190,8 +1190,6 @@ public val RTLD_NOLOAD: CInt = 0x4
 
 public val RTLD_NODELETE: CInt = 0x1000
 
-public val SEM_FAILED: SemT? = null
-
 public val AI_PASSIVE: CInt = 0x00000001
 
 public val AI_CANONNAME: CInt = 0x00000002
@@ -3074,3 +3072,5 @@ public val SIOCRTMSG: CUlong = 0x0000890DuL
 public val SIOCGIFNAME: CUlong = 0x00008910uL
 
 public val SIOCSIFLINK: CUlong = 0x00008911uL
+
+public val SIOCGIFCONF: CUlong = 0x00008912uL

@@ -57,9 +57,6 @@ public val F_TEST: CInt = 3
 
 public val AT_FDCWD: CInt = -100
 
-// Note(redox): relibc {
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 // }
 // dlfcn.h
 public val RTLD_LAZY: CInt = 0x0001
@@ -1515,3 +1512,6 @@ public val PRIO_PGRP: CInt = 1
 public val PRIO_USER: CInt = 2
 
 public val RENAME_NOREPLACE: CUint = 1u
+
+// Note(redox): relibc {
+public val RTLD_DEFAULT: COpaquePointer? = null

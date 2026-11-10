@@ -21,9 +21,6 @@ import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SemT
 
-// Non-public helper constant
-public val SIZEOF_LONG: Int = 8
-
 public val AIO_LISTIO_MAX: CInt = 16
 
 public val AIO_CANCELED: CInt = 1
@@ -1397,12 +1394,6 @@ public val SC_PHYS_PAGES: CInt = 121
 
 public val CS_PATH: CInt = 1
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null
-
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = null
-
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null
-
 public val PTHREAD_MUTEX_ERRORCHECK: CInt = 1
 
 public val PTHREAD_MUTEX_RECURSIVE: CInt = 2
@@ -1628,8 +1619,6 @@ public val EXTA: SpeedT = 19200u
 
 public val EXTB: SpeedT = 38400u
 
-public val SEM_FAILED: SemT? = null
-
 public val CRTSCTS: TcflagT = 0x00030000u
 
 public val CCTS_OFLOW: TcflagT = 0x00010000u
@@ -1653,6 +1642,9 @@ public val ONLRET: TcflagT = 0x40u
 public val CMGROUP_MAX: Int = 16
 
 public val EUI64_LEN: Int = 8
+
+// Non-public helper constant
+public val SIZEOF_LONG: Int = 8
 
 // https://github.com/freebsd/freebsd/blob/HEAD/sys/net/bpf.h
 public val BPF_ALIGNMENT: Int = SIZEOF_LONG
@@ -1875,3 +1867,11 @@ public val POSIX_SPAWN_SETSCHEDULER: CInt = 0x08
 public val POSIX_SPAWN_SETSIGDEF: CInt = 0x10
 
 public val POSIX_SPAWN_SETSIGMASK: CInt = 0x20
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = null
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null
+
+public val SEM_FAILED: SemT? = null

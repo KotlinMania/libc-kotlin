@@ -2664,9 +2664,9 @@ public val AT_SUN_HWCAP: CUint = 2009u
 // and 4 bytes everywhere else:
 public val CMSG_HDR_ALIGNMENT: Int = 8
 
-public val CMSG_DATA_ALIGNMENT: Int = 8
-
 public val NEWDEV: CInt = 1
 
 // sys/sendfile.h
 public val SFV_FD_SELF: CInt = -2
+
+public val CMSG_DATA_ALIGNMENT: Int = 8

@@ -83,8 +83,6 @@ public data class CAnonymousFreg(
     }
 }
 
-internal val ALIGNBYTES: Int = 8 - 1
-
 public val PT_GETREGS: CInt = PT_FIRSTMACH + 0
 
 public val PT_SETREGS: CInt = PT_FIRSTMACH + 1
@@ -206,3 +204,5 @@ public val REG_LR: CInt = REG_X30
 public val REG_SP: CInt = REG_X31
 
 public val REG_PC: CInt = REG_ELR
+
+internal val ALIGNBYTES: Int = 8 - 1

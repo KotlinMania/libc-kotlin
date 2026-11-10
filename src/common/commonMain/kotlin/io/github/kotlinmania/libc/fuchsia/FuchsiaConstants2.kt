@@ -2,11 +2,8 @@ package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
-
-public val EISCONN: CInt = 106
-
-public val ENOTCONN: CInt = 107
 
 public val ESHUTDOWN: CInt = 108
 
@@ -306,3 +303,7 @@ public val MAP_HUGE_SHIFT: UInt = 26u
 // intentionally not public, only used for fdSet
 // END_PUB_CONST
 public val ULONG_SIZE: Int = 64
+
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val SEM_FAILED: SemT? = null

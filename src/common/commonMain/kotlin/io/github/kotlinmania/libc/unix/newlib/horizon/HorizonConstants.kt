@@ -174,8 +174,6 @@ public val AF_INET6: CInt = 23
 
 public val FIONBIO: CUlong = 1uL
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 // For pthread get/setschedparam
 public val SCHED_FIFO: CInt = 1
 
@@ -185,3 +183,5 @@ public val SCHED_RR: CInt = 2
 public val GRND_NONBLOCK: CUint = 0x1u
 
 public val GRND_RANDOM: CUint = 0x2u
+
+public val RTLD_DEFAULT: COpaquePointer? = null

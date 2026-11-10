@@ -2282,8 +2282,6 @@ public val BIOCSRTIMEOUT: CInt = -2146418067
 
 public val BIOCVERSION: CInt = 1074020977
 
-public val BPF_ALIGNMENT: Int = 8
-
 public val CHAR_BIT: Int = 8
 
 public val CODESET: NlItem = 1
@@ -2600,9 +2598,9 @@ public val SIGEV_THREAD: CInt = 135
 
 public val SO_USELOOPBACK: CInt = 0x0040
 
-public val SS_ALIGNSIZE: Int = 8
-
 public val SS_MAXSIZE: Int = 128
+
+public val SS_ALIGNSIZE: Int = 8
 
 public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - 2
 
@@ -2799,3 +2797,5 @@ public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(u = 0x800000
 public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALTIME.toUInt(), owner = 0xfffffffbu)
 
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = (-2).toUInt(), spare = 0u)
+
+public val BPF_ALIGNMENT: Int = 8

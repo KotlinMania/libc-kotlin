@@ -1222,8 +1222,6 @@ public val RB_DEBUGGER: CInt = 0x1000
 // semaphore.h
 public val SIZEOF_SEM_T: Int = 20
 
-public val SEM_FAILED: SemT? = null
-
 // termios.h
 public val IGNBRK: TcflagT = 1u
 
@@ -1355,45 +1353,45 @@ public val ECHOKE: TcflagT = 1u
 
 public val ECHOE1: TcflagT = 2u
 
-public val ECHOE: TcflagT = 2u
-
 public val ECHOK1: TcflagT = 4u
 
-public val ECHOK: TcflagT = 4u
+public val ECHOE: TcflagT = 2u
 
 public val ECHO1: TcflagT = 8u
 
-public val ECHO: TcflagT = 8u
+public val ECHOK: TcflagT = 4u
 
 public val ECHONL1: TcflagT = 16u
 
-public val ECHONL: TcflagT = 16u
+public val ECHO: TcflagT = 8u
 
 public val ECHOPRT: TcflagT = 32u
+
+public val ECHONL: TcflagT = 16u
 
 public val ECHOCTL: TcflagT = 64u
 
 public val ISIG1: TcflagT = 128u
 
-public val ISIG: TcflagT = 128u
-
 public val ICANON1: TcflagT = 256u
 
-public val ICANON: TcflagT = 256u
+public val ISIG: TcflagT = 128u
 
 public val ALTWERASE: TcflagT = 512u
 
-public val IEXTEN1: TcflagT = 1024u
+public val ICANON: TcflagT = 256u
 
-public val IEXTEN: TcflagT = 1024u
+public val IEXTEN1: TcflagT = 1024u
 
 public val EXTPROC: TcflagT = 2048u
 
+public val IEXTEN: TcflagT = 1024u
+
 public val TOSTOP1: TcflagT = 4194304u
 
-public val TOSTOP: TcflagT = 4194304u
-
 public val FLUSHO: TcflagT = 8388608u
+
+public val TOSTOP: TcflagT = 4194304u
 
 public val NOKERNINFO: TcflagT = 33554432u
 
@@ -1401,9 +1399,9 @@ public val PENDIN: TcflagT = 536870912u
 
 public val NOFLSH1: TcflagT = 2147483648u
 
-public val NOFLSH: TcflagT = 2147483648u
-
 public val VEOF: Int = 0
+
+public val NOFLSH: TcflagT = 2147483648u
 
 public val VEOL: Int = 1
 
@@ -1557,9 +1555,6 @@ public val CTIME: UByte = 0u
 
 public val CBRK: UByte = 0u.toUByte()
 
-// dlfcn.h
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
 
 public val RTLD_LAZY: CInt = 1
@@ -1663,12 +1658,12 @@ public val SIGRTMAX: Int = 32
 
 public val NSIG1: Int = 33
 
-public val NSIG: Int = 33
-
 // bits/sigaction.h
 public val SA_ONSTACK: CInt = 1
 
 public val SA_RESTART: CInt = 2
+
+public val NSIG: Int = 33
 
 public val SA_NODEFER: CInt = 16
 
@@ -1799,12 +1794,12 @@ public val DBG_BRKPNT_FAULT: CInt = 2
 
 public val NGREG1: Int = 19
 
-public val NGREG: Int = 19
-
 // bits/sigstack.h
 public val MINSIGSTKSZ: Int = 8192
 
 public val SIGSTKSZ: Int = 40960
+
+public val NGREG: Int = 19
 
 // sys/stat.h
 public val S_IFMT1: ModeT = 61440u
@@ -1883,6 +1878,10 @@ public val UTIME_NOW: CLong = -1L
 
 public val UTIME_OMIT: CLong = -2L
 
+public val S_IRUSR: ModeT = 256u
+
+public val S_IWUSR: ModeT = 128u
+
 public val S_IFMT: ModeT = 61440u
 
 public val S_IFDIR: ModeT = 16384u
@@ -1905,23 +1904,19 @@ public val S_ISGID: ModeT = 1024u
 
 public val S_ISVTX: ModeT = 512u
 
-public val S_IRUSR: ModeT = 256u
-
-public val S_IWUSR: ModeT = 128u
-
 public val S_IXUSR: ModeT = 64u
 
 public val S_IRWXU: ModeT = 448u
+
+public val S_IRGRP: ModeT = 32u
+
+public val S_IWGRP: ModeT = 16u
 
 public val S_IREAD: ModeT = 256u
 
 public val S_IWRITE: ModeT = 128u
 
 public val S_IEXEC: ModeT = 64u
-
-public val S_IRGRP: ModeT = 32u
-
-public val S_IWGRP: ModeT = 16u
 
 public val S_IXGRP: ModeT = 8u
 
@@ -2650,12 +2645,12 @@ public val BITS_TYPES_STRUCT_SCHED_PARAM: Int = 1
 
 public val CPU_SETSIZE1: Int = 1024
 
-public val CPU_SETSIZE: Int = 1024
-
 // pthread.h
 public val PTHREAD_SPINLOCK_INITIALIZER: CInt = 0
 
 public val PTHREAD_CANCEL_DISABLE: CInt = 0
+
+public val CPU_SETSIZE: Int = 1024
 
 public val PTHREAD_CANCEL_ENABLE: CInt = 1
 
@@ -2967,12 +2962,12 @@ public val TCP_MSS_DEFAULT: Int = 536
 
 public val TCP_MSS_DESIRED: Int = 1220
 
-// sys/wait.h
-public val WCOREFLAG: CInt = 128
-
 public val WAIT_ANY: PidT = -1
 
 public val WAIT_MYPGRP: PidT = 0
+
+// sys/wait.h
+public val WCOREFLAG: CInt = 128
 
 // sys/file.h
 public val LOCK_SH: CInt = 1
@@ -3053,3 +3048,8 @@ public val MREMAP_FIXED: CInt = 2
 public val MCL_CURRENT: CInt = 0x0001
 
 public val MCL_FUTURE: CInt = 0x0002
+
+// sys/xattr.h
+public val XATTR_CREATE: CInt = 0x1
+
+public val XATTR_REPLACE: CInt = 0x2

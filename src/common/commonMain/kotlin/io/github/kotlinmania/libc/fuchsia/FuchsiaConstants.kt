@@ -1791,8 +1791,6 @@ public val ST_NODIRATIME: CUlong = 2048uL
 
 public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 public val RTLD_NODELETE: CInt = 0x1000
 
 public val RTLD_NOW: CInt = 0x2
@@ -2042,8 +2040,6 @@ public val QFMT_VFS_V1: CInt = 4
 public val EFD_SEMAPHORE: CInt = 0x1
 
 public val LOG_NFACILITIES: CInt = 24
-
-public val SEM_FAILED: SemT? = null
 
 public val RB_AUTOBOOT: CInt = 0x01234567u.toInt()
 
@@ -3097,3 +3093,7 @@ public val ECONNABORTED: CInt = 103
 public val ECONNRESET: CInt = 104
 
 public val ENOBUFS: CInt = 105
+
+public val EISCONN: CInt = 106
+
+public val ENOTCONN: CInt = 107

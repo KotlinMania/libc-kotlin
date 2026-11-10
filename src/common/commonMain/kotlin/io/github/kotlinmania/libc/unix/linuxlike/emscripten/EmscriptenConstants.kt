@@ -542,8 +542,6 @@ public val ST_NODIRATIME: CUlong = 2048uL
 
 public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 public val RTLD_NODELETE: CInt = 0x1000
 
 public val RTLD_NOW: CInt = 0x2
@@ -644,8 +642,6 @@ public val SHM_HUGETLB: CInt = 2048
 public val SHM_NORESERVE: CInt = 4096
 
 public val LOG_NFACILITIES: CInt = 24
-
-public val SEM_FAILED: SemT? = null
 
 public val AI_PASSIVE: CInt = 0x0001
 
@@ -1554,3 +1550,7 @@ public val PRIO_PGRP: CInt = 1
 public val PRIO_USER: CInt = 2
 
 public val SOMAXCONN: CInt = 128
+
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val SEM_FAILED: SemT? = null

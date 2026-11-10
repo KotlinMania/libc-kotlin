@@ -42,8 +42,6 @@ public val POLLHUP: CShort = 0x0010
 
 public val POLLNVAL: CShort = 0x0020
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 public val SOL_SOCKET: CInt = 0xffff
 
 public val SO_NONBLOCK: CInt = 0x1100
@@ -141,3 +139,5 @@ public val EAI_OVERFLOW: CInt = -12
 public val PTHREAD_STACK_MIN: SizeT = 32uL * 1024uL
 
 public val IP_HDRINCL: CInt = 2
+
+public val RTLD_DEFAULT: COpaquePointer? = null

@@ -334,8 +334,6 @@ public val CPUCTL_MSRCBIT: CInt = 0xc0106306.toInt()
 
 public val CPUCTL_CPUID_COUNT: CInt = 0xc0106307.toInt()
 
-public val CPU_SETSIZE: SizeT = 8uL * 8uL
-
 public val EVFILT_READ: Short = (-1).toShort()
 
 public val EVFILT_WRITE: Short = (-2).toShort()
@@ -1286,3 +1284,5 @@ public val RTAX_MPLS2: CInt = 9
 public val RTAX_MPLS3: CInt = 10
 
 public val RTAX_MAX: CInt = 11
+
+public val CPU_SETSIZE: SizeT = 8uL * 8uL

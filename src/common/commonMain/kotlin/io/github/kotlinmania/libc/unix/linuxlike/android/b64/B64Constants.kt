@@ -25,14 +25,6 @@ public val RTLD_GLOBAL: CInt = 0x00100
 
 public val RTLD_NOW: CInt = 2
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0, reserved = UByteArray(0))
-
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0, reserved = UByteArray(0))
-
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0, reserved = UByteArray(0))
-
 public val PTHREAD_STACK_MIN: SizeT = 4096uL * 4uL
 
 public val CPU_SETSIZE: SizeT = 1024uL
@@ -44,3 +36,11 @@ public val UT_LINESIZE: Int = 32
 public val UT_NAMESIZE: Int = 32
 
 public val UT_HOSTSIZE: Int = 256
+
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = 0, reserved = UByteArray(0))
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = 0, reserved = UByteArray(0))
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(numLocks = 0, writerThreadId = 0, pendingReaders = 0, pendingWriters = 0, attr = 0, reserved = UByteArray(0))

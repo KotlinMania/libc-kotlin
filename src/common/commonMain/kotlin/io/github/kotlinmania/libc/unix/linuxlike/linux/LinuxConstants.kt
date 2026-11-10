@@ -13,10 +13,6 @@ import io.github.kotlinmania.libc.unix.INT_MAX
 import io.github.kotlinmania.libc.unix.INT_MIN
 import io.github.kotlinmania.libc.unix.linuxlike.IPC_STAT
 import io.github.kotlinmania.libc.unix.linuxlike.SIZEOF_PTHREAD_COND_T
-import io.github.kotlinmania.libc.unix.linuxlike.io
-import io.github.kotlinmania.libc.unix.linuxlike.ior
-import io.github.kotlinmania.libc.unix.linuxlike.iow
-import io.github.kotlinmania.libc.unix.linuxlike.iowr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.ENODATA
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.O_CLOEXEC
@@ -365,31 +361,7 @@ public val MREMAP_DONTUNMAP: CInt = 4
 // linux/nsfs.h
 public val NSIO: CUint = 0xb7u
 
-public val NS_GET_USERNS: Ioctl = io(NSIO, 0x1u)
-
-public val NS_GET_PARENT: Ioctl = io(NSIO, 0x2u)
-
-public val NS_GET_NSTYPE: Ioctl = io(NSIO, 0x3u)
-
-public val NS_GET_OWNER_UID: Ioctl = io(NSIO, 0x4u)
-
-public val NS_GET_MNTNS_ID: Ioctl = ior<U64>(NSIO, 0x5u)
-
-public val NS_GET_PID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x6u)
-
-public val NS_GET_TGID_FROM_PIDNS: Ioctl = ior<CInt>(NSIO, 0x7u)
-
-public val NS_GET_PID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x8u)
-
-public val NS_GET_TGID_IN_PIDNS: Ioctl = ior<CInt>(NSIO, 0x9u)
-
 public val MNT_NS_INFO_SIZE_VER0: Ioctl = 16uL
-
-public val NS_MNT_GET_INFO: Ioctl = ior<MntNsInfo>(NSIO, 10u)
-
-public val NS_MNT_GET_NEXT: Ioctl = ior<MntNsInfo>(NSIO, 11u)
-
-public val NS_MNT_GET_PREV: Ioctl = ior<MntNsInfo>(NSIO, 12u)
 
 // linux/pidfd.h
 public val PIDFD_NONBLOCK: CUint = O_NONBLOCK.toUInt()
@@ -413,28 +385,6 @@ public val PIDFD_INFO_EXIT: CUint = 1u shl 3
 public val PIDFD_INFO_SIZE_VER0: CUint = 64u
 
 public val PIDFS_IOCTL_MAGIC: CUint = 0xFFu
-
-public val PIDFD_GET_CGROUP_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 1u)
-
-public val PIDFD_GET_IPC_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 2u)
-
-public val PIDFD_GET_MNT_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 3u)
-
-public val PIDFD_GET_NET_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 4u)
-
-public val PIDFD_GET_PID_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 5u)
-
-public val PIDFD_GET_PID_FOR_CHILDREN_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 6u)
-
-public val PIDFD_GET_TIME_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 7u)
-
-public val PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 8u)
-
-public val PIDFD_GET_USER_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 9u)
-
-public val PIDFD_GET_UTS_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 10u)
-
-public val PIDFD_GET_INFO: Ioctl = iowr<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11u)
 
 public val PR_SET_MDWE: CInt = 65
 
@@ -1290,12 +1240,6 @@ public val TP_STATUS_TS_RAW_HARDWARE: U32 = 1u shl 31
 public val TP_FT_REQ_FILL_RXHASH: U32 = 1u
 
 public val TPACKET_ALIGNMENT: Int = 16
-
-public val TPACKET_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
-
-public val TPACKET2_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
-
-public val TPACKET3_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
 
 // linux/netfilter.h
 public val NF_DROP: CInt = 0
@@ -2541,42 +2485,6 @@ public val PTP_MAX_SAMPLES: CUint = 25u
 // Maximum allowed offset measurement samples.
 public val PTP_CLK_MAGIC: UInt = 61u
 
-public val PTP_CLOCK_GETCAPS: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 1u)
-
-public val PTP_EXTTS_REQUEST: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 2u)
-
-public val PTP_PEROUT_REQUEST: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 3u)
-
-public val PTP_ENABLE_PPS: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 4u)
-
-public val PTP_SYS_OFFSET: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 5u)
-
-public val PTP_PIN_GETFUNC: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 6u)
-
-public val PTP_PIN_SETFUNC: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 7u)
-
-public val PTP_SYS_OFFSET_PRECISE: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 8u)
-
-public val PTP_SYS_OFFSET_EXTENDED: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 9u)
-
-public val PTP_CLOCK_GETCAPS2: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 10u)
-
-public val PTP_EXTTS_REQUEST2: Ioctl = iow<PtpExttsRequest>(PTP_CLK_MAGIC, 11u)
-
-public val PTP_PEROUT_REQUEST2: Ioctl = iow<PtpPeroutRequest>(PTP_CLK_MAGIC, 12u)
-
-public val PTP_ENABLE_PPS2: Ioctl = iow<CInt>(PTP_CLK_MAGIC, 13u)
-
-public val PTP_SYS_OFFSET2: Ioctl = iow<PtpSysOffset>(PTP_CLK_MAGIC, 14u)
-
-public val PTP_PIN_GETFUNC2: Ioctl = iowr<PtpPinDesc>(PTP_CLK_MAGIC, 15u)
-
-public val PTP_PIN_SETFUNC2: Ioctl = iow<PtpPinDesc>(PTP_CLK_MAGIC, 16u)
-
-public val PTP_SYS_OFFSET_PRECISE2: Ioctl = iowr<PtpSysOffsetPrecise>(PTP_CLK_MAGIC, 17u)
-
-public val PTP_SYS_OFFSET_EXTENDED2: Ioctl = iowr<PtpSysOffsetExtended>(PTP_CLK_MAGIC, 18u)
-
 // enum ptpPinFunction
 public val PTP_PF_NONE: CUint = 0u
 
@@ -2836,57 +2744,43 @@ public val SECURE_NOROOT: CInt = 0
 
 public val SECURE_NOROOT_LOCKED: CInt = 1
 
-public val SECBIT_NOROOT: CInt = issecureMask(SECURE_NOROOT)
-
-public val SECBIT_NOROOT_LOCKED: CInt = issecureMask(SECURE_NOROOT_LOCKED)
-
 public val SECURE_NO_SETUID_FIXUP: CInt = 2
 
 public val SECURE_NO_SETUID_FIXUP_LOCKED: CInt = 3
-
-public val SECBIT_NO_SETUID_FIXUP: CInt = issecureMask(SECURE_NO_SETUID_FIXUP)
-
-public val SECBIT_NO_SETUID_FIXUP_LOCKED: CInt = issecureMask(SECURE_NO_SETUID_FIXUP_LOCKED)
 
 public val SECURE_KEEP_CAPS: CInt = 4
 
 public val SECURE_KEEP_CAPS_LOCKED: CInt = 5
 
-public val SECBIT_KEEP_CAPS: CInt = issecureMask(SECURE_KEEP_CAPS)
-
-public val SECBIT_KEEP_CAPS_LOCKED: CInt = issecureMask(SECURE_KEEP_CAPS_LOCKED)
-
 public val SECURE_NO_CAP_AMBIENT_RAISE: CInt = 6
 
 public val SECURE_NO_CAP_AMBIENT_RAISE_LOCKED: CInt = 7
-
-public val SECBIT_NO_CAP_AMBIENT_RAISE: CInt = issecureMask(SECURE_NO_CAP_AMBIENT_RAISE)
-
-public val SECBIT_NO_CAP_AMBIENT_RAISE_LOCKED: CInt = issecureMask(SECURE_NO_CAP_AMBIENT_RAISE_LOCKED)
 
 public val SECURE_EXEC_RESTRICT_FILE: CInt = 8
 
 public val SECURE_EXEC_RESTRICT_FILE_LOCKED: CInt = 9
 
-public val SECBIT_EXEC_RESTRICT_FILE: CInt = issecureMask(SECURE_EXEC_RESTRICT_FILE)
-
-public val SECBIT_EXEC_RESTRICT_FILE_LOCKED: CInt = issecureMask(SECURE_EXEC_RESTRICT_FILE_LOCKED)
-
 public val SECURE_EXEC_DENY_INTERACTIVE: CInt = 10
 
 public val SECURE_EXEC_DENY_INTERACTIVE_LOCKED: CInt = 11
 
-public val SECBIT_EXEC_DENY_INTERACTIVE: CInt = issecureMask(SECURE_EXEC_DENY_INTERACTIVE)
-
-public val SECBIT_EXEC_DENY_INTERACTIVE_LOCKED: CInt = issecureMask(SECURE_EXEC_DENY_INTERACTIVE_LOCKED)
-
 public val SECUREBITS_DEFAULT: CInt = 0x00000000
+
+public val SECBIT_NOROOT: CInt = issecureMask(SECURE_NOROOT)
+
+public val SECBIT_NO_SETUID_FIXUP: CInt = issecureMask(SECURE_NO_SETUID_FIXUP)
+
+public val SECBIT_KEEP_CAPS: CInt = issecureMask(SECURE_KEEP_CAPS)
+
+public val SECBIT_NO_CAP_AMBIENT_RAISE: CInt = issecureMask(SECURE_NO_CAP_AMBIENT_RAISE)
+
+public val SECBIT_EXEC_RESTRICT_FILE: CInt = issecureMask(SECURE_EXEC_RESTRICT_FILE)
+
+public val SECBIT_EXEC_DENY_INTERACTIVE: CInt = issecureMask(SECURE_EXEC_DENY_INTERACTIVE)
 
 public val SECURE_ALL_BITS: CInt = SECBIT_NOROOT or SECBIT_NO_SETUID_FIXUP or SECBIT_KEEP_CAPS or SECBIT_NO_CAP_AMBIENT_RAISE or SECBIT_EXEC_RESTRICT_FILE or SECBIT_EXEC_DENY_INTERACTIVE
 
 public val SECURE_ALL_LOCKS: CInt = SECURE_ALL_BITS shl 1
-
-public val SECURE_ALL_UNPRIVILEGED: CInt = issecureMask(SECURE_EXEC_RESTRICT_FILE) or issecureMask(SECURE_EXEC_DENY_INTERACTIVE)
 
 public val IN_MASK_CREATE: UInt = 0x10000000u
 
@@ -3095,3 +2989,105 @@ public val NFT_META_PRIORITY: CInt = 2
 public val NFT_META_MARK: CInt = 3
 
 public val NFT_META_IIF: CInt = 4
+
+public val NFT_META_OIF: CInt = 5
+
+public val NFT_META_IIFNAME: CInt = 6
+
+public val NFT_META_OIFNAME: CInt = 7
+
+public val NFT_META_IIFTYPE: CInt = 8
+
+public val NFT_META_OIFTYPE: CInt = 9
+
+public val NFT_META_SKUID: CInt = 10
+
+public val NFT_META_SKGID: CInt = 11
+
+public val NFT_META_NFTRACE: CInt = 12
+
+public val NFT_META_RTCLASSID: CInt = 13
+
+public val NFT_META_SECMARK: CInt = 14
+
+public val NFT_META_NFPROTO: CInt = 15
+
+public val NFT_META_L4PROTO: CInt = 16
+
+public val NFT_META_BRI_IIFNAME: CInt = 17
+
+public val NFT_META_BRI_OIFNAME: CInt = 18
+
+public val NFT_META_PKTTYPE: CInt = 19
+
+public val NFT_META_CPU: CInt = 20
+
+public val NFT_META_IIFGROUP: CInt = 21
+
+public val NFT_META_OIFGROUP: CInt = 22
+
+public val NFT_META_CGROUP: CInt = 23
+
+public val NFT_META_PRANDOM: CInt = 24
+
+public val NFT_CT_STATE: CInt = 0
+
+public val NFT_CT_DIRECTION: CInt = 1
+
+public val NFT_CT_STATUS: CInt = 2
+
+public val NFT_CT_MARK: CInt = 3
+
+public val NFT_CT_SECMARK: CInt = 4
+
+public val NFT_CT_EXPIRATION: CInt = 5
+
+public val NFT_CT_HELPER: CInt = 6
+
+public val NFT_CT_L3PROTOCOL: CInt = 7
+
+public val NFT_CT_SRC: CInt = 8
+
+public val NFT_CT_DST: CInt = 9
+
+public val NFT_CT_PROTOCOL: CInt = 10
+
+public val NFT_CT_PROTO_SRC: CInt = 11
+
+public val NFT_CT_PROTO_DST: CInt = 12
+
+public val NFT_CT_LABELS: CInt = 13
+
+public val NFT_CT_PKTS: CInt = 14
+
+public val NFT_CT_BYTES: CInt = 15
+
+public val NFT_CT_AVGPKT: CInt = 16
+
+public val NFT_CT_ZONE: CInt = 17
+
+public val NFT_CT_EVENTMASK: CInt = 18
+
+public val NFT_CT_SRC_IP: CInt = 19
+
+public val NFT_CT_DST_IP: CInt = 20
+
+public val NFT_CT_SRC_IP6: CInt = 21
+
+public val NFT_CT_DST_IP6: CInt = 22
+
+public val NFT_LIMIT_PKTS: CInt = 0
+
+public val NFT_LIMIT_PKT_BYTES: CInt = 1
+
+public val NFT_LIMIT_F_INV: CInt = 1 shl 0
+
+public val NFT_QUEUE_FLAG_BYPASS: CInt = 0x01
+
+public val NFT_QUEUE_FLAG_CPU_FANOUT: CInt = 0x02
+
+public val NFT_QUEUE_FLAG_MASK: CInt = 0x03
+
+public val NFT_QUOTA_F_INV: CInt = 1 shl 0
+
+public val NFT_REJECT_ICMP_UNREACH: CInt = 0

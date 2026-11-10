@@ -162,8 +162,6 @@ public val PROC_PIDPATHINFO_MAXSIZE: CInt = 4096
 
 public val PROC_PIDLISTFDS: CInt = 1
 
-public val PROC_PIDLISTFD_SIZE: CInt = 8
-
 public val PROX_FDTYPE_ATALK: CInt = 0
 
 public val PROX_FDTYPE_VNODE: CInt = 1
@@ -1028,32 +1026,6 @@ public val VMADDR_CID_HOST: CUint = 2u
 
 public val VMADDR_PORT_ANY: CUint = 0xFFFFFFFFu
 
-public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
-public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (8 / 8).toUInt()
-
-public val MACH_TASK_BASIC_INFO_COUNT: UInt = (8 / 8).toUInt()
-
-public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
-
 // bsd/net/ifMib.h
 /**
  * Non-interface-specific
@@ -1106,3 +1078,31 @@ public val DOT3COMPLIANCE_COLLS: CInt = 2
 
 // kernControl.h
 public val MAX_KCTL_NAME: Int = 96
+
+public val PROC_PIDLISTFD_SIZE: CInt = 8
+
+public val THREAD_EXTENDED_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_TIME_CONSTRAINT_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_PRECEDENCE_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_AFFINITY_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_BACKGROUND_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_LATENCY_QOS_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_THROUGHPUT_QOS_POLICY_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_BASIC_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_IDENTIFIER_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val THREAD_EXTENDED_INFO_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()
+
+public val TASK_THREAD_TIMES_INFO_COUNT: UInt = (8 / 8).toUInt()
+
+public val MACH_TASK_BASIC_INFO_COUNT: UInt = (8 / 8).toUInt()
+
+public val HOST_VM_INFO64_COUNT: MachMsgTypeNumberT = (8 / 8).toUInt()

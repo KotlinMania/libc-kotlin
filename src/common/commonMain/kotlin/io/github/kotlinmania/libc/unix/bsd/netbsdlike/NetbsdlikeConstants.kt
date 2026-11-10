@@ -947,8 +947,6 @@ public val EXTA: SpeedT = 19200u
 
 public val EXTB: SpeedT = 38400u
 
-public val SEM_FAILED: COpaquePointer? = null
-
 public val CRTSCTS: TcflagT = 0x00010000u
 
 public val CRTS_IFLOW: TcflagT = CRTSCTS
@@ -1021,3 +1019,5 @@ public val TIMER_ABSTIME: CInt = 1
 public val RB_AUTOBOOT: CInt = 0
 
 public val TCP_INFO: CInt = 9
+
+public val SEM_FAILED: COpaquePointer? = null

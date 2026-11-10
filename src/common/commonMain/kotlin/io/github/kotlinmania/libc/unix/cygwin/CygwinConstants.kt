@@ -650,8 +650,6 @@ public val FORK_RELOAD: CInt = 1
 
 public val FORK_NO_RELOAD: CInt = 0
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 public val RTLD_LOCAL: CInt = 0
 
 public val RTLD_LAZY: CInt = 1
@@ -853,8 +851,6 @@ public val LC_TIME_MASK: CInt = 1 shl 5
 public val LC_MESSAGES_MASK: CInt = 1 shl 6
 
 public val LC_GLOBAL_LOCALE: LocaleT = COpaquePointer((-1).toLong())
-
-public val SEM_FAILED: COpaquePointer? = null
 
 public val ST_RDONLY: CUlong = 0x80000uL
 
@@ -2108,3 +2104,7 @@ public val FALLOC_FL_COLLAPSE_RANGE: CInt = 0x0008
 public val FALLOC_FL_INSERT_RANGE: CInt = 0x0010
 
 public val FALLOC_FL_KEEP_SIZE: CInt = 0x1000
+
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val SEM_FAILED: COpaquePointer? = null

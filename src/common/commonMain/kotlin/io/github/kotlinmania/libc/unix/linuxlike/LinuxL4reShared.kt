@@ -1596,8 +1596,6 @@ public val ST_NODIRATIME: CUlong = 2048uL
 
 public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 public val RTLD_NODELETE: CInt = 0x1000
 
 public val RTLD_NOW: CInt = 0x2
@@ -1680,8 +1678,6 @@ public val SHM_HUGETLB: CInt = 2048
 public val SHM_NORESERVE: CInt = 4096
 
 public val LOG_NFACILITIES: CInt = 24
-
-public val SEM_FAILED: SemT? = null
 
 public val AI_PASSIVE: CInt = 0x0001
 
@@ -2473,6 +2469,10 @@ public val NT_LWPSINFO: CInt = 17
 public val NT_PRFPXREG: CInt = 20
 
 public val MS_NOUSER: CUlong = 0xffffffff80000000uL
+
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val SEM_FAILED: SemT? = null
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (((cmsg!!.cmsgLen).toInt()) < 8) {

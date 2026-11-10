@@ -23,10 +23,6 @@ public val INT_MAX: CInt = 0x7fffffff
 
 public val INT_MIN: CInt = -INT_MAX - 1
 
-// Note(vxworks): This is not defined in vxWorks, but we have to define it here
-// to make the building pass for getrandom and std
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 // Clock Lib Stuff
 public val CLOCK_REALTIME: CInt = 0x0
 
@@ -577,12 +573,6 @@ public val SOCK_PACKET: CInt = 10
 
 public val SS_MAXSIZE: Int = 128
 
-public val SS_ALIGNSIZE: Int = 8
-
-public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - 8 - 8
-
-public val SS_PAD2SIZE: Int = SS_MAXSIZE - 8 - 8 - SS_PAD1SIZE - SS_ALIGNSIZE
-
 public val MSG_OOB: CInt = 0x0001
 
 public val MSG_PEEK: CInt = 0x0002
@@ -1130,15 +1120,9 @@ public val WCONTINUED: CInt = 0x04
 
 public val PTHREAD_MUTEXATTR_INITIALIZER: PthreadMutexattrT = PthreadMutexattrT(mutexAttrStatus = PTHREAD_INITIALIZED_OBJ, mutexAttrProtocol = PTHREAD_PRIO_NONE, mutexAttrPrioceiling = 0, mutexAttrType = PTHREAD_MUTEX_DEFAULT, mutexAttrPshared = 1)
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = null, mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
-
 public val PTHREAD_CONDATTR_INITIALIZER: PthreadCondattrT = PthreadCondattrT(condAttrStatus = 0xf70990ef.toInt(), condAttrPshared = 1, condAttrClockId = CLOCK_REALTIME)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(condSemId = null, condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0, condMutex = null, condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
-
 public val PTHREAD_RWLOCKATTR_INITIALIZER: PthreadRwlockattrT = PthreadRwlockattrT(rwlockAttrStatus = PTHREAD_INITIALIZED_OBJ, rwlockAttrPshared = 1, rwlockAttrMaxReaders = 0u, rwlockAttrConformOpt = 1u)
-
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwlockSemId = null, rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
 
 public val SEEK_SET: CInt = 0
 
@@ -1238,3 +1222,19 @@ public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
 public val TIOCGWINSZ: CInt = 0x1740087468L.toInt()
 
 public val TIOCSWINSZ: CInt = -0x7ff78b99
+
+// Note(vxworks): This is not defined in vxWorks, but we have to define it here
+// to make the building pass for getrandom and std
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val SS_ALIGNSIZE: Int = 8
+
+public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - 8 - 8
+
+public val SS_PAD2SIZE: Int = SS_MAXSIZE - 8 - 8 - SS_PAD1SIZE - SS_ALIGNSIZE
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = null, mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(condSemId = null, condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0, condMutex = null, condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwlockSemId = null, rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })

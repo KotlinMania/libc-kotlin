@@ -44,9 +44,6 @@ public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(value = IntArra
 
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(value = IntArray(PTHREAD_MUTEX_SIZE) { 0 })
 
-// dlfcn.h
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 // stdlib.h
 public val EXIT_SUCCESS: Int = 0
 
@@ -574,3 +571,6 @@ public val IP_MULTICAST_TTL: Int = 0x12
 public val IP_ADD_MEMBERSHIP: Int = 0x14
 
 public val IP_DROP_MEMBERSHIP: Int = 0x15
+
+// dlfcn.h
+public val RTLD_DEFAULT: COpaquePointer? = null

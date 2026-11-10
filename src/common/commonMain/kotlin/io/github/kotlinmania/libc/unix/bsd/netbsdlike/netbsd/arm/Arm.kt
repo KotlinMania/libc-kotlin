@@ -7,8 +7,6 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 
 public typealias CpuSimpleLockNvT = CInt
 
-internal val ALIGNBYTES: Int = 8 - 1
-
 public val PT_GETREGS: CInt = PT_FIRSTMACH + 1
 
 public val PT_SETREGS: CInt = PT_FIRSTMACH + 2
@@ -130,3 +128,5 @@ public val REG_SP: CInt = REG_R13
 public val REG_LR: CInt = REG_R14
 
 public val REG_PC: CInt = REG_R15
+
+internal val ALIGNBYTES: Int = 8 - 1

@@ -767,8 +767,6 @@ public val RTLD_NOW: CInt = 0x1
 
 public val RTLD_GLOBAL: CInt = 0x2
 
-public val RTLD_DEFAULT: COpaquePointer? = null
-
 public val BUFSIZ: CUint = 8192u
 
 public val FILENAME_MAX: CUint = 256u
@@ -1082,10 +1080,6 @@ public val SC_THREAD_THREADS_MAX: CInt = 141
 public val SC_RE_DUP_MAX: CInt = 142
 
 public val PTHREAD_STACK_MIN: SizeT = 8192uL
-
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0u, lock = 0, unused = 0, owner = -1, ownerCount = 0)
-
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(flags = 0u, unused = 0, mutex = null, waiterCount = 0, lock = 0)
 
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(flags = 0u, owner = -1, lockSem = 0, lockCount = 0, readerCount = 0, writerCount = 0, waiters = List(2) { COpaquePointer(0.toLong()) })
 
@@ -1560,3 +1554,9 @@ public val POSIX_SPAWN_SETSIGDEF: CInt = 0x10
 public val POSIX_SPAWN_SETSIGMASK: CInt = 0x20
 
 public val POSIX_SPAWN_SETSID: CInt = 0x40
+
+public val RTLD_DEFAULT: COpaquePointer? = null
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(flags = 0u, lock = 0, unused = 0, owner = -1, ownerCount = 0)
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(flags = 0u, unused = 0, mutex = null, waiterCount = 0, lock = 0)

@@ -93,8 +93,6 @@ public data class McontextT(
     }
 }
 
-internal val ALIGNBYTES: Int = 8 - 1
-
 public val BIOCSRTIMEOUT: CUlong = 0x8010426duL
 
 public val BIOCGRTIMEOUT: CUlong = 0x4010426euL
@@ -105,3 +103,5 @@ public val MINSIGSTKSZ: SizeT = 4096uL
 
 // 1024 * 4
 public val TIOCTIMESTAMP: CUlong = 0x40107459uL
+
+internal val ALIGNBYTES: Int = 8 - 1

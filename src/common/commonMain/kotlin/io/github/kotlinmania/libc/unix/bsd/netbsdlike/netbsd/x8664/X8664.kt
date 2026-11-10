@@ -47,8 +47,6 @@ public data class UcontextT(
     public var ucMcontext: McontextT = McontextT(),
 )
 
-internal val ALIGNBYTES: Int = 8 - 1
-
 public val PT_STEP: CInt = PT_FIRSTMACH + 0
 
 public val PT_GETREGS: CInt = PT_FIRSTMACH + 1
@@ -110,3 +108,5 @@ public val REG_RFLAGS: CInt = 23
 public val REG_RSP: CInt = 24
 
 public val REG_SS: CInt = 25
+
+internal val ALIGNBYTES: Int = 8 - 1

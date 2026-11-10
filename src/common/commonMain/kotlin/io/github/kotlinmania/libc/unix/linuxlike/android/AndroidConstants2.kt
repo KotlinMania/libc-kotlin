@@ -9,8 +9,6 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
 
-public val SIOCGIFCONF: CUlong = 0x00008912uL
-
 public val SIOCGIFFLAGS: CUlong = 0x00008913uL
 
 public val SIOCSIFFLAGS: CUlong = 0x00008914uL
@@ -1613,3 +1611,5 @@ public val TRAP_PERF: CInt = 6
 // following are only available on newer Linux versions than the versions
 // currently used in CI in some configurations, so we define them here.
 public val XFS_SUPER_MAGIC: CLong = 0x58465342L
+
+public val SEM_FAILED: SemT? = null

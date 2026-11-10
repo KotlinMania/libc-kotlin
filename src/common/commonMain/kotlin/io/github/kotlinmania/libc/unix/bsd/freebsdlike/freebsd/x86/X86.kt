@@ -49,8 +49,6 @@ public class McontextT(
     public var mcSpare2: IntArray = IntArray(4),
 )
 
-internal val ALIGNBYTES: Int = 8 - 1
-
 public val MINSIGSTKSZ: SizeT = 2048uL
 
 // 512 * 4
@@ -61,3 +59,5 @@ public val BIOCGRTIMEOUT: CUlong = 0x4008426euL
 public val KINFO_FILE_SIZE: CInt = 1392
 
 public val TIOCTIMESTAMP: CUlong = 0x40087459uL
+
+internal val ALIGNBYTES: Int = 8 - 1

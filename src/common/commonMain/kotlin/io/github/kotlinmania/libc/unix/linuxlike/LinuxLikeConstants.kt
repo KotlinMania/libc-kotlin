@@ -1821,83 +1821,6 @@ public val TUN_FLT_ALLMULTI: CInt = 0x0001
 // Ioctl operation codes
 public val T_TYPE: UInt = 84u
 
-public val TUNSETNOCSUM: Ioctl = iow<CInt>(T_TYPE, 200u)
-
-public val TUNSETDEBUG: Ioctl = iow<CInt>(T_TYPE, 201u)
-
-public val TUNSETIFF: Ioctl = iow<CInt>(T_TYPE, 202u)
-
-public val TUNSETPERSIST: Ioctl = iow<CInt>(T_TYPE, 203u)
-
-public val TUNSETOWNER: Ioctl = iow<CInt>(T_TYPE, 204u)
-
-public val TUNSETLINK: Ioctl = iow<CInt>(T_TYPE, 205u)
-
-public val TUNSETGROUP: Ioctl = iow<CInt>(T_TYPE, 206u)
-
-public val TUNGETFEATURES: Ioctl = ior<CInt>(T_TYPE, 207u)
-
-public val TUNSETOFFLOAD: Ioctl = iow<CInt>(T_TYPE, 208u)
-
-public val TUNSETTXFILTER: Ioctl = iow<CInt>(T_TYPE, 209u)
-
-public val TUNGETIFF: Ioctl = ior<CInt>(T_TYPE, 210u)
-
-public val TUNGETSNDBUF: Ioctl = ior<CInt>(T_TYPE, 211u)
-
-public val TUNSETSNDBUF: Ioctl = iow<CInt>(T_TYPE, 212u)
-
-public val TUNATTACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 213u)
-
-public val TUNDETACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 214u)
-
-public val TUNGETVNETHDRSZ: Ioctl = ior<CInt>(T_TYPE, 215u)
-
-public val TUNSETVNETHDRSZ: Ioctl = iow<CInt>(T_TYPE, 216u)
-
-public val TUNSETQUEUE: Ioctl = iow<CInt>(T_TYPE, 217u)
-
-public val TUNSETIFINDEX: Ioctl = iow<CInt>(T_TYPE, 218u)
-
-public val TUNGETFILTER: Ioctl = ior<SockFprog>(T_TYPE, 219u)
-
-public val TUNSETVNETLE: Ioctl = iow<CInt>(T_TYPE, 220u)
-
-public val TUNGETVNETLE: Ioctl = ior<CInt>(T_TYPE, 221u)
-
-public val TUNSETVNETBE: Ioctl = iow<CInt>(T_TYPE, 222u)
-
-public val TUNGETVNETBE: Ioctl = ior<CInt>(T_TYPE, 223u)
-
-public val TUNSETSTEERINGEBPF: Ioctl = ior<CInt>(T_TYPE, 224u)
-
-public val TUNSETFILTEREBPF: Ioctl = ior<CInt>(T_TYPE, 225u)
-
-public val TUNSETCARRIER: Ioctl = iow<CInt>(T_TYPE, 226u)
-
-public val TUNGETDEVNETNS: Ioctl = io(T_TYPE, 227u)
-
-// linux/fs.h
-public val FS_IOC_GETFLAGS: Ioctl = ior<CLong>('f'.code.toUInt(), 1u)
-
-public val FS_IOC_SETFLAGS: Ioctl = iow<CLong>('f'.code.toUInt(), 2u)
-
-public val FS_IOC_GETVERSION: Ioctl = ior<CLong>('v'.code.toUInt(), 1u)
-
-public val FS_IOC_SETVERSION: Ioctl = iow<CLong>('v'.code.toUInt(), 2u)
-
-public val FS_IOC32_GETFLAGS: Ioctl = ior<CInt>('f'.code.toUInt(), 1u)
-
-public val FS_IOC32_SETFLAGS: Ioctl = iow<CInt>('f'.code.toUInt(), 2u)
-
-public val FS_IOC32_GETVERSION: Ioctl = ior<CInt>('v'.code.toUInt(), 1u)
-
-public val FS_IOC32_SETVERSION: Ioctl = iow<CInt>('v'.code.toUInt(), 2u)
-
-public val FICLONE: Ioctl = iow<CInt>(0x94u, 9u)
-
-public val FICLONERANGE: Ioctl = iow<FileCloneRange>(0x94u, 13u)
-
 public val ADFS_SUPER_MAGIC: CLong = 0x0000adf5L
 
 public val AFFS_SUPER_MAGIC: CLong = 0x0000adffL
@@ -2096,3 +2019,80 @@ public val IOC_TYPESHIFT: UInt = IOC_NRSHIFT + IOC_NRBITS
 public val IOC_SIZESHIFT: UInt = IOC_TYPESHIFT + IOC_TYPEBITS
 
 public val IOC_DIRSHIFT: UInt = IOC_SIZESHIFT + IOC_SIZEBITS
+
+public val TUNSETNOCSUM: Ioctl = iow<CInt>(T_TYPE, 200u)
+
+public val TUNSETDEBUG: Ioctl = iow<CInt>(T_TYPE, 201u)
+
+public val TUNSETIFF: Ioctl = iow<CInt>(T_TYPE, 202u)
+
+public val TUNSETPERSIST: Ioctl = iow<CInt>(T_TYPE, 203u)
+
+public val TUNSETOWNER: Ioctl = iow<CInt>(T_TYPE, 204u)
+
+public val TUNSETLINK: Ioctl = iow<CInt>(T_TYPE, 205u)
+
+public val TUNSETGROUP: Ioctl = iow<CInt>(T_TYPE, 206u)
+
+public val TUNGETFEATURES: Ioctl = ior<CInt>(T_TYPE, 207u)
+
+public val TUNSETOFFLOAD: Ioctl = iow<CInt>(T_TYPE, 208u)
+
+public val TUNSETTXFILTER: Ioctl = iow<CInt>(T_TYPE, 209u)
+
+public val TUNGETIFF: Ioctl = ior<CInt>(T_TYPE, 210u)
+
+public val TUNGETSNDBUF: Ioctl = ior<CInt>(T_TYPE, 211u)
+
+public val TUNSETSNDBUF: Ioctl = iow<CInt>(T_TYPE, 212u)
+
+public val TUNATTACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 213u)
+
+public val TUNDETACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 214u)
+
+public val TUNGETVNETHDRSZ: Ioctl = ior<CInt>(T_TYPE, 215u)
+
+public val TUNSETVNETHDRSZ: Ioctl = iow<CInt>(T_TYPE, 216u)
+
+public val TUNSETQUEUE: Ioctl = iow<CInt>(T_TYPE, 217u)
+
+public val TUNSETIFINDEX: Ioctl = iow<CInt>(T_TYPE, 218u)
+
+public val TUNGETFILTER: Ioctl = ior<SockFprog>(T_TYPE, 219u)
+
+public val TUNSETVNETLE: Ioctl = iow<CInt>(T_TYPE, 220u)
+
+public val TUNGETVNETLE: Ioctl = ior<CInt>(T_TYPE, 221u)
+
+public val TUNSETVNETBE: Ioctl = iow<CInt>(T_TYPE, 222u)
+
+public val TUNGETVNETBE: Ioctl = ior<CInt>(T_TYPE, 223u)
+
+public val TUNSETSTEERINGEBPF: Ioctl = ior<CInt>(T_TYPE, 224u)
+
+public val TUNSETFILTEREBPF: Ioctl = ior<CInt>(T_TYPE, 225u)
+
+public val TUNSETCARRIER: Ioctl = iow<CInt>(T_TYPE, 226u)
+
+public val TUNGETDEVNETNS: Ioctl = io(T_TYPE, 227u)
+
+// linux/fs.h
+public val FS_IOC_GETFLAGS: Ioctl = ior<CLong>('f'.code.toUInt(), 1u)
+
+public val FS_IOC_SETFLAGS: Ioctl = iow<CLong>('f'.code.toUInt(), 2u)
+
+public val FS_IOC_GETVERSION: Ioctl = ior<CLong>('v'.code.toUInt(), 1u)
+
+public val FS_IOC_SETVERSION: Ioctl = iow<CLong>('v'.code.toUInt(), 2u)
+
+public val FS_IOC32_GETFLAGS: Ioctl = ior<CInt>('f'.code.toUInt(), 1u)
+
+public val FS_IOC32_SETFLAGS: Ioctl = iow<CInt>('f'.code.toUInt(), 2u)
+
+public val FS_IOC32_GETVERSION: Ioctl = ior<CInt>('v'.code.toUInt(), 1u)
+
+public val FS_IOC32_SETVERSION: Ioctl = iow<CInt>('v'.code.toUInt(), 2u)
+
+public val FICLONE: Ioctl = iow<CInt>(0x94u, 9u)
+
+public val FICLONERANGE: Ioctl = iow<FileCloneRange>(0x94u, 13u)

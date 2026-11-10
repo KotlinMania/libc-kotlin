@@ -628,12 +628,6 @@ public val SCHED_RR: CInt = 3
 
 public val ST_NOSUID: CUlong = 2uL
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null
-
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = null
-
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null
-
 public val PTHREAD_MUTEX_ERRORCHECK: CInt = 1
 
 public val PTHREAD_MUTEX_RECURSIVE: CInt = 2
@@ -1216,8 +1210,6 @@ public val TMPFS_ARGS_VERSION: CInt = 1
 
 public val SI_MAXSZ: SizeT = 128uL
 
-public val SI_PAD: SizeT = (SI_MAXSZ / 8uL) - 3uL
-
 public val MAP_STACK: CInt = 0x4000
 
 public val MAP_CONCEAL: CInt = 0x8000
@@ -1610,3 +1602,11 @@ public val RTAX_STATIC: CInt = 13
 public val RTAX_SEARCH: CInt = 14
 
 public val RTAX_MAX: CInt = 15
+
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null
+
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = null
+
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null
+
+public val SI_PAD: SizeT = (SI_MAXSZ / 8uL) - 3uL
