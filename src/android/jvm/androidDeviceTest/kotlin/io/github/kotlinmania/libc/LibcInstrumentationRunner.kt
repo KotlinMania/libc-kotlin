@@ -3,6 +3,8 @@ package io.github.kotlinmania.libc
 import android.app.Activity
 import android.app.Instrumentation
 import android.os.Bundle
+import io.github.kotlinmania.libc.unix.linuxlike.android.O_CREAT
+import io.github.kotlinmania.libc.unix.linuxlike.android.O_TRUNC
 
 class LibcInstrumentationRunner : Instrumentation() {
     override fun onCreate(arguments: Bundle?) {
@@ -16,7 +18,13 @@ class LibcInstrumentationRunner : Instrumentation() {
         val cases =
             listOf(
                 "callerMemoryPreservesBytesAcrossCopyAndResize" to tests::callerMemoryPreservesBytesAcrossCopyAndResize,
-                "callerDescriptorIoRoundTripsAndExposesHostErrors" to { verifyCallerDescriptorIo(cacheDir) },
+                "callerDescriptorIoRoundTripsAndExposesHostErrors" to {
+                    verifyCallerDescriptorIo(
+                        directory = cacheDir,
+                        oCreat = O_CREAT,
+                        oTrunc = O_TRUNC,
+                    )
+                },
             )
         var failed = 0
         cases.forEachIndexed { index, (name, execute) ->

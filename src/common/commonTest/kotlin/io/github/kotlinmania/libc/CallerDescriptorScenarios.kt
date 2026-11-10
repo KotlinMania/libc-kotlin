@@ -34,14 +34,18 @@ import kotlin.test.assertTrue
  * Callers (filedescriptor, core-foundation, codex) use open/close/read/write/fcntl/dup
  * to manage file descriptors. This exercises the full round-trip path.
  */
-internal fun verifyCallerDescriptorIo(directory: String = ".") {
+internal fun verifyCallerDescriptorIo(
+    directory: String = ".",
+    oCreat: CInt = O_CREAT,
+    oTrunc: CInt = O_TRUNC,
+) {
     val path = "$directory/km-libc-caller-${Random.nextLong().toULong()}.bin"
     val source = assertNotNull(malloc(64uL))
     val destination = assertNotNull(calloc(64uL, 1uL))
     var fd = -1
     try {
         assertEquals(source, assertNotNull(memset(source, 0xAB, 64uL)))
-        fd = open(path, O_RDWR or O_CREAT or O_TRUNC, 0x180L)
+        fd = open(path, O_RDWR or oCreat or oTrunc, 0x180L)
         assertTrue(fd >= 0, "open failed for $path")
         assertEquals(64L, write(fd, source, 64uL))
         lseek(fd, 0L, 0)
@@ -100,8 +104,8 @@ internal fun verifyCallerErrno() {
 /**
  * sysconf scenarios: callers (dirs-sys, num-cpus) use sysconf for system config.
  */
-internal fun verifyCallerSysconf() {
-    val pageSize = sysconf(_SC_PAGESIZE)
+internal fun verifyCallerSysconf(scPagesize: CInt = _SC_PAGESIZE) {
+    val pageSize = sysconf(scPagesize)
     assertTrue(pageSize > 0, "sysconf(_SC_PAGESIZE) should return positive value")
 }
 
