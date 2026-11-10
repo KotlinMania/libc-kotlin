@@ -20,15 +20,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_gettimeofday(void* tp, void* tz) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "gettimeofday");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_gettimeofday");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "gettimeofday");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_gettimeofday");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "gettimeofday");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_gettimeofday");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "gettimeofday");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_gettimeofday");
         }
     }
 #else
@@ -48,15 +48,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp(void* attr, v
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_rwlockattr_getkind_np");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_rwlockattr_getkind_np");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_rwlockattr_getkind_np");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_rwlockattr_getkind_np");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_rwlockattr_getkind_np");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_rwlockattr_getkind_np");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_rwlockattr_getkind_np");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_rwlockattr_getkind_np");
         }
     }
 #else
@@ -76,15 +76,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp(void* attr, i
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_rwlockattr_setkind_np");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_rwlockattr_setkind_np");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_rwlockattr_setkind_np");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_rwlockattr_setkind_np");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_rwlockattr_setkind_np");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_rwlockattr_setkind_np");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_rwlockattr_setkind_np");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_rwlockattr_setkind_np");
         }
     }
 #else
@@ -104,15 +104,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_openpty(void* amaster, void* aslave, cha
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "openpty");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_openpty");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "openpty");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_openpty");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "openpty");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_openpty");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "openpty");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_openpty");
         }
     }
 #else
@@ -132,15 +132,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_getnameinfo(void* sa, uint32_t salen, ch
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getnameinfo");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getnameinfo");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getnameinfo");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getnameinfo");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getnameinfo");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getnameinfo");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getnameinfo");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getnameinfo");
         }
     }
 #else
@@ -160,15 +160,15 @@ int64_t libc_unix_linuxlike_l4re_uclibc_pwritev(int32_t fd, void* iov, int32_t i
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pwritev");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pwritev");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pwritev");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pwritev");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pwritev");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pwritev");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pwritev");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pwritev");
         }
     }
 #else
@@ -188,15 +188,15 @@ int64_t libc_unix_linuxlike_l4re_uclibc_preadv(int32_t fd, void* iov, int32_t io
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "preadv");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_preadv");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "preadv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_preadv");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "preadv");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_preadv");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "preadv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_preadv");
         }
     }
 #else
@@ -216,15 +216,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_getrlimit64(int32_t resource, void* rlim
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getrlimit64");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getrlimit64");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getrlimit64");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getrlimit64");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getrlimit64");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getrlimit64");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getrlimit64");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getrlimit64");
         }
     }
 #else
@@ -244,15 +244,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_setrlimit64(int32_t resource, void* rlim
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setrlimit64");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setrlimit64");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setrlimit64");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setrlimit64");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setrlimit64");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setrlimit64");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setrlimit64");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setrlimit64");
         }
     }
 #else
@@ -272,15 +272,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_getrlimit(int32_t resource, void* rlim) 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getrlimit");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getrlimit");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getrlimit");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getrlimit");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getrlimit");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getrlimit");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getrlimit");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getrlimit");
         }
     }
 #else
@@ -300,15 +300,15 @@ int32_t libc_unix_linuxlike_l4re_uclibc_setrlimit(int32_t resource, void* rlim) 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setrlimit");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setrlimit");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setrlimit");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setrlimit");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setrlimit");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setrlimit");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setrlimit");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setrlimit");
         }
     }
 #else
@@ -328,15 +328,15 @@ uint64_t libc_unix_linuxlike_l4re_uclibc_getauxval(uint64_t type_) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getauxval");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getauxval");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getauxval");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getauxval");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getauxval");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getauxval");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getauxval");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getauxval");
         }
     }
 #else

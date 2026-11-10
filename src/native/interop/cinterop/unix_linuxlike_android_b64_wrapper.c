@@ -20,13 +20,13 @@ bool libc_unix_linuxlike_android_b64_systemPropertyWait(void* pi, uint32_t arg_1
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__system_property_wait");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__system_property_wait");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__system_property_wait");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__system_property_wait");
         }
     }
 #else

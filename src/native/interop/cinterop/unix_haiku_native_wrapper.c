@@ -20,15 +20,15 @@ int32_t libc_unix_haiku_native_createArea(const char* name, void* startAddress, 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "create_area");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_create_area");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "create_area");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_create_area");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "create_area");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_create_area");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "create_area");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_create_area");
         }
     }
 #else
@@ -48,15 +48,15 @@ int32_t libc_unix_haiku_native_cloneArea(const char* name, void* destAddress, ui
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "clone_area");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_clone_area");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "clone_area");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_clone_area");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "clone_area");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_clone_area");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "clone_area");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_clone_area");
         }
     }
 #else
@@ -76,15 +76,15 @@ int32_t libc_unix_haiku_native_findArea(const char* name) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_area");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_area");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_area");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_area");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_area");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_area");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_area");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_area");
         }
     }
 #else
@@ -104,15 +104,15 @@ int32_t libc_unix_haiku_native_areaFor(void* address) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "area_for");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_area_for");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "area_for");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_area_for");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "area_for");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_area_for");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "area_for");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_area_for");
         }
     }
 #else
@@ -132,15 +132,15 @@ int32_t libc_unix_haiku_native_deleteArea(int32_t id) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "delete_area");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_delete_area");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "delete_area");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_delete_area");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "delete_area");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_delete_area");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "delete_area");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_delete_area");
         }
     }
 #else
@@ -160,15 +160,15 @@ int32_t libc_unix_haiku_native_resizeArea(int32_t id, uint64_t newSize) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "resize_area");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_resize_area");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "resize_area");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_resize_area");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "resize_area");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_resize_area");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "resize_area");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_resize_area");
         }
     }
 #else
@@ -188,15 +188,15 @@ int32_t libc_unix_haiku_native_setAreaProtection(int32_t id, uint32_t newProtect
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_area_protection");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_area_protection");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_area_protection");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_area_protection");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_area_protection");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_area_protection");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_area_protection");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_area_protection");
         }
     }
 #else
@@ -216,13 +216,13 @@ int32_t libc_unix_haiku_native_getAreaInfo(int32_t id, void* areaInfo, uint64_t 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_area_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_area_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_area_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_area_info");
         }
     }
 #else
@@ -242,13 +242,13 @@ int32_t libc_unix_haiku_native_getNextAreaInfo(int32_t team, void* cookie, void*
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_area_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_area_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_area_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_area_info");
         }
     }
 #else
@@ -268,15 +268,15 @@ int32_t libc_unix_haiku_native_createPort(int32_t capacity, const char* name) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "create_port");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_create_port");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "create_port");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_create_port");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "create_port");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_create_port");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "create_port");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_create_port");
         }
     }
 #else
@@ -296,15 +296,15 @@ int32_t libc_unix_haiku_native_findPort(const char* name) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_port");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_port");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_port");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_port");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_port");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_port");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_port");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_port");
         }
     }
 #else
@@ -324,15 +324,15 @@ int64_t libc_unix_haiku_native_readPort(int32_t port, void* code, void* buffer, 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "read_port");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_read_port");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "read_port");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_read_port");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "read_port");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_read_port");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "read_port");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_read_port");
         }
     }
 #else
@@ -352,15 +352,15 @@ int64_t libc_unix_haiku_native_readPortEtc(int32_t port, void* code, void* buffe
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "read_port_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_read_port_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "read_port_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_read_port_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "read_port_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_read_port_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "read_port_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_read_port_etc");
         }
     }
 #else
@@ -380,15 +380,15 @@ int32_t libc_unix_haiku_native_writePort(int32_t port, int32_t code, void* buffe
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "write_port");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_write_port");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "write_port");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_write_port");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "write_port");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_write_port");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "write_port");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_write_port");
         }
     }
 #else
@@ -408,15 +408,15 @@ int32_t libc_unix_haiku_native_writePortEtc(int32_t port, int32_t code, void* bu
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "write_port_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_write_port_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "write_port_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_write_port_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "write_port_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_write_port_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "write_port_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_write_port_etc");
         }
     }
 #else
@@ -436,15 +436,15 @@ int32_t libc_unix_haiku_native_closePort(int32_t port) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "close_port");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_close_port");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "close_port");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_close_port");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "close_port");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_close_port");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "close_port");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_close_port");
         }
     }
 #else
@@ -464,15 +464,15 @@ int32_t libc_unix_haiku_native_deletePort(int32_t port) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "delete_port");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_delete_port");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "delete_port");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_delete_port");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "delete_port");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_delete_port");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "delete_port");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_delete_port");
         }
     }
 #else
@@ -492,15 +492,15 @@ int64_t libc_unix_haiku_native_portBufferSize(int32_t port) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "port_buffer_size");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_port_buffer_size");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "port_buffer_size");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_port_buffer_size");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "port_buffer_size");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_port_buffer_size");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "port_buffer_size");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_port_buffer_size");
         }
     }
 #else
@@ -520,15 +520,15 @@ int64_t libc_unix_haiku_native_portBufferSizeEtc(int32_t port, uint32_t flags, i
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "port_buffer_size_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_port_buffer_size_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "port_buffer_size_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_port_buffer_size_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "port_buffer_size_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_port_buffer_size_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "port_buffer_size_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_port_buffer_size_etc");
         }
     }
 #else
@@ -548,15 +548,15 @@ int64_t libc_unix_haiku_native_portCount(int32_t port) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "port_count");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_port_count");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "port_count");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_port_count");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "port_count");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_port_count");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "port_count");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_port_count");
         }
     }
 #else
@@ -576,15 +576,15 @@ int32_t libc_unix_haiku_native_setPortOwner(int32_t port, int32_t team) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_port_owner");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_port_owner");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_port_owner");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_port_owner");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_port_owner");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_port_owner");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_port_owner");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_port_owner");
         }
     }
 #else
@@ -604,13 +604,13 @@ int32_t libc_unix_haiku_native_getPortInfo(int32_t port, void* buf, uint64_t por
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_port_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_port_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_port_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_port_info");
         }
     }
 #else
@@ -630,13 +630,13 @@ int32_t libc_unix_haiku_native_getNextPortInfo(int32_t port, void* cookie, void*
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_port_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_port_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_port_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_port_info");
         }
     }
 #else
@@ -656,13 +656,13 @@ int32_t libc_unix_haiku_native_getPortMessageInfoEtc(int32_t port, void* info, u
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_port_message_info_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_port_message_info_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_port_message_info_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_port_message_info_etc");
         }
     }
 #else
@@ -682,15 +682,15 @@ int32_t libc_unix_haiku_native_createSem(int32_t count, const char* name) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "create_sem");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_create_sem");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "create_sem");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_create_sem");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "create_sem");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_create_sem");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "create_sem");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_create_sem");
         }
     }
 #else
@@ -710,15 +710,15 @@ int32_t libc_unix_haiku_native_deleteSem(int32_t id) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "delete_sem");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_delete_sem");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "delete_sem");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_delete_sem");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "delete_sem");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_delete_sem");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "delete_sem");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_delete_sem");
         }
     }
 #else
@@ -738,15 +738,15 @@ int32_t libc_unix_haiku_native_acquireSem(int32_t id) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "acquire_sem");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_acquire_sem");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "acquire_sem");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_acquire_sem");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "acquire_sem");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_acquire_sem");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "acquire_sem");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_acquire_sem");
         }
     }
 #else
@@ -766,15 +766,15 @@ int32_t libc_unix_haiku_native_acquireSemEtc(int32_t id, int32_t count, uint32_t
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "acquire_sem_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_acquire_sem_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "acquire_sem_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_acquire_sem_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "acquire_sem_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_acquire_sem_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "acquire_sem_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_acquire_sem_etc");
         }
     }
 #else
@@ -794,15 +794,15 @@ int32_t libc_unix_haiku_native_releaseSem(int32_t id) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "release_sem");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_release_sem");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "release_sem");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_release_sem");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "release_sem");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_release_sem");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "release_sem");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_release_sem");
         }
     }
 #else
@@ -822,15 +822,15 @@ int32_t libc_unix_haiku_native_releaseSemEtc(int32_t id, int32_t count, uint32_t
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "release_sem_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_release_sem_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "release_sem_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_release_sem_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "release_sem_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_release_sem_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "release_sem_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_release_sem_etc");
         }
     }
 #else
@@ -850,15 +850,15 @@ int32_t libc_unix_haiku_native_switchSem(int32_t semToBeReleased, int32_t id) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "switch_sem");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_switch_sem");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "switch_sem");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_switch_sem");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "switch_sem");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_switch_sem");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "switch_sem");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_switch_sem");
         }
     }
 #else
@@ -878,15 +878,15 @@ int32_t libc_unix_haiku_native_switchSemEtc(int32_t semToBeReleased, int32_t id,
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "switch_sem_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_switch_sem_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "switch_sem_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_switch_sem_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "switch_sem_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_switch_sem_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "switch_sem_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_switch_sem_etc");
         }
     }
 #else
@@ -906,15 +906,15 @@ int32_t libc_unix_haiku_native_getSemCount(int32_t id, void* threadCount) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_sem_count");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_sem_count");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_sem_count");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_sem_count");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_sem_count");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_sem_count");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_sem_count");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_sem_count");
         }
     }
 #else
@@ -934,15 +934,15 @@ int32_t libc_unix_haiku_native_setSemOwner(int32_t id, int32_t team) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_sem_owner");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_sem_owner");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_sem_owner");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_sem_owner");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_sem_owner");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_sem_owner");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_sem_owner");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_sem_owner");
         }
     }
 #else
@@ -962,13 +962,13 @@ int32_t libc_unix_haiku_native_getSemInfo(int32_t id, void* info, uint64_t infoS
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_sem_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_sem_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_sem_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_sem_info");
         }
     }
 #else
@@ -988,13 +988,13 @@ int32_t libc_unix_haiku_native_getNextSemInfo(int32_t team, void* cookie, void* 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_sem_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_sem_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_sem_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_sem_info");
         }
     }
 #else
@@ -1014,15 +1014,15 @@ int32_t libc_unix_haiku_native_killTeam(int32_t team) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kill_team");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kill_team");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kill_team");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kill_team");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kill_team");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kill_team");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kill_team");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kill_team");
         }
     }
 #else
@@ -1042,13 +1042,13 @@ int32_t libc_unix_haiku_native_getTeamInfo(int32_t team, void* info, uint64_t si
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_team_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_team_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_team_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_team_info");
         }
     }
 #else
@@ -1068,13 +1068,13 @@ int32_t libc_unix_haiku_native_getNextTeamInfo(void* cookie, void* info, uint64_
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_team_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_team_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_team_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_team_info");
         }
     }
 #else
@@ -1094,15 +1094,15 @@ int32_t libc_unix_haiku_native_spawnThread(void* func, const char* name, int32_t
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "spawn_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_spawn_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "spawn_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_spawn_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "spawn_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_spawn_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "spawn_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_spawn_thread");
         }
     }
 #else
@@ -1122,15 +1122,15 @@ int32_t libc_unix_haiku_native_killThread(int32_t thread) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kill_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kill_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kill_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kill_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kill_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kill_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kill_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kill_thread");
         }
     }
 #else
@@ -1150,15 +1150,15 @@ int32_t libc_unix_haiku_native_resumeThread(int32_t thread) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "resume_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_resume_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "resume_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_resume_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "resume_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_resume_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "resume_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_resume_thread");
         }
     }
 #else
@@ -1178,15 +1178,15 @@ int32_t libc_unix_haiku_native_suspendThread(int32_t thread) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "suspend_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_suspend_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "suspend_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_suspend_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "suspend_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_suspend_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "suspend_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_suspend_thread");
         }
     }
 #else
@@ -1206,15 +1206,15 @@ int32_t libc_unix_haiku_native_renameThread(int32_t thread, const char* newName)
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "rename_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_rename_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "rename_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_rename_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "rename_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_rename_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "rename_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_rename_thread");
         }
     }
 #else
@@ -1234,15 +1234,15 @@ int32_t libc_unix_haiku_native_setThreadPriority(int32_t thread, int32_t newPrio
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_thread_priority");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_thread_priority");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_thread_priority");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_thread_priority");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_thread_priority");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_thread_priority");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_thread_priority");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_thread_priority");
         }
     }
 #else
@@ -1262,15 +1262,15 @@ int32_t libc_unix_haiku_native_suggestThreadPriority(uint32_t what, int32_t peri
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "suggest_thread_priority");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_suggest_thread_priority");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "suggest_thread_priority");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_suggest_thread_priority");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "suggest_thread_priority");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_suggest_thread_priority");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "suggest_thread_priority");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_suggest_thread_priority");
         }
     }
 #else
@@ -1290,15 +1290,15 @@ int64_t libc_unix_haiku_native_estimateMaxSchedulingLatency(int32_t th) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "estimate_max_scheduling_latency");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_estimate_max_scheduling_latency");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "estimate_max_scheduling_latency");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_estimate_max_scheduling_latency");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "estimate_max_scheduling_latency");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_estimate_max_scheduling_latency");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "estimate_max_scheduling_latency");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_estimate_max_scheduling_latency");
         }
     }
 #else
@@ -1318,15 +1318,15 @@ void libc_unix_haiku_native_exitThread(int32_t status) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "exit_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_exit_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "exit_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_exit_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "exit_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_exit_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "exit_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_exit_thread");
         }
     }
 #else
@@ -1346,15 +1346,15 @@ int32_t libc_unix_haiku_native_waitForThread(int32_t thread, void* returnValue) 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "wait_for_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_wait_for_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "wait_for_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_wait_for_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "wait_for_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_wait_for_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "wait_for_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_wait_for_thread");
         }
     }
 #else
@@ -1374,15 +1374,15 @@ int32_t libc_unix_haiku_native_onExitThread(void* callback, void* data) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "on_exit_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_on_exit_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "on_exit_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_on_exit_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "on_exit_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_on_exit_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "on_exit_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_on_exit_thread");
         }
     }
 #else
@@ -1402,15 +1402,15 @@ int32_t libc_unix_haiku_native_findThread(const char* name) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_thread");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_thread");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_thread");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_thread");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_thread");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_thread");
         }
     }
 #else
@@ -1430,15 +1430,15 @@ int32_t libc_unix_haiku_native_getSchedulerMode(void) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_scheduler_mode");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_scheduler_mode");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_scheduler_mode");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_scheduler_mode");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_scheduler_mode");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_scheduler_mode");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_scheduler_mode");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_scheduler_mode");
         }
     }
 #else
@@ -1458,15 +1458,15 @@ int32_t libc_unix_haiku_native_setSchedulerMode(int32_t mode) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_scheduler_mode");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_scheduler_mode");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_scheduler_mode");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_scheduler_mode");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_scheduler_mode");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_scheduler_mode");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_scheduler_mode");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_scheduler_mode");
         }
     }
 #else
@@ -1486,15 +1486,15 @@ int32_t libc_unix_haiku_native_sendData(int32_t thread, int32_t code, void* buff
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "send_data");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_send_data");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "send_data");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_send_data");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "send_data");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_send_data");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "send_data");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_send_data");
         }
     }
 #else
@@ -1514,15 +1514,15 @@ int32_t libc_unix_haiku_native_receiveData(void* sender, void* buffer, uint64_t 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "receive_data");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_receive_data");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "receive_data");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_receive_data");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "receive_data");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_receive_data");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "receive_data");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_receive_data");
         }
     }
 #else
@@ -1542,15 +1542,15 @@ bool libc_unix_haiku_native_hasData(int32_t thread) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "has_data");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_has_data");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "has_data");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_has_data");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "has_data");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_has_data");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "has_data");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_has_data");
         }
     }
 #else
@@ -1570,15 +1570,15 @@ int32_t libc_unix_haiku_native_snooze(int64_t amount) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "snooze");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_snooze");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "snooze");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_snooze");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "snooze");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_snooze");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "snooze");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_snooze");
         }
     }
 #else
@@ -1598,15 +1598,15 @@ int32_t libc_unix_haiku_native_snoozeEtc(int64_t amount, int32_t timeBase, uint3
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "snooze_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_snooze_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "snooze_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_snooze_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "snooze_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_snooze_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "snooze_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_snooze_etc");
         }
     }
 #else
@@ -1626,15 +1626,15 @@ int32_t libc_unix_haiku_native_snoozeUntil(int64_t arg_0_time, int32_t timeBase)
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "snooze_until");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_snooze_until");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "snooze_until");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_snooze_until");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "snooze_until");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_snooze_until");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "snooze_until");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_snooze_until");
         }
     }
 #else
@@ -1654,13 +1654,13 @@ int32_t libc_unix_haiku_native_getThreadInfo(int32_t id, void* info, uint64_t si
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_thread_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_thread_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_thread_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_thread_info");
         }
     }
 #else
@@ -1680,13 +1680,13 @@ int32_t libc_unix_haiku_native_getNextThreadInfo(int32_t team, void* cookie, voi
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_thread_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_thread_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_thread_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_thread_info");
         }
     }
 #else
@@ -1706,15 +1706,15 @@ int32_t libc_unix_haiku_native_getPthreadThreadId(void* thread) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_pthread_thread_id");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_pthread_thread_id");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_pthread_thread_id");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_pthread_thread_id");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_pthread_thread_id");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_pthread_thread_id");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_pthread_thread_id");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_pthread_thread_id");
         }
     }
 #else
@@ -1734,13 +1734,13 @@ int32_t libc_unix_haiku_native_getTeamUsageInfo(int32_t team, int32_t who, void*
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_team_usage_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_team_usage_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_team_usage_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_team_usage_info");
         }
     }
 #else
@@ -1760,15 +1760,15 @@ uint64_t libc_unix_haiku_native_realTimeClock(void) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "real_time_clock");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_real_time_clock");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "real_time_clock");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_real_time_clock");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "real_time_clock");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_real_time_clock");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "real_time_clock");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_real_time_clock");
         }
     }
 #else
@@ -1788,15 +1788,15 @@ void libc_unix_haiku_native_setRealTimeClock(uint64_t secsSinceJan1st1970) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_real_time_clock");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_real_time_clock");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_real_time_clock");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_real_time_clock");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_real_time_clock");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_real_time_clock");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_real_time_clock");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_real_time_clock");
         }
     }
 #else
@@ -1816,15 +1816,15 @@ int64_t libc_unix_haiku_native_realTimeClockUsecs(void) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "real_time_clock_usecs");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_real_time_clock_usecs");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "real_time_clock_usecs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_real_time_clock_usecs");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "real_time_clock_usecs");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_real_time_clock_usecs");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "real_time_clock_usecs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_real_time_clock_usecs");
         }
     }
 #else
@@ -1844,15 +1844,15 @@ int64_t libc_unix_haiku_native_systemTime(void) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "system_time");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_system_time");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "system_time");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_system_time");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "system_time");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_system_time");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "system_time");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_system_time");
         }
     }
 #else
@@ -1872,15 +1872,15 @@ int64_t libc_unix_haiku_native_systemTimeNsecs(void) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "system_time_nsecs");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_system_time_nsecs");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "system_time_nsecs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_system_time_nsecs");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "system_time_nsecs");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_system_time_nsecs");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "system_time_nsecs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_system_time_nsecs");
         }
     }
 #else
@@ -1900,15 +1900,15 @@ int64_t libc_unix_haiku_native_setAlarm(int64_t when, uint32_t flags) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_alarm");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_alarm");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_alarm");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_alarm");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_alarm");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_alarm");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_alarm");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_alarm");
         }
     }
 #else
@@ -1928,15 +1928,15 @@ void libc_unix_haiku_native_debugger(const char* message) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "debugger");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_debugger");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "debugger");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_debugger");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "debugger");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_debugger");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "debugger");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_debugger");
         }
     }
 #else
@@ -1956,15 +1956,15 @@ int32_t libc_unix_haiku_native_disableDebugger(int32_t state) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "disable_debugger");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_disable_debugger");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "disable_debugger");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_disable_debugger");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "disable_debugger");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_disable_debugger");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "disable_debugger");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_disable_debugger");
         }
     }
 #else
@@ -1984,15 +1984,15 @@ int32_t libc_unix_haiku_native_getSystemInfo(void* info) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_system_info");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_system_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_system_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_system_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_system_info");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_system_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_system_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_system_info");
         }
     }
 #else
@@ -2012,13 +2012,13 @@ int32_t libc_unix_haiku_native_getCpuInfoEtc(uint32_t firstCPU, uint32_t cpuCoun
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_cpu_info_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_cpu_info_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_cpu_info_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_cpu_info_etc");
         }
     }
 #else
@@ -2038,15 +2038,15 @@ int32_t libc_unix_haiku_native_getCpuTopologyInfo(void* topologyInfos, void* top
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_cpu_topology_info");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_cpu_topology_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_cpu_topology_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_cpu_topology_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_cpu_topology_info");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_cpu_topology_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_cpu_topology_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_cpu_topology_info");
         }
     }
 #else
@@ -2066,15 +2066,15 @@ int32_t libc_unix_haiku_native_isComputerOn(void) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "is_computer_on");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_is_computer_on");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "is_computer_on");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_is_computer_on");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "is_computer_on");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_is_computer_on");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "is_computer_on");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_is_computer_on");
         }
     }
 #else
@@ -2094,15 +2094,15 @@ double libc_unix_haiku_native_isComputerOnFire(void) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "is_computer_on_fire");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_is_computer_on_fire");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "is_computer_on_fire");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_is_computer_on_fire");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "is_computer_on_fire");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_is_computer_on_fire");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "is_computer_on_fire");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_is_computer_on_fire");
         }
     }
 #else
@@ -2122,15 +2122,15 @@ int32_t libc_unix_haiku_native_sendSignal(int32_t threadID, uint32_t signal) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "send_signal");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_send_signal");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "send_signal");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_send_signal");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "send_signal");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_send_signal");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "send_signal");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_send_signal");
         }
     }
 #else
@@ -2150,15 +2150,15 @@ void libc_unix_haiku_native_setSignalStack(void* base, uint64_t size) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_signal_stack");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_signal_stack");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_signal_stack");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_signal_stack");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "set_signal_stack");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_set_signal_stack");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "set_signal_stack");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_set_signal_stack");
         }
     }
 #else
@@ -2178,15 +2178,15 @@ int64_t libc_unix_haiku_native_waitForObjects(void* infos, int32_t numInfos) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "wait_for_objects");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_wait_for_objects");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "wait_for_objects");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_wait_for_objects");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "wait_for_objects");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_wait_for_objects");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "wait_for_objects");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_wait_for_objects");
         }
     }
 #else
@@ -2206,15 +2206,15 @@ int64_t libc_unix_haiku_native_waitForObjectsEtc(void* infos, int32_t numInfos, 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "wait_for_objects_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_wait_for_objects_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "wait_for_objects_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_wait_for_objects_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "wait_for_objects_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_wait_for_objects_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "wait_for_objects_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_wait_for_objects_etc");
         }
     }
 #else
@@ -2234,15 +2234,15 @@ int64_t libc_unix_haiku_native_fsReadAttr(int32_t fd, const char* attribute, uin
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_attr");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_attr");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_attr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_attr");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_attr");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_attr");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_attr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_attr");
         }
     }
 #else
@@ -2262,15 +2262,15 @@ int64_t libc_unix_haiku_native_fsWriteAttr(int32_t fd, const char* attribute, ui
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_write_attr");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_write_attr");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_write_attr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_write_attr");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_write_attr");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_write_attr");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_write_attr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_write_attr");
         }
     }
 #else
@@ -2290,15 +2290,15 @@ int32_t libc_unix_haiku_native_fsRemoveAttr(int32_t fd, const char* attribute) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_remove_attr");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_remove_attr");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_remove_attr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_remove_attr");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_remove_attr");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_remove_attr");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_remove_attr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_remove_attr");
         }
     }
 #else
@@ -2318,15 +2318,15 @@ int32_t libc_unix_haiku_native_fsStatAttr(int32_t fd, const char* attribute, voi
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_stat_attr");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_stat_attr");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_stat_attr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_stat_attr");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_stat_attr");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_stat_attr");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_stat_attr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_stat_attr");
         }
     }
 #else
@@ -2346,15 +2346,15 @@ int32_t libc_unix_haiku_native_fsOpenAttr(const char* path, const char* attribut
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_attr");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_attr");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_attr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_attr");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_attr");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_attr");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_attr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_attr");
         }
     }
 #else
@@ -2374,15 +2374,15 @@ int32_t libc_unix_haiku_native_fsFopenAttr(int32_t fd, const char* attribute, ui
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_fopen_attr");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_fopen_attr");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_fopen_attr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_fopen_attr");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_fopen_attr");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_fopen_attr");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_fopen_attr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_fopen_attr");
         }
     }
 #else
@@ -2402,15 +2402,15 @@ int32_t libc_unix_haiku_native_fsCloseAttr(int32_t fd) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_attr");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_attr");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_attr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_attr");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_attr");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_attr");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_attr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_attr");
         }
     }
 #else
@@ -2430,15 +2430,15 @@ void* libc_unix_haiku_native_fsOpenAttrDir(const char* path) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_attr_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_attr_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_attr_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_attr_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_attr_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_attr_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_attr_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_attr_dir");
         }
     }
 #else
@@ -2458,15 +2458,15 @@ void* libc_unix_haiku_native_fsLopenAttrDir(const char* path) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_lopen_attr_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_lopen_attr_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_lopen_attr_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_lopen_attr_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_lopen_attr_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_lopen_attr_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_lopen_attr_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_lopen_attr_dir");
         }
     }
 #else
@@ -2486,15 +2486,15 @@ void* libc_unix_haiku_native_fsFopenAttrDir(int32_t fd) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_fopen_attr_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_fopen_attr_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_fopen_attr_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_fopen_attr_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_fopen_attr_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_fopen_attr_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_fopen_attr_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_fopen_attr_dir");
         }
     }
 #else
@@ -2514,15 +2514,15 @@ int32_t libc_unix_haiku_native_fsCloseAttrDir(void* dir) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_attr_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_attr_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_attr_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_attr_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_attr_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_attr_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_attr_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_attr_dir");
         }
     }
 #else
@@ -2542,15 +2542,15 @@ void* libc_unix_haiku_native_fsReadAttrDir(void* dir) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_attr_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_attr_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_attr_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_attr_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_attr_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_attr_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_attr_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_attr_dir");
         }
     }
 #else
@@ -2570,15 +2570,15 @@ void libc_unix_haiku_native_fsRewindAttrDir(void* dir) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_rewind_attr_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_rewind_attr_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_rewind_attr_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_rewind_attr_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_rewind_attr_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_rewind_attr_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_rewind_attr_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_rewind_attr_dir");
         }
     }
 #else
@@ -2598,15 +2598,15 @@ int32_t libc_unix_haiku_native_fsCreateIndex(int32_t device, const char* name, u
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_create_index");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_create_index");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_create_index");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_create_index");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_create_index");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_create_index");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_create_index");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_create_index");
         }
     }
 #else
@@ -2626,15 +2626,15 @@ int32_t libc_unix_haiku_native_fsRemoveIndex(int32_t device, const char* name) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_remove_index");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_remove_index");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_remove_index");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_remove_index");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_remove_index");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_remove_index");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_remove_index");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_remove_index");
         }
     }
 #else
@@ -2654,15 +2654,15 @@ int32_t libc_unix_haiku_native_fsStatIndex(int32_t device, const char* name, voi
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_stat_index");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_stat_index");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_stat_index");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_stat_index");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_stat_index");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_stat_index");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_stat_index");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_stat_index");
         }
     }
 #else
@@ -2682,15 +2682,15 @@ void* libc_unix_haiku_native_fsOpenIndexDir(int32_t device) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_index_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_index_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_index_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_index_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_index_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_index_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_index_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_index_dir");
         }
     }
 #else
@@ -2710,15 +2710,15 @@ int32_t libc_unix_haiku_native_fsCloseIndexDir(void* indexDirectory) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_index_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_index_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_index_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_index_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_index_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_index_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_index_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_index_dir");
         }
     }
 #else
@@ -2738,15 +2738,15 @@ void* libc_unix_haiku_native_fsReadIndexDir(void* indexDirectory) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_index_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_index_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_index_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_index_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_index_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_index_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_index_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_index_dir");
         }
     }
 #else
@@ -2766,15 +2766,15 @@ void libc_unix_haiku_native_fsRewindIndexDir(void* indexDirectory) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_rewind_index_dir");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_rewind_index_dir");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_rewind_index_dir");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_rewind_index_dir");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_rewind_index_dir");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_rewind_index_dir");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_rewind_index_dir");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_rewind_index_dir");
         }
     }
 #else
@@ -2794,15 +2794,15 @@ int32_t libc_unix_haiku_native_devForPath(const char* path) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "dev_for_path");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_dev_for_path");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "dev_for_path");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_dev_for_path");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "dev_for_path");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_dev_for_path");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "dev_for_path");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_dev_for_path");
         }
     }
 #else
@@ -2822,15 +2822,15 @@ int32_t libc_unix_haiku_native_nextDev(void* pos) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "next_dev");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_next_dev");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "next_dev");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_next_dev");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "next_dev");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_next_dev");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "next_dev");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_next_dev");
         }
     }
 #else
@@ -2850,15 +2850,15 @@ int32_t libc_unix_haiku_native_fsStatDev(int32_t dev, void* info) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_stat_dev");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_stat_dev");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_stat_dev");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_stat_dev");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_stat_dev");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_stat_dev");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_stat_dev");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_stat_dev");
         }
     }
 #else
@@ -2878,15 +2878,15 @@ void* libc_unix_haiku_native_fsOpenQuery(int32_t device, const char* query, uint
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_query");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_query");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_query");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_query");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_query");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_query");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_query");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_query");
         }
     }
 #else
@@ -2906,15 +2906,15 @@ void* libc_unix_haiku_native_fsOpenLiveQuery(int32_t device, const char* query, 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_live_query");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_live_query");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_live_query");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_live_query");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_open_live_query");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_open_live_query");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_open_live_query");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_open_live_query");
         }
     }
 #else
@@ -2934,15 +2934,15 @@ int32_t libc_unix_haiku_native_fsCloseQuery(void* d) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_query");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_query");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_query");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_query");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_close_query");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_close_query");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_close_query");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_close_query");
         }
     }
 #else
@@ -2962,15 +2962,15 @@ void* libc_unix_haiku_native_fsReadQuery(void* d) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_query");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_query");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_query");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_query");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_read_query");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_read_query");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_read_query");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_read_query");
         }
     }
 #else
@@ -2990,15 +2990,15 @@ int32_t libc_unix_haiku_native_getPathForDirent(void* dent, char* buf, uint64_t 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_path_for_dirent");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_path_for_dirent");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_path_for_dirent");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_path_for_dirent");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_path_for_dirent");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_path_for_dirent");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_path_for_dirent");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_path_for_dirent");
         }
     }
 #else
@@ -3018,15 +3018,15 @@ int32_t libc_unix_haiku_native_fsMountVolume(const char* where_, const char* dev
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_mount_volume");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_mount_volume");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_mount_volume");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_mount_volume");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_mount_volume");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_mount_volume");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_mount_volume");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_mount_volume");
         }
     }
 #else
@@ -3046,15 +3046,15 @@ int32_t libc_unix_haiku_native_fsUnmountVolume(const char* path, uint32_t flags)
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_unmount_volume");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_unmount_volume");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_unmount_volume");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_unmount_volume");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fs_unmount_volume");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fs_unmount_volume");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fs_unmount_volume");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fs_unmount_volume");
         }
     }
 #else
@@ -3074,15 +3074,15 @@ int32_t libc_unix_haiku_native_loadImage(int32_t argc, void* argv, void* arg_2_e
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "load_image");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_load_image");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "load_image");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_load_image");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "load_image");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_load_image");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "load_image");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_load_image");
         }
     }
 #else
@@ -3102,15 +3102,15 @@ int32_t libc_unix_haiku_native_loadAddOn(const char* path) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "load_add_on");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_load_add_on");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "load_add_on");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_load_add_on");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "load_add_on");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_load_add_on");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "load_add_on");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_load_add_on");
         }
     }
 #else
@@ -3130,15 +3130,15 @@ int32_t libc_unix_haiku_native_unloadAddOn(int32_t image) {
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "unload_add_on");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_unload_add_on");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "unload_add_on");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_unload_add_on");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "unload_add_on");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_unload_add_on");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "unload_add_on");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_unload_add_on");
         }
     }
 #else
@@ -3158,15 +3158,15 @@ int32_t libc_unix_haiku_native_getImageSymbol(int32_t image, const char* name, i
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_image_symbol");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_image_symbol");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_image_symbol");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_image_symbol");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_image_symbol");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_image_symbol");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_image_symbol");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_image_symbol");
         }
     }
 #else
@@ -3186,15 +3186,15 @@ int32_t libc_unix_haiku_native_getNthImageSymbol(int32_t image, int32_t n, char*
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_nth_image_symbol");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_nth_image_symbol");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_nth_image_symbol");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_nth_image_symbol");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_nth_image_symbol");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_nth_image_symbol");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_nth_image_symbol");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_nth_image_symbol");
         }
     }
 #else
@@ -3214,15 +3214,15 @@ void libc_unix_haiku_native_clearCaches(void* address, uint64_t length, uint32_t
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "clear_caches");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_clear_caches");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "clear_caches");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_clear_caches");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "clear_caches");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_clear_caches");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "clear_caches");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_clear_caches");
         }
     }
 #else
@@ -3242,13 +3242,13 @@ int32_t libc_unix_haiku_native_getImageInfo(int32_t image, void* info, uint64_t 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_image_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_image_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_image_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_image_info");
         }
     }
 #else
@@ -3268,13 +3268,13 @@ int32_t libc_unix_haiku_native_getNextImageInfo(int32_t team, void* cookie, void
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_image_info");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_image_info");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_next_image_info");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_next_image_info");
         }
     }
 #else
@@ -3294,15 +3294,15 @@ int32_t libc_unix_haiku_native_findPath(void* codePointer, int32_t baseDirectory
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path");
         }
     }
 #else
@@ -3322,15 +3322,15 @@ int32_t libc_unix_haiku_native_findPathEtc(void* codePointer, const char* depend
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path_etc");
         }
     }
 #else
@@ -3350,15 +3350,15 @@ int32_t libc_unix_haiku_native_findPathForPath(const char* path, int32_t baseDir
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path_for_path");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path_for_path");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path_for_path");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path_for_path");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path_for_path");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path_for_path");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path_for_path");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path_for_path");
         }
     }
 #else
@@ -3378,15 +3378,15 @@ int32_t libc_unix_haiku_native_findPathForPathEtc(const char* path, const char* 
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path_for_path_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path_for_path_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path_for_path_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path_for_path_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_path_for_path_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_path_for_path_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_path_for_path_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_path_for_path_etc");
         }
     }
 #else
@@ -3406,15 +3406,15 @@ int32_t libc_unix_haiku_native_findPaths(int32_t baseDirectory, const char* subP
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_paths");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_paths");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_paths");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_paths");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_paths");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_paths");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_paths");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_paths");
         }
     }
 #else
@@ -3434,15 +3434,15 @@ int32_t libc_unix_haiku_native_findPathsEtc(const char* architecture, int32_t ba
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_paths_etc");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_paths_etc");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_paths_etc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_paths_etc");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_paths_etc");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_paths_etc");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_paths_etc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_paths_etc");
         }
     }
 #else
@@ -3462,15 +3462,15 @@ int32_t libc_unix_haiku_native_findDirectory(int32_t which, int32_t volume, bool
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_directory");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_directory");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_directory");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_directory");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "find_directory");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_find_directory");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "find_directory");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_find_directory");
         }
     }
 #else
@@ -3490,15 +3490,15 @@ int32_t libc_unix_haiku_native_getCpuid(void* info, uint32_t eaxRegister, uint32
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
     if (km_fn_ptr == NULL) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_cpuid");
-        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_cpuid");
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_cpuid");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_cpuid");
         if (km_fn_ptr == NULL) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "get_cpuid");
-            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_get_cpuid");
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "get_cpuid");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_get_cpuid");
         }
     }
 #else
