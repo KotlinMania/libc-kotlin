@@ -23,21 +23,23 @@
 #endif
 
 uint32_t libc_unix_bsd_apple_get_MACH_TASK_SELF(void) {
-    static const uint32_t* km_sym_ptr = NULL;
+    static uint32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const uint32_t*)(const void*)GetProcAddress(km_h_ucrt, "mach_task_self_");
+        if (km_h_ucrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_ucrt, "mach_task_self_");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_ucrt, "_mach_task_self_");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const uint32_t*)(const void*)GetProcAddress(km_h_msvcrt, "mach_task_self_");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_msvcrt, "mach_task_self_");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_msvcrt, "_mach_task_self_");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const uint32_t*)dlsym(RTLD_DEFAULT, "mach_task_self_");
+        km_sym_ptr = (uint32_t*)dlsym(RTLD_DEFAULT, "mach_task_self_");
     }
 #endif
     if (km_sym_ptr != NULL) {
@@ -53,10 +55,12 @@ void libc_unix_bsd_apple_set_MACH_TASK_SELF(uint32_t km_val) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_ucrt, "mach_task_self_");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_ucrt, "_mach_task_self_");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_msvcrt, "mach_task_self_");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (uint32_t*)(void*)GetProcAddress(km_h_msvcrt, "_mach_task_self_");
         }
     }
 #else
@@ -70,21 +74,23 @@ void libc_unix_bsd_apple_set_MACH_TASK_SELF(uint32_t km_val) {
 }
 
 uint64_t libc_unix_bsd_apple_get_VM_PAGE_SIZE(void) {
-    static const uint64_t* km_sym_ptr = NULL;
+    static uint64_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const uint64_t*)(const void*)GetProcAddress(km_h_ucrt, "vm_page_size");
+        if (km_h_ucrt != NULL) km_sym_ptr = (uint64_t*)(void*)GetProcAddress(km_h_ucrt, "vm_page_size");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (uint64_t*)(void*)GetProcAddress(km_h_ucrt, "_vm_page_size");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const uint64_t*)(const void*)GetProcAddress(km_h_msvcrt, "vm_page_size");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (uint64_t*)(void*)GetProcAddress(km_h_msvcrt, "vm_page_size");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (uint64_t*)(void*)GetProcAddress(km_h_msvcrt, "_vm_page_size");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const uint64_t*)dlsym(RTLD_DEFAULT, "vm_page_size");
+        km_sym_ptr = (uint64_t*)dlsym(RTLD_DEFAULT, "vm_page_size");
     }
 #endif
     if (km_sym_ptr != NULL) {

@@ -34,21 +34,23 @@
 #endif
 
 void* libc_solid_get_OPTARG(void) {
-    static const void** km_sym_ptr = NULL;
+    static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const void**)(const void*)GetProcAddress(km_h_ucrt, "optarg");
+        if (km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "optarg");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "_optarg");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const void**)(const void*)GetProcAddress(km_h_msvcrt, "optarg");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "optarg");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "_optarg");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const void**)dlsym(RTLD_DEFAULT, "optarg");
+        km_sym_ptr = (void**)dlsym(RTLD_DEFAULT, "optarg");
     }
 #endif
     if (km_sym_ptr != NULL) {
@@ -64,10 +66,12 @@ void libc_solid_set_OPTARG(void* km_val) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "optarg");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "_optarg");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "optarg");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "_optarg");
         }
     }
 #else
@@ -81,21 +85,23 @@ void libc_solid_set_OPTARG(void* km_val) {
 }
 
 int32_t libc_solid_get_OPTERR(void) {
-    static const int32_t* km_sym_ptr = NULL;
+    static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_ucrt, "opterr");
+        if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "opterr");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_opterr");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_msvcrt, "opterr");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "opterr");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_opterr");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const int32_t*)dlsym(RTLD_DEFAULT, "opterr");
+        km_sym_ptr = (int32_t*)dlsym(RTLD_DEFAULT, "opterr");
     }
 #endif
     if (km_sym_ptr != NULL) {
@@ -111,10 +117,12 @@ void libc_solid_set_OPTERR(int32_t km_val) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "opterr");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_opterr");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "opterr");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_opterr");
         }
     }
 #else
@@ -128,21 +136,23 @@ void libc_solid_set_OPTERR(int32_t km_val) {
 }
 
 int32_t libc_solid_get_OPTIND(void) {
-    static const int32_t* km_sym_ptr = NULL;
+    static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_ucrt, "optind");
+        if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "optind");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_optind");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_msvcrt, "optind");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "optind");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_optind");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const int32_t*)dlsym(RTLD_DEFAULT, "optind");
+        km_sym_ptr = (int32_t*)dlsym(RTLD_DEFAULT, "optind");
     }
 #endif
     if (km_sym_ptr != NULL) {
@@ -158,10 +168,12 @@ void libc_solid_set_OPTIND(int32_t km_val) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "optind");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_optind");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "optind");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_optind");
         }
     }
 #else
@@ -175,21 +187,23 @@ void libc_solid_set_OPTIND(int32_t km_val) {
 }
 
 int32_t libc_solid_get_OPTOPT(void) {
-    static const int32_t* km_sym_ptr = NULL;
+    static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_ucrt, "optopt");
+        if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "optopt");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_optopt");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_msvcrt, "optopt");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "optopt");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_optopt");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const int32_t*)dlsym(RTLD_DEFAULT, "optopt");
+        km_sym_ptr = (int32_t*)dlsym(RTLD_DEFAULT, "optopt");
     }
 #endif
     if (km_sym_ptr != NULL) {
@@ -205,10 +219,12 @@ void libc_solid_set_OPTOPT(int32_t km_val) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "optopt");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_optopt");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "optopt");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_optopt");
         }
     }
 #else
@@ -222,21 +238,23 @@ void libc_solid_set_OPTOPT(int32_t km_val) {
 }
 
 int32_t libc_solid_get_OPTRESET(void) {
-    static const int32_t* km_sym_ptr = NULL;
+    static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_ucrt, "optreset");
+        if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "optreset");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_optreset");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const int32_t*)(const void*)GetProcAddress(km_h_msvcrt, "optreset");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "optreset");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_optreset");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const int32_t*)dlsym(RTLD_DEFAULT, "optreset");
+        km_sym_ptr = (int32_t*)dlsym(RTLD_DEFAULT, "optreset");
     }
 #endif
     if (km_sym_ptr != NULL) {
@@ -252,10 +270,12 @@ void libc_solid_set_OPTRESET(int32_t km_val) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "optreset");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_ucrt, "_optreset");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "optreset");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (int32_t*)(void*)GetProcAddress(km_h_msvcrt, "_optreset");
         }
     }
 #else
@@ -269,21 +289,23 @@ void libc_solid_set_OPTRESET(int32_t km_val) {
 }
 
 void* libc_solid_get_SUBOPTARG(void) {
-    static const void** km_sym_ptr = NULL;
+    static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != NULL) km_sym_ptr = (const void**)(const void*)GetProcAddress(km_h_ucrt, "suboptarg");
+        if (km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "suboptarg");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "_suboptarg");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != NULL) km_sym_ptr = (const void**)(const void*)GetProcAddress(km_h_msvcrt, "suboptarg");
+            if (km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "suboptarg");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "_suboptarg");
         }
     }
 #else
     if (km_sym_ptr == NULL) {
-        km_sym_ptr = (const void**)dlsym(RTLD_DEFAULT, "suboptarg");
+        km_sym_ptr = (void**)dlsym(RTLD_DEFAULT, "suboptarg");
     }
 #endif
     if (km_sym_ptr != NULL) {
@@ -299,10 +321,12 @@ void libc_solid_set_SUBOPTARG(void* km_val) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "suboptarg");
+        if (km_sym_ptr == NULL && km_h_ucrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_ucrt, "_suboptarg");
         if (km_sym_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "suboptarg");
+            if (km_sym_ptr == NULL && km_h_msvcrt != NULL) km_sym_ptr = (void**)(void*)GetProcAddress(km_h_msvcrt, "_suboptarg");
         }
     }
 #else
