@@ -54,6 +54,7 @@ int32_t libc_unix_redox_epollCreate(int32_t size);
 int32_t libc_unix_redox_epollCreate1(int32_t flags);
 int32_t libc_unix_redox_epollWait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout);
 int32_t libc_unix_redox_epollCtl(int32_t epfd, int32_t op, int32_t fd, void* event);
+int32_t libc_unix_redox_ioctl(int32_t fd, uint64_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_redox_madvise(void* addr, uint64_t len, int32_t advice);
 int32_t libc_unix_redox_msync(void* addr, uint64_t len, int32_t flags);
 int32_t libc_unix_redox_mprotect(void* addr, uint64_t len, int32_t prot);

@@ -23,10 +23,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_gettimeofday(void* tp, void* tz) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "gettimeofday");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_gettimeofday");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "gettimeofday");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_gettimeofday");
         }
     }
 #else
@@ -49,10 +51,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrGetkindNp(void* attr, 
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_rwlockattr_getkind_np");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_rwlockattr_getkind_np");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_rwlockattr_getkind_np");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_rwlockattr_getkind_np");
         }
     }
 #else
@@ -75,10 +79,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(void* attr, 
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_rwlockattr_setkind_np");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_rwlockattr_setkind_np");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_rwlockattr_setkind_np");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_rwlockattr_setkind_np");
         }
     }
 #else
@@ -93,6 +99,40 @@ int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(void* attr, 
     return -1;
 }
 
+int64_t libc_unix_linuxlike_linux_uclibc_ptrace(uint32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef int64_t (*km_fn_t)(uint32_t, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "ptrace");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_ptrace");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "ptrace");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_ptrace");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ptrace");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(request);
+            case 1: return km_fn_ptr(request, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(request, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
 int32_t libc_unix_linuxlike_linux_uclibc_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
@@ -101,10 +141,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_sendmmsg(int32_t sockfd, void* msgvec, 
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sendmmsg");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sendmmsg");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sendmmsg");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sendmmsg");
         }
     }
 #else
@@ -127,10 +169,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_recvmmsg(int32_t sockfd, void* msgvec, 
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "recvmmsg");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_recvmmsg");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "recvmmsg");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_recvmmsg");
         }
     }
 #else
@@ -153,10 +197,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_openpty(void* amaster, void* aslave, ch
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "openpty");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_openpty");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "openpty");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_openpty");
         }
     }
 #else
@@ -179,10 +225,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_forkpty(void* amaster, char* name, void
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "forkpty");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_forkpty");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "forkpty");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_forkpty");
         }
     }
 #else
@@ -205,10 +253,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_getnameinfo(void* sa, uint32_t salen, c
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getnameinfo");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getnameinfo");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getnameinfo");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getnameinfo");
         }
     }
 #else
@@ -231,10 +281,12 @@ int64_t libc_unix_linuxlike_linux_uclibc_pwritev(int32_t fd, void* iov, int32_t 
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pwritev");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pwritev");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pwritev");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pwritev");
         }
     }
 #else
@@ -257,10 +309,12 @@ int64_t libc_unix_linuxlike_linux_uclibc_preadv(int32_t fd, void* iov, int32_t i
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "preadv");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_preadv");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "preadv");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_preadv");
         }
     }
 #else
@@ -283,10 +337,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_sethostid(int64_t hostid) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sethostid");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sethostid");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sethostid");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sethostid");
         }
     }
 #else
@@ -309,10 +365,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_fanotifyMark(int32_t fd, uint32_t flags
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fanotify_mark");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fanotify_mark");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fanotify_mark");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fanotify_mark");
         }
     }
 #else
@@ -335,10 +393,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_getrlimit64(uint64_t resource, void* rl
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getrlimit64");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getrlimit64");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getrlimit64");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getrlimit64");
         }
     }
 #else
@@ -361,10 +421,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_setrlimit64(uint64_t resource, void* rl
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setrlimit64");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setrlimit64");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setrlimit64");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setrlimit64");
         }
     }
 #else
@@ -387,10 +449,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_getrlimit(uint64_t resource, void* rlim
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getrlimit");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getrlimit");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getrlimit");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getrlimit");
         }
     }
 #else
@@ -413,10 +477,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_setrlimit(uint64_t resource, void* rlim
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setrlimit");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setrlimit");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setrlimit");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setrlimit");
         }
     }
 #else
@@ -439,10 +505,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_getpriority(uint32_t which, uint32_t wh
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getpriority");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getpriority");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getpriority");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getpriority");
         }
     }
 #else
@@ -465,10 +533,12 @@ int32_t libc_unix_linuxlike_linux_uclibc_setpriority(uint32_t which, uint32_t wh
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setpriority");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setpriority");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setpriority");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setpriority");
         }
     }
 #else
@@ -491,10 +561,12 @@ uint64_t libc_unix_linuxlike_linux_uclibc_getauxval(uint64_t type_) {
         HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
         if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
         if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getauxval");
+        if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getauxval");
         if (km_fn_ptr == NULL) {
             HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
             if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
             if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getauxval");
+            if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getauxval");
         }
     }
 #else

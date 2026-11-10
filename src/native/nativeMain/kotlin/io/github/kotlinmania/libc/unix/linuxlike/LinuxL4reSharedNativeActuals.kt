@@ -166,7 +166,7 @@ public actual fun errnoLocation(): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_errnoLocation()?.let { COpaquePointer(it.toLong()) }
 
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_mremap(addr?.value?.toCPointer<ByteVar>(), len, newLen, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
@@ -216,7 +216,7 @@ public actual fun mount(src: String?, target: String?, fstype: String?, flags: C
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_mount(src, target, fstype, flags, data?.value?.toCPointer<ByteVar>())
 
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_prctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_ppoll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout?.value?.toCPointer<ByteVar>(), sigmask?.value?.toCPointer<ByteVar>())
@@ -246,7 +246,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_initgroups(user, group)
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_linux_l4re_shared_getgrnam(name)?.let { COpaquePointer(it.toLong()) }

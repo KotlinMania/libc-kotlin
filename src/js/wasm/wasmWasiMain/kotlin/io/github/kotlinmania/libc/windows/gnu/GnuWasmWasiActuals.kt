@@ -2,16 +2,17 @@
 
 package io.github.kotlinmania.libc.windows.gnu
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.windows.SizeT
 import io.github.kotlinmania.libc.windows.WcharT
 
 public actual fun strcasecmp(s1: String?, s2: String?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strncasecmp(s1: String?, s2: String?, n: SizeT): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun wmemchr(cx: COpaquePointer?, c: WcharT, n: SizeT): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

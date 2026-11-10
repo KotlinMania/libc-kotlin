@@ -306,25 +306,25 @@ public actual fun getpwuid(uid: UidT): COpaquePointer? =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpwuid(uid)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fprintf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_snprintf(s?.value?.toCPointer<ByteVar>(), n, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sprintf(s?.value?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fscanf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getcharUnlocked()
@@ -387,13 +387,13 @@ public actual fun fileno(stream: FILE?): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fileno(stream?.handle?.toCPointer<ByteVar>())
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_creat(path, mode)
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun opendir(dirname: String?): DIR? =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_opendir(dirname)?.let { DIR(it.toLong()) }
@@ -412,7 +412,7 @@ public actual fun rewinddir(dirp: DIR?) {
 }
 
 public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fchmodat(dirfd, pathname, mode, flags)
@@ -469,13 +469,13 @@ public actual fun dup2(src: CInt, dst: CInt): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dup2(src, dst)
 
 public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execl(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execle(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execlp(file, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execv(prog, argv?.value?.toCPointer<ByteVar>())
@@ -1027,6 +1027,7 @@ public actual fun setlogmask(maskpri: CInt): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setlogmask(maskpri)
 
 public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_syslog(priority, message, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun grantpt(fd: CInt): CInt =
@@ -1160,7 +1161,7 @@ public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fexecve(fd, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_lutimes(file, times?.value?.toCPointer<ByteVar>())
@@ -1201,7 +1202,7 @@ public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt 
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_msgctl(msqid, cmd, buf?.value?.toCPointer<ByteVar>())
@@ -1374,7 +1375,7 @@ public actual fun sync() {
 }
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    0L
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedGetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
@@ -1434,7 +1435,7 @@ public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaqueP
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexTimedlock(lock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
 
 public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_clone(0L.toCPointer<ByteVar>(), childStack?.value?.toCPointer<ByteVar>(), flags, arg?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedGetscheduler(pid)
@@ -1488,7 +1489,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgrnam(name)?.let { COpaquePointer(it.toLong()) }

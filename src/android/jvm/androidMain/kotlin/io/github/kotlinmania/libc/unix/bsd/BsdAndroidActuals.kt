@@ -60,10 +60,16 @@ private object UnixBsdJniBridge {
     external fun libc_unix_bsd_setlogin(name: String?): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_ioctl(fd: Int, request: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_bsd_kqueue(): Int
 
     @JvmStatic
     external fun libc_unix_bsd_unmount(target: String?, arg: Int): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_syscall(num: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_bsd_getpwent(): Long
@@ -172,6 +178,9 @@ private object UnixBsdJniBridge {
 
     @JvmStatic
     external fun libc_unix_bsd_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_bsd_getgrnam(name: String?): Long
@@ -327,7 +336,7 @@ public actual fun setlogin(name: String?): CInt =
     UnixBsdJniBridge.libc_unix_bsd_setlogin(name)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdJniBridge.libc_unix_bsd_ioctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun kqueue(): CInt =
     UnixBsdJniBridge.libc_unix_bsd_kqueue()
@@ -336,7 +345,7 @@ public actual fun unmount(target: String?, arg: CInt): CInt =
     UnixBsdJniBridge.libc_unix_bsd_unmount(target, arg)
 
 public actual fun syscall(num: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdJniBridge.libc_unix_bsd_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpwent(): COpaquePointer? =
     UnixBsdJniBridge.libc_unix_bsd_getpwent().let { if (it == 0L) null else COpaquePointer(it) }
@@ -455,7 +464,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     UnixBsdJniBridge.libc_unix_bsd_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixBsdJniBridge.libc_unix_bsd_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     UnixBsdJniBridge.libc_unix_bsd_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }

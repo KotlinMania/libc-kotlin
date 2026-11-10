@@ -27,7 +27,7 @@ public actual fun getspnamR(name: String?, spbuf: COpaquePointer?, buf: COpaqueP
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_getspnamR(name, spbuf?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, spbufp?.value?.toCPointer<ByteVar>())
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    (io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqClose(mqd.toLong().toCPointer<ByteVar>())
@@ -82,7 +82,7 @@ public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt 
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_msgctl(msqid, cmd, buf?.value?.toCPointer<ByteVar>())
@@ -206,7 +206,7 @@ public actual fun syncfs(fd: CInt): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_syncfs(fd)
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    0L
+    io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedSetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
@@ -266,7 +266,7 @@ public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
 
 public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_clone(0L.toCPointer<ByteVar>(), childStack?.value?.toCPointer<ByteVar>(), flags, arg?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedGetscheduler(pid)

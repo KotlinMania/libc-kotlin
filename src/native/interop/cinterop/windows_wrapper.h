@@ -9,6 +9,8 @@
 extern "C" {
 #endif
 
+int32_t libc_windows_printf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int32_t libc_windows_fprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_windows_isalnum(int32_t c);
 int32_t libc_windows_isalpha(int32_t c);
 int32_t libc_windows_iscntrl(int32_t c);
@@ -128,12 +130,22 @@ void* libc_windows_popen(const char* command, const char* mode);
 int32_t libc_windows_pclose(void* stream);
 void* libc_windows_fdopen(int32_t fd, const char* mode);
 int32_t libc_windows_fileno(void* stream);
+int32_t libc_windows_open(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int32_t libc_windows_wopen(void* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_windows_creat(const char* path, int32_t mode);
 int32_t libc_windows_access(const char* path, int32_t amode);
 int32_t libc_windows_chdir(const char* dir);
 int32_t libc_windows_close(int32_t fd);
 int32_t libc_windows_dup(int32_t fd);
 int32_t libc_windows_dup2(int32_t src, int32_t dst);
+int64_t libc_windows_execl(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int64_t libc_windows_wexecl(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int64_t libc_windows_execle(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int64_t libc_windows_wexecle(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int64_t libc_windows_execlp(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int64_t libc_windows_wexeclp(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int64_t libc_windows_execlpe(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int64_t libc_windows_wexeclpe(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int64_t libc_windows_execv(const char* prog, void* argv);
 int32_t libc_windows_execve(const char* prog, void* argv, void* envp);
 int32_t libc_windows_execvp(const char* c, void* argv);

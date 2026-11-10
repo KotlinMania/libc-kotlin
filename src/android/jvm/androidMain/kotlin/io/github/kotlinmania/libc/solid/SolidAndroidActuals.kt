@@ -18,6 +18,42 @@ private object SolidJniBridge {
     }
 
     @JvmStatic
+    external fun libc_solid_get_OPTARG(): Long
+
+    @JvmStatic
+    external fun libc_solid_set_OPTARG(value: Long)
+
+    @JvmStatic
+    external fun libc_solid_get_OPTERR(): Int
+
+    @JvmStatic
+    external fun libc_solid_set_OPTERR(value: Int)
+
+    @JvmStatic
+    external fun libc_solid_get_OPTIND(): Int
+
+    @JvmStatic
+    external fun libc_solid_set_OPTIND(value: Int)
+
+    @JvmStatic
+    external fun libc_solid_get_OPTOPT(): Int
+
+    @JvmStatic
+    external fun libc_solid_set_OPTOPT(value: Int)
+
+    @JvmStatic
+    external fun libc_solid_get_OPTRESET(): Int
+
+    @JvmStatic
+    external fun libc_solid_set_OPTRESET(value: Int)
+
+    @JvmStatic
+    external fun libc_solid_get_SUBOPTARG(): Long
+
+    @JvmStatic
+    external fun libc_solid_set_SUBOPTARG(value: Long)
+
+    @JvmStatic
     external fun libc_solid_isalnum(c: Int): Int
 
     @JvmStatic
@@ -87,6 +123,9 @@ private object SolidJniBridge {
     external fun libc_solid_fopen(arg1: String?, arg2: String?): Long
 
     @JvmStatic
+    external fun libc_solid_fprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_solid_fputc(arg1: Int, arg2: Long): Int
 
     @JvmStatic
@@ -97,6 +136,9 @@ private object SolidJniBridge {
 
     @JvmStatic
     external fun libc_solid_freopen(arg1: String?, arg2: String?, arg3: Long): Long
+
+    @JvmStatic
+    external fun libc_solid_fscanf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_solid_fseek(arg1: Long, arg2: Long, arg3: Int): Int
@@ -117,6 +159,9 @@ private object SolidJniBridge {
     external fun libc_solid_perror(arg1: String?)
 
     @JvmStatic
+    external fun libc_solid_printf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_solid_putc(arg1: Int, arg2: Long): Int
 
     @JvmStatic
@@ -132,10 +177,16 @@ private object SolidJniBridge {
     external fun libc_solid_rewind(arg1: Long)
 
     @JvmStatic
+    external fun libc_solid_scanf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_solid_setbuf(arg1: Long, arg2: Long)
 
     @JvmStatic
     external fun libc_solid_setvbuf(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_sscanf(arg1: String?, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_solid_tmpfile(): Long
@@ -153,6 +204,9 @@ private object SolidJniBridge {
     external fun libc_solid_gets(arg1: Long): Long
 
     @JvmStatic
+    external fun libc_solid_sprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_solid_tmpnam(arg1: String?): Long
 
     @JvmStatic
@@ -160,6 +214,30 @@ private object SolidJniBridge {
 
     @JvmStatic
     external fun libc_solid_rename(arg1: String?, arg2: String?): Int
+
+    @JvmStatic
+    external fun libc_solid_asiprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_fiprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_fiscanf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_iprintf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_iscanf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_siprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_siscanf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_sniprintf(arg1: Long, arg2: Long, arg3: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_solid_vasiprintf(arg1: Long, arg2: String?, arg3: Long): Int
@@ -187,6 +265,9 @@ private object SolidJniBridge {
 
     @JvmStatic
     external fun libc_solid_vdiprintf(arg1: Int, arg2: String?, arg3: Long): Int
+
+    @JvmStatic
+    external fun libc_solid_diprintf(arg1: Int, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_solid_fgetpos(arg1: Long, arg2: Long): Int
@@ -220,6 +301,9 @@ private object SolidJniBridge {
 
     @JvmStatic
     external fun libc_solid_putcharUnlocked(arg1: Int): Int
+
+    @JvmStatic
+    external fun libc_solid_snprintf(arg1: Long, arg2: Long, arg3: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_solid_vsnprintf(arg1: Long, arg2: Long, arg3: String?, arg4: Long): Int
@@ -738,6 +822,9 @@ private object SolidJniBridge {
     external fun libc_solid_mkdir(arg1: String?, arg2: Int): Int
 
     @JvmStatic
+    external fun libc_solid_open(arg1: String?, arg2: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_solid_creat(arg1: String?, arg2: Int): Int
 
     @JvmStatic
@@ -783,6 +870,9 @@ private object SolidJniBridge {
     external fun libc_solid_getsubopt(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
+    external fun libc_solid_fcntl(arg1: Int, arg2: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_solid_getpid(): Int
 
     @JvmStatic
@@ -822,46 +912,40 @@ private object SolidJniBridge {
     external fun libc_solid_lseek(arg1: Int, arg2: Long, arg3: Int): Long
 }
 
-private var _ffi_static_OPTARG: COpaquePointer? = null
 public actual var OPTARG: COpaquePointer?
-    get() = _ffi_static_OPTARG
+    get() = SolidJniBridge.libc_solid_get_OPTARG().let { if (it == 0L) null else COpaquePointer(it) }
     set(value) {
-        _ffi_static_OPTARG = value
+        SolidJniBridge.libc_solid_set_OPTARG((value?.value ?: 0L))
     }
 
-private var _ffi_static_OPTERR: CInt = 0
 public actual var OPTERR: CInt
-    get() = _ffi_static_OPTERR
+    get() = SolidJniBridge.libc_solid_get_OPTERR()
     set(value) {
-        _ffi_static_OPTERR = value
+        SolidJniBridge.libc_solid_set_OPTERR(value)
     }
 
-private var _ffi_static_OPTIND: CInt = 0
 public actual var OPTIND: CInt
-    get() = _ffi_static_OPTIND
+    get() = SolidJniBridge.libc_solid_get_OPTIND()
     set(value) {
-        _ffi_static_OPTIND = value
+        SolidJniBridge.libc_solid_set_OPTIND(value)
     }
 
-private var _ffi_static_OPTOPT: CInt = 0
 public actual var OPTOPT: CInt
-    get() = _ffi_static_OPTOPT
+    get() = SolidJniBridge.libc_solid_get_OPTOPT()
     set(value) {
-        _ffi_static_OPTOPT = value
+        SolidJniBridge.libc_solid_set_OPTOPT(value)
     }
 
-private var _ffi_static_OPTRESET: CInt = 0
 public actual var OPTRESET: CInt
-    get() = _ffi_static_OPTRESET
+    get() = SolidJniBridge.libc_solid_get_OPTRESET()
     set(value) {
-        _ffi_static_OPTRESET = value
+        SolidJniBridge.libc_solid_set_OPTRESET(value)
     }
 
-private var _ffi_static_SUBOPTARG: COpaquePointer? = null
 public actual var SUBOPTARG: COpaquePointer?
-    get() = _ffi_static_SUBOPTARG
+    get() = SolidJniBridge.libc_solid_get_SUBOPTARG().let { if (it == 0L) null else COpaquePointer(it) }
     set(value) {
-        _ffi_static_SUBOPTARG = value
+        SolidJniBridge.libc_solid_set_SUBOPTARG((value?.value ?: 0L))
     }
 
 public actual fun isalnum(c: CInt): CInt =
@@ -935,7 +1019,7 @@ public actual fun fopen(arg1: String?, arg2: String?): FILE? =
     SolidJniBridge.libc_solid_fopen(arg1, arg2).let { if (it == 0L) null else FILE(it) }
 
 public actual fun fprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_fprintf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fputc(arg1: CInt, arg2: FILE?): CInt =
     SolidJniBridge.libc_solid_fputc(arg1, (arg2?.handle ?: 0L))
@@ -950,7 +1034,7 @@ public actual fun freopen(arg1: String?, arg2: String?, arg3: FILE?): FILE? =
     SolidJniBridge.libc_solid_freopen(arg1, arg2, (arg3?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
 
 public actual fun fscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_fscanf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fseek(arg1: FILE?, arg2: CLong, arg3: CInt): CInt =
     SolidJniBridge.libc_solid_fseek((arg1?.handle ?: 0L), arg2, arg3)
@@ -972,7 +1056,7 @@ public actual fun perror(arg1: String?) {
 }
 
 public actual fun printf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_printf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun putc(arg1: CInt, arg2: FILE?): CInt =
     SolidJniBridge.libc_solid_putc(arg1, (arg2?.handle ?: 0L))
@@ -991,7 +1075,7 @@ public actual fun rewind(arg1: FILE?) {
 }
 
 public actual fun scanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_scanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun setbuf(arg1: FILE?, arg2: COpaquePointer?) {
     SolidJniBridge.libc_solid_setbuf((arg1?.handle ?: 0L), (arg2?.value ?: 0L))
@@ -1001,7 +1085,7 @@ public actual fun setvbuf(arg1: FILE?, arg2: COpaquePointer?, arg3: CInt, arg4: 
     SolidJniBridge.libc_solid_setvbuf((arg1?.handle ?: 0L), (arg2?.value ?: 0L), arg3, arg4.toLong())
 
 public actual fun sscanf(arg1: String?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_sscanf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun tmpfile(): FILE? =
     SolidJniBridge.libc_solid_tmpfile().let { if (it == 0L) null else FILE(it) }
@@ -1019,7 +1103,7 @@ public actual fun gets(arg1: COpaquePointer?): COpaquePointer? =
     SolidJniBridge.libc_solid_gets((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun sprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_sprintf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun tmpnam(arg1: String?): COpaquePointer? =
     SolidJniBridge.libc_solid_tmpnam(arg1).let { if (it == 0L) null else COpaquePointer(it) }
@@ -1031,28 +1115,28 @@ public actual fun rename(arg1: String?, arg2: String?): CInt =
     SolidJniBridge.libc_solid_rename(arg1, arg2)
 
 public actual fun asiprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_asiprintf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fiprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_fiprintf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fiscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_fiscanf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun iprintf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_iprintf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun iscanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_iscanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun siprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_siprintf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun siscanf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_siscanf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_sniprintf((arg1?.value ?: 0L), arg2.toLong(), arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun vasiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
     SolidJniBridge.libc_solid_vasiprintf((arg1?.value ?: 0L), arg2, (arg3?.value ?: 0L))
@@ -1082,7 +1166,7 @@ public actual fun vdiprintf(arg1: CInt, arg2: String?, arg3: VaList): CInt =
     SolidJniBridge.libc_solid_vdiprintf(arg1, arg2, (arg3?.value ?: 0L))
 
 public actual fun diprintf(arg1: CInt, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_diprintf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fgetpos(arg1: FILE?, arg2: COpaquePointer?): CInt =
     SolidJniBridge.libc_solid_fgetpos((arg1?.handle ?: 0L), (arg2?.value ?: 0L))
@@ -1120,7 +1204,7 @@ public actual fun putcharUnlocked(arg1: CInt): CInt =
     SolidJniBridge.libc_solid_putcharUnlocked(arg1)
 
 public actual fun snprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_snprintf((arg1?.value ?: 0L), arg2.toLong(), arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun vsnprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: VaList): CInt =
     SolidJniBridge.libc_solid_vsnprintf((arg1?.value ?: 0L), arg2.toLong(), arg3, (arg4?.value ?: 0L))
@@ -1665,7 +1749,7 @@ public actual fun mkdir(arg1: String?, arg2: ModeT): CInt =
     SolidJniBridge.libc_solid_mkdir(arg1, arg2.toInt())
 
 public actual fun open(arg1: String?, arg2: CInt, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_open(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(arg1: String?, arg2: CInt): CInt =
     SolidJniBridge.libc_solid_creat(arg1, arg2)
@@ -1713,7 +1797,7 @@ public actual fun getsubopt(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: 
     SolidJniBridge.libc_solid_getsubopt((arg1?.value ?: 0L), (arg2?.value ?: 0L), (arg3?.value ?: 0L))
 
 public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt =
-    0
+    SolidJniBridge.libc_solid_fcntl(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpid(): PidT =
     SolidJniBridge.libc_solid_getpid()

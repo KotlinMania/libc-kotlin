@@ -29,6 +29,7 @@ int64_t libc_unix_linuxlike_android_preadv(int32_t fd, void* iov, int32_t count,
 int64_t libc_unix_linuxlike_android_pwritev(int32_t fd, void* iov, int32_t count, int64_t offset);
 int64_t libc_unix_linuxlike_android_processVmReadv(int32_t pid, void* local_iov, uint64_t local_iov_count, void* remote_iov, uint64_t remote_iov_count, uint64_t flags);
 int64_t libc_unix_linuxlike_android_processVmWritev(int32_t pid, void* local_iov, uint64_t local_iov_count, void* remote_iov, uint64_t remote_iov_count, uint64_t flags);
+int64_t libc_unix_linuxlike_android_ptrace(int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_android_getpriority(int32_t which, uint32_t who);
 int32_t libc_unix_linuxlike_android_setpriority(int32_t which, uint32_t who, int32_t prio);
 void* libc_unix_linuxlike_android_schedCpualloc(uint64_t count);
@@ -62,6 +63,7 @@ int32_t libc_unix_linuxlike_android_signalfd(int32_t fd, void* mask, int32_t fla
 int32_t libc_unix_linuxlike_android_timerfdCreate(int32_t clock, int32_t flags);
 int32_t libc_unix_linuxlike_android_timerfdGettime(int32_t fd, void* current_value);
 int32_t libc_unix_linuxlike_android_timerfdSettime(int32_t fd, int32_t flags, void* new_value, void* old_value);
+int64_t libc_unix_linuxlike_android_syscall(int64_t num, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_android_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset);
 int32_t libc_unix_linuxlike_android_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset);
 int32_t libc_unix_linuxlike_android_epollCreate(int32_t size);
@@ -86,8 +88,10 @@ int32_t libc_unix_linuxlike_android_swapoff(const char* puath);
 int64_t libc_unix_linuxlike_android_vmsplice(int32_t fd, void* iov, uint64_t nr_segs, uint32_t flags);
 int32_t libc_unix_linuxlike_android_mount(const char* src, const char* target, const char* fstype, uint64_t flags, void* data);
 int32_t libc_unix_linuxlike_android_personality(uint32_t persona);
+int32_t libc_unix_linuxlike_android_prctl(int32_t option, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_android_schedGetparam(int32_t pid, void* param);
 int32_t libc_unix_linuxlike_android_ppoll(void* fds, uint32_t nfds, void* timeout, void* sigmask);
+int32_t libc_unix_linuxlike_android_clone(void* cb, void* child_stack, int32_t flags, void* arg, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_android_schedGetscheduler(int32_t pid);
 int32_t libc_unix_linuxlike_android_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp, void* rmtp);
 int32_t libc_unix_linuxlike_android_sethostname(const char* name, uint64_t len);
@@ -105,6 +109,7 @@ int32_t libc_unix_linuxlike_android_getgrgidR(uint16_t gid, void* grp, char* buf
 int32_t libc_unix_linuxlike_android_sigaltstack(void* ss, void* oss);
 int32_t libc_unix_linuxlike_android_semClose(void* sem);
 int32_t libc_unix_linuxlike_android_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result);
+void* libc_unix_linuxlike_android_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 void* libc_unix_linuxlike_android_getgrnam(const char* name);
 int32_t libc_unix_linuxlike_android_semUnlink(const char* name);
 int32_t libc_unix_linuxlike_android_daemon(int32_t nochdir, int32_t noclose);

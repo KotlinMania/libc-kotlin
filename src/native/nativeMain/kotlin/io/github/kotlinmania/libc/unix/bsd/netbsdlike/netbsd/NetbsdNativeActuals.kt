@@ -120,7 +120,7 @@ public actual fun mount(src: String?, target: String?, flags: CInt, data: COpaqu
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_mount(src, target, flags, data?.value?.toCPointer<ByteVar>(), size)
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    (io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_mqClose(mqd.toLong().toCPointer<ByteVar>())
@@ -280,6 +280,7 @@ public actual fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len:
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>(), len)
 
 public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mremap(oldp: COpaquePointer?, oldsize: SizeT, newp: COpaquePointer?, newsize: SizeT, flags: CInt): COpaquePointer? =
@@ -411,10 +412,10 @@ public actual fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT)
     io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_estrtou(nptr, base, lo, hi)
 
 public actual fun easprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_easprintf(string?.value?.toCPointer<ByteVar>(), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.cinterop.libc_unix_bsd_netbsdlike_netbsd_evasprintf(string?.value?.toCPointer<ByteVar>(), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback? =
     null

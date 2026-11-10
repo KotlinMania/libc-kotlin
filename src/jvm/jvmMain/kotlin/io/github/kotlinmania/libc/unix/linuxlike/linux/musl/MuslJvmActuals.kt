@@ -33,6 +33,9 @@ private object UnixLinuxlikeLinuxMuslJniBridge {
     external fun libc_unix_linuxlike_linux_musl_gettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_linux_musl_ptrace(request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_linux_musl_getpriority(which: Int, who: Int): Int
 
     @JvmStatic
@@ -139,7 +142,7 @@ public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
-    0L
+    UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_ptrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     UnixLinuxlikeLinuxMuslJniBridge.libc_unix_linuxlike_linux_musl_getpriority(which, who.toInt())

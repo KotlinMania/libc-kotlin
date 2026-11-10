@@ -1,7 +1,6 @@
 package io.github.kotlinmania.libc
 
 import kotlin.test.Test
-import kotlin.test.assertFailsWith
 
 class CallerApiTest {
     @Test fun callerMemoryPreservesBytesAcrossCopyAndResize() = verifyCallerMemory()

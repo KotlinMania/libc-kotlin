@@ -174,6 +174,9 @@ private object UnixHaikuJniBridge {
     external fun libc_unix_haiku_initgroups(name: String?, basegid: Short): Int
 
     @JvmStatic
+    external fun libc_unix_haiku_ioctl(fd: Int, request: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_haiku_mprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
@@ -291,6 +294,9 @@ private object UnixHaikuJniBridge {
     external fun libc_unix_haiku_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
 
     @JvmStatic
+    external fun libc_unix_haiku_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_haiku_getgrnam(name: String?): Long
 
     @JvmStatic
@@ -400,6 +406,9 @@ private object UnixHaikuJniBridge {
 
     @JvmStatic
     external fun libc_unix_haiku_semget(key: Int, nsems: Int, semflg: Int): Int
+
+    @JvmStatic
+    external fun libc_unix_haiku_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_haiku_semop(semid: Int, sops: Long, nsops: Long): Int
@@ -697,7 +706,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
     UnixHaikuJniBridge.libc_unix_haiku_initgroups(name, basegid.toShort())
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    UnixHaikuJniBridge.libc_unix_haiku_ioctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
     UnixHaikuJniBridge.libc_unix_haiku_mprotect((addr?.value ?: 0L), len.toLong(), prot)
@@ -822,7 +831,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     UnixHaikuJniBridge.libc_unix_haiku_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixHaikuJniBridge.libc_unix_haiku_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     UnixHaikuJniBridge.libc_unix_haiku_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
@@ -943,7 +952,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     UnixHaikuJniBridge.libc_unix_haiku_semget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixHaikuJniBridge.libc_unix_haiku_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     UnixHaikuJniBridge.libc_unix_haiku_semop(semid, (sops?.value ?: 0L), nsops.toLong())

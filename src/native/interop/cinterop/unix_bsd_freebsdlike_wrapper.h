@@ -156,6 +156,7 @@ int32_t libc_unix_bsd_freebsdlike_posixSpawnFileActionsAdddup2(void* actions, in
 int32_t libc_unix_bsd_freebsdlike_mqClose(void* mqd);
 int32_t libc_unix_bsd_freebsdlike_mqGetattr(void* mqd, void* attr);
 int32_t libc_unix_bsd_freebsdlike_mqNotify(void* mqd, void* notification);
+void* libc_unix_bsd_freebsdlike_mqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int64_t libc_unix_bsd_freebsdlike_mqReceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio);
 int32_t libc_unix_bsd_freebsdlike_mqSend(void* mqd, const char* msg_ptr, uint64_t msg_len, uint32_t msg_prio);
 int32_t libc_unix_bsd_freebsdlike_mqSetattr(void* mqd, void* newattr, void* oldattr);

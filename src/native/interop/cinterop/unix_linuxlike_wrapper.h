@@ -9,6 +9,7 @@
 extern "C" {
 #endif
 
+int32_t libc_unix_linuxlike_ioctl(int32_t fd, uint64_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_libcCurrentSigrtmax(void);
 int32_t libc_unix_linuxlike_libcCurrentSigrtmin(void);
 int32_t libc_unix_linuxlike_semDestroy(void* sem);
@@ -82,6 +83,8 @@ int32_t libc_unix_linuxlike_ftruncate64(int32_t fd, int64_t length);
 int64_t libc_unix_linuxlike_lseek64(int32_t fd, int64_t offset, int32_t whence);
 int32_t libc_unix_linuxlike_lstat64(const char* path, void* buf);
 void* libc_unix_linuxlike_mmap64(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset);
+int32_t libc_unix_linuxlike_open64(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int32_t libc_unix_linuxlike_openat64(int32_t fd, const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_posixFadvise64(int32_t fd, int64_t offset, int64_t len, int32_t advise);
 int64_t libc_unix_linuxlike_pread64(int32_t fd, void* buf, uint64_t count, int64_t offset);
 int64_t libc_unix_linuxlike_pwrite64(int32_t fd, void* buf, uint64_t count, int64_t offset);

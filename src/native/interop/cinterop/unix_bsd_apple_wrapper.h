@@ -9,6 +9,9 @@
 extern "C" {
 #endif
 
+uint32_t libc_unix_bsd_apple_get_MACH_TASK_SELF(void);
+void libc_unix_bsd_apple_set_MACH_TASK_SELF(uint32_t km_val);
+uint64_t libc_unix_bsd_apple_get_VM_PAGE_SIZE(void);
 void libc_unix_bsd_apple_setgrent(void);
 int32_t libc_unix_bsd_apple_daemon(int32_t nochdir, int32_t noclose);
 int32_t libc_unix_bsd_apple_semDestroy(void* sem);
@@ -46,7 +49,9 @@ int32_t libc_unix_bsd_apple_mincore(void* addr, uint64_t len, char* vec);
 int32_t libc_unix_bsd_apple_sysctlnametomib(const char* name, void* mibp, void* sizep);
 int32_t libc_unix_bsd_apple_mprotect(void* addr, uint64_t len, int32_t prot);
 int32_t libc_unix_bsd_apple_semget(int32_t key, int32_t nsems, int32_t semflg);
+int32_t libc_unix_bsd_apple_semctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_bsd_apple_semop(int32_t semid, void* sops, uint64_t nsops);
+int32_t libc_unix_bsd_apple_shmOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_bsd_apple_ftok(const char* pathname, int32_t proj_id);
 void* libc_unix_bsd_apple_shmat(int32_t shmid, void* shmaddr, int32_t shmflg);
 int32_t libc_unix_bsd_apple_shmdt(void* shmaddr);
@@ -192,6 +197,7 @@ void libc_unix_bsd_apple_memsetPattern4(void* b, void* pattern4, uint64_t len);
 void libc_unix_bsd_apple_memsetPattern8(void* b, void* pattern8, uint64_t len);
 void libc_unix_bsd_apple_memsetPattern16(void* b, void* pattern16, uint64_t len);
 int64_t libc_unix_bsd_apple_strtonum(const char* arg_0_numstr, int64_t arg_1_minval, int64_t arg_2_maxval, void* errstrp);
+void libc_unix_bsd_apple_mallocPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_bsd_apple_mallocZoneCheck(void* zone);
 void libc_unix_bsd_apple_mallocZonePrint(void* zone, int32_t verbose);
 void libc_unix_bsd_apple_mallocZoneStatistics(void* zone, void* stats);

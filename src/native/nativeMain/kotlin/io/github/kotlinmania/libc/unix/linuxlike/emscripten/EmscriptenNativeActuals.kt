@@ -90,7 +90,7 @@ public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_mkfifoat(dirfd, pathname, mode)
 
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_mremap(addr?.value?.toCPointer<ByteVar>(), len, newLen, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
@@ -138,7 +138,7 @@ public actual fun sync() {
 }
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop.libc_unix_linuxlike_emscripten_getpriority(which, who)

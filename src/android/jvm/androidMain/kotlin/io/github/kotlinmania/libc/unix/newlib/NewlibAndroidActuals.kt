@@ -61,6 +61,9 @@ private object UnixNewlibJniBridge {
     external fun libc_unix_newlib_closesocket(sockfd: Int): Int
 
     @JvmStatic
+    external fun libc_unix_newlib_ioctl(fd: Int, request: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_newlib_recvfrom(fd: Int, buf: Long, n: Long, flags: Int, addr: Long, addrLen: Long): Long
 
     @JvmStatic
@@ -92,6 +95,9 @@ private object UnixNewlibJniBridge {
 
     @JvmStatic
     external fun libc_unix_newlib_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_newlib_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_newlib_getgrnam(name: String?): Long
@@ -171,7 +177,7 @@ public actual fun closesocket(sockfd: CInt): CInt =
     UnixNewlibJniBridge.libc_unix_newlib_closesocket(sockfd)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    UnixNewlibJniBridge.libc_unix_newlib_ioctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: COpaquePointer?, addrLen: COpaquePointer?): Long =
     UnixNewlibJniBridge.libc_unix_newlib_recvfrom(fd, (buf?.value ?: 0L), n.toLong(), flags, (addr?.value ?: 0L), (addrLen?.value ?: 0L))
@@ -207,7 +213,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     UnixNewlibJniBridge.libc_unix_newlib_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixNewlibJniBridge.libc_unix_newlib_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     UnixNewlibJniBridge.libc_unix_newlib_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }

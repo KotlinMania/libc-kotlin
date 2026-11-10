@@ -30,6 +30,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock(void* lock);
 int32_t libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* mask);
 int32_t libc_unix_bsd_freebsdlike_dragonfly_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* mask);
 int32_t libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu(void);
+void libc_unix_bsd_freebsdlike_dragonfly_setproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_bsd_freebsdlike_dragonfly_shmget(int64_t key, uint64_t size, int32_t shmflg);
 void* libc_unix_bsd_freebsdlike_dragonfly_shmat(int32_t shmid, void* shmaddr, int32_t shmflg);
 int32_t libc_unix_bsd_freebsdlike_dragonfly_shmdt(void* shmaddr);

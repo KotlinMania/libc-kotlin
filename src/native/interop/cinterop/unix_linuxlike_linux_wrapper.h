@@ -10,6 +10,7 @@ extern "C" {
 #endif
 
 int32_t libc_unix_linuxlike_linux_getspnamR(const char* name, void* spbuf, char* buf, uint64_t buflen, void* spbufp);
+void* libc_unix_linuxlike_linux_mqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_linux_mqClose(void* mqd);
 int32_t libc_unix_linuxlike_linux_mqUnlink(const char* name);
 int64_t libc_unix_linuxlike_linux_mqReceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio);
@@ -27,6 +28,7 @@ int32_t libc_unix_linuxlike_linux_shmUnlink(const char* name);
 int32_t libc_unix_linuxlike_linux_ftok(const char* pathname, int32_t proj_id);
 int32_t libc_unix_linuxlike_linux_semget(int32_t key, int32_t nsems, int32_t semflag);
 int32_t libc_unix_linuxlike_linux_semop(int32_t semid, void* sops, uint64_t nsops);
+int32_t libc_unix_linuxlike_linux_semctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_linux_msgctl(int32_t msqid, int32_t cmd, void* buf);
 int32_t libc_unix_linuxlike_linux_msgget(int32_t key, int32_t msgflg);
 int64_t libc_unix_linuxlike_linux_msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg);
@@ -67,6 +69,7 @@ int32_t libc_unix_linuxlike_linux_mkstemps(char* arg_0_template, int32_t suffixl
 int32_t libc_unix_linuxlike_linux_vhangup(void);
 void libc_unix_linuxlike_linux_sync(void);
 int32_t libc_unix_linuxlike_linux_syncfs(int32_t fd);
+int64_t libc_unix_linuxlike_linux_syscall(int64_t num, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_linux_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset);
 int32_t libc_unix_linuxlike_linux_epollCreate(int32_t size);
 int32_t libc_unix_linuxlike_linux_epollCreate1(int32_t flags);
@@ -86,6 +89,7 @@ int32_t libc_unix_linuxlike_linux_swapoff(const char* path);
 int64_t libc_unix_linuxlike_linux_vmsplice(int32_t fd, void* iov, uint64_t nr_segs, uint32_t flags);
 int32_t libc_unix_linuxlike_linux_personality(uint64_t persona);
 int32_t libc_unix_linuxlike_linux_schedGetparam(int32_t pid, void* param);
+int32_t libc_unix_linuxlike_linux_clone(void* cb, void* child_stack, int32_t flags, void* arg, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_linux_schedGetscheduler(int32_t pid);
 int32_t libc_unix_linuxlike_linux_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp, void* rmtp);
 int32_t libc_unix_linuxlike_linux_umount2(const char* target, int32_t flags);

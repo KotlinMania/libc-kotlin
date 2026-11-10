@@ -512,7 +512,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_initgroups(name, basegid)
 
 public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ioctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun jrand48(xseed: COpaquePointer?): CLong =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_jrand48(xseed?.value?.toCPointer<ByteVar>())
@@ -528,7 +528,7 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, 
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lioListio(mode, aiocbList?.value?.toCPointer<ByteVar>(), nent, sevp?.value?.toCPointer<ByteVar>())
 
 public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_loadquery(flags, buf?.value?.toCPointer<ByteVar>(), buflen, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: SizeT): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lparGetInfo(command, buf?.value?.toCPointer<ByteVar>(), bufsize)
@@ -552,6 +552,7 @@ public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
 
 public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_makecontext(ucp?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mallinfo(): Mallinfo =
@@ -591,7 +592,7 @@ public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqNotify(mqd.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    (io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
@@ -642,7 +643,7 @@ public actual fun nrand48(xseed: COpaquePointer?): CLong =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nrand48(xseed?.value?.toCPointer<ByteVar>())
 
 public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_open64(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun pollsetCreate(maxfd: CInt): PollsetT =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pollsetCreate(maxfd)
@@ -842,7 +843,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semTimedwait(sem?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
@@ -851,7 +852,7 @@ public actual fun semUnlink(name: String?): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semUnlink(name)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
     io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semget(key, nsems, semflag)

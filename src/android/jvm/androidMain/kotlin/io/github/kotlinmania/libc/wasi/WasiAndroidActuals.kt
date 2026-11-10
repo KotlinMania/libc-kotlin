@@ -19,6 +19,18 @@ private object WasiJniBridge {
     }
 
     @JvmStatic
+    external fun libc_wasi_get_ENVIRON(): Long
+
+    @JvmStatic
+    external fun libc_wasi_set_ENVIRON(value: Long)
+
+    @JvmStatic
+    external fun libc_wasi_get_CLOCK_MONOTONIC1(): Byte
+
+    @JvmStatic
+    external fun libc_wasi_get_CLOCK_REALTIME1(): Byte
+
+    @JvmStatic
     external fun libc_wasi_exit(code: Int)
 
     @JvmStatic
@@ -370,6 +382,27 @@ private object WasiJniBridge {
     external fun libc_wasi_memset(dest: Long, c: Int, n: Long): Long
 
     @JvmStatic
+    external fun libc_wasi_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_wasi_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_wasi_snprintf(s: Long, n: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_wasi_sprintf(s: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_wasi_fscanf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_wasi_scanf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_wasi_sscanf(s: String?, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_wasi_getcharUnlocked(): Int
 
     @JvmStatic
@@ -394,7 +427,13 @@ private object WasiJniBridge {
     external fun libc_wasi_fileno(stream: Long): Int
 
     @JvmStatic
+    external fun libc_wasi_open(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_wasi_creat(path: String?, mode: Int): Int
+
+    @JvmStatic
+    external fun libc_wasi_fcntl(fd: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_wasi_opendir(dirname: String?): Long
@@ -419,6 +458,9 @@ private object WasiJniBridge {
 
     @JvmStatic
     external fun libc_wasi_telldir(dirp: Long): Long
+
+    @JvmStatic
+    external fun libc_wasi_openat(dirfd: Int, pathname: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_wasi_fstatat(dirfd: Int, pathname: String?, buf: Long, flags: Int): Int
@@ -536,6 +578,9 @@ private object WasiJniBridge {
 
     @JvmStatic
     external fun libc_wasi_sysconf(name: Int): Long
+
+    @JvmStatic
+    external fun libc_wasi_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_wasi_fseeko(stream: Long, offset: Long, whence: Int): Int
@@ -835,18 +880,17 @@ private object WasiJniBridge {
     external fun libc_wasi_pthreadRwlockattrDestroy(attr: Long): Int
 }
 
-private var _ffi_static_ENVIRON: COpaquePointer? = null
 public actual var ENVIRON: COpaquePointer?
-    get() = _ffi_static_ENVIRON
+    get() = WasiJniBridge.libc_wasi_get_ENVIRON().let { if (it == 0L) null else COpaquePointer(it) }
     set(value) {
-        _ffi_static_ENVIRON = value
+        WasiJniBridge.libc_wasi_set_ENVIRON((value?.value ?: 0L))
     }
 
 public actual val CLOCK_MONOTONIC1: UByte
-    get() = 0u
+    get() = WasiJniBridge.libc_wasi_get_CLOCK_MONOTONIC1().toUByte()
 
 public actual val CLOCK_REALTIME1: UByte
-    get() = 0u
+    get() = WasiJniBridge.libc_wasi_get_CLOCK_REALTIME1().toUByte()
 
 public actual fun exit(code: CInt): Nothing {
     WasiJniBridge.libc_wasi_exit(code)
@@ -1222,25 +1266,25 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePoint
     WasiJniBridge.libc_wasi_memset((dest?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_snprintf((s?.value ?: 0L), n.toLong(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_sprintf((s?.value ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_fscanf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
     WasiJniBridge.libc_wasi_getcharUnlocked()
@@ -1267,13 +1311,13 @@ public actual fun fileno(stream: FILE?): CInt =
     WasiJniBridge.libc_wasi_fileno((stream?.handle ?: 0L))
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     WasiJniBridge.libc_wasi_creat(path, mode.toInt())
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun opendir(dirname: String?): DIR? =
     WasiJniBridge.libc_wasi_opendir(dirname).let { if (it == 0L) null else DIR(it) }
@@ -1302,7 +1346,7 @@ public actual fun telldir(dirp: DIR?): CLong =
     WasiJniBridge.libc_wasi_telldir((dirp?.handle ?: 0L))
 
 public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
     WasiJniBridge.libc_wasi_fstatat(dirfd, pathname, (buf?.value ?: 0L), flags)
@@ -1422,7 +1466,7 @@ public actual fun sysconf(name: CInt): CLong =
     WasiJniBridge.libc_wasi_sysconf(name)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    WasiJniBridge.libc_wasi_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
     WasiJniBridge.libc_wasi_fseeko((stream?.handle ?: 0L), offset, whence)

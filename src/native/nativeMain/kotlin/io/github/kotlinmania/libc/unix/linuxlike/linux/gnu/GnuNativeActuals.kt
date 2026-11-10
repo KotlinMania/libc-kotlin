@@ -161,7 +161,7 @@ public actual fun globfree64(pglob: COpaquePointer?) {
 }
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
-    0L
+    io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_ptrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp(attr?.value?.toCPointer<ByteVar>(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())

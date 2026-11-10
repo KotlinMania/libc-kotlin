@@ -500,6 +500,9 @@ private object UnixAixJniBridge {
     external fun libc_unix_aix_initgroups(name: String?, basegid: Short): Int
 
     @JvmStatic
+    external fun libc_unix_aix_ioctl(fildes: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_aix_jrand48(xseed: Long): Long
 
     @JvmStatic
@@ -510,6 +513,9 @@ private object UnixAixJniBridge {
 
     @JvmStatic
     external fun libc_unix_aix_lioListio(mode: Int, aiocbList: Long, nent: Int, sevp: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_aix_loadquery(flags: Int, buf: Long, buflen: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_aix_lparGetInfo(command: Int, buf: Long, bufsize: Long): Int
@@ -531,6 +537,9 @@ private object UnixAixJniBridge {
 
     @JvmStatic
     external fun libc_unix_aix_madvise(addr: Long, len: Long, advice: Int): Int
+
+    @JvmStatic
+    external fun libc_unix_aix_makecontext(ucp: Long, func: Long, argc: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
 
     @JvmStatic
     external fun libc_unix_aix_mallopt(param: Int, value: Int): Int
@@ -564,6 +573,9 @@ private object UnixAixJniBridge {
 
     @JvmStatic
     external fun libc_unix_aix_mqNotify(mqd: Long, notification: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_aix_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_aix_mqReceive(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Long): Long
@@ -612,6 +624,9 @@ private object UnixAixJniBridge {
 
     @JvmStatic
     external fun libc_unix_aix_nrand48(xseed: Long): Long
+
+    @JvmStatic
+    external fun libc_unix_aix_open64(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_aix_pollsetCreate(maxfd: Int): Int
@@ -809,10 +824,16 @@ private object UnixAixJniBridge {
     external fun libc_unix_aix_semInit(sem: Long, pshared: Int, value: Int): Int
 
     @JvmStatic
+    external fun libc_unix_aix_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_aix_semTimedwait(sem: Long, abstime: Long): Int
 
     @JvmStatic
     external fun libc_unix_aix_semUnlink(name: String?): Int
+
+    @JvmStatic
+    external fun libc_unix_aix_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_aix_semget(key: Int, nsems: Int, semflag: Int): Int
@@ -1502,7 +1523,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
     UnixAixJniBridge.libc_unix_aix_initgroups(name, basegid.toShort())
 
 public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixAixJniBridge.libc_unix_aix_ioctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun jrand48(xseed: COpaquePointer?): CLong =
     UnixAixJniBridge.libc_unix_aix_jrand48((xseed?.value ?: 0L))
@@ -1518,7 +1539,7 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, 
     UnixAixJniBridge.libc_unix_aix_lioListio(mode, (aiocbList?.value ?: 0L), nent, (sevp?.value ?: 0L))
 
 public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint, vararg variadicArgs: Long): CInt =
-    0
+    UnixAixJniBridge.libc_unix_aix_loadquery(flags, (buf?.value ?: 0L), buflen.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: SizeT): CInt =
     UnixAixJniBridge.libc_unix_aix_lparGetInfo(command, (buf?.value ?: 0L), bufsize.toLong())
@@ -1542,6 +1563,7 @@ public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     UnixAixJniBridge.libc_unix_aix_madvise((addr?.value ?: 0L), len.toLong(), advice)
 
 public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
+    UnixAixJniBridge.libc_unix_aix_makecontext((ucp?.value ?: 0L), 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mallinfo(): Mallinfo =
@@ -1581,7 +1603,7 @@ public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     UnixAixJniBridge.libc_unix_aix_mqNotify(mqd.toLong(), (notification?.value ?: 0L))
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    UnixAixJniBridge.libc_unix_aix_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
     UnixAixJniBridge.libc_unix_aix_mqReceive(mqd.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))
@@ -1632,7 +1654,7 @@ public actual fun nrand48(xseed: COpaquePointer?): CLong =
     UnixAixJniBridge.libc_unix_aix_nrand48((xseed?.value ?: 0L))
 
 public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixAixJniBridge.libc_unix_aix_open64(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun pollsetCreate(maxfd: CInt): PollsetT =
     UnixAixJniBridge.libc_unix_aix_pollsetCreate(maxfd)
@@ -1832,7 +1854,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
     UnixAixJniBridge.libc_unix_aix_semInit((sem?.value ?: 0L), pshared, value.toInt())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixAixJniBridge.libc_unix_aix_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
     UnixAixJniBridge.libc_unix_aix_semTimedwait((sem?.value ?: 0L), (abstime?.value ?: 0L))
@@ -1841,7 +1863,7 @@ public actual fun semUnlink(name: String?): CInt =
     UnixAixJniBridge.libc_unix_aix_semUnlink(name)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixAixJniBridge.libc_unix_aix_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
     UnixAixJniBridge.libc_unix_aix_semget(key, nsems, semflag)

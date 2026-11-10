@@ -84,6 +84,9 @@ private object UnixBsdFreebsdlikeDragonflyJniBridge {
     external fun libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu(): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_dragonfly_setproctitle(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+
+    @JvmStatic
     external fun libc_unix_bsd_freebsdlike_dragonfly_shmget(key: Long, size: Long, shmflg: Int): Int
 
     @JvmStatic
@@ -237,6 +240,7 @@ public actual fun schedGetcpu(): CInt =
     UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu()
 
 public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+    UnixBsdFreebsdlikeDragonflyJniBridge.libc_unix_bsd_freebsdlike_dragonfly_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =

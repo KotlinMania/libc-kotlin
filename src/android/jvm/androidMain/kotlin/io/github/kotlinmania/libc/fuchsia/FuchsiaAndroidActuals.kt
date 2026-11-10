@@ -299,6 +299,27 @@ private object FuchsiaJniBridge {
     external fun libc_fuchsia_getpwuid(uid: Int): Long
 
     @JvmStatic
+    external fun libc_fuchsia_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_snprintf(s: Long, n: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_sprintf(s: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_fscanf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_scanf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_sscanf(s: String?, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_fuchsia_getcharUnlocked(): Int
 
     @JvmStatic
@@ -359,7 +380,13 @@ private object FuchsiaJniBridge {
     external fun libc_fuchsia_fileno(stream: Long): Int
 
     @JvmStatic
+    external fun libc_fuchsia_open(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_fuchsia_creat(path: String?, mode: Int): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_fcntl(fd: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_fuchsia_opendir(dirname: String?): Long
@@ -375,6 +402,9 @@ private object FuchsiaJniBridge {
 
     @JvmStatic
     external fun libc_fuchsia_rewinddir(dirp: Long)
+
+    @JvmStatic
+    external fun libc_fuchsia_openat(dirfd: Int, pathname: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_fuchsia_fchmodat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int
@@ -429,6 +459,15 @@ private object FuchsiaJniBridge {
 
     @JvmStatic
     external fun libc_fuchsia_dup2(src: Int, dst: Int): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_execl(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_execle(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_execlp(file: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_fuchsia_execv(prog: String?, argv: Long): Int
@@ -974,6 +1013,9 @@ private object FuchsiaJniBridge {
     external fun libc_fuchsia_setlogmask(maskpri: Int): Int
 
     @JvmStatic
+    external fun libc_fuchsia_syslog(priority: Int, message: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+
+    @JvmStatic
     external fun libc_fuchsia_grantpt(fd: Int): Int
 
     @JvmStatic
@@ -1103,6 +1145,9 @@ private object FuchsiaJniBridge {
     external fun libc_fuchsia_fexecve(fd: Int, argv: Long, envp: Long): Int
 
     @JvmStatic
+    external fun libc_fuchsia_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_fuchsia_lutimes(file: String?, times: Long): Int
 
     @JvmStatic
@@ -1137,6 +1182,9 @@ private object FuchsiaJniBridge {
 
     @JvmStatic
     external fun libc_fuchsia_semop(semid: Int, sops: Long, nsops: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_fuchsia_msgctl(msqid: Int, cmd: Int, buf: Long): Int
@@ -1304,6 +1352,9 @@ private object FuchsiaJniBridge {
     external fun libc_fuchsia_sync()
 
     @JvmStatic
+    external fun libc_fuchsia_syscall(num: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_fuchsia_schedGetaffinity(pid: Int, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
@@ -1361,6 +1412,9 @@ private object FuchsiaJniBridge {
     external fun libc_fuchsia_pthreadMutexTimedlock(lock: Long, abstime: Long): Int
 
     @JvmStatic
+    external fun libc_fuchsia_clone(cb: Long, childStack: Long, flags: Int, arg: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_fuchsia_schedGetscheduler(pid: Int): Int
 
     @JvmStatic
@@ -1410,6 +1464,9 @@ private object FuchsiaJniBridge {
 
     @JvmStatic
     external fun libc_fuchsia_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
+
+    @JvmStatic
+    external fun libc_fuchsia_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_fuchsia_getgrnam(name: String?): Long
@@ -1755,25 +1812,25 @@ public actual fun getpwuid(uid: UidT): COpaquePointer? =
     FuchsiaJniBridge.libc_fuchsia_getpwuid(uid.toInt()).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_snprintf((s?.value ?: 0L), n.toLong(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_sprintf((s?.value ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_fscanf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
     FuchsiaJniBridge.libc_fuchsia_getcharUnlocked()
@@ -1836,13 +1893,13 @@ public actual fun fileno(stream: FILE?): CInt =
     FuchsiaJniBridge.libc_fuchsia_fileno((stream?.handle ?: 0L))
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     FuchsiaJniBridge.libc_fuchsia_creat(path, mode.toInt())
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun opendir(dirname: String?): DIR? =
     FuchsiaJniBridge.libc_fuchsia_opendir(dirname).let { if (it == 0L) null else DIR(it) }
@@ -1861,7 +1918,7 @@ public actual fun rewinddir(dirp: DIR?) {
 }
 
 public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
     FuchsiaJniBridge.libc_fuchsia_fchmodat(dirfd, pathname, mode.toInt(), flags)
@@ -1918,13 +1975,13 @@ public actual fun dup2(src: CInt, dst: CInt): CInt =
     FuchsiaJniBridge.libc_fuchsia_dup2(src, dst)
 
 public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_execl(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_execle(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_execlp(file, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_execv(prog, (argv?.value ?: 0L))
@@ -2476,6 +2533,7 @@ public actual fun setlogmask(maskpri: CInt): CInt =
     FuchsiaJniBridge.libc_fuchsia_setlogmask(maskpri)
 
 public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
+    FuchsiaJniBridge.libc_fuchsia_syslog(priority, message, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun grantpt(fd: CInt): CInt =
@@ -2609,7 +2667,7 @@ public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?
     FuchsiaJniBridge.libc_fuchsia_fexecve(fd, (argv?.value ?: 0L), (envp?.value ?: 0L))
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_lutimes(file, (times?.value ?: 0L))
@@ -2650,7 +2708,7 @@ public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt 
     FuchsiaJniBridge.libc_fuchsia_semop(semid, (sops?.value ?: 0L), nsops.toLong())
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_msgctl(msqid, cmd, (buf?.value ?: 0L))
@@ -2823,7 +2881,7 @@ public actual fun sync() {
 }
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    0L
+    FuchsiaJniBridge.libc_fuchsia_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     FuchsiaJniBridge.libc_fuchsia_schedGetaffinity(pid, cpusetsize.toLong(), (cpuset?.value ?: 0L))
@@ -2883,7 +2941,7 @@ public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaqueP
     FuchsiaJniBridge.libc_fuchsia_pthreadMutexTimedlock((lock?.value ?: 0L), (abstime?.value ?: 0L))
 
 public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    0
+    FuchsiaJniBridge.libc_fuchsia_clone(0L, (childStack?.value ?: 0L), flags, (arg?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     FuchsiaJniBridge.libc_fuchsia_schedGetscheduler(pid)
@@ -2937,7 +2995,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     FuchsiaJniBridge.libc_fuchsia_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    FuchsiaJniBridge.libc_fuchsia_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     FuchsiaJniBridge.libc_fuchsia_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }

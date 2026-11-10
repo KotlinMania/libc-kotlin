@@ -2,47 +2,49 @@
 
 package io.github.kotlinmania.libc.unix.nuttx
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.DIR
 
 public actual fun errno(): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun ioctl(fd: Int, request: Int, vararg variadicArgs: Long): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun dirfd(dirp: DIR?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun futimens(fd: Int, times: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: ULong): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: ULong, flags: UInt): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun arc4random(): UInt =
-    0u
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun arc4randomBuf(bytes: COpaquePointer?, nbytes: ULong) {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }

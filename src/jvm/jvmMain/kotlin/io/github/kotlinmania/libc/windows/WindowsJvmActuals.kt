@@ -19,6 +19,12 @@ private object WindowsJniBridge {
     }
 
     @JvmStatic
+    external fun libc_windows_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_windows_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_windows_isalnum(c: Int): Int
 
     @JvmStatic
@@ -376,6 +382,12 @@ private object WindowsJniBridge {
     external fun libc_windows_fileno(stream: Long): Int
 
     @JvmStatic
+    external fun libc_windows_open(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_windows_wopen(path: Long, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_windows_creat(path: String?, mode: Int): Int
 
     @JvmStatic
@@ -392,6 +404,30 @@ private object WindowsJniBridge {
 
     @JvmStatic
     external fun libc_windows_dup2(src: Int, dst: Int): Int
+
+    @JvmStatic
+    external fun libc_windows_execl(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_windows_wexecl(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_windows_execle(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_windows_wexecle(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_windows_execlp(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_windows_wexeclp(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_windows_execlpe(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_windows_wexeclpe(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_windows_execv(prog: String?, argv: Long): Long
@@ -518,10 +554,10 @@ private object WindowsJniBridge {
 }
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WindowsJniBridge.libc_windows_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    WindowsJniBridge.libc_windows_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun isalnum(c: CInt): CInt =
     WindowsJniBridge.libc_windows_isalnum(c)
@@ -893,10 +929,10 @@ public actual fun fileno(stream: FILE?): CInt =
     WindowsJniBridge.libc_windows_fileno((stream?.handle ?: 0L))
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    WindowsJniBridge.libc_windows_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wopen(path: COpaquePointer?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    WindowsJniBridge.libc_windows_wopen((path?.value ?: 0L), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(path: String?, mode: CInt): CInt =
     WindowsJniBridge.libc_windows_creat(path, mode)
@@ -917,28 +953,28 @@ public actual fun dup2(src: CInt, dst: CInt): CInt =
     WindowsJniBridge.libc_windows_dup2(src, dst)
 
 public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_execl(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_wexecl((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_execle(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_wexecle((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execlp(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_execlp(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_wexeclp((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execlpe(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_execlpe(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    WindowsJniBridge.libc_windows_wexeclpe((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =
     WindowsJniBridge.libc_windows_execv(prog, (argv?.value ?: 0L))

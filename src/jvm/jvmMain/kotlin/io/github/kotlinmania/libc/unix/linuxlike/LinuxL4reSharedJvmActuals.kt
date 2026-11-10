@@ -160,6 +160,9 @@ private object UnixLinuxlikeLinuxL4reSharedJniBridge {
     external fun libc_unix_linuxlike_linux_l4re_shared_errnoLocation(): Long
 
     @JvmStatic
+    external fun libc_unix_linuxlike_linux_l4re_shared_mremap(addr: Long, len: Long, newLen: Long, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_linux_l4re_shared_glob(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
@@ -205,6 +208,9 @@ private object UnixLinuxlikeLinuxL4reSharedJniBridge {
     external fun libc_unix_linuxlike_linux_l4re_shared_mount(src: String?, target: String?, fstype: String?, flags: Long, data: Long): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_linux_l4re_shared_prctl(option: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_linuxlike_linux_l4re_shared_ppoll(fds: Long, nfds: Long, timeout: Long, sigmask: Long): Int
 
     @JvmStatic
@@ -230,6 +236,9 @@ private object UnixLinuxlikeLinuxL4reSharedJniBridge {
 
     @JvmStatic
     external fun libc_unix_linuxlike_linux_l4re_shared_initgroups(user: String?, group: Short): Int
+
+    @JvmStatic
+    external fun libc_unix_linuxlike_linux_l4re_shared_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_linuxlike_linux_l4re_shared_getgrnam(name: String?): Long
@@ -475,7 +484,7 @@ public actual fun errnoLocation(): COpaquePointer? =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_errnoLocation().let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_mremap((addr?.value ?: 0L), len.toLong(), newLen.toLong(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
@@ -525,7 +534,7 @@ public actual fun mount(src: String?, target: String?, fstype: String?, flags: C
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_mount(src, target, fstype, flags.toLong(), (data?.value ?: 0L))
 
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_prctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_ppoll((fds?.value ?: 0L), nfds.toLong(), (timeout?.value ?: 0L), (sigmask?.value ?: 0L))
@@ -555,7 +564,7 @@ public actual fun initgroups(user: String?, group: GidT): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_initgroups(user, group.toShort())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }

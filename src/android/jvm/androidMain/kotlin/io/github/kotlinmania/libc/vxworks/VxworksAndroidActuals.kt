@@ -338,6 +338,27 @@ private object VxworksJniBridge {
     external fun libc_vxworks_fchownat(dirfd: Int, pathname: String?, owner: Short, group: Short, flags: Int): Int
 
     @JvmStatic
+    external fun libc_vxworks_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_vxworks_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_vxworks_snprintf(s: Long, n: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_vxworks_sprintf(s: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_vxworks_fscanf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_vxworks_scanf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_vxworks_sscanf(s: String?, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_vxworks_getcharUnlocked(): Int
 
     @JvmStatic
@@ -563,6 +584,9 @@ private object VxworksJniBridge {
     external fun libc_vxworks_setlogmask(maskpri: Int): Int
 
     @JvmStatic
+    external fun libc_vxworks_syslog(priority: Int, message: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+
+    @JvmStatic
     external fun libc_vxworks_getline(lineptr: Long, n: Long, stream: Long): Long
 
     @JvmStatic
@@ -675,6 +699,9 @@ private object VxworksJniBridge {
 
     @JvmStatic
     external fun libc_vxworks_readdir(pDir: Long): Long
+
+    @JvmStatic
+    external fun libc_vxworks_open(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_vxworks_poll(fds: Long, nfds: Int, timeout: Int): Int
@@ -828,6 +855,12 @@ private object VxworksJniBridge {
 
     @JvmStatic
     external fun libc_vxworks_socket(domain: Int, type: Int, protocol: Int): Int
+
+    @JvmStatic
+    external fun libc_vxworks_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_vxworks_fcntl(fd: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_vxworks_gaiStrerror(errcode: Int): Long
@@ -1026,6 +1059,9 @@ private object VxworksJniBridge {
 
     @JvmStatic
     external fun libc_vxworks_randSecure(): Int
+
+    @JvmStatic
+    external fun libc_vxworks_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_vxworks_mqClose(mqd: Long): Int
@@ -1385,25 +1421,25 @@ public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: G
     VxworksJniBridge.libc_vxworks_fchownat(dirfd, pathname, owner.toShort(), group.toShort(), flags)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_snprintf((s?.value ?: 0L), n.toLong(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_sprintf((s?.value ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_fscanf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
     VxworksJniBridge.libc_vxworks_getcharUnlocked()
@@ -1636,6 +1672,7 @@ public actual fun setlogmask(maskpri: CInt): CInt =
     VxworksJniBridge.libc_vxworks_setlogmask(maskpri)
 
 public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
+    VxworksJniBridge.libc_vxworks_syslog(priority, message, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: FILE?): SsizeT =
@@ -1753,7 +1790,7 @@ public actual fun readdir(pDir: DIR?): COpaquePointer? =
     VxworksJniBridge.libc_vxworks_readdir((pDir?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
     VxworksJniBridge.libc_vxworks_poll((fds?.value ?: 0L), nfds.toInt(), timeout)
@@ -1909,10 +1946,10 @@ public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
     VxworksJniBridge.libc_vxworks_socket(domain, type, protocol)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    VxworksJniBridge.libc_vxworks_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun gaiStrerror(errcode: CInt): COpaquePointer? =
     VxworksJniBridge.libc_vxworks_gaiStrerror(errcode).let { if (it == 0L) null else COpaquePointer(it) }
@@ -2117,7 +2154,7 @@ public actual fun randSecure(): CInt =
     VxworksJniBridge.libc_vxworks_randSecure()
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    VxworksJniBridge.libc_vxworks_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     VxworksJniBridge.libc_vxworks_mqClose(mqd.toLong())

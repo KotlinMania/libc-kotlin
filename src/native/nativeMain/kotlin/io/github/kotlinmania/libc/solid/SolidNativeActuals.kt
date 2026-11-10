@@ -15,46 +15,40 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-private var _ffi_static_OPTARG: COpaquePointer? = null
 public actual var OPTARG: COpaquePointer?
-    get() = _ffi_static_OPTARG
+    get() = io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTARG()?.let { COpaquePointer(it.toLong()) }
     set(value) {
-        _ffi_static_OPTARG = value
+        io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTARG(value?.value?.toCPointer<ByteVar>())
     }
 
-private var _ffi_static_OPTERR: CInt = 0
 public actual var OPTERR: CInt
-    get() = _ffi_static_OPTERR
+    get() = io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTERR()
     set(value) {
-        _ffi_static_OPTERR = value
+        io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTERR(value)
     }
 
-private var _ffi_static_OPTIND: CInt = 0
 public actual var OPTIND: CInt
-    get() = _ffi_static_OPTIND
+    get() = io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTIND()
     set(value) {
-        _ffi_static_OPTIND = value
+        io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTIND(value)
     }
 
-private var _ffi_static_OPTOPT: CInt = 0
 public actual var OPTOPT: CInt
-    get() = _ffi_static_OPTOPT
+    get() = io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTOPT()
     set(value) {
-        _ffi_static_OPTOPT = value
+        io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTOPT(value)
     }
 
-private var _ffi_static_OPTRESET: CInt = 0
 public actual var OPTRESET: CInt
-    get() = _ffi_static_OPTRESET
+    get() = io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTRESET()
     set(value) {
-        _ffi_static_OPTRESET = value
+        io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTRESET(value)
     }
 
-private var _ffi_static_SUBOPTARG: COpaquePointer? = null
 public actual var SUBOPTARG: COpaquePointer?
-    get() = _ffi_static_SUBOPTARG
+    get() = io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_SUBOPTARG()?.let { COpaquePointer(it.toLong()) }
     set(value) {
-        _ffi_static_SUBOPTARG = value
+        io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_SUBOPTARG(value?.value?.toCPointer<ByteVar>())
     }
 
 public actual fun isalnum(c: CInt): CInt =
@@ -128,7 +122,7 @@ public actual fun fopen(arg1: String?, arg2: String?): FILE? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_fopen(arg1, arg2)?.let { FILE(it.toLong()) }
 
 public actual fun fprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_fprintf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fputc(arg1: CInt, arg2: FILE?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_fputc(arg1, arg2?.handle?.toCPointer<ByteVar>())
@@ -143,7 +137,7 @@ public actual fun freopen(arg1: String?, arg2: String?, arg3: FILE?): FILE? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_freopen(arg1, arg2, arg3?.handle?.toCPointer<ByteVar>())?.let { FILE(it.toLong()) }
 
 public actual fun fscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_fscanf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fseek(arg1: FILE?, arg2: CLong, arg3: CInt): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_fseek(arg1?.handle?.toCPointer<ByteVar>(), arg2, arg3)
@@ -165,7 +159,7 @@ public actual fun perror(arg1: String?) {
 }
 
 public actual fun printf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_printf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun putc(arg1: CInt, arg2: FILE?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_putc(arg1, arg2?.handle?.toCPointer<ByteVar>())
@@ -184,7 +178,7 @@ public actual fun rewind(arg1: FILE?) {
 }
 
 public actual fun scanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_scanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun setbuf(arg1: FILE?, arg2: COpaquePointer?) {
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_setbuf(arg1?.handle?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())
@@ -194,7 +188,7 @@ public actual fun setvbuf(arg1: FILE?, arg2: COpaquePointer?, arg3: CInt, arg4: 
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_setvbuf(arg1?.handle?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3, arg4)
 
 public actual fun sscanf(arg1: String?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_sscanf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun tmpfile(): FILE? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_tmpfile()?.let { FILE(it.toLong()) }
@@ -212,7 +206,7 @@ public actual fun gets(arg1: COpaquePointer?): COpaquePointer? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_gets(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun sprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_sprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun tmpnam(arg1: String?): COpaquePointer? =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_tmpnam(arg1)?.let { COpaquePointer(it.toLong()) }
@@ -224,28 +218,28 @@ public actual fun rename(arg1: String?, arg2: String?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_rename(arg1, arg2)
 
 public actual fun asiprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_asiprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fiprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_fiprintf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fiscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_fiscanf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun iprintf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_iprintf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun iscanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_iscanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun siprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_siprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun siscanf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_siscanf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_sniprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun vasiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_vasiprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())
@@ -275,7 +269,7 @@ public actual fun vdiprintf(arg1: CInt, arg2: String?, arg3: VaList): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_vdiprintf(arg1, arg2, arg3?.value?.toCPointer<ByteVar>())
 
 public actual fun diprintf(arg1: CInt, arg2: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_diprintf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fgetpos(arg1: FILE?, arg2: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_fgetpos(arg1?.handle?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())
@@ -313,7 +307,7 @@ public actual fun putcharUnlocked(arg1: CInt): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_putcharUnlocked(arg1)
 
 public actual fun snprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_snprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun vsnprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: VaList): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_vsnprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.value?.toCPointer<ByteVar>())
@@ -858,7 +852,7 @@ public actual fun mkdir(arg1: String?, arg2: ModeT): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_mkdir(arg1, arg2)
 
 public actual fun open(arg1: String?, arg2: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_open(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(arg1: String?, arg2: CInt): CInt =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_creat(arg1, arg2)
@@ -906,7 +900,7 @@ public actual fun getsubopt(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: 
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_getsubopt(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3?.value?.toCPointer<ByteVar>())
 
 public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.solid.cinterop.libc_solid_fcntl(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpid(): PidT =
     io.github.kotlinmania.libc.solid.cinterop.libc_solid_getpid()

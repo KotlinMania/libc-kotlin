@@ -89,6 +89,9 @@ private object UnixLinuxlikeEmscriptenJniBridge {
     external fun libc_unix_linuxlike_emscripten_mkfifoat(dirfd: Int, pathname: String?, mode: Int): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_emscripten_mremap(addr: Long, len: Long, newLen: Long, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_emscripten_glob(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
@@ -129,6 +132,9 @@ private object UnixLinuxlikeEmscriptenJniBridge {
 
     @JvmStatic
     external fun libc_unix_linuxlike_emscripten_sync()
+
+    @JvmStatic
+    external fun libc_unix_linuxlike_emscripten_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_linuxlike_emscripten_getpriority(which: Int, who: Int): Int
@@ -225,7 +231,7 @@ public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_mkfifoat(dirfd, pathname, mode.toInt())
 
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_mremap((addr?.value ?: 0L), len.toLong(), newLen.toLong(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
@@ -273,7 +279,7 @@ public actual fun sync() {
 }
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getpriority(which, who.toInt())

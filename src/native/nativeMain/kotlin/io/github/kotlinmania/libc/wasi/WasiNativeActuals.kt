@@ -16,18 +16,17 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-private var _ffi_static_ENVIRON: COpaquePointer? = null
 public actual var ENVIRON: COpaquePointer?
-    get() = _ffi_static_ENVIRON
+    get() = io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_get_ENVIRON()?.let { COpaquePointer(it.toLong()) }
     set(value) {
-        _ffi_static_ENVIRON = value
+        io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_set_ENVIRON(value?.value?.toCPointer<ByteVar>())
     }
 
 public actual val CLOCK_MONOTONIC1: UByte
-    get() = 0u
+    get() = io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_get_CLOCK_MONOTONIC1()
 
 public actual val CLOCK_REALTIME1: UByte
-    get() = 0u
+    get() = io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_get_CLOCK_REALTIME1()
 
 public actual fun exit(code: CInt): Nothing {
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_exit(code)
@@ -403,25 +402,25 @@ public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePoint
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fprintf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_snprintf(s?.value?.toCPointer<ByteVar>(), n, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sprintf(s?.value?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fscanf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getcharUnlocked()
@@ -448,13 +447,13 @@ public actual fun fileno(stream: FILE?): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fileno(stream?.handle?.toCPointer<ByteVar>())
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_creat(path, mode)
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun opendir(dirname: String?): DIR? =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_opendir(dirname)?.let { DIR(it.toLong()) }
@@ -483,7 +482,7 @@ public actual fun telldir(dirp: DIR?): CLong =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_telldir(dirp?.handle?.toCPointer<ByteVar>())
 
 public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fstatat(dirfd, pathname, buf?.value?.toCPointer<ByteVar>(), flags)
@@ -603,7 +602,7 @@ public actual fun sysconf(name: CInt): CLong =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sysconf(name)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
     io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fseeko(stream?.handle?.toCPointer<ByteVar>(), offset, whence)

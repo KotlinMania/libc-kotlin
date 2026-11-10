@@ -1,3 +1,3 @@
 package io.github.kotlinmania.libc
 
-internal actual fun testIsBrowser(): Boolean = false
+internal actual fun testIsBrowser(): Boolean = true

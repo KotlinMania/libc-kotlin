@@ -9,6 +9,8 @@
 extern "C" {
 #endif
 
+void* libc_unix_nto_get_SYSPAGE_PTR(void);
+void libc_unix_nto_set_SYSPAGE_PTR(void* km_val);
 int32_t libc_unix_nto_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags);
 int32_t libc_unix_nto_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout);
 int32_t libc_unix_nto_semDestroy(void* sem);
@@ -128,6 +130,7 @@ int32_t libc_unix_nto_getdtablesize(void);
 int32_t libc_unix_nto_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result);
 int32_t libc_unix_nto_initgroups(const char* user, uint16_t group);
 int32_t libc_unix_nto_pthreadSigmask(int32_t how, void* set, void* oldset);
+void* libc_unix_nto_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 void* libc_unix_nto_getgrnam(const char* name);
 int32_t libc_unix_nto_pthreadCancel(void* thread);
 int32_t libc_unix_nto_pthreadKill(void* thread, int32_t sig);
@@ -177,6 +180,7 @@ int32_t libc_unix_nto_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t
 int32_t libc_unix_nto_mallopt(int32_t param, int64_t value);
 int32_t libc_unix_nto_gettimeofday(void* tp, void* tz);
 char* libc_unix_nto_ctermid(char* s);
+int32_t libc_unix_nto_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_nto_getpwentR(void* pwd, char* buf, int32_t arg_2_bufsize, void* arg_3_result);
 int32_t libc_unix_nto_pthreadGetnameNp(void* thread, char* name, int32_t len);
 int32_t libc_unix_nto_pthreadSetnameNp(void* thread, const char* name);
@@ -191,6 +195,7 @@ int32_t libc_unix_nto_regexec(void* arg_0_preg, const char* arg_1_str, uint64_t 
 uint64_t libc_unix_nto_regerror(int32_t arg_0_errcode, void* arg_1_preg, char* arg_2_errbuf, uint64_t arg_3_errbuf_size);
 void libc_unix_nto_regfree(void* arg_0_preg);
 int32_t libc_unix_nto_dirfd(void* arg_0_dirp);
+int32_t libc_unix_nto_dircntl(void* dir, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_nto_aioCancel(int32_t arg_0_fd, void* arg_1_aiocbp);
 int32_t libc_unix_nto_aioError(void* arg_0_aiocbp);
 int32_t libc_unix_nto_aioFsync(int32_t arg_0_operation, void* arg_1_aiocbp);
@@ -201,6 +206,7 @@ int32_t libc_unix_nto_aioWrite(void* arg_0_aiocpb);
 int32_t libc_unix_nto_mqClose(void* arg_0_mqdes);
 int32_t libc_unix_nto_mqGetattr(void* arg_0_mqdes, void* arg_1_mqstat);
 int32_t libc_unix_nto_mqNotify(void* arg_0_mqdes, void* arg_1_notification);
+void* libc_unix_nto_mqOpen(const char* arg_0_name, int32_t arg_1_oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int64_t libc_unix_nto_mqReceive(void* arg_0_mqdes, char* arg_1_msg_ptr, uint64_t arg_2_msg_len, void* arg_3_msg_prio);
 int32_t libc_unix_nto_mqSend(void* arg_0_mqdes, const char* arg_1_msg_ptr, uint64_t arg_2_msg_len, uint32_t arg_3_msg_prio);
 int32_t libc_unix_nto_mqSetattr(void* arg_0_mqdes, void* arg_1_mqstat, void* arg_2_omqstat);

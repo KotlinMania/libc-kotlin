@@ -12,6 +12,7 @@ extern "C" {
 int32_t libc_unix_linuxlike_linux_uclibc_gettimeofday(void* tp, void* tz);
 int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrGetkindNp(void* attr, void* val);
 int32_t libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(void* attr, int32_t val);
+int64_t libc_unix_linuxlike_linux_uclibc_ptrace(uint32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_linux_uclibc_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags);
 int32_t libc_unix_linuxlike_linux_uclibc_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags, void* timeout);
 int32_t libc_unix_linuxlike_linux_uclibc_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp);

@@ -184,16 +184,16 @@ public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePo
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadGetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set?.value?.toCPointer<ByteVar>())
 
 public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_printf(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_scanf(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_snprintf(s?.value?.toCPointer<ByteVar>(), n, fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_sprintf(s?.value?.toCPointer<ByteVar>(), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_vsnprintf(s?.value?.toCPointer<ByteVar>(), n, fmt, ap?.value?.toCPointer<ByteVar>())
@@ -255,7 +255,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
 
 public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semOpen(name, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun semPost(sem: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semPost(sem?.value?.toCPointer<ByteVar>())

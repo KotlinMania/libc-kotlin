@@ -61,6 +61,18 @@ private object NewQurtStdioJniBridge {
     external fun libc_new_qurt_stdio_puts(s: String?): Int
 
     @JvmStatic
+    external fun libc_new_qurt_stdio_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_new_qurt_stdio_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_new_qurt_stdio_sprintf(s: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_new_qurt_stdio_snprintf(s: Long, n: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_new_qurt_stdio_vprintf(format: String?, ap: Long): Int
 
     @JvmStatic
@@ -71,6 +83,15 @@ private object NewQurtStdioJniBridge {
 
     @JvmStatic
     external fun libc_new_qurt_stdio_vsnprintf(s: Long, n: Long, format: String?, ap: Long): Int
+
+    @JvmStatic
+    external fun libc_new_qurt_stdio_scanf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_new_qurt_stdio_fscanf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_new_qurt_stdio_sscanf(s: String?, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_new_qurt_stdio_fseek(stream: Long, offset: Long, whence: Int): Int
@@ -164,16 +185,16 @@ public actual fun puts(s: String?): CInt =
     NewQurtStdioJniBridge.libc_new_qurt_stdio_puts(s)
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    NewQurtStdioJniBridge.libc_new_qurt_stdio_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    NewQurtStdioJniBridge.libc_new_qurt_stdio_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    NewQurtStdioJniBridge.libc_new_qurt_stdio_sprintf((s?.value ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    NewQurtStdioJniBridge.libc_new_qurt_stdio_snprintf((s?.value ?: 0L), n.toLong(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun vprintf(format: String?, ap: VaList): CInt =
     NewQurtStdioJniBridge.libc_new_qurt_stdio_vprintf(format, (ap?.value ?: 0L))
@@ -188,13 +209,13 @@ public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, format: String?, ap: V
     NewQurtStdioJniBridge.libc_new_qurt_stdio_vsnprintf((s?.value ?: 0L), n.toLong(), format, (ap?.value ?: 0L))
 
 public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    NewQurtStdioJniBridge.libc_new_qurt_stdio_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    NewQurtStdioJniBridge.libc_new_qurt_stdio_fscanf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    NewQurtStdioJniBridge.libc_new_qurt_stdio_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
     NewQurtStdioJniBridge.libc_new_qurt_stdio_fseek((stream?.handle ?: 0L), offset, whence)

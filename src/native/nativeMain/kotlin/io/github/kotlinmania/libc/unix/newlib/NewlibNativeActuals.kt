@@ -60,7 +60,7 @@ public actual fun closesocket(sockfd: CInt): CInt =
     io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_closesocket(sockfd)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: COpaquePointer?, addrLen: COpaquePointer?): Long =
     io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_recvfrom(fd, buf?.value?.toCPointer<ByteVar>(), n, flags, addr?.value?.toCPointer<ByteVar>(), addrLen?.value?.toCPointer<ByteVar>())
@@ -96,7 +96,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getgrnam(name)?.let { COpaquePointer(it.toLong()) }

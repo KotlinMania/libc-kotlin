@@ -11,6 +11,7 @@ extern "C" {
 
 void* libc_unix_nuttx_errno(void);
 int32_t libc_unix_nuttx_bind(int32_t sockfd, void* addr, uint32_t addrlen);
+int32_t libc_unix_nuttx_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_nuttx_dirfd(void* dirp);
 int32_t libc_unix_nuttx_recvfrom(int32_t sockfd, void* buf, uint64_t len, int32_t flags, void* src_addr, void* addrlen);
 int32_t libc_unix_nuttx_pthreadCreate(void* thread, void* attr, void* start_routine, void* arg);

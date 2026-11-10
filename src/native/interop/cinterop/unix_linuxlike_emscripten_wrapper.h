@@ -32,6 +32,7 @@ int32_t libc_unix_linuxlike_emscripten_accept4(int32_t fd, void* addr, void* len
 int32_t libc_unix_linuxlike_emscripten_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags);
 int32_t libc_unix_linuxlike_emscripten_getloadavg(void* loadavg, int32_t nelem);
 int32_t libc_unix_linuxlike_emscripten_mkfifoat(int32_t dirfd, const char* pathname, uint32_t mode);
+void* libc_unix_linuxlike_emscripten_mremap(void* addr, uint64_t len, uint64_t new_len, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_emscripten_glob(const char* pattern, int32_t flags, void* errfunc, void* pglob);
 void libc_unix_linuxlike_emscripten_globfree(void* pglob);
 int32_t libc_unix_linuxlike_emscripten_posixMadvise(void* addr, uint64_t len, int32_t advice);
@@ -46,6 +47,7 @@ char* libc_unix_linuxlike_emscripten_nlLanginfo(int32_t item);
 int32_t libc_unix_linuxlike_emscripten_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags);
 int32_t libc_unix_linuxlike_emscripten_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout);
 void libc_unix_linuxlike_emscripten_sync(void);
+int32_t libc_unix_linuxlike_emscripten_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_emscripten_getpriority(int32_t which, uint32_t who);
 int32_t libc_unix_linuxlike_emscripten_setpriority(int32_t which, uint32_t who, int32_t prio);
 int32_t libc_unix_linuxlike_emscripten_getentropy(void* buf, uint64_t buflen);

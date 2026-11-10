@@ -2,17 +2,20 @@
 
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun utmpname(file: String?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun setutent() {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }
 
 public actual fun getutent(): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun endutent() {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }

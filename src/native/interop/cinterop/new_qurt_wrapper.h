@@ -16,6 +16,7 @@ int32_t libc_new_qurt_mkdir(const char* path, uint32_t mode);
 int32_t libc_new_qurt_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize);
 int32_t libc_new_qurt_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize);
 int32_t libc_new_qurt_clockGetcpuclockid(int32_t pid, void* clock_id);
+void* libc_new_qurt_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_new_qurt_semClose(void* sem);
 int32_t libc_new_qurt_semUnlink(const char* name);
 void* libc_new_qurt_alignedAlloc(uint64_t alignment, uint64_t size);

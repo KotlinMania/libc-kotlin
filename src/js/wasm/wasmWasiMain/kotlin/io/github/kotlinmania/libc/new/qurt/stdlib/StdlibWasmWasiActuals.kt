@@ -18,88 +18,91 @@ import io.github.kotlinmania.libc.new.qurt.LldivT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 
 public actual fun malloc(size: SizeT): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun calloc(nmemb: SizeT, size: SizeT): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun realloc(ptr: COpaquePointer?, size: SizeT): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun free(ptr: COpaquePointer?) {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }
 
 public actual fun abort(): Nothing =
-    error("Unreachable noreturn C function abort")
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun exit(status: CInt): Nothing =
-    error("Unreachable noreturn C function exit")
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun atexit(function: AtexitFunctionCallback): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getenv(name: String?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun unsetenv(name: String?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun atoi(nptr: String?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun atol(nptr: String?): CLong =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun atoll(nptr: String?): CLonglong =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strtol(nptr: String?, endptr: COpaquePointer?, base: CInt): CLong =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strtoul(nptr: String?, endptr: COpaquePointer?, base: CInt): CUlong =
-    0uL
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strtoll(nptr: String?, endptr: COpaquePointer?, base: CInt): CLonglong =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strtoull(nptr: String?, endptr: COpaquePointer?, base: CInt): CUlonglong =
-    0uL
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strtod(nptr: String?, endptr: COpaquePointer?): CDouble =
-    0.0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strtof(nptr: String?, endptr: COpaquePointer?): CFloat =
-    0.0f
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun rand(): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun srand(seed: CUint) {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }
 
 public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }
 
 public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun abs(j: CInt): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun labs(j: CLong): CLong =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun llabs(j: CLonglong): CLonglong =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun div(numer: CInt, denom: CInt): DivT =
-    DivT()
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun ldiv(numer: CLong, denom: CLong): LdivT =
-    LdivT()
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun lldiv(numer: CLonglong, denom: CLonglong): LldivT =
-    LldivT()
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

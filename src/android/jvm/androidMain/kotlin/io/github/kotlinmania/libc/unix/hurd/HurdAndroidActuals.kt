@@ -65,6 +65,9 @@ private object UnixHurdJniBridge {
     external fun libc_unix_hurd_sigaltstack(ss: Long, oss: Long): Int
 
     @JvmStatic
+    external fun libc_unix_hurd_ioctl(fd: Int, request: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_hurd_pipe2(fds: Long, flags: Int): Int
 
     @JvmStatic
@@ -120,6 +123,9 @@ private object UnixHurdJniBridge {
 
     @JvmStatic
     external fun libc_unix_hurd_lioListio(mode: Int, aiocbList: Long, nitems: Int, sevp: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_hurd_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_hurd_mqClose(mqd: Long): Int
@@ -599,6 +605,18 @@ private object UnixHurdJniBridge {
     external fun libc_unix_hurd_fstatvfs64(fildes: Int, buf: Long): Int
 
     @JvmStatic
+    external fun libc_unix_hurd_open(file: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_hurd_open64(file: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_hurd_openat(fd: Int, file: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_hurd_openat64(fd: Int, file: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_hurd_fopen64(filename: String?, mode: String?): Long
 
     @JvmStatic
@@ -786,6 +804,9 @@ private object UnixHurdJniBridge {
 
     @JvmStatic
     external fun libc_unix_hurd_mmap64(addr: Long, len: Long, prot: Int, flags: Int, fd: Int, offset: Long): Long
+
+    @JvmStatic
+    external fun libc_unix_hurd_mremap(addr: Long, len: Long, newLen: Long, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_hurd_mprotect(addr: Long, len: Long, prot: Int): Int
@@ -1089,7 +1110,7 @@ public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     UnixHurdJniBridge.libc_unix_hurd_sigaltstack((ss?.value ?: 0L), (oss?.value ?: 0L))
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    UnixHurdJniBridge.libc_unix_hurd_ioctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
     UnixHurdJniBridge.libc_unix_hurd_pipe2((fds?.value ?: 0L), flags)
@@ -1149,7 +1170,7 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt
     UnixHurdJniBridge.libc_unix_hurd_lioListio(mode, (aiocbList?.value ?: 0L), nitems, (sevp?.value ?: 0L))
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    UnixHurdJniBridge.libc_unix_hurd_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     UnixHurdJniBridge.libc_unix_hurd_mqClose(mqd.toLong())
@@ -1639,16 +1660,16 @@ public actual fun fstatvfs64(fildes: CInt, buf: COpaquePointer?): CInt =
     UnixHurdJniBridge.libc_unix_hurd_fstatvfs64(fildes, (buf?.value ?: 0L))
 
 public actual fun open(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixHurdJniBridge.libc_unix_hurd_open(file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun open64(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixHurdJniBridge.libc_unix_hurd_open64(file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun openat(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixHurdJniBridge.libc_unix_hurd_openat(fd, file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun openat64(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixHurdJniBridge.libc_unix_hurd_openat64(fd, file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fopen64(filename: String?, mode: String?): FILE? =
     UnixHurdJniBridge.libc_unix_hurd_fopen64(filename, mode).let { if (it == 0L) null else FILE(it) }
@@ -1841,7 +1862,7 @@ public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: C
     UnixHurdJniBridge.libc_unix_hurd_mmap64((addr?.value ?: 0L), len.toLong(), prot, flags, fd, offset).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixHurdJniBridge.libc_unix_hurd_mremap((addr?.value ?: 0L), len.toLong(), newLen.toLong(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
     UnixHurdJniBridge.libc_unix_hurd_mprotect((addr?.value ?: 0L), len.toLong(), prot)

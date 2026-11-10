@@ -40,6 +40,7 @@ int32_t libc_unix_bsd_netbsdlike_netbsd_sysctlbyname(const char* name, void* old
 int32_t libc_unix_bsd_netbsdlike_netbsd_sysctlnametomib(const char* sname, void* name, void* namelenp);
 int32_t libc_unix_bsd_netbsdlike_netbsd_kevent(int32_t kq, void* changelist, uint64_t nchanges, void* eventlist, uint64_t nevents, void* timeout);
 int32_t libc_unix_bsd_netbsdlike_netbsd_mount(const char* src, const char* target, int32_t flags, void* data, uint64_t size);
+void* libc_unix_bsd_netbsdlike_netbsd_mqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_bsd_netbsdlike_netbsd_mqClose(void* mqd);
 int32_t libc_unix_bsd_netbsdlike_netbsd_mqGetattr(void* mqd, void* attr);
 int32_t libc_unix_bsd_netbsdlike_netbsd_mqNotify(void* mqd, void* notification);
@@ -91,6 +92,7 @@ int32_t libc_unix_bsd_netbsdlike_netbsd_timerSettime(void* timerid, int32_t flag
 void* libc_unix_bsd_netbsdlike_netbsd_dlvsym(void* handle, const char* symbol, const char* version);
 void libc_unix_bsd_netbsdlike_netbsd_explicitMemset(void* b, int32_t c, uint64_t len);
 int32_t libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal(void* a, void* b, uint64_t len);
+void libc_unix_bsd_netbsdlike_netbsd_setproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 void* libc_unix_bsd_netbsdlike_netbsd_mremap(void* oldp, uint64_t oldsize, void* newp, uint64_t newsize, int32_t flags);
 int32_t libc_unix_bsd_netbsdlike_netbsd_schedRrGetInterval(int32_t pid, void* t);
 int32_t libc_unix_bsd_netbsdlike_netbsd_schedSetparam(int32_t pid, void* param);
@@ -133,6 +135,8 @@ uint64_t libc_unix_bsd_netbsdlike_netbsd_estrlcpy(char* dst, const char* src, ui
 uint64_t libc_unix_bsd_netbsdlike_netbsd_estrlcat(char* dst, const char* src, uint64_t len);
 int64_t libc_unix_bsd_netbsdlike_netbsd_estrtoi(const char* nptr, int32_t base, int64_t lo, int64_t hi);
 uint64_t libc_unix_bsd_netbsdlike_netbsd_estrtou(const char* nptr, int32_t base, uint64_t lo, uint64_t hi);
+int32_t libc_unix_bsd_netbsdlike_netbsd_easprintf(void* string, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int32_t libc_unix_bsd_netbsdlike_netbsd_evasprintf(void* string, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 void* libc_unix_bsd_netbsdlike_netbsd_esetfunc(void* cb);
 int32_t libc_unix_bsd_netbsdlike_netbsd_securePath(const char* path);
 int32_t libc_unix_bsd_netbsdlike_netbsd_snprintb(char* buf, uint64_t buflen, const char* fmt, uint64_t val);

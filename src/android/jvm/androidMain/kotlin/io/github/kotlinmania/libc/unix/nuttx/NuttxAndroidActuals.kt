@@ -18,6 +18,9 @@ private object UnixNuttxJniBridge {
     external fun libc_unix_nuttx_bind(sockfd: Int, addr: Long, addrlen: Int): Int
 
     @JvmStatic
+    external fun libc_unix_nuttx_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_nuttx_dirfd(dirp: Long): Int
 
     @JvmStatic
@@ -58,7 +61,7 @@ public actual fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): I
     UnixNuttxJniBridge.libc_unix_nuttx_bind(sockfd, (addr?.value ?: 0L), addrlen.toInt())
 
 public actual fun ioctl(fd: Int, request: Int, vararg variadicArgs: Long): Int =
-    0
+    UnixNuttxJniBridge.libc_unix_nuttx_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun dirfd(dirp: DIR?): Int =
     UnixNuttxJniBridge.libc_unix_nuttx_dirfd((dirp?.handle ?: 0L))

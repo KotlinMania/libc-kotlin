@@ -19,11 +19,10 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-private var _ffi_static_SYSPAGE_PTR: COpaquePointer? = null
 public actual var SYSPAGE_PTR: COpaquePointer?
-    get() = _ffi_static_SYSPAGE_PTR
+    get() = io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_get_SYSPAGE_PTR()?.let { COpaquePointer(it.toLong()) }
     set(value) {
-        _ffi_static_SYSPAGE_PTR = value
+        io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_set_SYSPAGE_PTR(value?.value?.toCPointer<ByteVar>())
     }
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
@@ -396,7 +395,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
@@ -546,7 +545,7 @@ public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ctermid(s?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
@@ -595,7 +594,7 @@ public actual fun dirfd(dirp: DIR?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_dirfd(dirp?.handle?.toCPointer<ByteVar>())
 
 public actual fun dircntl(dir: DIR?, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_dircntl(dir?.handle?.toCPointer<ByteVar>(), cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioCancel(fd, aiocbp?.value?.toCPointer<ByteVar>())
@@ -628,7 +627,7 @@ public actual fun mqNotify(mqdes: MqdT, notification: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqNotify(mqdes.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    (io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
 public actual fun mqReceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqReceive(mqdes.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())

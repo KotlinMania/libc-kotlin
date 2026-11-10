@@ -86,6 +86,9 @@ private object UnixLinuxlikeAndroidJniBridge {
     external fun libc_unix_linuxlike_android_processVmWritev(pid: Int, localIov: Long, localIovCount: Long, remoteIov: Long, remoteIovCount: Long, flags: Long): Long
 
     @JvmStatic
+    external fun libc_unix_linuxlike_android_ptrace(request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_android_getpriority(which: Int, who: Int): Int
 
     @JvmStatic
@@ -185,6 +188,9 @@ private object UnixLinuxlikeAndroidJniBridge {
     external fun libc_unix_linuxlike_android_timerfdSettime(fd: Int, flags: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_android_syscall(num: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_android_schedGetaffinity(pid: Int, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
@@ -257,10 +263,16 @@ private object UnixLinuxlikeAndroidJniBridge {
     external fun libc_unix_linuxlike_android_personality(persona: Int): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_android_prctl(option: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_linuxlike_android_schedGetparam(pid: Int, param: Long): Int
 
     @JvmStatic
     external fun libc_unix_linuxlike_android_ppoll(fds: Long, nfds: Int, timeout: Long, sigmask: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_linuxlike_android_clone(cb: Long, childStack: Long, flags: Int, arg: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_linuxlike_android_schedGetscheduler(pid: Int): Int
@@ -312,6 +324,9 @@ private object UnixLinuxlikeAndroidJniBridge {
 
     @JvmStatic
     external fun libc_unix_linuxlike_android_getgrnamR(name: String?, grp: Long, buf: Long, buflen: Long, result: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_linuxlike_android_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_linuxlike_android_getgrnam(name: String?): Long
@@ -521,7 +536,7 @@ public actual fun processVmWritev(pid: PidT, localIov: COpaquePointer?, localIov
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_processVmWritev(pid, (localIov?.value ?: 0L), localIovCount.toLong(), (remoteIov?.value ?: 0L), remoteIovCount.toLong(), flags.toLong())
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
-    0L
+    UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_ptrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_getpriority(which, who.toInt())
@@ -629,7 +644,7 @@ public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_timerfdSettime(fd, flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    0L
+    UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_schedGetaffinity(pid, cpusetsize.toLong(), (cpuset?.value ?: 0L))
@@ -704,7 +719,7 @@ public actual fun personality(persona: CUint): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_personality(persona.toInt())
 
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_prctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_schedGetparam(pid, (param?.value ?: 0L))
@@ -713,7 +728,7 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_ppoll((fds?.value ?: 0L), nfds.toInt(), (timeout?.value ?: 0L), (sigmask?.value ?: 0L))
 
 public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    0
+    UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_clone(0L, (childStack?.value ?: 0L), flags, (arg?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_schedGetscheduler(pid)
@@ -767,7 +782,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }

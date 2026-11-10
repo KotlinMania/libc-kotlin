@@ -472,6 +472,9 @@ private object UnixBsdFreebsdlikeJniBridge {
     external fun libc_unix_bsd_freebsdlike_mqNotify(mqd: Long, notification: Long): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_bsd_freebsdlike_mqReceive(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Long): Long
 
     @JvmStatic
@@ -986,7 +989,7 @@ public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqNotify((mqd?.value ?: 0L), (notification?.value ?: 0L))
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    null
+    UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
     UnixBsdFreebsdlikeJniBridge.libc_unix_bsd_freebsdlike_mqReceive((mqd?.value ?: 0L), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))

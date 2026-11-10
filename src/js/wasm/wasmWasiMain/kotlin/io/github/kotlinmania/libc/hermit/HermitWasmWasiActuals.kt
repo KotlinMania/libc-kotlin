@@ -6,139 +6,141 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun alloc(size: ULong, align: ULong): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun allocZeroed(size: ULong, align: ULong): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong) {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }
 
 public actual fun exit(status: Int): Nothing =
-    error("Unreachable noreturn C function exit")
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun abort(): Nothing =
-    error("Unreachable noreturn C function abort")
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun errno(): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun nanosleep(req: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun availableParallelism(): ULong =
-    0uL
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun futexWait(address: COpaquePointer?, expected: UInt, timeout: COpaquePointer?, flags: UInt): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun futexWake(address: COpaquePointer?, count: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun stat(path: String?, stat: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun fstat(fd: Int, stat: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun lstat(path: String?, stat: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun open(path: String?, flags: Int, mode: ModeT): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun unlink(path: String?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun mkdir(path: String?, mode: ModeT): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun rmdir(path: String?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun read(fd: Int, buf: COpaquePointer?, len: ULong): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun write(fd: Int, buf: COpaquePointer?, len: ULong): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun readv(fd: Int, iov: COpaquePointer?, iovcnt: ULong): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun writev(fd: Int, iov: COpaquePointer?, iovcnt: ULong): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun close(fd: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun dup(fd: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun fcntl(fd: Int, cmd: Int, arg: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getdents64(fd: Int, dirp: COpaquePointer?, count: ULong): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getaddrinfo(nodename: String?, servname: String?, hints: COpaquePointer?, res: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun freeaddrinfo(ai: COpaquePointer?) {
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 }
 
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun listen(sockfd: Int, backlog: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun accept(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun connect(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun recv(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun send(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun sendto(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: COpaquePointer?, tolen: SocklenT): Long =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getpeername(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getsockname(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: SocklenT): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun ioctl(sockfd: Int, cmd: Int, argp: COpaquePointer?): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun shutdown(sockfd: Int, how: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun eventfd(initval: ULong, flags: Short): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: Int): Int =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

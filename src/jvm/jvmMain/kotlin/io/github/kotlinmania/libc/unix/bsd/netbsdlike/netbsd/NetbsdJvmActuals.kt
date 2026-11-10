@@ -122,6 +122,9 @@ private object UnixBsdNetbsdlikeNetbsdJniBridge {
     external fun libc_unix_bsd_netbsdlike_netbsd_mount(src: String?, target: String?, flags: Int, data: Long, size: Long): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_netbsdlike_netbsd_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_bsd_netbsdlike_netbsd_mqClose(mqd: Long): Int
 
     @JvmStatic
@@ -275,6 +278,9 @@ private object UnixBsdNetbsdlikeNetbsdJniBridge {
     external fun libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal(a: Long, b: Long, len: Long): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_netbsdlike_netbsd_setproctitle(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+
+    @JvmStatic
     external fun libc_unix_bsd_netbsdlike_netbsd_mremap(oldp: Long, oldsize: Long, newp: Long, newsize: Long, flags: Int): Long
 
     @JvmStatic
@@ -399,6 +405,12 @@ private object UnixBsdNetbsdlikeNetbsdJniBridge {
 
     @JvmStatic
     external fun libc_unix_bsd_netbsdlike_netbsd_estrtou(nptr: String?, base: Int, lo: Long, hi: Long): Long
+
+    @JvmStatic
+    external fun libc_unix_bsd_netbsdlike_netbsd_easprintf(string: Long, fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_netbsdlike_netbsd_evasprintf(string: Long, fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_bsd_netbsdlike_netbsd_esetfunc(cb: Long): Long
@@ -606,7 +618,7 @@ public actual fun mount(src: String?, target: String?, flags: CInt, data: COpaqu
     UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_mount(src, target, flags, (data?.value ?: 0L), size.toLong())
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_mqClose(mqd.toLong())
@@ -766,6 +778,7 @@ public actual fun consttimeMemequal(a: COpaquePointer?, b: COpaquePointer?, len:
     UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal((a?.value ?: 0L), (b?.value ?: 0L), len.toLong())
 
 public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+    UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mremap(oldp: COpaquePointer?, oldsize: SizeT, newp: COpaquePointer?, newsize: SizeT, flags: CInt): COpaquePointer? =
@@ -897,10 +910,10 @@ public actual fun estrtou(nptr: String?, base: CInt, lo: UintmaxT, hi: UintmaxT)
     UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_estrtou(nptr, base, lo.toLong(), hi.toLong()).toULong()
 
 public actual fun easprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_easprintf((string?.value ?: 0L), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdNetbsdlikeNetbsdJniBridge.libc_unix_bsd_netbsdlike_netbsd_evasprintf((string?.value ?: 0L), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback? =
     null

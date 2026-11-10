@@ -63,7 +63,7 @@ public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_pipe2(fds?.value?.toCPointer<ByteVar>(), flags)
@@ -123,7 +123,7 @@ public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_lioListio(mode, aiocbList?.value?.toCPointer<ByteVar>(), nitems, sevp?.value?.toCPointer<ByteVar>())
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    (io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mqClose(mqd.toLong().toCPointer<ByteVar>())
@@ -613,16 +613,16 @@ public actual fun fstatvfs64(fildes: CInt, buf: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_fstatvfs64(fildes, buf?.value?.toCPointer<ByteVar>())
 
 public actual fun open(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_open(file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun open64(file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_open64(file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun openat(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_openat(fd, file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun openat64(fd: CInt, file: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_openat64(fd, file, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fopen64(filename: String?, mode: String?): FILE? =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_fopen64(filename, mode)?.let { FILE(it.toLong()) }
@@ -815,7 +815,7 @@ public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: C
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mmap64(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mremap(addr?.value?.toCPointer<ByteVar>(), len, newLen, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)

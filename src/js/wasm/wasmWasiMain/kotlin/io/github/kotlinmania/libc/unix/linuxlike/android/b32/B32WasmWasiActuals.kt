@@ -2,7 +2,8 @@
 
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun timegm64(tm: COpaquePointer?): Time64T =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

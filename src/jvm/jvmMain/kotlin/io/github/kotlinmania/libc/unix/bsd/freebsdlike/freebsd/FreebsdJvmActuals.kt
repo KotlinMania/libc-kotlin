@@ -167,6 +167,9 @@ private object UnixBsdFreebsdlikeFreebsdJniBridge {
     external fun libc_unix_bsd_freebsdlike_freebsd_semget(key: Long, nsems: Int, semflg: Int): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_semop(semid: Int, sops: Long, nsops: Long): Int
 
     @JvmStatic
@@ -299,6 +302,9 @@ private object UnixBsdFreebsdlikeFreebsdJniBridge {
     external fun libc_unix_bsd_freebsdlike_freebsd_nmount(iov: Long, niov: Int, flags: Int): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_setproctitle(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+
+    @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_rfork(flags: Int): Int
 
     @JvmStatic
@@ -335,7 +341,19 @@ private object UnixBsdFreebsdlikeFreebsdJniBridge {
     external fun libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd: Int, cmds: Long, ncmds: Long): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsInit(version: Int, rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version: Int, fd: Int, rightsp: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsSet(rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsClear(rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsIsSet(rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Boolean
 
     @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_capRightsIsValid(rights: Long): Boolean
@@ -450,6 +468,9 @@ private object UnixBsdFreebsdlikeFreebsdJniBridge {
 
     @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux: Int, buf: Long, buflen: Int): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_setproctitleFast(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
 
     @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_timingsafeBcmp(a: Long, b: Long, len: Long): Int
@@ -612,6 +633,12 @@ private object UnixBsdFreebsdlikeFreebsdJniBridge {
 
     @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_humanizeNumber(buf: Long, len: Long, number: Long, suffix: String?, scale: Int, flags: Int): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_flopen(path: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_freebsdlike_freebsd_flopenat(fd: Int, path: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_bsd_freebsdlike_freebsd_getlocalbase(): Long
@@ -879,7 +906,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_semget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_semop(semid, (sops?.value ?: 0L), nsops.toLong())
@@ -1015,6 +1042,7 @@ public actual fun nmount(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_nmount((iov?.value ?: 0L), niov.toInt(), flags)
 
 public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun rfork(flags: CInt): CInt =
@@ -1054,19 +1082,19 @@ public actual fun capIoctlsLimit(fd: CInt, cmds: COpaquePointer?, ncmds: ULong):
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd, (cmds?.value ?: 0L), ncmds.toLong())
 
 public actual fun capRightsInit(version: CInt, rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsInit(version, (rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: COpaquePointer?): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version, fd, (rightsp?.value ?: 0L))
 
 public actual fun capRightsSet(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsSet((rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun capRightsClear(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsClear((rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun capRightsIsSet(rights: COpaquePointer?, vararg variadicArgs: Long): Boolean =
-    false
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsIsSet((rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun capRightsIsValid(rights: COpaquePointer?): Boolean =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsIsValid((rights?.value ?: 0L))
@@ -1186,6 +1214,7 @@ public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CIn
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux, (buf?.value ?: 0L), buflen)
 
 public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_setproctitleFast(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
@@ -1356,10 +1385,10 @@ public actual fun humanizeNumber(buf: COpaquePointer?, len: SizeT, number: Long,
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_humanizeNumber((buf?.value ?: 0L), len.toLong(), number, suffix, scale, flags)
 
 public actual fun flopen(path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_flopen(path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun flopenat(fd: CInt, path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_flopenat(fd, path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getlocalbase(): COpaquePointer? =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getlocalbase().let { if (it == 0L) null else COpaquePointer(it) }

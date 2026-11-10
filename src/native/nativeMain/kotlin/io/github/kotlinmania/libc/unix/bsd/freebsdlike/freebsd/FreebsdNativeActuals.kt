@@ -165,7 +165,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_semget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
@@ -301,6 +301,7 @@ public actual fun nmount(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_nmount(iov?.value?.toCPointer<ByteVar>(), niov, flags)
 
 public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun rfork(flags: CInt): CInt =
@@ -340,19 +341,19 @@ public actual fun capIoctlsLimit(fd: CInt, cmds: COpaquePointer?, ncmds: ULong):
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd, cmds?.value?.toCPointer<ByteVar>(), ncmds)
 
 public actual fun capRightsInit(version: CInt, rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsInit(version, rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version, fd, rightsp?.value?.toCPointer<ByteVar>())
 
 public actual fun capRightsSet(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsSet(rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun capRightsClear(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsClear(rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun capRightsIsSet(rights: COpaquePointer?, vararg variadicArgs: Long): Boolean =
-    false
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsIsSet(rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun capRightsIsValid(rights: COpaquePointer?): Boolean =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsIsValid(rights?.value?.toCPointer<ByteVar>())
@@ -472,6 +473,7 @@ public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CIn
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux, buf?.value?.toCPointer<ByteVar>(), buflen)
 
 public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long) {
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_setproctitleFast(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
@@ -642,10 +644,10 @@ public actual fun humanizeNumber(buf: COpaquePointer?, len: SizeT, number: Long,
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_humanizeNumber(buf?.value?.toCPointer<ByteVar>(), len, number, suffix, scale, flags)
 
 public actual fun flopen(path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_flopen(path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun flopenat(fd: CInt, path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_flopenat(fd, path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getlocalbase(): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getlocalbase()?.let { COpaquePointer(it.toLong()) }

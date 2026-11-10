@@ -60,7 +60,7 @@ public actual fun setlogin(name: String?): CInt =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setlogin(name)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun kqueue(): CInt =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_kqueue()
@@ -69,7 +69,7 @@ public actual fun unmount(target: String?, arg: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_unmount(target, arg)
 
 public actual fun syscall(num: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpwent(): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getpwent()?.let { COpaquePointer(it.toLong()) }
@@ -188,7 +188,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getgrnam(name)?.let { COpaquePointer(it.toLong()) }

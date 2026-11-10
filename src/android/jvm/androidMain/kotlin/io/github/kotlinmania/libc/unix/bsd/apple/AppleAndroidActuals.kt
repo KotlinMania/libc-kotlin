@@ -27,6 +27,15 @@ private object UnixBsdAppleJniBridge {
     }
 
     @JvmStatic
+    external fun libc_unix_bsd_apple_get_MACH_TASK_SELF(): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_apple_set_MACH_TASK_SELF(value: Int)
+
+    @JvmStatic
+    external fun libc_unix_bsd_apple_get_VM_PAGE_SIZE(): Long
+
+    @JvmStatic
     external fun libc_unix_bsd_apple_setgrent()
 
     @JvmStatic
@@ -138,7 +147,13 @@ private object UnixBsdAppleJniBridge {
     external fun libc_unix_bsd_apple_semget(key: Int, nsems: Int, semflg: Int): Int
 
     @JvmStatic
+    external fun libc_unix_bsd_apple_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_bsd_apple_semop(semid: Int, sops: Long, nsops: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_bsd_apple_shmOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_bsd_apple_ftok(pathname: String?, projId: Int): Int
@@ -576,6 +591,9 @@ private object UnixBsdAppleJniBridge {
     external fun libc_unix_bsd_apple_strtonum(numstr: String?, minval: Long, maxval: Long, errstrp: Long): Long
 
     @JvmStatic
+    external fun libc_unix_bsd_apple_mallocPrintf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+
+    @JvmStatic
     external fun libc_unix_bsd_apple_mallocZoneCheck(zone: Long): Int
 
     @JvmStatic
@@ -795,15 +813,14 @@ private object UnixBsdAppleJniBridge {
     external fun libc_unix_bsd_apple_iconvClose(cd: Long): Int
 }
 
-private var _ffi_static_MACH_TASK_SELF: MachPortT = 0u
 public actual var MACH_TASK_SELF: MachPortT
-    get() = _ffi_static_MACH_TASK_SELF
+    get() = UnixBsdAppleJniBridge.libc_unix_bsd_apple_get_MACH_TASK_SELF().toUInt()
     set(value) {
-        _ffi_static_MACH_TASK_SELF = value
+        UnixBsdAppleJniBridge.libc_unix_bsd_apple_set_MACH_TASK_SELF(value.toInt())
     }
 
 public actual val VM_PAGE_SIZE: VmSizeT
-    get() = 0uL
+    get() = UnixBsdAppleJniBridge.libc_unix_bsd_apple_get_VM_PAGE_SIZE().toULong()
 
 public actual fun setgrent() {
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_setgrent()
@@ -920,13 +937,13 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_semget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_semop(semid, (sops?.value ?: 0L), nsops.toLong())
 
 public actual fun shmOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_shmOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun ftok(pathname: String?, projId: CInt): KeyT =
     UnixBsdAppleJniBridge.libc_unix_bsd_apple_ftok(pathname, projId)
@@ -1378,6 +1395,7 @@ public actual fun mstats(): Mstats =
     Mstats()
 
 public actual fun mallocPrintf(format: String?, vararg variadicArgs: Long) {
+    UnixBsdAppleJniBridge.libc_unix_bsd_apple_mallocPrintf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mallocZoneCheck(zone: COpaquePointer?): BooleanT =

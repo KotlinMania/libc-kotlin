@@ -2,7 +2,8 @@
 
 package io.github.kotlinmania.libc.new.qurt.errno
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun errnoLocation(): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

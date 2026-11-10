@@ -14,43 +14,49 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpulevelT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpuwhichT
 
 private val _unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon: dynamic =
-    js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
+    js("(function() { if (typeof globalThis !== 'undefined' && typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc; if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) return null; try { var pkg = req('@kotlinmania/libc-native-bindings'); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = pkg; return pkg; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { var loaded = req(c); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = loaded; return loaded; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = null; return null; })()")
 
 public actual fun setgrent() {
     if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) {
         _unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_setgrent()
+    } else {
+        throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_mprotect((addr?.value ?: 0L).toString(), len.toString(), prot) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_mprotect((addr?.value ?: 0L).toString(), len.toString(), prot) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun freelocale(loc: LocaleT) {
     if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) {
         _unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_freelocale((loc?.value ?: 0L).toString())
+    } else {
+        throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
-    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_msgrcv(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgtyp.toString(), msgflg) as String).toLong() else 0L
+    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_msgrcv(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgtyp.toString(), msgflg) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?, policy: COpaquePointer?): CInt =
-    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_cpusetGetdomain(level, which, id.toString(), setsize.toString(), (mask?.value ?: 0L).toString(), (policy?.value ?: 0L).toString()) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_cpusetGetdomain(level, which, id.toString(), setsize.toString(), (mask?.value ?: 0L).toString(), (policy?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?, policy: CInt): CInt =
-    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_cpusetSetdomain(level, which, id.toString(), setsize.toString(), (mask?.value ?: 0L).toString(), policy) as Int) else 0
+    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_cpusetSetdomain(level, which, id.toString(), setsize.toString(), (mask?.value ?: 0L).toString(), policy) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
-    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_dirname((path?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_dirname((path?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun basename(path: COpaquePointer?): COpaquePointer? =
-    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_basename((path?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
+    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_basename((path?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
     if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) {
         _unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), (arg?.value ?: 0L).toString(), 0L.toString())
+    } else {
+        throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun kvmKerndisp(kd: COpaquePointer?): KssizeT =
-    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_kvmKerndisp((kd?.value ?: 0L).toString()) as String).toLong() else 0L
+    if (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon != null) (_unixBsdFreebsdlikeFreebsdFreebsd13NapiAddon.libc_unix_bsd_freebsdlike_freebsd_freebsd13_kvmKerndisp((kd?.value ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")

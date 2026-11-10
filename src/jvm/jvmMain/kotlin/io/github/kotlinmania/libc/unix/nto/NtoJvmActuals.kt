@@ -22,6 +22,12 @@ private object UnixNtoJniBridge {
     }
 
     @JvmStatic
+    external fun libc_unix_nto_get_SYSPAGE_PTR(): Long
+
+    @JvmStatic
+    external fun libc_unix_nto_set_SYSPAGE_PTR(value: Long)
+
+    @JvmStatic
     external fun libc_unix_nto_sendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
 
     @JvmStatic
@@ -379,6 +385,9 @@ private object UnixNtoJniBridge {
     external fun libc_unix_nto_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
 
     @JvmStatic
+    external fun libc_unix_nto_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_nto_getgrnam(name: String?): Long
 
     @JvmStatic
@@ -526,6 +535,9 @@ private object UnixNtoJniBridge {
     external fun libc_unix_nto_ctermid(s: Long): Long
 
     @JvmStatic
+    external fun libc_unix_nto_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_nto_getpwentR(pwd: Long, buf: Long, bufsize: Int, result: Long): Int
 
     @JvmStatic
@@ -568,6 +580,9 @@ private object UnixNtoJniBridge {
     external fun libc_unix_nto_dirfd(dirp: Long): Int
 
     @JvmStatic
+    external fun libc_unix_nto_dircntl(dir: Long, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_nto_aioCancel(fd: Int, aiocbp: Long): Int
 
     @JvmStatic
@@ -598,6 +613,9 @@ private object UnixNtoJniBridge {
     external fun libc_unix_nto_mqNotify(mqdes: Long, notification: Long): Int
 
     @JvmStatic
+    external fun libc_unix_nto_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_nto_mqReceive(mqdes: Long, msgPtr: Long, msgLen: Long, msgPrio: Long): Long
 
     @JvmStatic
@@ -622,11 +640,10 @@ private object UnixNtoJniBridge {
     external fun libc_unix_nto_myThreadExit(valuePtr: Long)
 }
 
-private var _ffi_static_SYSPAGE_PTR: COpaquePointer? = null
 public actual var SYSPAGE_PTR: COpaquePointer?
-    get() = _ffi_static_SYSPAGE_PTR
+    get() = UnixNtoJniBridge.libc_unix_nto_get_SYSPAGE_PTR().let { if (it == 0L) null else COpaquePointer(it) }
     set(value) {
-        _ffi_static_SYSPAGE_PTR = value
+        UnixNtoJniBridge.libc_unix_nto_set_SYSPAGE_PTR((value?.value ?: 0L))
     }
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
@@ -999,7 +1016,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     UnixNtoJniBridge.libc_unix_nto_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixNtoJniBridge.libc_unix_nto_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     UnixNtoJniBridge.libc_unix_nto_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
@@ -1149,7 +1166,7 @@ public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
     UnixNtoJniBridge.libc_unix_nto_ctermid((s?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixNtoJniBridge.libc_unix_nto_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
@@ -1198,7 +1215,7 @@ public actual fun dirfd(dirp: DIR?): CInt =
     UnixNtoJniBridge.libc_unix_nto_dirfd((dirp?.handle ?: 0L))
 
 public actual fun dircntl(dir: DIR?, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixNtoJniBridge.libc_unix_nto_dircntl((dir?.handle ?: 0L), cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_aioCancel(fd, (aiocbp?.value ?: 0L))
@@ -1231,7 +1248,7 @@ public actual fun mqNotify(mqdes: MqdT, notification: COpaquePointer?): CInt =
     UnixNtoJniBridge.libc_unix_nto_mqNotify(mqdes.toLong(), (notification?.value ?: 0L))
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    UnixNtoJniBridge.libc_unix_nto_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqReceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
     UnixNtoJniBridge.libc_unix_nto_mqReceive(mqdes.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))

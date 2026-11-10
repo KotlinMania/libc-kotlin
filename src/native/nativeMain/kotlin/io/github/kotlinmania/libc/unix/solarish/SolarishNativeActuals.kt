@@ -89,7 +89,7 @@ public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_setgroups(ngroups, ptr?.value?.toCPointer<ByteVar>())
 
 public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_ioctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
@@ -369,7 +369,7 @@ public actual fun accept4(fd: CInt, address: COpaquePointer?, addressLen: COpaqu
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_accept4(fd, address?.value?.toCPointer<ByteVar>(), addressLen?.value?.toCPointer<ByteVar>(), flags)
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    null
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun mqClose(mqd: MqdT): CInt =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_mqClose(mqd?.value?.toCPointer<ByteVar>())
@@ -441,7 +441,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.solarish.cinterop.libc_unix_solarish_getgrnam(name)?.let { COpaquePointer(it.toLong()) }

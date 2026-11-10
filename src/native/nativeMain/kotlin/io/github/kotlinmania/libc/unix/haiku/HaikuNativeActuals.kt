@@ -178,7 +178,7 @@ public actual fun initgroups(name: String?, basegid: GidT): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_initgroups(name, basegid)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
@@ -303,7 +303,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
@@ -424,7 +424,7 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_semget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)

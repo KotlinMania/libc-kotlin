@@ -2,6 +2,7 @@
 
 package io.github.kotlinmania.libc.new.qurt.time
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
@@ -11,49 +12,49 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.TimeT
 
 public actual fun time(tloc: COpaquePointer?): TimeT =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun clock(): ClockT =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun difftime(time1: TimeT, time0: TimeT): CDouble =
-    0.0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun mktime(tm: COpaquePointer?): TimeT =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun gmtime(timep: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun gmtimeR(timep: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun localtime(timep: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun localtimeR(timep: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun asctime(tm: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun asctimeR(tm: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun ctime(timep: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun ctimeR(timep: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strftime(s: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?): SizeT =
-    0uL
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun nanosleep(req: COpaquePointer?, rem: COpaquePointer?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

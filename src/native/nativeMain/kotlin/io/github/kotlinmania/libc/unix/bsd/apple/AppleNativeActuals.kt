@@ -24,15 +24,14 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-private var _ffi_static_MACH_TASK_SELF: MachPortT = 0u
 public actual var MACH_TASK_SELF: MachPortT
-    get() = _ffi_static_MACH_TASK_SELF
+    get() = io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_get_MACH_TASK_SELF()
     set(value) {
-        _ffi_static_MACH_TASK_SELF = value
+        io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_set_MACH_TASK_SELF(value)
     }
 
 public actual val VM_PAGE_SIZE: VmSizeT
-    get() = 0uL
+    get() = io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_get_VM_PAGE_SIZE()
 
 public actual fun setgrent() {
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_setgrent()
@@ -149,13 +148,13 @@ public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_semget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
 
 public actual fun shmOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_shmOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun ftok(pathname: String?, projId: CInt): KeyT =
     io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_ftok(pathname, projId)
@@ -607,6 +606,7 @@ public actual fun mstats(): Mstats =
     Mstats()
 
 public actual fun mallocPrintf(format: String?, vararg variadicArgs: Long) {
+    io.github.kotlinmania.libc.unix.bsd.apple.cinterop.libc_unix_bsd_apple_mallocPrintf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mallocZoneCheck(zone: COpaquePointer?): BooleanT =

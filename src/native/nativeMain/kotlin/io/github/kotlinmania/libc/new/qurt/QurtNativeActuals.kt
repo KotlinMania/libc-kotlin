@@ -31,7 +31,7 @@ public actual fun clockGetcpuclockid(pid: PidT, clockId: COpaquePointer?): CInt 
     io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_clockGetcpuclockid(pid, clockId?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun semClose(sem: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_semClose(sem?.value?.toCPointer<ByteVar>())

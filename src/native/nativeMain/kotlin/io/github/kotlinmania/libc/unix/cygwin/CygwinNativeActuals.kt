@@ -206,7 +206,7 @@ public actual fun semDestroy(sem: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_semDestroy(sem?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun semClose(sem: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_semClose(sem?.value?.toCPointer<ByteVar>())
@@ -588,7 +588,7 @@ public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): C
     0
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_getrandom(buf?.value?.toCPointer<ByteVar>(), buflen, flags)

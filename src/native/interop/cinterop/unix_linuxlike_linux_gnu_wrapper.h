@@ -53,6 +53,7 @@ void* libc_unix_linuxlike_linux_gnu_backtraceSymbols(void* buffer, int32_t len);
 void libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd(void* buffer, int32_t len, int32_t fd);
 int32_t libc_unix_linuxlike_linux_gnu_glob64(const char* pattern, int32_t flags, void* errfunc, void* pglob);
 void libc_unix_linuxlike_linux_gnu_globfree64(void* pglob);
+int64_t libc_unix_linuxlike_linux_gnu_ptrace(uint32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset);
 int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset);
 int32_t libc_unix_linuxlike_linux_gnu_getpriority(uint32_t which, uint32_t who);

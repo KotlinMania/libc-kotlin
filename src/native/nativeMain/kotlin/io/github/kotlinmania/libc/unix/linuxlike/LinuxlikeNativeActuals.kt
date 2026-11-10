@@ -26,7 +26,7 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun libcCurrentSigrtmax(): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_libcCurrentSigrtmax()
@@ -251,10 +251,10 @@ public actual fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: C
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_mmap64(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_open64(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun openat64(fd: CInt, path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_openat64(fd, path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.cinterop.libc_unix_linuxlike_posixFadvise64(fd, offset, len, advise)

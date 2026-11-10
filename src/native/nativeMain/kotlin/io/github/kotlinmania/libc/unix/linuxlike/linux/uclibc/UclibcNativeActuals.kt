@@ -26,7 +26,7 @@ public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt)
     io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.cinterop.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(attr?.value?.toCPointer<ByteVar>(), value)
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
-    0L
+    io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.cinterop.libc_unix_linuxlike_linux_uclibc_ptrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.cinterop.libc_unix_linuxlike_linux_uclibc_sendmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags)

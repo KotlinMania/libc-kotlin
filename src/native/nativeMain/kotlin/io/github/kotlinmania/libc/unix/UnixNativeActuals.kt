@@ -339,25 +339,25 @@ public actual fun getpwuid(uid: UidT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_getpwuid(uid)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_fprintf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_snprintf(s?.value?.toCPointer<ByteVar>(), n, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_sprintf(s?.value?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_fscanf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_getcharUnlocked()
@@ -420,13 +420,13 @@ public actual fun fileno(stream: FILE?): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_fileno(stream?.handle?.toCPointer<ByteVar>())
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(path: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_creat(path, mode)
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun opendir(dirname: String?): DIR? =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_opendir(dirname)?.let { DIR(it.toLong()) }
@@ -493,13 +493,13 @@ public actual fun dup2(src: CInt, dst: CInt): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_dup2(src, dst)
 
 public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_execl(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_execle(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_execlp(file, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_execv(prog, argv?.value?.toCPointer<ByteVar>())
@@ -1049,6 +1049,7 @@ public actual fun setlogmask(maskpri: CInt): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_setlogmask(maskpri)
 
 public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_syslog(priority, message, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun nice(incr: CInt): CInt =
@@ -1106,7 +1107,7 @@ public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_mkdirat(dirfd, pathname, mode)
 
 public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.cinterop.libc_unix_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fdopendir(fd: CInt): DIR? =
     io.github.kotlinmania.libc.unix.cinterop.libc_unix_fdopendir(fd)?.let { DIR(it.toLong()) }

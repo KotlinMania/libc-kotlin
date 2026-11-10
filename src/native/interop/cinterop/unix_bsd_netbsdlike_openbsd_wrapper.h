@@ -46,6 +46,7 @@ void libc_unix_bsd_netbsdlike_openbsd_freelocale(void* loc);
 void* libc_unix_bsd_netbsdlike_openbsd_newlocale(int32_t mask, const char* locale, void* base);
 void* libc_unix_bsd_netbsdlike_openbsd_duplocale(void* base);
 void libc_unix_bsd_netbsdlike_openbsd_explicitBzero(void* s, uint64_t len);
+void libc_unix_bsd_netbsdlike_openbsd_setproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 void libc_unix_bsd_netbsdlike_openbsd_freezero(void* ptr, uint64_t size);
 void* libc_unix_bsd_netbsdlike_openbsd_mallocConceal(uint64_t size);
 void* libc_unix_bsd_netbsdlike_openbsd_callocConceal(uint64_t nmemb, uint64_t size);

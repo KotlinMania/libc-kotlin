@@ -13,6 +13,7 @@ int32_t libc_unix_linuxlike_linux_musl_getrlimit(int32_t resource, void* rlim);
 int32_t libc_unix_linuxlike_linux_musl_setrlimit(int32_t resource, void* rlim);
 int32_t libc_unix_linuxlike_linux_musl_prlimit(int32_t pid, int32_t resource, void* new_limit, void* old_limit);
 int32_t libc_unix_linuxlike_linux_musl_gettimeofday(void* tp, void* tz);
+int64_t libc_unix_linuxlike_linux_musl_ptrace(int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
 int32_t libc_unix_linuxlike_linux_musl_getpriority(int32_t which, uint32_t who);
 int32_t libc_unix_linuxlike_linux_musl_setpriority(int32_t which, uint32_t who, int32_t prio);
 int32_t libc_unix_linuxlike_linux_musl_fanotifyMark(int32_t fd, uint32_t flags, uint64_t mask, int32_t dirfd, const char* path);

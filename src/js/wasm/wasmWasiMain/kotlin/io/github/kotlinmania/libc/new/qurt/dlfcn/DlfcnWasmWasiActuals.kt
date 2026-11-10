@@ -2,17 +2,18 @@
 
 package io.github.kotlinmania.libc.new.qurt.dlfcn
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 
 public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun dlclose(handle: COpaquePointer?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun dlerror(): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

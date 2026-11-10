@@ -17,10 +17,10 @@ import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_fprintf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun isalnum(c: CInt): CInt =
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_isalnum(c)
@@ -392,10 +392,10 @@ public actual fun fileno(stream: FILE?): CInt =
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_fileno(stream?.handle?.toCPointer<ByteVar>())
 
 public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wopen(path: COpaquePointer?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_wopen(path?.value?.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun creat(path: String?, mode: CInt): CInt =
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_creat(path, mode)
@@ -416,28 +416,28 @@ public actual fun dup2(src: CInt, dst: CInt): CInt =
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_dup2(src, dst)
 
 public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_execl(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_wexecl(path?.value?.toCPointer<ByteVar>(), arg0?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_execle(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_wexecle(path?.value?.toCPointer<ByteVar>(), arg0?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execlp(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_execlp(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_wexeclp(path?.value?.toCPointer<ByteVar>(), arg0?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execlpe(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_execlpe(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    0L
+    io.github.kotlinmania.libc.windows.cinterop.libc_windows_wexeclpe(path?.value?.toCPointer<ByteVar>(), arg0?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_execv(prog, argv?.value?.toCPointer<ByteVar>())

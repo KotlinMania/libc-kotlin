@@ -1,16 +1,31 @@
-@file:OptIn(kotlin.ExperimentalUnsignedTypes::class)
+@file:OptIn(kotlin.ExperimentalUnsignedTypes::class, kotlin.js.ExperimentalWasmJsInterop::class)
 
 package io.github.kotlinmania.libc.windows.msvc
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.windows.SizeT
 
+@JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
+private external fun _initWindowsMsvcNapiAddon(): Boolean
+
+private val _windowsMsvcNapiAvailable: Boolean = _initWindowsMsvcNapiAddon()
+
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_msvc_stricmp(p0, p1)")
+private external fun _wasm_libc_windows_msvc_stricmp(p0: String?, p1: String?): Int
+
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_msvc_strnicmp(p0, p1, p2)")
+private external fun _wasm_libc_windows_msvc_strnicmp(p0: String?, p1: String?, p2: String): Int
+
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_windows_msvc_memccpy(p0, p1, p2, p3)")
+private external fun _wasm_libc_windows_msvc_memccpy(p0: String, p1: String, p2: Int, p3: String): String
+
 public actual fun stricmp(s1: String?, s2: String?): CInt =
-    0
+    if (_windowsMsvcNapiAvailable) _wasm_libc_windows_msvc_stricmp(s1, s2) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun strnicmp(s1: String?, s2: String?, n: SizeT): CInt =
-    0
+    if (_windowsMsvcNapiAvailable) _wasm_libc_windows_msvc_strnicmp(s1, s2, n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: SizeT): COpaquePointer? =
-    null
+    if (_windowsMsvcNapiAvailable) _wasm_libc_windows_msvc_memccpy((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), c, count.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -152,6 +152,9 @@ private object UnixRedoxJniBridge {
     external fun libc_unix_redox_epollCtl(epfd: Int, op: Int, fd: Int, event: Long): Int
 
     @JvmStatic
+    external fun libc_unix_redox_ioctl(fd: Int, request: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_redox_madvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
@@ -371,7 +374,7 @@ public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer
     UnixRedoxJniBridge.libc_unix_redox_epollCtl(epfd, op, fd, (event?.value ?: 0L))
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    0
+    UnixRedoxJniBridge.libc_unix_redox_ioctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
     UnixRedoxJniBridge.libc_unix_redox_madvise((addr?.value ?: 0L), len.toLong(), advice)

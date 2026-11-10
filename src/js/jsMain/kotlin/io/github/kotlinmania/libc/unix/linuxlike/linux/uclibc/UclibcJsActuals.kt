@@ -15,64 +15,64 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.SocklenT
 
 private val _unixLinuxlikeLinuxUclibcNapiAddon: dynamic =
-    js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
+    js("(function() { if (typeof globalThis !== 'undefined' && typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc; if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) return null; try { var pkg = req('@kotlinmania/libc-native-bindings'); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = pkg; return pkg; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { var loaded = req(c); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = loaded; return loaded; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = null; return null; })()")
 
 public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_gettimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_gettimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadRwlockattrGetkindNp(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrGetkindNp((attr?.value ?: 0L).toString(), (value?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrGetkindNp((attr?.value ?: 0L).toString(), (value?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp((attr?.value ?: 0L).toString(), value) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp((attr?.value ?: 0L).toString(), value) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
-    0L
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_ptrace(request.toInt(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_sendmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_sendmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_recvmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags, (timeout?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_recvmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags, (timeout?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_openpty((amaster?.value ?: 0L).toString(), (aslave?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), (termp?.value ?: 0L).toString(), (winp?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_openpty((amaster?.value ?: 0L).toString(), (aslave?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), (termp?.value ?: 0L).toString(), (winp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_forkpty((amaster?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), (termp?.value ?: 0L).toString(), (winp?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_forkpty((amaster?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), (termp?.value ?: 0L).toString(), (winp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getnameinfo((sa?.value ?: 0L).toString(), salen.toInt(), (host?.value ?: 0L).toString(), hostlen.toInt(), (serv?.value ?: 0L).toString(), servlen.toInt(), flags) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getnameinfo((sa?.value ?: 0L).toString(), salen.toInt(), (host?.value ?: 0L).toString(), hostlen.toInt(), (serv?.value ?: 0L).toString(), servlen.toInt(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else 0L
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_preadv(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else 0L
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_preadv(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sethostid(hostid: CLong): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_sethostid(hostid.toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_sethostid(hostid.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: String?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_fanotifyMark(fd, flags.toInt(), mask.toString(), dirfd, path) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_fanotifyMark(fd, flags.toInt(), mask.toString(), dirfd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getrlimit64(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getrlimit64(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_setrlimit64(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_setrlimit64(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getrlimit(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getrlimit(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_setrlimit(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_setrlimit(resource.toString(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getpriority(which.toInt(), who.toInt()) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getpriority(which.toInt(), who.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_setpriority(which.toInt(), who.toInt(), prio) as Int) else 0
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_setpriority(which.toInt(), who.toInt(), prio) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getauxval(type: CUlong): CUlong =
-    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getauxval(type.toString()) as String).toULong() else 0uL
+    if (_unixLinuxlikeLinuxUclibcNapiAddon != null) (_unixLinuxlikeLinuxUclibcNapiAddon.libc_unix_linuxlike_linux_uclibc_getauxval(type.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -29,6 +29,9 @@ private object UnixLinuxlikeLinuxUclibcJniBridge {
     external fun libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(attr: Long, value: Int): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_linux_uclibc_ptrace(request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_linux_uclibc_sendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
 
     @JvmStatic
@@ -87,7 +90,7 @@ public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt)
     UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp((attr?.value ?: 0L), value)
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
-    0L
+    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_ptrace(request.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
     UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_sendmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags)

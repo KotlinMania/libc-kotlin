@@ -89,6 +89,9 @@ private object UnixSolarishJniBridge {
     external fun libc_unix_solarish_setgroups(ngroups: Int, ptr: Long): Int
 
     @JvmStatic
+    external fun libc_unix_solarish_ioctl(fildes: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_unix_solarish_mprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
@@ -359,6 +362,9 @@ private object UnixSolarishJniBridge {
     external fun libc_unix_solarish_accept4(fd: Int, address: Long, addressLen: Long, flags: Int): Int
 
     @JvmStatic
+    external fun libc_unix_solarish_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_solarish_mqClose(mqd: Long): Int
 
     @JvmStatic
@@ -426,6 +432,9 @@ private object UnixSolarishJniBridge {
 
     @JvmStatic
     external fun libc_unix_solarish_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_solarish_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_unix_solarish_getgrnam(name: String?): Long
@@ -875,7 +884,7 @@ public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_setgroups(ngroups, (ptr?.value ?: 0L))
 
 public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixSolarishJniBridge.libc_unix_solarish_ioctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_mprotect((addr?.value ?: 0L), len.toLong(), prot)
@@ -1155,7 +1164,7 @@ public actual fun accept4(fd: CInt, address: COpaquePointer?, addressLen: COpaqu
     UnixSolarishJniBridge.libc_unix_solarish_accept4(fd, (address?.value ?: 0L), (addressLen?.value ?: 0L), flags)
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    null
+    UnixSolarishJniBridge.libc_unix_solarish_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun mqClose(mqd: MqdT): CInt =
     UnixSolarishJniBridge.libc_unix_solarish_mqClose((mqd?.value ?: 0L))
@@ -1227,7 +1236,7 @@ public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaqu
     UnixSolarishJniBridge.libc_unix_solarish_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    UnixSolarishJniBridge.libc_unix_solarish_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     UnixSolarishJniBridge.libc_unix_solarish_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }

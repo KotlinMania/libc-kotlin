@@ -2,6 +2,7 @@
 
 package io.github.kotlinmania.libc.new.qurt.unistd
 
+import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
@@ -12,37 +13,37 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.SsizeT
 
 public actual fun access(pathname: String?, mode: CInt): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun close(fd: CInt): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun read(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun write(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun unlink(pathname: String?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer? =
-    null
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun rmdir(pathname: String?): CInt =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun getpid(): PidT =
-    0
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun sleep(seconds: CUint): CUint =
-    0u
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
 
 public actual fun sysconf(name: CInt): CLong =
-    0L
+    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")

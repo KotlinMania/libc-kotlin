@@ -49,17 +49,18 @@ struct LibcExportTests {
     func testParityEnums() {
         typealias Apple = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.apple
         typealias FreeBSD = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
-        #expect(Apple.SYSDIR_DIRECTORY_ALL_APPLICATIONS == 100)
-        #expect(Apple.SYSDIR_DOMAIN_MASK_ALL == 0xffff)
-        #expect(FreeBSD.DEVSTAT_TYPE_IF_SCSI == 0x10)
-        #expect(FreeBSD.DEVSTAT_PRIORITY_MAX == 0xfff)
+        #expect(Apple.SysdirSearchPathDirectoryT.SYSDIR_DIRECTORY_ALL_APPLICATIONS.value == 100)
+        #expect(Apple.SysdirSearchPathDomainMaskT.SYSDIR_DOMAIN_MASK_ALL.value == 0xffff)
+        #expect(FreeBSD.DevstatTypeFlags.DEVSTAT_TYPE_IF_SCSI.value == 0x10)
+        #expect(FreeBSD.DevstatPriority.DEVSTAT_PRIORITY_MAX.value == 0xfff)
     }
 
     @Test("Card ioctl encoding survives Swift export")
     func testParityIoctl() {
         typealias NetBSDLike = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.netbsdlike
-        #expect(NetBSDLike.ior(g: 0x66, n: 1, len: 4) == 0x40046601)
-        #expect(NetBSDLike.iowr(g: 0x66, n: 1, len: 16) == 0xc0106601)
+        typealias NetBSD = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd
+        #expect(NetBSD.ioc(inout: NetBSDLike.IOC_OUT, group: 0x66, num: 1, len: 4) == 0x40046601)
+        #expect(NetBSD.ioc(inout: NetBSDLike.IOC_INOUT, group: 0x66, num: 1, len: 16) == 0xc0106601)
     }
 
     @Test("Card Mach port matches the kernel through Swift export")

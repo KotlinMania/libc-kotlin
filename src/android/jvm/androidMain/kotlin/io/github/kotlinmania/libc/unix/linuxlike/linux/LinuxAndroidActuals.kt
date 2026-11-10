@@ -28,6 +28,9 @@ private object UnixLinuxlikeLinuxJniBridge {
     external fun libc_unix_linuxlike_linux_getspnamR(name: String?, spbuf: Long, buf: Long, buflen: Long, spbufp: Long): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_linux_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_linux_mqClose(mqd: Long): Int
 
     @JvmStatic
@@ -77,6 +80,9 @@ private object UnixLinuxlikeLinuxJniBridge {
 
     @JvmStatic
     external fun libc_unix_linuxlike_linux_semop(semid: Int, sops: Long, nsops: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_linuxlike_linux_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_linuxlike_linux_msgctl(msqid: Int, cmd: Int, buf: Long): Int
@@ -199,6 +205,9 @@ private object UnixLinuxlikeLinuxJniBridge {
     external fun libc_unix_linuxlike_linux_syncfs(fd: Int): Int
 
     @JvmStatic
+    external fun libc_unix_linuxlike_linux_syscall(num: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+
+    @JvmStatic
     external fun libc_unix_linuxlike_linux_schedSetaffinity(pid: Int, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
@@ -254,6 +263,9 @@ private object UnixLinuxlikeLinuxJniBridge {
 
     @JvmStatic
     external fun libc_unix_linuxlike_linux_schedGetparam(pid: Int, param: Long): Int
+
+    @JvmStatic
+    external fun libc_unix_linuxlike_linux_clone(cb: Long, childStack: Long, flags: Int, arg: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
 
     @JvmStatic
     external fun libc_unix_linuxlike_linux_schedGetscheduler(pid: Int): Int
@@ -392,7 +404,7 @@ public actual fun getspnamR(name: String?, spbuf: COpaquePointer?, buf: COpaqueP
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_getspnamR(name, (spbuf?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (spbufp?.value ?: 0L))
 
 public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    0
+    UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_mqClose(mqd.toLong())
@@ -447,7 +459,7 @@ public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt 
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_semop(semid, (sops?.value ?: 0L), nsops.toLong())
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    0
+    UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_msgctl(msqid, cmd, (buf?.value ?: 0L))
@@ -571,7 +583,7 @@ public actual fun syncfs(fd: CInt): CInt =
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_syncfs(fd)
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    0L
+    UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_schedSetaffinity(pid, cpusetsize.toLong(), (cpuset?.value ?: 0L))
@@ -631,7 +643,7 @@ public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_schedGetparam(pid, (param?.value ?: 0L))
 
 public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    0
+    UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_clone(0L, (childStack?.value ?: 0L), flags, (arg?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     UnixLinuxlikeLinuxJniBridge.libc_unix_linuxlike_linux_schedGetscheduler(pid)

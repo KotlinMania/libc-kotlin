@@ -183,6 +183,18 @@ private object TeeosJniBridge {
     external fun libc_teeos_pthreadGetaffinityNp(td: Long, size: Long, set: Long): Int
 
     @JvmStatic
+    external fun libc_teeos_printf(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_teeos_scanf(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_teeos_snprintf(s: Long, n: Long, fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
+    external fun libc_teeos_sprintf(s: Long, fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+
+    @JvmStatic
     external fun libc_teeos_vsnprintf(s: Long, n: Long, fmt: String?, ap: Long): Int
 
     @JvmStatic
@@ -238,6 +250,9 @@ private object TeeosJniBridge {
 
     @JvmStatic
     external fun libc_teeos_semInit(sem: Long, pshared: Int, value: Int): Int
+
+    @JvmStatic
+    external fun libc_teeos_semOpen(name: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
 
     @JvmStatic
     external fun libc_teeos_semPost(sem: Long): Int
@@ -601,16 +616,16 @@ public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePo
     TeeosJniBridge.libc_teeos_pthreadGetaffinityNp(td.toLong(), size.toLong(), (set?.value ?: 0L))
 
 public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    TeeosJniBridge.libc_teeos_printf(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    TeeosJniBridge.libc_teeos_scanf(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    TeeosJniBridge.libc_teeos_snprintf((s?.value ?: 0L), n.toLong(), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    0
+    TeeosJniBridge.libc_teeos_sprintf((s?.value ?: 0L), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
     TeeosJniBridge.libc_teeos_vsnprintf((s?.value ?: 0L), n.toLong(), fmt, (ap?.value ?: 0L))
@@ -672,7 +687,7 @@ public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CI
     TeeosJniBridge.libc_teeos_semInit((sem?.value ?: 0L), pshared, value.toInt())
 
 public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    TeeosJniBridge.libc_teeos_semOpen(name, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun semPost(sem: COpaquePointer?): CInt =
     TeeosJniBridge.libc_teeos_semPost((sem?.value ?: 0L))

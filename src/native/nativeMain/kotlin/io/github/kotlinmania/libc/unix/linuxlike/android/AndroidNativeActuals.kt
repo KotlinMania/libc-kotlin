@@ -86,7 +86,7 @@ public actual fun processVmWritev(pid: PidT, localIov: COpaquePointer?, localIov
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_processVmWritev(pid, localIov?.value?.toCPointer<ByteVar>(), localIovCount, remoteIov?.value?.toCPointer<ByteVar>(), remoteIovCount, flags)
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
-    0L
+    io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_ptrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getpriority(which, who)
@@ -194,7 +194,7 @@ public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_timerfdSettime(fd, flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    0L
+    io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
@@ -269,7 +269,7 @@ public actual fun personality(persona: CUint): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_personality(persona)
 
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_prctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
@@ -278,7 +278,7 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_ppoll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout?.value?.toCPointer<ByteVar>(), sigmask?.value?.toCPointer<ByteVar>())
 
 public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    0
+    io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_clone(0L.toCPointer<ByteVar>(), childStack?.value?.toCPointer<ByteVar>(), flags, arg?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetscheduler(pid)
@@ -332,7 +332,7 @@ public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePoi
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
 
 public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    null
+    io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
 
 public actual fun getgrnam(name: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
