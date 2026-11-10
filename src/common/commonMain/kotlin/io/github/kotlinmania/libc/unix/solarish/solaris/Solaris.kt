@@ -28,7 +28,6 @@ import io.github.kotlinmania.libc.unix.solarish.PRIV_XPOLICY
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
 import io.github.kotlinmania.libc.unix.solarish.ShmattT
 import io.github.kotlinmania.libc.unix.solarish.Sigevent
-import io.github.kotlinmania.libc.unix.solarish.Termios
 import io.github.kotlinmania.libc.unix.solarish.TimeT
 
 public fun interface DoorCreateServerProcedureCallback {

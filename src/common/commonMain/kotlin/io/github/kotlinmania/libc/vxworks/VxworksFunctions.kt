@@ -971,7 +971,7 @@ public fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T):
 }
 
 public fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt {
-    var memptr = memptr
+    var memptr1 = memptr
     // check to see if align is a power of 2 and if align is a multiple
     // of sizeof(void *)
     if ((align and align - 1uL != 0uL) || (align.toInt() % 8 != 0)) {
@@ -985,7 +985,7 @@ public fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CI
         if ((temp == null)) {
             ENOMEM
         } else {
-            memptr = temp
+            memptr1 = temp
             0
         }
     }

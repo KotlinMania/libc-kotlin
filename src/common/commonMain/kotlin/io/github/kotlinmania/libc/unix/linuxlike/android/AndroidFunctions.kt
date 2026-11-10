@@ -47,7 +47,6 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cpuAllocSize(count: CInt): SizeT {
-    val dummy: CpuSetT? = null
     val sizeInBits = 8 * 8
     return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL)
 }

@@ -1,7 +1,6 @@
 // port-lint: source unix/solarish/compat.rs
 package io.github.kotlinmania.libc.unix.solarish
 
-import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.Group
@@ -55,7 +54,6 @@ public fun cfsetspeed(termios: Termios?, speed: SpeedT): CInt {
 }
 
 public fun bail(fdm: CInt, fds: CInt): CInt {
-    val e = (errno()?.rawValue ?: 0L).toInt()
     if (fds >= 0) {
         close(fds)
     }
@@ -67,8 +65,8 @@ public fun bail(fdm: CInt, fds: CInt): CInt {
 }
 
 public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: Termios?, winp: Winsize?): CInt {
-    var amain = amain
-    var asubord = asubord
+    var amain1 = amain
+    var asubord1 = asubord
     val PTEM: List<UByte> = "ptem\u0000".encodeToByteArray().map { it.toUByte() }
     val LDTERM: List<UByte> = "ldterm\u0000".encodeToByteArray().map { it.toUByte() }
     // Open the main pseudo-terminal device, making sure not to set it as the
@@ -119,13 +117,13 @@ public fun openpty(amain: CInt?, asubord: CInt?, name: COpaquePointer?, termp: T
     if (!(name == null)) {
         strcpy(name, ((subordpath).toString()))
     }
-    amain = fdm
-    asubord = fds
+    amain1 = fdm
+    asubord1 = fds
     return 0
 }
 
 public fun forkpty(amain: CInt?, name: COpaquePointer?, termp: Termios?, winp: Winsize?): PidT {
-    var fds = -1
+    val fds = -1
     if (openpty(amain, fds, name, termp, winp) != 0) {
         return -1
     }
@@ -160,11 +158,10 @@ public fun forkpty(amain: CInt?, name: COpaquePointer?, termp: Termios?, winp: W
 }
 
 public fun getpwentR(pwd: Passwd?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt {
-    var result = result
-    val oldErrno = (errno()?.rawValue ?: 0L).toInt()
+    var result1 = result
     errno()
-    result = nativeGetpwentR(COpaquePointer((pwd).hashCode().toLong()), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
-    val ret = if ((result == null)) {
+    result1 = nativeGetpwentR(COpaquePointer((pwd).hashCode().toLong()), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
+    val ret = if ((result1 == null)) {
         (errno()?.rawValue ?: 0L).toInt()
     } else {
         0
@@ -174,11 +171,10 @@ public fun getpwentR(pwd: Passwd?, buf: COpaquePointer?, buflen: SizeT, result: 
 }
 
 public fun getgrentR(grp: Group?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt {
-    var result = result
-    val oldErrno = (errno()?.rawValue ?: 0L).toInt()
+    var result1 = result
     errno()
-    result = nativeGetgrentR(COpaquePointer((grp).hashCode().toLong()), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
-    val ret = if ((result == null)) {
+    result1 = nativeGetgrentR(COpaquePointer((grp).hashCode().toLong()), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
+    val ret = if ((result1 == null)) {
         (errno()?.rawValue ?: 0L).toInt()
     } else {
         0

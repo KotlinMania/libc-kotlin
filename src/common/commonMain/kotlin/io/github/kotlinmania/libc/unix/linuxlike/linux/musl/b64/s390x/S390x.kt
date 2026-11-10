@@ -165,13 +165,11 @@ public data class UcontextT(
 
 public data class FpregT(public var d: CDouble = 0.0, public var f: CFloat = 0.0f) {
     public fun eq(other: FpregT): Boolean {
-        return error("traits")
+        error("traits")
     }
 
     public override fun hashCode(): Int {
-        var state = 0
-        return error("traits")
-        return state
+        error("traits")
     }
 }
 

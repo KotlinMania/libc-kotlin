@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalUnsignedTypes::class)
 package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
@@ -56,7 +55,6 @@ public fun fdZero(set: FdSet?) {
 }
 
 public fun cpuAllocSize(count: CInt): SizeT {
-    val dummy: CpuSetT = CpuSetT(bits = ULongArray(16) { 0uL })
     val sizeInBits = 8 * 8
     return ((count.toULong() + sizeInBits.toULong() - 1uL) / 8uL)
 }

@@ -47,9 +47,9 @@ public fun sctpPrPolicy(policy: CInt): CInt {
 }
 
 public fun sctpPrSetPolicy(flags: CInt, policy: CInt) {
-    var flags = flags
-    flags = flags and SCTP_PR_SCTP_MASK.inv()
-    flags = flags or policy
+    var flags1 = flags
+    flags1 = flags1 and SCTP_PR_SCTP_MASK.inv()
+    flags1 = flags1 or policy
 }
 
 public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {

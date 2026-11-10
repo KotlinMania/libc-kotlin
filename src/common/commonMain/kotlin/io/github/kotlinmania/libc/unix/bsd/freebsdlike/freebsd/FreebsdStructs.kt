@@ -2628,9 +2628,7 @@ public data class CAnonymousElf32AuxvUnion(public var aVal: CInt = 0) {
     }
 
     public override fun hashCode(): Int {
-        var state = 0
         error("traits")
-        return state
     }
 }
 

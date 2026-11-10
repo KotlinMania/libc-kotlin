@@ -101,8 +101,6 @@ public fun fdZero(set: FdSet?) {
 }
 
 public fun dextraFirst(d: Dirent?): DirentExtra? {
-    val f = ((((d)!!.dName) as Any?) as COpaquePointer?)
-    val s = ((d).hashCode().toLong()).toInt()
     return null
 }
 
@@ -601,6 +599,6 @@ public expect fun myThreadExit(valuePtr: COpaquePointer?)
 public fun atexit(cb: PthreadAtforkPrepareCallback): CInt {
     val DSO_HANDLE: COpaquePointer? = null
 
-    fun cxaAtexit(cb: PthreadAtforkPrepareCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt = 0
+    fun cxaAtexit(cb1: PthreadAtforkPrepareCallback, arg: COpaquePointer?, dso: COpaquePointer?): CInt = 0
     return cxaAtexit(cb, null, DSO_HANDLE)
 }

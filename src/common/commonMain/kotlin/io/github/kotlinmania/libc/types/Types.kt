@@ -30,8 +30,7 @@ internal class Padding<T>(public var value: T? = null) {
      * Do nothing when hashing to ignore the existence of padding fields.
      */
     public override fun hashCode(): Int {
-        var state = 0
-        return state
+        return 0
     }
 
     /**

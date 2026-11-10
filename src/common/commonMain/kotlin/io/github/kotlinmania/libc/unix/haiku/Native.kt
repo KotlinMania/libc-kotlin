@@ -902,9 +902,7 @@ public data class CAnonymousCpuTopologyInfoData(
     }
 
     public override fun hashCode(): Int {
-        var state = 0
         error("traits")
-        return state
     }
 }
 
