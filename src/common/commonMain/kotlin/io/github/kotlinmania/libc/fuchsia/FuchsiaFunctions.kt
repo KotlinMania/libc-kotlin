@@ -193,7 +193,7 @@ public fun cmsgLen(cmsg: Cmsghdr?): SsizeT {
 }
 
 public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (cmsgLen(cmsg)).toLong()) }) as Any?) as COpaquePointer?)
+    return ((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (cmsgLen(cmsg)).toLong()) })
 }
 
 public fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? {
