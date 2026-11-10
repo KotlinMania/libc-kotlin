@@ -8,6 +8,7 @@ struct LibcExportTests {
     @Test("Real allocation, descriptor IO and typed fcntl preserve bytes")
     func testRealDescriptorIo() throws {
         typealias Unix = ExportedKotlinPackages.io.github.kotlinmania.libc.unix
+        typealias Bsd = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd
         typealias Apple = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.apple
         let source = try #require(Unix.malloc(size: 64))
         let destination = try #require(Unix.calloc(nobj: 64, size: 1))
@@ -19,7 +20,7 @@ struct LibcExportTests {
         #expect(Unix.memcmp(cx: source, ct: destination, n: 64) != 0)
         let outputDirectory = ProcessInfo.processInfo.environment["LIBC_SWIFT_TEST_OUTPUT_ROOT"] ?? "../../../build"
         let path = "\(outputDirectory)/swift-io-\(UUID().uuidString).bin"
-        let fd = Unix.open(path: path, oflag: Apple.O_RDWR | Apple.O_CREAT | Apple.O_TRUNC, variadicArgs: [0o600])
+        let fd = Unix.open(path: path, oflag: Bsd.O_RDWR | Bsd.O_CREAT | Bsd.O_TRUNC, variadicArgs: 0o600)
         #expect(fd >= 0)
         guard fd >= 0 else { return }
         defer {
@@ -31,10 +32,10 @@ struct LibcExportTests {
         #expect(Unix.read(fd: fd, buf: destination, count: 64) == 64)
         #expect(Unix.memcmp(cx: source, ct: destination, n: 64) == 0)
         #expect(Unix.read(fd: fd, buf: destination, count: 1) == 0)
-        let original = Unix.fcntl(fd: fd, cmd: Apple.F_GETFD, variadicArgs: [])
+        let original = Unix.fcntl(fd: fd, cmd: Apple.F_GETFD)
         #expect(original >= 0)
-        #expect(Unix.fcntl(fd: fd, cmd: Apple.F_SETFD, variadicArgs: [Int64(original | Apple.FD_CLOEXEC)]) == 0)
-        #expect(Unix.fcntl(fd: fd, cmd: Apple.F_GETFD, variadicArgs: []) & Apple.FD_CLOEXEC != 0)
+        #expect(Unix.fcntl(fd: fd, cmd: Apple.F_SETFD, variadicArgs: Int64(original | Unix.FD_CLOEXEC)) == 0)
+        #expect(Unix.fcntl(fd: fd, cmd: Apple.F_GETFD) & Unix.FD_CLOEXEC != 0)
     }
 
     @Test("Swift module loads cleanly")
