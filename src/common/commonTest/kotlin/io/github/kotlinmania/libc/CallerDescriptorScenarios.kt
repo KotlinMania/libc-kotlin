@@ -11,11 +11,9 @@ import io.github.kotlinmania.libc.unix.kill
 import io.github.kotlinmania.libc.unix.lseek
 import io.github.kotlinmania.libc.unix.malloc
 import io.github.kotlinmania.libc.unix.memcmp
-import io.github.kotlinmania.libc.unix.memcpy
 import io.github.kotlinmania.libc.unix.memset
 import io.github.kotlinmania.libc.unix.open
 import io.github.kotlinmania.libc.unix.read
-import io.github.kotlinmania.libc.unix.realloc
 import io.github.kotlinmania.libc.unix.socket
 import io.github.kotlinmania.libc.unix.socketpair
 import io.github.kotlinmania.libc.unix.strerror
