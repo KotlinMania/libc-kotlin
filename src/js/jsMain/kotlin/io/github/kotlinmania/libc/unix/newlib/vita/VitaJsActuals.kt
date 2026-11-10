@@ -28,7 +28,7 @@ public actual fun sendmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun recvmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
     if (_unixNewlibVitaNapiAddon != null) (_unixNewlibVitaNapiAddon.libc_unix_newlib_vita_recvmsg(s, (msg?.value ?: 0L).toString(), flags) as String).toLong() else 0L
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     if (_unixNewlibVitaNapiAddon != null) (_unixNewlibVitaNapiAddon.libc_unix_newlib_vita_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =

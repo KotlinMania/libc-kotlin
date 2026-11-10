@@ -477,7 +477,7 @@ public actual fun errnoLocation(): COpaquePointer? =
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -578,7 +578,7 @@ public actual fun popen(command: String?, mode: String?): FILE? =
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_faccessat(dirfd, pathname, mode, flags)
 
-public actual fun dlIteratePhdr(callback: FnCallback1?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun setmntent(filename: String?, ty: String?): FILE? =

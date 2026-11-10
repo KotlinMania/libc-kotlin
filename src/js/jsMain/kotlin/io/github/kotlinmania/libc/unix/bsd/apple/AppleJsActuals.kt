@@ -856,7 +856,7 @@ public actual fun freadlink(fd: CInt, buf: COpaquePointer?, size: SizeT): CInt =
 public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt =
     if (_unixBsdAppleNapiAddon != null) (_unixBsdAppleNapiAddon.libc_unix_bsd_apple_execvP(file, searchPath, (argv?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback1?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
     if (_unixBsdAppleNapiAddon != null) {
         _unixBsdAppleNapiAddon.libc_unix_bsd_apple_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), (arg?.value ?: 0L).toString(), 0L.toString())
     }

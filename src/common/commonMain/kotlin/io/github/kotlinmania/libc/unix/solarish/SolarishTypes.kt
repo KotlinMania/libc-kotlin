@@ -7,24 +7,7 @@ import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.UintptrT
-
-public fun interface FnCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
-public fun interface FnCallback1 {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
-}
-
-public fun interface FnCallback2 {
-    public operator fun invoke()
-}
-
-public fun interface FnCallback3 {
-    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
-}
 
 public typealias CaddrT = COpaquePointer?
 

@@ -27,7 +27,7 @@ import io.github.kotlinmania.libc.unix.haiku.b64.ElfPhdr
 // best indicator is whether it also exists in the BSD-specific definitions in
 // this libc crate.
 
-public fun interface FnCallback {
+public fun interface DlIteratePhdrCallbackCallback {
     public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
 }
 
@@ -163,7 +163,7 @@ public expect fun kqueue(): CInt
 public expect fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt
 
 // sys/linkElf.h
-public expect fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
 
 // sys/time.h
 public expect fun lutimes(file: String?, times: COpaquePointer?): CInt

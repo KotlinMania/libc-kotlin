@@ -165,7 +165,7 @@ public actual fun exitThread(status: StatusT) {
 public actual fun waitForThread(thread: ThreadId, returnValue: COpaquePointer?): StatusT =
     if (_unixHaikuNativeNapiAddon != null) (_unixHaikuNativeNapiAddon.libc_unix_haiku_native_waitForThread(thread, (returnValue?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun onExitThread(callback: FnCallback1, data: COpaquePointer?): StatusT =
+public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: COpaquePointer?): StatusT =
     if (_unixHaikuNativeNapiAddon != null) (_unixHaikuNativeNapiAddon.libc_unix_haiku_native_onExitThread(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun findThread(name: String?): ThreadId =

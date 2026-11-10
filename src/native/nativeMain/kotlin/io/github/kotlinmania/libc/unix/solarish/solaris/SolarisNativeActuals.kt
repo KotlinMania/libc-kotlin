@@ -24,7 +24,7 @@ public actual fun doorCall(d: CInt, params: COpaquePointer?): CInt =
 public actual fun doorReturn(dataPtr: COpaquePointer?, dataSize: SizeT, descPtr: COpaquePointer?, numDesc: CUint): CInt =
     io.github.kotlinmania.libc.unix.solarish.solaris.cinterop.libc_unix_solarish_solaris_doorReturn(dataPtr?.value?.toCPointer<ByteVar>(), dataSize, descPtr?.value?.toCPointer<ByteVar>(), numDesc)
 
-public actual fun doorCreate(serverProcedure: FnCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt =
+public actual fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt =
     io.github.kotlinmania.libc.unix.solarish.solaris.cinterop.libc_unix_solarish_solaris_doorCreate(0L.toCPointer<ByteVar>(), cookie?.value?.toCPointer<ByteVar>(), attributes)
 
 public actual fun fattach(fildes: CInt, path: String?): CInt =

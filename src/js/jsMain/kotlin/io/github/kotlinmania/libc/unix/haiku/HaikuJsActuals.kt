@@ -156,7 +156,7 @@ public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
 public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_clockGetcpuclockid(pid, (clkId?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_pthreadCreate((thread?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
@@ -225,7 +225,7 @@ public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_waitid(idtype, id, (infop?.value ?: 0L).toString(), options) as Int) else 0
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -369,7 +369,7 @@ public actual fun setgrent() {
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -465,10 +465,10 @@ public actual fun ftok(pathname: String?, projId: CInt): KeyT =
 public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_memrchr((cx?.value ?: 0L).toString(), c, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_lsearch((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), (nelp?.value ?: 0L).toString(), width.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
     if (_unixHaikuNapiAddon != null) (_unixHaikuNapiAddon.libc_unix_haiku_lfind((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), (nelp?.value ?: 0L).toString(), width.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun hcreate(nelt: SizeT): CInt =

@@ -8,15 +8,6 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.unix.DIR
-
-public fun interface FnCallback {
-    public operator fun invoke()
-}
-
-public fun interface FnCallback1 {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
 
 public typealias WcharT = Int
 

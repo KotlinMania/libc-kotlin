@@ -13,7 +13,7 @@ private val _unixLinuxlikeLinuxUclibcMipsMips32NapiAddon: dynamic =
 public actual fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
     if (_unixLinuxlikeLinuxUclibcMipsMips32NapiAddon != null) (_unixLinuxlikeLinuxUclibcMipsMips32NapiAddon.libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl((name?.value ?: 0L).toString(), namelen, (oldp?.value ?: 0L).toString(), (oldlenp?.value ?: 0L).toString(), (newp?.value ?: 0L).toString(), newlen.toString()) as Int) else 0
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
     if (_unixLinuxlikeLinuxUclibcMipsMips32NapiAddon != null) (_unixLinuxlikeLinuxUclibcMipsMips32NapiAddon.libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree64(pglob: COpaquePointer?) {

@@ -381,7 +381,7 @@ public actual fun endmntent(streamp: FILE?): CInt =
 public actual fun hasmntopt(mnt: COpaquePointer?, opt: String?): COpaquePointer? =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_hasmntopt(mnt?.value?.toCPointer<ByteVar>(), opt)?.let { COpaquePointer(it.toLong()) }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadKill(threadid: PthreadT, signo: CInt): CInt =
@@ -432,7 +432,7 @@ public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpa
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_pthreadCondattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadOnce(control: COpaquePointer?, routine: FnCallback1): CInt =
+public actual fun pthreadOnce(control: COpaquePointer?, routine: PthreadOnceRoutineCallback): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_pthreadOnce(control?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt =
@@ -471,7 +471,7 @@ public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
 public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_pthreadSpinUnlock(lock?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadOnceRoutineCallback?, parent: PthreadOnceRoutineCallback?, child: PthreadOnceRoutineCallback?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadSigmask(how: CInt, newmask: COpaquePointer?, oldmask: COpaquePointer?): CInt =
@@ -929,7 +929,7 @@ public actual fun lcong48(p: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_lcong48(p?.value?.toCPointer<ByteVar>())
 }
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback2?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_qsortR(base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 }
 
@@ -991,14 +991,14 @@ public actual fun regfree(preg: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_regfree(preg?.value?.toCPointer<ByteVar>())
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
 
 public actual fun globfree(pglob: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_globfree(pglob?.value?.toCPointer<ByteVar>())
 }
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_glob64(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
 
 public actual fun globfree64(pglob: COpaquePointer?) {
@@ -1078,7 +1078,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_nlLanginfoL(item, locale?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
 
-public actual fun dlIteratePhdr(callback: FnCallback4?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.hurd.cinterop.libc_unix_hurd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun gnuGetLibcRelease(): COpaquePointer? =

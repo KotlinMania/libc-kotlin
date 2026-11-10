@@ -2,7 +2,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 
 public val SIZEOF_PTHREAD_ATTR_T: Int = 36
 

@@ -74,7 +74,7 @@ public actual fun kqueue(): CInt =
 public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_kevent(kq, changelist?.value?.toCPointer<ByteVar>(), nchanges, eventlist?.value?.toCPointer<ByteVar>(), nevents, timeout?.value?.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =

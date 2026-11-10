@@ -1,22 +1,9 @@
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUshort
-
-public fun interface FnCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
-}
-
-public fun interface FnCallback1 {
-    public operator fun invoke(arg0: COpaquePointer?)
-}
-
-public fun interface FnCallback2 {
-    public operator fun invoke()
-}
 
 public typealias IntmaxT = Long
 

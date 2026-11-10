@@ -19,13 +19,21 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SiginfoT
 
+public fun interface QsortRComparCallback {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
+}
+
+public fun interface Glob64ErrfuncCallback {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
 public expect fun fgetspentR(fp: FILE?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt
 
 public expect fun sgetspentR(s: String?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt
 
 public expect fun getspentR(spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt
 
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?)
+public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?)
 
 public expect fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt
 
@@ -105,7 +113,7 @@ public expect fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaqueP
 
 public expect fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt)
 
-public expect fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt
+public expect fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree64(pglob: COpaquePointer?)
 

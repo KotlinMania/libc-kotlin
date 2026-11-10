@@ -54,7 +54,7 @@ private object UnixNewlibHorizonJniBridge {
     external fun libc_unix_newlib_horizon_gethostid(): Long
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =

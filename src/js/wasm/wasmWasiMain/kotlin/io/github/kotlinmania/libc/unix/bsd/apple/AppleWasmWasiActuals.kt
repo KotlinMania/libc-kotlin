@@ -792,7 +792,7 @@ public actual fun freadlink(fd: CInt, buf: COpaquePointer?, size: SizeT): CInt =
 public actual fun execvP(file: String?, searchPath: String?, argv: COpaquePointer?): CInt =
     0
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback1?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
 }
 
 public actual fun clockSettime(clockId: ClockidT, tp: COpaquePointer?): CInt =

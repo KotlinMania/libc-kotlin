@@ -154,7 +154,7 @@ private object NewCommonPosixPthreadJniBridge {
     external fun libc_new_common_posix_pthread_pthreadSpinUnlock(lock: Long): Int
 }
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     NewCommonPosixPthreadJniBridge.libc_new_common_posix_pthread_pthreadAtfork(0L, 0L, 0L)
 
 public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
@@ -223,7 +223,7 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     NewCommonPosixPthreadJniBridge.libc_new_common_posix_pthread_pthreadCondattrSetpshared((attr?.value ?: 0L), pshared)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     NewCommonPosixPthreadJniBridge.libc_new_common_posix_pthread_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
@@ -265,7 +265,7 @@ public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpa
 public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt =
     NewCommonPosixPthreadJniBridge.libc_new_common_posix_pthread_pthreadRwlockattrSetpshared((attr?.value ?: 0L), value)
 
-public actual fun pthreadOnce(control: COpaquePointer?, routine: FnCallback): CInt =
+public actual fun pthreadOnce(control: COpaquePointer?, routine: PthreadAtforkPrepareCallback): CInt =
     NewCommonPosixPthreadJniBridge.libc_new_common_posix_pthread_pthreadOnce((control?.value ?: 0L), 0L)
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =

@@ -66,7 +66,7 @@ public actual fun dirfd(dirp: DIR?): Int =
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: COpaquePointer?, addrlen: COpaquePointer?): Int =
     UnixNuttxJniBridge.libc_unix_nuttx_recvfrom(sockfd, (buf?.value ?: 0L), len.toLong(), flags, (srcAddr?.value ?: 0L), (addrlen?.value ?: 0L))
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): Int =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): Int =
     UnixNuttxJniBridge.libc_unix_nuttx_pthreadCreate((thread?.value ?: 0L), (attr?.value ?: 0L), 0L, (arg?.value ?: 0L))
 
 public actual fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int =

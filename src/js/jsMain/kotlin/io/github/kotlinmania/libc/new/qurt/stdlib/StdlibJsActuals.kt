@@ -49,7 +49,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(function: FnCallback): CInt =
+public actual fun atexit(function: AtexitFunctionCallback): CInt =
     if (_newQurtStdlibNapiAddon != null) (_newQurtStdlibNapiAddon.libc_new_qurt_stdlib_atexit(0L.toString()) as Int) else 0
 
 public actual fun getenv(name: String?): COpaquePointer? =
@@ -97,13 +97,13 @@ public actual fun srand(seed: CUint) {
     }
 }
 
-public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1) {
+public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
     if (_newQurtStdlibNapiAddon != null) {
         _newQurtStdlibNapiAddon.libc_new_qurt_stdlib_qsort((base?.value ?: 0L).toString(), nmemb.toString(), size.toString(), 0L.toString())
     }
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): COpaquePointer? =
     if (_newQurtStdlibNapiAddon != null) (_newQurtStdlibNapiAddon.libc_new_qurt_stdlib_bsearch((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), nmemb.toString(), size.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun abs(j: CInt): CInt =

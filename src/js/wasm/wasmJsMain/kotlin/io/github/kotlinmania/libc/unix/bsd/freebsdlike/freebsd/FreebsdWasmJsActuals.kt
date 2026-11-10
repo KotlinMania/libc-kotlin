@@ -388,7 +388,7 @@ public actual fun flsl(value: CLong): CInt =
 public actual fun flsll(value: CLonglong): CInt =
     0
 
-public actual fun mallocStatsPrint(writeCb: FnCallback, cbopaque: COpaquePointer?, opt: String?) {
+public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?) {
 }
 
 public actual fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =

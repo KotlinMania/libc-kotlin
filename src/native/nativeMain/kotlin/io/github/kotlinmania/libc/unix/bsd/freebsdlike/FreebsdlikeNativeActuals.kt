@@ -344,7 +344,7 @@ public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
 public actual fun ntpGettime(buf: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_ntpGettime(buf?.value?.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.bsd.freebsdlike.cinterop.libc_unix_bsd_freebsdlike_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =

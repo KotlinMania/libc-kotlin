@@ -245,7 +245,7 @@ public actual fun lwpSelf(): LwpidT =
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_memmem((haystack?.value ?: 0L).toString(), haystacklen.toString(), (needle?.value ?: 0L).toString(), needlelen.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun dlauxinfo(): COpaquePointer? =
@@ -350,7 +350,7 @@ public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
 public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) (_unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_timerfdSettime(fd, flags, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback1?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) {
         _unixBsdNetbsdlikeNetbsdNapiAddon.libc_unix_bsd_netbsdlike_netbsd_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString(), (arg?.value ?: 0L).toString())
     }
@@ -428,7 +428,7 @@ public actual fun easprintf(string: COpaquePointer?, fmt: String?, vararg variad
 public actual fun evasprintf(string: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
     0
 
-public actual fun esetfunc(cb: FnCallback2?): FnCallback2? =
+public actual fun esetfunc(cb: EsetfuncCbCallback?): EsetfuncCbCallback? =
     if (_unixBsdNetbsdlikeNetbsdNapiAddon != null) null else null
 
 public actual fun securePath(path: String?): CInt =

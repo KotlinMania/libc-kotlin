@@ -31,7 +31,7 @@ public actual fun sgetspentR(s: String?, spbuf: COpaquePointer?, buf: COpaquePoi
 public actual fun getspentR(spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_getspentR(spbuf?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, spbufp?.value?.toCPointer<ByteVar>())
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_qsortR(base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 }
 
@@ -153,7 +153,7 @@ public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CIn
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd(buffer?.value?.toCPointer<ByteVar>(), len, fd)
 }
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.cinterop.libc_unix_linuxlike_linux_gnu_glob64(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
 
 public actual fun globfree64(pglob: COpaquePointer?) {

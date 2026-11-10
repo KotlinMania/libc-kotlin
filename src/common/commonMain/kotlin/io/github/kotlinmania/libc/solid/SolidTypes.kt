@@ -9,14 +9,6 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 
-public fun interface FnCallback {
-    public operator fun invoke()
-}
-
-public fun interface FnCallback1 {
-    public operator fun invoke(arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
 public typealias IntmaxT = Long
 
 public typealias UintmaxT = ULong

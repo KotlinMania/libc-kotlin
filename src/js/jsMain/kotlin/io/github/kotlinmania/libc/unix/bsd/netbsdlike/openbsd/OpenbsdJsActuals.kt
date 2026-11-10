@@ -119,7 +119,7 @@ public actual fun utrace(label: String?, addr: COpaquePointer?, len: SizeT): CIn
 public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
     if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_memmem((haystack?.value ?: 0L).toString(), haystacklen.toString(), (needle?.value ?: 0L).toString(), needlelen.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
@@ -173,10 +173,10 @@ public actual fun lcong48Deterministic(p: COpaquePointer?) {
     }
 }
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
     if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_lsearch((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), (nelp?.value ?: 0L).toString(), width.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback1?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
     if (_unixBsdNetbsdlikeOpenbsdNapiAddon != null) (_unixBsdNetbsdlikeOpenbsdNapiAddon.libc_unix_bsd_netbsdlike_openbsd_lfind((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), (nelp?.value ?: 0L).toString(), width.toString(), 0L.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
 public actual fun hcreate(nelt: SizeT): CInt =

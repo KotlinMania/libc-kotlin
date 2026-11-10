@@ -9,7 +9,7 @@ import io.github.kotlinmania.libc.new.qurt.ClockidT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     0
 
 public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
@@ -78,7 +78,7 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     0
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
@@ -120,7 +120,7 @@ public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpa
 public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt =
     0
 
-public actual fun pthreadOnce(control: COpaquePointer?, routine: FnCallback): CInt =
+public actual fun pthreadOnce(control: COpaquePointer?, routine: PthreadAtforkPrepareCallback): CInt =
     0
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =

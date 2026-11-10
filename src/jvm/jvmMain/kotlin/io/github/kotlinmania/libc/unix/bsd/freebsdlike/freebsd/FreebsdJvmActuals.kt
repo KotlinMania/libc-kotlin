@@ -1107,7 +1107,7 @@ public actual fun flsl(value: CLong): CInt =
 public actual fun flsll(value: CLonglong): CInt =
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_flsll(value)
 
-public actual fun mallocStatsPrint(writeCb: FnCallback, cbopaque: COpaquePointer?, opt: String?) {
+public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?) {
     UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mallocStatsPrint(0L, (cbopaque?.value ?: 0L), opt)
 }
 

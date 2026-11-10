@@ -1126,11 +1126,11 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     UnixJniBridge.libc_unix_toupper(c)
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
     UnixJniBridge.libc_unix_qsort((base?.value ?: 0L), num.toLong(), size.toLong(), 0L)
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?): COpaquePointer? =
     UnixJniBridge.libc_unix_bsearch((key?.value ?: 0L), (base?.value ?: 0L), num.toLong(), size.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
@@ -1793,7 +1793,7 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun schedYield(): CInt =
     UnixJniBridge.libc_unix_schedYield()
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback1?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     UnixJniBridge.libc_unix_pthreadKeyCreate((key?.value ?: 0L), 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -2182,7 +2182,7 @@ public actual fun fmemopen(buf: COpaquePointer?, size: SizeT, mode: String?): FI
 public actual fun openMemstream(ptr: COpaquePointer?, sizeloc: COpaquePointer?): FILE? =
     UnixJniBridge.libc_unix_openMemstream((ptr?.value ?: 0L), (sizeloc?.value ?: 0L)).let { if (it == 0L) null else FILE(it) }
 
-public actual fun atexit(cb: FnCallback2): CInt =
+public actual fun atexit(cb: AtexitCbCallback): CInt =
     UnixJniBridge.libc_unix_atexit(0L)
 
 public actual fun cfmakeraw(termios: COpaquePointer?): CInt =

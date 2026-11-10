@@ -12,7 +12,7 @@ import kotlinx.cinterop.toCPointer
 public actual fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32.cinterop.libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl(name?.value?.toCPointer<ByteVar>(), namelen, oldp?.value?.toCPointer<ByteVar>(), oldlenp?.value?.toCPointer<ByteVar>(), newp?.value?.toCPointer<ByteVar>(), newlen)
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32.cinterop.libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
 
 public actual fun globfree64(pglob: COpaquePointer?) {

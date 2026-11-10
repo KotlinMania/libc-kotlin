@@ -2,12 +2,7 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlonglong
-
-public fun interface FnCallback {
-    public operator fun invoke()
-}
 
 public typealias WcharT = Int
 

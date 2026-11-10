@@ -13,7 +13,7 @@ import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCreate(thread?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt =
@@ -105,7 +105,7 @@ public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
     io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondattrSetclock(attr?.value?.toCPointer<ByteVar>(), clockId)
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: FnCallback1?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: PthreadKeyCreateDestructorCallback?): CInt =
     io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -117,7 +117,7 @@ public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
 public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadSetspecific(key, value?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback2): CInt =
+public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadOnceInitRoutineCallback): CInt =
     io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadOnce(onceControl?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =

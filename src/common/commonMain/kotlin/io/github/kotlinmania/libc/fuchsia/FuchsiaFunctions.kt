@@ -12,6 +12,26 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.fuchsia.aarch64.WcharT
 
+public fun interface PthreadKeyCreateDtorCallback {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
+public fun interface GlobErrfuncCallback {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
+public fun interface CloneCbCallback {
+    public operator fun invoke(arg0: COpaquePointer?): CInt
+}
+
+public fun interface PthreadCreateFCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface DlIteratePhdrCallbackCallback {
+    public operator fun invoke(info: COpaquePointer?, size: SizeT, data: COpaquePointer?): CInt
+}
+
 // PUB_STRUCT
 // intentionally not public, only used for fdSet
 // END_PUB_CONST
@@ -74,7 +94,7 @@ public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as COpaquePointer?)
+    return (cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }
 }
 
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
@@ -173,11 +193,11 @@ public fun cmsgLen(cmsg: Cmsghdr?): SsizeT {
 }
 
 public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (cmsgLen(cmsg)).toLong()) })
+    return ((((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (cmsgLen(cmsg)).toLong()) }) as Any?) as COpaquePointer?)
 }
 
 public fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? {
-    return ((mhdr!!.msgControl)?.let { COpaquePointer(it.rawValue + ((mhdr!!.msgControllen).toInt()).toLong()) })?.let { COpaquePointer(it.hashCode().toLong()) }
+    return (mhdr!!.msgControl)?.let { COpaquePointer(it.rawValue + ((mhdr!!.msgControllen).toInt()).toLong()) }
 }
 
 public expect fun isalnum(c: CInt): CInt
@@ -294,7 +314,7 @@ public expect fun abort(): Nothing
 
 public expect fun exit(status: CInt): Nothing
 
-public expect fun atexit(cb: FnCallback): CInt
+public expect fun atexit(cb: SigactionSaRestorerCallback): CInt
 
 public expect fun system(s: String?): CInt
 
@@ -631,7 +651,7 @@ public expect fun pthreadDetach(thread: PthreadT): CInt
 
 public expect fun schedYield(): CInt
 
-public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback1?): CInt
+public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 
@@ -1026,7 +1046,7 @@ public expect fun getifaddrs(ifap: COpaquePointer?): CInt
 
 public expect fun freeifaddrs(ifa: COpaquePointer?)
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback2?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
@@ -1112,7 +1132,7 @@ public expect fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
 
 public expect fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt
 
-public expect fun clone(cb: FnCallback3, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt
+public expect fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt
 
 public expect fun schedGetscheduler(pid: PidT): CInt
 
@@ -1166,7 +1186,7 @@ public expect fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 
 public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt
+public expect fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt
 
 public expect fun getgrgid(gid: GidT): COpaquePointer?
 
@@ -1182,6 +1202,6 @@ public expect fun popen(command: String?, mode: String?): FILE?
 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback4, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 
-public expect fun dlIteratePhdr(callback: FnCallback5?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt

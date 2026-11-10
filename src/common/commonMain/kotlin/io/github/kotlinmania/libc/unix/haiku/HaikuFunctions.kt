@@ -19,6 +19,22 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 
+public fun interface PthreadCreateFCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface GlobErrfuncCallback {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
+public fun interface PthreadAtforkPrepareCallback {
+    public operator fun invoke()
+}
+
+public fun interface LsearchComparCallback {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
+}
+
 public fun cmsgAlign(len: Int): Int {
     return len + 8 - 1 and (8 - 1).inv()
 }
@@ -190,7 +206,7 @@ public expect fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt
 
 public expect fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt
 
-public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt
 
@@ -236,7 +252,7 @@ public expect fun pthreadSpinUnlock(lock: COpaquePointer?): CInt
 
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
@@ -321,7 +337,7 @@ public expect fun setgrent()
 
 public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt
+public expect fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt
 
 public expect fun getgrgid(gid: GidT): COpaquePointer?
 
@@ -379,9 +395,9 @@ public expect fun ftok(pathname: String?, projId: CInt): KeyT
 
 public expect fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer?
 
-public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer?
+public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer?
 
-public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback3?): COpaquePointer?
+public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer?
 
 public expect fun hcreate(nelt: SizeT): CInt
 

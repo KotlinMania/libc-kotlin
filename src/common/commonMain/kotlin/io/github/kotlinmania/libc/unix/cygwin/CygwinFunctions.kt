@@ -19,6 +19,18 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 
+public fun interface QsortRComparCallback {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
+}
+
+public fun interface PthreadAtforkPrepareCallback {
+    public operator fun invoke()
+}
+
+public fun interface PthreadCreateFCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd.toInt()
     val size = 8 * 8
@@ -358,7 +370,7 @@ public expect fun seed48(xseed: COpaquePointer?): COpaquePointer?
 
 public expect fun srand48(seed: CLong)
 
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?)
+public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?)
 
 public expect fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt
 
@@ -430,7 +442,7 @@ public expect fun getpagesize(): CInt
 
 public expect fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt
+public expect fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt
 
 public expect fun pipe2(fds: COpaquePointer?, flags: CInt): CInt
 
@@ -500,7 +512,7 @@ public expect fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt
 
 public expect fun pthreadBarrierWait(barrier: COpaquePointer?): CInt
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt
 

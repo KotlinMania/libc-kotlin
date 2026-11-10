@@ -98,7 +98,7 @@ public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     if (_unixLinuxlikeEmscriptenNapiAddon != null) (_unixLinuxlikeEmscriptenNapiAddon.libc_unix_linuxlike_emscripten_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree(pglob: COpaquePointer?) {

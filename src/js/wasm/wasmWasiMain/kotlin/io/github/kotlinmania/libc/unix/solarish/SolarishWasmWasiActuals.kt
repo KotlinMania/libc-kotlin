@@ -163,7 +163,7 @@ public actual fun ifNameindex(): COpaquePointer? =
 public actual fun ifFreenameindex(ptr: COpaquePointer?) {
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
@@ -193,7 +193,7 @@ public actual fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt =
 public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
     0
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -475,7 +475,7 @@ public actual fun nativeGetgrentR(grp: COpaquePointer?, buf: COpaquePointer?, bu
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     0
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -679,7 +679,7 @@ public actual fun sysinfo(command: CInt, buf: COpaquePointer?, count: CLong): CI
 public actual fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt =
     0
 
-public actual fun dlIteratePhdr(callback: FnCallback3?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     0
 
 public actual fun getpagesize(): CInt =

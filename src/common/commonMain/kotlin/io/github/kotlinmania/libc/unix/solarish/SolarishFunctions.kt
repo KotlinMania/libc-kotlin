@@ -19,6 +19,22 @@ import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpRsrcT
 import io.github.kotlinmania.libc.unix.sysconf
 
+public fun interface PthreadCreateFCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface GlobErrfuncCallback {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
+public fun interface PthreadAtforkPrepareCallback {
+    public operator fun invoke()
+}
+
+public fun interface DlIteratePhdrCallbackCallback {
+    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
+}
+
 public fun cmsgHdrAlign(p: Int): Int {
     return (p + CMSG_HDR_ALIGNMENT - 1) and (CMSG_HDR_ALIGNMENT - 1).inv()
 }
@@ -28,7 +44,7 @@ public fun cmsgDataAlign(p: Int): Int {
 }
 
 public fun cmsgData(cmsg: COpaquePointer?): COpaquePointer? {
-    return COpaquePointer(cmsgDataAlign(((cmsg)?.let { COpaquePointer(it.rawValue + (1).toLong()) }).toInt()).toLong())
+    return COpaquePointer(cmsgDataAlign((((cmsg)?.let { COpaquePointer(it.rawValue + (1).toLong()) })?.rawValue ?: 0L).toInt()).toLong())
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -226,7 +242,7 @@ public expect fun ifNameindex(): COpaquePointer?
 
 public expect fun ifFreenameindex(ptr: COpaquePointer?)
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt
 
@@ -246,7 +262,7 @@ public expect fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt
 
 public expect fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
@@ -434,7 +450,7 @@ public expect fun nativeGetgrentR(grp: COpaquePointer?, buf: COpaquePointer?, bu
 
 public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
 
-public expect fun pthreadAtfork(prepare: FnCallback2?, parent: FnCallback2?, child: FnCallback2?): CInt
+public expect fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt
 
 public expect fun getgrgid(gid: GidT): COpaquePointer?
 
@@ -571,7 +587,7 @@ public expect fun sysinfo(command: CInt, buf: COpaquePointer?, count: CLong): CI
 public expect fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt
 
 // #include <link.h>
-public expect fun dlIteratePhdr(callback: FnCallback3?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
 
 public expect fun getpagesize(): CInt
 

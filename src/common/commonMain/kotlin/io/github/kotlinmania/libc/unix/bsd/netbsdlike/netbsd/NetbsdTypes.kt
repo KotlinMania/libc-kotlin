@@ -4,20 +4,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.aarch64.CpuSimpleLockNvT
-
-public fun interface FnCallback {
-    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
-}
-
-public fun interface FnCallback1 {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
-public fun interface FnCallback2 {
-    public operator fun invoke(arg0: CInt, arg1: COpaquePointer?)
-}
 
 public typealias BlksizeT = Int
 

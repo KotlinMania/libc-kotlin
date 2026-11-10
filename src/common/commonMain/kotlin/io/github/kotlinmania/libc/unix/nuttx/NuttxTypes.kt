@@ -2,11 +2,6 @@ package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.unix.DIR
-
-public fun interface FnCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
 
 public typealias NlinkT = UShort
 

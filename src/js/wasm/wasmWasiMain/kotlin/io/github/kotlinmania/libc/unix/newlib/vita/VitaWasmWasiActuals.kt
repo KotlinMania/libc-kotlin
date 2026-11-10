@@ -24,7 +24,7 @@ public actual fun sendmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun recvmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
     0L
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =

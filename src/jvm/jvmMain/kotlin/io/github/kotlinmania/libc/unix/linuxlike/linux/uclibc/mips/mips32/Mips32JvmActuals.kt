@@ -31,7 +31,7 @@ private object UnixLinuxlikeLinuxUclibcMipsMips32JniBridge {
 public actual fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
     UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl((name?.value ?: 0L), namelen, (oldp?.value ?: 0L), (oldlenp?.value ?: 0L), (newp?.value ?: 0L), newlen.toLong())
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64(pattern, flags, 0L, (pglob?.value ?: 0L))
 
 public actual fun globfree64(pglob: COpaquePointer?) {

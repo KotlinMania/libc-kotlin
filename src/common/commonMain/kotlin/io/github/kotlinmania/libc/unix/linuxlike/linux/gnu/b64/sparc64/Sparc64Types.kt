@@ -2,7 +2,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.sparc64
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlonglong
 
 public typealias WcharT = Int

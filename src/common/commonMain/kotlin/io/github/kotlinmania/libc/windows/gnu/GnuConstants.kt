@@ -2,7 +2,6 @@ package io.github.kotlinmania.libc.windows.gnu
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 
 // stdio file descriptor numbers
 public val STDIN_FILENO: CInt = 0

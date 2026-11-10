@@ -18,5 +18,5 @@ public actual fun setcontext(ucp: COpaquePointer?): CInt =
 public actual fun swapcontext(oucp: COpaquePointer?, ucp: COpaquePointer?): CInt =
     0
 
-public actual fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
 }

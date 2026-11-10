@@ -19,6 +19,26 @@ import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.aix.powerpc64.FdSet
 
+public fun interface PthreadAtforkPrepareCallback {
+    public operator fun invoke()
+}
+
+public fun interface PthreadCleanupPushRoutineCallback {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
+public fun interface PthreadCreateStartRoutineCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface GlobErrfuncCallback {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
+public fun interface LfindComparCallback {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
+}
+
 public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
     return if ((mhdr!!.msgControllen).toInt() >= 8) {
         null
@@ -145,7 +165,7 @@ public expect fun thrKill(id: ThreadT, sig: CInt): CInt
 
 public expect fun thrSelf(): ThreadT
 
-public expect fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt
+public expect fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt
 
 public expect fun pthreadAttrGetdetachstate(attr: COpaquePointer?, detachstate: COpaquePointer?): CInt
 
@@ -195,7 +215,7 @@ public expect fun pthreadCancel(thread: PthreadT): CInt
 
 public expect fun pthreadCleanupPop(execute: CInt)
 
-public expect fun pthreadCleanupPush(routine: FnCallback1?, arg: COpaquePointer?)
+public expect fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: COpaquePointer?)
 
 public expect fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt
 
@@ -205,7 +225,7 @@ public expect fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 
 public expect fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt
 
-public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback2, arg: COpaquePointer?): CInt
+public expect fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt
 
 public expect fun pthreadGetconcurrency(): CInt
 
@@ -241,7 +261,7 @@ public expect fun pthreadMutexSetprioceiling(mutex: COpaquePointer?, prioceiling
 
 public expect fun pthreadMutexTimedlock(mutex: COpaquePointer?, abstime: COpaquePointer?): CInt
 
-public expect fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback?): CInt
+public expect fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadAtforkPrepareCallback?): CInt
 
 public expect fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt
 
@@ -442,7 +462,7 @@ public expect fun getutxid(ut: COpaquePointer?): COpaquePointer?
 
 public expect fun getutxline(ut: COpaquePointer?): COpaquePointer?
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
@@ -466,7 +486,7 @@ public expect fun jrand48(xseed: COpaquePointer?): CLong
 
 public expect fun lcong48(p: COpaquePointer?)
 
-public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer?
+public expect fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer?
 
 public expect fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt
 
@@ -478,7 +498,7 @@ public expect fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt
 
 public expect fun lrand48(): CLong
 
-public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer?
+public expect fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer?
 
 public expect fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T
 
@@ -486,7 +506,7 @@ public expect fun lstat64(path: String?, buf: COpaquePointer?): CInt
 
 public expect fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt
 
-public expect fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long)
+public expect fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long)
 
 public expect fun mallinfo(): Mallinfo
 

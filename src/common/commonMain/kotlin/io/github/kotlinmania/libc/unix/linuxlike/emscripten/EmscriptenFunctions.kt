@@ -12,13 +12,17 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
 
+public fun interface GlobErrfuncCallback {
+    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
+}
+
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     if (((cmsg!!.cmsgLen).toInt()) < 8) {
         return null
     }
     val next: Cmsghdr? = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + (mhdr!!.msgControllen).toInt()
-    return if (((((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }))?.rawValue ?: 0L).toInt() >= max) {
+    return if (((next)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }).toInt() >= max) {
         null
     } else {
         ((next as Any?) as Cmsghdr?)
@@ -136,7 +140,7 @@ public expect fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt
 
 public expect fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer?
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 

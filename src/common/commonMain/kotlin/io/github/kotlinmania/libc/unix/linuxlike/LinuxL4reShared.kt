@@ -42,13 +42,12 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.RlimT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.RegoffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SemT
-import io.github.kotlinmania.libc.unix.redox.cmsgAlign
 
-public fun interface FnCallback {
+public fun interface GlobErrfuncCallback {
     public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
 }
 
-public fun interface FnCallback1 {
+public fun interface DlIteratePhdrCallbackCallback {
     public operator fun invoke(info: COpaquePointer?, size: SizeT, data: COpaquePointer?): CInt
 }
 
@@ -2480,7 +2479,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
         return null
     }
     // Note(msrv): `.wrappingByteAdd()` stabilized in 1.75
-    val nextCmsg = ((((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) })?.let { COpaquePointer(it.rawValue + (cmsgAlign(((cmsg!!.cmsgLen).toInt()).toULong())).toLong()) } as Any?) as Cmsghdr?)
+    val nextCmsg = ((((cmsg)?.let { COpaquePointer(it.hashCode().toLong()) })?.let { COpaquePointer(it.rawValue + (cmsgAlign((cmsg!!.cmsgLen).toInt())).toLong()) } as Any?) as Cmsghdr?)
     // In case the addition wrapped. `nextAddr> maxAddr`
     // would otherwise not work as intended.
     if ((((nextCmsg)?.hashCode()?.toLong() ?: 0L).toInt()) < (((cmsg)?.hashCode()?.toLong() ?: 0L).toInt())) {
@@ -2710,7 +2709,7 @@ public expect fun errnoLocation(): COpaquePointer?
 // Not available now on Android
 public expect fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer?
 
-public expect fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt
+public expect fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt
 
 public expect fun globfree(pglob: COpaquePointer?)
 
@@ -2776,7 +2775,7 @@ public expect fun popen(command: String?, mode: String?): FILE?
 
 public expect fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt
 
-public expect fun dlIteratePhdr(callback: FnCallback1?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
 
 public expect fun setmntent(filename: String?, ty: String?): FILE?
 

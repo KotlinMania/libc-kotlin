@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.wasi
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 
 public val EXIT_SUCCESS: CInt = 0

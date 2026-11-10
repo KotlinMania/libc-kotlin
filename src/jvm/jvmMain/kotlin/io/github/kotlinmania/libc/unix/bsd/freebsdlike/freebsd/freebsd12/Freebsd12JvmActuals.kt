@@ -57,6 +57,6 @@ public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
 public actual fun basename(path: COpaquePointer?): COpaquePointer? =
     UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd12_basename((path?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
     UnixBsdFreebsdlikeFreebsdFreebsd12JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd12_qsortR((base?.value ?: 0L), num.toLong(), size.toLong(), (arg?.value ?: 0L), 0L)
 }

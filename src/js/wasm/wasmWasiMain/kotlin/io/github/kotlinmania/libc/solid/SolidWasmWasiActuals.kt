@@ -360,7 +360,7 @@ public actual fun abort(): Nothing =
 public actual fun abs(arg1: CInt): CInt =
     0
 
-public actual fun atexit(arg1: FnCallback?): CInt =
+public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
     0
 
 public actual fun atoi(arg1: String?): CInt =
@@ -378,7 +378,7 @@ public actual fun ltoa(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): COpaqueP
 public actual fun ultoa(arg1: CUlong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
     null
 
-public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: FnCallback1?): COpaquePointer? =
+public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): COpaquePointer? =
     null
 
 public actual fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
@@ -402,7 +402,7 @@ public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
 public actual fun malloc(arg1: SizeT): COpaquePointer? =
     null
 
-public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?) {
+public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
 }
 
 public actual fun rand(): CInt =
@@ -513,7 +513,7 @@ public actual fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CU
 public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
     null
 
-public actual fun atQuickExit(arg1: FnCallback?): CInt =
+public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
     0
 
 public actual fun quickExit(arg1: CInt) {
@@ -534,10 +534,10 @@ public actual fun dehumanizeNumber(arg1: String?, arg2: COpaquePointer?): CInt =
 public actual fun getenvR(arg1: String?, arg2: COpaquePointer?, arg3: SizeT): CInt =
     0
 
-public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
+public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
     0
 
-public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FnCallback1?): CInt =
+public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
     0
 
 public actual fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =

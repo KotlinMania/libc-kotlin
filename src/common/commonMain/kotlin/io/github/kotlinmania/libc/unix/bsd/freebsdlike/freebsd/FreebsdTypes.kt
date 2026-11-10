@@ -10,10 +10,6 @@ import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.UidT
 
-public fun interface FnCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?)
-}
-
 public typealias FflagsT = UInt
 
 public typealias VmProtT = UChar

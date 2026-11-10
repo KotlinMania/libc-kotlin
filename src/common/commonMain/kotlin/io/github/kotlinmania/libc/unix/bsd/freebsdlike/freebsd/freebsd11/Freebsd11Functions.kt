@@ -8,6 +8,10 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 
+public fun interface QsortRComparCallback {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
+}
+
 public fun makedev(major: CUint, minor: CUint): DevT {
     val major1 = major.toUInt()
     val minor1 = minor.toUInt()
@@ -44,4 +48,4 @@ public expect fun basename(path: String?): COpaquePointer?
 // Argument order of the function pointer changed in FreeBSD 14. From 14 onwards the signature
 // matches the POSIX specification by having the third argument be a mutable pointer, on
 // earlier versions the first argument is the mutable pointer.
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: FnCallback?)
+public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?)

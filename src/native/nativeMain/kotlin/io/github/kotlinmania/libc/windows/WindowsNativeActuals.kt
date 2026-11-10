@@ -64,11 +64,11 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_toupper(c)
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_qsort(base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>())
 }
 
-public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback1?, arg: COpaquePointer?) {
+public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: COpaquePointer?) {
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_qsortS(base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 }
 
@@ -212,7 +212,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(cb: FnCallback2): CInt =
+public actual fun atexit(cb: AtexitCbCallback): CInt =
     io.github.kotlinmania.libc.windows.cinterop.libc_windows_atexit(0L.toCPointer<ByteVar>())
 
 public actual fun system(s: String?): CInt =

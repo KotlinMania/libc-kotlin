@@ -7,7 +7,11 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt
+public fun interface PthreadCreateFCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 
 public expect fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT
 

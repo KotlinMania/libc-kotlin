@@ -48,7 +48,7 @@ public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
     UnixNewlibRtemsJniBridge.libc_unix_newlib_rtems_readv(fd, (iov?.value ?: 0L), iovcnt)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     UnixNewlibRtemsJniBridge.libc_unix_newlib_rtems_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =

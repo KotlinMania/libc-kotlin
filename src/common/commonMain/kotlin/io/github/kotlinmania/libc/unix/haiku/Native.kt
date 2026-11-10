@@ -20,12 +20,12 @@ public fun interface FnCallback {
     public operator fun invoke(arg0: COpaquePointer?): StatusT
 }
 
-public fun interface FnCallback1 {
-    public operator fun invoke(arg0: COpaquePointer?)
-}
-
 public fun interface ImageInfoInitRoutineCallback {
     public operator fun invoke()
+}
+
+public fun interface OnExitThreadCallbackCallback {
+    public operator fun invoke(arg0: COpaquePointer?)
 }
 
 // support/SupportDefs.h
@@ -1688,7 +1688,7 @@ public expect fun exitThread(status: StatusT)
 
 public expect fun waitForThread(thread: ThreadId, returnValue: COpaquePointer?): StatusT
 
-public expect fun onExitThread(callback: FnCallback1, data: COpaquePointer?): StatusT
+public expect fun onExitThread(callback: OnExitThreadCallbackCallback, data: COpaquePointer?): StatusT
 
 public expect fun findThread(name: String?): ThreadId
 

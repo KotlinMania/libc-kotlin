@@ -157,7 +157,7 @@ public actual fun errnoLocation(): COpaquePointer? =
 public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
     null
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -256,7 +256,7 @@ public actual fun popen(command: String?, mode: String?): FILE? =
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     0
 
-public actual fun dlIteratePhdr(callback: FnCallback1?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     0
 
 public actual fun setmntent(filename: String?, ty: String?): FILE? =

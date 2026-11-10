@@ -11,6 +11,18 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 
+public fun interface AtexitACallback {
+    public operator fun invoke()
+}
+
+public fun interface PthreadCreateFCallback {
+    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+}
+
+public fun interface PthreadKeyCreateDtorCallback {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
     val set1 = set!!
     val n = set1.nfds
@@ -119,9 +131,9 @@ public expect fun perror(a: String?)
 
 public expect fun srand(a: CUint)
 
-public expect fun atexit(a: FnCallback): CInt
+public expect fun atexit(a: AtexitACallback): CInt
 
-public expect fun atQuickExit(a: FnCallback): CInt
+public expect fun atQuickExit(a: AtexitACallback): CInt
 
 public expect fun quickExit(a: CInt): Nothing
 
@@ -533,7 +545,7 @@ public expect fun realpath(pathname: String?, resolved: COpaquePointer?): COpaqu
 
 public expect fun pthreadSelf(): PthreadT
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt
 
@@ -551,7 +563,7 @@ public expect fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt):
 
 public expect fun pthreadDetach(thread: PthreadT): CInt
 
-public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt
+public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 

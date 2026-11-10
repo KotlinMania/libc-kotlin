@@ -82,7 +82,7 @@ public actual fun sendmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun recvmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
     UnixNewlibVitaJniBridge.libc_unix_newlib_vita_recvmsg(s, (msg?.value ?: 0L), flags)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     UnixNewlibVitaJniBridge.libc_unix_newlib_vita_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =

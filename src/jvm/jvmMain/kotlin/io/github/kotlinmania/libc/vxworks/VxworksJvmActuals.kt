@@ -1237,7 +1237,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(cb: FnCallback): CInt =
+public actual fun atexit(cb: AtexitCbCallback): CInt =
     VxworksJniBridge.libc_vxworks_atexit(0L)
 
 public actual fun system(s: String?): CInt =
@@ -1713,7 +1713,7 @@ public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePo
 public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
     VxworksJniBridge.libc_vxworks_pthreadAttrInit((attr?.value ?: 0L))
 
-public actual fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: FnCallback1, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, value: COpaquePointer?): CInt =
     VxworksJniBridge.libc_vxworks_pthreadCreate((pThread?.value ?: 0L), (pAttr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
@@ -1734,7 +1734,7 @@ public actual fun pthreadAttrDestroy(thread: COpaquePointer?): CInt =
 public actual fun pthreadDetach(thread: PthreadT): CInt =
     VxworksJniBridge.libc_vxworks_pthreadDetach(thread.toLong())
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: AtexitCbCallback?, parent: AtexitCbCallback?, child: AtexitCbCallback?): CInt =
     VxworksJniBridge.libc_vxworks_pthreadAtfork(0L, 0L, 0L)
 
 public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
@@ -1821,7 +1821,7 @@ public actual fun pthreadRwlockTimedwrlock(attr: COpaquePointer?, host: COpaqueP
 public actual fun pthreadRwlockUnlock(attr: COpaquePointer?): CInt =
     VxworksJniBridge.libc_vxworks_pthreadRwlockUnlock((attr?.value ?: 0L))
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     VxworksJniBridge.libc_vxworks_pthreadKeyCreate((key?.value ?: 0L), 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =

@@ -5,13 +5,7 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.UintptrT
-
-public fun interface FnCallback {
-    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
-}
 
 public typealias ModeT = UShort
 

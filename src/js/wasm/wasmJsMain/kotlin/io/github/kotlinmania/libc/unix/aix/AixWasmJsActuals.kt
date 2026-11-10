@@ -25,7 +25,7 @@ public actual fun thrKill(id: ThreadT, sig: CInt): CInt =
 public actual fun thrSelf(): ThreadT =
     0u
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     0
 
 public actual fun pthreadAttrGetdetachstate(attr: COpaquePointer?, detachstate: COpaquePointer?): CInt =
@@ -100,7 +100,7 @@ public actual fun pthreadCancel(thread: PthreadT): CInt =
 public actual fun pthreadCleanupPop(execute: CInt) {
 }
 
-public actual fun pthreadCleanupPush(routine: FnCallback1?, arg: COpaquePointer?) {
+public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: COpaquePointer?) {
 }
 
 public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
@@ -115,7 +115,7 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     0
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback2, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadGetconcurrency(): CInt =
@@ -169,7 +169,7 @@ public actual fun pthreadMutexSetprioceiling(mutex: COpaquePointer?, prioceiling
 public actual fun pthreadMutexTimedlock(mutex: COpaquePointer?, abstime: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback?): CInt =
+public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadAtforkPrepareCallback?): CInt =
     0
 
 public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
@@ -469,7 +469,7 @@ public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
 public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
     null
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -505,7 +505,7 @@ public actual fun jrand48(xseed: COpaquePointer?): CLong =
 public actual fun lcong48(p: COpaquePointer?) {
 }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
     null
 
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
@@ -523,7 +523,7 @@ public actual fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt =
 public actual fun lrand48(): CLong =
     0L
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
     null
 
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
@@ -535,7 +535,7 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     0
 
-public actual fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
 }
 
 public actual fun mallinfo(): Mallinfo =

@@ -336,7 +336,7 @@ public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
 public actual fun ntpGettime(buf: COpaquePointer?): CInt =
     0
 
-public actual fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     0
 
 public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =

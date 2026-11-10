@@ -21,7 +21,7 @@ public actual fun doorCall(d: CInt, params: COpaquePointer?): CInt =
 public actual fun doorReturn(dataPtr: COpaquePointer?, dataSize: SizeT, descPtr: COpaquePointer?, numDesc: CUint): CInt =
     0
 
-public actual fun doorCreate(serverProcedure: FnCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt =
+public actual fun doorCreate(serverProcedure: DoorCreateServerProcedureCallback, cookie: COpaquePointer?, attributes: DoorAttrT): CInt =
     0
 
 public actual fun fattach(fildes: CInt, path: String?): CInt =

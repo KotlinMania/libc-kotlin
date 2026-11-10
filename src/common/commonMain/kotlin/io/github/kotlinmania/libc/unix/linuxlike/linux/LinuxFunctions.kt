@@ -21,6 +21,10 @@ import io.github.kotlinmania.libc.unix.linuxlike.SockaddrUn
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.strlen
 
+public fun interface CloneCbCallback {
+    public operator fun invoke(arg0: COpaquePointer?): CInt
+}
+
 public fun issecureMask(x: CInt): CInt {
     return 1 shl x
 }
@@ -49,7 +53,7 @@ public fun sctpPrSetPolicy(flags: CInt, policy: CInt) {
 }
 
 public fun soEeOffender(ee: SockExtendedErr?): Sockaddr? {
-    return (((ee)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as Sockaddr?)
+    return null
 }
 
 public fun tpacketAlign(x: Int): Int {
@@ -273,7 +277,7 @@ public expect fun personality(persona: CUlong): CInt
 
 public expect fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt
 
-public expect fun clone(cb: FnCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt
+public expect fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt
 
 public expect fun schedGetscheduler(pid: PidT): CInt
 

@@ -23,6 +23,18 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.PthreadT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.WcharT
 
+public fun interface QsortComparCallback {
+    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
+}
+
+public fun interface PthreadKeyCreateDtorCallback {
+    public operator fun invoke(arg0: COpaquePointer?)
+}
+
+public fun interface AtexitCbCallback {
+    public operator fun invoke()
+}
+
 public expect val IN6ADDR_LOOPBACK: In6Addr
 
 public expect val IN6ADDR_ANY: In6Addr
@@ -55,9 +67,9 @@ public expect fun tolower(c: CInt): CInt
 
 public expect fun toupper(c: CInt): CInt
 
-public expect fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?)
+public expect fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?)
 
-public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?): COpaquePointer?
+public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?): COpaquePointer?
 
 public expect fun fopen(filename: String?, mode: String?): FILE?
 
@@ -492,7 +504,7 @@ public expect fun pthreadDetach(thread: PthreadT): CInt
 
 public expect fun schedYield(): CInt
 
-public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback1?): CInt
+public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 
@@ -773,7 +785,7 @@ public expect fun fmemopen(buf: COpaquePointer?, size: SizeT, mode: String?): FI
 
 public expect fun openMemstream(ptr: COpaquePointer?, sizeloc: COpaquePointer?): FILE?
 
-public expect fun atexit(cb: FnCallback2): CInt
+public expect fun atexit(cb: AtexitCbCallback): CInt
 
 public expect fun cfmakeraw(termios: COpaquePointer?): CInt
 

@@ -163,7 +163,7 @@ public actual fun exitThread(status: StatusT) {
 public actual fun waitForThread(thread: ThreadId, returnValue: COpaquePointer?): StatusT =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_waitForThread(thread, returnValue?.value?.toCPointer<ByteVar>())
 
-public actual fun onExitThread(callback: FnCallback1, data: COpaquePointer?): StatusT =
+public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: COpaquePointer?): StatusT =
     io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_native_onExitThread(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun findThread(name: String?): ThreadId =

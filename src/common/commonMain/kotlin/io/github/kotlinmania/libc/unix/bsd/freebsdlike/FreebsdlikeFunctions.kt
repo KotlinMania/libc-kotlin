@@ -23,6 +23,10 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.MqdT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
 
+public fun interface DlIteratePhdrCallbackCallback {
+    public operator fun invoke(info: COpaquePointer?, size: ULong, data: COpaquePointer?): CInt
+}
+
 // link.h
 public fun wifcontinued(status: CInt): Boolean {
     return status == 0x13
@@ -246,7 +250,7 @@ public expect fun ntpAdjtime(buf: COpaquePointer?): CInt
 public expect fun ntpGettime(buf: COpaquePointer?): CInt
 
 // #include <link.h>
-public expect fun dlIteratePhdr(callback: FnCallback?, data: COpaquePointer?): CInt
+public expect fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt
 
 public expect fun iconvOpen(tocode: String?, fromcode: String?): IconvT
 

@@ -712,7 +712,7 @@ public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
 public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_ppoll((fds?.value ?: 0L), nfds.toInt(), (timeout?.value ?: 0L), (sigmask?.value ?: 0L))
 
-public actual fun clone(cb: FnCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -858,10 +858,10 @@ public actual fun systemPropertyFind(name: String?): COpaquePointer? =
 public actual fun systemPropertyFindNth(n: CUint): COpaquePointer? =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_systemPropertyFindNth(n.toInt()).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun systemPropertyForeach(callback: FnCallback1, cookie: COpaquePointer?): CInt =
+public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: COpaquePointer?): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_systemPropertyForeach(0L, (cookie?.value ?: 0L))
 
-public actual fun dlIteratePhdr(callback: FnCallback2?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     UnixLinuxlikeAndroidJniBridge.libc_unix_linuxlike_android_dlIteratePhdr(0L, (data?.value ?: 0L))
 
 public actual fun arc4random(): UInt =

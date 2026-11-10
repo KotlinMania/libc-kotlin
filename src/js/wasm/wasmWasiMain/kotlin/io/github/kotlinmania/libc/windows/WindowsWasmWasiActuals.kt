@@ -61,10 +61,10 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     0
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
 }
 
-public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback1?, arg: COpaquePointer?) {
+public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: COpaquePointer?) {
 }
 
 public actual fun fopen(filename: String?, mode: String?): FILE? =
@@ -199,7 +199,7 @@ public actual fun abort(): Nothing =
 public actual fun exit(status: CInt): Nothing =
     error("Unreachable noreturn C function exit")
 
-public actual fun atexit(cb: FnCallback2): CInt =
+public actual fun atexit(cb: AtexitCbCallback): CInt =
     0
 
 public actual fun system(s: String?): CInt =

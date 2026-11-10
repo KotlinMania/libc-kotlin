@@ -2,7 +2,6 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd13
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 
 public val RAND_MAX: CInt = 0x7fffffff
 

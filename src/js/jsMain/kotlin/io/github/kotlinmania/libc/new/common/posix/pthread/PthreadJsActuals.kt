@@ -13,7 +13,7 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 private val _newCommonPosixPthreadNapiAddon: dynamic =
     js("(function() { if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var req = (new Function('t', 'return typeof require === t ? require : null'))('function'); if (!req) return null; var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; for (var d = 0; d < 8; d++) { var c1 = path.resolve(dir, 'build/node-ffi/libc_native.node'); if (fs.existsSync(c1)) return req(c1); var c2 = path.resolve(dir, 'src/js/node-libc/build/Release/libc_native.node'); if (fs.existsSync(c2)) return req(c2); var c3 = path.resolve(dir, 'src/js/node-libc/build/Debug/libc_native.node'); if (fs.existsSync(c3)) return req(c3); var c4 = path.resolve(dir, 'src/js/node-libc/dist/build/Release/libc_native.node'); if (fs.existsSync(c4)) return req(c4); var c5 = path.resolve(dir, 'src/js/node-libc/dist/build/Debug/libc_native.node'); if (fs.existsSync(c5)) return req(c5); var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } return null; })()")
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     if (_newCommonPosixPthreadNapiAddon != null) (_newCommonPosixPthreadNapiAddon.libc_new_common_posix_pthread_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
@@ -82,7 +82,7 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     if (_newCommonPosixPthreadNapiAddon != null) (_newCommonPosixPthreadNapiAddon.libc_new_common_posix_pthread_pthreadCondattrSetpshared((attr?.value ?: 0L).toString(), pshared) as Int) else 0
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     if (_newCommonPosixPthreadNapiAddon != null) (_newCommonPosixPthreadNapiAddon.libc_new_common_posix_pthread_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
@@ -124,7 +124,7 @@ public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpa
 public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt =
     if (_newCommonPosixPthreadNapiAddon != null) (_newCommonPosixPthreadNapiAddon.libc_new_common_posix_pthread_pthreadRwlockattrSetpshared((attr?.value ?: 0L).toString(), value) as Int) else 0
 
-public actual fun pthreadOnce(control: COpaquePointer?, routine: FnCallback): CInt =
+public actual fun pthreadOnce(control: COpaquePointer?, routine: PthreadAtforkPrepareCallback): CInt =
     if (_newCommonPosixPthreadNapiAddon != null) (_newCommonPosixPthreadNapiAddon.libc_new_common_posix_pthread_pthreadOnce((control?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =

@@ -14,7 +14,6 @@ import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.new.netbsd.sys.ipc.IpcPerm
 import io.github.kotlinmania.libc.new.netbsd.sys.types.DevT
 import io.github.kotlinmania.libc.new.netbsd.sys.types.LwpidT
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.InAddrT
 import io.github.kotlinmania.libc.unix.InPortT

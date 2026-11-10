@@ -24,7 +24,7 @@ public actual fun dirfd(dirp: DIR?): Int =
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: COpaquePointer?, addrlen: COpaquePointer?): Int =
     io.github.kotlinmania.libc.unix.nuttx.cinterop.libc_unix_nuttx_recvfrom(sockfd, buf?.value?.toCPointer<ByteVar>(), len, flags, srcAddr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): Int =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): Int =
     io.github.kotlinmania.libc.unix.nuttx.cinterop.libc_unix_nuttx_pthreadCreate(thread?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 
 public actual fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int =

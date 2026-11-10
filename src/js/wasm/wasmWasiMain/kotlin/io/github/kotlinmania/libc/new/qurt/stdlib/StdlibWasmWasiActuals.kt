@@ -35,7 +35,7 @@ public actual fun abort(): Nothing =
 public actual fun exit(status: CInt): Nothing =
     error("Unreachable noreturn C function exit")
 
-public actual fun atexit(function: FnCallback): CInt =
+public actual fun atexit(function: AtexitFunctionCallback): CInt =
     0
 
 public actual fun getenv(name: String?): COpaquePointer? =
@@ -80,10 +80,10 @@ public actual fun rand(): CInt =
 public actual fun srand(seed: CUint) {
 }
 
-public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1) {
+public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): COpaquePointer? =
     null
 
 public actual fun abs(j: CInt): CInt =

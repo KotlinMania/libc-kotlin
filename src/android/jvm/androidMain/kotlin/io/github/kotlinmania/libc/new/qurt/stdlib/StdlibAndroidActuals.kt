@@ -124,7 +124,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(function: FnCallback): CInt =
+public actual fun atexit(function: AtexitFunctionCallback): CInt =
     NewQurtStdlibJniBridge.libc_new_qurt_stdlib_atexit(0L)
 
 public actual fun getenv(name: String?): COpaquePointer? =
@@ -170,11 +170,11 @@ public actual fun srand(seed: CUint) {
     NewQurtStdlibJniBridge.libc_new_qurt_stdlib_srand(seed.toInt())
 }
 
-public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1) {
+public actual fun qsort(base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback) {
     NewQurtStdlibJniBridge.libc_new_qurt_stdlib_qsort((base?.value ?: 0L), nmemb.toLong(), size.toLong(), 0L)
 }
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: FnCallback1): COpaquePointer? =
+public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nmemb: SizeT, size: SizeT, compar: QsortComparCallback): COpaquePointer? =
     NewQurtStdlibJniBridge.libc_new_qurt_stdlib_bsearch((key?.value ?: 0L), (base?.value ?: 0L), nmemb.toLong(), size.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun abs(j: CInt): CInt =

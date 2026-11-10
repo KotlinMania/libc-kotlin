@@ -24,7 +24,7 @@ public actual fun dirfd(dirp: DIR?): Int =
 public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, srcAddr: COpaquePointer?, addrlen: COpaquePointer?): Int =
     if (_unixNuttxNapiAddon != null) (_unixNuttxNapiAddon.libc_unix_nuttx_recvfrom(sockfd, (buf?.value ?: 0L).toString(), len.toString(), flags, (srcAddr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback, arg: COpaquePointer?): Int =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): Int =
     if (_unixNuttxNapiAddon != null) (_unixNuttxNapiAddon.libc_unix_nuttx_pthreadCreate((thread?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (arg?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int =

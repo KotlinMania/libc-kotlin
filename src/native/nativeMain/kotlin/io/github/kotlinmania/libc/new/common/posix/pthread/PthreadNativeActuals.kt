@@ -12,7 +12,7 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     io.github.kotlinmania.libc.new.common.posix.pthread.cinterop.libc_new_common_posix_pthread_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
@@ -81,7 +81,7 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     io.github.kotlinmania.libc.new.common.posix.pthread.cinterop.libc_new_common_posix_pthread_pthreadCondattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.new.common.posix.pthread.cinterop.libc_new_common_posix_pthread_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
@@ -123,7 +123,7 @@ public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpa
 public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt =
     io.github.kotlinmania.libc.new.common.posix.pthread.cinterop.libc_new_common_posix_pthread_pthreadRwlockattrSetpshared(attr?.value?.toCPointer<ByteVar>(), value)
 
-public actual fun pthreadOnce(control: COpaquePointer?, routine: FnCallback): CInt =
+public actual fun pthreadOnce(control: COpaquePointer?, routine: PthreadAtforkPrepareCallback): CInt =
     io.github.kotlinmania.libc.new.common.posix.pthread.cinterop.libc_new_common_posix_pthread_pthreadOnce(control?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =

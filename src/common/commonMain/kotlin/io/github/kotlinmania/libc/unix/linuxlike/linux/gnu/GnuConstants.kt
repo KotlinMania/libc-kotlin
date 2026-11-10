@@ -3,13 +3,11 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.new.linuxuapi.linux.netlink.NLMSG_MIN_TYPE
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.linuxlike.LC_COLLATE_MASK
 import io.github.kotlinmania.libc.unix.linuxlike.LC_CTYPE_MASK

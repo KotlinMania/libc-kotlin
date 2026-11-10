@@ -27,7 +27,7 @@ public actual fun sendmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
 public actual fun recvmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
     io.github.kotlinmania.libc.unix.newlib.vita.cinterop.libc_unix_newlib_vita_recvmsg(s, msg?.value?.toCPointer<ByteVar>(), flags)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.newlib.vita.cinterop.libc_unix_newlib_vita_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =

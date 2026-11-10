@@ -33,7 +33,7 @@ private object UnixNewlibEspidfJniBridge {
     external fun libc_unix_newlib_espidf_eventfd(initval: Int, flags: Int): Int
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     UnixNewlibEspidfJniBridge.libc_unix_newlib_espidf_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
 
 public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =

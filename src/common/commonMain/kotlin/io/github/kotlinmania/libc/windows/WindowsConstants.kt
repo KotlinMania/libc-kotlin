@@ -2,7 +2,6 @@ package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 
 public val INT_MIN: CInt = -2147483648.toInt()

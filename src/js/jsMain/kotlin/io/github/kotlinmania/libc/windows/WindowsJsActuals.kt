@@ -64,13 +64,13 @@ public actual fun tolower(c: CInt): CInt =
 public actual fun toupper(c: CInt): CInt =
     if (_windowsNapiAddon != null) (_windowsNapiAddon.libc_windows_toupper(c) as Int) else 0
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?) {
+public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
     if (_windowsNapiAddon != null) {
         _windowsNapiAddon.libc_windows_qsort((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString())
     }
 }
 
-public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback1?, arg: COpaquePointer?) {
+public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: COpaquePointer?) {
     if (_windowsNapiAddon != null) {
         _windowsNapiAddon.libc_windows_qsortS((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString(), (arg?.value ?: 0L).toString())
     }
@@ -228,7 +228,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(cb: FnCallback2): CInt =
+public actual fun atexit(cb: AtexitCbCallback): CInt =
     if (_windowsNapiAddon != null) (_windowsNapiAddon.libc_windows_atexit(0L.toString()) as Int) else 0
 
 public actual fun system(s: String?): CInt =

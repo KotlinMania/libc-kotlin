@@ -185,7 +185,7 @@ public actual fun abort(): Nothing =
 public actual fun exit(status: CInt): Nothing =
     error("Unreachable noreturn C function exit")
 
-public actual fun atexit(cb: FnCallback): CInt =
+public actual fun atexit(cb: AtexitCbCallback): CInt =
     0
 
 public actual fun system(s: String?): CInt =
@@ -656,7 +656,7 @@ public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePo
 public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: FnCallback1, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, value: COpaquePointer?): CInt =
     0
 
 public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
@@ -677,7 +677,7 @@ public actual fun pthreadAttrDestroy(thread: COpaquePointer?): CInt =
 public actual fun pthreadDetach(thread: PthreadT): CInt =
     0
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: AtexitCbCallback?, parent: AtexitCbCallback?, child: AtexitCbCallback?): CInt =
     0
 
 public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
@@ -764,7 +764,7 @@ public actual fun pthreadRwlockTimedwrlock(attr: COpaquePointer?, host: COpaqueP
 public actual fun pthreadRwlockUnlock(attr: COpaquePointer?): CInt =
     0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback2?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =

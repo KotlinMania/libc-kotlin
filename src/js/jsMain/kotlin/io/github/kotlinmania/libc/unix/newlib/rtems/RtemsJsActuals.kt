@@ -21,7 +21,7 @@ public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
 public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
     if (_unixNewlibRtemsNapiAddon != null) (_unixNewlibRtemsNapiAddon.libc_unix_newlib_rtems_readv(fd, (iov?.value ?: 0L).toString(), iovcnt) as String).toLong() else 0L
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     if (_unixNewlibRtemsNapiAddon != null) (_unixNewlibRtemsNapiAddon.libc_unix_newlib_rtems_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =

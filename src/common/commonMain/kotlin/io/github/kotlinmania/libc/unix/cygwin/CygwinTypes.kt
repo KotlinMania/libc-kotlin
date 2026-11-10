@@ -9,20 +9,7 @@ import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
-import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.IntptrT
-
-public fun interface FnCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
-}
-
-public fun interface FnCallback1 {
-    public operator fun invoke()
-}
-
-public fun interface FnCallback2 {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
 
 public typealias WcharT = CUshort
 

@@ -302,7 +302,7 @@ public actual fun srand48(seed: CLong) {
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_srand48(seed)
 }
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_qsortR(base?.value?.toCPointer<ByteVar>(), num, size, 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
 }
 
@@ -412,7 +412,7 @@ public actual fun getpagesize(): CInt =
 public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_getpeereid(socket, euid?.value?.toCPointer<ByteVar>(), egid?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
@@ -518,7 +518,7 @@ public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
 public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadBarrierWait(barrier?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.cygwin.cinterop.libc_unix_cygwin_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =

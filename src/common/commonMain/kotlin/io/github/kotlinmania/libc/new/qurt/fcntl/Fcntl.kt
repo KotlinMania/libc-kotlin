@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.new.qurt.fcntl
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.ModeT
 
 // Header: `fcntl.h`

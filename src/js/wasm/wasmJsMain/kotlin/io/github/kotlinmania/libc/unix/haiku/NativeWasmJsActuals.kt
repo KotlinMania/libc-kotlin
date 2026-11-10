@@ -159,7 +159,7 @@ public actual fun exitThread(status: StatusT) {
 public actual fun waitForThread(thread: ThreadId, returnValue: COpaquePointer?): StatusT =
     0
 
-public actual fun onExitThread(callback: FnCallback1, data: COpaquePointer?): StatusT =
+public actual fun onExitThread(callback: OnExitThreadCallbackCallback, data: COpaquePointer?): StatusT =
     0
 
 public actual fun findThread(name: String?): ThreadId =

@@ -236,7 +236,7 @@ public actual fun ifFreenameindex(ptr: COpaquePointer?) {
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ifFreenameindex(ptr?.value?.toCPointer<ByteVar>())
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -422,7 +422,7 @@ public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
 
-public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -440,7 +440,7 @@ public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robustness: C
 public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadMutexattrSetrobust(attr?.value?.toCPointer<ByteVar>(), robustness)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback2, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
@@ -572,7 +572,7 @@ public actual fun setrlimit(resource: CInt, rlp: COpaquePointer?): CInt =
 public actual fun lioListio(mode: CInt, list: COpaquePointer?, nent: CInt, sig: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_lioListio(mode, list?.value?.toCPointer<ByteVar>(), nent, sig?.value?.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: FnCallback3?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
 
 public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt =

@@ -84,7 +84,7 @@ public actual fun pthreadAttrSettee(attr: COpaquePointer?, ca: CInt, taskId: CIn
 public actual fun schedYield(): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_schedYield()
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -144,7 +144,7 @@ public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePoint
 public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexattrSetrobust(attr?.value?.toCPointer<ByteVar>(), robustness)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
 
 public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =

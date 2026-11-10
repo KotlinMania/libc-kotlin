@@ -163,7 +163,7 @@ public fun getpwentR(pwd: Passwd?, buf: COpaquePointer?, buflen: SizeT, result: 
     var result = result
     val oldErrno = (errno()?.rawValue ?: 0L).toInt()
     run { errno(); 0 }
-    result = nativeGetpwentR(pwd, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
+    result = nativeGetpwentR(((pwd)?.let { COpaquePointer(it.hashCode().toLong()) }), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
     val ret = if ((result!! == null)) {
         (errno()?.rawValue ?: 0L).toInt()
     } else {
@@ -177,7 +177,7 @@ public fun getgrentR(grp: Group?, buf: COpaquePointer?, buflen: SizeT, result: C
     var result = result
     val oldErrno = (errno()?.rawValue ?: 0L).toInt()
     run { errno(); 0 }
-    result = nativeGetgrentR(grp, buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
+    result = nativeGetgrentR(((grp)?.let { COpaquePointer(it.hashCode().toLong()) }), buf, minOf(buflen, CInt.MAX_VALUE.toULong()).toInt())
     val ret = if ((result!! == null)) {
         (errno()?.rawValue ?: 0L).toInt()
     } else {

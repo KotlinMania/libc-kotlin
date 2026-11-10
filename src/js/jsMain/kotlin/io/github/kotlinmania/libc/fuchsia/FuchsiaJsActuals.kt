@@ -208,7 +208,7 @@ public actual fun exit(status: CInt): Nothing {
     error("Unreachable noreturn C function exit")
 }
 
-public actual fun atexit(cb: FnCallback): CInt =
+public actual fun atexit(cb: SigactionSaRestorerCallback): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_atexit(0L.toString()) as Int) else 0
 
 public actual fun system(s: String?): CInt =
@@ -722,7 +722,7 @@ public actual fun pthreadDetach(thread: PthreadT): CInt =
 public actual fun schedYield(): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_schedYield() as Int) else 0
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: FnCallback1?): CInt =
+public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
@@ -1337,7 +1337,7 @@ public actual fun freeifaddrs(ifa: COpaquePointer?) {
     }
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback2?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -1475,7 +1475,7 @@ public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePoint
 public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadMutexTimedlock((lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun clone(cb: FnCallback3, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
+public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
     0
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
@@ -1556,7 +1556,7 @@ public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =
@@ -1586,8 +1586,8 @@ public actual fun popen(command: String?, mode: String?): FILE? =
 public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_faccessat(dirfd, pathname, mode, flags) as Int) else 0
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback4, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun dlIteratePhdr(callback: FnCallback5?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     if (_fuchsiaNapiAddon != null) (_fuchsiaNapiAddon.libc_fuchsia_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0

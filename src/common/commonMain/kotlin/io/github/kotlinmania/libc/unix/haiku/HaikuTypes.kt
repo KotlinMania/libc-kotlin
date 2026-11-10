@@ -6,25 +6,7 @@ import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.DIR
-import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.UintptrT
-
-public fun interface FnCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
-}
-
-public fun interface FnCallback1 {
-    public operator fun invoke(epath: COpaquePointer?, errno: CInt): CInt
-}
-
-public fun interface FnCallback2 {
-    public operator fun invoke()
-}
-
-public fun interface FnCallback3 {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?): CInt
-}
 
 // This module contains bindings to the native Haiku API. The Haiku API
 // originates from BeOS, and it was the original way to perform low level

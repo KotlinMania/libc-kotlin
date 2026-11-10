@@ -289,10 +289,10 @@ public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
 public actual fun getnameinfo(addr: COpaquePointer?, addrlen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
     UnixRedoxJniBridge.libc_unix_redox_getnameinfo((addr?.value ?: 0L), addrlen.toInt(), (host?.value ?: 0L), hostlen.toInt(), (serv?.value ?: 0L), servlen.toInt(), flags)
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
     UnixRedoxJniBridge.libc_unix_redox_pthreadAtfork(0L, 0L, 0L)
 
-public actual fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: FnCallback1, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: PthreadCreateStartCallback, arg: COpaquePointer?): CInt =
     UnixRedoxJniBridge.libc_unix_redox_pthreadCreate((tid?.value ?: 0L), (attr?.value ?: 0L), 0L, (arg?.value ?: 0L))
 
 public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =

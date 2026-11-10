@@ -401,7 +401,7 @@ public actual fun endmntent(streamp: FILE?): CInt =
 public actual fun hasmntopt(mnt: COpaquePointer?, opt: String?): COpaquePointer? =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_hasmntopt((mnt?.value ?: 0L).toString(), opt) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback, value: COpaquePointer?): CInt =
+public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun pthreadKill(threadid: PthreadT, signo: CInt): CInt =
@@ -452,7 +452,7 @@ public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpa
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_pthreadCondattrSetpshared((attr?.value ?: 0L).toString(), pshared) as Int) else 0
 
-public actual fun pthreadOnce(control: COpaquePointer?, routine: FnCallback1): CInt =
+public actual fun pthreadOnce(control: COpaquePointer?, routine: PthreadOnceRoutineCallback): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_pthreadOnce((control?.value ?: 0L).toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt =
@@ -491,7 +491,7 @@ public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
 public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_pthreadSpinUnlock((lock?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun pthreadAtfork(prepare: FnCallback1?, parent: FnCallback1?, child: FnCallback1?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadOnceRoutineCallback?, parent: PthreadOnceRoutineCallback?, child: PthreadOnceRoutineCallback?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) as Int) else 0
 
 public actual fun pthreadSigmask(how: CInt, newmask: COpaquePointer?, oldmask: COpaquePointer?): CInt =
@@ -959,7 +959,7 @@ public actual fun lcong48(p: COpaquePointer?) {
     }
 }
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback2?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
     if (_unixHurdNapiAddon != null) {
         _unixHurdNapiAddon.libc_unix_hurd_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString(), (arg?.value ?: 0L).toString())
     }
@@ -1025,7 +1025,7 @@ public actual fun regfree(preg: COpaquePointer?) {
     }
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -1034,7 +1034,7 @@ public actual fun globfree(pglob: COpaquePointer?) {
     }
 }
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_glob64(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun globfree64(pglob: COpaquePointer?) {
@@ -1118,7 +1118,7 @@ public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
 public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_nlLanginfoL(item, (locale?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else null
 
-public actual fun dlIteratePhdr(callback: FnCallback4?, data: COpaquePointer?): CInt =
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
     if (_unixHurdNapiAddon != null) (_unixHurdNapiAddon.libc_unix_hurd_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun gnuGetLibcRelease(): COpaquePointer? =

@@ -301,7 +301,7 @@ public actual fun sgetspentR(s: String?, spbuf: COpaquePointer?, buf: COpaquePoi
 public actual fun getspentR(spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getspentR((spbuf?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (spbufp?.value ?: 0L))
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: FnCallback?, arg: COpaquePointer?) {
+public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
     UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_qsortR((base?.value ?: 0L), num.toLong(), size.toLong(), 0L, (arg?.value ?: 0L))
 }
 
@@ -423,7 +423,7 @@ public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CIn
     UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd((buffer?.value ?: 0L), len, fd)
 }
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: FnCallback1?, pglob: COpaquePointer?): CInt =
+public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
     UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_glob64(pattern, flags, 0L, (pglob?.value ?: 0L))
 
 public actual fun globfree64(pglob: COpaquePointer?) {

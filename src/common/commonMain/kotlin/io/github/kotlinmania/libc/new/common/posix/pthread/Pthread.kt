@@ -13,15 +13,15 @@ import io.github.kotlinmania.libc.new.qurt.SizeT
 //
 // <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html>
 
-public fun interface FnCallback {
+public fun interface PthreadAtforkPrepareCallback {
     public operator fun invoke()
 }
 
-public fun interface FnCallback1 {
+public fun interface PthreadCreateFCallback {
     public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
 }
 
-public expect fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt
+public expect fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt
 
 public expect fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt
 
@@ -67,7 +67,7 @@ public expect fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 
 public expect fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: FnCallback1, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
 
 public expect fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt
 
@@ -98,7 +98,7 @@ public expect fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpa
 public expect fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt
 
 // Note(1.0): These shoul be combined to the version that takes an optional unchecked function.
-public expect fun pthreadOnce(control: COpaquePointer?, routine: FnCallback): CInt
+public expect fun pthreadOnce(control: COpaquePointer?, routine: PthreadAtforkPrepareCallback): CInt
 
 public expect fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt
 

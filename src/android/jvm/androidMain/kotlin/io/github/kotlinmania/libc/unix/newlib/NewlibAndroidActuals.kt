@@ -230,7 +230,7 @@ public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer
 public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
     UnixNewlibJniBridge.libc_unix_newlib_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     UnixNewlibJniBridge.libc_unix_newlib_pthreadAtfork(0L, 0L, 0L)
 
 public actual fun getgrgid(gid: GidT): COpaquePointer? =

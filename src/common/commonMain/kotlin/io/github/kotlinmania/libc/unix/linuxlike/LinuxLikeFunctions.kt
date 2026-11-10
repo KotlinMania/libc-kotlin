@@ -84,7 +84,7 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return (((cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) } as Any?) as COpaquePointer?)
+    return (cmsg)?.let { COpaquePointer(it.hashCode().toLong() + (1).toLong()) }
 }
 
 public fun cmsgSpace(length: CUint): CUint {

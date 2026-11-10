@@ -1019,7 +1019,7 @@ public actual fun thrKill(id: ThreadT, sig: CInt): CInt =
 public actual fun thrSelf(): ThreadT =
     UnixAixJniBridge.libc_unix_aix_thrSelf().toUInt()
 
-public actual fun pthreadAtfork(prepare: FnCallback?, parent: FnCallback?, child: FnCallback?): CInt =
+public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
     UnixAixJniBridge.libc_unix_aix_pthreadAtfork(0L, 0L, 0L)
 
 public actual fun pthreadAttrGetdetachstate(attr: COpaquePointer?, detachstate: COpaquePointer?): CInt =
@@ -1095,7 +1095,7 @@ public actual fun pthreadCleanupPop(execute: CInt) {
     UnixAixJniBridge.libc_unix_aix_pthreadCleanupPop(execute)
 }
 
-public actual fun pthreadCleanupPush(routine: FnCallback1?, arg: COpaquePointer?) {
+public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: COpaquePointer?) {
     UnixAixJniBridge.libc_unix_aix_pthreadCleanupPush(0L, (arg?.value ?: 0L))
 }
 
@@ -1111,7 +1111,7 @@ public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: Clocki
 public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
     UnixAixJniBridge.libc_unix_aix_pthreadCondattrSetpshared((attr?.value ?: 0L), pshared)
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: FnCallback2, arg: COpaquePointer?): CInt =
+public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
     UnixAixJniBridge.libc_unix_aix_pthreadCreate((thread?.value ?: 0L), (attr?.value ?: 0L), 0L, (arg?.value ?: 0L))
 
 public actual fun pthreadGetconcurrency(): CInt =
@@ -1165,7 +1165,7 @@ public actual fun pthreadMutexSetprioceiling(mutex: COpaquePointer?, prioceiling
 public actual fun pthreadMutexTimedlock(mutex: COpaquePointer?, abstime: COpaquePointer?): CInt =
     UnixAixJniBridge.libc_unix_aix_pthreadMutexTimedlock((mutex?.value ?: 0L), (abstime?.value ?: 0L))
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: FnCallback?): CInt =
+public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadAtforkPrepareCallback?): CInt =
     UnixAixJniBridge.libc_unix_aix_pthreadOnce((onceControl?.value ?: 0L), 0L)
 
 public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
@@ -1471,7 +1471,7 @@ public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
 public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
     UnixAixJniBridge.libc_unix_aix_getutxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: FnCallback3?, pglob: COpaquePointer?): CInt =
+public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
     UnixAixJniBridge.libc_unix_aix_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
 
 public actual fun globfree(pglob: COpaquePointer?) {
@@ -1511,7 +1511,7 @@ public actual fun lcong48(p: COpaquePointer?) {
     UnixAixJniBridge.libc_unix_aix_lcong48((p?.value ?: 0L))
 }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer? =
+public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
     UnixAixJniBridge.libc_unix_aix_lfind((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
@@ -1529,7 +1529,7 @@ public actual fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt =
 public actual fun lrand48(): CLong =
     UnixAixJniBridge.libc_unix_aix_lrand48()
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: FnCallback4?): COpaquePointer? =
+public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
     UnixAixJniBridge.libc_unix_aix_lsearch((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
 
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
@@ -1541,7 +1541,7 @@ public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
     UnixAixJniBridge.libc_unix_aix_madvise((addr?.value ?: 0L), len.toLong(), advice)
 
-public actual fun makecontext(ucp: COpaquePointer?, func: FnCallback, argc: CInt, vararg variadicArgs: Long) {
+public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
 }
 
 public actual fun mallinfo(): Mallinfo =

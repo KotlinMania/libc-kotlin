@@ -288,10 +288,10 @@ public actual fun signalReturn(info: COpaquePointer?): CInt =
 public actual fun signalFault(sigcode: CUint, regs: COpaquePointer?, refaddr: ULong): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_signalFault(sigcode.toInt(), (regs?.value ?: 0L).toString(), refaddr.toString()) as Int) else 0
 
-public actual fun signalAction(pid: PidT, sigstub: FnCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
+public actual fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_signalAction(pid, 0L.toString(), signo, (act?.value ?: 0L).toString(), (oact?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun signalActionR(pid: PidT, sigstub: FnCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
+public actual fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_signalActionR(pid, 0L.toString(), signo, (act?.value ?: 0L).toString(), (oact?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
@@ -318,10 +318,10 @@ public actual fun signalWaitinfoMask(set: COpaquePointer?, info: COpaquePointer?
 public actual fun signalWaitinfoMaskR(set: COpaquePointer?, info: COpaquePointer?, mask: COpaquePointer?): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_signalWaitinfoMaskR((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (mask?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun threadCreate(pid: PidT, func: FnCallback1, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
+public actual fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_threadCreate(pid, 0L.toString(), (arg?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun threadCreateR(pid: PidT, func: FnCallback1, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
+public actual fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_threadCreateR(pid, 0L.toString(), (arg?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else 0
 
 public actual fun threadDestroy(tid: CInt, priority: CInt, status: COpaquePointer?): CInt =
@@ -342,10 +342,10 @@ public actual fun threadJoin(tid: CInt, status: COpaquePointer?): CInt =
 public actual fun threadJoinR(tid: CInt, status: COpaquePointer?): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_threadJoinR(tid, (status?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun threadCancel(tid: CInt, canstub: FnCallback): CInt =
+public actual fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_threadCancel(tid, 0L.toString()) as Int) else 0
 
-public actual fun threadCancelR(tid: CInt, canstub: FnCallback): CInt =
+public actual fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_threadCancelR(tid, 0L.toString()) as Int) else 0
 
 public actual fun threadCtl(cmd: CInt, data: COpaquePointer?): CInt =
@@ -360,13 +360,13 @@ public actual fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePoi
 public actual fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_threadCtlExtR(pid, tid, cmd, (data?.value ?: 0L).toString()) as Int) else 0
 
-public actual fun interruptHookTrace(handler: FnCallback2?, flags: CUint): CInt =
+public actual fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptHookTrace(0L.toString(), flags.toInt()) as Int) else 0
 
-public actual fun interruptHookIdle(handler: FnCallback3?, flags: CUint): CInt =
+public actual fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptHookIdle(0L.toString(), flags.toInt()) as Int) else 0
 
-public actual fun interruptHookIdle2(handler: FnCallback4?, flags: CUint): CInt =
+public actual fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptHookIdle2(0L.toString(), flags.toInt()) as Int) else 0
 
 public actual fun interruptHookOverdriveEvent(event: COpaquePointer?, flags: CUint): CInt =
@@ -378,16 +378,16 @@ public actual fun interruptAttachEvent(intr: CInt, event: COpaquePointer?, flags
 public actual fun interruptAttachEventR(intr: CInt, event: COpaquePointer?, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptAttachEventR(intr, (event?.value ?: 0L).toString(), flags.toInt()) as Int) else 0
 
-public actual fun interruptAttach(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptAttach(intr, 0L.toString(), (area?.value ?: 0L).toString(), size, flags.toInt()) as Int) else 0
 
-public actual fun interruptAttachR(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptAttachR(intr, 0L.toString(), (area?.value ?: 0L).toString(), size, flags.toInt()) as Int) else 0
 
-public actual fun interruptAttachArray(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArray(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptAttachArray(intr, 0L.toString(), (area?.value ?: 0L).toString(), size, flags.toInt()) as Int) else 0
 
-public actual fun interruptAttachArrayR(intr: CInt, handler: FnCallback5?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
+public actual fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt =
     if (_unixNtoNeutrinoNapiAddon != null) (_unixNtoNeutrinoNapiAddon.libc_unix_nto_neutrino_interruptAttachArrayR(intr, 0L.toString(), (area?.value ?: 0L).toString(), size, flags.toInt()) as Int) else 0
 
 public actual fun interruptDetach(id: CInt): CInt =
