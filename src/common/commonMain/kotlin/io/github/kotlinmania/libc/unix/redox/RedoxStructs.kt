@@ -144,7 +144,7 @@ public data class EpollEvent(
     public var pad: ULong = 0uL,
 )
 
-public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE.toInt() / ULONG_SIZE)) {
+public data class FdSet(public var fdsBits: ULongArray = ULongArray(FD_SETSIZE / ULONG_SIZE)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FdSet) return false
@@ -332,7 +332,7 @@ public data class Termios(
     public var cCflag: TcflagT = 0u,
     public var cLflag: TcflagT = 0u,
     public var cLine: CcT = 0u,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
     public var cIspeed: SpeedT = 0u,
     public var cOspeed: SpeedT = 0u,
 ) {

@@ -223,7 +223,7 @@ public data class Termios(
     public var cLine: CChar = 0u,
     public var cIspeed: SpeedT = 0u,
     public var cOspeed: SpeedT = 0u,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

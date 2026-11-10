@@ -74,7 +74,7 @@ public data class Ifreq(
     /**
      * if name, e.g. "en0"
      */
-    public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
 ) {
     override fun equals(other: Any?): Boolean {

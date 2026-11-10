@@ -1238,7 +1238,7 @@ public data class IwPrivArgs(
     public var cmd: U32 = 0u,
     public var setArgs: U16 = 0u,
     public var getArgs: U16 = 0u,
-    public var name: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var name: UByteArray = UByteArray(IFNAMSIZ.toInt()),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1267,7 +1267,7 @@ public data class EpollParams(
     public var pad: UByte = 0u,
 )
 
-public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEXATTR_T).toInt())) {
+public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -1280,7 +1280,7 @@ public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SI
     }
 }
 
-public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCKATTR_T).toInt())) {
+public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCKATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockattrT) return false
@@ -1293,7 +1293,7 @@ public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray((S
     }
 }
 
-public data class PthreadCondattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_CONDATTR_T).toInt())) {
+public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -1306,7 +1306,7 @@ public data class PthreadCondattrT(public var size: UByteArray = UByteArray((SIZ
     }
 }
 
-public data class PthreadBarrierattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_BARRIERATTR_T).toInt())) {
+public data class PthreadBarrierattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_BARRIERATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierattrT) return false
@@ -1574,7 +1574,7 @@ public data class SockaddrAlg(
     }
 }
 
-public data class PthreadCondT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_COND_T).toInt())) {
+public data class PthreadCondT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_COND_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false
@@ -1587,7 +1587,7 @@ public data class PthreadCondT(public var size: UByteArray = UByteArray((SIZEOF_
     }
 }
 
-public data class PthreadMutexT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt())) {
+public data class PthreadMutexT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEX_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -1600,7 +1600,7 @@ public data class PthreadMutexT(public var size: UByteArray = UByteArray((SIZEOF
     }
 }
 
-public data class PthreadRwlockT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt())) {
+public data class PthreadRwlockT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCK_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -1613,7 +1613,7 @@ public data class PthreadRwlockT(public var size: UByteArray = UByteArray((SIZEO
     }
 }
 
-public data class PthreadBarrierT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_BARRIER_T).toInt())) {
+public data class PthreadBarrierT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_BARRIER_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadBarrierT) return false
@@ -1815,7 +1815,7 @@ public data class SockTxtime(public var clockid: ClockidT = 0, public var flags:
 
 // linux/wireless.h
 public class IwreqData(
-    public var name: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var name: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var essid: IwPoint = IwPoint(),
     public var nwid: IwParam = IwParam(),
     public var freq: IwFreq = IwFreq(),
@@ -1845,7 +1845,7 @@ public data class IwEvent(
     public var u: IwreqData = IwreqData(),
 )
 
-public data class CAnonymousIwreq(public var ifrnName: UByteArray = UByteArray((IFNAMSIZ).toInt())) {
+public data class CAnonymousIwreq(public var ifrnName: UByteArray = UByteArray(IFNAMSIZ.toInt())) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CAnonymousIwreq) return false

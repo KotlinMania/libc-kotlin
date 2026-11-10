@@ -82,7 +82,7 @@ public data class Termios(
     public var cCflag: TcflagT = 0u,
     public var cLflag: TcflagT = 0u,
     public var cLine: CcT = 0u,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -961,8 +961,8 @@ public data class CAnonymousIfrIfru(
     public var ifruMetric: CInt = 0,
     public var ifruMtu: CInt = 0,
     public var ifruMap: CAnonymousIfruMap = CAnonymousIfruMap(),
-    public var ifruSlave: UByteArray = UByteArray((IFNAMSIZ).toInt()),
-    public var ifruNewname: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifruSlave: UByteArray = UByteArray(IFNAMSIZ.toInt()),
+    public var ifruNewname: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifruData: COpaquePointer? = null,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -1010,7 +1010,7 @@ public data class Ifreq(
     /**
      * interface name, e.g. "en0"
      */
-    public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
 ) {
     override fun equals(other: Any?): Boolean {

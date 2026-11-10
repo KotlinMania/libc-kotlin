@@ -61,15 +61,15 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + (8).toLong()) }
+    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (8).toLong())
 }
 
 public fun cmsgLen(length: CUint): CUint {
-    return 8.toUInt() + length
+    return 8 + length
 }
 
 public fun cmsgSpace(length: CUint): CUint {
-    return 8.toUInt() + length
+    return 8 + length
 }
 
 public fun fdZero(set: FdSet?) {
@@ -81,14 +81,14 @@ public fun fdZero(set: FdSet?) {
 public fun fdSet(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
     val fd1 = fd
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
+    set!!.fdsBits[fd1 / bits] = set.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
     return
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
     val fd1 = fd
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
+    set!!.fdsBits[fd1 / bits] = set.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
     return
 }
 

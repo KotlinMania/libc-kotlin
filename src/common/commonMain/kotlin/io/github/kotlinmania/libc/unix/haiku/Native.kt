@@ -723,7 +723,7 @@ public data class ImageInfo(
     public var termRoutine: ImageInfoInitRoutineCallback = ImageInfoInitRoutineCallback {},
     public var device: DevT = 0,
     public var node: InoT = 0L,
-    public var name: UByteArray = UByteArray(PATH_MAX.toInt()),
+    public var name: UByteArray = UByteArray(PATH_MAX),
     public var text: COpaquePointer? = null,
     public var data: COpaquePointer? = null,
     public var textSize: Int = 0,
@@ -1092,7 +1092,7 @@ public val B_DEV_NAME_LENGTH: Int = 128
 
 public val B_FILE_NAME_LENGTH: Int = FILENAME_MAX.toInt()
 
-public val B_PATH_NAME_LENGTH: Int = PATH_MAX.toInt()
+public val B_PATH_NAME_LENGTH: Int = PATH_MAX
 
 public val B_ATTR_NAME_LENGTH: Int = B_FILE_NAME_LENGTH - 1
 
@@ -1851,7 +1851,7 @@ public expect fun getCpuid(info: COpaquePointer?, eaxRegister: UInt, cpuNum: UIn
 
 // The following functions are defined as macros in C/C++
 public fun getCpuInfo(firstCPU: UInt, cpuCount: UInt, info: COpaquePointer?): StatusT {
-    return getCpuInfoEtc(firstCPU, cpuCount, info, 8.toULong())
+    return getCpuInfoEtc(firstCPU, cpuCount, info, 8)
 }
 
 public fun getAreaInfo(id: AreaId, info: COpaquePointer?): StatusT {
@@ -1863,50 +1863,50 @@ public fun getNextAreaInfo(team: TeamId, cookie: COpaquePointer?, info: COpaqueP
 }
 
 public fun getPortInfo(port: PortId, buf: COpaquePointer?): StatusT {
-    return getPortInfo(port, buf, 8.toULong())
+    return getPortInfo(port, buf, 8)
 }
 
 public fun getNextPortInfo(port: PortId, cookie: COpaquePointer?, portInfo: COpaquePointer?): StatusT {
-    return getNextPortInfo(port, cookie, portInfo, 8.toULong())
+    return getNextPortInfo(port, cookie, portInfo, 8)
 }
 
 public fun getPortMessageInfoEtc(port: PortId, info: COpaquePointer?, flags: UInt, timeout: BigtimeT): StatusT {
-    return getPortMessageInfoEtc(port, info, 8.toULong(), flags, timeout)
+    return getPortMessageInfoEtc(port, info, 8, flags, timeout)
 }
 
 public fun getSemInfo(id: SemId, info: COpaquePointer?): StatusT {
-    return getSemInfo(id, info, 8.toULong())
+    return getSemInfo(id, info, 8)
 }
 
 public fun getNextSemInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextSemInfo(team, cookie, info, 8.toULong())
+    return getNextSemInfo(team, cookie, info, 8)
 }
 
 public fun getTeamInfo(team: TeamId, info: COpaquePointer?): StatusT {
-    return getTeamInfo(team, info, 8.toULong())
+    return getTeamInfo(team, info, 8)
 }
 
 public fun getNextTeamInfo(cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextTeamInfo(cookie, info, 8.toULong())
+    return getNextTeamInfo(cookie, info, 8)
 }
 
 public fun getTeamUsageInfo(team: TeamId, who: Int, info: COpaquePointer?): StatusT {
-    return getTeamUsageInfo(team, who, info, 8.toULong())
+    return getTeamUsageInfo(team, who, info, 8)
 }
 
 public fun getThreadInfo(id: ThreadId, info: COpaquePointer?): StatusT {
-    return getThreadInfo(id, info, 8.toULong())
+    return getThreadInfo(id, info, 8)
 }
 
 public fun getNextThreadInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextThreadInfo(team, cookie, info, 8.toULong())
+    return getNextThreadInfo(team, cookie, info, 8)
 }
 
 // kernel/image.h
 public fun getImageInfo(image: ImageId, info: COpaquePointer?): StatusT {
-    return getImageInfo(image, info, 8.toULong())
+    return getImageInfo(image, info, 8)
 }
 
 public fun getNextImageInfo(team: TeamId, cookie: COpaquePointer?, info: COpaquePointer?): StatusT {
-    return getNextImageInfo(team, cookie, info, 8.toULong())
+    return getNextImageInfo(team, cookie, info, 8)
 }

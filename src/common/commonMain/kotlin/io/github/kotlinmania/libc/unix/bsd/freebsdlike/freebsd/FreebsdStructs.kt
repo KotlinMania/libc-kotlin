@@ -246,7 +246,7 @@ public data class PtraceLwpinfo(
     public var plSigmask: SigsetT = SigsetT(),
     public var plSiglist: SigsetT = SigsetT(),
     public var plSiginfo: SiginfoT = SiginfoT(),
-    public var plTdname: UByteArray = UByteArray(MAXCOMLEN.toInt() + 1),
+    public var plTdname: UByteArray = UByteArray(MAXCOMLEN + 1),
     public var plChildPid: PidT = 0,
     public var plSyscallCode: CUint = 0u,
     public var plSyscallNarg: CUint = 0u,
@@ -1348,7 +1348,7 @@ public data class CAnonymousPh(public var ph1: ULong = 0uL, public var ph2: ULon
 public data class Fid(
     public var fidLen: CUshort = 0u,
     public var fidData0: CUshort = 0u,
-    public var fidData: UByteArray = UByteArray(MAXFIDSZ.toInt()),
+    public var fidData: UByteArray = UByteArray(MAXFIDSZ),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1559,7 +1559,7 @@ public data class AuditinfoT(
     public var aiAsid: AuAsidT = 0,
 )
 
-public data class TcpFastopen(public var enable: CInt = 0, public var psk: UByteArray = UByteArray(TCP_FASTOPEN_PSK_LEN.toInt())) {
+public data class TcpFastopen(public var enable: CInt = 0, public var psk: UByteArray = UByteArray(TCP_FASTOPEN_PSK_LEN)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TcpFastopen) return false
@@ -1575,7 +1575,7 @@ public data class TcpFastopen(public var enable: CInt = 0, public var psk: UByte
     }
 }
 
-public data class TcpFunctionSet(public var functionSetName: UByteArray = UByteArray(TCP_FUNCTION_NAME_LEN_MAX.toInt()), public var pcbcnt: UInt = 0u) {
+public data class TcpFunctionSet(public var functionSetName: UByteArray = UByteArray(TCP_FUNCTION_NAME_LEN_MAX), public var pcbcnt: UInt = 0u) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TcpFunctionSet) return false
@@ -2228,7 +2228,7 @@ public data class Ifreq(
     /**
      * if name, e.g. "en0"
      */
-    public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
 ) {
     override fun equals(other: Any?): Boolean {
@@ -2354,7 +2354,7 @@ public data class Ifstat(
      * if name, e.g. "en0"
      */
     public var ifsName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
-    public var ascii: UByteArray = UByteArray(IFSTATMAX.toInt() + 1),
+    public var ascii: UByteArray = UByteArray(IFSTATMAX + 1),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2382,7 +2382,7 @@ public data class Ifrsskey(
     public var ifrkFunc: UByte = 0u,
     public var ifrkSpare0: UByte = 0u,
     public var ifrkKeylen: UShort = 0u,
-    public var ifrkKey: UByteArray = UByteArray(RSS_KEYLEN.toInt()),
+    public var ifrkKey: UByteArray = UByteArray(RSS_KEYLEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2409,7 +2409,7 @@ public data class Ifdownreason(
     public var ifdrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifdrReason: UInt = 0u,
     public var ifdrVendor: UInt = 0u,
-    public var ifdrMsg: UByteArray = UByteArray(IFDR_MSG_SIZE.toInt()),
+    public var ifdrMsg: UByteArray = UByteArray(IFDR_MSG_SIZE),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -2524,7 +2524,7 @@ public data class KinfoFile(
     public var kfIspare0: CInt = 0,
     public var kfCapRights: CapRightsT = CapRightsT(),
     public var kfCapSpare: ULong = 0uL,
-    public var kfPath: UByteArray = UByteArray(PATH_MAX.toInt()),
+    public var kfPath: UByteArray = UByteArray(PATH_MAX),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

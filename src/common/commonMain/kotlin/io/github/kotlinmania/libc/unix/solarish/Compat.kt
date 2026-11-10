@@ -24,7 +24,7 @@ import io.github.kotlinmania.libc.unix.tcsetattr
 import io.github.kotlinmania.libc.unix.unlockpt
 
 public fun cfmakeraw(termios: Termios?) {
-    termios!!.cIflag = termios!!.cIflag and (IMAXBEL or IGNBRK or BRKINT or PARMRK or ISTRIP or INLCR or IGNCR or ICRNL or IXON).inv()
+    termios!!.cIflag = termios.cIflag and (IMAXBEL or IGNBRK or BRKINT or PARMRK or ISTRIP or INLCR or IGNCR or ICRNL or IXON).inv()
     termios.cOflag = termios.cOflag and OPOST.inv()
     termios.cLflag = termios.cLflag and (ECHO or ECHONL or ICANON or ISIG or IEXTEN).inv()
     termios.cCflag = termios.cCflag and (CSIZE or PARENB).inv()

@@ -804,7 +804,7 @@ public class KinfoVmentry(
     public var kveVnRdev: ULong = 0uL,
     public var kveVnType: UInt = 0u,
     public var kveVnMode: UInt = 0u,
-    public var kvePath: UByteArray = UByteArray(PATH_MAX.toInt()),
+    public var kvePath: UByteArray = UByteArray(PATH_MAX),
 )
 
 public data class CAnonymousPosixSpawnFaeOpen(

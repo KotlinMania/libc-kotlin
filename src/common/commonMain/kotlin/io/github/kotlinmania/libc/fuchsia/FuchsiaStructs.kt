@@ -209,7 +209,7 @@ public data class Termios(
     public var cCflag: TcflagT = 0u,
     public var cLflag: TcflagT = 0u,
     public var cLine: CcT = 0u,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
     public var cIspeed: SpeedT = 0u,
     public var cOspeed: SpeedT = 0u,
 ) {
@@ -1098,7 +1098,7 @@ public data class Termios2(
 
 public data class In6Pktinfo(public var ipi6Addr: In6Addr = In6Addr(), public var ipi6Ifindex: CUint = 0u)
 
-public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEXATTR_T).toInt())) {
+public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -1111,7 +1111,7 @@ public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SI
     }
 }
 
-public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCKATTR_T).toInt())) {
+public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCKATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockattrT) return false
@@ -1124,7 +1124,7 @@ public data class PthreadRwlockattrT(public var size: UByteArray = UByteArray((S
     }
 }
 
-public data class PthreadCondattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_CONDATTR_T).toInt())) {
+public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false
@@ -1385,7 +1385,7 @@ public data class Sigevent(
     }
 }
 
-public data class PthreadMutexT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt())) {
+public data class PthreadMutexT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEX_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexT) return false
@@ -1398,7 +1398,7 @@ public data class PthreadMutexT(public var size: UByteArray = UByteArray((SIZEOF
     }
 }
 
-public data class PthreadRwlockT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt())) {
+public data class PthreadRwlockT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCK_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadRwlockT) return false
@@ -1411,7 +1411,7 @@ public data class PthreadRwlockT(public var size: UByteArray = UByteArray((SIZEO
     }
 }
 
-public data class PthreadCondT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_COND_T).toInt())) {
+public data class PthreadCondT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_COND_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondT) return false

@@ -94,17 +94,17 @@ public val EXTATTR_NAMESPACE_USER: CInt = 1
 
 public val EXTATTR_NAMESPACE_SYSTEM: CInt = 2
 
-public val LC_COLLATE_MASK: CInt = 1 shl LC_COLLATE.toInt()
+public val LC_COLLATE_MASK: CInt = 1 shl LC_COLLATE
 
-public val LC_CTYPE_MASK: CInt = 1 shl LC_CTYPE.toInt()
+public val LC_CTYPE_MASK: CInt = 1 shl LC_CTYPE
 
-public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY.toInt()
+public val LC_MONETARY_MASK: CInt = 1 shl LC_MONETARY
 
-public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC.toInt()
+public val LC_NUMERIC_MASK: CInt = 1 shl LC_NUMERIC
 
-public val LC_TIME_MASK: CInt = 1 shl LC_TIME.toInt()
+public val LC_TIME_MASK: CInt = 1 shl LC_TIME
 
-public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES.toInt()
+public val LC_MESSAGES_MASK: CInt = 1 shl LC_MESSAGES
 
 public val LC_ALL_MASK: CInt = 0.inv()
 

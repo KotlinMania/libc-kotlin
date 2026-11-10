@@ -412,7 +412,7 @@ public data class ArpdRequest(
     public var dev: CUlong = 0uL,
     public var stamp: CUlong = 0uL,
     public var updated: CUlong = 0uL,
-    public var ha: UByteArray = UByteArray((MAX_ADDR_LEN).toInt()),
+    public var ha: UByteArray = UByteArray(MAX_ADDR_LEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -536,8 +536,8 @@ public data class CAnonymousIfrIfru(
     public var ifruMetric: CInt = 0,
     public var ifruMtu: CInt = 0,
     public var ifruMap: CAnonymousIfruMap = CAnonymousIfruMap(),
-    public var ifruSlave: UByteArray = UByteArray((IFNAMSIZ).toInt()),
-    public var ifruNewname: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifruSlave: UByteArray = UByteArray(IFNAMSIZ.toInt()),
+    public var ifruNewname: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifruData: COpaquePointer? = null,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -581,7 +581,7 @@ public data class Ifreq(
     /**
      * interface name, e.g. "en0"
      */
-    public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru(),
 ) {
     override fun equals(other: Any?): Boolean {
@@ -2549,15 +2549,15 @@ public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
 }
 
 public fun iptosTos(tos: UByte): UByte {
-    return (tos and IPTOS_TOS_MASK).toUByte()
+    return tos and IPTOS_TOS_MASK
 }
 
 public fun iptosPrec(tos: UByte): UByte {
-    return (tos and IPTOS_PREC_MASK).toUByte()
+    return tos and IPTOS_PREC_MASK
 }
 
 public fun rtTos(tos: UByte): UByte {
-    return (tos and IPTOS_TOS_MASK).toUByte()
+    return tos and IPTOS_TOS_MASK
 }
 
 public fun rtAddrclass(flags: UInt): UInt {

@@ -107,7 +107,7 @@ public data class UcontextT(
 
 public data class CAnonymousFpRegSet(public var fpchipState: CAnonymousFpchipState = CAnonymousFpchipState(), public var fFpregs: List<UIntArray> = List(10) { UIntArray(0) }) {
     public fun eq(other: CAnonymousFpRegSet): Boolean {
-        return this.fpchipState == other.fpchipState || this.fFpregs.zip(other.fFpregs).all({ (a, b) -> a == b })
+        return this.fpchipState == other.fpchipState || this.fFpregs.zip(other.fFpregs).all({ (a, b) -> a.contentEquals(b) })
     }
 
     public override fun hashCode(): Int {

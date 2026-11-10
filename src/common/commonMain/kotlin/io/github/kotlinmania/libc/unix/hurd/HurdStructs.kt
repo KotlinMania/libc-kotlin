@@ -972,7 +972,7 @@ public data class ArpdRequest(
     public var dev: CUlong = 0uL,
     public var stamp: CUlong = 0uL,
     public var updated: CUlong = 0uL,
-    public var ha: UByteArray = UByteArray((MAX_ADDR_LEN).toInt()),
+    public var ha: UByteArray = UByteArray(MAX_ADDR_LEN),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1003,7 +1003,7 @@ public data class Ifreq(
     /**
      * interface name, e.g. "en0"
      */
-    public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     public var ifrIfru: Sockaddr = Sockaddr(),
 ) {
     override fun equals(other: Any?): Boolean {

@@ -47,7 +47,7 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8)).toLong()) }
+    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
 }
 
 public fun cmsgSpace(length: CUint): CUint {
@@ -64,7 +64,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     }
     val next: Cmsghdr? = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
-    return if ((((COpaquePointer((next).hashCode().toLong() + 1.toLong())))?.rawValue ?: 0L).toInt() > max || ((next).hashCode().toLong()).toInt() + cmsgAlign((next!!.cmsgLen).toInt()) > max) {
+    return if (((COpaquePointer((next).hashCode().toLong() + 1.toLong()))).rawValue.toInt() > max || ((next).hashCode().toLong()).toInt() + cmsgAlign((next!!.cmsgLen).toInt()) > max) {
         null
     } else {
         ((next as Any?) as Cmsghdr?)
@@ -121,17 +121,17 @@ public fun cpuEqual(set1: CpuSetT, set2: CpuSetT): Boolean {
 }
 
 public fun iptosTos(tos: UByte): UByte {
-    return (tos and IPTOS_TOS_MASK).toUByte()
+    return tos and IPTOS_TOS_MASK
 }
 
 public fun iptosPrec(tos: UByte): UByte {
-    return (tos and IPTOS_PREC_MASK).toUByte()
+    return tos and IPTOS_PREC_MASK
 }
 
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1L shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] and (1L shl (fd1 % size)).inv()
     return
 }
 
@@ -144,7 +144,7 @@ public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1L shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] or (1L shl (fd1 % size))
     return
 }
 
@@ -938,17 +938,17 @@ public fun qcmd(cmd: CInt, type: CInt): CInt {
 }
 
 public fun ipoptCopied(o: UByte): UByte {
-    return (o and IPOPT_COPY).toUByte()
+    return o and IPOPT_COPY
 }
 
 public fun ipoptClass(o: UByte): UByte {
-    return (o and IPOPT_CLASS_MASK).toUByte()
+    return o and IPOPT_CLASS_MASK
 }
 
 public fun ipoptNumber(o: UByte): UByte {
-    return (o and IPOPT_NUMBER_MASK).toUByte()
+    return o and IPOPT_NUMBER_MASK
 }
 
 public fun iptosEcn(x: UByte): UByte {
-    return (x and IPTOS_ECN_MASK).toUByte()
+    return x and IPTOS_ECN_MASK
 }

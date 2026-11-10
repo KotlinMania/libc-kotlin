@@ -34,7 +34,7 @@ public fun interface PthreadCreateFCallback {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
 }
 
 public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
@@ -46,7 +46,7 @@ public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
 }
 
 public fun fdZero(set: FdSet?) {

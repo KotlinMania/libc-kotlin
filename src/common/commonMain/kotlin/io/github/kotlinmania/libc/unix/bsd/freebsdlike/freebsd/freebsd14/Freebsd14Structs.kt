@@ -276,7 +276,7 @@ public class KinfoProc {
     /**
      * Groups.
      */
-    public var kiGroups: UShortArray = UShortArray((KI_NGROUPS).toInt())
+    public var kiGroups: UShortArray = UShortArray(KI_NGROUPS)
 
     /**
      * Virtual size.
@@ -407,42 +407,42 @@ public class KinfoProc {
     /**
      * Thread name.
      */
-    public var kiTdname: UByteArray = UByteArray((TDNAMLEN + 1).toInt())
+    public var kiTdname: UByteArray = UByteArray(TDNAMLEN + 1)
 
     /**
      * Wchan message.
      */
-    public var kiWmesg: UByteArray = UByteArray((WMESGLEN + 1).toInt())
+    public var kiWmesg: UByteArray = UByteArray(WMESGLEN + 1)
 
     /**
      * Setlogin name.
      */
-    public var kiLogin: UByteArray = UByteArray((LOGNAMELEN + 1).toInt())
+    public var kiLogin: UByteArray = UByteArray(LOGNAMELEN + 1)
 
     /**
      * Lock name.
      */
-    public var kiLockname: UByteArray = UByteArray((LOCKNAMELEN + 1).toInt())
+    public var kiLockname: UByteArray = UByteArray(LOCKNAMELEN + 1)
 
     /**
      * Command name.
      */
-    public var kiComm: UByteArray = UByteArray((COMMLEN + 1).toInt())
+    public var kiComm: UByteArray = UByteArray(COMMLEN + 1)
 
     /**
      * Emulation name.
      */
-    public var kiEmul: UByteArray = UByteArray((KI_EMULNAMELEN + 1).toInt())
+    public var kiEmul: UByteArray = UByteArray(KI_EMULNAMELEN + 1)
 
     /**
      * Login class.
      */
-    public var kiLoginclass: UByteArray = UByteArray((LOGINCLASSLEN + 1).toInt())
+    public var kiLoginclass: UByteArray = UByteArray(LOGINCLASSLEN + 1)
 
     /**
      * More thread name.
      */
-    public var kiMoretdname: UByteArray = UByteArray((MAXCOMLEN - TDNAMLEN + 1).toInt())
+    public var kiMoretdname: UByteArray = UByteArray(MAXCOMLEN - TDNAMLEN + 1)
 
     /**
      * Spare string space.
@@ -453,7 +453,7 @@ public class KinfoProc {
     /**
      * Spare room for growth.
      */
-    public var kiSpareints: IntArray = IntArray((KI_NSPARE_INT).toInt())
+    public var kiSpareints: IntArray = IntArray(KI_NSPARE_INT)
 
     /**
      * Controlling tty dev.
@@ -545,9 +545,9 @@ public class KinfoProc {
      */
     public var kiPd: COpaquePointer? = null
 
-    public var kiSpareptrs: List<COpaquePointer?> = List((KI_NSPARE_PTR).toInt()) { null }
+    public var kiSpareptrs: List<COpaquePointer?> = List(KI_NSPARE_PTR) { null }
 
-    public var kiSparelongs: LongArray = LongArray((KI_NSPARE_LONG).toInt())
+    public var kiSparelongs: LongArray = LongArray(KI_NSPARE_LONG)
 
     /**
      * PS_* flags.
@@ -657,7 +657,7 @@ public data class Vnstat(
     public var vnMntdir: COpaquePointer? = null,
     public var vnType: CInt = 0,
     public var vnMode: UShort = 0u,
-    public var vnDevname: UByteArray = UByteArray(SPECNAMELEN.toInt() + 1),
+    public var vnDevname: UByteArray = UByteArray(SPECNAMELEN + 1),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

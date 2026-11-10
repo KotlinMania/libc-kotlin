@@ -98,7 +98,7 @@ public fun cmsgLen(length: CUint): CUint {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
@@ -111,7 +111,7 @@ public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
 }
 
@@ -174,19 +174,19 @@ public fun qcmd(cmd: CInt, type: CInt): CInt {
 }
 
 public fun ipoptCopied(o: UByte): UByte {
-    return (o and IPOPT_COPY).toUByte()
+    return o and IPOPT_COPY
 }
 
 public fun ipoptClass(o: UByte): UByte {
-    return (o and IPOPT_CLASS_MASK).toUByte()
+    return o and IPOPT_CLASS_MASK
 }
 
 public fun ipoptNumber(o: UByte): UByte {
-    return (o and IPOPT_NUMBER_MASK).toUByte()
+    return o and IPOPT_NUMBER_MASK
 }
 
 public fun iptosEcn(x: UByte): UByte {
-    return (x and IPTOS_ECN_MASK).toUByte()
+    return x and IPTOS_ECN_MASK
 }
 
 public fun kernelVersion(a: UInt, b: UInt, c: UInt): UInt {

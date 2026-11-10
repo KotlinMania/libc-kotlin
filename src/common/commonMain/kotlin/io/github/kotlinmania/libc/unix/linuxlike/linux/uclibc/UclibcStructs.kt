@@ -172,7 +172,7 @@ public data class PtracePeeksiginfoArgs(
     public var nr: S32 = 0,
 )
 
-public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEXATTR_T).toInt())) {
+public data class PthreadMutexattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadMutexattrT) return false
@@ -185,7 +185,7 @@ public data class PthreadMutexattrT(public var size: UByteArray = UByteArray((SI
     }
 }
 
-public data class PthreadCondattrT(public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_CONDATTR_T).toInt())) {
+public data class PthreadCondattrT(public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T)) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PthreadCondattrT) return false

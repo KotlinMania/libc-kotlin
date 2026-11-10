@@ -584,23 +584,23 @@ public val IPOPT_MEASUREMENT: UByte = 0x40u
 
 public val IPOPT_RESERVED2: UByte = 0x60u
 
-public val IPOPT_END: UByte = (0u.toUByte() or IPOPT_CONTROL).toUByte()
+public val IPOPT_END: UByte = 0u.toUByte() or IPOPT_CONTROL
 
-public val IPOPT_NOOP: UByte = (1u.toUByte() or IPOPT_CONTROL).toUByte()
+public val IPOPT_NOOP: UByte = 1u.toUByte() or IPOPT_CONTROL
 
-public val IPOPT_SEC: UByte = (2u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SEC: UByte = 2u.toUByte() or IPOPT_CONTROL or IPOPT_COPY
 
-public val IPOPT_LSRR: UByte = (3u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_LSRR: UByte = 3u.toUByte() or IPOPT_CONTROL or IPOPT_COPY
 
-public val IPOPT_TIMESTAMP: UByte = (4u.toUByte() or IPOPT_MEASUREMENT).toUByte()
+public val IPOPT_TIMESTAMP: UByte = 4u.toUByte() or IPOPT_MEASUREMENT
 
-public val IPOPT_RR: UByte = (7u.toUByte() or IPOPT_CONTROL).toUByte()
+public val IPOPT_RR: UByte = 7u.toUByte() or IPOPT_CONTROL
 
-public val IPOPT_SID: UByte = (8u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SID: UByte = 8u.toUByte() or IPOPT_CONTROL or IPOPT_COPY
 
-public val IPOPT_SSRR: UByte = (9u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_SSRR: UByte = 9u.toUByte() or IPOPT_CONTROL or IPOPT_COPY
 
-public val IPOPT_RA: UByte = (20u.toUByte() or IPOPT_CONTROL or IPOPT_COPY).toUByte()
+public val IPOPT_RA: UByte = 20u.toUByte() or IPOPT_CONTROL or IPOPT_COPY
 
 public val IPVERSION: UByte = 4u
 

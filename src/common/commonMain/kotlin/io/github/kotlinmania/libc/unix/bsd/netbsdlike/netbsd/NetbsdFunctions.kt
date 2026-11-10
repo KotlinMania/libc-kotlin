@@ -65,7 +65,7 @@ public fun align(p: Int): Int {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + align(8).toLong()) }
+    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + align(8).toLong())
 }
 
 public fun cmsgLen(length: CUint): CUint {

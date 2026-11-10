@@ -133,7 +133,7 @@ public data class ShmidDs(
 public data class FilInfo(
     public var fiFlags: CInt = 0,
     public var fiPos: CInt = 0,
-    public var fiName: UByteArray = UByteArray(FILNAME_MAX.toInt()),
+    public var fiName: UByteArray = UByteArray(FILNAME_MAX),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

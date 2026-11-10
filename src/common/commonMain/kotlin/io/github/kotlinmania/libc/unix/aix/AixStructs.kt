@@ -120,7 +120,7 @@ public data class Termios(
     public var cOflag: TcflagT = 0u,
     public var cCflag: TcflagT = 0u,
     public var cLflag: TcflagT = 0u,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

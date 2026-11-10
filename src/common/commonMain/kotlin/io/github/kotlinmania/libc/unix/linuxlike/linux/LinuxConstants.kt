@@ -282,11 +282,11 @@ public val MPOL_F_RELATIVE_NODES: CInt = 1 shl 14
 
 public val MPOL_F_STATIC_NODES: CInt = 1 shl 15
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()) { 0u.toUByte() })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray(SIZEOF_PTHREAD_MUTEX_T) { 0u.toUByte() })
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()) { 0u.toUByte() })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray(SIZEOF_PTHREAD_COND_T) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()) { 0u.toUByte() })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray(SIZEOF_PTHREAD_RWLOCK_T) { 0u.toUByte() })
 
 public val RENAME_NOREPLACE: CUint = 1u
 
@@ -2599,13 +2599,13 @@ public val TLS_1_2_VERSION_MAJOR: U8 = 0x3u
 
 public val TLS_1_2_VERSION_MINOR: U8 = 0x3u
 
-public val TLS_1_2_VERSION: U16 = ((((TLS_1_2_VERSION_MAJOR.toUShort()).toUInt() shl 8).toUShort()) or (TLS_1_2_VERSION_MINOR.toUShort())).toUShort()
+public val TLS_1_2_VERSION: U16 = (((TLS_1_2_VERSION_MAJOR.toUShort()).toUInt() shl 8).toUShort()) or (TLS_1_2_VERSION_MINOR.toUShort())
 
 public val TLS_1_3_VERSION_MAJOR: U8 = 0x3u
 
 public val TLS_1_3_VERSION_MINOR: U8 = 0x4u
 
-public val TLS_1_3_VERSION: U16 = ((((TLS_1_3_VERSION_MAJOR.toUShort()).toUInt() shl 8).toUShort()) or (TLS_1_3_VERSION_MINOR.toUShort())).toUShort()
+public val TLS_1_3_VERSION: U16 = (((TLS_1_3_VERSION_MAJOR.toUShort()).toUInt() shl 8).toUShort()) or (TLS_1_3_VERSION_MINOR.toUShort())
 
 public val TLS_CIPHER_AES_GCM_128: U16 = 51u
 

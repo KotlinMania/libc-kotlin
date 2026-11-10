@@ -706,7 +706,7 @@ public data class PtraceThreadState(public var ptsTid: PidT = 0, public var ptsN
 // search.h
 public data class Entry(public var key: COpaquePointer? = null, public var data: COpaquePointer? = null)
 
-public data class Ifreq(public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
+public data class Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Ifreq) return false

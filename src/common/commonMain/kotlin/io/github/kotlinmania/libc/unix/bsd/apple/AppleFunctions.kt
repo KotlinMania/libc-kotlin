@@ -46,7 +46,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + darwinAlign32(8).toLong()) }
+    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + darwinAlign32(8).toLong())
 }
 
 public fun cmsgSpace(length: CUint): CUint {

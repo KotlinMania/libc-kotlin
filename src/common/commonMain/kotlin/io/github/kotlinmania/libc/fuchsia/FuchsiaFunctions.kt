@@ -38,7 +38,7 @@ public fun interface DlIteratePhdrCallbackCallback {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
@@ -51,7 +51,7 @@ public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
 }
 
@@ -191,7 +191,7 @@ public fun cmsgLen(cmsg: Cmsghdr?): SsizeT {
 }
 
 public fun cmsgNext(cmsg: Cmsghdr?): COpaquePointer? {
-    return (COpaquePointer((cmsg).hashCode().toLong() + cmsgLen(cmsg).toLong()))
+    return (COpaquePointer((cmsg).hashCode().toLong() + cmsgLen(cmsg)))
 }
 
 public fun mhdrEnd(mhdr: Msghdr?): COpaquePointer? {

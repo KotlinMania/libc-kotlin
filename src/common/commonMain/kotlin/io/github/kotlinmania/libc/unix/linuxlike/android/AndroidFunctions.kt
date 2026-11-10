@@ -39,7 +39,7 @@ public fun interface DlIteratePhdrCallbackCallback {
 public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
     val next: Cmsghdr? = null
     val max = ((mhdr!!.msgControl)?.rawValue ?: 0L).toInt() + mhdr.msgControllen.toInt()
-    return if ((((COpaquePointer((next).hashCode().toLong() + 1.toLong())))?.rawValue ?: 0L).toInt() > max) {
+    return if (((COpaquePointer((next).hashCode().toLong() + 1.toLong()))).rawValue.toInt() > max) {
         null
     } else {
         ((next as Any?) as Cmsghdr?)

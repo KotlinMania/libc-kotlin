@@ -11,15 +11,15 @@ public val PTHREAD_INITIALIZER_BYTE: UByte = 0xffu
 public val SIZEOF_PTHREAD_MUTEX_T: Int = 4
 
 // unverified constants
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray(SIZEOF_PTHREAD_MUTEX_T) { PTHREAD_INITIALIZER_BYTE.toUByte() })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(size = UByteArray(SIZEOF_PTHREAD_MUTEX_T) { PTHREAD_INITIALIZER_BYTE })
 
 public val SIZEOF_PTHREAD_COND_T: Int = 4
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray(SIZEOF_PTHREAD_COND_T) { PTHREAD_INITIALIZER_BYTE.toUByte() })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(size = UByteArray(SIZEOF_PTHREAD_COND_T) { PTHREAD_INITIALIZER_BYTE })
 
 public val SIZEOF_PTHREAD_RWLOCK_T: Int = 4
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray(SIZEOF_PTHREAD_RWLOCK_T) { PTHREAD_INITIALIZER_BYTE.toUByte() })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(size = UByteArray(SIZEOF_PTHREAD_RWLOCK_T) { PTHREAD_INITIALIZER_BYTE })
 
 public val NCCS: Int = 11
 

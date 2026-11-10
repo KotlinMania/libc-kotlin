@@ -134,7 +134,7 @@ public data class Termios(
     public var cCflag: TcflagT = 0u,
     public var cLflag: TcflagT = 0u,
     public var cLine: CcT = 0u,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
     public var cIspeed: UInt = 0u,
     public var cOspeed: UInt = 0u,
 ) {
@@ -296,7 +296,7 @@ public data class PthreadRwlockattrT(
 
 public data class PthreadMutexT(
     // Unverified
-    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEX_T).toInt()),
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEX_T),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -312,7 +312,7 @@ public data class PthreadMutexT(
 
 public data class PthreadRwlockT(
     // Unverified
-    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_RWLOCK_T).toInt()),
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_RWLOCK_T),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -328,7 +328,7 @@ public data class PthreadRwlockT(
 
 public data class PthreadMutexattrT(
     // Unverified
-    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_MUTEXATTR_T).toInt()),
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_MUTEXATTR_T),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -344,7 +344,7 @@ public data class PthreadMutexattrT(
 
 public data class PthreadCondT(
     // Unverified
-    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_COND_T).toInt()),
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_COND_T),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -360,7 +360,7 @@ public data class PthreadCondT(
 
 public data class PthreadCondattrT(
     // Unverified
-    public var size: UByteArray = UByteArray((SIZEOF_PTHREAD_CONDATTR_T).toInt()),
+    public var size: UByteArray = UByteArray(SIZEOF_PTHREAD_CONDATTR_T),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -63,7 +63,7 @@ public fun cmsgNxthdr(mhdr: Msghdr?, cmsg: Cmsghdr?): Cmsghdr? {
 }
 
 public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? {
-    return ((COpaquePointer((cmsg).hashCode().toLong())))?.let { COpaquePointer(it.rawValue + (cmsgAlign(8)).toLong()) }
+    return COpaquePointer(((COpaquePointer((cmsg).hashCode().toLong()))).rawValue + (cmsgAlign(8)).toLong())
 }
 
 public fun cmsgLen(length: CUint): CUint {
@@ -77,7 +77,7 @@ public fun cmsgSpace(length: CUint): CUint {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] and (1u shl (fd1 % size)).inv()
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] and (1u shl (fd1 % size)).inv()
     return
 }
 
@@ -90,7 +90,7 @@ public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
 public fun fdSet(fd: CInt, set: FdSet?) {
     val fd1 = fd
     val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set!!.fdsBits[fd1 / size] or (1u shl (fd1 % size))
+    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] or (1u shl (fd1 % size))
     return
 }
 
@@ -162,7 +162,7 @@ public fun wcoredump(status: CInt): Boolean {
 }
 
 public fun iptosEcn(x: UByte): UByte {
-    return (x and IPTOS_ECN_MASK).toUByte()
+    return x and IPTOS_ECN_MASK
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {

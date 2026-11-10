@@ -517,7 +517,7 @@ public data class Termios(
     public var cOflag: TcflagT = 0uL,
     public var cCflag: TcflagT = 0uL,
     public var cLflag: TcflagT = 0uL,
-    public var cCc: UByteArray = UByteArray((NCCS).toInt()),
+    public var cCc: UByteArray = UByteArray(NCCS),
     public var cIspeed: SpeedT = 0uL,
     public var cOspeed: SpeedT = 0uL,
 ) {
@@ -904,7 +904,7 @@ public data class InAddr(public var sAddr: InAddrT = 0u)
 public data class SockaddrNdrv(
     public var sndLen: CUchar = 0u,
     public var sndFamily: CUchar = 0u,
-    public var sndName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var sndName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -1408,7 +1408,7 @@ public data class Ifmibdata(
     /**
      * Name of interface
      */
-    public var ifmdName: UByteArray = UByteArray((IFNAMSIZ).toInt()),
+    public var ifmdName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
     /**
      * Number of promiscuous listeners
      */
@@ -1982,7 +1982,7 @@ public data class Ifkpi(
     public var ifkData: CAnonymousIfkData = CAnonymousIfkData(),
 )
 
-public data class Ifreq(public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
+public data class Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()), public var ifrIfru: CAnonymousIfrIfru = CAnonymousIfrIfru()) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Ifreq) return false
@@ -1998,7 +1998,7 @@ public data class Ifreq(public var ifrName: UByteArray = UByteArray((IFNAMSIZ).t
     }
 }
 
-public data class In6Ifreq(public var ifrName: UByteArray = UByteArray((IFNAMSIZ).toInt()), public var ifrIfru: CAnonymousIfrIfru6 = CAnonymousIfrIfru6()) {
+public data class In6Ifreq(public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()), public var ifrIfru: CAnonymousIfrIfru6 = CAnonymousIfrIfru6()) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is In6Ifreq) return false

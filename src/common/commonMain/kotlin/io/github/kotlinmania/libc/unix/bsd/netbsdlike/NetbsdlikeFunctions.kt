@@ -26,21 +26,21 @@ public fun io(g: CUlong, n: CUlong): CUlong {
  * Build an ioctl number for an read-only ioctl.
  */
 public fun <T> ior(g: CUlong, n: CUlong): CUlong {
-    return ioc(IOC_OUT, g, n, 8.toULong())
+    return ioc(IOC_OUT, g, n, 8)
 }
 
 /**
  * Build an ioctl number for an write-only ioctl.
  */
 public fun <T> iow(g: CUlong, n: CUlong): CUlong {
-    return ioc(IOC_IN, g, n, 8.toULong())
+    return ioc(IOC_IN, g, n, 8)
 }
 
 /**
  * Build an ioctl number for a read-write ioctl.
  */
 public fun <T> iowr(g: CUlong, n: CUlong): CUlong {
-    return ioc(IOC_INOUT, g, n, 8.toULong())
+    return ioc(IOC_INOUT, g, n, 8)
 }
 
 public expect fun setgrent()

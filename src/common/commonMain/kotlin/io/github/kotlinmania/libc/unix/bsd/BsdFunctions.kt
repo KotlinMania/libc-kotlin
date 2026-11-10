@@ -42,7 +42,7 @@ public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? {
 public fun fdClr(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
     val fd1 = fd
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
+    set!!.fdsBits[fd1 / bits] = set.fdsBits[fd1 / bits] and (1L shl (fd1 % bits)).inv()
     return
 }
 
@@ -55,7 +55,7 @@ public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
 public fun fdSet(fd: CInt, set: FdSet?) {
     val bits = 8 * 8
     val fd1 = fd
-    set!!.fdsBits[fd1 / bits] = set!!.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
+    set!!.fdsBits[fd1 / bits] = set.fdsBits[fd1 / bits] or (1L shl (fd1 % bits))
     return
 }
 
