@@ -393,7 +393,7 @@ public data class Flock64(
 public data class RegexT(
     public var reNsub: SizeT = 0uL,
     public var opaque: COpaquePointer? = null,
-    public var padding: List<COpaquePointer> = List(4) { COpaquePointer() },
+    public var padding: List<COpaquePointer> = List(4) { COpaquePointer(0L) },
     public var nsub2: SizeT = 0uL,
     public var padding2: CChar = 0u,
 )

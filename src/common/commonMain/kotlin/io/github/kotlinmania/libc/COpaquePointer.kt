@@ -6,7 +6,7 @@ import kotlin.jvm.JvmInline
 // On Native, cinterop provides kotlinx.cinterop.COpaquePointer; this class
 // bridges the common API so expect/actual declarations work on all targets.
 @JvmInline
-public value class COpaquePointer(public val value: Long) {
+public value class COpaquePointer(public val value: Long = 0L) {
     public val address: Long get() = value
     public val rawValue: Long get() = value
 }

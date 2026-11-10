@@ -320,7 +320,7 @@ public data class PthreadRwlockT(
     public var lockCount: Int = 0,
     public var readerCount: Int = 0,
     public var writerCount: Int = 0,
-    public var waiters: List<COpaquePointer> = List(2) { COpaquePointer() },
+    public var waiters: List<COpaquePointer> = List(2) { COpaquePointer(0L) },
 )
 
 public data class PthreadSpinlockT(public var lock: UInt = 0u)

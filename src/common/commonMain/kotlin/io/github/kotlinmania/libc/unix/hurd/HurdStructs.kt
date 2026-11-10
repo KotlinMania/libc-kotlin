@@ -1006,7 +1006,7 @@ public data class LocaleStruct(
     public var ctypeB: CUshort? = null,
     public var ctypeTolower: CInt? = null,
     public var ctypeToupper: CInt? = null,
-    public var names: List<COpaquePointer> = List(13) { COpaquePointer() },
+    public var names: List<COpaquePointer> = List(13) { COpaquePointer(0L) },
 )
 
 public data class Utsname(

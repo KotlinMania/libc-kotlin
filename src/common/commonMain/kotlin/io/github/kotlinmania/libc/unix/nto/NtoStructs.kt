@@ -240,7 +240,7 @@ public class Lconv(
     public var yes: COpaquePointer? = null,
     public var nostr: COpaquePointer? = null,
     public var yesstr: COpaquePointer? = null,
-    public var reserved: List<COpaquePointer> = List(8) { COpaquePointer() },
+    public var reserved: List<COpaquePointer> = List(8) { COpaquePointer(0L) },
 )
 
 public data class InPktinfo(public var ipiAddr: InAddr = InAddr(), public var ipiIfindex: CUint = 0u)

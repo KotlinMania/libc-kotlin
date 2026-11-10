@@ -527,7 +527,7 @@ public class KinfoProc {
     // This is normally "struct thread".
     public var kiTdaddr: COpaquePointer? = null
 
-    public var kiSpareptrs: List<COpaquePointer> = List(KI_NSPARE_PTR) { COpaquePointer() }
+    public var kiSpareptrs: List<COpaquePointer> = List(KI_NSPARE_PTR) { COpaquePointer(0L) }
 
     public var kiSparelongs: LongArray = LongArray(KI_NSPARE_LONG)
 
